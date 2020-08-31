@@ -364,6 +364,36 @@ numOrUndefined = d3Array.scan(readonlyMixedObjectOrUndefinedArray, (a, b) => {
     return a && b ? a.num - b.num : NaN;
 });
 
+// leastIndex() ----------------------------------------------------------------------
+
+numOrUndefined = d3Array.leastIndex(numbersArray);
+numOrUndefined = d3Array.leastIndex(typedArray);
+numOrUndefined = d3Array.leastIndex(readonlyNumbersArray);
+
+numOrUndefined = d3Array.leastIndex(mixedObjectArray, (a, b) => {
+    const aElem: MixedObject = a;
+    const bElem: MixedObject = b;
+    return a.num - b.num;
+});
+
+numOrUndefined = d3Array.leastIndex(readonlyMixedObjectArray, (a, b) => {
+    const aElem: MixedObject = a;
+    const bElem: MixedObject = b;
+    return a.num - b.num;
+});
+
+numOrUndefined = d3Array.leastIndex(mixedObjectOrUndefinedArray, (a, b) => {
+    const aElem: MixedObject | undefined = a;
+    const bElem: MixedObject | undefined = b;
+    return a && b ? a.num - b.num : NaN;
+});
+
+numOrUndefined = d3Array.leastIndex(readonlyMixedObjectOrUndefinedArray, (a, b) => {
+    const aElem: MixedObject | undefined = a;
+    const bElem: MixedObject | undefined = b;
+    return a && b ? a.num - b.num : NaN;
+});
+
 // bisectLeft() ----------------------------------------------------------------
 
 num = d3Array.bisectLeft(numbersArray, 4);
@@ -559,6 +589,15 @@ const grouped: Map<string, ObjDefinition[]> = d3Array.group(objArray, d => d.nam
 const rolledup: Map<string, number> = d3Array.rollup(objArray, d => d.length, d => d.name);
 const rolledup2: Map<string, string> = d3Array.rollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
+
+// count() -----------------------
+
+let count: number;
+
+count = d3Array.count([1, 2, NaN]); // 2
+count = d3Array.count<{ n: string, age?: number; }>([{ n: "Alice", age: NaN }, { n: "Bob", age: 18 }, { n: "Other" }], d => d.age); // 1
+
+
 // cross() ---------------------------------------------------------------------
 
 let crossed: Array<[string, number]>;
@@ -693,31 +732,31 @@ const timeScale = scaleTime();
 
 // number - number
 let histoNumber_Number: d3Array.HistogramGeneratorNumber<number, number>;
-histoNumber_Number = d3Array.histogram();
-histoNumber_Number = d3Array.histogram<number, number>();
+histoNumber_Number = d3Array.bin();
+histoNumber_Number = d3Array.bin<number, number>();
 
 // MixedObject - number | undefined
 let histoMixed_NumberOrUndefined: d3Array.HistogramGeneratorNumber<MixedObject, number | undefined>;
-histoMixed_NumberOrUndefined = d3Array.histogram<MixedObject, number | undefined>();
+histoMixed_NumberOrUndefined = d3Array.bin<MixedObject, number | undefined>();
 
 // MixedObject | undefined - number | undefined
 let histoMixedOrUndefined_NumberOrUndefined: d3Array.HistogramGeneratorNumber<MixedObject | undefined, number | undefined>;
-histoMixedOrUndefined_NumberOrUndefined = d3Array.histogram<MixedObject | undefined, number | undefined>();
+histoMixedOrUndefined_NumberOrUndefined = d3Array.bin<MixedObject | undefined, number | undefined>();
 
 // MixedObject | undefined - number
 let histoMixedOrUndefined_Number: d3Array.HistogramGeneratorNumber<MixedObject | undefined, number>;
-histoMixedOrUndefined_Number = d3Array.histogram<MixedObject | undefined, number>();
+histoMixedOrUndefined_Number = d3Array.bin<MixedObject | undefined, number>();
 
 // MixedObject - Date
 let histoMixedObject_Date: d3Array.HistogramGeneratorDate<MixedObject, Date>;
-histoMixedObject_Date = d3Array.histogram<MixedObject, Date>();
+histoMixedObject_Date = d3Array.bin<MixedObject, Date>();
 
 // MixedObject - Date | undefined
 let histoMixedObject_DateOrUndefined: d3Array.HistogramGeneratorDate<MixedObject, Date | undefined>;
-histoMixedObject_DateOrUndefined = d3Array.histogram<MixedObject, Date | undefined>();
+histoMixedObject_DateOrUndefined = d3Array.bin<MixedObject, Date | undefined>();
 
 let defaultHistogram: d3Array.HistogramGeneratorNumber<number, number>;
-defaultHistogram = d3Array.histogram();
+defaultHistogram = d3Array.bin();
 
 // Configure histogram generator ===============================================
 
