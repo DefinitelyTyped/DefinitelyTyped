@@ -58,7 +58,7 @@ export function minIndex<T>(array: Iterable<T>): number ;
 /**
  * Return the index of the minimum value in the array using natural order and a projection function to map values.
  */
-export function minIndex<TDatum, U>(array: Iterable<TDatum>,accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null): number ;
+export function minIndex<TDatum, U>(array: Iterable<TDatum>, accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null): number ;
 
 /**
  * Return the index of the minimum value in the array using natural order.
@@ -84,7 +84,6 @@ export function max<T>(array: Iterable<T>, accessor: (datum: T, index: number, a
  */
 export function max<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
 
-
 /**
  * Return the index of the maximum value in the array using natural order.
  */
@@ -93,8 +92,7 @@ export function maxIndex<T>(array: Iterable<T>): number ;
 /**
  * Return the index of the maximum value in the array using natural order and a projection function to map values.
  */
-export function maxIndex<TDatum, U>(array: Iterable<TDatum>,accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null): number ;
-
+export function maxIndex<TDatum, U>(array: Iterable<TDatum>, accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null): number ;
 
 /**
  * Return the min and max simultaneously.

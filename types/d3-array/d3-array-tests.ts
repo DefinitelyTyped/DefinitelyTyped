@@ -178,9 +178,9 @@ strOrUndefined = d3Array.max(mixedObjectArray, (d) => {
     return l.str;
 });
 
-let maxIndex: number = d3Array.maxIndex([3, 3, 1, 1]); //0
-maxIndex = d3Array.maxIndex(["20", "3"]); //1
-maxIndex = d3Array.maxIndex([{ name: "Alice", age: 23 }, { name: "Bob", age: 32 }], d => d.age); //1
+let maxIndex: number = d3Array.maxIndex([3, 3, 1, 1]); // 0
+maxIndex = d3Array.maxIndex(["20", "3"]); // 1
+maxIndex = d3Array.maxIndex([{ name: "Alice", age: 23 }, { name: "Bob", age: 32 }], d => d.age); // 1
 
 // $ExpectError
 numOrUndefined = d3Array.max(readonlyNumbersArray, (d, i, a) => { a.push(3); return 0; });
@@ -212,9 +212,9 @@ numOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToNumOrUndefin
 strOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
 numOrUndefined = d3Array.min(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
-let minIndex: number = d3Array.minIndex([3, 3, 1, 1]); //2
-minIndex = d3Array.minIndex(["20", "3"]); //0
-minIndex = d3Array.minIndex([{ name: "Alice", age: 23 }, { name: "Bob", age: 32 }], d => d.age); //0
+let minIndex: number = d3Array.minIndex([3, 3, 1, 1]); // 2
+minIndex = d3Array.minIndex(["20", "3"]); // 0
+minIndex = d3Array.minIndex([{ name: "Alice", age: 23 }, { name: "Bob", age: 32 }], d => d.age); // 0
 // extent() --------------------------------------------------------------------
 
 // without accessors
@@ -371,9 +371,6 @@ numOrUndefined = d3Array.scan(readonlyMixedObjectOrUndefinedArray, (a, b) => {
     return a && b ? a.num - b.num : NaN;
 });
 
-
-
-
 // leastIndex() ----------------------------------------------------------------------
 
 numOrUndefined = d3Array.least(numbersArray);
@@ -404,7 +401,7 @@ mo = d3Array.least(readonlyMixedObjectOrUndefinedArray, (a, b) => {
     return a && b ? a.num - b.num : NaN;
 });
 
-mo = d3Array.least(readonlyMixedObjectOrUndefinedArray, a => a?.num);
+mo = d3Array.least(readonlyMixedObjectOrUndefinedArray, a => a ? a.num : null);
 
 // leastIndex() ----------------------------------------------------------------------
 
@@ -436,7 +433,7 @@ numOrUndefined = d3Array.leastIndex(readonlyMixedObjectOrUndefinedArray, (a, b) 
     return a && b ? a.num - b.num : NaN;
 });
 
-numOrUndefined = d3Array.leastIndex(readonlyMixedObjectOrUndefinedArray, a => a?.num);
+numOrUndefined = d3Array.leastIndex(readonlyMixedObjectOrUndefinedArray, a => a ? a.num : null);
 
 // bisectLeft() ----------------------------------------------------------------
 
@@ -633,14 +630,12 @@ const grouped: Map<string, ObjDefinition[]> = d3Array.group(objArray, d => d.nam
 const rolledup: Map<string, number> = d3Array.rollup(objArray, d => d.length, d => d.name);
 const rolledup2: Map<string, string> = d3Array.rollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
-
 // count() -----------------------
 
 let count: number;
 
 count = d3Array.count([1, 2, NaN]); // 2
 count = d3Array.count<{ n: string, age?: number; }>([{ n: "Alice", age: NaN }, { n: "Bob", age: 18 }, { n: "Other" }], d => d.age); // 1
-
 
 // cross() ---------------------------------------------------------------------
 
