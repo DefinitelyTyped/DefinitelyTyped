@@ -1,0 +1,2 @@
+- increment the version number in the first line of index.d.ts
+- create a pull request in GitHub, from seatsio/DefinitelyTyped into DefinitelyTyped/DefinitelyTyped
