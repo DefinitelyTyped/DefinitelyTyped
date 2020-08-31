@@ -132,7 +132,7 @@ export class ImageTag extends Component<ImageTagProps, any> { }
 
 export class InPlaceEditingOff extends Component<any, any> { }
 
-interface LinkTagProps {
+interface LinkTagProps extends React.HTMLAttributes<HTMLAnchorElement> {
     to: Obj | Link;
     params?: object;
     onClick?: (event: React.MouseEvent) => void;
