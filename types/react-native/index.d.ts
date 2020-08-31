@@ -2943,7 +2943,7 @@ export interface DatePickerIOSProps extends ViewProps {
      * The currently selected date.
      */
     date?: Date | null;
-    
+
     /**
      * Provides an initial value that will change when the user starts selecting
      * a date. It is useful for simple use-cases where you do not want to deal
