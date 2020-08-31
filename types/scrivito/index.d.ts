@@ -134,8 +134,8 @@ export class InPlaceEditingOff extends Component<any, any> { }
 
 interface LinkTagProps {
     to: Obj | Link;
-    params: object;
-    onClick: (event: React.MouseEvent) => void;
+    params?: object;
+    onClick?: (event: React.MouseEvent) => void;
 }
 export class LinkTag extends Component<LinkTagProps, any> { }
 
