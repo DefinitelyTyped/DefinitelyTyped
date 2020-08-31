@@ -990,7 +990,12 @@ declare namespace echarts {
         textAlign?: string;
         textVerticalAlign?: string;
         triggerEvent?: boolean;
-        padding?: number;
+        /**
+         * Title space around content. The unit is `px`.
+         * Default values for each position are 5.
+         * And they can be set to different values with left, right, top, and bottom.
+         */
+        padding?: number | number[];
         itemGap?: number;
         zlevel?: number;
         z?: number;
