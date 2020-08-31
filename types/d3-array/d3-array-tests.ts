@@ -178,6 +178,10 @@ strOrUndefined = d3Array.max(mixedObjectArray, (d) => {
     return l.str;
 });
 
+let maxIndex: number = d3Array.maxIndex([3, 3, 1, 1]); //0
+maxIndex = d3Array.maxIndex(["20", "3"]); //1
+maxIndex = d3Array.maxIndex([{ name: "Alice", age: 23 }, { name: "Bob", age: 32 }], d => d.age); //1
+
 // $ExpectError
 numOrUndefined = d3Array.max(readonlyNumbersArray, (d, i, a) => { a.push(3); return 0; });
 
@@ -208,6 +212,9 @@ numOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToNumOrUndefin
 strOrUndefined = d3Array.min(mixedObjectArray, accessorMixedObjectToStrOrUndefined);
 numOrUndefined = d3Array.min(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+let minIndex: number = d3Array.minIndex([3, 3, 1, 1]); //2
+minIndex = d3Array.minIndex(["20", "3"]); //0
+minIndex = d3Array.minIndex([{ name: "Alice", age: 23 }, { name: "Bob", age: 32 }], d => d.age); //0
 // extent() --------------------------------------------------------------------
 
 // without accessors

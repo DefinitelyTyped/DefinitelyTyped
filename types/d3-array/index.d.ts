@@ -31,6 +31,40 @@ export interface Numeric {
 // --------------------------------------------------------------------------------------
 
 /**
+ * Return the minimum value in the array using natural order.
+ */
+export function min(array: Iterable<string>): string | undefined;
+
+/**
+ * Return the minimum value in the array using natural order.
+ */
+export function min<T extends Numeric>(array: Iterable<T>): T | undefined;
+
+/**
+ * Return the minimum value in the array using natural order.
+ */
+export function min<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null): string | undefined;
+
+/**
+ * Return the minimum value in the array using natural order.
+ */
+export function min<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
+
+/**
+ * Return the index of the minimum value in the array using natural order.
+ */
+export function minIndex<T>(array: Iterable<T>): number ;
+
+/**
+ * Return the index of the minimum value in the array using natural order and a projection function to map values.
+ */
+export function minIndex<TDatum, U>(array: Iterable<TDatum>,accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null): number ;
+
+/**
+ * Return the index of the minimum value in the array using natural order.
+ */
+export function minIndex<T>(array: Iterable<T>): number ;
+/**
  * Return the maximum value in the array of strings using natural order.
  */
 export function max(array: Iterable<string>): string | undefined;
@@ -50,25 +84,17 @@ export function max<T>(array: Iterable<T>, accessor: (datum: T, index: number, a
  */
 export function max<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
 
-/**
- * Return the minimum value in the array using natural order.
- */
-export function min(array: Iterable<string>): string | undefined;
 
 /**
- * Return the minimum value in the array using natural order.
+ * Return the index of the maximum value in the array using natural order.
  */
-export function min<T extends Numeric>(array: Iterable<T>): T | undefined;
+export function maxIndex<T>(array: Iterable<T>): number ;
 
 /**
- * Return the minimum value in the array using natural order.
+ * Return the index of the maximum value in the array using natural order and a projection function to map values.
  */
-export function min<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null): string | undefined;
+export function maxIndex<TDatum, U>(array: Iterable<TDatum>,accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null): number ;
 
-/**
- * Return the minimum value in the array using natural order.
- */
-export function min<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
 
 /**
  * Return the min and max simultaneously.
