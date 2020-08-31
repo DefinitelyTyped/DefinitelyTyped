@@ -10,7 +10,6 @@
 /// <reference path="lib/chartManager.d.ts" />
 
 declare var seatsio: Seatsio;
-export = seatsio;
 
 interface Seatsio {
     SeatingChart: Seatsio.SeatingChart;
