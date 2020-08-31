@@ -2942,7 +2942,7 @@ export interface DatePickerIOSProps extends ViewProps {
     /**
      * The currently selected date.
      */
-    date?: Date;
+    date?: Date | null;
     
     /**
      * Provides an initial value that will change when the user starts selecting
@@ -2952,7 +2952,7 @@ export interface DatePickerIOSProps extends ViewProps {
      * causes it to go out of sync with native. The initialDate prop is intended
      * to allow you to have native be source of truth.
      */
-    initialDate?: Date;
+    initialDate?: Date | null;
 
     /**
      * The date picker locale.
