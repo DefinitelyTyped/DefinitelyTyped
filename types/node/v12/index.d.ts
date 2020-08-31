@@ -41,6 +41,7 @@
 //                 Ilia Baryshnikov <https://github.com/qwelias>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Jason Kwok <https://github.com/JasonHK>
+//                 Sachin Shekhar <https://github.com/SachinShekhar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.2.
