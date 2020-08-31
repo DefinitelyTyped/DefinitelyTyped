@@ -3,6 +3,7 @@
 // Definitions by: gabycperezdias <https://github.com/gabycperezdias>
 //                 forabi <https://github.com/forabi>
 //                 dkrk <https://github.com/grgr-dkrk>
+//                 Corbin Crutchley <https://github.com/crutchcorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -142,7 +143,7 @@ export interface AriaModalProps {
      *
      * Default: rgba(0,0,0,0.5)
      */
-    underlayColor?: string;
+    underlayColor?: string | false;
 
     /**
      * If `true`, the modal's contents will be vertically (as well as horizontally) centered.

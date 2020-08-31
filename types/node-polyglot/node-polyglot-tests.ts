@@ -29,6 +29,16 @@ function instantiatePolyglot(): void {
         interpolation: { prefix: '$[' },
     });
     var interpolationSuffixPolyglot = new Polyglot({ interpolation: { suffix: ']' } });
+    var pluralRulesPolyglot = new Polyglot({
+        pluralRules: {
+            pluralTypes: {
+                french: (n) => n > 1 ? 2 : n,
+            },
+            pluralTypeToLanguages: {
+                french: ['fr'],
+            }
+        }
+    });
 }
 
 function translate(): void {

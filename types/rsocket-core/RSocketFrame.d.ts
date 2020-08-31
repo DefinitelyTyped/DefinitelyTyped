@@ -91,6 +91,7 @@ export function isLease(flags: number): boolean;
  */
 export function isResumePositionFrameType(type: number): boolean;
 export function getFrameTypeName(type: number): string;
+/** Metadata about the error for use in introspecting at runtime. */
 export interface ErrorSource {
     /** The error code returned by the server. */
     code: number;
@@ -99,14 +100,10 @@ export interface ErrorSource {
     /** The error string returned by the server. */
     message: string;
 }
-export class RSocketError extends Error {
-    /** Metadata about the error for use in introspecting at runtime. */
-    source: ErrorSource;
-}
 /**
  * Constructs an Error object given the contents of an error frame.
  */
-export function createErrorFromFrame(frame: ErrorFrame): RSocketError;
+export function createErrorFromFrame(frame: ErrorFrame): Error & { source: ErrorSource };
 /**
  * Given a RSocket error code, returns a human-readable explanation of that
  * code, following the names used in the protocol specification.

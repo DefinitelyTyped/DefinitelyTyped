@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 
-export import AdapterError = DS.AdapterError;
+export default DS.AdapterError;
+
 export import InvalidError = DS.InvalidError;
 export import UnauthorizedError = DS.UnauthorizedError;
 export import ForbiddenError = DS.ForbiddenError;

@@ -87,3 +87,11 @@ app.get(
 const swaggerHtml = swaggerUi.generateHTML(swaggerDocument, swaggerUiOpts);
 
 app.use('/api-docs-html1', swaggerUi.serveFiles(swaggerDocument, swaggerUiOpts));
+
+const uiOptsWithSwaggerOpts = {
+    swaggerOptions: {
+        validatorUrl: null
+    }
+};
+
+swaggerUi.setup(swaggerDocument, uiOptsWithSwaggerOpts);

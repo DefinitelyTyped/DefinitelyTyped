@@ -6,6 +6,8 @@ export type Serializer = (p0: Element, p1: any, p2: any[]) => void;
 export function createElementNS(namespaceURI: string, qualifiedName: string): Element;
 export function getAllTextContent(node: Node, normalizeWhitespace: boolean): string;
 export function getAttributeNS(node: Element, namespaceURI: string, name: string): string;
+export function getDocument(): Document;
+export function getXMLSerializer(): XMLSerializer;
 export function isDocument(object: any): boolean;
 export function makeArrayExtender<T>(valueReader: (this: T, p0: Node, p1: any[]) => any[], opt_this?: T): Parser;
 export function makeArrayPusher<T>(valueReader: (this: T, p0: Element, p1: any[]) => any, opt_this?: T): Parser;
@@ -61,6 +63,8 @@ export function pushSerializeAndPop<O, T>(
     opt_keys?: string[],
     opt_this?: T,
 ): O;
+export function registerDocument(document: Document): void;
+export function registerXMLSerializer(xmlSerializer: XMLSerializer): void;
 export function serialize<T>(
     serializersNS: { [key: string]: { [key: string]: Serializer } },
     nodeFactory: (this: T, p0: any, p1: any[], p2: string | undefined) => Node,

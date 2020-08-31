@@ -6,5 +6,8 @@ if (window.getVPAIDAd) {
     ad.subscribe((url, id, playerHandles) => {
         /* Handle click */
     }, 'AdClickThru');
+    ad.subscribe(() => {
+        /* Handle video midpoint */
+    }, 'AdVideoMidpoint');
     ad.startAd();
 }

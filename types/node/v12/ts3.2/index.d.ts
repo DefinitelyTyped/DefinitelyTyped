@@ -1,16 +1,12 @@
 // NOTE: These definitions support NodeJS and TypeScript 3.2.
+// This is requried to enable globalThis support for global in ts3.4 without causing errors
+// This is requried to enable typing assert in ts3.7 without causing errors
+// Typically type modifiations should be made in base.d.ts instead of here
 
-// Reference required types from the default lib:
-/// <reference lib="es2018" />
-/// <reference lib="esnext.asynciterable" />
-/// <reference lib="esnext.intl" />
-/// <reference lib="esnext.bigint" />
+/// <reference path="base.d.ts" />
 
-// Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 // tslint:disable-next-line:no-bad-reference
-/// <reference path="../base.d.ts" />
+/// <reference path="../assert.d.ts" />
 
-// TypeScript 3.2-specific augmentations:
-/// <reference path="fs.d.ts" />
-/// <reference path="util.d.ts" />
-/// <reference path="globals.d.ts" />
+// tslint:disable-next-line:no-bad-reference
+/// <reference path="../globals.global.d.ts" />

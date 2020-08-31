@@ -1,4 +1,4 @@
-import { EventsKey } from '../events';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import { ObjectEvent } from '../Object';
@@ -15,6 +15,8 @@ export interface Options {
     zIndex?: number;
     minResolution?: number;
     maxResolution?: number;
+    minZoom?: number;
+    maxZoom?: number;
     preload?: number;
     source?: TileSource;
     map?: PluggableMap;
@@ -26,9 +28,9 @@ export default class BaseTileLayer extends Layer<TileSource> {
     getUseInterimTilesOnError(): boolean;
     setPreload(preload: number): void;
     setUseInterimTilesOnError(useInterimTilesOnError: boolean): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

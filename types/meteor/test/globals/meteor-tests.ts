@@ -30,7 +30,7 @@ interface MessageDAO {
     _id: string;
     text: string;
 }
-    
+
 const Rooms = new Mongo.Collection<RoomDAO>('rooms');
 let Messages = new Mongo.Collection<MessageDAO>('messages');
 interface MonkeyDAO {
@@ -212,7 +212,7 @@ interface PostDAO {
     _id: string;
     title: string;
     body: string;
-} 
+}
 
 var Posts : Mongo.Collection<iPost> | Mongo.Collection<PostDAO> = new Mongo.Collection<PostDAO>("posts");
 Posts.insert({ title: "Hello world", body: "First post" });
@@ -494,6 +494,14 @@ Meteor.publish("userData", function () {
         { fields: { 'other': 1, 'things': 1 } });
 });
 
+/**
+ * `null` can be passed as the first argument
+ * `is_auto` can be passed as an option
+ */
+Meteor.publish(null, function () {
+    return 3;
+}, { is_auto : true });
+
 Meteor.users.deny({ update: function () { return true; } });
 
 /**
@@ -595,6 +603,8 @@ Template.registerHelper('testHelper', function () {
 });
 
 var instance = Template.instance();
+var userId = instance.data.userId;
+
 var data = Template.currentData();
 var data = Template.parentData(1);
 var body = Template.body;
@@ -632,6 +642,30 @@ Meteor.methods({
         message.tags;
     }
 });
+
+/**
+ * From Match.test section
+ */
+
+var value2: unknown;
+
+// Will return true for `{ foo: 1, bar: 'hello' }` or similar.
+if (Match.test(value2, { foo: Match.Integer, bar: String })) {
+    // $ExpectType { foo: number; bar: string; }
+    value2;
+}
+
+// Will return true if `value` is a string.
+if (Match.test(value2, String)) {
+    // $ExpectType string
+    value2;
+}
+
+// Will return true if `value` is a string or an array of numbers.
+if (Match.test(value2, Match.OneOf(String, [Number]))) {
+    // $ExpectType string | number[]
+    value2;
+}
 
 /**
  * From Match patterns section
@@ -749,6 +783,29 @@ Blaze.toHTMLWithData(testTemplate, function () { });
 Blaze.toHTMLWithData(testView, { test: 1 });
 Blaze.toHTMLWithData(testView, function () { });
 
+var reactiveDict1 = new ReactiveDict();
+var reactiveDict2 = new ReactiveDict();
+var reactiveDict3 = new ReactiveDict('reactive-dict-3');
+var reactiveDict4 = new ReactiveDict('reactive-dict-4', { foo: 'bar' });
+var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar' });
+
+reactiveDict1.setDefault('foo', 'bar');
+reactiveDict1.setDefault({ foo: 'bar' });
+
+reactiveDict1.set('foo', 'bar');
+reactiveDict2.set({ foo: 'bar' });
+
+reactiveDict1.get('foo') === 'bar';
+
+reactiveDict1.equals('foo', 'bar');
+
+reactiveDict1.all();
+
+reactiveDict1.clear();
+
+reactiveDict1.destroy();
+
+
 var reactiveVar1 = new ReactiveVar<string>('test value');
 var reactiveVar2 = new ReactiveVar<string>('test value', function (oldVal: any) { return true; });
 
@@ -840,6 +897,20 @@ if (Meteor.isServer) {
     if (check.error) {
         console.error('incorrect password');
     }
+}
+
+// Accounts.onLogout
+
+if (Meteor.isServer) {
+    Accounts.onLogout(({ user, connection }) => {
+
+    });
+}
+
+if (Meteor.isClient) {
+    Accounts.onLogout(() => {
+
+    });
 }
 
 // Covers https://github.com/meteor-typings/meteor/issues/8

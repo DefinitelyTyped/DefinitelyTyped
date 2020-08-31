@@ -26,6 +26,9 @@ declare namespace ReactDates {
     // shapes/CalendarInfoPositionShape.js
     type CalendarInfoPositionShape = 'top' | 'bottom' | 'before' | 'after';
 
+    // shapes/NavPositionShape.js
+    type NavPositionShape = 'navPositionTop' | 'navPositionBottom';
+
     // shapes/DateRangePickerShape.js
     interface DateRangePickerShape {
         // required props for a functional interactive DateRangePicker
@@ -98,9 +101,12 @@ declare namespace ReactDates {
         hideKeyboardShortcutsPanel?: boolean;
         verticalHeight?: number;
         transitionDuration?: number;
+        horizontalMonthPadding?: number;
         verticalSpacing?: number;
 
         // navigation related props
+        dayPickerNavigationInlineStyles?: Record<string, any>;
+        navPosition?: NavPositionShape;
         navPrev?: string | JSX.Element;
         navNext?: string | JSX.Element;
         onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
@@ -197,7 +203,7 @@ declare namespace ReactDates {
         firstDayOfWeek?: DayOfWeekShape;
         numberOfMonths?: number;
         keepOpenOnDateSelect?: boolean;
-        reopenPickerOnClearDates?: boolean;
+        reopenPickerOnClearDate?: boolean;
         renderCalendarInfo?: () => string | JSX.Element;
         calendarInfoPosition?: CalendarInfoPositionShape;
         hideKeyboardShortcutsPanel?: boolean;
@@ -205,8 +211,11 @@ declare namespace ReactDates {
         isRTL?: boolean;
         verticalHeight?: number | null;
         transitionDuration?: number;
+        horizontalMonthPadding?: number;
 
         // navigation related props
+        dayPickerNavigationInlineStyles?: Record<string, any>;
+        navPosition?: NavPositionShape;
         navPrev?: string | JSX.Element;
         navNext?: string | JSX.Element;
         onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
@@ -234,7 +243,10 @@ declare namespace ReactDates {
     }
 
     // PHRASES
-    //
+    type PhraseArg = {
+        date: string;
+    }
+
     // defaultPhrases.js
     type DateRangePickerPhrases = {
         calendarLabel?: string;
@@ -261,10 +273,12 @@ declare namespace ReactDates {
         moveFocustoStartAndEndOfWeek?: string;
         returnFocusToInput?: string;
         keyboardNavigationInstructions?: string;
-        chooseAvailableStartDate?: (date: string) => string;
-        chooseAvailableEndDate?: (date: string) => string;
-        dateIsUnavailable?: (date: string) => string;
-        dateIsSelected?: (date: string) => string;
+        chooseAvailableStartDate?: (phraseArg: PhraseArg) => string;
+        chooseAvailableEndDate?: (phraseArg: PhraseArg) => string;
+        dateIsUnavailable?: (phraseArg: PhraseArg) => string;
+        dateIsSelected?: (phraseArg: PhraseArg) => string;
+        dateIsSelectedAsStartDate?: (phraseArg: PhraseArg) => string;
+        dateIsSelectedAsEndDate?: (phraseArg: PhraseArg) => string;
     };
 
     // defaultPhrases.js
@@ -299,9 +313,9 @@ declare namespace ReactDates {
         moveFocustoStartAndEndOfWeek?: string;
         returnFocusToInput?: string;
         keyboardNavigationInstructions?: string;
-        chooseAvailableDate?: (date: string) => string;
-        dateIsUnavailable?: (date: string) => string;
-        dateIsSelected?: (date: string) => string;
+        chooseAvailableDate?: (phraseArg: PhraseArg) => string;
+        dateIsUnavailable?: (phraseArg: PhraseArg) => string;
+        dateIsSelected?: (phraseArg: PhraseArg) => string;
     };
 
     // defaultPhrases.js
@@ -332,11 +346,11 @@ declare namespace ReactDates {
         moveFocusByOneMonth?: string;
         moveFocustoStartAndEndOfWeek?: string;
         returnFocusToInput?: string;
-        chooseAvailableStartDate?: (date: string) => string;
-        chooseAvailableEndDate?: (date: string) => string;
-        chooseAvailableDate?: (date: string) => string;
-        dateIsUnavailable?: (date: string) => string;
-        dateIsSelected?: (date: string) => string;
+        chooseAvailableStartDate?: (phraseArg: PhraseArg) => string;
+        chooseAvailableEndDate?: (phraseArg: PhraseArg) => string;
+        chooseAvailableDate?: (phraseArg: PhraseArg) => string;
+        dateIsUnavailable?: (phraseArg: PhraseArg) => string;
+        dateIsSelected?: (phraseArg: PhraseArg) => string;
     };
 
     // defaultPhrases.js
@@ -368,9 +382,11 @@ declare namespace ReactDates {
 
     // defaultPhrases.js
     type CalendarDayPhrases = {
-        chooseAvailableDate: (date: string) => string;
-        dateIsUnavailable: (date: string) => string;
-        dateIsSelected: (date: string) => string;
+        chooseAvailableDate?: (phraseArg: PhraseArg) => string;
+        dateIsUnavailable?: (phraseArg: PhraseArg) => string;
+        dateIsSelected?: (phraseArg: PhraseArg) => string;
+        dateIsSelectedAsStartDate?: (phraseArg: PhraseArg) => string;
+        dateIsSelectedAsEndDate?: (phraseArg: PhraseArg) => string;
     };
 
     // COMPONENTS
@@ -437,6 +453,7 @@ declare namespace ReactDates {
         verticalHeight?: number;
         noBorder?: boolean;
         transitionDuration?: number;
+        horizontalMonthPadding?: number;
 
         navPrev?: string | JSX.Element;
         navNext?: string | JSX.Element;

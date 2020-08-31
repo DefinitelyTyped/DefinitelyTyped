@@ -1,4 +1,4 @@
-// Type definitions for styled-components 4.4
+// Type definitions for styled-components 5.1
 // Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
@@ -9,6 +9,8 @@
 //                 David Ruisinger <https://github.com/flavordaaave>
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
+//                 Maciej Goszczycki <https://github.com/mgoszcz2>
+//                 Danilo Fuchs <https://github.com/danilofuchs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -118,9 +120,6 @@ export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 type Attrs<P, A extends Partial<P>, T> =
     | ((props: ThemedStyledProps<P, T>) => A)
     | A;
-type DeprecatedAttrs<P, A extends Partial<P>, T> = {
-    [K in keyof A]: ((props: ThemedStyledProps<P, T>) => A[K]) | A[K]
-};
 
 export type ThemedGlobalStyledClassProps<P, T> = WithOptionalTheme<P, T> & {
     suppressMultiMountWarning?: boolean;
@@ -145,6 +144,12 @@ type ForwardRefExoticBase<P> = Pick<
     React.ForwardRefExoticComponent<P>,
     keyof React.ForwardRefExoticComponent<any>
 >;
+
+// Config to be used with withConfig
+export interface StyledConfig<O extends object = {}> {
+    // TODO: Add all types from the original StyledComponentWrapperProperties
+    shouldForwardProp?: (prop: keyof O, defaultValidatorFn: (prop: keyof O) => boolean) => boolean;
+}
 
 // extracts React defaultProps
 type ReactDefaultProps<C> = C extends { defaultProps: infer D; } ? D : never;
@@ -260,18 +265,8 @@ export interface ThemedStyledFunction<
     >(
         attrs: Attrs<StyledComponentPropsWithRef<C> & U, NewA, T>
     ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
-    // Only this overload is deprecated
-    // tslint:disable:unified-signatures
-    /** @deprecated Prefer using the new single function style, to be removed in v5 */
-    attrs<
-        U,
-        NewA extends Partial<StyledComponentPropsWithRef<C> & U> & {
-            [others: string]: any;
-        } = {}
-    >(
-        attrs: DeprecatedAttrs<StyledComponentPropsWithRef<C> & U, NewA, T>
-    ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
-    // tslint:enable:unified-signatures
+
+    withConfig: <Props extends O = O>(config: StyledConfig<StyledComponentPropsWithRef<C> & Props>) => ThemedStyledFunction<C, T, Props, A>;
 }
 
 export type StyledFunction<
@@ -284,21 +279,18 @@ type ThemedStyledComponentFactories<T extends object> = {
 
 export type StyledComponentInnerComponent<
     C extends React.ComponentType<any>
-> = C extends
-    | StyledComponent<infer I, any, any, any>
-    | StyledComponent<infer I, any, any>
-    ? I
-    : C;
+> = C extends StyledComponent<infer I, any, any, any> ? I :
+    C extends StyledComponent<infer I, any, any> ? I :
+    C;
 export type StyledComponentPropsWithRef<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
 > = C extends AnyStyledComponent
     ? React.ComponentPropsWithRef<StyledComponentInnerComponent<C>>
     : React.ComponentPropsWithRef<C>;
-export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> = C extends
-    | StyledComponent<any, any, infer O, any>
-    | StyledComponent<any, any, infer O>
-    ? O
-    : never;
+export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> =
+    C extends StyledComponent<any, any, infer O, any> ? O :
+    C extends StyledComponent<any, any, infer O> ? O :
+    never;
 export type StyledComponentInnerAttrs<
     C extends AnyStyledComponent
 > = C extends StyledComponent<any, any, any, infer A> ? A : never;
@@ -381,6 +373,7 @@ export interface ThemedStyledComponentsModule<
     ThemeProvider: ThemeProviderComponent<T, U>;
     ThemeConsumer: React.Consumer<T>;
     ThemeContext: React.Context<T>;
+    useTheme(): T;
 
     // This could be made to assert `target is StyledComponent<any, T>` instead, but that feels not type safe
     isStyledComponent: typeof isStyledComponent;
@@ -406,6 +399,8 @@ export type WithThemeFnInterface<T extends object> = BaseWithThemeFnInterface<
     AnyIfEmpty<T>
 >;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
+
+export function useTheme(): DefaultTheme;
 
 /**
  * This interface can be augmented by users to add types to `styled-components`' default theme
@@ -468,15 +463,25 @@ export class ServerStyleSheet {
     seal(): void;
 }
 
-type StyleSheetManagerProps =
-    | {
-          sheet: ServerStyleSheet;
-          target?: never;
-      }
-    | {
-          sheet?: never;
-          target: HTMLElement;
-      };
+export type StylisPlugin = (
+    context: number,
+    content: string,
+    selector: string[],
+    parent: string[],
+    line: number,
+    column: number,
+    length: number,
+    at: number,
+    depth: number
+) => string | void;
+
+export interface StyleSheetManagerProps {
+    disableCSSOMInjection?: boolean;
+    disableVendorPrefixes?: boolean;
+    stylisPlugins?: StylisPlugin[];
+    sheet?: ServerStyleSheet;
+    target?: HTMLElement;
+}
 
 export class StyleSheetManager extends React.Component<
     StyleSheetManagerProps

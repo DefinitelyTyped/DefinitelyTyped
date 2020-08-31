@@ -36,6 +36,6 @@ export default class IIIFInfo {
     getComplianceLevelFromProfile(version: Versions): string;
     getComplianceLevelSupportedFeatures(): SupportedFeatures;
     getImageApiVersion(): Versions;
-    getTileSourceOptions(opt_preferredOptions: PreferredOptions): Options;
+    getTileSourceOptions(opt_preferredOptions?: PreferredOptions): Options;
     setImageInfo(imageInfo: string | ImageInformationResponse): void;
 }

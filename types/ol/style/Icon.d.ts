@@ -15,6 +15,7 @@ export interface Options {
     crossOrigin?: string;
     img?: HTMLImageElement | HTMLCanvasElement;
     offset?: number[];
+    displacement?: number[];
     offsetOrigin?: IconOrigin;
     opacity?: number;
     scale?: number;

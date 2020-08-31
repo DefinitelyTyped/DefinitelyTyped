@@ -1,9 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-      "ban-types": false,
-      "no-single-declare-module": false,
-      "no-var": false,
-      "unified-signatures": false
+        "ban-types": false,
+        "no-var": false,
+        "unified-signatures": false
     }
-  }
+}

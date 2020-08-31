@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ComponentType, ReactNode, StyleHTMLAttributes, FC } from 'react';
+import { Component, ComponentType, ReactNode, StyleHTMLAttributes, FC, createElement } from 'react';
 
 interface MDXProviderComponents {
     /**
@@ -22,43 +22,43 @@ interface MDXProviderComponents {
      */
     p?: ComponentType<any>;
     /**
-     * Heading 1	#
+     * Heading 1    #
      */
     h1?: ComponentType<any>;
     /**
-     * Heading 2	##
+     * Heading 2    ##
      */
     h2?: ComponentType<any>;
     /**
-     * Heading 3	###
+     * Heading 3    ###
      */
     h3?: ComponentType<any>;
     /**
-     * Heading 4	####
+     * Heading 4    ####
      */
     h4?: ComponentType<any>;
     /**
-     * Heading 5	#####
+     * Heading 5    #####
      */
     h5?: ComponentType<any>;
     /**
-     * Heading 6	######
+     * Heading 6    ######
      */
     h6?: ComponentType<any>;
     /**
-     * Thematic break	***
+     * Thematic break    ***
      */
     thematicBreak?: ComponentType<any>;
     /**
-     * Blockquote	>
+     * Blockquote    >
      */
     blockquote?: ComponentType<any>;
     /**
-     * List	-
+     * List    -
      */
     ul?: ComponentType<any>;
     /**
-     * Ordered list	1.
+     * Ordered list    1.
      */
     ol?: ComponentType<any>;
     /**
@@ -83,35 +83,35 @@ interface MDXProviderComponents {
      */
     pre?: ComponentType<any>;
     /**
-     * Code	`\code```
+     * Code    `\code```
      */
     code?: ComponentType<any>;
     /**
-     * Emphasis	_emphasis_
+     * Emphasis    _emphasis_
      */
     em?: ComponentType<any>;
     /**
-     * Strong	**strong**
+     * Strong    **strong**
      */
     strong?: ComponentType<any>;
     /**
-     * Delete	~~strikethrough~~
+     * Delete    ~~strikethrough~~
      */
     delete?: ComponentType<any>;
     /**
-     * InlineCode	`inlineCode`
+     * InlineCode    `inlineCode`
      */
     inlineCode?: ComponentType<any>;
     /**
-     * Break	---
+     * Break    ---
      */
     hr?: ComponentType<any>;
     /**
-     * Link	<https://mdxjs.com> or [MDX](https://mdxjs.com)
+     * Link    <https://mdxjs.com> or [MDX](https://mdxjs.com)
      */
     a?: ComponentType<any>;
     /**
-     * Image	![alt](https://mdx-logo.now.sh)
+     * Image    ![alt](https://mdx-logo.now.sh)
      */
     img?: ComponentType<any>;
 
@@ -143,6 +143,8 @@ declare function withMDXComponents<GProps extends InjectedMDXProviderProps>(
     Component: ComponentType<GProps>,
 ): FC<Except<GProps, keyof InjectedMDXProviderProps>>;
 
+declare const mdx: typeof createElement;
+
 export {
     withMDXComponents,
     useMDXComponents,
@@ -151,4 +153,5 @@ export {
     InjectedMDXProviderProps,
     MDXProviderComponentsProp,
     MDXProviderComponents,
+    mdx,
 };

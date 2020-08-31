@@ -17,7 +17,7 @@ export interface Options {
     odbc?: ODBC;
     queue?: SimpleQueue | any[];
     fetchMode?: number | null;
-    conected?: boolean;
+    connected?: boolean;
     connectTimeout?: number | null;
     systemNaming?: boolean;
 }

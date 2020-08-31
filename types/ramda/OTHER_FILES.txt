@@ -5,6 +5,7 @@ es/all.d.ts
 es/allPass.d.ts
 es/always.d.ts
 es/and.d.ts
+es/andThen.d.ts
 es/any.d.ts
 es/anyPass.d.ts
 es/ap.d.ts
@@ -88,7 +89,6 @@ es/innerJoin.d.ts
 es/insertAll.d.ts
 es/insert.d.ts
 es/intersection.d.ts
-es/intersectionWith.d.ts
 es/intersperse.d.ts
 es/into.d.ts
 es/invert.d.ts
@@ -158,6 +158,7 @@ es/partition.d.ts
 es/path.d.ts
 es/pathEq.d.ts
 es/pathOr.d.ts
+es/paths.d.ts
 es/pathSatisfies.d.ts
 es/pickAll.d.ts
 es/pickBy.d.ts
@@ -210,7 +211,6 @@ es/takeWhile.d.ts
 es/tap.d.ts
 es/T.d.ts
 es/test.d.ts
-es/then.d.ts
 es/thunkify.d.ts
 es/times.d.ts
 es/toLower.d.ts
@@ -245,6 +245,7 @@ es/when.d.ts
 es/where.d.ts
 es/whereEq.d.ts
 es/without.d.ts
+es/xor.d.ts
 es/xprod.d.ts
 es/zip.d.ts
 es/zipObj.d.ts
@@ -258,6 +259,7 @@ src/all.d.ts
 src/allPass.d.ts
 src/always.d.ts
 src/and.d.ts
+src/andThen.d.ts
 src/any.d.ts
 src/anyPass.d.ts
 src/ap.d.ts
@@ -341,7 +343,6 @@ src/innerJoin.d.ts
 src/insertAll.d.ts
 src/insert.d.ts
 src/intersection.d.ts
-src/intersectionWith.d.ts
 src/intersperse.d.ts
 src/into.d.ts
 src/invert.d.ts
@@ -411,6 +412,7 @@ src/partition.d.ts
 src/path.d.ts
 src/pathEq.d.ts
 src/pathOr.d.ts
+src/paths.d.ts
 src/pathSatisfies.d.ts
 src/pickAll.d.ts
 src/pickBy.d.ts
@@ -463,7 +465,6 @@ src/takeWhile.d.ts
 src/tap.d.ts
 src/T.d.ts
 src/test.d.ts
-src/then.d.ts
 src/thunkify.d.ts
 src/times.d.ts
 src/toLower.d.ts
@@ -498,6 +499,7 @@ src/when.d.ts
 src/where.d.ts
 src/whereEq.d.ts
 src/without.d.ts
+src/xor.d.ts
 src/xprod.d.ts
 src/zip.d.ts
 src/zipObj.d.ts

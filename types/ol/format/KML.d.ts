@@ -29,6 +29,7 @@ export interface Options {
     showPointNames?: boolean;
     defaultStyle?: Style[];
     writeStyles?: boolean;
+    crossOrigin?: string;
 }
 export interface Vec2 {
     x: number;

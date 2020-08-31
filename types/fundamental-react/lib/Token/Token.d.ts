@@ -2,8 +2,10 @@ import * as React from "react";
 
 export type TokenProps = {
     className?: string;
-    customStyles?: {[x: string]: any};
+    compact?: boolean;
     disableStyles?: boolean;
+    readOnly?: boolean;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 declare const Token: React.FunctionComponent<TokenProps>;

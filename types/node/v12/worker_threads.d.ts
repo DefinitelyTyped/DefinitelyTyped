@@ -5,6 +5,7 @@ declare module "worker_threads" {
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
+    const SHARE_ENV: unique symbol;
     const threadId: number;
     const workerData: any;
 
@@ -55,6 +56,7 @@ declare module "worker_threads" {
 
     interface WorkerOptions {
         eval?: boolean;
+        env?: NodeJS.ProcessEnv | typeof SHARE_ENV;
         workerData?: any;
         stdin?: boolean;
         stdout?: boolean;
@@ -78,29 +80,6 @@ declare module "worker_threads" {
          * Returns a Promise for the exit code that is fulfilled when the `exit` event is emitted.
          */
         terminate(): Promise<number>;
-        /**
-         * Transfer a `MessagePort` to a different `vm` Context. The original `port`
-         * object will be rendered unusable, and the returned `MessagePort` instance will
-         * take its place.
-         *
-         * The returned `MessagePort` will be an object in the target context, and will
-         * inherit from its global `Object` class. Objects passed to the
-         * `port.onmessage()` listener will also be created in the target context
-         * and inherit from its global `Object` class.
-         *
-         * However, the created `MessagePort` will no longer inherit from
-         * `EventEmitter`, and only `port.onmessage()` can be used to receive
-         * events using it.
-         */
-        moveMessagePortToContext(port: MessagePort, context: Context): MessagePort;
-
-        /**
-         * Receive a single message from a given `MessagePort`. If no message is available,
-         * `undefined` is returned, otherwise an object with a single `message` property
-         * that contains the message payload, corresponding to the oldest message in the
-         * `MessagePort`’s queue.
-         */
-        receiveMessageOnPort(port: MessagePort): {} | undefined;
 
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "exit", listener: (exitCode: number) => void): this;
@@ -150,4 +129,28 @@ declare module "worker_threads" {
         off(event: "online", listener: () => void): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
     }
+
+    /**
+     * Transfer a `MessagePort` to a different `vm` Context. The original `port`
+     * object will be rendered unusable, and the returned `MessagePort` instance will
+     * take its place.
+     *
+     * The returned `MessagePort` will be an object in the target context, and will
+     * inherit from its global `Object` class. Objects passed to the
+     * `port.onmessage()` listener will also be created in the target context
+     * and inherit from its global `Object` class.
+     *
+     * However, the created `MessagePort` will no longer inherit from
+     * `EventEmitter`, and only `port.onmessage()` can be used to receive
+     * events using it.
+     */
+    function moveMessagePortToContext(port: MessagePort, context: Context): MessagePort;
+
+    /**
+     * Receive a single message from a given `MessagePort`. If no message is available,
+     * `undefined` is returned, otherwise an object with a single `message` property
+     * that contains the message payload, corresponding to the oldest message in the
+     * `MessagePort`’s queue.
+     */
+    function receiveMessageOnPort(port: MessagePort): { message: any } | undefined;
 }

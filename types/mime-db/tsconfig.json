@@ -17,6 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "mime-db-tests.ts"
     ]
 }

@@ -1691,7 +1691,7 @@ declare namespace wx {
              */
             filePath?: string;
             /**
-             * 	HTTP 请求的 Header，Header 中不能设置 Referer
+             *     HTTP 请求的 Header，Header 中不能设置 Referer
              */
             header?: { [key: string]: string };
             /**
@@ -2441,7 +2441,7 @@ declare namespace wx {
          */
         type?: "wgs84" | "gcj02",
         /**
-         * 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度	>= 1.6.0
+         * 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度    >= 1.6.0
          */
         altitude?: boolean,
         success?: (res: {
@@ -2709,12 +2709,12 @@ declare namespace wx {
             errMsg: string,
             /**
              * 错误码
-             *     -17006	非好友关系
-             *     -17007	非法的 toUser openId
-             *     -17008	非法的 key
-             *     -17009	非法的 operation
-             *     -17010	非法的操作数
-             *     -17011	JSServer 校验写操作失败
+             *     -17006    非好友关系
+             *     -17007    非法的 toUser openId
+             *     -17008    非法的 key
+             *     -17009    非法的 operation
+             *     -17010    非法的操作数
+             *     -17011    JSServer 校验写操作失败
              */
             errCode: number
         }) => void;
@@ -2827,9 +2827,9 @@ declare namespace wx {
         extraData?: unknown,
         /**
          * 要打开的小程序版本。仅在当前小程序为开发版或体验版时此参数有效。如果当前小程序是正式版，则打开的小程序必定是正式版。默认值release
-         * develop	开发版
-         * trial	体验版
-         * release	正式版
+         * develop    开发版
+         * trial    体验版
+         * release    正式版
          */
         envVersion?: "develop" | "trial" | "release"
     } & types.Callbacks): void;
@@ -3934,23 +3934,23 @@ declare namespace wx {
         success?: () => void,
         /**
          * @param res.errCode 有如下值：
-         *      -1	系统失败
-         *      -2	支付取消
-         *      -15001	虚拟支付接口错误码，缺少参数
-         *      -15002	虚拟支付接口错误码，参数不合法
-         *      -15003	虚拟支付接口错误码，订单重复
-         *      -15004	虚拟支付接口错误码，后台错误
-         *      -15006	虚拟支付接口错误码，appId 权限被封禁
-         *      -15006	虚拟支付接口错误码，货币类型不支持
-         *      -15007	虚拟支付接口错误码，订单已支付
-         *       1	虚拟支付接口错误码，用户取消支付
-         *       2	虚拟支付接口错误码，客户端错误, 判断到小程序在用户处于支付中时,又发起了一笔支付请求
-         *       3	虚拟支付接口错误码，Android 独有错误：用户使用 Google Play 支付，而手机未安装 Google Play
-         *       4	虚拟支付接口错误码，用户操作系统支付状态异常
-         *       5	虚拟支付接口错误码，操作系统错误
-         *       6	虚拟支付接口错误码，其他错误
-         *       1000	参数错误
-         *       1003	米大师 Portal 错误
+         *      -1    系统失败
+         *      -2    支付取消
+         *      -15001    虚拟支付接口错误码，缺少参数
+         *      -15002    虚拟支付接口错误码，参数不合法
+         *      -15003    虚拟支付接口错误码，订单重复
+         *      -15004    虚拟支付接口错误码，后台错误
+         *      -15006    虚拟支付接口错误码，appId 权限被封禁
+         *      -15006    虚拟支付接口错误码，货币类型不支持
+         *      -15007    虚拟支付接口错误码，订单已支付
+         *       1    虚拟支付接口错误码，用户取消支付
+         *       2    虚拟支付接口错误码，客户端错误, 判断到小程序在用户处于支付中时,又发起了一笔支付请求
+         *       3    虚拟支付接口错误码，Android 独有错误：用户使用 Google Play 支付，而手机未安装 Google Play
+         *       4    虚拟支付接口错误码，用户操作系统支付状态异常
+         *       5    虚拟支付接口错误码，操作系统错误
+         *       6    虚拟支付接口错误码，其他错误
+         *       1000    参数错误
+         *       1003    米大师 Portal 错误
          */
         fail?: (res: { errMsg: string, errCode: number }) => void,
         complete?: () => void

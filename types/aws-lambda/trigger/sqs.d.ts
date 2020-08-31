@@ -1,4 +1,4 @@
-import { Handler } from "../hander";
+import { Handler } from "../handler";
 
 export type SQSHandler = Handler<SQSEvent, void>;
 
@@ -21,10 +21,14 @@ export interface SQSEvent {
 }
 
 export interface SQSRecordAttributes {
+    AWSTraceHeader?: string;
     ApproximateReceiveCount: string;
     SentTimestamp: string;
     SenderId: string;
     ApproximateFirstReceiveTimestamp: string;
+    SequenceNumber?: string;
+    MessageGroupId?: string;
+    MessageDeduplicationId?: string;
 }
 
 export type SQSMessageAttributeDataType = 'String' | 'Number' | 'Binary' | string;

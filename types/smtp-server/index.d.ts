@@ -306,7 +306,7 @@ export class SMTPServer extends EventEmitter {
     listen(handle: any, listeningListener?: () => void): net.Server; // tslint:disable-line unified-signatures
 
     /** Closes the server */
-    close(callback: () => void): void;
+    close(callback?: () => void): void;
 
     updateSecureContext(options: tls.TlsOptions): void;
 

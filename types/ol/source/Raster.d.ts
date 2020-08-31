@@ -1,4 +1,4 @@
-import { EventsKey } from '../events';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import ImageBase from '../ImageBase';
@@ -26,9 +26,9 @@ export default class RasterSource extends ImageSource {
         projection: Projection,
     ): ImageBase;
     setOperation(operation: Operation, opt_lib?: any): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'afteroperations', listener: (evt: RasterSourceEvent) => void): EventsKey;
     once(type: 'afteroperations', listener: (evt: RasterSourceEvent) => void): EventsKey;
     un(type: 'afteroperations', listener: (evt: RasterSourceEvent) => void): void;

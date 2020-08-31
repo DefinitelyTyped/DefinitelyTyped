@@ -11,6 +11,7 @@ const audioQueue = new Queue('audio transcoding', {
     settings: {},
 });
 const imageQueue: Queue.Queue<{ image: string }> = new Queue('image transcoding');
+const rateLimitedQueue = new Queue('api calls', { limiter: { max: 1, duration: 500, groupKey: "apiKey", bounceBack: true }});
 
 videoQueue.getWorkers();
 videoQueue.setWorkerName();
@@ -83,6 +84,10 @@ imageQueue.process((job, done) => {
     // transcode image asynchronously and report progress
     job.progress(42);
 
+    // update job data
+    job.update({ image: 'image2.jpg'});
+    job.update({ url: 'image2.jpg'}); // $ExpectError
+
     // call done when finished
     done();
 
@@ -99,6 +104,10 @@ imageQueue.process((job, done) => {
 videoQueue.add({video: 'http://example.com/video1.mov'});
 audioQueue.add({audio: 'http://example.com/audio1.mp3'});
 imageQueue.add({image: 'http://example.com/image1.tiff'});
+videoQueue.addBulk([
+    { name: 'frame1', data: { video: 'http://example.com/video1.mov'}, opts: { attempts: 6 }},
+    {  data: { audio: 'http://example.com/video1.mov'}},
+]);
 
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -234,6 +243,29 @@ myQueue.on('active', (job: Queue.Job) => {
     job.discard();
 });
 
+// Pause and resume
+myQueue.pause().then(() => {
+    console.log('queue paused');
+});
+myQueue.pause(true).then(() => {
+    console.log('queue paused locally');
+});
+myQueue.pause(true, true).then(() => {
+    console.log('queue paused locally, not waiting for active jobs to finish');
+});
+
+myQueue.resume().then(() => {
+    console.log('queue resumed');
+});
+myQueue.resume(true).then(() => {
+    console.log('queue resumed locally');
+});
+
+// Remove jobs
+myQueue.removeJobs('?oo*').then(() => {
+    console.log('done removing jobs');
+});
+
 // Close queues
 
 myQueue.close();
@@ -250,3 +282,8 @@ new Queue('profile');
 new Queue('profile', 'url');
 new Queue('profile', { prefix: 'test' });
 new Queue('profile', 'url', { prefix: 'test' });
+
+// Use low-level API
+const multi = myQueue.multi();
+multi.del(myQueue.toKey('repeat'));
+multi.exec();

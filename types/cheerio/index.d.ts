@@ -8,6 +8,7 @@
 //                 Chennakrishna <https://github.com/chennakrishna8>
 //                 AzSiAz <https://github.com/AzSiAz>
 //                 Ryo Ota <https://github.com/nwtgck>
+//                 Hiroki Osame <https://github.com/privatenumber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -235,7 +236,10 @@ interface CheerioOptionsInterface {
     recognizeCDATA?: boolean;
     recognizeSelfClosing?: boolean;
     normalizeWhitespace?: boolean;
+    withStartIndices?: boolean;
+    withEndIndices?: boolean;
     ignoreWhitespace?: boolean;
+    _useHtmlParser2?: boolean;
 }
 
 interface CheerioSelector {
@@ -255,15 +259,14 @@ interface CheerioStatic extends CheerioSelector {
     // Document References
     // Cheerio https://github.com/cheeriojs/cheerio
     // JQuery http://api.jquery.com
-    xml(): string;
     root(): Cheerio;
     contains(container: CheerioElement, contained: CheerioElement): boolean;
     parseHTML(data: string, context?: Document, keepScripts?: boolean): Document[];
 
     html(options?: CheerioOptionsInterface): string;
-    html(selector: string, options?: CheerioOptionsInterface): string;
-    html(element: Cheerio, options?: CheerioOptionsInterface): string;
-    html(element: CheerioElement, options?: CheerioOptionsInterface): string;
+    html(dom: string | Cheerio | CheerioElement, options?: CheerioOptionsInterface): string;
+
+    xml(dom?: string | Cheerio | CheerioElement): string;
 }
 
 interface CheerioElement {
@@ -295,8 +298,7 @@ interface CheerioAPI extends CheerioSelector, CheerioStatic {
 
 interface Document {}
 
-declare const cheerio: CheerioAPI;
-
 declare module 'cheerio' {
+    const cheerio: CheerioAPI;
     export = cheerio;
 }

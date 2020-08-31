@@ -24,7 +24,7 @@ export interface SwaggerUiOptions {
     customSiteTitle?: string;
     explorer?: boolean;
     isExplorer?: boolean;
-    options?: SwaggerOptions;
+    swaggerOptions?: SwaggerOptions;
     swaggerUrl?: string;
     swaggerUrls?: string[];
 }

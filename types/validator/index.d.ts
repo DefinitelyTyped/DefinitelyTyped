@@ -1,4 +1,4 @@
-// Type definitions for validator.js 12.0
+// Type definitions for validator.js 13.1
 // Project: https://github.com/validatorjs/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -10,6 +10,7 @@
 //                 Philipp Katz <https://github.com/qqilihq>
 //                 Jace Warren <https://github.com/keatz55>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
+//                 Vlad Poluch <https://github.com/vlapo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -192,6 +193,11 @@ declare namespace validator {
     function isBefore(str: string, date?: string): boolean;
 
     /**
+     * Check if a string is a IBAN (International Bank Account Number).
+     */
+    function isIBAN(str: string): boolean;
+
+    /**
      * Check if a string is a BIC (Bank Identification Code) or SWIFT code.
      */
     function isBIC(str: string): boolean;
@@ -295,6 +301,16 @@ declare namespace validator {
      * @param [options] - Options
      */
     function isCurrency(str: string, options?: IsCurrencyOptions): boolean;
+
+    /**
+     * Check if the string is an [Ethereum](https://ethereum.org/) address using basic regex. Does not validate address checksums.
+     */
+    function isEthereumAddress(str: string): boolean;
+
+    /**
+     * Check if the string is a valid BTC address.
+     */
+    function isBtcAddress(str: string): boolean;
 
     /**
      * Check if the string is a [data uri format](https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs).
@@ -553,6 +569,19 @@ declare namespace validator {
      */
     function isHexColor(str: string): boolean;
 
+    /**
+     * Check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on CSS Colors Level 4 specification.
+     * Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: hsl(200grad+.1%62%/1)).
+     */
+    function isHSL(str: string): boolean;
+
+    /**
+     * Check if the string is a rgb or rgba color.
+     *
+     * @param [includePercentValues=true] - If you don't want to allow to set rgb or rgba values with percents, like rgb(5%,5%,5%), or rgba(90%,90%,90%,.3), then set it to false. (defaults to true)
+     */
+    function isRgbColor(str: string, includePercentValues?: boolean): boolean;
+
     type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW';
 
     /**
@@ -600,24 +629,33 @@ declare namespace validator {
      */
     function isInt(str: string, options?: IsIntOptions): boolean;
 
+    type IPVersion = '4' | '6' | 4 | 6;
+
     /**
      * Check if the string is an IP (version 4 or 6).
      *
      * @param [version] - IP Version
      */
-    function isIP(str: string, version?: '4' | '6'): boolean;
+    function isIP(str: string, version?: IPVersion): boolean;
 
     /**
      * Check if the string is an IP Range (version 4 only).
      */
     function isIPRange(str: string): boolean;
 
+    type ISBNVersion = '10' | '13' | 10 | 13;
+
     /**
      * Check if the string is an ISBN (version 10 or 13).
      *
      * @param [version] - ISBN Version
      */
-    function isISBN(str: string, version?: '10' | '13'): boolean;
+    function isISBN(str: string, version?: ISBNVersion): boolean;
+
+    /**
+     * Check if the string is an EAN (European Article Number).
+     */
+    function isEAN(str: string): boolean;
 
     /**
      * Check if the string is an [ISIN](https://en.wikipedia.org/wiki/International_Securities_Identification_Number) (stock/security identifier).
@@ -717,6 +755,11 @@ declare namespace validator {
      * @param [options] - Options
      */
     function isLength(str: string, options?: IsLengthOptions): boolean;
+
+    /**
+     * Check if the string is a locale.
+     */
+    function isLocale(str: string): boolean;
 
     /**
      * Check if the string is lowercase.
@@ -900,6 +943,13 @@ declare namespace validator {
     function isOctal(str: string): boolean;
 
     /**
+     * Check if the string is a valid passport number relative to a specific country code.
+     *
+     * @param [countryCode] - Country code
+     */
+    function isPassportNumber(str: string, countryCode?: string): boolean;
+
+    /**
      * Check if the string is a valid port number.
      */
     function isPort(str: string): boolean;
@@ -968,6 +1018,11 @@ declare namespace validator {
     function isPostalCode(str: string, locale: 'any' | PostalCodeLocale): boolean;
 
     /**
+     * Check if the string is a Semantic Versioning Specification (SemVer).
+     */
+    function isSemVer(str: string): boolean;
+
+    /**
      * Check if the string contains any surrogate pairs chars.
      */
     function isSurrogatePair(str: string): boolean;
@@ -1031,12 +1086,13 @@ declare namespace validator {
      */
     function isUppercase(str: string): boolean;
 
+    type UUIDVersion = 3 | 4 | 5 | '3' | '4' | '5' | 'all';
     /**
      * Check if the string is a UUID (version 3, 4 or 5).
      *
      * @param [version="all"] - UUID version
      */
-    function isUUID(str: string, version?: 3 | 4 | 5 | '3' | '4' | '5' | 'all'): boolean;
+    function isUUID(str: string, version?: UUIDVersion): boolean;
 
     /**
      * Check if the string contains a mixture of full and half-width chars.

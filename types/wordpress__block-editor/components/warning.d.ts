@@ -1,4 +1,4 @@
-import { ComponentType, MouseEventHandler, ReactFragment, ReactNode } from '@wordpress/element';
+import { ComponentType, MouseEventHandler, ReactFragment, ReactNode } from 'react';
 
 declare namespace Warning {
     interface Props {

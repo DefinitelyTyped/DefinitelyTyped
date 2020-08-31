@@ -7,7 +7,7 @@
         ],
         "noImplicitAny": false,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [

@@ -26,6 +26,7 @@ import { Circle, Fill, Stroke, Style } from 'ol/style';
 import { StyleFunction } from 'ol/style/Style';
 
 import proj4 = require('proj4');
+
 /**
  * ==================================================
  * # Styles
@@ -333,7 +334,7 @@ const view = new View({
 });
 
 const map = new Map({
-    target: document.getElementById('map') as HTMLElement,
+    target: 'map',
     view,
     layers,
     controls,

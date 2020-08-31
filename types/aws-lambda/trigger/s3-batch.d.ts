@@ -1,4 +1,4 @@
-import { Handler, Callback } from "../hander";
+import { Handler, Callback } from "../handler";
 
 /**
  * S3 Batch Operations event

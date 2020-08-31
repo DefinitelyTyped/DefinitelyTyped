@@ -38,7 +38,7 @@ authClientTwoLegged.isAuthorized();
 // $ExpectType AuthClientThreeLegged
 const authClientThreeLegged = new AuthClientThreeLegged('', '', '', [], true);
 // $ExpectType string
-authClientThreeLegged.generateAuthUrl();
+authClientThreeLegged.generateAuthUrl('');
 // $ExpectType Promise<AuthToken>
 authClientThreeLegged.getToken('');
 // $ExpectType Promise<AuthToken>
@@ -286,8 +286,27 @@ projectsApi.getProject('', '', authClientTwoLegged, authToken);
 projectsApi.getProjectHub('', '', authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
 projectsApi.getProjectTopFolders('', '', authClientTwoLegged, authToken);
+
 // $ExpectType Promise<ApiResponse>
-projectsApi.postStorage('', {}, authClientTwoLegged, authToken);
+projectsApi.postStorage('', {
+    jsonapi: {
+       version: '1.0'
+    },
+    data: {
+       type: 'objects',
+       attributes: {
+          name: '{{Filename}}'
+       },
+       relationships: {
+          target: {
+             data: {
+                type: 'folders',
+                id: '{{FolderId}}'
+             }
+          }
+       }
+    }
+ }, authClientTwoLegged, authToken);
 
 // $ExpectType UserProfileApi
 const userProfileApi = new UserProfileApi();

@@ -1,4 +1,4 @@
-// Type definitions for redux-form 8.2
+// Type definitions for redux-form 8.3
 // Project: https://github.com/erikras/redux-form, https://redux-form.com
 // Definitions by: Daniel Lytkin <https://github.com/aikoven>
 //                 Karol Janyst <https://github.com/LKay>
@@ -11,7 +11,6 @@
 //                 Kamil Wojcik <https://github.com/smifun>
 //                 Mohamed Shaaban <https://github.com/mshaaban088>
 //                 Ethan Setnik <https://github.com/esetnik>
-//                 Walter Barbagallo <https://github.com/bwlt>
 //                 Kota Marusue <https://github.com/mrsekut>
 //                 Adam Bouqdib <https://github.com/abemedia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

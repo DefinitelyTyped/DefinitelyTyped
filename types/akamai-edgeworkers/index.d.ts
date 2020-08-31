@@ -30,9 +30,17 @@ declare namespace EW {
 
     interface ReadsVariables {
         /**
-         * Get's the value of a request variable
+         * Gets the value of a metadata variable
          */
         getVariable(name: string): string | undefined;
+    }
+
+    interface MutatesVariables {
+        /**
+         * Sets the value of a metadata variable, throwing an error if the
+         * variable name does not start with 'PMUSER_'
+         */
+        setVariable(name: string, value: string): void;
     }
 
     interface HasRespondWith {
@@ -68,6 +76,72 @@ declare namespace EW {
         status: number;
     }
 
+    interface HasRoute {
+        /**
+         * If called, indicates that the request should be routed to a pre-specified origin
+         * server,or have the path or query string modified.
+         *
+         * @param destination Object holding properties that will control route
+         */
+        route(destination: Destination): void;
+    }
+
+    interface CacheKey {
+        /**
+         * Specifies that the entire query string should be excluded from the cache key. By
+         * default, the entire query string is part of the cache key.
+         */
+        excludeQueryString(): void;
+
+        /**
+         * Specifies that the entire query string should be included from the cache key. This is
+         * done by default, however it is provided as an API to be reverted to the default.
+         */
+        includeQueryString(): void;
+
+        /**
+         * Specifies that the named query argument is included in the cache key. Can be called
+         * multiple times to include multiple query arguments. Calling this function will result
+         * in all query arguments not explicitly included to be excluded from the cache key. By
+         * default, the entire query string is part of the cache key. This would override previous
+         * calls to "excludeQueryString()" or "includeQueryString()".
+         *
+         * @param name The name of the query arg to include in the cache key
+         */
+        includeQueryArgument(name: string): void;
+
+        /**
+         * Specifies that the named cookie is included in the cache key. Can be called multiple
+         * times to include multiple cookies.
+         *
+         * @param name The name of the cookie to include in the cid
+         */
+        includeCookie(name: string): void;
+
+        /**
+         * Specifies that the named HTTP request header is included in the cache key. Can be
+         * called multiple times to include multiple headers.
+         *
+         * @param name The name of the header to include in the cid
+         */
+        includeHeader(name: string): void;
+
+        /**
+         * Specifies that the named variable is included in the cache key. Can be called multiple
+         * times to include multiple variable.
+         *
+         * @param name The name of the variable to include in the cid
+         */
+        includeVariable(name: string): void;
+    }
+
+    interface HasCacheKey {
+        /**
+         * An object for manipulating this requests cache key. Only present during `onClientRequest()`.
+         */
+        readonly cacheKey: CacheKey;
+    }
+
     interface Request {
         /**
          * The Host header value of the incoming request.
@@ -96,7 +170,7 @@ declare namespace EW {
         readonly query: string;
 
         /**
-         * The Relative URL of the incoming request. This includes the path as well
+         * The relative URL of the incoming request. This includes the path as well
          * as the query string.
          */
         readonly url: string;
@@ -109,25 +183,61 @@ declare namespace EW {
         readonly userLocation: UserLocation | undefined;
 
         /**
-         * Object containing properties specifying the device characteristics. This
+         * Object containing properties specifying the device characteristics. The
          * value of this property will be null if the contract associated with the
          * request does not have entitlements for EDC.
          */
         readonly device: Device | undefined;
 
         /**
-         * The cpcode used for reporting.
+         * The CP code used for reporting.
          */
         readonly cpCode: number;
     }
 
+    // Legacy interfaces for backwards compatibility
     interface MutableRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request {
     }
-
     interface ImmutableRequest extends ReadsHeaders, ReadsVariables, Request {
     }
-
     interface Response extends HasStatus, MutatesHeaders, ReadsHeaders {
+    }
+
+    // onClientRequest
+    interface IngressClientRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, HasRespondWith, HasRoute, HasCacheKey, MutatesVariables {
+    }
+
+    // onOriginRequest
+    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, MutatesVariables {
+    }
+
+    // onOriginResponse
+    interface EgressOriginRequest extends ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
+    }
+    interface EgressOriginResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
+    }
+
+    // onClientResponse
+    interface EgressClientRequest extends ReadsHeaders, ReadsVariables, Request, MutatesVariables {
+    }
+    interface EgressClientResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
+    }
+
+    interface Destination {
+        /**
+         * The identifier of the pre-configured origin to send the outgoing request to.
+         */
+        origin?: string;
+
+        /**
+         * The new path to use in the outgoing request.
+         */
+        path?: string;
+
+        /**
+         * The new query string to use in the outgoing request.
+         */
+        query?: string;
     }
 
     /**

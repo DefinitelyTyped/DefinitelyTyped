@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 // prettier-ignore
 declare function withInstanceId<T extends ComponentType<any>>(wrapped: T):

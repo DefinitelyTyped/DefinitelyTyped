@@ -17,6 +17,14 @@ Share.open({
 Share.open({
     url: '',
     type: '',
+    title: '',
+    saveToFiles: true,
+});
+
+// $ExpectType Promise<OpenReturn>
+Share.open({
+    url: '',
+    type: '',
     message: '',
     title: '',
     subject: '',

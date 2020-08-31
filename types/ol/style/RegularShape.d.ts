@@ -13,6 +13,7 @@ export interface Options {
     radius1?: number;
     radius2?: number;
     angle?: number;
+    displacement?: number[];
     stroke?: Stroke;
     rotation?: number;
     rotateWithView?: boolean;

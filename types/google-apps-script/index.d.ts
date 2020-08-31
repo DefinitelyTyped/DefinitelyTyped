@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/apps-script/
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
+//                 pierluigi-montagna <https://github.com/pierluigi-montagna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -57,7 +58,6 @@
 /// <reference path="apis/docs_v1.d.ts"/>
 /// <reference path="apis/drive_v2.d.ts"/>
 /// <reference path="apis/driveactivity_v2.d.ts"/>
-/// <reference path="apis/fusiontables_v2.d.ts"/>
 /// <reference path="apis/gmail_v1.d.ts"/>
 /// <reference path="apis/groupsmigration_v1.d.ts"/>
 /// <reference path="apis/groupssettings_v1.d.ts"/>
@@ -70,7 +70,6 @@
 /// <reference path="apis/slides_v1.d.ts"/>
 /// <reference path="apis/tagmanager_v2.d.ts"/>
 /// <reference path="apis/tasks_v1.d.ts"/>
-/// <reference path="apis/urlshortener_v1.d.ts"/>
 /// <reference path="apis/youtube_v3.d.ts"/>
 /// <reference path="apis/youtubeanalytics_v2.d.ts"/>
 /// <reference path="apis/youtubepartner_v1.d.ts"/>

@@ -1,5 +1,5 @@
 import { Coordinate } from './coordinate';
-import { EventsKey } from './events';
+import { EventsKey, ListenerFunction } from './events';
 import BaseEvent from './events/Event';
 import Polygon from './geom/Polygon';
 import BaseObject, { ObjectEvent } from './Object';
@@ -26,9 +26,9 @@ export default class Geolocation extends BaseObject {
     setProjection(projection: ProjectionLike): void;
     setTracking(tracking: boolean): void;
     setTrackingOptions(options: PositionOptions): void;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;
@@ -62,10 +62,16 @@ export default class Geolocation extends BaseObject {
     on(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'change:trackingOptions', listener: (evt: ObjectEvent) => void): void;
-    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
-    un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: 'error', listener: (evt: GeolocationError) => void): EventsKey;
+    once(type: 'error', listener: (evt: GeolocationError) => void): EventsKey;
+    un(type: 'error', listener: (evt: GeolocationError) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+}
+
+export class GeolocationError extends BaseEvent {
+    constructor(type: string);
+    code: number;
+    message: string;
 }

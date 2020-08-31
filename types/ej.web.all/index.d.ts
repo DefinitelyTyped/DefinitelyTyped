@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ej.web.all 17.4
+// Type definitions for non-npm package ej.web.all 18.2
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 17.4.0.46
+*  version : 18.2.0.44
 *  Copyright Syncfusion Inc. 2001 - 2020. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -43232,12 +43232,6 @@ declare namespace ej {
          */
         setActiveCell(rowIdx: number, colIdx: number, sheetIdx: number): void;
 
-        /** This method is used to set active sheet index for the Spreadsheet.
-         * @param {number} Pass the active sheet index for Spreadsheet.
-         * @returns {void}
-         */
-        setActiveSheetIndex(sheetIdx: number): void;
-
         /** This method is used to set border for the specified range of cells in the Spreadsheet.
          * @param {Spreadsheet.BorderOptions} Pass the Object "BorderOptions".
          * @param {string} Optional. If range is specified, it will set border for the specified range else it will use the selected range.
@@ -43582,13 +43576,9 @@ declare namespace ej {
              */
             isChecked?: boolean;
 
-            /** Specifies the value for datepicker of Custom Cell type.
+            /** Specifies the datepicker of Custom Cell type.
              */
             value?: string;
-
-            /** Specifies the format for datepicker.
-             */
-            format?: string;
         }
 
         export interface XLCellType {
@@ -45256,6 +45246,10 @@ declare namespace ej {
              */
             ribbonClick?(e: RibbonClickEventArgs): void;
 
+            /** Triggered after end of vertical and horizontal scrolling.
+             */
+            scrollStop?(e: ScrollStopEventArgs): void;
+
             /** Triggered when click the ribbon tab.
              */
             tabClick?(e: TabClickEventArgs): void;
@@ -46296,6 +46290,33 @@ declare namespace ej {
             /** Returns the target element.
              */
             target?: HTMLElement;
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+        }
+
+        export interface ScrollStopEventArgs {
+
+            /** Returns the request type.
+             */
+            reqType?: string;
+
+            /** Returns the scrolled position.
+             */
+            position?: number;
+
+            /** Returns the name of the event.
+             */
+            type?: string;
+
+            /** Returns the Spreadsheet model.
+             */
+            model?: ej.Spreadsheet.Model;
+
+            /** Returns the scrolling data
+             */
+            scrollData?: any;
 
             /** Returns the cancel option value.
              */

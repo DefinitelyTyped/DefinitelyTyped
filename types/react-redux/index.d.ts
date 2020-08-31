@@ -20,7 +20,9 @@
 // TypeScript Version: 3.0
 
 import {
+    ClassAttributes,
     Component,
+    ComponentClass,
     ComponentType,
     StatelessComponent,
     Context,
@@ -97,7 +99,9 @@ export type Shared<
     };
 
 // Infers prop type from component C
-export type GetProps<C> = C extends ComponentType<infer P> ? P : never;
+export type GetProps<C> = C extends ComponentType<infer P>
+    ? C extends ComponentClass<P> ? ClassAttributes<InstanceType<C>> & P : P
+    : never;
 
 // Applies LibraryManagedAttributes (proper handling of defaultProps
 // and propTypes), as well as defines WrappedComponent.

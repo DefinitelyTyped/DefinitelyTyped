@@ -3,15 +3,14 @@
     "rules": {
         "align": false,
         "array-type": false,
+        "interface-over-type-literal": false,
         "new-parens": false,
         "no-consecutive-blank-lines": false,
-        "interface-over-type-literal": false,
-        "no-relative-import-in-test": false,
+        "no-unnecessary-generics": false,
         "no-var": false,
         "prefer-declare-function": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
-        "no-unnecessary-generics": false
+        "trim-file": false
     }
 }

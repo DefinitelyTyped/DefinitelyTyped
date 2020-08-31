@@ -1,5 +1,5 @@
 import { Coordinate } from '../coordinate';
-import { EventsKey } from '../events';
+import { EventsKey, ListenerFunction } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import { ObjectEvent } from '../Object';
@@ -24,9 +24,9 @@ export default class Circle extends SimpleGeometry {
     setRadius(radius: number): void;
     simplifyTransformed(squaredTolerance: number, opt_transform?: TransformFunction): Geometry;
     transform(source: ProjectionLike, destination: ProjectionLike): Circle;
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

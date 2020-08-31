@@ -1,4 +1,4 @@
-import { Handler } from "../hander";
+import { Handler } from "../handler";
 import { CodePipelineCloudWatchActionEvent } from "./codepipeline-cloudwatch-action";
 import { CodePipelineCloudWatchPipelineEvent } from "./codepipeline-cloudwatch-pipeline";
 import { CodePipelineCloudWatchStageEvent } from "./codepipeline-cloudwatch-stage";

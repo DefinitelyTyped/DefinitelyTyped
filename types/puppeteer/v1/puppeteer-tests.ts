@@ -549,8 +549,9 @@ puppeteer.launch().then(async browser => {
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  const s = await page.evaluate(() => Promise.resolve(document.body.innerHTML));
-  console.log('body html has length', s.length);
+  await page.evaluate(() => Promise.resolve(document.body.innerHTML)).then(s => {
+    console.log('body html has length', s.length);
+  });
 });
 
 // JSHandle.jsonValue produces compatible type

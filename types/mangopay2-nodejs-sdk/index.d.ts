@@ -1158,7 +1158,7 @@ declare namespace MangoPay {
     type OtherData = BaseData & OtherDetails;
 
     type Data = OtherData | CAData | GBData | IBANData | USData;
-    type DataIntersection = OtherData & CAData & GBData & IBANData & USData;
+    type DataIntersection = OtherData & CAData & GBData & IBANData & USData & { Type: never };
     type CreationDetails =
       | OtherDetails
       | CADetails
@@ -1480,6 +1480,7 @@ declare namespace MangoPay {
        * The status of this KYC/Dispute document
        */
       Status: "VALIDATION_ASKED";
+      Id: string;
       Tag?: string;
     }
 

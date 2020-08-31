@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6", "dom"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "target": "es6",
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@testing-library/jasmine-dom": ["testing-library__jasmine-dom"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "test/testing-library__jasmine-dom-global-tests.ts"
+    ]
+}

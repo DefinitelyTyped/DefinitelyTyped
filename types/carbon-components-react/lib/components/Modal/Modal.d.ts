@@ -1,7 +1,7 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactDivAttr } from "../../../typings/shared";
+import { EmbeddedIconProps, ReactDivAttr, CarbonSize } from "../../../typings/shared";
 
-type ExcludedAttributes = "role" | "tabIndex" | "onBlur" | "onClick" | "onKeyDown" | "onTransitionEnd" | "ref";
+type ExcludedAttributes = "role" | "onBlur" | "onClick" | "onKeyDown" | "onTransitionEnd" | "ref";
 interface InheritedProps extends
     Omit<ReactDivAttr, ExcludedAttributes>,
     EmbeddedIconProps
@@ -9,7 +9,12 @@ interface InheritedProps extends
 
 export interface ModalProps extends InheritedProps {
     danger?: boolean,
+    /**
+     * @deprecated
+     */
     focusTrap?: boolean,
+    hasForm?: boolean,
+    hasScrollingContent?: boolean,
     modalAriaLabel?: string,
     modalHeading?: React.ReactNode,
     modalLabel?: React.ReactNode,
@@ -19,10 +24,11 @@ export interface ModalProps extends InheritedProps {
     onSecondarySubmit?: ModalProps["onRequestClose"],
     passiveModal?: boolean,
     primaryButtonDisabled?: boolean,
-    primaryButtonText?: string,
-    secondaryButtonText?: string,
+    primaryButtonText?: React.ReactNode,
+    secondaryButtonText?: React.ReactNode,
     selectorPrimaryFocus?: string,
-    selectorsFloatingMenus?: string[],
+    selectorsFloatingMenus?: readonly string[],
+    size?: CarbonSize,
     shouldSubmitOnEnter?: boolean,
 }
 

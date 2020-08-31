@@ -1,4 +1,4 @@
-// Type definitions for lodash.template 4.4
+// Type definitions for lodash.template 4.5
 // Project: https://lodash.com
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

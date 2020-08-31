@@ -12,6 +12,8 @@ export { useBlockingPaginationFragment } from './relay-experimental/useBlockingP
 export { useFragment } from './relay-experimental/useFragment';
 export { useLazyLoadQuery } from './relay-experimental/useLazyLoadQuery';
 export { useLegacyPaginationFragment as usePaginationFragment } from './relay-experimental/useLegacyPaginationFragment';
+export { useMutation } from './relay-experimental/useMutation';
 export { usePreloadedQuery } from './relay-experimental/usePreloadedQuery';
 export { useRefetchableFragment } from './relay-experimental/useRefetchableFragment';
 export { useRelayEnvironment } from './relay-experimental/useRelayEnvironment';
+export { useSubscription } from './relay-experimental/useSubscription';

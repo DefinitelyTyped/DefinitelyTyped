@@ -2,6 +2,7 @@
 // Project: https://github.com/share/sharedb
 // Definitions by: Steve Oney <https://github.com/soney>
 //                 Eric Hwang <https://github.com/ericyhwang>
+//                 Peter Xu <https://github.com/pxpeterxu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -52,9 +53,7 @@ declare class sharedb {
         action: A,
         fn: (context: sharedb.middleware.ActionContextMap[A], callback: (err?: any) => void) => void,
     ): void;
-    static types: {
-        register: (type: { name?: string, uri?: string, [key: string]: any}) => void;
-    };
+    static types: ShareDB.Types;
 }
 
 declare namespace sharedb {
@@ -64,9 +63,9 @@ declare namespace sharedb {
         close(callback?: BasicCallback): void;
         commit(collection: string, id: string, op: Op, snapshot: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshot(collection: string, id: string, fields: any, options: any, callback: (...args: any[]) => any): void;
-        getSnapshotBulk(collection: string, ids: string, fields: any, options: any, callback: (...args: any[]) => any): void;
-        getOps(collection: string, id: string, from: number, to: number, options: any, callback: (...args: any[]) => any): void;
-        getOpsToSnapshot(collection: string, id: string, from: number, snapshot: number, options: any, callback: (...args: any[]) => any): void;
+        getSnapshotBulk(collection: string, ids: string[], fields: any, options: any, callback: (...args: any[]) => any): void;
+        getOps(collection: string, id: string, from: number | null, to: number | null, options: any, callback: (...args: any[]) => any): void;
+        getOpsToSnapshot(collection: string, id: string, from: number | null, snapshot: number, options: any, callback: (...args: any[]) => any): void;
         getOpsBulk(collection: string, fromMap: any, toMap: any, options: any, callback: (...args: any[]) => any): void;
         getCommittedOpVersion(collection: string, id: string, snapshot: any, op: any, options: any, callback: (...args: any[]) => any): void;
         query: DBQueryMethod;
@@ -120,6 +119,9 @@ declare namespace sharedb {
     type Query = ShareDB.Query;
     type Error = ShareDB.Error;
     type Op = ShareDB.Op;
+    type CreateOp = ShareDB.CreateOp;
+    type DeleteOp = ShareDB.DeleteOp;
+    type EditOp = ShareDB.EditOp;
     type AddNumOp = ShareDB.AddNumOp;
     type ListMoveOp = ShareDB.ListMoveOp;
     type ListInsertOp = ShareDB.ListInsertOp;
@@ -227,7 +229,7 @@ interface SubmitRequest {
     projection: Projection | undefined;
     collection: string;
     id: string;
-    op: sharedb.Op;
+    op: sharedb.CreateOp | sharedb.DeleteOp | sharedb.EditOp;
     options: any;
     start: number;
 

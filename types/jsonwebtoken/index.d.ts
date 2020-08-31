@@ -1,4 +1,4 @@
-// Type definitions for jsonwebtoken 8.3
+// Type definitions for jsonwebtoken 8.5
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>,
 //                 Daniel Heim <https://github.com/danielheim>,
@@ -9,8 +9,9 @@
 //                 Robert Gajda <https://github.com/RunAge>,
 //                 Nico Flaig <https://github.com/nflaig>,
 //                 Linus Unnebäck <https://github.com/LinusU>
+//                 Ivan Sieder <https://github.com/ivansieder>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -26,6 +27,9 @@ export class TokenExpiredError extends JsonWebTokenError {
     constructor(message: string, expiredAt: Date);
 }
 
+/**
+ * Thrown if current time is before the nbf claim.
+ */
 export class NotBeforeError extends JsonWebTokenError {
     date: Date;
 
@@ -67,11 +71,16 @@ export interface VerifyOptions {
     audience?: string | RegExp | Array<string | RegExp>;
     clockTimestamp?: number;
     clockTolerance?: number;
+    /** return an object with the decoded `{ payload, header, signature }` instead of only the usual content of the payload. */
     complete?: boolean;
     issuer?: string | string[];
     ignoreExpiration?: boolean;
     ignoreNotBefore?: boolean;
     jwtid?: string;
+    /**
+     * If you want to check `nonce` claim, provide a string value here.
+     * It is used on Open ID for the ID Tokens. ([Open ID implementation notes](https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes))
+     */
     nonce?: string;
     subject?: string;
     /**
@@ -90,12 +99,12 @@ export type VerifyErrors =
     | NotBeforeError
     | TokenExpiredError;
 export type VerifyCallback = (
-    err: VerifyErrors,
-    decoded: object | string,
+    err: VerifyErrors | null,
+    decoded: object | undefined,
 ) => void;
 
 export type SignCallback = (
-    err: Error, encoded: string
+    err: Error | null, encoded: string | undefined
 ) => void;
 
 export interface JwtHeader {

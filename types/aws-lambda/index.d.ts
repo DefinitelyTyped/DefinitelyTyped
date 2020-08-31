@@ -33,10 +33,14 @@
 //                 Alex Bolenok <https://github.com/alex-bolenok-centralreach>
 //                 Marian Zange <https://github.com/marianzange>
 //                 Alexander Pepper <https://github.com/apepper>
+//                 Alessandro Palumbo <https://github.com/apalumbo>
+//                 Sachin Shekhar <https://github.com/SachinShekhar>
+//                 Ivan Martos <https://github.com/ivanmartos>
+//                 Zach Anthony <https://github.com/zach-anthony>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
-export * from "./hander";
+export * from "./handler";
 export * from "./common/api-gateway";
 export * from "./common/cloudfront";
 export * from "./trigger/alb";
@@ -50,15 +54,18 @@ export * from "./trigger/cloudfront-response";
 export * from "./trigger/cloudwatch-events";
 export * from "./trigger/cloudwatch-logs";
 // TODO: export * from "./trigger/codecommit";
+export * from "./trigger/codebuild-cloudwatch-state";
 export * from "./trigger/codepipeline";
 export * from "./trigger/codepipeline-cloudwatch";
 export * from "./trigger/codepipeline-cloudwatch-action";
 export * from "./trigger/codepipeline-cloudwatch-pipeline";
 export * from "./trigger/codepipeline-cloudwatch-stage";
 // TODO: export * from "./trigger/cognito-sync";
-export * from "./trigger/cognito-user-pool-trigger";
+export * from "./trigger/cognito-user-pool-trigger/";
+export * from "./trigger/connect-contact-flow";
 // TODO: export * from "./trigger/config";
 export * from "./trigger/dynamodb-stream";
+export * from "./trigger/eventbridge";
 // ElastiCache section just describes using lambdas in an ElastiCache context (VPC issues, etc.)
 // EC2 events are delivered using cloudwatch events...
 // TODO: export * from "./trigger/iot"; for "IoT Events"

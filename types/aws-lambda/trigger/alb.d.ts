@@ -1,4 +1,4 @@
-import { Handler, Callback } from "../hander";
+import { Handler, Callback } from "../handler";
 
 export type ALBHandler = Handler<ALBEvent, ALBResult>;
 export type ALBCallback = Callback<ALBResult>;
@@ -24,9 +24,9 @@ export interface ALBEvent {
 
 export interface ALBResult {
     statusCode: number;
-    statusDescription: string;
+    statusDescription?: string;
     headers?: { [header: string]: boolean | number | string };
     multiValueHeaders?: { [header: string]: Array<boolean | number | string> };
     body?: string;
-    isBase64Encoded: boolean;
+    isBase64Encoded?: boolean;
 }

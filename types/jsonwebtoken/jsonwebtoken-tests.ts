@@ -46,9 +46,14 @@ token = jwt.sign(testObject, { key: privKey, passphrase: 'keypwd' }, { algorithm
 
 // sign asynchronously
 jwt.sign(testObject, cert, { algorithm: "RS256" }, (
-    err: Error,
-    token: string,
+    err: Error | null,
+    token: string | undefined,
 ) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
     console.log(token);
 });
 

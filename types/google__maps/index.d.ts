@@ -1055,8 +1055,6 @@ export type GeocodedWaypointStatus = (
 );
 
 export type AddressType = (
-    /** indicates a precise street address. */
-    'street_address' |
     /** indicates a named route (such as "US 101"). */
     'route' |
     /** indicates a major intersection, usually of two major roads. */
@@ -2335,7 +2333,7 @@ export interface GeocodingResult {
      *    over time for the same address. A component can change position in the array.
      *    The type of the component can change. A particular component may be missing in a later response.
      */
-    address_components: AddressComponent[];
+    address_components: Array<AddressComponent<AddressType | GeocodingAddressComponentType>>;
     /**
      * is an array denoting all the localities contained in a postal code.
      * This is only present when the result is a postal code that contains multiple localities.
@@ -2376,6 +2374,8 @@ export interface GeocodingResult {
 }
 
 export type GeocodingAddressComponentType = (
+    /** indicates a precise street address. */
+    'street_address' |
     /** indicates the floor of a building address. */
     'floor' |
     /** typically indicates a place that has not yet been categorized. */
@@ -2390,8 +2390,6 @@ export type GeocodingAddressComponentType = (
     'postal_town' |
     /** indicates the room of a building address. */
     'room' |
-    /** indicates the precise street number. */
-    'street_number' |
     /**  indicate the location of a bus. */
     'bus_station' |
     /**  indicate the location of a train. */
@@ -2400,9 +2398,9 @@ export type GeocodingAddressComponentType = (
     'transit_station'
 );
 
-export interface AddressComponent {
+export interface AddressComponent<T> {
     /** is an array indicating the *type* of the address component. */
-    types: Array<AddressType | GeocodingAddressComponentType>;
+    types: T[];
     /** is the full text description or name of the address component as returned by the Geocoder. */
     long_name: string;
     /**
@@ -2743,7 +2741,7 @@ export interface PlaceDetailsResult {
      *    and can change over time for the same address. A component can change position in the array.
      *    The type of the component can change. A particular component may be missing in a later response.
      */
-    address_components: AddressComponent[];
+    address_components: Array<AddressComponent<AddressType | PlaceDetailsAddressComponentType>>;
     /**
      * is a string containing the human-readable address of this place.
      *
@@ -2871,6 +2869,11 @@ export interface PlaceDetailsResult {
     /** lists the authoritative website for this place, such as a business' homepage. */
     website: string;
 }
+
+export type PlaceDetailsAddressComponentType = (
+    /** indicates the precise street number. */
+    'street_number'
+);
 
 export interface PlaceReview {
     /**

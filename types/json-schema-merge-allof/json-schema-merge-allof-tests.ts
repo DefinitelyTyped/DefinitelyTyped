@@ -8,7 +8,7 @@ const schema: $RefParser_JSONSchema = { type: 'string' };
 mergeAllOf(schema);
 
 type JSONSchemaExtra = JSONSchema6 & {
-	[key: string]: any;
+    [key: string]: any;
 };
 
 const schemaExtra: JSONSchemaExtra = { type: 'string' };

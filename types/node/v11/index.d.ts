@@ -9,7 +9,6 @@
 //                 Benjamin Toueg <https://github.com/btoueg>
 //                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
@@ -23,7 +22,6 @@
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Nicolas Even <https://github.com/n-e>
-//                 Nicolas Voigt <https://github.com/octo-sniffle>
 //                 Nikita Galkin <https://github.com/galkin>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
@@ -39,6 +37,7 @@
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 //                 Ivan Sieder <https://github.com/ivansieder>
 //                 Minh Son Nguyen <https://github.com/nguymin4>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.2.
@@ -54,6 +53,9 @@
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
+
+// We can't include assert.d.ts in base.d.ts, as it'll cause duplication errors in +ts3.7
+/// <reference path="assert.d.ts" />
 
 // TypeScript 2.1-specific augmentations:
 

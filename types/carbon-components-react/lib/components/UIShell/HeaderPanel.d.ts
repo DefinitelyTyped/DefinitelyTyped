@@ -1,5 +1,4 @@
-import * as React from "react";
-import { ReactDivAttr } from "../../../typings/shared";
+import { ReactDivAttr, ForwardRefReturn } from "../../../typings/shared";
 
 interface InheritedProps extends ReactDivAttr { }
 
@@ -7,6 +6,6 @@ export interface HeaderPanelProps extends InheritedProps {
     expanded?: boolean,
 }
 
-declare const HeaderPanel: React.FC<HeaderPanelProps>;
+declare const HeaderPanel: ForwardRefReturn<HTMLDivElement, HeaderPanelProps>;
 
 export default HeaderPanel;

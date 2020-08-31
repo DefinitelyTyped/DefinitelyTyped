@@ -2,7 +2,6 @@ import { ColorLike } from '../colorlike';
 import Fill from '../style/Fill';
 import Stroke from '../style/Stroke';
 import { Transform } from '../transform';
-import LabelCache from './canvas/LabelCache';
 
 export type DeclutterGroup = any[];
 export type DeclutterGroups = DeclutterGroup[];
@@ -28,6 +27,11 @@ export interface FillStrokeState {
     lineWidth?: number;
     miterLimit?: number;
 }
+export interface Label {
+    width: number;
+    height: number;
+    contextInstructions: (string | number)[];
+}
 export interface StrokeState {
     lineCap: CanvasLineCap;
     lineDash: number[];
@@ -49,12 +53,13 @@ export interface TextState {
     scale?: number;
     padding?: number[];
 }
-export const labelCache: LabelCache;
-export function drawImage(
+export const labelCache: any;
+export function createTransformString(transform: Transform): string;
+export function drawImageOrLabel(
     context: CanvasRenderingContext2D,
     transform: Transform | null,
     opacity: number,
-    image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+    labelOrImage: Label | HTMLCanvasElement | HTMLImageElement | HTMLVideoElement,
     originX: number,
     originY: number,
     w: number,

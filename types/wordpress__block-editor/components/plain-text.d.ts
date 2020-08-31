@@ -1,4 +1,4 @@
-import { ComponentType, Ref } from '@wordpress/element';
+import { ComponentType, Ref } from 'react';
 import TextareaAutosize from 'react-autosize-textarea';
 
 declare namespace PlainText {

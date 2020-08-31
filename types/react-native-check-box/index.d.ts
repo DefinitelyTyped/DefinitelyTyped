@@ -15,7 +15,7 @@ export interface CheckBoxProps {
     rightTextStyle?: StyleProp<TextStyle>;
     rightTextView?: React.ReactNode;
     checkedImage?: React.ReactElement;
-    uncheckedImage?: React.ReactElement;
+    unCheckedImage?: React.ReactElement;
     isChecked: boolean;
     onClick: () => void;
     disabled?: boolean;

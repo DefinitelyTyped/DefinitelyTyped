@@ -1,4 +1,4 @@
-// Type definitions for Amplitude SDK 5.8
+// Type definitions for Amplitude SDK 5.11
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Arvydas Sidorenko <https://github.com/Asido>
 //                 Dan Manastireanu <https://github.com/danmana>
@@ -35,6 +35,7 @@ export interface Config {
     saveParamsReferrerOncePerSession?: boolean;
     secureCookie?: boolean;
     sessionTimeout?: number;
+    sameSiteCookie?: 'Lax' | 'Strict' | 'None';
     useNativeDeviceInfo?: boolean;
     trackingOptions?: {
         city?: boolean;
@@ -63,11 +64,11 @@ export class Identify {
     /** Append a value or values to a user property */
     append(key: string, value: number | string | any[] | object): Identify;
     /** Prepend a value or values to a user property */
-    prepend(key: string, value: number | string | any[] | object): Identify;
+    prepend(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Sets the value of a given user property */
-    set(key: string, value: number | string | any[] | object): Identify;
+    set(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Sets the value of a given user property only once */
-    setOnce(key: string, value: number | string | any[] | object): Identify;
+    setOnce(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Unset and remove a user property */
     unset(key: string): Identify;
 }

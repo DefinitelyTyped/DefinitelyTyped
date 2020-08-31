@@ -7,7 +7,7 @@ import AGServer = require('socketcluster-server/server');
 import DemuxedConsumableStream = require('stream-demux/demuxed-consumable-stream');
 import ConsumableStream = require('consumable-stream');
 
-import { AGAuthEngine } from './auth';
+import AuthEngine = require('./auth');
 import AGTransport = require('./transport');
 
 declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChannel.Client {
@@ -36,8 +36,8 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
     state: AGClientSocket.States;
 
     authState: AGClientSocket.AuthStates;
-    signedAuthToken: string | null;
-    authToken: object | null;
+    signedAuthToken: AuthEngine.SignedAuthToken | null;
+    authToken: AuthEngine.AuthToken | null;
     authTokenName: string;
 
     wsOptions?: WebSocket.ClientOptions;
@@ -63,7 +63,7 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
     batchOnHandshake: boolean;
     batchOnHandshakeDuration: number;
 
-    auth: AGAuthEngine;
+    auth: AuthEngine.AGAuthEngine;
     codec: AGServer.CodecEngine;
     transport?: AGTransport;
 
@@ -71,7 +71,7 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
 
     constructor(opts: AGClientSocket.ClientOptions);
 
-    emit(eventName: 'removeAuthToken', data: { oldAuthToken: object }): void;
+    emit(eventName: 'removeAuthToken', data: { oldAuthToken: AuthEngine.AuthToken }): void;
     emit(eventName: 'connect', data: AGClientSocket.ConnectData): void;
     emit(eventName: 'connecting', data: {}): void;
     emit(eventName: 'authStateChange', data: AGClientSocket.AuthStateChangeData): void;
@@ -85,7 +85,7 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
     emit(eventName: 'unsubscribe', data: AGClientSocket.UnsubscribeData): void;
     emit(eventName: 'kickOut', data: AGClientSocket.KickOutData): void;
 
-    listener(eventName: 'removeAuthToken'): ConsumableStream<{ oldAuthToken: object }>;
+    listener(eventName: 'removeAuthToken'): ConsumableStream<{ oldAuthToken: AuthEngine.AuthToken }>;
     listener(eventName: 'connect'): ConsumableStream<AGClientSocket.ConnectData>;
     listener(eventName: 'connecting'): ConsumableStream<{}>;
     listener(eventName: 'authStateChange'): ConsumableStream<AGClientSocket.AuthStateChangeData>;
@@ -144,7 +144,7 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
     isSubscribed(channelName: string, includePending?: boolean): boolean;
 
     transmitPublish(channelName: string, data: any): Promise<void>;
-    invokePublish<T>(channelName: string, data: T): Promise<{ channel: string; data: T }>;
+    invokePublish(channelName: string, data: any): Promise<{ channel: string; data: any }>;
 
     /* AGChannel.Client end */
 
@@ -162,9 +162,9 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
     decodeBase64(encodedString: string): string;
     encodeBase64(decodedString: string): string;
 
-    getAuthToken(): object | null;
+    getAuthToken(): AuthEngine.AuthToken | null;
 
-    getSignedAuthToken(): string | null;
+    getSignedAuthToken(): AuthEngine.SignedAuthToken | null;
 
     // Perform client-initiated authentication by providing an encrypted token string.
     authenticate(signedAuthToken: string): Promise<AGClientSocket.AuthStatus>;
@@ -175,7 +175,7 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
     send(data: any): void;
 
     transmit(event: string, data: any, options?: { ackTimeout?: number }): Promise<void>;
-    invoke<T>(event: string, data: T, options?: { ackTimeout?: number }): Promise<T>;
+    invoke(event: string, data: any, options?: { ackTimeout?: number }): Promise<any>;
 
     startBatch(): void;
     flushBatch(): void;
@@ -312,7 +312,7 @@ declare namespace AGClientSocket {
         timestampParam?: string;
 
         // A custom engine to use for storing and loading JWT auth tokens on the client side.
-        authEngine?: AGAuthEngine | null;
+        authEngine?: AuthEngine.AGAuthEngine | null;
 
         // The name of the JWT auth token (provided to the authEngine - By default this is the localStorage variable name); defaults to 'socketcluster.authToken'.
         authTokenName?: string;
@@ -388,18 +388,18 @@ declare namespace AGClientSocket {
     interface AuthStateChangeData {
         oldAuthState: AuthStates;
         newAuthState: AuthStates;
-        signedAuthToken?: string;
-        authToken?: object;
+        signedAuthToken?: AuthEngine.SignedAuthToken;
+        authToken?: AuthEngine.AuthToken;
     }
 
     interface AuthenticateData {
-        signedAuthToken: string;
-        authToken: object;
+        signedAuthToken: AuthEngine.SignedAuthToken;
+        authToken: AuthEngine.AuthToken;
     }
 
     interface DeauthenticateData {
-        oldSignedAuthToken: string | null;
-        oldAuthToken: object | null;
+        oldSignedAuthToken: AuthEngine.SignedAuthToken | null;
+        oldAuthToken: AuthEngine.AuthToken | null;
     }
 
     interface CloseData {
@@ -442,7 +442,6 @@ declare namespace AGClientSocket {
         data?: any;
     }
 
-    // type WatcherFunction = (data: any) => void;
     type AuthStates = 'authenticated' | 'unauthenticated';
     type States = 'connecting' | 'open' | 'closed';
     type ProtocolVersions = 1 | 2;

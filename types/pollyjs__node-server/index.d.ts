@@ -1,4 +1,4 @@
-// Type definitions for @pollyjs/node-server 2.6
+// Type definitions for @pollyjs/node-server 4.3
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/node-server
 // Definitions by: Offir Golan <https://github.com/offirgolan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,6 +6,7 @@
 
 import * as http from 'http';
 import * as express from 'express';
+import * as cors from 'cors';
 
 export interface Config {
     port: number;
@@ -13,6 +14,10 @@ export interface Config {
     recordingSizeLimit: string;
     recordingsDir: string;
     apiNamespace: string;
+}
+
+export interface ServerConfig extends Config {
+    corsOptions?: cors.CorsOptions;
 }
 
 export const Defaults: Config;
@@ -32,11 +37,11 @@ export class API {
 }
 
 export class Server {
-    config: Config;
+    config: ServerConfig;
     app: express.Express;
     server?: http.Server;
 
-    constructor(options?: Partial<Config>);
+    constructor(options?: Partial<ServerConfig>);
     listen(port?: number, host?: string): http.Server;
 }
 
