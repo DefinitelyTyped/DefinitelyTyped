@@ -1531,21 +1531,18 @@ declare module "@arangodb/foxx/queues" {
 }
 
 declare module "@arangodb/foxx/graphql" {
-    import { formatError, GraphQLSchema } from "graphql";
-    type GraphQLModule = object;
-    type GraphQLFormatErrorFunction = typeof formatError;
     interface GraphQLOptions {
-        schema: GraphQLSchema;
+        schema: any;
         context?: any;
         rootValue?: object;
         pretty?: boolean;
-        formatError?: GraphQLFormatErrorFunction;
+        formatError?: (error: Error) => any;
         validationRules?: any[];
         graphiql?: boolean;
-        graphql?: GraphQLModule;
+        graphql?: any;
     }
     function createGraphQLRouter(
-        options: GraphQLOptions | GraphQLSchema
+        options: GraphQLOptions | any
     ): Foxx.Router;
     export = createGraphQLRouter;
 }
