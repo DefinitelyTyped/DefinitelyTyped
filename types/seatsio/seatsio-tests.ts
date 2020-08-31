@@ -1,5 +1,3 @@
-import seatsio = require("seatsio");
-
 const seatingChartConfig: Seatsio.SeatingChartConfig = {
     divId: 'chart',
     workspaceKey: 'myWorkspaceKey',
