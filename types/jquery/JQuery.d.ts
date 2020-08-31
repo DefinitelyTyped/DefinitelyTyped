@@ -7651,7 +7651,6 @@ $( "*", document.body ).click(function( event ) {
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
-     * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\` in place of \`{@link JQueryEventObject }\`.
      */
     on(events: string,
        selector: JQuery.Selector | null | undefined,
