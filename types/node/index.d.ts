@@ -43,6 +43,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Jason Kwok <https://github.com/JasonHK>
+//                 Sachin Shekhar <https://github.com/SachinShekhar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.5.
