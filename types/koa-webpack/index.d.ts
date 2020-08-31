@@ -8,14 +8,13 @@
 // TypeScript Version: 2.3
 
 import Koa = require('koa');
-import MemoryFileSystem = require('memory-fs');
 import webpack = require('webpack');
 import webpackDevMiddleware = require('webpack-dev-middleware');
 import webpackHotClient = require('webpack-hot-client');
 
 declare module 'koa' {
     interface DefaultState {
-        fs: MemoryFileSystem;
+        fs: webpackDevMiddleware.Options['fs'];
         stats: webpack.Stats;
     }
 }
