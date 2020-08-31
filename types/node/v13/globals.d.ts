@@ -412,6 +412,7 @@ declare class Buffer extends Uint8Array {
 *                                               *
 *-----------------------------------------------*/
 declare namespace NodeJS {
+    type BufferOrString = Buffer | Uint8Array | string;
     interface InspectOptions {
         /**
          * If set to `true`, getters are going to be
@@ -568,30 +569,30 @@ declare namespace NodeJS {
         eventNames(): Array<string | symbol>;
     }
 
-    interface ReadableStream extends EventEmitter {
+    interface ReadableStream<TChunk = BufferOrString> extends EventEmitter {
         readable: boolean;
-        read(size?: number): string | Buffer;
-        setEncoding(encoding: string): this;
+        read(size?: number): TChunk | null;
+        setEncoding(encoding: BufferEncoding): this;
         pause(): this;
         resume(): this;
         isPaused(): boolean;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe(destination?: WritableStream): this;
-        unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
-        wrap(oldStream: ReadableStream): this;
+        pipe<TStream extends WritableStream<TChunk>>(destination: TStream, options?: { end?: boolean; }): TStream;
+        unpipe(destination?: WritableStream<TChunk>): this;
+        unshift(chunk: TChunk | null, encoding?: BufferEncoding): void;
+        wrap(oldStream: ReadableStream<TChunk>): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
     }
 
-    interface WritableStream extends EventEmitter {
+    interface WritableStream<TChunk = BufferOrString> extends EventEmitter {
         writable: boolean;
-        write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
-        write(str: string, encoding?: string, cb?: (err?: Error | null) => void): boolean;
+        write(buffer: TChunk, cb?: (err?: Error | null) => void): boolean;
+        write(str: TChunk, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
         end(cb?: () => void): void;
-        end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: string, cb?: () => void): void;
+        end(data: TChunk, cb?: () => void): void;
+        end(str: TChunk, encoding?: BufferEncoding, cb?: () => void): void;
     }
 
-    interface ReadWriteStream extends ReadableStream, WritableStream { }
+    interface ReadWriteStream<TChunkIn = BufferOrString, TChunkOut = BufferOrString> extends ReadableStream<TChunkOut>, WritableStream<TChunkIn> { }
 
     interface Domain extends EventEmitter {
         run<T>(fn: (...args: any[]) => T, ...args: any[]): T;
