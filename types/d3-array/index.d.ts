@@ -188,15 +188,26 @@ export function scan(array: Iterable<number>, comparator?: (a: number, b: number
  * Deprecated. Use leastIndex instead.
  */
 export function scan<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): number | undefined;
-/**
- * Returns the index of the least element of the specified iterable according to the specified comparator or accessor.
- */
-export function leastIndex(array: Iterable<number>, comparator?: (a: number, b: number) => number): number | undefined;
 
 /**
- * Returns the index of the least element of the specified iterable according to the specified comparator or accessor.
+ * Returns the least element of the specified iterable according to the specified comparator.
+ */
+export function least<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): T | undefined;
+
+/**
+ * Returns the least element of the specified iterable according to the specified accessor.
+ */
+export function least<T, U>(array: Iterable<T>, accessor: (a: T) => U): T | undefined;
+
+/**
+ * Returns the index of the least element of the specified iterable according to the specified comparator.
  */
 export function leastIndex<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): number | undefined;
+
+/**
+ * Returns the index of the least element of the specified iterable according to the specified accessor.
+ */
+export function leastIndex<T, U>(array: Iterable<T>, accessor: (a: T) => U): number | undefined;
 
 export function bisectLeft(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
 export function bisectLeft(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
