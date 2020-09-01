@@ -46,9 +46,8 @@ export interface XRWebGLLayer {
     getViewport: (view: XRView) => XRViewport;
 }
 
-export interface XRSpace extends EventTarget {
-    // This should be empty
-}
+// tslint:disable-next-line no-empty-interface
+export interface XRSpace extends EventTarget { }
 
 export interface XRRenderState {
     readonly baseLayer: XRWebGLLayer;
@@ -57,7 +56,8 @@ export interface XRRenderState {
     readonly inlineVerticalFieldOfView: number;
 }
 
-export interface XRRenderStateInit extends XRRenderState {}
+// tslint:disable-next-line no-empty-interface
+export interface XRRenderStateInit extends XRRenderState { }
 
 export interface XRReferenceSpace extends XRSpace {
     onreset: EventHandler;
@@ -65,7 +65,7 @@ export interface XRReferenceSpace extends XRSpace {
     getOffsetReferenceSpace: (originOffset: XRRigidTransform) => XRReferenceSpace;
 }
 
-export interface XRBoundedReferenceSpace extends XRSpace {}
+export interface XRBoundedReferenceSpace extends XRSpace { }
 
 export interface XRInputSource {
     // A DOMString indicating the methodology used to
