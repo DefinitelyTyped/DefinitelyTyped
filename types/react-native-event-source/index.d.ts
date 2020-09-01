@@ -1,4 +1,4 @@
-// Type definitions for react-native-event-source 1.1
+// Type definitions for react-native-event-source 1.2
 // Project: https://github.com/jordanbyron/react-native-event-source#readme
 // Definitions by: Alexander Tartmin <https://github.com/Baskerville42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,6 +8,11 @@ export interface MessageEvent {
     type: string;
     lastEventId: string;
     origin: string;
+}
+export interface MessageEvent {
+    type: string;
+    status: number;
+    message: string;
 }
 
 export type ListenerCallback = (event: MessageEvent) => void;
