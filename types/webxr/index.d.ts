@@ -62,7 +62,7 @@ export class XRWebGLLayer {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface XRSpace extends EventTarget { }
+export interface XRSpace extends EventTarget {}
 
 export interface XRRenderState {
     readonly baseLayer: XRWebGLLayer;
@@ -85,7 +85,7 @@ export interface XRReferenceSpace extends XRSpace {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface XRBoundedReferenceSpace extends XRSpace { }
+export interface XRBoundedReferenceSpace extends XRSpace {}
 
 export interface XRInputSource {
     // A DOMString indicating the methodology used to
