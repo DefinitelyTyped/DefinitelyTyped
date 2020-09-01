@@ -37,7 +37,7 @@ array.push(5);
 // array.push.reset();
 
 // or you can create spy object
-let object = chai.spy.object([ 'push', 'pop' ]);
+let object = chai.spy.interface([ 'push', 'pop' ]);
 object.push(5);
 
 // or you create spy which returns static value

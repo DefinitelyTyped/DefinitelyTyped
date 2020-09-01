@@ -32,7 +32,7 @@ declare module "process" {
                 lts?: string;
             }
 
-            interface ProcessVersions {
+            interface ProcessVersions extends Dict<string> {
                 http_parser: string;
                 node: string;
                 v8: string;
