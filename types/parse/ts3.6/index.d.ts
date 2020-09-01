@@ -1,34 +1,6 @@
-// Type definitions for parse 2.12
-// Project: https://parseplatform.org/
-// Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
-//                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
-//                  Cedric Kemp <https://github.com/jaeggerr>
-//                  Flavio Negrão <https://github.com/flavionegrao>
-//                  Wes Grimes <https://github.com/wesleygrimes>
-//                  Otherwise SAS <https://github.com/owsas>
-//                  Andrew Goldis <https://github.com/agoldis>
-//                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
-//                  Diamond Lewis <https://github.com/dplewis>
-//                  Jong Eun Lee <https://github.com/yomybaby>
-//                  Colin Ulin <https://github.com/pocketcolin>
-//                  Robert Helms <https://github.com/rdhelms>
-//                  Julien Quere <https://github.com/jlnquere>
-//                  Yago Tomé <https://github.com/yagotome>
-//                  Thibault MOCELLIN <https://github.com/tybi>
-//                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
-//                  Jeff Gu Kang <https://github.com/jeffgukang>
-//                  Bui Tan Loc <https://github.com/buitanloc>
-//                  Linus Unnebäck <https://github.com/LinusU>
-//                  Patrick O'Sullivan <https://github.com/REPTILEHAUS>
-//                  Jerome De Leon <https://github.com/JeromeDeLeon>
-//                  Kent Robin Haugen <https://github.com/kentrh>
-//                  Asen Lekov <https://github.com/L3K0V>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 /// <reference types="node" />
-/// <reference path="node.d.ts" />
-/// <reference path="react-native.d.ts" />
+// <reference path="node.d.ts" />
+// <reference path="react-native.d.ts" />
 
 import { EventEmitter } from 'events';
 
@@ -543,7 +515,7 @@ namespace Parse {
                         : T extends RegExp
                             ? string
                             : T extends Array<infer R>
-                                ? Array<Encode<R>>
+                                ? any[]
                                 : T extends object
                                     ? ToJSON<T>
                                     : T
@@ -902,6 +874,7 @@ namespace Parse {
         getSessionToken(): string;
 
         linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
+        _linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
         _isLinked: (provider: string | AuthProvider) => boolean;
         _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
     }
@@ -1049,7 +1022,7 @@ namespace Parse {
         type AttrType<T extends Object, V> = Extract<{ [K in keyof T['attributes']]: T['attributes'][K] extends V ? K : never }[keyof T['attributes']], string>;
 
         interface FieldOptions
-            <T extends string | number | boolean | Date | File | GeoPoint | Polygon | any[] | object | Pointer | Relation = any> {
+            <T extends FieldType = any> {
             required?: boolean;
             defaultValue?: T;
         }

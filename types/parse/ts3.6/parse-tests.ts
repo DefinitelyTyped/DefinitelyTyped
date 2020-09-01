@@ -160,6 +160,11 @@ function test_query() {
             objectId: '$name',
         },
     });
+    query.aggregate({
+        sample: {
+            size: 1
+        },
+    });
 
     // Find objects with distinct key
     query.distinct('name');
@@ -198,8 +203,8 @@ async function test_query_promise() {
     }
 
     await getQuery.map((score, index) => score.increment("score", index));
-    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0);
-    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0, { batchSize: 200 });
+    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0);
+    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0, { batchSize: 200 });
     await getQuery.filter((scores) => scores.get('score') > 0);
     await getQuery.filter((scores) => scores.get('score') > 0, { batchSize: 10 });
 }
@@ -277,7 +282,6 @@ function test_file() {
     Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Cloud.HttpResponse) => {
         // result
     });
-
     // TODO: Check
 
     file.cancel();
@@ -842,19 +846,18 @@ async function test_cancel_query() {
     query.cancel();
 }
 
-type FieldType = string | number | boolean | Date | Parse.File | Parse.GeoPoint | any[] | object | Parse.Pointer | Parse.Polygon | Parse.Relation;
 async function test_schema(
-    anyField: FieldType,
-    notString: Exclude<FieldType, string>,
-    notNumber: Exclude<FieldType, number>,
-    notboolean: Exclude<FieldType, boolean>,
-    notDate: Exclude<FieldType, Date>,
-    notFile: Exclude<FieldType, Parse.File>,
-    notGeopoint: Exclude<FieldType, Parse.GeoPoint[]>,
-    notArray: Exclude<FieldType, any[]>,
-    notObject: Exclude<FieldType, object>,
-    notPointer: Exclude<FieldType, Parse.Pointer>,
-    notPolygon: Exclude<FieldType, Parse.Polygon>
+    anyField: Parse.Schema.FieldType,
+    notString: Exclude<Parse.Schema.FieldType, string>,
+    notNumber: Exclude<Parse.Schema.FieldType, number>,
+    notboolean: Exclude<Parse.Schema.FieldType, boolean>,
+    notDate: Exclude<Parse.Schema.FieldType, Date>,
+    notFile: Exclude<Parse.Schema.FieldType, Parse.File>,
+    notGeopoint: Exclude<Parse.Schema.FieldType, Parse.GeoPoint[]>,
+    notArray: Exclude<Parse.Schema.FieldType, any[]>,
+    notObject: Exclude<Parse.Schema.FieldType, object>,
+    notPointer: Exclude<Parse.Schema.FieldType, Parse.Pointer>,
+    notPolygon: Exclude<Parse.Schema.FieldType, Parse.Polygon>
 ) {
     Parse.Schema.all();
 
@@ -938,11 +941,11 @@ async function test_schema(
 
     schema.deleteField('defaultFieldString');
     schema.deleteIndex('testIndex');
-    schema.delete().then(results => {});
-    schema.get().then(results => {});
-    schema.purge().then(results => {});
-    schema.save().then(results => {});
-    schema.update().then(results => {});
+    schema.delete().then(results => { });
+    schema.get().then(results => { });
+    schema.purge().then(results => { });
+    schema.save().then(results => { });
+    schema.update().then(results => { });
 
     function testGenericType() {
         interface iTestAttributes {
@@ -1456,7 +1459,7 @@ function testObject() {
         JSONTyped.someDate;
         // $ExpectType ToJSON<AttributesAllTypes>
         JSONTyped.someJSONObject;
-        // $ExpectType ToJSON<AttributesAllTypes>[]
+        // $ExpectType any[]
         JSONTyped.someJSONArray;
         // $ExpectType string
         JSONTyped.someRegExp;
