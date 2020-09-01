@@ -77,7 +77,7 @@ export class PushNotificationObject {
     userInfo?: any;
     playSound?: boolean;
     soundName?: string;
-    number?: string;
+    number?: number;
     repeatType?: "week" | "day" | "hour" | "minute" | "time";
     repeatTime?: number;
 }
