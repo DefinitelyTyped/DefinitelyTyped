@@ -515,7 +515,7 @@ namespace Parse {
                         : T extends RegExp
                             ? string
                             : T extends Array<infer R>
-                                ? Array<Encode<R>>
+                                ? any[]
                                 : T extends object
                                     ? ToJSON<T>
                                     : T
@@ -874,6 +874,7 @@ namespace Parse {
         getSessionToken(): string;
 
         linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
+        _linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
         _isLinked: (provider: string | AuthProvider) => boolean;
         _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
     }

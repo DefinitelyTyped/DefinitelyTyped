@@ -24,7 +24,7 @@
 //                  Kent Robin Haugen <https://github.com/kentrh>
 //                  Asen Lekov <https://github.com/L3K0V>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// Minimum TypeScript Version: 3.5
 
 /// <reference types="node" />
 /// <reference path="node.d.ts" />
@@ -543,7 +543,7 @@ namespace Parse {
                         : T extends RegExp
                             ? string
                             : T extends Array<infer R>
-                                ? any[]
+                                ? Array<Encode<R>>
                                 : T extends object
                                     ? ToJSON<T>
                                     : T
@@ -902,7 +902,6 @@ namespace Parse {
         getSessionToken(): string;
 
         linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
-        _linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
         _isLinked: (provider: string | AuthProvider) => boolean;
         _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
     }
