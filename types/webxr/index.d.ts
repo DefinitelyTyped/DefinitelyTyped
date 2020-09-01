@@ -38,8 +38,9 @@ export interface XRWebGLLayer {
   getViewport: (view: XRView) => XRViewport;
 }
 
-// ts-ignore no-empty-interface
-export interface XRSpace extends EventTarget { }
+export interface XRSpace extends EventTarget {
+  // This should be empty
+}
 
 export interface XRRenderState {
   readonly baseLayer: XRWebGLLayer;
