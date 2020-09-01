@@ -5923,7 +5923,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web';
+export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web' | 'native';
 
 interface PlatformStatic {
     isTV: boolean;
