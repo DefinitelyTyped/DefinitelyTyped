@@ -1,4 +1,4 @@
-// Type definitions for webxr 0.0.0
+// Type definitions for webxr 0.0
 // Project: https://www.w3.org/TR/webxr/
 // Definitions by: Rob Rohan <https://github.com/robrohan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,6 +16,8 @@ export interface Navigator { xr: XRSystem; }
 export type EventHandler = (event: Event) => any;
 
 export type XRSessionMode = 'immersive-vr' | 'inline' | 'immersive-ar';
+
+export type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
 
 export interface XRSystem {
   isSessionSupported: (sessionMode: XRSessionMode) => Promise<boolean>;
@@ -51,19 +53,19 @@ export interface XRRenderState {
 
 export interface XRReferenceSpace extends XRSpace {
   onreset: EventHandler;
-  // [NewObject] XRReferenceSpace 
-  getOffsetReferenceSpace: (originOffset: XRRigidTransform) => XRReferenceSpace
+  // [NewObject] XRReferenceSpace
+  getOffsetReferenceSpace: (originOffset: XRRigidTransform) => XRReferenceSpace;
 }
 
 export interface XRBoundedReferenceSpace extends XRSpace { }
 
 export interface XRInputSource {
-  // A DOMString indicating the methodology used to 
+  // A DOMString indicating the methodology used to
   // produce the target ray: gaze, tracked-pointer, or screen.
   readonly targetRayMode: 'gaze' | 'tracked-pointer' | 'screen';
-  // tracks the pose which is used to render objects which should 
-  // appear as if they're held in the hand indicated by handedness. 
-  // The orientation of this space indicates the angle at which the hand 
+  // tracks the pose which is used to render objects which should
+  // appear as if they're held in the hand indicated by handedness.
+  // The orientation of this space indicates the angle at which the hand
   // is gripping the object.
   readonly gripSpace: XRSpace;
   readonly targetRaySpace: XRSpace;
@@ -78,8 +80,8 @@ export interface XRPose {
 
 export interface XRFrame {
   readonly session: XRSession;
-  getPose: (space: XRSpace, baseSpace: XRSpace) => XRPose,
-  getViewerPose: (referenceSpace: XRReferenceSpace) => XRViewerPose,
+  getPose: (space: XRSpace, baseSpace: XRSpace) => XRPose;
+  getViewerPose: (referenceSpace: XRReferenceSpace) => XRViewerPose;
 }
 
 export interface XRInputSourceEvent extends Event {
@@ -87,16 +89,16 @@ export interface XRInputSourceEvent extends Event {
   readonly inputSource: XRInputSource;
 }
 
-export type XRInputSourceArray = Array<XRInputSource>;
+export type XRInputSourceArray = XRInputSource[];
 
 export interface XRSession extends EventTarget {
   /**
-   * Returns this session's blend mode which denotes how much of the real-world 
+   * Returns this session's blend mode which denotes how much of the real-world
    * environment is visible through the XR device
    */
   readonly environmentBlendMode: 'opaque' | 'additive' | 'alpha-blend';
   /**
-   * Returns a list of this session's XRInputSources, each representing an input device 
+   * Returns a list of this session's XRInputSources, each representing an input device
    * used to control the camera and/or scene.
    */
   readonly inputSources: XRInputSourceArray;
@@ -105,31 +107,31 @@ export interface XRSession extends EventTarget {
    * This includes things such as the near and far clipping planes
    */
   readonly renderState: XRRenderState;
-  readonly visibilityState: 'hidden' | 'visible' | 'visible-blurred'
+  readonly visibilityState: 'hidden' | 'visible' | 'visible-blurred';
 
   /**
-   * Removes a callback from the animation frame painting callback from 
-   * XRSession's set of animation frame rendering callbacks, given the 
+   * Removes a callback from the animation frame painting callback from
+   * XRSession's set of animation frame rendering callbacks, given the
    * identifying handle returned by a previous call to requestAnimationFrame().
    */
-  cancelAnimationFrame: Function;
+  cancelAnimationFrame: (handle: number) => void;
   /**
-   * Ends the WebXR session. Returns a promise which resolves when the 
+   * Ends the WebXR session. Returns a promise which resolves when the
    * session has been shut down.
    */
   end: Function;
   /**
-   * Schedules the specified method to be called the next time the user agent 
-   * is working on rendering an animation frame for the WebXR device. Returns an 
-   * integer value which can be used to identify the request for the purposes of 
-   * canceling the callback using cancelAnimationFrame(). This method is comparable 
+   * Schedules the specified method to be called the next time the user agent
+   * is working on rendering an animation frame for the WebXR device. Returns an
+   * integer value which can be used to identify the request for the purposes of
+   * canceling the callback using cancelAnimationFrame(). This method is comparable
    * to the Window.requestAnimationFrame() method.
    */
-  requestAnimationFrame: Function;
+  requestAnimationFrame: (callback: XRFrameRequestCallback) => void;
   /**
-   * Requests that a new XRReferenceSpace of the specified type be created. 
-   * Returns a promise which resolves with the XRReferenceSpace or 
-   * XRBoundedReferenceSpace which was requested, or throws a NotSupportedError if 
+   * Requests that a new XRReferenceSpace of the specified type be created.
+   * Returns a promise which resolves with the XRReferenceSpace or
+   * XRBoundedReferenceSpace which was requested, or throws a NotSupportedError if
    * the requested space type isn't supported by the device.
    */
   requestReferenceSpace: (
