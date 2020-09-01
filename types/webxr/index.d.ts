@@ -19,6 +19,10 @@ export type XRSessionMode = 'immersive-vr' | 'inline' | 'immersive-ar';
 
 export type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
 
+export interface XRSessionEvent extends Event {
+  readonly session: XRSession;
+}
+
 export interface XRSystem {
   isSessionSupported: (sessionMode: XRSessionMode) => Promise<boolean>;
   requestSession: (sessionMode: XRSessionMode, sessionInit?: any) => Promise<XRSession>;
@@ -50,6 +54,8 @@ export interface XRRenderState {
   readonly depthNear: number;
   readonly inlineVerticalFieldOfView: number;
 }
+
+export interface XRRenderStateInit extends XRRenderState { }
 
 export interface XRReferenceSpace extends XRSpace {
   onreset: EventHandler;
@@ -119,7 +125,7 @@ export interface XRSession extends EventTarget {
    * Ends the WebXR session. Returns a promise which resolves when the
    * session has been shut down.
    */
-  end: Function;
+  end: (event: XRSessionEvent) => void;
   /**
    * Schedules the specified method to be called the next time the user agent
    * is working on rendering an animation frame for the WebXR device. Returns an
@@ -137,7 +143,8 @@ export interface XRSession extends EventTarget {
   requestReferenceSpace: (
     s: 'bounded-floor' | 'local' | 'local-floor' | 'unbounded' | 'viewer'
   ) => Promise<XRReferenceSpace | XRBoundedReferenceSpace>;
-  updateRenderState: Function;
+
+  updateRenderState: (newState: XRRenderStateInit) => void;
 }
 
 export interface XRViewerPose {
