@@ -1,18 +1,3 @@
-// Type definitions for styled-components 5.1
-// Project: https://github.com/styled-components/styled-components, https://styled-components.com
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-//                 Ihor Chulinda <https://github.com/Igmat>
-//                 Adam Lavin <https://github.com/lavoaster>
-//                 Jessica Franco <https://github.com/Jessidhia>
-//                 Jason Killian <https://github.com/jkillian>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 David Ruisinger <https://github.com/flavordaaave>
-//                 Matthew Wagerfield <https://github.com/wagerfield>
-//                 Yuki Ito <https://github.com/Lazyuki>
-//                 Maciej Goszczycki <https://github.com/mgoszcz2>
-//                 Danilo Fuchs <https://github.com/danilofuchs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // forward declarations
 declare global {
     namespace NodeJS {
@@ -95,11 +80,11 @@ type StyledComponentPropsWithAs<
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> =
     | InterpolationValue
-    | InterpolationFunction<P>
-    | FlattenInterpolation<P>;
-// cannot be made a self-referential interface, breaks WithPropNested
-// see https://github.com/microsoft/TypeScript/issues/34796
-export type FlattenInterpolation<P> = ReadonlyArray<Interpolation<P>>;
+    | FlattenInterpolation<P>
+    | InterpolationFunction<P>;
+// must be an interface to be self-referential
+export interface FlattenInterpolation<P>
+    extends ReadonlyArray<Interpolation<P>> {}
 export type InterpolationValue =
     | string
     | number
@@ -110,7 +95,9 @@ export type InterpolationValue =
 export type SimpleInterpolation =
     | InterpolationValue
     | FlattenSimpleInterpolation;
-export type FlattenSimpleInterpolation = ReadonlyArray<SimpleInterpolation>;
+// must be an interface to be self-referential
+export interface FlattenSimpleInterpolation
+    extends ReadonlyArray<SimpleInterpolation> {}
 
 export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 
@@ -145,7 +132,7 @@ type ForwardRefExoticBase<P> = Pick<
 // Config to be used with withConfig
 export interface StyledConfig<O extends object = {}> {
     // TODO: Add all types from the original StyledComponentWrapperProperties
-    shouldForwardProp?: (prop: keyof O, defaultValidatorFn: ((prop: keyof O) => boolean)) => boolean;
+    shouldForwardProp?: (prop: keyof O, defaultValidatorFn: (prop: keyof O) => boolean) => boolean;
 }
 
 // extracts React defaultProps
@@ -172,12 +159,29 @@ export interface StyledComponentBase<
     A extends keyof any = never
 > extends ForwardRefExoticBase<StyledComponentProps<C, T, O, A>> {
     // add our own fake call signature to implement the polymorphic 'as' prop
+    // NOTE: TS <3.2 will refuse to infer the generic and this component becomes impossible to use in JSX
+    // just the presence of the overload is enough to break JSX
+    //
+    // TODO (TypeScript 3.2): actually makes the 'as' prop polymorphic
+    // (
+    //     props: StyledComponentProps<C, T, O, A> & { as?: never }
+    //   ): React.ReactElement<StyledComponentProps<C, T, O, A>>
+    // <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
+    //   props: StyledComponentPropsWithAs<AsC, T, O, A>
+    // ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>
+
+    // TODO (TypeScript 3.2): delete this overload
     (
-        props: StyledComponentProps<C, T, O, A> & { as?: never, forwardedAs?: never }
-      ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
-    <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
-      props: StyledComponentPropsWithAs<AsC, T, O, A>
-    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>;
+        props: StyledComponentProps<C, T, O, A> & {
+            /**
+             * Typing Note: prefer using .withComponent for now as it is actually type-safe.
+             *
+             * String types need to be cast to themselves to become literal types (as={'a' as 'a'}).
+             */
+            as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+            forwardedAs?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+        }
+    ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC
@@ -445,12 +449,14 @@ export class ServerStyleSheet {
 
 export type StylisPlugin = (
     context: number,
+    content: string,
     selector: string[],
     parent: string[],
-    content: string,
     line: number,
     column: number,
     length: number,
+    at: number,
+    depth: number
 ) => string | void;
 
 export interface StyleSheetManagerProps {
