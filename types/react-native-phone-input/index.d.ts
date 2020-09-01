@@ -94,7 +94,7 @@ export interface ReactNativePhoneInputProps<TextComponentType extends React.Comp
     /**
      * Function to be invoked when phone number is changed
      */
-    onChangePhoneNumber?: (number: number) => void;
+    onChangePhoneNumber?: (number: string) => void;
     /**
      * Function to be invoked when country picker is selected
      */

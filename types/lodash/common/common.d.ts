@@ -254,10 +254,6 @@ declare module "../index" {
     type AnyKindOfDictionary =
         | Dictionary<unknown>
         | NumericDictionary<unknown>;
-    interface Cancelable {
-        cancel(): void;
-        flush(): void;
-    }
     type PartialShallow<T> = {
         [P in keyof T]?: T[P] extends object ? object : T[P]
     };
