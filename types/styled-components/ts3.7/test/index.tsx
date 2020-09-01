@@ -1162,7 +1162,7 @@ function unionTest() {
     };
 
     const StyledReadable = styled(Readable)`
-        font-size: ${props => props.kind === 'book' ? 16 : 14}
+        font-size: ${props => props.kind === 'book' ? 16 : 14};
     `;
 
     // undesired, fix was reverted because of https://github.com/Microsoft/TypeScript/issues/30663
@@ -1186,6 +1186,8 @@ function unionTest2() {
     <C foo={123} bar="foobar" />; // $ExpectError
 }
 
+// Allow merging of props on host components.
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/46850
 function unionTest3() {
     // Can occur when working with styled-system
     // and any html props
@@ -1193,12 +1195,24 @@ function unionTest3() {
         color: number | string | Array<string | number | null> | { [x: string]: string | number; [x: number]: string | number; } | null;
     }
 
-    const C = styled.p<Props>``;
+    const C1 = styled.p<Props>``;
 
-    <C color="test" />;
-    <C color={2} />;
-    <C color={["test", null, 2]} />;
-    <C color={null} />;
-    <C color={{ foo: "bar" }} />;
-    <C color={{ 1: "foo" }} />;
+    <C1 color="test" />;
+    <C1 color={2} />;
+    <C1 color={["test", null, 2]} />;
+    <C1 color={null} />;
+    <C1 color={{ foo: "bar" }} />;
+    <C1 color={{ 1: "foo" }} />;
+
+    const C2 = ({ color }: { color: string }) => {
+        return <React.Fragment>{color.endsWith('green')}</React.Fragment>;
+    };
+
+    const S = styled(C2)<{ color: number }>``;
+
+    <C2 color="green" />;
+    <C2 color={123} />; // $ExpectError
+
+    // This would cause a runtime error.
+    <S color={123} />; // $ExpectError
 }
