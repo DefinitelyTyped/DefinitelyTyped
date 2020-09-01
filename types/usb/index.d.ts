@@ -514,7 +514,7 @@ export class Transfer {
   /**
    * (Re-)submit the transfer.
    *
-   * @param buf Buffer where data will be written (for IN transfers) or read from (for OUT transfers).
+   * @param buffer Buffer where data will be written (for IN transfers) or read from (for OUT transfers).
    */
   submit(buffer: Buffer): Transfer;
 
