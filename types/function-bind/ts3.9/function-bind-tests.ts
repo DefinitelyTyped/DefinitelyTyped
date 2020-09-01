@@ -1,4 +1,4 @@
-import bind = require('function-bind/ts3.3');
+import bind = require('function-bind/ts3.9');
 
 declare const string: string;
 declare const number: number;
