@@ -1,8 +1,8 @@
 // Type definitions for webxr 0.0
-// Minimum TypeScript Version: 3.6
 // Project: https://www.w3.org/TR/webxr/
 // Definitions by: Rob Rohan <https://github.com/robrohan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.6
 //
 // Most of this was hand written and... more or less copied from the following
 // sites:
