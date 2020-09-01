@@ -3,7 +3,6 @@
 // Definitions by: Kenneth Rohde Christiansen <https://github.com/kenchris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type OrientationType = "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
 type ScreenOrientationLockType = "any" | "natural" | "landscape" | "portrait" | "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
 
 interface ScreenOrientation extends EventTarget {
