@@ -34,7 +34,6 @@ declare function bind<T, A0, A1, A2, A3, A extends any[], R>(
 ): (...args: A) => R;
 declare function bind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): (...args: AX[]) => R;
 
-declare function bind<T>(this: T, thisArg: any): T;
 declare function bind<A0, A extends any[], R>(
     this: new (arg0: A0, ...args: A) => R,
     thisArg: any,

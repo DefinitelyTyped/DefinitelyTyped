@@ -52,11 +52,12 @@ import { AsyncResource, createHook, triggerAsyncId, executionAsyncId, executionA
 {
     const ctx = new AsyncLocalStorage<string>();
     ctx.disable();
-    ctx.exit((a: number) => {
-        // noop?
+    const exitResult: number = ctx.exit((a: number) => {
+        return 42;
     }, 1);
-    ctx.run('test', (a: number) => {
+    const runResult: number = ctx.run('test', (a: number) => {
         const store: string | undefined = ctx.getStore();
+        return 42;
     }, 1);
     ctx.enterWith('test');
 }
