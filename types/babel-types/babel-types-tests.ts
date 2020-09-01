@@ -1,4 +1,4 @@
-import '../babel-types-tests';
+import './ts3.6/babel-types-tests';
 import * as t from 'babel-types';
 
 function testArrayExpression(node: t.Node) {
