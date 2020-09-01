@@ -37,7 +37,21 @@ export interface XRViewport {
     readonly y: number;
 }
 
-export interface XRWebGLLayer {
+export interface XRWebGLLayerInit {
+    alpha: boolean;
+    antialias: boolean;
+    depth: boolean;
+    framebufferScaleFactor: number;
+    ignoreDepthValues: boolean;
+    stencil: boolean;
+}
+
+export class XRWebGLLayer {
+    constructor(
+        session: XRSession,
+        context: WebGLRenderingContext | WebGL2RenderingContext,
+        layerInit?: XRWebGLLayerInit,
+    );
     readonly antialias: boolean;
     readonly framebuffer: WebGLFramebuffer;
     readonly frameBufferWidth: number;
@@ -47,7 +61,7 @@ export interface XRWebGLLayer {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface XRSpace extends EventTarget { }
+export interface XRSpace extends EventTarget {}
 
 export interface XRRenderState {
     readonly baseLayer: XRWebGLLayer;
@@ -56,8 +70,12 @@ export interface XRRenderState {
     readonly inlineVerticalFieldOfView: number;
 }
 
-// tslint:disable-next-line no-empty-interface
-export interface XRRenderStateInit extends XRRenderState { }
+export interface XRRenderStateInit extends XRRenderState {
+    baseLayer: XRWebGLLayer;
+    depthFar: number;
+    depthNear: number;
+    inlineVerticalFieldOfView: number;
+}
 
 export interface XRReferenceSpace extends XRSpace {
     onreset: EventHandler;
@@ -66,7 +84,7 @@ export interface XRReferenceSpace extends XRSpace {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface XRBoundedReferenceSpace extends XRSpace { }
+export interface XRBoundedReferenceSpace extends XRSpace {}
 
 export interface XRInputSource {
     // A DOMString indicating the methodology used to
@@ -136,7 +154,7 @@ export interface XRSession extends EventTarget {
      * canceling the callback using cancelAnimationFrame(). This method is comparable
      * to the Window.requestAnimationFrame() method.
      */
-    requestAnimationFrame: (callback: XRFrameRequestCallback) => void;
+    requestAnimationFrame: (callback: XRFrameRequestCallback) => number;
     /**
      * Requests that a new XRReferenceSpace of the specified type be created.
      * Returns a promise which resolves with the XRReferenceSpace or
