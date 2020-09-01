@@ -1,18 +1,19 @@
-// Type definitions for webxr
-// Project: https://github.com/immersive-web/webxr
+// Type definitions for webxr 0.1
+// Project: https://www.w3.org/TR/webxr/
 // Definitions by: Rob Rohan <https://github.com/robrohan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Most of this was hand written and... more or less copied from the following
-// sites: 
+// sites:
+//  https://www.w3.org/TR/webxr/
 //  https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API
 //  https://www.w3.org/immersive-web/
 //  https://github.com/immersive-web
 //
 
-declare interface Navigator { xr: XRSystem }
+export interface Navigator { xr: XRSystem }
 
-type EventHandler = (event: Event) => any;
+export type EventHandler = (event: Event) => any;
 
 export type XRSessionMode = 'immersive-vr' | 'inline' | 'immersive-ar';
 
