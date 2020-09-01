@@ -1,4 +1,4 @@
-import bind = require('function-bind/ts3.3');
+import bind = require('function-bind/ts3.2');
 
 declare const string: string;
 declare const number: number;
@@ -24,10 +24,10 @@ expectType<(end?: number) => any[]>(bind.call(Function.call, Array.prototype.sli
 slice(['a']);
 
 // $ExpectType (...args: string[]) => boolean
-bind.call(Boolean, null, String(), '2', '3', '4', '5');
+expectType<(...args: string[]) => boolean>(bind.call(Boolean, null, String(), '2', '3', '4', '5'));
 
 // $ExpectType (...args: string[]) => boolean
-bind.apply(Boolean, [null, '1', '2', '3', '4', '5']);
+expectType<(...args: string[]) => boolean>(bind.apply(Boolean, [null, '1', '2', '3', '4', '5']));
 
 // Class compatibility:
 class Foo {
@@ -39,7 +39,7 @@ class Foo {
 // $ExpectType new (string: string, number: number) => Foo
 bind.call(Foo, null);
 
-// $ExpectType typeof Foo
+// $ExpectType new (string: string, number: number) => Foo
 Foo.bind(null);
 
 // $ExpectType new (number: number) => Foo
