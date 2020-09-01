@@ -20,7 +20,7 @@ declare namespace _ {
         (func: lodash.__, n: number): LodashAfter1x2;
         <TFunc extends (...args: any[]) => any>(func: TFunc, n: number): TFunc;
     }
-    type LodashAfter1x1<TFunc> = (n: number) => TFunc;
+    type LodashAfter1x1<TFunc extends (...args: any[]) => any> = (n: number) => TFunc;
     type LodashAfter1x2 = <TFunc extends (...args: any[]) => any>(func: TFunc) => TFunc;
     interface LodashEvery {
         <T>(predicate: lodash.ValueIterateeCustom<T, boolean>): LodashEvery1x1<T>;
@@ -214,7 +214,7 @@ declare namespace _ {
         (func: lodash.__, n: number): LodashBefore1x2;
         <TFunc extends (...args: any[]) => any>(func: TFunc, n: number): TFunc;
     }
-    type LodashBefore1x1<TFunc> = (n: number) => TFunc;
+    type LodashBefore1x1<TFunc extends (...args: any[]) => any> = (n: number) => TFunc;
     type LodashBefore1x2 = <TFunc extends (...args: any[]) => any>(func: TFunc) => TFunc;
     interface LodashBind {
         (func: (...args: any[]) => any): LodashBind1x1;
@@ -424,10 +424,10 @@ declare namespace _ {
     interface LodashDebounce {
         (wait: number): LodashDebounce1x1;
         <T extends (...args: any) => any>(wait: lodash.__, func: T): LodashDebounce1x2<T>;
-        <T extends (...args: any) => any>(wait: number, func: T): T & lodash.Cancelable;
+        <T extends (...args: any) => any>(wait: number, func: T): lodash.DebouncedFunc<T>;
     }
-    type LodashDebounce1x1 = <T extends (...args: any) => any>(func: T) => T & lodash.Cancelable;
-    type LodashDebounce1x2<T> = (wait: number) => T & lodash.Cancelable;
+    type LodashDebounce1x1 = <T extends (...args: any) => any>(func: T) => lodash.DebouncedFunc<T>;
+    type LodashDebounce1x2<T extends (...args: any) => any> = (wait: number) => lodash.DebouncedFunc<T>;
     type LodashDeburr = (string: string) => string;
     interface LodashDefaults {
         <TSource>(source: TSource): LodashDefaults1x1<TSource>;
@@ -1739,12 +1739,12 @@ declare namespace _ {
     type LodashInRange1x5 = (end: number) => boolean;
     type LodashInRange1x6 = (start: number) => boolean;
     interface LodashIntersection {
-        <T>(arrays2: lodash.List<T>): LodashIntersection1x1<T>;
-        <T>(arrays2: lodash.__, arrays: lodash.List<T>): LodashIntersection1x2<T>;
-        <T>(arrays2: lodash.List<T>, arrays: lodash.List<T>): T[];
+        <T>(arrays2: lodash.List<T> | null | undefined): LodashIntersection1x1<T>;
+        <T>(arrays2: lodash.__, arrays: lodash.List<T> | null | undefined): LodashIntersection1x2<T>;
+        <T>(arrays2: lodash.List<T> | null | undefined, arrays: lodash.List<T> | null | undefined): T[];
     }
-    type LodashIntersection1x1<T> = (arrays: lodash.List<T>) => T[];
-    type LodashIntersection1x2<T> = (arrays2: lodash.List<T>) => T[];
+    type LodashIntersection1x1<T> = (arrays: lodash.List<T> | null | undefined) => T[];
+    type LodashIntersection1x2<T> = (arrays2: lodash.List<T> | null | undefined) => T[];
     interface LodashIntersectionBy {
         <T1, T2>(iteratee: lodash.ValueIteratee<T1 | T2>): LodashIntersectionBy1x1<T1, T2>;
         <T1>(iteratee: lodash.__, array: lodash.List<T1> | null): LodashIntersectionBy1x2<T1>;
@@ -4161,10 +4161,10 @@ declare namespace _ {
     interface LodashThrottle {
         (wait: number): LodashThrottle1x1;
         <T extends (...args: any) => any>(wait: lodash.__, func: T): LodashThrottle1x2<T>;
-        <T extends (...args: any) => any>(wait: number, func: T): T & lodash.Cancelable;
+        <T extends (...args: any) => any>(wait: number, func: T): lodash.DebouncedFunc<T>;
     }
-    type LodashThrottle1x1 = <T extends (...args: any) => any>(func: T) => T & lodash.Cancelable;
-    type LodashThrottle1x2<T> = (wait: number) => T & lodash.Cancelable;
+    type LodashThrottle1x1 = <T extends (...args: any) => any>(func: T) => lodash.DebouncedFunc<T>;
+    type LodashThrottle1x2<T extends (...args: any) => any> = (wait: number) => lodash.DebouncedFunc<T>;
     interface LodashThru {
         <T, TResult>(interceptor: (value: T) => TResult): LodashThru1x1<T, TResult>;
         <T>(interceptor: lodash.__, value: T): LodashThru1x2<T>;

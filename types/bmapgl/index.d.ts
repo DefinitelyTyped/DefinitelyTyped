@@ -38,3 +38,5 @@ SOFTWARE.
 /// <reference path="./bmapgl.rightmenu.d.ts" />
 /// <reference path="./bmapgl.service.d.ts" />
 /// <reference path="./bmapgl.tools.d.ts" />
+/// <reference path="./bmapgl.bmapgllib.d.ts" />
+/// <reference path="./bmapgl.mapvgl.d.ts" />

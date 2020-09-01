@@ -2942,7 +2942,17 @@ export interface DatePickerIOSProps extends ViewProps {
     /**
      * The currently selected date.
      */
-    date: Date;
+    date?: Date | null;
+
+    /**
+     * Provides an initial value that will change when the user starts selecting
+     * a date. It is useful for simple use-cases where you do not want to deal
+     * with listening to events and updating the date prop to keep the
+     * controlled state in sync. The controlled state has known bugs which
+     * causes it to go out of sync with native. The initialDate prop is intended
+     * to allow you to have native be source of truth.
+     */
+    initialDate?: Date | null;
 
     /**
      * The date picker locale.
@@ -3034,9 +3044,10 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
 
     /**
      * Specifies the side of the screen from which the drawer will slide in.
-     * enum(DrawerLayoutAndroid.positions.Left, DrawerLayoutAndroid.positions.Right)
+     * - 'left' (the default)
+     * - 'right'
      */
-    drawerPosition?: number;
+    drawerPosition?: 'left' | 'right';
 
     /**
      * Specifies the width of the drawer, more precisely the width of the
@@ -5912,7 +5923,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web';
+export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web' | 'native';
 
 interface PlatformStatic {
     isTV: boolean;
