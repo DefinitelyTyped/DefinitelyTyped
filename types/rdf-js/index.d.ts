@@ -1,4 +1,4 @@
-// Type definitions for the RDFJS specification 3.0
+// Type definitions for the RDFJS specification 4.0
 // Project: https://github.com/rdfjs/representation-task-force
 // Definitions by: Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
@@ -15,14 +15,15 @@ import { EventEmitter } from "events";
 /* https://rdf.js.org/data-model-spec/ */
 
 /**
- * Contains an Iri, RDF blank Node, RDF literal, variable name, or a default graph
+ * Contains an Iri, RDF blank Node, RDF literal, variable name, default graph, or a quad
  * @see NamedNode
  * @see BlankNode
  * @see Literal
  * @see Variable
  * @see DefaultGraph
+ * @see Quad
  */
-export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
+export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph | BaseQuad;
 
 /**
  * Contains an IRI.
@@ -145,7 +146,7 @@ export interface DefaultGraph {
  * @see BlankNode
  * @see Variable
  */
-export type Quad_Subject = NamedNode | BlankNode | Variable;
+export type Quad_Subject = NamedNode | BlankNode | Quad | Variable;
 
 /**
  * The predicate, which is a NamedNode or Variable.
@@ -161,7 +162,7 @@ export type Quad_Predicate = NamedNode | Variable;
  * @see BlankNode
  * @see Variable
  */
-export type Quad_Object = NamedNode | Literal | BlankNode | Variable;
+export type Quad_Object = NamedNode | Literal | BlankNode | Quad | Variable;
 
 /**
  * The named graph, which is a DefaultGraph, NamedNode, BlankNode or Variable.
@@ -176,6 +177,15 @@ export type Quad_Graph = DefaultGraph | NamedNode | BlankNode | Variable;
  * An RDF quad, taking any Term in its positions, containing the subject, predicate, object and graph terms.
  */
 export interface BaseQuad {
+  /**
+   * Contains the constant "Quad".
+   */
+  termType: "Quad";
+  /**
+   * Contains an empty string as constant value.
+   */
+  value: "";
+
   /**
    * The subject.
    * @see Quad_Subject
@@ -201,7 +211,7 @@ export interface BaseQuad {
    * @param other The term to compare with.
    * @return True if and only if the argument is a) of the same type b) has all components equal.
    */
-  equals(other: BaseQuad | null | undefined): boolean;
+  equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -233,7 +243,7 @@ export interface Quad extends BaseQuad {
      * @param other The term to compare with.
      * @return True if and only if the argument is a) of the same type b) has all components equal.
      */
-    equals(other: BaseQuad | null | undefined): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -245,10 +255,7 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * @return A new instance of NamedNode.
      * @see NamedNode
      */
-    // TODO: This could be changed into a Generic method that returns a NamedNode constained to the
-    //       given `value` - but note that that would be a breaking change. See commit
-    //       16d29e86cd6fe34e6ac6f53bba6ba1a1988d7401.
-    namedNode(value: string): NamedNode;
+    namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri>;
 
     /**
      * @param value The optional blank node identifier.

@@ -55,6 +55,7 @@ gapi.load('client', () => {
             driveId: "Test string",
             includeCorpusRemovals: true,
             includeItemsFromAllDrives: true,
+            includePermissionsForView: "Test string",
             includeRemoved: true,
             includeTeamDriveItems: true,
             pageSize: 42,
@@ -70,6 +71,7 @@ gapi.load('client', () => {
             driveId: "Test string",
             includeCorpusRemovals: true,
             includeItemsFromAllDrives: true,
+            includePermissionsForView: "Test string",
             includeRemoved: true,
             includeTeamDriveItems: true,
             pageSize: 42,
@@ -331,11 +333,12 @@ gapi.load('client', () => {
             },
             themeId: "Test string",
         });
-        /** Creates a copy of a file and applies any requested updates with patch semantics. */
+        /** Creates a copy of a file and applies any requested updates with patch semantics. Folders cannot be copied. */
         await gapi.client.drive.files.copy({
             enforceSingleParent: true,
             fileId: "Test string",
             ignoreDefaultVisibility: true,
+            includePermissionsForView: "Test string",
             keepRevisionForever: true,
             ocrLanguage: "Test string",
             supportsAllDrives: true,
@@ -345,6 +348,7 @@ gapi.load('client', () => {
                 A: "Test string"            },
             capabilities: {
                 canAddChildren: true,
+                canAddFolderFromAnotherDrive: true,
                 canAddMyDriveParent: true,
                 canChangeCopyRequiresWriterPermission: true,
                 canChangeViewersCanCopyContent: true,
@@ -356,6 +360,7 @@ gapi.load('client', () => {
                 canEdit: true,
                 canListChildren: true,
                 canModifyContent: true,
+                canModifyContentRestriction: true,
                 canMoveChildrenOutOfDrive: true,
                 canMoveChildrenOutOfTeamDrive: true,
                 canMoveChildrenWithinDrive: true,
@@ -384,6 +389,21 @@ gapi.load('client', () => {
                     mimeType: "Test string",
                 },
             },
+            contentRestrictions: [
+                {
+                    readOnly: true,
+                    reason: "Test string",
+                    restrictingUser: {
+                        displayName: "Test string",
+                        emailAddress: "Test string",
+                        kind: "Test string",
+                        me: true,
+                        permissionId: "Test string",
+                        photoLink: "Test string",
+                    },
+                    restrictionTime: "Test string",
+                    type: "Test string",
+                }            ],
             copyRequiresWriterPermission: true,
             createdTime: "Test string",
             description: "Test string",
@@ -484,6 +504,7 @@ gapi.load('client', () => {
                             teamDrivePermissionType: "Test string",
                         }                    ],
                     type: "Test string",
+                    view: "Test string",
                 }            ],
             properties: {
                 A: "Test string"            },
@@ -536,6 +557,7 @@ gapi.load('client', () => {
         await gapi.client.drive.files.create({
             enforceSingleParent: true,
             ignoreDefaultVisibility: true,
+            includePermissionsForView: "Test string",
             keepRevisionForever: true,
             ocrLanguage: "Test string",
             supportsAllDrives: true,
@@ -546,6 +568,7 @@ gapi.load('client', () => {
                 A: "Test string"            },
             capabilities: {
                 canAddChildren: true,
+                canAddFolderFromAnotherDrive: true,
                 canAddMyDriveParent: true,
                 canChangeCopyRequiresWriterPermission: true,
                 canChangeViewersCanCopyContent: true,
@@ -557,6 +580,7 @@ gapi.load('client', () => {
                 canEdit: true,
                 canListChildren: true,
                 canModifyContent: true,
+                canModifyContentRestriction: true,
                 canMoveChildrenOutOfDrive: true,
                 canMoveChildrenOutOfTeamDrive: true,
                 canMoveChildrenWithinDrive: true,
@@ -585,6 +609,21 @@ gapi.load('client', () => {
                     mimeType: "Test string",
                 },
             },
+            contentRestrictions: [
+                {
+                    readOnly: true,
+                    reason: "Test string",
+                    restrictingUser: {
+                        displayName: "Test string",
+                        emailAddress: "Test string",
+                        kind: "Test string",
+                        me: true,
+                        permissionId: "Test string",
+                        photoLink: "Test string",
+                    },
+                    restrictionTime: "Test string",
+                    type: "Test string",
+                }            ],
             copyRequiresWriterPermission: true,
             createdTime: "Test string",
             description: "Test string",
@@ -685,6 +724,7 @@ gapi.load('client', () => {
                             teamDrivePermissionType: "Test string",
                         }                    ],
                     type: "Test string",
+                    view: "Test string",
                 }            ],
             properties: {
                 A: "Test string"            },
@@ -734,16 +774,19 @@ gapi.load('client', () => {
             writersCanShare: true,
         });
         /**
-         * Permanently deletes a file owned by the user without moving it to the trash. If the file belongs to a shared drive the user must be an organizer on the
-         * parent. If the target is a folder, all descendants owned by the user are also deleted.
+         * Permanently deletes a file owned by the user without moving it to the trash. If the file belongs to a shared drive the user must be an organizer on the parent. If the target is a
+         * folder, all descendants owned by the user are also deleted.
          */
         await gapi.client.drive.files.delete({
+            enforceSingleParent: true,
             fileId: "Test string",
             supportsAllDrives: true,
             supportsTeamDrives: true,
         });
         /** Permanently deletes all of the user's trashed files. */
-        await gapi.client.drive.files.emptyTrash();
+        await gapi.client.drive.files.emptyTrash({
+            enforceSingleParent: true,
+        });
         /** Exports a Google Doc to the requested MIME type and returns the exported content. Please note that the exported content is limited to 10MB. */
         await gapi.client.drive.files.export({
             fileId: "Test string",
@@ -758,6 +801,7 @@ gapi.load('client', () => {
         await gapi.client.drive.files.get({
             acknowledgeAbuse: true,
             fileId: "Test string",
+            includePermissionsForView: "Test string",
             supportsAllDrives: true,
             supportsTeamDrives: true,
         });
@@ -767,6 +811,7 @@ gapi.load('client', () => {
             corpus: "Test string",
             driveId: "Test string",
             includeItemsFromAllDrives: true,
+            includePermissionsForView: "Test string",
             includeTeamDriveItems: true,
             orderBy: "Test string",
             pageSize: 42,
@@ -777,11 +822,12 @@ gapi.load('client', () => {
             supportsTeamDrives: true,
             teamDriveId: "Test string",
         });
-        /** Updates a file's metadata and/or content with patch semantics. */
+        /** Updates a file's metadata and/or content. This method supports patch semantics. */
         await gapi.client.drive.files.update({
             addParents: "Test string",
             enforceSingleParent: true,
             fileId: "Test string",
+            includePermissionsForView: "Test string",
             keepRevisionForever: true,
             ocrLanguage: "Test string",
             removeParents: "Test string",
@@ -793,6 +839,7 @@ gapi.load('client', () => {
                 A: "Test string"            },
             capabilities: {
                 canAddChildren: true,
+                canAddFolderFromAnotherDrive: true,
                 canAddMyDriveParent: true,
                 canChangeCopyRequiresWriterPermission: true,
                 canChangeViewersCanCopyContent: true,
@@ -804,6 +851,7 @@ gapi.load('client', () => {
                 canEdit: true,
                 canListChildren: true,
                 canModifyContent: true,
+                canModifyContentRestriction: true,
                 canMoveChildrenOutOfDrive: true,
                 canMoveChildrenOutOfTeamDrive: true,
                 canMoveChildrenWithinDrive: true,
@@ -832,6 +880,21 @@ gapi.load('client', () => {
                     mimeType: "Test string",
                 },
             },
+            contentRestrictions: [
+                {
+                    readOnly: true,
+                    reason: "Test string",
+                    restrictingUser: {
+                        displayName: "Test string",
+                        emailAddress: "Test string",
+                        kind: "Test string",
+                        me: true,
+                        permissionId: "Test string",
+                        photoLink: "Test string",
+                    },
+                    restrictionTime: "Test string",
+                    type: "Test string",
+                }            ],
             copyRequiresWriterPermission: true,
             createdTime: "Test string",
             description: "Test string",
@@ -932,6 +995,7 @@ gapi.load('client', () => {
                             teamDrivePermissionType: "Test string",
                         }                    ],
                     type: "Test string",
+                    view: "Test string",
                 }            ],
             properties: {
                 A: "Test string"            },
@@ -984,6 +1048,7 @@ gapi.load('client', () => {
         await gapi.client.drive.files.watch({
             acknowledgeAbuse: true,
             fileId: "Test string",
+            includePermissionsForView: "Test string",
             supportsAllDrives: true,
             supportsTeamDrives: true,
         }, {
@@ -1036,6 +1101,7 @@ gapi.load('client', () => {
                     teamDrivePermissionType: "Test string",
                 }            ],
             type: "Test string",
+            view: "Test string",
         });
         /** Deletes a permission. */
         await gapi.client.drive.permissions.delete({
@@ -1056,6 +1122,7 @@ gapi.load('client', () => {
         /** Lists a file's or shared drive's permissions. */
         await gapi.client.drive.permissions.list({
             fileId: "Test string",
+            includePermissionsForView: "Test string",
             pageSize: 42,
             pageToken: "Test string",
             supportsAllDrives: true,
@@ -1097,6 +1164,7 @@ gapi.load('client', () => {
                     teamDrivePermissionType: "Test string",
                 }            ],
             type: "Test string",
+            view: "Test string",
         });
         /** Creates a new reply to a comment. */
         await gapi.client.drive.replies.create({
@@ -1165,8 +1233,8 @@ gapi.load('client', () => {
             modifiedTime: "Test string",
         });
         /**
-         * Permanently deletes a file version. You can only delete revisions for files with binary content in Google Drive, like images or videos. Revisions for
-         * other files, like Google Docs or Sheets, and the last remaining file version can't be deleted.
+         * Permanently deletes a file version. You can only delete revisions for files with binary content in Google Drive, like images or videos. Revisions for other files, like Google Docs or
+         * Sheets, and the last remaining file version can't be deleted.
          */
         await gapi.client.drive.revisions.delete({
             fileId: "Test string",
@@ -1208,6 +1276,7 @@ gapi.load('client', () => {
             originalFilename: "Test string",
             publishAuto: true,
             published: true,
+            publishedLink: "Test string",
             publishedOutsideDomain: true,
             size: "Test string",
         });
