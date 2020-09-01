@@ -1,4 +1,4 @@
-// Type definitions for express-actuator 1.6.1
+// Type definitions for express-actuator 1.6
 // Project: https://www.npmjs.org/package/express-actuator
 // Definitions by:  Eduardo Silva <https://github.com/etruta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
