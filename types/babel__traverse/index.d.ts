@@ -15,25 +15,48 @@ export import Node = t.Node;
 
 declare const traverse: {
     <S>(
-        parent: Node | Node[],
+        parent: Node | Node[] | null | undefined,
         opts: TraverseOptions<S>,
         scope: Scope | undefined,
         state: S,
         parentPath?: NodePath,
     ): void;
     (
-        //
-        parent: Node | Node[],
-        opts: TraverseOptions,
+        parent: Node | Node[] | null | undefined,
+        opts?: TraverseOptions,
         scope?: Scope,
         state?: any,
         parentPath?: NodePath,
     ): void;
 
-    visitors: {
-        merge: (visitors: Visitor[]) => Visitor;
-    };
+    visitors: typeof visitors;
+    verify: typeof visitors.verify;
+    explode: typeof visitors.explode;
 };
+
+export namespace visitors {
+    /**
+     * `explode()` will take a `Visitor` object with all of the various shorthands
+     * that we support, and validates & normalizes it into a common format, ready
+     * to be used in traversal.
+     *
+     * The various shorthands are:
+     * - `Identifier() { ... }` -> `Identifier: { enter() { ... } }`
+     * - `"Identifier|NumericLiteral": { ... }` -> `Identifier: { ... }, NumericLiteral: { ... }`
+     * - Aliases in `@babel/types`: e.g. `Property: { ... }` -> `ObjectProperty: { ... }, ClassProperty: { ... }`
+     *
+     * Other normalizations are:
+     * - Visitors of virtual types are wrapped, so that they are only visited when their dynamic check passes
+     * - `enter` and `exit` functions are wrapped in arrays, to ease merging of visitors
+     */
+    function explode<S = {}>(
+        visitor: Visitor<S>,
+    ): {
+        [Type in Node['type']]?: VisitNodeObject<S, Extract<Node, { type: Type }>>;
+    };
+    function verify(visitor: Visitor): void;
+    function merge<S = {}>(visitors: Array<Visitor<S>>, states?: S[]): Visitor<unknown>;
+}
 
 export default traverse;
 

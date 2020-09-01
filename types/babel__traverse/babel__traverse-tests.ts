@@ -1,4 +1,4 @@
-import traverse, { Visitor, NodePath, Hub } from '@babel/traverse';
+import traverse, { Hub, NodePath, Visitor, visitors } from '@babel/traverse';
 import * as t from '@babel/types';
 
 // Examples from: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
@@ -300,8 +300,10 @@ hub.getCode();
 
 declare const astExpression: t.Expression;
 
-// $ExpectType Visitor<{}>
-traverse.visitors.merge([
+traverse.visitors; // $ExpectType typeof visitors
+
+// $ExpectType Visitor<unknown>
+visitors.merge([
     {
         Expression(path) {
             let actualType = path.type;
