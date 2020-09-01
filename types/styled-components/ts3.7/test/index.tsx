@@ -1188,7 +1188,7 @@ function unionTest2() {
 
 function unionTest3() {
     // Can occur when working with styled-system
-    // and the `color` prop.
+    // and any html props
     interface Props {
         color: number | string | Array<string | number | null> | { [x: string]: string | number; [x: number]: string | number; } | null;
     }
