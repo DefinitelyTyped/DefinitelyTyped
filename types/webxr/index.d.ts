@@ -65,6 +65,7 @@ export interface XRReferenceSpace extends XRSpace {
     getOffsetReferenceSpace: (originOffset: XRRigidTransform) => XRReferenceSpace;
 }
 
+// tslint:disable-next-line no-empty-interface
 export interface XRBoundedReferenceSpace extends XRSpace { }
 
 export interface XRInputSource {
