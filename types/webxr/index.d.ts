@@ -1,4 +1,4 @@
-// Type definitions for webxr 0.1
+// Type definitions for webxr 0.0.0
 // Project: https://www.w3.org/TR/webxr/
 // Definitions by: Rob Rohan <https://github.com/robrohan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,15 +11,15 @@
 //  https://github.com/immersive-web
 //
 
-export interface Navigator { xr: XRSystem }
+export interface Navigator { xr: XRSystem; }
 
 export type EventHandler = (event: Event) => any;
 
 export type XRSessionMode = 'immersive-vr' | 'inline' | 'immersive-ar';
 
 export interface XRSystem {
-  isSessionSupported: (sessionMode: XRSessionMode) => Promise<boolean>,
-  requestSession: (sessionMode: XRSessionMode, sessionInit?: any) => Promise<XRSession>,
+  isSessionSupported: (sessionMode: XRSessionMode) => Promise<boolean>;
+  requestSession: (sessionMode: XRSessionMode, sessionInit?: any) => Promise<XRSession>;
 }
 
 export interface XRViewport {
@@ -38,6 +38,7 @@ export interface XRWebGLLayer {
   getViewport: (view: XRView) => XRViewport;
 }
 
+// ts-ignore no-empty-interface
 export interface XRSpace extends EventTarget { }
 
 export interface XRRenderState {
