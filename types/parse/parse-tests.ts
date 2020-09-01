@@ -160,11 +160,6 @@ function test_query() {
             objectId: '$name',
         },
     });
-    query.aggregate({
-        sample: {
-            size: 1
-        },
-    });
 
     // Find objects with distinct key
     query.distinct('name');
@@ -203,8 +198,8 @@ async function test_query_promise() {
     }
 
     await getQuery.map((score, index) => score.increment("score", index));
-    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0);
-    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0, { batchSize: 200 });
+    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0);
+    await getQuery.reduce((accum, score, index) => accum += score.get("score"), 0, { batchSize: 200 });
     await getQuery.filter((scores) => scores.get('score') > 0);
     await getQuery.filter((scores) => scores.get('score') > 0, { batchSize: 10 });
 }
@@ -282,6 +277,7 @@ function test_file() {
     Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Cloud.HttpResponse) => {
         // result
     });
+
     // TODO: Check
 
     file.cancel();
@@ -1460,7 +1456,7 @@ function testObject() {
         JSONTyped.someDate;
         // $ExpectType ToJSON<AttributesAllTypes>
         JSONTyped.someJSONObject;
-        // $ExpectType any[]
+        // $ExpectType ToJSON<AttributesAllTypes>[]
         JSONTyped.someJSONArray;
         // $ExpectType string
         JSONTyped.someRegExp;
