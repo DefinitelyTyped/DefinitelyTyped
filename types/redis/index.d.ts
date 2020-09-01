@@ -90,8 +90,8 @@ export interface ClientOpts {
      */
     socket_keepalive?: boolean;
     /**
-     * Initial Delay in milliseconds,
-     * and this will also behave the interval keep alive message sending to Redis.
+     * Initial Delay in milliseconds.
+     * This will also set the initial delay for keep-alive packets being sent to Redis.
      * @default 0
      */
     socket_initial_delay?: number;
@@ -180,7 +180,7 @@ export interface ClientOpts {
      * A function that receives an options object as parameter including the retry `attempt`,
      * the `total_retry_time` indicating how much time passed since the last time connected,
      * the **error** why the connection was lost and the number of `times_connected` in total.
-     * If you return a number from this function, the retry will happen exactly after that time in milliseconds.
+     * If you return a number from this function, the retry will happen after that time in milliseconds.
      * If you return a non-number, no further retry will happen
      * and all offline commands are flushed with errors.
      * Return an error to return that specific error to all offline commands.
