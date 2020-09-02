@@ -543,21 +543,21 @@ declare module "crypto" {
 
     interface ED25519KeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
         publicKeyEncoding: {
-            type: 'pkcs1' | 'spki';
+            type: 'spki';
             format: PubF;
         };
         privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: 'sec1' | 'pkcs8';
+            type: 'pkcs8';
         };
     }
 
     interface X25519KeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
         publicKeyEncoding: {
-            type: 'pkcs1' | 'spki';
+            type: 'spki';
             format: PubF;
         };
         privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: 'sec1' | 'pkcs8';
+            type: 'pkcs8';
         };
     }
 
