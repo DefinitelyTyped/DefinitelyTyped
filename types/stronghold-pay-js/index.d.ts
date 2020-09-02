@@ -11,6 +11,9 @@ export = Stronghold;
 
 declare global {
     namespace Stronghold {
+        /**
+         * Different Stronghold Pay environments
+         */
         export enum ENVIRONMENT {
             sandbox = "sandbox",
             live = "live"
@@ -65,8 +68,8 @@ declare global {
         }
         export interface ClientOptions {
             environment: ENVIRONMENT;
-            host?: string;
             publishableKey: string;
+            host?: string;
         }
         export type AddPaymentSourceOnSuccess = (paymentSource: PaymentSource) => void;
         export type UpdatePaymentSourceOnSuccess = (paymentSource: PaymentSource) => void;
@@ -90,15 +93,15 @@ declare global {
             paymentSourceId: string;
         }
         export interface ChargeOptions extends Options {
-            onSuccess: ChargeOnSuccess;
             charge: ChargeDropin;
             tip?: TipDataDropin;
             authorizeOnly?: boolean;
+            onSuccess: ChargeOnSuccess;
         }
         export interface TipOptions extends Options {
-            onSuccess: TipOnSuccess;
             tip: TipDropin;
             authorizeOnly?: boolean;
+            onSuccess: TipOnSuccess;
         }
         export interface StrongholdMessageEvent extends MessageEvent {
             data: {
@@ -110,10 +113,16 @@ declare global {
             };
         }
         export interface ChargeDropin {
+            /**
+             * The amount to charge, specified in the smallest divisible currency unit. For example, number of cents of United States dollar.
+             */
             amount: number;
             paymentSourceId: string;
         }
         export interface TipDataDropin {
+            /**
+             * The amount to charge, specified in the smallest divisible currency unit. For example, number of cents of United States dollar.
+             */
             amount: number;
             beneficiaryName: string;
             details?: {
@@ -166,7 +175,7 @@ declare global {
             charge_id: string;
             payment_source_id: string;
         }
-        export function frameForSrc(src: string): JQuery;
+        export function frameForSrc(src: string): JQuery<HTMLElement>;
         export function getChargeQuery(charge?: ChargeDropin): {
             [key: string]: string | number | boolean | undefined;
         };
