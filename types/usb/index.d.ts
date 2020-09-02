@@ -85,7 +85,7 @@ export class Device {
    * @param callback
    */
   controlTransfer(bmRequestType: number, bRequest: number, wValue: number, wIndex: number, data_or_length: number | Buffer,
-                  callback: (error: undefined | LibUSBException, buf?: Buffer) => void): Device;
+                  callback: (error: undefined | LibUSBException, buffer?: Buffer) => void): Device;
 
   /**
    * Perform a control transfer to retrieve a string descriptor
@@ -120,7 +120,7 @@ export class Device {
    * @param desired
    * @param callback
    */
-  setConfiguration(desired: number, callback: (error?: LibUSBException) => void): void;
+  setConfiguration(desired: number, callback: (error: undefined | LibUSBException) => void): void;
 
   /**
    * Performs a reset of the device. Callback is called when complete.
@@ -128,7 +128,7 @@ export class Device {
    * The device must be open to use this method.
    * @param callback
    */
-  reset(callback: (error?: LibUSBException) => void): void;
+  reset(callback: (error: undefined | LibUSBException) => void): void;
 }
 
 /** A structure representing the standard USB device descriptor */
@@ -283,7 +283,7 @@ export class Interface {
    * The device must be open to use this method.
    * @param callback
    */
-  release(callback?: (error?: LibUSBException) => void): void;
+  release(callback?: (error: undefined | LibUSBException) => void): void;
 
   /**
    * Releases the interface and resets the alternate setting. Calls callback when complete.
@@ -297,7 +297,7 @@ export class Interface {
    * @param closeEndpoints
    * @param callback
    */
-  release(closeEndpoints?: boolean, callback?: (error?: LibUSBException) => void): void;
+  release(closeEndpoints?: boolean, callback?: (error: undefined | LibUSBException) => void): void;
 
   /**
    * Returns `false` if a kernel driver is not active; `true` if active.
@@ -327,7 +327,7 @@ export class Interface {
    * @param altSetting
    * @param callback
    */
-  setAltSetting(altSetting: number, callback: (error?: LibUSBException) => void): void;
+  setAltSetting(altSetting: number, callback: (error: undefined | LibUSBException) => void): void;
 
   /**
    * Return the InEndpoint or OutEndpoint with the specified address.
@@ -389,7 +389,7 @@ export interface Endpoint extends EventEmitter {
   descriptor: EndpointDescriptor;
 
   /** Clear the halt/stall condition for this endpoint. */
-  clearHalt(callback: (error?: LibUSBException) => void): void;
+  clearHalt(callback: (error: undefined | LibUSBException) => void): void;
 
   /**
    * Create a new `Transfer` object for this endpoint.
@@ -409,7 +409,7 @@ export class InEndpoint extends EventEmitter implements Endpoint {
   transferType: number;
   timeout: number;
   descriptor: EndpointDescriptor;
-  clearHalt(callback: (error?: LibUSBException) => void): void;
+  clearHalt(callback: (error: undefined | LibUSBException) => void): void;
   makeTransfer(timeout: number, callback: (error: undefined | LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
 
   constructor(device: Device, descriptor: EndpointDescriptor);
@@ -456,7 +456,7 @@ export class OutEndpoint extends EventEmitter implements Endpoint {
   transferType: number;
   timeout: number;
   descriptor: EndpointDescriptor;
-  clearHalt(callback: (error?: LibUSBException) => void): void;
+  clearHalt(callback: (error: undefined | LibUSBException) => void): void;
   makeTransfer(timeout: number, callback: (error: undefined | LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
 
   constructor(device: Device, descriptor: EndpointDescriptor);
@@ -472,8 +472,8 @@ export class OutEndpoint extends EventEmitter implements Endpoint {
    * @param buffer
    * @param callback
    */
-  transfer(buffer: Buffer, callback: (error?: LibUSBException) => void): OutEndpoint;
-  transferWithZLP(buf: Buffer, callback: (error?: LibUSBException) => void): void;
+  transfer(buffer: Buffer, callback: (error: undefined | LibUSBException) => void): OutEndpoint;
+  transferWithZLP(buffer: Buffer, callback: (error: undefined | LibUSBException) => void): void;
 }
 
 /** A structure representing the standard USB endpoint descriptor */

@@ -15,7 +15,7 @@ const isKernelActive: boolean = device.__isKernelDriverActive(0);
 
 device.open(true);
 device.close();
-const xferDeviceIn: usb.Device = device.controlTransfer(1, 1, 1, 1, 1, (error?: usb.LibUSBException, buf?: Buffer): usb.Device => new usb.Device());
+const xferDeviceIn: usb.Device = device.controlTransfer(1, 1, 1, 1, 1, (error?: usb.LibUSBException, buffer?: Buffer): usb.Device => new usb.Device());
 const xferDeviceOut: usb.Device = device.controlTransfer(1, 1, 1, 1, Buffer.alloc(5), (error?: usb.LibUSBException): usb.Device => new usb.Device());
 device.getStringDescriptor(1, (error?: usb.LibUSBException, data?: string) => null);
 device.getBosDescriptor((error?: usb.LibUSBException, descriptor?: usb.BosDescriptor) => null);
