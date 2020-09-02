@@ -175,7 +175,7 @@ declare global {
             charge_id: string;
             payment_source_id: string;
         }
-        export function frameForSrc(src: string): JQuery<HTMLElement>;
+        export function frameForSrc(src: string): JQuery;
         export function getChargeQuery(charge?: ChargeDropin): {
             [key: string]: string | number | boolean | undefined;
         };
