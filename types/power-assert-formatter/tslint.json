@@ -10,7 +10,6 @@
         "strict-export-declare-modifiers": false,
         "trim-file": false,
         "typedef-whitespace": false,
-        "whitespace": false,
-        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
+        "whitespace": false
     }
 }
