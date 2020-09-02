@@ -415,14 +415,14 @@ compiler options.
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` works to import a module, and `export default` is accurate if `node -p 'require("foo").default'` works to import a module.
 
-#### I want to use features from TypeScript 3.1 or above.
+#### I want to use features from TypeScript 3.2 or above.
 
-Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
+Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: 3.2`.
 
-However, if your project needs to maintain types that are compatible with 3.1 and above *at the same time as* types that are compatible with 3.0 or below, you will need to use the `typesVersions` feature, which is available in TypeScript 3.1 and above.
+However, if your project needs to maintain types that are compatible with, say, 3.7 and above *at the same time as* types that are compatible with 3.6 or below, you will need to use the `typesVersions` feature.
 You can find a detailed explanation of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
 
-Here's a short explanation to get you started:
+Here's a short example to get you started:
 
 1. You'll have to add a `package.json` file to your package definition, with the following contents:
 
@@ -431,16 +431,17 @@ Here's a short explanation to get you started:
     "private": true,
     "types": "index",
     "typesVersions": {
-        ">=3.1.0-0": { "*": ["ts3.1/*"] }
+        "<=3.6": { "*": ["ts3.6/*"] }
     }
 }
 ```
 
-2. Create the sub-directory mentioned in the `typesVersions` field inside your types directory (`ts3.1/` in this example)
-and add the types and tests specific for the new TypeScript version. You don't need the typical definition header
-in any of the files from the `ts3.1/` directory.
+2. Create the sub-directory mentioned in the `typesVersions` field inside your types directory (`ts3.6/` in this example).
+`ts3.6/` will support TypeScript versions 3.6 and below, so copy the existing types and tests there.
 
-3. Set the `baseUrl` and `typeRoots` options in `ts3.1/tsconfig.json` to the correct paths, they should look something like this:
+You'll need to delete the definition header from `ts3.6/index.d.ts` since only the root `index.d.ts` is supposed to have it.
+
+3. Set the `baseUrl` and `typeRoots` options in `ts3.6/tsconfig.json` to the correct paths, which should look something like this:
 ```json
 {
     "compilerOptions": {
@@ -450,7 +451,10 @@ in any of the files from the `ts3.1/` directory.
 }
 ```
 
-You can look [here](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) and [here](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/create-html-element) for examples.
+4. Back in the root of the package, add the TypeScript 3.7 features you want to use.
+When people install the package, TypeScript 3.6 and below will start from `ts3.6/index.d.ts`, whereas TypeScript 3.7 and above will start from `index.d.ts`.
+
+You can look at [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components).
 
 #### I want to add a DOM API not present in TypeScript by default.
 
