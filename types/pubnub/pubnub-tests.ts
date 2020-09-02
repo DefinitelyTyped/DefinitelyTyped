@@ -1,8 +1,8 @@
 import Pubnub = require('pubnub');
 
 const console = {
-    log: (...params: any[]) => {},
-    error: (...params: any[]) => {},
+    log: (...params: any[]) => { },
+    error: (...params: any[]) => { },
 };
 
 const config: Pubnub.PubnubConfig = {
@@ -95,6 +95,31 @@ pubnub.addListener({
                 data: { type, value, uuid, actionTimetoken, messageTimetoken },
             },
         }),
+    objects: ({
+        channel,
+        publisher,
+        subscription,
+        timetoken,
+        message: {
+            type,
+            event,
+            data
+        }
+    }) => {
+        console.log(
+            {
+                channel,
+                publisher,
+                subscription,
+                timetoken,
+                message: {
+                    type,
+                    event,
+                    data
+                }
+            }
+        );
+    }
 });
 
 pubnub.unsubscribe({ channels: ['channel-1'] });

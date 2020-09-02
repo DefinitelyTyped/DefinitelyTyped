@@ -61,7 +61,7 @@ export * from "./trigger/codepipeline-cloudwatch-action";
 export * from "./trigger/codepipeline-cloudwatch-pipeline";
 export * from "./trigger/codepipeline-cloudwatch-stage";
 // TODO: export * from "./trigger/cognito-sync";
-export * from "./trigger/cognito-user-pool-trigger";
+export * from "./trigger/cognito-user-pool-trigger/";
 export * from "./trigger/connect-contact-flow";
 // TODO: export * from "./trigger/config";
 export * from "./trigger/dynamodb-stream";

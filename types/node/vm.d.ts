@@ -41,6 +41,10 @@ declare module "vm" {
          * Default: `false`.
          */
         breakOnSigint?: boolean;
+        /**
+         * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
+         */
+        microtaskMode?: 'afterEvaluate';
     }
     interface CompileFunctionOptions extends BaseOptions {
         /**

@@ -33,6 +33,7 @@ declare namespace ShopifyBuy {
     export interface Config {
         domain: string;
         storefrontAccessToken: string;
+        language?: string;
     }
 
     export interface ProductResource {

@@ -41,6 +41,9 @@ class CanvasTest extends React.Component {
 
         context.fillStyle = 'purple';
         context.fillRect(0, 0, 100, 100);
+        context.lineCap = 'round';
+        context.strokeStyle = 'blue';
+        context.strokeRect(0, 0, 100, 100);
 
         const { width } = context.measureText('yo');
     }
@@ -130,6 +133,20 @@ class CanvasTest extends React.Component {
         });
     }
 
+    handleToDataURL(canvas: Canvas) {
+        canvas.width = 100;
+        canvas.height = 100;
+
+        const context = canvas.getContext('2d');
+
+        context.fillStyle = 'purple';
+        context.fillRect(0, 0, 100, 100);
+
+        canvas.toDataURL().then((dataURL: string) => {
+            void dataURL;
+        });
+    }
+
     render() {
         return (
             <View>
@@ -155,6 +172,9 @@ class CanvasTest extends React.Component {
                     </Example>
                     <Example sample={require('./images/embed-html.png')}>
                         <Canvas ref={this.handleEmbedHTML} />
+                    </Example>
+                    <Example sample={require('./images/to-data-url.png')}>
+                        <Canvas ref={this.handleToDataURL} />
                     </Example>
                 </ScrollView>
             </View>

@@ -50,10 +50,8 @@ const _ = webpack({
                 minify: (file, sourceMap) => {
                     const results: TerserPlugin.MinifyResult = {
                         code: '',
-                        error: '',
                         extractedComments: [''],
                         map: '',
-                        warnings: [''],
                     };
                     return results;
                 },
@@ -112,24 +110,6 @@ const _ = webpack({
                     banner: false,
                 },
             }),
-            // warningsFilter
-            new TerserPlugin({
-                warningsFilter: (warning, file, source) => {
-                    if (/Dropping unreachable code/i.test(warning)) {
-                        return true;
-                    }
-
-                    if (/file\.js/i.test(file)) {
-                        return true;
-                    }
-
-                    if (/source\.js/i.test(source!)) {
-                        return true;
-                    }
-
-                    return false;
-                },
-            }),
             // varia
             new TerserPlugin({
                 terserOptions: {
@@ -147,6 +127,22 @@ const _ = webpack({
                 },
                 extractComments: false,
             }),
+            new TerserPlugin({
+                terserOptions: {
+                  ecma: undefined,
+                  parse: {},
+                  compress: {},
+                  mangle: true, // Note `mangle.properties` is `false` by default.
+                  module: false,
+                  output: undefined,
+                  toplevel: false,
+                  nameCache: undefined,
+                  ie8: false,
+                  keep_classnames: undefined,
+                  keep_fnames: false,
+                  safari10: false,
+                },
+              }),
         ],
     },
 });

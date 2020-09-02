@@ -70,7 +70,9 @@ declare class Serverless {
 
     providers: {};
     utils: Utils;
-    variables: {};
+    variables: {
+        populateService(): Promise<any>;
+    };
     yamlParser: YamlParser;
     pluginManager: PluginManager;
 
@@ -79,6 +81,8 @@ declare class Serverless {
 
     service: Service;
     version: string;
+
+    resources: AwsProvider.Resources;
 }
 
 export = Serverless;

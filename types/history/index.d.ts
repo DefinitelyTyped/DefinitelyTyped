@@ -44,10 +44,15 @@ export namespace History {
     export type LocationDescriptor<S = LocationState> = Path | LocationDescriptorObject<S>;
     export type LocationKey = string;
     export type LocationListener<S = LocationState> = (location: Location<S>, action: Action) => void;
-    // The value type here is a "poor man's `unknown`". When these types support TypeScript
-    // 3.0+, we can replace this with `unknown`.
-    type PoorMansUnknown = {} | null | undefined;
-    export type LocationState = PoorMansUnknown;
+
+    // TODO: The value type here is a version of `unknown` with an acceptably lossy amount of accuracy.
+    // Now that TypeScript's DT support is  3.0+, we can look into replacing this with `unknown`.
+    type UnknownFacade = {} | null | undefined;
+
+    /** @deprecated - Use `UnknownFacade` instead. It is a better classifier for the type */
+    type PoorMansUnknown = UnknownFacade
+
+    export type LocationState = UnknownFacade;
     export type Path = string;
     export type Pathname = string;
     export type Search = string;

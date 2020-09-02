@@ -17,7 +17,7 @@
 /// <reference path="../base.d.ts" />
 
 // TypeScript 3.2-specific augmentations:
-/// <reference path="buffer.d.ts" />
 /// <reference path="fs.d.ts" />
+/// <reference path="process.d.ts" />
 /// <reference path="util.d.ts" />
 /// <reference path="globals.d.ts" />

@@ -251,7 +251,7 @@ declare namespace mapboxgl {
          */
         queryRenderedFeatures(
             pointOrBox?: PointLike | [PointLike, PointLike],
-            options?: { layers?: string[]; filter?: any[]; validate?: boolean },
+            options?: { layers?: string[]; filter?: any[] } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
         /**
@@ -269,8 +269,7 @@ declare namespace mapboxgl {
             parameters?: {
                 sourceLayer?: string;
                 filter?: any[];
-                validate?: boolean;
-            },
+            } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
         setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean; localIdeographFontFamily?: string }): this;
@@ -315,7 +314,7 @@ declare namespace mapboxgl {
 
         getLayer(id: string): mapboxgl.Layer;
 
-        setFilter(layer: string, filter?: any[] | boolean | null): this;
+        setFilter(layer: string, filter?: any[] | boolean | null, options?: FilterOptions | null): this;
 
         setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -1648,6 +1647,18 @@ declare namespace mapboxgl {
     }
 
     /**
+     * FilterOptions
+     */
+    export interface FilterOptions {
+        /**
+         * Whether to check if the filter conforms to the Mapbox GL Style Specification.
+         * Disabling validation is a performance optimization that should only be used
+         * if you have previously validated the values you will be passing to this function.
+         */
+        validate?: boolean | null;
+    }
+
+    /**
      * AnimationOptions
      */
     export interface AnimationOptions {
@@ -2046,7 +2057,7 @@ declare namespace mapboxgl {
         'text-field'?: string | StyleFunction | Expression;
         'text-font'?: string | string[] | Expression;
         'text-size'?: number | StyleFunction | Expression;
-        'text-max-width'?: number | Expression;
+        'text-max-width'?: number | StyleFunction | Expression;
         'text-line-height'?: number | Expression;
         'text-letter-spacing'?: number | Expression;
         'text-justify'?: 'left' | 'center' | 'right' | Expression;

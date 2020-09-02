@@ -1102,14 +1102,19 @@ compiler.hooks.done.tap('foo', stats => {
 
 const multiCompiler = webpack([{}, {}]);
 
-multiCompiler.hooks.done.tap('foo', ({ stats: multiStats, hash }) => {
-    const stats = multiStats[0];
+multiCompiler.hooks.done.tap('foo', (multiStats) => {
+    const [firstStat] = multiStats.stats;
 
-    if (stats.startTime === undefined || stats.endTime === undefined) {
+    if (multiStats.hasWarnings() || multiStats.hasErrors()) {
+        throw new Error(multiStats.toString('errors-warnings'));
+    }
+    multiStats.toJson(); // $ExpectType ToJsonOutput
+
+    if (firstStat.startTime === undefined || firstStat.endTime === undefined) {
         throw new Error('Well, this is odd');
     }
 
-    console.log(`Compiled in ${stats.endTime - stats.startTime}ms`, hash);
+    console.log(`Compiled in ${firstStat.endTime - firstStat.startTime}ms`, multiStats.hash);
 });
 
 webpack.Template.getFunctionContent(() => undefined).trimLeft();

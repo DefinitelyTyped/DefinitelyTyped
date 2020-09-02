@@ -6,7 +6,8 @@
 //                 Jason Kwok <https://github.com/JasonHK>
 //                 Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+
+/// <reference path="helpers.d.ts" />
 
 import { JSONSchema4 } from 'json-schema';
 import * as ESTree from 'estree';
@@ -285,10 +286,16 @@ export namespace Rule {
 
     interface RuleMetaData {
         docs?: {
+            /** provides the short description of the rule in the [rules index](https://eslint.org/docs/rules/) */
             description?: string;
+            /** specifies the heading under which the rule is listed in the [rules index](https://eslint.org/docs/rules/) */
             category?: string;
+            /** is whether the `"extends": "eslint:recommended"` property in a [configuration file](https://eslint.org/docs/user-guide/configuring#extending-configuration-files) enables the rule */
             recommended?: boolean;
+            /** specifies the URL at which the full documentation can be accessed */
             url?: string;
+            /** specifies whether rules can return suggestions (defaults to false if omitted) */
+            suggestion?: boolean
         };
         messages?: { [messageId: string]: string };
         fixable?: 'code' | 'whitespace';
@@ -393,21 +400,19 @@ export namespace Linter {
     type Severity = 0 | 1 | 2;
 
     type RuleLevel = Severity | 'off' | 'warn' | 'error';
-    interface RuleLevelAndOptions extends Array<any> {
-        0: RuleLevel;
-    }
+    type RuleLevelAndOptions<Options extends any[] = any[]> = Prepend<Partial<Options>, RuleLevel>;
 
-    type RuleEntry = RuleLevel | RuleLevelAndOptions;
+    type RuleEntry<Options extends any[] = any[]> = RuleLevel | RuleLevelAndOptions<Options>;
 
     interface RulesRecord {
         [rule: string]: RuleEntry;
     }
 
-    interface HasRules {
-        rules?: Partial<RulesRecord>;
+    interface HasRules<Rules extends RulesRecord = RulesRecord> {
+        rules?: Partial<Rules>;
     }
 
-    interface BaseConfig extends HasRules {
+    interface BaseConfig<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
         $schema?: string;
         env?: { [name: string]: boolean };
         extends?: string | string[];
@@ -422,13 +427,13 @@ export namespace Linter {
         settings?: { [name: string]: any };
     }
 
-    interface ConfigOverride extends BaseConfig {
+    interface ConfigOverride<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
         excludedFiles?: string | string[];
         files: string | string[];
     }
 
     // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
-    interface Config extends BaseConfig {
+    interface Config<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
         ignorePatterns?: string | string[];
         root?: boolean;
     }
@@ -702,7 +707,7 @@ export namespace RuleTester {
     interface SuggestionOutput {
         messageId?: string;
         desc?: string;
-        data?: Record<string, any>;
+        data?: Record<string, unknown>;
         output: string;
     }
 

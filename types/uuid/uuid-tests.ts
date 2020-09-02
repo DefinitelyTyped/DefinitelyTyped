@@ -1,6 +1,18 @@
 /// <reference types="node" />
 
-import { v1 as uuidv1, v4 as uuidv4, v3 as uuidv3, v5 as uuidv5 } from 'uuid';
+import {
+  v1 as uuidv1,
+  v4 as uuidv4,
+  v3 as uuidv3,
+  v5 as uuidv5,
+  NIL as NIL_UUID,
+  parse as uuidParse,
+  stringify as uuidStringify,
+  validate as uuidValidate,
+  version as uuidVersion,
+  V1Options,
+  V4Options,
+} from 'uuid';
 
 const randoms = [
     0x10, 0x91, 0x56, 0xbe, 0xc4, 0xfb, 0xc1, 0xea,
@@ -25,6 +37,13 @@ stringv1 = uuidv1({
     rng: () => randoms,
 });
 
+const v1Options: V1Options = {
+    msecs: new Date('2011-11-01').getTime(),
+    nsecs: 5678,
+    rng: () => randoms,
+};
+stringv1 = uuidv1(v1Options);
+
 let bufferv1 = new Uint8Array(32);
 bufferv1 = uuidv1(null, bufferv1);
 bufferv1 = uuidv1(undefined, bufferv1, 16);
@@ -32,6 +51,9 @@ bufferv1 = uuidv1(undefined, bufferv1, 16);
 let stringv4: string = uuidv4();
 stringv4 = uuidv4({ random: randoms });
 stringv4 = uuidv4({ rng: () => randoms });
+
+const v4Options: V4Options = { random: randoms };
+stringv4 = uuidv4(v4Options);
 
 let bufferv4: number[] = new Array(32);
 bufferv4 = uuidv4(undefined, bufferv4);
@@ -61,3 +83,20 @@ uuidv4(null, g); // $ExpectType Buffer
 class CustomBuffer extends Uint8Array {}
 const h = new CustomBuffer(10);
 uuidv4(null, h); // $ExpectType CustomBuffer
+
+const nil5: string = uuidv5('hello', NIL_UUID);
+
+const stringified: string = uuidStringify(bufferv4);
+const parsed: ArrayLike<number> = uuidParse(stringified);
+
+let valid: boolean = uuidValidate(stringv1);
+valid = uuidValidate(stringv4);
+valid = uuidValidate(a3);
+valid = uuidValidate(a5);
+valid = uuidValidate(NIL_UUID);
+
+let version: number = uuidVersion(stringv1);
+version = uuidVersion(stringv4);
+version = uuidVersion(a3);
+version = uuidVersion(a5);
+version = uuidVersion(NIL_UUID);

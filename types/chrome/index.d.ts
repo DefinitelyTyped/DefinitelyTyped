@@ -2589,6 +2589,33 @@ declare namespace chrome.enterprise.deviceAttributes {
 }
 
 ////////////////////
+// Enterprise Networking Attributes
+////////////////////
+/**
+ * Use the <code>chrome.enterprise.networkingAttributes</code> API to read information about your current network. Note: This API is only available to extensions force-installed by enterprise policy.
+ * Important: This API works only on Chrome OS.
+ * @since Chrome 85.
+ */
+declare namespace chrome.enterprise.networkingAttributes {
+  export interface NetworkDetails {
+    /** The device's MAC address. */
+    macAddress: string;
+    /** Optional. The device's local IPv4 address (undefined if not configured). */
+    ipv4?: string;
+    /** Optional. The device's local IPv6 address (undefined if not configured). */
+    ipv6?: string;
+  }
+
+  /**
+   * Retrieves the network details of the device's default network. If the user is not affiliated or the device is not connected to a network, runtime.lastError will be set with a failure reason.
+   * @param callback Called with the device's default network's NetworkDetails.
+   * The callback parameter should be a function that looks like this:
+   * function(NetworkDetails networkAddresses) {...};
+   */
+  export function getNetworkDetails(callback: (networkDetails: NetworkDetails) => void): void;
+}
+
+////////////////////
 // Events
 ////////////////////
 /**
@@ -4169,15 +4196,29 @@ declare namespace chrome.input.ime {
     export function updateMenuItems(parameters: MenuItemParameters, callback?: () => void): void;
     /**
      * Shows/Hides an assistive window with the given properties.
-     * @param {{
-     *   contextID: number,
-     *   properties: !chrome.input.ime.AssistiveWindowProperties
-     * }} parameters
+     * @param parameters
      * @param callback Called when the operation completes.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean success) {...};
      */
-    export function setAssistiveWindowProperties(parameters: object, callback?: (success: boolean) => void): void;
+    export function setAssistiveWindowProperties(parameters: {
+            contextID: number,
+            properties: chrome.input.ime.AssistiveWindowProperties
+        }, callback?: (success: boolean) => void): void;
+    /**
+     * Highlights/Unhighlights a button in an assistive window.
+     * @param parameters
+     * @param callback Called when the operation completes. On failure, chrome.runtime.lastError is set.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function setAssistiveWindowButtonHighlighted(parameters: {
+            contextID: number,
+            buttonID: chrome.input.ime.AssistiveWindowButton,
+            windowType: chrome.input.ime.AssistiveWindowType,
+            announceString?: string,
+            highlighted: boolean
+        }, callback?: () => void): void;
     /**
      * Sets the properties of the candidate window. This fails if the extension doesn't own the active IME
      * @param callback Called when the operation completes.
@@ -5080,6 +5121,18 @@ declare namespace chrome.platformKeys {
      * Optional parameter privateKey: Might be null if this extension does not have access to it.
      */
     export function getKeyPair(certificate: ArrayBuffer, parameters: Object, callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void): void;
+    /**
+     * Passes the key pair of publicKeySpkiDer for usage with platformKeys.subtleCrypto to callback.
+     * @param publicKeySpkiDer A DER-encoded X.509 SubjectPublicKeyInfo, obtained e.g. by calling WebCrypto's exportKey function with format="spki".
+     * @param parameters Provides signature and hash algorithm parameters, in addition to those fixed by the key itself. The same parameters are accepted as by WebCrypto's importKey function, e.g. RsaHashedImportParams for a RSASSA-PKCS1-v1_5 key. For RSASSA-PKCS1-v1_5 keys, we need to also pass a "hash" parameter { "hash": { "name": string } }. The "hash" parameter represents the name of the hashing algorithm to be used in the digest operation before a sign. It is possible to pass "none" as the hash name, in which case the sign function will apply PKCS#1 v1.5 padding and but not hash the given data.
+     * Currently, this function only supports the "RSASSA-PKCS1-v1_5" algorithm with one of the hashing algorithms "none", "SHA-1", "SHA-256", "SHA-384", and "SHA-512".
+     * @param callback The public and private CryptoKey of a certificate which can only be used with platformKeys.subtleCrypto.
+     * The callback parameter should be a function that looks like this:
+     * function(object publicKey, object privateKey) {...};
+     * Optional parameter privateKey: Might be null if this extension does not have access to it.
+     * @since Chrome 85.
+     */
+    export function getKeyPairBySpki(publicKeySpkiDer: ArrayBuffer, parameters: Object, callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void): void;
     /** An implementation of WebCrypto's  SubtleCrypto that allows crypto operations on keys of client certificates that are available to this extension. */
     export function subtleCrypto(): SubtleCrypto;
     /**
@@ -5661,6 +5714,10 @@ declare namespace chrome.runtime {
         id?: string;
         /** The tabs.Tab which opened the connection, if any. This property will only be present when the connection was opened from a tab (including content scripts), and only if the receiver is an extension, not an app. */
         tab?: chrome.tabs.Tab;
+        /** The name of the native application that opened the connection, if any.
+         * @since Chrome 74
+         */
+        nativeApplication?: string;
         /**
          * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
          * @since Chrome 41.
@@ -5676,6 +5733,11 @@ declare namespace chrome.runtime {
          * @since Chrome 32.
          */
         tlsChannelId?: string;
+        /**
+         * The origin of the page or frame that opened the connection. It can vary from the url property (e.g., about:blank) or can be opaque (e.g., sandboxed iframes). This is useful for identifying if the origin can be trusted if we can't immediately tell from the URL.
+         * @since Chrome 80.
+         */
+        origin?: string;
     }
 
     /**

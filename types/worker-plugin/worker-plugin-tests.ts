@@ -17,6 +17,14 @@ const optionsArray: WorkerPlugin.Options[] = [
           'SomeExistingPlugin',
           new ExistingPlugin(),
         ],
+    },
+    {
+        preserveTypeModule: true,
+        workerType: 'module'
+    },
+    {
+        worker: true,
+        sharedWorker: true
     }
 ];
 

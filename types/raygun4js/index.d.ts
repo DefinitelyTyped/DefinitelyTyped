@@ -115,6 +115,22 @@ interface RaygunOptions {
      * String which can be optionally set "onLoad" which will then boot the RealUserMonitoring side instead of waiting for the `load` event.
      */
     from?: string | "onLoad";
+
+    /**
+     * Raygun4JS will track each window.performance.measure call as a custom timing entry. This enables developers to use a more native API for tracking performance timings.
+     */
+    automaticPerformanceCustomTimings?: boolean;
+
+    /**
+     * RUM requests will be associated to this IP address when set.
+     */
+    clientIp?: string;
+
+    /**
+     * RUM uses the window.performance API to track XHR timing information and (depending on the browser) not all non-2XX XHR timings are recorded by this API.
+     * This option enables the tracking of these missing XHR's calls by tracking the difference between send & success XHR handlers.
+     */
+    captureMissingRequests?: boolean;
 }
 
 interface RaygunPayload {
@@ -370,6 +386,7 @@ interface RaygunV2 {
             | "attach"
             | "enableCrashReporting"
             | "enablePulse"
+            | "logContentsOfXhrCalls"
             | "noConflict"
             | "saveIfOffline",
         value: boolean
@@ -383,6 +400,7 @@ interface RaygunV2 {
     (key: "getRaygunInstance"): RaygunStatic;
     (
         key:
+            "endSession"
             | "detach"
             | "disableAutoBreadcrumbs"
             | "enableAutoBreadcrumbs"
@@ -417,6 +435,14 @@ interface Window {
     Raygun: RaygunStatic;
 }
 
-export { RaygunStatic, RaygunV2, RaygunV2UserDetails, RaygunOptions };
+export {
+    RaygunStatic,
+    RaygunV2,
+    RaygunV2UserDetails,
+    RaygunOptions,
+    RaygunPayload,
+    RaygunStackTrace,
+    BreadcrumbLevel,
+};
 
 export default rg4js;

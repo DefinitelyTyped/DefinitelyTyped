@@ -41,6 +41,7 @@ const myCodeMirror3: CodeMirror.Editor = CodeMirror(
 const myCodeMirror4: CodeMirror.Editor = CodeMirror.fromTextArea(myTextArea);
 
 const doc: CodeMirror.Doc = new CodeMirror.Doc('text');
+doc.lineSeparator();
 const doc2: CodeMirror.Doc = CodeMirror(document.body).getDoc();
 
 const lintStateOptions: CodeMirror.LintStateOptions = {

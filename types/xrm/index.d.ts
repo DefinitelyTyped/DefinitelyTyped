@@ -4720,19 +4720,18 @@ declare namespace Xrm {
          * Type to hold the Attribute metadata as part of the EntityMetadata
          */
         interface AttributeMetadata {
-            defaultFormValue: number;
+            DefaultFormValue: number;
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            options: string[];
-            logicalName: string;
-            displayName: string;
-            attributeType: XrmEnum.AttributeTypeCode;
-            entityLogicalName: string;
+            LogicalName: string;
+            DisplayName: string;
+            AttributeType: XrmEnum.AttributeTypeCode;
+            EntityLogicalName: string;
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            optionSet: OptionMetadata[];
+            OptionSet: OptionMetadata[];
         }
 
         /**

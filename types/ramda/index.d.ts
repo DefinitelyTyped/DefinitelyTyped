@@ -23,14 +23,14 @@
 //                 Nitesh Phadatare <https://github.com/minitesh>
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
-//                 Brekk Bockrath <https://github.com/brekk>
 //                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
+//                 Mike Deverell <https://github.com/devrelm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.7
 
 import * as _ from "ts-toolbelt";
 import {
@@ -179,8 +179,8 @@ export function apply<T, TResult>(fn: (arg0: T, ...args: readonly T[]) => TResul
 export function applySpec<Obj extends Record<string, (...args: readonly any[]) => any>>(
     obj: Obj
 ): (
-    ...args: Parameters<ValueOfRecord<Obj>>
-) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
+        ...args: Parameters<ValueOfRecord<Obj>>
+    ) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
 export function applySpec<T>(obj: any): (...args: readonly any[]) => T;
 
 /**
@@ -248,7 +248,7 @@ export function call(fn: (...args: readonly any[]) => (...args: readonly any[]) 
  */
 export function chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[];
 export function chain<T, U>(fn: (n: T) => readonly U[]): (list: readonly T[]) => U[];
-export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
+export function chain<X0, X1, R>(fn: (x0: X0) => (x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
 /**
  * Restricts a number to be within a range.
@@ -748,8 +748,12 @@ export function inc(n: number): number;
  * Given a string, this function checks for the string in another string or list and returns
  * a boolean.
  */
+export function includes(__: Placeholder, list: readonly string[] | string): (s: string) => boolean;
+export function includes<T>(__: Placeholder, list: readonly T[]): (target: T) => boolean;
+export function includes(__: Placeholder): (list: readonly string[] | string, s: string) => boolean;
+export function includes<T>(__: Placeholder): (list: readonly T[], target: T) => boolean;
 export function includes(s: string, list: readonly string[] | string): boolean;
-export function includes(s: string): (list: readonly string[] | string)  => boolean;
+export function includes(s: string): (list: readonly string[] | string) => boolean;
 export function includes<T>(target: T, list: readonly T[]): boolean;
 export function includes<T>(target: T): (list: readonly T[]) => boolean;
 
@@ -812,14 +816,6 @@ export function insertAll(index: number): <T>(elts: readonly T[], list: readonly
  */
 export function intersection<T>(list1: readonly T[], list2: readonly T[]): T[];
 export function intersection<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
-
-/**
- * Combines two lists into a set (i.e. no duplicates) composed of those
- * elements common to both lists.  Duplication is determined according
- * to the value returned by applying the supplied predicate to two list
- * elements.
- */
-export function intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: readonly T[], list2: readonly T[]): T[];
 
 /**
  * Creates a new list with the separator interposed between elements.
@@ -1007,7 +1003,7 @@ export function mapObjIndexed<T, TResult, TKey extends string>(
 ): Record<TKey, TResult>;
 export function mapObjIndexed<T, TResult, TKey extends string>(
     fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult
-): (obj: Record<TKey, T>) =>  Record<TKey, TResult>;
+): (obj: Record<TKey, T>) => Record<TKey, TResult>;
 export function mapObjIndexed<T, TResult>(
     fn: (value: T, key: string, obj?: {
         [key: string]: T
@@ -1306,6 +1302,7 @@ export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
  * Takes two arguments, fst and snd, and returns [fst, snd].
  */
 export function pair<F, S>(fst: F, snd: S): [F, S];
+export function pair<F>(fst: F): <S>(snd: S) => [F, S];
 
 /**
  * Takes a function `f` and a list of arguments, and returns a function `g`.
@@ -1373,8 +1370,8 @@ export function pathOr<T>(defaultValue: T): _.F.Curry<(a: Path, b: any) => T>;
 /**
  * Retrieves the values at given paths of an object.
  */
-export function paths<T>(paths: Path[], obj: any): Array<T|undefined>;
-export function paths<T>(paths: Path[]): (obj: any) => Array<T|undefined>;
+export function paths<T>(paths: Path[], obj: any): Array<T | undefined>;
+export function paths<T>(paths: Path[]): (obj: any) => Array<T | undefined>;
 
 /**
  * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
@@ -2115,6 +2112,14 @@ export function whereEq<T>(spec: T): <U>(obj: U) => boolean;
  */
 export function without<T>(list1: readonly T[], list2: readonly T[]): T[];
 export function without<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
+
+/**
+ * Exclusive disjunction logical operation.
+ * Returns `true` if one of the arguments is truthy and the other is falsy.
+ * Otherwise, it returns `false`.
+ */
+export function xor(a: any, b: any): boolean;
+export function xor(a: any): (b: any) => boolean;
 
 /**
  * Creates a new list out of the two supplied by creating each possible pair from the lists.
