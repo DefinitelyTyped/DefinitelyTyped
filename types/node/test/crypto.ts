@@ -494,6 +494,28 @@ import { promisify } from 'util';
             type: 'pkcs8',
         },
     }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
+
+    crypto.generateKeyPair('ed25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
+
+    crypto.generateKeyPair('x25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
 }
 
 {
@@ -550,6 +572,34 @@ import { promisify } from 'util';
             type: 'pkcs8',
         },
     });
+
+    const ed25519Res: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified('ed25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
+    const x25519Res: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified('x25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
 }
 
 {
@@ -601,6 +651,21 @@ import { promisify } from 'util';
     verify.update('some data to sign');
     verify.end();
     verify.verify(publicKey, signature);    // $ExpectType boolean
+}
+
+{
+    // crypto.diffieHellman_test
+    const { privateKey1, publicKey1 } = crypto.generateKeyPairSync('x25519');
+    const privateKeyObject1 = crypto.createPrivateKey({ key: privateKey1 });
+    const publicKeyObject1 = crypto.createPublicKey({ key: publicKey1 });
+
+    const { privateKey2, publicKey2 } = crypto.generateKeyPairSync('x25519');
+    const privateKeyObject2 = crypto.createPrivateKey({ key: privateKey2 });
+    const publicKeyObject2 = crypto.createPublicKey({ key: publicKey2 });
+
+    const sharedSecret1 = crypto.diffieHellman({ privateKeyObject1, publicKeyObject2 });
+    const sharedSecret2 = crypto.diffieHellman({ privateKeyObject2, publicKeyObject1 });
+    assert.equal(sharedSecret1, sharedSecret2)
 }
 
 {
