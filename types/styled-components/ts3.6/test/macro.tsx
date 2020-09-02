@@ -1,4 +1,5 @@
-import styled, { createGlobalStyle } from 'styled-components/macro';
+// tslint:disable-next-line:no-relative-import-in-test
+import styled, { createGlobalStyle } from '../macro';
 
 // Check that the default export works.
 const TitleFromMacro = styled.h1`

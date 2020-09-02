@@ -10,8 +10,10 @@ import styled, {
     withTheme,
     ThemeConsumer,
     ReactNativeThemedStyledComponentsModule,
-} from "styled-components/native";
-import {} from "styled-components/cssprop";
+// tslint:disable-next-line:no-relative-import-in-test
+} from "../native";
+// tslint:disable-next-line:no-relative-import-in-test
+import {} from "../cssprop";
 
 const StyledView = styled.View`
   background-color: papayawhip;
@@ -71,7 +73,8 @@ async function typedThemes() {
       css,
       ThemeProvider,
       ThemeConsumer
-  } = (await import("styled-components/native")) as any as ReactNativeThemedStyledComponentsModule<
+  // tslint:disable-next-line:no-relative-import-in-test
+  } = (await import("../native")) as any as ReactNativeThemedStyledComponentsModule<
       typeof theme
   >;
 
@@ -143,7 +146,8 @@ return (
 }
 
 async function reexportCompatibility() {
-  const sc = await import("styled-components/native");
+  // tslint:disable-next-line:no-relative-import-in-test
+  const sc = await import("../native");
   const themed = sc as ReactNativeThemedStyledComponentsModule<any>;
 
   let { ...scExports } = sc;
@@ -164,10 +168,12 @@ async function themeAugmentation() {
       accent: string;
   }
 
-  const base = (await import("styled-components/native")) as any as ReactNativeThemedStyledComponentsModule<
+  // tslint:disable-next-line:no-relative-import-in-test
+  const base = (await import("../native")) as any as ReactNativeThemedStyledComponentsModule<
       BaseTheme
   >;
-  const extra = (await import("styled-components/native")) as any as ReactNativeThemedStyledComponentsModule<
+  // tslint:disable-next-line:no-relative-import-in-test
+  const extra = (await import("../native")) as any as ReactNativeThemedStyledComponentsModule<
       ExtraTheme,
       BaseTheme
   >;
