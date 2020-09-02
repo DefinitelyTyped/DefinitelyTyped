@@ -84,7 +84,8 @@ export class Device {
    * @param data_or_length
    * @param callback
    */
-  controlTransfer(bmRequestType: number, bRequest: number, wValue: number, wIndex: number, data_or_length: number | Buffer, callback: (error?: LibUSBException, buf?: Buffer) => void): Device;
+  controlTransfer(bmRequestType: number, bRequest: number, wValue: number, wIndex: number, data_or_length: number | Buffer,
+                  callback: (error: undefined | LibUSBException, buf?: Buffer) => void): Device;
 
   /**
    * Perform a control transfer to retrieve a string descriptor
@@ -93,7 +94,7 @@ export class Device {
    * @param desc_index
    * @param callback
    */
-  getStringDescriptor(desc_index: number, callback: (error?: LibUSBException, data?: string) => void): void;
+  getStringDescriptor(desc_index: number, callback: (error: undefined | LibUSBException, data?: string) => void): void;
 
   /**
    * Perform a control transfer to retrieve an object with properties for the fields of the Binary Object Store descriptor.
@@ -101,7 +102,7 @@ export class Device {
    * The device must be open to use this method.
    * @param callback
    */
-  getBosDescriptor(callback: (error?: LibUSBException, descriptor?: BosDescriptor) => void): void;
+  getBosDescriptor(callback: (error: undefined | LibUSBException, descriptor?: BosDescriptor) => void): void;
 
   /**
    * Retrieve a list of Capability objects for the Binary Object Store capabilities of the device.
@@ -109,7 +110,7 @@ export class Device {
    * The device must be open to use this method.
    * @param callback
    */
-  getCapabilities(callback: (error?: LibUSBException, capabilities?: Capability[]) => void): void;
+  getCapabilities(callback: (error: undefined | LibUSBException, capabilities?: Capability[]) => void): void;
 
   /**
    * Set the device configuration to something other than the default (0). To use this, first call `.open(false)` (which tells it not to auto configure),
@@ -399,7 +400,7 @@ export interface Endpoint extends EventEmitter {
    * @param timeout Timeout for the transfer (0 means unlimited).
    * @param callback Transfer completion callback.
    */
-  makeTransfer(timeout: number, callback: (error?: LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
+  makeTransfer(timeout: number, callback: (error: undefined | LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
 }
 
 /** Endpoints in the IN direction (device->PC) have this type. */
@@ -409,7 +410,7 @@ export class InEndpoint extends EventEmitter implements Endpoint {
   timeout: number;
   descriptor: EndpointDescriptor;
   clearHalt(callback: (error?: LibUSBException) => void): void;
-  makeTransfer(timeout: number, callback: (error?: LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
+  makeTransfer(timeout: number, callback: (error: undefined | LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
 
   constructor(device: Device, descriptor: EndpointDescriptor);
 
@@ -424,7 +425,7 @@ export class InEndpoint extends EventEmitter implements Endpoint {
    * @param length
    * @param callback
    */
-  transfer(length: number, callback: (error?: LibUSBException, data?: Buffer) => void): InEndpoint;
+  transfer(length: number, callback: (error: undefined | LibUSBException, data?: Buffer) => void): InEndpoint;
 
   /**
    * Start polling the endpoint.
@@ -456,7 +457,7 @@ export class OutEndpoint extends EventEmitter implements Endpoint {
   timeout: number;
   descriptor: EndpointDescriptor;
   clearHalt(callback: (error?: LibUSBException) => void): void;
-  makeTransfer(timeout: number, callback: (error?: LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
+  makeTransfer(timeout: number, callback: (error: undefined | LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
 
   constructor(device: Device, descriptor: EndpointDescriptor);
 
