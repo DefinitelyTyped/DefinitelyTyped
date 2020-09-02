@@ -150,6 +150,9 @@ Once you've tested your package, you can share it on Definitely Typed.
 
 First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`.
 
+We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life-cycle of a pull request to DT:
+
+<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.png?raw=true">
 
 #### Edit an existing package
 
