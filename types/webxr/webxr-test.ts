@@ -9,36 +9,39 @@ import {
     XRRigidTransform,
     XRView,
     XRViewPort,
+    XRSpace,
 } from './index.d';
 
 const canvas = document.createElement('canvas');
-const ctx = canvas.getContext('webgl');
+const ctx: WebGLRenderingContext | null = canvas.getContext('webgl');
 
 const xr = (navigator as any)?.xr as XRSystem;
 if (!xr) {
     throw Error('You do not have WebXR');
 }
 
-let space;
-let layer;
+let space: XRReferenceSpace;
+let layer: XRWebGLLayer;
 let startRot = new DOMPoint(0, 0, 0, 1);
 let startSpot = new DOMPoint(0, 0, 0, 1);
 xr.requestSession('immersive-vr').then((session: XRSession) => {
-    layer = new XRWebGLLayer(session, ctx);
-    session.updateRenderState(<XRRenderStateInit>{
-        baseLayer: layer,
-        depthFar: 800,
-        depthNear: 0.01,
-    });
-
-    session
-        .requestReferenceSpace('local')
-        .then((rs: XRReferenceSpace) => {
-            space = rs;
-        })
-        .catch(e => {
-            throw Error("Can't get reference space" + e);
+    if (ctx) {
+        layer = new XRWebGLLayer(session, ctx);
+        session.updateRenderState(<XRRenderStateInit>{
+            baseLayer: layer,
+            depthFar: 800,
+            depthNear: 0.01,
         });
+
+        session
+            .requestReferenceSpace('local')
+            .then(rs => {
+                space = rs as XRReferenceSpace;
+            })
+            .catch(e => {
+                throw Error("Can't get reference space" + e);
+            });
+    }
 });
 
 const renderFrame = (frame: XRFrame) => {
