@@ -19,6 +19,6 @@
   },
   "files": [
     "index.d.ts",
-    "webxr-test.ts"
+    "webxr-tests.ts"
   ]
 }
