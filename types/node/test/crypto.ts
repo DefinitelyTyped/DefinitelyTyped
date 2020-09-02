@@ -655,17 +655,42 @@ import { promisify } from 'util';
 
 {
     // crypto.diffieHellman_test
-    const { privateKey1, publicKey1 } = crypto.generateKeyPairSync('x25519');
-    const privateKeyObject1 = crypto.createPrivateKey({ key: privateKey1 });
-    const publicKeyObject1 = crypto.createPublicKey({ key: publicKey1 });
+    const { privateKey, publicKey } = crypto.generateKeyPairSync('x25519', {
+        publicKeyEncoding: {
+            type: 'spki',
+            format: 'pem',
+        },
+        privateKeyEncoding: {
+            type: 'pkcs8',
+            format: 'pem',
+        },
+    });
+    const privateKeyObject = crypto.createPrivateKey({ key: privateKey });
+    const publicKeyObject = crypto.createPublicKey({ key: publicKey });
 
-    const { privateKey2, publicKey2 } = crypto.generateKeyPairSync('x25519');
-    const privateKeyObject2 = crypto.createPrivateKey({ key: privateKey2 });
-    const publicKeyObject2 = crypto.createPublicKey({ key: publicKey2 });
+    crypto.generateKeyPair(
+        'x25519',
+        {
+            publicKeyEncoding: {
+                type: 'spki',
+                format: 'pem',
+            },
+            privateKeyEncoding: {
+                type: 'pkcs8',
+                format: 'pem',
+            },
+        },
+        (err, publicKey1, privateKey1) => {
+            if (err) console.log(err);
 
-    const sharedSecret1 = crypto.diffieHellman({ privateKeyObject1, publicKeyObject2 });
-    const sharedSecret2 = crypto.diffieHellman({ privateKeyObject2, publicKeyObject1 });
-    assert.equal(sharedSecret1, sharedSecret2)
+            const privateKeyObject1 = crypto.createPrivateKey({ key: privateKey1 });
+            const publicKeyObject1 = crypto.createPublicKey({ key: publicKey1 });
+
+            const sharedSecret1 = crypto.diffieHellman({ privateKey: privateKeyObject, publicKey: publicKeyObject1 });
+            const sharedSecret2 = crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject });
+            assert.equal(sharedSecret1, sharedSecret2);
+        },
+    );
 }
 
 {
