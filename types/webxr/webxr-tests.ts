@@ -26,11 +26,13 @@ const startSpot = new DOMPoint(0, 0, 0, 1);
 xr.requestSession('immersive-vr').then((session: XRSession) => {
     if (ctx) {
         layer = new XRWebGLLayer(session, ctx);
-        session.updateRenderState({
+        const init: XRRenderStateInit = {
             baseLayer: layer,
             depthFar: 800,
             depthNear: 0.01,
-        } as XRRenderStateInit);
+            inlineVerticalFieldOfView: 1,
+        };
+        session.updateRenderState(init);
 
         session
             .requestReferenceSpace('local')
