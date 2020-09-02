@@ -62,7 +62,7 @@ export class XRWebGLLayer {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface XRSpace extends EventTarget {}
+export interface XRSpace extends EventTarget { }
 
 export interface XRRenderState {
     readonly baseLayer: XRWebGLLayer;
@@ -85,7 +85,7 @@ export interface XRReferenceSpace extends XRSpace {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface XRBoundedReferenceSpace extends XRSpace {}
+export interface XRBoundedReferenceSpace extends XRSpace { }
 
 export interface XRInputSource {
     // A DOMString indicating the methodology used to
@@ -147,7 +147,7 @@ export interface XRSession extends EventTarget {
      * Ends the WebXR session. Returns a promise which resolves when the
      * session has been shut down.
      */
-    end: (event: XRSessionEvent) => void;
+    end: (event?: XRSessionEvent) => Promise<void>;
     /**
      * Schedules the specified method to be called the next time the user agent
      * is working on rendering an animation frame for the WebXR device. Returns an
@@ -180,8 +180,8 @@ export interface XRDomPoint {
     readonly w: number;
 }
 
-export interface XRRigidTransform {
-    // constructor(position?: DOMPointInit, orientation?: DOMPointInit);
+export class XRRigidTransform {
+    constructor(position?: DOMPointInit, orientation?: DOMPointInit);
     readonly matrix: Float32Array;
     readonly orientation: XRDomPoint;
     readonly position: XRDomPoint;
