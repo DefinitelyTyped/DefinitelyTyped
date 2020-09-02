@@ -1,54 +1,57 @@
 import {
-  XRWebGLLayer,
-  XRSession,
-  XRSystem,
-  XRRenderStateInit,
-  XRReferenceSpace,
-  XRFrame,
-  XRViewerPose,
-  XRRigidTransform,
-  XRView,
-  XRViewPort
-} from './index.d'
+    XRWebGLLayer,
+    XRSession,
+    XRSystem,
+    XRRenderStateInit,
+    XRReferenceSpace,
+    XRFrame,
+    XRViewerPose,
+    XRRigidTransform,
+    XRView,
+    XRViewPort,
+} from './index.d';
 
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('webgl');
 
 const xr = (navigator as any)?.xr as XRSystem;
 if (!xr) {
-  throw Error("You do not have WebXR");
+    throw Error('You do not have WebXR');
 }
 
 let space;
 let layer;
-let startRot = new DOMPoint(0., 0., 0., 1.);
-let startSpot = new DOMPoint(0., 0., 0., 1.);
+let startRot = new DOMPoint(0, 0, 0, 1);
+let startSpot = new DOMPoint(0, 0, 0, 1);
 xr.requestSession('immersive-vr').then((session: XRSession) => {
-  layer = new XRWebGLLayer(session, ctx);
-  session.updateRenderState(<XRRenderStateInit>{
-    baseLayer: layer,
-    depthFar: 800,
-    depthNear: .01
-  });
+    layer = new XRWebGLLayer(session, ctx);
+    session.updateRenderState(<XRRenderStateInit>{
+        baseLayer: layer,
+        depthFar: 800,
+        depthNear: 0.01,
+    });
 
-  session.requestReferenceSpace('local').then((rs: XRReferenceSpace) => {
-    space = rs;
-  }).catch(e => {
-    throw Error("Can't get reference space" + e);
-  });
-})
+    session
+        .requestReferenceSpace('local')
+        .then((rs: XRReferenceSpace) => {
+            space = rs;
+        })
+        .catch(e => {
+            throw Error("Can't get reference space" + e);
+        });
+});
 
 const renderFrame = (frame: XRFrame) => {
-  const tf = new XRRigidTransform(startSpot, startRot);
-  space = space.getOffsetReferenceSpace(tf);
+    const tf = new XRRigidTransform(startSpot, startRot);
+    space = space.getOffsetReferenceSpace(tf);
 
-  let pose: XRViewerPose = frame.getViewerPose(space);
+    let pose: XRViewerPose = frame.getViewerPose(space);
 
-  if (pose) {
-    let view: XRView;
-    for (view of pose.views) {
-      let viewport: XRViewPort = layer.getViewport(view);
-      // draw to the device eyes
+    if (pose) {
+        let view: XRView;
+        for (view of pose.views) {
+            let viewport: XRViewPort = layer.getViewport(view);
+            // draw to the device eyes
+        }
     }
-  }
-}
+};
