@@ -3,7 +3,8 @@
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,
 //                 Adam Krantz <https://github.com/akrantz>,
 //                 Michelle Scharlock <https://github.com/mscharlock>,
-//                 David Chesnut, <https://github.com/davidchesnut>
+//                 David Chesnut <https://github.com/davidchesnut>,
+//                 Alison McKay <https://github.com/alison-mk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
