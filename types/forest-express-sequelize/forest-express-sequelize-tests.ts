@@ -1,5 +1,4 @@
 import {
-    AggregatedFilters,
     Filter,
     Page,
     Params, PermissionMiddlewareCreator,
