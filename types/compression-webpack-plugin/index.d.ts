@@ -19,7 +19,7 @@ declare class CompressionPlugin<O = any> extends Plugin {
 }
 
 declare namespace CompressionPlugin {
-    type AlgorithmCallback = (error: Error | null, result: Buffer) => void;
+    type AlgorithmCallback = (error: Error | null, result: Uint8Array) => void;
     type Algorithm<O> = (source: string, options: O, callback: AlgorithmCallback) => void;
 
     // NOTE: These are the async compression algorithms on the zlib object.
