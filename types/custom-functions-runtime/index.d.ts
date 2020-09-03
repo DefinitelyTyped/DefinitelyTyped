@@ -1,5 +1,5 @@
 
-// Type definitions for non-npm package Custom Functions 1.3
+// Type definitions for Custom Functions 1.0
 // Project: https://github.com/OfficeDev/office-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,
 //                 Adam Krantz <https://github.com/akrantz>,
