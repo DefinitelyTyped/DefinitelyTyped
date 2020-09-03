@@ -811,6 +811,10 @@ interface SkewYTransform {
     skewY: string;
 }
 
+interface MatrixTransform {
+    matrix: number[];
+}
+
 export interface TransformsStyle {
     transform?: (
         | PerpectiveTransform
@@ -825,12 +829,31 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform
+        | MatrixTransform
     )[];
+    /**
+     * Deprecated. Use the transform prop instead.
+     */
     transformMatrix?: Array<number>;
+    /**
+     * Deprecated. Use the transform prop instead.
+     */
     rotation?: number;
+    /**
+     * Deprecated. Use the transform prop instead.
+     */
     scaleX?: number;
+    /**
+     * Deprecated. Use the transform prop instead.
+     */
     scaleY?: number;
+    /**
+     * Deprecated. Use the transform prop instead.
+     */
     translateX?: number;
+    /**
+     * Deprecated. Use the transform prop instead.
+     */
     translateY?: number;
 }
 
