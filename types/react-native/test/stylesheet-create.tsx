@@ -21,5 +21,4 @@ const styles = StyleSheet.create({
             { rotate: '30deg' },
         ],
     },
-    
 });
