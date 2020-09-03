@@ -65,6 +65,8 @@ function stockPriceStream(ticker: string,
 
 declare function pause(ms: number): Promise<undefined>;
 
+/**a comment so this file can rerun CI */
+
 function throwErrors(parameter: any) {
     const customError = new CustomFunctions.Error(CustomFunctions.ErrorCode.invalidValue, "The parameter can only contain lowercase characters.");
     switch (parameter) {
