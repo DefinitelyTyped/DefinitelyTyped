@@ -29,6 +29,7 @@ for (const rootType of parsed) {
             break;
         case "callback interface":
             rootType; // $ExpectType CallbackInterfaceType
+            console.log(rootType.inheritance);
             logMembers(rootType.members);
             console.log(rootType.partial);
             break;

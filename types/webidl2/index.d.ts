@@ -161,6 +161,7 @@ export interface AbstractContainer extends AbstractBase {
 export interface CallbackInterfaceType extends AbstractContainer {
     type: "callback interface";
     members: IDLCallbackInterfaceMemberType[];
+    inheritance: null;
     parent: null;
 }
 
