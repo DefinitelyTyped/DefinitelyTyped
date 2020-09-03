@@ -5,7 +5,7 @@
 //                 Mounir Abid <https://github.com/mabidina>
 //                 Doyoung Ha <https://github.com/hados99>
 //                 Prasad Nayak <https://github.com/buzzertech>
-// Definitions: https://github.com/DefinitelyType/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
