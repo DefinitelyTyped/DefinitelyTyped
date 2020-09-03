@@ -1,53 +1,30 @@
 export interface Providers {
-    Email: Email;
-    Credentials: Credentials;
     Apple: Apple;
-    Twitter: Twitter;
-    Facebook: Facebook;
-    GitHub: GitHub;
-    GitLab: GitLab;
-    Slack: Slack;
-    Google: Google;
     Auth0: Auth0;
-    IdentityServer4: IdentityServer4;
-    Discord: Discord;
-    Twitch: Twitch;
-    Mixer: Mixer;
-    Okta: Okta;
+    Basecamp: Basecamp;
     BattleNet: BattleNet;
     Box: Box;
     Cognito: Cognito;
-    Yandex: Yandex;
+    Credentials: Credentials;
+    Discord: Discord;
+    Email: Email;
+    Facebook: Facebook;
+    GitHub: GitHub;
+    GitLab: GitLab;
+    Google: Google;
+    IdentityServer4: IdentityServer4;
     LinkedIn: LinkedIn;
-    Spotify: Spotify;
-    Basecamp: Basecamp;
+    Mixer: Mixer;
+    Okta: Okta;
     Reddit: Reddit;
+    Slack: Slack;
+    Spotify: Spotify;
+    Twitch: Twitch;
+    Twitter: Twitter;
+    Yandex: Yandex;
 }
 
-type PossibleProviders =
-    | Email
-    | Credentials
-    | Apple
-    | Twitter
-    | Facebook
-    | GitHub
-    | GitLab
-    | Slack
-    | Google
-    | Auth0
-    | IdentityServer4
-    | Discord
-    | Twitch
-    | Mixer
-    | Okta
-    | BattleNet
-    | Box
-    | Cognito
-    | Yandex
-    | LinkedIn
-    | Spotify
-    | Basecamp
-    | Reddit;
+type PossibleProviders = Providers[keyof Providers];
 
 // TODO: type return objects from providers properly
 interface GenericReturnConfig {
@@ -94,7 +71,7 @@ interface ProviderEmailAuth {
 type Credentials = (options: ProviderCredentialsOptions) => GenericReturnConfig;
 
 interface ProviderCredentialsOptions {
-    id: string;
+    id?: string;
     name: string;
     credentials: unknown;
     authorize(credentails: unknown): Promise<unknown | null>;

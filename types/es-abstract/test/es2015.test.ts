@@ -35,7 +35,7 @@ expectType<
     | undefined
 >(ES2015.Type<any>(any));
 
-ES2015.ToPrimitive(any); // $ExpectType string | number | boolean | symbol | null | undefined
+ES2015.ToPrimitive(any); // $ExpectType string | number | bigint | boolean | symbol | null | undefined
 ES2015.ToInt16(any); // $ExpectType number
 ES2015.ToInt8(any); // $ExpectType number
 ES2015.ToUint8(any); // $ExpectType number
