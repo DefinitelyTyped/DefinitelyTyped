@@ -64,3 +64,43 @@ function stockPriceStream(ticker: string,
 }
 
 declare function pause(ms: number): Promise<undefined>;
+
+function showCustomErrors(result: any) {
+    const invalidValueError = new CustomFunctions.Error(CustomFunctions.ErrorCode.invalidValue, "The parameter can only contain lowercase characters.");
+    const invalidNumberError = new CustomFunctions.Error(CustomFunctions.ErrorCode.invalidNumber);
+
+    if (result === 0) {
+        throw invalidNumberError;
+    } else {
+        throw invalidValueError;
+    }
+}
+
+function throwErrors(parameter: any) {
+    const customError = new CustomFunctions.Error(CustomFunctions.ErrorCode.invalidValue, "The parameter can only contain lowercase characters.");
+    switch (parameter) {
+        case (parameter === 0):
+          return CustomFunctions.ErrorCode.invalidValue;
+          break;
+        case (parameter === 1):
+          throw CustomFunctions.ErrorCode.notAvailable;
+          break;
+        case (parameter === 2):
+          throw CustomFunctions.ErrorCode.nullReference;
+          break;
+        case (parameter === 3):
+          throw CustomFunctions.ErrorCode.invalidReference;
+          break;
+        case (parameter === 4):
+          throw CustomFunctions.ErrorCode.invalidNumber;
+          break;
+        case (parameter === 5):
+          throw CustomFunctions.ErrorCode.invalidName;
+          break;
+        case (parameter === 6):
+          throw CustomFunctions.ErrorCode.divisionByZero;
+          break;
+        case (parameter === "A"):
+          return customError;
+    }
+}
