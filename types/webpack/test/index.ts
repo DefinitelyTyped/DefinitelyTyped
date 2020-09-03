@@ -1060,6 +1060,7 @@ configuration = {
                 exclude: path => path.startsWith('/foo'),
                 resourceQuery: ['foo', 'bar'],
                 resolve: {
+                    roots: [process.cwd()],
                     mainFields: ['foo'],
                     aliasFields: [['bar']],
                 },

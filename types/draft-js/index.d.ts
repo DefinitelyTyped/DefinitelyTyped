@@ -142,6 +142,10 @@ declare namespace Draft {
                  * that you set this to `true`.
                  */
                 stripPastedStyles?: boolean;
+                formatPastedText?: (
+                    text: string,
+                    html?: string,
+                ) => { text: string, html: string | undefined },
 
                 tabIndex?: number;
 
@@ -550,7 +554,7 @@ declare namespace Draft {
              * a `ComposedText` object, not for use with `DraftEntity.get()`.
              */
             interface RawDraftEntityRange {
-                key: string;
+                key: number;
                 offset: number;
                 length: number;
             }

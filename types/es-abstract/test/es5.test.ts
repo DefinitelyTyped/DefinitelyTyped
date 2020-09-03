@@ -28,7 +28,7 @@ ES5.Type([]); // $ExpectType "Object"
 expectType<'String' | 'Number' | 'Boolean' | 'Null' | 'Undefined' | 'Object' | undefined>(ES5.Type(any));
 expectType<'String' | 'Number' | 'Boolean' | 'Null' | 'Undefined' | 'Object' | undefined>(ES5.Type<any>(any));
 
-ES5.ToPrimitive(any); // $ExpectType string | number | boolean | symbol | null | undefined
+ES5.ToPrimitive(any); // $ExpectType string | number | bigint | boolean | symbol | null | undefined
 ES5.ToBoolean(any); // $ExpectType boolean
 ES5.ToNumber(any); // $ExpectType number
 ES5.ToInteger(any); // $ExpectType number
