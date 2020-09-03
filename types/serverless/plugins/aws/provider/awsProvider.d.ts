@@ -44,7 +44,7 @@ declare namespace Aws {
         rolePermissionsBoundary?: string;
         cfnRole?: string;
         versionFunctions?: boolean;
-        environment?: Environment;
+        environment?: Environment | string;
         endpointType?: 'regional' | 'edge' | 'private';
         apiKeys?: string[];
         apiGateway?: ApiGateway;
