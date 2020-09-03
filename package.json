@@ -18,7 +18,7 @@
         "compile-scripts": "tsc -p scripts",
         "not-needed": "node scripts/not-needed.js",
         "update-codeowners": "node scripts/update-codeowners.js",
-        "test": "node node_modules/@definitelytyped/dtslint-runner/dist/index.js --path .",
+        "test": "node node_modules/@definitelytyped/dtslint-runner/dist/index.js --path . --selection all --noinstall",
         "lint": "dtslint types",
         "prettier": "prettier"
     },
