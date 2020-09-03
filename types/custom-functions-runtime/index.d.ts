@@ -4,8 +4,8 @@
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,
 //                 Adam Krantz <https://github.com/akrantz>,
 //                 Michelle Scharlock <https://github.com/mscharlock>,
-//                 David Chesnut, <https://github.com/davidchesnut>,
-//                 Alison McKay, <https://github.com/alison-mk>
+//                 David Chesnut <https://github.com/davidchesnut>,
+//                 Alison McKay <https://github.com/alison-mk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -32,7 +32,7 @@ declare namespace CustomFunctions {
      * [Api set: CustomFunctionsRuntime 1.2]
      */
     class Error {
-        constructor(errorCode: ErrorCode, errorMessage?: string)
+        constructor(errorCode: ErrorCode, errorMessage?: string);
          /**
           * The error code returned by your custom function.
           * [Api set: CustomFunctionsRuntime 1.2]
