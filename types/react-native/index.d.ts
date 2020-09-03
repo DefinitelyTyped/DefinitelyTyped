@@ -832,27 +832,27 @@ export interface TransformsStyle {
         | MatrixTransform
     )[];
     /**
-     * Deprecated. Use the transform prop instead.
+     * @deprecated Use matrix in transform prop instead.
      */
     transformMatrix?: Array<number>;
     /**
-     * Deprecated. Use the transform prop instead.
+     * @deprecated Use rotate in transform prop instead.
      */
     rotation?: number;
     /**
-     * Deprecated. Use the transform prop instead.
+     * @deprecated Use scaleX in transform prop instead.
      */
     scaleX?: number;
     /**
-     * Deprecated. Use the transform prop instead.
+     * @deprecated Use scaleY in transform prop instead.
      */
     scaleY?: number;
     /**
-     * Deprecated. Use the transform prop instead.
+     * @deprecated Use translateX in transform prop instead.
      */
     translateX?: number;
     /**
-     * Deprecated. Use the transform prop instead.
+     * @deprecated Use translateY in transform prop instead.
      */
     translateY?: number;
 }
