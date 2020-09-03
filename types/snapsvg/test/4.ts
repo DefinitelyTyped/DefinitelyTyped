@@ -27,7 +27,7 @@
 
   // Animate all elements in set
   function animateTest() {
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       rectSet.animate({
         x: 50
       }, 500, mina.bounce, resolve);
@@ -36,7 +36,7 @@
 
   // Animate elements individually
   function animateMultipleTest() {
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       rectSet.animate(
         [{ x: 100 }, 500, mina.linear],
         [{ x: 100 }, 1000, mina.linear],
@@ -49,7 +49,7 @@
   // Animate elements individually
   function forEachTest() {
     const colors = ['red', 'green', 'blue'];
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       rectSet.forEach((element, idx) => { 
         element.attr({
           fill: colors[idx] || '#aaa'
@@ -61,7 +61,7 @@
 
   // Exclude rect4 from set
   function excludeTest() {
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       rectSet.exclude(rect4);
       rectSet.animate({
         x: 150
@@ -84,7 +84,7 @@
 
   // Clear set. Rectangles should not go back to x=0
   function clearTest() {
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       rectSet.clear();
 
       // SHOULD NOT WORK

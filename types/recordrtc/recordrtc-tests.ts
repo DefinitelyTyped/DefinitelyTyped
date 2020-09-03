@@ -9,6 +9,15 @@ navigator.getUserMedia(
             type: 'video',
             disableLogs: true,
             bufferSize: 2048,
+            ondataavailable: (blob: Blob) => {
+                console.log(blob);
+            },
+            onTimeStamp: (timestamp: number, timestamps: number[]) => {
+                console.log(timestamp, timestamps);
+            },
+            previewStream: (stream: MediaStream) => {
+                console.log(stream);
+            }
         });
 
         instance.stopRecording(() => {

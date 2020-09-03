@@ -14,6 +14,8 @@ import {
     Highlight,
     HighlightArea,
     VerticalRectSeries,
+    Treemap,
+    Sunburst
 } from 'react-vis';
 
 export function Example() {
@@ -211,3 +213,32 @@ export const HighlightDragExample: React.FC = () => {
         </XYPlot>
     );
 };
+
+const treemapData = {
+  title: "first level",
+  children: [
+    {
+      title: "second level",
+      children: [
+        {
+          title: "#ff0000",
+          size: 29,
+          children: [
+            {
+              title: "third level",
+              size: 30
+            }
+          ]
+        },
+      ]
+    }
+  ]
+};
+
+export function TreemapExample(): JSX.Element {
+  return <Treemap data={treemapData} mode={"partition"} height={150} width={150}/>;
+}
+
+export function SunburstExample(): JSX.Element {
+  return <Sunburst data={treemapData} mode={"partition"} height={150} width={150}/>;
+}
