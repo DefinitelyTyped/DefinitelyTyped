@@ -29,8 +29,14 @@ const AuthTokenHeader = DS.JSONAPIAdapter.extend({
     })
 });
 
-// Ensure that we are allowed to overwrite headers with a getter
+// Ensure that we are allowed to overwrite properties with a getter
 class GetterHeader extends DS.JSONAPIAdapter {
+    get namespace() {
+        return 'api/v1';
+    }
+    get host() {
+        return 'https://api.example.com';
+    }
     get headers() {
         return {
             'CUSTOM_HEADER': 'Some header value'

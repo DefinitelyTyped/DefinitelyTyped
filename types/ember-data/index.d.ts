@@ -1250,15 +1250,6 @@ export namespace DS {
          */
         coalesceFindRequests: boolean;
         /**
-         * Endpoint paths can be prefixed with a `namespace` by setting the namespace
-         * property on the adapter:
-         */
-        namespace: string;
-        /**
-         * An adapter can target other hosts by setting the `host` property.
-         */
-        host: string;
-        /**
          * Called by the store in order to fetch the JSON for a given
          * type and ID.
          */
@@ -1489,10 +1480,19 @@ export namespace DS {
         pathForType<K extends keyof ModelRegistry>(modelName: K): string;
     }
 
-    // Instead of declaring `headers as a property we now declare it in an
+    // Instead of declaring `namespace`, `host`, and `headers` as a property we now declare it in an
     // interface. This works around the issue noted here with TypeScript 4:
     // https://github.com/microsoft/TypeScript/issues/40220
     interface RESTAdapter {
+        /**
+         * Endpoint paths can be prefixed with a `namespace` by setting the namespace
+         * property on the adapter:
+         */
+        namespace: string;
+        /**
+         * An adapter can target other hosts by setting the `host` property.
+         */
+        host: string;
         /**
          * Some APIs require HTTP headers, e.g. to provide an API
          * key. Arbitrary headers can be set as key/value pairs on the
