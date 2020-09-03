@@ -46,16 +46,16 @@ class ShapeBehavior extends Behavior {
 
     /**
      * When the player keeps a key down, we wait for a long delay before
-     * quickly moving the picece: we don't want to miss interpret his move.
+     * quickly moving the piece: we don't want to mis-interpret their move.
      *
-     * If he quickly releases the key and quickly presses it, we have to
+     * If they quickly release the key and quickly press it, we have to
      * react though
      *
      */
     ready(state: number, timestamp: number): boolean {
         // if the player pressed a different key
         // we react immediately but have to wait a long_delay
-        // before repeating the key if he keeps pressing it
+        // before repeating the key if they keep pressing it
         if (this.state !== state) {
             this.ts = timestamp;
             this.state = state;

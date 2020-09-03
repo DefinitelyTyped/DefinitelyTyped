@@ -6,7 +6,6 @@
 
 import * as React from 'react';
 import { Observable } from 'rxjs/Observable';
-import { Action } from 'redux';
 import { Epic } from 'redux-observable';
 
 export interface Action {

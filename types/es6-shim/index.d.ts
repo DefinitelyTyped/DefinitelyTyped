@@ -2,10 +2,6 @@
 // Project: https://github.com/paulmillr/es6-shim
 // Definitions by: Ron Buckton <https://github.com/rbuckton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-// TODO: As of TypeScript@2.9 there is a global type PropertyKey that should be used instead of this.
-declare type KeyOfProperty = string | number | symbol;
 
 interface IteratorResult<T> {
     done: boolean;
@@ -105,10 +101,10 @@ interface String {
     bold(): string;
 
     /** Returns a <tt> HTML element */
-    fixed(): string
+    fixed(): string;
 
     /** Returns a <font> HTML element and sets the color attribute value */
-    fontcolor(color: string): string
+    fontcolor(color: string): string;
 
     /** Returns a <font> HTML element and sets the size attribute value */
     fontsize(size: number): string;
@@ -147,7 +143,7 @@ interface ArrayConstructor {
       * @param mapfn A mapping function to call on every element of the array.
       * @param thisArg Value of 'this' used to invoke the mapfn.
       */
-    from<T, U>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): Array<U>;
+    from<T, U>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[];
 
     /**
       * Creates an array from an iterable object.
@@ -155,25 +151,25 @@ interface ArrayConstructor {
       * @param mapfn A mapping function to call on every element of the array.
       * @param thisArg Value of 'this' used to invoke the mapfn.
       */
-    from<T, U>(iterable: IterableShim<T>, mapfn: (v: T, k: number) => U, thisArg?: any): Array<U>;
+    from<T, U>(iterable: IterableShim<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[];
 
     /**
       * Creates an array from an array-like object.
       * @param arrayLike An array-like object to convert to an array.
       */
-    from<T>(arrayLike: ArrayLike<T>): Array<T>;
+    from<T>(arrayLike: ArrayLike<T>): T[];
 
     /**
       * Creates an array from an iterable object.
       * @param iterable An iterable object to convert to an array.
       */
-    from<T>(iterable: IterableShim<T>): Array<T>;
+    from<T>(iterable: IterableShim<T>): T[];
 
     /**
       * Returns a new array from a set of elements.
       * @param items A set of elements to include in the new array object.
       */
-    of<T>(...items: T[]): Array<T>;
+    of<T>(...items: T[]): T[];
 }
 
 interface Array<T> {
@@ -186,7 +182,7 @@ interface Array<T> {
       * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
-    find(predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): T | undefined;
+    find(predicate: (value: T, index: number, obj: T[]) => boolean, thisArg?: any): T | undefined;
 
     /**
       * Returns the index of the first element in the array where predicate is true, and -1 otherwise.
@@ -626,17 +622,17 @@ declare var WeakSet: WeakSetConstructor;
 declare namespace Reflect {
     function apply(target: Function, thisArgument: any, argumentsList: ArrayLike<any>): any;
     function construct(target: Function, argumentsList: ArrayLike<any>): any;
-    function defineProperty(target: any, propertyKey: KeyOfProperty, attributes: PropertyDescriptor): boolean;
-    function deleteProperty(target: any, propertyKey: KeyOfProperty): boolean;
+    function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;
+    function deleteProperty(target: any, propertyKey: PropertyKey): boolean;
     function enumerate(target: any): IterableIteratorShim<any>;
-    function get(target: any, propertyKey: KeyOfProperty, receiver?: any): any;
-    function getOwnPropertyDescriptor(target: any, propertyKey: KeyOfProperty): PropertyDescriptor;
+    function get(target: any, propertyKey: PropertyKey, receiver?: any): any;
+    function getOwnPropertyDescriptor(target: any, propertyKey: PropertyKey): PropertyDescriptor;
     function getPrototypeOf(target: any): any;
-    function has(target: any, propertyKey: KeyOfProperty): boolean;
+    function has(target: any, propertyKey: PropertyKey): boolean;
     function isExtensible(target: any): boolean;
-    function ownKeys(target: any): Array<KeyOfProperty>;
+    function ownKeys(target: any): PropertyKey[];
     function preventExtensions(target: any): boolean;
-    function set(target: any, propertyKey: KeyOfProperty, value: any, receiver?: any): boolean;
+    function set(target: any, propertyKey: PropertyKey, value: any, receiver?: any): boolean;
     function setPrototypeOf(target: any, proto: any): boolean;
 }
 
@@ -654,17 +650,17 @@ declare module "es6-shim" {
     namespace Reflect {
         function apply(target: Function, thisArgument: any, argumentsList: ArrayLike<any>): any;
         function construct(target: Function, argumentsList: ArrayLike<any>): any;
-        function defineProperty(target: any, propertyKey: KeyOfProperty, attributes: PropertyDescriptor): boolean;
-        function deleteProperty(target: any, propertyKey: KeyOfProperty): boolean;
+        function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;
+        function deleteProperty(target: any, propertyKey: PropertyKey): boolean;
         function enumerate(target: any): Iterator<any>;
-        function get(target: any, propertyKey: KeyOfProperty, receiver?: any): any;
-        function getOwnPropertyDescriptor(target: any, propertyKey: KeyOfProperty): PropertyDescriptor;
+        function get(target: any, propertyKey: PropertyKey, receiver?: any): any;
+        function getOwnPropertyDescriptor(target: any, propertyKey: PropertyKey): PropertyDescriptor;
         function getPrototypeOf(target: any): any;
-        function has(target: any, propertyKey: KeyOfProperty): boolean;
+        function has(target: any, propertyKey: PropertyKey): boolean;
         function isExtensible(target: any): boolean;
-        function ownKeys(target: any): Array<KeyOfProperty>;
+        function ownKeys(target: any): PropertyKey[];
         function preventExtensions(target: any): boolean;
-        function set(target: any, propertyKey: KeyOfProperty, value: any, receiver?: any): boolean;
+        function set(target: any, propertyKey: PropertyKey, value: any, receiver?: any): boolean;
         function setPrototypeOf(target: any, proto: any): boolean;
     }
 }

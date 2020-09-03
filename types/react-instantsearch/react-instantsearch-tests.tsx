@@ -2,8 +2,7 @@ import * as React from "react";
 
 import { connectMenu, connectRefinementList, connectStateResults, SearchState } from "react-instantsearch/connectors";
 import { InstantSearch, SearchBox, Index, Hits, Highlight, Menu } from "react-instantsearch/dom";
-import { orderBy, omit, values } from 'lodash';
-import { createInstantSearch } from "react-instantsearch-core";
+import { values } from 'lodash';
 
 // https://community.algolia.com/react-instantsearch/guide/Search_state.html
 () => {
@@ -262,7 +261,7 @@ import { createInstantSearch } from "react-instantsearch-core";
 
 () => {
   const App = () => (
-    <InstantSearch appId="" apiKey="" indexName="first">
+    <InstantSearch indexName="first" searchClient={{}}>
       <SearchBox />
       <AllResults>
         <div>
@@ -325,21 +324,6 @@ import { createInstantSearch } from "react-instantsearch-core";
   });
 };
 
-// https://github.com/algolia/react-instantsearch/blob/master/packages/react-instantsearch-dom/src/widgets/InstantSearch.js
-() => {
-  const InstantSearch = createInstantSearch(
-    () => ({}),
-    {
-      Root: 'div',
-      props: {
-        className: 'ais-InstantSearch__root',
-      },
-    }
-  );
-
-  <InstantSearch />;
-};
-
 () => {
   const RefinementListWithSearchBox = connectRefinementList(props => {
     const values = props.items.map(item => {
@@ -374,9 +358,8 @@ import { createInstantSearch } from "react-instantsearch-core";
 
   const App = () => (
     <InstantSearch
-      appId="..."
-      apiKey="..."
       indexName="..."
+      searchClient={{}}
     >
       <SearchBox defaultRefinement="hi" />
       <Hoodies />

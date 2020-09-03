@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -19,6 +18,9 @@
     },
     "files": [
         "index.d.ts",
-        "urijs-tests.ts"
+        "test/urijs-dom.test.ts",
+        "test/urijs-nodejs.test.ts",
+        "test/urijs-global-module.test.ts",
+        "test/urijs-global-script.test.ts"
     ]
 }

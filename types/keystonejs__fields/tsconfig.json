@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@keystonejs/adapter-knex": ["keystonejs__adapter-knex"],
+            "@keystonejs/keystone": ["keystonejs__keystone"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "keystonejs__fields-tests.ts"
+    ]
+}

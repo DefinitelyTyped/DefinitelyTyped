@@ -225,7 +225,7 @@ declare namespace chrome.cast {
         sessionRequest: chrome.cast.SessionRequest;
         sessionListener: (session: chrome.cast.Session) => void;
         receiverListener: (receiverAvailability: chrome.cast.ReceiverAvailability) => void;
-        autoJoinPolicy?: chrome.cast.AutoJoinPolicy;
+        autoJoinPolicy: chrome.cast.AutoJoinPolicy;
         defaultActionPolicy: chrome.cast.DefaultActionPolicy;
     }
 
@@ -244,8 +244,8 @@ declare namespace chrome.cast {
         );
 
         code: chrome.cast.ErrorCode;
-        description?: string;
-        details?: string;
+        description: string|null;
+        details: object;
 
     }
 
@@ -258,8 +258,8 @@ declare namespace chrome.cast {
         constructor(url: string);
 
         url: string;
-        height?: number;
-        width?: number;
+        height: number|null;
+        width: number|null;
     }
 
     export class SenderApplication {
@@ -273,8 +273,8 @@ declare namespace chrome.cast {
         );
 
         platform: chrome.cast.SenderPlatform;
-        url?: string;
-        packageId?: string;
+        url: string|null;
+        packageId: string|null;
     }
 
     export class SessionRequest {
@@ -294,7 +294,7 @@ declare namespace chrome.cast {
         appId: string;
         capabilities: Array<chrome.cast.Capability>;
         requestSessionTimeout: number;
-        language?: string;
+        language: string|null;
     }
 
     export class Session {
@@ -323,7 +323,9 @@ declare namespace chrome.cast {
         senderApps: Array<chrome.cast.SenderApplication>;
         namespaces: Array<{ name: string }>;
         media: Array<chrome.cast.media.Media>;
-        status: chrome.cast.SessionStatus
+        status: chrome.cast.SessionStatus;
+        statusText: string|null;
+        transportId: string;
 
         /**
          * @param {number} newLevel
@@ -373,7 +375,7 @@ declare namespace chrome.cast {
          */
         sendMessage(
             namespace: string,
-            message: string,
+            message: string | object,
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void
@@ -499,8 +501,8 @@ declare namespace chrome.cast {
             muted?: boolean
         );
 
-        level?: number;
-        muted?: boolean;
+        level: number|null;
+        muted: boolean|null;
     }
 }
 
@@ -966,7 +968,7 @@ declare namespace chrome.cast.media {
         contentId: string;
         streamType: chrome.cast.media.StreamType;
         contentType: string;
-        metadata: Object;
+        metadata: any;
         duration: number;
         tracks: Array<chrome.cast.media.Track>;
         textTrackStyle: chrome.cast.media.TextTrackStyle;
@@ -988,8 +990,9 @@ declare namespace chrome.cast.media {
         activeTrackIds: Array<number>;
         currentItemId: number;
         customData: Object;
-        idleReason: chrome.cast.media.IdleReason;
+        idleReason: chrome.cast.media.IdleReason|null;
         items: Array<chrome.cast.media.QueueItem>;
+        liveSeekableRange?: chrome.cast.media.LiveSeekableRange;
         loadingItemId: number;
         media: chrome.cast.media.MediaInfo;
         mediaSessionId: number;
@@ -1260,6 +1263,24 @@ declare namespace chrome.cast.media {
         fontGenericFamily: chrome.cast.media.TextTrackFontGenericFamily;
         fontStyle: chrome.cast.media.TextTrackFontStyle;
         customData: Object;
+    }
+
+    export class LiveSeekableRange {
+        /**
+         * @constructor
+             * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.LiveSeekableRange
+         */
+        constructor(
+            start?: number,
+            end?: number,
+            isMovingWindow?: boolean,
+            isLiveDone?: boolean
+        );
+
+        start?: number;
+        end?: number;
+        isMovingWindow?: boolean;
+        isLiveDone?: boolean;
     }
 }
 

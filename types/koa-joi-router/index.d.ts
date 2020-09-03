@@ -25,7 +25,7 @@ interface createRouter {
 }
 
 declare namespace createRouter {
-    type FullHandler = (ctx: Koa.Context, next: () => Promise<any>) => any;
+    type FullHandler = (ctx: Koa.Context, next: Koa.Next) => any;
     interface NestedHandler extends ReadonlyArray<Handler> {}
     type Handler = FullHandler | NestedHandler;
 

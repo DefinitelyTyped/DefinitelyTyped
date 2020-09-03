@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@keystonejs/fields": ["keystonejs__fields"],
+            "@keystonejs/keystone": ["keystonejs__keystone"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "keystonejs__list-plugins-tests.ts"
+    ]
+}

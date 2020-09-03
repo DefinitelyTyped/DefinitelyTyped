@@ -84,6 +84,6 @@ export interface AxeBuilder {
 }
 
 export const AxeBuilder: {
-    (driver: WebDriver): AxeBuilder;
+    (driver: WebDriver, source?: string): AxeBuilder;
     new (driver: WebDriver): AxeBuilder;
 };

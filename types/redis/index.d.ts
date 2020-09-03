@@ -11,6 +11,9 @@
 //                 Stanislav Dzhus <https://github.com/blablapolicja>
 //                 Jake Ferrante <https://github.com/ferrantejake>
 //                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
+//                 Ryo Ota <https://github.com/nwtgck>
+//                 Thomas de Barochez <https://github.com/tdebarochez>
+//                 David Stephens <https://github.com/dwrss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -27,7 +30,7 @@ export interface RetryStrategyOptions {
     attempt: number;
 }
 
-export type RetryStrategy = (options: RetryStrategyOptions) => number | Error;
+export type RetryStrategy = (options: RetryStrategyOptions) => number | Error | unknown;
 
 export interface ClientOpts {
     host?: string;
@@ -39,7 +42,7 @@ export interface ClientOpts {
     return_buffers?: boolean;
     detect_buffers?: boolean;
     socket_keepalive?: boolean;
-    socket_initialdelay?: number;
+    socket_initial_delay?: number;
     no_ready_check?: boolean;
     enable_offline_queue?: boolean;
     retry_max_delay?: number;
@@ -102,6 +105,7 @@ export interface OverloadedSetCommand<T, U, R> {
     (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
     (key: string, arg1: T | { [key: string]: T } | T[], cb?: Callback<U>): R;
     (key: string, ...args: Array<T | Callback<U>>): R;
+    (args: [string, ...T[]], cb?: Callback<U>): R;
 }
 
 export interface OverloadedLastCommand<T1, T2, U, R> {
@@ -392,13 +396,17 @@ export interface Commands<R> {
      * Remove all keys from all databases.
      */
     flushall(cb?: Callback<string>): R;
+    flushall(async: "ASYNC", cb?: Callback<string>): R;
     FLUSHALL(cb?: Callback<string>): R;
+    FLUSHALL(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Remove all keys from the current database.
      */
     flushdb(cb?: Callback<'OK'>): R;
+    flushdb(async: "ASYNC", cb?: Callback<string>): R;
     FLUSHDB(cb?: Callback<'OK'>): R;
+    FLUSHDB(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set.
@@ -439,8 +447,8 @@ export interface Commands<R> {
     /**
      * Get the value of a key.
      */
-    get(key: string, cb?: Callback<string>): R;
-    GET(key: string, cb?: Callback<string>): R;
+    get(key: string, cb?: Callback<string | null>): R;
+    GET(key: string, cb?: Callback<string | null>): R;
 
     /**
      * Returns the bit value at offset in the string value stored at key.
@@ -517,8 +525,8 @@ export interface Commands<R> {
     /**
      * Set the string value of a hash field.
      */
-    hset(key: string, field: string, value: string, cb?: Callback<number>): R;
-    HSET(key: string, field: string, value: string, cb?: Callback<number>): R;
+    hset: OverloadedSetCommand<string, number, R>;
+    HSET: OverloadedSetCommand<string, number, R>;
 
     /**
      * Set the value of a hash field, only if the field does not exist.
@@ -991,6 +999,14 @@ export interface Commands<R> {
     TYPE(key: string, cb?: Callback<string>): R;
 
     /**
+     * Deletes a key in a non-blocking manner.
+     * Very similar to DEL, but actual memory reclamation
+     * happens in a different thread, making this non-blocking.
+     */
+    unlink: OverloadedCommand<string, number, R>;
+    UNLINK: OverloadedCommand<string, number, R>;
+
+    /**
      * Forget about all watched keys.
      */
     unwatch(cb?: Callback<'OK'>): R;
@@ -1083,8 +1099,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set.
      */
-    zrank(key: string, member: string, cb?: Callback<number | undefined>): R;
-    ZRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+    zrank(key: string, member: string, cb?: Callback<number | null>): R;
+    ZRANK(key: string, member: string, cb?: Callback<number | null>): R;
 
     /**
      * Remove one or more members from a sorted set.
@@ -1133,8 +1149,8 @@ export interface Commands<R> {
     /**
      * Determine the index of a member in a sorted set, with scores ordered from high to low.
      */
-    zrevrank(key: string, member: string, cb?: Callback<number | undefined>): R;
-    ZREVRANK(key: string, member: string, cb?: Callback<number | undefined>): R;
+    zrevrank(key: string, member: string, cb?: Callback<number | null>): R;
+    ZREVRANK(key: string, member: string, cb?: Callback<number | null>): R;
 
     /**
      * Get the score associated with the given member in a sorted set.
@@ -1179,7 +1195,7 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
     command_queue_length: number;
     offline_queue_length: number;
-    retry_delay: number;
+    retry_delay: number | Error;
     retry_backoff: number;
     command_queue: any[];
     offline_queue: any[];
@@ -1242,9 +1258,19 @@ export function createClient(options?: ClientOpts): RedisClient;
 
 export function print(err: Error | null, reply: any): void;
 
-export class RedisError extends Error { }
-export class ReplyError extends RedisError { }
-export class AbortError extends RedisError { }
+export class RedisError extends Error {
+    name: string;
+}
+export class ReplyError extends RedisError {
+    command: string;
+    args?: unknown[];
+    code: string;
+}
+export class AbortError extends RedisError {
+    command: string;
+    args?: unknown[];
+    code?: string;
+}
 export class ParserError extends RedisError {
     offset: number;
     buffer: Buffer;

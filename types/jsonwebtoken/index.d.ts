@@ -1,13 +1,17 @@
-// Type definitions for jsonwebtoken 8.3
+// Type definitions for jsonwebtoken 8.5
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>,
 //                 Daniel Heim <https://github.com/danielheim>,
 //                 Brice BERNARD <https://github.com/brikou>,
 //                 Veli-Pekka Kestilä <https://github.com/vpk>,
 //                 Daniel Parker <https://github.com/rlgod>,
-//                 Kjell Dießel <https://github.com/kettil>
+//                 Kjell Dießel <https://github.com/kettil>,
+//                 Robert Gajda <https://github.com/RunAge>,
+//                 Nico Flaig <https://github.com/nflaig>,
+//                 Linus Unnebäck <https://github.com/LinusU>
+//                 Ivan Sieder <https://github.com/ivansieder>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -23,6 +27,9 @@ export class TokenExpiredError extends JsonWebTokenError {
     constructor(message: string, expiredAt: Date);
 }
 
+/**
+ * Thrown if current time is before the nbf claim.
+ */
 export class NotBeforeError extends JsonWebTokenError {
     date: Date;
 
@@ -43,7 +50,7 @@ export interface SignOptions {
      * - ES512:    ECDSA using P-521 curve and SHA-512 hash algorithm
      * - none:     No digital signature or MAC value included
      */
-    algorithm?: string;
+    algorithm?: Algorithm;
     keyid?: string;
     /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
     expiresIn?: string | number;
@@ -53,20 +60,28 @@ export interface SignOptions {
     subject?: string;
     issuer?: string;
     jwtid?: string;
+    mutatePayload?: boolean;
     noTimestamp?: boolean;
     header?: object;
     encoding?: string;
 }
 
 export interface VerifyOptions {
-    algorithms?: string[];
+    algorithms?: Algorithm[];
     audience?: string | RegExp | Array<string | RegExp>;
     clockTimestamp?: number;
     clockTolerance?: number;
+    /** return an object with the decoded `{ payload, header, signature }` instead of only the usual content of the payload. */
+    complete?: boolean;
     issuer?: string | string[];
     ignoreExpiration?: boolean;
     ignoreNotBefore?: boolean;
     jwtid?: string;
+    /**
+     * If you want to check `nonce` claim, provide a string value here.
+     * It is used on Open ID for the ID Tokens. ([Open ID implementation notes](https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes))
+     */
+    nonce?: string;
     subject?: string;
     /**
      * @deprecated
@@ -79,14 +94,17 @@ export interface DecodeOptions {
     complete?: boolean;
     json?: boolean;
 }
-export type VerifyErrors= JsonWebTokenError | NotBeforeError | TokenExpiredError;
+export type VerifyErrors =
+    | JsonWebTokenError
+    | NotBeforeError
+    | TokenExpiredError;
 export type VerifyCallback = (
-    err: VerifyErrors,
-    decoded: object | string,
+    err: VerifyErrors | null,
+    decoded: object | undefined,
 ) => void;
 
 export type SignCallback = (
-    err: Error, encoded: string
+    err: Error | null, encoded: string | undefined
 ) => void;
 
 export interface JwtHeader {
@@ -98,6 +116,13 @@ export interface JwtHeader {
     x5t?: string;
 }
 
+export type Algorithm =
+    "HS256" | "HS384" | "HS512" |
+    "RS256" | "RS384" | "RS512" |
+    "ES256" | "ES384" | "ES512" |
+    "PS256" | "PS384" | "PS512" |
+    "none";
+
 export type SigningKeyCallback = (
     err: any,
     signingKey?: Secret,
@@ -108,7 +133,10 @@ export type GetPublicKeyOrSecret = (
     callback: SigningKeyCallback
 ) => void;
 
-export type Secret = string | Buffer | { key: string; passphrase: string };
+export type Secret =
+    | string
+    | Buffer
+    | { key: string | Buffer; passphrase: string };
 
 /**
  * Synchronously sign the given payload into a JSON Web Token string
@@ -149,11 +177,7 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(
-    token: string,
-    secretOrPublicKey: string | Buffer,
-    options?: VerifyOptions,
-): object | string;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): object | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -166,12 +190,12 @@ export function verify(
  */
 export function verify(
     token: string,
-    secretOrPublicKey: string | Buffer | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     callback?: VerifyCallback,
 ): void;
 export function verify(
     token: string,
-    secretOrPublicKey: string | Buffer | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     options?: VerifyOptions,
     callback?: VerifyCallback,
 ): void;
@@ -182,7 +206,5 @@ export function verify(
  * [options] - Options for decoding
  * returns - The decoded Token
  */
-export function decode(
-    token: string,
-    options?: DecodeOptions,
-): null | { [key: string]: any } | string;
+export function decode(token: string, options: DecodeOptions & { json: true }): null | { [key: string]: any };
+export function decode(token: string, options?: DecodeOptions): null | { [key: string]: any } | string;

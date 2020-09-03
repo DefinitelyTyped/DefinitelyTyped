@@ -421,6 +421,9 @@ if (listener) {
 // remove listener
 enterTransition = enterTransition.on('end', null); // check chaining return type by re-assigning
 
+// check end method exists
+enterTransition.end();
+
 // --------------------------------------------------------------------------
 // Test Control Flow
 // --------------------------------------------------------------------------
@@ -513,5 +516,11 @@ updateTransitionActive = d3Transition.active<SVGCircleElement, CircleDatum, SVGS
 
 // interrupt(...) ----------------------------------------------------------
 
-d3Transition.interrupt(topTransition.selection().node());
-d3Transition.interrupt(topTransition.selection().node(), 'top');
+const topSelection = topTransition.selection();
+const topNode = topSelection.node();
+
+d3Transition.interrupt(topNode);
+d3Transition.interrupt(topNode, 'top');
+
+// test selection interrupt
+topSelection.interrupt().selectAll('*').interrupt();

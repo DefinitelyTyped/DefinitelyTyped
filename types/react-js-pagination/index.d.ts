@@ -33,7 +33,7 @@ export interface ReactJsPaginationProps {
     linkClassNext?: string;
     linkClassLast?: string;
     hideFirstLastPages?: boolean;
-    getPageUrl?(): string;
+    getPageUrl?: (pageNumber: number) => string;
 }
 declare const Pagination: React.ClassicComponentClass<ReactJsPaginationProps>;
 

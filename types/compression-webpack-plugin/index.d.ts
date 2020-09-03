@@ -1,16 +1,20 @@
-// Type definitions for compression-webpack-plugin 2.0
+// Type definitions for compression-webpack-plugin 4.0
 // Project: https://github.com/webpack-contrib/compression-webpack-plugin
 // Definitions by: Anton Kandybo <https://github.com/dublicator>
 //                 Rhys van der Waerden <https://github.com/rhys-vdw>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
 
 import { Plugin } from 'webpack';
 import { ZlibOptions as ZlibCompressionOptions } from 'zlib';
 
 export = CompressionPlugin;
 
+/**
+ * Prepare compressed versions of assets to serve them with Content-Encoding.
+ */
 declare class CompressionPlugin<O = any> extends Plugin {
+    static isWebpack4(): boolean;
     constructor(options?: CompressionPlugin.Options<O>);
 }
 
@@ -19,22 +23,75 @@ declare namespace CompressionPlugin {
     type Algorithm<O> = (source: string, options: O, callback: AlgorithmCallback) => void;
 
     // NOTE: These are the async compression algorithms on the zlib object.
-    type ZlibAlgorithm = 'deflate' | 'deflateRaw' | 'gzip';
-    type Pattern = string | RegExp | ReadonlyArray<RegExp> | ReadonlyArray<string>;
+    type ZlibAlgorithm = 'deflate' | 'deflateRaw' | 'gzip' | 'brotliCompress';
+
+    /** Filtering rule as regex or string */
+    type Rule = string | RegExp;
+
+    /** Filtering rules. */
+    type Rules = Rule | ReadonlyArray<Rule>;
+
+    interface FileInfo {
+        /** original asset filename */
+        file: string;
+        /** path of the original asset */
+        path: string;
+        /** query */
+        query: string;
+    }
+
+    type FilenameFunction = (info: FileInfo) => string;
 
     interface BaseOptions {
+        /**
+         * Enable file caching
+         * ⚠ Ignored in webpack 5! Please use webpack.js.org/configuration/other-options/#cache.
+         * @default true
+         */
         cache?: boolean | string;
+        /**
+         * @default false
+         */
         deleteOriginalAssets?: boolean;
-        exclude?: Pattern;
-        filename?: string;
-        include?: Pattern;
+        /**
+         * Exclude all assets matching any of these conditions
+         */
+        exclude?: Rules;
+        /**
+         * The target asset filename.
+         * @default '[path].gz[query]'
+         */
+        filename?: string | FilenameFunction;
+        /**
+         * Include all assets matching any of these conditions
+         */
+        include?: Rules;
+        /**
+         * Only assets that compress better than this ratio are processed (minRatio = Compressed Size / Original Size)
+         * @default 0.8
+         */
         minRatio?: number;
-        test?: Pattern;
+        /**
+         * Include all assets that pass test assertion
+         */
+        test?: Rules;
+        /**
+         * Only assets bigger than this size are processed (in bytes)
+         * @default 0
+         */
         threshold?: number;
     }
 
     interface ZlibOptions extends BaseOptions {
+        /**
+         * The compression algorithm/function
+         * @default 'gzip'
+         */
         algorithm?: ZlibAlgorithm;
+        /**
+         * Compression options for algorithm
+         * @default { level: 9 }
+         */
         compressionOptions?: ZlibCompressionOptions;
     }
 

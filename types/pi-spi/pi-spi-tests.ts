@@ -25,4 +25,4 @@ spi.read(13, cb);
 spi.transfer(b, cb);
 spi.transfer(b, 13, cb);
 
-spi.close();
+spi.close((error:Error):void => {});

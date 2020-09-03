@@ -41,7 +41,7 @@ authEngine.signToken(testObject, secret, { algorithm: "RS256" }); // the algorit
 
 // sign asynchronously
 authEngine.signToken(testObject, cert, { algorithm: "RS256" }, (err, token) => {
-    signedToken = token;
+    signedToken = token as string;
 });
 
 // verify a token symmetric

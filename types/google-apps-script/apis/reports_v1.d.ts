@@ -1,13 +1,12 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace AdminReports {
     namespace Collection {
-      export interface ActivitiesCollection {
+      interface ActivitiesCollection {
         // Retrieves a list of activities for a specific customer and application.
         list(userKey: string, applicationName: string): AdminReports.Schema.Activities;
         // Retrieves a list of activities for a specific customer and application.
@@ -17,23 +16,23 @@ declare namespace GoogleAppsScript {
         // Push changes to activities
         watch(resource: Schema.Channel, userKey: string, applicationName: string, optionalArgs: object): AdminReports.Schema.Channel;
       }
-      export interface ChannelsCollection {
+      interface ChannelsCollection {
         // Stop watching resources through this channel
         stop(resource: Schema.Channel): void;
       }
-      export interface CustomerUsageReportsCollection {
+      interface CustomerUsageReportsCollection {
         // Retrieves a report which is a collection of properties / statistics for a specific customer.
         get(date: string): AdminReports.Schema.UsageReports;
         // Retrieves a report which is a collection of properties / statistics for a specific customer.
         get(date: string, optionalArgs: object): AdminReports.Schema.UsageReports;
       }
-      export interface EntityUsageReportsCollection {
+      interface EntityUsageReportsCollection {
         // Retrieves a report which is a collection of properties / statistics for a set of objects.
         get(entityType: string, entityKey: string, date: string): AdminReports.Schema.UsageReports;
         // Retrieves a report which is a collection of properties / statistics for a set of objects.
         get(entityType: string, entityKey: string, date: string, optionalArgs: object): AdminReports.Schema.UsageReports;
       }
-      export interface UserUsageReportCollection {
+      interface UserUsageReportCollection {
         // Retrieves a report which is a collection of properties / statistics for a set of users.
         get(userKey: string, date: string): AdminReports.Schema.UsageReports;
         // Retrieves a report which is a collection of properties / statistics for a set of users.
@@ -41,13 +40,13 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface Activities {
+      interface Activities {
         etag?: string;
         items?: AdminReports.Schema.Activity[];
         kind?: string;
         nextPageToken?: string;
       }
-      export interface Activity {
+      interface Activity {
         actor?: AdminReports.Schema.ActivityActor;
         etag?: string;
         events?: AdminReports.Schema.ActivityEvents[];
@@ -56,18 +55,18 @@ declare namespace GoogleAppsScript {
         kind?: string;
         ownerDomain?: string;
       }
-      export interface ActivityActor {
+      interface ActivityActor {
         callerType?: string;
         email?: string;
         key?: string;
         profileId?: string;
       }
-      export interface ActivityEvents {
+      interface ActivityEvents {
         name?: string;
         parameters?: AdminReports.Schema.ActivityEventsParameters[];
         type?: string;
       }
-      export interface ActivityEventsParameters {
+      interface ActivityEventsParameters {
         boolValue?: boolean;
         intValue?: string;
         multiIntValue?: string[];
@@ -75,13 +74,13 @@ declare namespace GoogleAppsScript {
         name?: string;
         value?: string;
       }
-      export interface ActivityId {
+      interface ActivityId {
         applicationName?: string;
         customerId?: string;
         time?: string;
         uniqueQualifier?: string;
       }
-      export interface Channel {
+      interface Channel {
         address?: string;
         expiration?: string;
         id?: string;
@@ -93,47 +92,47 @@ declare namespace GoogleAppsScript {
         token?: string;
         type?: string;
       }
-      export interface UsageReport {
+      interface UsageReport {
         date?: string;
         entity?: AdminReports.Schema.UsageReportEntity;
         etag?: string;
         kind?: string;
         parameters?: AdminReports.Schema.UsageReportParameters[];
       }
-      export interface UsageReportEntity {
+      interface UsageReportEntity {
         customerId?: string;
         entityId?: string;
         profileId?: string;
         type?: string;
         userEmail?: string;
       }
-      export interface UsageReportParameters {
+      interface UsageReportParameters {
         boolValue?: boolean;
         datetimeValue?: string;
         intValue?: string;
-        msgValue?: Object[];
+        msgValue?: object[];
         name?: string;
         stringValue?: string;
       }
-      export interface UsageReports {
+      interface UsageReports {
         etag?: string;
         kind?: string;
         nextPageToken?: string;
         usageReports?: AdminReports.Schema.UsageReport[];
         warnings?: AdminReports.Schema.UsageReportsWarnings[];
       }
-      export interface UsageReportsWarnings {
+      interface UsageReportsWarnings {
         code?: string;
         data?: AdminReports.Schema.UsageReportsWarningsData[];
         message?: string;
       }
-      export interface UsageReportsWarningsData {
+      interface UsageReportsWarningsData {
         key?: string;
         value?: string;
       }
     }
   }
-  export interface AdminReports {
+  interface AdminReports {
     Activities?: AdminReports.Collection.ActivitiesCollection;
     Channels?: AdminReports.Collection.ChannelsCollection;
     CustomerUsageReports?: AdminReports.Collection.CustomerUsageReportsCollection;

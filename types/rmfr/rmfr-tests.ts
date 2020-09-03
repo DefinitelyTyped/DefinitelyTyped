@@ -29,11 +29,7 @@ import rmfr = require("rmfr");
     // $ExpectError
     await rmfr("foo", { chmod: new Set(["a"]) });
     // $ExpectError
-    await rmfr("foo", {
-        maxBusyTries: "foo",
-        emfileWait: "bar",
-        glob: "baz"
-    });
+    await rmfr("foo", { maxBusyTries: "foo", emfileWait: "bar", glob: "baz" });
     // $ExpectError
     await rmfr("foo", { disableGlob: true });
 })();

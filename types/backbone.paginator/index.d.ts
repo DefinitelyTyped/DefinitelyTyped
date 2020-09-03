@@ -1,8 +1,8 @@
-// Type definitions for backbone.paginator 2.0.2
+// Type definitions for backbone.paginator 2.0
 // Project: https://github.com/backbone-paginator/backbone.paginator
 // Definitions by: Nyamazing <https://github.com/Nyamazing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Backbone from 'backbone';
 

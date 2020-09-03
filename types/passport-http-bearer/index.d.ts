@@ -11,12 +11,12 @@ import passport = require("passport");
 import express = require("express");
 
 interface IStrategyOptions {
-    scope: string | Array<string>;
-    realm: string;
-    passReqToCallback: boolean;
+    scope?: string | Array<string>;
+    realm?: string;
+    passReqToCallback?: boolean;
 }
 interface IVerifyOptions {
-    message: string;
+    message?: string;
     scope: string | Array<string>;
 }
 

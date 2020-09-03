@@ -1,4 +1,4 @@
-// Type definitions for reactour 1.13
+// Type definitions for reactour 1.17
 // Project: https://github.com/elrumordelaluz/reactour#readme
 // Definitions by: Paweł Dąbrowski <https://github.com/paolostyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,7 +33,7 @@ export interface ReactourStep {
     /**
      * Position of step content
      */
-    position?: ReactourStepPosition;
+    position?: ReactourStepPosition | [number, number];
 
     /**
      * DOM selector to find the target element
@@ -51,6 +51,20 @@ export interface ReactourStep {
      * Additional styles
      */
     style?: React.CSSProperties;
+
+    /**
+     * Text read to screen reader software for this step's navigation dot
+     */
+    navDotAriaLabel?: string;
+}
+
+export interface ReactourAccessibilityOptions {
+    // attribute to associate the dialog with a title for screen readers
+    ariaLabelledBy?: string;
+    // aria-label attribute for the close button
+    closeButtonAriaLabel?: string;
+    // Show/Hide Navigation Dots for screen reader software
+    showNavigationScreenReaders?: boolean;
 }
 
 export interface ReactourProps {
@@ -197,7 +211,7 @@ export interface ReactourProps {
      * Show/Hide _Helper_ Navigation buttons
      * @default true
      */
-    showButton?: boolean;
+    showButtons?: boolean;
 
     /**
      * Show/Hide _Helper_ Close button
@@ -238,6 +252,17 @@ export interface ReactourProps {
      * @default 1
      */
     updateDelay?: number;
+
+    /**
+     * Disable FocusLock component
+     * @default false
+     */
+    disableFocusLock?: boolean;
+
+    /**
+     * Configure accessibility related accessibility options
+     */
+    accessibilityOptions?: ReactourAccessibilityOptions;
 }
 
 export interface ReactourState {

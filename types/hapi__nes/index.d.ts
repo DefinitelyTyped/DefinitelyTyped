@@ -25,7 +25,7 @@
  */
 
 import { Plugin } from '@hapi/hapi';
-import NesClient = require('@hapi/nes/client');
+import NesClient = require('@hapi/nes/lib/client');
 
 declare module '@hapi/hapi' {
     interface Server {
@@ -113,22 +113,22 @@ declare module nes {
      *          ClientSubscribeFlags)
      */
 
-    interface Client extends NesClient {}
+    interface Client extends NesClient.Client {}
 
-    interface Handler extends NesClient.Handler {}
+    interface Handler extends NesClient.Client.Handler {}
 
-    interface ClientOptions extends NesClient.ClientOptions {}
+    interface ClientOptions extends NesClient.Client.ClientOptions {}
 
-    interface ClientConnectOptions extends NesClient.ClientConnectOptions {}
+    interface ClientConnectOptions extends NesClient.Client.ClientConnectOptions {}
 
-    interface ClientRequestOptions extends NesClient.ClientRequestOptions {}
+    interface ClientRequestOptions extends NesClient.Client.ClientRequestOptions {}
 
-    interface ClientSubscribeFlags extends NesClient.ClientSubscribeFlags {}
+    interface ClientSubscribeFlags extends NesClient.Client.ClientSubscribeFlags {}
 }
 
 interface NesClassExports {
     Client: {
-        new(url: string, options?: NesClient.ClientOptions): NesClient;
+        new(url: string, options?: NesClient.Client.ClientOptions): NesClient.Client;
     };
 }
 

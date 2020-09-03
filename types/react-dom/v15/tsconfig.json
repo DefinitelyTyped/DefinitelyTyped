@@ -1,10 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "react-dom-tests.ts",
-        "server/index.d.ts",
-        "node-stream/index.d.ts",
-        "test-utils/index.d.ts"
+        "react-dom-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -18,12 +15,15 @@
             ],
             "react-dom": [
                 "react-dom/v15"
+            ],
+            "react-dom/*": [
+                "react-dom/v15/*"
             ]
         },
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"

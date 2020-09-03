@@ -290,6 +290,34 @@ function contentSettings() {
   });
 }
 
+// tabs: https://developer.chrome.com/extensions/tabs#
+function testTabInterface() {
+    chrome.tabs.query({ active: true, currentWindow: true, url: ['http://*/*', 'https://*/*'] }, (tabs) => {
+        const [tab] = tabs;
+        tab.id; // $ExpectType number | undefined
+        tab.index; // $ExpectType number
+        tab.windowId; // $ExpectType number
+        tab.openerTabId; // $ExpectType number | undefined
+        tab.selected; // $ExpectType boolean
+        tab.highlighted; // $ExpectType boolean
+        tab.active; // $ExpectType boolean
+        tab.pinned; // $ExpectType boolean
+        tab.audible; // $ExpectType boolean | undefined
+        tab.discarded; // $ExpectType boolean
+        tab.autoDiscardable; // $ExpectType boolean
+        tab.mutedInfo; // $ExpectType MutedInfo | undefined
+        tab.url; // $ExpectType string | undefined
+        tab.pendingUrl; // $ExpectType string | undefined
+        tab.title; // $ExpectType string | undefined
+        tab.favIconUrl; // $ExpectType string | undefined
+        tab.status; // $ExpectType string | undefined
+        tab.incognito; // $ExpectType boolean
+        tab.width; // $ExpectType number | undefined
+        tab.height; // $ExpectType number | undefined
+        tab.sessionId; // $ExpectType string | undefined
+    });
+}
+
 // https://developer.chrome.com/extensions/runtime#method-openOptionsPage
 function testOptionsPage() {
   chrome.runtime.openOptionsPage();
@@ -298,40 +326,96 @@ function testOptionsPage() {
   });
 }
 
+// https://developer.chrome.com/extensions/tabCapture#type-CaptureOptions
+function testTabCaptureOptions() {
+    // Constraints based on:
+    // https://github.com/muaz-khan/WebRTC-Experiment/blob/master/Chrome-Extensions/tabCapture/tab-capturing.js
+
+    const resolutions = {
+        maxWidth: 1920,
+        maxHeight: 1080,
+    };
+
+    const constraints: chrome.tabCapture.CaptureOptions = {
+        audio: true,
+        video: true,
+        audioConstraints: {
+            mandatory: {
+                chromeMediaSource: 'tab',
+                echoCancellation: true
+            }
+        },
+        videoConstraints: {
+            mandatory: {
+                chromeMediaSource: 'tab',
+                maxWidth: resolutions.maxWidth,
+                maxHeight: resolutions.maxHeight,
+                minFrameRate: 30,
+                minAspectRatio: 1.77
+            }
+        }
+    };
+
+    let constraints2: chrome.tabCapture.CaptureOptions;
+    constraints2 = constraints;
+}
+
+
+
 // https://developer.chrome.com/extensions/debugger
 function testDebugger() {
-	chrome.debugger.attach({tabId: 123}, '1.23', () => {
-		console.log('This is a callback!');
-	});
+    chrome.debugger.attach({tabId: 123}, '1.23', () => {
+        console.log('This is a callback!');
+    });
 
-	chrome.debugger.detach({tabId: 123}, () => {
-		console.log('This is a callback!');
-	});
+    chrome.debugger.detach({tabId: 123}, () => {
+        console.log('This is a callback!');
+    });
 
-	chrome.debugger.sendCommand(
-		{targetId: 'abc'}, 'Debugger.Cmd', {param1: 'x'}, (result) => {
-			console.log('Do something with the result.' + result);
-	});
+    chrome.debugger.sendCommand(
+        {targetId: 'abc'}, 'Debugger.Cmd', {param1: 'x'}, (result) => {
+            console.log('Do something with the result.' + result);
+    });
 
-	chrome.debugger.getTargets((results) => {
-		for (let result of results) {
-			if (result.tabId == 123) {
-			// Do Something.
-			}
-		}
-	});
+    chrome.debugger.getTargets((results) => {
+        for (let result of results) {
+            if (result.tabId == 123) {
+            // Do Something.
+            }
+        }
+    });
 
-	chrome.debugger.onEvent.addListener((source, methodName, params) => {
-		if (source.tabId == 123) {
-			console.log('Hello World.');
-		}
-	});
+    chrome.debugger.onEvent.addListener((source, methodName, params) => {
+        if (source.tabId == 123) {
+            console.log('Hello World.');
+        }
+    });
 
-	chrome.debugger.onDetach.addListener((source, reason) => {
-		if (source.tabId == 123) {
-			console.log('Hello World.');
-		}
-	});
+    chrome.debugger.onDetach.addListener((source, reason) => {
+        if (source.tabId == 123) {
+            console.log('Hello World.');
+        }
+    });
+}
+
+// https://developer.chrome.com/extensions/declarativeContent
+function testDeclarativeContent() {
+    const activeIcon: ImageData = new ImageData(32, 32);
+
+    const rule: chrome.events.Rule = {
+        conditions: [
+            new chrome.declarativeContent.PageStateMatcher({
+                pageUrl: {
+                    hostContains: 'test.com'
+                }
+            })
+        ],
+        actions: [
+            new chrome.declarativeContent.SetIcon({
+                imageData: activeIcon
+            })
+        ]
+    }
 }
 
 // https://developer.chrome.com/extensions/storage#type-StorageArea
@@ -374,4 +458,92 @@ function testStorage() {
         var myNewValue: { x: number } = changes["myKey"].newValue;
         var myOldValue: { x: number } = changes["myKey"].oldValue;
     });
+}
+
+// https://developer.chrome.com/apps/tts#type-TtsVoice
+function testTtsVoice() {
+    chrome.tts.getVoices(voices => voices.forEach(voice => {
+        console.log(voice.voiceName);
+        console.log("\tlang: " + voice.lang);
+        console.log("\tremote: " + voice.remote);
+        console.log("\textensionId: " + voice.extensionId);
+        console.log("\teventTypes: " + voice.eventTypes);
+    }));
+}
+
+chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
+    request; // $ExpectType Request
+    console.log('request: ', request);
+});
+
+chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
+    harLog; // $ExpectType HARLog
+    console.log('harLog: ', harLog)
+});
+
+function testAssistiveWindow() {
+    chrome.input.ime.setAssistiveWindowProperties({
+      contextID: 0,
+      properties: {
+          type: 'undo',
+          visible: true
+        }
+    });
+
+    chrome.input.ime.setAssistiveWindowButtonHighlighted({
+        contextID: 0,
+        buttonID: 'undo',
+        windowType: 'undo',
+        announceString: 'Undo button highlighted',
+        highlighted: true
+    });
+
+    chrome.input.ime.setAssistiveWindowButtonHighlighted({
+        contextID: 0,
+        buttonID: 'undo',
+        windowType: 'undo',
+        highlighted: false
+    });
+
+    chrome.input.ime.onAssistiveWindowButtonClicked.addListener((details: chrome.input.ime.AssistiveWindowButtonClickedDetails) => {
+          details;
+          console.log(
+            `${details.buttonID} button in ${details.windowType} window clicked`);
+        });
+}
+
+// https://developer.chrome.com/extensions/omnibox#types
+function testOmnibox() {
+    const suggestion: chrome.omnibox.Suggestion = { description: 'description' };
+    chrome.omnibox.setDefaultSuggestion(suggestion);
+
+    function onInputEnteredCallback(text: string, disposition: chrome.omnibox.OnInputEnteredDisposition) {
+        if (disposition === 'currentTab') {
+        }
+        if (disposition === 'newForegroundTab') {
+        }
+        if (disposition === 'newBackgroundTab') {
+        }
+    }
+    chrome.omnibox.onInputEntered.addListener(onInputEnteredCallback);
+
+    const suggestResult1: chrome.omnibox.SuggestResult = {
+        content: 'content',
+        description: 'description',
+    };
+    const suggestResult2: chrome.omnibox.SuggestResult = {
+        content: 'content',
+        description: 'description',
+        deletable: true,
+    };
+    function onInputChangedCallback(text: string, suggest: (suggestResults: chrome.omnibox.SuggestResult[]) => void) {
+        suggest([suggestResult1, suggestResult2]);
+    }
+    chrome.omnibox.onInputChanged.addListener(onInputChangedCallback);
+
+    chrome.omnibox.onInputStarted.addListener(() => {});
+
+    chrome.omnibox.onInputCancelled.addListener(() => {});
+
+    chrome.omnibox.onDeleteSuggestion.addListener((text: string) => {});
 }

@@ -5,6 +5,10 @@ http.request({
     path: '/a/b',
     port: 8000,
     maxRedirects: 12,
+    beforeRedirect: (options, { headers }) => {
+        headers; // $ExpectType IncomingHttpHeaders
+        options.followRedirects = false;
+    },
 }, (response) => {
     console.log(response.responseUrl, response.redirects);
     response.on('data', (chunk) => {
@@ -13,6 +17,9 @@ http.request({
 }).on('error', (err) => {
     console.error(err);
 });
+
+const request = http.request({});
+request.end();
 
 http.get('http://bit.ly/900913', (response) => {
     response.on('data', (chunk) => {

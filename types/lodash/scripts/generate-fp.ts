@@ -747,7 +747,9 @@ function curryParams(
     };
     // Remove the `extends` constraint from interface type parameters, because sometimes they extend things that aren't passed to the interface.
     for (const typeParam of interfaceDef.typeParams) {
-        if (!_.startsWith(typeParam.extends, "keyof ")) // We need to keep `extends keyof` constraints, because they're needed for TObject[TKey] to work.
+        // 1. retain `extends keyof X` constraints so that TObject[TKey] still works.
+        // 2. retain `any[]` constraints so that variadic generics work.
+        if (!_.startsWith(typeParam.extends, "keyof ") && typeParam.extends !== "any[]")
             delete typeParam.extends;
     }
     return interfaceDef;

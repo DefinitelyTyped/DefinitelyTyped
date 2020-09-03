@@ -31,11 +31,11 @@ export interface HttpsOverHttpsOptions extends HttpsOverHttpOptions {
 }
 
 export interface ProxyOptions {
-    host?: string;
-    port?: number;
+    host: string;
+    port: number;
     localAddress?: string;
     proxyAuth?: string;
-    headers: { [key: string]: any };
+    headers?: { [key: string]: any };
 }
 
 export interface HttpsProxyOptions extends ProxyOptions {

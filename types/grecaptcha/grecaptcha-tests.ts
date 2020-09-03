@@ -41,3 +41,10 @@ grecaptcha.reset(id1);
 
 grecaptcha.execute();
 grecaptcha.execute(id1);
+
+grecaptcha.execute('foo', { action: 'bar' }).then((token: string) => {});
+
+// $ExpectError
+grecaptcha.execute('foo', { action: 'bar' }).catch(() => {});
+
+grecaptcha.ready(() => {});

@@ -9,6 +9,7 @@ import * as Devices from "puppeteer/DeviceDescriptors";
   const page = await browser.newPage();
   const snap = await page.accessibility.snapshot({
     interestingOnly: true,
+    root: undefined,
   });
   for (const child of snap.children) {
     console.log(child.name);
@@ -119,8 +120,15 @@ puppeteer.launch().then(async browser => {
     console.log(content);
   });
 
-  await page.emulateMedia("screen");
+  Object.keys(Devices).forEach(name => console.log(name));
+  Object.keys(puppeteer.devices).forEach(name => console.log(name));
+  Object.values(Devices).forEach(device => console.log(device.name));
+  Object.values(puppeteer.devices).forEach(device => console.log(device.name));
+
+  await page.emulateMediaType("screen");
   await page.emulate(Devices['test']);
+  await page.emulate(puppeteer.devices['test']);
+  await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'dark' }]);
   await page.pdf({ path: "page.pdf" });
 
   await page.setRequestInterception(true);
@@ -205,6 +213,22 @@ puppeteer.launch().then(async browser => {
   await page.screenshot({ path: "example.png" });
 
   browser.close();
+})();
+
+// `product` support
+(async () => {
+    await puppeteer.launch({
+        product: 'chrome',
+    });
+    await puppeteer.launch({
+        product: 'firefox',
+    });
+    const options: puppeteer.FetcherOptions = {
+        product: 'firefox',
+      };
+      const browserFetcher = puppeteer.createBrowserFetcher(options);
+      browserFetcher.product(); // $ExpectType Product
+      browserFetcher.revisionInfo('revision').product; // $ExpectType Product
 })();
 
 // Launching with default viewport disabled
@@ -304,6 +328,7 @@ puppeteer.launch().then(async browser => {
 
   // evaluateHandle example
   const aHandle = await page.evaluateHandle(() => document.body);
+  await page.evaluateHandle('document.body');
   const resultHandle = await page.evaluateHandle(body => body.innerHTML, aHandle);
   console.log(await resultHandle.jsonValue());
   await resultHandle.dispose();
@@ -543,8 +568,9 @@ puppeteer.launch().then(async browser => {
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  const s = await page.evaluate(() => Promise.resolve(document.body.innerHTML));
-  console.log('body html has length', s.length);
+  await page.evaluate(() => Promise.resolve(document.body.innerHTML)).then(s => {
+    console.log('body html has length', s.length);
+  });
 });
 
 // JSHandle.jsonValue produces compatible type
@@ -557,7 +583,7 @@ puppeteer.launch().then(async browser => {
       { timeout: 2000 },
       ['once', 'upon', 'a', 'midnight', 'dreary'])
     .then(j => j.jsonValue());
-  console.log('found in page', s.toLowerCase());
+  console.log('found in page', (s as string).toLowerCase());
 });
 
 // Element access
@@ -565,7 +591,7 @@ puppeteer.launch().then(async browser => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const el = await page.$('input');
-  const val: string = await (await el!.getProperty('type')).jsonValue();
+  const val: string = await (await el!.getProperty('type')).jsonValue() as string;
 });
 
 // Request manipualtion
@@ -643,3 +669,55 @@ puppeteer.launch().then(async browser => {
       await browserFetcher.remove(rev);
     }
 });
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const url = page.workers()[0].url();
+  if (page.target().type() === 'shared_worker') {
+      const a: number = await (await page.target().worker())!.evaluate(() => 1);
+  }
+});
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const fileChooser = await page.waitForFileChooser({ timeout: 999 });
+  await fileChooser.cancel();
+  const isMultiple: boolean = fileChooser.isMultiple();
+  await fileChooser.accept(['/foo/bar']);
+});
+
+// .evaluate and .evaluateHandle on ElementHandle and JSHandle, and elementHandle.select
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const elementHandle = (await page.$('.something')) as puppeteer.ElementHandle<HTMLDivElement>;
+  elementHandle.evaluate(element => {
+    element; // $ExpectType HTMLDivElement
+  });
+  elementHandle.evaluateHandle(element => {
+    element; // $ExpectType HTMLDivElement
+  });
+
+  const jsHandle = await page.evaluateHandle(() => 'something');
+  jsHandle.evaluate(obj => {});
+  jsHandle.evaluateHandle(handle => {});
+
+  const selected: string[] = await elementHandle.select('a', 'b', 'c');
+})();
+
+// .executionContext on Frame, and ExecutionContext.queryObjects
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const frame = page.mainFrame();
+  frame.executionContext().then(() => {});
+
+  const context = await frame.executionContext();
+
+  const queryObjectsRes = context.queryObjects(await context.evaluateHandle(() => {}));
+  queryObjectsRes.then(() => {});
+})();

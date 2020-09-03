@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import * as EonasdanBootstrapDatetimepicker from './index';
+import * as EonasdanBootstrapDatetimepicker from 'eonasdan-bootstrap-datetimepicker';
 
 // Minimum Setup
 $("#datetimepicker1").datetimepicker();

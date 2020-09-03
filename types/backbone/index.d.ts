@@ -1,4 +1,4 @@
-// Type definitions for Backbone 1.3.3
+// Type definitions for Backbone 1.4
 // Project: http://backbonejs.org/
 //          https://github.com/jashkenas/backbone
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
@@ -6,8 +6,11 @@
 //                 kenjiru <https://github.com/kenjiru>
 //                 jjoekoullas <https://github.com/jjoekoullas>
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>
+//                 Kyle Scully <https://github.com/zieka>
+//                 Robert Kesterson <https://github.com/rkesters>
+//                 Bulat Khasanov <https://github.com/khasanovbi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 
@@ -24,10 +27,12 @@ declare namespace Backbone {
         sort?: boolean;
     }
 
-    interface CollectionSetOptions extends Silenceable {
+    interface CollectionSetOptions extends Parseable, Silenceable {
         add?: boolean;
         remove?: boolean;
         merge?: boolean;
+        at?: number;
+        sort?: boolean;
     }
 
     interface HistoryOptions extends Silenceable {
@@ -57,16 +62,26 @@ declare namespace Backbone {
     }
 
     interface Parseable {
-        parse?: any;
+        parse?: boolean;
     }
 
     interface PersistenceOptions {
         url?: string;
         data?: any;
         beforeSend?: (jqxhr: JQueryXHR) => void;
+        timeout?: number;
+        // TODO: copy all parameters from JQueryAjaxSettings except success/error callbacks?
         success?: (modelOrCollection?: any, response?: any, options?: any) => void;
         error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
+        emulateJSON?: boolean;
+        emulateHTTP?: boolean;
     }
+
+    interface ModelConstructorOptions<TModel extends Model = Model> extends ModelSetOptions, Parseable {
+        collection?: Backbone.Collection<TModel>;
+    }
+
+    type CombinedModelConstructorOptions<E, M extends Model<any, any, E> = Model> = ModelConstructorOptions<M> & E;
 
     interface ModelSetOptions extends Silenceable, Validable {
     }
@@ -199,7 +214,11 @@ declare namespace Backbone {
         sync(...arg: any[]): JQueryXHR;
     }
 
-    class Model extends ModelBase implements Events {
+    /**
+     * E - Extensions to the model constructor options. You can accept additional constructor options
+     * by listing them in the E parameter.
+     */
+    class Model<T = any, S = Backbone.ModelSetOptions, E = {}> extends ModelBase implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -210,7 +229,7 @@ declare namespace Backbone {
         changed: any[];
         cidPrefix: string;
         cid: string;
-        collection: Collection<any>;
+        collection: Collection<this>;
 
         private _changing: boolean;
         private _previousAttributes : any;
@@ -235,8 +254,16 @@ declare namespace Backbone {
 
         urlRoot: any;
 
-        constructor(attributes?: any, options?: any);
-        initialize(attributes?: any, options?: any): void;
+        /**
+         * For use with models as ES classes. If you define a preinitialize
+         * method, it will be invoked when the Model is first created, before
+         * any instantiation logic is run for the Model.
+         * @see https://backbonejs.org/#Model-preinitialize
+         */
+        preinitialize(attributes?: T, options?: CombinedModelConstructorOptions<E, this>): void;
+
+        constructor(attributes?: T, options?: CombinedModelConstructorOptions<E>);
+        initialize(attributes?: T, options?: CombinedModelConstructorOptions<E, this>): void;
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
@@ -247,7 +274,7 @@ declare namespace Backbone {
         *    return super.get("name");
         * }
         **/
-        /*private*/ get(attributeName: string): any;
+        get<a extends keyof T & string>(attributeName: a): T[a];
 
         /**
         * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
@@ -256,8 +283,9 @@ declare namespace Backbone {
         *    super.set("name", value);
         * }
         **/
-        /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
-        set(obj: any, options?: ModelSetOptions): Model;
+        set<a extends keyof T & string>(attributeName: a, value?: T[a], options?: S): Backbone.Model;
+        set(attributeName: Partial<T>, options?: S): Backbone.Model;
+        set<a extends keyof T & string>(attributeName: a | Partial<T>, value?: T[a] | S, options?: S): Backbone.Model;
 
         /**
          * Return an object containing all the attributes that have changed, or
@@ -276,7 +304,7 @@ declare namespace Backbone {
         isNew(): boolean;
         isValid(options?:any): boolean;
         previous(attribute: string): any;
-        previousAttributes(): any[];
+        previousAttributes(): any;
         save(attributes?: any, options?: ModelSaveOptions): any;
         unset(attribute: string, options?: Silenceable): Model;
         validate(attributes: any, options?: any): any;
@@ -311,6 +339,14 @@ declare namespace Backbone {
         models: TModel[];
         length: number;
 
+        /**
+         * For use with collections as ES classes. If you define a preinitialize
+         * method, it will be invoked when the Collection is first created and
+         * before any instantiation logic is run for the Collection.
+         * @see https://backbonejs.org/#Collection-preinitialize
+         */
+        preinitialize(models?: TModel[] | Object[], options?: any): void;
+
         constructor(models?: TModel[] | Object[], options?: any);
         initialize(models?: TModel[] | Object[], options?: any): void;
 
@@ -336,7 +372,7 @@ declare namespace Backbone {
         pop(options?: Silenceable): TModel;
         remove(model: {}|TModel, options?: Silenceable): TModel;
         remove(models: ({}|TModel)[], options?: Silenceable): TModel[];
-        reset(models?: TModel[], options?: Silenceable): TModel[];
+        reset(models?: ({}|TModel)[], options?: Silenceable): TModel[];
 
         /**
          *
@@ -349,13 +385,18 @@ declare namespace Backbone {
          * @param models
          * @param options
          */
-        set(models?: TModel[], options?: CollectionSetOptions): TModel[];
+        set(models?: ({}|TModel)[], options?: CollectionSetOptions): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;
         where(properties: any): TModel[];
         findWhere(properties: any): TModel;
         modelId(attrs: any) : any
+
+        values(): Iterator<TModel>;
+        keys(): Iterator<any>;
+        entries(): Iterator<[any, TModel]>;
+        [Symbol.iterator](): Iterator<TModel>;
 
         private _prepareModel(attributes?: any, options?: any): any;
         private _removeReference(model: TModel): void;
@@ -452,6 +493,14 @@ declare namespace Backbone {
         **/
         routes: RoutesHash | any;
 
+        /**
+         * For use with Router as ES classes. If you define a preinitialize method,
+         * it will be invoked when the Router is first created, before any
+         * instantiation logic is run for the Router.
+         * @see https://backbonejs.org/#Router-preinitialize
+         */
+        preinitialize(options?: RouterOptions): void;
+
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
         route(route: string|RegExp, name: string, callback?: Function): Router;
@@ -510,6 +559,14 @@ declare namespace Backbone {
         * Do not use, prefer TypeScript's extend functionality.
         **/
         public static extend(properties: any, classProperties?: any): any;
+
+        /**
+         * For use with views as ES classes. If you define a preinitialize
+         * method, it will be invoked when the view is first created, before any
+         * instantiation logic is run.
+         * @see https://backbonejs.org/#View-preinitialize
+         */
+        preinitialize(options?: ViewOptions<TModel>): void;
 
         constructor(options?: ViewOptions<TModel>);
         initialize(options?: ViewOptions<TModel>): void;

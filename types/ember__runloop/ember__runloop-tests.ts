@@ -20,6 +20,26 @@ function testRun() {
         return 123;
     });
 
+    // run(target, method)
+    run({}, () => {
+        // code to be executed within a RunLoop
+        return 123;
+    });
+
+    // run(target, method, ...args)
+    run(
+        {},
+        () => {
+            // code to be executed within a RunLoop
+            return 123;
+        },
+        () => {
+            console.log('foo');
+        },
+        'bar',
+        {}
+    );
+
     function destroyApp(application: EmberObject) {
         run(application, 'destroy');
         run(application, function() {
@@ -147,6 +167,10 @@ function testLater() {
 function testNext() {
     const myContext = {};
     run.next(myContext, () => {
+        // code to be executed in the next run loop,
+        // which will be scheduled after the current one
+    });
+    run.next(() => {
         // code to be executed in the next run loop,
         // which will be scheduled after the current one
     });

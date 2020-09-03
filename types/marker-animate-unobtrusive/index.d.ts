@@ -2,6 +2,7 @@
 // Project: https://github.com/terikon/marker-animate-unobtrusive
 // Definitions by: Roman Viskin <https://github.com/viskin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.0
 
 /// <reference types="googlemaps" />
 

@@ -1,24 +1,40 @@
 import { Component, ReactNode, CSSProperties } from "react";
 import { Range } from "immutable";
 
+export interface WebsocketOptions {
+    onOpen?: (e: Event, socket: WebSocket) => void;
+    onClose?: (e: CloseEvent) => void;
+    onError?: (e: Event) => void;
+    formatMessage?: (message: any) => string;
+}
+
 export interface LazyLogProps {
-    url: string;
+    caseInsensitive?: boolean;
+    containerStyle?: CSSProperties;
+    enableSearch?: boolean;
+    extraLines?: number;
     fetchOptions?: RequestInit;
-    stream?: boolean;
-    height?: string | number;
-    width?: string | number;
     follow?: boolean;
-    scrollToLine?: number;
-    highlight?: number | number[];
-    selectableLines?: boolean;
     formatPart?: (text: string) => ReactNode;
-    onLoad?: () => any;
+    height?: string | number;
+    highlight?: number | number[];
+    highlightLineClassName?: string;
+    lineClassName?: string;
+    loadingComponent?: any;
     onError?: (error: any) => any;
     onHighlight?: (range: Range) => any;
-    rowHeight?: number;
+    onLoad?: () => any;
     overscanRowCount?: number;
-    containerStyle?: CSSProperties;
+    rowHeight?: number;
+    scrollToLine?: number;
+    selectableLines?: boolean;
+    stream?: boolean;
     style?: CSSProperties;
+    text?: string;
+    url: string;
+    websocket?: boolean;
+    websocketOptions?: WebsocketOptions;
+    width?: string | number;
 }
 
 export class LazyLog extends Component<LazyLogProps> {

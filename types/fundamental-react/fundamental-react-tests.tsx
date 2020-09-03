@@ -1,6 +1,5 @@
 import {
     ActionBar,
-    Badge,
     Breadcrumb,
     Button,
     ButtonGroup,
@@ -8,195 +7,98 @@ import {
     ComboboxInput,
     Counter,
     DatePicker,
-    Dropdown,
+    Dialog,
+    Checkbox,
     FormFieldset,
     FormGroup,
+    FormInput,
+    FormItem,
+    FormLabel,
     FormLegend,
-    FormMessage,
     FormRadioGroup,
     FormRadioItem,
     FormSelect,
     FormSet,
+    FormTextarea,
     Icon,
     Identifier,
     Image,
+    InfoLabel,
     InlineHelp,
     InputGroup,
-    Label,
-    ListGroup,
+    LayoutGrid,
+    Link,
+    List,
     LocalizationEditor,
     Menu,
-    Modal,
+    MessageStrip,
     MultiInput,
     Pagination,
     Panel,
-    PanelGrid,
     Popover,
-    ProductTile,
     SearchInput,
+    Select,
     Shellbar,
     SideNav,
-    Status,
+    StepInput,
+    Switch,
     Tab,
     TabGroup,
     Table,
     Tile,
-    TileGrid,
     Time,
     TimePicker,
-    Toggle,
     Token,
-    TreeView
+    TreeView,
 } from "fundamental-react";
-import { FormItem } from "fundamental-react/lib";
-import Alert from "fundamental-react/lib/Alert/Alert";
-import { FormLabel } from "fundamental-react/lib/Forms";
-import FormInput from "fundamental-react/lib/Forms/FormInput";
-import FormTextarea from "fundamental-react/lib/Forms/FormTextarea";
 import * as React from "react";
-
-const actionBars = (
-    <div>
-        <ActionBar>
-            <ActionBar.Back onClick={function w() {}} />
-            <ActionBar.Header
-                description="Action Bar Description"
-                title="Page Title"
-            />
-            <ActionBar.Actions>
-                <Button>Button</Button>
-                <Button option="emphasized">Button</Button>
-            </ActionBar.Actions>
-        </ActionBar>
-
-        <ActionBar>
-            <ActionBar.Header
-                description="Action Bar Description"
-                title="Page Title"
-            />
-            <ActionBar.Actions>
-                <Button>Button</Button>
-                <Button option="emphasized">Button</Button>
-            </ActionBar.Actions>
-        </ActionBar>
-
-        <ActionBar>
-            <ActionBar.Header
-                description="Action Bar Description"
-                title="Page Title"
-            />
-            <ActionBar.Actions>
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button glyph="vertical-grip" option="light" />}
-                    placement="bottom-end"
-                />
-            </ActionBar.Actions>
-        </ActionBar>
-
-        <ActionBar mobile>
-            <ActionBar.Back />
-            <ActionBar.Header
-                description="Action Bar Description"
-                title="Action Bar with description and back button"
-            />
-            <ActionBar.Actions>
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button glyph="vertical-grip" option="light" />}
-                    placement="bottom-end"
-                />
-            </ActionBar.Actions>
-        </ActionBar>
-
-        <ActionBar mobile width="768px">
-            <ActionBar.Back />
-            <ActionBar.Header
-                description="Action Bar Description"
-                title="Action Bar with description and back button"
-            />
-            <ActionBar.Actions>
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button glyph="vertical-grip" option="light" />}
-                    placement="bottom-end"
-                />
-            </ActionBar.Actions>
-        </ActionBar>
-    </div>
-);
-
-const alerts = (
-    <div>
-        <Alert dismissible link="#" linkText=" link">
-            Default alert with a
-        </Alert>
-
-        <Alert dismissible type="warning">
-            <h3>A dismissible error type alert with template.</h3>
-            <p>More information...</p>
-        </Alert>
-
-        <Alert dismissible type="error">
-            <Icon glyph="message-error" />
-            Error Message.
-            <a className="fd-link" href="#">
-                Learn More
-            </a>
-        </Alert>
-
-        <Alert dismissible type="success">
-            <Icon glyph="message-success" />
-            Message Success.
-            <a className="fd-link" href="#">
-                Learn More
-            </a>
-        </Alert>
-
-        <Alert dismissible type="information">
-            <Icon glyph="message-information" />
-            Information Message.
-            <a className="fd-link" href="#">
-                Learn More
-            </a>
-        </Alert>
-    </div>
-);
-
-const badge = <Badge type="success">Default</Badge>;
 
 const counter = <Counter>101</Counter>;
 
-const label = <Label type="success">Default</Label>;
-
-const status = <Status type="warning">Default</Status>;
+const actionBars = (
+    <div>
+        <ActionBar
+            actions={(
+                <Popover
+                    body={
+                        <Menu>
+                            <Menu.List>
+                                <Menu.Item url='#'>Option 1</Menu.Item>
+                                <Menu.Item url='#'>Option 2</Menu.Item>
+                                <Menu.Item url='#'>Option 3</Menu.Item>
+                                <Menu.Item url='#'>Option 4</Menu.Item>
+                            </Menu.List>
+                        </Menu>
+                    }
+                    control={<Button glyph='vertical-grip' option='transparent' />}
+                    placement='bottom-end' />
+            )}
+            description={'Action Bar Description'}
+            title={'Page Title'}
+        />
+        <ActionBar
+            actions={(
+                <>
+                    <Button>Button</Button>
+                    <Button option='emphasized'>Button</Button>
+                </>
+            )}
+            description={'Action Bar Description'}
+            title={'Page Title'}
+        />
+        <ActionBar
+            actions={(
+                <>
+                    <Button>Button</Button>
+                    <Button option='emphasized'>Button</Button>
+                </>
+            )}
+            description={'Action Bar Description'}
+            onBackClick={() => null}
+            title={'Page Title'}
+        />
+    </div>
+);
 
 const breadcrumb = (
     <Breadcrumb>
@@ -212,7 +114,7 @@ const buttons = (
             Emphasized Button
         </Button>
         <Button onClick={function w() {}}>Regular Button</Button>
-        <Button onClick={function w() {}} option="light">
+        <Button onClick={function w() {}} option="transparent">
             Light Button
         </Button>
         <Button>Action Button</Button>
@@ -224,7 +126,7 @@ const buttons = (
             Add to Cart
         </Button>
         <Button glyph="cart">Add to Cart</Button>
-        <Button glyph="filter" option="light">
+        <Button glyph="filter" option="transparent">
             Add to Cart
         </Button>
         <Button glyph="accept" option="emphasized" type="positive">
@@ -241,7 +143,7 @@ const buttons = (
         <br />
         <Button glyph="cart" option="emphasized" />
         <Button glyph="cart" />
-        <Button glyph="filter" option="light" />
+        <Button glyph="filter" option="transparent" />
         <Button glyph="accept" option="emphasized" type="positive" />
         <Button glyph="decline" option="emphasized" type="negative" />
         <Button glyph="alert" option="emphasized" type="medium" />
@@ -261,11 +163,11 @@ const buttons = (
         <Button disabled>Disabled State</Button>
         <br />
         <br />
-        <Button option="light">Normal State</Button>
-        <Button option="light" selected>
+        <Button option="transparent">Normal State</Button>
+        <Button option="transparent" selected>
             Selected State
         </Button>
-        <Button disabled option="light">
+        <Button disabled option="transparent">
             Disabled State
         </Button>
         <br />
@@ -345,6 +247,7 @@ const calendars = (
 
 const comboboxInput = (
     <ComboboxInput
+        list=''
         menu={
             <Menu>
                 <Menu.List>
@@ -374,7 +277,7 @@ const contextualMenus = (
                     </Menu.List>
                 </Menu>
             }
-            control={<Button glyph="vertical-grip" option="light" />}
+            control={<Button glyph="vertical-grip" option="transparent" />}
             noArrow
         />
         <Popover
@@ -402,7 +305,7 @@ const contextualMenus = (
                     </Menu.List>
                 </Menu>
             }
-            control={<Button option="light">More</Button>}
+            control={<Button option="transparent">More</Button>}
             noArrow
         />
     </div>
@@ -427,152 +330,67 @@ const datePickers = (
     </div>
 );
 
-const dropdowns = (
+const dialogs = (
     <div>
-        <Dropdown>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={<Button dropdown>Select</Button>}
-                id="jhqD0555"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button compact dropdown>
-                        Select
+        <button className="fd-button" onClick={function w() {}}>
+            Show Information Modal
+        </button>
+        <Dialog actions={[]} onClose={function w() {}} title="Product Added">
+            <div>
+                <b>The new product have been added to your catalog.</b>
+                <br />
+                <br />
+                Automatic Product ID:
+                <b>PD-3465334</b>
+                <br />
+                <br />
+                Expiration date:
+                <b>13/03/2018</b>
+                <br />
+                <br />
+            </div>
+        </Dialog>
+        <Dialog
+            actions={[
+                <>
+                    <Button onClick={function w() {}} type="standard">
+                        No Way
                     </Button>
-                }
-                id="jhqD0556"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button dropdown glyph="filter">
-                        Select
+                    <Button onClick={function w() {}}>Sure</Button>
+                </>
+            ]}
+            onClose={function w() {}}
+            title="Delete"
+        >
+            <div>
+                Do you want to delete item
+                <b>X</b>?
+            </div>
+        </Dialog>
+        <Dialog
+            actions={[
+                <>
+                    <Button onClick={function w() {}} type="standard">
+                        Cancel
                     </Button>
-                }
-                id="jhqD0557"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button compact dropdown glyph="filter">
-                        Select
-                    </Button>
-                }
-                id="jhqD0558"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown standard>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button dropdown type="standard">
-                        Select
-                    </Button>
-                }
-                id="jhqD0559"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown standard>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button compact dropdown type="standard">
-                        Select
-                    </Button>
-                }
-                id="jhqD0560"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button disabled dropdown glyph="filter">
-                        Select
-                    </Button>
-                }
-                disabled
-                id="jhqD0561"
-                noArrow
-            />
-        </Dropdown>
+                    <Button onClick={function w() {}}>Invite</Button>
+                </>
+            ]}
+            onClose={function w() {}}
+            title="Invite user"
+        >
+            <div className="fd-form__group">
+                <div className="fd-form__item">
+                    <label className="fd-form__label is-required">Email</label>
+                    <input
+                        className="fd-form__control"
+                        onChange={function w() {}}
+                        type="text"
+                        value=""
+                    />
+                </div>
+            </div>
+        </Dialog>
     </div>
 );
 
@@ -640,10 +458,6 @@ const forms = (
             <FormItem>
                 <FormLabel htmlFor="input-5">Input with Help Message</FormLabel>
                 <FormInput id="input-5" type="text" />
-                <FormMessage type="help">
-                    Pellentesque metus lacus commodo eget justo ut rutrum varius
-                    nunc
-                </FormMessage>
             </FormItem>
         </FormSet>
         <FormSet>
@@ -654,10 +468,6 @@ const forms = (
                     placeholder="Field placeholder text"
                     type="text"
                 />
-                <FormMessage>
-                    Pellentesque metus lacus commodo eget justo ut rutrum varius
-                    nunc
-                </FormMessage>
             </FormItem>
         </FormSet>
         <FormSet>
@@ -680,10 +490,6 @@ const forms = (
                     state="invalid"
                     type="text"
                 />
-                <FormMessage type="error">
-                    Pellentesque metus lacus commodo eget justo ut rutrum varius
-                    nunc
-                </FormMessage>
             </FormItem>
         </FormSet>
         <FormSet>
@@ -695,10 +501,6 @@ const forms = (
                     state="warning"
                     type="text"
                 />
-                <FormMessage type="warning">
-                    Pellentesque metus lacus commodo eget justo ut rutrum varius
-                    nunc
-                </FormMessage>
             </FormItem>
         </FormSet>
         <FormSet>
@@ -841,7 +643,7 @@ const forms = (
             </FormItem>
             <FormItem isCheck isInline>
                 <FormLabel htmlFor="checkbox-6">
-                    <FormInput
+                    <Checkbox
                         id="checkbox-6"
                         name="checkbox-name-6"
                         type="checkbox"
@@ -974,6 +776,26 @@ const images = (
     </div>
 );
 
+const infoLabels = (
+    <div>
+        <InfoLabel>Default</InfoLabel>
+        <InfoLabel glyph='key'>Icon</InfoLabel>
+        <InfoLabel glyph='upload-to-cloud' />
+        <InfoLabel numeric>1</InfoLabel>
+        <InfoLabel numeric>10000</InfoLabel>
+        <InfoLabel color={1}>Default</InfoLabel>
+        <InfoLabel color={2}>Default</InfoLabel>
+        <InfoLabel color={3}>Default</InfoLabel>
+        <InfoLabel color={4}>Default</InfoLabel>
+        <InfoLabel color={5}>Default</InfoLabel>
+        <InfoLabel color={6}>Default</InfoLabel>
+        <InfoLabel color={7}>Default</InfoLabel>
+        <InfoLabel color={8}>Default</InfoLabel>
+        <InfoLabel color={9}>Default</InfoLabel>
+        <InfoLabel color={10}>Default</InfoLabel>
+    </div>
+);
+
 const inlineHelp = (
     <div>
         Bottom Right (Default)
@@ -1102,7 +924,7 @@ const inputGroup = (
             <FormLabel>Input with text action</FormLabel>
             <FormItem>
                 <InputGroup actions inputValue="1234567890">
-                    <Button option="light">Button</Button>
+                    <Button option="transparent">Button</Button>
                 </InputGroup>
             </FormItem>
         </FormGroup>
@@ -1112,7 +934,7 @@ const inputGroup = (
             <FormLabel>Input with text action</FormLabel>
             <FormItem>
                 <InputGroup actions compact inputValue="1234567890">
-                    <Button option="light">Button</Button>
+                    <Button option="transparent">Button</Button>
                 </InputGroup>
             </FormItem>
         </FormGroup>
@@ -1122,7 +944,7 @@ const inputGroup = (
             <FormLabel>Input with icon text action</FormLabel>
             <FormItem>
                 <InputGroup actions>
-                    <Button glyph="navigation-down-arrow" option="light" />
+                    <Button glyph="navigation-down-arrow" option="transparent" />
                 </InputGroup>
             </FormItem>
         </FormGroup>
@@ -1132,77 +954,40 @@ const inputGroup = (
             <FormLabel>Input with icon text action</FormLabel>
             <FormItem>
                 <InputGroup actions compact>
-                    <Button glyph="navigation-down-arrow" option="light" />
+                    <Button glyph="navigation-down-arrow" option="transparent" />
                 </InputGroup>
             </FormItem>
         </FormGroup>
     </div>
 );
 
-const listGroups = (
+const links = (
     <div>
-        <ListGroup>
-            <ListGroup.Item>
-                <a
-                    style={{
-                        cursor: "pointer"
-                    }}
-                >
-                    List item 1
-                </a>
-            </ListGroup.Item>
-            <ListGroup.Item>List item 2</ListGroup.Item>
-            <ListGroup.Item>
-                <a
-                    style={{
-                        cursor: "pointer"
-                    }}
-                >
-                    List item 3
-                </a>
-            </ListGroup.Item>
-            <ListGroup.Item>List item 4</ListGroup.Item>
-        </ListGroup>
-        <ListGroup>
-            <ListGroup.Item>
-                List item 1
-                <ListGroup.ItemActions>
-                    <Button glyph="edit" option="light" />
-                </ListGroup.ItemActions>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                List item 2
-                <ListGroup.ItemActions>
-                    <Button glyph="edit" option="light" />
-                </ListGroup.ItemActions>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                List item 3
-                <ListGroup.ItemActions>
-                    <Button glyph="edit" option="light" />
-                </ListGroup.ItemActions>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                List item 4
-                <ListGroup.ItemActions>
-                    <Button glyph="edit" option="light" />
-                </ListGroup.ItemActions>
-            </ListGroup.Item>
-        </ListGroup>
-        <ListGroup>
-            <ListGroup.Item>
-                <ListGroup.ItemCheckbox>List item 1</ListGroup.ItemCheckbox>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                <ListGroup.ItemCheckbox>List item 2</ListGroup.ItemCheckbox>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                <ListGroup.ItemCheckbox>List item 3</ListGroup.ItemCheckbox>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                <ListGroup.ItemCheckbox>List item 4</ListGroup.ItemCheckbox>
-            </ListGroup.Item>
-        </ListGroup>
+        <Link href='#'>Default Link</Link>
+        <Link disabled href='#'>Disabled Link</Link>
+    </div>
+);
+
+const lists = (
+    <div>
+        <List compact noBorder>
+            <List.Header>List Header</List.Header>
+            <List.Item>
+                <List.Text>List Item 1</List.Text>
+            </List.Item>
+            <List.Item>
+                <List.Text>List Item 2</List.Text>
+                <List.Icon glyph='navigation-right-arrow' />
+            </List.Item>
+            <List.Item>
+                <List.Text>List Item 3</List.Text>
+                <List.Text secondary>secondary</List.Text>
+            </List.Item>
+            <List.Item>
+                <List.Text>List Item 4</List.Text>
+            </List.Item>
+            <List.Footer>List Footer</List.Footer>
+        </List>
     </div>
 );
 
@@ -1315,13 +1100,13 @@ const menus = (
         </Menu>
         <Menu>
             <Menu.List>
-                <Menu.Item separator>
+                <Menu.Item>
                     <Menu.Item url="/">Option 1</Menu.Item>
                 </Menu.Item>
-                <Menu.Item separator>
+                <Menu.Item>
                     <Menu.Item url="/">Option 1</Menu.Item>
                 </Menu.Item>
-                <Menu.Item separator>
+                <Menu.Item>
                     <Menu.Item url="/">Option 1</Menu.Item>
                 </Menu.Item>
                 <Menu.Item>
@@ -1348,69 +1133,27 @@ const menus = (
     </div>
 );
 
-const modals = (
+const messageStrips = (
     <div>
-        <button className="fd-button" onClick={function w() {}}>
-            Show Information Modal
-        </button>
-        <Modal onClose={function w() {}} title="Product Added">
-            <div>
-                <b>The new product have been added to your catalog.</b>
-                <br />
-                <br />
-                Automatic Product ID:
-                <b>PD-3465334</b>
-                <br />
-                <br />
-                Expiration date:
-                <b>13/03/2018</b>
-                <br />
-                <br />
-            </div>
-        </Modal>
-        <Modal
-            actions={
-                <>
-                    <Button onClick={function w() {}} type="standard">
-                        No Way
-                    </Button>
-                    <Button onClick={function w() {}}>Sure</Button>
-                </>
-            }
-            onClose={function w() {}}
-            title="Delete"
-        >
-            <div>
-                Do you want to delete item
-                <b>X</b>?
-            </div>
-        </Modal>
-        <Modal
-            actions={
-                <>
-                    <Button onClick={function w() {}} type="standard">
-                        Cancel
-                    </Button>
-                    <Button onClick={function w() {}}>Invite</Button>
-                </>
-            }
-            onClose={function w() {}}
-            title="Invite user"
-        >
-            <div className="fd-form__group">
-                <div className="fd-form__item">
-                    <label className="fd-form__label is-required">Email</label>
-                    <input
-                        className="fd-form__control"
-                        onChange={function w() {}}
-                        type="text"
-                        value=""
-                    />
-                </div>
-            </div>
-        </Modal>
+        <MessageStrip
+            dismissible
+            link='#'
+            linkText='link'>
+            Default MessageStrip
+        </MessageStrip>
+        <MessageStrip
+            dismissible
+            link='#'
+            linkText='Learn More'
+            type='error'>
+            Error Message.
+        </MessageStrip>
+        <MessageStrip noGlyph>
+            Error Message with no icon
+        </MessageStrip>
     </div>
 );
+
 const multiInputs = (
     <div>
         <MultiInput
@@ -1550,7 +1293,7 @@ const panels = (
             </Panel.Body>
             <Panel.Footer>Panel Footer</Panel.Footer>
         </Panel>
-        <PanelGrid>
+        <LayoutGrid>
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
@@ -1566,8 +1309,8 @@ const panels = (
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
-        </PanelGrid>
-        <PanelGrid nogap>
+        </LayoutGrid>
+        <LayoutGrid nogap>
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
@@ -1583,8 +1326,8 @@ const panels = (
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
-        </PanelGrid>
-        <PanelGrid cols={2}>
+        </LayoutGrid>
+        <LayoutGrid cols={2}>
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
@@ -1597,8 +1340,8 @@ const panels = (
             <Panel>
                 <Panel.Body>Panel</Panel.Body>
             </Panel>
-        </PanelGrid>
-        <PanelGrid cols={6}>
+        </LayoutGrid>
+        <LayoutGrid cols={6}>
             <Panel colSpan={2}>
                 <Panel.Body>Panel with colSpan=2</Panel.Body>
             </Panel>
@@ -1644,7 +1387,7 @@ const panels = (
             <Panel colSpan={6}>
                 <Panel.Body>Panel with colSpan=6</Panel.Body>
             </Panel>
-        </PanelGrid>
+        </LayoutGrid>
     </div>
 );
 
@@ -1667,7 +1410,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-up-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="top-start"
@@ -1688,7 +1431,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-up-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="top"
@@ -1709,7 +1452,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-up-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="top-end"
@@ -1732,7 +1475,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-left-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="left-start"
@@ -1753,7 +1496,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-right-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="right-start"
@@ -1776,7 +1519,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-left-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="left"
@@ -1797,7 +1540,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-right-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="right"
@@ -1820,7 +1563,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-left-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="left-end"
@@ -1841,7 +1584,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-right-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="right-end"
@@ -1864,7 +1607,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-down-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="bottom-start"
@@ -1885,7 +1628,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-down-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="bottom"
@@ -1906,7 +1649,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-down-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="bottom-end"
@@ -1984,7 +1727,8 @@ const popovers = (
         </div>
         <div>
             <Button onClick={function w() {}}>Show Modal</Button>
-            <Modal
+            <Dialog
+                actions={[]}
                 bodyProps={{
                     style: {
                         height: "200px",
@@ -2030,7 +1774,7 @@ const popovers = (
                 <br />
                 <br />
                 <br />
-            </Modal>
+            </Dialog>
         </div>
     </div>
 );
@@ -2132,9 +1876,58 @@ const searchInputs = (
     </div>
 );
 
+const selects = (
+    <div>
+        <Select placeholder='Select'>
+            <List>
+                <List.Item>
+                    <List.Text>List Item 1</List.Text>
+                </List.Item>
+            </List>
+        </Select>
+
+        <Select compact validationState={{state: 'warning', text: 'Validated'}}>
+            <List>
+                <List.Item>
+                    <List.Text>List Item 1</List.Text>
+                </List.Item>
+            </List>
+        </Select>
+    </div>
+);
+
 const shellbars = (
     <div>
         <Shellbar
+            logo={
+                <img
+                    alt="SAP"
+                    src="//unpkg.com/fiori-fundamentals/dist/images/sap-logo.png"
+                />
+            }
+            productTitle="Corporate Portal"
+            profile={{
+                colorAccent: 8,
+                initials: "JS",
+                userName: "John Snow"
+            }}
+            profileMenu={[
+                {
+                    callback: function w() {},
+                    glyph: "action-settings",
+                    name: "Settings",
+                    size: "s"
+                },
+                {
+                    callback: function w() {},
+                    glyph: "log",
+                    name: "Sign Out",
+                    size: "s"
+                }
+            ]}
+        />
+        <Shellbar
+            backAction={function w() {}}
             logo={
                 <img
                     alt="SAP"
@@ -2274,10 +2067,10 @@ const shellbars = (
                     name: "Application D"
                 }
             ]}
-            productSwitcher={{
+            productSwitch={{
                 label: "Product Switcher"
             }}
-            productSwitcherList={[
+            productSwitchList={[
                 {
                     callback: function w() {},
                     glyph: "home",
@@ -2573,7 +2366,7 @@ const sideNavs = (
                 />
             </SideNav.List>
         </SideNav>
-        <SideNav icons selectedId="item-2">
+        <SideNav selectedId="item-2">
             <SideNav.List>
                 <SideNav.ListItem glyph="home" id="item-1" url="#" />
                 <SideNav.ListItem glyph="home" id="item-2" url="#" />
@@ -2582,6 +2375,19 @@ const sideNavs = (
                 <SideNav.ListItem glyph="home" id="item-5" url="#" />
             </SideNav.List>
         </SideNav>
+    </div>
+);
+
+const stepInputs = (
+    <div>
+        <StepInput disabled value={10} />
+        <StepInput readOnly value={10} />
+        <StepInput
+            placeholder='Error'
+            validationState={{
+                state: 'error',
+                text: 'Test validation state'
+            }} />
     </div>
 );
 
@@ -2639,7 +2445,7 @@ const tables = (
                                 </Menu>
                             }
                             control={
-                                <Button glyph="vertical-grip" option="light" />
+                                <Button glyph="vertical-grip" option="transparent" />
                             }
                             placement="bottom-end"
                         />
@@ -2670,7 +2476,7 @@ const tables = (
                                 </Menu>
                             }
                             control={
-                                <Button glyph="vertical-grip" option="light" />
+                                <Button glyph="vertical-grip" option="transparent" />
                             }
                             placement="bottom-end"
                         />
@@ -2701,7 +2507,7 @@ const tables = (
                                 </Menu>
                             }
                             control={
-                                <Button glyph="vertical-grip" option="light" />
+                                <Button glyph="vertical-grip" option="transparent" />
                             }
                             placement="bottom-end"
                         />
@@ -2732,7 +2538,7 @@ const tables = (
                                 </Menu>
                             }
                             control={
-                                <Button glyph="vertical-grip" option="light" />
+                                <Button glyph="vertical-grip" option="transparent" />
                             }
                             placement="bottom-end"
                         />
@@ -2815,25 +2621,25 @@ const tiles = (
                             </Menu.List>
                         </Menu>
                     }
-                    control={<Button glyph="vertical-grip" option="light" />}
+                    control={<Button glyph="vertical-grip" option="transparent" />}
                     placement="bottom-end"
                 />
             </Tile.Actions>
         </Tile>
-        <ProductTile role="button">
-            <ProductTile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
-            <ProductTile.Content title="Tile Title">
+        <Tile product role="button">
+            <Tile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
+            <Tile.Content title="Tile Title">
                 <p>Tile Description</p>
-            </ProductTile.Content>
-        </ProductTile>
+            </Tile.Content>
+        </Tile>
         <br />
-        <ProductTile disabled>
-            <ProductTile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
-            <ProductTile.Content title="Tile Title">
+        <Tile product disabled>
+            <Tile.Media image="https://techne.yaas.io/images/product-thumbnail-wide.png" />
+            <Tile.Content title="Tile Title">
                 <p>Tile Description</p>
-            </ProductTile.Content>
-        </ProductTile>
-        <TileGrid col={4}>
+            </Tile.Content>
+        </Tile>
+        <LayoutGrid cols={4}>
             <Tile colorAccent={7} rowSpan={2}>
                 <Tile.Content title="Tile Title">
                     <p>Tile Description</p>
@@ -2872,7 +2678,7 @@ const tiles = (
                     <p>Tile Description</p>
                 </Tile.Content>
             </Tile>
-        </TileGrid>
+        </LayoutGrid>
     </div>
 );
 
@@ -2894,30 +2700,11 @@ const timePickers = (
     </div>
 );
 
-const toggles = (
+const switches = (
     <div>
-        <Toggle id="Yj07w604" size="xs">
-            Extra Small toggle
-        </Toggle>
-        <Toggle checked id="Yj07w605" size="s">
-            Small toggle
-        </Toggle>
-        <Toggle id="Yj07w606">Normal toggle</Toggle>
-        <Toggle checked id="Yj07w607" size="l">
-            Large toggle
-        </Toggle>
-        <Toggle disabled id="Yj07w608" size="xs">
-            Extra Small toggle
-        </Toggle>
-        <Toggle checked disabled id="Yj07w609" size="s">
-            Small toggle
-        </Toggle>
-        <Toggle disabled id="Yj07w610">
-            Normal toggle
-        </Toggle>
-        <Toggle checked disabled id="Yj07w611" size="l">
-            Large toggle
-        </Toggle>
+        <Switch>
+            switch
+        </Switch>
     </div>
 );
 

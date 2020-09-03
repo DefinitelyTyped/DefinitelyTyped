@@ -1,4 +1,4 @@
-// Type definitions for react-burger-menu 2.2
+// Type definitions for react-burger-menu 2.6
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 David Acevedo <https://github.com/dacevedo12>
@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface State {
     isOpen: boolean;
@@ -36,7 +36,7 @@ export interface Props {
     customOnKeyDown?(event: React.KeyboardEvent): void;
     disableAutoFocus?: boolean;
     disableCloseOnEsc?: boolean;
-    disableOverlayClick?: boolean;
+    disableOverlayClick?: boolean | (() => boolean);
     htmlClassName?: string;
     id?: string;
     isOpen?: boolean;
@@ -45,6 +45,7 @@ export interface Props {
     menuClassName?: string;
     morphShapeClassName?: string;
     noOverlay?: boolean;
+    noTransition?: boolean;
     onStateChange?(state: State): void;
     // TODO (Rajab) This can be improved, though I do not know how. From PropTypes:
     // styles && styles.outerContainer ? PropTypes.string.isRequired : PropTypes.string
@@ -54,19 +55,19 @@ export interface Props {
     // styles && styles.pageWrap ? PropTypes.string.isRequired : PropTypes.string,
     pageWrapId?: string;
     right?: boolean;
-    styles?: Styles;
+    styles?: Partial<Styles>;
     width?: number | string;
 }
 
-export class ReactBurgerMenu extends React.Component<Props> { }
+export class ReactBurgerMenu extends React.Component<Props> {}
 
-export class slide extends ReactBurgerMenu { }
-export class stack extends ReactBurgerMenu { }
-export class elastic extends ReactBurgerMenu { }
-export class bubble extends ReactBurgerMenu { }
-export class push extends ReactBurgerMenu { }
-export class pushRotate extends ReactBurgerMenu { }
-export class scaleDown extends ReactBurgerMenu { }
-export class scaleRotate extends ReactBurgerMenu { }
-export class fallDown extends ReactBurgerMenu { }
-export class reveal extends ReactBurgerMenu { }
+export class slide extends ReactBurgerMenu {}
+export class stack extends ReactBurgerMenu {}
+export class elastic extends ReactBurgerMenu {}
+export class bubble extends ReactBurgerMenu {}
+export class push extends ReactBurgerMenu {}
+export class pushRotate extends ReactBurgerMenu {}
+export class scaleDown extends ReactBurgerMenu {}
+export class scaleRotate extends ReactBurgerMenu {}
+export class fallDown extends ReactBurgerMenu {}
+export class reveal extends ReactBurgerMenu {}

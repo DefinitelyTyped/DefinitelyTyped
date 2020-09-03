@@ -1,9 +1,8 @@
 {
-	"compilerOptions": {
+    "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,7 +14,8 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "target": "es6"
     },
     "files": [
         "index.d.ts",

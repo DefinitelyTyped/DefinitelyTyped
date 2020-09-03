@@ -26,6 +26,19 @@ var job = new CronJob('00 30 11 * * 1-5', () => {
   timeZone /* Time zone of this job. */
 );
 
+// Another example with nullable onComplete
+var job = new CronJob('00 30 11 * * 1-5', () => {
+  /*
+   * Runs every weekday (Monday through Friday)
+   * at 11:30:00 AM. It does not run on Saturday
+   * or Sunday.
+   */
+  },
+    null,
+  true, /* Start the job right now */
+  timeZone /* Time zone of this job. */
+);
+
 // Another example with Date
 var job = new CronJob(new Date(), () => {
   /* runs once at the specified date. */
@@ -53,7 +66,7 @@ var job = new CronJob('00 30 11 * * 1-5', 'ls', { command: 'ls', args: ['./'] },
 );
 
 // For good measure
-var job = new CronJob({
+var job = cron.job({
   cronTime: '00 30 11 * * 1-5',
   onTick: () => {
     /*
@@ -91,4 +104,3 @@ try {
 new CronTime('* * * * * *');
 new CronTime(new Date());
 new CronTime(moment());
-

@@ -267,6 +267,7 @@ googletag.pubads().addEventListener("slotRenderEnded", (event) => {
     console.log(event.isEmpty);
     console.log(event.lineItemId);
     console.log(event.creativeId);
+    console.log(event.campaignId);
 });
 
 // 2. Slot render ended listener, slot specific logic.
@@ -286,6 +287,18 @@ googletag.pubads().addEventListener("slotRenderEnded", (event) => {
 // This event also operates at service level, but, as above, you can filter
 // to respond only to a certain ad slot by using this pattern:
 googletag.pubads().addEventListener("impressionViewable", (event) => {
+    if (event.slot === targetSlot) {
+        // Slot specific logic.
+    }
+});
+
+googletag.pubads().addEventListener("slotRequested", (event) => {
+    if (event.slot === targetSlot) {
+        // Slot specific logic.
+    }
+});
+
+googletag.pubads().addEventListener("slotResponseReceived", (event) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
@@ -454,6 +467,9 @@ slot.setTargeting("interests", ["sports", "music", "movies"]);
 // googletag.display accepts a div element as well as a div ID.
 googletag.display(new HTMLElement());
 
+// googletag.display accepts a slot
+googletag.display(slot);
+
 // pubads.display accepts a div element.
 googletag.pubads().display("/1234567/science", [300, 250], new HTMLElement());
 
@@ -463,3 +479,8 @@ googletag.pubads().display("/1234567/science/physics", [[300, 250], ["fluid"]], 
 
 // Request non-personalized ads
 googletag.pubads().setRequestNonPersonalizedAds(1);
+
+// Set Privact Settings
+googletag.pubads().setPrivacySettings({
+    restrictDataProcessing: true,
+});

@@ -16,6 +16,11 @@ var config: sql.config = {
     },
     pool: {
         autostart: true
+    },
+    beforeConnect: conn => {
+        conn.on('debug', message => console.info(message));
+        conn.on('error', err => console.error(err));
+        conn.removeAllListeners();
     }
 }
 
@@ -43,6 +48,8 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
             else if (result.recordset.length > 0) {
             }
         });
+
+        requestQuery.query`SELECT * FROM TABLE`.then(res => { });
 
         getArticlesQuery = "SELECT 1 as value FROM TABLE";
 
@@ -156,23 +163,44 @@ function test_promise_returns() {
     var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
     connection.connect().then(() => { });
     connection.close().then(() => { });
+    connection.query('SELECT 1').then((recordset) => { });
+    connection.query<Entity>('SELECT 1 as value').then(res => { });
+    connection.query`SELECT ${1}`.then((recordset) => { });
+    connection.batch('create procedure #temporary as select * from table').then((recordset) => { });
+    connection.batch<Entity>('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });
+    connection.batch`create procedure #temporary as select ${1} from table`.then((recordset) => { });
+    connection.batch<Entity>`create procedure #temporary as select ${1} from table`.then((recordset) => { });
 
     var preparedStatment = new sql.PreparedStatement(connection);
     preparedStatment.prepare("SELECT @myValue").then(() => { });
     preparedStatment.execute({ myValue: 1 }).then((recordSet) => { });
     preparedStatment.unprepare().then(() => { });
 
-    var transaction = new sql.Transaction(connection);
+    const transaction = new sql.Transaction(connection);
     transaction.begin().then(() => { });
+    transaction.begin(sql.ISOLATION_LEVEL.READ_COMMITTED).then(() => {}).catch(() => {});
+    transaction.begin(sql.ISOLATION_LEVEL.READ_COMMITTED).then(trans => {}).catch(err => {});
+    transaction.begin(undefined, err => {
+        err; // $ExpectType ConnectionError | TransactionError
+    });
+    (async () => {
+        await transaction.begin();
+        transaction.begin(sql.ISOLATION_LEVEL.READ_COMMITTED)
+    })();
     transaction.commit().then(() => { });
     transaction.rollback().then(() => { });
 
     var request = new sql.Request();
-    request.batch('create procedure #temporary as select * from table').then((recordset) => { });
+    request.batch('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });
     request.batch<Entity>('create procedure #temporary as select * from table;select 1 as value').then((recordset) => { });
+    request.batch`create procedure #temporary as select * from table;select ${1} as value`.then((recordset) => { });
+    request.batch<Entity>`create procedure #temporary as select * from table;select ${1} as value`.then((recordset) => { });
     request.bulk(new sql.Table("table_name")).then(() => { });
     request.query('SELECT 1').then((recordset) => { });
+    request.query`SELECT ${1} as value`.then(res => { });
     request.query<Entity>('SELECT 1 as value').then(res => { });
+    request.query`SELECT ${1}`.then((recordset) => { });
+    request.query<Entity>`SELECT ${1}`.then((recordset) => { });
     request.execute('procedure_name').then((recordset) => { });
 }
 
@@ -220,4 +248,9 @@ async function test_msnodesqlv8() {
     await connection.connect();
     const result = await connection.query`SELECT * FROM sys.databases`;
     await connection.close();
+}
+
+function test_rows_and_columnns() {
+    var table = new sql.Table('#temp_table3');
+    table.columns.forEach(col => col.name)
 }

@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "graphql": "^14.5.3",
+    "typescript": "^3.0.0"
+  }
+}

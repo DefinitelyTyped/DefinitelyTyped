@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "jsx": "preserve",
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "paths": {
+            "@mdx-js/react": ["mdx-js__react"]
+        },
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "mdx-js__react-tests.tsx"
+    ]
+}

@@ -1,0 +1,8 @@
+-private/default-resolver.d.ts
+-private/event-dispatcher.d.ts
+-private/registry.d.ts
+deprecations.d.ts
+globals-resolver.d.ts
+instance.d.ts
+resolver.d.ts
+types.d.ts

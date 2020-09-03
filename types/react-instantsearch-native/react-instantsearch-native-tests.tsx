@@ -1,12 +1,13 @@
 import * as React from "react";
 
-import { SearchBox, Hits, Highlight, Menu } from "react-instantsearch-dom";
+import { SearchBox, Hits } from "react-instantsearch-dom";
 import { InstantSearch, Index, connectStateResults } from 'react-instantsearch-native';
 import { values } from 'lodash';
 
 // https://community.algolia.com/react-instantsearch/guide/Conditional_display.html
-const App = () => (
-  <InstantSearch appId="" apiKey="" indexName="first">
+
+const App2 = () => (
+  <InstantSearch searchClient={{}} indexName="first">
     <SearchBox />
     <AllResults>
       <div>

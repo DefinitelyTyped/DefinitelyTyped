@@ -1,11 +1,13 @@
-// Type definitions for johnny-five
+// Type definitions for johnny-five 1.3.0
 // Project: https://github.com/rwaldron/johnny-five
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 //                 Zoltan Ujvary <https://github.com/ujvzolee>
 //                 Simon Colmer <https://github.com/workshop2>
 //                 XtrimSystems <https://github.com/xtrimsystems>
 //                 Marcin Obiedziński <https://github.com/marcinobiedz>
+//                 Nicholas Hehr <https://github.com/HipsterBrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.5
 
 ///<reference types="node"/>
 
@@ -120,12 +122,12 @@ export declare class Board {
     on(event: string, cb: () => void): this;
     on(event: "ready", cb: () => void): this;
     on(event: "connect", cb: () => void): this;
-    pinMode(pin: number, mode: number): void;
-    analogWrite(pin: number, value: number): void;
-    analogRead(pin: number, cb: (item: number) => void): void;
-    digitalWrite(pin: number, value: number): void;
-    digitalRead(pin: number, cb: (item: number) => void): void;
-    servoWrite(pin: number, angle: number): void;
+    pinMode(pin: number | string, mode: number): void;
+    analogWrite(pin: number | string, value: number): void;
+    analogRead(pin: number | string, cb: (item: number) => void): void;
+    digitalWrite(pin: number | string, value: number): void;
+    digitalRead(pin: number | string, cb: (item: number) => void): void;
+    servoWrite(pin: number | string, angle: number): void;
     shiftOut(dataPin: Pin, clockPin: Pin, isBigEndian: boolean, value: number): void;
     wait(ms: number, cb: () => void): void;
     loop(ms: number, cb: () => void): void;
@@ -157,6 +159,35 @@ export declare class Button {
     on(event: "release", cb: () => void): this;
 }
 
+export interface CollectionPinOptions {
+  pins: Array<string | number>;
+  [key: string]: any;
+}
+
+export declare class Collection<Base = {}> {
+  static installMethodForwarding(target: object, source: object): object;
+
+  constructor(options: Array<number | string | object> | CollectionPinOptions);
+
+  type?: Base;
+
+  add(...args: Array<number | object>): number;
+
+  each(callback: (item: Base, index: number) => void): this;
+
+  forEach(callback: (item: Base, index: number) => void): this;
+
+  includes(item: Base): boolean;
+
+  indexOf(item: Base): number;
+
+  map(callback: (item: Base, index: number) => void): Array<any>;
+
+  slice(begin?: number, end?: number): Collection<Base>;
+
+  byId(id: any): Base | undefined;
+}
+
 export interface CompassOption {
     controller: string;
     gauss?: number;
@@ -175,25 +206,32 @@ export declare class Compass {
 
 export interface ESCOption {
     pin: number | string;
-    range?: Array<number>;
-    startAt?: number;
-    controller?: string;
-    device?: string;
+    pwmRange?: Array<number>;
+    address?: string;
+    controller?: 'PCA9685' | 'DEFAULT';
+    device?: 'FORWARD' | 'FORWARD_REVERSE' | 'FORWARD_REVERSE_BRAKE';
     neutral?: number;
 }
 
 export declare class ESC {
+    static Collection: ESCs;
+
     constructor(option: number | string | ESCOption);
 
     id: string;
     pin: number | string;
-    range: Array<number>;
+    pwmRange: Array<number>;
     readonly value: number;
 
-    speed(value: number): void;
-    min(): void;
-    max(): void;
-    stop(): void;
+    throttle(value: number): this;
+    brake(): this;
+}
+
+export declare class ESCs extends Collection<ESC> {
+  constructor(option: Array<number | string | ESCOption>);
+
+  throttle(value: number): this;
+  brake(): this;
 }
 
 export declare class Fn {

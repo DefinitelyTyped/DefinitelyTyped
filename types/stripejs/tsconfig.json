@@ -19,13 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "customer.d.ts",
-        "element.d.ts",
-        "payment.d.ts",
-        "shipping.d.ts",
-        "source.d.ts",
-        "token.d.ts",
         "stripejs-tests.ts"
     ]
 }
-

@@ -1,9 +1,9 @@
-
-
 /// Tests are taken from the PubSubJs Basic Examples https://github.com/mroderick/PubSubJS
 function test_Subscribe() {
     // create a function to receive messages
-    var mySubscriber = (msg: string, data: any) => { console.log(msg, data); }
+    var mySubscriber = (msg: string, data: any) => {
+        console.log(msg, data);
+    };
 
     // add the function to the list of subscribers for a particular message
     // we're keeping the returned token, in order to be able to unsubscribe
@@ -22,7 +22,9 @@ function test_Subscribe() {
 
 function test_unsubscribe_by_token() {
     // create a function to receive messages
-    var mySubscriber = (msg: string, data: any) => { console.log(msg, data); }
+    var mySubscriber = (msg: string, data: any) => {
+        console.log(msg, data);
+    };
 
     // add the function to the list of subscribers to a particular message
     // we're keeping the returned token, in order to be able to unsubscribe
@@ -35,7 +37,9 @@ function test_unsubscribe_by_token() {
 
 function test_unsubcribe_by_function() {
     // create a function to receive the message
-    var mySubscriber = (msg: string, data: any) => { console.log(msg, data); }
+    var mySubscriber = (msg: string, data: any) => {
+        console.log(msg, data);
+    };
 
     // add the function to the list of subscribers to a particular message
     // we're keeping the returned token, in order to be able to unsubscribe
@@ -48,13 +52,17 @@ function test_unsubcribe_by_function() {
 
 function test_Hierarchical_addressing() {
     // create a subscriber to receive all messages from a hierarchy of topics
-    var myToplevelSubscriber = (msg: string, data: any) => { console.log('top level: ', msg, data); }
+    var myToplevelSubscriber = (msg: string, data: any) => {
+        console.log('top level: ', msg, data);
+    };
 
     // subscribe to all topics in the 'car' hierarchy
     PubSub.subscribe('car', myToplevelSubscriber);
 
     // create a subscriber to receive only leaf message from hierarchy op topics
-    var mySpecificSubscriber = (msg: string, data: any) => { console.log('specific: ', msg, data); }
+    var mySpecificSubscriber = (msg: string, data: any) => {
+        console.log('specific: ', msg, data);
+    };
 
     // subscribe only to 'car.drive' topics
     PubSub.subscribe('car.drive', mySpecificSubscriber);
@@ -72,7 +80,9 @@ function test_Hierarchical_addressing() {
 
 function ClearAllSubscriptions() {
     // create a function to receive messages
-    var mySubscriber = (msg: string, data: any) => { console.log(msg, data); }
+    var mySubscriber = (msg: string, data: any) => {
+        console.log(msg, data);
+    };
 
     // create two subscriptions
     PubSub.subscribe('topic1', mySubscriber);

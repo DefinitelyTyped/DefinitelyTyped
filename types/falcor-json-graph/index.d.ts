@@ -1,7 +1,8 @@
 // Type definitions for falcor-json-graph 1.1.7
 // Project: https://github.com/Netflix/falcor-json-graph
-// Definitions by: Quramy <https://github.com/Quramy>
+// Definitions by: Quramy <https://github.com/Quramy>, LukeRielley <https://github.com/lukerielley>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.4
 
 export = FalcorJsonGraph;
 

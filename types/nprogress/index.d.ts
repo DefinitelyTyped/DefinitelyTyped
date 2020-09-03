@@ -1,116 +1,45 @@
-// Type definitions for NProgress
+// Type definitions for NProgress 0.2
 // Project: https://github.com/rstacruz/nprogress
-// Definitions by: Judah Gabriel Himango <http://debuggerdotbreak.wordpress.com>
+// Definitions by: Judah Gabriel Himango <https://github.com/JudahGabriel>, Ovyerus <https://github.com/Ovyerus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-interface NProgressStatic {
-    /**
-     * Shows the progress bar and begins trickling progress.
-     * @returns {NProgressConfigureOptions} The current NProgress object, useful for chaining.
-     */
-    start(): NProgressStatic;
+declare namespace nProgress {
+    interface NProgressOptions {
+        minimum: number;
+        template: string;
+        easing: string;
+        speed: number;
+        trickle: boolean;
+        trickleSpeed: number;
+        showSpinner: boolean;
+        parent: string;
+        positionUsing: string;
+        barSelector: string;
+        spinnerSelector: string;
+    }
 
-    /**
-     * Finishes loading by transitioning it to 100%, then fading out.
-     * @param {boolean} forceShow Forces the progress bar to show, even if it's not being shown. (The default behavior is that .done() will not do anything if .start() isn't called.)
-     * @returns {NProgressConfigureOptions} The current NProgress object, useful for chaining.
-     */
-    done(forceShow?: boolean): NProgressStatic;
+    interface NProgress {
+        version: string;
+        settings: NProgressOptions;
+        status: number | null;
 
-    /**
-     * Increments the progress bar with a random amount. This will never get to 100%: use it for every image load (or similar).
-     * @returns {NProgressConfigureOptions} The current NProgress object, useful for chaining.
-     */
-    inc(): NProgressStatic;
+        configure(options: Partial<NProgressOptions>): NProgress;
+        set(number: number): NProgress;
+        isStarted(): boolean;
+        start(): NProgress;
+        done(force?: boolean): NProgress;
+        inc(amount?: number): NProgress;
+        trickle(): NProgress;
 
-    /**
-     * Increments the progress bar with a set amount.
-     * @param {number} amount This will get the current status value and adds the value until status is max 0.994
-     * @returns {NProgressConfigureOptions} The current NProgress object, useful for chaining.
-     */
-    inc(amount: number): NProgressStatic;
+        /* Internal */
 
-    /**
-     * Removes the progress indicator.
-     */
-    remove(): void;
-
-    /**
-     * Sets the progress percentage.
-     * @param {number} progressPercent A number between 0.0 and 1.0 that represents the progress percentage.
-     * @returns {NProgressConfigureOptions} The current NProgress object, useful for chaining.
-     */
-    set(progressPercent: number): NProgressStatic;
-
-    /**
-     * Configures the progress indicator.
-     * @param {NProgressConfigureOptions} options An object containing the configuration options.
-     * @returns {NProgressConfigureOptions} The current NProgress object, useful for chaining.
-     */
-    configure(options: NProgressConfigureOptions): NProgressStatic;
-
-    /**
-     * Gets the NProgress version.
-     */
-    version: string;
-
-    /**
-     * Gets the status. If started, it will be the last progress number set.
-     */
-    status: any;
-
-    /**
-     * Gets whether progress has been started.
-     * @returns {boolean} Whether the progress has started.
-     */
-    isStarted(): boolean;
+        render(fromStart?: boolean): HTMLDivElement;
+        remove(): void;
+        isRendered(): boolean;
+        getPositioningCSS(): 'translate3d' | 'translate' | 'margin';
+    }
 }
 
-interface NProgressConfigureOptions {
-
-    /**
-     * CSS selector to change the parent DOM element of the progress. Default is body.
-     */
-    parent?: string
-
-    /**
-     * The minimum progress percentage. Default is 0.08.
-     */
-    minimum?: number;
-
-    /**
-     * How often to trickle, in milliseconds. Default is 800.
-     */
-    trickleSpeed?: number;
-
-    /**
-     * Whether to show the spinner. Defaults to true. Default is true.
-     */
-    showSpinner?: boolean;
-
-    /**
-     * Whether to enable trickling the progress. Default is true.
-     */
-    trickle?: boolean;
-
-    /**
-     * The CSS easing animation to use. Default is 'linear'.
-     */
-    easing?: string;
-
-    /**
-     * The animation speed in milliseconds. Default is 200.
-     */
-    speed?: number;
-
-    /**
-     * The HTML markup inserted for the progress indicator. To keep the progress bar working, keep an element with role='bar' in there.
-     */
-    template?: string;
-}
-
-declare var NProgress: NProgressStatic;
-
-declare module "nprogress" {
-    export = NProgress;
-}
+declare const nProgress: nProgress.NProgress;
+export = nProgress;

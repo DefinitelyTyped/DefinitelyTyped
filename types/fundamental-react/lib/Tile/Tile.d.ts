@@ -1,14 +1,12 @@
 export type TileProps = {
-    /* Sets a background color class. */
-    backgroundColor?: number;
-    className?: string;
-    /* Sets a background color accent class. Options include numbers from 1 to 9. */
-    colorAccent?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-    /* Number of columns the tile covers. */
-    columnSpan?: 1 | 2 | 3 | 4 | 5 | 6;
-    disabled?: boolean;
-    /* Number of rows the tile covers. */
-    rowSpan?: number;
+    active?: boolean,
+    backgroundImage?: string,
+    className?: string,
+    disabled?: boolean,
+    disableStyles?: boolean,
+    productTile?: boolean,
+    tabIndex?: number,
+    onClick?: (...args: any[]) => any
 } & { [x: string]: any };
 
 export type TileActionsProps = {
@@ -16,20 +14,23 @@ export type TileActionsProps = {
 } & { [x: string]: any };
 
 export type TileContentProps = {
-    title: string;
-    className?: string;
+    title: string,
+    className?: string,
     headingLevel?: 2 | 3 | 4 | 5 | 6;
-    titleProps?: { [x: string]: any };
+    productTile?: boolean,
+    titleProps?: any
 } & { [x: string]: any };
 
 export type TileMediaProps = {
     className?: string;
+    productTile?: boolean;
 } & { [x: string]: any };
 
 declare const Tile: React.FunctionComponent<TileProps> & {
-    Actions: React.FunctionComponent<TileActionsProps>;
-    Content: React.FunctionComponent<TileContentProps>;
-    Media: React.FunctionComponent<TileMediaProps>;
+    displayName: "Tile";
+    Actions: React.FunctionComponent<TileActionsProps> & {displayName: "Tile.Actions"};
+    Content: React.FunctionComponent<TileContentProps> & {displayName: "Tile.Content"};
+    Media: React.FunctionComponent<TileMediaProps> & {displayName: "Tile.Media"};
 };
 
 export default Tile;

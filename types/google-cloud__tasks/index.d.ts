@@ -3,15 +3,15 @@
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
 import { Transform } from "stream";
-export type GoogleError = any;
-export type GoogleAuthOptions = any;
-export type CallOptions = any;
-export type GoogleAuth = any;
+import {
+  GoogleAuthOptions,
+  GoogleError,
+  CallOptions,
+  GoogleAuth
+} from "google-gax";
 
 export interface CloudTasksConfig extends GoogleAuthOptions {
   key?: string;
@@ -27,9 +27,9 @@ export interface AppEngineHttpQueue {
 }
 
 export interface AppEngineHttpRequest {
-  appEngineRouting: AppEngineRouting;
+  appEngineRouting?: AppEngineRouting;
   body: string;
-  headers: {
+  headers?: {
     [key: string]: string;
   };
   httpMethod: string;
@@ -57,7 +57,8 @@ export interface Binding {
 }
 
 export interface CreateTaskRequest {
-  responseView: View;
+  responseView?: View;
+  parent: string;
   task: Partial<Task>;
 }
 

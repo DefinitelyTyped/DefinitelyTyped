@@ -3,7 +3,7 @@
 // Definitions by: Zebulon McCorkle <https://github.com/zebMcCorkle>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 

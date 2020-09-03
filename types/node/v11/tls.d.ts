@@ -44,6 +44,7 @@ declare module "tls" {
         valid_from: string;
         valid_to: string;
         fingerprint: string;
+        fingerprint256: string;
         ext_key_usage: string[];
         serialNumber: string;
         raw: Buffer;

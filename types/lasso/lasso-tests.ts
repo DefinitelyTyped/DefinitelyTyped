@@ -199,10 +199,10 @@ transforms.createTransformer([], new LassoContext(), (err, result) => {});
 
 // Middleware tests
 
-// $ExpectType RequestHandler
+// $ExpectType RequestHandler<ParamsDictionary, any, any, ParsedQs>
 serveStatic();
 
-// $ExpectType RequestHandler
+// $ExpectType RequestHandler<ParamsDictionary, any, any, ParsedQs>
 serveStatic({
     lasso,
     sendOptions: {}

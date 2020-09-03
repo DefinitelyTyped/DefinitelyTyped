@@ -17,10 +17,11 @@ const subtitles = [
     ];
 
 const srt = Subtitle.stringify(subtitles);
+const vtt = Subtitle.stringifyVtt(subtitles);
 
 const newSubtitles: Subtitle.subTitleType[] = Subtitle.resync(subtitles, 1000);
 
-Subtitle.toMs('00:00:24,400');
+Subtitle.toMS('00:00:24,400');
 
 Subtitle.toSrtTime(24400);
 
