@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "git-semver-tags-tests.ts"
+        "node-ip2region-tests.ts"
     ]
 }
