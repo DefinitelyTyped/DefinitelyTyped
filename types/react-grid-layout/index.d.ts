@@ -6,18 +6,15 @@
 //                 Andrew Hathaway <https://github.com/andrewhathaway>
 //                 Manav Mishra <https://github.com/manav-m>
 //                 Alexey Fyodorov <https://github.com/al-fyodorov>
-//                 Lorenz Henk <https://github.com/LorenzHenk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export as namespace ReactGridLayout;
 export = ReactGridLayout;
 
-declare class ReactGridLayout extends React.Component<
-    ReactGridLayout.ReactGridLayoutProps
-> {}
+declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps> {}
 
 declare namespace ReactGridLayout {
     interface Layout {
@@ -109,7 +106,7 @@ declare namespace ReactGridLayout {
         newItem: Layout,
         placeholder: Layout,
         event: MouseEvent,
-        element: HTMLElement
+        element: HTMLElement,
     ) => void;
 
     interface CoreProps {
@@ -154,7 +151,7 @@ declare namespace ReactGridLayout {
         /**
          * Compaction type.
          */
-        compactType?: "vertical" | "horizontal" | null;
+        compactType?: 'vertical' | 'horizontal' | null;
 
         /**
          * This allows setting the initial width on the server side.
@@ -172,9 +169,9 @@ declare namespace ReactGridLayout {
          * which appears when you drag over some element from outside.
          */
         droppingItem?: {
-            i: string
-            w: number
-            h: number
+            i: string;
+            w: number;
+            h: number;
         };
 
         /**
@@ -199,7 +196,7 @@ declare namespace ReactGridLayout {
          * 'se' - Southeast handle (bottom-right)
          * 'ne' - Northeast handle (top-right)
          */
-        resizeHandles?: Array<"s" | "w" | "e" | "n" | "sw" | "nw" | "se" | "ne">;
+        resizeHandles?: Array<'s' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne'>;
 
         /**
          * If set to false it will not call `onDrop()` callback.
@@ -269,7 +266,7 @@ declare namespace ReactGridLayout {
         /**
          * Calls when some element has been dropped
          */
-        onDrop?(layout: Layout[], item: Layout, e: Event ): void;
+        onDrop?(layout: Layout[], item: Layout, e: Event): void;
     }
 
     interface ReactGridLayoutProps extends CoreProps {
@@ -357,7 +354,7 @@ declare namespace ReactGridLayout {
             containerWidth: number,
             margin: [number, number],
             cols: number,
-            containerPadding: [number, number]
+            containerPadding: [number, number],
         ): void;
     }
 
@@ -373,6 +370,6 @@ declare namespace ReactGridLayout {
     }
 
     function WidthProvider<P>(
-        component: React.ComponentClass<P> | React.FunctionComponent<P>
+        component: React.ComponentClass<P> | React.FunctionComponent<P>,
     ): React.ComponentClass<P & WidthProviderProps>;
 }
