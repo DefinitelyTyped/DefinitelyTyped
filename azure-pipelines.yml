@@ -20,7 +20,7 @@ jobs:
       npm run test-all
 
 
-    displayName: 'npm run test-all
+    displayName: 'npm run test-all'
 
 trigger:
 - master
