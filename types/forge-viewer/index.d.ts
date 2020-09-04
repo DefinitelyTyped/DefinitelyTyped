@@ -1025,6 +1025,7 @@ declare namespace Autodesk {
                 camera: THREE.Camera;
                 canvas: HTMLCanvasElement;
                 model: any;
+                overlayScenes: any;
                 scene: THREE.Scene;
                 sceneAfter: THREE.Scene;
                 selector: any;
@@ -1035,6 +1036,7 @@ declare namespace Autodesk {
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
                 clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
                 createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any): void;
+                getCanvasBoundingClientRect(): DOMRect;
                 hitTest(clientX: number, clientY: number, ignoreTransparent: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
@@ -1055,6 +1057,8 @@ declare namespace Autodesk {
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
                 syncCamera(syncWorldUp?: boolean): void;
                 viewportToRay(vpVec: THREE.Vector3, ray: THREE.Ray): THREE.Ray;
+                worldToClient(pos: THREE.Vector3): THREE.Vector3;
+                worldUpName(): string;
             }
 
             class VisibilityManager {
