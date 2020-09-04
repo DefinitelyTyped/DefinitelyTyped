@@ -3,7 +3,7 @@
 // Definitions by: Marcell Toth <https://github.com/marcelltoth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { JSONSchema4 } from 'json-schema';
+import { JSONSchema4 } from 'json-schema';
 
 /*~ Note that ES6 modules cannot directly export callable functions.
  *~ This file should be imported using the CommonJS-style:
