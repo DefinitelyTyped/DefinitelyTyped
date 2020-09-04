@@ -31379,14 +31379,6 @@ declare namespace Excel {
          */
         setAutoSortOnCell(cell: Range | string, sortBy: "Ascending" | "Descending"): void;
         /**
-         * Sets the style applied to the PivotTable.
-         *
-         * [Api set: ExcelApi 1.12]
-         *
-         * @param style The style to apply to the PivotTable. An `InvalidArgumentException` is thrown if a string is provided that does not match the name of any style.
-         */
-        setStyle(style: string | PivotTableStyle | BuiltInPivotTableStyle): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
@@ -38552,14 +38544,6 @@ declare namespace Excel {
          * @param items Optional. The specified slicer item names to be selected.
          */
         selectItems(items?: string[]): void;
-        /**
-         * Sets the style applied to the slicer.
-         *
-         * [Api set: ExcelApi 1.12]
-         *
-         * @param style The style to apply to the slicer. An `InvalidArgumentException` is thrown if a string is provided that does not match the name of any style.
-         */
-        setStyle(style: string | SlicerStyle | BuiltInSlicerStyle): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
