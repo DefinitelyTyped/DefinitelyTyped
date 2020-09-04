@@ -314,6 +314,12 @@ declare module 'twit' {
             name?: string;
             description?: string;
             mode?: 'public' | 'private';
+            exclude_reply_user_ids: string;
+            attachment_url: string;
+            place_id display_coordinates: string;
+            enable_dmcommands: string;
+            fail_dmcommands: string;
+            card_uri: string;
         }
         export interface PromiseResponse {
             data: Response;
