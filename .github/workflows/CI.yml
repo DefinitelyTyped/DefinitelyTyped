@@ -12,10 +12,15 @@ jobs:
           node-version: "12"
 
       # Get local dependencies
-      - run: npm install
+      #- run: npm install
 
       # Run tests
-      - run: npm run test
+      - run: |
+          git clone https://github.com/microsoft/DefinitelyTyped-tools.git
+          curl https://patch-diff.githubusercontent.com/raw/microsoft/DefinitelyTyped-tools/pull/100.patch | patch --directory DefinitelyTyped-tools --strip 1
+          yarn --cwd DefinitelyTyped-tools
+          tsc --build DefinitelyTyped-tools/packages/dtslint-runner
+          node DefinitelyTyped-tools/packages/dtslint-runner/dist/index.js --path .
 
       - name: "Run Danger"
         env:
