@@ -30,7 +30,10 @@ const AuthTokenHeader = DS.JSONAPIAdapter.extend({
 });
 
 // Ensure that we are allowed to overwrite properties with a getter
-class GetterHeader extends DS.JSONAPIAdapter {
+class GetterTest extends DS.JSONAPIAdapter {
+    get coalesceFindRequests() {
+        return false;
+    }
     get namespace() {
         return 'api/v1';
     }
