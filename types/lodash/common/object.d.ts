@@ -1951,7 +1951,7 @@ declare module "../index" {
          * _.omitBy(object, _.isNumber);
          * // => { 'b': '2' }
          */
-        omitBy<T extends object>(object: T | null | undefined, predicate: ValueKeyIteratee<T[K]>): {[K in keyof T]?: T[K]};
+        omitBy<T extends object>(object: T | null | undefined, predicate: ValueKeyIteratee<T[keyof T]>): {[K in keyof T]?: T[K]};
         /**
          * @see _.omitBy
          */
