@@ -79,7 +79,7 @@ declare namespace Intercom_ {
 }
 
 declare var Intercom: Intercom_.IntercomStatic;
-declare var intercomSettings: Intercom_.IntercomSettings;
+declare var intercomSettings: Intercom_.IntercomSettings | undefined;
 interface Window {
   intercomSettings?: Intercom_.IntercomSettings;
 }
