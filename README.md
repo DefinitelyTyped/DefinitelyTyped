@@ -338,11 +338,9 @@ For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests
 
 ## Verifying
 
-Test your changes by running `npm run lint package-name` where `package-name` is the name of your package.
+Test your changes by running `npm test package-name` where `package-name` is the name of your package.
 
 This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
-
-If you're editing an existing package, you should `git add` your changes and then run `npm test` to test your changes on any `@types` packages that depend on the package you changed.
 
 ## FAQ
 
