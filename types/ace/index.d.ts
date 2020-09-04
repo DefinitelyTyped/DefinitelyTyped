@@ -1349,7 +1349,7 @@ declare namespace AceAjax {
         /**
          * Returns `true` if current lines are always highlighted.
         **/
-        getHighlightActiveLine(): void;
+        getHighlightActiveLine(): boolean;
 
         /**
          * Determines if the currently selected word should be highlighted.
