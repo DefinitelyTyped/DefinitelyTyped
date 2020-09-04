@@ -1951,7 +1951,7 @@ declare module "../index" {
          * _.omitBy(object, _.isNumber);
          * // => { 'b': '2' }
          */
-        omitBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
+        omitBy<T extends object>(object: T | null | undefined, predicate: ValueKeyIteratee<T[K]>): {[K in keyof T]?: T[K]};
         /**
          * @see _.omitBy
          */
@@ -1959,7 +1959,7 @@ declare module "../index" {
         /**
          * @see _.omitBy
          */
-        omitBy<T extends object>(object: T | null | undefined, predicate: ValueKeyIteratee<T[keyof T]>): PartialObject<T>;
+        omitBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
     }
     interface Collection<T> {
         /**
