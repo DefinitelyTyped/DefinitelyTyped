@@ -9,6 +9,7 @@ import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import Adapters from 'next-auth/adapters';
 import * as client from 'next-auth/client';
+import * as JWT from 'next-auth/jwt';
 
 // --------------------------------------------------------------------------
 // Server
@@ -221,10 +222,13 @@ client.getCsrfToken(pageContext);
 client.csrfToken(pageContext);
 
 // $ExpectType Promise<void>
-client.signin(githubProvider, { data: 'foo' });
+client.signin('github', { data: 'foo' });
 
 // $ExpectType Promise<void>
-client.signout(pageContext);
+client.signout();
+
+// $ExpectType Promise<void>
+client.signout({ callbackUrl: 'https://foo.com/callback' });
 
 // $ExpectType ReactElement<any, any> | null
 client.Provider({
@@ -448,4 +452,32 @@ Adapters.TypeORM.Adapter({
     type: 'sqlite',
     database: ':memory:',
     synchronize: true,
+});
+
+// --------------------------------------------------------------------------
+// JWT
+// --------------------------------------------------------------------------
+
+// $ExpectType Promise<string>
+JWT.encode({
+    token: { key: 'value' },
+    secret: 'secret',
+});
+
+// $ExpectType Promise<object>
+JWT.decode({
+    token: 'token',
+    secret: 'secret',
+});
+
+// $ExpectType Promise<string>
+JWT.getToken({
+    req,
+    raw: true,
+});
+
+// $ExpectType Promise<object>
+JWT.getToken({
+    req,
+    secret: 'secret',
 });

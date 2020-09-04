@@ -494,6 +494,28 @@ import { promisify } from 'util';
             type: 'pkcs8',
         },
     }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
+
+    crypto.generateKeyPair('ed25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
+
+    crypto.generateKeyPair('x25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
 }
 
 {
@@ -550,6 +572,34 @@ import { promisify } from 'util';
             type: 'pkcs8',
         },
     });
+
+    const ed25519Res: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified('ed25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
+    const x25519Res: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified('x25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
 }
 
 {
@@ -601,6 +651,46 @@ import { promisify } from 'util';
     verify.update('some data to sign');
     verify.end();
     verify.verify(publicKey, signature);    // $ExpectType boolean
+}
+
+{
+    // crypto.diffieHellman_test
+    const { privateKey, publicKey } = crypto.generateKeyPairSync('x25519', {
+        publicKeyEncoding: {
+            type: 'spki',
+            format: 'pem',
+        },
+        privateKeyEncoding: {
+            type: 'pkcs8',
+            format: 'pem',
+        },
+    });
+    const privateKeyObject = crypto.createPrivateKey({ key: privateKey });
+    const publicKeyObject = crypto.createPublicKey({ key: publicKey });
+
+    crypto.generateKeyPair(
+        'x25519',
+        {
+            publicKeyEncoding: {
+                type: 'spki',
+                format: 'pem',
+            },
+            privateKeyEncoding: {
+                type: 'pkcs8',
+                format: 'pem',
+            },
+        },
+        (err, publicKey1, privateKey1) => {
+            if (err) console.log(err);
+
+            const privateKeyObject1 = crypto.createPrivateKey({ key: privateKey1 });
+            const publicKeyObject1 = crypto.createPublicKey({ key: publicKey1 });
+
+            const sharedSecret1 = crypto.diffieHellman({ privateKey: privateKeyObject, publicKey: publicKeyObject1 });
+            const sharedSecret2 = crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject });
+            assert.equal(sharedSecret1, sharedSecret2);
+        },
+    );
 }
 
 {

@@ -336,14 +336,12 @@ export interface NativeMethods {
 
     /**
      * Like [`measure()`](#measure), but measures the view relative an ancestor,
-     * specified as `relativeToNativeNode`. This means that the returned x, y
+     * specified as `relativeToNativeComponentRef`. This means that the returned x, y
      * are relative to the origin x, y of the ancestor view.
-     *
-     * As always, to obtain a native node handle for a component, you can use
-     * `React.findNodeHandle(component)`.
+     * _Can also be called with a relativeNativeNodeHandle but is deprecated._
      */
     measureLayout(
-        relativeToNativeNode: number,
+        relativeToNativeComponentRef: HostComponent<unknown> | number,
         onSuccess: MeasureLayoutOnSuccessCallback,
         onFail: () => void /* currently unused */,
     ): void;
@@ -811,6 +809,10 @@ interface SkewYTransform {
     skewY: string;
 }
 
+interface MatrixTransform {
+    matrix: number[];
+}
+
 export interface TransformsStyle {
     transform?: (
         | PerpectiveTransform
@@ -825,12 +827,31 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform
+        | MatrixTransform
     )[];
+    /**
+     * @deprecated Use matrix in transform prop instead.
+     */
     transformMatrix?: Array<number>;
+    /**
+     * @deprecated Use rotate in transform prop instead.
+     */
     rotation?: number;
+    /**
+     * @deprecated Use scaleX in transform prop instead.
+     */
     scaleX?: number;
+    /**
+     * @deprecated Use scaleY in transform prop instead.
+     */
     scaleY?: number;
+    /**
+     * @deprecated Use translateX in transform prop instead.
+     */
     translateX?: number;
+    /**
+     * @deprecated Use translateY in transform prop instead.
+     */
     translateY?: number;
 }
 
@@ -2942,7 +2963,17 @@ export interface DatePickerIOSProps extends ViewProps {
     /**
      * The currently selected date.
      */
-    date: Date;
+    date?: Date | null;
+
+    /**
+     * Provides an initial value that will change when the user starts selecting
+     * a date. It is useful for simple use-cases where you do not want to deal
+     * with listening to events and updating the date prop to keep the
+     * controlled state in sync. The controlled state has known bugs which
+     * causes it to go out of sync with native. The initialDate prop is intended
+     * to allow you to have native be source of truth.
+     */
+    initialDate?: Date | null;
 
     /**
      * The date picker locale.
@@ -5913,7 +5944,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web';
+export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web' | 'native';
 
 interface PlatformStatic {
     isTV: boolean;
