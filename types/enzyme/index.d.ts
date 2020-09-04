@@ -1,4 +1,4 @@
-// Type definitions for Enzyme 3.11
+// Type definitions for Enzyme 3.10
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
