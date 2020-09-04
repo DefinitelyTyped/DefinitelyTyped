@@ -340,14 +340,15 @@ For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests
 
 Test your changes by running `npm run lint package-name` where `package-name` is the name of your package.
 
-This script uses [dtslint](https://github.com/Microsoft/dtslint) to run the TypeScript compiler against your dts files.
+This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
 
+If you're editing an existing package, you should `git add` your changes and then run `npm test` to test your changes on any `@types` packages that depend on the package you changed.
 
 ## FAQ
 
 #### What exactly is the relationship between this repository and the `@types` packages on NPM?
 
-The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
+The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/microsoft/DefinitelyTyped-tools).
 
 #### I've submitted a pull request. How long until it is merged?
 
