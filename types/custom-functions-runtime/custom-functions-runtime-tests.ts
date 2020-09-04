@@ -69,26 +69,19 @@ function throwErrors(parameter: any) {
     const customError = new CustomFunctions.Error(CustomFunctions.ErrorCode.invalidValue, "The parameter can only contain lowercase characters.");
     switch (parameter) {
         case (parameter === 0):
-          return CustomFunctions.ErrorCode.invalidValue;
-          break;
+          throw CustomFunctions.ErrorCode.invalidValue;
         case (parameter === 1):
           throw CustomFunctions.ErrorCode.notAvailable;
-          break;
         case (parameter === 2):
           throw CustomFunctions.ErrorCode.nullReference;
-          break;
         case (parameter === 3):
           throw CustomFunctions.ErrorCode.invalidReference;
-          break;
         case (parameter === 4):
           throw CustomFunctions.ErrorCode.invalidNumber;
-          break;
         case (parameter === 5):
           throw CustomFunctions.ErrorCode.invalidName;
-          break;
         case (parameter === 6):
           throw CustomFunctions.ErrorCode.divisionByZero;
-          break;
         case (parameter === "A"):
           return customError;
     }
