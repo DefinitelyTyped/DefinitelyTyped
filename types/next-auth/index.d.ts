@@ -69,7 +69,7 @@ interface Session {
 }
 
 interface JWTOptions {
-    secret: string;
+    secret?: string;
     maxAge?: number;
     encode?(options: JWTEncodeParams): Promise<string>;
     decode?(options: JWTDecodeParams): Promise<string>;

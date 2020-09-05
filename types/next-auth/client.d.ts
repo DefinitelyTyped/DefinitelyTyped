@@ -29,30 +29,28 @@ interface GenericObject {
 
 interface ContextProviderProps {
     session: Session;
-    options?: ContextProviderOptions;
-}
-
-interface ContextProviderOptions {
-    site?: string;
-    basePath?: string;
-    clientMaxAge?: number;
+    options?: SetOptionsParams;
 }
 
 interface SetOptionsParams {
     baseUrl?: string;
     basePath?: string;
-    clientMaxAge?: string;
+    clientMaxAge?: number;
     keepAlive?: boolean;
 }
 
 type ContextProvider = FC<ContextProviderProps>;
 
 declare function useSession(): [Session, boolean];
-declare function providers(context?: NextPageContext): Promise<GetProvidersResponse | null>;
+declare function providers(): Promise<GetProvidersResponse | null>;
 declare const getProviders: typeof providers;
-declare function session(context?: NextPageContext): Promise<Session | null>;
+declare function session(
+    context?: NextContext & {
+        triggerEvent?: boolean;
+    },
+): Promise<Session | null>;
 declare const getSession: typeof session;
-declare function csrfToken(context?: NextPageContext): Promise<string | null>;
+declare function csrfToken(context?: NextContext): Promise<string | null>;
 declare const getCsrfToken: typeof csrfToken;
 declare function signin(
     provider?: string,
@@ -87,4 +85,4 @@ export {
 type NextContext = {
     req?: GetServerSidePropsContext['req'] | NextApiRequest;
     ctx?: GetServerSidePropsContext;
-    };
+};
