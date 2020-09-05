@@ -314,7 +314,7 @@ declare module 'twit' {
             name?: string;
             description?: string;
             mode?: 'public' | 'private';
-            exclude_reply_user_ids?: string[];
+            exclude_reply_user_ids?: string | string[];
             attachment_url?: string;
             place_id?: string;
             display_coordinates?: boolean;
