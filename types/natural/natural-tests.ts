@@ -85,6 +85,13 @@ var raw = JSON.stringify(classifier);
 var restoredClassifier = natural.BayesClassifier.restore(JSON.parse(raw));
 console.log(restoredClassifier.classify('i should sell that'));
 
+// Sentiment Analysis
+var Analyzer = natural.SentimentAnalyzer;
+var stemmer = natural.PorterStemmer;
+var analyzer = new Analyzer("English", stemmer, "afinn");
+console.log(analyzer.getSentiment(["I", "like", "cherries"]));
+// 0.6666666666666666
+
 // Phonetics
 var metaphone = natural.Metaphone, soundEx = natural.SoundEx;
 

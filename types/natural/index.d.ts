@@ -121,6 +121,11 @@ declare class LogisticRegressionClassifier {
     static restore(classifier: any, stemmer?: Stemmer): LogisticRegressionClassifier;
 }
 
+declare class SentimentAnalyzer {
+    constructor(language: string, stemmer: Stemmer, vocabulary: string)
+    getSentiment(words: string[]): number
+}
+
 interface Phonetic {
     compare(stringA: string, stringB: string): boolean;
     process(token: string, maxLength?: number): string;
