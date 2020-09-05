@@ -7,6 +7,7 @@
 
 /// <reference types="node" />
 
+import { NextApiRequest, NextApiResponse } from 'next';
 import { ConnectionOptions } from 'typeorm';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
@@ -130,38 +131,3 @@ export interface Callbacks {
 
 declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
 export default NextAuth;
-
-/**
- * TODO: `dtslint` throws when parsing Next types... the following types are copied directly from `next/types` ...
- * @see https://github.com/microsoft/dtslint/issues/297
- */
-
-interface NextApiRequest {
-    query: {
-        [key: string]: string | string[];
-    };
-    cookies: {
-        [key: string]: string;
-    };
-    body: any;
-    env: Env;
-}
-
-interface NextApiResponse<T = any> {
-    send: Send<T>;
-    json: Send<T>;
-    status: (statusCode: number) => NextApiResponse<T>;
-    setPreviewData: (
-        data: object | string,
-        options?: {
-            maxAge?: number;
-        },
-    ) => NextApiResponse<T>;
-    clearPreviewData: () => NextApiResponse<T>;
-}
-
-interface Env {
-    [key: string]: string;
-}
-
-type Send<T> = (body: T) => void;

@@ -5,7 +5,6 @@
  * in the sense of typing and call signature consistency. They
  * are not intended as functional tests.
  */
-import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import Adapters from 'next-auth/adapters';
 import * as client from 'next-auth/client';
@@ -18,35 +17,6 @@ import * as JWT from 'next-auth/jwt';
 interface GenericObject {
     [key: string]: any;
 }
-
-interface Session {
-    jwt?: boolean;
-    maxAge?: number;
-    updateAge?: number;
-}
-
-const req = {
-    query: {
-        foo: 'bar',
-    },
-    cookies: {
-        bar: 'baz',
-    },
-    body: {
-        bam: 'bom',
-    },
-    env: {
-        SOMETHING: 'SOMETHING',
-    },
-};
-
-const res = {
-    send: () => undefined,
-    json: () => undefined,
-    status: (code: number) => res,
-    setPreviewData: (data: object | string) => res,
-    clearPreviewData: () => res,
-};
 
 const pageOptions = {
     signin: 'path/to/signin',
@@ -94,7 +64,7 @@ const allConfig = {
     callbacks: {
         signIgn: (user: GenericObject, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
-        session: (session: Session, user: GenericObject) => Promise.resolve<any>(user),
+        session: (session: client.Session, user: GenericObject) => Promise.resolve<any>(user),
         jwt: (
             token: GenericObject,
             user: GenericObject,
@@ -149,11 +119,13 @@ const allConfig = {
     },
 };
 
-// $ExpectType Promise<void>
-NextAuth(req, res, simpleConfig);
+// TODO: Test including `req`
 
 // $ExpectType Promise<void>
-NextAuth(req, res, allConfig);
+// NextAuth(req, res, simpleConfig);
+
+// $ExpectType Promise<void>
+// NextAuth(req, res, allConfig);
 
 // --------------------------------------------------------------------------
 // Client
@@ -175,11 +147,6 @@ const baseContext = {
         },
     },
     triggerEvent: false,
-};
-
-const pageContext = {
-    ...baseContext,
-    ctx: { ...baseContext },
 };
 
 const githubProvider = {
@@ -204,22 +171,22 @@ const session = {
 client.useSession();
 
 // $ExpectType Promise<Session | null>
-client.getSession(pageContext);
+client.getSession();
 
 // $ExpectType Promise<Session | null>
-client.session(pageContext);
+client.session();
 
 // $ExpectType Promise<GetProvidersResponse | null>
-client.getProviders(pageContext);
+client.getProviders();
 
 // $ExpectType Promise<GetProvidersResponse | null>
-client.providers(pageContext);
+client.providers();
 
 // $ExpectType Promise<string | null>
-client.getCsrfToken(pageContext);
+client.getCsrfToken();
 
 // $ExpectType Promise<string | null>
-client.csrfToken(pageContext);
+client.csrfToken();
 
 // $ExpectType Promise<void>
 client.signin('github', { data: 'foo' });
@@ -234,7 +201,7 @@ client.signout({ callbackUrl: 'https://foo.com/callback' });
 client.Provider({
     session,
     options: {
-        site: 'https://foo.com',
+        baseUrl: 'https://foo.com',
         basePath: '/',
         clientMaxAge: 1234,
     },
@@ -470,14 +437,16 @@ JWT.decode({
     secret: 'secret',
 });
 
+// TODO: Test including `req`
+
 // $ExpectType Promise<string>
-JWT.getToken({
-    req,
-    raw: true,
-});
+// JWT.getToken({
+//     req,
+//     raw: true,
+// });
 
 // $ExpectType Promise<object>
-JWT.getToken({
-    req,
-    secret: 'secret',
-});
+// JWT.getToken({
+//     req,
+//     secret: 'secret',
+// });

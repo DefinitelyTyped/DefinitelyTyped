@@ -1,22 +1,7 @@
+import { GetServerSidePropsContext, NextApiRequest } from 'next';
 import jose from 'jose';
 
-/**
- * TODO: `dtslint` throws when parsing Next types... the following types are copied directly from `next/types` ...
- * @see https://github.com/microsoft/dtslint/issues/297
- */
-
-interface NextApiRequest {
-    query: {
-        [key: string]: string | string[];
-    };
-    cookies: {
-        [key: string]: string;
-    };
-    body: any;
-    env: {
-        [key: string]: string;
-    };
-}
+type Request = GetServerSidePropsContext['req'] | NextApiRequest;
 
 interface DecodeArgs {
     maxAge?: number;
@@ -48,14 +33,14 @@ declare function decode(
 
 declare function getToken(
     args?: {
-        req: NextApiRequest;
+        req: Request;
         secureCookie?: boolean;
         cookieName?: string;
         raw?: string;
     } & DecodeArgs,
 ): Promise<object>;
 declare function getToken(args?: {
-    req: NextApiRequest;
+    req: Request;
     secureCookie?: boolean;
     cookieName?: string;
     raw: true;

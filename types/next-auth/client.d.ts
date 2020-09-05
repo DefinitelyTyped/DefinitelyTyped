@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { GetServerSidePropsContext, NextApiRequest } from 'next';
 
 export interface Session {
     user: {
@@ -83,28 +84,7 @@ export {
     Provider,
 };
 
-/**
- * TODO: `dtslint` throws when parsing Next types... the following types are copied directly from `next/types` ...
- * @see https://github.com/microsoft/dtslint/issues/297
- */
-
-interface NextApiRequest {
-    query: {
-        [key: string]: string | string[];
+type NextContext = {
+    req?: GetServerSidePropsContext['req'] | NextApiRequest;
+    ctx?: GetServerSidePropsContext;
     };
-    cookies: {
-        [key: string]: string;
-    };
-    body: any;
-    env: Env;
-}
-
-interface NextPageContext {
-    req?: NextApiRequest;
-    ctx?: NextPageContext;
-    triggerEvent?: boolean;
-}
-
-interface Env {
-    [key: string]: string;
-}
