@@ -1,6 +1,6 @@
 // Type definitions for gifencoder 2.0
 // Project: https://github.com/eugeneware/gifencoder#readme
-// Definitions by: Carlos Precioso <https://github.com/DefinitelyTyped>
+// Definitions by: Carlos Precioso <https://github.com/cprecioso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
