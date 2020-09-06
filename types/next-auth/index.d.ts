@@ -14,7 +14,7 @@ import { GenericObject, NextApiRequest, NextApiResponse } from './_utils';
 
 export interface InitOptions {
     providers: Array<ReturnType<PossibleProviders>>;
-    database?: ConnectionOptions | string;
+    database?: string | ConnectionOptions;
     secret?: string;
     session?: Session;
     jwt?: JWTOptions;
