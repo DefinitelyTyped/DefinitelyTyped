@@ -96,6 +96,11 @@ declare namespace Faker {
             bitcoinAddress(): string;
             iban(formatted?: boolean): string;
             bic(): string;
+            litecoinAddress(): string;
+            creditCardNumber(provider?: string): string;
+            creditCardCVV(): string;
+            ethereumAddress(): string;
+            transactionDescription(): string;
         };
 
         git: {
