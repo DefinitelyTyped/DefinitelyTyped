@@ -5,6 +5,8 @@
 
 import { EventEmitter } from 'events';
 
+export as namespace GIF;
+
 declare namespace GIF {
     interface Options {
         repeat?: number;
