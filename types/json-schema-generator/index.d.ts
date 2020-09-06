@@ -5,19 +5,9 @@
 
 import { JSONSchema4 } from 'json-schema';
 
-/*~ Note that ES6 modules cannot directly export callable functions.
- *~ This file should be imported using the CommonJS-style:
- *~   import x = require('someLibrary');
- *~
- *~ Refer to the documentation to understand common
- *~ workarounds for this limitation of ES6 modules.
- */
+export = jsonToSchema;
 
-/*~ This declaration specifies that the function
- *~ is the exported object from the file
- */
-
-export = generate;
-
-/*~ This example shows how to have multiple overloads for your function */
-declare function generate(schema: object): JSONSchema4;
+/** 
+ * JSON schema generated based on draft-v4 of the specification.
+*/
+declare function jsonToSchema(schema: object): JSONSchema4;
