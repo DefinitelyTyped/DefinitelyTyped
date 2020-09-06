@@ -764,7 +764,7 @@ declare namespace Chai {
         isNotNumber<T>(value: T, message?: string): void;
 
         /**
-         * Assert that value is a finite number.
+         * Asserts that value is a finite number.
          * Unlike `.isNumber`, this will fail for `NaN` and `Infinity`.
          *
          * @type T   Type of value
