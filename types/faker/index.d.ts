@@ -1,4 +1,4 @@
-// Type definitions for faker 4.1
+// Type definitions for faker 5.1
 // Project: http://marak.com/faker.js/
 // Definitions by: Ben Swartz <https://github.com/bensw>,
 //                 Bas Pennings <https://github.com/basp>,
