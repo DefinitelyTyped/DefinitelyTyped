@@ -3,7 +3,8 @@
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function(
+declare function resizeDetector(
     element: HTMLElement,
     handler: () => void
 ): HTMLIFrameElement;
+export = resizeDetector;
