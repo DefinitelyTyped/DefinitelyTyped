@@ -33,6 +33,7 @@
         "test/kinesis-tests.ts",
         "test/lex-tests.ts",
         "test/s3-tests.ts",
+        "test/ses-tests.ts",
         "test/sns-tests.ts",
         "test/sqs-tests.ts"
     ]

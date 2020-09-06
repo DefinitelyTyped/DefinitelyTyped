@@ -8,6 +8,10 @@ import {
     DataBaseAlt16,
     GasStation16,
     Lasso16,
+    BookmarkFilled16,
+    CalendarHeatMap16,
+    ChartColumn16,
+    LogoKeybase16,
 } from '@carbon/icons-react';
 
 <AccessibilityAlt16 />; // $ExpectType Element
@@ -18,3 +22,7 @@ import {
 <GasStation16 />; // $ExpectType Element
 <AnalyticsReference16 />; // $ExpectType Element
 <Lasso16 />; // $ExpectType Element
+<BookmarkFilled16 />; // $ExpectType Element
+<CalendarHeatMap16 />; // $ExpectType Element
+<ChartColumn16 />; // $ExpectType Element
+<LogoKeybase16 />; // $ExpectType Element
