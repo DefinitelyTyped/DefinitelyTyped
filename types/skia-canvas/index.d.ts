@@ -1,6 +1,6 @@
 // Type definitions for skia-canvas 0.9
 // Project: https://github.com/samizdatco/skia-canvas#readme
-// Definitions by: Carlos Precioso <https://github.com/DefinitelyTyped>
+// Definitions by: Carlos Precioso <https://github.com/cprecioso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
