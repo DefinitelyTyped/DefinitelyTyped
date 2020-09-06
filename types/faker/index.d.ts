@@ -357,11 +357,11 @@ declare module 'faker/locale/az' {
 }
 
 declare module 'faker/locale/ar' {
-	export = fakerStatic;
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/cz' {
-	export = fakerStatic;
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/de' {
@@ -385,11 +385,11 @@ declare module 'faker/locale/en_AU' {
 }
 
 declare module 'faker/locale/en_AU_ocker' {
-	export = fakerStatic;
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/en_BORK' {
-	export = fakerStatic;
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/en_CA' {
@@ -413,7 +413,7 @@ declare module 'faker/locale/en_US' {
 }
 
 declare module 'faker/locale/en_ZA' {
-	export = fakerStatic;
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/es' {
@@ -428,12 +428,12 @@ declare module 'faker/locale/fa' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/fi" {
-	export = fakerStatic;
+declare module 'faker/locale/fi' {
+    export = fakerStatic;
 }
 
-declare module "faker/locale/fr" {
-	export = fakerStatic;
+declare module 'faker/locale/fr' {
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/fr_CA' {
@@ -441,11 +441,11 @@ declare module 'faker/locale/fr_CA' {
 }
 
 declare module 'faker/locale/fr_CH' {
-	export = fakerStatic;
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/ge' {
-	export = fakerStatic;
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/id_ID' {
@@ -476,12 +476,12 @@ declare module 'faker/locale/nl' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/nl_BE" {
-	export = fakerStatic;
+declare module 'faker/locale/nl_BE' {
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/pl' {
-	export = fakerStatic;
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/pt_BR' {
@@ -489,15 +489,15 @@ declare module 'faker/locale/pt_BR' {
 }
 
 declare module 'faker/locale/pt_PT' {
-	export = fakerStatic;
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/ro' {
-	export = fakerStatic;
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/ru' {
-	export = fakerStatic;
+    export = fakerStatic;
 }
 
 declare module 'faker/locale/sk' {

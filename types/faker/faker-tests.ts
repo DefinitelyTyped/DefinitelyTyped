@@ -83,12 +83,12 @@ resultDate = faker.date.soon(100, new Date());
 resultStr = faker.date.month();
 resultStr = faker.date.month({
     abbr: true,
-    context: true
+    context: true,
 });
 resultStr = faker.date.weekday();
 resultStr = faker.date.weekday({
     abbr: true,
-    context: true
+    context: true,
 });
 
 resultStr = faker.finance.account();
@@ -125,7 +125,7 @@ resultStr = faker.helpers.replaceCreditCardSymbols('foo#', '*');
 resultStr = faker.helpers.repeatString('foo', 2);
 resultStr = faker.helpers.regexpStyleStringParse('foo');
 resultStrArr = faker.helpers.shuffle(['foo', 'bar', 'quux']);
-resultStr = faker.helpers.mustache('{{foo}}{{bar}}', {foo: 'x', bar: 'y'});
+resultStr = faker.helpers.mustache('{{foo}}{{bar}}', { foo: 'x', bar: 'y' });
 
 const card = faker.helpers.createCard();
 resultStr = card.name;
@@ -238,14 +238,14 @@ resultNum = faker.random.number(0);
 resultNum = faker.random.number({
     min: 0,
     max: 0,
-    precision: 0
+    precision: 0,
 });
 resultNum = faker.random.float();
 resultNum = faker.random.float(0);
 resultNum = faker.random.float({
-	min: 0,
-	max: 0,
-	precision: 0
+    min: 0,
+    max: 0,
+    precision: 0,
 });
 resultStr = faker.random.arrayElement();
 resultStr = faker.random.arrayElement(['foo', 'bar', 'quux']);
@@ -254,11 +254,11 @@ resultStrArr = faker.random.arrayElements();
 resultStrArr = faker.random.arrayElements(['foo', 'bar', 'quux']);
 (resultStrArr as ReadonlyArray<string>) = faker.random.arrayElements(['foo', 'bar', 'quux'] as ReadonlyArray<string>);
 resultStr = faker.random.objectElement();
-resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
+resultStr = faker.random.objectElement({ foo: 'bar', field: 'foo' });
 resultStr = faker.random.uuid();
 resultBool = faker.random.boolean();
 resultStr = faker.random.word();
-resultStr = faker.random.word("noun");
+resultStr = faker.random.word('noun');
 resultStr = faker.random.words();
 resultStr = faker.random.words(0);
 resultStr = faker.random.image();
@@ -270,13 +270,13 @@ resultStr = faker.random.alphaNumeric(0);
 resultStr = faker.random.hexaDecimal();
 resultStr = faker.random.hexaDecimal(0);
 
-resultStr = faker.system.fileName("foo", "bar");
-resultStr = faker.system.commonFileName("foo", "bar");
+resultStr = faker.system.fileName('foo', 'bar');
+resultStr = faker.system.commonFileName('foo', 'bar');
 resultStr = faker.system.mimeType();
 resultStr = faker.system.commonFileType();
 resultStr = faker.system.commonFileExt();
 resultStr = faker.system.fileType();
-resultStr = faker.system.fileExt("foo");
+resultStr = faker.system.fileExt('foo');
 resultStr = faker.system.directoryPath();
 resultStr = faker.system.filePath();
 resultStr = faker.system.semver();
