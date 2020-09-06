@@ -1,6 +1,6 @@
 // Type definitions for gif.js 0.2
 // Project: https://github.com/jnordberg/gif.js#readme
-// Definitions by: Carlos Precioso <https://github.com/DefinitelyTyped>
+// Definitions by: Carlos Precioso <https://github.com/cprecioso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
