@@ -33,7 +33,7 @@ interface SetOptionsParams {
     baseUrl?: string;
     basePath?: string;
     clientMaxAge?: number;
-    keepAlive?: boolean;
+    keepAlive?: number;
 }
 
 type ContextProvider = FC<ContextProviderProps>;
