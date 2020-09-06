@@ -1,7 +1,5 @@
-import { GetServerSidePropsContext, NextApiRequest } from 'next';
 import jose from 'jose';
-
-type Request = GetServerSidePropsContext['req'] | NextApiRequest;
+import { NextApiRequest } from './_utils';
 
 interface DecodeArgs {
     maxAge?: number;
@@ -33,14 +31,14 @@ declare function decode(
 
 declare function getToken(
     args?: {
-        req: Request;
+        req: NextApiRequest;
         secureCookie?: boolean;
         cookieName?: string;
         raw?: string;
     } & DecodeArgs,
 ): Promise<object>;
 declare function getToken(args?: {
-    req: Request;
+    req: NextApiRequest;
     secureCookie?: boolean;
     cookieName?: string;
     raw: true;

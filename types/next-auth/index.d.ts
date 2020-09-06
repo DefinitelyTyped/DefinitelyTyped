@@ -7,10 +7,10 @@
 
 /// <reference types="node" />
 
-import { NextApiRequest, NextApiResponse } from 'next';
 import { ConnectionOptions } from 'typeorm';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
+import { GenericObject, NextApiRequest, NextApiResponse } from './_utils';
 
 export interface InitOptions {
     providers: Array<ReturnType<PossibleProviders>>;
@@ -109,10 +109,6 @@ interface JWTEncodeParams {
     encryptionOptions?: GenericObject;
     encryption?: boolean;
     maxAge?: number;
-}
-
-interface GenericObject {
-    [key: string]: any;
 }
 
 // TODO: Improve callback typings

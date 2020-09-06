@@ -9,14 +9,11 @@ import Providers from 'next-auth/providers';
 import Adapters from 'next-auth/adapters';
 import * as client from 'next-auth/client';
 import * as JWT from 'next-auth/jwt';
+import { GenericObject } from 'next-auth/_utils';
 
 // --------------------------------------------------------------------------
 // Server
 // --------------------------------------------------------------------------
-
-interface GenericObject {
-    [key: string]: any;
-}
 
 const pageOptions = {
     signin: 'path/to/signin',
@@ -121,10 +118,8 @@ const allConfig = {
 
 // TODO: Test including `req`
 
-// $ExpectType Promise<void>
 // NextAuth(req, res, simpleConfig);
 
-// $ExpectType Promise<void>
 // NextAuth(req, res, allConfig);
 
 // --------------------------------------------------------------------------
@@ -166,6 +161,8 @@ const session = {
     accessToken: '123z',
     expires: '1234',
 };
+
+// TODO: Test including `req`
 
 // $ExpectType [Session, boolean]
 client.useSession();
@@ -439,13 +436,11 @@ JWT.decode({
 
 // TODO: Test including `req`
 
-// $ExpectType Promise<string>
 // JWT.getToken({
 //     req,
 //     raw: true,
 // });
 
-// $ExpectType Promise<object>
 // JWT.getToken({
 //     req,
 //     secret: 'secret',

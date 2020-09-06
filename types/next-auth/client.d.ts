@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { GetServerSidePropsContext, NextApiRequest } from 'next';
+import { IncomingMessage } from 'http';
+import { GenericObject } from './_utils';
 
 export interface Session {
     user: {
@@ -23,10 +24,6 @@ interface SessionProvider {
     callbackUrl: string;
 }
 
-interface GenericObject {
-    [key: string]: any;
-}
-
 interface ContextProviderProps {
     session: Session;
     options?: SetOptionsParams;
@@ -40,6 +37,11 @@ interface SetOptionsParams {
 }
 
 type ContextProvider = FC<ContextProviderProps>;
+
+interface NextContext {
+    req?: IncomingMessage;
+    ctx?: { req: IncomingMessage };
+}
 
 declare function useSession(): [Session, boolean];
 declare function providers(): Promise<GetProvidersResponse | null>;
@@ -80,9 +82,4 @@ export {
     options,
     setOptions,
     Provider,
-};
-
-type NextContext = {
-    req?: GetServerSidePropsContext['req'] | NextApiRequest;
-    ctx?: GetServerSidePropsContext;
 };

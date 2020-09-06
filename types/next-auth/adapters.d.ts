@@ -1,12 +1,10 @@
 import { ConnectionOptions } from 'typeorm';
+import { GenericObject } from './_utils';
 
 /**
  * TODO: type adapters correctly
  * @see https://next-auth.js.org/schemas/adapters
  */
-interface GenericObject {
-    [key: string]: any;
-}
 
 type Adapter = (config: ConnectionOptions) => any;
 
