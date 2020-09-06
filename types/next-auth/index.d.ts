@@ -46,10 +46,10 @@ interface Cookie {
 
 export interface CookieOptions {
     httpOnly?: boolean;
-    // TODO: type available `sameSite` identifiers
-    sameSite: string;
-    path: string;
-    secure: boolean;
+    sameSite?: true | 'strict' | 'lax' | 'none';
+    path?: string;
+    secure?: boolean;
+    maxAge?: number;
 }
 
 interface Events {
