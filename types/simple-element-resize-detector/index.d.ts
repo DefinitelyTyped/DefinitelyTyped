@@ -6,6 +6,6 @@ export as namespace simpleElementResizeDetector;
 
 declare function simpleElementResizeDetector(
     element: HTMLElement,
-    handler: () => void
+    handler: (element: HTMLElement) => void
 ): HTMLIFrameElement;
 export = simpleElementResizeDetector;
