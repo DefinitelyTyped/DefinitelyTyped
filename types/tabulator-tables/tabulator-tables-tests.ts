@@ -860,7 +860,7 @@ table = new Tabulator('#example-table', {
     textDirection: 'rtl',
     virtualDomHoz: true,
     autoColumnsDefinitions: () => {
-        let columnDefinitions: Tabulator.ColumnDefinition[] = [];
+        const columnDefinitions: Tabulator.ColumnDefinition[] = [];
         return columnDefinitions;
     },
 });

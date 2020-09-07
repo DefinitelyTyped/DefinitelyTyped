@@ -2,7 +2,7 @@
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 // tslint:disable:max-line-length
 // tslint:disable:jsdoc-format
@@ -565,8 +565,8 @@ declare namespace Tabulator {
          */
         autoColumns?: boolean;
         autoColumnsDefinitions?:
-            | ((columnDefinitions?: Tabulator.ColumnDefinition[]) => ColumnDefinition[])
-            | Tabulator.ColumnDefinition[]
+            | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
+            | ColumnDefinition[]
             | Record<string, Partial<ColumnDefinition>>;
 
         /** By default Tabulator will use the fitData layout mode, which will resize the tables columns to fit the data held in each column, unless you specify a width or minWidth in the column constructor. If the width of all columns exceeds the width of the containing element, a scroll bar will appear. */
