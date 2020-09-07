@@ -971,7 +971,7 @@ declare namespace React {
     function useReducer<R extends Reducer<any, any>, I>(
         reducer: R,
         initializerArg: I & ReducerState<R>,
-        initializer: (arg: I & ReducerState<R>) => ReducerState<R>
+        initializer?: (arg: I & ReducerState<R>) => ReducerState<R>
     ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
     /**
      * An alternative to `useState`.
