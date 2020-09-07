@@ -895,7 +895,7 @@ table = new Tabulator('#example-table', {
     autoColumnsDefinitions: colDefs,
 
     rowContextMenu: (component, e: MouseEvent) => {
-        (component as Tabulator.RowComponent).delete();
+        component.delete();
         return false;
     },
     rowClickMenu: rowContextMenu,
