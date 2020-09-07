@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import { Bounds, Coords, Point, Size, NESWBounds } from '.';
 
 export type BootstrapURLKeys = ({ key: string } | { client: string; v: string }) & {
     language?: string;
@@ -182,8 +183,6 @@ export default class GoogleMapReact extends React.Component<Props> {}
 export interface ChildComponentProps extends Coords {
     $hover?: boolean;
 }
-
-import { Bounds, Coords, Point, Size, NESWBounds } from '.';
 
 export interface Tile extends Point {
     zoom: number;
