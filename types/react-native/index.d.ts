@@ -43,7 +43,7 @@
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -336,14 +336,12 @@ export interface NativeMethods {
 
     /**
      * Like [`measure()`](#measure), but measures the view relative an ancestor,
-     * specified as `relativeToNativeNode`. This means that the returned x, y
+     * specified as `relativeToNativeComponentRef`. This means that the returned x, y
      * are relative to the origin x, y of the ancestor view.
-     *
-     * As always, to obtain a native node handle for a component, you can use
-     * `React.findNodeHandle(component)`.
+     * _Can also be called with a relativeNativeNodeHandle but is deprecated._
      */
     measureLayout(
-        relativeToNativeNode: number,
+        relativeToNativeComponentRef: HostComponent<unknown> | number,
         onSuccess: MeasureLayoutOnSuccessCallback,
         onFail: () => void /* currently unused */,
     ): void;
@@ -811,6 +809,10 @@ interface SkewYTransform {
     skewY: string;
 }
 
+interface MatrixTransform {
+    matrix: number[];
+}
+
 export interface TransformsStyle {
     transform?: (
         | PerpectiveTransform
@@ -825,12 +827,31 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform
+        | MatrixTransform
     )[];
+    /**
+     * @deprecated Use matrix in transform prop instead.
+     */
     transformMatrix?: Array<number>;
+    /**
+     * @deprecated Use rotate in transform prop instead.
+     */
     rotation?: number;
+    /**
+     * @deprecated Use scaleX in transform prop instead.
+     */
     scaleX?: number;
+    /**
+     * @deprecated Use scaleY in transform prop instead.
+     */
     scaleY?: number;
+    /**
+     * @deprecated Use translateX in transform prop instead.
+     */
     translateX?: number;
+    /**
+     * @deprecated Use translateY in transform prop instead.
+     */
     translateY?: number;
 }
 
@@ -1667,26 +1688,31 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
  */
 interface TextInputState {
     /**
+     * @deprecated Use currentlyFocusedInput
      * Returns the ID of the currently focused text field, if one exists
      * If no text field is focused it returns null
      */
     currentlyFocusedField(): number;
 
     /**
-     * @deprecated Use ref.focus instead
-     * @param TextInputID id of the text field to focus
+     * Returns the ref of the currently focused text field, if one exists
+     * If no text field is focused it returns null
+     */
+    currentlyFocusedInput(): React.ElementRef<HostComponent<unknown>>;
+
+    /**
+     * @param textField ref of the text field to focus
      * Focuses the specified text field
      * noop if the text field was already focused
      */
-    focusTextInput(textFieldID?: number): void;
+    focusTextInput(textField?: React.ElementRef<HostComponent<unknown>>): void;
 
     /**
-     * @deprecated Use ref.blur instead
-     * @param textFieldID id of the text field to focus
+     * @param textField ref of the text field to focus
      * Unfocuses the specified text field
      * noop if it wasn't focused
      */
-    blurTextInput(textFieldID?: number): void;
+    blurTextInput(textField?: React.ElementRef<HostComponent<unknown>>): void;
 }
 
 /**
@@ -2937,7 +2963,17 @@ export interface DatePickerIOSProps extends ViewProps {
     /**
      * The currently selected date.
      */
-    date: Date;
+    date?: Date | null;
+
+    /**
+     * Provides an initial value that will change when the user starts selecting
+     * a date. It is useful for simple use-cases where you do not want to deal
+     * with listening to events and updating the date prop to keep the
+     * controlled state in sync. The controlled state has known bugs which
+     * causes it to go out of sync with native. The initialDate prop is intended
+     * to allow you to have native be source of truth.
+     */
+    initialDate?: Date | null;
 
     /**
      * The date picker locale.
@@ -3029,9 +3065,10 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
 
     /**
      * Specifies the side of the screen from which the drawer will slide in.
-     * enum(DrawerLayoutAndroid.positions.Left, DrawerLayoutAndroid.positions.Right)
+     * - 'left' (the default)
+     * - 'right'
      */
-    drawerPosition?: number;
+    drawerPosition?: 'left' | 'right';
 
     /**
      * Specifies the width of the drawer, more precisely the width of the
@@ -5907,7 +5944,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web';
+export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web' | 'native';
 
 interface PlatformStatic {
     isTV: boolean;

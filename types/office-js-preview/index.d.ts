@@ -1,6 +1,11 @@
 // Type definitions for Office.js 1.0
 // Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>, Sudhi Ramamurthy <https://github.com/sumurthy>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>,
+//                 Ricky Kirkham <https://github.com/Rick-Kirkham>,
+//                 Alex Jerabek <https://github.com/AlexJerabek>,
+//                 Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>,
+//                 Sudhi Ramamurthy <https://github.com/sumurthy>,
+//                 Alison McKay <https://github.com/alison-mk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -885,7 +890,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **Requirement set**: TBD
+         * **Requirement set**: DialogApi 1.2
          *
          * You can add multiple event handlers for the specified event type as long as the name of each event handler function is unique.
          *
@@ -1684,8 +1689,6 @@ declare namespace Office {
         /**
          * Delivers a message from the host page, such as a task pane or a UI-less function file, to a dialog that was opened from the page.
          *
-         * @beta
-         *
          * @remarks
          *
          * **Requirement set**: TBD
@@ -1934,8 +1937,6 @@ declare namespace Office {
         DialogMessageReceived,
         /**
          * Triggers when a host page sends a message to a child dialog box with `messageChild`.
-         *
-         * @beta
          */
         DialogParentMessageReceived,
         /**
@@ -5124,8 +5125,6 @@ declare namespace Office {
     }
     /**
      * Provides information about the message from the parent page that raised the `DialogParentMessageReceived` event.
-     *
-     * @beta
      *
      * To add an event handler for the `DialogParentMessageReceived` event, use the `addHandlerAsync` method of the
      * {@link Office.UI} object.
@@ -10039,7 +10038,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -10059,7 +10061,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -11336,7 +11341,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -11356,7 +11364,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -14880,7 +14891,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -14899,7 +14913,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -16055,7 +16072,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -16074,7 +16094,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -23645,21 +23668,21 @@ declare namespace Excel {
         readonly columnIndex: number;
         /**
          *
-         * Represents the formula in A1-style notation.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -25444,21 +25467,21 @@ declare namespace Excel {
         readonly columnCount: number;
         /**
          *
-         * Represents the formula in A1-style notation.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */

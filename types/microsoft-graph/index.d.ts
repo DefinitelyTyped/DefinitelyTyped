@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 1.16
+// Type definitions for non-npm package microsoft-graph 1.18
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -872,6 +872,7 @@ export type MediaDirection = "inactive" | "sendOnly" | "receiveOnly" | "sendRece
 export type MediaState = "active" | "inactive" | "unknownFutureValue";
 export type Modality = "audio" | "video" | "videoBasedScreenSharing" | "data" | "unknownFutureValue";
 export type RecordingStatus = "unknown" | "notRecording" | "recording" | "failed" | "unknownFutureValue";
+export type CallTranscriptionState = "notStarted" | "active" | "inactive" | "unknownFutureValue";
 export type RejectReason = "none" | "busy" | "forbidden" | "unknownFutureValue";
 export type RoutingType = "forwarded" | "lookup" | "selfFork" | "unknownFutureValue";
 export type ScreenSharingRole = "viewer" | "sharer";
@@ -2423,12 +2424,23 @@ export interface OnlineMeeting extends Entity {
     joinInformation?: NullableOption<ItemBody>;
 }
 export interface Team extends Entity {
+    // The name of the team.
     displayName?: NullableOption<string>;
+    // An optional description for the team.
     description?: NullableOption<string>;
     // A unique ID for the team that has been used in a few places such as the audit log/Office 365 Management Activity API.
     internalId?: NullableOption<string>;
+    /**
+     * An optional label. Typically describes the data or business sensitivity of the team. Must match one of a pre-configured
+     * set in the tenant's directory.
+     */
     classification?: NullableOption<string>;
+    /**
+     * Optional. Indicates whether the team is intended for a particular use case. Each team specialization has access to
+     * unique behaviors and experiences targeted to its use case.
+     */
     specialization?: NullableOption<TeamSpecialization>;
+    // The visibility of a the group and team. Defaults to Public.
     visibility?: NullableOption<TeamVisibilityType>;
     /**
      * A hyperlink that will go to the team in the Microsoft Teams client. This is the URL that you get when you right-click a
@@ -2449,9 +2461,12 @@ export interface Team extends Entity {
     funSettings?: NullableOption<TeamFunSettings>;
     // Whether this team is in read-only mode.
     isArchived?: NullableOption<boolean>;
+    // The schedule of shifts for this team.
     schedule?: NullableOption<Schedule>;
     group?: NullableOption<Group>;
+    // The template this team was created from. See available templates.
     template?: NullableOption<TeamsTemplate>;
+    // Members and owners of the team.
     members?: NullableOption<ConversationMember[]>;
     // The collection of channels &amp; messages associated with the team.
     channels?: NullableOption<Channel[]>;
@@ -2459,6 +2474,7 @@ export interface Team extends Entity {
     primaryChannel?: NullableOption<Channel>;
     // The apps installed in this team.
     installedApps?: NullableOption<TeamsAppInstallation[]>;
+    // The async operations that ran or are running on this team.
     operations?: NullableOption<TeamsAsyncOperation[]>;
 }
 // tslint:disable-next-line: interface-name
@@ -4885,6 +4901,7 @@ export interface SchemaExtension extends Entity {
 }
 export interface CloudCommunications extends Entity {
     calls?: NullableOption<Call[]>;
+    callRecords?: NullableOption<CallRecords.CallRecord[]>;
     onlineMeetings?: NullableOption<OnlineMeeting[]>;
 }
 export interface Call extends Entity {
@@ -4918,6 +4935,7 @@ export interface Call extends Entity {
     callOptions?: NullableOption<CallOptions>;
     // The meeting information that's required for joining a meeting.
     meetingInfo?: NullableOption<MeetingInfo>;
+    transcription?: NullableOption<CallTranscriptionInfo>;
     tenantId?: NullableOption<string>;
     // Read-only.
     myParticipantId?: NullableOption<string>;
@@ -9277,6 +9295,8 @@ export interface CommsOperation extends Entity {
     // The result information. Read-only.
     resultInfo?: NullableOption<ResultInfo>;
 }
+// tslint:disable-next-line: no-empty-interface
+export interface CancelMediaProcessingOperation extends CommsOperation {}
 // tslint:disable-next-line: interface-name
 export interface InviteParticipantsOperation extends CommsOperation {
     // The participants to invite.
@@ -9356,7 +9376,9 @@ export interface Schedule extends Entity {
 // tslint:disable-next-line: no-empty-interface
 export interface TeamsTemplate extends Entity {}
 export interface ConversationMember extends Entity {
+    // The roles for that user.
     roles?: NullableOption<string[]>;
+    // The display name of the user.
     displayName?: NullableOption<string>;
 }
 export interface Channel extends Entity {
@@ -9386,13 +9408,24 @@ export interface TeamsAppInstallation extends Entity {
     teamsAppDefinition?: NullableOption<TeamsAppDefinition>;
 }
 export interface TeamsAsyncOperation extends Entity {
+    // Denotes which type of operation is being described.
     operationType?: TeamsAsyncOperationType;
+    // Time when the operation was created.
     createdDateTime?: string;
+    // Operation status.
     status?: TeamsAsyncOperationStatus;
+    // Time when the async operation was last updated.
     lastActionDateTime?: string;
+    // Number of times the operation was attempted before being marked successful or failed.
     attemptsCount?: number;
+    // The ID of the object that's created or modified as result of this async operation, typically a team.
     targetResourceId?: NullableOption<string>;
+    /**
+     * The location of the object that's created or modified as result of this async operation. This URL should be treated as
+     * an opaque value and not parsed into its component paths.
+     */
     targetResourceLocation?: NullableOption<string>;
+    // Any error that causes the async operation to fail.
     error?: NullableOption<OperationError>;
 }
 export interface ChatMessage extends Entity {
@@ -9476,7 +9509,9 @@ export interface TeamsTab extends Entity {
     teamsApp?: NullableOption<TeamsApp>;
 }
 export interface AadUserConversationMember extends ConversationMember {
+    // The guid of the user.
     userId?: NullableOption<string>;
+    // The email address of the user.
     email?: NullableOption<string>;
     user?: NullableOption<User>;
 }
@@ -13405,6 +13440,10 @@ export interface ChatInfo {
 export interface CallOptions {}
 // tslint:disable-next-line: no-empty-interface
 export interface MeetingInfo {}
+export interface CallTranscriptionInfo {
+    state?: CallTranscriptionState;
+    lastModifiedDateTime?: NullableOption<string>;
+}
 export interface ToneInfo {
     // An incremental identifier used for ordering DTMF events.
     sequenceId?: number;
@@ -13834,4 +13873,458 @@ export interface TimeRange {
     startTime?: NullableOption<string>;
     // End time for the time range.
     endTime?: NullableOption<string>;
+}
+
+export namespace CallRecords {
+    type CallType = "unknown" | "groupCall" | "peerToPeer" | "unknownFutureValue";
+    type ClientPlatform =
+        | "unknown"
+        | "windows"
+        | "macOS"
+        | "iOS"
+        | "android"
+        | "web"
+        | "ipPhone"
+        | "roomSystem"
+        | "surfaceHub"
+        | "holoLens"
+        | "unknownFutureValue";
+    type FailureStage = "unknown" | "callSetup" | "midcall" | "unknownFutureValue";
+    type MediaStreamDirection = "callerToCallee" | "calleeToCaller";
+    type NetworkConnectionType = "unknown" | "wired" | "wifi" | "mobile" | "tunnel" | "unknownFutureValue";
+    type ProductFamily = "unknown" | "teams" | "skypeForBusiness" | "lync" | "unknownFutureValue";
+    type ServiceRole =
+        | "unknown"
+        | "customBot"
+        | "skypeForBusinessMicrosoftTeamsGateway"
+        | "skypeForBusinessAudioVideoMcu"
+        | "skypeForBusinessApplicationSharingMcu"
+        | "skypeForBusinessCallQueues"
+        | "skypeForBusinessAutoAttendant"
+        | "mediationServer"
+        | "mediationServerCloudConnectorEdition"
+        | "exchangeUnifiedMessagingService"
+        | "mediaController"
+        | "conferencingAnnouncementService"
+        | "conferencingAttendant"
+        | "audioTeleconferencerController"
+        | "skypeForBusinessUnifiedCommunicationApplicationPlatform"
+        | "responseGroupServiceAnnouncementService"
+        | "gateway"
+        | "skypeTranslator"
+        | "skypeForBusinessAttendant"
+        | "responseGroupService"
+        | "voicemail"
+        | "unknownFutureValue";
+    type UserFeedbackRating = "notRated" | "bad" | "poor" | "fair" | "good" | "excellent" | "unknownFutureValue";
+    type WifiBand = "unknown" | "frequency24GHz" | "frequency50GHz" | "frequency60GHz" | "unknownFutureValue";
+    type WifiRadioType =
+        | "unknown"
+        | "wifi80211a"
+        | "wifi80211b"
+        | "wifi80211g"
+        | "wifi80211n"
+        | "wifi80211ac"
+        | "wifi80211ax"
+        | "unknownFutureValue";
+    type Modality = "audio" | "video" | "videoBasedScreenSharing" | "data" | "screenSharing" | "unknownFutureValue";
+    interface CallRecord extends microsoftgraph.Entity {
+        /**
+         * Monotonically increasing version of the call record. Higher version call records with the same id includes additional
+         * data compared to the lower version.
+         */
+        version?: number;
+        // Indicates the type of the call. Possible values are: unknown, groupCall, peerToPeer, unknownFutureValue.
+        type?: CallType;
+        /**
+         * List of all the modalities used in the call. Possible values are: unknown, audio, video, videoBasedScreenSharing, data,
+         * screenSharing, unknownFutureValue.
+         */
+        modalities?: Modality[];
+        /**
+         * UTC time when the call record was created. The DatetimeOffset type represents date and time information using ISO 8601
+         * format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
+         */
+        lastModifiedDateTime?: string;
+        /**
+         * UTC time when the first user joined the call. The DatetimeOffset type represents date and time information using ISO
+         * 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this:
+         * '2014-01-01T00:00:00Z'
+         */
+        startDateTime?: string;
+        /**
+         * UTC time when the last user left the call. The DateTimeOffset type represents date and time information using ISO 8601
+         * format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
+         */
+        endDateTime?: string;
+        // The organizing party's identity.
+        organizer?: NullableOption<microsoftgraph.IdentitySet>;
+        // List of distinct identities involved in the call.
+        participants?: NullableOption<microsoftgraph.IdentitySet[]>;
+        // Meeting URL associated to the call. May not be available for a peerToPeer call record type.
+        joinWebUrl?: NullableOption<string>;
+        /**
+         * List of sessions involved in the call. Peer-to-peer calls typically only have one session, whereas group calls
+         * typically have at least one session per participant. Read-only. Nullable.
+         */
+        sessions?: NullableOption<Session[]>;
+    }
+    interface Session extends microsoftgraph.Entity {
+        /**
+         * List of modalities present in the session. Possible values are: unknown, audio, video, videoBasedScreenSharing, data,
+         * screenSharing, unknownFutureValue.
+         */
+        modalities?: Modality[];
+        /**
+         * UTC fime when the first user joined the session. The DateTimeOffset type represents date and time information using ISO
+         * 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this:
+         * '2014-01-01T00:00:00Z'
+         */
+        startDateTime?: string;
+        /**
+         * UTC time when the last user left the session. The DateTimeOffset type represents date and time information using ISO
+         * 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this:
+         * '2014-01-01T00:00:00Z'
+         */
+        endDateTime?: string;
+        // Endpoint that initiated the session.
+        caller?: NullableOption<Endpoint>;
+        // Endpoint that answered the session.
+        callee?: NullableOption<Endpoint>;
+        // Failure information associated with the session if the session failed.
+        failureInfo?: NullableOption<FailureInfo>;
+        // The list of segments involved in the session. Read-only. Nullable.
+        segments?: NullableOption<Segment[]>;
+    }
+    interface Segment extends microsoftgraph.Entity {
+        /**
+         * UTC time when the segment started. The DateTimeOffset type represents date and time information using ISO 8601 format
+         * and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
+         */
+        startDateTime?: string;
+        /**
+         * UTC time when the segment ended. The DateTimeOffset type represents date and time information using ISO 8601 format and
+         * is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
+         */
+        endDateTime?: string;
+        // Endpoint that initiated this segment.
+        caller?: NullableOption<Endpoint>;
+        // Endpoint that answered this segment.
+        callee?: NullableOption<Endpoint>;
+        // Failure information associated with the segment if it failed.
+        failureInfo?: NullableOption<FailureInfo>;
+        // Media associated with this segment.
+        media?: NullableOption<Media[]>;
+    }
+    interface Endpoint {
+        // User-agent reported by this endpoint.
+        userAgent?: NullableOption<UserAgent>;
+    }
+    interface UserAgent {
+        // User-agent header value reported by this endpoint.
+        headerValue?: NullableOption<string>;
+        // Identifies the version of application software used by this endpoint.
+        applicationVersion?: NullableOption<string>;
+    }
+    interface FailureInfo {
+        // The stage when the failure occurred. Possible values are: unknown, callSetup, midcall, unknownFutureValue.
+        stage?: FailureStage;
+        // Classification of why a call or portion of a call failed.
+        reason?: NullableOption<string>;
+    }
+    interface Media {
+        // How the media was identified during media negotiation stage.
+        label?: NullableOption<string>;
+        // Network information associated with the caller endpoint of this media.
+        callerNetwork?: NullableOption<NetworkInfo>;
+        // Network information associated with the callee endpoint of this media.
+        calleeNetwork?: NullableOption<NetworkInfo>;
+        // Device information associated with the caller endpoint of this media.
+        callerDevice?: NullableOption<DeviceInfo>;
+        // Device information associated with the callee endpoint of this media.
+        calleeDevice?: NullableOption<DeviceInfo>;
+        // Network streams associated with this media.
+        streams?: NullableOption<MediaStream[]>;
+    }
+    interface NetworkInfo {
+        // IP address of the media endpoint.
+        ipAddress?: NullableOption<string>;
+        // Subnet used for media stream by the media endpoint.
+        subnet?: NullableOption<string>;
+        // Link speed in bits per second reported by the network adapter used by the media endpoint.
+        linkSpeed?: NullableOption<number>;
+        /**
+         * Type of network used by the media endpoint. Possible values are: unknown, wired, wifi, mobile, tunnel,
+         * unknownFutureValue.
+         */
+        connectionType?: NetworkConnectionType;
+        // Network port number used by media endpoint.
+        port?: NullableOption<number>;
+        /**
+         * IP address of the media endpoint as seen by the media relay server. This is typically the public internet IP address
+         * associated to the endpoint.
+         */
+        reflexiveIPAddress?: NullableOption<string>;
+        // IP address of the media relay server allocated by the media endpoint.
+        relayIPAddress?: NullableOption<string>;
+        // Network port number allocated on the media relay server by the media endpoint.
+        relayPort?: NullableOption<number>;
+        // The media access control (MAC) address of the media endpoint's network device.
+        macAddress?: NullableOption<string>;
+        /**
+         * Name of the Microsoft WiFi driver used by the media endpoint. Value may be localized based on the language used by
+         * endpoint.
+         */
+        wifiMicrosoftDriver?: NullableOption<string>;
+        // Version of the Microsoft WiFi driver used by the media endpoint.
+        wifiMicrosoftDriverVersion?: NullableOption<string>;
+        // Name of the WiFi driver used by the media endpoint. Value may be localized based on the language used by endpoint.
+        wifiVendorDriver?: NullableOption<string>;
+        // Version of the WiFi driver used by the media endpoint.
+        wifiVendorDriverVersion?: NullableOption<string>;
+        // WiFi channel used by the media endpoint.
+        wifiChannel?: NullableOption<number>;
+        /**
+         * WiFi band used by the media endpoint. Possible values are: unknown, frequency24GHz, frequency50GHz, frequency60GHz,
+         * unknownFutureValue.
+         */
+        wifiBand?: WifiBand;
+        // The wireless LAN basic service set identifier of the media endpoint used to connect to the network.
+        basicServiceSetIdentifier?: NullableOption<string>;
+        /**
+         * Type of WiFi radio used by the media endpoint. Possible values are: unknown, wifi80211a, wifi80211b, wifi80211g,
+         * wifi80211n, wifi80211ac, wifi80211ax, unknownFutureValue.
+         */
+        wifiRadioType?: WifiRadioType;
+        // WiFi signal strength in percentage reported by the media endpoint.
+        wifiSignalStrength?: NullableOption<number>;
+        // Estimated remaining battery charge in percentage reported by the media endpoint.
+        wifiBatteryCharge?: NullableOption<number>;
+        // DNS suffix associated with the network adapter of the media endpoint.
+        dnsSuffix?: NullableOption<string>;
+        // Fraction of the call that the media endpoint detected the network was causing poor quality of the audio sent.
+        sentQualityEventRatio?: NullableOption<number>;
+        // Fraction of the call that the media endpoint detected the network was causing poor quality of the audio received.
+        receivedQualityEventRatio?: NullableOption<number>;
+        /**
+         * Fraction of the call that the media endpoint detected the network delay was significant enough to impact the ability to
+         * have real-time two-way communication.
+         */
+        delayEventRatio?: NullableOption<number>;
+        /**
+         * Fraction of the call that the media endpoint detected the available bandwidth or bandwidth policy was low enough to
+         * cause poor quality of the audio sent.
+         */
+        bandwidthLowEventRatio?: NullableOption<number>;
+    }
+    interface DeviceInfo {
+        // Name of the capture device used by the media endpoint.
+        captureDeviceName?: NullableOption<string>;
+        // Name of the capture device driver used by the media endpoint.
+        captureDeviceDriver?: NullableOption<string>;
+        // Name of the render device used by the media endpoint.
+        renderDeviceName?: NullableOption<string>;
+        // Name of the render device driver used by the media endpoint.
+        renderDeviceDriver?: NullableOption<string>;
+        /**
+         * Average energy level of sent audio for audio classified as mono speech, or left channel of stereo speech by the media
+         * endpoint.
+         */
+        sentSignalLevel?: NullableOption<number>;
+        /**
+         * Average energy level of received audio for audio classified as mono speech, or left channel of stereo speech by the
+         * media endpoint.
+         */
+        receivedSignalLevel?: NullableOption<number>;
+        /**
+         * Average energy level of sent audio for audio classified as mono noise or left channel of stereo noise by the media
+         * endpoint.
+         */
+        sentNoiseLevel?: NullableOption<number>;
+        /**
+         * Average energy level of received audio for audio classified as mono noise or left channel of stereo noise by the media
+         * endpoint.
+         */
+        receivedNoiseLevel?: NullableOption<number>;
+        // The root mean square (RMS) of the incoming signal of up to the first 30 seconds of the call.
+        initialSignalLevelRootMeanSquare?: NullableOption<number>;
+        /**
+         * Fraction of the call that the media endpoint detected the CPU resources available were insufficient and caused poor
+         * quality of the audio sent and received.
+         */
+        cpuInsufficentEventRatio?: NullableOption<number>;
+        // Fraction of the call that the media endpoint detected the render device was not working properly.
+        renderNotFunctioningEventRatio?: NullableOption<number>;
+        // Fraction of the call that the media endpoint detected the capture device was not working properly.
+        captureNotFunctioningEventRatio?: NullableOption<number>;
+        /**
+         * Fraction of the call that the media endpoint detected glitches or gaps in the audio played or captured that caused poor
+         * quality of the audio being sent or received.
+         */
+        deviceGlitchEventRatio?: NullableOption<number>;
+        /**
+         * Fraction of the call that the media endpoint detected low speech to noise level that caused poor quality of the audio
+         * being sent.
+         */
+        lowSpeechToNoiseEventRatio?: NullableOption<number>;
+        /**
+         * Fraction of the call that the media endpoint detected low speech level that caused poor quality of the audio being
+         * sent.
+         */
+        lowSpeechLevelEventRatio?: NullableOption<number>;
+        /**
+         * Fraction of the call that the media endpoint detected clipping in the captured audio that caused poor quality of the
+         * audio being sent.
+         */
+        deviceClippingEventRatio?: NullableOption<number>;
+        // Number of times during the call that the media endpoint detected howling or screeching audio.
+        howlingEventCount?: NullableOption<number>;
+        // Fraction of the call that media endpoint detected device render volume is set to 0.
+        renderZeroVolumeEventRatio?: NullableOption<number>;
+        // Fraction of the call that media endpoint detected device render is muted.
+        renderMuteEventRatio?: NullableOption<number>;
+        // Glitches per 5 minute interval for the media endpoint's microphone.
+        micGlitchRate?: NullableOption<number>;
+        // Glitches per 5 minute internal for the media endpoint's loudspeaker.
+        speakerGlitchRate?: NullableOption<number>;
+    }
+    interface MediaStream {
+        // Unique identifier for the stream.
+        streamId?: NullableOption<string>;
+        /**
+         * UTC time when the stream started. The DateTimeOffset type represents date and time information using ISO 8601 format
+         * and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
+         */
+        startDateTime?: NullableOption<string>;
+        /**
+         * UTC time when the stream ended. The DateTimeOffset type represents date and time information using ISO 8601 format and
+         * is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
+         */
+        endDateTime?: NullableOption<string>;
+        // Indicates the direction of the media stream. Possible values are: callerToCallee, calleeToCaller.
+        streamDirection?: MediaStreamDirection;
+        /**
+         * Average Network Mean Opinion Score degradation for stream. Represents how much the network loss and jitter has impacted
+         * the quality of received audio.
+         */
+        averageAudioDegradation?: NullableOption<number>;
+        /**
+         * Average jitter for the stream computed as specified in [RFC 3550][], denoted in [ISO 8601][] format. For example, 1
+         * second is denoted as 'PT1S', where 'P' is the duration designator, 'T' is the time designator, and 'S' is the second
+         * designator.
+         */
+        averageJitter?: NullableOption<string>;
+        /**
+         * Maximum jitter for the stream computed as specified in RFC 3550, denoted in [ISO 8601][] format. For example, 1 second
+         * is denoted as 'PT1S', where 'P' is the duration designator, 'T' is the time designator, and 'S' is the second
+         * designator.
+         */
+        maxJitter?: NullableOption<string>;
+        // Average packet loss rate for stream.
+        averagePacketLossRate?: NullableOption<number>;
+        // Maximum packet loss rate for the stream.
+        maxPacketLossRate?: NullableOption<number>;
+        /**
+         * Ratio of the number of audio frames with samples generated by packet loss concealment to the total number of audio
+         * frames.
+         */
+        averageRatioOfConcealedSamples?: NullableOption<number>;
+        // Maximum ratio of packets concealed by the healer.
+        maxRatioOfConcealedSamples?: NullableOption<number>;
+        /**
+         * Average network propagation round-trip time computed as specified in [RFC 3550][], denoted in [ISO 8601][] format. For
+         * example, 1 second is denoted as 'PT1S', where 'P' is the duration designator, 'T' is the time designator, and 'S' is
+         * the second designator.
+         */
+        averageRoundTripTime?: NullableOption<string>;
+        /**
+         * Maximum network propagation round-trip time computed as specified in [RFC 3550][], denoted in [ISO 8601][] format. For
+         * example, 1 second is denoted as 'PT1S', where 'P' is the duration designator, 'T' is the time designator, and 'S' is
+         * the second designator.
+         */
+        maxRoundTripTime?: NullableOption<string>;
+        // Packet count for the stream.
+        packetUtilization?: NullableOption<number>;
+        // Average estimated bandwidth available between two endpoints in bits per second.
+        averageBandwidthEstimate?: NullableOption<number>;
+        /**
+         * True if the media stream bypassed the Mediation Server and went straight between client and PSTN Gateway/PBX, false
+         * otherwise.
+         */
+        wasMediaBypassed?: NullableOption<boolean>;
+        // Packet loss rate after FEC has been applied aggregated across all video streams and codecs.
+        postForwardErrorCorrectionPacketLossRate?: NullableOption<number>;
+        // Average percentage of video frames lost as displayed to the user.
+        averageVideoFrameLossPercentage?: NullableOption<number>;
+        // Average frames per second received for all video streams computed over the duration of the session.
+        averageReceivedFrameRate?: NullableOption<number>;
+        // Fraction of the call where frame rate is less than 7.5 frames per second.
+        lowFrameRateRatio?: NullableOption<number>;
+        // Average fraction of packets lost, as specified in [RFC 3550][], computed over the duration of the session.
+        averageVideoPacketLossRate?: NullableOption<number>;
+        // Average frames per second received for a video stream, computed over the duration of the session.
+        averageVideoFrameRate?: NullableOption<number>;
+        // Fraction of the call that the client is running less than 70% expected video processing capability.
+        lowVideoProcessingCapabilityRatio?: NullableOption<number>;
+        /**
+         * Average jitter for the stream computed as specified in [RFC 3550][], denoted in [ISO 8601][] format. For example, 1
+         * second is denoted as 'PT1S', where 'P' is the duration designator, 'T' is the time designator, and 'S' is the second
+         * designator.
+         */
+        averageAudioNetworkJitter?: NullableOption<string>;
+        /**
+         * Maximum of audio network jitter computed over each of the 20 second windows during the session, denoted in [ISO 8601][]
+         * format. For example, 1 second is denoted as 'PT1S', where 'P' is the duration designator, 'T' is the time designator,
+         * and 'S' is the second designator.
+         */
+        maxAudioNetworkJitter?: NullableOption<string>;
+    }
+    interface ParticipantEndpoint extends Endpoint {
+        // Identity associated with the endpoint.
+        identity?: NullableOption<microsoftgraph.IdentitySet>;
+        // The feedback provided by the user of this endpoint about the quality of the session.
+        feedback?: NullableOption<UserFeedback>;
+    }
+    interface UserFeedback {
+        // The feedback text provided by the user of this endpoint for the session.
+        text?: NullableOption<string>;
+        /**
+         * The rating provided by the user of this endpoint about the quality of this Session. Possible values are: notRated, bad,
+         * poor, fair, good, excellent, unknownFutureValue.
+         */
+        rating?: UserFeedbackRating;
+        /**
+         * The set of feedback tokens provided by the user of this endpoint for the session. This is a set of Boolean properties.
+         * The property names should not be relied upon since they may change depending on what tokens are offered to the user.
+         */
+        tokens?: NullableOption<FeedbackTokenSet>;
+    }
+// tslint:disable-next-line: no-empty-interface
+    interface FeedbackTokenSet {}
+// tslint:disable-next-line: no-empty-interface
+    interface ServiceEndpoint extends Endpoint {}
+    interface ClientUserAgent extends UserAgent {
+        /**
+         * Identifies the platform used by this endpoint. Possible values are: unknown, windows, macOS, iOS, android, web,
+         * ipPhone, roomSystem, surfaceHub, holoLens, unknownFutureValue.
+         */
+        platform?: ClientPlatform;
+        /**
+         * Identifies the family of application software used by this endpoint. Possible values are: unknown, teams,
+         * skypeForBusiness, lync, unknownFutureValue.
+         */
+        productFamily?: ProductFamily;
+    }
+    interface ServiceUserAgent extends UserAgent {
+        /**
+         * Identifies the role of the service used by this endpoint. Possible values are: unknown, customBot,
+         * skypeForBusinessMicrosoftTeamsGateway, skypeForBusinessAudioVideoMcu, skypeForBusinessApplicationSharingMcu,
+         * skypeForBusinessCallQueues, skypeForBusinessAutoAttendant, mediationServer, mediationServerCloudConnectorEdition,
+         * exchangeUnifiedMessagingService, mediaController, conferencingAnnouncementService, conferencingAttendant,
+         * audioTeleconferencerController, skypeForBusinessUnifiedCommunicationApplicationPlatform,
+         * responseGroupServiceAnnouncementService, gateway, skypeTranslator, skypeForBusinessAttendant, responseGroupService,
+         * voicemail, unknownFutureValue.
+         */
+        role?: ServiceRole;
+    }
 }

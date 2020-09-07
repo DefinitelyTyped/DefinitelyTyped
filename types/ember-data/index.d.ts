@@ -1259,14 +1259,6 @@ export namespace DS {
          */
         host: string;
         /**
-         * Some APIs require HTTP headers, e.g. to provide an API
-         * key. Arbitrary headers can be set as key/value pairs on the
-         * `RESTAdapter`'s `headers` object and Ember Data will send them
-         * along with each ajax request. For dynamic headers see [headers
-         * customization](/api/data/classes/DS.RESTAdapter.html#toc_headers-customization).
-         */
-        headers: {};
-        /**
          * Called by the store in order to fetch the JSON for a given
          * type and ID.
          */
@@ -1495,6 +1487,20 @@ export namespace DS {
          * Determines the pathname for a given type.
          */
         pathForType<K extends keyof ModelRegistry>(modelName: K): string;
+    }
+
+    // Instead of declaring `headers as a property we now declare it in an
+    // interface. This works around the issue noted here with TypeScript 4:
+    // https://github.com/microsoft/TypeScript/issues/40220
+    interface RESTAdapter {
+        /**
+         * Some APIs require HTTP headers, e.g. to provide an API
+         * key. Arbitrary headers can be set as key/value pairs on the
+         * `RESTAdapter`'s `headers` object and Ember Data will send them
+         * along with each ajax request. For dynamic headers see [headers
+         * customization](/api/data/classes/DS.RESTAdapter.html#toc_headers-customization).
+         */
+        headers: {};
     }
     /**
      * ## Using Embedded Records
