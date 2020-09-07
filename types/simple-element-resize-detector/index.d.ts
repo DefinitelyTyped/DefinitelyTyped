@@ -2,9 +2,10 @@
 // Project: https://github.com/developit/simple-element-resize-detector#readme
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+export as namespace simpleElementResizeDetector;
 
-declare function resizeDetector(
+declare function simpleElementResizeDetector(
     element: HTMLElement,
     handler: () => void
 ): HTMLIFrameElement;
-export = resizeDetector;
+export = simpleElementResizeDetector;
