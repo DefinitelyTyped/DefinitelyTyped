@@ -35,6 +35,7 @@ interface ContextProviderOptions {
     site?: string;
     basePath?: string;
     clientMaxAge?: number;
+    keepAlive?: number;
 }
 
 interface SetOptionsParams {
