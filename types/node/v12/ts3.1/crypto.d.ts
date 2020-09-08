@@ -402,6 +402,7 @@ declare module "crypto" {
     function privateEncrypt(private_key: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
     function getCiphers(): string[];
     function getCurves(): string[];
+    function getFips(): 1 | 0;
     function getHashes(): string[];
     class ECDH {
         private constructor();

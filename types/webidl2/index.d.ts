@@ -37,7 +37,7 @@ export type IDLInterfaceMixinMemberType =
 
 export type IDLNamespaceMemberType = AttributeMemberType | OperationMemberType;
 
-export type IDLTypeDescription = SingleTypeDescription | UnionTypeDescription;
+export type IDLTypeDescription = GenericTypeDescription | SingleTypeDescription | UnionTypeDescription;
 
 export interface ParseOptions {
     /** Boolean indicating whether the result should include EOF node or not. */
@@ -92,10 +92,6 @@ export interface AbstractBase {
 }
 
 export interface AbstractTypeDescription extends AbstractBase {
-    /** Boolean indicating if it is a sequence. Same as generic === "sequence" */
-    sequence: boolean;
-    /** String indicating the generic type (e.g. "Promise", "sequence"). null otherwise. */
-    generic: string | null;
     /** Boolean indicating whether this is nullable or not. */
     nullable: boolean;
     /** The container of this type. */
@@ -111,7 +107,23 @@ export interface AbstractTypeDescription extends AbstractBase {
         | UnionTypeDescription;
 }
 
+export interface GenericTypeDescription extends AbstractTypeDescription {
+    /** String indicating the generic type (e.g. "Promise", "sequence"). The empty string otherwise. */
+    generic: "FrozenArray" | "ObservableArray" | "Promise"| "record" | "sequence";
+    /** Boolean indicating whether this is a union type or not. */
+    union: false;
+    /**
+     * In most cases, this will just be a string with the type name.
+     * If the type is a union, then this contains an array of the types it unites.
+     * If it is a generic type, it contains the IDL type description for the type in the sequence,
+     * the eventual value of the promise, etc.
+     */
+    idlType: IDLTypeDescription[];
+}
+
 export interface SingleTypeDescription extends AbstractTypeDescription {
+    /** String indicating the generic type (e.g. "Promise", "sequence"). The empty string otherwise. */
+    generic: "";
     /** Boolean indicating whether this is a union type or not. */
     union: false;
     /**
@@ -124,6 +136,8 @@ export interface SingleTypeDescription extends AbstractTypeDescription {
 }
 
 export interface UnionTypeDescription extends AbstractTypeDescription {
+    /** String indicating the generic type (e.g. "Promise", "sequence"). The empty string otherwise. */
+    generic: "";
     /** Boolean indicating whether this is a union type or not. */
     union: true;
     /**
@@ -147,6 +161,7 @@ export interface AbstractContainer extends AbstractBase {
 export interface CallbackInterfaceType extends AbstractContainer {
     type: "callback interface";
     members: IDLCallbackInterfaceMemberType[];
+    inheritance: null;
     parent: null;
 }
 

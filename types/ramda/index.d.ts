@@ -58,6 +58,7 @@ import {
     Reduced,
     SafePred,
     ValueOfRecord,
+    ValueOfUnion
 } from "./tools";
 
 export * from './tools';
@@ -975,8 +976,8 @@ export function lte(a: number): (b: number) => boolean;
  */
 export function map<T, U>(fn: (x: T) => U, list: readonly T[]): U[];
 export function map<T, U>(fn: (x: T) => U): (list: readonly T[]) => U[];
-export function map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U], list: T): U;
-export function map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
+export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U], list: T): U;
+export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U]): (list: T) => U;
 export function map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
 export function map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
 
@@ -2058,7 +2059,7 @@ export function useWith(fn: ((...a: readonly any[]) => any), transformers: Array
  * Note that the order of the output array is not guaranteed across
  * different JS platforms.
  */
-export function values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
+export function values<T extends object, K extends keyof T>(obj: T): Array<T[K] | ValueOfUnion<T>>;
 
 /**
  * Returns a list of all the properties, including prototype properties, of the supplied

@@ -29,6 +29,7 @@ for (const rootType of parsed) {
             break;
         case "callback interface":
             rootType; // $ExpectType CallbackInterfaceType
+            console.log(rootType.inheritance);
             logMembers(rootType.members);
             console.log(rootType.partial);
             break;
@@ -203,13 +204,17 @@ function logArguments(args: webidl2.Argument[]) {
 
 function logIdlType(idlType: webidl2.IDLTypeDescription) {
     console.log(idlType.type);
-    console.log(idlType.generic, idlType.nullable, idlType.sequence, idlType.union);
+    console.log(idlType.generic, idlType.nullable, idlType.union);
 
     if (idlType.union) {
         idlType; // $ExpectType UnionTypeDescription
         for (const t of idlType.idlType) {
             logIdlType(t);
         }
+    } else if (idlType.generic) {
+        idlType; // $ExpectType GenericTypeDescription
+        idlType.generic; // $ExpectType "FrozenArray" | "ObservableArray" | "Promise" | "record" | "sequence"
+        console.log(idlType);
     } else {
         idlType; // $ExpectType SingleTypeDescription
         console.log(idlType);
