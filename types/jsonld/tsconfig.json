@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "jsonld.d.ts",
         "jsonld-tests.ts"
     ]
 }

@@ -4,7 +4,11 @@
  * @version 1.1
  */
 
-
+/*
+ * Disable automatic exporting.
+ * Some of these declarations are not needed externally.
+ */
+export {};
 
 /**
  * A node object represents zero or more properties of a node
@@ -12,14 +16,14 @@
  * @see https://www.w3.org/TR/json-ld11/#node-objects
  */
 export interface NodeObject {
-    '@context'?:  Keyword['@context'];
-    '@id'?:       Keyword['@id'];
+    '@context'?: Keyword['@context'];
+    '@id'?: Keyword['@id'];
     '@included'?: Keyword['@included'];
-    '@graph'?:    OrArray<NodeObject>;
-    '@nest'?:     OrArray<object>;
-    '@type'?:     Keyword['@type'];
-    '@reverse'?:  {[key: string]: Keyword['@reverse']};
-    '@index'?:    Keyword['@index'];
+    '@graph'?: OrArray<NodeObject>;
+    '@nest'?: OrArray<object>;
+    '@type'?: Keyword['@type'];
+    '@reverse'?: {[key: string]: Keyword['@reverse']};
+    '@index'?: Keyword['@index'];
     [key: string]:
         | OrArray<
             | null
@@ -40,21 +44,16 @@ export interface NodeObject {
         | NodeObject[keyof NodeObject];
 }
 
-
-
-
 /**
  * A graph object represents a named graph, which MAY include an explicit graph name.
  * @see https://www.w3.org/TR/json-ld11/#graph-objects
  */
 export interface GraphObject {
-    '@graph':    OrArray<NodeObject>;
-    '@index'?:   Keyword['@index'];
-    '@id'?:      Keyword['@id'];
+    '@graph': OrArray<NodeObject>;
+    '@index'?: Keyword['@index'];
+    '@id'?: Keyword['@id'];
     '@context'?: Keyword['@context'];
 }
-
-
 
 /**
  * A value object is used to explicitly associate a type or a language with a value
@@ -62,43 +61,37 @@ export interface GraphObject {
  * @see https://www.w3.org/TR/json-ld11/#value-objects
  */
 export type ValueObject = {
-    '@index'?:   Keyword['@index'];
+    '@index'?: Keyword['@index'];
     '@context'?: Keyword['@context'];
 } & ({
-    '@value':      Keyword['@value'];
-    '@language'?:  Keyword['@language'];
+    '@value': Keyword['@value'];
+    '@language'?: Keyword['@language'];
     '@direction'?: Keyword['@direction'];
 } | {
     '@value': Keyword['@value'];
-    '@type':  Keyword['@type'];
+    '@type': Keyword['@type'];
 } | {
     '@value': Keyword['@value'] | object | any[];
-    '@type':  '@json';
-})
-
-
+    '@type': '@json';
+});
 
 /**
  * A list represents an ordered set of values.
  * @see https://www.w3.org/TR/json-ld11/#lists-and-sets
  */
 export interface ListObject {
-    '@list':   Keyword['@list'];
+    '@list': Keyword['@list'];
     '@index'?: Keyword['@index'];
 }
-
-
 
 /**
  * A set represents an unordered set of values.
  * @see https://www.w3.org/TR/json-ld11/#lists-and-sets
  */
 export interface SetObject {
-    '@set':    Keyword['@set'];
+    '@set': Keyword['@set'];
     '@index'?: Keyword['@index'];
 }
-
-
 
 /**
  * A language map is used to associate a language with a value in a way that allows easy programmatic access.
@@ -107,8 +100,6 @@ export interface SetObject {
 export interface LanguageMap {
     [key: string]: null | string | string[];
 }
-
-
 
 /**
  * An index map allows keys that have no semantic meaning, but should be preserved regardless,
@@ -128,8 +119,6 @@ export interface IndexMap {
     >;
 }
 
-
-
 /**
  * An id map is used to associate an IRI with a value that allows easy programmatic access.
  * @see https://www.w3.org/TR/json-ld11/#id-maps
@@ -137,8 +126,6 @@ export interface IndexMap {
 export interface IdMap {
     [key: string]: NodeObject;
 }
-
-
 
 /**
  * A type map is used to associate an IRI with a value that allows easy programmatic access.
@@ -148,41 +135,35 @@ export interface TypeMap {
     [key: string]: string | NodeObject;
 }
 
-
-
 /**
  * An included block is used to provide a set of node objects.
  * @see https://www.w3.org/TR/json-ld11/#included-blocks
  */
 export type IncludedBlock = OrArray<NodeObject>;
 
-
-
 /**
  * A context definition defines a local context in a node object.
  * @see https://www.w3.org/TR/json-ld11/#context-definitions
  */
 export interface ContextDefinition {
-    '@base'?:      Keyword['@base'];
+    '@base'?: Keyword['@base'];
     '@direction'?: Keyword['@direction'];
-    '@import'?:    Keyword['@import'];
-    '@language'?:  Keyword['@language'];
+    '@import'?: Keyword['@import'];
+    '@language'?: Keyword['@language'];
     '@propagate'?: Keyword['@propagate'];
     '@protected'?: Keyword['@protected'];
     '@type'?: {
-        '@container':  '@set';
+        '@container': '@set';
         '@protected'?: Keyword['@protected'];
     };
     '@version'?: Keyword['@version'];
-    '@vocab'?:   Keyword['@vocab'];
+    '@vocab'?: Keyword['@vocab'];
     [key: string]:
         | null
         | string
         | ExpandedTermDefinition
         | ContextDefinition[keyof ContextDefinition];
 }
-
-
 
 /**
  * An expanded term definition is used to describe the mapping between a term
@@ -191,11 +172,11 @@ export interface ContextDefinition {
  * @see https://www.w3.org/TR/json-ld11/#expanded-term-definition
  */
 export type ExpandedTermDefinition = {
-    '@type'?:      '@id' | '@json' | '@none' | '@vocab' | string;
-    '@language'?:  Keyword['@language'];
-    '@index'?:     Keyword['@index'];
-    '@context'?:   ContextDefinition;
-    '@prefix'?:    Keyword['@prefix'];
+    '@type'?: '@id' | '@json' | '@none' | '@vocab' | string;
+    '@language'?: Keyword['@language'];
+    '@index'?: Keyword['@index'];
+    '@context'?: ContextDefinition;
+    '@prefix'?: Keyword['@prefix'];
     '@propagate'?: Keyword['@propagate'];
     '@protected'?: Keyword['@protected'];
 } & ({
@@ -205,9 +186,7 @@ export type ExpandedTermDefinition = {
 } | {
     '@reverse': Keyword['@reverse'];
     '@container'?: '@set' | '@index' | null;
-})
-
-
+});
 
 /**
  * A list of keywords and their types.
@@ -215,36 +194,35 @@ export type ExpandedTermDefinition = {
  * Not for export.
  * @see https://www.w3.org/TR/json-ld/#keywords
  */
+// tslint:disable-next-line:interface-over-type-literal
 type Keyword = {
     '@base': string | null;
     '@container':
         | OrArray<'@list' | '@set' | ContainerType>
         | ContainerTypeArray
         | null;
-    '@context':   OrArray<null | string | ContextDefinition>;
+    '@context': OrArray<null | string | ContextDefinition>;
     '@direction': 'ltr' | 'rtl' | null;
-    '@graph':     OrArray<ValueObject | NodeObject>;
-    '@id':        string;
-    '@import':    string;
-    '@included':  IncludedBlock;
-    '@index':     string;
-    '@json':      '@json';
-    '@language':  string;
-    '@list':      OrArray<null | boolean | number | string | NodeObject | ValueObject>;
-    '@nest':      object;
-    '@none':      '@none';
-    '@prefix':    boolean;
+    '@graph': OrArray<ValueObject | NodeObject>;
+    '@id': string;
+    '@import': string;
+    '@included': IncludedBlock;
+    '@index': string;
+    '@json': '@json';
+    '@language': string;
+    '@list': OrArray<null | boolean | number | string | NodeObject | ValueObject>;
+    '@nest': object;
+    '@none': '@none';
+    '@prefix': boolean;
     '@propagate': boolean;
     '@protected': boolean;
-    '@reverse':   string;
-    '@set':       OrArray<null | boolean | number | string | NodeObject | ValueObject>;
-    '@type':      string;
-    '@value':     null | boolean | number | string;
-    '@version':   '1.1';
-    '@vocab':     string | null;
-}
-
-
+    '@reverse': string;
+    '@set': OrArray<null | boolean | number | string | NodeObject | ValueObject>;
+    '@type': string;
+    '@value': null | boolean | number | string;
+    '@version': '1.1';
+    '@vocab': string | null;
+};
 
 /*
  * Helper Types
