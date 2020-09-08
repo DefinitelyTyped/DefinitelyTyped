@@ -1,4 +1,4 @@
-// Type definitions for stronghold-pay-js 1.0
+// Type definitions for non-npm package stronghold-pay-js-browser 2.0
 // Project: https://docs.strongholdpay.com/stronghold-pay-js/
 // Definitions by: Adrien Etienne <https://github.com/AdrienEtienne>
 //                Sean Bennett <https://github.com/itsseanbennett>
@@ -14,25 +14,25 @@ declare global {
         /**
          * Different Stronghold Pay environments
          */
-        export enum ENVIRONMENT {
+        enum ENVIRONMENT {
             sandbox = "sandbox",
             live = "live"
         }
-        export const HOST = "https://api.strongholdpay.com";
-        export enum EVENT {
+        const HOST = "https://api.strongholdpay.com";
+        enum EVENT {
             EXIT = "exit",
             SUCCESS = "success",
             ERROR = "error",
             READY = "ready"
         }
-        export enum ERROR_TYPE {
+        enum ERROR_TYPE {
             API_ERROR = "api_error",
             AUTHENTICATION_ERROR = "authentication_error",
             INVALID_REQUEST_ERROR = "invalid_request_error",
             OBJECT_ERROR = "object_error",
             VALIDATION_ERROR = "validation_error"
         }
-        export enum ERROR_CODE {
+        enum ERROR_CODE {
             SERVER_ERROR = "server_error",
             CONNECTION_ERROR = "connection_error",
             INVALID_API_KEY = "invalid_api_key",
@@ -55,55 +55,55 @@ declare global {
             INVALID_FIELD = "invalid_field",
             VALUE_TAKEN = "value_taken"
         }
-        export enum ERROR_MESSAGE {
+        enum ERROR_MESSAGE {
             AMOUNT_BAD_FORMAT = "The 'amount' option was unable to be parsed as number.",
             BAD_ENVIRONMENT = "Invalid environment provided. Expect \"live\" or \"sandbox\".",
             ATTRIBUTE_REQUIRED = "Attribute is required."
         }
-        export class StrongholdPayError extends Error {
+        class StrongholdPayError extends Error {
             type: ERROR_TYPE;
             code: ERROR_CODE;
             property: string | null;
             constructor(type: ERROR_TYPE, code: ERROR_CODE, message: string, property?: string | null);
         }
-        export interface ClientOptions {
+        interface ClientOptions {
             environment: ENVIRONMENT;
             publishableKey: string;
             host?: string;
         }
-        export type AddPaymentSourceOnSuccess = (paymentSource: PaymentSource) => void;
-        export type UpdatePaymentSourceOnSuccess = (paymentSource: PaymentSource) => void;
-        export type ChargeOnSuccess = (charge: Charge) => void;
-        export type TipOnSuccess = (tip: Tip) => void;
-        export type OnExit = () => void;
-        export type OnReady = () => void;
-        export type OnError = (error: StrongholdPayError) => void;
-        export type OnEvent = (event: StrongholdMessageEvent) => void;
-        export interface Options {
+        type AddPaymentSourceOnSuccess = (paymentSource: PaymentSource) => void;
+        type UpdatePaymentSourceOnSuccess = (paymentSource: PaymentSource) => void;
+        type ChargeOnSuccess = (charge: Charge) => void;
+        type TipOnSuccess = (tip: Tip) => void;
+        type OnExit = () => void;
+        type OnReady = () => void;
+        type OnError = (error: StrongholdPayError) => void;
+        type OnEvent = (event: StrongholdMessageEvent) => void;
+        interface Options {
             onExit?: OnExit;
             onError?: OnError;
             onEvent?: OnEvent;
             onReady?: OnReady;
         }
-        export interface AddPaymentSourceOptions extends Options {
+        interface AddPaymentSourceOptions extends Options {
             onSuccess: AddPaymentSourceOnSuccess;
         }
-        export interface UpdatePaymentSourceOptions extends Options {
+        interface UpdatePaymentSourceOptions extends Options {
             onSuccess?: UpdatePaymentSourceOnSuccess;
             paymentSourceId: string;
         }
-        export interface ChargeOptions extends Options {
+        interface ChargeOptions extends Options {
             charge: ChargeDropin;
             tip?: TipDataDropin;
             authorizeOnly?: boolean;
             onSuccess: ChargeOnSuccess;
         }
-        export interface TipOptions extends Options {
+        interface TipOptions extends Options {
             tip: TipDropin;
             authorizeOnly?: boolean;
             onSuccess: TipOnSuccess;
         }
-        export interface StrongholdMessageEvent extends MessageEvent {
+        interface StrongholdMessageEvent extends MessageEvent {
             data: {
                 event: EVENT;
                 payload: {
@@ -112,14 +112,14 @@ declare global {
                 };
             };
         }
-        export interface ChargeDropin {
+        interface ChargeDropin {
             /**
              * The amount to charge, specified in the smallest divisible currency unit. For example, number of cents of United States dollar.
              */
             amount: number;
             paymentSourceId: string;
         }
-        export interface TipDataDropin {
+        interface TipDataDropin {
             /**
              * The amount to charge, specified in the smallest divisible currency unit. For example, number of cents of United States dollar.
              */
@@ -131,20 +131,20 @@ declare global {
                 drawerId?: string;
             };
         }
-        export interface TipDropin extends TipDataDropin {
+        interface TipDropin extends TipDataDropin {
             chargeId: string;
             paymentSourceId: string;
         }
-        export interface PaymentSource {
+        interface PaymentSource {
             id: string;
             type: 'bank';
             label: string;
         }
-        export enum CHARGE_TYPE {
+        enum CHARGE_TYPE {
             BANK_DEBIT = "bank_debit",
             BANK_DEBIT_CUSTOMER_NOT_PRESENT = "bank_debit_cnp"
         }
-        export enum CHARGE_STATUS {
+        enum CHARGE_STATUS {
             CREATED = "created",
             AUTHORIZED = "authorized",
             CAPTURED = "captured",
@@ -155,14 +155,14 @@ declare global {
             REFUND_PENDING = "refund_pending",
             REFUNDED = "refunded"
         }
-        export interface Charge {
+        interface Charge {
             id: string;
             type: CHARGE_TYPE;
             status: CHARGE_STATUS;
             amount: number;
             created_at: string;
         }
-        export interface Tip {
+        interface Tip {
             id: string;
             created_at: string;
             amount: number;
@@ -175,14 +175,14 @@ declare global {
             charge_id: string;
             payment_source_id: string;
         }
-        export function frameForSrc(src: string): JQuery;
-        export function getChargeQuery(charge?: ChargeDropin): {
+        function frameForSrc(src: string): JQuery;
+        function getChargeQuery(charge?: ChargeDropin): {
             [key: string]: string | number | boolean | undefined;
         };
-        export function getTipQuery(tip?: TipDataDropin | TipDropin): {
+        function getTipQuery(tip?: TipDataDropin | TipDropin): {
             [key: string]: string | number | boolean | undefined;
         };
-        export class Client {
+        class Client {
             private _currentFrame;
             private _publishableKey;
             private _customerToken;
@@ -207,6 +207,6 @@ declare global {
             charge(customerToken: string, options: ChargeOptions): void;
             tip(customerToken: string, options: TipOptions): void;
         }
-        export function Pay(options: ClientOptions): Client;
+        function Pay(options: ClientOptions): Client;
     }
 }
