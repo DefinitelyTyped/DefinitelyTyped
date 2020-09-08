@@ -10,10 +10,7 @@
  * Result is a string, except when MAGIC_CONTINUE is set,
  * then it is an array of string
  */
-type DetectionCallback =
-    ((err: Error, result: string) => void) |
-    ((err: Error, result: string[]) => void) |
-    ((err: Error, result: string | string[]) => void)
+type DetectionCallback = ((err: Error, result: string | string[]) => void)
 
 export type bitmask = number;
 export declare class Magic {
