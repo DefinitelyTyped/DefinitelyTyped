@@ -244,7 +244,7 @@ export interface ThemedStyledFunction<
         } = {}
     >(
         attrs: Attrs<StyledComponentPropsWithRef<C> & U, NewA, T>
-    ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
+    ): ThemedStyledFunction<C, T, O & NewA & U, A | keyof NewA>;
 
     withConfig: <Props extends O = O>(config: StyledConfig<StyledComponentPropsWithRef<C> & Props>) => ThemedStyledFunction<C, T, Props, A>;
 }
