@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/react": "*",
         "react-ellipsis-with-tooltip": "^1.1.1"
     }
 }
