@@ -1362,10 +1362,6 @@ declare module "core-js/fn/reflect/delete-property" {
     const deleteProperty: typeof core.Reflect.deleteProperty;
     export = deleteProperty;
 }
-declare module "core-js/fn/reflect/enumerate" {
-    const enumerate: typeof core.Reflect.enumerate;
-    export = enumerate;
-}
 declare module "core-js/fn/reflect/get" {
     const get: typeof core.Reflect.get;
     export = get;
@@ -2136,10 +2132,6 @@ declare module "core-js/library/fn/reflect/define-property" {
 declare module "core-js/library/fn/reflect/delete-property" {
     const deleteProperty: typeof core.Reflect.deleteProperty;
     export = deleteProperty;
-}
-declare module "core-js/library/fn/reflect/enumerate" {
-    const enumerate: typeof core.Reflect.enumerate;
-    export = enumerate;
 }
 declare module "core-js/library/fn/reflect/get" {
     const get: typeof core.Reflect.get;
