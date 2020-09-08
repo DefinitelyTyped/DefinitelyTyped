@@ -462,7 +462,6 @@ declare namespace core {
         function construct(target: Function, argumentsList: ArrayLike<any>): any;
         function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;
         function deleteProperty(target: any, propertyKey: PropertyKey): boolean;
-        function enumerate(target: any): IterableIterator<any>;
         function get(target: any, propertyKey: PropertyKey, receiver?: any): any;
         function getOwnPropertyDescriptor(target: any, propertyKey: PropertyKey): PropertyDescriptor;
         function getPrototypeOf(target: any): any;
