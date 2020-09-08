@@ -164,30 +164,6 @@ type Instance = {
             [key: string]: string | undefined;
         },
         /**
-         * Chunk size for wide network
-         */
-        CHUNK_WAN: 1240,
-        /**
-         * Chunk size for local network
-         */
-        CHUNK_LAN: 8154,
-        /**
-         * GELF log levels
-         */
-        LOG_LEVELS: {
-            emerg: 0,
-            panic: 0,
-            alert: 1,
-            crit: 2,
-            error: 3,
-            err: 3,
-            warn: 4,
-            warning: 4,
-            notice: 5,
-            info: 6,
-            debug: 7,
-        },
-        /**
          * Endpoint setted
          *
          * @default "localhost"
@@ -229,5 +205,64 @@ type Instance = {
  * @param setup
  */
 declare function graygelf(setup?: setup): Instance;
+declare class graygelf implements Instance {
+    constructor(setup?: setup)
+
+    emerg: ((short_message: string | Error, ...args: string[]) => GelfMessage) & { a: (short_message: string | Error, full_message?: string, customFields?: GelfMessage) => GelfMessage };
+    panic: ((short_message: string | Error, ...args: string[]) => GelfMessage) & { a: (short_message: string | Error, full_message?: string, customFields?: GelfMessage) => GelfMessage };
+    alert: ((short_message: string | Error, ...args: string[]) => GelfMessage) & { a: (short_message: string | Error, full_message?: string, customFields?: GelfMessage) => GelfMessage };
+    crit: ((short_message: string | Error, ...args: string[]) => GelfMessage) & { a: (short_message: string | Error, full_message?: string, customFields?: GelfMessage) => GelfMessage };
+    error: ((short_message: string | Error, ...args: string[]) => GelfMessage) & { a: (short_message: string | Error, full_message?: string, customFields?: GelfMessage) => GelfMessage };
+    err: ((short_message: string | Error, ...args: string[]) => GelfMessage) & { a: (short_message: string | Error, full_message?: string, customFields?: GelfMessage) => GelfMessage };
+    warn: ((short_message: string | Error, ...args: string[]) => GelfMessage) & { a: (short_message: string | Error, full_message?: string, customFields?: GelfMessage) => GelfMessage };
+    warning: ((short_message: string | Error, ...args: string[]) => GelfMessage) & { a: (short_message: string | Error, full_message?: string, customFields?: GelfMessage) => GelfMessage };
+    notice: ((short_message: string | Error, ...args: string[]) => GelfMessage) & { a: (short_message: string | Error, full_message?: string, customFields?: GelfMessage) => GelfMessage };
+    info: ((short_message: string | Error, ...args: string[]) => GelfMessage) & { a: (short_message: string | Error, full_message?: string, customFields?: GelfMessage) => GelfMessage };
+    debug: ((short_message: string | Error, ...args: string[]) => GelfMessage) & { a: (short_message: string | Error, full_message?: string, customFields?: GelfMessage) => GelfMessage };
+    raw: (fields: GelfMessage) => GelfMessage;
+    stream: (name: string) => ThroughStream;
+    write: (msg: string | Uint8Array) => void;
+    _prepGelf: (level: 0 | 3 | 4 | 5 | 6 | 7 | 1 | 2, short: string, long?: string, fields?: { [key: string]: string; }) => GelfMessage;
+    _send: (gelfMessage: GelfMessage) => void;
+    on: EventListener;
+    once: EventListener;
+    fields: {
+        [key: string]: string | undefined;
+        /**
+         * Suggested property - facility can be the app name.
+         */
+        facility?: string;
+    };
+    graylogHost: string;
+    graylogPort: string;
+    compressType: "deflate" | "gzip";
+    chunkSize: number;
+    alwaysCompress: boolean;
+    _udp?: Socket;
+    /**
+     * Chunk size for wide network
+     */
+    static CHUNK_WAN: 1240;
+    /**
+     * Chunk size for local network
+     */
+    static CHUNK_LAN: 8154;
+    /**
+     * GELF log levels
+     */
+    static LOG_LEVELS: {
+        emerg: 0,
+        panic: 0,
+        alert: 1,
+        crit: 2,
+        error: 3,
+        err: 3,
+        warn: 4,
+        warning: 4,
+        notice: 5,
+        info: 6,
+        debug: 7,
+    };
+}
 
 export = graygelf;
