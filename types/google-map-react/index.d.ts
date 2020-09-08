@@ -9,19 +9,19 @@ import * as React from 'react';
 declare class googleMapReact extends React.Component<googleMapReact.Props> {}
 
 declare namespace googleMapReact {
-    export type BootstrapURLKeys = ({ key: string } | { client: string; v: string }) & {
+    type BootstrapURLKeys = ({ key: string } | { client: string; v: string }) & {
         language?: string;
         region?: string;
         libraries?: string[] | string;
     };
 
-    export interface MapTypeStyle {
+    interface MapTypeStyle {
         elementType?: string;
         featureType?: string;
         stylers: any[];
     }
 
-    export interface MapOptions {
+    interface MapOptions {
         // Any options from https://developers.google.com/maps/documentation/javascript/reference/3/#MapOptions
         // excluding 'zoom' and 'center' which get set via props.
         backgroundColor?: string;
@@ -61,7 +61,7 @@ declare namespace googleMapReact {
         minZoomOverride?: boolean; // Not a standard option; specific to google-map-react: https://github.com/google-map-react/google-map-react/pull/154
     }
 
-    export interface Maps {
+    interface Maps {
         Animation: any;
         ControlPosition: any;
         MapTypeControlStyle: any;
@@ -88,40 +88,40 @@ declare namespace googleMapReact {
         UnitSystem: any;
     }
 
-    export interface Bounds {
+    interface Bounds {
         nw: Coords;
         ne: Coords;
         sw: Coords;
         se: Coords;
     }
 
-    export interface Point {
+    interface Point {
         x: number;
         y: number;
     }
 
-    export interface NESWBounds {
+    interface NESWBounds {
         ne: Coords;
         sw: Coords;
         nw?: Coords;
         se?: Coords;
     }
 
-    export interface Coords {
+    interface Coords {
         lat: number;
         lng: number;
     }
 
-    export interface Size {
+    interface Size {
         width: number;
         height: number;
     }
 
-    export interface ClickEventValue extends Point, Coords {
+    interface ClickEventValue extends Point, Coords {
         event: any;
     }
 
-    export interface ChangeEventValue {
+    interface ChangeEventValue {
         center: Coords;
         zoom: number;
         bounds: Bounds;
@@ -129,13 +129,13 @@ declare namespace googleMapReact {
         size: Size;
     }
 
-    export interface Position {
+    interface Position {
         lat: number;
         lng: number;
         weight?: number;
     }
 
-    export interface Heatmap {
+    interface Heatmap {
         positions: Position[];
         options: {
             radius?: number;
@@ -143,7 +143,7 @@ declare namespace googleMapReact {
         };
     }
 
-    export interface Props {
+    interface Props {
         bootstrapURLKeys?: BootstrapURLKeys;
         defaultCenter?: Coords;
         center?: Coords;
@@ -180,19 +180,19 @@ declare namespace googleMapReact {
         heatmap?: Heatmap;
     }
 
-    export interface ChildComponentProps extends Coords {
+    interface ChildComponentProps extends Coords {
         $hover?: boolean;
     }
 
-    export interface Tile extends Point {
+    interface Tile extends Point {
         zoom: number;
     }
 
-    export function convertNeSwToNwSe(boundCorder: { ne: Coords; sw: Coords }): { nw: Coords; se: Coords };
+    function convertNeSwToNwSe(boundCorder: { ne: Coords; sw: Coords }): { nw: Coords; se: Coords };
 
-    export function convertNwSeToNeSw(boundCorder: { nw: Coords; se: Coords }): { ne: Coords; sw: Coords };
+    function convertNwSeToNeSw(boundCorder: { nw: Coords; se: Coords }): { ne: Coords; sw: Coords };
 
-    export function fitBounds(
+    function fitBounds(
         bounds: NESWBounds,
         size: Size,
     ): {
@@ -201,13 +201,13 @@ declare namespace googleMapReact {
         newBounds: Bounds;
     };
 
-    export function meters2ScreenPixels(meters: number, coords: Coords, zoom: number): { w: number; h: number };
+    function meters2ScreenPixels(meters: number, coords: Coords, zoom: number): { w: number; h: number };
 
-    export function tile2LatLng(point: Point, zoom: number): { coords: Coords };
+    function tile2LatLng(point: Point, zoom: number): { coords: Coords };
 
-    export function latLng2Tile(coords: Coords, zoom: number): { point: Point };
+    function latLng2Tile(coords: Coords, zoom: number): { point: Point };
 
-    export function getTilesIds(start: { from: number; to: number }, zoom: number): Tile[];
+    function getTilesIds(start: { from: number; to: number }, zoom: number): Tile[];
 }
 
 export = googleMapReact;
