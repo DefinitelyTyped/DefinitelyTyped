@@ -359,7 +359,7 @@ export interface MUIDataTableProps {
     columns: MUIDataTableColumnDef[];
     components?: Partial<{
         TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
-        TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNodee;
+        TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
         TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
         TableResize: RenderCustomComponent<MUIDataTableResize> | React.ReactNode;
         TableToolbar: RenderCustomComponent<MUIDataTableToolbar> | React.ReactNode;
