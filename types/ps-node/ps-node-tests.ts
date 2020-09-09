@@ -8,12 +8,12 @@ ps.lookup({ command: 'myProg' }, (err, list) => {
 // these are from the README
 
 // A simple pid lookup
-ps.lookup({ pid: 12345 }, function (err, resultList) {
+ps.lookup({ pid: 12345 }, (err, resultList) => {
     if (err) {
         throw err;
     }
 
-    var process = resultList[0];
+    const process = resultList[0];
 
     if (process) {
         console.log('PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments);
@@ -28,12 +28,12 @@ ps.lookup(
         command: 'node',
         arguments: '--debug',
     },
-    function (err, resultList) {
+    (err, resultList) => {
         if (err) {
             throw err;
         }
 
-        resultList.forEach(function (process) {
+        resultList.forEach(process => {
             if (process) {
                 console.log('PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments);
             }
@@ -42,7 +42,7 @@ ps.lookup(
 );
 
 // A simple pid lookup
-ps.kill('12345', function (err) {
+ps.kill('12345', err => {
     if (err) {
         throw err;
     } else {
@@ -51,7 +51,7 @@ ps.kill('12345', function (err) {
 });
 
 // Pass signal SIGKILL for killing the process without allowing it to clean up
-ps.kill('12345', 'SIGKILL', function (err) {
+ps.kill('12345', 'SIGKILL', err => {
     if (err) {
         throw err;
     } else {
@@ -65,7 +65,7 @@ ps.kill(
         signal: 'SIGKILL',
         timeout: 10, // will set up a ten seconds timeout if the killing is not successful
     },
-    function () {},
+    () => {},
 );
 
 // A simple pid lookup
@@ -74,12 +74,12 @@ ps.lookup(
         command: 'node',
         psargs: 'ux',
     },
-    function (err, resultList) {
+    (err, resultList) => {
         if (err) {
             throw err;
         }
 
-        resultList.forEach(function (process) {
+        resultList.forEach(process => {
             if (process) {
                 console.log('PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments);
             }
@@ -94,12 +94,12 @@ ps.lookup(
         psargs: '-l',
         ppid: 82292,
     },
-    function (err, resultList) {
+    (err, resultList) => {
         if (err) {
             throw err;
         }
 
-        resultList.forEach(function (process) {
+        resultList.forEach(process => {
             if (process) {
                 console.log('PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments);
             }
