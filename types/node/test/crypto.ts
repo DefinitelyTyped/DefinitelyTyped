@@ -667,7 +667,7 @@ import { promisify } from 'util';
     });
     const privateKeyObject1 = crypto.createPrivateKey({ key: x25519Keys1.privateKey });
     const publicKeyObject1 = crypto.createPublicKey({ key: x25519Keys1.publicKey });
-    
+
     const x25519Keys2 = crypto.generateKeyPairSync('x25519', {
         publicKeyEncoding: {
             type: 'spki',
