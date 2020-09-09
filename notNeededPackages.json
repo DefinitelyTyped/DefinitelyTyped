@@ -4207,6 +4207,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-filepond",
+            "typingsPackageName": "react-filepond",
+            "sourceRepoURL": "https://github.com/pqina/react-filepond",
+            "asOfVersion": "7.1.0"
+        },
+        {
             "libraryName": "react-flip-move",
             "typingsPackageName": "react-flip-move",
             "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
