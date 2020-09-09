@@ -27,7 +27,6 @@ export interface EllipsisWithTooltipProps {
     children: React.ReactNode;
 }
 
-// eslint-disable-next-line react/prefer-stateless-function
 declare class EllipsisWithTooltip extends React.Component<EllipsisWithTooltipProps> {}
 
 export default EllipsisWithTooltip;
