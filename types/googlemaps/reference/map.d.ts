@@ -424,7 +424,7 @@ declare namespace google.maps {
          * set when the map is initialized.
          */
         backgroundColor?: string;
-        /** The initial Map center. Required. */
+        /** The initial Map center. */
         center?: LatLng | LatLngLiteral;
         /**
          * When false, map icons are not clickable. A map icon represents a point of
@@ -584,7 +584,7 @@ declare namespace google.maps {
          */
         tilt?: number;
         /**
-         * The initial Map zoom level. Required. Valid values: Integers between
+         * The initial Map zoom level. Valid values: Integers between
          * zero, and up to the supported maximum zoom level.
          */
         zoom?: number;
