@@ -341,6 +341,14 @@ const AttrsWithOnlyNewProps = styled.h2.attrs({ as: "h1" })`
 const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: "off" })``;
 <AttrsInputExtra />;
 
+const AttrsPropsForward = styled(AttrsInput).attrs<{ isPassword: boolean}>(props => ({
+    type: props.isPassword ? "password" : props.type
+}))``;
+
+<AttrsPropsForward isPassword />;
+// $ExpectError
+<AttrsPropsForward />;
+
 /**
  * withConfig
  */
