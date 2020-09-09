@@ -655,7 +655,7 @@ import { promisify } from 'util';
 
 {
     // crypto.diffieHellman_test
-    const { privateKey, publicKey } = crypto.generateKeyPairSync('x25519', {
+    const x25519Keys1 = crypto.generateKeyPairSync('x25519', {
         publicKeyEncoding: {
             type: 'spki',
             format: 'pem',
@@ -665,32 +665,25 @@ import { promisify } from 'util';
             format: 'pem',
         },
     });
-    const privateKeyObject = crypto.createPrivateKey({ key: privateKey });
-    const publicKeyObject = crypto.createPublicKey({ key: publicKey });
-
-    crypto.generateKeyPair(
-        'x25519',
-        {
-            publicKeyEncoding: {
-                type: 'spki',
-                format: 'pem',
-            },
-            privateKeyEncoding: {
-                type: 'pkcs8',
-                format: 'pem',
-            },
+    const privateKeyObject1 = crypto.createPrivateKey({ key: x25519Keys1.privateKey });
+    const publicKeyObject1 = crypto.createPublicKey({ key: x25519Keys1.publicKey });
+    
+    const x25519Keys2 = crypto.generateKeyPairSync('x25519', {
+        publicKeyEncoding: {
+            type: 'spki',
+            format: 'pem',
         },
-        (err, publicKey1, privateKey1) => {
-            if (err) console.log(err);
-
-            const privateKeyObject1 = crypto.createPrivateKey({ key: privateKey1 });
-            const publicKeyObject1 = crypto.createPublicKey({ key: publicKey1 });
-
-            const sharedSecret1 = crypto.diffieHellman({ privateKey: privateKeyObject, publicKey: publicKeyObject1 });
-            const sharedSecret2 = crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject });
-            assert.equal(sharedSecret1, sharedSecret2);
+        privateKeyEncoding: {
+            type: 'pkcs8',
+            format: 'pem',
         },
-    );
+    });
+    const privateKeyObject2 = crypto.createPrivateKey({ key: x25519Keys2.privateKey });
+    const publicKeyObject2 = crypto.createPublicKey({ key: x25519Keys2.publicKey });
+
+    const sharedSecret1 = crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject2 });
+    const sharedSecret2 = crypto.diffieHellman({ privateKey: privateKeyObject2, publicKey: publicKeyObject1 });
+    assert.equal(sharedSecret1, sharedSecret2);
 }
 
 {
