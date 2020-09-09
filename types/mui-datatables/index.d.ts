@@ -45,7 +45,7 @@ export interface MUIDataTableState {
     columns: MUIDataTableColumnState[];
     count: number;
     data: any[];
-    displayData: { dataIndex: number; data: any[] }[];
+    displayData: Array<{ dataIndex: number; data: any[] }>;
     expandedRows: MUIDataTableStateRows;
     filterData: any[];
     filterList: string[][];
@@ -440,7 +440,7 @@ export interface MUIDataTableFilter {
 }
 
 export interface MUIDataTableFilterList {
-    columnNames?: { name: string; filterType: FilterType }[];
+    columnNames?: Array<{ name: string; filterType: FilterType }>;
     customFilterListUpdate?: any[];
     classes?: object;
     filterList: string[][];
@@ -465,7 +465,7 @@ export interface MUIDataTableDraggableColumns {
 }
 
 export interface MUIDataTableHead {
-    activeColumn?: any | null;
+    activeColumn?: any;
     areAllRowsExpanded?: () => boolean;
     selectRowUpdate?: (...args: any[]) => any;
     columnOrder: number[];
@@ -549,7 +549,7 @@ export interface MUIDataTableToolbar {
     classes?: object;
     columns: MUIDataTableColumnDef[];
     data?: MUIDataTableData[];
-    displayData?: { data: any[]; dataIndex: number }[];
+    displayData?: Array<{ data: any[]; dataIndex: number }>;
     filterData?: any[][];
     filterList?: string[][];
     filterUpdate?: (...args: any) => any;
