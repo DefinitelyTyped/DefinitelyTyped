@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Pay API 0.4
+// Type definitions for non-npm package Google Pay API 0.5
 // Project: https://developers.google.com/pay/api/web/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
 //                 Radu Raicea <https://github.com/Radu-Raicea>,
@@ -6,6 +6,7 @@
 //                 Alexandre Couret <https://github.com/ozotek>
 //                 Sergi Ferriz <https://github.com/mumpo>
 //                 Soc Sieng <https://github.com/socsieng>
+//                 Jose L Ugia <https://github.com/JlUgia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google.payments.api {
@@ -1670,6 +1671,11 @@ declare namespace google.payments.api {
          * @default "buy"
          */
         buttonType?: ButtonType;
+
+        /**
+         * @default "static"
+         */
+        buttonSizeMode?: ButtonSizeMode;
     }
 
     /**
@@ -1937,6 +1943,19 @@ declare namespace google.payments.api {
      *   Same as "plain".
      */
     type ButtonType = "buy" | "donate" | "plain" | "long" | "short";
+
+    /**
+     * Supported methods for controlling the size of the Google Pay button.
+     *
+     * Options:
+     *
+     * - `static`:
+     *   Default behavior. The button has a fixed width and height.
+     *
+     * - `fill`:
+     *   The button fills its container.
+     */
+    type ButtonSizeMode = "static" | "fill";
 
     /**
      * Supported environment names to run Google Pay.
