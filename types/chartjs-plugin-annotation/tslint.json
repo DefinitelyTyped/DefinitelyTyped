@@ -1,6 +1,3 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "no-outside-dependencies": false
-  }
+  "extends": "dtslint/dt.json"
 }
