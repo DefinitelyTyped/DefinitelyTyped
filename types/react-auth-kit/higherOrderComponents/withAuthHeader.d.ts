@@ -2,7 +2,7 @@ import * as React from 'react';
 interface withAuthHeaderProps {
     authHeader: string;
 }
-declare const withAuthHeader: <P extends object>(Component: React.ComponentType<P>) => {
+declare function withAuthHeader<P extends object>(Component: React.ComponentType<P>): {
     new (props: Readonly<P & withAuthHeaderProps>): {
         render(): JSX.Element;
         context: any;

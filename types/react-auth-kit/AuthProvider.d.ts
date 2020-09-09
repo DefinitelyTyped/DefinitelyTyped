@@ -24,7 +24,6 @@ declare const AuthContext: React.Context<AuthContextInterface | null>;
  * @param cookieDomain
  * @param cookieSecure
  * @param stateStorageName
- * @constructor
  */
 declare const AuthProvider: React.FunctionComponent<AuthProviderProps>;
 export default AuthProvider;

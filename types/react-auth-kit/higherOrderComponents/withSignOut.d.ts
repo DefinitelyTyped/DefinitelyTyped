@@ -2,7 +2,7 @@ import * as React from 'react';
 interface withSignOutProps {
     signOut(): boolean;
 }
-declare const withSignOut: <P extends object>(Component: React.ComponentType<P>) => {
+declare function withSignOut<P extends object>(Component: React.ComponentType<P>): {
     new (props: Readonly<P & withSignOutProps>): {
         render(): JSX.Element;
         context: any;

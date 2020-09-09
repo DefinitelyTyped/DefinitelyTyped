@@ -3,7 +3,7 @@ import { signInFunctionParams } from "../types";
 interface withSignInProps {
     signIn(params: signInFunctionParams): boolean;
 }
-declare const withSignIn: <P extends object>(Component: React.ComponentType<P>) => {
+declare function withSignIn<P extends object>(Component: React.ComponentType<P>): {
     new (props: Readonly<P & withSignInProps>): {
         render(): JSX.Element;
         context: any;
