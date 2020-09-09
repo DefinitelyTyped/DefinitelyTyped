@@ -60,8 +60,9 @@ declare namespace bonjour {
         fqdn: string;
         txt: Object;
         published: boolean;
+        addresses: string[];
 
-        stop(cb: () => any): void;
+        stop(cb?: () => any): void;
         start(): void;
     }
     interface BonjourOptions {
