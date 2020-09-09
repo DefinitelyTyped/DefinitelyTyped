@@ -8,4 +8,4 @@ import EllipsisWithTooltip from 'react-ellipsis-with-tooltip';
     style={{ maxWidth: 300 }}
     >
     test123
-</EllipsisWithTooltip>
+</EllipsisWithTooltip>;
