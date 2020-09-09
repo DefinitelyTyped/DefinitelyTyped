@@ -1,4 +1,4 @@
-// Type definitions for react-ellipsis-with-tooltip 1.1.1
+// Type definitions for react-ellipsis-with-tooltip 1.1
 // Project: https://github.com/amirfefer/react-ellipsis-with-tooltip
 // Definitions by: Piotr Bender <https://github.com/SIN3d73>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
