@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { TokenInterface, TokenObjectParamsInterface } from "./types";
 interface AuthProviderProps extends TokenObjectParamsInterface {
     children: React.ReactChildren;
@@ -9,7 +9,7 @@ interface AuthProviderProps extends TokenObjectParamsInterface {
  * authState - Stores the value of authentication State
  * setAuthState - Sets the authState Value
  */
-declare interface AuthContextInterface {
+interface AuthContextInterface {
     authState: TokenInterface;
     setAuthState: React.Dispatch<React.SetStateAction<TokenInterface>>;
 }

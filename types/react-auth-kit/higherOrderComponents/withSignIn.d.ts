@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { signInFunctionParams } from "../types";
 interface withSignInProps {
     signIn(params: signInFunctionParams): boolean;
