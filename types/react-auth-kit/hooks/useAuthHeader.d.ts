@@ -1,2 +1,2 @@
-declare const useAuthHeader: () => () => string;
+declare function useAuthHeader(): () => (string);
 export default useAuthHeader;

@@ -1,4 +1,4 @@
-// Type definitions for react-auth-kit 1.1.2
+// Type definitions for react-auth-kit 1.1
 // Project: https://github.com/react-auth-kit/react-auth-kit#readme
 // Definitions by: Arkadip Bhattacharya <https://github.com/darkmatter18>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

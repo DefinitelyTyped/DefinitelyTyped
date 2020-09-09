@@ -1,2 +1,2 @@
-declare const useSignOut: () => () => boolean;
+declare function useSignOut(): () => (boolean);
 export default useSignOut;

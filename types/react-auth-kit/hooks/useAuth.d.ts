@@ -4,5 +4,5 @@ import { TokenInterface } from "../types";
  *
  * @returns - Auth State Function
  */
-declare const useAuth: () => () => TokenInterface;
+declare function useAuth(): () => TokenInterface;
 export default useAuth;

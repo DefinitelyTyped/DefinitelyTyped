@@ -1,16 +1,16 @@
-export declare interface TokenInterface {
+export interface TokenInterface {
     authToken: string | null;
     authTokenType: string | null;
     expireAt: Date | null;
     authState: object | null;
 }
-export declare interface signInFunctionParams {
+export interface signInFunctionParams {
     token: string;
     tokenType: string | 'Bearer';
     expiresIn: number;
     authState: object;
 }
-export declare interface TokenObjectParamsInterface {
+export interface TokenObjectParamsInterface {
     authStorageType: 'cookie' | 'localstorage';
     authStorageName: string;
     authTimeStorageName: string;
