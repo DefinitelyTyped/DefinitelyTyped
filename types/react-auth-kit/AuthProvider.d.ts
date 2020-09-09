@@ -1,17 +1,19 @@
 import React from 'react';
-import { TokenObjectParamsInterface } from "./types";
+import { TokenInterface, TokenObjectParamsInterface } from "./types";
 interface AuthProviderProps extends TokenObjectParamsInterface {
     children: React.ReactChildren;
 }
 /**
- * AuthProvider Functional Component
+ * AuthContextInterface
  *
- * @param children - Children Component
- * @param authCookieName - Cookie Name for Auth Storing
- * @param cookieDomain - Domain Name for the Cookies
- * @param cookieSecure - HTTP / HTTPS
- * @constructor
+ * authState - Stores the value of authentication State
+ * setAuthState - Sets the authState Value
  */
+declare interface AuthContextInterface {
+    authState: TokenInterface;
+    setAuthState: React.Dispatch<React.SetStateAction<TokenInterface>>;
+}
+declare const AuthContext: React.Context<AuthContextInterface | null>;
 /**
  * AuthProvider - The Authentication Context Provider
  *
@@ -26,3 +28,5 @@ interface AuthProviderProps extends TokenObjectParamsInterface {
  */
 declare const AuthProvider: React.FunctionComponent<AuthProviderProps>;
 export default AuthProvider;
+declare const AuthContextConsumer: React.Consumer<AuthContextInterface | null>;
+export { AuthContext, AuthContextConsumer };
