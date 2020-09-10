@@ -1,10 +1,52 @@
 import { ConnectionOptions, EntitySchema } from 'typeorm';
-import { any } from 'prop-types';
+import { AppOptions } from 'next-auth';
+import { SessionProvider } from './client';
 
-/**
- * TODO: add custom adapter types
- * @see https://next-auth.js.org/tutorials/creating-a-database-adapter
- */
+// NOTE: There are a lot of `any`. That's because there could be any schema for each entity
+interface Adapter {
+    getAdapter(
+        appOptions: AppOptions,
+    ): Promise<{
+        createUser(profile: any): Promise<any>;
+        getUser(id: string): Promise<any>;
+        getUserByEmail(email: string): Promise<any>;
+        getUserByProviderAccountId(providerId: string, providerAccountId: string): Promise<any>;
+        updateUser(profile: any): Promise<any>;
+        linkAccount(
+            userId: string,
+            providerId: string,
+            providerType: string,
+            providerAccountId: string,
+            refreshToken: string,
+            accessToken: string,
+            accessTokenExpires: number,
+        ): Promise<void>;
+        createSession(user: any): Promise<any>;
+        getSession(sessionToken: string): Promise<any>;
+        updateSession(session: any): Promise<void>;
+        deleteSession(sessionToken: string): Promise<void>;
+        createVerificationRequest?(
+            email: string,
+            url: string,
+            token: string,
+            secret: string,
+            provider: SessionProvider,
+            options: AppOptions,
+        ): Promise<void>;
+        getVerificationRequest?(
+            email: string,
+            verificationToken: string,
+            secret: string,
+            provider: SessionProvider,
+        ): Promise<any>;
+        deleteVerificationRequest?(
+            email: string,
+            verificationToken: string,
+            secret: string,
+            provider: SessionProvider,
+        ): Promise<any>;
+    }>;
+}
 
 type Schema<T = any> = EntitySchema<T>['options'];
 
@@ -46,7 +88,7 @@ interface TypeORMAdapter<
                 };
             };
         },
-    ): any;
+    ): Adapter;
     Models: {
         Account: {
             model: TypeORMAccountModel;
@@ -76,7 +118,7 @@ interface PrismaAdapter {
             Session: string;
             VerificationRequest: string;
         };
-    }): any;
+    }): Adapter;
 }
 
 declare const Adapters: Adapters;
@@ -127,8 +169,6 @@ declare class TypeORMVerificationRequestModel {
 
     constructor(identifier?: string, token?: string, expires?: Date);
 }
-
-type Adapter = TypeORMAdapter['Adapter'] | PrismaAdapter['Adapter'];
 
 export default Adapters;
 export {

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { IncomingMessage } from 'http';
 import { GenericObject } from './_utils';
 
-export interface Session {
+interface Session {
     user: {
         name: string;
         email: string;
@@ -16,7 +16,7 @@ interface GetProvidersResponse {
     [provider: string]: SessionProvider;
 }
 
-interface SessionProvider {
+interface SessionProvider extends GenericObject {
     id: string;
     name: string;
     type: string;
@@ -82,4 +82,6 @@ export {
     options,
     setOptions,
     Provider,
+    Session,
+    SessionProvider,
 };

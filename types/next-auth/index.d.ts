@@ -11,6 +11,7 @@ import { ConnectionOptions } from 'typeorm';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
 import { GenericObject, NextApiRequest, NextApiResponse } from './_utils';
+import { SessionProvider } from './client';
 import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
 export interface InitOptions {
@@ -26,6 +27,28 @@ export interface InitOptions {
     events?: Events;
     useSecureCookies?: boolean;
     cookies?: Cookies;
+}
+
+export interface AppOptions {
+    debug: boolean;
+    pages: PageOptions;
+    adapter: Adapter;
+    baseUrl: string;
+    basePath: string;
+    action: 'providers' | 'session' | 'csrf' | 'signin' | 'signout' | 'callback' | 'verify-request' | 'error';
+    provider?: string;
+    cookies: Cookies;
+    secret: string;
+    csrfToken: string;
+    providers: {
+        [provider: string]: SessionProvider;
+    };
+    session: Session;
+    jwt: JWTOptions;
+    events: Events;
+    callbacks: Callbacks;
+    callbackUrl: string;
+    // redirect?(redirectUrl: string): any;
 }
 
 export interface PageOptions {
