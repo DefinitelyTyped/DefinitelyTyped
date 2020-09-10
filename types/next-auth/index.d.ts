@@ -15,7 +15,7 @@ import { GenericObject, NextApiRequest, NextApiResponse } from './_utils';
 import { SessionProvider } from './client';
 import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
-export interface InitOptions {
+interface InitOptions {
     providers: Array<ReturnType<PossibleProviders>>;
     database?: string | ConnectionOptions;
     secret?: string;
@@ -30,7 +30,7 @@ export interface InitOptions {
     cookies?: Cookies;
 }
 
-export interface AppOptions {
+interface AppOptions {
     debug: boolean;
     pages: PageOptions;
     adapter: Adapter;
@@ -52,7 +52,7 @@ export interface AppOptions {
     // redirect?(redirectUrl: string): any;
 }
 
-export interface PageOptions {
+interface PageOptions {
     signIn?: string;
     signOut?: string;
     error?: string;
@@ -69,7 +69,7 @@ interface Cookie {
     options: CookieOptions;
 }
 
-export interface CookieOptions {
+interface CookieOptions {
     httpOnly?: boolean;
     sameSite?: true | 'strict' | 'lax' | 'none';
     path?: string;
@@ -78,13 +78,13 @@ export interface CookieOptions {
 }
 
 interface Events {
-    signIn?(message: string): Promise<void>;
-    signOut?(message: string): Promise<void>;
-    createUser?(message: string): Promise<void>;
-    updateUser?(message: string): Promise<void>;
-    linkAccount?(message: string): Promise<void>;
-    session?(message: string): Promise<void>;
-    error?(message: string): Promise<void>;
+    signIn?(message: any): Promise<void>;
+    signOut?(message: any): Promise<void>;
+    createUser?(message: any): Promise<void>;
+    updateUser?(message: any): Promise<void>;
+    linkAccount?(message: any): Promise<void>;
+    session?(message: any): Promise<void>;
+    error?(message: any): Promise<void>;
 }
 
 interface Session {
@@ -101,7 +101,7 @@ interface JWTOptions {
 }
 
 // TODO: Improve callback typings
-export interface Callbacks {
+interface Callbacks {
     signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean>;
     redirect?(url: string, baseUrl: string): Promise<string>;
     session?(session: Session, user: GenericObject): Promise<GenericObject>;
@@ -116,3 +116,4 @@ export interface Callbacks {
 
 declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
 export default NextAuth;
+export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, Callbacks };
