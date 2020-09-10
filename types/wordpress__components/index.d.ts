@@ -1,8 +1,9 @@
-// Type definitions for @wordpress/components 9.0
+// Type definitions for @wordpress/components 10.0.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/components/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
 //                 Philip Jackson <https://github.com/p-jackson>
+//                 Sara Marcondes <https://github.com/saramarcondes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 

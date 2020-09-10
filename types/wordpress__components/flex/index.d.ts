@@ -1,50 +1,25 @@
 import { ComponentType, HTMLProps, CSSProperties } from 'react';
 
 declare namespace Flex {
-    type FlexAlignments =
-        | 'start'
-        | 'flex-start'
-        | 'flex-end'
-        | 'center'
-        | 'end'
-        | 'normal'
-        | 'baseline'
-        | 'first baseline'
-        | 'last baseline'
-        | 'stretch'
-        | 'safe'
-        | 'unsafe';
-
 
     interface FlexProps {
         /**
          * Sets align-items. Top and bottom are shorthand for flex-start and flex-end respectively.
          */
-        align?: 
-            | FlexAlignments
-            | 'top'
-            | 'bottom'
-            | 'self-start'
-            | 'self-end';
+        align?: CSSProperties['alignItems'];
 
         /**
-         * The size of padding to put between the children of the container.
+         * Determines the spacing in between children components. The `gap` value is a multiplier to the base value of `4`.
          */
         gap?: number;
 
         /**
          * Sets jusifty-content. Left and right are shorthand for flex-start and flex-end respectively, not the actual CSS value.
          */
-        justify?: 
-            | FlexAlignments
-            | 'left'
-            | 'right'
-            | 'space-between'
-            | 'space-around'
-            | 'space-evenly';
+        justify?: CSSProperties['justifyContent'];
 
         /**
-         * Reverses the flex rows.
+         * Reverses the flex direction.
          */
         isReversed?: boolean;
     }
