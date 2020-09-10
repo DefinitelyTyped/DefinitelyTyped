@@ -1,4 +1,4 @@
-// Type definitions for osrm 5.12
+// Type definitions for osrm 5.22.0
 // Project: https://github.com/Project-OSRM/osrm-backend
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
