@@ -776,3 +776,13 @@ import { promisify } from 'util';
     const bufP: Buffer = crypto.privateEncrypt(key, Buffer.from([]));
     const decp: Buffer = crypto.privateDecrypt(key, bufP);
 }
+
+// crypto.randomInt
+{
+    const callback = (error: Error|null, value: number): void => {};
+
+    const a: number = crypto.randomInt(10);
+    const b: number = crypto.randomInt(1, 10);
+    crypto.randomInt(10, callback);
+    crypto.randomInt(1, 10, callback);
+}
