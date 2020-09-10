@@ -602,7 +602,14 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
     scrollView: ScrollView | null = null;
 
     testNativeMethods() {
-        this.scrollView && this.scrollView.setNativeProps({ scrollEnabled: false });
+        if (this.scrollView) {
+            this.scrollView.setNativeProps({ scrollEnabled: false });
+
+            // Dummy values for scroll dimenions changes
+            this.scrollView.getScrollResponder().scrollResponderZoomTo({
+                x: 0, y: 0, width: 300, height: 500, animated: true
+            })
+        }
     }
 
     render() {
