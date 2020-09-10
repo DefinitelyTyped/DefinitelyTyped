@@ -214,9 +214,7 @@ declare module 'perf_hooks' {
          * @param util1 The result of a previous call to eventLoopUtilization()
          * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
          */
-        eventLoopUtilization(): EventLoopUtilization;
-        eventLoopUtilization(util1: EventLoopUtilization): EventLoopUtilization;
-        eventLoopUtilization(util1: EventLoopUtilization, util2: EventLoopUtilization): EventLoopUtilization;
+        eventLoopUtilization(util1?: EventLoopUtilization, util2?: EventLoopUtilization): EventLoopUtilization;
     }
 
     interface PerformanceObserverEntryList {
