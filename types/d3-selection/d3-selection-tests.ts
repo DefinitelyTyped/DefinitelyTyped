@@ -1014,15 +1014,14 @@ circles.call((selection: d3Selection.Selection<SVGCircleElement, DivDatum, any, 
 
 // on(...) -------------------------------------------------------------------------------
 
-let listener: undefined | ((this: HTMLBodyElement, datum: BodyDatum, index: number, group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>) => void);
+let listener: undefined | ((this: HTMLBodyElement, event: any, datum: BodyDatum) => void);
 
-body = body.on('click', function(d, i, g) {
+body = body.on('click', function(e, d) {
     const that: HTMLBodyElement = this;
     // $ExpectError
     const that2: SVGElement  = this; // fails, type mismatch
+    const event: MouseEvent = e;
     const datum: BodyDatum = d;
-    const index: number = i;
-    const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
     console.log('onclick print body background color: ', this.bgColor); // HTMLBodyElement
     console.log('onclick print "foo" datum property: ', d.foo); // BodyDatum type
 });
@@ -1079,8 +1078,8 @@ interface SuccessEvent {
 }
 const successEvent = { type: 'wonEuro2016', team: 'Island' };
 
-function customListener(this: HTMLBodyElement | null, finalOpponent: string): string {
-    const e = d3Selection.event as SuccessEvent;
+function customListener(this: HTMLBodyElement | null, event: any, finalOpponent: string): string {
+    const e = event as SuccessEvent;
 
     return `${e.team} defeated ${finalOpponent} in the EURO 2016 Cup. Who would have thought!!!`;
 }
@@ -1098,50 +1097,23 @@ d3Selection.customEvent<HTMLBodyElement, any>(successEvent, customListener, circ
 // $ExpectError
 d3Selection.customEvent<HTMLBodyElement, number>(successEvent, customListener, body.node(), 'Wales'); // fails, incompatible return types
 
-// mouse() ---------------------------------------------------------------------------------
+// pointer() and pointers() ------------------------------------------------------------------
 
-let position: [number, number] | null;
 const svg: SVGSVGElement = d3Selection.select<SVGSVGElement, any>('svg').node()!;
 const g: SVGGElement = d3Selection.select<SVGGElement, any>('g').node()!;
 const h: HTMLElement = d3Selection.select<HTMLElement, any>('div').node()!;
 const changedTouches: TouchList = new TouchList(); // dummy
+declare const pointerEvent: MouseEvent; // dummy
 
-position = d3Selection.mouse(svg);
-position = d3Selection.mouse(g);
-position = d3Selection.mouse(h);
-
-// touch() and touches() ---------------------------------------------------------------------
-
-position = d3Selection.touch(svg, 0);
-position = d3Selection.touch(g, 0);
-position = d3Selection.touch(h, 0);
-
-position = d3Selection.touch(svg, changedTouches, 0);
-position = d3Selection.touch(g, changedTouches, 0);
-position = d3Selection.touch(h, changedTouches, 0);
+let position: [number, number];
+position = d3Selection.pointer(pointerEvent, svg);
+position = d3Selection.pointer(pointerEvent, g);
+position = d3Selection.pointer(pointerEvent, h);
 
 let positions: Array<[number, number]>;
-
-positions = d3Selection.touches(svg, changedTouches);
-positions = d3Selection.touches(g, changedTouches);
-positions = d3Selection.touches(h, changedTouches);
-
-positions = d3Selection.touches(svg, changedTouches);
-positions = d3Selection.touches(g, changedTouches);
-positions = d3Selection.touches(h, changedTouches);
-
-// clientPoint() ---------------------------------------------------------------------
-
-let clientPoint: [number, number];
-declare let mEvt: MouseEvent;
-declare let tEvt: Touch;
-declare let msgEvt: MSGestureEvent;
-declare let customEvt: {clientX: number, clientY: number}; // minimally conforming  object
-
-clientPoint = d3Selection.clientPoint(svg, mEvt);
-clientPoint = d3Selection.clientPoint(g, tEvt);
-clientPoint = d3Selection.clientPoint(h, msgEvt);
-clientPoint = d3Selection.clientPoint(h, customEvt);
+positions = d3Selection.pointers(pointerEvent, svg);
+positions = d3Selection.pointers(pointerEvent, g);
+positions = d3Selection.pointers(pointerEvent, h);
 
 // ---------------------------------------------------------------------------------------
 // Tests of style

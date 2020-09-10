@@ -1027,7 +1027,7 @@ export function pointer(event: MouseEvent | TouchEvent | PointerEvent | { source
  * @param event Event for which to compute the relative coordinates.
  * @param target Container element relative to which coordinates are calculated.
  */
-export function pointers(event: MouseEvent | TouchEvent | PointerEvent | { sourceEvent: UIEvent }, target?: ContainerElement): [number, number][];
+export function pointers(event: MouseEvent | TouchEvent | PointerEvent | { sourceEvent: UIEvent }, target?: ContainerElement): Array<[number, number]>;
 
 // ---------------------------------------------------------------------------
 // style
