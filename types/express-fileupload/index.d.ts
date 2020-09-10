@@ -20,7 +20,7 @@ declare function fileUpload(options?: fileUpload.Options): express.RequestHandle
 
 declare namespace fileUpload {
     class FileArray {
-        [index: string]: UploadedFile | UploadedFile[];
+        [index: string]: UploadedFile;
     }
 
     interface UploadedFile {

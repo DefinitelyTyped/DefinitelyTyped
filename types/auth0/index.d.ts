@@ -6,7 +6,6 @@
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
-//                 Johannes Schneider <https://github.com/neshanjo>
 //                 Meng Bernie Sung <https://github.com/MengRS>
 //                 Léo Haddad Carneiro <https://github.com/Scoup>
 //                 Isabela Morais <https://github.com/isabela-morais>

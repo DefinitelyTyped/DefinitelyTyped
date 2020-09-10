@@ -895,4 +895,6 @@ import tty = require('tty');
     const s = 'foo';
     const s1: string = s.trimLeft();
     const s2: string = s.trimRight();
+    const s3: string = s.trimStart();
+    const s4: string = s.trimEnd();
 }

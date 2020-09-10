@@ -379,6 +379,7 @@ declare module "crypto" {
     function publicDecrypt(public_key: RsaPublicKey | KeyLike, buffer: Binary): Buffer;
     function getCiphers(): string[];
     function getCurves(): string[];
+    function getFips(): 1 | 0;
     function getHashes(): string[];
     class ECDH {
         private constructor();

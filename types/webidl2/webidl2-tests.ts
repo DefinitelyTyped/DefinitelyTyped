@@ -215,6 +215,19 @@ function logIdlType(idlType: webidl2.IDLTypeDescription) {
         idlType; // $ExpectType GenericTypeDescription
         idlType.generic; // $ExpectType "FrozenArray" | "ObservableArray" | "Promise" | "record" | "sequence"
         console.log(idlType);
+        switch (idlType.generic) {
+            case "FrozenArray":
+            case "ObservableArray":
+            case "Promise":
+            case "sequence":
+                idlType.idlType; // $ExpectType [IDLTypeDescription]
+                idlType.idlType.length; // $ExpectType 1
+                break;
+
+            case "record":
+                idlType.idlType.length; // $ExpectType 2
+                break;
+        }
     } else {
         idlType; // $ExpectType SingleTypeDescription
         console.log(idlType);

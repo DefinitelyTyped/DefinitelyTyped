@@ -41,16 +41,16 @@ export interface DatePickerProps extends DatePickerAndroidProps, DatePickerIOSPr
     style?: StyleProp<ViewStyle>;
 }
 
-export interface PickerProps extends ViewProps {
+export interface PickerProps<T> extends ViewProps {
     textColor?: string;
     textSize?: number;
     itemSpace?: number;
     itemStyle?: StyleProp<ViewStyle>;
-    onValueChange: (value: string) => void;
-    pickerData: string[];
+    onValueChange: (value: T) => void;
+    pickerData: T[];
     style?: StyleProp<ViewStyle>;
-    selectedValue?: any;
+    selectedValue?: T;
 }
 
-export class Picker extends React.Component<PickerProps> {}
+export class Picker<T> extends React.Component<PickerProps<T>> {}
 export class DatePicker extends React.PureComponent<DatePickerProps> {}

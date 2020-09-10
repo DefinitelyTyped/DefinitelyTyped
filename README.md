@@ -197,7 +197,7 @@ const result = twoslash("//")
 + const resultWithOptions = twoslash("//", {  })
 ```
 
-You can validate your changes with `npm test` from the root of this repo, which takes changed files into account.
+You can validate your changes with `npm test package-name` from the root of this repo, which takes changed files into account.
 
 #### Create a new package
 

@@ -26,11 +26,11 @@ interface SessionProvider extends GenericObject {
 
 interface ContextProviderProps {
     session: Session;
-    options?: SetOptionsParams;
+    options?: ContextProviderOptions;
 }
 
-interface SetOptionsParams {
-    baseUrl?: string;
+interface ContextProviderOptions {
+    site?: string;
     basePath?: string;
     clientMaxAge?: number;
     keepAlive?: number;

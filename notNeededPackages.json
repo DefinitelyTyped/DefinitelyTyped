@@ -1999,6 +1999,12 @@
             "asOfVersion": "4.0.1"
         },
         {
+            "libraryName": "imagemin-pngquant",
+            "typingsPackageName": "imagemin-pngquant",
+            "sourceRepoURL": "https://github.com/imagemin/imagemin-pngquant.git",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "immutability-helper",
             "typingsPackageName": "immutability-helper",
             "sourceRepoURL": "https://github.com/kolodny/immutability-helper",
@@ -4199,6 +4205,12 @@
             "typingsPackageName": "react-easy-crop",
             "sourceRepoURL": "https://github.com/ricardo-ch/react-easy-crop",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "react-filepond",
+            "typingsPackageName": "react-filepond",
+            "sourceRepoURL": "https://github.com/pqina/react-filepond",
+            "asOfVersion": "7.1.0"
         },
         {
             "libraryName": "react-flip-move",
