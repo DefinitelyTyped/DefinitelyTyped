@@ -61,6 +61,7 @@ declare namespace createRouter {
     interface Router {
         routes: Spec[];
         route(spec: Spec|Spec[]): Router;
+        router: KoaRouter;
         middleware(): Koa.Middleware;
 
         prefix: KoaRouter['prefix'];
