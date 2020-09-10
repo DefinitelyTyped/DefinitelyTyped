@@ -24,13 +24,13 @@ interface SessionProvider extends GenericObject {
     callbackUrl: string;
 }
 
-interface ContextProviderProps {
+interface SetOptionsParams {
     session: Session;
     options?: ContextProviderOptions;
 }
 
-interface ContextProviderOptions {
-    site?: string;
+interface SetOptionsParams {
+    baseUrl?: string;
     basePath?: string;
     clientMaxAge?: number;
     keepAlive?: number;
