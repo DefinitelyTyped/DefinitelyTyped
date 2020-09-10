@@ -4,15 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-/// <reference types="node"/>
-
-import { Middleware } from 'koa';
+import { Middleware as BaseMiddleware } from 'koa';
 import { DestinationStream, LoggerOptions, Logger, Level } from 'pino';
 import { Options } from 'pino-http';
 import * as stream from 'stream';
 import * as http from 'http';
 
 export = logger;
+
+interface Middleware extends BaseMiddleware {
+    logger: Logger;
+}
 
 declare function logger(
     opts?: Options,
