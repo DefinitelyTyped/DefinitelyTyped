@@ -1,5 +1,5 @@
 import { ConnectionOptions, EntitySchema } from 'typeorm';
-import { AppOptions } from 'next-auth';
+import { AppOptions } from '.';
 import { SessionProvider } from './client';
 
 // NOTE: There are a lot of `any`. That's because there could be any schema for each entity

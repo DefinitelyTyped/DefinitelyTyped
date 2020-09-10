@@ -9,11 +9,26 @@ import Providers from 'next-auth/providers';
 import Adapters from 'next-auth/adapters';
 import * as client from 'next-auth/client';
 import * as JWT from 'next-auth/jwt';
-import { GenericObject } from 'next-auth/_utils';
+import NextAuth, * as NextAuthTypes from 'next-auth';
+import { GenericObject, NextApiRequest, NextApiResponse } from 'next-auth/_utils';
+import { IncomingMessage, ServerResponse } from 'http';
+import { Socket } from 'net';
 
 // --------------------------------------------------------------------------
 // Server
 // --------------------------------------------------------------------------
+
+const req: NextApiRequest = Object.assign(new IncomingMessage(new Socket()), {
+    query: {},
+    cookies: {},
+    body: {},
+});
+
+const res: NextApiResponse = Object.assign(new ServerResponse(req), {
+    send: () => undefined,
+    json: () => undefined,
+    status: (code: number) => res,
+});
 
 const pageOptions = {
     signin: 'path/to/signin',
@@ -61,7 +76,7 @@ const allConfig = {
     callbacks: {
         signIgn: (user: GenericObject, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
-        session: (session: client.Session, user: GenericObject) => Promise.resolve<any>(user),
+        session: (session: NextAuthTypes.Session, user: GenericObject) => Promise.resolve<any>(user),
         jwt: (
             token: GenericObject,
             user: GenericObject,
@@ -90,17 +105,29 @@ const allConfig = {
             return undefined;
         },
     },
-    adapter: () => {
-        async function getAdapter() {
+    adapter: {
+        getAdapter: (appOptions: NextAuthTypes.AppOptions) => {
             return Promise.resolve({
-                getSession: async function getSession() {
-                    return null;
-                },
+                createUser: (profile: any) => Promise.resolve({}),
+                getUser: (id: string) => Promise.resolve({}),
+                getUserByEmail: (email: string) => Promise.resolve({}),
+                getUserByProviderAccountId: (providerId: string, providerAccountId: string) => Promise.resolve({}),
+                updateUser: (profile: any) => Promise.resolve({}),
+                linkAccount: (
+                    userId: string,
+                    providerId: string,
+                    providerType: string,
+                    providerAccountId: string,
+                    refreshToken: string,
+                    accessToken: string,
+                    accessTokenExpires: number,
+                ) => Promise.resolve(),
+                createSession: (user: any) => Promise.resolve({}),
+                getSession: (sessionToken: string) => Promise.resolve({}),
+                updateSession: (session: any) => Promise.resolve(),
+                deleteSession: (sessionToken: string) => Promise.resolve(),
             });
-        }
-        return {
-            getAdapter,
-        };
+        },
     },
     useSecureCookies: true,
     cookies: {
@@ -108,7 +135,7 @@ const allConfig = {
             name: `__Secure-next-auth.session-token`,
             options: {
                 httpOnly: true,
-                sameSite: 'foo',
+                sameSite: true as true,
                 path: '/',
                 secure: true,
             },
@@ -116,11 +143,11 @@ const allConfig = {
     },
 };
 
-// TODO: Test including `req`
+// $ExpectType Promise<void>
+NextAuth(req, res, simpleConfig);
 
-// NextAuth(req, res, simpleConfig);
-
-// NextAuth(req, res, allConfig);
+// $ExpectType Promise<void>
+NextAuth(req, res, allConfig);
 
 // --------------------------------------------------------------------------
 // Client
@@ -162,16 +189,14 @@ const session = {
     expires: '1234',
 };
 
-// TODO: Test including `req`
-
 // $ExpectType [Session, boolean]
 client.useSession();
 
 // $ExpectType Promise<Session | null>
-client.getSession();
+client.getSession({ req });
 
 // $ExpectType Promise<Session | null>
-client.session();
+client.session({ req });
 
 // $ExpectType Promise<GetProvidersResponse | null>
 client.getProviders();
@@ -180,10 +205,10 @@ client.getProviders();
 client.providers();
 
 // $ExpectType Promise<string | null>
-client.getCsrfToken();
+client.getCsrfToken({ req });
 
 // $ExpectType Promise<string | null>
-client.csrfToken();
+client.csrfToken({ req });
 
 // $ExpectType Promise<void>
 client.signin('github', { data: 'foo' });
@@ -434,14 +459,14 @@ JWT.decode({
     secret: 'secret',
 });
 
-// TODO: Test including `req`
+// $ExpectType Promise<string>
+JWT.getToken({
+    req,
+    raw: true,
+});
 
-// JWT.getToken({
-//     req,
-//     raw: true,
-// });
-
-// JWT.getToken({
-//     req,
-//     secret: 'secret',
-// });
+// $ExpectType Promise<object>
+JWT.getToken({
+    req,
+    secret: 'secret',
+});
