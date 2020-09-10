@@ -24,7 +24,7 @@ interface SessionProvider extends GenericObject {
     callbackUrl: string;
 }
 
-interface SetOptionsParams {
+interface ContextProviderProps {
     session: Session;
     options?: SetOptionsParams;
 }
