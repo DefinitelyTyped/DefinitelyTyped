@@ -1,6 +1,7 @@
-// Type definitions for koa-pino-logger 2.1
+// Type definitions for koa-pino-logger 3.0
 // Project: https://github.com/pinojs/koa-pino-logger, https://github.com/davidmarkclements/koa-pino-logger
 // Definitions by: Cameron Yan <https://github.com/khell>
+//                 Jeremy Hull <https://github.com/sourrust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
