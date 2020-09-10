@@ -1,7 +1,18 @@
 import jose from 'jose';
 import { NextApiRequest } from './_utils';
 
-interface DecodeArgs {
+export interface JWTEncodeParams {
+    token?: object;
+    maxAge?: number;
+    secret: string | Buffer;
+    signingKey?: string;
+    signingOptions?: jose.JWT.SignOptions;
+    encryptionKey?: string;
+    encryptionOptions?: object;
+    encryption?: boolean;
+}
+
+export interface JWTDecodeParams {
     maxAge?: number;
     secret: string | Buffer;
     signingKey?: string;
@@ -13,21 +24,8 @@ interface DecodeArgs {
     encryption?: boolean;
 }
 
-declare function encode(args?: {
-    token?: object;
-    maxAge?: number;
-    secret: string | Buffer;
-    signingKey?: string;
-    signingOptions?: jose.JWT.SignOptions;
-    encryptionKey?: string;
-    encryptionOptions?: object;
-    encryption?: boolean;
-}): Promise<string>;
-declare function decode(
-    args?: DecodeArgs & {
-        token: string;
-    },
-): Promise<object>;
+declare function encode(args?: JWTEncodeParams): Promise<string>;
+declare function decode(args?: JWTDecodeParams & { token: string }): Promise<object>;
 
 declare function getToken(
     args?: {
@@ -35,7 +33,7 @@ declare function getToken(
         secureCookie?: boolean;
         cookieName?: string;
         raw?: string;
-    } & DecodeArgs,
+    } & JWTDecodeParams,
 ): Promise<object>;
 declare function getToken(args?: {
     req: NextApiRequest;

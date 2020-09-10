@@ -11,6 +11,7 @@ import { ConnectionOptions } from 'typeorm';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
 import { GenericObject, NextApiRequest, NextApiResponse } from './_utils';
+import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
 export interface InitOptions {
     providers: Array<ReturnType<PossibleProviders>>;
@@ -73,42 +74,6 @@ interface JWTOptions {
     maxAge?: number;
     encode?(options: JWTEncodeParams): Promise<string>;
     decode?(options: JWTDecodeParams): Promise<string>;
-}
-
-interface JWTSignInOptions {
-    expiresIn: string;
-}
-
-interface JWTVerificationOptions {
-    maxTokenAge: string;
-    algorithms: string[];
-}
-
-interface JWTDecryptionOptions {
-    algorithms: string[];
-}
-
-interface JWTDecodeParams {
-    secret: string;
-    token: GenericObject;
-    maxAge?: number;
-    signingKey?: string;
-    verificationKey?: string;
-    verificationOptions?: JWTVerificationOptions;
-    decryptionKey?: string;
-    decryptionOptions?: JWTDecryptionOptions;
-    encryption?: boolean;
-}
-
-interface JWTEncodeParams {
-    secret: string;
-    token: GenericObject;
-    signingKey?: string;
-    encryptionKey?: string;
-    signingOptions?: JWTSignInOptions;
-    encryptionOptions?: GenericObject;
-    encryption?: boolean;
-    maxAge?: number;
 }
 
 // TODO: Improve callback typings
