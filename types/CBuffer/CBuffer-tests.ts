@@ -1,6 +1,6 @@
 import CBuffer = require('CBuffer');
 
-const cbuffer_limit = new CBuffer<object>(4);
+const cbuffer_limit = new CBuffer<object>(2);
 cbuffer_limit.data; // $ExpectType ReadonlyArray<object>
 cbuffer_limit.start; // $ExpectType number
 cbuffer_limit.end; // $ExpectType number
