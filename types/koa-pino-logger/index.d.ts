@@ -5,10 +5,8 @@
 // TypeScript Version: 2.7
 
 import { Middleware as BaseMiddleware } from 'koa';
-import { DestinationStream, LoggerOptions, Logger, Level } from 'pino';
+import { DestinationStream, Logger } from 'pino';
 import { Options } from 'pino-http';
-import * as stream from 'stream';
-import * as http from 'http';
 
 export = logger;
 
