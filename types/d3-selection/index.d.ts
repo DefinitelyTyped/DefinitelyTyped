@@ -83,7 +83,12 @@ export interface CustomEventParameters {
 /**
  * Callback type for selections and transitions
  */
-export type ValueFn<T extends BaseType, Datum, Result> = (this: T, event: any, datum: Datum) => Result;
+export type ValueFn<T extends BaseType, Datum, Result> = (this: T, datum: Datum, index: number, groups: T[] | ArrayLike<T>) => Result;
+
+/**
+ * Callback type for event handlers.
+ */
+export type EventFn<T extends BaseType, Datum, Result, Event> = (this: T, event: Event, datum: Datum) => Result;
 
 /**
  * TransitionLike is a helper interface to represent a quasi-Transition, without specifying the full Transition  interface in this file.
@@ -98,7 +103,7 @@ export type ValueFn<T extends BaseType, Datum, Result> = (this: T, event: any, d
 export interface TransitionLike<GElement extends BaseType, Datum> {
     selection(): Selection<GElement, Datum, any, any>;
     on(type: string, listener: null): TransitionLike<GElement, Datum>;
-    on(type: string, listener: ValueFn<GElement, Datum, void>): TransitionLike<GElement, Datum>;
+    on(type: string, listener: EventFn<GElement, Datum, void, any>): TransitionLike<GElement, Datum>;
     tween(name: string, tweenFn: null): TransitionLike<GElement, Datum>;
     tween(name: string, tweenFn: ValueFn<GElement, Datum, ((t: number) => void)>): TransitionLike<GElement, Datum>;
 }
@@ -848,7 +853,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * to receive events of the same type, such as click.foo and click.bar. To specify multiple typenames, separate typenames with spaces,
      * such as "input change"" or "click.foo click.bar".
      */
-    on(typenames: string): ValueFn<GElement, Datum, void> | undefined;
+    on(typenames: string): EventFn<GElement, Datum, void, any> | undefined;
     /**
      * Remove a listener for the specified event type names. To remove all listeners for a given name,
      * pass null as the listener and ".foo" as the typename, where foo is the name; to remove all listeners with no name, specify "." as the typename.
@@ -881,7 +886,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * To access the current event within a listener, use d3.event.
      * @param capture An optional capture flag which corresponds to the W3C useCapture flag.
      */
-    on(typenames: string, listener: ValueFn<GElement, Datum, void>, capture?: boolean): this;
+    on(typenames: string, listener: EventFn<GElement, Datum, void, any>, capture?: boolean): this;
 
     /**
      * Dispatches a custom event of the specified type to each selected element, in order.
@@ -891,13 +896,14 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * @param parameters An optional value map with custom event parameters
      */
     dispatch(type: string, parameters?: CustomEventParameters): this;
+
     /**
      * Dispatches a custom event of the specified type to each selected element, in order.
      * An optional value function returning a parameters map for each element in the selection may be specified to set additional properties of the event.
      *
      * @param type Name of event to dispatch
      * @param parameters A value function which is evaluated for each selected element, in order,
-     * being passed the current event (e), and current datum (d),
+     * being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element (nodes[i]). It must return the parameters map for the current element.
      */
     dispatch(type: string, parameters?: ValueFn<GElement, Datum, CustomEventParameters>): this;
@@ -1006,7 +1012,7 @@ export function customEvent<Context, Result>(event: BaseEvent, listener: (this: 
  * If the target is an HTML element, the event’s coordinates are translated relative to the top-left corner of the target’s bounding client rectangle.
  * (As such, the coordinate system can only be translated relative to the client coordinates. See also GeometryUtils.)
  * Otherwise, [event.pageX, event.pageY] is returned.
- * 
+ *
  * @param event Event for which to compute the relative coordinates.
  * @param target Container element relative to which coordinates are calculated.
  */
@@ -1017,7 +1023,7 @@ export function pointer(event: MouseEvent | TouchEvent | PointerEvent | { source
  * For touch events, the returned array of positions corresponds to the event.touches array; for other events, returns a single-element array.
  *
  * If target is not specified, it defaults to the source event’s currentTarget property, if any.
- * 
+ *
  * @param event Event for which to compute the relative coordinates.
  * @param target Container element relative to which coordinates are calculated.
  */
