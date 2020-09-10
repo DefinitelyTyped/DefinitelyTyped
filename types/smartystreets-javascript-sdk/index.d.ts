@@ -157,12 +157,11 @@ export namespace usStreet {
         constructor(responseData: any);
         inputIndex: any;
         candidateIndex: any;
-		addressee: string;
-		deliveryLine1: string;
-		deliveryLine2: string;
-		lastLine: string;
-		deliveryPointBarcode: string;
-
+        addressee: string;
+        deliveryLine1: string;
+        deliveryLine2: string;
+        lastLine: string;
+        deliveryPointBarcode: string;
         components: [Componenet];
         metadata: Metadata;
         analysis: Analysis;
