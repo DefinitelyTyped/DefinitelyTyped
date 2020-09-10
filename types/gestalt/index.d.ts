@@ -41,7 +41,7 @@ https://gestalt.netlify.app/AvatarPair
 */
 
 export interface AvatarPairProps {
-    collaborators: Array<{
+    collaborators: ReadonlyArray<{
         name: string;
         src?: string;
     }>;
@@ -1112,7 +1112,7 @@ https://gestalt.netlify.app/Typeahead
 export interface TypeaheadProps {
     id: string;
     noResultText: string;
-    options: Array<{
+    options: ReadonlyArray<{
         label: string;
         value: string;
     }>;
@@ -1156,13 +1156,13 @@ export interface VideoProps {
     playbackRate?: number;
     playing?: boolean;
     preload?: 'auto' | 'metadata' | 'none';
-    src: string | Array<{ type: 'video/m3u8' | 'video/mp4' | 'video/ogg'; src: string }>;
+    src: string | ReadonlyArray<{ type: 'video/m3u8' | 'video/mp4' | 'video/ogg'; src: string }>;
     volume?: number;
     children?: Node;
     controls?: boolean;
     crossOrigin?: 'anonymous' | 'use-credentials';
     loop?: boolean;
-    onDurationChange?: (arg0: { event: React.SyntheticEvent<HTMLVideoElement>; duration: number }) => void;
+    onDurationChange?: (args: { event: React.SyntheticEvent<HTMLVideoElement>; duration: number }) => void;
     onEnded?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
     onFullscreenChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { fullscreen: boolean }>;
     onLoadedChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { loaded: number }>;
