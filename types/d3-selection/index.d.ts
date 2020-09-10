@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-selection module 1.4
+// Type definitions for D3JS d3-selection module 2.0
 // Project: https://github.com/d3/d3-selection/, https://d3js.org/d3-selection
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.4.0
+// Last module patch version validated against: 2.0.0
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -83,7 +83,7 @@ export interface CustomEventParameters {
 /**
  * Callback type for selections and transitions
  */
-export type ValueFn<T extends BaseType, Datum, Result> = (this: T, datum: Datum, index: number, groups: T[] | ArrayLike<T>) => Result;
+export type ValueFn<T extends BaseType, Datum, Result> = (this: T, event: any, datum: Datum) => Result;
 
 /**
  * TransitionLike is a helper interface to represent a quasi-Transition, without specifying the full Transition  interface in this file.
@@ -875,8 +875,8 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * The type may be optionally followed by a period (.) and a name; the optional name allows multiple callbacks to be registered
      * to receive events of the same type, such as click.foo and click.bar. To specify multiple typenames, separate typenames with spaces,
      * such as "input change"" or "click.foo click.bar".
-     * @param listener A listener function which will be evaluated for each selected element, being passed the current datum (d), the current index (i),
-     * and the current group (nodes), with this as the current DOM element (nodes[i]). Listeners always see the latest datum for their element,
+     * @param listener A listener function which will be evaluated for each selected element, being passed the current event (e), and datum (d),
+     * with this as the current DOM element (nodes[i]). Listeners always see the latest datum for their element,
      * but the index is a property of the selection and is fixed when the listener is assigned; to update the index, re-assign the listener.
      * To access the current event within a listener, use d3.event.
      * @param capture An optional capture flag which corresponds to the W3C useCapture flag.
@@ -897,7 +897,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param type Name of event to dispatch
      * @param parameters A value function which is evaluated for each selected element, in order,
-     * being passed the current datum (d), the current index (i), and the current group (nodes),
+     * being passed the current event (e), and current datum (d),
      * with this as the current DOM element (nodes[i]). It must return the parameters map for the current element.
      */
     dispatch(type: string, parameters?: ValueFn<GElement, Datum, CustomEventParameters>): this;
@@ -975,19 +975,6 @@ export interface BaseEvent {
 }
 
 /**
- * The current event, if any. This is set during the invocation of an event listener, and is reset after the listener terminates.
- * Use this to access standard event fields such as event.timeStamp and methods such as event.preventDefault.
- * While you can use the native event.pageX and event.pageY, it is often more convenient to transform the event position to
- * the local coordinate system of the container that received the event using d3.mouse, d3.touch or d3.touches.
- *
- * If you use Babel, Webpack, or another ES6-to-ES5 bundler, be aware that the value of d3.event changes during an event!
- * An import of d3.event must be a live binding, so you may need to configure the bundler to import from D3’s ES6 modules
- * rather than from the generated UMD bundle; not all bundlers observe jsnext:main.
- * Also beware of conflicts with the window.event global.
- */
-export const event: any; // Could be of all sorts of types, too general: BaseEvent | Event | MouseEvent | TouchEvent | ... | OwnCustomEventType;
-
-/**
  * Invokes the specified listener, using the specified "that" as "this" context and passing the specified arguments, if any.
  * During the invocation, d3.event is set to the specified event; after the listener returns (or throws an error),
  * d3.event is restored to its previous value.
@@ -1007,74 +994,34 @@ export const event: any; // Could be of all sorts of types, too general: BaseEve
 export function customEvent<Context, Result>(event: BaseEvent, listener: (this: Context, ...args: any[]) => Result, that: Context, ...args: any[]): Result;
 
 // ---------------------------------------------------------------------------
-// mouse.js related
+// pointer.js related
 // ---------------------------------------------------------------------------
 
 /**
- * Get (x, y)-coordinates of the current event relative to the specified container element.
- * The container may be an HTML or SVG container element, such as a G element or an SVG element.
- * The coordinates are returned as a two-element array of numbers [x, y].
+ * Returns a two-element array of numbers [x, y] representing the coordinates of the specified event relative to the specified target.
+ * event can be a MouseEvent, a PointerEvent, a Touch, or a custom event holding a UIEvent as event.sourceEvent.
  *
- * @param container Container element relative to which coordinates are calculated.
+ * If target is not specified, it defaults to the source event’s currentTarget property, if available.
+ * If the target is an SVG element, the event’s coordinates are transformed using the inverse of the screen coordinate transformation matrix.
+ * If the target is an HTML element, the event’s coordinates are translated relative to the top-left corner of the target’s bounding client rectangle.
+ * (As such, the coordinate system can only be translated relative to the client coordinates. See also GeometryUtils.)
+ * Otherwise, [event.pageX, event.pageY] is returned.
+ * 
+ * @param event Event for which to compute the relative coordinates.
+ * @param target Container element relative to which coordinates are calculated.
  */
-export function mouse(container: ContainerElement): [number, number];
-
-// ---------------------------------------------------------------------------
-// touch.js and touches.js related
-// ---------------------------------------------------------------------------
-
-/**
- * Returns the x and y coordinates of the touch with the specified identifier associated
- * with the current event relative to the specified container.
- * The container may be an HTML or SVG container element, such as a G element or an SVG element.
- * The coordinates are returned as a two-element array of numbers [x, y] or null if there is no touch with
- * the specified identifier in touches, returns null; this can be useful for ignoring touchmove events
- * where the only some touches have moved.
- *
- * If touches is not specified, it defaults to the current event’s changedTouches property.
- *
- * @param container Container element relative to which coordinates are calculated.
- * @param identifier Touch Identifier associated with the current event.
- */
-export function touch(container: ContainerElement, identifier: number): [number, number] | null;
+export function pointer(event: MouseEvent | TouchEvent | PointerEvent | { sourceEvent: UIEvent }, target?: ContainerElement): [number, number];
 
 /**
- * Return the x and y coordinates of the touch with the specified identifier associated
- * with the current event relative to the specified container.
- * The container may be an HTML or SVG container element, such as a G element or an SVG element.
- * The coordinates are returned as a two-element array of numbers [x, y] or null if there is no touch with
- * the specified identifier in touches, returns null; this can be useful for ignoring touchmove events
- * where the only some touches have moved.
+ * Returns an array [[x0, y0], [x1, y1]…] of coordinates of the specified event’s pointer locations relative to the specified target.
+ * For touch events, the returned array of positions corresponds to the event.touches array; for other events, returns a single-element array.
  *
- * If touches is not specified, it defaults to the current event’s changedTouches property.
- *
- * @param container Container element relative to which coordinates are calculated.
- * @param touches TouchList to be used when identifying the touch.
- * @param identifier Touch Identifier associated with the current event.
+ * If target is not specified, it defaults to the source event’s currentTarget property, if any.
+ * 
+ * @param event Event for which to compute the relative coordinates.
+ * @param target Container element relative to which coordinates are calculated.
  */
-export function touch(container: ContainerElement, touches: TouchList, identifier: number): [number, number] | null;
-
-/**
- * Return the x and y coordinates of the touches associated with the current event relative to the specified container.
- * The container may be an HTML or SVG container element, such as a G element or an SVG element.
- * The coordinates are returned as an array of two-element arrays of numbers [[x1, y1], [x2, y2], …].
- *
- * If touches is not specified, it defaults to the current event’s touches property.
- *
- * @param container Container element relative to which coordinates are calculated.
- * @param touches TouchList to be used.
- */
-export function touches(container: ContainerElement, touches?: TouchList): Array<[number, number]>;
-
-/**
- * Returns the x and y coordinates of the specified event relative to the specified container.
- * (The event may also be a touch.) The container may be an HTML or SVG container element, such as a G element or an SVG element.
- * The coordinates are returned as a two-element array of numbers [x, y].
- *
- * @param container Container element relative to which coordinates are calculated.
- * @param event A User interface event (e.g. mouse event, touch or MSGestureEvent) with captured clientX and clientY properties.
- */
-export function clientPoint(container: ContainerElement, event: ClientPointEvent): [number, number];
+export function pointers(event: MouseEvent | TouchEvent | PointerEvent | { sourceEvent: UIEvent }, target?: ContainerElement): [number, number][];
 
 // ---------------------------------------------------------------------------
 // style
