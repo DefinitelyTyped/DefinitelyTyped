@@ -763,8 +763,10 @@ export function includes<T>(target: T): (list: readonly T[]) => boolean;
  * Given a function that generates a key, turns a list of objects into an object indexing the objects
  * by the given key.
  */
-export function indexBy<T, K extends string = string>(fn: (a: T) => K, list: readonly T[]): { [key in K]: T };
-export function indexBy<T, K extends string = string>(fn: (a: T) => K): (list: readonly T[]) => { [key in K]: T };
+export function indexBy<T, K extends string | number = string>(fn: (a: T) => K, list: readonly T[]): { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(fn: (a: T) => K, list: readonly T[]): { [key in NonNullable<K>]?: T };
+export function indexBy<T, K extends string | number = string>(fn: (a: T) => K): (list: readonly T[]) => { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(fn: (a: T) => K | undefined): (list: readonly T[]) => { [key in NonNullable<K>]?: T };
 
 /**
  * Returns the position of the first occurrence of an item in an array
