@@ -156,7 +156,7 @@ export namespace usStreet {
     class Candidate {
         constructor(responseData: any);
         inputIndex: any;
-		candidateIndex: any;
+        candidateIndex: any;
 		addressee: string;
 		deliveryLine1: string;
 		deliveryLine2: string;
