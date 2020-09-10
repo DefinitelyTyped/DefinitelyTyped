@@ -4,6 +4,7 @@
 //                 Dave Welsh <https://github.com/move-zig>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Tiger Oakes <https://github.com/NotWoods>
+//                 Jeremy Hull <https://github.com/sourrust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
