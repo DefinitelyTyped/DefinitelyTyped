@@ -7,7 +7,7 @@
 //                 Byron "Byrekt" Mitchell <https://github.com/byrekt>
 //                 Bohdan Yavorskyi <https://github.com/BohdanYavorskyi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// Minimum TypeScript Version: 3.5
 
 import * as React from 'react';
 
