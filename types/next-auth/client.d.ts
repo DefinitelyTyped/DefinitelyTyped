@@ -26,7 +26,7 @@ interface SessionProvider extends GenericObject {
 
 interface SetOptionsParams {
     session: Session;
-    options?: ContextProviderOptions;
+    options?: SetOptionsParams;
 }
 
 interface SetOptionsParams {
