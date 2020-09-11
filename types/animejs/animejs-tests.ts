@@ -48,6 +48,7 @@ tl.add({
 const path = anime.path('#motionPath path');
 
 test1.play();
+test1.tick(10);
 test2.reverse();
 test3.pause();
 tl.seek(4000);

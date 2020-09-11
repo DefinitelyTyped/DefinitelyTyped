@@ -930,6 +930,51 @@ export class PlayerManager {
     setPreferredTextLanguage(preferredTextLanguage: string): void;
 
     /**
+     * Set receiver supported media commands.
+     * Flags describing which media commands the media player supports:
+     * 1  Pause
+     * 2  Seek
+     * 4  Stream volume
+     * 8  Stream mute
+     * 16  Skip forward
+     * 32  Skip backward
+     * Combinations are described as summations; for example, Pause+Seek+StreamVolume+Mute == 15.
+     */
+    setSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
+     * Remove commands from receiver supported media commands.
+     * @param supportedMediaCommands A bitmask of media commands supported by the application.
+     * @param broadcastStatus Whether the senders should be notified about the change (if not provided, the senders will be notified).
+     */
+    removeSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
+     * Add commands to receiver supported media commands.
+     * @param supportedMediaCommands A bitmask of media commands supported by the application.
+     * @param broadcastStatus Whether the senders should be notified about the change (if not provided, the senders will be notified).
+     */
+    addSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
+     * Gets the current receiver supported media commands.
+     * Should only be called after calling receiver start, otherwise it returns 0.
+     * This reflects the current media status. E.g. during ads playback, SEEK might not be supported.
+     *
+     * @returns A bitmask of media commands supported by the application.
+     */
+    getCurrentSupportedMediaCommands(): number;
+
+    /**
+     * Gets receiver supported media commands. Should only be called after calling receiver start, otherwise it returns 0.
+     * This is the static supported media commands set by receiver application.
+     * It won't be updated based on current media status.
+     *
+     * @returns A bitmask of media commands supported by the application.
+     */
+    getSupportedMediaCommands(): number;
+
+    /**
      * Stops currently playing media.
      */
     stop(): void;

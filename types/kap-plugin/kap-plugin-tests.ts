@@ -25,7 +25,6 @@ const service: KapShareService<Config> = {
 
         context.config.get('accessToken');
 
-        // $ExpectError
         context.config.get('unknown');
 
         await context.request(`https://example.com/greet/${name}`);

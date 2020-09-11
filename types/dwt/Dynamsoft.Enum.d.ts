@@ -178,38 +178,65 @@ export namespace DynamsoftEnums {
         CM_DEFAULT = 0,
         CM_RENDERALL = 1
     }
-    /** -2400 to -2499 is webcam error code */
-    enum EnumDWT_ErrorCode {
-        /** All error from directshow sdk */
-        WCERR_SYSTEM = -2400,
-        /** Create ICreateDevEnum interface failed. */
-        WCERR_FAIL_ICREATEDEVENUM = -2401,
-        /** Create IEnumMoniker interface failed. */
-        WCERR_FAIL_IENUMMONIKER = -2402,
-        /** The camera doesn't support IAMVideoProcAmp interface. */
-        WCERR_NOT_IAMVIDEOPROPERTY = -2403,
-        /** The camera doesn't support IAMCameraControl interface. */
-        WCERR_NOT_IAMCAMERACONTROL = -2404,
-        /** The property doesn't support auto capability. */
-        WCERR_NOT_AUTOPROPERTY = -2405,
-        /** No webcam device is found. */
-        WCERR_NO_DEVICE = -2406,
-        /** Could not get video window interface */
-        WCERR_FAIL_VIDEOWINDOW = -2407,
-        /** Could not create filter graph. */
-        WCERR_FAIL_FILTERGRAPH = -2408,
-        /** Could not create SampleGrabber (isqedit.all registered?). */
-        WCERR_FAIL_SAMPLEGRABBER = -2409,
-        /** Unable to make NULL renderer */
-        WCERR_NULLRENDER = -2410,
-        /** Can't add the filter to graph */
-        WCERR_FAIL_ADDFILTER = -2411,
-        /** Can't build the graph */
-        WCERR_FAIL_BUILDGRAPH = -2412,
-        /** Failed to register filter graph with ROT. */
-        WCERR_FAIL_REGFILTERGRAPH = -2413,
-        /** Time out */
-        WCERR_GRAB_TIMEOUT = -2414
+    enum EnumErrorCode {
+        DBR_1D_LICENSE_INVALID = -10017,
+        DBR_AZTEC_LICENSE_INVALID = -10041,
+        DBR_BARCODE_FORMAT_INVALID = -10009,
+        DBR_BPP_NOT_SUPPORTED = -10007,
+        DBR_CUSTOM_MODULESIZE_INVALID = -10025,
+        DBR_CUSTOM_REGION_INVALID = -10010,
+        DBR_CUSTOM_SIZE_INVALID = -10024,
+        DBR_DATAMATRIX_LICENSE_INVALID = -10020,
+        DBR_DIB_BUFFER_INVALID = -10018,
+        DBR_DOMAIN_NOT_MATCHED = -10039,
+        DBR_DOTCODE_LICENSE_INVALID = -10061,
+        DBR_DPM_LICENSE_INVALID = -10048,
+        DBR_FILETYPE_NOT_SUPPORTED = -10006,
+        DBR_FILE_NOT_FOUND = -10005,
+        DBR_FRAME_DECODING_THREAD_EXISTS = -10049,
+        DBR_GET_MODE_ARGUMENT_ERROR = -10055,
+        DBR_GS1_COMPOSITE_LICENSE_INVALID = -10059,
+        DBR_GS1_DATABAR_LICENSE_INVALID = -10058,
+        DBR_IMAGE_READ_FAILED = -10012,
+        DBR_INDEX_INVALID = -10008,
+        DBR_IRT_LICENSE_INVALID = -10056,
+        DBR_JSON_KEY_INVALID = -10032,
+        DBR_JSON_NAME_KEY_MISSING = -10034,
+        DBR_JSON_NAME_REFERENCE_INVALID = -10037,
+        DBR_JSON_NAME_VALUE_DUPLICATED = -10035,
+        DBR_JSON_PARSE_FAILED = -10030,
+        DBR_JSON_TYPE_INVALID = -10031,
+        DBR_JSON_VALUE_INVALID = -10033,
+        DBR_LICENSEKEY_NOT_MATCHED = -10043,
+        DBR_LICENSE_CONTENT_INVALID = -10052,
+        DBR_LICENSE_DEVICE_RUNS_OUT = -10054,
+        DBR_LICENSE_DLL_MISSING = -10042,
+        DBR_LICENSE_EXPIRED = -10004,
+        DBR_LICENSE_INIT_FAILED = -10045,
+        DBR_LICENSE_INVALID = -10003,
+        DBR_LICENSE_KEY_INVALID = -10053,
+        DBR_MAXICODE_LICENSE_INVALID = -10057,
+        DBR_MAX_BARCODE_NUMBER_INVALID = -10011,
+        DBR_NO_MEMORY = -10001,
+        DBR_NULL_REFERENCE = -10002,
+        DBR_PAGE_NUMBER_INVALID = -10023,
+        DBR_PARAMETER_VALUE_INVALID = -10038,
+        DBR_PATCHCODE_LICENSE_INVALID = -10046,
+        DBR_PDF417_LICENSE_INVALID = -10019,
+        DBR_PDF_DLL_MISSING = -10022,
+        DBR_PDF_READ_FAILED = -10021,
+        DBR_POSTALCODE_LICENSE_INVALID = -10047,
+        DBR_QR_LICENSE_INVALID = -10016,
+        DBR_RECOGNITION_TIMEOUT = -10026,
+        DBR_REQUESTED_FAILED = -10044,
+        DBR_RESERVEDINFO_NOT_MATCHED = -10040,
+        DBR_SET_MODE_ARGUMENT_ERROR = -10051,
+        DBR_STOP_DECODING_THREAD_FAILED = -10050,
+        DBR_SUCCESS = 0,
+        DBR_SYSTEM_EXCEPTION = 1,
+        DBR_TEMPLATE_NAME_INVALID = -10036,
+        DBR_TIFF_READ_FAILED = -10013,
+        DBR_UNKNOWN = -10000
     }
     /** Specifies the video rotate mode on a video capture device. */
     enum EnumDWT_VideoRotateMode {
@@ -283,7 +310,7 @@ export namespace DynamsoftEnums {
         CCP_ZOOM = 3,
         /**
          * Specifies the exposure setting, in log base 2 seconds. In other words, for values less than zero, the exposure time is 1/2^n seconds,
-         * and for values zero or above, the exposure time is 2^n seconds. For example:
+         * and for values zero or above, the exposure time is 2^n seconds. For example=
          * Value    Seconds
          * -3    1/8
          * -2    1/4
@@ -319,7 +346,7 @@ export namespace DynamsoftEnums {
         /**
          * Allows the application and Source to identify which compression schemes they have in
          * common for Buffered Memory and File transfers.
-         * Note for File transfers:
+         * Note for File transfers=
          * Since only certain file formats support compression, this capability must be negotiated after
          * setting the desired file format with ICAP_IMAGEFILEFORMAT.
          */
@@ -347,7 +374,7 @@ export namespace DynamsoftEnums {
         CAP_FEEDERLOADED = 4099,
         /**
          * The date and time the image was acquired.
-         * Stored in the form "YYYY/MM/DD HH:mm:SS.sss" where YYYY is the year, MM is the
+         * Stored in the form "YYYY/MM/DD HH=mm=SS.sss" where YYYY is the year, MM is the
          * numerical month, DD is the numerical day, HH is the hour, mm is the minute, SS is the second,
          * and sss is the millisecond.
          */
@@ -483,7 +510,7 @@ export namespace DynamsoftEnums {
         CAP_MAXBATCHBUFFERS = 4126,
         /**
          * The date and time of the device's clock.
-         * Managed in the form "YYYY/MM/DD HH:mm:SS:sss" where YYYY is the year, MM is the
+         * Managed in the form "YYYY/MM/DD HH=mm=SS=sss" where YYYY is the year, MM is the
          * numerical month, DD is the numerical day, HH is the hour, mm is the minute, SS is the second,
          * and sss is the millisecond.
          */
@@ -510,7 +537,7 @@ export namespace DynamsoftEnums {
         CAP_PRINTERINDEX = 4136,
         /**
          * Specifies the appropriate current CAP_PRINTER device mode.
-         * Note:
+         * Note=
          * O TWPM_SINGLESTRING specifies that the printed text will consist of a single string.
          * O TWPM _MULTISTRING specifies that the printed text will consist of an enumerated list of
          * strings to be printed in order.
@@ -534,14 +561,14 @@ export namespace DynamsoftEnums {
         /**
          * Helps the Application determine any special actions it may need to take when negotiating
          * frames with the Source. Allowed values are listed in <see cref="TWCapFeederAlignment"/>.
-         * TWFA_NONE: The alignment is free-floating. Applications should assume
+         * TWFA_NONE= The alignment is free-floating. Applications should assume
          * that the origin for frames is on the left.
-         * TWFA_LEFT: The alignment is to the left.
-         * TWFA_CENTER: The alignment is centered. This means that the paper will
+         * TWFA_LEFT= The alignment is to the left.
+         * TWFA_CENTER= The alignment is centered. This means that the paper will
          * be fed in the middle of the ICAP_PHYSICALWIDTH of the
          * device. If this is set, then the Application should calculate
          * any frames with a left offset of zero.
-         * TWFA_RIGHT: The alignment is to the right.
+         * TWFA_RIGHT= The alignment is to the right.
          */
         CAP_FEEDERALIGNMENT = 4141,
         /**
@@ -716,7 +743,7 @@ export namespace DynamsoftEnums {
         ICAP_SUPPORTEDSIZES = 4386,
         /**
          * Specifies the dividing line between black and white. This is the value the Source will use to
-         * threshold, if needed, when ICAP_PIXELTYPE:TWPT_BW.
+         * threshold, if needed, when ICAP_PIXELTYPE=TWPT_BW.
          * The value is normalized so there are no units of measure associated with this ICAP.
          */
         ICAP_THRESHOLD = 4387,
@@ -746,19 +773,19 @@ export namespace DynamsoftEnums {
         ICAP_TIMEFILL = 4394,
         /**
          * Specifies the pixel bit depths for the Current value of ICAP_PIXELTYPE. For example, when
-         * using ICAP_PIXELTYPE:TWPT_GRAY, this capability specifies whether this is 8-bit gray or 4-bit gray.
+         * using ICAP_PIXELTYPE=TWPT_GRAY, this capability specifies whether this is 8-bit gray or 4-bit gray.
          * This depth applies to all the data channels (for instance, the R, G, and B channels will all have
          * this same bit depth for RGB data).
          */
         ICAP_BITDEPTH = 4395,
         /**
          * Specifies the Reduction Method the Source should use to reduce the bit depth of the data. Most
-         * commonly used with ICAP_PIXELTYPE:TWPT_BW to reduce gray data to black and white.
+         * commonly used with ICAP_PIXELTYPE=TWPT_BW to reduce gray data to black and white.
          */
         ICAP_BITDEPTHREDUCTION = 4396,
         /**
          * If TRUE the Source will issue a MSG_XFERREADY before starting the scan.
-         * Note: The Source may need to scan the image before initiating the transfer.
+         * Note= The Source may need to scan the image before initiating the transfer.
          * This is the case if the scanned image is rotated or merged with another scanned image.
          */
         ICAP_UNDEFINEDIMAGESIZE = 4397,
@@ -1406,7 +1433,9 @@ export namespace DynamsoftEnums {
         ICA = 3,
         SANE = 3,
         TWAIN = 0,
-        TWAIN_AND_ICA = 4
+        TWAIN_AND_ICA = 4,
+        TWAIN_AND_TWAIN64 = 4,
+        TWAIN64 = 5
     }
     /** ICAP_IMAGEFILEFORMAT values. */
     enum EnumDWT_FileFormat {
@@ -1430,7 +1459,7 @@ export namespace DynamsoftEnums {
         TWFF_SPIFF = 8,
         /** File format for use with digital cameras. */
         TWFF_EXIF = 9,
-        /** A file format from Adobe. 1.91 NB: this is not PDF/A  */
+        /** A file format from Adobe. 1.91 NB= this is not PDF/A  */
         TWFF_PDF = 10,
         /** A file format from the Joint Photographic Experts Group. 1.91 */
         TWFF_JP2 = 11,
@@ -1626,5 +1655,195 @@ export namespace DynamsoftEnums {
     enum EnumDWT_UploadDataFormat {
         Binary = 0,
         Base64 = 1
+    }
+    enum Enum_ErrorMessage {
+        FILE_STREAM_ERROR = "File Stream Error= ",
+        PARAMETER_TYPE_ERROR = "Parameter Type not Supported= ",
+        TIMEOUT = "Timeout no Response= "
+    }
+    enum Enum_ImageType {
+        IT_ALL = 5,
+        IT_BMP = 0,
+        IT_DIB = -1,
+        IT_JPG = 1,
+        IT_PNG = 3,
+        IT_RGBA = -2,
+    }
+    enum Enum_ReturnType {
+        RT_AUTO = -1,
+        RT_BASE64 = 2,
+        RT_BINARY = 1,
+    }
+    enum EnumAccompanyingTextRecognitionMode {
+        ATRM_GENERAL = 1,
+        ATRM_SKIP = 0,
+    }
+    enum EnumBinarizationMode {
+        BM_AUTO = 1,
+        BM_LOCAL_BLOCK = 2,
+        BM_SKIP = 0
+    }
+    enum EnumClarityCalculationMethod {
+        ECCM_CONTRAST = 1,
+    }
+    enum EnumClarityFilterMode {
+        CFM_GENERAL = 1
+    }
+    enum EnumColourClusteringMode {
+        CCM_AUTO = 1,
+        CCM_GENERAL_HSV = 2,
+        CCM_SKIP = 0,
+    }
+    enum EnumColourConversionMode {
+        CICM_GENERAL = 1,
+        CICM_SKIP = 0,
+    }
+    enum EnumConflictMode {
+        CM_IGNORE = 1,
+        CM_OVERWRITE = 2,
+    }
+    enum EnumDeformationResistingMode {
+        DRM_AUTO = 1,
+        DRM_GENERAL = 2,
+        DRM_SKIP = 0,
+    }
+    enum EnumDPMCodeReadingMode {
+        DPMCRM_AUTO = 1,
+        DPMCRM_GENERAL = 2,
+        DPMCRM_SKIP = 0
+    }
+    enum EnumGrayscaleTransformationMode {
+        GTM_INVERTED = 1,
+        GTM_ORIGINAL = 2,
+        GTM_SKIP = 0
+    }
+    enum EnumImagePixelFormat {
+        IPF_ABGR_8888 = 10,
+        IPF_ABGR_16161616 = 11,
+        IPF_ARGB_8888 = 7,
+        IPF_ARGB_16161616 = 9,
+        IPF_BGR_888 = 12,
+        IPF_Binary = 0,
+        IPF_BinaryInverted = 1,
+        IPF_GrayScaled = 2,
+        IPF_NV21 = 3,
+        IPF_RGB_555 = 5,
+        IPF_RGB_565 = 4,
+        IPF_RGB_888 = 6,
+        IPF_RGB_161616 = 8
+    }
+    enum EnumImagePreprocessingMode {
+        IPM_AUTO = 1,
+        IPM_GENERAL = 2,
+        IPM_GRAY_EQUALIZE = 4,
+        IPM_GRAY_SMOOTH = 8,
+        IPM_MORPHOLOGY = 32,
+        IPM_SHARPEN_SMOOTH = 16,
+        IPM_SKIP = 0
+    }
+    enum EnumIMResultDataType {
+        IMRDT_CONTOUR = 2,
+        IMRDT_IMAGE = 1,
+        IMRDT_LINESEGMENT = 4,
+        IMRDT_LOCALIZATIONRESULT = 8,
+        IMRDT_QUADRILATERAL = 32,
+        IMRDT_REGIONOFINTEREST = 16
+    }
+    enum EnumIntermediateResultSavingMode {
+        IRSM_BOTH = 4,
+        IRSM_FILESYSTEM = 2,
+        IRSM_MEMORY = 1
+    }
+    enum EnumIntermediateResultType {
+        IRT_BINARIZED_IMAGE = 64,
+        IRT_COLOUR_CLUSTERED_IMAGE = 2,
+        IRT_COLOUR_CONVERTED_GRAYSCALE_IMAGE = 4,
+        IRT_CONTOUR = 256,
+        IRT_FORM = 1024,
+        IRT_LINE_SEGMENT = 512,
+        IRT_NO_RESULT = 0,
+        IRT_ORIGINAL_IMAGE = 1,
+        IRT_PREDETECTED_QUADRILATERAL = 8192,
+        IRT_PREDETECTED_REGION = 16,
+        IRT_PREPROCESSED_IMAGE = 32,
+        IRT_SEGMENTATION_BLOCK = 2048,
+        IRT_TEXT_ZONE = 128,
+        IRT_TRANSFORMED_GRAYSCALE_IMAGE = 8,
+        IRT_TYPED_BARCODE_ZONE = 4096
+    }
+    enum EnumLocalizationMode {
+        LM_AUTO = 1,
+        LM_CONNECTED_BLOCKS = 2,
+        LM_LINES = 8,
+        LM_SCAN_DIRECTLY = 16,
+        LM_SKIP = 0,
+        LM_STATISTICS = 4,
+        LM_STATISTICS_MARKS = 32,
+        LM_STATISTICS_POSTAL_CODE = 64
+    }
+    enum EnumPDFReadingMode {
+        PDFRM_AUTO = 2,
+        PDFRM_RASTER = 1,
+        PDFRM_VECTOR = 4
+    }
+    enum EnumQRCodeErrorCorrectionLevel {
+        QRECL_ERROR_CORRECTION_H = 0,
+        QRECL_ERROR_CORRECTION_L = 1,
+        QRECL_ERROR_CORRECTION_M = 2,
+        QRECL_ERROR_CORRECTION_Q = 3
+    }
+    enum EnumRegionPredetectionMode {
+        RPM_AUTO = 1,
+        RPM_GENERAL = 2,
+        RPM_GENERAL_GRAY_CONTRAST = 8,
+        RPM_GENERAL_HSV_CONTRAST = 16,
+        RPM_GENERAL_RGB_CONTRAST = 4,
+        RPM_SKIP = 0
+    }
+    enum EnumResultCoordinateType {
+        RCT_PERCENTAGE = 2,
+        RCT_PIXEL = 1
+    }
+    enum EnumResultType {
+        RT_CANDIDATE_TEXT = 2,
+        RT_PARTIAL_TEXT = 3,
+        RT_RAW_TEXT = 1,
+        RT_STANDARD_TEXT = 0
+    }
+    enum EnumScaleUpMode {
+        SUM_AUTO = 1,
+        SUM_LINEAR_INTERPOLATION = 2,
+        SUM_NEAREST_NEIGHBOUR_INTERPOLATION = 4,
+        SUM_SKIP = 0
+    }
+    enum EnumTerminatePhase {
+        TP_BARCODE_LOCALIZED = 8,
+        TP_BARCODE_RECOGNIZED = 32,
+        TP_BARCODE_TYPE_DETERMINED = 16,
+        TP_IMAGE_BINARIZED = 4,
+        TP_IMAGE_PREPROCESSED = 2,
+        TP_REGION_PREDETECTED = 1
+    }
+    enum EnumTextAssistedCorrectionMode {
+        TACM_AUTO = 1,
+        TACM_SKIP = 0,
+        TACM_VERIFYING = 2,
+        TACM_VERIFYING_PATCHING = 4
+    }
+    enum EnumTextFilterMode {
+        TFM_AUTO = 1,
+        TFM_GENERAL_CONTOUR = 2,
+        TFM_SKIP = 0
+    }
+    enum EnumTextResultOrderMode {
+        TROM_CONFIDENCE = 1,
+        TROM_FORMAT = 4,
+        TROM_POSITION = 2,
+        TROM_SKIP = 0
+    }
+    enum EnumTextureDetectionMode {
+        TDM_AUTO = 1,
+        TDM_GENERAL_WIDTH_CONCENTRATION = 2,
+        TDM_SKIP = 0
     }
 }

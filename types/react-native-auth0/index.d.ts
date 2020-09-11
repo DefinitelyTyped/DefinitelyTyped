@@ -4,6 +4,7 @@
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Leo Farias <https://github.com/leoafarias>
 //                 Will Dady <https://github.com/willdady>
+//                 Bogdan Vitoc <https://github.com/bogidon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -188,8 +189,17 @@ export interface ClearSessionParams {
     federated: boolean;
 }
 
+export interface Credentials {
+    accessToken: string;
+    idToken: string;
+    refreshToken?: string;
+    expiresIn: number;
+    scope: string;
+    tokenType: string;
+}
+
 export class WebAuth {
-    authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<any>;
+    authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<Credentials>;
     clearSession(parameters?: ClearSessionParams): Promise<any>;
 }
 

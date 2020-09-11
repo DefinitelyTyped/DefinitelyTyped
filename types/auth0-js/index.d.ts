@@ -59,13 +59,13 @@ export class Authentication {
      * Makes a call to the `/ssodata` endpoint
      *
      */
-    getSSOData(callback?: Auth0Callback<any>): void;
+    getSSOData(callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
      *
      */
-    getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<any>): void;
+    getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/userinfo` endpoint and returns the user profile
@@ -969,6 +969,24 @@ export interface AuthorizeOptions {
     approvalPrompt?: string;
     appState?: any;
     connection_scope?: string | string[];
+}
+
+export type SsoDataResult = SsoSessionFoundResult | SsoSessionNotFoundResult;
+
+export interface SsoSessionFoundResult {
+    lastUsedClientID: string;
+    lastUsedConnection: {
+        name: string;
+        strategy?: string;
+    };
+    lastUsedUserID: string;
+    lastUsedUsername: string;
+    sessionClients: string[];
+    sso: true;
+}
+
+export interface SsoSessionNotFoundResult {
+    sso: false;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

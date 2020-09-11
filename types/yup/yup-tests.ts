@@ -354,6 +354,9 @@ function strSchemaTests(strSchema: yup.StringSchema) {
     strSchema.url('bad url');
     strSchema.url(() => 'bad url');
     strSchema.url(({ regex }) => `Does not match ${regex}`);
+    strSchema.uuid();
+    strSchema.uuid('invalid uuid');
+    strSchema.uuid(() => 'invalid uuid');
     strSchema.ensure();
     strSchema.trim();
     strSchema.trim('trimmed');
@@ -631,6 +634,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
         matches: '${path} must match the following: "${regex}"',
         email: '${path} must be a valid email',
         url: '${path} must be a valid URL',
+        uuid: '${path} must be a valid UUID',
         trim: '${path} must be a trimmed string',
         lowercase: '${path} must be a lowercase string',
         uppercase: '${path} must be a upper case string',
@@ -795,6 +799,19 @@ enum Gender {
 const personSchema = yup.object({
     firstName: yup.string().defined(), // $ExpectType StringSchema<string>
     gender: yup.mixed<Gender>().defined().oneOf([Gender.Male, Gender.Female]),
+    // handle nested optional property
+    address: yup.object({
+        line1: yup.string().required(),
+        line2: yup.string().optional(),
+        area: yup.object({
+            country: yup.string().required(),
+            region: yup.string().optional()
+        }).required(),
+    }).required(),
+    addressBook: yup.object({
+        phoneNumbers: yup.array(yup.string()).defined(),
+        lastUpdated: yup.date().optional()
+    }).required(),
     email: yup
         .string()
         .nullable()
@@ -850,6 +867,13 @@ const minimalPerson: Person = {
     gender: Gender.Female,
     canBeNull: null,
     mustBeAString: '',
+    address: {
+        line1: '123 Fake Street',
+        area: { country: 'Australia' }
+    },
+    addressBook: {
+        phoneNumbers: ['123-456-789']
+    }
 };
 
 const person: Person = {
@@ -861,6 +885,14 @@ const person: Person = {
     isAlive: null,
     mustBeAString: '',
     children: null,
+    address: {
+        line1: 'Unit 1',
+        line2: '456 Fake Street',
+        area: { country: 'America', region: 'WA' }
+    },
+    addressBook: {
+        phoneNumbers: []
+    }
 };
 
 person.email = 'some@email.com';
@@ -872,6 +904,14 @@ person.children = ['1', '2', '3'];
 person.children = undefined;
 person.friends = new Set(["Amy", "Beth"]);
 
+// $ExpectError
+person.address = {};
+// $ExpectError
+person.address = { area: {}, line1: '' };
+// $ExpectError
+person.addressBook = {};
+// $ExpectError
+person.addressBook = { phoneNumbers: null };
 // $ExpectError
 person.gender = 1;
 // $ExpectError
@@ -993,3 +1033,60 @@ yup.addMethod(
     },
 );
 yup.string().chineseMobilePhoneNumber('please input a Chinese mobile phone number');
+
+yup.object({
+    name: yup.string().nullable().test('', '', (value) => {
+        // $ExpectType string | null | undefined
+        const v = value;
+        return true;
+    }),
+    colors: yup.string().required().oneOf(['blue', 'red']).test('', '', (value) => {
+        // $ExpectError
+        return value === 'yellow';
+    }),
+    age: yup.number().required().test('', '', (value) => {
+        if (typeof value === 'string') {
+            // $ExpectError
+            return value.toLowerCase();
+        }
+        return true;
+    }),
+    dateOfBirth: yup.date().required().test('', '', (value) => {
+        // $ExpectError
+        const x = Number.parseFloat(value);
+        return false;
+    }),
+    resident: yup.boolean().required().test('', '', (value) => {
+        // $ExpectError
+        return value === 'true';
+    }),
+    log: yup.object({
+        date: yup.date().required(),
+        place: yup.string().nullable(),
+    }).required().test('', '', (values) => {
+        // $ExpectError
+        const mstime =  values.date.getTime();
+        if (values !== null && values !== undefined) {
+            // $ExpectError
+            if (values.place === 1) {}
+            return mstime > 1000;
+        } else {
+            return false;
+        }
+    }),
+    items: yup.array().of(yup.object({
+        code: yup.number().required(),
+        price: yup.number().required(),
+        name: yup.string().required()
+    }).required()).required().test('', '', (values) => {
+        return Array.isArray(values) && values.some((value) => {
+            // $ExpectError
+            const test1 = value.code === '1';
+            // $ExpectError
+            const test2 = value.price === new Date();
+            // $ExpectError
+            const test3 = value.name * 1;
+            return false;
+        });
+    })
+});

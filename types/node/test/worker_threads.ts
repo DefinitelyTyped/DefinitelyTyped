@@ -76,4 +76,8 @@ import { Readable } from "stream";
     const wwww = new workerThreads.Worker(__filename, {
       env: { doot: 'woot' }
     });
+
+    const wwwww = new workerThreads.Worker(__filename, {
+      trackUnmanagedFds: true
+    });
 }

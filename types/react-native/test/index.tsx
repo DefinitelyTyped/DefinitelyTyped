@@ -14,96 +14,102 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+    AccessibilityInfo,
     Alert,
     AppState,
+    AppStateStatus,
+    Appearance,
     BackHandler,
     Button,
     CheckBox,
     ColorPropType,
+    ColorValue,
     DataSourceAssetCallback,
+    DatePickerAndroid,
+    DevSettings,
     DeviceEventEmitter,
     DeviceEventEmitterStatic,
-    NativeEventEmitter,
     Dimensions,
-    Image,
-    ImageStyle,
-    ImageResizeMode,
-    ImageLoadEventData,
-    ImageErrorEventData,
-    ImageResolvedAssetSource,
-    ImageBackground,
-    InteractionManager,
-    Linking,
-    ListView,
-    ListViewDataSource,
-    StyleSheet,
-    StyleProp,
-    Systrace,
-    Text,
-    TextStyle,
-    TextProps,
-    View,
-    ViewStyle,
-    ViewPagerAndroid,
+    DrawerLayoutAndroid,
+    DrawerSlideEvent,
+    DynamicColorIOS,
     FlatList,
     FlatListProps,
+    GestureResponderEvent,
+    HostComponent,
+    Image,
+    ImageBackground,
+    ImageErrorEventData,
+    ImageLoadEventData,
+    ImageResizeMode,
+    ImageResolvedAssetSource,
+    ImageStyle,
+    InputAccessoryView,
+    InteractionManager,
+    Keyboard,
+    KeyboardAvoidingView,
+    LayoutChangeEvent,
+    Linking,
+    ListRenderItemInfo,
+    ListView,
+    ListViewDataSource,
+    LogBox,
+    MaskedViewIOS,
+    Modal,
+    NativeEventEmitter,
+    NativeModules,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    PermissionsAndroid,
+    Picker,
+    Platform,
+    PlatformColor,
+    Pressable,
+    ProgressBarAndroid,
+    PushNotificationIOS,
+    RefreshControl,
+    RegisteredStyle,
     ScaledSize,
-    SectionList,
-    SectionListProps,
-    findNodeHandle,
     ScrollView,
     ScrollViewProps,
+    SectionList,
+    SectionListProps,
     SectionListRenderItemInfo,
     Share,
     ShareDismissedAction,
     ShareSharedAction,
-    Switch,
-    RefreshControl,
-    RegisteredStyle,
-    TabBarIOS,
-    NativeModules,
-    MaskedViewIOS,
-    TextInput,
-    TouchableNativeFeedback,
-    TextInputFocusEventData,
-    InputAccessoryView,
     StatusBar,
-    NativeSyntheticEvent,
-    NativeScrollEvent,
-    GestureResponderEvent,
-    TextInputScrollEventData,
-    TextInputSelectionChangeEventData,
-    TextInputKeyPressEventData,
+    StyleProp,
+    StyleSheet,
+    Switch,
+    Systrace,
+    TabBarIOS,
+    Text,
+    TextInput,
     TextInputChangeEventData,
     TextInputContentSizeChangeEventData,
     TextInputEndEditingEventData,
+    TextInputFocusEventData,
+    TextInputKeyPressEventData,
+    TextInputScrollEventData,
+    TextInputSelectionChangeEventData,
     TextInputSubmitEditingEventData,
-    KeyboardAvoidingView,
-    Modal,
+    TextLayoutEventData,
+    TextProps,
+    TextStyle,
     TimePickerAndroid,
-    DatePickerAndroid,
-    Picker,
+    TouchableNativeFeedback,
+    UIManager,
+    View,
+    ViewPagerAndroid,
     ViewPropTypes,
-    requireNativeComponent,
-    Keyboard,
-    PermissionsAndroid,
-    Platform,
-    PlatformColor,
-    DynamicColorIOS,
-    ProgressBarAndroid,
-    PushNotificationIOS,
-    AccessibilityInfo,
-    YellowBox,
-    useWindowDimensions,
-    HostComponent,
-    Appearance,
-    useColorScheme,
-    DevSettings,
-    Pressable,
+    ViewStyle,
     VirtualizedList,
-    ListRenderItemInfo,
-    LogBox,
-    ColorValue,
+    YellowBox,
+    findNodeHandle,
+    requireNativeComponent,
+    useColorScheme,
+    useWindowDimensions,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -307,10 +313,9 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
     };
 
     testNativeMethods() {
-        // this.setNativeProps({});
-
         const { rootView } = this.refs;
 
+        rootView.setNativeProps({});
         rootView.measure((x: number, y: number, width: number, height: number) => {});
     }
 
@@ -437,6 +442,12 @@ function appStateTest() {
     AppState.addEventListener('blur', appStateListener);
     AppState.addEventListener('focus', appStateListener);
 }
+
+let appState: AppStateStatus = 'active';
+appState = 'background';
+appState = 'inactive';
+appState = 'unknown';
+appState = 'extension';
 
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
@@ -588,6 +599,19 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
         console.log(event);
     };
 
+    scrollView: ScrollView | null = null;
+
+    testNativeMethods() {
+        if (this.scrollView) {
+            this.scrollView.setNativeProps({ scrollEnabled: false });
+
+            // Dummy values for scroll dimenions changes
+            this.scrollView.getScrollResponder().scrollResponderZoomTo({
+                x: 0, y: 0, width: 300, height: 500, animated: true
+            })
+        }
+    }
+
     render() {
         const scrollViewStyle1 = StyleSheet.create({
             scrollView: {
@@ -607,6 +631,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
 
                     return (
                         <ScrollView
+                            ref={ref => (this.scrollView = ref)}
                             horizontal={true}
                             nestedScrollEnabled={true}
                             invertStickyHeaders={true}
@@ -863,6 +888,48 @@ class TextInputTest extends React.Component<{}, { username: string }> {
     }
 }
 
+class TextTest extends React.Component {
+    handleOnLayout = (e: LayoutChangeEvent) => {
+        testNativeSyntheticEvent(e);
+
+        const x = e.nativeEvent.layout.x; // $ExpectType number
+        const y = e.nativeEvent.layout.y; // $ExpectType number
+        const width = e.nativeEvent.layout.width; // $ExpectType number
+        const height = e.nativeEvent.layout.height; // $ExpectType number
+    };
+
+    handleOnTextLayout = (e: NativeSyntheticEvent<TextLayoutEventData>) => {
+        testNativeSyntheticEvent(e);
+
+        e.nativeEvent.lines.forEach(line => {
+            const ascender = line.ascender; // $ExpectType number
+            const capHeight = line.capHeight; // $ExpectType number
+            const descender = line.descender; // $ExpectType number
+            const height = line.height; // $ExpectType number
+            const text = line.text; // $ExpectType string
+            const width = line.width; // $ExpectType number
+            const x = line.x; // $ExpectType number
+            const xHeight = line.xHeight; // $ExpectType number
+            const y = line.y; // $ExpectType number
+        });
+    };
+
+    render() {
+        return (
+            <Text
+                allowFontScaling={false}
+                ellipsizeMode="head"
+                lineBreakMode="clip"
+                numberOfLines={2}
+                onLayout={this.handleOnLayout}
+                onTextLayout={this.handleOnTextLayout}
+            >
+                Test text
+            </Text>
+        );
+    }
+}
+
 class StatusBarTest extends React.Component {
     render() {
         StatusBar.setBarStyle('dark-content', true);
@@ -890,9 +957,18 @@ export class ImageTest extends React.Component {
             });
 
         Image.getSize(uri, (width, height) => console.log(width, height));
-        Image.getSize(uri, (width, height) => console.log(width, height), (error) => console.error(error));
+        Image.getSize(
+            uri,
+            (width, height) => console.log(width, height),
+            error => console.error(error),
+        );
         Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height));
-        Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height), (error) => console.error(error));
+        Image.getSizeWithHeaders(
+            uri,
+            headers,
+            (width, height) => console.log(width, height),
+            error => console.error(error),
+        );
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -1062,6 +1138,10 @@ class BridgedComponentTest extends React.Component {
 
     nativeComponentRef: React.ElementRef<typeof NativeBridgedComponent> | null;
 
+    callNativeMethod = () => {
+        UIManager.dispatchViewManagerCommand(findNodeHandle(this.nativeComponentRef), 'someNativeMethod', []);
+    };
+
     measureNativeComponent() {
         if (this.nativeComponentRef) {
             this.nativeComponentRef.measure(
@@ -1163,9 +1243,11 @@ const PlatformTest = () => {
     }
 };
 
+Platform.select({ native: 1 }); // $ExpectType number | undefined
+Platform.select({ native: 1, web: 2, default: 0 }); // $ExpectType number
 Platform.select({ android: 1 }); // $ExpectType number | undefined
 Platform.select({ android: 1, ios: 2, default: 0 }); // $ExpectType number
-Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5 }); // $ExpectType number
+Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5 }); // $ExpectType number | undefined
 Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5, default: 0 }); // $ExpectType number
 
 PlatformColor('?attr/colorControlNormal');
@@ -1360,3 +1442,70 @@ const AccessibilityCustomActionsTest = () => {
         />
     );
 };
+
+// DrawerLayoutAndroidTest
+export class DrawerLayoutAndroidTest extends React.Component {
+    drawerRef = React.createRef<DrawerLayoutAndroid>();
+
+    readonly styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingTop: 50,
+            backgroundColor: '#ecf0f1',
+            padding: 8,
+        },
+        navigationContainer: {
+            flex: 1,
+            paddingTop: 50,
+            backgroundColor: '#fff',
+            padding: 8,
+        },
+    });
+
+    readonly navigationView = (
+        <View style={this.styles.navigationContainer}>
+            <Text style={{ margin: 10, fontSize: 15 }}>I'm in the Drawer!</Text>
+        </View>
+    );
+
+    handleDrawerClose = () => {
+        console.log('handleDrawerClose');
+    };
+
+    handleDrawerOpen = () => {
+        console.log('handleDrawerOpen');
+    };
+
+    handleDrawerSlide = (event: DrawerSlideEvent) => {
+        console.log('handleDrawerSlide', event);
+    };
+
+    handleDrawerStateChanged = (event: 'Idle' | 'Dragging' | 'Settling') => {
+        console.log('handleDrawerStateChanged', event);
+    };
+
+    render() {
+        return (
+            <DrawerLayoutAndroid
+                ref={this.drawerRef}
+                drawerBackgroundColor="rgba(0,0,0,0.5)"
+                drawerLockMode="locked-closed"
+                drawerPosition="right"
+                drawerWidth={300}
+                keyboardDismissMode="on-drag"
+                onDrawerClose={this.handleDrawerClose}
+                onDrawerOpen={this.handleDrawerOpen}
+                onDrawerSlide={this.handleDrawerSlide}
+                onDrawerStateChanged={this.handleDrawerStateChanged}
+                renderNavigationView={() => this.navigationView}
+                statusBarBackgroundColor="yellow"
+            >
+                <View style={this.styles.container}>
+                    <Text style={{ margin: 10, fontSize: 15 }}>DrawerLayoutAndroid example</Text>
+                </View>
+            </DrawerLayoutAndroid>
+        );
+    }
+}

@@ -47,7 +47,8 @@ class MyMap extends React.Component<{}, State> {
             minPitch: 0,
         },
     };
-    private map: MapboxGL.Map;
+    private mapboxMap: MapboxGL.Map;
+    private map: InteractiveMap;
 
     render() {
         return (
@@ -59,6 +60,12 @@ class MyMap extends React.Component<{}, State> {
                     ref={this.setRefInteractive}
                     onViewportChange={viewport => this.setState({ viewport })}
                     onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
+                    onClick={e => {
+                        const features = this.map.queryRenderedFeatures(e.point);
+                        if (features.length > 0) {
+                            console.log(features[0].source);
+                        }
+                    }}
                     onContextMenu={event => {
                         event.preventDefault();
                     }}
@@ -170,10 +177,11 @@ class MyMap extends React.Component<{}, State> {
     }
 
     private readonly setRefInteractive = (el: InteractiveMap) => {
-        this.map = el.getMap();
+        this.map = el;
+        this.mapboxMap = el.getMap();
     }
 
     private readonly setRefStatic = (el: StaticMap) => {
-        this.map = el.getMap();
+        this.mapboxMap = el.getMap();
     }
 }
