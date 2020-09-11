@@ -2,7 +2,6 @@
 // Project: https://mabelanger.github.io/react-html5-camera-photo/
 // Definitions by: Ryan Blackman <https://github.com/rblackman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
 
 import { FC } from "react";
 
