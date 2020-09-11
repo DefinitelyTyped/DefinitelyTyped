@@ -6,7 +6,7 @@ declare namespace Flex {
         /**
          * Sets align-items. Top and bottom are shorthand for flex-start and flex-end respectively.
          */
-        align?: CSSProperties['alignItems'];
+        align?: CSSProperties['alignItems'] | 'top' | 'bottom';
 
         /**
          * Determines the spacing in between children components. The `gap` value is a multiplier to the base value of `4`.
