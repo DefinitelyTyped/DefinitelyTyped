@@ -108,6 +108,12 @@ declare module 'perf_hooks' {
         readonly v8Start: number;
     }
 
+    interface EventLoopUtilization {
+        idle: number;
+        active: number;
+        utilization: number;
+    }
+
     interface Performance {
         /**
          * If name is not provided, removes all PerformanceFunction objects from the Performance Timeline.
@@ -199,6 +205,16 @@ declare module 'perf_hooks' {
          * @param fn
          */
         timerify<T extends (...optionalParams: any[]) => any>(fn: T): T;
+
+        /**
+         * eventLoopUtilization is similar to CPU utilization except that it is calculated using high precision wall-clock time.
+         * It represents the percentage of time the event loop has spent outside the event loop's event provider (e.g. epoll_wait).
+         * No other CPU idle time is taken into consideration.
+         *
+         * @param util1 The result of a previous call to eventLoopUtilization()
+         * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
+         */
+        eventLoopUtilization(util1?: EventLoopUtilization, util2?: EventLoopUtilization): EventLoopUtilization;
     }
 
     interface PerformanceObserverEntryList {

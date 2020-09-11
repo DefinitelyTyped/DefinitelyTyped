@@ -1,4 +1,4 @@
-import { performance, monitorEventLoopDelay, PerformanceObserverCallback, PerformanceObserver, PerformanceEntry, EntryType, constants } from 'perf_hooks';
+import { performance, monitorEventLoopDelay, PerformanceObserverCallback, PerformanceObserver, PerformanceEntry, EntryType, constants, EventLoopUtilization } from 'perf_hooks';
 
 performance.mark('start');
 (
@@ -47,3 +47,7 @@ const max: number = monitor.max;
 const mean: number = monitor.mean;
 const stddev: number = monitor.stddev;
 const exceeds: number = monitor.exceeds;
+
+const eventLoopUtilization1: EventLoopUtilization = performance.eventLoopUtilization();
+const eventLoopUtilization2: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization1);
+const eventLoopUtilization3: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization2, eventLoopUtilization1);
