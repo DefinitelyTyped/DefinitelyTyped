@@ -2,6 +2,7 @@
     "private": true,
     "dependencies": {
         "@wordpress/element": "^2.14.0",
+        "csstype": "^3.0.2",
         "re-resizable": "^4.7.1"
     }
 }
