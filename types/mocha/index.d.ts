@@ -2,7 +2,6 @@
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
-//                 jt000 <https://github.com/jt000>
 //                 Vadim Macagon <https://github.com/enlight>
 //                 Andrew Bradley <https://github.com/cspotcode>
 //                 Dmitrii Sorin <https://github.com/1999>
@@ -228,6 +227,13 @@ declare class Mocha {
      * @see https://mochajs.org/api/mocha#parallelMode
      */
     parallelMode(enabled?: boolean): this;
+
+    /**
+     * Assigns hooks to the root suite.
+     *
+     * @see https://mochajs.org/api/mocha#rootHooks
+     */
+    rootHooks(hooks: Mocha.RootHookObject): this;
 }
 
 declare namespace Mocha {
@@ -1350,7 +1356,7 @@ declare namespace Mocha {
         fullStackTrace?: boolean;
         forbidOnly?: boolean;
         forbidPending?: boolean;
-        ignoreLeaks?: boolean;
+        checkLeaks?: boolean;
         test?: Test;
         currentRunnable?: Runnable;
         stats?: Stats; // added by reporters
@@ -2102,6 +2108,37 @@ declare namespace Mocha {
     }
 
     /**
+     * An alternative way to define root hooks that works with parallel runs.
+     *
+     * Root hooks work with any interface, but the property names do not change.
+     * In other words, if you are using the tdd interface, suiteSetup maps to beforeAll, and setup maps to beforeEach.
+     *
+     * As with other hooks, `this` refers to to the current context object.
+     *
+     * @see https://mochajs.org/#root-hook-plugins
+     */
+    interface RootHookObject {
+      /**
+       * In serial mode, run after all tests end, once only.
+       * In parallel mode, run after all tests end, for each file.
+       */
+      afterAll?: Func | AsyncFunc | Func[] | AsyncFunc[];
+      /**
+       * In serial mode (Mocha's default), before all tests begin, once only.
+       * In parallel mode, run before all tests begin, for each file.
+       */
+      beforeAll?: Func | AsyncFunc | Func[] | AsyncFunc[];
+      /**
+       * In both modes, run after every test.
+       */
+      afterEach?: Func | AsyncFunc | Func[] | AsyncFunc[];
+      /**
+       * In both modes, run before each test.
+       */
+      beforeEach?: Func | AsyncFunc | Func[] | AsyncFunc[];
+    }
+
+    /**
      * Initialize a new `Test` with the given `title` and callback `fn`.
      *
      * @see https://mochajs.org/api/Test.html
@@ -2176,8 +2213,8 @@ declare namespace Mocha {
         /** milliseconds to wait before considering a test slow. */
         slow?: number;
 
-        /** ignore global leaks. */
-        ignoreLeaks?: boolean;
+        /** check for global variable leaks. */
+        checkLeaks?: boolean;
 
         /** display the full stack trace on failure. */
         fullStackTrace?: boolean;
@@ -2204,7 +2241,7 @@ declare namespace Mocha {
         jobs?: number;
 
         /** Assigns hooks to the root suite */
-        rootHooks?: any;
+        rootHooks?: RootHookObject;
 
         asyncOnly?: boolean;
         delay?: boolean;

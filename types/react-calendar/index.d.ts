@@ -16,6 +16,7 @@ export default function Calendar(props: CalendarProps): JSX.Element;
 
 export interface CalendarProps {
   activeStartDate?: Date;
+  allowPartialRange?: boolean;
   calendarType?: CalendarType;
   className?: string | string[];
   defaultActiveStartDate?: Date;

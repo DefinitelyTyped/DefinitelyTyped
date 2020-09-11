@@ -10,6 +10,7 @@ function handle(req: http.IncomingMessage, res: http.ServerResponse) {
     httpLogger(req, res);
     req.log.info('something else: %s', req.id);
     const err: Error | undefined = res.err;
+    res[pinoHttp.startTime] = Date.now();
 }
 
 pinoHttp({ logger });
@@ -30,4 +31,5 @@ pinoHttp({ customAttributeKeys: { responseTime: 'responseTime' } });
 pinoHttp({ customAttributeKeys: { req: 'req', res: 'res', err: 'err', responseTime: 'responseTime' } });
 pinoHttp({ customLogLevel: (req, res) => 'info' });
 pinoHttp({ reqCustomProps: req => ({ key1: 'value1', 'x-key-2': 'value2' }) });
+pinoHttp({ wrapSerializers: false });
 pinoHttp(new Writable());

@@ -1,12 +1,12 @@
 import * as Plotly from 'plotly.js';
-import { Datum, Layout, PlotData, PlotlyHTMLElement, newPlot } from 'plotly.js';
+import { Datum, Layout, PlotData, newPlot, Template } from 'plotly.js';
 
 const graphDiv = '#test';
 
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
-// combination of https://plot.ly/javascript/multiple-transforms/#all-transforms and
-// https://plot.ly/javascript/2d-density-plots/
+// combination of https://plotly.com/javascript/multiple-transforms/#all-transforms and
+// https://plotly.com/javascript/2d-density-plots/
 
 (() => {
     const testrows = [
@@ -228,6 +228,28 @@ const graphDiv = '#test';
     };
 
     Plotly.newPlot(graphDiv, data, layout);
+})();
+(() => {
+    // Test the template with practical types.
+    // https://plotly.com/javascript/layout-template/
+    const data: Array<Partial<PlotData>> = [{
+        type: 'bar', name: 'bar', text: ['2', '3', '1', '4'], x: ['Jan', 'Feb', 'Mar', 'Apr'], y: [2, 3, 1, 4]
+    }, {
+        type: 'scatter', name: 'scatter', x: [1, 2, 3, 4], y: [2, 4, 1, 5]
+    }];
+    const template: Template = {
+        data: {
+            bar: { marker: { color: '#3183BD', opacity: 0.7 }, textposition: 'auto' },
+            scatter: {
+                mode: 'lines+markers',
+                line: { color: 'red', width: 3 },
+                marker: { color: 'red', size: 8, symbol: 'circle-open' }
+            }
+        },
+        layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } }
+    };
+    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template };
+    Plotly.newPlot('myDiv', data, layout);
 })();
 
 //////////////////////////////////////////////////////////////////////

@@ -1,3 +1,6 @@
+const b = true;
+const s = "";
+
 Config.addVisitedLinkClass = true;
 
 Config.audio.pauseOnFadeToZero = true;
@@ -14,6 +17,8 @@ Config.loadDelay = 123;
 
 Config.macros.ifAssignmentError = true;
 Config.macros.maxLoopIterations = 123;
+Config.macros.typeSkipKey = s;
+Config.macros.typeVisitedPassages = b;
 
 Config.navigation.override = (passageName: string) => passageName + "anything";
 
@@ -30,7 +35,7 @@ Config.passages.transitionOut = 123;
 Config.passages.transitionOut = "property";
 
 Config.saves.autoload = false;
-Config.saves.autoload = "promt";
+Config.saves.autoload = "prompt";
 // a typo
 // @ts-expect-error
 Config.saves.autoload = "pront";
@@ -65,8 +70,11 @@ Config.saves.onLoad = (save: TwineSugarCube.SaveObject) => {};
 
 Config.saves.onSave = null;
 Config.saves.onSave = (save: TwineSugarCube.SaveObject) => {};
+Config.saves.onSave = (save: TwineSugarCube.SaveObject, details: TwineSugarCube.SaveDetails) => {};
 
 Config.saves.slots = 123;
 
 Config.saves.version = 123;
 Config.saves.version = "ver-2";
+
+export {};

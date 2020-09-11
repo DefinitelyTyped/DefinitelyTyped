@@ -1,6 +1,11 @@
 // Type definitions for Office.js 1.0
 // Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>, Sudhi Ramamurthy <https://github.com/sumurthy>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>,
+//                 Ricky Kirkham <https://github.com/Rick-Kirkham>,
+//                 Alex Jerabek <https://github.com/AlexJerabek>,
+//                 Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>,
+//                 Sudhi Ramamurthy <https://github.com/sumurthy>,
+//                 Alison McKay <https://github.com/alison-mk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -592,7 +597,7 @@ declare namespace Office {
         /**
          * Specifies the controls in the tab, such as menu items, buttons, etc.
          */
-        controls?: Control[];
+        controls: Control[];
     }
     /**
      * Represents an individual control or command and the state it should have.
@@ -885,7 +890,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **Requirement set**: TBD
+         * **Requirement set**: DialogApi 1.2
          *
          * You can add multiple event handlers for the specified event type as long as the name of each event handler function is unique.
          *
@@ -894,7 +899,7 @@ declare namespace Office {
          * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the handler registration returns, whose only parameter is of type {@link Office.AsyncResult}.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: (result: any) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: (result: DialogParentMessageReceivedEventArgs) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
         /**
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
@@ -1181,41 +1186,41 @@ declare namespace Office {
     }
 
     /**
-     * The Office Auth namespace, Office.context.auth, provides a method that allows the Office host to obtain an access token to the add-in's web application.
+     * The Office Auth namespace, `Office.context.auth`, provides a method that allows the Office client application to obtain an access token to the add-in's web application.
      * Indirectly, this also enables the add-in to access the signed-in user's Microsoft Graph data without requiring the user to sign in a second time.
-     *
-     * @beta
      */
     interface Auth {
         /**
-         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables  add-ins to identify users.
-         * Server side code can use this token to access Microsoft Graph for the add-in's web application by using the
+         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables add-ins to identify users.
+         * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
          * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
          *
-         * Important: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
-         *
+         * @deprecated Use Office.auth.getAccessToken instead.
+         * 
+         * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
+         * 
          * @remarks
          *
          * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
          *
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/identity-api-requirement-sets | IdentityAPI}
          *
-         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational
+         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign in with Organizational
          * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
          *
-         * @param options - Optional. Accepts an AuthOptions object to define sign-on behaviors.
-         * @param callback - Optional. Accepts a callback method that can use parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
-         *                   If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
-         *
-         * @beta
+         * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
+         * @param callback - Optional. Accepts a callback method that can parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
+         *                   If `AsyncResult.status` is "succeeded", then `AsyncResult.value` is the raw AAD v. 2.0-formatted access token.
          */
         getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
-         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables  add-ins to identify users.
-         * Server side code can use this token to access Microsoft Graph for the add-in's web application by using the
+         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables add-ins to identify users.
+         * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
          * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
          *
-         * Important: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
+         * @deprecated Use `Office.auth.getAccessToken` instead.
+         * 
+         * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
          *
          * @remarks
          *
@@ -1223,41 +1228,81 @@ declare namespace Office {
          *
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/identity-api-requirement-sets | IdentityAPI}
          *
-         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational
+         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign in with Organizational
          * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
          *
-         * @param callback - Optional. Accepts a callback method that can use parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
-         *                   If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
-         *
-         * @beta
+         * @param callback - Optional. Accepts a callback method that can parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
+         *                   If `AsyncResult.status` is "succeeded", then `AsyncResult.value` is the raw AAD v. 2.0-formatted access token.
          */
         getAccessTokenAsync(callback?: (result: AsyncResult<string>) => void): void;
+        /**
+         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables add-ins to identify users.
+         * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
+         * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}. 
+         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign in with Organizational
+         * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
+         *
+         * @remarks
+         *
+         * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
+         * 
+         * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox. 
+         *
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/identity-api-requirement-sets | IdentityAPI}
+         *
+         * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
+         * @returns Promise to the access token.
+         */
+        getAccessToken(options?: AuthOptions): Promise<string>;
     }
     /**
-     * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the getAccessTokenAsync method.
+     * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the `getAccessToken` method.
      */
     interface AuthOptions {
         /**
-         * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
-         * been revoked.
+         * Allows Office to get an access token silently or through interactive consent, if one is required. Default value is `false`.
+         * If set to `false`, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
+         * If set to `true`, Office will show an interactive consent UI after it fails to silently get an access token.
+         * The prompt will only allow consent to the AAD profile scope, not to any Microsoft Graph scopes.
          */
-        forceConsent?: boolean,
+        allowConsentPrompt?: boolean;
         /**
-         * Prompts the user to add their Office account (or to switch to it, if it is already added).
+         * Allows Office to get an access token silently provided consent is present or show interactive UI to sign in the user. Default value is `false`.
+         * If set to `false`, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
+         * If set to `true`, Office will show an interactive sign-in UI after it fails to silently get an access token.
          */
-        forceAddAccount?: boolean,
+        allowSignInPrompt?: boolean;
+        /**
+         * Prompts the user to add their Office account (or to switch to it, if it is already added). Default value is `false`.
+         *
+         * @deprecated Use `allowSignInPrompt` instead.
+         */
+        forceAddAccount?: boolean;
+        /**
+         * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
+         * been revoked. Default value is `false`.
+         *
+         * @deprecated Use `allowConsentPrompt` instead.
+         */
+        forceConsent?: boolean;
         /**
          * Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor
          * authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development
          * time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try"
-         * call of getAccessTokenAsync after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
-         * be used with the authChallenge option.
+         * call of `getAccessToken` after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
+         * be used with the `authChallenge` option.
          */
-        authChallenge?: string
+        authChallenge?: string;
         /**
-         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the `asyncContext` property of the `AsyncResult` object that is passed to a callback.
          */
-        asyncContext?: any
+        asyncContext?: any;
+        /**
+         * Causes Office to return a descriptive error when the add-in wants to access Microsoft Graph and the user/admin has not granted consent to Graph scopes. Default value is `false`.
+         * Office only supports consent to Graph scopes when the add-in has been deployed by a tenant admin. This information will not be available during development.
+         * Setting this option to `true` will cause Office to inform your add-in beforehand (by returning a descriptive error) if Graph access will fail.
+         */
+        forMSGraphAccess?: boolean;
     }
     /**
      * Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -1659,12 +1704,13 @@ declare namespace Office {
          * - DialogMessageReceived. Triggered when the dialog box sends a message to its parent.
          *
          * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
+         * 
+         * @param eventType Must be either DialogMessageReceived or DialogEventReceived.
+         * @param handler A function which accepts either an object with a `message` property, if eventType is DialogMessageReceived, or an object with an `error` property, if eventType is DialogEventReceived.
          */
-        addEventHandler(eventType: Office.EventType, handler: Function): void;
+        addEventHandler(eventType: Office.EventType, handler: (args: {message: string | boolean} | {error: number}) => void): void;
         /**
          * Delivers a message from the host page, such as a task pane or a UI-less function file, to a dialog that was opened from the page.
-         *
-         * @beta
          *
          * @remarks
          *
@@ -1914,8 +1960,6 @@ declare namespace Office {
         DialogMessageReceived,
         /**
          * Triggers when a host page sends a message to a child dialog box with `messageChild`.
-         *
-         * @beta
          */
         DialogParentMessageReceived,
         /**
@@ -5104,8 +5148,6 @@ declare namespace Office {
     }
     /**
      * Provides information about the message from the parent page that raised the `DialogParentMessageReceived` event.
-     *
-     * @beta
      *
      * To add an event handler for the `DialogParentMessageReceived` event, use the `addHandlerAsync` method of the
      * {@link Office.UI} object.
@@ -9209,6 +9251,8 @@ declare namespace Office {
          * When you use the `Time.setAsync` method to set the end time, you should use the `convertToUtcClientTime` method to convert the local time on
          * the client to UTC for the server.
          *
+         * **Important**: In the Windows client, you can't use this property to update the end of a recurrence.
+         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
@@ -9384,6 +9428,20 @@ declare namespace Office {
          */
         seriesId: string;
         /**
+         * Manages the {@link Office.SessionData | SessionData} of an item in Compose mode.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Organizer
+         *
+         * @beta
+         */
+        sessionData: SessionData;
+        /**
          * Gets or sets the date and time that the appointment is to begin.
          *
          * The `start` property is a {@link Office.Time | Time} object expressed as a Coordinated Universal Time (UTC) date and time value.
@@ -9391,6 +9449,8 @@ declare namespace Office {
          *
          * When you use the `Time.setAsync` method to set the start time, you should use the `convertToUtcClientTime` method to convert the local time on
          * the client to UTC for the server.
+         *
+         * **Important**: In the Windows client, you can't use this property to update the start of a recurrence.
          *
          * @remarks
          *
@@ -10001,7 +10061,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -10021,7 +10084,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -11298,7 +11364,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -11318,7 +11387,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -11582,9 +11654,12 @@ declare namespace Office {
          *
          * If the user is running add-ins that implement the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-on-send-addins?tabs=windows | on-send feature using `ItemSend` in the manifest},
-         * append on send runs before on-send functionality.
+         * append-on-send runs before on-send functionality.
          *
-         * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
+         * **Important**: If your add-in implements the on-send feature and calls `appendOnSendAsync` in the `ItemSend` handler,
+         * the `appendOnSendAsync` call returns an error as this scenario is not supported.
+         *
+         * **Important**: To use `appendOnSendAsync`, the `ExtendedPermissions` manifest node must include the `AppendOnSend` extended permission.
          *
          * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
          *
@@ -11617,9 +11692,12 @@ declare namespace Office {
          *
          * If the user is running add-ins that implement the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-on-send-addins?tabs=windows | on-send feature using `ItemSend` in the manifest},
-         * append on send runs before on-send functionality.
+         * append-on-send runs before on-send functionality.
+         * 
+         * **Important**: If your add-in implements the on-send feature and calls `appendOnSendAsync` in the `ItemSend` handler,
+         * the `appendOnSendAsync` call returns an error as this scenario is not supported.
          *
-         * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
+         * **Important**: To use `appendOnSendAsync`, the `ExtendedPermissions` manifest node must include the `AppendOnSend` extended permission.
          *
          * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
          *
@@ -11906,6 +11984,13 @@ declare namespace Office {
          *
          * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
          *
+         * **Important**: If your add-in implements the 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
+         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
+         *
+         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
+         * if the user closes the form without making other edits, they won't be prompted to save changes.
+         *
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -11935,6 +12020,13 @@ declare namespace Office {
          * Adds or replaces the signature of the item body.
          *
          * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
+         *
+         * **Important**: If your add-in implements the 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
+         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
+         *
+         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
+         * if the user closes the form without making other edits, they won't be prompted to save changes.
          *
          * [Api set: Mailbox Preview]
          *
@@ -14153,6 +14245,20 @@ declare namespace Office {
          */
         seriesId: string;
         /**
+         * Manages the {@link Office.SessionData | SessionData} of an item in Compose mode.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Compose
+         *
+         * @beta
+         */
+        sessionData: SessionData;
+        /**
          * Gets or sets the description that appears in the subject field of an item.
          *
          * The `subject` property gets or sets the entire subject of the item, as sent by the email server.
@@ -14808,7 +14914,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -14827,7 +14936,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -15269,6 +15381,10 @@ declare namespace Office {
         from: EmailAddressDetails;
         /**
          * Gets the internet message identifier for an email message.
+         *
+         * **Important**: In the **Sent Items** folder, the `internetMessageId` may not be available yet on recently sent items. In that case,
+         * consider using {@link https://docs.microsoft.com/office/dev/add-ins/outlook/web-services | Exchange Web Services} to get this
+         * {@link https://docs.microsoft.com/exchange/client-developer/web-service-reference/internetmessageid | property from the server}.
          *
          * @remarks
          *
@@ -15983,7 +16099,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -16002,7 +16121,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -17451,6 +17573,170 @@ declare namespace Office {
         setStartTime(time: string): void;
     }
     /**
+     * Provides methods to  manage an item's session data.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+     *
+     * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+     *
+     * @beta
+     */
+    interface SessionData {
+        /**
+         * Clears all session data key-value pairs.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        clearAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Clears all session data key-value pairs.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        clearAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Gets all session data key-value pairs.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        getAllAsync(callback: (asyncResult: Office.AsyncResult<string>) => void): void;
+        /**
+         * Gets the session data value of the specified key.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param name - The session data key.
+         * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of
+         *                 type `Office.AsyncResult`.
+         *
+         * @beta
+         */
+        getAsync(name: string, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
+        /**
+         * Removes a session data key-value pair.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param name - The session data key.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        removeAsync(name: string, options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Removes a session data key-value pair.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @param name - The session data key.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
+         *                `asyncResult`, which is an `Office.AsyncResult` object.
+         *
+         * @beta
+         */
+        removeAsync(name: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Sets a session data key-value pair.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+
+         * @param name - The session data key.
+         * @param value - The session data value as a string.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
+         *                 type `Office.AsyncResult`.
+         *
+         * @beta
+         */
+        setAsync(name: string, value: string, options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Sets a session data key-value pair.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+
+         * @param name - The session data key.
+         * @param value - The session data value as a string.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
+         *                 type `Office.AsyncResult`.
+         *
+         * @beta
+         */
+        setAsync(name: string, value: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+    }
+    /**
      * Represents the properties of an appointment or message in a shared folder, mailbox, or calendar.
      *
      * For more information on how this object is used, see the
@@ -17664,6 +17950,8 @@ declare namespace Office {
          *
          * The time must be in UTC; you can get the correct UTC time by using the `convertToUtcClientTime` method.
          *
+         * **Important**: In the Windows client, you can't use this function to update the start or end of a recurrence.
+         *
          * [Api set: Mailbox 1.1]
          *
          * @remarks
@@ -17690,6 +17978,8 @@ declare namespace Office {
          * previously set. If the `setAsync` method is called on the `end` property, the duration of the appointment will be extended to the new end time.
          *
          * The time must be in UTC; you can get the correct UTC time by using the `convertToUtcClientTime` method.
+         *
+         * **Important**: In the Windows client, you can't use this function to update the start or end of a recurrence.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -18116,12 +18406,12 @@ declare namespace OfficeExtension {
          */
         add(handler: (args: T) => Promise<any>): EventHandlerResult<T>;
         /**
-         * Removes the specified function from the event handler list so that it will not be called on subsequent events. 
-         * 
-         * **Note**: The same {@link OfficeExtension.ClientRequestContext | RequestContext} object that the handler was added in must be used when removing the handler. 
-         * More information can be found in {@link https://docs.microsoft.com/office/dev/add-ins/develop/common-coding-issues#removing-event-handlers | Coding guidance for common issues and unexpected platform behaviors}. 
-         * 
-         * @param handler A reference to a function previously provided to the `add` method as an event handler. 
+         * Removes the specified function from the event handler list so that it will not be called on subsequent events.
+         *
+         * **Note**: The same {@link OfficeExtension.ClientRequestContext | RequestContext} object that the handler was added in must be used when removing the handler.
+         * More information can be found in {@link https://docs.microsoft.com/office/dev/add-ins/develop/common-coding-issues#removing-event-handlers | Coding guidance for common issues and unexpected platform behaviors}.
+         *
+         * @param handler A reference to a function previously provided to the `add` method as an event handler.
          */
         remove(handler: (args: T) => Promise<any>): void;
     }
@@ -18926,7 +19216,7 @@ declare namespace Excel {
         unknown = "Unknown",
         /**
          * Equals comparator criterion.
-                    
+
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`wholeDays`, `exclusive`}.
          *
@@ -18934,7 +19224,7 @@ declare namespace Excel {
         equals = "Equals",
         /**
          * Date is before comparator date.
-                    
+
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`wholeDays`}.
          *
@@ -18942,7 +19232,7 @@ declare namespace Excel {
         before = "Before",
         /**
          * Date is before or equal to comparator date.
-                    
+
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`wholeDays`}.
          *
@@ -18950,7 +19240,7 @@ declare namespace Excel {
         beforeOrEqualTo = "BeforeOrEqualTo",
         /**
          * Date is after comparator date.
-                    
+
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`wholeDays`}.
          *
@@ -18958,7 +19248,7 @@ declare namespace Excel {
         after = "After",
         /**
          * Date is after or equal to comparator date.
-                    
+
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`wholeDays`}.
          *
@@ -18966,7 +19256,7 @@ declare namespace Excel {
         afterOrEqualTo = "AfterOrEqualTo",
         /**
          * Between `lowerBound` and `upperBound` dates.
-                    
+
                     Required Criteria: {`lowerBound`, `upperBound`}.
                     Optional Criteria: {`wholeDays`, `exclusive`}.
          *
@@ -19150,7 +19440,7 @@ declare namespace Excel {
         unknown = "Unknown",
         /**
          * Equals comparator criterion.
-                    
+
                     Required Criteria: {`comparator`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19158,7 +19448,7 @@ declare namespace Excel {
         equals = "Equals",
         /**
          * Label begins with substring criterion.
-                    
+
                     Required Criteria: {`substring`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19166,7 +19456,7 @@ declare namespace Excel {
         beginsWith = "BeginsWith",
         /**
          * Label ends with substring criterion.
-                    
+
                     Required Criteria: {`substring`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19174,7 +19464,7 @@ declare namespace Excel {
         endsWith = "EndsWith",
         /**
          * Label contains substring criterion.
-                    
+
                     Required Criteria: {`substring`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19182,35 +19472,35 @@ declare namespace Excel {
         contains = "Contains",
         /**
          * Greater than comparator criterion.
-                    
+
                     Required Criteria: {`comparator`}.
          *
          */
         greaterThan = "GreaterThan",
         /**
          * Greater than or equal to comparator criterion.
-                    
+
                     Required Criteria: {`comparator`}.
          *
          */
         greaterThanOrEqualTo = "GreaterThanOrEqualTo",
         /**
          * Less than comparator criterion.
-                    
+
                     Required Criteria: {`comparator`}.
          *
          */
         lessThan = "LessThan",
         /**
          * Less than or equal to comparator criterion.
-                    
+
                     Required Criteria: {`comparator`}.
          *
          */
         lessThanOrEqualTo = "LessThanOrEqualTo",
         /**
          * Between `lowerBound` and `upperBound` criteria.
-                    
+
                     Required Criteria: {`lowerBound`, `upperBound`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19547,7 +19837,7 @@ declare namespace Excel {
         unknown = "Unknown",
         /**
          * Equals comparator criterion.
-                    
+
                     Required Criteria: {`value`, `comparator`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19555,35 +19845,35 @@ declare namespace Excel {
         equals = "Equals",
         /**
          * Greater than comparator criterion.
-                    
+
                     Required Criteria: {`value`, `comparator`}.
          *
          */
         greaterThan = "GreaterThan",
         /**
          * Greater than or equal to comparator criterion.
-                    
+
                     Required Criteria: {`value`, `comparator`}.
          *
          */
         greaterThanOrEqualTo = "GreaterThanOrEqualTo",
         /**
          * Less than comparator criterion.
-                    
+
                     Required Criteria: {`value`, `comparator`}.
          *
          */
         lessThan = "LessThan",
         /**
          * Less than or equal to comparator criterion.
-                    
+
                     Required Criteria: {`value`, `comparator`}.
          *
          */
         lessThanOrEqualTo = "LessThanOrEqualTo",
         /**
          * Between `lowerBound` and `upperBound` criteria.
-                    
+
                     Required Criteria: {`value`, `lowerBound`, `upperBound`}.
                     Optional Criteria: {`exclusive`}.
          *
@@ -19591,14 +19881,14 @@ declare namespace Excel {
         between = "Between",
         /**
          * In top N (`threshold`) [items, percent, sum] of value category.
-                    
+
                     Required Criteria: {`value`, `threshold`, `selectionType`}.
          *
          */
         topN = "TopN",
         /**
          * In bottom N (`threshold`) [items, percent, sum] of value category.
-                    
+
                     Required Criteria: {`value`, `threshold`, `selectionType`}.
          *
          */
@@ -20458,7 +20748,7 @@ declare namespace Excel {
     /**
      *
      * Provides information about the selection that raised the "SelectionChanged" event.
-                
+
                  **Note**: If multiple, discontiguous cells are selected, `Binding.onSelectionChanged` only reports row and column information for one selection. Use `Worksheet.onSelectionChanged` for multiple selected ranges.
      *
      * [Api set: ExcelApi 1.2]
@@ -20466,7 +20756,7 @@ declare namespace Excel {
     interface BindingSelectionChangedEventArgs {
         /**
          *
-         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event. 
+         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event.
          * Use that ID with `BindingCollection.getItem(id)` to get the binding.
          *
          * [Api set: ExcelApi 1.2]
@@ -20510,7 +20800,7 @@ declare namespace Excel {
     interface BindingDataChangedEventArgs {
         /**
          *
-         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event. 
+         * Gets a temporary `Binding` object that contains the ID of the `Binding` object that raised the event.
          * Use that ID with `BindingCollection.getItem(id)` to get the binding.
          *
          * [Api set: ExcelApi 1.2]
@@ -21789,7 +22079,7 @@ declare namespace Excel {
         suspendApiCalculationUntilNextSync(): void;
         /**
          * Suspends screen updating until the next `context.sync()` is called.
-                    
+
                      **Note**: Don't call `suspendScreenUpdatingUntilNextSync` repeatedly (such as in a loop). Repeated calls will cause the Excel window to flicker.
          *
          * [Api set: ExcelApi 1.9]
@@ -22865,7 +23155,7 @@ declare namespace Excel {
         add(name?: string): Excel.Worksheet;
         /**
          * Inserts the specified worksheets of a workbook into the current workbook.
-                    
+
                      **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -22880,7 +23170,7 @@ declare namespace Excel {
         addFromBase64(base64File: string, sheetNamesToInsert?: string[], positionType?: Excel.WorksheetPositionType, relativeTo?: Worksheet | string): OfficeExtension.ClientResult<string[]>;
         /**
          * Inserts the specified worksheets of a workbook into the current workbook.
-                    
+
                      **Note**: This API is currently only supported for Office on Windows and Mac.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -23405,21 +23695,21 @@ declare namespace Excel {
         readonly columnIndex: number;
         /**
          *
-         * Represents the formula in A1-style notation.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -23600,7 +23890,7 @@ declare namespace Excel {
          * Fills range from the current range to the destination range using the specified AutoFill logic.
                      The destination range can be null, or can extend the source either horizontally or vertically.
                      Discontiguous ranges are not supported.
-                    
+
                      For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
@@ -23613,7 +23903,7 @@ declare namespace Excel {
          * Fills range from the current range to the destination range using the specified AutoFill logic.
                      The destination range can be null, or can extend the source either horizontally or vertically.
                      Discontiguous ranges are not supported.
-                    
+
                      For more information, read {@link https://support.office.com/article/video-use-autofill-and-flash-fill-2e79a709-c814-4b27-8bc2-c4dc84d49464 | Use AutoFill and Flash Fill}.
          *
          * [Api set: ExcelApi 1.9, ExcelApi Preview for null `destinationRange`]
@@ -23817,7 +24107,7 @@ declare namespace Excel {
         getEntireRow(): Excel.Range;
         /**
          * Renders the range as a base64-encoded png image.
-         * 
+         *
          * **Important**: This API is currently unsupported in Excel for Mac. Visit [OfficeDev/office-js Issue #235](https://github.com/OfficeDev/office-js/issues/235) for the current status.
          *
          * [Api set: ExcelApi 1.7]
@@ -25204,21 +25494,21 @@ declare namespace Excel {
         readonly columnCount: number;
         /**
          *
-         * Represents the formula in A1-style notation.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
@@ -25853,7 +26143,7 @@ declare namespace Excel {
         /**
          *
          * Occurs when the selected content in the binding is changed.
-                    
+
                      **Note**: If multiple, discontiguous cells are selected, `Binding.onSelectionChanged` only reports row and column information for one selection. Use `Worksheet.onSelectionChanged` for multiple selected ranges.
          *
          * [Api set: ExcelApi 1.2]
@@ -26258,7 +26548,7 @@ declare namespace Excel {
         /**
          *
          * Name of the table.
-                    
+
                      The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
          *
          * [Api set: ExcelApi 1.1]
@@ -26639,7 +26929,7 @@ declare namespace Excel {
     /**
      *
      * Represents a collection of all the rows that are part of the table.
-                
+
                  Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                  a TableRow object represent the physical location of the table row, but not the data.
                  That is, if the data is sorted or if new rows are added, a table row will continue
@@ -26661,7 +26951,7 @@ declare namespace Excel {
         readonly count: number;
         /**
          * Adds one or more rows to the table. The return object will be the top of the newly added row(s).
-                    
+
                      Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                      a TableRow object represent the physical location of the table row, but not the data.
                      That is, if the data is sorted or if new rows are added, a table row will continue
@@ -26681,7 +26971,7 @@ declare namespace Excel {
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          * Gets a row based on its position in the collection.
-                    
+
                      Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                      a TableRow object represent the physical location of the table row, but not the data.
                      That is, if the data is sorted or if new rows are added, a table row will continue
@@ -26719,7 +27009,7 @@ declare namespace Excel {
     /**
      *
      * Represents a row in a table.
-                
+
                  Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                  a TableRow object represent the physical location of the table row, but not the data.
                  That is, if the data is sorted or if new rows are added, a table row will continue
@@ -32713,7 +33003,7 @@ declare namespace Excel {
          *
          * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
                      For example ">50" for number greater than 50 or "=*s" for values ending in "s".
-                    
+
                      Used as a number in the case of top/bottom items/percents (e.g., "5" for the top 5 items if filterOn is set to "topItems").
          *
          * [Api set: ExcelApi 1.2]
@@ -48116,7 +48406,7 @@ declare namespace Excel {
             /**
              *
              * Name of the table.
-                        
+
                          The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
@@ -53525,7 +53815,7 @@ declare namespace Excel {
             /**
              *
              * Name of the table.
-                        
+
                          The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
@@ -60164,7 +60454,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Name of the table.
-                        
+
                          The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
@@ -60298,7 +60588,7 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Name of the table.
-                        
+
                          The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
@@ -60433,7 +60723,7 @@ declare namespace Excel {
             /**
              *
              * Name of the table.
-                        
+
                          The set name of the table must follow the guidelines specified in the {@link https://support.office.com/article/Rename-an-Excel-table-FBF49A4F-82A3-43EB-8BA2-44D21233B114 | Rename an Excel table} article.
              *
              * [Api set: ExcelApi 1.1]
@@ -60579,7 +60869,7 @@ declare namespace Excel {
         /**
          *
          * Represents a collection of all the rows that are part of the table.
-                    
+
                      Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                      a TableRow object represent the physical location of the table row, but not the data.
                      That is, if the data is sorted or if new rows are added, a table row will continue
@@ -60610,7 +60900,7 @@ declare namespace Excel {
         /**
          *
          * Represents a row in a table.
-                    
+
                      Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                      a TableRow object represent the physical location of the table row, but not the data.
                      That is, if the data is sorted or if new rows are added, a table row will continue
@@ -75603,7 +75893,7 @@ declare namespace Word {
     }
     /**
      * This enum sets where the cursor (insertion point) in the document is after a selection.
-     * 
+     *
      * [Api set: WordApi 1.1]
      */
     enum SelectionMode {

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package sugarcube 2.32
+// Type definitions for non-npm package sugarcube 2.33
 // Project: https://github.com/tmedwards/sugarcube-2
 // Definitions by: ezsh <https://github.com/ezsh>
 //                 Thomas M. Edwards <https://github.com/tmedwards>
@@ -13,6 +13,7 @@ export as namespace TwineSugarCube;
 export * from "./extensions";
 export * from "./functions";
 export * from "./globals";
+export * from "./jquery";
 
 export * from "./audio";
 export * from "./config";

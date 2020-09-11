@@ -11,16 +11,6 @@ type FnNames = keyof TrustedTypePolicyOptions;
 type Args<Options extends TrustedTypePolicyOptions, K extends FnNames> =
     Parameters<NonNullable<Options[K]>>;
 
-interface FullTypedPolicy<Options extends TrustedTypePolicyOptions> {
-    name: string;
-    createHTML(...args: Args<Options, 'createHTML'>): TrustedHTML;
-    createScript(...args: Args<Options, 'createScript'>): TrustedScript;
-    createScriptURL(...args: Args<Options, 'createScriptURL'>): TrustedScriptURL;
-}
-
-type TypedPolicy<Options extends TrustedTypePolicyOptions> =
-    Pick<FullTypedPolicy<Options>, 'name' | Extract<keyof Options, FnNames>>;
-
 declare global {
     class TrustedHTML {
         private constructor(); // To prevent instantiting with 'new'.
@@ -41,7 +31,7 @@ declare global {
         createPolicy<Options extends TrustedTypePolicyOptions>(
             policyName: string,
             policyOptions?: Options,
-        ): TypedPolicy<Options>;
+        ): Pick<TrustedTypePolicy<Options>, 'name'|Extract<keyof Options, FnNames>>;
         isHTML(value: unknown): value is TrustedHTML;
         isScript(value: unknown): value is TrustedScript;
         isScriptURL(value: unknown): value is TrustedScriptURL;
@@ -52,11 +42,11 @@ declare global {
         readonly defaultPolicy: TrustedTypePolicy | null;
     }
 
-    interface TrustedTypePolicy {
+    interface TrustedTypePolicy<Options extends TrustedTypePolicyOptions = TrustedTypePolicyOptions> {
         readonly name: string;
-        createHTML(input: string, ...arguments: any[]): TrustedHTML;
-        createScript(input: string, ...arguments: any[]): TrustedScript;
-        createScriptURL(input: string, ...arguments: any[]): TrustedScriptURL;
+        createHTML(...args: Args<Options, 'createHTML'>): TrustedHTML;
+        createScript(...args: Args<Options, 'createScript'>): TrustedScript;
+        createScriptURL(...args: Args<Options, 'createScriptURL'>): TrustedScriptURL;
     }
 
     interface TrustedTypePolicyOptions {
@@ -66,10 +56,9 @@ declare global {
     }
 
     interface Window {
-        // NOTE: This is needed while the implementation in Chrome still relies
-        // on the old uppercase name, either of the values below could be
-        // undefined.
-        // See https://github.com/w3c/webappsec-trusted-types/issues/177
+        // `trustedTypes` is left intentionally optional to make sure that
+        // people handle the case when their code is running in a browser not
+        // supporting trustedTypes.
         trustedTypes?: TrustedTypePolicyFactory;
         TrustedHTML: TrustedHTML;
         TrustedScript: TrustedScript;

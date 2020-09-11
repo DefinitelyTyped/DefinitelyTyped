@@ -276,6 +276,9 @@ declare namespace IORedis {
         getrange(key: KeyType, start: number, end: number, callback: Callback<string>): void;
         getrange(key: KeyType, start: number, end: number): Promise<string>;
 
+        getrangeBuffer(key: KeyType, start: number, end: number, callback: Callback<Buffer>): void;
+        getrangeBuffer(key: KeyType, start: number, end: number): Promise<Buffer>;
+
         substr(key: KeyType, start: number, end: number, callback: Callback<string>): void;
         substr(key: KeyType, start: number, end: number): Promise<string>;
 
@@ -931,9 +934,9 @@ declare namespace IORedis {
     }
 
     interface Pipeline {
-        readonly redis: Redis;
+        readonly redis: Redis | Cluster;
         readonly isCluster: boolean;
-        readonly options: RedisOptions;
+        readonly options: RedisOptions | ClusterOptions;
         readonly length: number;
 
         bitcount(key: KeyType, callback?: Callback<number>): Pipeline;
@@ -995,6 +998,8 @@ declare namespace IORedis {
         setrange(key: KeyType, offset: number, value: ValueType, callback?: Callback<number>): Pipeline;
 
         getrange(key: KeyType, start: number, end: number, callback?: Callback<string>): Pipeline;
+
+        getrangeBuffer(key: KeyType, start: number, end: number, callback?: Callback<Buffer>): Pipeline;
 
         substr(key: KeyType, start: number, end: number, callback?: Callback<string>): Pipeline;
 
@@ -1340,11 +1345,11 @@ declare namespace IORedis {
             matchOption: 'match' | 'MATCH',
             pattern: string,
         ): Pipeline;
-        sscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        sscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
-        hscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        hscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
-        zscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        zscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
         pfmerge(destkey: KeyType, ...sourcekeys: KeyType[]): Pipeline;
 

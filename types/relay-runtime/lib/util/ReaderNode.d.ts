@@ -134,9 +134,10 @@ export interface ReaderRootArgument {
 }
 
 export interface ReaderRefetchMetadata {
-    readonly connection: ReaderPaginationMetadata | null | undefined;
+    readonly connection?: ReaderPaginationMetadata | null;
     readonly operation: string | ConcreteRequest;
     readonly fragmentPathInResult: ReadonlyArray<string>;
+    readonly identifierField?: string | null;
 }
 
 export interface ReaderCondition {

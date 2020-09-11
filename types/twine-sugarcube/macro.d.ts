@@ -17,7 +17,7 @@ export interface MacroTags {
     has(name: string): boolean;
 }
 
-export interface MacroArgsArray extends Array<string> {
+export interface MacroArgsArray extends Array<any> {
     /**
      * The current tag's argument string after converting all TwineScript syntax elements into their
      * native JavaScript counterparts. Equivalent in function to <MacroContext>.args.full.
@@ -29,7 +29,7 @@ export interface MacroArgsArray extends Array<string> {
     raw: string;
 }
 
-export interface MacroContexObject {
+export interface MacroContextObject {
     /**
      * Name of the current tag.
      */
@@ -46,7 +46,7 @@ export interface MacroContexObject {
     contents: string;
 }
 
-export interface MacroContex {
+export interface MacroContext {
     /**
      * The argument string parsed into an array of discrete arguments.
      * @since 2.0.0
@@ -75,7 +75,7 @@ export interface MacroContex {
      * The text of a container macro parsed into discrete payload objects by tag.
      * @since 2.0.0
      */
-    payload: MacroContexObject[];
+    payload: MacroContextObject[];
 
     /**
      * The macro's definition — created via @see Macro.add()
@@ -90,7 +90,7 @@ export interface MacroContex {
      * is passed in as its sole parameter.
      * @since 2.0.0
      */
-    contextHas(filter: (context: MacroContexObject) => boolean): boolean;
+    contextHas(filter: (context: MacroContextObject) => boolean): boolean;
 
     /**
      * Returns the first of the macro's ancestors which passed the test implemented by the given
@@ -99,7 +99,7 @@ export interface MacroContex {
      * passed in as its sole parameter.
      * @since 2.0.0
      */
-    contextSelect(filter: (context: MacroContexObject) => boolean): object;
+    contextSelect(filter: (context: MacroContextObject) => boolean): object;
 
     /**
      * Returns a new array containing all of the macro's ancestors which passed the test implemented
@@ -107,7 +107,7 @@ export interface MacroContex {
      * @since 2.0.0
      * @param filter
      */
-    contextSelectAll(filter: (context: MacroContexObject) => boolean): object[];
+    contextSelectAll(filter: (context: MacroContextObject) => boolean): object[];
 
     /**
      * Renders the message prefixed with the name of the macro and returns false.
@@ -115,6 +115,12 @@ export interface MacroContex {
      * @since 2.0.0
      */
     error(message: string): false;
+}
+
+export interface MacroDefinition {
+    handler: (this: MacroContext) => void;
+    tags?: string[];
+    skipArgs?: boolean;
 }
 
 export interface MacroAPI {
@@ -157,7 +163,7 @@ export interface MacroAPI {
      * });
      */
     add(name: string | string[],
-        definition: {handler: (this: MacroContex) => void, tags?: string[], skipArgs?: boolean},
+        definition: MacroDefinition,
         deep?: boolean): void;
 
     /**
@@ -172,7 +178,7 @@ export interface MacroAPI {
      * @param name Name of the macro whose definition should be returned.
      * @since 2.0.0
      */
-    get(name: string): object;
+    get(name: string): MacroDefinition;
 
     /**
      * Returns whether the named macro exists.

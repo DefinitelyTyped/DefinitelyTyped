@@ -427,9 +427,9 @@ export interface GenerateSWOptions extends CommonOptions {
      * Those URL parameters would normally cause the cache lookup to fail, since the URL strings used as cache keys would not be expected to include them.
      *
      * @default [/^utm_/]
-     * @example ignoreUrlParametersMatching: [/./]
+     * @example ignoreURLParametersMatching: [/./]
      */
-    ignoreUrlParametersMatching?: RegExp[];
+    ignoreURLParametersMatching?: RegExp[];
 
     /**
      * If a [navigation request](https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests)

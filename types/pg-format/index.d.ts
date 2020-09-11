@@ -3,7 +3,6 @@
 // Definitions by: Alec Zopf <https://github.com/zopf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
-/// <reference types="node"/>
 export = format;
 
 declare function format(fmt: string, ...args: any[]): string;

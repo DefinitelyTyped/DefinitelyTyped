@@ -501,7 +501,8 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     'aria-atomic': false,
     'aria-checked': 'true',
     'aria-colcount': 7,
-    'aria-label': 'test'
+    'aria-label': 'test',
+    'aria-relevant': 'additions removals'
 };
 DOM.div(htmlAttr);
 DOM.span(htmlAttr);

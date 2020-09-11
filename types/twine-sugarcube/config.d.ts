@@ -1,7 +1,14 @@
 import { Passage, PassageBase } from "./passage";
 import { SaveObject } from "./save";
 
-type SaveObjectHander = (save: SaveObject) => void;
+export interface SaveDetails {
+    /**
+     * A string representing how the save operation came about—i.e., what caused it.
+     */
+    type: 'autosave' | 'disk' | 'serialize' | 'slot';
+}
+
+type SaveObjectHander = (save: SaveObject, details: SaveDetails) => void;
 type DescriptionHandler = (this: Passage) => string | null;
 
 export interface ConfigAPI {
@@ -79,6 +86,26 @@ export interface ConfigAPI {
          * Config.macros.maxLoopIterations = 5000;
          */
         maxLoopIterations: number;
+        /**
+         * Sets the default KeyboardEvent.key value that causes the currently running <<type>> macro instance to finish
+         * typing its content immediately.
+         * @default " " (space)
+         * @since 2.33.1
+         * @example
+         * // Change the default skip key to Control (CTRL)
+         * Config.macros.typeSkipKey = "Control";
+         */
+        typeSkipKey: string;
+        /**
+         * Determines whether the <<type>> macro types out content on previously visited passages or simply outputs it
+         * immediately.
+         * @default true
+         * @since 2.32.0
+         * @example
+         * // Do not type on previously visited passages
+         * Config.macros.typeVisitedPassages = false;
+         */
+        typeVisitedPassages: boolean;
     };
     readonly navigation: {
         /**
@@ -249,7 +276,7 @@ export interface ConfigAPI {
          *     // code
          * };
          */
-        autoload: boolean | "promt" | (() => boolean) | null;
+        autoload: boolean | "prompt" | (() => boolean) | null;
 
         /**
          * Determines whether the autosave is created/updated when passages are displayed. Valid values are boolean true,
@@ -322,6 +349,7 @@ export interface ConfigAPI {
          * NOTE: See the save objects section of the Save API for information on the format of a save.
          * @default undefined
          * @since 2.0.0
+         * @since 2.33.0: Added save operation details object parameter to the callback function.
          * @example
          * Config.saves.onSave = function (save) {
          * // code

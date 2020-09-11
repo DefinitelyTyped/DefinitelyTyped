@@ -43,7 +43,7 @@
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -336,14 +336,12 @@ export interface NativeMethods {
 
     /**
      * Like [`measure()`](#measure), but measures the view relative an ancestor,
-     * specified as `relativeToNativeNode`. This means that the returned x, y
+     * specified as `relativeToNativeComponentRef`. This means that the returned x, y
      * are relative to the origin x, y of the ancestor view.
-     *
-     * As always, to obtain a native node handle for a component, you can use
-     * `React.findNodeHandle(component)`.
+     * _Can also be called with a relativeNativeNodeHandle but is deprecated._
      */
     measureLayout(
-        relativeToNativeNode: number,
+        relativeToNativeComponentRef: HostComponent<unknown> | number,
         onSuccess: MeasureLayoutOnSuccessCallback,
         onFail: () => void /* currently unused */,
     ): void;
@@ -352,9 +350,9 @@ export interface NativeMethods {
      * This function sends props straight to native. They will not participate in
      * future diff process - this means that if you do not include them in the
      * next render, they will remain active (see [Direct
-     * Manipulation](docs/direct-manipulation.html)).
+     * Manipulation](https://reactnative.dev/docs/direct-manipulation)).
      */
-    setNativeProps(nativeProps: Object): void;
+    setNativeProps(nativeProps: object): void;
 
     /**
      * Requests focus for the given input or view. The exact behavior triggered
@@ -507,7 +505,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * Either children or a render prop that receives a boolean reflecting whether
      * the component is currently pressed.
      */
-    children: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode);
+    children?: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode);
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -811,6 +809,10 @@ interface SkewYTransform {
     skewY: string;
 }
 
+interface MatrixTransform {
+    matrix: number[];
+}
+
 export interface TransformsStyle {
     transform?: (
         | PerpectiveTransform
@@ -825,12 +827,31 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform
+        | MatrixTransform
     )[];
+    /**
+     * @deprecated Use matrix in transform prop instead.
+     */
     transformMatrix?: Array<number>;
+    /**
+     * @deprecated Use rotate in transform prop instead.
+     */
     rotation?: number;
+    /**
+     * @deprecated Use scaleX in transform prop instead.
+     */
     scaleX?: number;
+    /**
+     * @deprecated Use scaleY in transform prop instead.
+     */
     scaleY?: number;
+    /**
+     * @deprecated Use translateX in transform prop instead.
+     */
     translateX?: number;
+    /**
+     * @deprecated Use translateY in transform prop instead.
+     */
     translateY?: number;
 }
 
@@ -847,10 +868,25 @@ export interface LayoutRectangle {
 }
 
 // @see TextProps.onLayout
-export interface LayoutChangeEvent {
-    nativeEvent: {
-        layout: LayoutRectangle;
-    };
+export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle }>;
+
+interface TextLayoutLine {
+    ascender: number;
+    capHeight: number;
+    descender: number;
+    height: number;
+    text: string;
+    width: number;
+    x: number;
+    xHeight: number;
+    y: number;
+}
+
+/**
+ * @see TextProps.onTextLayout
+ */
+export interface TextLayoutEventData extends TargetedEvent {
+    lines: TextLayoutLine[];
 }
 
 export type FontVariant = 'small-caps' | 'oldstyle-nums' | 'lining-nums' | 'tabular-nums' | 'proportional-nums';
@@ -976,6 +1012,11 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * {nativeEvent: { layout: {x, y, width, height}}}.
      */
     onLayout?: (event: LayoutChangeEvent) => void;
+
+    /**
+     * Invoked on Text layout
+     */
+    onTextLayout?: (event: NativeSyntheticEvent<TextLayoutEventData>) => void;
 
     /**
      * This function is called on press.
@@ -1647,26 +1688,31 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
  */
 interface TextInputState {
     /**
+     * @deprecated Use currentlyFocusedInput
      * Returns the ID of the currently focused text field, if one exists
      * If no text field is focused it returns null
      */
     currentlyFocusedField(): number;
 
     /**
-     * @deprecated Use ref.focus instead
-     * @param TextInputID id of the text field to focus
+     * Returns the ref of the currently focused text field, if one exists
+     * If no text field is focused it returns null
+     */
+    currentlyFocusedInput(): React.ElementRef<HostComponent<unknown>>;
+
+    /**
+     * @param textField ref of the text field to focus
      * Focuses the specified text field
      * noop if the text field was already focused
      */
-    focusTextInput(textFieldID?: number): void;
+    focusTextInput(textField?: React.ElementRef<HostComponent<unknown>>): void;
 
     /**
-     * @deprecated Use ref.blur instead
-     * @param textFieldID id of the text field to focus
+     * @param textField ref of the text field to focus
      * Unfocuses the specified text field
      * noop if it wasn't focused
      */
-    blurTextInput(textFieldID?: number): void;
+    blurTextInput(textField?: React.ElementRef<HostComponent<unknown>>): void;
 }
 
 /**
@@ -2900,7 +2946,7 @@ export interface ActivityIndicatorIOSProps extends ViewProps {
     /**
      * Invoked on mount and layout changes with
      */
-    onLayout?: (event: { nativeEvent: { layout: { x: number; y: number; width: number; height: number } } }) => void;
+    onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * Size of the indicator.
@@ -2917,7 +2963,17 @@ export interface DatePickerIOSProps extends ViewProps {
     /**
      * The currently selected date.
      */
-    date: Date;
+    date?: Date | null;
+
+    /**
+     * Provides an initial value that will change when the user starts selecting
+     * a date. It is useful for simple use-cases where you do not want to deal
+     * with listening to events and updating the date prop to keep the
+     * controlled state in sync. The controlled state has known bugs which
+     * causes it to go out of sync with native. The initialDate prop is intended
+     * to allow you to have native be source of truth.
+     */
+    initialDate?: Date | null;
 
     /**
      * The date picker locale.
@@ -3009,9 +3065,10 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
 
     /**
      * Specifies the side of the screen from which the drawer will slide in.
-     * enum(DrawerLayoutAndroid.positions.Left, DrawerLayoutAndroid.positions.Right)
+     * - 'left' (the default)
+     * - 'right'
      */
-    drawerPosition?: number;
+    drawerPosition?: 'left' | 'right';
 
     /**
      * Specifies the width of the drawer, more precisely the width of the
@@ -5887,7 +5944,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web';
+export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web' | 'native';
 
 interface PlatformStatic {
     isTV: boolean;
@@ -6779,7 +6836,7 @@ export class ScrollView extends ScrollViewBase {
      * implement this method so that they can be composed while providing access
      * to the underlying scroll responder's methods.
      */
-    getScrollResponder(): JSX.Element;
+    getScrollResponder(): ScrollResponderMixin;
 
     getScrollableNode(): any;
 
@@ -6790,6 +6847,14 @@ export class ScrollView extends ScrollViewBase {
      * @deprecated Use scrollTo instead
      */
     scrollWithoutAnimationTo?: (y: number, x: number) => void;
+
+    /**
+     * This function sends props straight to native. They will not participate in
+     * future diff process - this means that if you do not include them in the
+     * next render, they will remain active (see [Direct
+     * Manipulation](https://reactnative.dev/docs/direct-manipulation)).
+     */
+    setNativeProps(nativeProps: object): void;
 }
 
 export interface NativeScrollRectangle {
@@ -7218,13 +7283,15 @@ export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-passwo
  *      active - The app is running in the foreground
  *      background - The app is running in the background. The user is either in another app or on the home screen
  *      inactive [iOS] - This is a transition state that currently never happens for typical React Native apps.
+ *      unknown [iOS] - Initial value until the current app state is determined
+ *      extension [iOS] - The app is running as an app extension
  *
  * For more information, see Apple's documentation: https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html
  *
  * @see https://facebook.github.io/react-native/docs/appstate#app-states
  */
 export type AppStateEvent = 'change' | 'memoryWarning' | 'blur' | 'focus';
-export type AppStateStatus = 'active' | 'background' | 'inactive';
+export type AppStateStatus = 'active' | 'background' | 'inactive' | 'unknown' | 'extension';
 
 export interface AppStateStatic {
     currentState: AppStateStatus;
@@ -8412,7 +8479,7 @@ export interface UIManagerStatic {
      * commandID - Id of the native method that should be called.
      * commandArgs - Args of the native method that we can pass from JS to native.
      */
-    dispatchViewManagerCommand: (reactTag: number | null, commandID: number, commandArgs?: Array<any>) => void;
+    dispatchViewManagerCommand: (reactTag: number | null, commandID: number | string, commandArgs?: Array<any>) => void;
 }
 
 export interface SwitchPropsIOS extends ViewProps {
@@ -8939,24 +9006,39 @@ export namespace Animated {
 
     export type LegacyRef<C> = { getNode(): C };
 
-    export interface WithAnimatedValue<T>
-        extends ThisType<
-            T extends object
-                ? { [K in keyof T]?: WithAnimatedValue<T[K]> }
-                : T extends (infer P)[]
-                ? WithAnimatedValue<P>[]
-                : T | Value | AnimatedInterpolation
-        > {}
+    type Nullable = undefined | null;
+    type Primitive = string | number | boolean | symbol;
+    type Builtin = Function | Date | Error | RegExp;
 
-    export type AnimatedProps<T> = { [key in keyof T]: WithAnimatedValue<T[key]> } &
-        (T extends {
-            ref?: React.Ref<infer R>;
-        }
-            ? { ref?: React.Ref<R | { getNode(): R }> }
-            : {});
+    interface WithAnimatedArray<P> extends Array<WithAnimatedValue<P>> {}
+    type WithAnimatedObject<T> = {
+        [K in keyof T]: WithAnimatedValue<T[K]>;
+    };
+
+    export type WithAnimatedValue<T> = T extends Builtin | Nullable
+        ? T
+        : T extends Primitive
+        ? T | Value | AnimatedInterpolation // add `Value` and `AnimatedInterpolation` but also preserve original T
+        : T extends Array<infer P>
+        ? WithAnimatedArray<P>
+        : T extends {}
+        ? WithAnimatedObject<T>
+        : T; // in case it's something we don't yet know about (for .e.g bigint)
+
+    type NonAnimatedProps = 'key' | 'ref';
+
+    type TAugmentRef<T> = T extends React.Ref<infer R> ? React.Ref<R | LegacyRef<R>> : never;
+
+    export type AnimatedProps<T> = {
+        [key in keyof T]: key extends NonAnimatedProps
+            ? key extends 'ref'
+                ? TAugmentRef<T[key]>
+                : T[key]
+            : WithAnimatedValue<T[key]>;
+    };
 
     export interface AnimatedComponent<T extends React.ComponentType<any>>
-        extends React.FC<ComponentProps<T> | AnimatedProps<React.ComponentPropsWithRef<T>>> {}
+        extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
@@ -8975,8 +9057,8 @@ export namespace Animated {
     /**
      * FlatList and SectionList infer generic Type defined under their `data` and `section` props.
      */
-    export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT> | AnimatedProps<FlatListProps<ItemT>>> {}
-    export class SectionList<SectionT = any> extends React.Component<SectionListProps<SectionT> | AnimatedProps<SectionListProps<SectionT>>> {}
+    export class FlatList<ItemT = any> extends React.Component<AnimatedProps<FlatListProps<ItemT>>> {}
+    export class SectionList<SectionT = any> extends React.Component<AnimatedProps<SectionListProps<SectionT>>> {}
 }
 
 // tslint:disable-next-line:interface-name

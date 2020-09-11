@@ -33,6 +33,38 @@ async function run() {
     .map(result => ({ foo: result.age }))
     .stream();
 
+  collection.find().project({});
+  collection.find().project({notExistingField: 1, });
+  collection.find().sort({text: {$meta: 'textScore'}, notExistingField: -1});
+  collection.find().sort({});
+
+  interface TypedDoc {
+    name: string;
+    age: number;
+    tag: {
+      name: string;
+    };
+  }
+  const typedCollection = db.collection<TypedDoc>('test');
+  typedCollection.find({name: 'name'}, {}).map(x => x.tag);
+  typedCollection.find({'tag.name': 'name'}, {});
+  typedCollection.find({'tag.name': 'name'}, {projection: {'tag.name': 1, max: {$max: []}}})
+    .sort({score: {$meta: 'textScore'}})
+    .map(x => x.tag);
+  typedCollection.find({'tag.name': 'name'}, {projection: {name: 1, max: {$max: []}}}).toArray().then(docs => {
+    return docs.map(x => x.tag);
+  });
+
+  // override the collection type
+  typedCollection.find<{name2: string, age2: number}>({name: '123'}, {projection: {age2: 1}})
+    .map(x => x.name2 && x.age2);
+  typedCollection.find({name: '123'}, {projection: {age: 1}})
+    .map(x => x.tag);
+
+  typedCollection.find().project({name: 1});
+  typedCollection.find().project({notExistingField: 1});
+  typedCollection.find().project({max: {$max: []}});
+
   for await (const item of cursor) {
     item.foo; // $ExpectType number
   }

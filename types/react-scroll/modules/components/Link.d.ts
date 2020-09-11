@@ -16,6 +16,7 @@ export interface ReactScrollLinkProps {
     onSetActive?(to: string): void;
     onSetInactive?(): void;
     ignoreCancelEvents?: boolean;
+    saveHashHistory?: boolean;
 }
 
 export type LinkProps = ReactScrollLinkProps & React.HTMLProps<HTMLButtonElement>;

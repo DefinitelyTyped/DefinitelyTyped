@@ -42,7 +42,7 @@ export interface DialogAPI {
      * Dialog.append("Cry 'Havoc!', and let slip the <em>ponies</em> of <strong>friendship</strong>.");
      * Dialog.append( <some DOM nodes> );
      */
-    append(...content: ReadonlyArray<string | string[] | HTMLElement>): this;
+    append(...content: ReadonlyArray<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
 
     /**
      * Returns a reference to the dialog's content area

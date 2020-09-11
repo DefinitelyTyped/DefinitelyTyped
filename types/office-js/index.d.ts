@@ -1,6 +1,11 @@
 // Type definitions for Office.js 1.0
 // Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>, Sudhi Ramamurthy <https://github.com/sumurthy>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>,
+//                 Ricky Kirkham <https://github.com/Rick-Kirkham>,
+//                 Alex Jerabek <https://github.com/AlexJerabek>,
+//                 Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>,
+//                 Sudhi Ramamurthy <https://github.com/sumurthy>,
+//                 Alison McKay <https://github.com/alison-mk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -476,6 +481,79 @@ declare namespace Office {
         */
         value: T;
     }
+	
+    /**
+     * An interface that contains all the functionality provided to manage the state of the Office ribbon.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
+     */
+    interface Ribbon {
+        /**
+         * Sends a request to Office to update the ribbon.
+		 *
+		 * @remarks
+         *
+         * **Requirement set**: Ribbon 1.1
+		 *
+         * Note that this API is only to request an update. The actual UI update to the ribbon is controlled by the Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined by the completion of this API.
+		 *
+         * @param input - Represents the updates to be made to the ribbon. Note that only the changes specified in the input parameter are made.
+         */
+        requestUpdate(input: RibbonUpdaterData): Promise<void>;
+    }
+    /**
+     * Specifies changes to the ribbon, such as the enabled or disabled status of a button.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
+     */
+    interface RibbonUpdaterData {
+        /**
+         * Collection of tabs whose state is set with the call of `requestUpdate`.
+		 */
+        tabs: Tab[];
+    }
+    /**
+     * Represents an individual tab and the state it should have.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
+     */
+    interface Tab {
+        /**
+         * Identifier of the tab as specified in the manifest.
+         */
+        id: string;
+        /**
+         * Specifies the controls in the tab, such as menu items, buttons, etc.
+         */
+        controls: Control[];
+    }
+    /**
+     * Represents an individual control or command and the state it should have.
+	 *
+	 * @remarks
+     *
+     * **Requirement set**: Ribbon 1.1
+     */
+    interface Control {
+        /**
+         * Identifier of the control as specified in the manifest.
+         */
+        id: string;
+        /**
+         * Indicates whether the control should be visible or hidden. The default is true.
+         */
+        visible?: boolean;
+        /**
+         * Indicates whether the control should be enabled or disabled. The default is true.
+         */
+        enabled?: boolean;
+    } 	
     /**
      * Represents the runtime environment of the add-in and provides access to key objects of the API. 
      * The current context exists as a property of Office. It is accessed using `Office.context`.
@@ -737,6 +815,21 @@ declare namespace Office {
      * for more information.
      */
     interface UI {
+        /**
+         * Adds an event handler to the object using the specified event type.
+         *
+         * @remarks
+         *
+         * **Requirement set**: DialogApi 1.2
+         *
+         * You can add multiple event handlers for the specified event type as long as the name of each event handler function is unique.
+         *
+         * @param eventType Specifies the type of event to add. This must be `Office.EventType.DialogParentMessageReceived`.
+         * @param handler The event handler function to add, whose only parameter is of type {@link Office.DialogParentMessageReceivedEventArgs}.
+         * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the handler registration returns, whose only parameter is of type {@link Office.AsyncResult}.
+         */
+        addHandlerAsync(eventType: Office.EventType, handler: (result: DialogParentMessageReceivedEventArgs) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
         /**
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
@@ -1021,7 +1114,125 @@ declare namespace Office {
          */
         asyncContext?: any
     }
-
+    /**
+     * The Office Auth namespace, `Office.context.auth`, provides a method that allows the Office client application to obtain an access token to the add-in's web application.
+     * Indirectly, this also enables the add-in to access the signed-in user's Microsoft Graph data without requiring the user to sign in a second time.
+     */
+    interface Auth {
+        /**
+         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables add-ins to identify users.
+         * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
+         * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
+         *
+         * @deprecated Use Office.auth.getAccessToken instead.
+         * 
+         * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
+         * 
+         * @remarks
+         *
+         * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
+         *
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/identity-api-requirement-sets | IdentityAPI}
+         *
+         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign in with Organizational
+         * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
+         *
+         * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
+         * @param callback - Optional. Accepts a callback method that can parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
+         *                   If `AsyncResult.status` is "succeeded", then `AsyncResult.value` is the raw AAD v. 2.0-formatted access token.
+         */
+        getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult<string>) => void): void;
+        /**
+         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables add-ins to identify users.
+         * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
+         * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
+         *
+         * @deprecated Use `Office.auth.getAccessToken` instead.
+         * 
+         * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
+         *
+         * @remarks
+         *
+         * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
+         *
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/identity-api-requirement-sets | IdentityAPI}
+         *
+         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign in with Organizational
+         * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
+         *
+         * @param callback - Optional. Accepts a callback method that can parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph.
+         *                   If `AsyncResult.status` is "succeeded", then `AsyncResult.value` is the raw AAD v. 2.0-formatted access token.
+         */
+        getAccessTokenAsync(callback?: (result: AsyncResult<string>) => void): void;
+        /**
+         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables add-ins to identify users.
+         * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
+         * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}. 
+         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign in with Organizational
+         * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
+         *
+         * @remarks
+         *
+         * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
+         * 
+         * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox. 
+         *
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/identity-api-requirement-sets | IdentityAPI}
+         *
+         * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
+         * @returns Promise to the access token.
+         */
+        getAccessToken(options?: AuthOptions): Promise<string>;
+    }
+    /**
+     * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the `getAccessToken` method.
+     */
+    interface AuthOptions {
+        /**
+         * Allows Office to get an access token silently or through interactive consent, if one is required. Default value is `false`.
+         * If set to `false`, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
+         * If set to `true`, Office will show an interactive consent UI after it fails to silently get an access token.
+         * The prompt will only allow consent to the AAD profile scope, not to any Microsoft Graph scopes.
+         */
+        allowConsentPrompt?: boolean;
+        /**
+         * Allows Office to get an access token silently provided consent is present or show interactive UI to sign in the user. Default value is `false`.
+         * If set to `false`, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
+         * If set to `true`, Office will show an interactive sign-in UI after it fails to silently get an access token.
+         */
+        allowSignInPrompt?: boolean;
+        /**
+         * Prompts the user to add their Office account (or to switch to it, if it is already added). Default value is `false`.
+         *
+         * @deprecated Use `allowSignInPrompt` instead.
+         */
+        forceAddAccount?: boolean;
+        /**
+         * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
+         * been revoked. Default value is `false`.
+         *
+         * @deprecated Use `allowConsentPrompt` instead.
+         */
+        forceConsent?: boolean;
+        /**
+         * Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor
+         * authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development
+         * time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try"
+         * call of `getAccessToken` after Microsoft Graph has sent an error requesting the additional factor and containing the string that should
+         * be used with the `authChallenge` option.
+         */
+        authChallenge?: string;
+        /**
+         * A user-defined item of any type that is returned, unchanged, in the `asyncContext` property of the `AsyncResult` object that is passed to a callback.
+         */
+        asyncContext?: any;
+        /**
+         * Causes Office to return a descriptive error when the add-in wants to access Microsoft Graph and the user/admin has not granted consent to Graph scopes. Default value is `false`.
+         * Office only supports consent to Graph scopes when the add-in has been deployed by a tenant admin. This information will not be available during development.
+         * Setting this option to `true` will cause Office to inform your add-in beforehand (by returning a descriptive error) if Graph access will fail.
+         */
+        forMSGraphAccess?: boolean;
+      }
     /**
      * Provides an option for preserving context data of any type, unchanged, for use in a callback.
      */
@@ -1422,8 +1633,21 @@ declare namespace Office {
          * - DialogMessageReceived. Triggered when the dialog box sends a message to its parent.
          *
          * - DialogEventReceived. Triggered when the dialog box has been closed or otherwise unloaded.
+         * 
+         * @param eventType Must be either DialogMessageReceived or DialogEventReceived.
+         * @param handler A function which accepts either an object with a `message` property, if eventType is DialogMessageReceived, or an object with an `error` property, if eventType is DialogEventReceived.
          */
-        addEventHandler(eventType: Office.EventType, handler: Function): void;
+        addEventHandler(eventType: Office.EventType, handler: (args: {message: string | boolean} | {error: number}) => void): void;
+        /**
+         * Delivers a message from the host page, such as a task pane or a UI-less function file, to a dialog that was opened from the page.
+         *
+         * @remarks
+         *
+         * **Requirement set**: DialogApi 1.2
+         *
+         * @param message Accepts a message from the host page to deliver to the dialog. Anything that can be serialized to a string, including JSON and XML, can be sent.
+         */
+        messageChild(message: string): void;
         /**
          * FOR INTERNAL USE ONLY. DO NOT CALL IN YOUR CODE.
          */
@@ -1663,6 +1887,10 @@ declare namespace Office {
          * Triggers when a dialog sends a message via `messageParent`.
          */
         DialogMessageReceived,
+        /**
+         * Triggers when a host page sends a message to a child dialog box with `messageChild`.
+         */
+        DialogParentMessageReceived,
         /**
          * Triggers when a document-level selection happens.
          * 
@@ -4831,6 +5059,23 @@ declare namespace Office {
          * Gets an {@link Office.Settings} object that represents the settings that raised the settingsChanged event.
          */
         settings: Settings;
+        /**
+         * Get an {@link Office.EventType} enumeration value that identifies the kind of event that was raised.
+         */
+        type: EventType;
+    }
+    /**
+     * Provides information about the message from the parent page that raised the `DialogParentMessageReceived` event.
+     *
+     * To add an event handler for the `DialogParentMessageReceived` event, use the `addHandlerAsync` method of the
+     * {@link Office.UI} object.
+     *
+     */
+    interface DialogParentMessageReceivedEventArgs {
+        /**
+         * Gets the content of the message sent from the parent page, which can be any string or stringified data.
+         */
+        message: string;
         /**
          * Get an {@link Office.EventType} enumeration value that identifies the kind of event that was raised.
          */
@@ -8836,6 +9081,8 @@ declare namespace Office {
          * When you use the `Time.setAsync` method to set the end time, you should use the `convertToUtcClientTime` method to convert the local time on 
          * the client to UTC for the server.
          *
+         * **Important**: In the Windows client, you can't use this property to update the end of a recurrence.
+         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
@@ -8990,6 +9237,8 @@ declare namespace Office {
          *
          * When you use the `Time.setAsync` method to set the start time, you should use the `convertToUtcClientTime` method to convert the local time on 
          * the client to UTC for the server.
+         *
+         * **Important**: In the Windows client, you can't use this property to update the start of a recurrence.
          *
          * @remarks
          *
@@ -9502,7 +9751,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -9522,7 +9774,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -10616,7 +10871,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -10636,7 +10894,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -13685,7 +13946,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -13704,7 +13968,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -14100,6 +14367,10 @@ declare namespace Office {
         from: EmailAddressDetails;
         /**
          * Gets the internet message identifier for an email message.
+         *
+         * **Important**: In the **Sent Items** folder, the `internetMessageId` may not be available yet on recently sent items. In that case,
+         * consider using {@link https://docs.microsoft.com/office/dev/add-ins/outlook/web-services | Exchange Web Services} to get this
+         * {@link https://docs.microsoft.com/exchange/client-developer/web-service-reference/internetmessageid | property from the server}.
          *
          * @remarks
          *
@@ -14703,7 +14974,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -14722,7 +14996,10 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
-         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         * For more information around using this API, see the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         *
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -16129,6 +16406,8 @@ declare namespace Office {
          *
          * The time must be in UTC; you can get the correct UTC time by using the `convertToUtcClientTime` method.
          *
+         * **Important**: In the Windows client, you can't use this function to update the start or end of a recurrence.
+         *
          * [Api set: Mailbox 1.1]
          *
          * @remarks
@@ -16155,6 +16434,8 @@ declare namespace Office {
          * previously set. If the `setAsync` method is called on the `end` property, the duration of the appointment will be extended to the new end time.
          *
          * The time must be in UTC; you can get the correct UTC time by using the `convertToUtcClientTime` method.
+         *
+         * **Important**: In the Windows client, you can't use this function to update the start or end of a recurrence.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -20030,21 +20311,21 @@ declare namespace Excel {
         readonly columnIndex: number;
         /**
          *
-         * Represents the formula in A1-style notation.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.1]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -21663,21 +21944,21 @@ declare namespace Excel {
         readonly columnCount: number;
         /**
          *
-         * Represents the formula in A1-style notation.
+         * Represents the formula in A1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulas: any[][];
         /**
          *
-         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */
         formulasLocal: any[][];
         /**
          *
-         * Represents the formula in R1C1-style notation.
+         * Represents the formula in R1C1-style notation. If a cell has no formula, its value is returned instead.
          *
          * [Api set: ExcelApi 1.3]
          */

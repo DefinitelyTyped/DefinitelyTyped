@@ -26,7 +26,7 @@
 기여자분들이 작성한 PR 또는 패키지에 문제가 발생했을 경우 이 표시를 보면 도움이 될 수 있습니다.
 
 * 최신 빌드가 [타입 체크/린트](https://github.com/Microsoft/dtslint) 과정을 깔끔하게 통과했습니다: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
-* 모든 패키지가 typescript@next상에서 타입 체크/린트 과정을 깔끔하게 통과합니다: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
+* 모든 패키지가 typescript@next상에서 타입 체크/린트 과정을 깔끔하게 통과합니다: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * 모든 패키지가 1시간 내에 [npm에 배포](https://github.com/microsoft/types-publisher)되었습니다: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot)이 Definitely Typed에서 잘 돌고 있습니다 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
@@ -65,11 +65,11 @@ NPM 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 이 경우 주로 `package.json` 파일의 `"types"` 나 `"typings"` 필드(Field)를 통해 제공되지만,
 `/// <reference path="" />` 같은 주석을 사용하여 패키지 안의 ".d.ts" 파일들을 직접 가져와야 할 수도 있습니다.
 
-#### 이전 버전 TypeScript (2.9 또는 그 이전)
+#### 이전 버전 TypeScript (3.0 또는 그 이전)
 
 Definitely Typed는 2년이 지나지 않은 TypeScript 버전만을 대상으로 패키지를 테스트합니다.
-현재 버전 3.0 및 그 이상만을 테스트하고 있습니다.
-TypeScript 2.0에서 2.9 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
+현재 버전 3.1 및 그 이상만을 테스트하고 있습니다.
+TypeScript 2.0에서 3.0 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
 그러나 작동 여부를 보장하지는 못합니다.
 지원 기간은 다음과 같습니다:
 
@@ -87,6 +87,7 @@ TypeScript 2.0에서 2.9 버전을 사용하는 경우, 그래도 `@types` 패�
 3.7 | 2019년 11월 | 2021년 11월
 3.8 | 2020년 2월 | 2022년 2월
 3.9 | 2020년 5월 | 2022년 5월
+4.0 | 2020년 8월 | 2022년 8월
 
 `@types` 패키지 안에는 패키지가 확실하게 지원하는 TypeScript 버전이 태그로 쓰여 있으므로, 2년 지원 기간이 지난 오래된 패키지도 보통 찾아보실 수 있습니다.
 예를 들어, `npm dist-tags @types/react` 명령어를 입력하면 TypeScript 2.5는 react@16.0용 타입을, TypeScript 2.6 및 2.7은 react@16.4용 타입을 사용할 수 있는 것을 확인하실 수 있습니다:
