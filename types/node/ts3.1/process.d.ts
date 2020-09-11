@@ -245,6 +245,8 @@ declare module "process" {
                 title: string;
                 arch: string;
                 platform: Platform;
+                /** @deprecated since v14.0.0 - use `require.main` instead. */
+                mainModule?: Module;
                 memoryUsage(): MemoryUsage;
                 cpuUsage(previousValue?: CpuUsage): CpuUsage;
                 nextTick(callback: Function, ...args: any[]): void;
@@ -259,6 +261,12 @@ declare module "process" {
                     tls_ocsp: boolean;
                     tls: boolean;
                 };
+                /**
+                 * @deprecated since v14.0.0 - Calling process.umask() with no argument causes
+                 * the process-wide umask to be written twice. This introduces a race condition between threads,
+                 * and is a potential security vulnerability. There is no safe, cross-platform alternative API.
+                 */
+                umask(): number;
                 /**
                  * Can only be set if not in worker thread.
                  */

@@ -576,7 +576,8 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        parent: Module | null;
+        /** @deprecated since 14.6.0 Please use `require.main` and `module.children` instead. */
+        parent: Module | null | undefined;
         children: Module[];
         /**
          * @since 11.14.0

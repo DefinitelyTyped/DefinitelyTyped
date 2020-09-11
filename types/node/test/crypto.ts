@@ -603,6 +603,10 @@ import { promisify } from 'util';
 }
 
 {
+    const fips: 0 | 1 = crypto.getFips();
+}
+
+{
     crypto.createPrivateKey(Buffer.from('asdf'));
     crypto.createPrivateKey({
         key: 'asd',
