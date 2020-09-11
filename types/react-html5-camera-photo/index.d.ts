@@ -6,20 +6,19 @@
 
 import { FC } from "react";
 
-/**
- * Facing modes for the camera.
- */
-export const FACING_MODES = {
-    USER: "user" as const,
-    ENVIRONMENT: "environment" as const,
-};
-/**
- * Images types to capture.
- */
-export const IMAGE_TYPES = {
-    PNG: "png" as const,
-    JPG: "jpg" as const,
-};
+interface FacingMode {
+    USER: "user";
+    ENVIRONMENT: "environment";
+}
+
+export const FACING_MODES: FacingMode;
+
+interface ImageTypes {
+    PNG: "png";
+    JPG: "jpg";
+}
+
+export const IMAGE_TYPES: ImageTypes;
 
 export interface CameraProps {
     /**
@@ -106,6 +105,6 @@ export interface CameraProps {
  * A camera component.
  * @param props Camera properties.
  */
-declare const Camera: FC<CameraProps>;
+export const Camera: FC<CameraProps>;
 
 export default Camera;

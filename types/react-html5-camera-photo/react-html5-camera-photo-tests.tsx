@@ -1,12 +1,8 @@
 import * as React from 'react';
-import Camera from 'react-html5-camera-photo';
+import Camera, { FACING_MODES, IMAGE_TYPES } from 'react-html5-camera-photo';
 
 const CameraBasicApp: React.FC = () => {
-    return (
-        <Camera
-
-        />
-    );
+    return <Camera />;
 };
 
 const OptionsCameraApp: React.FC = () => {
@@ -25,7 +21,7 @@ const OptionsCameraApp: React.FC = () => {
             isFullscreen
             isDisplayStartCameraError
             sizeFactor={0.5}
-            imageType="png"
+            imageType={IMAGE_TYPES.PNG}
             imageCompression={0.8}
         />
     );
@@ -34,8 +30,19 @@ const OptionsCameraApp: React.FC = () => {
 const OtherOptionsCameraApp: React.FC = () => {
     return (
         <Camera
-            idealFacingMode="environment"
-            imageType="jpg"
+            idealFacingMode={FACING_MODES.ENVIRONMENT}
+            imageType={IMAGE_TYPES.JPG}
+        />
+    );
+};
+
+const BadApp: React.FC = () => {
+    return (
+        <Camera
+            // $ExpectError
+            idealFacingMode={'back'}
+            // $ExpectError
+            imageType={'tiff'}
         />
     );
 };
