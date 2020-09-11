@@ -16,7 +16,7 @@ declare namespace Flex {
         /**
          * Sets jusifty-content. Left and right are shorthand for flex-start and flex-end respectively, not the actual CSS value.
          */
-        justify?: CSSProperties['justifyContent'];
+        justify?: CSSProperties['justifyContent'] | 'left' | 'right';
 
         /**
          * Reverses the flex direction.
