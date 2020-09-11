@@ -1,4 +1,4 @@
-
+import 'node';
 
 interface SomeModule {
     someMethod(): void;
