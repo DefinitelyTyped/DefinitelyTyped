@@ -18,6 +18,5 @@
     },
     "files": [
         "index.d.ts",
-        "react-auth-kit-tests.ts"
     ]
 }
