@@ -1,7 +1,6 @@
 import { ComponentType, HTMLProps, CSSProperties } from 'react';
 
 declare namespace Flex {
-
     interface FlexProps {
         /**
          * Sets align-items. Top and bottom are shorthand for flex-start and flex-end respectively.
