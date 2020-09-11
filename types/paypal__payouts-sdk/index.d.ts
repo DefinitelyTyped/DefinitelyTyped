@@ -2,6 +2,7 @@
 // Project: https://github.com/paypal/Payouts-NodeJS-SDK#readme
 // Definitions by: Rumon <https://github.com/msrumon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 type RecipientType = 'EMAIL' | 'PHONE' | 'PAYPAL_ID';
 type RecipientWallet = 'PAYPAL' | 'VENMO';
