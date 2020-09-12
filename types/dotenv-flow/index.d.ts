@@ -93,6 +93,11 @@ export interface DotenvConfigOptions {
      * Setting the `purge_dotenv` option to `true` can gracefully fix this issue.
      */
     purge_dotenv?: boolean;
+
+    /**
+     * Suppress all console outputs except errors and deprecation warnings.
+     */
+    silent?: boolean;
 }
 
 /**
