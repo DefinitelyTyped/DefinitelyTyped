@@ -170,7 +170,7 @@ function MapDispatchWithThunkActionCreators() {
     }
     interface TestComponentProps extends OwnProps {
         simpleAction: typeof simpleAction;
-        thunkAction(param1: number, param2: string): Promise<string>;
+        thunkAction: typeof thunkAction;
     }
     class TestComponent extends React.Component<TestComponentProps> { }
 

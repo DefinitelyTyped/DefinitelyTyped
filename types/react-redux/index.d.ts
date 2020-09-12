@@ -127,8 +127,8 @@ export type InferableComponentEnhancer<TInjectedProps> =
     InferableComponentEnhancerWithProps<TInjectedProps, {}>;
 
 export type InferThunkActionCreatorType<TActionCreator extends (...args: any[]) => any> =
-    TActionCreator extends (...args: infer TParams) => (...args: any[]) => infer TReturn
-        ? (...args: TParams) => TReturn
+    TActionCreator extends (...args: infer TACParams) => (...args: Array<infer TParams>) => infer TReturn
+        ? (...args: TACParams) => (...args: TParams[]) => TReturn
         : TActionCreator;
 
 export type HandleThunkActionCreator<TActionCreator> =
