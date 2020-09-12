@@ -4,7 +4,7 @@
 * In case of any problems please post issue to https://github.com/Maxim-Mazurok/google-api-typings-generator
 **/
 
-//test
+// test
 
 // Revision: 20200831
 
@@ -11474,4 +11474,3 @@ gapi.load('client', () => {
         });
     }
 });
-
