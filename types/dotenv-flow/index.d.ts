@@ -1,7 +1,8 @@
-// Type definitions for dotenv-flow 3.0
+// Type definitions for dotenv-flow 3.1.0
 // Project: https://github.com/kerimdzhanov/dotenv-flow
 // Definitions by: Vincent Langlet <https://github.com/vincentlanglet>
 //                 Dan Kerimdzhanov <https://github.com/kerimdzhanov>
+//                 James Greenleaf <https://github.com/aMoniker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface DotenvListFilesOptions {
