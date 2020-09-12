@@ -1,9 +1,10 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import Tile, { LoadFunction, UrlFunction } from '../Tile';
+import { TileCoord } from '../tilecoord';
 import TileGrid from '../tilegrid/TileGrid';
 import { AttributionLike } from './Source';
 import State from './State';
@@ -30,7 +31,6 @@ export interface Options {
 export default class UrlTile extends TileSource {
     constructor(options: Options);
     protected tileLoadFunction: LoadFunction;
-    protected tileUrlFunction: UrlFunction;
     protected urls: string[];
     protected handleTileChange(event: BaseEvent): void;
     getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
@@ -41,8 +41,9 @@ export default class UrlTile extends TileSource {
     setTileUrlFunction(tileUrlFunction: UrlFunction, key?: string): void;
     setUrl(url: string): void;
     setUrls(urls: string[]): void;
-    useTile(z: number, x: number, y: number, projection: Projection): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    tileUrlFunction(tileCoord: TileCoord, pixelRatio: number, projection: Projection): string;
+    useTile(z: number, x: number, y: number): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
