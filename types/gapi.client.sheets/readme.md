@@ -90,4 +90,3 @@ Returns the spreadsheet at the given ID. The caller must specify the spreadsheet
 */
 await gapi.client.sheets.spreadsheets.getByDataFilter({ spreadsheetId: "spreadsheetId",  });
 ```
-
