@@ -11,14 +11,14 @@ for (const rootType of parsed) {
     }
 
     switch (rootType.type) {
-        case "interface":
-            rootType; // $ExpectType InterfaceType
-            console.log(rootType.inheritance);
+        case "interface mixin":
+            rootType; // $ExpectType InterfaceMixinType
             logMembers(rootType.members);
             console.log(rootType.partial);
             break;
-        case "interface mixin":
-            rootType; // $ExpectType InterfaceMixinType
+        case "interface":
+            rootType; // $ExpectType InterfaceType
+            console.log(rootType.inheritance);
             logMembers(rootType.members);
             console.log(rootType.partial);
             break;
@@ -101,15 +101,33 @@ function logMembers(members: webidl2.IDLInterfaceMemberType[]) {
                 console.log(member.nullable);
                 break;
             case "iterable":
-            case "maplike":
-            case "setlike":
-                member; // $ExpectType DeclarationMemberType
+                member; // $ExpectType IterableDeclarationMemberType
                 member.parent; // $ExpectType InterfaceMixinType | InterfaceType
                 member.async; // $ExpectType boolean
-                member.readonly; // $ExpectType boolean
-                console.log(member.readonly);
+                member.readonly; // $ExpectType false
+                member.idlType; // $ExpectType [IDLTypeDescription] | [IDLTypeDescription, IDLTypeDescription]
                 member.idlType.forEach(logIdlType);
                 member.arguments; // $ExpectType Argument[]
+                logArguments(member.arguments);
+                break;
+            case "maplike":
+                member; // $ExpectType MaplikeDeclarationMemberType
+                member.parent; // $ExpectType InterfaceMixinType | InterfaceType
+                member.async; // $ExpectType false
+                member.readonly; // $ExpectType boolean
+                member.idlType; // $ExpectType [IDLTypeDescription, IDLTypeDescription]
+                member.idlType.forEach(logIdlType);
+                member.arguments; // $ExpectType []
+                logArguments(member.arguments);
+                break;
+            case "setlike":
+                member; // $ExpectType SetlikeDeclarationMemberType
+                member.parent; // $ExpectType InterfaceMixinType | InterfaceType
+                member.async; // $ExpectType false
+                member.readonly; // $ExpectType boolean
+                member.idlType; // $ExpectType [IDLTypeDescription]
+                member.idlType.forEach(logIdlType);
+                member.arguments; // $ExpectType []
                 logArguments(member.arguments);
                 break;
             default:
