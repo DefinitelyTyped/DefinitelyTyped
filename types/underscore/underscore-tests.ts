@@ -18,7 +18,21 @@ interface AugmentedList extends _.List<StringRecord> {
     notAListProperty: boolean;
 }
 
+// tslint:disable-next-line:interface-over-type-literal
+type AugmentedListLiteral = {
+    [index: number]: StringRecord;
+    length: number;
+    otherProperty: string;
+};
+
 interface ExplicitDictionary extends _.Dictionary<StringRecord> {
+    a: StringRecord;
+    b: StringRecord;
+    c: StringRecord;
+}
+
+// tslint:disable-next-line:interface-over-type-literal
+type ExplicitDictionaryLiteral = {
     a: StringRecord;
     b: StringRecord;
     c: StringRecord;
@@ -801,6 +815,28 @@ declare const extractChainTypes: ChainTypeExtractor;
 
 // Types
 
+// TypeOfCollection
+declare const listItem: _.TypeOfCollection<_.List<StringRecord>>;
+listItem; // $ExpectType StringRecord
+
+declare const arrayItem: _.TypeOfCollection<StringRecord[]>;
+arrayItem; // $ExpectType StringRecord
+
+declare const augmentedListItem: _.TypeOfCollection<AugmentedList>;
+augmentedListItem; // $ExpectType StringRecord
+
+declare const augmentedListLiteralItem: _.TypeOfCollection<AugmentedListLiteral>;
+augmentedListLiteralItem; // $ExpectType StringRecord
+
+declare const dictionaryItem: _.TypeOfCollection<_.Dictionary<StringRecord>>;
+dictionaryItem; // $ExpectType StringRecord
+
+declare const explicitDictionaryItem: _.TypeOfCollection<ExplicitDictionary>;
+explicitDictionaryItem; // $ExpectType StringRecord
+
+declare const explicitDictionaryLiteralItem: _.TypeOfCollection<ExplicitDictionaryLiteral>;
+explicitDictionaryLiteralItem; // $ExpectType StringRecord
+
 // Iteratee
 {
     // functions
@@ -831,7 +867,7 @@ declare const extractChainTypes: ChainTypeExtractor;
     const collectionFunctionIteratee: _.Iteratee<_.Dictionary<StringRecord> | StringRecord[], string> = (element, key, collection) => {
         element; // $ExpectType StringRecord
         key; // $ExpectType string | number
-        collection; // $ExpectType Dictionary<StringRecord> | StringRecord[]
+        collection; // $ExpectType StringRecord[] | Dictionary<StringRecord>
         return element.a;
     };
     collectionFunctionIteratee(recordDictionary['a'], 'a', recordDictionary); // $ExpectType string
