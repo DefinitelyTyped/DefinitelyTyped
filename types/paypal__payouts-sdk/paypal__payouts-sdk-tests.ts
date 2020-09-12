@@ -1,4 +1,4 @@
-import { Core, Payouts } from 'paypal__payouts-sdk';
+import { core, payouts } from 'paypal__payouts-sdk';
 
 declare const id: string;
 declare const secret: string;
@@ -7,10 +7,10 @@ declare const currency: string;
 declare const value: string;
 declare const receiver: string;
 
-const envLive = new Core.LiveEnvironment(id, secret);
-const client = new Core.PayPalHttpClient(envLive);
+const envLive = new core.LiveEnvironment(id, secret);
+const client = new core.PayPalHttpClient(envLive);
 
-const reqPost = new Payouts.PayoutsPostRequest();
+const reqPost = new payouts.PayoutsPostRequest();
 reqPost.headers.Authorization = envLive.authorizationString();
 reqPost.requestBody({ sender_batch_header: {}, items: [{ amount: { currency, value }, receiver }] });
 client
@@ -19,7 +19,7 @@ client
         const result = res.result;
         const batchId = result?.batch_header?.payout_batch_id;
         if (batchId) {
-            const reqGetBatch = new Payouts.PayoutsGetRequest(batchId);
+            const reqGetBatch = new payouts.PayoutsGetRequest(batchId);
             reqGetBatch.headers.Authorization = envLive.authorizationString();
             return client.execute(reqGetBatch);
         }
@@ -32,7 +32,7 @@ client
         const batchItems = res?.result?.items;
         if (batchItems?.length) {
             const [firstItem] = batchItems;
-            const reqItems = new Payouts.PayoutsItemGetRequest(firstItem.payout_item_id);
+            const reqItems = new payouts.PayoutsItemGetRequest(firstItem.payout_item_id);
             reqItems.headers.Authorization = envLive.authorizationString();
             return client.execute(reqItems);
         }
@@ -42,7 +42,7 @@ client
         if (txStatus !== 'SUCCESS') {
             const itemId = res?.result?.payout_item_id;
             if (itemId) {
-                const reqCancel = new Payouts.PayoutsItemCancelRequest(itemId);
+                const reqCancel = new payouts.PayoutsItemCancelRequest(itemId);
                 reqCancel.headers.Authorization = envLive.authorizationString();
                 return client.execute(reqCancel);
             }

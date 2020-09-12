@@ -96,7 +96,7 @@ interface SenderBatchHeader extends PayoutSenderBatchHeader {
     note?: string;
 }
 
-interface HttpHeader {
+interface PaypalHeader {
     Authorization: string;
 }
 interface CreatePayoutRequestBody {
@@ -120,7 +120,7 @@ interface GetPayoutsItemResponse extends PayoutBatchItems {
 }
 
 interface HttpRequest {
-    headers: HttpHeader;
+    headers: PaypalHeader;
     body?: { [key: string]: string };
 }
 
@@ -131,17 +131,17 @@ interface HttpResponse<R> {
     result?: R;
 }
 
-/**
- * Base class for PayPal environments
- */
-declare class PayPalEnvironment {
-    constructor(clientId: string, clientSecret: string, baseUrl: string, webUrl: string);
+declare namespace core {
+    /**
+     * Base class for PayPal environments
+     */
+    class PayPalEnvironment {
+        constructor(clientId: string, clientSecret: string, baseUrl: string, webUrl: string);
 
-    // Authorization header string for basic authentication with the current client id and secret
-    authorizationString(): string;
-}
+        // Authorization header string for basic authentication with the current client id and secret
+        authorizationString(): string;
+    }
 
-declare namespace Core {
     /**
      * Sandbox Environment
      */
@@ -161,15 +161,15 @@ declare namespace Core {
      */
     class PayPalHttpClient {
         constructor(environment: PayPalEnvironment, refreshToken?: string);
-        execute(request: Payouts.PayoutsPostRequest): Promise<HttpResponse<CreateBatchPayoutResponse>>;
-        execute(request: Payouts.PayoutsGetRequest): Promise<HttpResponse<GetBatchPayoutResponse>>;
+        execute(request: payouts.PayoutsPostRequest): Promise<HttpResponse<CreateBatchPayoutResponse>>;
+        execute(request: payouts.PayoutsGetRequest): Promise<HttpResponse<GetBatchPayoutResponse>>;
         execute(
-            request: Payouts.PayoutsItemGetRequest | Payouts.PayoutsItemCancelRequest,
+            request: payouts.PayoutsItemGetRequest | payouts.PayoutsItemCancelRequest,
         ): Promise<HttpResponse<GetPayoutsItemResponse>>;
     }
 }
 
-declare namespace Payouts {
+declare namespace payouts {
     /**
      * Creates a batch payout.
      * In the JSON request body, pass a `sender_batch_header` and an `items` array.
@@ -178,7 +178,7 @@ declare namespace Payouts {
      * You can make payouts to one or more recipients.
      */
     class PayoutsPostRequest implements HttpRequest {
-        headers: HttpHeader;
+        headers: PaypalHeader;
         payPalPartnerAttributionId(payPalPartnerAttributionId: string): this;
         payPalRequestId(payPalRequestId: string): this;
         requestBody(createPayoutRequest: CreatePayoutRequestBody): this;
@@ -189,7 +189,7 @@ declare namespace Payouts {
      * Includes the transaction status and other data for individual payout items.
      */
     class PayoutsGetRequest implements HttpRequest {
-        headers: HttpHeader;
+        headers: PaypalHeader;
         constructor(payoutBatchId: string);
         fields(fields: string): this;
         page(page: number): this;
@@ -203,7 +203,7 @@ declare namespace Payouts {
      * If a payment is denied, you can use the `payout_item_id` to identify the payment even if it lacks a `transaction_id`.
      */
     class PayoutsItemGetRequest implements HttpRequest {
-        headers: HttpHeader;
+        headers: PaypalHeader;
         constructor(payoutItemId: string);
     }
 
@@ -214,9 +214,9 @@ declare namespace Payouts {
      * You can cancel payout items with a `transaction_status` of `UNCLAIMED`.
      */
     class PayoutsItemCancelRequest implements HttpRequest {
-        headers: HttpHeader;
+        headers: PaypalHeader;
         constructor(payoutItemId: string);
     }
 }
 
-export { Core, Payouts };
+export { core, payouts };
