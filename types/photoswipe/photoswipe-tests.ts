@@ -19,7 +19,10 @@ function test_defaultUI() {
             h: 2000,
 
             msrc: "path/to/image3-thumb.jpg"
-        }
+        },
+        {
+            html: "<h1>Hello World</h1>",
+        },
     ];
 
     var options: PhotoSwipe.Options = {

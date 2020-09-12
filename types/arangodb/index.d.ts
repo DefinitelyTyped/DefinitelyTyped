@@ -89,7 +89,7 @@ declare namespace ArangoDB {
         | "network authentication required";
     type EdgeDirection = "any" | "inbound" | "outbound";
     type EngineType = "mmfiles" | "rocksdb";
-    type IndexType = "hash" | "skiplist" | "fulltext" | "geo";
+    type IndexType = "persistent" | "hash" | "skiplist" | "fulltext" | "geo" | "ttl";
     type ViewType = "arangosearch";
     type KeyGeneratorType = "traditional" | "autoincrement";
     type ErrorName =
@@ -510,6 +510,9 @@ declare namespace ArangoDB {
         sparse?: boolean;
         unique?: boolean;
         deduplicate?: boolean;
+        expireAfter?: number;
+        name?: string;
+        minLength?: number;
     }
 
     interface Index<T extends object = any> {
@@ -520,6 +523,7 @@ declare namespace ArangoDB {
         sparse: boolean;
         unique: boolean;
         deduplicate: boolean;
+        expireAfter?: number;
         isNewlyCreated: boolean;
         selectivityEstimate: number;
         code: number;
@@ -1034,12 +1038,12 @@ declare namespace Foxx {
 
     interface ValidationResult<T> {
         value: T;
-        error: any;
+        error?: any;
+        errors?: any;
     }
 
     interface Schema {
-        isJoi: boolean;
-        validate<T>(value: T): ValidationResult<T>;
+        validate<T>(value: T, options?: any): ValidationResult<T>;
     }
 
     interface Model {
@@ -1133,13 +1137,21 @@ declare namespace Foxx {
         tests?: string[];
     }
 
+    interface Configuration {
+        [key: string]: any;
+    }
+
+    interface Dependencies {
+        [key: string]: any;
+    }
+
     interface Context {
         argv: any[];
         basePath: string;
         baseUrl: string;
         collectionPrefix: string;
-        configuration: { [key: string]: any };
-        dependencies: { [key: string]: any };
+        configuration: Configuration;
+        dependencies: Dependencies;
         isDevelopment: boolean;
         isProduction: boolean;
         manifest: Manifest;
@@ -1430,6 +1442,7 @@ declare module "@arangodb" {
     function aql(strings: TemplateStringsArray, ...args: any[]): ArangoDB.Query;
     namespace aql {
         function literal(value: any): ArangoDB.AqlLiteral;
+        function join(values: any[], sep?: string): ArangoDB.Query;
     }
     function query(
         strings: TemplateStringsArray,
@@ -1529,9 +1542,17 @@ declare module "@arangodb/foxx/queues" {
 }
 
 declare module "@arangodb/foxx/graphql" {
-    import { formatError, GraphQLSchema } from "graphql";
-    type GraphQLModule = object;
-    type GraphQLFormatErrorFunction = typeof formatError;
+    type GraphQLSchema = object;
+    type GraphQLFormatErrorFunction = (error: any) => any;
+    interface GraphQLModule {
+      formatError: GraphQLFormatErrorFunction;
+      Source: any;
+      parse: any;
+      validate: any;
+      specifiedRules: any;
+      getOperationAST: any;
+      execute: any;
+    }
     interface GraphQLOptions {
         schema: GraphQLSchema;
         context?: any;
@@ -2018,6 +2039,12 @@ declare module "@arangodb/locals" {
 
 interface NodeModule {
     context: Foxx.Context;
+}
+
+declare namespace NodeJS {
+    interface Module {
+        context: Foxx.Context;
+    }
 }
 
 interface Console {

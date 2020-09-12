@@ -12,6 +12,7 @@ list.visibleItems; // $ExpectType object[]
 list.matchingItems; // $ExpectType object[]
 list.searched; // $ExpectType boolean
 list.filtered; // $ExpectType boolean
+list.alphabet; // $ExpectType string
 
 list.add([{ // $ExpectType void
     name: "value",

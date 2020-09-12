@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, Action } from "redux";
-import { createStateSyncMiddleware, initStateWithPrevTab, withReduxStateSync } from "redux-state-sync";
+import { createStateSyncMiddleware, initStateWithPrevTab, withReduxStateSync, initMessageListener } from "redux-state-sync";
 
 interface TestState {
     a: number;
@@ -7,16 +7,21 @@ interface TestState {
     c: string;
 }
 const middleware = createStateSyncMiddleware({
-        channel: 'test',
-        predicate: (type) => true,
-        blacklist: [],
-        whitelist: [],
-        broadcastChannelOption: {}
-    });
+    channel: 'test',
+    predicate: (action) => true,
+    blacklist: [],
+    whitelist: [],
+    broadcastChannelOption: {},
+    prepareState: (state) => state,
+});
+
+// $ExpectError
+const middlewareError = createStateSyncMiddleware({ broadcastChannelOption: null });
 
 function rootReducer(state: TestState, action: Action): TestState {
     return state;
 }
 
-const store = createStore(withReduxStateSync(rootReducer), ['test'], applyMiddleware(middleware));
+const store = createStore(withReduxStateSync(rootReducer, (state) => state), ['test'], applyMiddleware(middleware));
 initStateWithPrevTab(store);
+initMessageListener(store);

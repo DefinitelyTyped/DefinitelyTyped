@@ -1,4 +1,4 @@
-import { ComponentType, FocusEventHandler, MouseEventHandler } from '@wordpress/element';
+import { ComponentType, FocusEventHandler, MouseEventHandler } from 'react';
 
 declare namespace FormTokenField {
     interface Props {

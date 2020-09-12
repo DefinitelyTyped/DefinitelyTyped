@@ -1,13 +1,20 @@
 import * as workerThreads from "worker_threads";
 import assert = require("assert");
 import { createContext } from "vm";
+import { Readable } from "stream";
 
 {
     if (workerThreads.isMainThread) {
+        const { port1 } = new workerThreads.MessageChannel();
         module.exports = async function parseJSAsync(script: string) {
             return new Promise((resolve, reject) => {
                 const worker = new workerThreads.Worker(__filename, {
-                    workerData: script
+                    resourceLimits: {
+                        codeRangeSizeMb: 123,
+                    },
+                    argv: ['asd'],
+                    workerData: script,
+                    transferList: [port1],
                 });
                 worker.on('message', resolve);
                 worker.on('error', reject);
@@ -37,7 +44,9 @@ import { createContext } from "vm";
         subChannel.port2.on('message', (value) => {
             console.log('received:', value);
         });
-        worker.moveMessagePortToContext(new workerThreads.MessagePort(), createContext());
+        const movedPort = workerThreads.moveMessagePortToContext(
+            new workerThreads.MessagePort(), createContext());
+        workerThreads.receiveMessageOnPort(movedPort);
     } else {
         workerThreads.parentPort!.once('message', (value) => {
             assert(value.hereIsYourPort instanceof workerThreads.MessagePort);
@@ -49,7 +58,26 @@ import { createContext } from "vm";
 
 {
     const w = new workerThreads.Worker(__filename);
+    w.getHeapSnapshot().then((stream: Readable) => {
+        //
+    });
     w.terminate().then(() => {
         // woot
+    });
+
+    const ww = new workerThreads.Worker(__filename, {
+      env: workerThreads.SHARE_ENV
+    });
+
+    const www = new workerThreads.Worker(__filename, {
+      env: process.env
+    });
+
+    const wwww = new workerThreads.Worker(__filename, {
+      env: { doot: 'woot' }
+    });
+
+    const wwwww = new workerThreads.Worker(__filename, {
+      trackUnmanagedFds: true
     });
 }

@@ -1,9 +1,10 @@
-// Type definitions for Matter.js - 0.10.1
+// Type definitions for Matter.js - 0.14.2
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
 //                 Piotr Pietrzak <https://github.com/hasparus>,
 //                 Dale Whinham <https://github.com/dwhinham>
+//                 slikts <https://github.com/slikts>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Matter;
@@ -535,10 +536,10 @@ declare namespace Matter {
         strokeStyle?: string;
 
 
-		/*
-		 * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
-		 */
-		opacity?: number;
+        /*
+         * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
+         */
+        opacity?: number;
     }
 
     export interface IBodyRenderOptionsSprite {
@@ -1671,7 +1672,7 @@ declare namespace Matter {
         stiffness?: number;
 
         /**
-         * A `Number` that specifies the damping of the constraint, 
+         * A `Number` that specifies the damping of the constraint,
          * i.e. the amount of resistance applied to each body based on their velocities to limit the amount of oscillation.
          * Damping will only be apparent when the constraint also has a very low `stiffness`.
          * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
@@ -1702,7 +1703,7 @@ declare namespace Matter {
         * @type number
         * @default 2
         */
-        lineWidth: number;
+        lineWidth?: number;
 
         /**
          * A `String` that defines the stroke style to use when rendering the constraint outline.
@@ -1712,7 +1713,7 @@ declare namespace Matter {
         * @type string
         * @default a random colour
         */
-        strokeStyle: string;
+        strokeStyle?: string;
 
         /**
          * A flag that indicates if the constraint should be rendered.
@@ -1721,7 +1722,27 @@ declare namespace Matter {
         * @type boolean
         * @default true
         */
-        visible: boolean;
+        visible?: boolean;
+
+        /**
+         * A `Boolean` that defines if the constraint's anchor points should be rendered.
+         *
+        * @property render.anchors
+        * @type boolean
+        * @default true
+        */
+        anchors?: boolean;
+
+        /**
+         * A String that defines the constraint rendering type. The possible values are
+         * 'line', 'pin', 'spring'. An appropriate render type will be automatically
+         * chosen unless one is given in options.
+         *
+        * @property render.type
+        * @type string
+        * @default 'line'
+        */
+        type?: 'line' | 'pin' | 'spring';
     }
 
 
@@ -1827,7 +1848,7 @@ declare namespace Matter {
         stiffness: number;
 
         /**
-         * A `Number` that specifies the damping of the constraint, 
+         * A `Number` that specifies the damping of the constraint,
          * i.e. the amount of resistance applied to each body based on their velocities to limit the amount of oscillation.
          * Damping will only be apparent when the constraint also has a very low `stiffness`.
          * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
@@ -2139,6 +2160,22 @@ declare namespace Matter {
          */
         static clear(grid: Grid): void;
 
+
+        /**
+         * The width of a single grid bucket.
+         *
+        * @property type
+        * @type number
+        */
+        bucketWidth: number;
+
+        /**
+         * The height of a single grid bucket.
+         *
+        * @property type
+        * @type number
+        */
+        bucketHeight: number;
     }
 
     export interface IMouseConstraintDefinition {
@@ -2296,6 +2333,15 @@ declare namespace Matter {
     * @class Query
     */
     export class Query {
+         /**
+         * Finds a list of collisions between body and bodies.
+         * @method collides
+         * @param {body} body
+         * @param {body[]} bodies
+         * @return {object[]} Collisions
+         */
+        static collides(body: Body, bodies: Array<Body>): Array<any>;
+
         /**
          * Casts a ray segment against a set of bodies and returns all collisions, ray width is optional. Intersection points are not provided.
          * @method ray
@@ -2429,16 +2475,23 @@ declare namespace Matter {
         /**
          * Render wireframes only
          * @type boolean
-         * @default true 
+         * @default true
          */
         wireframes?: boolean;
-        
+
         /**
          * Sets scene background
          * @type string
          * default undefined
          */
         background?: string
+
+        /**
+         * Sets wireframe background if `render.options.wireframes` is enabled
+         * @type string
+         * default undefined
+         */
+        wireframeBackground?: string
     }
 
     /**
@@ -2570,6 +2623,14 @@ declare namespace Matter {
         * @default 1000 / 60
         */
         delta?: number;
+
+        /**
+         * A flag that specifies whether the runner is running or not.
+         * @property enabled
+         * @type boolean
+         * @default true
+         */
+        enabled?: boolean;
     }
 
     /**
@@ -2590,7 +2651,7 @@ declare namespace Matter {
          * @method create
          * @param {} options
          */
-        static create(options:IRunnerOptions): Runner;
+        static create(options?: IRunnerOptions): Runner;
         /**
          * Continuously ticks a `Matter.Engine` by calling `Runner.tick` on the `requestAnimationFrame` event.
          * @method run
@@ -2777,7 +2838,7 @@ declare namespace Matter {
          * @param {vector} vectorB
          * @return {number} The dot product of the two vectors
          */
-        static dot(vectorA: Vector, vectorB: Vector): Number;
+        static dot(vectorA: Vector, vectorB: Vector): number;
 
         /**
          * Returns the magnitude (length) of a vector.
@@ -2928,8 +2989,9 @@ declare namespace Matter {
          * @param {number} quality
          * @param {number} qualityMin
          * @param {number} qualityMax
+         * @return {vertices} vertices
          */
-        static chamfer(vertices: Array<Vector>, radius: number | Array<number>, quality: number, qualityMin: number, qualityMax: number): void;
+        static chamfer(vertices: Array<Vector>, radius: number | Array<number>, quality: number, qualityMin: number, qualityMax: number): Array<Vector>;
 
 
         /**
@@ -2955,8 +3017,9 @@ declare namespace Matter {
         * @method create
         * @param {vector[]} points
         * @param {body} body
+        * @return {vertices} vertices
         */
-        static create(points: Array<Vector>, body: Body): void;
+        static create(points: Array<Vector>, body: Body): Array<Vector>;
 
         /**
          * Parses a string containing ordered x y pairs separated by spaces (and optionally commas),
@@ -2984,8 +3047,9 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @param {number} angle
          * @param {vector} point
+         * @return {vertices} vertices
          */
-        static rotate(vertices: Array<Vector>, angle: number, point: Vector): void;
+        static rotate(vertices: Array<Vector>, angle: number, point: Vector): Array<Vector>;
 
         /**
          * Scales the vertices from a point (default is centre) in-place.
@@ -2994,8 +3058,9 @@ declare namespace Matter {
          * @param {number} scaleX
          * @param {number} scaleY
          * @param {vector} point
+         * @return {vertices} vertices
          */
-        static scale(vertices: Array<Vector>, scaleX: number, scaleY: number, point: Vector): void;
+        static scale(vertices: Array<Vector>, scaleX: number, scaleY: number, point: Vector): Array<Vector>;
 
         /**
          * Translates the set of vertices in-place.
@@ -3003,8 +3068,9 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @param {vector} vector
          * @param {number} scalar
+         * @return {vertices} vertices
          */
-        static translate(vertices: Array<Vector>, vector: Vector, scalar: number): void;
+        static translate(vertices: Array<Vector>, vector: Vector, scalar: number): Array<Vector>;
     }
 
     interface IWorldDefinition extends ICompositeDefinition {
@@ -3088,9 +3154,9 @@ declare namespace Matter {
     }
 
     export interface ICollisionFilter {
-        category: number;
-        mask: number;
-        group: number;
+        category?: number;
+        mask?: number;
+        group?: number;
     }
 
     export interface IMousePoint {
@@ -3149,6 +3215,9 @@ declare namespace Matter {
         pairs: Array<IPair>;
     }
 
+    export interface IMouseEvent<T> extends IEvent<T> {
+        name: 'mousedown' | 'mousemove' | 'mouseup';
+    }
 
     export class Events {
 
@@ -3360,7 +3429,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousedown", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousedown", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse has moved (or a touch moves) during the last step
@@ -3368,7 +3437,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousemove", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousemove", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse is up (or a touch has ended) during the last step
@@ -3376,7 +3445,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mouseup", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mouseup", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
 
         static on(obj: any, name: string, callback: (e: any) => void): void;
@@ -3400,7 +3469,7 @@ declare namespace Matter {
         static trigger(object: any, eventNames: string, event?: (e: any) => void): void;
 
     }
-    
+
     type Dependency = {name: string, range: string}
                     | {name: string, version: string}
                     | string;
@@ -3410,7 +3479,7 @@ declare namespace Matter {
         version: string;
         install: () => void;
         for?: string;
-        
+
         /**
          * Registers a plugin object so it can be resolved later by name.
          * @method register
@@ -3418,16 +3487,16 @@ declare namespace Matter {
          * @return {object} The plugin.
          */
         static register(plugin: Plugin): Plugin;
-      
+
         /**
-         * Resolves a dependency to a plugin object from the registry if it exists. 
+         * Resolves a dependency to a plugin object from the registry if it exists.
          * The `dependency` may contain a version, but only the name matters when resolving.
          * @method resolve
          * @param dependency {string} The dependency.
          * @return {object} The plugin if resolved, otherwise `undefined`.
          */
         static resolve(dependency: string): Plugin | undefined;
-        
+
         /**
          * Returns `true` if the object meets the minimum standard to be considered a plugin.
          * This means it must define the following properties:
@@ -3501,7 +3570,7 @@ declare namespace Matter {
          * @return {object} The dependency parsed into its components.
          */
         static dependencyParse(dependency: Dependency) : {name: string, range: string};
-        
+
         /**
          * Parses a version string into its components.
          * Versions are strictly of the format `x.y.z` (as in [semver](http://semver.org/)).

@@ -1,4 +1,4 @@
-// Type definitions for koa-router v7.x
+// Type definitions for koa-router 7.4
 // Project: https://github.com/alexmingoia/koa-router#readme
 // Definitions by: Jerry Chin <https://github.com/hellopao>
 //                 Pavel Ivanov <https://github.com/schfkt>
@@ -6,6 +6,7 @@
 //                 Romain Faust <https://github.com/romain-faust>
 //                 Guillaume Mayer <https://github.com/Guillaume-Mayer>
 //                 Andrea Gueugnaut <https://github.com/falinor>
+//                 Yves Kaufmann <https://github.com/yveskaufmann>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -69,8 +70,8 @@ declare namespace Router {
     export type IMiddleware<StateT = any, CustomT = {}> =
         Koa.Middleware<StateT, CustomT & IRouterParamContext<StateT, CustomT>>
 
-    export interface IParamMiddleware {
-        (param: string, ctx: RouterContext, next: () => Promise<any>): any;
+    export interface IParamMiddleware<STateT = any, CustomT = {}> {
+        (param: string, ctx: RouterContext<STateT, CustomT>, next: () => Promise<any>): any;
     }
 
     export interface IRouterAllowedMethodsOptions {
@@ -525,7 +526,7 @@ declare class Router<StateT = any, CustomT = {}> {
     /**
      * Run middleware for named route parameters. Useful for auto-loading or validation.
      */
-    param(param: string, middleware: Router.IParamMiddleware): Router<StateT, CustomT>;
+    param(param: string, middleware: Router.IParamMiddleware<StateT, CustomT>): Router<StateT, CustomT>;
 
     /**
      * Generate URL from url pattern and given `params`.

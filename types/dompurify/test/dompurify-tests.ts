@@ -3,8 +3,8 @@ import dompurify = require('dompurify');
 dompurify.sanitize('<script>alert("hi")</script>');
 dompurify.addHook('beforeSanitizeElements', (el, data, config) => undefined);
 
-//examples from the DOMPurify README
-let dirty = '<script>alert("hi")</script><p>Totally safe<p><p onerror="blowUp()">Totally not safe</p>';
+// examples from the DOMPurify README
+const dirty = '<script>alert("hi")</script><p>Totally safe<p><p onerror="blowUp()">Totally not safe</p>';
 let str: string;
 let elem: HTMLElement;
 let frag: DocumentFragment;
@@ -28,6 +28,10 @@ str = dompurify.sanitize(dirty, { ADD_TAGS: ['my-tag'] });
 // extend the existing array of attributes
 str = dompurify.sanitize(dirty, { ADD_ATTR: ['my-attr'] });
 
+// extend the existing array of tags that can use Data URIs
+
+str = dompurify.sanitize(dirty, {ADD_DATA_URI_TAGS: ['a', 'area']});
+
 // prohibit HTML5 data attributes (default is true)
 str = dompurify.sanitize(dirty, { ALLOW_DATA_ATTR: false });
 
@@ -48,7 +52,7 @@ frag = dompurify.sanitize(dirty, { RETURN_DOM_FRAGMENT: true, RETURN_DOM: true }
 // the returned node to the current document
 frag = dompurify.sanitize(dirty, { RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true });
 
-// return a TrustHTML type instead of a HTML string 
+// return a TrustHTML type instead of a HTML string
 trustedHtml = dompurify.sanitize(dirty, { RETURN_TRUSTED_TYPE: true });
 
 // return entire document including <html> tags (default is false)
@@ -68,24 +72,32 @@ const createDOMPurify = dompurify;
 const customDOMPurify = createDOMPurify();
 customDOMPurify.sanitize(dirty);
 
-const customWindow = {} as Window;
+const customWindow: Window = window;
 const customDOMPurifyWithCustomWindow = createDOMPurify(customWindow);
 customDOMPurifyWithCustomWindow.sanitize(dirty);
 
-//test the 'DOMPurifyI' type is publicly accessible.
+// test the 'DOMPurifyI' type is publicly accessible.
 function registerDomPurifyInstance(domPurify: DOMPurify.DOMPurifyI) {}
 
-//test the 'config' type is publicly accessible.
+// test the 'config' type is publicly accessible.
 const config: DOMPurify.Config = {};
 
-//test the 'HookName' type is publicly accessible.
+// test the 'HookName' type is publicly accessible.
 const hookName: DOMPurify.HookName = "beforeSanitizeElements";
 
-//test the 'HookEvent' type is publicly accessible.
+// test the 'HookEvent' type is publicly accessible.
 dompurify.addHook(hookName, (currentNode: Element, event: DOMPurify.HookEvent) => {});
 
-//test the 'SanitizeElementHookEvent' type is publicly accessible.
-dompurify.addHook("uponSanitizeElement", (currentNode: Element, event: DOMPurify.SanitizeElementHookEvent) => {});
+// test the 'SanitizeElementHookEvent' type is publicly accessible.
+dompurify.addHook('uponSanitizeElement', (currentNode: Element, event: DOMPurify.SanitizeElementHookEvent) => {
+  if (currentNode.nodeName && currentNode.nodeName.match(/^\w+-\w+$/) && !event.allowedTags[event.tagName]) {
+      event.allowedTags[event.tagName] = true;
+  }
+});
 
-//test the 'SanitizeAttributeHookEvent' type is publicly accessible.
-dompurify.addHook("uponSanitizeAttribute", (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {});
+// test the 'SanitizeAttributeHookEvent' type is publicly accessible.
+dompurify.addHook('uponSanitizeAttribute', (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {
+  if (event.attrName && event.attrName.match(/^\w+-\w+$/) && !event.allowedAttributes[event.attrName]) {
+      event.allowedAttributes[event.attrName] = true;
+  }
+});

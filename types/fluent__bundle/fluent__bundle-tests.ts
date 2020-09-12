@@ -1,7 +1,9 @@
 import { FluentBundle, FluentDateTime, FluentError, FluentNumber, FluentResource, Scope } from '@fluent/bundle';
+import * as compat from '@fluent/bundle/compat';
 
 // FluentBundle examples:
 const bundle = new FluentBundle(['en-US']);
+const compatBundle = new compat.FluentBundle(['en-US']);
 
 // FluentResource examples:
 const resource = new FluentResource(`test=Some other message with args arg1={$arg1} and arg2={$arg2}`);

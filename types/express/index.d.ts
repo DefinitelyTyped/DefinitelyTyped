@@ -2,12 +2,14 @@
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 China Medical University Hospital <https://github.com/CMUH>
+//                 Puneet Arora <https://github.com/puneetar>
+//                 Dylan Frankland <https://github.com/dfrankland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
-    import * as express from "express";
+    import express = require("express");
     var app = express();
 
  =============================================== */
@@ -18,6 +20,7 @@
 import * as bodyParser from "body-parser";
 import serveStatic = require("serve-static");
 import * as core from "express-serve-static-core";
+import * as qs from "qs";
 
 /**
  * Creates an Express application. The express() function is a top-level function exported by the express module.
@@ -61,6 +64,11 @@ declare namespace e {
      */
     var urlencoded: typeof bodyParser.urlencoded;
 
+    /**
+     * This is a built-in middleware function in Express. It parses incoming request query parameters.
+     */
+    export function query(options: qs.IParseOptions | typeof qs.parse): Handler;
+
     export function Router(options?: RouterOptions): core.Router;
 
     interface RouterOptions {
@@ -87,7 +95,8 @@ declare namespace e {
     interface Application extends core.Application { }
     interface CookieOptions extends core.CookieOptions { }
     interface Errback extends core.Errback { }
-    interface ErrorRequestHandler<P extends core.Params = core.ParamsDictionary> extends core.ErrorRequestHandler<P> { }
+    interface ErrorRequestHandler<P = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query>
+        extends core.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery> { }
     interface Express extends core.Express { }
     interface Handler extends core.Handler { }
     interface IRoute extends core.IRoute { }
@@ -96,10 +105,10 @@ declare namespace e {
     interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
     interface MediaType extends core.MediaType { }
     interface NextFunction extends core.NextFunction { }
-    interface Request<P extends core.Params = core.ParamsDictionary> extends core.Request<P> { }
-    interface RequestHandler<P extends core.Params = core.ParamsDictionary> extends core.RequestHandler<P> { }
+    interface Request<P = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.Request<P, ResBody, ReqBody, ReqQuery> { }
+    interface RequestHandler<P = core.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = core.Query> extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery> { }
     interface RequestParamHandler extends core.RequestParamHandler { }
-    export interface Response extends core.Response { }
+    export interface Response<ResBody = any> extends core.Response<ResBody> { }
     interface Router extends core.Router { }
     interface Send extends core.Send { }
 }

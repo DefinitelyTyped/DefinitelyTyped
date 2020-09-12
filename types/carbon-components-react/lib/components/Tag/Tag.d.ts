@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAttr<HTMLSpanElement> { }
+interface InheritedProps extends ReactAttr { }
 
 export type TagTypeName =
     "red"
@@ -17,10 +17,19 @@ export type TagTypeName =
 
 export declare const types: TagTypeName[];
 
-export interface TagProps extends InheritedProps {
-    type: TagTypeName,
+interface SharedProps {
+    type?: TagTypeName,
 }
 
-declare const Tag: React.FC<TagProps>;
+export interface FilterTagProps extends InheritedProps, SharedProps {
+    filter: true,
+    onClose(event: React.MouseEvent<HTMLButtonElement>): void,
+}
+
+export interface ChipTagProps extends InheritedProps, SharedProps {
+    filter?: false,
+}
+
+declare const Tag: React.FC<ChipTagProps | FilterTagProps>;
 
 export default Tag;

@@ -6,7 +6,7 @@ import { Validation } from './vuelidate'
 
 declare module 'vue/types/vue' {
     type ValidationProperties<V> = {
-        [P in keyof V]?: Validation & ValidationProperties<V[P]> & ValidationEvaluation
+        [P in Exclude<keyof V, '$v'>]?: Validation & ValidationProperties<V[P]> & ValidationEvaluation
     }
 
     interface ValidationGroups {
@@ -18,7 +18,7 @@ declare module 'vue/types/vue' {
     }
 
     interface Vue {
-        $v: ValidationProperties<this> & ValidationGroups & Validation
+        $v: ValidationProperties<Vue> & ValidationGroups & Validation
 
         delayTouch(v: Validation): void
     }

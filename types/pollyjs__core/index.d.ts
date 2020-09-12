@@ -1,4 +1,4 @@
-// Type definitions for @pollyjs/core 2.6
+// Type definitions for @pollyjs/core 4.3
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/core
 // Definitions by: feinoujc <https://github.com/feinoujc>
 //                 Borui Gu <https://github.com/BoruiGu>
@@ -18,7 +18,7 @@ export const Timing: {
     relative(ratio: number): (ms: number) => Promise<void>;
 };
 
-export type MatchBy<T = string, R = T> = (input: T) => R;
+export type MatchBy<T = string, R = T> = (input: T, req: Request) => R;
 export type Headers = Record<string, string | string[]>;
 export interface PollyConfig {
     mode?: MODE;
@@ -26,7 +26,7 @@ export interface PollyConfig {
     adapters?: Array<string | typeof Adapter>;
     adapterOptions?: {
         fetch?: { context?: any };
-        puppeteer?: { page?: any };
+        puppeteer?: { page?: any; requestResourceTypes?: string[] };
         xhr?: { context?: any };
         [key: string]: any;
     };
@@ -34,6 +34,7 @@ export interface PollyConfig {
     persister?: string | typeof Persister;
     persisterOptions?: {
         keepUnusedRequests?: boolean;
+        disableSortingHarEntries?: boolean;
         fs?: { recordingsDir?: string };
         'local-storage'?: { context?: any; key?: string };
         rest?: { host?: string; apiNamespace?: string };
@@ -41,10 +42,9 @@ export interface PollyConfig {
     };
 
     logging?: boolean;
+    flushRequestsOnStop?: boolean;
 
     recordIfMissing?: boolean;
-    /** @deprecated use expiryStrategy */
-    recordIfExpired?: boolean;
     recordFailedRequests?: boolean;
     expiryStrategy?: EXPIRY_STRATEGY;
 
@@ -57,16 +57,19 @@ export interface PollyConfig {
         body?: boolean | MatchBy<any>;
         order?: boolean;
 
-        url?: {
-            protocol?: boolean | MatchBy;
-            username?: boolean | MatchBy;
-            password?: boolean | MatchBy;
-            hostname?: boolean | MatchBy;
-            port?: boolean | MatchBy<number>;
-            pathname?: boolean | MatchBy;
-            query?: boolean | MatchBy<any>;
-            hash?: boolean | MatchBy;
-        };
+        url?:
+            | boolean
+            | MatchBy
+            | {
+                  protocol?: boolean | MatchBy;
+                  username?: boolean | MatchBy;
+                  password?: boolean | MatchBy;
+                  hostname?: boolean | MatchBy;
+                  port?: boolean | MatchBy<number>;
+                  pathname?: boolean | MatchBy;
+                  query?: boolean | MatchBy<{ [key: string]: any }>;
+                  hash?: boolean | MatchBy;
+              };
     };
 }
 export interface HTTPBase {
@@ -106,6 +109,7 @@ export interface Request extends HTTPBase {
 }
 export interface Response extends HTTPBase {
     statusCode: number;
+    isBinary: boolean;
     readonly statusText: string;
     readonly ok: boolean;
 
@@ -121,12 +125,14 @@ export type RequestRouteEvent = 'request';
 export type RecordingRouteEvent = 'beforeReplay' | 'beforePersist';
 export type ResponseRouteEvent = 'beforeResponse' | 'response';
 export type ErrorRouteEvent = 'error';
+export type AbortRouteEvent = 'abort';
 
 export interface ListenerEvent {
     readonly type: string;
     stopPropagation: () => void;
 }
 export type ErrorEventListener = (req: Request, error: any, event: ListenerEvent) => void | Promise<void>;
+export type AbortEventListener = (req: Request, event: ListenerEvent) => void | Promise<void>;
 export type RequestEventListener = (req: Request, event: ListenerEvent) => void | Promise<void>;
 export type RecordingEventListener = (req: Request, recording: any, event: ListenerEvent) => void | Promise<void>;
 export type ResponseEventListener = (req: Request, res: Response, event: ListenerEvent) => void | Promise<void>;
@@ -136,14 +142,17 @@ export class RouteHandler {
     on(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
     on(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
     on(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
-    off(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
-    off(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
-    off(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
-    off(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
+    on(event: AbortRouteEvent, listener: AbortEventListener): RouteHandler;
+    off(event: RequestRouteEvent, listener?: RequestEventListener): RouteHandler;
+    off(event: RecordingRouteEvent, listener?: RecordingEventListener): RouteHandler;
+    off(event: ResponseRouteEvent, listener?: ResponseEventListener): RouteHandler;
+    off(event: ErrorRouteEvent, listener?: ErrorEventListener): RouteHandler;
+    off(event: AbortRouteEvent, listener?: AbortEventListener): RouteHandler;
     once(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
     once(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
     once(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
     once(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
+    once(event: AbortRouteEvent, listener: AbortEventListener): RouteHandler;
     filter: (callback: (req: Request) => boolean) => RouteHandler;
     passthrough(value?: boolean): RouteHandler;
     intercept(fn: InterceptHandler): RouteHandler;
@@ -182,15 +191,16 @@ export class Polly {
     mode: MODE;
     server: PollyServer;
     persister: Persister | null;
-    adapters: Map<string, typeof Adapter>;
+    adapters: Map<string, Adapter>;
     config: PollyConfig;
 
-    pause: () => void;
-    play: () => void;
-    replay: () => void;
-    record: () => void;
-    stop: () => Promise<void>;
-    flush: () => Promise<void>;
+    pause(): void;
+    play(): void;
+    replay(): void;
+    record(): void;
+    passthrough(): void;
+    stop(): Promise<void>;
+    flush(): Promise<void>;
     configure(config: PollyConfig): void;
     connectTo(name: string | typeof Adapter): void;
     disconnectFrom(name: string | typeof Adapter): void;

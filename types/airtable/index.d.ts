@@ -1,7 +1,8 @@
-// Type definitions for airtable 0.5
+// Type definitions for airtable 0.8
 // Project: https://github.com/airtable/airtable.js
 // Definitions by: Brandon Valosek <https://github.com/bvalosek>
 //                 Max Chehab <https://github.com/maxchehab>
+//                 Evan Hahn <https://github.com/EvanHahn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -30,7 +31,6 @@ declare global {
             apiKey?: string;
             endpointUrl?: string;
             apiVersion?: string;
-            allowUnauthorizedSsl?: boolean;
             noRetryIfRateLimited?: boolean;
             requestTimeout?: number;
         }

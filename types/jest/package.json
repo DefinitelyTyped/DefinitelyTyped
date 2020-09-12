@@ -1,6 +1,15 @@
 {
     "private": true,
     "dependencies": {
-        "jest-diff": "^24.3.0"
+        "jest-diff": "^25.2.1",
+        "pretty-format": "^25.2.1"
+    },
+    "types": "index",
+    "typesVersions": {
+        "<=3.1": {
+            "*": [
+                "ts3.1/*"
+            ]
+        }
     }
 }

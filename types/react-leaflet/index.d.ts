@@ -3,7 +3,6 @@
 // Definitions by: Dave Leaver <https://github.com/danzel>
 //                 David Schneider <https://github.com/davschne>
 //                 Yui T. <https://github.com/yuit>
-//                 Jeroen Claassens <https://github.com/favna>
 //                 Tom Fenech <https://github.com/fenech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -349,7 +348,7 @@ export class FeatureGroup<P extends FeatureGroupProps = FeatureGroupProps, E ext
 }
 
 export interface GeoJSONProps extends PathProps, FeatureGroupEvents, Leaflet.GeoJSONOptions {
-    data: GeoJSON.GeoJsonObject;
+    data: GeoJSON.GeoJsonObject | GeoJSON.GeoJsonObject[];
 }
 export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.GeoJSON = Leaflet.GeoJSON> extends FeatureGroup<P, E> {
     createLeafletElement(props: P): E;

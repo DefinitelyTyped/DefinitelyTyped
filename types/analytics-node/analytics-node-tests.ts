@@ -60,6 +60,24 @@ function testTrack(): void {
   });
 
   analytics.track({
+    anonymousId: '019mr8mf4r',
+    event: 'Purchased an Item',
+    properties: {
+      revenue: 39.95,
+      shippingMethod: '2-day'
+    }
+  });
+
+  // $ExpectError
+  analytics.track({
+    event: 'Purchased an Item',
+    properties: {
+      revenue: 39.95,
+      shippingMethod: '2-day'
+    }
+  });
+
+  analytics.track({
     userId: '019mr8mf4r',
     event: 'Purchased an Item',
     properties: {

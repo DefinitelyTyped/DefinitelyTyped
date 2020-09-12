@@ -3,9 +3,11 @@
 // Definitions by: Alex Ungureanu <https://github.com/alexu740>
 // Definitions: https://github.com/DefinitelyTyped/http-build-query
 
-export function httpBuildQuery(
-        queryData: {[param: string]: string|number},
-        numericPrefix?: string,
-        argSeparator?: string,
-        tempKey?: string
-    ): string;
+declare function httpBuildQuery(
+    queryData: { [param: string]: string | number },
+    numericPrefix?: string,
+    argSeparator?: string,
+    tempKey?: string,
+): string;
+
+export = httpBuildQuery;

@@ -79,6 +79,16 @@ interface Set<T> {
 }
 
 // #############################################################################################
+// ECMAScript Proposal
+// Modules: esnext.array.last-item, and esnext.array.last-index
+// #############################################################################################
+
+interface Array<T> {
+    lastItem: T;
+    readonly lastIndex: number;
+}
+
+// #############################################################################################
 // Mozilla JavaScript: Array generics
 // Modules: js.array.statics
 // #############################################################################################
@@ -452,7 +462,6 @@ declare namespace core {
         function construct(target: Function, argumentsList: ArrayLike<any>): any;
         function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;
         function deleteProperty(target: any, propertyKey: PropertyKey): boolean;
-        function enumerate(target: any): IterableIterator<any>;
         function get(target: any, propertyKey: PropertyKey, receiver?: any): any;
         function getOwnPropertyDescriptor(target: any, propertyKey: PropertyKey): PropertyDescriptor;
         function getPrototypeOf(target: any): any;
@@ -1353,10 +1362,6 @@ declare module "core-js/fn/reflect/delete-property" {
     const deleteProperty: typeof core.Reflect.deleteProperty;
     export = deleteProperty;
 }
-declare module "core-js/fn/reflect/enumerate" {
-    const enumerate: typeof core.Reflect.enumerate;
-    export = enumerate;
-}
 declare module "core-js/fn/reflect/get" {
     const get: typeof core.Reflect.get;
     export = get;
@@ -2127,10 +2132,6 @@ declare module "core-js/library/fn/reflect/define-property" {
 declare module "core-js/library/fn/reflect/delete-property" {
     const deleteProperty: typeof core.Reflect.deleteProperty;
     export = deleteProperty;
-}
-declare module "core-js/library/fn/reflect/enumerate" {
-    const enumerate: typeof core.Reflect.enumerate;
-    export = enumerate;
 }
 declare module "core-js/library/fn/reflect/get" {
     const get: typeof core.Reflect.get;

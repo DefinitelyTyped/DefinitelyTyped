@@ -82,6 +82,8 @@ declare module "rethinkdb" {
         each<T>(cb: (err: Error, row: T) => boolean, done?: () => void): void; // returning false stops iteration
         next(cb: (err: Error, row: any) => void): void;
         next<T>(cb: (err: Error, row: T) => void): void;
+        next(): Promise<any>;
+        next<T>(): Promise<T>;
         toArray(cb: (err: Error, rows: any[]) => void): void;
         toArray<T>(cb: (err: Error, rows: T[]) => void): void;
         toArray(): Promise<any[]>;
@@ -429,7 +431,7 @@ declare module "rethinkdb" {
         // Aggregate
         reduce(r: ReduceFunction<any>, base?: any): Expression<any>;
         count(): Expression<number>;
-        distinct(): Sequence;
+        distinct(opts?: { index: string }): Sequence;
         groupedMapReduce(group: ExpressionFunction<any>, map: ExpressionFunction<any>, reduce: ReduceFunction<any>, base?: any): Sequence;
         groupBy(...aggregators: Aggregator[]): Expression<Object>; // TODO: reduction object
         contains(prop: string): Expression<boolean>;

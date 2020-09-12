@@ -1,5 +1,6 @@
 import * as C from '@wordpress/components';
 import { Component } from '@wordpress/element';
+import { MouseEvent as ReactMouseEvent } from 'react';
 
 //
 // primitives
@@ -75,7 +76,7 @@ interface MyCompleteOption {
 <C.Button href="#foo" download="foo.txt" isSmall>
     Anchor Button
 </C.Button>;
-<C.Button autoFocus isDestructive isLarge>
+<C.Button autoFocus isDestructive isLarge isSecondary>
     Button Button
 </C.Button>;
 
@@ -86,6 +87,44 @@ interface MyCompleteOption {
     <button>Hello</button>
     <button>World</button>
 </C.ButtonGroup>;
+
+//
+// card
+//
+<C.Card>I'm a card!</C.Card>;
+<C.Card isElevated isBorderless className="card" size="large">
+    I'm a card with props!
+</C.Card>;
+<C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
+
+// These components can be rendered as other components:
+<C.Card as={C.HorizontalRule} />;
+// Card renders a `div` by default:
+<C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
+// `div` doesn't support autoFocus:
+// $ExpectError
+<C.Card autoFocus />;
+// With `as="button"`, a `button` element is rendered and `button` props are accepted:
+<C.Card as="button" autoFocus onClick={(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {}} />;
+
+<C.CardBody isShady size="extraSmall">
+    Hello world!
+</C.CardBody>;
+
+<C.CardHeader isShady size="extraSmall">
+    Hello world!
+</C.CardHeader>;
+
+<C.CardFooter isBorderless isShady size="extraSmall">
+    Hello world!
+</C.CardFooter>;
+
+// Divider has no children or props except className
+// $ExpectError
+<C.CardDivider>Hello world!</C.CardDivider>;
+// $ExpectError
+<C.CardDivider isShady />;
+<C.CardDivider />;
 
 //
 // checkbox-control
@@ -216,6 +255,27 @@ interface MyCompleteOption {
 // external-link
 //
 <C.ExternalLink href="https://wordpress.org">WordPress.org</C.ExternalLink>;
+
+//
+// flex
+//
+<C.Flex
+    isReversed
+    gap={3}
+    align='bottom'
+    justify='left'
+    className="test-classname"
+>
+    <C.FlexBlock className="test-classname">Test Flex Block</C.FlexBlock>
+    <C.FlexItem className="test-classname">
+        Flex Item 1
+    </C.FlexItem>
+    <C.FlexItem>
+        Flex Item 2
+    </C.FlexItem>
+</C.Flex>;
+
+<C.Flex><div /></C.Flex>;
 
 //
 // focal-point-picker
@@ -369,7 +429,7 @@ const kbshortcuts = {
 //
 // modal
 //
-<C.Modal title="This is my modal" onRequestClose={() => console.log('closing modal')}>
+<C.Modal title="This is my modal" isDismissible={true} onRequestClose={() => console.log('closing modal')}>
     <button onClick={() => console.log('clicked')}>My custom close button</button>
 </C.Modal>;
 
@@ -504,14 +564,20 @@ const kbshortcuts = {
     label="User type"
     help="The type of the current user"
     selected="a"
-    options={[{ label: 'Author', value: 'a' }, { label: 'Editor', value: 'e' }]}
+    options={[
+        { label: 'Author', value: 'a' },
+        { label: 'Editor', value: 'e' },
+    ]}
     onChange={value => value && console.log(value.toUpperCase())}
 />;
 <C.RadioControl
     label="User type"
     help="The type of the current user"
     selected={{ foo: 'bar' }}
-    options={[{ label: 'Author', value: { foo: 'bar' } }, { label: 'Editor', value: { foo: 'baz' } }]}
+    options={[
+        { label: 'Author', value: { foo: 'bar' } },
+        { label: 'Editor', value: { foo: 'baz' } },
+    ]}
     onChange={value => value && console.log(value.foo)}
 />;
 
@@ -565,14 +631,22 @@ const kbshortcuts = {
 <C.SelectControl
     label="Size"
     value="50%"
-    options={[{ label: 'Big', value: '100%' }, { label: 'Medium', value: '50%' }, { label: 'Small', value: '25%' }]}
+    options={[
+        { label: 'Big', value: '100%' },
+        { label: 'Medium', value: '50%' },
+        { label: 'Small', value: '25%' },
+    ]}
     onChange={size => console.log(size)}
 />;
 <C.SelectControl
     label="Size"
     value={['50%']}
     multiple
-    options={[{ label: 'Big', value: '100%' }, { label: 'Medium', value: '50%' }, { label: 'Small', value: '25%' }]}
+    options={[
+        { label: 'Big', value: '100%' },
+        { label: 'Medium', value: '50%' },
+        { label: 'Small', value: '25%' },
+    ]}
     onChange={size => console.log(size)}
 />;
 

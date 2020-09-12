@@ -18,6 +18,7 @@ const config: WebpackDevServer.Configuration = {
 
     contentBase: "/path/to/directory",
     // or: contentBase: "http://localhost/",
+    contentBasePublicPath: "/serve-content-base-at-this-url",
 
     public: 'public-host.ru',
     // Public host for server
@@ -75,11 +76,16 @@ const config: WebpackDevServer.Configuration = {
     writeToDisk: true,
     // It's a required option.
     publicPath: "/assets/",
-    headers: { "X-Custom-Header": "yes" }
+    headers: { "X-Custom-Header": "yes" },
+    open: true,
 };
 
 const c2: WebpackDevServer.Configuration = {
+    contentBasePublicPath: ['/serve-content-base-at-this-url/1', '/serve-content-base-at-this-url/2'],
     stats: false,
+    open: {
+        app: ['Google Chrome', '--incognito', '--other-flag']
+    }
 };
 const c3: WebpackDevServer.Configuration = {
     stats: "verbose",
@@ -113,6 +119,12 @@ const c6: WebpackDevServer.Configuration = {
 // API example
 server = new WebpackDevServer(compiler, config);
 server.listen(8080, "localhost", () => { });
+
+// test the socket writer
+server.sockWrite(server.sockets, "type1");
+server.sockWrite(server.sockets, "type2", {message: "OK"});
+
+server.close();
 
 // HTTPS example
 server = new WebpackDevServer(compiler, {

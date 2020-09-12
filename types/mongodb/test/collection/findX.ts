@@ -24,6 +24,22 @@ async function run() {
   });
   const res: Cursor<TestModel> = collectionT.find({});
 
+  await collectionT.findOne({}, {
+    projection: {
+    },
+    sort: {}
+  });
+
+  await collectionT.findOne({}, {
+    projection: {
+      stringField: {$meta: 'textScore'},
+      fruitTags: {$min: 'fruitTags'},
+      max: {$max: ['$max', 0]},
+    },
+    sort: {stringField: -1, text: {$meta: 'textScore'}, notExistingField: -1}
+  });
+
+
   // collection.findX<T>() generic tests
   interface Bag {
     cost: number;
@@ -31,18 +47,20 @@ async function run() {
   }
   const cursor: Cursor<Bag> = collection.find<Bag>({ color: 'black' });
   cursor.toArray((err, r) => {
-    r[0].cost;
+    r[0].cost; // $ExpectType number
   });
   cursor.forEach(
     bag => {
-      bag.color;
+      bag.color; // $ExpectType string
     },
     () => {},
   );
   collection.findOne({ color: 'white' }).then(b => {
-    const _b: Bag = b;
+    const _b: Bag = b; // b is larger than bag and may contain extra properties
   });
   collection.findOne<Bag>({ color: 'white' }).then(b => {
-    b.cost;
+    if (b) {
+      b.cost; // $ExpectType number
+    }
   });
 }

@@ -8,10 +8,13 @@ const testData = new Uint8Array(0);
 
 // test cases
 ffmpeg({
-    arguments: ["-version"],
-    print: (data: string) => { stdout += data + "\n"; },
-    printErr: (data: string) => { stderr += data + "\n"; },
-    onExit: (code: unknown) => {},
+    MEMFS: [],
+    TOTAL_MEMORY: 512 * 1024 * 1024,
+    arguments: ['-framerate'],
+    stdin: () => {},
+    print: () => {},
+    printErr: () => {},
+    onExit: (c: number) => (c)
 });
 
 ffmpeg({

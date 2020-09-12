@@ -1,7 +1,8 @@
-// Type definitions for the RDFJS specification 2.0
+// Type definitions for the RDFJS specification 4.0
 // Project: https://github.com/rdfjs/representation-task-force
 // Definitions by: Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
+//                 Tomasz Pluskiewicz <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,19 +15,20 @@ import { EventEmitter } from "events";
 /* https://rdf.js.org/data-model-spec/ */
 
 /**
- * Contains an Iri, RDF blank Node, RDF literal, variable name, or a default graph
+ * Contains an Iri, RDF blank Node, RDF literal, variable name, default graph, or a quad
  * @see NamedNode
  * @see BlankNode
  * @see Literal
  * @see Variable
  * @see DefaultGraph
+ * @see Quad
  */
-export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
+export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph | BaseQuad;
 
 /**
  * Contains an IRI.
  */
-export interface NamedNode {
+export interface NamedNode<Iri extends string = string> {
     /**
      * Contains the constant "NamedNode".
      */
@@ -34,13 +36,13 @@ export interface NamedNode {
     /**
      * The IRI of the named node (example: `http://example.org/resource`)
      */
-    value: string;
+    value: Iri;
 
     /**
      * @param other The term to compare with.
      * @return True if and only if other has termType "NamedNode" and the same `value`.
      */
-    equals(other: Term): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -63,7 +65,7 @@ export interface BlankNode {
      * @param other The term to compare with.
      * @return True if and only if other has termType "BlankNode" and the same `value`.
      */
-    equals(other: Term): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -94,7 +96,7 @@ export interface Literal {
      * @return True if and only if other has termType "Literal"
      *                   and the same `value`, `language`, and `datatype`.
      */
-    equals(other: Term): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -114,7 +116,7 @@ export interface Variable {
      * @param other The term to compare with.
      * @return True if and only if other has termType "Variable" and the same `value`.
      */
-    equals(other: Term): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -135,7 +137,7 @@ export interface DefaultGraph {
      * @param other The term to compare with.
      * @return True if and only if other has termType "DefaultGraph".
      */
-    equals(other: Term): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -144,7 +146,7 @@ export interface DefaultGraph {
  * @see BlankNode
  * @see Variable
  */
-export type Quad_Subject = NamedNode | BlankNode | Variable;
+export type Quad_Subject = NamedNode | BlankNode | Quad | Variable;
 
 /**
  * The predicate, which is a NamedNode or Variable.
@@ -160,7 +162,7 @@ export type Quad_Predicate = NamedNode | Variable;
  * @see BlankNode
  * @see Variable
  */
-export type Quad_Object = NamedNode | Literal | BlankNode | Variable;
+export type Quad_Object = NamedNode | Literal | BlankNode | Quad | Variable;
 
 /**
  * The named graph, which is a DefaultGraph, NamedNode, BlankNode or Variable.
@@ -175,6 +177,15 @@ export type Quad_Graph = DefaultGraph | NamedNode | BlankNode | Variable;
  * An RDF quad, taking any Term in its positions, containing the subject, predicate, object and graph terms.
  */
 export interface BaseQuad {
+  /**
+   * Contains the constant "Quad".
+   */
+  termType: "Quad";
+  /**
+   * Contains an empty string as constant value.
+   */
+  value: "";
+
   /**
    * The subject.
    * @see Quad_Subject
@@ -200,7 +211,7 @@ export interface BaseQuad {
    * @param other The term to compare with.
    * @return True if and only if the argument is a) of the same type b) has all components equal.
    */
-  equals(other: BaseQuad): boolean;
+  equals(other: Term | null | undefined): boolean;
 }
 
 /**
@@ -232,27 +243,19 @@ export interface Quad extends BaseQuad {
      * @param other The term to compare with.
      * @return True if and only if the argument is a) of the same type b) has all components equal.
      */
-    equals(other: BaseQuad): boolean;
+    equals(other: Term | null | undefined): boolean;
 }
 
 /**
- * An RDF triple, containing the subject, predicate, object terms.
- *
- * Triple is an alias of Quad.
+ * A factory for instantiating RDF terms and quads.
  */
-// tslint:disable-next-line no-empty-interface
-export interface Triple extends Quad {}
-
-/**
- * A factory for instantiating RDF terms, triples and quads.
- */
-export interface DataFactory {
+export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> {
     /**
      * @param value The IRI for the named node.
      * @return A new instance of NamedNode.
      * @see NamedNode
      */
-    namedNode(value: string): NamedNode;
+    namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri>;
 
     /**
      * @param value The optional blank node identifier.
@@ -289,17 +292,6 @@ export interface DataFactory {
     defaultGraph(): DefaultGraph;
 
     /**
-     * @param subject   The triple subject term.
-     * @param predicate The triple predicate term.
-     * @param object    The triple object term.
-     * @return A new instance of Quad with `Quad.graph` set to DefaultGraph.
-     * @see Quad
-     * @see Triple
-     * @see DefaultGraph
-     */
-    triple<Q extends BaseQuad = Quad>(subject: Q['subject'], predicate: Q['predicate'], object: Q['object']): Q;
-
-    /**
      * @param subject   The quad subject term.
      * @param predicate The quad predicate term.
      * @param object    The quad object term.
@@ -307,7 +299,7 @@ export interface DataFactory {
      * @return A new instance of Quad.
      * @see Quad
      */
-    quad<Q extends BaseQuad = Quad>(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'], graph?: Q['graph']): Q;
+    quad(subject: InQuad['subject'], predicate: InQuad['predicate'], object: InQuad['object'], graph?: InQuad['graph']): OutQuad;
 }
 
 /* Stream Interfaces */
@@ -333,7 +325,7 @@ export interface Stream<Q extends BaseQuad = Quad> extends EventEmitter {
      *
      * @return A quad from the internal buffer, or null if none is available.
      */
-    read(): Q;
+    read(): Q | null;
 }
 
 /**
@@ -363,7 +355,7 @@ export interface Source<Q extends BaseQuad = Quad> {
  *
  * For example parsers, serializers, transformations and stores can implement the Sink interface.
  */
-export interface Sink<Q extends BaseQuad = Quad> {
+export interface Sink<InputStream extends EventEmitter, OutputStream extends EventEmitter> {
     /**
      * Consumes the given stream.
      *
@@ -374,7 +366,7 @@ export interface Sink<Q extends BaseQuad = Quad> {
      * @param stream The stream that will be consumed.
      * @return The resulting event emitter.
      */
-    import(stream: Stream<Q>): EventEmitter;
+    import(stream: InputStream): OutputStream;
 }
 
 /**
@@ -385,7 +377,7 @@ export interface Sink<Q extends BaseQuad = Quad> {
  *
  * Access to stores LDP or SPARQL endpoints can be implemented with a Store inteface.
  */
-export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Q> {
+export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Stream<Q>, EventEmitter> {
     /**
      * Removes all streamed quads.
      *
@@ -427,7 +419,7 @@ export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Q> {
 /* Dataset Interfaces */
 /* https://rdf.js.org/dataset-spec/ */
 
-export interface DatasetCore<Q extends BaseQuad = Quad> {
+export interface DatasetCore<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> {
     /**
      * A non-negative integer that specifies the number of quads in the set.
      */
@@ -438,17 +430,17 @@ export interface DatasetCore<Q extends BaseQuad = Quad> {
      *
      * Existing quads, as defined in `Quad.equals`, will be ignored.
      */
-    add(quad: Q): this;
+    add(quad: InQuad): this;
 
     /**
      * Removes the specified quad from the dataset.
      */
-    delete(quad: Q): this;
+    delete(quad: InQuad): this;
 
     /**
      * Determines whether a dataset includes a certain quad.
      */
-    has(quad: Q): boolean;
+    has(quad: InQuad): boolean;
 
     /**
      * Returns a new dataset that is comprised of all quads in the current instance matching the given arguments.
@@ -465,26 +457,26 @@ export interface DatasetCore<Q extends BaseQuad = Quad> {
      * @param object    The optional exact object to match.
      * @param graph     The optional exact graph to match.
      */
-    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): this;
+    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): DatasetCore<OutQuad, InQuad>;
 
-    [Symbol.iterator](): Iterator<Q>;
+    [Symbol.iterator](): Iterator<OutQuad>;
 }
 
-export interface DatasetCoreFactory<Q extends BaseQuad = Quad> {
+export interface DatasetCoreFactory<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad, D extends DatasetCore<OutQuad, InQuad> = DatasetCore<OutQuad, InQuad>> {
     /**
      * Returns a new dataset and imports all quads, if given.
      */
-    dataset(quads?: Q[]): DatasetCore<Q>;
+    dataset(quads?: InQuad[]): D;
 }
 
-export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
+export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> extends DatasetCore<OutQuad, InQuad> {
     /**
      * Imports the quads into this dataset.
      *
      * This method differs from `Dataset.union` in that it adds all `quads` to the current instance, rather than
      * combining `quads` and the current instance to create a new instance.
      */
-    addAll(quads: Dataset<Q>|Q[]): this;
+    addAll(quads: Dataset<InQuad>|InQuad[]): this;
 
     /**
      * Returns `true` if the current instance is a superset of the given dataset; differently put: if the given dataset
@@ -492,7 +484,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * Blank Nodes will be normalized.
      */
-    contains(other: Dataset<Q>): boolean;
+    contains(other: Dataset<InQuad>): boolean;
 
     /**
      * This method removes the quads in the current instance that match the given arguments.
@@ -510,14 +502,14 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a new dataset that contains all quads from the current dataset, not included in the given dataset.
      */
-    difference(other: Dataset<Q>): this;
+    difference(other: Dataset<InQuad>): Dataset<OutQuad, InQuad>;
 
     /**
      * Returns true if the current instance contains the same graph structure as the given dataset.
      *
      * Blank Nodes will be normalized.
      */
-    equals(other: Dataset<Q>): boolean;
+    equals(other: Dataset<InQuad>): boolean;
 
     /**
      * Universal quantification method, tests whether every quad in the dataset passes the test implemented by the
@@ -529,38 +521,38 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * This method is aligned with `Array.prototype.every()` in ECMAScript-262.
      */
-    every(iteratee: QuadFilterIteratee<Q>): boolean;
+    every(iteratee: QuadFilterIteratee<OutQuad>['test']): boolean;
 
     /**
      * Creates a new dataset with all the quads that pass the test implemented by the provided `iteratee`.
      *
      * This method is aligned with Array.prototype.filter() in ECMAScript-262.
      */
-    filter(iteratee: QuadFilterIteratee<Q>): this;
+    filter(iteratee: QuadFilterIteratee<OutQuad>['test']): Dataset<OutQuad, InQuad>;
 
     /**
      * Executes the provided `iteratee` once on each quad in the dataset.
      *
      * This method is aligned with `Array.prototype.forEach()` in ECMAScript-262.
      */
-    forEach(iteratee: QuadRunIteratee<Q>): void;
+    forEach(iteratee: QuadRunIteratee<OutQuad>['run']): void;
 
     /**
      * Imports all quads from the given stream into the dataset.
      *
      * The stream events `end` and `error` are wrapped in a Promise.
      */
-    import(stream: Stream<Q>): Promise<this>;
+    import(stream: Stream<InQuad>): Promise<this>;
 
     /**
      * Returns a new dataset containing alls quads from the current dataset that are also included in the given dataset.
      */
-    intersection(other: Dataset<Q>): this;
+    intersection(other: Dataset<InQuad>): this;
 
     /**
      * Returns a new dataset containing all quads returned by applying `iteratee` to each quad in the current dataset.
      */
-    map(iteratee: QuadMapIteratee<Q>): this;
+    map(iteratee: QuadMapIteratee<OutQuad>['map']): Dataset<OutQuad, InQuad>;
 
     /**
      * This method calls the `iteratee` on each `quad` of the `Dataset`. The first time the `iteratee` is called, the
@@ -571,7 +563,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * This method is aligned with `Array.prototype.reduce()` in ECMAScript-262.
      */
-    reduce<A = any>(iteratee: QuadReduceIteratee<A, Q>, initialValue?: A): A;
+    reduce<A = any>(iteratee: QuadReduceIteratee<A, OutQuad>['run'], initialValue?: A): A;
 
     /**
      * Existential quantification method, tests whether some quads in the dataset pass the test implemented by the
@@ -581,7 +573,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * This method is aligned with `Array.prototype.some()` in ECMAScript-262.
      */
-    some(iteratee: QuadFilterIteratee<Q>): boolean;
+    some(iteratee: QuadFilterIteratee<OutQuad>['test']): boolean;
 
     /**
      * Returns the set of quads within the dataset as a host language native sequence, for example an `Array` in
@@ -589,7 +581,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * Since a `Dataset` is an unordered set, the order of the quads within the returned sequence is arbitrary.
      */
-    toArray(): Q[];
+    toArray(): OutQuad[];
 
     /**
      * Returns an N-Quads string representation of the dataset, preprocessed with
@@ -600,7 +592,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a stream that contains all quads of the dataset.
      */
-    toStream(): Stream<Q>;
+    toStream(): Stream<OutQuad>;
 
     /**
      * Returns an N-Quads string representation of the dataset.
@@ -613,14 +605,17 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a new `Dataset` that is a concatenation of this dataset and the quads given as an argument.
      */
-    union(quads: Dataset<Q>): this;
+    union(quads: Dataset<InQuad>): Dataset<OutQuad, InQuad>;
+
+    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): Dataset<OutQuad, InQuad>;
 }
 
-export interface DatasetFactory<Q extends BaseQuad = Quad> extends DatasetCoreFactory<Q> {
+export interface DatasetFactory<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad, D extends Dataset<OutQuad, InQuad> = Dataset<OutQuad, InQuad>>
+    extends DatasetCoreFactory<OutQuad, InQuad, D> {
     /**
      * Returns a new dataset and imports all quads, if given.
      */
-    dataset(quads?: Dataset<Q>|Q[]): Dataset<Q>;
+    dataset(quads?: Dataset<InQuad>|InQuad[]): D;
 }
 
 export interface QuadFilterIteratee<Q extends BaseQuad = Quad> {
@@ -652,3 +647,5 @@ export interface QuadRunIteratee<Q extends BaseQuad = Quad> {
      */
     run(quad: Q, dataset: Dataset<Q>): void;
 }
+
+export {};

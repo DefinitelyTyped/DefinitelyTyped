@@ -785,7 +785,7 @@ export namespace promise {
    *     generator's final result.
    * @throws {TypeError} If the given function is not a generator.
    */
-  function consume<T>(generatorFn: Function, opt_self?: any, ...var_args: any[]): Promise<T>;
+  function consume<T>(generatorFn: (...args: any[]) => T, opt_self?: any, ...var_args: any[]): Promise<T>;
 
   /**
    * Registers an observer on a promised {@code value}, returning a new promise
@@ -3226,7 +3226,7 @@ export class Options {
    *     cookies visible to the current page.
    * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol#Cookie_JSON_Object
    */
-  getCookies(): promise.Promise<IWebDriverOptionsCookie[]>;
+  getCookies(): promise.Promise<IWebDriverCookie[]>;
 
   /**
    * Schedules a command to retrieve the cookie with the given name. Returns null
@@ -3237,7 +3237,7 @@ export class Options {
    *     named cookie, or {@code null} if there is no such cookie.
    * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol#Cookie_JSON_Object
    */
-  getCookie(name: string): promise.Promise<IWebDriverOptionsCookie>;
+  getCookie(name: string): promise.Promise<IWebDriverCookie>;
 
   /**
    * @return {!Logs} The interface for managing driver

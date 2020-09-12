@@ -23,6 +23,16 @@ export function getDuration(duration: string | number): any;
 export function getIndex(): any;
 
 /**
+ * Return cache performance statistics (hit rate).  Suitable for putting into a route:
+ * <code>
+ * app.get('/api/cache/performance', (req, res) => {
+ *    res.json(apicache.getPerformance())
+ * })
+ * </code>
+ */
+export function getPerformance(): any;
+
+/**
  * the actual middleware that will be used in your routes. duration is in the following format
  * "[length] [unit]", as in "10 minutes" or "1 day". A second param is a middleware toggle function,
  * accepting request and response params, and must return truthy to enable cache for the request.
@@ -74,4 +84,8 @@ export interface Options {
   headers?: {
     [key: string]: string;
   };
+  /**
+   * enable/disable performance tracking... WARNING: super cool feature, but may cause memory overhead issues
+   */
+  trackPerformance?: boolean;
 }

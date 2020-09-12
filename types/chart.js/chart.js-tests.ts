@@ -1,4 +1,5 @@
 import { BorderWidth, Chart, Point, ChartColor } from 'chart.js';
+import moment = require('moment');
 
 // alternative:
 // import chartjs = require('chart.js');
@@ -36,6 +37,9 @@ const chart: Chart = new Chart(ctx, {
     },
     options: {
         hover: {
+            axis: 'xy',
+            mode: 'nearest',
+            animationDuration: 400,
             intersect: true,
         },
         onHover(ev: MouseEvent, points: any[]) {
@@ -67,7 +71,22 @@ const chart: Chart = new Chart(ctx, {
             xAxes: [
                 {
                     ticks: {
-                        callback: Math.floor,
+                        callback: (value) => {
+                            if (value === 10) {
+                                return Math.floor(value);
+                            }
+
+                            if (value === 20) {
+                                return `${value}`;
+                            }
+
+                            if (value === 30) {
+                                return undefined;
+                            }
+
+                            return null;
+                        },
+                        sampleSize: 10,
                     },
                     gridLines: {
                         display: false,
@@ -107,6 +126,12 @@ if (chart.chartArea) {
     console.log(chart.chartArea.bottom);
     console.log(chart.chartArea.left);
 }
+
+// Testing dataset visibility
+chart.isDatasetVisible(0); // $ExpectType boolean
+chart.setDatasetVisibility(0, false); // $ExpectType void
+chart.isDatasetVisible(0); // $ExpectType boolean
+chart.getVisibleDatasetCount(); // $ExpectType number
 
 // Testing custom legends
 chart.config.options = {
@@ -263,16 +288,27 @@ const linearScaleChart: Chart = new Chart(ctx, {
             },
             xAxes: [{
                 type: 'time',
+                time: {
+                    adapters: {
+                        date: {
+                            locale: 'de'
+                        }
+                    }
+                },
                 distribution: 'series',
                 ticks: {
                     source: 'data',
-                    autoSkip: true
+                    autoSkip: true,
+                    sampleSize: 1,
                 }
             }],
             yAxes: [{
                 scaleLabel: {
                     display: true,
                     labelString: 'Closing price ($)'
+                },
+                afterBuildTicks: (scale, ticks) => {
+                    return [Math.max(...ticks), 10, Math.min(...ticks)];
                 }
             }]
         },
@@ -300,12 +336,29 @@ const customTooltipsPieChart = new Chart(ctx, {
 // platform global values
 Chart.platform.disableCSSInjection = true;
 
+// Chart instances in the global namespace
+for (const id in Chart.instances) {
+    Chart.instances[id].resize();
+}
+
 // default global static values
 Chart.defaults.global.defaultFontColor = '#544615';
 Chart.defaults.global.defaultFontFamily = 'Arial';
 Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
 Chart.defaults.global.tooltips.cornerRadius = 2;
 Chart.defaults.global.tooltips.displayColors = false;
+
+// Update Chart defaults using scaleService
+Chart.scaleService.updateScaleDefaults('time', {
+    gridLines: {
+        drawBorder: false,
+        drawOnChartArea: false,
+        drawTicks: false,
+    },
+    ticks: {
+        padding: 20,
+    },
+});
 
 const doughnutChart = new Chart(ctx, {
     type: 'doughnut',
@@ -402,3 +455,77 @@ if (doughnutChart.getDatasetMeta(0).data.length > 0) {
     console.log(doughnutChartView.x);
     console.log(doughnutChartView.y);
 }
+
+// Time Cartesian Axis
+const timeAxisChartData: Chart.ChartData = {
+    datasets: [{
+        data: [
+            { x: new Date(), y: 1 },
+            { y: new Date(), t: 1 },
+            { t: new Date(), y: 1 },
+            { x: moment(), y: 1 },
+            { y: moment(), t: 1 },
+            { t: moment(), y: 1 },
+        ]
+    }]
+};
+
+// Labels
+const timeLabelsChartData: Chart.ChartData = {
+    labels: [
+        'a', 'b', 'c',
+        1, 2, 3,
+        new Date(), new Date(), new Date(),
+        moment(), moment(), moment(),
+    ],
+};
+
+const event = new MouseEvent('click');
+chart.getElementsAtEvent(event);
+chart.getElementsAtXAxis(event);
+
+// Number array chart data
+const chartWithNumberArrayData: Chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        datasets: [{
+            backgroundColor: '#000',
+            borderColor: '#f00',
+            data: [
+                [1, 2],
+                [3, 4],
+                [5, 6]
+            ],
+            type: 'line',
+        }]
+    },
+    options: {
+        scales: {
+            displayFormats: {
+                month: 'MMM YYYY',
+            },
+            xAxes: [{
+                type: 'time',
+                distribution: 'series',
+                ticks: {
+                    source: 'data',
+                    autoSkip: true,
+                    sampleSize: 1,
+                }
+            }],
+            yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Closing price ($)'
+                },
+                afterBuildTicks: (scale, ticks) => {
+                    return [Math.max(...ticks), 10, Math.min(...ticks)];
+                }
+            }]
+        },
+        tooltips: {
+            intersect: false,
+            mode: 'index',
+        }
+    }
+});

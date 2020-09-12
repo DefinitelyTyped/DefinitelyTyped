@@ -54,7 +54,7 @@ class SampleComponent extends React.Component<Props> {
 
         <Text>{foo}</Text>
 
-        <TextInput ref={generateTestHook('Input', this.setTextInputRef)} />
+        <TextInput ref={generateTestHook('Input', this.setTextInputRef)} onFocus={() => {}}/>
       </View>
     );
   }
@@ -78,6 +78,7 @@ function sampleSpec(spec: TestScope) {
       spec.findComponent('View'); // $ExpectType Promise<Component<{}, {}, any>>
       spec.press('View'); // $ExpectType Promise<void>
       spec.fillIn('Input', 'hello world'); // $ExpectType Promise<void>
+      spec.focus('Input'); // $ExpectType Promise<void>
       spec.pause(1000); // $ExpectType Promise<void>
       spec.exists('View'); // $ExpectType Promise<true>
       spec.notExists('View.MissingSample'); // $ExpectType Promise<true>

@@ -12,6 +12,7 @@ declare namespace ffmpeg {
         onExit?(code: unknown): void;
         stdin?(data: any): void;
         mounts?: Mount[];
+        TOTAL_MEMORY?: number;
     }
 
     interface Opts {

@@ -7,7 +7,7 @@
         "no-duplicate-imports": false,
         "no-empty-interface": false,
         "no-mergeable-namespace": false,
-        "strict-export-declare-modifiers": false,
-        "npm-naming": false
+        "npm-naming": false,
+        "strict-export-declare-modifiers": false
     }
 }

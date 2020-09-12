@@ -1,4 +1,4 @@
-import { ComponentClass, ComponentType } from '@wordpress/element';
+import { ComponentClass, ComponentType } from 'react';
 
 // prettier-ignore
 declare function withGlobalEvents(eventMapper: { [k in keyof WindowEventMap]?: string }):

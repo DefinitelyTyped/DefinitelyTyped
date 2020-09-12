@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "paths": {
+            "@hapi/catbox": ["hapi__catbox"],
+            "@hapi/hapi": ["hapi__hapi"],
+            "@hapi/joi": ["hapi__joi"],
+            "@hapi/mimos": ["hapi__mimos"],
+            "@hapi/podium": ["hapi__podium"],
+            "@hapi/shot": ["hapi__shot"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": ["index.d.ts", "hapi-server-session-tests.ts"]
+}

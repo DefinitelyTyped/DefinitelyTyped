@@ -10,9 +10,9 @@ if(isInit){
 }
 
 function success_callback(position: Position): void {
-	geo_position_js.showMap(position.coords.latitude, position.coords.longitude);
+    geo_position_js.showMap(position.coords.latitude, position.coords.longitude);
 }
 
 function error_callback(positionError: PositionError): void {
-	console.log(positionError.code);
+    console.log(positionError.code);
 }

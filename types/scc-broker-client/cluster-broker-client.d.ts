@@ -1,25 +1,46 @@
-import { EventEmitter } from "events";
-import SCBroker = require("sc-broker/scbroker");
-import { Secret } from "jsonwebtoken";
-import { MappingEngine, SCCBrokerClientOptions } from ".";
-import ClientPool = require("./client-pool");
+import AsyncStreamEmitter = require('async-stream-emitter');
+import SCBroker = require('sc-broker/scbroker');
+import { Secret } from 'jsonwebtoken';
+import ConsumableStream = require('consumable-stream');
 
-declare class ClusterBrokerClient extends EventEmitter {
-    broker: SCBroker;
+import { MappingEngine, SCCBrokerClientOptions, Broker } from '.';
+import ClientPool = require('./client-pool');
+
+declare class ClusterBrokerClient extends AsyncStreamEmitter<any> {
+    broker: Broker;
     sccBrokerClientPools: ClientPool[];
     sccBrokerURIList: string[];
     authKey?: Secret;
-    mappingEngine: "skeletonRendezvous" | "simple" | MappingEngine;
+    mappingEngine: 'skeletonRendezvous' | 'simple' | MappingEngine;
     clientPoolSize: number;
     mapper: MappingEngine;
+    isReady: boolean;
+
+    errors: {
+        NoMatchingSubscribeTargetError: (channelName: string) => Error;
+        NoMatchingUnsubscribeTargetError: (channelName: string) => Error;
+        NoMatchingPublishTargetError: (channelName: string) => Error;
+    };
 
     constructor(broker: SCBroker, options?: SCCBrokerClientOptions);
 
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "subscribe", listener: (data: ClientPool.SubscribeData) => void): this;
-    on(event: "subscribeFail", listener: (data: ClientPool.SubscribeFailData) => void): this;
-    on(event: "publish" | "publishFail", listener: (data: ClientPool.PublishData) => void): this;
-    on(event: "message", listener: (channelName: string, packet: any) => void): this;
+    emit(eventName: 'error', data: { error: Error }): void;
+    emit(eventName: 'updateWorkers', data: UpdateWorkersData): void;
+    emit(eventName: 'updateBrokers', data: UpdateBrokersData): void;
+    emit(event: 'subscribe', data: ClientPool.SubscribeData): void;
+    emit(event: 'subscribeFail', data: ClientPool.SubscribeFailData): void;
+    emit(eventName: 'publish', data: ClientPool.PublishData): void;
+    emit(eventName: 'publishFail', data: ClientPool.PublishFailData): void;
+    emit(eventName: 'message', data: MessageData): void;
+
+    listener(eventName: 'error'): ConsumableStream<{ error: Error }>;
+    listener(eventName: 'updateWorkers'): ConsumableStream<UpdateWorkersData>;
+    listener(eventName: 'updateBrokers'): ConsumableStream<UpdateBrokersData>;
+    listener(event: 'subscribe'): ConsumableStream<ClientPool.SubscribeData>;
+    listener(event: 'subscribeFail'): ConsumableStream<ClientPool.SubscribeFailData>;
+    listener(eventName: 'publish'): ConsumableStream<ClientPool.PublishData>;
+    listener(eventName: 'publishFail'): ConsumableStream<ClientPool.PublishFailData>;
+    listener(eventName: 'message'): ConsumableStream<MessageData>;
 
     mapChannelNameToBrokerURI(channelName: string): string;
     setBrokers(sccBrokerURIList: string[]): void;
@@ -28,7 +49,20 @@ declare class ClusterBrokerClient extends EventEmitter {
     subscribe(channelName: string): void;
     unsubscribe(channelName: string): void;
 
-    publish(channelName: string, data: any): void;
+    invokePublish(channelName: string, data: any): void;
+}
+
+interface UpdateWorkersData {
+    workerURIs: string;
+    sourceWorkerURI: string;
+}
+
+interface UpdateBrokersData {
+    brokerURIs: string[];
+}
+interface MessageData {
+    channelName: string;
+    packet: any;
 }
 
 export = ClusterBrokerClient;

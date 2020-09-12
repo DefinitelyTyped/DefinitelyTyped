@@ -2,13 +2,14 @@
 // Project: https://github.com/NYTimes/react-tracking
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Christopher Pappas <https://github.com/damassi>
+//                 Chen Asraf <https://github.com/chenasraf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
 
 export interface TrackingProp<P = {}> {
-    trackEvent(data: Partial<P>): any;
+    trackEvent(data: Partial<P>): void;
 
     /**
      * This method returns all of the contextual tracking data up until this point in the component hierarchy.
@@ -51,7 +52,7 @@ export interface Options<T> {
     process?(ownTrackingData: T): T | Falsy;
 }
 
-export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any]) => T);
+export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any], [value, err]: [any, any]) => T | Falsy);
 
 // Duplicated from ES6 lib to remove the `void` typing, otherwise `track` can’t be used as a HOC function that passes
 // through a JSX component that be used without casting.

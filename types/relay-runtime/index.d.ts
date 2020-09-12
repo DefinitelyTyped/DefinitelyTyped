@@ -1,16 +1,19 @@
-// Type definitions for relay-runtime 6.0
+// Type definitions for relay-runtime 10.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Renan Machado <https://github.com/renanmav>
+//                 Stephen Pittman <https://github.com/Stephen2>
+//                 Christian Ivicevic <https://github.com/ChristianIvicevic>
+//                 Lorenzo Di Giacomo <https://github.com/morrys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import ConnectionInterface from './lib/handlers/connection/RelayConnectionInterface';
+import ConnectionInterface from './lib/handlers/connection/ConnectionInterface';
 export { ConnectionInterface };
-export { ConnectionMetadata } from './lib/handlers/connection/RelayConnectionHandler';
-export { EdgeRecord, PageInfo } from './lib/handlers/connection/RelayConnectionInterface';
+export { ConnectionMetadata } from './lib/handlers/connection/ConnectionHandler';
+export { EdgeRecord, PageInfo } from './lib/handlers/connection/ConnectionInterface';
 export {
     DeclarativeMutationConfig,
     MutationTypes,
@@ -23,11 +26,13 @@ export {
 } from './lib/mutations/RelayDeclarativeMutationConfig';
 export { OptimisticMutationConfig } from './lib/mutations/applyOptimisticMutation';
 export { MutationConfig, MutationParameters } from './lib/mutations/commitMutation';
-export { RelayNetworkLog, LoggerTransactionConfig } from './lib/network/RelayNetworkLoggerTransaction';
 export {
     ExecuteFunction,
     FetchFunction,
     GraphQLResponse,
+    GraphQLResponseWithData,
+    GraphQLResponseWithoutData,
+    GraphQLSingularResponse,
     LogRequestInfoFunction,
     Network as INetwork,
     PayloadData,
@@ -37,7 +42,6 @@ export {
     UploadableMap,
 } from './lib/network/RelayNetworkTypes';
 export { ObservableFromValue, Observer, Subscribable, Subscription } from './lib/network/RelayObservable';
-export { GraphiQLPrinter, NetworkLogger } from './lib/network/createRelayNetworkLogger';
 export {
     GraphQLTaggedNode,
     graphql,
@@ -47,14 +51,7 @@ export {
     getRefetchableFragment,
     getRequest,
 } from './lib/query/RelayModernGraphQLTag';
-export {
-    ConnectionEvent,
-    ConnectionID,
-    ConnectionReference,
-    ConnectionReferenceObject,
-    ConnectionResolver,
-    ConnectionSnapshot,
-} from './lib/store/RelayConnection';
+export { isClientID, generateClientID, generateUniqueClientID } from './lib/store/ClientID';
 export { TaskScheduler } from './lib/store/RelayModernQueryExecutor';
 export { RecordState } from './lib/store/RelayRecordState';
 export {
@@ -64,8 +61,7 @@ export {
     FragmentReference,
     FragmentSpecResolver,
     HandleFieldPayload,
-    Logger,
-    LoggerProvider,
+    InvalidationState,
     MissingFieldHandler,
     ModuleImportPointer,
     NormalizationSelector,
@@ -127,14 +123,14 @@ export { ConcreteRequest, GeneratedNode, RequestParameters } from './lib/util/Re
 export { CacheConfig, DataID, Disposable, OperationType, Variables } from './lib/util/RelayRuntimeTypes';
 
 // Core API
-export { RelayModernEnvironment as Environment } from './lib/store/RelayModernEnvironment';
+export { default as Environment } from './lib/store/RelayModernEnvironment';
 export { RelayNetwork as Network } from './lib/network/RelayNetwork';
 export { RelayObservable as Observable } from './lib/network/RelayObservable';
 import QueryResponseCache from './lib/network/RelayQueryResponseCache';
 export { QueryResponseCache };
 export { RelayRecordSource as RecordSource } from './lib/store/RelayRecordSource';
 export { RelayModernRecord as Record } from './lib/store/RelayModernRecord';
-export { RelayModernStore as Store } from './lib/store/RelayModernStore';
+export { default as Store } from './lib/store/RelayModernStore';
 
 export {
     areEqualSelectors,
@@ -171,9 +167,9 @@ export { readInlineData } from './lib/store/readInlineData';
 // Extensions
 export { RelayDefaultHandlerProvider as DefaultHandlerProvider } from './lib/handlers/RelayDefaultHandlerProvider';
 
-import DefaultMissingFieldHandlers from './lib/handlers/RelayDefaultMissingFieldHandlers';
-export { DefaultMissingFieldHandlers };
-import * as ConnectionHandler from './lib/handlers/connection/RelayConnectionHandler';
+import getDefaultMissingFieldHandlers from './lib/handlers/getRelayDefaultMissingFieldHandlers';
+export { getDefaultMissingFieldHandlers };
+import * as ConnectionHandler from './lib/handlers/connection/ConnectionHandler';
 export { ConnectionHandler };
 
 // Helpers (can be implemented via the above API)
@@ -186,29 +182,34 @@ export { requestSubscription } from './lib/subscription/requestSubscription';
 
 // Utilities
 export { RelayProfiler } from './lib/util/RelayProfiler';
-export { getRelayHandleKey } from './lib/util/getRelayHandleKey';
+export { default as getRelayHandleKey } from './lib/util/getRelayHandleKey';
+export { default as getRequestIdentifier } from './lib/util/getRequestIdentifier';
 
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
 export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
-export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
-export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
-export { deepFreeze } from './lib/util/deepFreeze';
+export { default as deepFreeze } from './lib/util/deepFreeze';
+export { default as isPromise } from './lib/util/isPromise';
+
+import * as fetchQueryInternal from './lib/query/fetchQueryInternal';
+
+interface Internal {
+    fetchQuery: typeof fetchQueryInternal.fetchQuery;
+    fetchQueryDeduped: typeof fetchQueryInternal.fetchQueryDeduped;
+    getPromiseForActiveRequest: typeof fetchQueryInternal.getPromiseForActiveRequest;
+    getObservableForActiveRequest: typeof fetchQueryInternal.getObservableForActiveRequest;
+}
+
+export const __internal: Internal;
 
 /**
  * relay-compiler-language-typescript support for fragment references
  */
 
-/**
- * @private
- */
 export interface _RefType<Ref extends string> {
     ' $refType': Ref;
 }
 
-/**
- * @private
- */
 export interface _FragmentRefs<Refs extends string> {
     ' $fragmentRefs': FragmentRefs<Refs>;
 }

@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "paths": {
+            "@babel/core": ["babel__core"],
+            "@babel/generator": ["babel__generator"],
+            "@babel/template": ["babel__template"],
+            "@babel/traverse": ["babel__traverse"]
+        },
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "babel-plugin-tester-tests.ts"
+    ]
+}

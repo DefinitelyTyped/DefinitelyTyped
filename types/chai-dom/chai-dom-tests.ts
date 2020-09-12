@@ -5,7 +5,6 @@ chai.use(chaiDom);
 var expect = chai.expect;
 
 function test() {
-
     var testElement = '<div></div>';
     expect(testElement).to.have.attribute('foo', 'bar');
     expect(testElement).to.have.attr('foo').match(/bar/);
@@ -22,5 +21,6 @@ function test() {
     expect(testElement).to.match('foo');
     expect(testElement).to.contain('foo');
     expect(testElement).to.contain(document.body);
-
+    expect(testElement).to.be.visible;
+    expect(testElement).to.have.tagName('foo');
 }

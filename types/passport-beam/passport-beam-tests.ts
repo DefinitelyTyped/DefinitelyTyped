@@ -11,13 +11,13 @@ var User = {
 }
 
 passport.use(new Strategy({
-		clientID: process.env.BEAM_CLIENT_ID,
-		clientSecret: process.env.BEAM_CLIENT_SECRET,
-		callbackURL: "http://127.0.0.1:3000/auth/beam/callback"
+        clientID: process.env.BEAM_CLIENT_ID,
+        clientSecret: process.env.BEAM_CLIENT_SECRET,
+        callbackURL: "http://127.0.0.1:3000/auth/beam/callback"
     }, (accessToken:string, refreshToken:string, profile:Strategy.Profile, done:(error:any, user?:any) => void) => {
-		User.findOrCreate(profile.id, profile.provider, (err, user) => {
-			if (err) { return done(err); }
-			done(null, user);
-		});
+        User.findOrCreate(profile.id, profile.provider, (err, user) => {
+            if (err) { return done(err); }
+            done(null, user);
+        });
     })
 );

@@ -8,6 +8,9 @@ interface StructureListWrapperInheritedProps extends Omit<ReactAttr, "aria-label
 }
 
 export interface StructuredListProps extends StructureListWrapperInheritedProps {
+    /**
+     * @deprecated
+     */
     border?: boolean,
     selection?: boolean,
 }

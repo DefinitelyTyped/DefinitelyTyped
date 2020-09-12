@@ -1,9 +1,12 @@
-// Type definitions for non-npm package @ember/runloop 3.0
-// Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Frunloop
+// Type definitions for non-npm package @ember/runloop 3.16
+// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Frunloop
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Steve Calvert <https://github.com/scalvert>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 Dan Freeman <https://github.com/dfreeman>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import { RunMethod, EmberRunQueues } from "@ember/runloop/-private/types";
 import { EmberRunTimer } from "@ember/runloop/types";
@@ -160,6 +163,11 @@ export interface RunNamespace {
       method: RunMethod<Target>,
       ...args: any[]
   ): EmberRunTimer;
+  next(
+    method: () => void,
+    ...args: any[]
+  ): EmberRunTimer;
+
   /**
    * Cancels a scheduled item. Must be a value returned by `run.later()`,
    * `run.once()`, `run.scheduleOnce()`, `run.next()`, `run.debounce()`, or

@@ -9,5 +9,14 @@ import SwaggerUI from 'swagger-ui-react';
       console.log(request);
       return request;
     }}
+    defaultModelExpandDepth={-1}
+    plugins={[
+        {
+            components: {
+                OperationTag: () => null,
+            },
+        },
+    ]}
+    supportedSubmitMethods={[]}
   />
 </div>;

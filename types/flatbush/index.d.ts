@@ -53,7 +53,7 @@ declare class FlatbushClass {
      * Recreates a Flatbush index from raw ArrayBuffer data (that's exposed as index.data on a previously indexed Flatbush instance).
      * Very useful for transferring indices between threads or storing them in a file.
      */
-    static from(data: ArrayBuffer): Flatbush;
+    static from(data: ArrayBuffer): FlatbushClass;
 
     /**
      * array buffer that holds the index
@@ -95,6 +95,8 @@ declare class FlatbushClass {
     readonly IndexArrayType: TypedArrayConstructor;
 }
 
-export type Flatbush = FlatbushClass;
-// tslint:disable-next-line:npm-naming https://github.com/mourner/flatbush/blob/master/index.js#L11
-export default FlatbushClass;
+declare namespace FlatbushClass {
+    type Flatbush = FlatbushClass;
+}
+
+export = FlatbushClass;

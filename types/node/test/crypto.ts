@@ -3,6 +3,10 @@ import * as assert from 'assert';
 import { promisify } from 'util';
 
 {
+    const copied: crypto.Hash = crypto.createHash('md5').copy();
+}
+
+{
     // crypto_hash_string_test
     let hashResult: string = crypto.createHash('md5').update('world').digest('hex');
     hashResult = crypto.createHash('shake256', { outputLength: 16 }).update('world').digest('hex');
@@ -490,6 +494,28 @@ import { promisify } from 'util';
             type: 'pkcs8',
         },
     }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
+
+    crypto.generateKeyPair('ed25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
+
+    crypto.generateKeyPair('x25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
 }
 
 {
@@ -546,6 +572,38 @@ import { promisify } from 'util';
             type: 'pkcs8',
         },
     });
+
+    const ed25519Res: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified('ed25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
+    const x25519Res: Promise<{
+        publicKey: string;
+        privateKey: string;
+    }> = generateKeyPairPromisified('x25519', {
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+}
+
+{
+    const fips: 0 | 1 = crypto.getFips();
 }
 
 {
@@ -557,7 +615,10 @@ import { promisify } from 'util';
 }
 
 {
-    crypto.createSecretKey(Buffer.from('asdf'));
+    const keyObject = crypto.createSecretKey(Buffer.from('asdf')); // $ExpectType KeyObject
+    keyObject instanceof crypto.KeyObject;
+    assert.equal(keyObject.symmetricKeySize, 4);
+    assert.equal(keyObject.type, "secret");
 }
 
 {
@@ -594,6 +655,39 @@ import { promisify } from 'util';
     verify.update('some data to sign');
     verify.end();
     verify.verify(publicKey, signature);    // $ExpectType boolean
+}
+
+{
+    // crypto.diffieHellman_test
+    const x25519Keys1 = crypto.generateKeyPairSync('x25519', {
+        publicKeyEncoding: {
+            type: 'spki',
+            format: 'pem',
+        },
+        privateKeyEncoding: {
+            type: 'pkcs8',
+            format: 'pem',
+        },
+    });
+    const privateKeyObject1 = crypto.createPrivateKey({ key: x25519Keys1.privateKey });
+    const publicKeyObject1 = crypto.createPublicKey({ key: x25519Keys1.publicKey });
+
+    const x25519Keys2 = crypto.generateKeyPairSync('x25519', {
+        publicKeyEncoding: {
+            type: 'spki',
+            format: 'pem',
+        },
+        privateKeyEncoding: {
+            type: 'pkcs8',
+            format: 'pem',
+        },
+    });
+    const privateKeyObject2 = crypto.createPrivateKey({ key: x25519Keys2.privateKey });
+    const publicKeyObject2 = crypto.createPublicKey({ key: x25519Keys2.publicKey });
+
+    const sharedSecret1 = crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject2 });
+    const sharedSecret2 = crypto.diffieHellman({ privateKey: privateKeyObject2, publicKey: publicKeyObject1 });
+    assert.equal(sharedSecret1, sharedSecret2);
 }
 
 {
@@ -671,7 +765,7 @@ import { promisify } from 'util';
 
 {
     const sig: Buffer = crypto.sign('md5', Buffer.from(''), 'mykey');
-    const correct: Buffer = crypto.verify('md5', sig, 'mykey', sig);
+    const correct: boolean = crypto.verify('md5', sig, 'mykey', sig);
 }
 
 {
@@ -685,4 +779,14 @@ import { promisify } from 'util';
 
     const bufP: Buffer = crypto.privateEncrypt(key, Buffer.from([]));
     const decp: Buffer = crypto.privateDecrypt(key, bufP);
+}
+
+// crypto.randomInt
+{
+    const callback = (error: Error|null, value: number): void => {};
+
+    const a: number = crypto.randomInt(10);
+    const b: number = crypto.randomInt(1, 10);
+    crypto.randomInt(10, callback);
+    crypto.randomInt(1, 10, callback);
 }

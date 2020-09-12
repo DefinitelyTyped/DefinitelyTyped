@@ -4,7 +4,8 @@
 //                 DingWeizhe <https://github.com/DingWeizhe>
 //                 Mounir Abid <https://github.com/mabidina>
 //                 Doyoung Ha <https://github.com/hados99>
-// Definitions: https://github.com/DefinitelyType/DefinitelyTyped
+//                 Prasad Nayak <https://github.com/buzzertech>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
@@ -230,7 +231,7 @@ declare namespace Ffmpeg {
         native(): FfmpegCommand;
         setStartTime(seek: string | number): FfmpegCommand;
         seekInput(seek: string | number): FfmpegCommand;
-        loop(duration: string | number): FfmpegCommand;
+        loop(duration?: string | number): FfmpegCommand;
 
         // options/audio
         withNoAudio(): FfmpegCommand;
@@ -255,8 +256,8 @@ declare namespace Ffmpeg {
         noVideo(): FfmpegCommand;
         withVideoCodec(codec: string): FfmpegCommand;
         videoCodec(codec: string): FfmpegCommand;
-        withVideoBitrate(bitrate: string | number): FfmpegCommand;
-        videoBitrate(bitrate: string | number): FfmpegCommand;
+        withVideoBitrate(bitrate: string | number, constant?: boolean): FfmpegCommand;
+        videoBitrate(bitrate: string | number, constant?: boolean): FfmpegCommand;
         withVideoFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
         withVideoFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
         videoFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
@@ -291,16 +292,16 @@ declare namespace Ffmpeg {
         setAspectRatio(aspect: string | number): FfmpegCommand;
         aspect(aspect: string | number): FfmpegCommand;
         aspectRatio(aspect: string | number): FfmpegCommand;
-        applyAutopadding(pad: boolean, color: string): FfmpegCommand;
-        applyAutoPadding(pad: boolean, color: string): FfmpegCommand;
-        applyAutopad(pad: boolean, color: string): FfmpegCommand;
-        applyAutoPad(pad: boolean, color: string): FfmpegCommand;
-        withAutopadding(pad: boolean, color: string): FfmpegCommand;
-        withAutoPadding(pad: boolean, color: string): FfmpegCommand;
-        withAutopad(pad: boolean, color: string): FfmpegCommand;
-        withAutoPad(pad: boolean, color: string): FfmpegCommand;
-        autoPad(pad: boolean, color: string): FfmpegCommand;
-        autopad(pad: boolean, color: string): FfmpegCommand;
+        applyAutopadding(pad?: boolean, color?: string): FfmpegCommand;
+        applyAutoPadding(pad?: boolean, color?: string): FfmpegCommand;
+        applyAutopad(pad?: boolean, color?: string): FfmpegCommand;
+        applyAutoPad(pad?: boolean, color?: string): FfmpegCommand;
+        withAutopadding(pad?: boolean, color?: string): FfmpegCommand;
+        withAutoPadding(pad?: boolean, color?: string): FfmpegCommand;
+        withAutopad(pad?: boolean, color?: string): FfmpegCommand;
+        withAutoPad(pad?: boolean, color?: string): FfmpegCommand;
+        autoPad(pad?: boolean, color?: string): FfmpegCommand;
+        autopad(pad?: boolean, color?: string): FfmpegCommand;
 
         // options/output
         addOutput(target: string | stream.Writable, pipeopts?: { end?: boolean }): FfmpegCommand;

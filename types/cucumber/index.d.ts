@@ -8,6 +8,7 @@
 //                 Peter Morlion <https://github.com/petermorlion>
 //                 Don Jayamanne <https://github.com/DonJayamanne>
 //                 David Goss <https://github.com/davidjgoss>
+//                 Alberto Silva <https://github.com/albertossilva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -29,7 +30,7 @@ export interface CallbackStepDefinition {
     (error?: any, pending?: string): void;
 }
 
-export interface TableDefinition {
+export interface TableDefinition<Type = any> {
     /** Returns the table as a 2-D array. */
     raw(): string[][];
 
@@ -37,10 +38,10 @@ export interface TableDefinition {
     rows(): string[][];
 
     /** Returns an object where each row corresponds to an entry (first column is the key, second column is the value). */
-    rowsHash(): { [firstCol: string]: string };
+    rowsHash(): { [firstColumn: string]: string };
 
     /** Returns an array of objects where each row is converted to an object (column header is the key). */
-    hashes(): Array<{ [colName: string]: string }>;
+    hashes(): Array<{ [columnName in keyof Type]: string }>;
 }
 
 export type StepDefinitionCode = (this: World, ...stepArgs: any[]) => any;

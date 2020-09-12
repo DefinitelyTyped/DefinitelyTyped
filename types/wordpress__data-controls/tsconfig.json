@@ -14,8 +14,7 @@
         "paths": {
             "@wordpress/api-fetch": ["wordpress__api-fetch"],
             "@wordpress/data": ["wordpress__data"],
-            "@wordpress/data-controls": ["wordpress__data-controls"],
-            "@wordpress/element": ["wordpress__element"]
+            "@wordpress/data-controls": ["wordpress__data-controls"]
         }
     },
     "files": [

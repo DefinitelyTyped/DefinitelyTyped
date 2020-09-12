@@ -18,6 +18,13 @@ import { Writable, Readable, Pipe } from 'stream';
     childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
     childProcess.spawnSync("echo test", {input: new Uint8Array([])});
     childProcess.spawnSync("echo test", {input: new DataView(new ArrayBuffer(1))});
+    childProcess.spawnSync("echo test", { encoding: 'utf-8' });
+    childProcess.spawnSync("echo test", { encoding: 'buffer' });
+}
+
+{
+    childProcess.execSync("echo test", { encoding: 'utf-8' });
+    childProcess.execSync("echo test", { encoding: 'buffer' });
 }
 
 {
@@ -52,6 +59,20 @@ import { Writable, Readable, Pipe } from 'stream';
     ipc.ref();
 }
 
+{
+    const forked = childProcess.fork('./', {
+        windowsVerbatimArguments: true,
+        silent: false,
+        stdio: ["inherit"],
+        execPath: '',
+        execArgv: ['asda']
+    });
+}
+
+{
+    const forked = childProcess.fork('./');
+}
+
 async function testPromisify() {
     const execFile = promisify(childProcess.execFile);
     let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
@@ -66,10 +87,13 @@ async function testPromisify() {
 }
 
 {
-    let cp = childProcess.spawn('asd', { stdio: 'inherit' });
+    let cp = childProcess.fork('asd');
     const _socket: net.Socket = net.createConnection(1);
     const _server: net.Server = net.createServer();
     let _boolean: boolean;
+    let _string: string;
+    let _stringArray: string[];
+    let _maybeNumber: number | null;
 
     _boolean = cp.send(1);
     _boolean = cp.send('one');
@@ -281,6 +305,17 @@ async function testPromisify() {
         const _message: any = message;
         const _sendHandle: net.Socket | net.Server = sendHandle;
     });
+
+    _boolean = cp.kill();
+    _boolean = cp.kill(9);
+    _boolean = cp.kill("SIGTERM");
+
+    _maybeNumber = cp.exitCode;
+    _maybeNumber = cp.signalCode;
+
+    _string = cp.spawnfile;
+
+    _stringArray = cp.spawnargs;
 
     function expectNonNull(cp: {
         readonly stdin: Writable;

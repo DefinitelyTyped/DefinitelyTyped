@@ -174,11 +174,13 @@ type Evolved<A> =
       : never;
 
 /**
- * <needs description>
+ * A set of transformation to run as part of an evolve
+ * @param T - the type to be evolved
  */
-export interface Evolver {
-    [key: string]: ((value: any) => any) | Evolver;
-}
+export type Evolver<T extends Evolvable<any> = any> = {
+    // if T[K] isn't evolvable, don't allow nesting for that property
+    [key in keyof Partial<T>]: ((value: T[key]) => T[key]) | (T[key] extends Evolvable<any> ? Evolver<T[key]> : never);
+};
 
 /**
  * <needs description>
@@ -278,7 +280,8 @@ export interface Lens {
  * <created by @pirix-gh>
  */
 export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
-    O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth>;
+    // tslint:disable-next-line:use-default-type-parameter
+    O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth, 1>;
 
 /**
  * Merge multiple objects `Os` with each other
@@ -290,10 +293,11 @@ export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | '
  * <created by @pirix-gh>
  */
 export type MergeAll<Os extends readonly object[]> =
-    O.AssignUp<{}, Os> extends infer M
-    ? {} extends M         // nothing merged => bcs no `as const`
-      ? T.UnionOf<Os>      // so we output the approximate types
-      : T.ObjectOf<M & {}> // otherwise, we can get accurate types
+    // tslint:disable-next-line:use-default-type-parameter
+    O.AssignUp<{}, Os, 'flat', 1> extends infer M
+    ? {} extends M    // nothing merged => bcs no `as const`
+      ? T.UnionOf<Os> // so we output the approximate types
+      : M             // otherwise, we can get accurate types
     : never;
 
 // ---------------------------------------------------------------------------------------
@@ -431,5 +435,12 @@ export type ValueOfRecord<R> =
     R extends Record<any, infer T>
     ? T
     : never;
+
+/**
+ * If `T` is a union, `T[keyof T]` (cf. `map` and `values` in `index.d.ts`) contains the types of object values that are common across the union (i.e., an intersection).
+ * Because we want to include the types of all values, including those that occur in some, but not all members of the union, we first define `ValueOfUnion`.
+ * @see https://stackoverflow.com/a/60085683
+ */
+export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
 
 export {};

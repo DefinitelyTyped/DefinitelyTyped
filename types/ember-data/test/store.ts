@@ -13,7 +13,7 @@ class Post extends DS.Model {
 
 declare module 'ember-data/types/registries/model' {
     export default interface ModelRegistry {
-        'post': Post;
+        post: Post;
         'post-comment': PostComment;
     }
 }
@@ -109,7 +109,7 @@ const SomeComponent = Ember.Object.extend({
     lookUpUsers() {
         assertType<User>(this.get('store').findRecord('user', 123));
         assertType<DS.PromiseArray<User>>(this.get('store').findAll('user'));
-    }
+    },
 });
 
 const MyRouteAsync = Ember.Route.extend({
@@ -124,7 +124,7 @@ const MyRouteAsync = Ember.Route.extend({
     async afterModel(): Promise<Ember.Array<Comment>> {
         const post = await this.get('store').findRecord('post', 1);
         return await post.get('comments');
-    }
+    },
 });
 
 class MyRouteAsyncES6 extends Ember.Route {
@@ -210,3 +210,5 @@ assertType<UserSerializer>(store.serializerFor('user'));
 
 store.unloadAll();
 store.unloadAll('user');
+
+assertType<Ember.Service>(store);

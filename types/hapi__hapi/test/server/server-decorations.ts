@@ -19,7 +19,9 @@ server.start();
 server.decorate('toolkit', 'success', function() {
     return this.response({ status: 'ok' });
 });
-server.decorate('handler', 'test', (route, options) => (req, h) => 123);
+server.decorate('handler', 'test', (route, options) => {
+    return (req, h) => `${route.path}123`;
+});
 server.route({
     method: 'GET',
     path: '/',

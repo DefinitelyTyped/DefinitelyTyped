@@ -2,6 +2,7 @@
 // Project: https://github.com/jperkin/node-rpio
 // Definitions by: Dominik Palo <https://github.com/DominikPalo>
 //                 Hannes Früchtenicht <https://github.com/Pencl>
+//                 Mark Hoffmeyer <https://github.com/mhoffmeyerDC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -362,6 +363,13 @@ declare namespace RPIO {
          * physical: use the physical P01-P40 header layou
          */
         mapping?: "gpio" | "physical";
+        
+        /**
+         * Mock mode is a dry-run environment where everything except pin access is performed. This is useful for testing scripts, and can also be used on systems which do not support GPIO at all.
+         * If rpio is executed on unsupported hardware it will automatically start up in mock mode, and a warn event is emitted. By default the warn event is handled by a simple logger to stdout, but this can be overridden by the user creating their own warn handler.
+         * The user can also explicitly request mock mode, where the argument is the type of hardware they wish to emulate.
+         */
+        mock?: "raspi-b-r1" | "raspi-a" | "raspi-b" | "raspi-a+" | "raspi-b+" | "raspi-2" | "raspi-3" | "raspi-zero" | "raspi-zero-w";
     }
 
     interface CallbackFunction {

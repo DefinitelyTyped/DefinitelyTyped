@@ -10,10 +10,9 @@
 //                 Siya Mzam  <https://github.com/vegtelenseg>
 //                 Cale Bergh <https://github.com/calebergh>
 //                 Ryan McKeel <https://github.com/rmckeel>
+//                 Jan Kalfus <https://github.com/jankalfus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-
-import * as React from 'react';
 
 export import Calendar = require('./lib/Calendar');
 export import Combobox = require('./lib/Combobox');

@@ -33,7 +33,14 @@ app.use(session({
   resave: true,
   proxy: true,
   saveUninitialized: true,
-  unset: 'keep'
+}));
+app.use(session({
+    secret: 'keyboard cat',
+    unset: 'destroy'
+}));
+app.use(session({
+    secret: 'keyboard cat',
+    unset: 'keep'
 }));
 
 interface MySession extends Express.Session {

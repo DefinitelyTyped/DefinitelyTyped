@@ -21,8 +21,16 @@
 //                 Takuya Uehara <https://github.com/indigolain>
 //                 Ricardo Mello <https://github.com/ricardo-mello>
 //                 Ray Nicholus <https://github.com/rnicholus>
+//                 Oscar Cabrera <https://github.com/mrjack88>
+//                 Carlos Anoceto <https://github.com/canoceto>
+//                 Nobuhiko Futagami <https://github.com/nobu222>
+//                 Marco Ru <https://github.com/Marcoru97>
+//                 Tony Liu <https://github.com/tonybadguy>
+//                 Mathias Helminger <https://github.com/Ilmarinen100>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+
+import { Moment } from 'moment';
 
 declare class Chart {
     static readonly Chart: typeof Chart;
@@ -42,8 +50,12 @@ declare class Chart {
     generateLegend: () => {};
     getElementAtEvent: (e: any) => [{}];
     getElementsAtEvent: (e: any) => Array<{}>;
+    getElementsAtXAxis: (e: any) => Array<{}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
     getDatasetMeta: (index: number) => Meta;
+    getVisibleDatasetCount: () => number;
+    isDatasetVisible: (datasetIndex: number) => boolean;
+    setDatasetVisibility: (datasetIndex: number, visible: boolean) => void;
     ctx: CanvasRenderingContext2D | null;
     canvas: HTMLCanvasElement | null;
     width: number | null;
@@ -73,8 +85,16 @@ declare class Chart {
         disableCSSInjection: boolean
     };
 
+    static scaleService: {
+        updateScaleDefaults: (type: Chart.ScaleType, updates: Chart.ChartScales) => void;
+    };
+
     // Tooltip Static Options
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
+
+    static readonly instances: {
+        [key: string]: Chart;
+    };
 }
 declare class PluginServiceStatic {
     register(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
@@ -145,7 +165,20 @@ declare namespace Chart {
 
     type PositionType = 'left' | 'right' | 'top' | 'bottom' | 'chartArea';
 
-    type InteractionMode = 'point' | 'nearest' | 'single' | 'label' | 'index' | 'x-axis' | 'dataset' | 'x' | 'y';
+    // Allow extending the IteractionMode type alias
+    // see https://github.com/microsoft/TypeScript/issues/28078#issuecomment-432339564
+    interface InteractionModeRegistry {
+        'point': 'point';
+        'nearest': 'nearest';
+        'single': 'single';
+        'label': 'label';
+        'index': 'index';
+        'x-axis': 'x-axis';
+        'dataset': 'dataset';
+        'x': 'x';
+        'y': 'y';
+    }
+    type InteractionMode = InteractionModeRegistry[keyof InteractionModeRegistry];
 
     type Easing = 'linear' | 'easeInQuad' | 'easeOutQuad' | 'easeInOutQuad' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' |
         'easeInQuart' | 'easeOutQuart' | 'easeInOutQuart' | 'easeInQuint' | 'easeOutQuint' | 'easeInOutQuint' | 'easeInSine' | 'easeOutSine' |
@@ -221,10 +254,10 @@ declare namespace Chart {
     }
 
     interface ChartPoint {
-        x?: number | string | Date;
-        y?: number | string | Date;
+        x?: number | string | Date | Moment;
+        y?: number | string | Date | Moment;
         r?: number;
-        t?: number | string | Date;
+        t?: number | string | Date | Moment;
     }
 
     interface ChartConfiguration {
@@ -235,7 +268,7 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: Array<string | string[]>;
+        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]>;
         datasets?: ChartDataSets[];
     }
 
@@ -302,6 +335,7 @@ declare namespace Chart {
         fullWidth?: boolean;
         onClick?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         onHover?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
+        onLeave?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
     }
@@ -360,24 +394,33 @@ declare namespace Chart {
     }
 
     interface ChartTooltipModel {
+        afterBody: string[];
         backgroundColor: string;
+        beforeBody: string[];
+        body: ChartTooltipModelBody[];
         bodyFontColor: string;
         bodyFontSize: number;
         bodySpacing: number;
         borderColor: string;
         borderWidth: number;
+        caretPadding: number;
         caretSize: number;
         caretX: number;
         caretY: number;
         cornerRadius: number;
+        dataPoints: ChartTooltipItem[];
         displayColors: boolean;
+        footer: string[];
         footerFontColor: string;
         footerFontSize: number;
         footerMarginTop: number;
         footerSpacing: number;
         height: number;
+        labelColors: string[];
+        labelTextColors: string[];
         legendColorBackground: string;
         opacity: number;
+        title: string[];
         titleFontColor: string;
         titleFontSize: number;
         titleMarginBottom: number;
@@ -400,6 +443,12 @@ declare namespace Chart {
         _titleFontStyle: string;
     }
 
+    interface ChartTooltipModelBody {
+        before: string[];
+        lines: string[];
+        after: string[];
+    }
+
     // NOTE: declare plugin options as interface instead of inline '{ [plugin: string]: any }'
     // to allow module augmentation in case some plugins want to strictly type their options.
     interface ChartPluginsOptions {
@@ -416,6 +465,7 @@ declare namespace Chart {
         mode?: InteractionMode;
         animationDuration?: number;
         intersect?: boolean;
+        axis?: 'x' | 'y' | 'xy';
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
     }
 
@@ -536,7 +586,10 @@ declare namespace Chart {
         backdropPaddingX?: number;
         backdropPaddingY?: number;
         beginAtZero?: boolean;
-        callback?(value: any, index: any, values: any): string | number;
+        /**
+         * If the callback returns null or undefined the associated grid line will be hidden.
+         */
+        callback?(value: number | string, index: number, values: number[] | string[]): string | number | null | undefined;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;
@@ -552,6 +605,13 @@ declare namespace Chart {
         mirror?: boolean;
         padding?: number;
         reverse?: boolean;
+        /**
+         * The number of ticks to examine when deciding how many labels will fit.
+         * Setting a smaller value will be faster, but may be less accurate
+         * when there is large variability in label length.
+         * Deault: `ticks.length`
+         */
+        sampleSize?: number;
         showLabelBackdrop?: boolean;
         source?: 'auto' | 'data' | 'labels';
         stepSize?: number;
@@ -615,17 +675,19 @@ declare namespace Chart {
         borderJoinStyle?: 'bevel' | 'round' | 'miter';
         borderSkipped?: PositionType | PositionType[] | Scriptable<PositionType>;
         categoryPercentage?: number;
-        data?: Array<number | null | undefined> | ChartPoint[];
+        data?: Array<number | null | undefined | number[]> | ChartPoint[];
         fill?: boolean | number | string;
         hitRadius?: number | number[] | Scriptable<number>;
         hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderWidth?: number | number[] | Scriptable<number>;
+        hoverRadius?: number;
         label?: string;
         lineTension?: number;
         maxBarThickness?: number;
         minBarLength?: number;
         steppedLine?: 'before' | 'after' | 'middle' | boolean;
+        order?: number;
         pointBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointBorderWidth?: number | number[] | Scriptable<number>;
@@ -683,7 +745,7 @@ declare namespace Chart {
         afterUpdate?(scale?: any): void;
         afterSetDimension?(scale?: any): void;
         afterDataLimits?(scale?: any): void;
-        afterBuildTicks?(scale?: any): void;
+        afterBuildTicks?(scale: any, ticks: number[]): number[];
         afterTickToLabelConversion?(scale?: any): void;
         afterCalculateTickRotation?(scale?: any): void;
         afterFit?(scale?: any): void;
@@ -717,7 +779,12 @@ declare namespace Chart {
         year?: string;
     }
 
+    interface DateAdapterOptions {
+        date?: object;
+    }
+
     interface TimeScale extends ChartScales {
+        adapters?: DateAdapterOptions;
         displayFormats?: TimeDisplayFormat;
         isoWeekday?: boolean;
         max?: string;
@@ -796,7 +863,7 @@ declare namespace Chart {
         resize?(chartInstance: Chart, newChartSize: ChartSize, options?: any): void;
         destroy?(chartInstance: Chart): void;
 
-        /** @deprecated since version 2.5.0. Use `afterLayout` instead. */
+        /** Deprecated since version 2.5.0. Use `afterLayout` instead. */
         afterScaleUpdate?(chartInstance: Chart, options?: any): void;
     }
 

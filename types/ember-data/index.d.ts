@@ -1,10 +1,12 @@
-// Type definitions for ember-data 3.1
+// Type definitions for ember-data 3.16
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
+//                 James C. Davis <https://github.com/jamescdavis>
+//                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import Ember from 'ember';
 import Evented from '@ember/object/evented';
@@ -454,6 +456,10 @@ export namespace DS {
          * attribute.
          */
         id: string;
+        /**
+         * A reference to DS.Store service instance.
+         */
+        store: Store;
         /**
          * When the record is in the `invalid` state this object will contain
          * any errors returned by the adapter. When present the errors hash
@@ -964,7 +970,7 @@ export namespace DS {
          */
         snapshots(): Snapshot[];
     }
-    class Snapshot<K extends keyof ModelRegistry = any> {
+    class Snapshot<K extends keyof ModelRegistry = keyof ModelRegistry> {
         /**
          * The underlying record for this snapshot. Can be used to access methods and
          * properties defined on the record.
@@ -1053,7 +1059,7 @@ export namespace DS {
      * the individual data for a record, so that they can be bound to in your
      * Handlebars templates.
      */
-    class Store {
+    class Store extends Ember.Service {
         /**
          * The default adapter to use to communicate to a backend server or
          * other persistence layer. This will be overridden by an application
@@ -1252,14 +1258,6 @@ export namespace DS {
          * An adapter can target other hosts by setting the `host` property.
          */
         host: string;
-        /**
-         * Some APIs require HTTP headers, e.g. to provide an API
-         * key. Arbitrary headers can be set as key/value pairs on the
-         * `RESTAdapter`'s `headers` object and Ember Data will send them
-         * along with each ajax request. For dynamic headers see [headers
-         * customization](/api/data/classes/DS.RESTAdapter.html#toc_headers-customization).
-         */
-        headers: {};
         /**
          * Called by the store in order to fetch the JSON for a given
          * type and ID.
@@ -1489,6 +1487,20 @@ export namespace DS {
          * Determines the pathname for a given type.
          */
         pathForType<K extends keyof ModelRegistry>(modelName: K): string;
+    }
+
+    // Instead of declaring `headers as a property we now declare it in an
+    // interface. This works around the issue noted here with TypeScript 4:
+    // https://github.com/microsoft/TypeScript/issues/40220
+    interface RESTAdapter {
+        /**
+         * Some APIs require HTTP headers, e.g. to provide an API
+         * key. Arbitrary headers can be set as key/value pairs on the
+         * `RESTAdapter`'s `headers` object and Ember Data will send them
+         * along with each ajax request. For dynamic headers see [headers
+         * customization](/api/data/classes/DS.RESTAdapter.html#toc_headers-customization).
+         */
+        headers: {};
     }
     /**
      * ## Using Embedded Records

@@ -1,4 +1,4 @@
-// Type definitions for Chroma.js 1.4
+// Type definitions for Chroma.js 2.0
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,7 +62,7 @@ declare namespace chroma {
          */
         hex(color: string): Color;
 
-        valid(color: any): boolean;
+        valid(color: any, mode?: string): boolean;
 
         hsl(h: number, s: number, l: number): Color;
 
@@ -412,7 +412,7 @@ declare namespace chroma {
     interface Scale<OutType = Color> {
         (c: string[]): Scale;
 
-        (value: number): OutType;
+        (value: number | null | undefined): OutType;
 
         domain(d?: number[], n?: number, mode?: string): this;
 

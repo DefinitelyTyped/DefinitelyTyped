@@ -12,6 +12,7 @@ const options: Rellax.RellaxOptions = {
     round: true,
     speed: 3000,
     wrapper: "#wrap",
+    breakpoints: [576, 768, 1201],
     callback: pos => {}
 };
 

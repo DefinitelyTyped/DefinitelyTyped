@@ -339,7 +339,7 @@ interface RTCPeerConnection extends EventTarget {
         failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
 }
 interface RTCPeerConnectionStatic {
-    new(configuration?: RTCConfiguration): RTCPeerConnection;
+    new(configuration?: RTCConfiguration, options?: any): RTCPeerConnection;
     readonly defaultIceServers: RTCIceServer[];
 
     // Extension: https://www.w3.org/TR/webrtc/#sec.cert-mgmt

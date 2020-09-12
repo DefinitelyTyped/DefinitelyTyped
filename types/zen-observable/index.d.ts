@@ -3,6 +3,7 @@
 // Definitions by: Kombu <https://github.com/aicest>
 //                 JounQin <https://github.com/JounQin>
 //                 Thomas <https://github.com/itomtom>
+//                 BenoitZugmeyer <https://github.com/BenoitZugmeyer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare global {
@@ -40,10 +41,14 @@ declare global {
 }
 
 declare class Observable<T> {
-    constructor(subscriber: ZenObservable.Subscriber<T>)
+    constructor(subscriber: ZenObservable.Subscriber<T>);
 
     subscribe(observer: ZenObservable.Observer<T>): ZenObservable.Subscription;
-    subscribe(onNext: (value: T) => void, onError?: (error: any) => void, onComplete?: () => void): ZenObservable.Subscription;
+    subscribe(
+        onNext: (value: T) => void,
+        onError?: (error: any) => void,
+        onComplete?: () => void,
+    ): ZenObservable.Subscription;
 
     [Symbol.observable](): Observable<T>;
 
@@ -59,7 +64,6 @@ declare class Observable<T> {
     static of<R>(...items: R[]): Observable<R>;
 }
 
-declare namespace Observable {
-}
+declare namespace Observable {}
 
 export = Observable;

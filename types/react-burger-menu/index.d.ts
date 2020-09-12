@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface State {
     isOpen: boolean;
@@ -55,19 +55,19 @@ export interface Props {
     // styles && styles.pageWrap ? PropTypes.string.isRequired : PropTypes.string,
     pageWrapId?: string;
     right?: boolean;
-    styles?: Styles;
+    styles?: Partial<Styles>;
     width?: number | string;
 }
 
-export class ReactBurgerMenu extends React.Component<Props> { }
+export class ReactBurgerMenu extends React.Component<Props> {}
 
-export class slide extends ReactBurgerMenu { }
-export class stack extends ReactBurgerMenu { }
-export class elastic extends ReactBurgerMenu { }
-export class bubble extends ReactBurgerMenu { }
-export class push extends ReactBurgerMenu { }
-export class pushRotate extends ReactBurgerMenu { }
-export class scaleDown extends ReactBurgerMenu { }
-export class scaleRotate extends ReactBurgerMenu { }
-export class fallDown extends ReactBurgerMenu { }
-export class reveal extends ReactBurgerMenu { }
+export class slide extends ReactBurgerMenu {}
+export class stack extends ReactBurgerMenu {}
+export class elastic extends ReactBurgerMenu {}
+export class bubble extends ReactBurgerMenu {}
+export class push extends ReactBurgerMenu {}
+export class pushRotate extends ReactBurgerMenu {}
+export class scaleDown extends ReactBurgerMenu {}
+export class scaleRotate extends ReactBurgerMenu {}
+export class fallDown extends ReactBurgerMenu {}
+export class reveal extends ReactBurgerMenu {}

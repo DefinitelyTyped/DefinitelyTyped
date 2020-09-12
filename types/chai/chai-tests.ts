@@ -4,6 +4,7 @@ import * as chai from 'chai';
 const expect = chai.expect;
 const assert = chai.assert;
 const should = chai.should();
+const util = chai.util;
 
 function chaiVersion(): string {
     return chai.version;
@@ -1309,6 +1310,11 @@ function oneOf() {
     expect(obj).to.not.be.oneOf([{z: 3}]);
 }
 
+function testInspectType() {
+    const x: string = util.inspect([1, 2, 3], false, 4, false);
+    expect(x).to.be.equal('[ 1, 2, 3 ]');
+}
+
 // tdd
 declare function suite(description: string, action: Function): void;
 
@@ -1694,15 +1700,15 @@ suite('assert', () => {
         assert.deepProperty(obj, 'foo.bar');
         assert.notDeepProperty(obj, 'foo.baz');
         assert.deepPropertyVal(obj, 'foo.bar', 'baz');
-        assert.deepPropertyNotVal(simpleObj, 'foo.bar', 'flow');
+        assert.notDeepPropertyVal(simpleObj, 'foo.bar', 'flow');
         assert.property(simpleObj, 'baz');
         assert.deepProperty(obj, 'foo.baz');
         assert.notProperty(obj, 'foo');
         assert.notDeepProperty(obj, 'foo.bar');
         assert.propertyVal(simpleObj, 'foo', 'ball');
         assert.deepPropertyVal(obj, 'foo.bar', 'ball');
-        assert.propertyNotVal(simpleObj, 'foo', 'bar');
-        assert.deepPropertyNotVal(simpleObj, 'foo.bar', 'baz');
+        assert.notPropertyVal(simpleObj, 'foo', 'bar');
+        assert.notDeepPropertyVal(simpleObj, 'foo.bar', 'baz');
     });
 
     test('throws', () => {

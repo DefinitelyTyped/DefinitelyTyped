@@ -51,6 +51,7 @@ keystone.createList('Test', {
         resolveInput: async ({ context }) => console.log(context),
     },
 });
+
 keystone.createList('Test', {
     fields: {
         name: {
@@ -64,6 +65,13 @@ keystone.createList('Test', {
         update: () => false,
         delete: () => false,
         auth: true,
+    },
+});
+
+keystone.createList('Todo', {
+    schemaDoc: 'A list of things which need to be done',
+    fields: {
+        name: { type: Text, schemaDoc: 'This is the thing you need to do' },
     },
 });
 

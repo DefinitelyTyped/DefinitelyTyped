@@ -1,6 +1,10 @@
 // Type definitions for helmet
 // Project: https://github.com/helmetjs/helmet
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>, Elliot Blackburn <https://github.com/bluehatbrit>, Daniel Müller <https://github.com/chdanielmueller>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+//                 Evan Hahn <https://github.com/EvanHahn>
+//                 Elliot Blackburn <https://github.com/bluehatbrit>
+//                 Daniel Müller <https://github.com/chdanielmueller>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -106,10 +110,10 @@ declare namespace helmet {
         'report-uri'?: HelmetCspDirectiveValue;
         'require-sri-for'?: HelmetCspRequireSriForValue[];
         'sandbox'?: HelmetCspSandboxDirective[];
-        'script-src'?: HelmetCspDirectiveValue;
-        'style-src'?: HelmetCspDirectiveValue;
+        'script-src'?: HelmetCspDirectiveValue[];
+        'style-src'?: HelmetCspDirectiveValue[];
         'upgrade-insecure-requests'?: boolean;
-        'worker-src'?: HelmetCspDirectiveValue;
+        'worker-src'?: HelmetCspDirectiveValue[];
     }
 
     export interface IHelmetContentSecurityPolicyConfiguration {
@@ -117,7 +121,7 @@ declare namespace helmet {
         setAllHeaders?: boolean;
         disableAndroid?: boolean;
         browserSniff?: boolean;
-        directives?: IHelmetContentSecurityPolicyDirectives;
+        directives: IHelmetContentSecurityPolicyDirectives;
         loose?: boolean;
     }
 
@@ -164,7 +168,7 @@ declare namespace helmet {
     }
 
     export interface IHelmetReferrerPolicyConfiguration {
-        policy?: string;
+        policy?: string | string[];
     }
 
     export interface IHelmetXssFilterConfiguration {
@@ -194,7 +198,7 @@ declare namespace helmet {
          * @param {IHelmetContentSecurityPolicyConfiguration} options The options
          * @return {RequestHandler} The Request handler
          */
-        contentSecurityPolicy(options?: IHelmetContentSecurityPolicyConfiguration): express.RequestHandler;
+        contentSecurityPolicy(options: IHelmetContentSecurityPolicyConfiguration): express.RequestHandler;
 
         /**
          * @summary Stop browsers from doing DNS prefetching.

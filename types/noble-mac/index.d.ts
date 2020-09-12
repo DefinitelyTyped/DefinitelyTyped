@@ -55,8 +55,8 @@ export class Peripheral extends events.EventEmitter {
 
     on(event: "connect" | "disconnect", listener: (error: string) => void): this;
     on(event: "rssiUpdate", listener: (rssi: number) => void): this;
-	on(event: "servicesDiscover", listener: (services: Service[]) => void): this;
-	on(event: string, listener: Function): this;
+    on(event: "servicesDiscover", listener: (services: Service[]) => void): this;
+    on(event: string, listener: Function): this;
 }
 
 export interface Advertisement {
@@ -82,8 +82,8 @@ export class Service extends events.EventEmitter {
     toString(): string;
 
     on(event: "includedServicesDiscover", listener: (includedServiceUuids: string[]) => void): this;
-	on(event: "characteristicsDiscover", listener: (characteristics: Characteristic[]) => void): this;
-	on(event: string, listener: Function): this;
+    on(event: "characteristicsDiscover", listener: (characteristics: Characteristic[]) => void): this;
+    on(event: string, listener: Function): this;
 }
 
 export class Characteristic extends events.EventEmitter {
@@ -105,8 +105,8 @@ export class Characteristic extends events.EventEmitter {
     on(event: "read", listener: (data: Buffer, isNotification: boolean) => void): this;
     on(event: "write", withoutResponse: boolean, listener: (error: string) => void): this;
     on(event: "broadcast" | "notify", listener: (state: string) => void): this;
-	on(event: "descriptorsDiscover", listener: (descriptors: Descriptor[]) => void): this;
-	on(event: string, listener: Function): this;
+    on(event: "descriptorsDiscover", listener: (descriptors: Descriptor[]) => void): this;
+    on(event: string, listener: Function): this;
     on(event: string, option: boolean, listener: Function): this;
 }
 
@@ -120,6 +120,6 @@ export class Descriptor extends events.EventEmitter {
     toString(): string;
 
     on(event: "valueRead", listener: (error: string, data: Buffer) => void): this;
-	on(event: "valueWrite", listener: (error: string) => void): this;
-	on(event: string, listener: Function): this;
+    on(event: "valueWrite", listener: (error: string) => void): this;
+    on(event: string, listener: Function): this;
 }

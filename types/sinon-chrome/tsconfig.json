@@ -7,13 +7,18 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
+        "paths": {
+            "@sinonjs/fake-timers": [
+                "sinonjs__fake-timers"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

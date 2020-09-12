@@ -21,6 +21,8 @@ export interface ValidationRule {
 
 export type CustomRule = (value: any, parentVm?: any) => boolean | Promise<boolean>
 
+export type ValidationFunc = () => ValidationRule;
+
 export interface Helpers {
     withParams(params: Params, rule: CustomRule | ValidationRule): ValidationRule
     req(value: any): boolean
@@ -37,9 +39,9 @@ export function requiredIf(field: string | ((vm: any, parentVm?: Vue) => any)): 
 export function requiredUnless(field: string | ((vm: any, parentVm?: Vue) => any)): ValidationRule
 export function minLength(length: number): ValidationRule
 export function maxLength(length: number): ValidationRule
-export function minValue(min: number): ValidationRule
-export function maxValue(max: number): ValidationRule
-export function between(min: number, max: number): ValidationRule
+export function minValue(min: number | Date): ValidationRule
+export function maxValue(max: number | Date): ValidationRule
+export function between(min: number | Date, max: number | Date): ValidationRule
 export function alpha(): ValidationRule
 export function alphaNum(): ValidationRule
 export function numeric(): ValidationRule
@@ -51,5 +53,5 @@ export function macAddress(): ValidationRule
 export function sameAs(field: string | ((vm: any, parentVm?: Vue) => any)): ValidationRule
 export function url(): ValidationRule
 export function not(validator: ValidationRule | CustomRule): ValidationRule
-export function or(...validators: Array<ValidationRule | CustomRule>): ValidationRule
-export function and(...validators: Array<ValidationRule | CustomRule>): ValidationRule
+export function or(...validators: Array<ValidationFunc | CustomRule>): ValidationRule
+export function and(...validators: Array<ValidationFunc | CustomRule>): ValidationRule

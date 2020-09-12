@@ -12,6 +12,22 @@ import {
     MjmlImage
 } from 'mjml-react';
 
+import {
+    MjmlComment,
+    MjmlConditionalComment,
+    MjmlTrackingPixel,
+    MjmlYahooStyle
+} from 'mjml-react/extensions';
+
+import {
+    addQueryParams,
+    fixConditionalComment,
+    getTextAlign,
+    namedEntityToHexCode,
+    toMobileFontSize,
+    useHttps
+} from 'mjml-react/utils';
+
 function renderOutTestEmail() {
     // $ExpectType { html: string; errors: Error[]; }
     const result = render((

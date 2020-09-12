@@ -1,221 +1,232 @@
-// Type definitions for node-red 0.20
-// Project: http://nodered.org
+// Type definitions for node-red 1.1
+// Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/node-red, https://nodered.org/
 // Definitions by: Anders E. Andersen <https://github.com/andersea>
 //                 Thomas B. Mørch <https://github.com/tbowmo>
 //                 Bernardo Belchior <https://github.com/bernardobelchior>
+//                 Alex Kaul <https://github.com/alexk111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
+// Minimum TypeScript Version: 3.1
 
-/// <reference types="node" />
+// tslint:disable:no-empty-interface
 
-import EventEmitter = require('events');
+import { Express } from 'express';
+import { EventEmitter } from 'events';
+import { Server as HttpServer } from 'http';
 
-/**
- * Node-RED node creation api.
- */
-export interface Red {
-    /** Node lifecycle management api. Used by all nodes. */
-    nodes: Nodes;
-    log: any;
-    settings: any;
-    events: any;
-    util: any;
-    httpAdmin: any;
-    auth: any;
-    comms: any;
-    library: any;
-    httpNode: any;
-    server: any;
-    /** Returns the version of the running Node-RED environment. */
-    version(): string;
-}
+import * as editorAPI from '@node-red/editor-api';
+import * as editorClient from '@node-red/editor-client';
+import * as registry from '@node-red/registry';
+import * as runtime from '@node-red/runtime';
+import * as util from '@node-red/util';
 
-/**
- * Node base type.
- *
- * See the Nodes interfaces registerType() method for information about
- * declaring node constructors in typescript.
- *
- * The id, type and name properties are available after the
- * call to RED.nodes.createNode().
- */
-export interface Node extends EventEmitter, NodeProperties {
-    updateWires(wires: any): void;
-    context(): any;
-    close(removed: any): void;
+declare const nodeRed: nodeRed.NodeRedApp;
+
+export = nodeRed;
+
+declare namespace nodeRed {
+    interface NodeRedApp {
+        /**
+         * Initialise the Node-RED application.
+         * @param httpServer - the HTTP server object to use
+         * @param userSettings - an object containing the runtime settings
+         */
+        init: (httpServer: HttpServer, userSettings: runtime.LocalSettings) => void;
+
+        /**
+         * Start the Node-RED application.
+         */
+        start: () => Promise<void>;
+
+        /**
+         * Stop the Node-RED application.
+         */
+        stop: () => Promise<void>;
+
+        /**
+         * Logging utilities
+         */
+        log: util.Log;
+
+        /**
+         * General utilities
+         */
+        util: util.Util;
+
+        /**
+         * This provides access to the internal nodes module of the
+         * runtime. The details of this API remain undocumented as they should not
+         * be used directly.
+         *
+         * Most administrative actions should be performed use the runtime api
+         * under @node-red/runtime.
+         */
+        readonly nodes: runtime.InternalNodesModule;
+
+        /**
+         * Runtime events emitter
+         */
+        events: EventEmitter;
+
+        /**
+         * This provides access to the internal settings module of the
+         * runtime.
+         */
+        readonly settings: runtime.PersistentSettings;
+
+        /**
+         * Get the version of the runtime
+         */
+        readonly version: string;
+
+        /**
+         * The express application for the Editor Admin API
+         */
+        readonly httpAdmin: Express;
+
+        /**
+         * The express application for HTTP Nodes
+         */
+        readonly httpNode: Express;
+
+        /**
+         * The HTTP Server used by the runtime
+         */
+        readonly server: HttpServer;
+
+        /**
+         * The runtime api
+         */
+        runtime: runtime.RuntimeModule;
+
+        /**
+         * The editor authentication api.
+         */
+        auth: editorAPI.Auth;
+    }
+
+    /*******************************************************************
+     * Type shortcuts for writing the runtime side of nodes (.js file)
+     *******************************************************************/
+
     /**
-     * Send one or more messages to multiple downstream nodes.
-     * It is possible to send multiple messages to any
-     * one node by sending an array to the node instead
-     * of a single message.
-     * @param msg - array of messages and/or message bundle arrays.
+     * Type def for the functions that should be exported
+     * by the node .js files.
      */
-    send(msg: any[]): void;
+    interface NodeInitializer<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData>
+        extends registry.NodeInitializer<TSets> {}
+
+    interface NodeConstructor<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TCreds>
+        extends registry.NodeConstructor<TNode, TNodeDef, TCreds> {}
+
+    interface NodeAPISettingsWithData extends registry.NodeAPISettingsWithData {}
+
+    interface NodeSetting<T> extends registry.NodeSetting<T> {}
+
+    type NodeSettings<TSets> = registry.NodeSettings<TSets>;
+
+    interface NodeCredential extends registry.NodeCredential {}
+
+    type NodeCredentials<TCreds> = registry.NodeCredentials<TCreds>;
+
+    interface NodeMessage extends registry.NodeMessage {}
+
+    interface NodeMessageParts extends registry.NodeMessageParts {}
+
+    interface NodeMessageInFlow extends registry.NodeMessageInFlow {}
+
+    interface NodeAPI<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData>
+        extends registry.NodeAPI<TSets> {}
+
+    interface Node<TCreds extends {} = {}> extends registry.Node<TCreds> {}
+
+    type NodeStatusFill = registry.NodeStatusFill;
+
+    type NodeStatusShape = registry.NodeStatusShape;
+
+    interface NodeStatus extends registry.NodeStatus {}
+
+    interface NodeDef extends registry.NodeDef {}
+
+    interface NodeContextData extends registry.NodeContextData {}
+
+    interface NodeContext extends registry.NodeContext {}
+
+    /********************************************************************
+     * Type shortcuts for writing the editor side of nodes (.html file)
+     ********************************************************************/
+
     /**
-     * Send a message to the downstream node. If msg is null or
-     * undefined, no message is sent.
-     * @param msg - optional message to send.
+     * Property definition
+     * Read more: https://nodered.org/docs/creating-nodes/properties#property-definitions
      */
-    send(msg?: any): void;
+    interface EditorNodePropertyDef<TVal, TInstProps extends EditorNodeProperties = EditorNodeProperties>
+        extends editorClient.NodePropertyDef<TVal, TInstProps> {}
+
     /**
-     * Send a message to this node.
-     * @param msg - optional message to send.
+     * Properties definitions (`defaults` object)
+     * Read more: https://nodered.org/docs/creating-nodes/properties
      */
-    receive(msg: any): void;
+    type EditorNodePropertiesDef<
+        TProps extends EditorNodeProperties,
+        TInstProps extends TProps = TProps
+    > = editorClient.NodePropertiesDef<TProps, TInstProps>;
+
     /**
-     * Log an log-level event. Used for mundane events
-     * that are part of the normal functioning of the
-     * node.
-     * @param msg - message to log.
+     * Node properties
+     * Read more: https://nodered.org/docs/creating-nodes/properties
      */
-    log(msg: any): void;
+    interface EditorNodeProperties extends editorClient.NodeProperties {}
+
+    type EditorNodeInstance<TProps extends EditorNodeProperties = EditorNodeProperties> = editorClient.NodeInstance<
+        TProps
+    >;
+
+    type EditorNodeCredentials<T> = editorClient.NodeCredentials<T>;
+
+    interface EditorNodeCredential extends editorClient.NodeCredential {}
+
     /**
-     * Log a warn-level event. For important events
-     * that the user should be made aware of.
-     * @param msg - message to log.
+     * Node Definition
+     * Read more: https://nodered.org/docs/creating-nodes/node-html#node-definition
      */
-    warn(msg: any): void;
+    interface EditorNodeDef<
+        TProps extends EditorNodeProperties = EditorNodeProperties,
+        TCreds = undefined,
+        TInstProps extends TProps = TProps
+    > extends editorClient.NodeDef<TProps, TCreds, TInstProps> {}
+
     /**
-     * Log an error-level event. To trigger catch nodes on
-     * the workflow call the function with msg set to the
-     * original message.
-     * @param logMessage - description of the error.
-     * @param msg - optional payload that caused the error.
-     */
-    error(logMessage: any, msg?: any): void;
-    /**
-     * Log a debug-level event. Use this is for logging
-     * internal detail not needed for normal operation.
-     * @param msg - message to log.
-     */
-    debug(msg: any): void;
-    /**
-     * Log a trace-level event. Even more internal details than
-     * debug-level.
-     * @param msg - message to log.
-     */
-    trace(msg: any): void;
-    metric(eventname?: any, msg?: any, metricValue?: any): void;
-    /**
-     * Set or clear node status.
+     * Type def for the global `RED` in the node .html files.
+     * Should be used to access `RED.nodes.registerType` function
+     * registering a node with the editor.
      *
-     * For more info see: https://nodered.org/docs/creating-nodes/status
-     * @param status - the status to set or an empty object to clear the
-     *  node status.
-     */
-    status(status: NodeStatus | ClearNodeStatus): void;
-}
-
-/**
- * Contains the user selected property values
- * for the node.
- *
- * This object is also known as the node's definition
- * object.
- */
-export interface NodeProperties {
-    /** This node's unique identifier. */
-    id: NodeId;
-    /** The type name for this node. */
-    type: NodeType;
-    /**
-     * The UI visible name for this node. Many nodes
-     * allow the user to pick the name and provide
-     * a fallback name, if they leave it blank.
-     */
-    name: string;
-}
-
-/** Unique node identifier. */
-export type NodeId = string;
-/** Node type name. */
-export type NodeType = string;
-
-/** Node status icon color choices. */
-export type StatusFill = "red" | "green" | "yellow" | "blue" | "grey";
-/** Node status icon shape choices. */
-export type StatusShape = "ring" | "dot";
-
-/**
- * Object used to set the nodes status flag.
- */
-export interface NodeStatus {
-    /** Selects the icon color. */
-    fill: StatusFill;
-    /** Selects either ring or dot shape. */
-    shape: StatusShape;
-    /** Status label. */
-    text: string;
-}
-
-/** Fancy definition that matches an empty object. */
-export interface ClearNodeStatus {
-    fill?: undefined;
-    shape?: undefined;
-    text?: undefined;
-}
-
-export interface Nodes {
-    /**
-     * Node constructor functions must call this to
-     * finish setting up the node. Among other things
-     * it adds the node credentials, which are stored
-     * outside the flow.
+     * Example:
+     * ```
+     * declare const RED: EditorRED;
      *
-     * @param node - the node object under construction.
-     * @param props - the node's properties object, aka.
-     * the node instance definition.
-     */
-    createNode(node: Node, props: NodeProperties): void;
-    /**
-     * Get a node by NodeID.
+     * RED.nodes.registerType<
+     *   MyNodeProps
+     * >("my-node", {
+     *   ...
+     * })
+     * ```
      *
-     * If your node uses a configuration
-     * node, this call is used to get access to the running
-     * instance.
-     * @param id - the id of the node.
-     * @return - the node matching the given id, or null if it does not exist.
      */
-    getNode(id: NodeId): Node | null;
+    interface EditorRED extends editorClient.RED {}
+
     /**
-     * Cycle through all node definition objects.
-     *
-     * To get the actual node, use getNode() with the id
-     * from the definition object.
+     * WIDGETS
      */
-    eachNode(callback: (node: NodeProperties) => any): void;
-    /**
-     * Adds a set of credentials for the given node id.
-     * @param id the node id for the credentials
-     * @param creds an object of credential key/value pairs
-     */
-    addCredentials(id: NodeId, creds: object): void;
-    /**
-     * Gets the credentials for the given node id.
-     * @param id the node id for the credentials
-     * @return the credentials
-     */
-    getCredentials(id: NodeId): object;
-    /**
-     * Deletes the credentials for the given node id.
-     * @param id the node id for the credentials
-     */
-    deleteCredentials(id: NodeId): void;
-    /**
-     * Registers a node constructor.
-     *
-     * Node constructors should be declared as functions with an explicit this
-     * argument of a type descending from the Node interface. You can extend
-     * the NodeProperties interface also, to add your node's properties.
-     *
-     * Example, using in-line declaration:
-     *
-     * RED.nodes.registerType('my-node', function(this: MyNode, props: MyProperties)
-     *  => { RED.nodes.createNode(this, props); ... }, { ... });
-     * @param type - the string type name
-     * @param constructor - the constructor function for this node type
-     * @param opts - optional additional options for the node
-     */
-    // tslint:disable-next-line no-unnecessary-generics
-    registerType<T extends NodeProperties>(type: string, constructor: (props: T) => any, opts?: any): void;
+
+    interface EditorWidgetEditableListOptions<T> extends editorClient.WidgetEditableListOptions<T> {}
+
+    interface EditorWidgetEditableList extends editorClient.WidgetEditableList {}
+
+    interface EditorWidgetTypedInputOptions extends editorClient.WidgetTypedInputOptions {}
+
+    type EditorWidgetTypedInputType = editorClient.WidgetTypedInputType;
+
+    interface EditorWidgetTypedInputTypeDefinition extends editorClient.WidgetTypedInputTypeDefinition {}
+
+    interface EditorWidgetTypedInput extends editorClient.WidgetTypedInput {}
 }

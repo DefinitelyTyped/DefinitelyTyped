@@ -1,7 +1,8 @@
 import { Component, CSSProperties } from "react";
 import { CustomPickerProps, ColorState } from "../../..";
+import { Classes } from "reactcss";
 
-export interface TwitterPickerDefaultStyle {
+export interface TwitterPickerStylesProps {
     card?: CSSProperties;
     body?: CSSProperties;
     label?: CSSProperties;
@@ -13,24 +14,12 @@ export interface TwitterPickerDefaultStyle {
     clear?: CSSProperties;
 }
 
-export interface TwitterPickerTriangleStyle {
-    triangle?: CSSProperties;
-    triangleShadow?: CSSProperties;
-}
-
-export interface TwitterPickerStyle {
-    default?: TwitterPickerDefaultStyle;
-    "top-left-triangle"?: TwitterPickerTriangleStyle;
-    "top-right-triangle"?: TwitterPickerTriangleStyle;
-}
-
 export interface TwitterPickerProps extends CustomPickerProps {
     colors?: string[];
     width?: string;
     triangle?: "hide" | "top-left" | "top-right";
+    styles?: Partial<Classes<TwitterPickerStylesProps>>;
     onSwatchHover?(color: ColorState, event: MouseEvent): void;
-    styles?: TwitterPickerStyle;
-    className?: string;
 }
 
-export default class TwitterPicker extends Component<TwitterPickerProps> {}
+export default class TwitterPicker extends Component<TwitterPickerProps> { }

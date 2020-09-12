@@ -1,10 +1,11 @@
-// Type definitions for newman 3.11
+// Type definitions for newman 5.1
 // Project: https://github.com/postmanlabs/newman
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 //                 Graham McGregor <https://github.com/Graham42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+import * as http from 'http';
 import { EventEmitter } from "events";
 import {
     Collection,
@@ -20,6 +21,12 @@ export interface NewmanRunOptions {
     environment?: VariableScope | VariableScopeDefinition | string;
     /** A globals JSON / file path for the current collection run. */
     globals?: VariableScope | VariableScopeDefinition | string;
+    /** The relative path to export the globals file from the current run to  */
+    exportGlobals?: string;
+    /** The relative path to export the environment file from the current run to */
+    exportEnvironment?: string;
+    /** The relative path to export the collection from the current run to */
+    exportCollection?: string;
     /**
      * Specify the number of iterations to run on the collection. This is
      * usually accompanied by providing a data file reference as
@@ -35,7 +42,15 @@ export interface NewmanRunOptions {
      * The name or ID of the folder (ItemGroup) in the collection which would
      * be run instead of the entire collection.
      */
-    folder?: string;
+    folder?: string | string[];
+    /**
+     * The path of the directory to be used as working directory.
+     */
+    workingDir?: string;
+    /**
+     * Allow reading files outside of working directory.
+     */
+    insecureFileRead?: boolean;
     /**
      * Specify the time (in milliseconds) to wait for the entire collection run
      * to complete execution.
@@ -105,16 +120,11 @@ export interface NewmanRunOptions {
      */
     reporter?: any;
     /**
-     * Forces colored CLI output (for use in CI / non TTY environments).
+     * Enable or Disable colored CLI output.
+     *
+     * Default value: auto
      */
-    color?: boolean;
-    /**
-     * Newman attempts to automatically turn off color output to terminals when
-     * it detects the lack of color support. With this property, one can
-     * forcibly turn off the usage of color in terminal output for reporters
-     * and other parts of Newman that output to console.
-     */
-    noColor?: boolean;
+    color?: "on" | "off" | "auto";
     /**
      * The path to the public client certificate file.
      */
@@ -127,6 +137,13 @@ export interface NewmanRunOptions {
      * The secret client key passphrase.
      */
     sslClientPassphrase?: string;
+    /**
+     * Custom HTTP(S) agents which will be used for making the requests. This allows for use of various proxies (e.g. socks)
+     */
+    requestAgents?: {
+        http?: http.Agent;
+        https?: http.Agent;
+    };
 }
 
 export interface NewmanRunSummary {
@@ -173,12 +190,19 @@ export interface NewmanRunExecutionAssertionError {
     test: string;
     message: string;
     stack: string;
-}export interface NewmanRunFailure {
+}
+export interface NewmanRunFailure {
     error: NewmanRunExecutionAssertionError;
     /** The event where the failure occurred */
     at: string;
+    source: NewmanRunExecutionItem | undefined;
+    parent: any;
+    cursor: { ref: string } | {};
 }
 export function run(
     options: NewmanRunOptions,
     callback?: (err: Error | null, summary: NewmanRunSummary) => void
+): EventEmitter;
+export function run(
+    callback: (err: Error | null, summary: NewmanRunSummary) => void
 ): EventEmitter;

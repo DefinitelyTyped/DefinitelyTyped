@@ -1,12 +1,19 @@
-import clc = require('cli-color');
-
 declare namespace setupThrobber {
     export interface Throbber {
         start(): void;
         stop(): void;
         restart(): void;
     }
-}
 
-declare function setupThrobber(write: (str: string) => any, period: number, format?: clc.Format): setupThrobber.Throbber;
+    export class Iterator {
+        readonly index: number;
+        readonly running: boolean;
+        next(): string;
+        reset(): string;
+    }
+}
+/**
+ * Writes throbber string to *write* function at given *interval*. Optionally throbber output can be formatted with given *format* function
+ */
+declare function setupThrobber(write: (str: string) => void, interval: number, format?: (throbber: string) => string): setupThrobber.Throbber;
 export = setupThrobber;

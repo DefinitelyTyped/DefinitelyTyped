@@ -1,8 +1,11 @@
-// Type definitions for non-npm package @ember/utils 3.0
-// Project: http://emberjs.com/
+// Type definitions for non-npm package @ember/utils 3.16
+// Project: https://api.emberjs.com/ember/3.16/modules/@ember%2Futils
 // Definitions by: Mike North <https://github.com/mike-north>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 Dan Freeman <https://github.com/dfreeman>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import { TypeLookup, TypeOf, FunctionArgs } from './-private/types';
 

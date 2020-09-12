@@ -247,7 +247,7 @@ declare namespace wx {
     function onSocketError(callback: ErrorCallback): void;
 
     interface SendSocketMessageOptions {
-        /**	需要发送的内容 */
+        /**    需要发送的内容 */
         data: string;
         /** 接口调用成功的回调函数 */
         success?: ResponseCallback;
