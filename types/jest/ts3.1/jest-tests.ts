@@ -823,6 +823,8 @@ describe('', () => {
         expect('').resolves.resolves;
         // $ExpectType void
         expect('').toEqual('');
+        // $ExpectError
+        expect('').toEqual(1);
         // $ExpectType Promise<void>
         expect(Promise.resolve('')).resolves.toEqual('');
 
@@ -1034,8 +1036,10 @@ describe('', () => {
 
         /* Promise matchers */
 
-        expect(Promise.reject('jest')).rejects.toEqual('jest').then(() => {});
-        expect(Promise.reject('jest')).rejects.not.toEqual('other').then(() => {});
+        // tslint:disable-next-line: no-unnecessary-type-assertion
+        expect(Promise.reject('jest') as Promise<string>).rejects.toEqual('jest').then(() => {});
+        // tslint:disable-next-line: no-unnecessary-type-assertion
+        expect(Promise.reject('jest') as Promise<string>).rejects.not.toEqual('other').then(() => {});
 
         expect(Promise.resolve('jest')).resolves.toEqual('jest').then(() => {});
         expect(Promise.resolve('jest')).resolves.not.toEqual('other').then(() => {});

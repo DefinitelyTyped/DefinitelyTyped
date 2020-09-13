@@ -818,12 +818,9 @@ declare namespace jest {
         /**
          * Used when you want to check that two objects have the same value.
          * This matcher recursively checks the equality of all fields, rather than checking for object identity.
-         *
-         * Optionally, you can provide a type for the expected value via a generic.
-         * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toEqual<E = any>(expected: E): R;
+        toEqual(expected: T extends Promise<infer P> ? P : T): R;
         /**
          * Ensures that a mock function is called.
          */
