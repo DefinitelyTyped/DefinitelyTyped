@@ -158,15 +158,15 @@ export interface Client {
     /**
      * Create a new port mapping
      * @param options Options for the new port mapping
-     * @param callback Callback to be run when completed, or on error
+     * @param [callback] Callback to be run when completed, or on error
      */
-    portMapping(options: NewPortMappingOpts, callback: CB<RawResponse>): void;
+    portMapping(options: NewPortMappingOpts, callback?: CB<RawResponse>): void;
     /**
      * Remove a port mapping
      * @param options Specify which port mapping to remove
-     * @param callback Callback to be run when completed, or on error
+     * @param [callback] Callback to be run when completed, or on error
      */
-    portUnmapping(options: DeletePortMappingOpts, callback: CB<RawResponse>): void;
+    portUnmapping(options: DeletePortMappingOpts, callback?: CB<RawResponse>): void;
     /**
      * Get a list of existing mappings
      * @param callback Callback to be run when completed, or on error
