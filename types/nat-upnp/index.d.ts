@@ -129,9 +129,9 @@ export interface Ssdp extends EventEmitter {
     close(): void;
 }
 
-/**
- * Types for client.
- */
+//
+// Types for client.
+//
 export interface NewPortMappingOpts extends StandardOpts {
     description?: string;
     ttl?: number;
