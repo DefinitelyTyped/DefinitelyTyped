@@ -5803,6 +5803,12 @@
             "asOfVersion": "2.4.4"
         },
         {
+            "libraryName": "wix-style-react",
+            "typingsPackageName": "wix-style-react",
+            "sourceRepoURL": "https://github.com/wix/wix-style-react",
+            "asOfVersion": "7.47.1"
+        },
+        {
             "libraryName": "wolfy87-eventemitter",
             "typingsPackageName": "wolfy87-eventemitter",
             "sourceRepoURL": "https://github.com/Wolfy87/EventEmitter",
