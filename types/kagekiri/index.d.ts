@@ -4,5 +4,5 @@
 //                 Nolan Lawson <https://github.com/nolanlawson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function querySelector(selector: string): HTMLElement | null;
-export function querySelectorAll(selector: string): NodeList;
+export function querySelector(selector: string, context?: Node): HTMLElement | null;
+export function querySelectorAll(selector: string, context?: Node): NodeList;
