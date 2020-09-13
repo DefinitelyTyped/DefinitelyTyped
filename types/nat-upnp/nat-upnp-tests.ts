@@ -82,21 +82,16 @@ NATClient.getMappings({ local: true, description: /test/ }, (err, mappings) => {
     console.log(mappings.map(m => m));
 });
 
-NATClient.portMapping(
-    {
-        public: 9998,
-        private: 2221,
-        description: 'nat-upnp-test 1',
-    },
-);
+NATClient.portMapping({
+    public: 9998,
+    private: 2221,
+    description: 'nat-upnp-test 1',
+});
 
-NATClient.portUnmapping(
-    {
-        public: 9998,
-        private: 2221,
-    },
-);
-
+NATClient.portUnmapping({
+    public: 9998,
+    private: 2221,
+});
 
 NATClient.portMapping(
     {
