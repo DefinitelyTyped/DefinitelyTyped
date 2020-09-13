@@ -164,3 +164,9 @@ const createFolderAndGetDescription = () => {
   // Get description. Expect 'DESC'.
   Logger.log(folder.getDescription().toUpperCase());
 };
+
+function onChange(e: GoogleAppsScript.Events.SheetsOnChange) {
+  if (e.changeType === 'FORMAT') {
+    console.log('Formatting change detected');
+  }
+}

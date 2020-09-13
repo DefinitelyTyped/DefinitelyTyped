@@ -1,4 +1,4 @@
-// Type definitions for atlaskit__feedback-collector 4.0
+// Type definitions for @atlaskit/feedback-collector 4.0
 // Project: https://bitbucket.org/atlassian/atlaskit-mk-2/src/master/packages/core/feedback-collector/
 // Definitions by: Lee Swanson <https://github.com/leedrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

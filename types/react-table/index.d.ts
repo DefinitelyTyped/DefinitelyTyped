@@ -709,6 +709,7 @@ export type UseRowSelectOptions<D extends object> = Partial<{
 export interface UseRowSelectHooks<D extends object> {
     getToggleRowSelectedProps: Array<PropGetter<D, TableToggleRowsSelectedProps>>;
     getToggleAllRowsSelectedProps: Array<PropGetter<D, TableToggleAllRowsSelectedProps>>;
+    getToggleAllPageRowsSelectedProps: Array<PropGetter<D, TableToggleAllRowsSelectedProps>>;
 }
 
 export interface UseRowSelectState<D extends object> {
@@ -719,6 +720,9 @@ export interface UseRowSelectInstanceProps<D extends object> {
     toggleRowSelected: (rowId: IdType<D>, set?: boolean) => void;
     toggleAllRowsSelected: (value?: boolean) => void;
     getToggleAllRowsSelectedProps: (
+        props?: Partial<TableToggleAllRowsSelectedProps>,
+    ) => TableToggleAllRowsSelectedProps;
+    getToggleAllPageRowsSelectedProps: (
         props?: Partial<TableToggleAllRowsSelectedProps>,
     ) => TableToggleAllRowsSelectedProps;
     isAllRowsSelected: boolean;

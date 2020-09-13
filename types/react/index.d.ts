@@ -551,6 +551,16 @@ declare namespace React {
         displayName?: string;
     }
 
+    type VFC<P = {}> = VoidFunctionComponent<P>;
+
+    interface VoidFunctionComponent<P = {}> {
+        (props: P, context?: any): ReactElement<any, any> | null;
+        propTypes?: WeakValidationMap<P>;
+        contextTypes?: ValidationMap<any>;
+        defaultProps?: Partial<P>;
+        displayName?: string;
+    }
+
     interface ForwardRefRenderFunction<T, P = {}> {
         (props: PropsWithChildren<P>, ref: ((instance: T | null) => void) | MutableRefObject<T | null> | null): ReactElement | null;
         displayName?: string;
@@ -1688,7 +1698,7 @@ declare namespace React {
          * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
          * @see aria-atomic.
          */
-        'aria-relevant'?: 'additions' | 'additions text' | 'all' | 'removals' | 'text';
+        'aria-relevant'?: 'additions' | 'additions removals' | 'additions text' | 'all' | 'removals' | 'removals additions' | 'removals text' | 'text' | 'text additions' | 'text removals';
         /** Indicates that user input is required on the element before a form may be submitted. */
         'aria-required'?: boolean | 'false' | 'true';
         /** Defines a human-readable, author-localized description for the role of an element. */

@@ -523,13 +523,13 @@ export interface ExpandRowProps<T, K = number> {
     renderer: (row: T, rowIndex: number) => JSX.Element;
     expanded?: K[];
     onExpand?: (row: T, isExpand: boolean, rowIndex: number, e: SyntheticEvent) => void;
-    onExpandAll?: (isExpandAll: boolean, results: number[], e: SyntheticEvent) => void;
+    onExpandAll?: (isExpandAll: boolean, results: T[], e: SyntheticEvent) => void;
     nonExpandable?: K[];
     showExpandColumn?: boolean;
     onlyOneExpanding?: boolean;
     expandByColumnOnly?: boolean;
-    expandColumnRenderer?: ReactElement<ExpandColumnRendererProps>;
-    expandHeaderColumnRenderer?: ReactElement<ExpandHeaderColumnRenderer>;
+    expandColumnRenderer?: (props: ExpandColumnRendererProps) => JSX.Element;
+    expandHeaderColumnRenderer?: (props: ExpandHeaderColumnRenderer) => JSX.Element;
     expandColumnPosition?: 'left' | 'right';
     className?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
 }

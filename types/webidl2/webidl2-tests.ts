@@ -4,19 +4,21 @@ import * as webidl2 from "webidl2";
 const parsed = webidl2.parse("");
 
 for (const rootType of parsed) {
+    rootType.parent; // $ExpectType null
+
     if (rootType.type !== "includes") {
         console.log(rootType.name);
     }
 
     switch (rootType.type) {
-        case "interface":
-            rootType; // $ExpectType InterfaceType
-            console.log(rootType.inheritance);
+        case "interface mixin":
+            rootType; // $ExpectType InterfaceMixinType
             logMembers(rootType.members);
             console.log(rootType.partial);
             break;
-        case "interface mixin":
-            rootType; // $ExpectType InterfaceMixinType
+        case "interface":
+            rootType; // $ExpectType InterfaceType
+            console.log(rootType.inheritance);
             logMembers(rootType.members);
             console.log(rootType.partial);
             break;
@@ -26,7 +28,8 @@ for (const rootType of parsed) {
             logNamespaceMembers(rootType.members);
             break;
         case "callback interface":
-            rootType; // $ExpectType InterfaceType
+            rootType; // $ExpectType CallbackInterfaceType
+            console.log(rootType.inheritance);
             logMembers(rootType.members);
             console.log(rootType.partial);
             break;
@@ -67,6 +70,7 @@ for (const rootType of parsed) {
             break;
     }
 
+    rootType.extAttrs; // $ExpectType ExtendedAttribute[]
     logExtAttrs(rootType.extAttrs);
 }
 
@@ -75,28 +79,55 @@ function logMembers(members: webidl2.IDLInterfaceMemberType[]) {
         switch (member.type) {
             case "constructor":
                 member; // $ExpectType ConstructorMemberType
+                member.parent; // $ExpectType InterfaceType
                 logArguments(member.arguments);
                 break;
             case "operation":
+                member; // $ExpectType OperationMemberType
+                member.parent; // $ExpectType CallbackInterfaceType | InterfaceMixinType | InterfaceType | NamespaceType
+                logNamespaceMember(member);
+                break;
             case "attribute":
+                member; // $ExpectType AttributeMemberType
+                member.parent; // $ExpectType InterfaceMixinType | InterfaceType | NamespaceType
                 logNamespaceMember(member);
                 break;
             case "const":
                 member; // $ExpectType ConstantMemberType
+                member.parent; // $ExpectType CallbackInterfaceType | InterfaceMixinType | InterfaceType
                 console.log(member.name);
                 logIdlType(member.idlType);
                 logValueDescription(member.value);
                 console.log(member.nullable);
                 break;
             case "iterable":
-            case "maplike":
-            case "setlike":
-                member; // $ExpectType DeclarationMemberType
+                member; // $ExpectType IterableDeclarationMemberType
+                member.parent; // $ExpectType InterfaceMixinType | InterfaceType
                 member.async; // $ExpectType boolean
-                member.readonly; // $ExpectType boolean
-                console.log(member.readonly);
+                member.readonly; // $ExpectType false
+                member.idlType; // $ExpectType [IDLTypeDescription] | [IDLTypeDescription, IDLTypeDescription]
                 member.idlType.forEach(logIdlType);
                 member.arguments; // $ExpectType Argument[]
+                logArguments(member.arguments);
+                break;
+            case "maplike":
+                member; // $ExpectType MaplikeDeclarationMemberType
+                member.parent; // $ExpectType InterfaceMixinType | InterfaceType
+                member.async; // $ExpectType false
+                member.readonly; // $ExpectType boolean
+                member.idlType; // $ExpectType [IDLTypeDescription, IDLTypeDescription]
+                member.idlType.forEach(logIdlType);
+                member.arguments; // $ExpectType []
+                logArguments(member.arguments);
+                break;
+            case "setlike":
+                member; // $ExpectType SetlikeDeclarationMemberType
+                member.parent; // $ExpectType InterfaceMixinType | InterfaceType
+                member.async; // $ExpectType false
+                member.readonly; // $ExpectType boolean
+                member.idlType; // $ExpectType [IDLTypeDescription]
+                member.idlType.forEach(logIdlType);
+                member.arguments; // $ExpectType []
                 logArguments(member.arguments);
                 break;
             default:
@@ -117,12 +148,14 @@ function logNamespaceMember(member: webidl2.IDLNamespaceMemberType) {
     switch (member.type) {
         case "operation":
             member; // $ExpectType OperationMemberType
+            member.parent; // $ExpectType CallbackInterfaceType | InterfaceMixinType | InterfaceType | NamespaceType
             logArguments(member.arguments);
             console.log(member.name);
             console.log(member.special);
             break;
         case "attribute":
             member; // $ExpectType AttributeMemberType
+            member.parent; // $ExpectType InterfaceMixinType | InterfaceType | NamespaceType
             console.log(member.name);
             console.log(member.special, member.readonly, member.inherit);
             break;
@@ -189,12 +222,29 @@ function logArguments(args: webidl2.Argument[]) {
 
 function logIdlType(idlType: webidl2.IDLTypeDescription) {
     console.log(idlType.type);
-    console.log(idlType.generic, idlType.nullable, idlType.sequence, idlType.union);
+    console.log(idlType.generic, idlType.nullable, idlType.union);
 
     if (idlType.union) {
         idlType; // $ExpectType UnionTypeDescription
         for (const t of idlType.idlType) {
             logIdlType(t);
+        }
+    } else if (idlType.generic) {
+        idlType; // $ExpectType GenericTypeDescription
+        idlType.generic; // $ExpectType "FrozenArray" | "ObservableArray" | "Promise" | "record" | "sequence"
+        console.log(idlType);
+        switch (idlType.generic) {
+            case "FrozenArray":
+            case "ObservableArray":
+            case "Promise":
+            case "sequence":
+                idlType.idlType; // $ExpectType [IDLTypeDescription]
+                idlType.idlType.length; // $ExpectType 1
+                break;
+
+            case "record":
+                idlType.idlType.length; // $ExpectType 2
+                break;
         }
     } else {
         idlType; // $ExpectType SingleTypeDescription
@@ -204,6 +254,7 @@ function logIdlType(idlType: webidl2.IDLTypeDescription) {
 }
 
 function logValueDescription(valueDesc: webidl2.ValueDescription) {
+    valueDesc.parent; // $ExpectType FieldType | ConstantMemberType | Argument
     console.log(valueDesc.type);
     switch (valueDesc.type) {
         case "string":
