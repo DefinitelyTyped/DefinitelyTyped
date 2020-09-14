@@ -4,7 +4,6 @@
 //                 Peter Squicciarini <https://github.com/stripedpajamas>
 //                 Alex Bulanov <https://github.com/sapfear>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
 /**
  * Tests if value is truthy.
