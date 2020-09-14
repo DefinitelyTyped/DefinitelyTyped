@@ -655,7 +655,7 @@ declare global {
                 publicName: string,
                 privateName: string,
                 chainedName: string,
-                callback: (err: string | null, certs?: Certificates, useLetsEncryptCert?: boolean) => void,
+                callback: (err?: Error | null, certs?: Certificates, useLetsEncryptCert?: boolean) => void,
             ): void;
             // TODO: getCertificates cannot be represented with promises right now
 
@@ -1823,33 +1823,33 @@ declare global {
         type ErrorHandler = (err: Error) => boolean;
 
         type EmptyCallback = () => void;
-        type ErrorCallback = (err?: string) => void;
+        type ErrorCallback = (err?: Error | null) => void;
         // TODO: Redefine callbacks as subclass of GenericCallback
-        type GenericCallback<T> = (err: string | null, result?: T) => void;
+        type GenericCallback<T> = (err?: Error | null, result?: T) => void;
 
         type MessageCallback = (response?: Message) => void;
 
-        type SetObjectCallback = (err: string | null, obj?: { id: string }) => void;
+        type SetObjectCallback = (err?: Error | null, obj?: { id: string }) => void;
         type SetObjectPromise = Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
 
-        type GetObjectCallback = (err: string | null, obj?: ioBroker.Object | null) => void;
+        type GetObjectCallback = (err?: Error | null, obj?: ioBroker.Object | null) => void;
         type GetObjectPromise = Promise<CallbackReturnTypeOf<GetObjectCallback>>;
 
-        type GetEnumCallback = (err: string | null, enums?: Record<string, Enum>, requestedEnum?: string) => void;
+        type GetEnumCallback = (err?: Error | null, enums?: Record<string, Enum>, requestedEnum?: string) => void;
         type GetEnumsCallback = (
-            err: string | null,
+            err?: Error | null,
             result?: {
                 [groupName: string]: Record<string, Enum>;
             },
         ) => void;
         type GetEnumsPromise = Promise<NonNullCallbackReturnTypeOf<GetEnumsCallback>>;
 
-        type GetObjectsCallback = (err: string | null, objects?: Record<string, ioBroker.Object>) => void;
+        type GetObjectsCallback = (err?: Error | null, objects?: Record<string, ioBroker.Object>) => void;
         type GetObjectsPromise = Promise<NonNullCallbackReturnTypeOf<GetObjectsCallback>>;
 
         type FindObjectCallback = (
             /** If an error happened, this contains the message */
-            err: string | null,
+            err?: Error | null,
             /** If an object was found, this contains the ID */
             id?: string,
             /** If an object was found, this contains the common.name */
@@ -1863,7 +1863,7 @@ declare global {
             value: T;
         }
         // This is a version used by GetDevices/GetChannelsOf/GetStatesOf
-        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: T[]) => void;
+        type GetObjectsCallback3<T extends BaseObject> = (err?: Error | null, result?: T[]) => void;
 
         type SecondParameterOf<T extends (...args: any[]) => any> = T extends (
             arg0: any,
@@ -1880,26 +1880,26 @@ declare global {
         /** Infers the return type from a callback-style API and and leaves null and undefined in */
         type CallbackReturnTypeOf<T extends (...args: any[]) => any> = SecondParameterOf<T>;
 
-        type GetStateCallback = (err: string | null, state: State | null | undefined) => void;
+        type GetStateCallback = (err: Error | null, state: State | null | undefined) => void;
         type GetStatePromise = Promise<CallbackReturnTypeOf<GetStateCallback>>;
 
-        type GetStatesCallback = (err: string | null, states: Record<string, State>) => void;
+        type GetStatesCallback = (err: Error | null, states: Record<string, State>) => void;
         type GetStatesPromise = Promise<CallbackReturnTypeOf<GetStatesCallback>>;
 
-        type GetBinaryStateCallback = (err: string | null, state?: Buffer) => void;
+        type GetBinaryStateCallback = (err?: Error | null, state?: Buffer) => void;
         type GetBinaryStatePromise = Promise<CallbackReturnTypeOf<GetBinaryStateCallback>>;
 
-        type SetStateCallback = (err: string | null, id?: string) => void;
+        type SetStateCallback = (err?: Error | null, id?: string) => void;
         type SetStatePromise = Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
 
-        type SetStateChangedCallback = (err: string | null, id: string, notChanged: boolean) => void;
+        type SetStateChangedCallback = (err: Error | null, id: string, notChanged: boolean) => void;
         type SetStateChangedPromise = Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
 
-        type DeleteStateCallback = (err: string | null, id?: string) => void;
+        type DeleteStateCallback = (err?: Error | null, id?: string) => void;
 
         type GetHistoryResult = Array<State & { id?: string }>;
         type GetHistoryCallback = (
-            err: string | null,
+            err: Error | null,
             result: GetHistoryResult,
             step: number,
             sessionId?: string,
@@ -1920,10 +1920,10 @@ declare global {
             /** Date of creation */
             createdAt?: number;
         }
-        type ReadDirCallback = (err: string | null, entries?: ReadDirResult[]) => void;
+        type ReadDirCallback = (err?: Error | null, entries?: ReadDirResult[]) => void;
         type ReadDirPromise = Promise<NonNullCallbackReturnTypeOf<ReadDirCallback>>;
 
-        type ReadFileCallback = (err: string | null, file?: Buffer | string, mimeType?: string) => void;
+        type ReadFileCallback = (err?: Error | null, file?: Buffer | string, mimeType?: string) => void;
         type ReadFilePromise = Promise<{ file: string | Buffer; mimeType: string }>;
 
         /** Contains the return values of chownFile */
@@ -1943,7 +1943,7 @@ declare global {
             /** Date of creation */
             createdAt: number;
         }
-        type ChownFileCallback = (err: string | null, entries?: ChownFileResult[], id?: string) => void;
+        type ChownFileCallback = (err?: Error | null, entries?: ChownFileResult[], id?: string) => void;
 
         /** Contains the return values of rm */
         interface RmResult {
@@ -1954,11 +1954,11 @@ declare global {
             /** Whether the deleted object was a directory or a file */
             isDir: boolean;
         }
-        type RmCallback = (err: string | null, entries?: RmResult[]) => void;
+        type RmCallback = (err?: Error | null, entries?: RmResult[]) => void;
 
-        type ChownObjectCallback = (err: string | null, list?: ioBroker.Object[]) => void;
+        type ChownObjectCallback = (err?: Error | null, list?: ioBroker.Object[]) => void;
 
-        type GetConfigKeysCallback = (err: string | null, list?: string[]) => void;
+        type GetConfigKeysCallback = (err?: Error | null, list?: string[]) => void;
 
         interface GetObjectViewItem {
             /** The ID of this object */
@@ -1966,7 +1966,7 @@ declare global {
             /** A copy of the object from the DB */
             value: ioBroker.Object | null;
         }
-        type GetObjectViewCallback = (err: string | null, result?: { rows: GetObjectViewItem[] }) => void;
+        type GetObjectViewCallback = (err?: Error | null, result?: { rows: GetObjectViewItem[] }) => void;
         type GetObjectViewPromise = Promise<NonNullCallbackReturnTypeOf<GetObjectViewCallback>>;
 
         interface GetObjectListItem extends GetObjectViewItem {
@@ -1975,11 +1975,11 @@ declare global {
             /** The same as @link{value} */
             doc: ioBroker.Object;
         }
-        type GetObjectListCallback = (err: string | null, result?: { rows: GetObjectListItem[] }) => void;
+        type GetObjectListCallback = (err?: Error | null, result?: { rows: GetObjectListItem[] }) => void;
         type GetObjectListPromise = Promise<NonNullCallbackReturnTypeOf<GetObjectListCallback>>;
 
         type ExtendObjectCallback = (
-            err: string | null,
+            err?: Error | null,
             result?: { id: string; value: ioBroker.Object },
             id?: string,
         ) => void;
