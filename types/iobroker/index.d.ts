@@ -64,8 +64,8 @@ declare global {
         type Languages = 'en' | 'de' | 'ru' | 'pt' | 'nl' | 'fr' | 'it' | 'es' | 'pl' | 'zh-cn';
 
         interface ObjectCommon {
-            /** name of this object */
-            name: string;
+            /** The name of this object as a simple string or an object with translations */
+            name: string | { [lang in Languages]?: string; };
 
             // Icon and role aren't defined in SCHEMA.md,
             // but they are being used by some adapters

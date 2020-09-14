@@ -53,7 +53,10 @@ function objectChangeHandler(id: string, object: ioBroker.Object | null | undefi
     // Test properties of all objects
     if (object) {
         object._id.toLowerCase();
-        object.common.name.toLowerCase();
+        const name = object.common.name;
+        if (typeof name !== "string") {
+            name.de; // $ExpectType string | undefined
+        }
         object.common.role && object.common.role.toLowerCase();
         object.common.icon && object.common.icon.toLowerCase();
         object.native.toString();
@@ -286,6 +289,16 @@ adapter.setObject(
 //         date: new Date(),
 //     },
 // });
+
+// Check that name as object is okay:
+adapter.extendForeignObject("id", {
+    common: {
+        name: {
+            en: "foobar",
+            fr: "le foo de bar",
+        }
+    }
+});
 
 adapter.getObjectView('system', 'admin', { startkey: 'foo', endkey: 'bar' }, (err, docs) => {
     docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
