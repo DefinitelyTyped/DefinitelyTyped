@@ -192,6 +192,8 @@ declare global {
             common: StateCommon | ChannelCommon | DeviceCommon | EnumCommon | OtherCommon;
             acl?: ObjectACL;
             from?: string;
+            /** The user who created or updated this object */
+            user?: string;
             ts?: number;
         }
 

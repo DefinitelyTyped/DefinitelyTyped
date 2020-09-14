@@ -221,6 +221,7 @@ adapter.setObject('id', {
     protectedNative: ['none'],
     encryptedNative: ['none'],
     from: 'me',
+    user: 'also me',
     ts: Date.now(),
 });
 
