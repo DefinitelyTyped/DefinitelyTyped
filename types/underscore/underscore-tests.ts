@@ -22,7 +22,7 @@ interface AugmentedList extends _.List<StringRecord> {
 type AugmentedListLiteral = {
     [index: number]: StringRecord;
     length: number;
-    otherProperty: string;
+    notAListProperty: string;
 };
 
 interface ExplicitDictionary extends _.Dictionary<StringRecord> {
@@ -36,7 +36,7 @@ type ExplicitDictionaryLiteral = {
     a: StringRecord;
     b: StringRecord;
     c: StringRecord;
-}
+};
 
 declare const shallowProperty: 'a';
 declare const deepProperty: ['a', 'length'];
