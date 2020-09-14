@@ -1,5 +1,6 @@
 // Type definitions for nodes7 0.3
 // Project: https://github.com/plcpeople/nodes7#readme
+// Definitions by: Lukas Planz <https://github.com/Sytm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = NodeS7;
