@@ -1665,8 +1665,8 @@ declare global {
                 options?: unknown,
             ): ReadDirPromise;
 
-            mkDir(adapterName: string | null, path: string, callback: ErrorCallback): void;
-            mkDir(adapterName: string | null, path: string, options: unknown, callback: ErrorCallback): void;
+            mkDir(adapterName: string | null, path: string, callback: ErrnoCallback): void;
+            mkDir(adapterName: string | null, path: string, options: unknown, callback: ErrnoCallback): void;
             mkDirAsync(adapterName: string | null, path: string, options?: unknown): Promise<void>;
 
             readFile(adapterName: string | null, path: string, callback: ReadFileCallback): void;
@@ -1677,14 +1677,14 @@ declare global {
                 options?: unknown,
             ): ReadFilePromise;
 
-            writeFile(adapterName: string | null, path: string, data: Buffer | string, callback: ErrorCallback): void;
+            writeFile(adapterName: string | null, path: string, data: Buffer | string, callback: ErrnoCallback): void;
             // options see https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/objects/objectsInMemServer.js#L599
             writeFile(
                 adapterName: string | null,
                 path: string,
                 data: Buffer | string,
                 options: unknown,
-                callback: ErrorCallback,
+                callback: ErrnoCallback,
             ): void;
             writeFileAsync(
                 adapterName: string | null,
@@ -1698,8 +1698,8 @@ declare global {
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
              * @param path - path to directory without adapter name. E.g. If you want to delete "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
              */
-            delFile(adapterName: string | null, path: string, callback: ErrorCallback): void;
-            delFile(adapterName: string | null, path: string, options: unknown, callback: ErrorCallback): void;
+            delFile(adapterName: string | null, path: string, callback: ErrnoCallback): void;
+            delFile(adapterName: string | null, path: string, options: unknown, callback: ErrnoCallback): void;
             /**
              * Deletes a given file
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
@@ -1712,8 +1712,8 @@ declare global {
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
              * @param path - path to directory without adapter name. E.g. If you want to delete "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
              */
-            unlink(adapterName: string | null, path: string, callback: ErrorCallback): void;
-            unlink(adapterName: string | null, path: string, options: unknown, callback: ErrorCallback): void;
+            unlink(adapterName: string | null, path: string, callback: ErrnoCallback): void;
+            unlink(adapterName: string | null, path: string, options: unknown, callback: ErrnoCallback): void;
             /**
              * Deletes a given file
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
@@ -1721,13 +1721,13 @@ declare global {
              */
             unlinkAsync(adapterName: string | null, path: string, options?: unknown): Promise<void>;
 
-            rename(adapterName: string | null, oldName: string, newName: string, callback: ErrorCallback): void;
+            rename(adapterName: string | null, oldName: string, newName: string, callback: ErrnoCallback): void;
             rename(
                 adapterName: string | null,
                 oldName: string,
                 newName: string,
                 options: unknown,
-                callback: ErrorCallback,
+                callback: ErrnoCallback,
             ): void;
             renameAsync(adapterName: string | null, oldName: string, newName: string, options?: unknown): Promise<void>;
 
@@ -1818,6 +1818,8 @@ declare global {
 
         type EmptyCallback = () => void;
         type ErrorCallback = (err?: Error | null) => void;
+        /** Special variant of ErrorCallback for methods where Node.js returns an ErrnoException */
+        type ErrnoCallback = (err?: NodeJS.ErrnoException | null) => void;
         // TODO: Redefine callbacks as subclass of GenericCallback
         type GenericCallback<T> = (err?: Error | null, result?: T) => void;
 
@@ -1914,10 +1916,10 @@ declare global {
             /** Date of creation */
             createdAt?: number;
         }
-        type ReadDirCallback = (err?: Error | null, entries?: ReadDirResult[]) => void;
+        type ReadDirCallback = (err?: NodeJS.ErrnoException | null, entries?: ReadDirResult[]) => void;
         type ReadDirPromise = Promise<NonNullCallbackReturnTypeOf<ReadDirCallback>>;
 
-        type ReadFileCallback = (err?: Error | null, file?: Buffer | string, mimeType?: string) => void;
+        type ReadFileCallback = (err?: NodeJS.ErrnoException | null, file?: Buffer | string, mimeType?: string) => void;
         type ReadFilePromise = Promise<{ file: string | Buffer; mimeType: string }>;
 
         /** Contains the return values of chownFile */
@@ -1937,7 +1939,7 @@ declare global {
             /** Date of creation */
             createdAt: number;
         }
-        type ChownFileCallback = (err?: Error | null, entries?: ChownFileResult[], id?: string) => void;
+        type ChownFileCallback = (err?: NodeJS.ErrnoException | null, entries?: ChownFileResult[], id?: string) => void;
 
         /** Contains the return values of rm */
         interface RmResult {
@@ -1948,9 +1950,9 @@ declare global {
             /** Whether the deleted object was a directory or a file */
             isDir: boolean;
         }
-        type RmCallback = (err?: Error | null, entries?: RmResult[]) => void;
+        type RmCallback = (err?: NodeJS.ErrnoException | null, entries?: RmResult[]) => void;
 
-        type ChownObjectCallback = (err?: Error | null, list?: ioBroker.Object[]) => void;
+        type ChownObjectCallback = (err?: NodeJS.ErrnoException | null, list?: ioBroker.Object[]) => void;
 
         type GetConfigKeysCallback = (err?: Error | null, list?: string[]) => void;
 

@@ -531,8 +531,14 @@ adapter.clearTimeout(adapter.setInterval(() => {}, 10));
 
 // Error callbacks were changed to Error objects
 adapter.delFile(null, "foo", (err) => {
-    if (err) err.message;
+    if (err) {
+        // And the fs-specific ones now contain the code
+        err.code;
+        err.message;
+        err.syscall;
+    }
 });
+
 // Repro from ioBroker.i2c
 {
     interface PCF8574Config {
