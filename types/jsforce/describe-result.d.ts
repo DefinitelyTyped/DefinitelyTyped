@@ -238,6 +238,11 @@ export interface DescribeGlobalSObjectResult {
     urls: Record<string, string>;
 }
 
+export interface DescribeSObjectOptions {
+    type: string;
+    ifModifiedSince?: string;
+}
+
 export interface DescribeGlobalResult {
     encoding: string;
     maxBatchSize: number;
