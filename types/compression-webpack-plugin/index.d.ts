@@ -1,4 +1,4 @@
-// Type definitions for compression-webpack-plugin 4.0
+// Type definitions for compression-webpack-plugin 6.0
 // Project: https://github.com/webpack-contrib/compression-webpack-plugin
 // Definitions by: Anton Kandybo <https://github.com/dublicator>
 //                 Rhys van der Waerden <https://github.com/rhys-vdw>
@@ -40,7 +40,7 @@ declare namespace CompressionPlugin {
         query: string;
     }
 
-    type FilenameFunction = (info: FileInfo) => string;
+    type FilenameFunction = (pathData: FileInfo) => string;
 
     interface BaseOptions {
         /**
@@ -59,7 +59,7 @@ declare namespace CompressionPlugin {
         exclude?: Rules;
         /**
          * The target asset filename.
-         * @default '[path].gz[query]'
+         * @default '[path][base].gz'
          */
         filename?: string | FilenameFunction;
         /**
