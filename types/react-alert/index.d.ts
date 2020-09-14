@@ -1,4 +1,4 @@
-// Type definitions for react-alert 5.2
+// Type definitions for react-alert 7.0.4
 // Project: https://github.com/schiehll/react-alert
 // Definitions by: Yue Yang <https://github.com/g1eny0ung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,11 +41,15 @@ export interface Types {
 
 export const types: Types;
 
-export type AlertTransition = 'fade' | 'scale';
+export type AlertTransition = 'fade' | 'scale' | 'enter_from_left'| 'enter_from_right' | 'enter_from_top'| 'enter_from_bottom';
 
 export interface Transitions {
     FADE: 'fade';
     SCALE: 'scale';
+    ENTER_FROM_LEFT: 'enter_from_left',
+    ENTER_FROM_RIGHT: 'enter_from_right',
+    ENTER_FROM_TOP: 'enter_from_top',
+    ENTER_FROM_BOTTOM: 'enter_from_bottom',
 }
 
 export const transitions: Transitions;
