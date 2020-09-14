@@ -8,5 +8,5 @@ import * as GeoJSON from 'geojson';
 import * as ArcGIS from 'arcgis-rest-api';
 
 // tslint:disable-next-line [no-unnecessary-generics]
-export function arcgisToGeoJSON(arcgis: ArcGIS.Geometry): GeoJSON.GeometryObject;
-export function geojsonToArcGIS(geojson: GeoJSON.GeometryObject): ArcGIS.Geometry;
+export function arcgisToGeoJSON(arcgis: ArcGIS.Geometry, idAttribute?: string): GeoJSON.GeometryObject;
+export function geojsonToArcGIS(geojson: GeoJSON.GeometryObject, idAttribute?: string): ArcGIS.Geometry;
