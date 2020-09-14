@@ -1,5 +1,5 @@
 // Type definitions for gestalt-datepicker 13.4
-// Project: https://gestalt.netlify.app/
+// Project: https://github.com/pinterest/gestalt/tree/master/packages/gestalt-datepicker, https://gestalt.netlify.app/DatePicker
 // Definitions by: cgu <https://github.com/czgu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
@@ -10,6 +10,7 @@ import { Locale } from 'date-fns';
 /*
 DatePicker Props Interface
 https://gestalt.netlify.app/DatePicker
+https://github.com/pinterest/gestalt/blob/master/packages/gestalt-datepicker/src/DatePicker.js
 */
 
 export interface DatePickerProps {
