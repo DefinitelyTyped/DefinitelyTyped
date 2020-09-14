@@ -6,7 +6,7 @@ import TextFeature from './TextFeature';
 export interface Options {
     altitudeMode?: IGCZ | string;
 }
-export enum IGCZ {
+declare enum IGCZ {
     BAROMETRIC = 'barometric',
     GPS = 'gps',
     NONE = 'none',
