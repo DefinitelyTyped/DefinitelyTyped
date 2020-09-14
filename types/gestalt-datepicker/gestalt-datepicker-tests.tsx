@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DatePicker } from 'gestalt-datepicker';
+import DatePicker from 'gestalt-datepicker';
 
 const handleChange = (value: Date) => value;
 

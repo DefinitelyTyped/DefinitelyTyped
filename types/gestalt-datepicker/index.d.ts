@@ -35,4 +35,4 @@ export interface DatePickerProps {
     value?: Date;
 }
 
-export class DatePicker extends React.Component<DatePickerProps, any> {}
+export default class DatePicker extends React.Component<DatePickerProps, any> {}
