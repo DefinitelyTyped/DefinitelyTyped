@@ -63,15 +63,6 @@ declare global {
 
         type Languages = 'en' | 'de' | 'ru' | 'pt' | 'nl' | 'fr' | 'it' | 'es' | 'pl' | 'zh-cn';
 
-        // Objects are JSON-serializable
-        type ObjectField =
-            | string
-            | number
-            | boolean
-            | null
-            | ObjectField[]
-            | {[property: string]: ObjectField};
-
         interface ObjectCommon {
             /** name of this object */
             name: string;
@@ -171,7 +162,7 @@ declare global {
             members?: string[];
         }
         interface OtherCommon extends ObjectCommon {
-            [propName: string]: ObjectField | undefined;
+            [propName: string]: any;
 
             // Only states can have common.custom
             custom?: undefined;
@@ -180,8 +171,9 @@ declare global {
         interface BaseObject {
             /** The ID of this object */
             _id: string;
-            // Be strict with what we allow here. Read objects overwrite this with any.
-            native: Record<string, ObjectField>;
+            // Ideally we would limit this to JSON-serializable objects, but TypeScript doesn't allow this
+            // without bugging users to change their code --> https://github.com/microsoft/TypeScript/issues/15300
+            native: any;
             /** An array of `native` properties which cannot be accessed from outside the defining adapter */
             protectedNative?: string[];
             /** Like protectedNative, but the properties are also encrypted and decrypted automatically */

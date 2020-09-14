@@ -274,17 +274,18 @@ adapter.setObject(
     },
 );
 
-adapter.setObject('id', {
-    type: 'device',
-    common: {
-        name: 'foo',
-    },
-    native: {
-        // Date is not allowed here
-        // $ExpectError
-        date: new Date(),
-    },
-});
+// TODO: Cannot enforce this without making it impossible to use interfaces to describe the shape of `native`
+// adapter.setObject('id', {
+//     type: 'device',
+//     common: {
+//         name: 'foo',
+//     },
+//     native: {
+//         // Date is not allowed here
+//         // $ExpectError
+//         date: new Date(),
+//     },
+// });
 
 adapter.getObjectView('system', 'admin', { startkey: 'foo', endkey: 'bar' }, (err, docs) => {
     docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
@@ -532,3 +533,30 @@ adapter.clearTimeout(adapter.setInterval(() => {}, 10));
 adapter.delFile(null, "foo", (err) => {
     if (err) err.message;
 });
+// Repro from ioBroker.i2c
+{
+    interface PCF8574Config {
+        pollingInterval: number;
+        interrupt?: string;
+        pins: PinConfig[];
+    }
+
+    interface PinConfig {
+        dir: 'in' | 'out';
+        inv?: boolean;
+    }
+
+    const config: PCF8574Config = undefined as any;
+
+    adapter.extendObject(`some state`, {
+        type: 'state',
+        common: {
+            name: `some name`,
+            read: true,
+            write: false,
+            type: 'boolean',
+            role: 'indicator',
+        },
+        native: config,
+    });
+}
