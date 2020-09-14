@@ -24819,14 +24819,14 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * Returns the RangeAreasCollection object, each RangeAreas in the collection represent one or more rectangle ranges in one worksheet.
+         * Returns the `RangeAreasCollection` object. Each `RangeAreas` object in the collection represents one or more rectangle ranges in one worksheet.
          *
          * [Api set: ExcelApi 1.12]
          */
         readonly areas: Excel.RangeAreasCollection;
         /**
          *
-         * Returns a collection of ranges that comprise this object.
+         * Returns ranges that comprise this object in a `RangeCollection` object.
          *
          * [Api set: ExcelApi 1.12]
          */
@@ -41645,7 +41645,7 @@ declare namespace Excel {
          */
         getItemAt(index: number): Excel.LinkedDataType;
         /**
-         * Gets a linked data type by id. If the linked data type does not exist, a null object is returned.
+         * Gets a linked data type by ID. If the linked data type does not exist, an object with its `isNullObject` property set to `true`. For further information, see {@link https://docs.microsoft.com/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties | *OrNullObject methods and properties}.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -41765,7 +41765,7 @@ declare namespace Excel {
     }
     /**
      *
-     * The argument that is passed to the event handler after the linked data type refresh mode is changed.
+     * Represents information about a newly added linked data type, such as source and ID.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -43919,12 +43919,12 @@ declare namespace Excel {
      */
     enum AutoFillType {
         /**
-         * Populates the adjacent cells with data the selected data.
+         * Populates the adjacent cells based on the surrounding data (the standard AutoFill behavior).
          *
          */
         fillDefault = "FillDefault",
         /**
-         * Populates the adjacent cells with data the selected data.
+         * Populates the adjacent cells with data based on the selected data.
          *
          */
         fillCopy = "FillCopy",
@@ -53873,7 +53873,7 @@ declare namespace Excel {
             areas?: Excel.Interfaces.RangeAreasData[];
             /**
             *
-            * Returns a collection of ranges that comprise this object.
+            * Returns ranges that comprise this object in a RangeCollection object.
             *
             * [Api set: ExcelApi 1.12]
             */

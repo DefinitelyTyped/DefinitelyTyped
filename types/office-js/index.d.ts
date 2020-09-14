@@ -22289,7 +22289,7 @@ declare namespace Excel {
     }
     /**
      *
-     * WorkbookRangeAreas represents a collection of one or more rectangular ranges in multi worksheet.
+     * Represents a collection of one or more rectangular ranges in multiple worksheets.
      *
      * [Api set: ExcelApi 1.12]
      */
@@ -22298,14 +22298,14 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * Returns the RangeAreasCollection object, each RangeAreas in the collection represent one or more rectangle ranges in one worksheet.
+         * Returns the `RangeAreasCollection` object. Each `RangeAreas` object in the collection represents one or more rectangle ranges in one worksheet.
          *
          * [Api set: ExcelApi 1.12]
          */
         readonly areas: Excel.RangeAreasCollection;
         /**
          *
-         * Returns a collection of ranges that comprise this WorkbookRangeAreas object.
+         * Returns ranges that comprise this object in a `RangeCollection` object.
          *
          * [Api set: ExcelApi 1.12]
          */
@@ -22318,7 +22318,7 @@ declare namespace Excel {
          */
         readonly addresses: string[];
         /**
-         * Returns the RangeAreas object based on worksheet id or name in the collection.
+         * Returns the `RangeAreas` object based on worksheet id or name in the collection.
          *
          * [Api set: ExcelApi 1.12]
          *
@@ -22326,7 +22326,7 @@ declare namespace Excel {
          */
         getRangeAreasBySheet(key: string): Excel.RangeAreas;
         /**
-         * Returns the RangeAreas object based on worksheet name or id in the collection. If the worksheet does not exist, will return a null object.
+         * Returns the `RangeAreas` object based on worksheet name or id in the collection. If the worksheet does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.12]
          *
