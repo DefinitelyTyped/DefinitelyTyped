@@ -9,6 +9,15 @@ import { MouseEvent as ReactMouseEvent } from 'react';
 <C.HorizontalRule />;
 
 //
+// angle-picker-control
+//
+<C.AnglePickerControl
+    value={350}
+    label="Test label"
+    onChange={value => console.log(value)}
+/>;
+
+//
 // animate
 //
 <C.Animate type="appear" options={{ origin: 'top left' }}>
