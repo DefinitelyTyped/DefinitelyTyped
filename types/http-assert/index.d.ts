@@ -4,45 +4,96 @@
 //                 Peter Squicciarini <https://github.com/stripedpajamas>
 //                 Alex Bulanov <https://github.com/sapfear>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 /**
- * @param status the status code
- * @param msg the message of the error, defaulting to node's text for that status code
- * @param opts custom properties to attach to the error object
+ * Tests if value is truthy.
+ * If value is not truthy, an HttpError is thrown that is constructed with the given status, message, and properties.
+ *
+ * @param status the status code as a number.
+ * @param message the message of the error, defaulting to node's text for that status code.
+ * @param properties custom properties to attach to the object.
  */
-declare function assert(value: any, status?: number, msg?: string, opts?: {}): void;
-declare function assert(value: any, status?: number, opts?: {}): void;
+declare function assert(value: any, status?: number, message?: string, properties?: {}): asserts value;
+declare function assert(value: any, status?: number, properties?: {}): asserts value;
 
 declare namespace assert {
     /**
-     * @param status the status code
-     * @param msg the message of the error, defaulting to node's text for that status code
-     * @param opts custom properties to attach to the error object
+     * Tests for deep equality between a and b. Primitive values are compared with the Abstract Equality Comparison (==).
+     * If a and b are not equal, an HttpError is thrown that is constructed with the given status, message, and properties.
+     *
+     * @param status the status code as a number.
+     * @param message the message of the error, defaulting to node's text for that status code.
+     * @param properties custom properties to attach to the object.
      */
-    type Assert = <T>(a: T, b: T, status?: number, msg?: string, opts?: {}) => void;
+    function deepEqual(a: any, b: any, status?: number, message?: string, properties?: {}): void;
+    function deepEqual(a: any, b: any, status?: number, properties?: {}): void;
 
     /**
-     * @param status the status code
-     * @param msg the message of the error, defaulting to node's text for that status code
-     * @param opts custom properties to attach to the error object
+     * Tests shallow, coercive equality between a and b using the Abstract Equality Comparison (==).
+     * If a and b are not equal, an HttpError is thrown that is constructed with the given status, message, and properties.
+     *
+     * @param status the status code as a number.
+     * @param message the message of the error, defaulting to node's text for that status code.
+     * @param properties custom properties to attach to the object.
      */
-    type AssertOK = (a: any, status?: number, msg?: string, opts?: {}) => void;
+    function equal(a: any, b: any, status?: number, message?: string, properties?: {}): void;
+    function equal(a: any, b: any, status?: number, properties?: {}): void;
 
     /**
-     * @param status the status code
-     * @param msg the message of the error, defaulting to node's text for that status code
-     * @param opts custom properties to attach to the error object
+     * Tests for deep equality between a and b. Primitive values are compared with the Abstract Equality Comparison (==).
+     * If a and b are equal, an HttpError is thrown that is constructed with the given status, message, and properties.
+     *
+     * @param status the status code as a number.
+     * @param message the message of the error, defaulting to node's text for that status code.
+     * @param properties custom properties to attach to the object.
      */
-    type AssertEqual = (a: any, b: any, status?: number, msg?: string, opts?: {}) => void;
+    function notDeepEqual(a: any, b: any, status?: number, message?: string, properties?: {}): void;
+    function notDeepEqual(a: any, b: any, status?: number, properties?: {}): void;
 
-    const equal: Assert;
-    const notEqual: Assert;
-    const ok: AssertOK;
-    const strictEqual: AssertEqual;
-    const notStrictEqual: AssertEqual;
-    const deepEqual: AssertEqual;
-    const notDeepEqual: AssertEqual;
+    /**
+     * Tests shallow, coercive equality between a and b using the Abstract Equality Comparison (==).
+     * If a and b are equal, an HttpError is thrown that is constructed with the given status, message, and properties.
+     *
+     * @param status the status code as a number.
+     * @param message the message of the error, defaulting to node's text for that status code.
+     * @param properties custom properties to attach to the object.
+     */
+    function notEqual(a: any, b: any, status?: number, message?: string, properties?: {}): void;
+    function notEqual(a: any, b: any, status?: number, properties?: {}): void;
+
+    /**
+     * Tests strict equality between a and b as determined by the SameValue Comparison (===).
+     * If a and b are equal, an HttpError is thrown that is constructed with the given status, message, and properties.
+     *
+     * @param status the status code as a number.
+     * @param message the message of the error, defaulting to node's text for that status code.
+     * @param properties custom properties to attach to the object.
+     */
+    function notStrictEqual(a: any, b: any, status?: number, message?: string, properties?: {}): void;
+    function notStrictEqual(a: any, b: any, status?: number, properties?: {}): void;
+
+    /**
+     * Tests if value is truthy.
+     * If value is not truthy, an HttpError is thrown that is constructed with the given status, message, and properties.
+     *
+     * @param status the status code as a number.
+     * @param message the message of the error, defaulting to node's text for that status code.
+     * @param properties custom properties to attach to the object.
+     */
+    function ok(value: any, status?: number, message?: string, properties?: {}): asserts value;
+    function ok(value: any, status?: number, properties?: {}): asserts value;
+
+    /**
+     * Tests strict equality between a and b as determined by the SameValue Comparison (===).
+     * If a and b are not equal, an HttpError is thrown that is constructed with the given status, message, and properties.
+     *
+     * @param status the status code as a number.
+     * @param message the message of the error, defaulting to node's text for that status code.
+     * @param properties custom properties to attach to the object.
+     */
+    function strictEqual<T>(a: any, b: T, status?: number, message?: string, properties?: {}): asserts a is T;
+    function strictEqual<T>(a: any, b: T, status?: number, properties?: {}): asserts a is T;
 }
 
 export = assert;
