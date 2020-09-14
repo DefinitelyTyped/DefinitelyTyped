@@ -544,6 +544,9 @@ declare global {
 
             /** If true, the adapter will have a property `oStates` that contains a live cache of the adapter's states */
             states?: boolean;
+
+            /** Whether the adapter should warn if states are set without an corresponding existing object. Default: `true` */
+            strictObjectChecks?: boolean;
         } // end interface AdapterOptions
 
         // tslint:disable-next-line:no-empty-interface
