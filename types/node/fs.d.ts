@@ -1,5 +1,5 @@
 // tslint:disable-next-line:no-bad-reference
-/// <reference path="../ts3.1/fs.d.ts" />
+/// <reference path="ts3.1/fs.d.ts" />
 
 declare module 'fs' {
     interface BigIntStats extends StatsBase<bigint> {
