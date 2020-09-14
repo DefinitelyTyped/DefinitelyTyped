@@ -160,9 +160,9 @@ declare module '../../index' {
          *   between 0.0 (old vector) and 1.0 (new vector). 0.9
          *   is very near the new vector. 0.5 is halfway in
          *   between.
-         *   @return the lerped value
+         *   @return the resulting new p5.Vector
          */
-        static lerp(v1: Vector, v2: Vector, amt: number): number;
+        static lerp(v1: Vector, v2: Vector, amt: number): Vector;
 
         /**
          *   Make a new 2D vector from an angle
