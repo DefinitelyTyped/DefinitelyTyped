@@ -1597,6 +1597,14 @@ declare global {
              * Returns a list of all channels in this adapter instance
              * @param parentDevice (optional) Name of the parent device to filter the channels by
              * @param options (optional) Some internal options.
+             */
+            getChannelsAsync(): Promise<ChannelObject[]>;
+            // tslint:disable-next-line:unified-signatures
+            getChannelsAsync(parentDevice: string, options?: unknown): Promise<ChannelObject[]>;
+            /**
+             * Returns a list of all channels in this adapter instance
+             * @param parentDevice (optional) Name of the parent device to filter the channels by
+             * @param options (optional) Some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
             getChannelsOf(callback: GetObjectsCallback3<ChannelObject>): void;
@@ -1790,6 +1798,18 @@ declare global {
             removeListener(event: 'message', handler: MessageHandler): this;
 
             removeAllListeners(event?: 'ready' | 'unload' | 'stateChange' | 'objectChange' | 'message'): this;
+
+            // =============================================
+            // Managed version of builtin setTimeout/setInterval/clear...
+            // =============================================
+
+            /** Creates a timeout that can automatically be cleared when the adapter is terminated */
+            setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): number;
+            clearTimeout(timeoutId: number): void;
+
+            /** Creates an interval that can automatically be cleared when the adapter is terminated */
+            setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): number;
+            clearInterval(intervalId: number): void;
         } // end interface Adapter
 
         type ReadyHandler = () => void | Promise<void>;

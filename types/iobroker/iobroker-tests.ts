@@ -451,6 +451,9 @@ function repro3() {
             channelList; // $ExpectType ChannelObject[]
         }
     });
+    adapter.getChannelsAsync().then(list => {
+        list; // $ExpectType ChannelObject[]
+    });
     adapter.getChannelsOfAsync().then(list => {
         list; // $ExpectType ChannelObject[]
     });
@@ -506,3 +509,15 @@ if (typeof state.common.smartName === "object") {
 
 declare let enumObj: ioBroker.EnumObject;
 enumObj.common.members && enumObj.common.members.map(() => 1);
+
+// Adapter.clearTimeout and clearInterval are not compatible with the builtins
+adapter.clearTimeout(adapter.setTimeout(() => {}, 10));
+adapter.clearInterval(adapter.setInterval(() => {}, 10));
+// $ExpectError
+clearTimeout(adapter.setTimeout(() => {}, 10));
+// $ExpectError
+clearInterval(adapter.setInterval(() => {}, 10));
+// $ExpectError
+adapter.clearTimeout(setTimeout(() => {}, 10));
+// $ExpectError
+adapter.clearInterval(setInterval(() => {}, 10));
