@@ -623,8 +623,8 @@ declare global {
             /** Validates username and password */
             checkPasswordAsync(user: string, password: string, options?: unknown): Promise<boolean>;
             /** Sets a new password for the given user */
-            setPassword(user: string, password: string, callback?: (err?: any) => void): void;
-            setPassword(user: string, password: string, options: unknown, callback?: (err?: any) => void): void;
+            setPassword(user: string, password: string, callback?: ErrorCallback): void;
+            setPassword(user: string, password: string, options: unknown, callback?: ErrorCallback): void;
             /** Sets a new password for the given user */
             setPasswordAsync(user: string, password: string, options?: unknown): Promise<void>;
             /** <INTERNAL> Checks if a user exists and is in the given group. */
@@ -1807,12 +1807,12 @@ declare global {
             // =============================================
 
             /** Creates a timeout that can automatically be cleared when the adapter is terminated */
-            setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): number;
-            clearTimeout(timeoutId: number): void;
+            setTimeout<T extends any[]>(callback: (...args: T) => void, ms: number, ...args: T): Timeout;
+            clearTimeout(timeoutId: Timeout): void;
 
             /** Creates an interval that can automatically be cleared when the adapter is terminated */
-            setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): number;
-            clearInterval(intervalId: number): void;
+            setInterval<T extends any[]>(callback: (...args: T) => void, ms: number, ...args: T): Interval;
+            clearInterval(intervalId: Interval): void;
         } // end interface Adapter
 
         type ReadyHandler = () => void | Promise<void>;
@@ -1985,5 +1985,8 @@ declare global {
         ) => void;
 
         type GetSessionCallback = (session: Session) => void;
+
+        type Timeout = number & {__ioBrokerBrand: "Timeout"};
+        type Interval = number & {__ioBrokerBrand: "Interval"};
     } // end namespace ioBroker
 } // end declare global

@@ -521,6 +521,11 @@ clearInterval(adapter.setInterval(() => {}, 10));
 adapter.clearTimeout(setTimeout(() => {}, 10));
 // $ExpectError
 adapter.clearInterval(setInterval(() => {}, 10));
+// And they must not be switched
+// $ExpectError
+adapter.clearInterval(adapter.setTimeout(() => {}, 10));
+// $ExpectError
+adapter.clearTimeout(adapter.setInterval(() => {}, 10));
 
 // Error callbacks were changed to Error objects
 adapter.delFile(null, "foo", (err) => {
