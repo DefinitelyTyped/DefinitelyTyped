@@ -1,5 +1,5 @@
 // tslint:disable-next-line:no-bad-reference
-/// <reference path="../ts3.1/globals.d.ts" />
+/// <reference path="ts3.1/globals.d.ts" />
 
 interface Buffer extends Uint8Array {
     readBigUInt64BE(offset?: number): bigint;
