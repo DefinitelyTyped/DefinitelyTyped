@@ -3,6 +3,12 @@ import { Extent } from './extent';
 import Projection from './proj/Projection';
 import Triangulation from './reproj/Triangulation';
 
+export function calculateSourceExtentResolution(
+    sourceProj: Projection,
+    targetProj: Projection,
+    targetExtent: Extent,
+    targetResolution: number,
+): number;
 export function calculateSourceResolution(
     sourceProj: Projection,
     targetProj: Projection,
@@ -21,4 +27,5 @@ export function render(
     sources: any[],
     gutter: number,
     opt_renderEdges?: boolean,
+    opt_contextOptions?: any,
 ): HTMLCanvasElement;

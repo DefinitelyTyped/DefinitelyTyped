@@ -13,7 +13,7 @@ export interface PostCssPluginOptions {
     plugins?: any[];
     inject?: boolean | {
         insertAt?: 'top' | string;
-    };
+    } | ((cssVariableName: string, fileId: string) => string);
     extract?: boolean | string;
     modules?: boolean | unknown;
     autoModules?: boolean;
@@ -26,10 +26,10 @@ export interface PostCssPluginOptions {
     };
     name?: any[] | any[][];
     loaders?: any[];
-    namedExports?(...args: any[]): void | boolean;
-    parser?(...args: any[]): void | string;
-    syntax?(...args: any[]): void | string;
-    stringifier?(...args: any[]): void | string;
+    namedExports?: ((name: string) => string) | boolean;
+    parser?: ((...args: any[]) => void) | string;
+    syntax?: ((...args: any[]) => void) | string;
+    stringifier?: ((...args: any[]) => void) | string;
     onImport?: (id: any) => void;
 }
 

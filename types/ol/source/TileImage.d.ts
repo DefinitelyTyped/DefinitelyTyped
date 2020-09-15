@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import ImageTile from '../ImageTile';
 import { ObjectEvent } from '../Object';
@@ -17,6 +17,7 @@ export interface Options {
     attributionsCollapsible?: boolean;
     cacheSize?: number;
     crossOrigin?: string;
+    imageSmoothing?: boolean;
     opaque?: boolean;
     projection?: ProjectionLike;
     reprojectionErrorThreshold?: number;
@@ -39,12 +40,20 @@ export default class TileImage extends UrlTile {
     protected tileCacheForProjection: { [key: string]: TileCache };
     protected tileClass: ImageTile;
     protected tileGridForProjection: { [key: string]: TileGrid };
+    protected getKey(): string;
     protected getTileInternal(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
+    canExpireCache(): boolean;
+    expireCache(projection: Projection, usedTiles: { [key: string]: boolean }): void;
+    getContextOptions(): any;
     getGutter(): number;
+    getGutterForProjection(projection: Projection): number;
+    getOpaque(projection: Projection): boolean;
     getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
+    getTileCacheForProjection(projection: Projection): TileCache;
+    getTileGridForProjection(projection: Projection): TileGrid;
     setRenderReprojectionEdges(render: boolean): void;
     setTileGridForProjection(projection: ProjectionLike, tilegrid: TileGrid): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

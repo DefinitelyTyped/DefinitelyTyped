@@ -1,4 +1,4 @@
-// Type definitions for sharp 0.25
+// Type definitions for sharp 0.26
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
@@ -10,7 +10,7 @@
 
 /// <reference types="node" />
 
-import { Duplex } from "stream";
+import { Duplex } from 'stream';
 
 //#region Constructor functions
 
@@ -407,7 +407,7 @@ declare namespace sharp {
          * @param options describes the modulation
          * @returns A sharp instance that can be used to chain operations
          */
-        modulate(options?: { brightness?: number, saturation?: number, hue?: number }): Sharp;
+        modulate(options?: { brightness?: number; saturation?: number; hue?: number }): Sharp;
 
         //#endregion
 
@@ -456,7 +456,7 @@ declare namespace sharp {
          * @param options.resolveWithObject Resolve the Promise with an Object containing data and info properties instead of resolving only with data.
          * @returns A promise that resolves with an object containing the Buffer data and an info object containing the output image format, size (bytes), width, height and channels
          */
-        toBuffer(options: { resolveWithObject: true }): Promise<{ data: Buffer, info: OutputInfo }>;
+        toBuffer(options: { resolveWithObject: true }): Promise<{ data: Buffer; info: OutputInfo }>;
 
         /**
          * Include all metadata (EXIF, XMP, IPTC) from the input image in the output image.
@@ -514,7 +514,10 @@ declare namespace sharp {
          * @throws {Error} Unsupported format or options
          * @returns A sharp instance that can be used to chain operations
          */
-        toFormat(format: string | AvailableFormatInfo, options?: OutputOptions | JpegOptions | PngOptions | WebpOptions | TiffOptions): Sharp;
+        toFormat(
+            format: string | AvailableFormatInfo,
+            options?: OutputOptions | JpegOptions | PngOptions | WebpOptions | TiffOptions,
+        ): Sharp;
 
         /**
          * Use tile-based deep zoom (image pyramid) output.
@@ -729,6 +732,10 @@ declare namespace sharp {
         isOpaque: boolean;
         /** Histogram-based estimation of greyscale entropy, discarding alpha channel if any (experimental) */
         entropy: number;
+        /** Estimation of greyscale sharpness based on the standard deviation of a Laplacian convolution, discarding alpha channel if any (experimental) */
+        sharpness: number;
+        /** Object containing most dominant sRGB colour based on a 4096-bin 3D histogram (experimental) */
+        dominant: { r: number; g: number; b: number };
     }
 
     interface ChannelStats {
@@ -802,12 +809,20 @@ declare namespace sharp {
         compression?: string;
         /** Compression predictor options: none, horizontal, float (optional, default 'horizontal') */
         predictor?: string;
+        /** Write an image pyramid (optional, default false) */
+        pyramid?: boolean;
+        /** Write a tiled tiff (optional, default false) */
+        tile?: boolean;
+        /** Horizontal tile size (optional, default 256) */
+        tileWidth?: boolean;
+        /** Vertical tile size (optional, default 256) */
+        tileHeight?: boolean;
         /** Horizontal resolution in pixels/mm (optional, default 1.0) */
         xres?: number;
         /** Vertical resolution in pixels/mm (optional, default 1.0) */
         yres?: number;
-        /** Squash 8-bit images down to 1 bit (optional, default false) */
-        squash?: boolean;
+        /** Reduce bitdepth to 1, 2 or 4 bit (optional, default 8) */
+        bitdepth?: 1 | 2 | 4 | 8;
     }
 
     interface PngOptions {
@@ -914,7 +929,7 @@ declare namespace sharp {
 
     interface OverlayOptions {
         /** Buffer containing image data, String containing the path to an image file, or Create object  */
-        input?: string | Buffer | {create: Create};
+        input?: string | Buffer | { create: Create };
         /** how to blend this image with the image below. (optional, default `'over'`) */
         blend?: Blend;
         /** gravity at which to place the overlay. (optional, default 'centre') */
@@ -968,35 +983,35 @@ declare namespace sharp {
 
     interface AvailableFormatInfo {
         id: string;
-        input: { file: boolean; buffer: boolean; stream: boolean; };
-        output: { file: boolean; buffer: boolean; stream: boolean; };
+        input: { file: boolean; buffer: boolean; stream: boolean };
+        output: { file: boolean; buffer: boolean; stream: boolean };
     }
 
     interface FitEnum {
-        contain: "contain";
-        cover: "cover";
-        fill: "fill";
-        inside: "inside";
-        outside: "outside";
+        contain: 'contain';
+        cover: 'cover';
+        fill: 'fill';
+        inside: 'inside';
+        outside: 'outside';
     }
 
     interface KernelEnum {
-        nearest: "nearest";
-        cubic: "cubic";
-        mitchell: "mitchell";
-        lanczos2: "lanczos2";
-        lanczos3: "lanczos3";
+        nearest: 'nearest';
+        cubic: 'cubic';
+        mitchell: 'mitchell';
+        lanczos2: 'lanczos2';
+        lanczos3: 'lanczos3';
     }
 
     interface BoolEnum {
-        and: "and";
-        or: "or";
-        eor: "eor";
+        and: 'and';
+        or: 'or';
+        eor: 'eor';
     }
 
     interface ColourspaceEnum {
         multiband: string;
-        "b-w": string;
+        'b-w': string;
         bw: string;
         cmyk: string;
         srgb: string;
@@ -1004,8 +1019,34 @@ declare namespace sharp {
 
     type TileLayout = 'dz' | 'iiif' | 'zoomify' | 'google';
 
-    type Blend = 'clear' | 'source' | 'over' | 'in' | 'out' | 'atop' | 'dest' | 'dest-over' | 'dest-in' | 'dest-out' | 'dest-atop'  | 'xor' | 'add' | 'saturate' | 'multiply' | 'screen' | 'overlay'
-                 | 'darken' | 'lighten' | 'colour-dodge' | 'colour-dodge' | 'colour-burn' | 'colour-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion';
+    type Blend =
+        | 'clear'
+        | 'source'
+        | 'over'
+        | 'in'
+        | 'out'
+        | 'atop'
+        | 'dest'
+        | 'dest-over'
+        | 'dest-in'
+        | 'dest-out'
+        | 'dest-atop'
+        | 'xor'
+        | 'add'
+        | 'saturate'
+        | 'multiply'
+        | 'screen'
+        | 'overlay'
+        | 'darken'
+        | 'lighten'
+        | 'colour-dodge'
+        | 'colour-dodge'
+        | 'colour-burn'
+        | 'colour-burn'
+        | 'hard-light'
+        | 'soft-light'
+        | 'difference'
+        | 'exclusion';
 
     type Gravity = number | string;
 
@@ -1046,16 +1087,12 @@ declare namespace sharp {
     }
 
     interface CacheResult {
-        memory: { current: number; high: number; max: number; };
-        files: { current: number; max: number; };
-        items: { current: number; max: number; };
+        memory: { current: number; high: number; max: number };
+        files: { current: number; max: number };
+        items: { current: number; max: number };
     }
 
-    type Matrix3x3 = [
-        [number, number, number],
-        [number, number, number],
-        [number, number, number]
-    ];
+    type Matrix3x3 = [[number, number, number], [number, number, number], [number, number, number]];
 }
 
 export = sharp;

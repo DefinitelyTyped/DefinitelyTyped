@@ -87,6 +87,7 @@ declare namespace prompts {
         max?: number;
         float?: boolean;
         round?: number;
+        instructions?: string | boolean;
         increment?: number;
         separator?: string;
         active?: string;

@@ -1,13 +1,12 @@
-// tslint:disable:no-duplicate-imports
+import * as langmap from 'langmap';
 
-import langmap1 from 'langmap';
-import * as langmap2 from 'langmap';
+// $ExpectType LanguageMappingList
+langmap;
 
-const val1 = langmap1['en-US']; // { nativeName: string, englishName: string }
-const val2 = langmap2['en-US']; // { nativeName: string, englishName: string }
+// $ExpectType Language
+const value = langmap['en-US'];
 
-val1.englishName;
-val1.nativeName;
-
-val2.englishName;
-val2.nativeName;
+// $ExpectType string
+value.englishName;
+// $ExpectType string
+value.nativeName;

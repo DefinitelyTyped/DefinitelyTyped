@@ -44,6 +44,8 @@ interface Person {
 }
 
 const personFactory = Factory.define<Person>('Person').attr('firstName', 'John').sequence('id');
+// building a list with a type definition returns that type
+Factory.buildList<Person>('Person', 420, { age: 69 })
 
 // Building does not require the first (attributes) and second (options) arguments
 personFactory.build();

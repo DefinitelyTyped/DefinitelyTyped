@@ -2108,37 +2108,6 @@ namespace child_process_tests {
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     }
 
-    {
-        const forked = childProcess.fork('./', ['asd'], {
-            windowsVerbatimArguments: true,
-            silent: false,
-            stdio: ["inherit"],
-            execPath: '',
-            execArgv: ['asda']
-        });
-        const exitCode: number | null = forked.exitCode;
-        const signalCode: number | null = forked.signalCode;
-        const ipc: stream.Pipe = forked.channel;
-        const hasRef: boolean = ipc.hasRef();
-        ipc.close();
-        ipc.unref();
-        ipc.ref();
-    }
-
-    {
-        const forked = childProcess.fork('./', {
-            windowsVerbatimArguments: true,
-            silent: false,
-            stdio: ["inherit"],
-            execPath: '',
-            execArgv: ['asda']
-        });
-    }
-
-    {
-        const forked = childProcess.fork('./');
-    }
-
     async function testPromisify() {
         const execFile = util.promisify(childProcess.execFile);
         let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
@@ -4074,7 +4043,7 @@ namespace inspector_tests {
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string | undefined = inspector.url();
+        const inspectorUrl: string = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

@@ -36,8 +36,8 @@ const CalendarDayFullTest: React.FC = () => (
         onDayMouseEnter={(day, event) => {}}
         onDayMouseLeave={(day, event) => {}}
         phrases={{
-            chooseAvailableDate(phraseArg) {
-                return phraseArg.date;
+            chooseAvailableDate({ date }) {
+                return date;
             },
         }}
         renderDayContents={(day, modifiers) => day.format('d')}

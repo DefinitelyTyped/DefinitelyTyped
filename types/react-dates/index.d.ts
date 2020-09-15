@@ -2,6 +2,7 @@
 // Project: https://github.com/airbnb/react-dates
 // Definitions by: Artur Ampilogov <https://github.com/ArturAmpilogov>
 //                 Nathan Holland <https://github.com/NathanNZ>
+//                 Chris Griebel <https://github.com/cgriebel>
 //                 Jason Unger <https://github.com/jsonunger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -434,7 +435,7 @@ export interface CalendarDayPhrases {
 //
 // components/CalendarDay.jsx
 export interface CalendarDayShape {
-    day?: moment.Moment;
+    day?: moment.Moment | null;
     daySize?: number;
     isOutsideDay?: boolean;
     modifiers?: ModifiersShape;

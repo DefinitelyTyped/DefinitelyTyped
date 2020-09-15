@@ -1,30 +1,32 @@
 import { Coordinate } from '../coordinate';
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import { ObjectEvent } from '../Object';
-import { ProjectionLike, TransformFunction } from '../proj';
-import Geometry from './Geometry';
+import { ProjectionLike } from '../proj';
 import GeometryLayout from './GeometryLayout';
 import GeometryType from './GeometryType';
 import SimpleGeometry from './SimpleGeometry';
 
 export default class Circle extends SimpleGeometry {
     constructor(center: Coordinate, opt_radius?: number, opt_layout?: GeometryLayout);
+    protected computeExtent(extent: Extent): Extent;
     clone(): Circle;
     closestPointXY(x: number, y: number, closestPoint: Coordinate, minSquaredDistance: number): number;
+    containsXY(x: number, y: number): boolean;
     getCenter(): Coordinate;
     getCoordinates(): any[];
     getRadius(): number;
     getType(): GeometryType;
     intersectsExtent(extent: Extent): boolean;
+    rotate(angle: number, anchor: Coordinate): void;
     setCenter(center: Coordinate): void;
     setCenterAndRadius(center: Coordinate, radius: number, opt_layout?: GeometryLayout): void;
     setCoordinates(coordinates: any[], opt_layout?: GeometryLayout): void;
     setRadius(radius: number): void;
-    simplifyTransformed(squaredTolerance: number, opt_transform?: TransformFunction): Geometry;
     transform(source: ProjectionLike, destination: ProjectionLike): Circle;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    translate(deltaX: number, deltaY: number): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
