@@ -1,4 +1,4 @@
-import './ts3.5/jsdom-tests';
+import './test/core';
 import jsdom = require('jsdom');
 
 const dom = new jsdom.JSDOM();
