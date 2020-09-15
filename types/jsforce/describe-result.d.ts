@@ -243,6 +243,11 @@ export interface DescribeSObjectOptions {
     ifModifiedSince?: string;
 }
 
+export interface BatchDescribeSObjectOptions {
+    types: string[];
+    autofetch?: boolean;
+}
+
 export interface DescribeGlobalResult {
     encoding: string;
     maxBatchSize: number;
