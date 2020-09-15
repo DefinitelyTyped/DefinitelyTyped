@@ -346,6 +346,10 @@ declare module "http" {
          */
         maxSockets?: number;
         /**
+         * Maximum number of sockets allowed for all hosts in total. Each request will use a new socket until the maximum is reached. Default: Infinity.
+         */
+        maxTotalSockets?: number;
+        /**
          * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
          */
         maxFreeSockets?: number;
