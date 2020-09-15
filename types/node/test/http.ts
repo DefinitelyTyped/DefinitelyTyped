@@ -138,6 +138,7 @@ import * as net from 'net';
         keepAlive: true,
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
+        maxTotalSockets: Infinity,
         maxFreeSockets: 256,
         timeout: 15000,
         scheduling: 'lifo',
