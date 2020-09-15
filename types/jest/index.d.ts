@@ -709,25 +709,6 @@ declare namespace jest {
         not: T
     };
 
-    interface Matchers<R, T = {}> {
-        /**
-         * For comparing numbers or big integer values.
-         */
-        toBeGreaterThan(expected: number | bigint): R;
-        /**
-         * For comparing numbers or big integer values.
-         */
-        toBeGreaterThanOrEqual(expected: number | bigint): R;
-        /**
-         * For comparing numbers or big integer values.
-         */
-        toBeLessThan(expected: number | bigint): R;
-        /**
-         * For comparing numbers or big integer values.
-         */
-        toBeLessThanOrEqual(expected: number | bigint): R;
-    }
-
     // should be R extends void|Promise<void> but getting dtslint error
     interface Matchers<R, T = {}> {
         /**
@@ -803,13 +784,13 @@ declare namespace jest {
          */
         toBeFalsy(): R;
         /**
-         * For comparing floating point numbers.
+         * For comparing floating point or big integer numbers.
          */
-        toBeGreaterThan(expected: number): R;
+        toBeGreaterThan(expected: number | bigint): R;
         /**
-         * For comparing floating point numbers.
+         * For comparing floating point or big integer numbers.
          */
-        toBeGreaterThanOrEqual(expected: number): R;
+        toBeGreaterThanOrEqual(expected: number | bigint): R;
         /**
          * Ensure that an object is an instance of a class.
          * This matcher uses `instanceof` underneath.
@@ -820,13 +801,13 @@ declare namespace jest {
         // tslint:disable-next-line: no-unnecessary-generics
         toBeInstanceOf<E = any>(expected: E): R;
         /**
-         * For comparing floating point numbers.
+         * For comparing floating point or big integer numbers.
          */
-        toBeLessThan(expected: number): R;
+        toBeLessThan(expected: number | bigint): R;
         /**
-         * For comparing floating point numbers.
+         * For comparing floating point or big integer numbers.
          */
-        toBeLessThanOrEqual(expected: number): R;
+        toBeLessThanOrEqual(expected: number | bigint): R;
         /**
          * This is the same as `.toBe(null)` but the error messages are a bit nicer.
          * So use `.toBeNull()` when you want to check that something is null.
