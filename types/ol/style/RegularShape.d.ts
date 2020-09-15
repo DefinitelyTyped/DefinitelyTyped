@@ -31,14 +31,15 @@ export interface RenderOptions {
 export default class RegularShape extends ImageStyle {
     constructor(options: Options);
     protected radius_: number;
+    protected createRenderOptions(): RenderOptions;
     protected render(): void;
     clone(): RegularShape;
     getAnchor(): number[];
     getAngle(): number;
     getFill(): Fill;
-    getHitDetectionImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
+    getHitDetectionImage(): HTMLCanvasElement;
     getHitDetectionImageSize(): Size;
-    getImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
+    getImage(pixelRatio: number): HTMLCanvasElement;
     getImageSize(): Size;
     getImageState(): ImageState;
     getOrigin(): number[];
@@ -47,7 +48,7 @@ export default class RegularShape extends ImageStyle {
     getRadius2(): number;
     getSize(): Size;
     getStroke(): Stroke;
-    listenImageChange<T>(listener: (p0: BaseEvent) => void): void;
+    listenImageChange(listener: (p0: BaseEvent) => void): void;
     load(): void;
-    unlistenImageChange<T>(listener: (p0: BaseEvent) => void): void;
+    unlistenImageChange(listener: (p0: BaseEvent) => void): void;
 }

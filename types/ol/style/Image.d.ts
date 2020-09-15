@@ -6,7 +6,7 @@ export interface Options {
     opacity: number;
     rotateWithView: boolean;
     rotation: number;
-    scale: number;
+    scale: number | Size;
     displacement: number[];
 }
 export default abstract class ImageStyle {
@@ -14,7 +14,7 @@ export default abstract class ImageStyle {
     clone(): ImageStyle;
     abstract getAnchor(): number[];
     getDisplacement(): number[];
-    abstract getHitDetectionImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
+    abstract getHitDetectionImage(): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
     abstract getHitDetectionImageSize(): Size;
     abstract getImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
     abstract getImageSize(): Size;
@@ -23,13 +23,14 @@ export default abstract class ImageStyle {
     abstract getOrigin(): number[];
     getRotateWithView(): boolean;
     getRotation(): number;
-    getScale(): number;
+    getScale(): number | Size;
+    getScaleArray(): Size;
     abstract getSize(): Size;
-    abstract listenImageChange<T>(listener: (p0: BaseEvent) => void): void;
+    abstract listenImageChange(listener: (p0: BaseEvent) => void): void;
     abstract load(): void;
     setOpacity(opacity: number): void;
     setRotateWithView(rotateWithView: boolean): void;
     setRotation(rotation: number): void;
-    setScale(scale: number): void;
-    abstract unlistenImageChange<T>(listener: (p0: BaseEvent) => void): void;
+    setScale(scale: number | Size): void;
+    abstract unlistenImageChange(listener: (p0: BaseEvent) => void): void;
 }

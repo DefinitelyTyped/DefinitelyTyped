@@ -4308,7 +4308,6 @@ import * as constants from 'constants';
     )();
     perf_hooks.performance.mark('end');
 
-    const { duration } = perf_hooks.performance.getEntriesByName('discover')[0];
     const timeOrigin = perf_hooks.performance.timeOrigin;
 
     const performanceObserverCallback: perf_hooks.PerformanceObserverCallback = (list, obs) => {
@@ -4319,7 +4318,6 @@ import * as constants from 'constants';
             startTime,
         } = list.getEntries()[0];
         obs.disconnect();
-        perf_hooks.performance.clearFunctions();
     };
     const obs = new perf_hooks.PerformanceObserver(performanceObserverCallback);
     obs.observe({
@@ -5058,4 +5056,6 @@ import moduleModule = require('module');
     const s = 'foo';
     const s1: string = s.trimLeft();
     const s2: string = s.trimRight();
+    const s3: string = s.trimStart();
+    const s4: string = s.trimEnd();
 }

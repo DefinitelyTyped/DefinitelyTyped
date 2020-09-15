@@ -1,3 +1,5 @@
+export const cosh: (x: number) => number;
+export const log2: (x: number) => number;
 export function clamp(value: number, min: number, max: number): number;
 export function lerp(a: number, b: number, x: number): number;
 export function modulo(a: number, b: number): number;

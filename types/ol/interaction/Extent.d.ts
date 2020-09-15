@@ -1,12 +1,16 @@
 import { Coordinate } from '../coordinate';
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
+import { Condition } from '../events/condition';
 import BaseEvent from '../events/Event';
 import { Extent as Extent_1 } from '../extent';
+import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
+import PluggableMap from '../PluggableMap';
 import { StyleFunction, StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
 export interface Options {
+    condition?: Condition;
     extent?: Extent_1;
     boxStyle?: StyleLike;
     pixelTolerance?: number;
@@ -17,8 +21,13 @@ export default class Extent extends PointerInteraction {
     constructor(opt_options?: Options);
     getExtent(): Extent_1;
     getExtentInternal(): Extent_1;
+    handleDownEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    handleDragEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): void;
+    handleEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    handleUpEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
     setExtent(extent: Extent_1): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    setMap(map: PluggableMap): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
@@ -37,7 +46,7 @@ export default class Extent extends PointerInteraction {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-export class ExtentEvent extends BaseEvent {
+declare class ExtentEvent extends BaseEvent {
     constructor(extent: Extent_1);
     extent: Extent_1;
 }

@@ -11,7 +11,7 @@ import * as R from 'ramda';
     return [a, b, c];
   }
 
-  const u1: (a: any) => any = R.unary(takesOneArg);
-  const u2: (a: any) => any = R.unary(takesTwoArgs);
-  const u3: (a: any) => any = R.unary(takesThreeArgs);
+  const u1: (a: number) => number[] = R.unary(takesOneArg);
+  const u2: (a: number) => number[] = R.unary(takesTwoArgs);
+  const u3: (a: number) => number[] = R.unary(takesThreeArgs);
 };

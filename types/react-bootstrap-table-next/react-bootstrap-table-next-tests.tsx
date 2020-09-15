@@ -7,6 +7,7 @@ import BootstrapTable, {
     ColumnDescription,
     RowSelectionType,
     ROW_SELECT_SINGLE,
+    ExpandRowProps,
 } from 'react-bootstrap-table-next';
 
 interface Product {
@@ -180,3 +181,19 @@ render(
     />,
     document.getElementById('app'),
 );
+
+const expandRow: ExpandRowProps<Product> = {
+    renderer: (row: Product) => {
+        return (
+            <div></div>
+        );
+    },
+    expanded: [1, 2],
+    onExpand: (row, isExpand, rowIndex, e) => <div></div>,
+    onExpandAll: (isExpandAll, results) => <div></div>,
+    showExpandColumn: true,
+    expandColumnPosition: 'right',
+    expandByColumnOnly: true,
+    expandHeaderColumnRenderer: ({ isAnyExpands }) => <br />,
+    expandColumnRenderer: ({ expanded }) => <br />,
+};

@@ -47,7 +47,8 @@ const _ = webpack({
             }),
             // minify
             new TerserPlugin({
-                minify: (file, sourceMap) => {
+                minify: (file, sourceMap, minimizerOptions) => {
+                    minimizerOptions!; // $ExpectType MinifyOptions
                     const results: TerserPlugin.MinifyResult = {
                         code: '',
                         extractedComments: [''],

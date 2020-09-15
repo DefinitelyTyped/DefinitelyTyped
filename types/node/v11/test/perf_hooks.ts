@@ -6,7 +6,6 @@ performance.mark('start');
 )();
 performance.mark('end');
 
-const { duration } = performance.getEntriesByName('discover')[0];
 const timeOrigin = performance.timeOrigin;
 
 const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => {
@@ -17,7 +16,6 @@ const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => 
         startTime,
     } = list.getEntries()[0];
     obs.disconnect();
-    performance.clearFunctions();
 };
 const obs = new PerformanceObserver(performanceObserverCallback);
 obs.observe({
