@@ -33,7 +33,7 @@ interface MockJaxSettings {
     data?: any;
     type?: string;
     headers?: MockJaxSettingsHeaders;
-    logging?: boolean;
+    logging?: boolean | number;
     status?: number;
     statusText?: string;
     responseTime?: number;
