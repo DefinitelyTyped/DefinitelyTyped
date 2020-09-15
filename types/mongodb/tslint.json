@@ -3,7 +3,6 @@
     "rules": {
         "await-promise": false,
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
         "interface-name": false,
         "interface-over-type-literal": false,
@@ -13,7 +12,6 @@
         "no-padding": false,
         "no-unnecessary-generics": false,
         "object-literal-shorthand": false,
-        "prefer-method-signature": false,
         "space-before-function-paren": false,
         "unified-signatures": false,
         "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
