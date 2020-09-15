@@ -71,7 +71,17 @@ declare var module: NodeModule;
 declare var exports: any;
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
+type BufferEncoding =
+    | 'ascii'
+    | 'utf8'
+    | 'utf-8'
+    | 'utf16le'
+    | 'ucs2'
+    | 'ucs-2'
+    | 'base64'
+    | 'latin1'
+    | 'binary'
+    | 'hex';
 
 /**
  * Raw data is stored in instances of the Buffer class.
@@ -144,7 +154,11 @@ declare class Buffer extends Uint8Array {
      * A `TypeError` will be thrown if {obj} has not mentioned methods or is not of other type appropriate for `Buffer.from()` variants.
      * @param obj An object supporting `Symbol.toPrimitive` or `valueOf()`.
      */
-    static from(obj: { valueOf(): string | object } | { [Symbol.toPrimitive](hint: 'string'): string }, byteOffset?: number, length?: number): Buffer;
+    static from(
+        obj: { valueOf(): string | object } | { [Symbol.toPrimitive](hint: 'string'): string },
+        byteOffset?: number,
+        length?: number,
+    ): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -178,7 +192,7 @@ declare class Buffer extends Uint8Array {
      */
     static byteLength(
         string: string | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
-        encoding?: BufferEncoding
+        encoding?: BufferEncoding,
     ): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
@@ -235,7 +249,7 @@ declare class Buffer extends Uint8Array {
         targetStart?: number,
         targetEnd?: number,
         sourceStart?: number,
-        sourceEnd?: number
+        sourceEnd?: number,
     ): number;
     copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     /**
@@ -308,10 +322,10 @@ declare class Buffer extends Uint8Array {
 }
 
 /*----------------------------------------------*
-*                                               *
-*               GLOBAL INTERFACES               *
-*                                               *
-*-----------------------------------------------*/
+ *                                               *
+ *               GLOBAL INTERFACES               *
+ *                                               *
+ *-----------------------------------------------*/
 declare namespace NodeJS {
     interface InspectOptions {
         /**
@@ -443,7 +457,7 @@ declare namespace NodeJS {
         pause(): this;
         resume(): this;
         isPaused(): boolean;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean }): T;
         unpipe(destination?: WritableStream): this;
         unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
@@ -459,7 +473,7 @@ declare namespace NodeJS {
         end(str: string, encoding?: BufferEncoding, cb?: () => void): void;
     }
 
-    interface ReadWriteStream extends ReadableStream, WritableStream { }
+    interface ReadWriteStream extends ReadableStream, WritableStream {}
 
     interface Global {
         Array: typeof Array;
@@ -545,7 +559,16 @@ declare namespace NodeJS {
         refresh(): this;
     }
 
-    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+    type TypedArray =
+        | Uint8Array
+        | Uint8ClampedArray
+        | Uint16Array
+        | Uint32Array
+        | Int8Array
+        | Int16Array
+        | Int32Array
+        | Float32Array
+        | Float64Array;
     type ArrayBufferView = TypedArray | DataView;
 
     interface Require {
@@ -561,7 +584,7 @@ declare namespace NodeJS {
     }
 
     interface RequireResolve {
-        (id: string, options?: { paths?: string[]; }): string;
+        (id: string, options?: { paths?: string[] }): string;
         paths(request: string): string[] | null;
     }
 
@@ -577,7 +600,7 @@ declare namespace NodeJS {
         filename: string;
         loaded: boolean;
         /** @deprecated since 14.6.0 Please use `require.main` and `module.children` instead. */
-        parent: Module | null | undefined;
+        parent: Module | null;
         children: Module[];
         /**
          * @since 11.14.0
