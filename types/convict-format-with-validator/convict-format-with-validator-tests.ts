@@ -8,11 +8,11 @@ convictValidators.email.validate;
 convictValidators.email.coerce;
 
 // $ExpectType string | undefined
-convictValidators.ipAddress.name;
+convictValidators.ipaddress.name;
 // $ExpectType ((val: any) => void) | undefined
-convictValidators.ipAddress.validate;
+convictValidators.ipaddress.validate;
 // $ExpectType ((val: any) => any) | undefined
-convictValidators.ipAddress.coerce;
+convictValidators.ipaddress.coerce;
 
 // $ExpectType string | undefined
 convictValidators.url.name;

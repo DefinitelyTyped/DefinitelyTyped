@@ -8,7 +8,7 @@ import * as convict from 'convict';
 declare namespace convictValidators {
     interface validators {
         email: convict.Format;
-        ipAddress: convict.Format;
+        ipaddress: convict.Format;
         url: convict.Format;
     }
 }
