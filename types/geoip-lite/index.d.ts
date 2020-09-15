@@ -33,9 +33,16 @@ declare namespace mod {
         area: number;
     }
 
-    export function lookup(ip: string): null | Lookup;
-    export function pretty(ip: number): string;
-    export function startWatchingDataUpdate(): void;
-    export function stopWatchingDataUpdate(): void;
+    interface AsyncCallback {
+        (err?: Error): void;
+    }
+
+    export function lookup(ip: string | number): null | Lookup;
+    export function pretty(ip: string | number | [string | number]): string;
+    export function startWatchingDataUpdate(cb?: AsyncCallback): void;
+    export function stopWatchingDataUpdate(cb?: AsyncCallback): void;
+    export function clear(): void;
+    export function reloadData(cb?: AsyncCallback): void;
+    export function reloadDataSync(): void;
 }
 export = mod;
