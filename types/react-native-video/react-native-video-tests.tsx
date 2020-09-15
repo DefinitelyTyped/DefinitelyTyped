@@ -18,4 +18,5 @@ import Video, { FilterType } from 'react-native-video';
     filter={FilterType.MONO}
     selectedAudioTrack={{ type: 'index', value: 6 }}
     selectedVideoTrack={{ type: 'auto' }}
+    preventsDisplaySleepDuringVideoPlayback={true}
 />;
