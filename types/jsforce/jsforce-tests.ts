@@ -7,7 +7,7 @@ import * as sf from 'jsforce';
 import { RecordReference, Record } from 'jsforce/record';
 import { SObject } from 'jsforce/salesforce-object';
 import { RecordResult } from 'jsforce/record-result';
-import { DescribeSObjectOptions, DescribeSObjectResult } from './describe-result';
+import { DescribeSObjectOptions, DescribeSObjectResult } from 'jsforce/describe-result';
 
 const salesforceConnection: sf.Connection = new sf.Connection({
     instanceUrl: '',
