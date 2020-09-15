@@ -37,6 +37,10 @@ declare namespace mod {
         (err?: Error): void;
     }
 
+    export type CmpArgs = number | [number];
+    export type CmpResult = 1 | -1 | 0 | null;
+
+    export function cmp(a: CmpArgs, b: CmpArgs): null | Lookup;
     export function lookup(ip: string | number): null | Lookup;
     export function pretty(ip: string | number | [string | number]): string;
     export function startWatchingDataUpdate(cb?: AsyncCallback): void;

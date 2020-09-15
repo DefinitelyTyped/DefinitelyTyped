@@ -30,3 +30,5 @@ geoip.reloadData(() => {});
 
 // Should work with err in callback
 geoip.reloadData(err => {});
+
+geoip.cmp(1, 2);
