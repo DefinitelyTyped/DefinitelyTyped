@@ -5989,6 +5989,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "xumm-sdk",
+            "typingsPackageName": "xumm-api",
+            "sourceRepoURL": "https://github.com/XRPL-Labs/XUMM-SDK",
+            "asOfVersion": "0.1.3"
+        },
+        {
             "libraryName": "yaml",
             "typingsPackageName": "yaml",
             "sourceRepoURL": "https://github.com/eemeli/yaml",
