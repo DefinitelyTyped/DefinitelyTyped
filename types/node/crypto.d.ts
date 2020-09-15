@@ -120,7 +120,7 @@ declare module "crypto" {
     function createHash(algorithm: string, options?: HashOptions): Hash;
     function createHmac(algorithm: string, key: BinaryLike | KeyObject, options?: stream.TransformOptions): Hmac;
 
-    type Utf8AsciiLatin1Encoding = "utf8" | "ascii" | "latin1";
+    type Utf8AsciiLatin1Encoding = "utf8" | "utf16le" | "ascii" | "latin1";
     type HexBase64Latin1Encoding = "latin1" | "hex" | "base64";
     type Utf8AsciiBinaryEncoding = "utf8" | "ascii" | "binary";
     type HexBase64BinaryEncoding = "binary" | "base64" | "hex";

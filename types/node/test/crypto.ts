@@ -31,6 +31,11 @@ import { promisify } from 'util';
 }
 
 {
+    const hashResult: string = crypto.createHash('md5')
+        .update('world', 'utf16le').digest();
+}
+
+{
     // crypto_hmac_string_test
     const hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
 }
