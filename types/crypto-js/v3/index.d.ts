@@ -10,7 +10,6 @@ export as namespace CryptoJS;
 
 declare var CryptoJS: CryptoJS.Hashes;
 declare namespace CryptoJS {
-
     interface Base {
         create(): any;
     }
@@ -18,7 +17,7 @@ declare namespace CryptoJS {
     interface BufferedBlockAlgorithm extends Base {}
 
     interface Hasher extends BufferedBlockAlgorithm {
-        update(messageUpdate: WordArray|string): Hasher;
+        update(messageUpdate: WordArray | string): Hasher;
     }
 
     interface Cipher extends BufferedBlockAlgorithm {
@@ -32,7 +31,11 @@ declare namespace CryptoJS {
 
     interface CipherHelper {
         encrypt(message: string | LibWordArray, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
-        decrypt(encryptedMessage: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): DecryptedMessage;
+        decrypt(
+            encryptedMessage: string | WordArray,
+            secretPassphrase: string | WordArray,
+            option?: CipherOption,
+        ): DecryptedMessage;
     }
     interface Encryptor {
         process(messagePart: string): string;
@@ -43,8 +46,8 @@ declare namespace CryptoJS {
         finalize(): string;
     }
     interface LibWordArray {
-        sigBytes: number,
-        words: number[],
+        sigBytes: number;
+        words: number[];
         toString(encoder?: Encoder): string;
     }
     export interface WordArray {

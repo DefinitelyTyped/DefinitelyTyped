@@ -15,50 +15,48 @@ wordArray = CryptoJS.format.OpenSSL('some message', 'some key');
 
 var FR = new FileReader();
 FR.onloadend = () => {
-    var hash = CryptoJS.SHA1(CryptoJS.lib.WordArray.create(FR.result)).toString()
-}
+    var hash = CryptoJS.SHA1(CryptoJS.lib.WordArray.create(FR.result)).toString();
+};
 
 var randomWordArrayEncoded = CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
 
-const libWordArray: CryptoJS.LibWordArray = CryptoJS.lib.WordArray.create("Message");
-const encKey = CryptoJS.AES.encrypt(libWordArray, "Key");
+const libWordArray: CryptoJS.LibWordArray = CryptoJS.lib.WordArray.create('Message');
+const encKey = CryptoJS.AES.encrypt(libWordArray, 'Key');
 
 // Ciphers
 var encrypted: CryptoJS.WordArray;
 var decrypted: CryptoJS.DecryptedMessage;
 
-encrypted = <CryptoJS.WordArray>CryptoJS.AES.encrypt("Message", "Secret Passphrase");
-decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+encrypted = <CryptoJS.WordArray>CryptoJS.AES.encrypt('Message', 'Secret Passphrase');
+decrypted = CryptoJS.AES.decrypt(encrypted, 'Secret Passphrase');
 
-encrypted = <CryptoJS.WordArray>CryptoJS.DES.encrypt("Message", "Secret Passphrase");
-decrypted = CryptoJS.DES.decrypt(encrypted, "Secret Passphrase");
+encrypted = <CryptoJS.WordArray>CryptoJS.DES.encrypt('Message', 'Secret Passphrase');
+decrypted = CryptoJS.DES.decrypt(encrypted, 'Secret Passphrase');
 
-encrypted = CryptoJS.TripleDES.encrypt("Message", "Secret Passphrase");
-decrypted = CryptoJS.TripleDES.decrypt(encrypted, "Secret Passphrase");
+encrypted = CryptoJS.TripleDES.encrypt('Message', 'Secret Passphrase');
+decrypted = CryptoJS.TripleDES.decrypt(encrypted, 'Secret Passphrase');
 
+encrypted = CryptoJS.Rabbit.encrypt('Message', 'Secret Passphrase');
+decrypted = CryptoJS.Rabbit.decrypt(encrypted, 'Secret Passphrase');
 
-encrypted = CryptoJS.Rabbit.encrypt("Message", "Secret Passphrase");
-decrypted = CryptoJS.Rabbit.decrypt(encrypted, "Secret Passphrase");
+encrypted = CryptoJS.RC4.encrypt('Message', 'Secret Passphrase');
+decrypted = CryptoJS.RC4.decrypt(encrypted, 'Secret Passphrase');
 
-encrypted = CryptoJS.RC4.encrypt("Message", "Secret Passphrase");
-decrypted = CryptoJS.RC4.decrypt(encrypted, "Secret Passphrase");
-
-encrypted = CryptoJS.RC4Drop.encrypt("Message", "Secret Passphrase");
-encrypted = CryptoJS.RC4Drop.encrypt("Message", "Secret Passphrase", { drop: 3072 / 4 });
-decrypted = CryptoJS.RC4Drop.decrypt(encrypted, "Secret Passphrase", { drop: 3072 / 4 });
+encrypted = CryptoJS.RC4Drop.encrypt('Message', 'Secret Passphrase');
+encrypted = CryptoJS.RC4Drop.encrypt('Message', 'Secret Passphrase', { drop: 3072 / 4 });
+decrypted = CryptoJS.RC4Drop.decrypt(encrypted, 'Secret Passphrase', { drop: 3072 / 4 });
 
 var key = CryptoJS.enc.Hex.parse('000102030405060708090a0b0c0d0e0f');
 var iv = CryptoJS.enc.Hex.parse('101112131415161718191a1b1c1d1e1f');
-encrypted = CryptoJS.AES.encrypt("Message", key, { iv: iv });
+encrypted = CryptoJS.AES.encrypt('Message', key, { iv: iv });
 
-encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase", {
+encrypted = CryptoJS.AES.encrypt('Message', 'Secret Passphrase', {
     mode: CryptoJS.mode.CFB,
-    padding: CryptoJS.pad.AnsiX923
+    padding: CryptoJS.pad.AnsiX923,
 });
 
-
 // The Cipher Output
-encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase");
+encrypted = CryptoJS.AES.encrypt('Message', 'Secret Passphrase');
 alert(encrypted.key);
 // 74eb593087a982e2a6f5dded54ecd96d1fd0f3d44a58728cdcd40c55227522223
 alert(encrypted.iv);
@@ -71,10 +69,10 @@ alert(encrypted);
 // U2FsdGVkX1+iX5Ey7GqLND5UFUoV0b7rUJ2eEvHkYqA=
 
 var JsonFormatter = {
-    stringify: function(cipherParams: any) {
+    stringify: function (cipherParams: any) {
         // create json object with ciphertext
         var jsonObj: any = {
-            ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
+            ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64),
         };
         // optionally add iv and salt
         if (cipherParams.iv) {
@@ -91,7 +89,7 @@ var JsonFormatter = {
         var jsonObj = JSON.parse(jsonStr);
         // extract ciphertext from json object, and create cipher params object
         var cipherParams = (<any>CryptoJS).lib.CipherParams.create({
-            ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct)
+            ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct),
         });
         // optionally extract iv and salt
         if (jsonObj.iv) {
@@ -99,27 +97,27 @@ var JsonFormatter = {
         }
         if (jsonObj.s) {
             cipherParams.salt = CryptoJS.enc.Hex.parse(jsonObj.s);
-        } return cipherParams;
-    }
+        }
+        return cipherParams;
+    },
 };
-encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase", {
-    format: JsonFormatter
+encrypted = CryptoJS.AES.encrypt('Message', 'Secret Passphrase', {
+    format: JsonFormatter,
 });
 alert(encrypted);
 // {"ct":"tZ4MsEnfbcDOwqau68aOrQ==","iv":"8a8c8fd8fe33743d3638737ea4a00698","s":"ba06373c8f57179c"}
-decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase", {
-    format: JsonFormatter
+decrypted = CryptoJS.AES.decrypt(encrypted, 'Secret Passphrase', {
+    format: JsonFormatter,
 });
 alert(decrypted.toString(CryptoJS.enc.Utf8)); // Message
-
 
 // Progressive Ciphering
 var key = CryptoJS.enc.Hex.parse('000102030405060708090a0b0c0d0e0f');
 var iv = CryptoJS.enc.Hex.parse('101112131415161718191a1b1c1d1e1f');
 var aesEncryptor = CryptoJS.algo.AES.createEncryptor(key, { iv: iv });
-var ciphertextPart1 = aesEncryptor.process("Message Part 1");
-var ciphertextPart2 = aesEncryptor.process("Message Part 2");
-var ciphertextPart3 = aesEncryptor.process("Message Part 3");
+var ciphertextPart1 = aesEncryptor.process('Message Part 1');
+var ciphertextPart2 = aesEncryptor.process('Message Part 2');
+var ciphertextPart3 = aesEncryptor.process('Message Part 3');
 var ciphertextPart4 = aesEncryptor.finalize();
 var aesDecryptor = CryptoJS.algo.AES.createDecryptor(key, { iv: iv });
 var plaintextPart1 = aesDecryptor.process(ciphertextPart1);
@@ -127,7 +125,6 @@ var plaintextPart2 = aesDecryptor.process(ciphertextPart2);
 var plaintextPart3 = aesDecryptor.process(ciphertextPart3);
 var plaintextPart4 = aesDecryptor.process(ciphertextPart4);
 var plaintextPart5 = aesDecryptor.finalize();
-
 
 // Encoders
 var words = CryptoJS.enc.Base64.parse('SGVsbG8sIFdvcmxkIQ==');

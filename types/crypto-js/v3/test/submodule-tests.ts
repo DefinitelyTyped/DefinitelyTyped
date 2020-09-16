@@ -62,43 +62,40 @@ wordArray = SHA1('some message', 'some key', { any: true });
 wordArray = FormatOpenSSL('some message');
 wordArray = FormatOpenSSL('some message', 'some key');
 
-
 // Ciphers
 var encrypted: CryptoJS.WordArray;
 var decrypted: CryptoJS.DecryptedMessage;
 
-encrypted = <CryptoJS.WordArray>AES.encrypt("Message", "Secret Passphrase");
-decrypted = AES.decrypt(encrypted, "Secret Passphrase");
+encrypted = <CryptoJS.WordArray>AES.encrypt('Message', 'Secret Passphrase');
+decrypted = AES.decrypt(encrypted, 'Secret Passphrase');
 
-encrypted = <CryptoJS.WordArray>Core.DES.encrypt("Message", "Secret Passphrase");
-decrypted = Core.DES.decrypt(encrypted, "Secret Passphrase");
+encrypted = <CryptoJS.WordArray>Core.DES.encrypt('Message', 'Secret Passphrase');
+decrypted = Core.DES.decrypt(encrypted, 'Secret Passphrase');
 
-encrypted = TripleDES.encrypt("Message", "Secret Passphrase");
-decrypted = TripleDES.decrypt(encrypted, "Secret Passphrase");
+encrypted = TripleDES.encrypt('Message', 'Secret Passphrase');
+decrypted = TripleDES.decrypt(encrypted, 'Secret Passphrase');
 
+encrypted = Rabbit.encrypt('Message', 'Secret Passphrase');
+decrypted = Rabbit.decrypt(encrypted, 'Secret Passphrase');
 
-encrypted = Rabbit.encrypt("Message", "Secret Passphrase");
-decrypted = Rabbit.decrypt(encrypted, "Secret Passphrase");
+encrypted = RC4.encrypt('Message', 'Secret Passphrase');
+decrypted = RC4.decrypt(encrypted, 'Secret Passphrase');
 
-encrypted = RC4.encrypt("Message", "Secret Passphrase");
-decrypted = RC4.decrypt(encrypted, "Secret Passphrase");
-
-encrypted = Core.RC4Drop.encrypt("Message", "Secret Passphrase");
-encrypted = Core.RC4Drop.encrypt("Message", "Secret Passphrase", { drop: 3072 / 4 });
-decrypted = Core.RC4Drop.decrypt(encrypted, "Secret Passphrase", { drop: 3072 / 4 });
+encrypted = Core.RC4Drop.encrypt('Message', 'Secret Passphrase');
+encrypted = Core.RC4Drop.encrypt('Message', 'Secret Passphrase', { drop: 3072 / 4 });
+decrypted = Core.RC4Drop.decrypt(encrypted, 'Secret Passphrase', { drop: 3072 / 4 });
 
 var key = EncHex.parse('000102030405060708090a0b0c0d0e0f');
 var iv = EncHex.parse('101112131415161718191a1b1c1d1e1f');
-encrypted = AES.encrypt("Message", key, { iv: iv });
+encrypted = AES.encrypt('Message', key, { iv: iv });
 
-encrypted = AES.encrypt("Message", "Secret Passphrase", {
+encrypted = AES.encrypt('Message', 'Secret Passphrase', {
     mode: ModeCFB,
-    padding: PadAnsiX923
+    padding: PadAnsiX923,
 });
 
-
 // The Cipher Output
-encrypted = AES.encrypt("Message", "Secret Passphrase");
+encrypted = AES.encrypt('Message', 'Secret Passphrase');
 alert(encrypted.key);
 // 74eb593087a982e2a6f5dded54ecd96d1fd0f3d44a58728cdcd40c55227522223
 alert(encrypted.iv);
@@ -111,10 +108,10 @@ alert(encrypted);
 // U2FsdGVkX1+iX5Ey7GqLND5UFUoV0b7rUJ2eEvHkYqA=
 
 var JsonFormatter = {
-    stringify: function(cipherParams: any) {
+    stringify: function (cipherParams: any) {
         // create json object with ciphertext
         var jsonObj: any = {
-            ct: cipherParams.ciphertext.toString(EncBase64)
+            ct: cipherParams.ciphertext.toString(EncBase64),
         };
         // optionally add iv and salt
         if (cipherParams.iv) {
@@ -131,7 +128,7 @@ var JsonFormatter = {
         var jsonObj = JSON.parse(jsonStr);
         // extract ciphertext from json object, and create cipher params object
         var cipherParams = (<any>Core).lib.CipherParams.create({
-            ciphertext: EncBase64.parse(jsonObj.ct)
+            ciphertext: EncBase64.parse(jsonObj.ct),
         });
         // optionally extract iv and salt
         if (jsonObj.iv) {
@@ -139,27 +136,27 @@ var JsonFormatter = {
         }
         if (jsonObj.s) {
             cipherParams.salt = EncHex.parse(jsonObj.s);
-        } return cipherParams;
-    }
+        }
+        return cipherParams;
+    },
 };
-encrypted = AES.encrypt("Message", "Secret Passphrase", {
-    format: JsonFormatter
+encrypted = AES.encrypt('Message', 'Secret Passphrase', {
+    format: JsonFormatter,
 });
 alert(encrypted);
 // {"ct":"tZ4MsEnfbcDOwqau68aOrQ==","iv":"8a8c8fd8fe33743d3638737ea4a00698","s":"ba06373c8f57179c"}
-decrypted = AES.decrypt(encrypted, "Secret Passphrase", {
-    format: JsonFormatter
+decrypted = AES.decrypt(encrypted, 'Secret Passphrase', {
+    format: JsonFormatter,
 });
 alert(decrypted.toString(EncUtf8)); // Message
-
 
 // Progressive Ciphering
 var key = EncHex.parse('000102030405060708090a0b0c0d0e0f');
 var iv = EncHex.parse('101112131415161718191a1b1c1d1e1f');
 var aesEncryptor = Core.algo.AES.createEncryptor(key, { iv: iv });
-var ciphertextPart1 = aesEncryptor.process("Message Part 1");
-var ciphertextPart2 = aesEncryptor.process("Message Part 2");
-var ciphertextPart3 = aesEncryptor.process("Message Part 3");
+var ciphertextPart1 = aesEncryptor.process('Message Part 1');
+var ciphertextPart2 = aesEncryptor.process('Message Part 2');
+var ciphertextPart3 = aesEncryptor.process('Message Part 3');
 var ciphertextPart4 = aesEncryptor.finalize();
 var aesDecryptor = Core.algo.AES.createDecryptor(key, { iv: iv });
 var plaintextPart1 = aesDecryptor.process(ciphertextPart1);
@@ -167,7 +164,6 @@ var plaintextPart2 = aesDecryptor.process(ciphertextPart2);
 var plaintextPart3 = aesDecryptor.process(ciphertextPart3);
 var plaintextPart4 = aesDecryptor.process(ciphertextPart4);
 var plaintextPart5 = aesDecryptor.finalize();
-
 
 // Encoders
 var words = EncBase64.parse('SGVsbG8sIFdvcmxkIQ==');
