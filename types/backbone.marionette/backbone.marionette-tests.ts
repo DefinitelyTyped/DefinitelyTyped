@@ -114,19 +114,17 @@ class MyBaseView extends Marionette.View<MyModel> {
 }
 
 class MyView extends Marionette.View<MyModel> {
-    behaviors: any;
+    behaviors: any = {
+        DestroyWarn: {
+            message: 'hello'
+        }
+    };
 
     constructor(model: MyModel) {
         super({ model });
 
         this.ui = {
             destroy: '.destroy'
-        };
-
-        this.behaviors = {
-            DestroyWarn: {
-                message: 'hello'
-            }
         };
     }
 

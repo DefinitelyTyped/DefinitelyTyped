@@ -1,4 +1,4 @@
-import Serverless = require("../index");
+import Serverless = require('../index');
 
 declare namespace Service {
     interface Custom {
@@ -10,11 +10,21 @@ declare class Service {
     custom: Service.Custom;
 
     provider: {
-      compiledCloudFormationTemplate: {
-        Resources: any[];
-      };
+        compiledCloudFormationTemplate: {
+            Resources: {
+                [key: string]: any;
+            };
+            Outputs?: {
+                [key: string]: any;
+            };
+        };
 
-      name: string;
+        name: string;
+        stage: string;
+        region: string;
+        runtime?: string;
+        timeout?: number;
+        versionFunctions: boolean;
     };
     constructor(serverless: Serverless, data: {});
 

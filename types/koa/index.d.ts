@@ -1,8 +1,10 @@
-// Type definitions for Koa 2.x
+// Type definitions for Koa 2.11.0
 // Project: http://koajs.com
 // Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
 //                 jKey Lu <https://github.com/jkeylu>
 //                 Brice Bernard <https://github.com/brikou>
+//                 harryparkdotio <https://github.com/harryparkdotio>
+//                 Wooram Jun <https://github.com/chatoo2412>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -11,22 +13,24 @@
     import * as Koa from "koa"
     const app = new Koa()
 
-    async function (ctx: Koa.Context, next: Function) {
+    async function (ctx: Koa.Context, next: Koa.Next) {
       // ...
     }
 
  =============================================== */
 /// <reference types="node" />
-import * as accepts from "accepts";
-import * as Cookies from "cookies";
-import { EventEmitter } from "events";
-import { IncomingMessage, ServerResponse, Server } from "http";
+import * as accepts from 'accepts';
+import * as Cookies from 'cookies';
+import { EventEmitter } from 'events';
+import { IncomingMessage, ServerResponse, Server } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
-import httpAssert = require("http-assert");
-import * as Keygrip from "keygrip";
-import * as compose from "koa-compose";
-import { Socket, ListenOptions } from "net";
-import * as url from "url";
+import httpAssert = require('http-assert');
+import * as HttpErrors from 'http-errors';
+import * as Keygrip from 'keygrip';
+import * as compose from 'koa-compose';
+import { Socket, ListenOptions } from 'net';
+import * as url from 'url';
+import * as contentDisposition from 'content-disposition';
 
 declare interface ContextDelegatedRequest {
     /**
@@ -276,10 +280,11 @@ declare interface ContextDelegatedRequest {
     is(types: string[]): string | boolean;
 
     /**
-     * Return request header.
+     * Return request header. If the header is not set, will return an empty
+     * string.
      *
-     * The `Referrer` header field is special-cased,
-     * both `Referrer` and `Referer` are interchangeable.
+     * The `Referrer` header field is special-cased, both `Referrer` and
+     * `Referer` are interchangeable.
      *
      * Examples:
      *
@@ -290,7 +295,7 @@ declare interface ContextDelegatedRequest {
      *     // => "text/plain"
      *
      *     this.get('Something');
-     *     // => undefined
+     *     // => ''
      */
     get(field: string): string;
 }
@@ -344,9 +349,10 @@ declare interface ContextDelegatedResponse {
     redirect(url: string, alt?: string): void;
 
     /**
-     * Set Content-Disposition header to "attachment" with optional `filename`.
+     * Set Content-Disposition to "attachment" to signal the client to prompt for download.
+     * Optionally specify the filename of the download and some options.
      */
-    attachment(filename: string): void;
+    attachment(filename?: string, options?: contentDisposition.Options): void;
 
     /**
      * Return the response mime type void of
@@ -431,12 +437,17 @@ declare interface ContextDelegatedResponse {
     flushHeaders(): void;
 }
 
-declare class Application extends EventEmitter {
+declare class Application<
+    StateT = Application.DefaultState,
+    CustomT = Application.DefaultContext
+> extends EventEmitter {
     proxy: boolean;
-    middleware: Application.Middleware[];
+    proxyIpHeader: string;
+    maxIpsCount: number;
+    middleware: Application.Middleware<StateT, CustomT>[];
     subdomainOffset: number;
     env: string;
-    context: Application.BaseContext;
+    context: Application.BaseContext & CustomT;
     request: Application.BaseRequest;
     response: Application.BaseResponse;
     silent: boolean;
@@ -449,35 +460,14 @@ declare class Application extends EventEmitter {
      *
      *    http.createServer(app.callback()).listen(...)
      */
-    listen(
-        port?: number,
-        hostname?: string,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
-    listen(
-        port: number,
-        hostname?: string,
-        listeningListener?: () => void,
-    ): Server;
-    listen(
-        port: number,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): Server;
+    listen(port: number, hostname?: string, listeningListener?: () => void): Server;
+    listen(port: number, backlog?: number, listeningListener?: () => void): Server;
     listen(port: number, listeningListener?: () => void): Server;
-    listen(
-        path: string,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(path: string, backlog?: number, listeningListener?: () => void): Server;
     listen(path: string, listeningListener?: () => void): Server;
     listen(options: ListenOptions, listeningListener?: () => void): Server;
-    listen(
-        handle: any,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(handle: any, backlog?: number, listeningListener?: () => void): Server;
     listen(handle: any, listeningListener?: () => void): Server;
 
     /**
@@ -497,23 +487,25 @@ declare class Application extends EventEmitter {
      *
      * Old-style middleware will be converted.
      */
-    use(middleware: Application.Middleware): this;
+    use<NewStateT = {}, NewCustomT = {}>(
+        middleware: Application.Middleware<StateT & NewStateT, CustomT & NewCustomT>,
+    ): Application<StateT & NewStateT, CustomT & NewCustomT>;
 
     /**
      * Return a request handler callback
      * for node's native http/http2 server.
      */
-    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void;
+    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => Promise<void>;
 
     /**
      * Initialize a new context.
      *
      * @api private
      */
-    createContext(
+    createContext<StateT = Application.DefaultState>(
         req: IncomingMessage,
         res: ServerResponse,
-    ): Application.Context;
+    ): Application.ParameterizedContext<StateT>;
 
     /**
      * Default error handler.
@@ -524,7 +516,26 @@ declare class Application extends EventEmitter {
 }
 
 declare namespace Application {
-    type Middleware = compose.Middleware<Context>;
+    type DefaultStateExtends = any;
+    /**
+     * This interface can be augmented by users to add types to Koa's default state
+     */
+    interface DefaultState extends DefaultStateExtends {}
+
+    type DefaultContextExtends = {};
+    /**
+     * This interface can be augmented by users to add types to Koa's default context
+     */
+    interface DefaultContext extends DefaultContextExtends {
+        /**
+         * Custom properties.
+         */
+        [key: string]: any;
+    }
+
+    type Middleware<StateT = DefaultState, CustomT = DefaultContext> = compose.Middleware<
+        ParameterizedContext<StateT, CustomT>
+    >;
 
     interface BaseRequest extends ContextDelegatedRequest {
         /**
@@ -586,7 +597,11 @@ declare namespace Application {
         is(types: string[]): string;
 
         /**
-         * Return response header.
+         * Return response header. If the header is not set, will return an empty
+         * string.
+         *
+         * The `Referrer` header field is special-cased, both `Referrer` and
+         * `Referer` are interchangeable.
          *
          * Examples:
          *
@@ -595,6 +610,9 @@ declare namespace Application {
          *
          *     this.get('content-type');
          *     // => "text/plain"
+         *
+         *     this.get('Something');
+         *     // => ''
          */
         get(field: string): string;
 
@@ -609,9 +627,7 @@ declare namespace Application {
         toJSON(): any;
     }
 
-    interface BaseContext
-        extends ContextDelegatedRequest,
-            ContextDelegatedResponse {
+    interface BaseContext extends ContextDelegatedRequest, ContextDelegatedResponse {
         /**
          * util.inspect() implementation, which
          * just returns the JSON output.
@@ -680,7 +696,7 @@ declare namespace Application {
         request: Request;
     }
 
-    interface Context extends BaseContext {
+    interface ExtendableContext extends BaseContext {
         app: Application;
         request: Request;
         response: Response;
@@ -689,12 +705,26 @@ declare namespace Application {
         originalUrl: string;
         cookies: Cookies;
         accept: accepts.Accepts;
-        state: any;
         /**
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
         respond?: boolean;
     }
+
+    type ParameterizedContext<StateT = DefaultState, CustomT = DefaultContext> = ExtendableContext & {
+        state: StateT;
+    } & CustomT;
+
+    interface Context extends ParameterizedContext {}
+
+    type Next = () => Promise<any>;
+
+    /**
+     * A re-export of `HttpError` from the `http-assert` package.
+     *
+     * This is the error type that is thrown by `ctx.assert()` and `ctx.throw()`.
+     */
+    const HttpError: typeof HttpErrors.HttpError;
 }
 
 export = Application;

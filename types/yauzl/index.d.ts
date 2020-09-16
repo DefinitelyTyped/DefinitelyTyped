@@ -83,6 +83,7 @@ export interface Options {
     lazyEntries?: boolean;
     decodeStrings?: boolean;
     validateEntrySizes?: boolean;
+    strictFileNames?: boolean;
 }
 
 export function open(path: string, options: Options, callback?: (err?: Error, zipfile?: ZipFile) => void): void;

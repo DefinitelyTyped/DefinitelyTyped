@@ -48,6 +48,16 @@ const settings: tinymce.Settings = {
   table_advtab: false,
   table_cell_advtab: false,
   table_row_advtab: false,
+  spellchecker_rpc_url: 'https://mydomain.com',
+  spellchecker_language: 'en',
+  spellchecker_languages: 'US English=en,UK English=en_gb',
+  spellchecker_dialog: true,
+  spellchecker_whitelist: [
+      'itemOne',
+      'itemTwo'
+  ],
+  spellchecker_on_load: true,
+  spellchecker_active: true,
 };
 
 tinymce.init(settings);

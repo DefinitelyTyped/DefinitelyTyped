@@ -44,6 +44,8 @@ export function isSupported(): boolean;
 export function mkdir(path: string): Promise<DirectoryEntry>;
 export function readdir(path: string | DirectoryEntry, options?: {deep?: boolean}): Promise<FileEntry[]>;
 export function readFile(path: string | FileEntry, options: {type: 'ArrayBuffer'}): Promise<ArrayBuffer>;
+export function readFile(path: string | FileEntry, options: {type: 'Blob'}): Promise<Blob>;
+export function readFile(path: string | FileEntry, options: {type: 'File'}): Promise<File>;
 export function readFile(path: string | FileEntry, options?: {type?: TextType}): Promise<string>;
 export function rename(oldPath: string | FileEntry, newPath: string,  options?: {create?: boolean}): Promise<FileEntry>;
 export function rmdir(path: string | DirectoryEntry): Promise<boolean>;

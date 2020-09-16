@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "ajv": "^6.9.1"
+    }
+}

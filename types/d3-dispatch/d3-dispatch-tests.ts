@@ -15,7 +15,12 @@ interface Datum {
     b: string;
 }
 
+interface ContextObject {
+    about: string;
+}
+
 let dispatch: d3Dispatch.Dispatch<HTMLElement>;
+let dispatch2: d3Dispatch.Dispatch<ContextObject>;
 let callback: (this: HTMLElement, ...args: any[]) => void;
 let callbackOrUndef: ((this: HTMLElement, ...args: any[]) => void) | undefined;
 let undef: undefined;
@@ -24,6 +29,7 @@ let undef: undefined;
 
 // create new dispatch object
 dispatch = d3Dispatch.dispatch('foo', 'bar');
+dispatch2 = d3Dispatch.dispatch('start', 'end');
 
 function cbFn(this: HTMLElement, d: Datum, i: number) {
     console.log(this.baseURI ? this.baseURI : 'nada');
@@ -49,6 +55,8 @@ dispatch.on('bar', dispatch.on('bar')!);
 dispatch.call('foo');
 dispatch.call('foo', document.body);
 dispatch.call('foo', document.body, { a: 3, b: 'test' }, 1);
+
+dispatch2.call('start', {about: 'I am a context object'}, 'I am an argument');
 
 dispatch.apply('bar');
 dispatch.apply('bar', document.body);

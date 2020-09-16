@@ -8,6 +8,7 @@ import { DiffPerfdata } from './diff-perf-data';
 import { DiffOptions } from './diff-options';
 import { Buf } from './buf';
 import { ConvenientPatch } from './convenient-patch';
+import { DiffStats } from './diff-stats';
 
 export interface DiffFindOptions {
     version?: number;
@@ -31,7 +32,7 @@ export namespace Diff {
         UNTRACKED = 7,
         TYPECHANGE = 8,
         UNREADABLE = 9,
-        CONFLICTED = 10
+        CONFLICTED = 10,
     }
 
     const enum FIND {
@@ -50,14 +51,14 @@ export namespace Diff {
         DONT_IGNORE_WHITESPACE = 8192,
         EXACT_MATCH_ONLY = 16384,
         BREAK_REWRITES_FOR_RENAMES_ONLY = 32768,
-        REMOVE_UNMODIFIED = 65536
+        REMOVE_UNMODIFIED = 65536,
     }
 
     const enum FLAG {
         BINARY = 1,
         NOT_BINARY = 2,
         VALID_ID = 4,
-        EXISTS = 8
+        EXISTS = 8,
     }
 
     const enum FORMAT {
@@ -65,12 +66,12 @@ export namespace Diff {
         PATCH_HEADER = 2,
         RAW = 3,
         NAME_ONLY = 4,
-        NAME_STATUS = 5
+        NAME_STATUS = 5,
     }
 
     const enum FORMAT_EMAIL_FLAGS {
         FORMAT_EMAIL_NONE = 0,
-        FORMAT_EMAIL_EXCLUDE_SUBJECT_PATCH_MARKER = 1
+        FORMAT_EMAIL_EXCLUDE_SUBJECT_PATCH_MARKER = 1,
     }
 
     const enum LINE {
@@ -82,7 +83,7 @@ export namespace Diff {
         DEL_EOFNL = 60,
         FILE_HDR = 70,
         HUNK_HDR = 72,
-        BINARY = 66
+        BINARY = 66,
     }
 
     const enum OPTION {
@@ -114,7 +115,7 @@ export namespace Diff {
         SHOW_UNMODIFIED = 67108864,
         PATIENCE = 268435456,
         MINIMAL = 536870912,
-        SHOW_BINARY = 1073741824
+        SHOW_BINARY = 1073741824,
     }
 
     const enum STATS_FORMAT {
@@ -122,7 +123,7 @@ export namespace Diff {
         STATS_FULL = 1,
         STATS_SHORT = 2,
         STATS_NUMBER = 4,
-        STATS_INCLUDE_SUMMARY = 8
+        STATS_INCLUDE_SUMMARY = 8,
     }
 }
 
@@ -132,17 +133,26 @@ export class Diff {
      *
      *
      */
-    static blobToBuffer(oldBlob: Blob, oldAsPath: string,
-                        buffer: string, bufferAsPath: string, opts: DiffOptions, fileCb: Function, binaryCb: Function, hunkCb: Function, lineCb: Function): Promise<any>;
+    static blobToBuffer(
+        oldBlob?: Blob,
+        oldAsPath?: string,
+        buffer?: string,
+        bufferAsPath?: string,
+        opts?: DiffOptions,
+        fileCb?: Function,
+        binaryCb?: Function,
+        hunkCb?: Function,
+        lineCb?: Function,
+    ): Promise<any>;
     static fromBuffer(content: string, contentLen: number): Promise<Diff>;
-    static indexToWorkdir(repo: Repository, index: Index, opts?: DiffOptions): Promise<Diff>;
+    static indexToWorkdir(repo: Repository, index?: Index, opts?: DiffOptions): Promise<Diff>;
     static indexToIndex(repo: Repository, oldIndex: Index, newIndex: Index, opts?: DiffOptions): Promise<Diff>;
-    static treeToIndex(repo: Repository, oldTree: Tree, index: Index, opts?: DiffOptions): Promise<Diff>;
-    static treeToTree(repo: Repository, oldTree: Tree, new_tree: Tree, opts?: DiffOptions): Promise<Diff>;
-    static treeToWorkdir(repo: Repository, oldTree: Tree, opts?: DiffOptions): Promise<Diff>;
-    static treeToWorkdirWithIndex(repo: Repository, oldTree: Tree, opts?: DiffOptions): Promise<Diff>;
+    static treeToIndex(repo: Repository, oldTree?: Tree, index?: Index, opts?: DiffOptions): Promise<Diff>;
+    static treeToTree(repo: Repository, oldTree?: Tree, new_tree?: Tree, opts?: DiffOptions): Promise<Diff>;
+    static treeToWorkdir(repo: Repository, oldTree?: Tree, opts?: DiffOptions): Promise<Diff>;
+    static treeToWorkdirWithIndex(repo: Repository, oldTree?: Tree, opts?: DiffOptions): Promise<Diff>;
 
-    findSimilar(options: DiffFindOptions): Promise<number>;
+    findSimilar(options?: DiffFindOptions): Promise<number>;
     getDelta(idx: number): DiffDelta;
     getPerfdata(): Promise<DiffPerfdata>;
     numDeltas(): number;
@@ -154,4 +164,9 @@ export class Diff {
     patches(): Promise<ConvenientPatch[]>;
     merge(from: Diff): Promise<number>;
     toBuf(format: Diff.FORMAT): Promise<Buf>;
+
+    /**
+     * @returns - Structure containg the diff statistics.
+     */
+    getStats(): Promise<DiffStats>;
 }

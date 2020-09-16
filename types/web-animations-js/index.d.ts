@@ -1,11 +1,10 @@
 // Type definitions for web-animations-js 2.2
-// Project: https://github.com/web-animations/web-animations-js
+// Project: https://github.com/web-animations/web-animations-js, https://github.com/web-animations
 // Definitions by: Kristian Moerch <https://github.com/kritollm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type AnimationEffectTimingFillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type AnimationEffectTimingPlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
-type AnimationPlayState = "idle" | "running" | "paused" | "finished";
 
 interface AnimationPlaybackEvent {
     target: Animation;
@@ -68,18 +67,7 @@ interface ComputedTimingProperties {
     currentIteration: number | null;
 }
 
-declare class KeyframeEffect implements AnimationEffectReadOnly {
-    constructor(target: HTMLElement, effect: AnimationKeyFrame | AnimationKeyFrame[], timing: number | AnimationEffectTiming, id?: string);
-    activeDuration: number;
-    onsample: (timeFraction: number | null, effect: KeyframeEffect, animation: Animation) => void | undefined;
-    parent: KeyframeEffect | null;
-    target: HTMLElement;
-    timing: number;
-    getComputedTiming(): ComputedTimingProperties;
-    getFrames(): AnimationKeyFrame[];
-    remove(): void;
-}
-type AnimationEventListener = (this: Animation, evt: AnimationPlaybackEvent) => any;
+type AnimationEventListener = ((this: Animation, evt: AnimationPlaybackEvent) => any) | null;
 
 interface Animation extends EventTarget {
     currentTime: number | null;
@@ -88,7 +76,7 @@ interface Animation extends EventTarget {
     onfinish: AnimationEventListener;
     readonly playState: AnimationPlayState;
     playbackRate: number;
-    startTime: number;
+    startTime: number | null;
     cancel(): void;
     finish(): void;
     pause(): void;
@@ -96,15 +84,15 @@ interface Animation extends EventTarget {
     reverse(): void;
     addEventListener(type: "finish" | "cancel", handler: EventListener): void;
     removeEventListener(type: "finish" | "cancel", handler: EventListener): void;
-    effect: AnimationEffectReadOnly;
+    effect: AnimationEffect | null;
     readonly finished: Promise<Animation>;
     readonly ready: Promise<Animation>;
-    timeline: AnimationTimeline;
+    timeline: AnimationTimeline | null;
 }
 
 declare var Animation: {
     prototype: Animation;
-    new(effect?: AnimationEffectReadOnly, timeline?: AnimationTimeline): Animation;
+    new(effect?: AnimationEffect | null, timeline?: AnimationTimeline | null): Animation;
 };
 
 declare class SequenceEffect extends KeyframeEffect {
@@ -114,9 +102,9 @@ declare class GroupEffect extends KeyframeEffect {
     constructor(effects: KeyframeEffect[]);
 }
 interface Element {
-    animate(effect: AnimationKeyFrame | AnimationKeyFrame[], timing: number | AnimationEffectTiming): Animation;
+    animate(effect: AnimationKeyFrame | AnimationKeyFrame[] | null, timing: number | AnimationEffectTiming): Animation;
     getAnimations(): Animation[];
 }
 interface Document {
-    timeline: AnimationTimeline;
+    readonly timeline: AnimationTimeline;
 }

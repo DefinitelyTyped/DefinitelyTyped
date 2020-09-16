@@ -1,8 +1,7 @@
 // Type definitions for Jasmine 1.3
-// Project: http://pivotal.github.com/jasmine/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Project: https://jasmine.github.io/
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 
 declare function describe(description: string, specDefinitions: () => void): void;
 // declare function ddescribe(description: string, specDefinitions: () => void): void; is not a part of jasmine. It is something angular adds

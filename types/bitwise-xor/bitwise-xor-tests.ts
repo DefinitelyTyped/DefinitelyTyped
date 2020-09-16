@@ -1,10 +1,8 @@
+'use strict';
 
+import xor = require('bitwise-xor');
 
-"use strict";
+let b: Buffer;
 
-import xor = require("bitwise-xor");
-
-var b: Buffer;
-
-b = xor("a", "b");
-b = xor(new Buffer("a"), new Buffer("b"));
+b = xor('a', 'b');
+b = xor(new Buffer('a'), new Buffer('b'));

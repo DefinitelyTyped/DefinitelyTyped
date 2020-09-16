@@ -26,7 +26,7 @@ memoized.clear('bar', 7); // Dispose called with bar7 value
 memoized.delete('foo', 0);
 const mFn = memoize((hash: any) => {
     // body of memoized function
-}, { normalizer: (args: any) => {
+}, { normalizer: (args) => {
     // args is arguments object as accessible in memoized function
     return JSON.stringify(args[0]);
 } });
@@ -59,3 +59,9 @@ setTimeout(() => {
 setTimeout(() => {
   memoized('foo', 3);
 }, 1300);
+
+memoize((foo: string, bar: number) => 42, {
+  normalizer: ([foo, bar]) => { // normalizer argument should be typed
+    return foo + bar.toFixed();
+  }
+});

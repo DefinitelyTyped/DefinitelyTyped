@@ -1,16 +1,23 @@
 // Type definitions for nunjucks 3.1
-// Project: http://mozilla.github.io/nunjucks/
+// Project: http://mozilla.github.io/nunjucks/, https://github.com/mozilla/nunjucks
 // Definitions by: Ruben Slabbert <https://github.com/RubenSlabbert>
+//                 Matthew Burstein <https://github.com/MatthewBurstein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+export type TemplateCallback<T> = (
+  err: lib.TemplateError | null,
+  res: T | null,
+) => void;
+export type Callback<E, T> = (err: E | null, res: T | null) => void;
+
 export function render(name: string, context?: object): string;
-export function render(name: string, context?: object, callback?: (err: any, res: string) => any): void;
+export function render(name: string, context?: object, callback?: TemplateCallback<string>): void;
 
 export function renderString(src: string, context: object): string;
-export function renderString(src: string, context: object, callback?: (err: any, res: string) => any): void;
+export function renderString(src: string, context: object, callback?: TemplateCallback<string>): void;
 
-export function compile(src: string, env?: Environment, callback?: (err: any, res: Template) => any): Template;
+export function compile(src: string, env?: Environment, callback?: TemplateCallback<Template>): Template;
 
 export function precompile(path: string, opts?: PrecompileOptions): string;
 export function precompileString(src: string, opts?: PrecompileOptions): string;
@@ -28,7 +35,7 @@ export interface PrecompileOptions {
 export class Template {
     constructor(src: string, env?: Environment, eagerCompile?: boolean);
     render(context?: object): string;
-    render(context?: object, callback?: (err: any, res: string) => any): void;
+    render(context?: object, callback?: TemplateCallback<string>): void;
 }
 
 export function configure(options: ConfigureOptions): Environment;
@@ -63,23 +70,24 @@ export class Environment {
 
     constructor(loader?: ILoader | ILoader[] | null, opts?: ConfigureOptions);
     render(name: string, context?: object): string;
-    render(name: string, context?: object, callback?: (err: any, res: string) => any): void;
+    render(name: string, context?: object, callback?: TemplateCallback<string>): void;
 
     renderString(name: string, context: object): string;
-    renderString(name: string, context: object, callback?: (err: any, res: string) => any): void;
+    renderString(name: string, context: object, callback?: TemplateCallback<string>): void;
 
-    addFilter(name: string, func: (...args: any[]) => any, async?: boolean): void;
-    getFilter(name: string): void;
+    addFilter(name: string, func: (...args: any[]) => any, async?: boolean): Environment;
+    getFilter(name: string): (...args: any[]) => any;
 
-    addExtension(name: string, ext: Extension): void;
+    addExtension(name: string, ext: Extension): Environment;
     removeExtension(name: string): void;
     getExtension(name: string): Extension;
-    hasExtension(name: string): void;
+    hasExtension(name: string): boolean;
 
-    addGlobal(name: string, value: any): void;
+    addGlobal(name: string, value: any): Environment;
+    getGlobal(name: string): any;
 
     getTemplate(name: string, eagerCompile?: boolean): Template;
-    getTemplate(name: string, eagerCompile?: boolean, callback?: (err: any, templ: Template) => Template): void;
+    getTemplate(name: string, eagerCompile?: boolean, callback?: Callback<Error, Template>): void;
 
     express(app: object): void;
 }
@@ -95,7 +103,7 @@ export function installJinjaCompat(): void;
 export interface ILoader {
     async?: boolean;
     getSource(name: string): LoaderSource;
-    getSource(name: string, callback: (err?: any, result?: LoaderSource) => void): void;
+    getSource(name: string, callback: Callback<Error, LoaderSource>): void;
     extend?(extender: ILoader): ILoader;
 }
 
@@ -146,5 +154,19 @@ export namespace runtime {
         length: number;
         valueOf(): string;
         toString(): string;
+    }
+}
+
+export namespace lib {
+    class TemplateError extends Error {
+        constructor(message: string, lineno: number, colno: number);
+
+        name: string; // always 'Template render error'
+        message: string;
+        stack: string;
+
+        cause?: Error;
+        lineno: number;
+        colno: number;
     }
 }

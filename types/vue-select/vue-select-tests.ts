@@ -31,8 +31,18 @@ new Vue({
         optionToOption(option: any) {
             return option;
         },
+        onValChange(val: any) {
+        },
+        onVoidTab() {
+        },
         onSearch(search: string, loading: (b: boolean) => void) {
             loading(true);
+        },
+        optionFilterBy(option: any, label: string, search: string) {
+            return true;
+        },
+        optionsFilter(options: any[], search: string) {
+            return true;
         }
     },
     template: `
@@ -40,6 +50,7 @@ new Vue({
                 :value="value"
                 :options="options"
                 disable="false"
+                clearable="true"
                 maxHeight="200"
                 searchable="true"
                 multiple="false"
@@ -48,16 +59,23 @@ new Vue({
                 clearSearchOnSelect="false"
                 :closeOnSelect="false"
                 label="name"
+                autocomplete="off"
+                :index="null"
                 :getOptionLabel="getOptionLabel"
-                :onChange="optionConsumer"
+                :onChange="onValChange"
+                :onInput="onValChange"
+                :onTab="onVoidTab"
                 :taggable="true"
                 :tabindex="null"
                 pushTags="false"
+                :filterBy="optionFilterBy"
+                :filter="optionsFilter"
                 :createOption="optionToOption"
                 resetOnOptionsChange="false"
                 noDrop="true"
                 :inputId="null"
                 dir="someDir"
+                selectOnTab="false"
                 @search="onSearch"
                 @input="optionConsumer">
     </vue-select>

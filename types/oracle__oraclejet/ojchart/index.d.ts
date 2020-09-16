@@ -667,7 +667,7 @@ export namespace ojChart {
     }> {
     }
     interface ojSelectInput extends CustomEvent<{
-        items: any[];
+        items: string[];
         selectionData: Array<{
             data: object;
             itemData: object;
@@ -1486,7 +1486,7 @@ export interface ojChartItem extends JetElement<ojChartItemSettableProperties> {
     close?: number;
     color?: string;
     drilling?: 'on' | 'off' | 'inherit';
-    groupId: string[];
+    groupId: Array<(string | number)>;
     high?: number;
     items?: object[] | number[];
     label?: string | string[];
@@ -1502,7 +1502,7 @@ export interface ojChartItem extends JetElement<ojChartItemSettableProperties> {
     q1?: number;
     q2?: number;
     q3?: number;
-    seriesId: string;
+    seriesId: string | number;
     shortDesc?: string;
     source?: string;
     sourceHover?: string;
@@ -1619,7 +1619,7 @@ export interface ojChartItemSettableProperties extends JetSettableProperties {
     close?: number;
     color?: string;
     drilling?: 'on' | 'off' | 'inherit';
-    groupId: string[];
+    groupId: Array<(string | number)>;
     high?: number;
     items?: object[] | number[];
     label?: string | string[];
@@ -1635,7 +1635,7 @@ export interface ojChartItemSettableProperties extends JetSettableProperties {
     q1?: number;
     q2?: number;
     q3?: number;
-    seriesId: string;
+    seriesId: string | number;
     shortDesc?: string;
     source?: string;
     sourceHover?: string;

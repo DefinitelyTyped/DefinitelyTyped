@@ -36,7 +36,13 @@ const xmlRenderer = new commonmark.XmlRenderer({ sourcepos: true, time: true });
 const xml = xmlRenderer.render(node);
 console.log(xml);
 
-const htmlRenderer = new commonmark.HtmlRenderer({ safe: true, smart: true, sourcepos: true, time: true });
+const htmlRenderer = new commonmark.HtmlRenderer({
+    safe: true,
+    smart: true,
+    sourcepos: true,
+    time: true,
+    softbreak: "<br/>",
+ });
 const html = htmlRenderer.render(node);
 console.log(html);
 

@@ -20,8 +20,8 @@ const parentCSS = {
   'padding-left': '10px',
   'padding-bottom': '10px',
   'padding-right': '10px',
-  'text-valign': 'top',
-  'text-halign': 'center',
+  'text-valign': 'top' as 'top',
+  'text-halign': 'center' as 'center',
   'background-color': '#CCC',
   'font-size': 40,
   'min-zoomed-font-size': 15
@@ -37,7 +37,10 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       shape: 'rectangle',
       'min-zoomed-font-size': 20,
       opacity: 1,
-      width: 'mapData(weight, 40, 80, 20, 60)'
+      width: 'mapData(weight, 40, 80, 20, 60)',
+      'transition-property': "opacity",
+      'transition-duration': 500,
+      'transition-delay': 500
     }
   },
   {
@@ -47,7 +50,10 @@ const showAllStyle: cytoscape.Stylesheet[] = [
   {
     selector: 'edge',
     css: {
-      'target-arrow-shape': 'triangle'
+      'target-arrow-shape': 'triangle',
+      'curve-style': 'taxi',
+      'source-endpoint': 'outside-to-node',
+      'target-endpoint': 'outside-to-node'
     }
   },
   {
@@ -57,6 +63,14 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       'line-color': 'black',
       'target-arrow-color': 'black',
       'source-arrow-color': 'black'
+    }
+  },
+  {
+    selector: 'node.lesstext',
+    style: {
+      label: 'data(name)',
+      'text-wrap': 'ellipsis',
+      'text-max-width': '200',
     }
   }
 ];
@@ -488,6 +502,7 @@ eles.unselectify();
 eles.addClass('test');
 eles.toggleClass('test', oneOf(true, false, undefined));
 eles.removeClass('test');
+eles.classes(['lesstext']);
 eles.classes(oneOf('test', undefined));
 eles.flashClass('test flash', oneOf(1000, undefined));
 assert(ele.hasClass('test'));
@@ -505,6 +520,18 @@ nodes.forEach((child) => {
     complete: () => {
       console.log(child.id());
     }
+  });
+});
+
+// position is not required for an animation
+nodes.forEach((child) => {
+  child.animate({
+    style: {
+      backgroundColor: '#f185dc',
+      width: '30px',
+      height: '30px'
+    },
+    duration: 300
   });
 });
 
@@ -566,6 +593,77 @@ nodes.max(n => n.degree(false));
 edges.max(n => n.source().id().length);
 edges.max(n => n.source().id().length);
 
+// directly from the doc: http://js.cytoscape.org/#eles.stop
+cy.nodes().animate({
+  style: { 'background-color': 'cyan' }
+}, {
+  duration: 5000,
+  complete: () => {
+    console.log('Animation complete');
+  }
+}).delay(100);
+
+setTimeout(() => {
+  console.log('Stopping nodes animation');
+  cy.nodes().stop();
+}, 2500);
+
+// directly from the doc: http://js.cytoscape.org/#eles.breadthFirstSearch
+const bfs = cy.elements().bfs({
+  roots: '#e',
+  visit: (v, e, u, i, depth) => {
+    console.log('visit ' + v.id());
+
+    // example of finding desired node
+    if (v.data('weight') > 70) {
+      return true;
+    }
+
+    // example of exiting search early
+    if (v.data('weight') < 0) {
+      return false;
+    }
+  },
+  directed: false
+});
+
+const path = bfs.path; // path to found node
+const found = bfs.found; // found node
+
+// select the path
+path.select();
+
+// root || roots are both ok
+cy.elements(':grabbable').bfs({ root: '#1' });
+cy.elements(':grabbable').dfs({ roots: '#1' });
+
 // TODO: traversing (need to actively check the nodes/edges distinction)
 // TODO: algorithms
+// Cut
+cy.elements().kargerStein();
+aliases(eles.hopcroftTarjanBiconnected, eles.hopcroftTarjanBiconnectedComponents);
+aliases(eles.hopcroftTarjanBiconnected, eles.htb);
+aliases(eles.hopcroftTarjanBiconnected, eles.htbc);
+aliases(eles.tarjanStronglyConnected, eles.tarjanStronglyConnectedComponents);
+aliases(eles.tarjanStronglyConnected, eles.tsc);
+aliases(eles.tarjanStronglyConnected, eles.tscc);
+cy.elements().htbc();
+cy.elements().tsc();
 // TODO: compound nodes (there aren't any in current test case)
+
+// Check eles.boundingBox return type: https://js.cytoscape.org/#eles.boundingBox
+const box1 = eles.boundingBox({});
+box1.x1;
+box1.x2;
+box1.y1;
+box1.y2;
+box1.w;
+box1.h;
+// Check eles.renderedBoundingBox return type: https://js.cytoscape.org/#eles.renderedBoundingBox
+const box2 = eles.renderedBoundingBox({});
+box2.x1;
+box2.x2;
+box2.y1;
+box2.y2;
+box2.w;
+box2.h;

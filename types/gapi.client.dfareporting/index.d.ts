@@ -1,4 +1,4 @@
-// Type definitions for Google DCM/DFA Reporting And Trafficking API v2.8 2.8
+// Type definitions for non-npm package Google DCM/DFA Reporting And Trafficking API v2.8 2.8
 // Project: https://developers.google.com/doubleclick-advertisers/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

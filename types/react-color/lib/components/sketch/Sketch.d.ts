@@ -1,11 +1,28 @@
-import { Component } from "react";
-import { ColorPickerProps, Color } from "../../..";
+import { Component, CSSProperties } from "react";
+import { ColorPickerProps, ColorResult } from "../../..";
+import { Classes } from "reactcss";
 
-export interface SketchPickerProps extends ColorPickerProps<SketchPicker> {
-    disableAlpha?: boolean;
-    presetColors?: string[];
-    width?: string;
-    onSwatchHover?(color: Color, event: MouseEvent): void;
+export interface SketchPickerStylesProps {
+    picker: CSSProperties;
+    saturation: CSSProperties;
+    Saturation: CSSProperties;
+    controls: CSSProperties;
+    sliders: CSSProperties;
+    color: CSSProperties;
+    activeColor: CSSProperties;
+    hue: CSSProperties;
+    Hue: CSSProperties;
+    alpha: CSSProperties;
+    Alpha: CSSProperties;
 }
 
-export default class SketchPicker extends Component<SketchPickerProps> {}
+export type PresetColor = { color: string; title: string } | string;
+export interface SketchPickerProps extends ColorPickerProps<SketchPicker> {
+    disableAlpha?: boolean;
+    presetColors?: PresetColor[];
+    width?: string;
+    styles?: Partial<Classes<SketchPickerStylesProps>>;
+    onSwatchHover?(color: ColorResult, event: MouseEvent): void;
+}
+
+export default class SketchPicker extends Component<SketchPickerProps> { }

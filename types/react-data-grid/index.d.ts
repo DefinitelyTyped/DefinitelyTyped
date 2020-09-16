@@ -46,7 +46,10 @@ declare namespace AdazzleReactDataGrid {
          * The columns to render.
          */
         columns?: Array<Column<T>>
-
+        /**
+         * Called when the grid is scrolled
+         */
+        onScroll?:(scrollState:ScrollState) => void
         /**
          * Invoked when the user changes the value of a single cell.
          * Should update that cell's value.
@@ -59,6 +62,14 @@ declare namespace AdazzleReactDataGrid {
          * @param e Information about the event
          */
         onCellsDragged?: (e: CellDragEvent) => void
+        /**
+         * Invoked when the user clicks on one cell to expand it.
+         * @param e Information about the event
+         */
+        onCellExpand?: (e:CellExpandEvent<T>) => void
+
+        getSubRowDetails?: (row: T) => SubRowDetails
+
         /**
          * Invoked when the user double clicks on the drag handle of an editable cell.
          * Should update the values of the cells beneath the selected cell.
@@ -81,17 +92,23 @@ declare namespace AdazzleReactDataGrid {
          * A toolbar to display above the grid.
          * Consider using the toolbar included in "react-data-grid/addons".
          */
-        toolbar?: React.ReactElement<any>
+        toolbar?: React.ReactElement
         /**
          * A context menu to disiplay when the user right-clicks a cell.
          * Consider using "react-contextmenu", included in "react-data-grid/addons".
          */
-        contextMenu?: React.ReactElement<any>
+        contextMenu?: React.ReactElement
         /**
          * A react component to customize how rows are rendered.
          * If you want to define your own, consider extending ReactDataGrid.Row.
          */
-        rowRenderer?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
+        rowRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
+
+        /**
+         * A react component to customize how the grouping header row is rendered
+         */
+        rowGroupRenderer?: React.ComponentType
+
         /**
          * A component to display when there are no rows to render.
          */
@@ -328,7 +345,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * A custom formatter for this column's filter.
          */
-        filterRenderer?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>;
+        filterRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>;
         /**
          * The editor for this column. Several editors are available in "react-data-grid/addons".
          * @default A simple text editor
@@ -340,11 +357,11 @@ declare namespace AdazzleReactDataGrid {
         /**
          * A custom read-only formatter for this column. An image formatter is available in "react-data-grid/addons".
          */
-        formatter?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
+        formatter?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * A custom formatter for this column's header.
          */
-        headerRenderer?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
+        headerRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * Events to be bound to the cells in this specific column.
          * Each event must respect this standard in order to work correctly:
@@ -368,6 +385,30 @@ declare namespace AdazzleReactDataGrid {
          */
         draggable?: boolean;
     }
+    enum SCROLL_DIRECTION {
+        UP = 'upwards',
+        DOWN = 'downwards',
+        LEFT = 'left',
+        RIGHT = 'right',
+        NONE = 'none'
+    }
+
+    interface ScrollState {
+        height: number;
+        scrollTop: number;
+        scrollLeft: number;
+        rowVisibleStartIdx: number;
+        rowVisibleEndIdx: number;
+        rowOverscanStartIdx: number;
+        rowOverscanEndIdx: number;
+        colVisibleStartIdx: number;
+        colVisibleEndIdx: number;
+        colOverscanStartIdx: number;
+        colOverscanEndIdx: number;
+        scrollDirection: SCROLL_DIRECTION;
+        lastFrozenColumnIndex: number;
+        isScrolling: boolean;
+    }
 
     interface ColumnEventCallback {
         /**
@@ -377,7 +418,7 @@ declare namespace AdazzleReactDataGrid {
          */
         (ev: React.SyntheticEvent<any>, args: {rowIdx: number, idx: number, name: string}): void
     }
-
+    
     /**
      * Information about a row update. Generic event type returns untyped row, use parameterized type with the row type as the parameter
      * @default T = any
@@ -421,6 +462,54 @@ declare namespace AdazzleReactDataGrid {
          * The value of the cell that was dragged.
          */
         value: any
+    }
+
+    /**
+    *   Information about a cell expanded.
+    */
+    interface CellExpandEvent<T = any> {
+        /**
+         * The row index where the cell is being expanded.
+         */
+        rowIdx: number
+        /**
+         * The column index where the cell is being expanded.
+         */
+        idx: number
+        /**
+         * The values of the row.
+         */
+        rowData: T
+        /**
+         * Expand data.
+         */
+        expandArgs: any
+    }
+
+    /**
+     * Information about subrows.
+     */
+    interface SubRowDetails<T = any> {
+        /**
+         * Determines if the cell can expand.
+         */
+        canExpand?: boolean;
+        /**
+         * Sets the field/column that will be use to expand the subrows.
+         */
+        field: string;
+        /**
+         * Determines if the row has already expanded.
+         */
+        expanded: boolean;
+        /**
+         * Children data.
+         */
+        children?: T[];
+        treeDepth?: number;
+        siblingIndex?: number;
+        numberSiblings?: number;
+        group?: boolean;
     }
 
     /**
@@ -551,6 +640,7 @@ declare namespace AdazzleReactDataGrid {
         export import RowUpdateEvent = AdazzleReactDataGrid.RowUpdateEvent;
         export import SelectionParams = AdazzleReactDataGrid.SelectionParams;
         export import CellDragEvent = AdazzleReactDataGrid.CellDragEvent;
+        export import CellExpandEvent = AdazzleReactDataGrid.CellExpandEvent;
         export import DragHandleDoubleClickEvent = AdazzleReactDataGrid.DragHandleDoubleClickEvent;
         export import CellCopyPasteEvent = AdazzleReactDataGrid.CellCopyPasteEvent;
         export import GridRowsUpdatedEvent = AdazzleReactDataGrid.GridRowsUpdatedEvent;
@@ -583,7 +673,7 @@ declare namespace AdazzleReactDataGrid {
   declare namespace AdazzleReactDataGridPlugins {
     interface AutoCompleteEditorProps {
         onCommit?: () => void;
-        options?: Array<{ id: number; title: string }>;
+        options?: Array<{ id: any; title: string }>;
         label?: any;
         value?: any;
         height?: number;

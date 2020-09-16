@@ -1,17 +1,24 @@
-// Type definitions for yeoman-test 1.7
-// Project: https://github.com/yeoman/yeoman-test
+// Type definitions for yeoman-test 2.0
+// Project: https://github.com/yeoman/yeoman-test, http://yeoman.io/authoring/testing.html
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.3
 
 import { EventEmitter } from 'events';
 import Generator = require('yeoman-generator');
 
 export interface Dictionary<T> {
-	[key: string]: T;
+    [key: string]: T;
 }
+
 export interface Constructor<T> {
-	new (...args: any[]): T;
+    new (...args: any[]): T;
+}
+
+// Environment from yeoman-environment
+export interface Env extends EventEmitter {
+    queues: string[];
+    enforceUpdate(env: Env): this;
 }
 
 /**
@@ -37,7 +44,7 @@ export function setUpTestDirectory(dir: string): (done: (...args: any[]) => void
  * @param options - Grunt configuration
  * @param done  - callback to call on completion
  */
-export function gruntfile(options: Dictionary<any>, done: (...args: any[]) => void): void;
+export function gruntfile(options: Dictionary<any>, done?: (...args: any[]) => void): void;
 
 /**
  * Clean-up the test directory and cd into it.
@@ -49,7 +56,7 @@ export function gruntfile(options: Dictionary<any>, done: (...args: any[]) => vo
  *   fs.writeFileSync('testfile', 'Roses are red.');
  * });
  */
-export function testDirectory(dir: string, cb: (error?: any) => void): void;
+export function testDirectory(dir: string, cb?: (error?: any) => void): void;
 
 /**
  * Answer prompt questions for the passed-in generator
@@ -60,7 +67,7 @@ export function testDirectory(dir: string, cb: (error?: any) => void): void;
  * @example
  * mockPrompt(angular, {'bootstrap': 'Y', 'compassBoostrap': 'Y'});
  */
-export function mockPrompt(generator: Generator, answers: Dictionary<any>): void;
+export function mockPrompt(generator: Generator, answers: Generator.Answers): void;
 
 /**
  * Restore defaults prompts on a generator.
@@ -105,7 +112,7 @@ export function createGenerator(name: string, dependencies: Dependency[], args?:
  *
  * @param dependencies - paths to the generators dependencies
  */
-export function registerDependencies(env: any, dependencies: Dependency[]): void;
+export function registerDependencies(env: Env, dependencies: Dependency[]): void;
 
 /**
  * Run the provided Generator
@@ -114,120 +121,139 @@ export function registerDependencies(env: any, dependencies: Dependency[]): void
 export function run(GeneratorOrNamespace: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
 
 export interface RunContextSettings {
-	/**
-	 * Automatically run this generator in a tmp dir
-	 * @default true
-	 */
-	tmpdir: boolean;
+    /**
+     * Automatically run this generator in a tmp dir
+     * @default true
+     */
+    tmpdir?: boolean;
+
+    /**
+     * File path to the generator (only used if Generator is a constructor)
+     */
+    resolved?: string;
+
+    /**
+     * Namespace (only used if Generator is a constructor)
+     * @default 'gen:test'
+     */
+    namespace?: string;
 }
 
 export interface RunContextConstructor {
-	/**
-	 * This class provide a run context object to façade the complexity involved in setting
-	 * up a generator for testing
-	 * @param Generator - Namespace or generator constructor. If the later
-	 *                                      is provided, then namespace is assumed to be
-	 *                                      'gen:test' in all cases
-	 */
-	new (Generator: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
+    /**
+     * This class provide a run context object to façade the complexity involved in setting
+     * up a generator for testing
+     * @param Generator - Namespace or generator constructor. If the later
+     *                                      is provided, then namespace is assumed to be
+     *                                      'gen:test' in all cases
+     */
+    new (Generator: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
 }
 
-export interface RunContext extends EventEmitter {
-	/**
-	 * Hold the execution until the returned callback is triggered
-	 * @return Callback to notify the normal execution can resume
-	 */
-	async(): () => void;
+export interface RunContext extends RunContextConstructor, EventEmitter {
+    ran: boolean;
+    inDirSet: boolean;
+    args: string[];
+    options: {};
+    answers: Generator.Answers;
+    localConfig: {};
+    dependencies: Dependency[];
 
-	/**
-	 * Return a promise representing the generator run process
-	 * @return Promise resolved on end or rejected on error
-	 */
-	toPromise(): Promise<string>;
+    /**
+     * Hold the execution until the returned callback is triggered
+     * @return Callback to notify the normal execution can resume
+     */
+    async(): () => void;
 
-	/**
-	 * Promise `.then()` duck typing
-	 */
-	then: Promise<string>['then'];
+    /**
+     * Return a promise representing the generator run process
+     * @return Promise resolved on end or rejected on error
+     */
+    toPromise(): Promise<string>;
 
-	/**
-	 * Promise `.catch()` duck typing
-	 */
-	catch: Promise<string>['catch'];
+    /**
+     * Promise `.then()` duck typing
+     */
+    then: Promise<string>['then'];
 
-	/**
-	 * Clean the provided directory, then change directory into it
-	 * @param  dirPath - Directory path (relative to CWD). Prefer passing an absolute
-	 *                            file path for predictable results
-	 * @param [cb] - callback who'll receive the folder path as argument
-	 * @return run context instance
-	 */
-	inDir(dirPath: string, cb: (folderPath: string) => void): this;
+    /**
+     * Promise `.catch()` duck typing
+     */
+    catch: Promise<string>['catch'];
 
-	/**
-	 * Change directory without deleting directory content.
-	 * @param  dirPath - Directory path (relative to CWD). Prefer passing an absolute
-	 *                            file path for predictable results
-	 * @return run context instance
-	 */
-	cd(dirPath: string): this;
+    /**
+     * Clean the provided directory, then change directory into it
+     * @param  dirPath - Directory path (relative to CWD). Prefer passing an absolute
+     *                            file path for predictable results
+     * @param [cb] - callback who'll receive the folder path as argument
+     * @return run context instance
+     */
+    inDir(dirPath: string, cb?: (folderPath: string) => void): this;
 
-	/**
-	 * Cleanup a temporary directy and change the CWD into it
-	 *
-	 * This method is called automatically when creating a RunContext. Only use it if you need
-	 * to use the callback.
-	 *
-	 * @param [cb] - callback who'll receive the folder path as argument
-	 * @return run context instance
-	 */
-	inTmpDir(cb: (folderPath: string) => void): this;
+    /**
+     * Change directory without deleting directory content.
+     * @param  dirPath - Directory path (relative to CWD). Prefer passing an absolute
+     *                            file path for predictable results
+     * @return run context instance
+     */
+    cd(dirPath: string): this;
 
-	/**
-	 * Clean the directory used for tests inside inDir/inTmpDir
-	 */
-	cleanTestDirectory(): void;
+    /**
+     * Cleanup a temporary directy and change the CWD into it
+     *
+     * This method is called automatically when creating a RunContext. Only use it if you need
+     * to use the callback.
+     *
+     * @param [cb] - callback who'll receive the folder path as argument
+     * @return run context instance
+     */
+    inTmpDir(cb: (folderPath: string) => void): this;
 
-	/**
-	 * Provide arguments to the run context
-	 * @param  args - command line arguments as Array or space separated string
-	 */
-	withArguments(args: string | string[]): this;
+    /**
+     * Clean the directory used for tests inside inDir/inTmpDir
+     */
+    cleanTestDirectory(): void;
 
-	/**
-	 * Provide options to the run context
-	 * @param  options - command line options (e.g. `--opt-one=foo`)
-	 */
-	withOptions(options: Dictionary<any>): this;
+    /**
+     * Provide arguments to the run context
+     * @param  args - command line arguments as Array or space separated string
+     */
+    withArguments(args: string | string[]): this;
 
-	/**
-	 * Mock the prompt with dummy answers
-	 * @param  answers - Answers to the prompt questions
-	 */
-	withPrompts(answers: Dictionary<any>): this;
+    /**
+     * Provide options to the run context
+     * @param  options - command line options (e.g. `--opt-one=foo`)
+     */
+    withOptions(options: Dictionary<any>): this;
 
-	/**
-	 * Provide dependent generators
-	 * @param dependencies - paths to the generators dependencies
-	 * @example
-	 * var angular = new RunContext('../../app');
-	 * angular.withGenerators([
-	 *   '../../common',
-	 *   '../../controller',
-	 *   '../../main',
-	 *   [helpers.createDummyGenerator(), 'testacular:app']
-	 * ]);
-	 * angular.on('end', function () {
-	 *   // assert something
-	 * });
-	 */
-	withGenerators(dependencies: Dependency[]): this;
+    /**
+     * Mock the prompt with dummy answers
+     * @param  answers - Answers to the prompt questions
+     */
+    withPrompts(answers: Generator.Answers): this;
 
-	/**
-	 * Mock the local configuration with the provided config
-	 * @param  localConfig - should look just like if called config.getAll()
-	 */
-	withLocalConfig(localConfig: Dictionary<any>): this;
+    /**
+     * Provide dependent generators
+     * @param dependencies - paths to the generators dependencies
+     * @example
+     * var angular = new RunContext('../../app');
+     * angular.withGenerators([
+     *   '../../common',
+     *   '../../controller',
+     *   '../../main',
+     *   [helpers.createDummyGenerator(), 'testacular:app']
+     * ]);
+     * angular.on('end', function () {
+     *   // assert something
+     * });
+     */
+    withGenerators(dependencies: Dependency[]): this;
+
+    /**
+     * Mock the local configuration with the provided config
+     * @param  localConfig - should look just like if called config.getAll()
+     */
+    withLocalConfig(localConfig: Dictionary<any>): this;
 }
 
 export {};

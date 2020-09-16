@@ -16,7 +16,7 @@ async function run() {
         clientSecret: '',
         scope(request) {
             const scopes = ['public_profile', 'email'];
-            if ((<RequestQuery> request.query).wantsSharePermission) {
+            if (request.query.wantsSharePermission) {
               scopes.push('publish_actions');
             }
             return scopes;

@@ -47,6 +47,7 @@ export class Repository {
     static wrapOdb(odb: Odb): Promise<Repository>;
 
     cleanup(): void;
+    commondir(): string;
     config(): Promise<Config>;
     configSnapshot(): Promise<Config>;
     detachHead(): number;
@@ -102,7 +103,7 @@ export class Repository {
     /**
      * Lookup references for a repository.
      */
-    getReferences(type: Reference.TYPE): Promise<Reference[]>;
+    getReferences(): Promise<Reference[]>;
     /**
      * Lookup reference names for a repository.
      */
@@ -153,7 +154,7 @@ export class Repository {
     /**
      * Create a blob from a buffer
      */
-    createBlobFromBuffer(buffer: Buffer): Oid;
+    createBlobFromBuffer(buffer: Buffer): Promise<Oid>;
     treeBuilder(tree: Tree): Promise<Treebuilder>;
     /**
      * Gets the default signature for the default user and now timestamp

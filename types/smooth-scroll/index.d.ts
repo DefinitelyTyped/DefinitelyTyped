@@ -1,6 +1,7 @@
-// Type definitions for smooth-scroll 14.2
+// Type definitions for smooth-scroll 16.1
 // Project: https://github.com/cferdinandi/smooth-scroll
 // Definitions by: Andrei Horodinca <https://github.com/andreiho>
+//                 grgr-dkrk <https://github.com/grgr-dkrk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -32,6 +33,9 @@ declare namespace SmoothScroll {
 
         // Speed & Easing
         speed?: number;
+        speedAsDuration?: boolean;
+        durationMax?: number | null;
+        durationMin?: number | null;
         clip?: boolean;
         offset?:
             | number

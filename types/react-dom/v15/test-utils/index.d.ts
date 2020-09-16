@@ -29,7 +29,7 @@ export interface SyntheticEventData extends OptionalEventProperties {
     clientX?: number;
     clientY?: number;
     changedTouches?: TouchList;
-    charCode?: boolean;
+    charCode?: number;
     clipboardData?: DataTransfer;
     ctrlKey?: boolean;
     deltaMode?: number;
@@ -66,15 +66,11 @@ export interface ShallowRenderer {
     /**
      * After `shallowRenderer.render()` has been called, returns shallowly rendered output.
      */
-    getRenderOutput<E extends ReactElement<any>>(): E;
-    /**
-     * After `shallowRenderer.render()` has been called, returns shallowly rendered output.
-     */
-    getRenderOutput(): ReactElement<any>;
+    getRenderOutput<E extends ReactElement>(): E;
     /**
      * Similar to `ReactDOM.render` but it doesn't require DOM and only renders a single level deep.
      */
-    render(element: ReactElement<any>, context?: any): void;
+    render(element: ReactElement, context?: any): void;
     unmount(): void;
 }
 
@@ -160,8 +156,12 @@ export function renderIntoDocument<T extends Element>(
     element: DOMElement<any, T>): T;
 export function renderIntoDocument(
     element: SFCElement<any>): void;
-export function renderIntoDocument<T extends Component<any>>(
-    element: CElement<any, T>): T;
+// If we replace `P` with `any` in this overload, then some tests fail because
+// calls to `renderIntoDocument` choose the last overload on the
+// subtype-relation pass and get an undesirably broad return type.  Using `P`
+// allows this overload to match on the subtype-relation pass.
+export function renderIntoDocument<P, T extends Component<P>>(
+    element: CElement<P, T>): T;
 export function renderIntoDocument<P>(
     element: ReactElement<P>): Component<P> | Element | void;
 
@@ -182,22 +182,22 @@ export function isElement(element: any): boolean;
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<T extends HTMLElement>(
-    element: ReactElement<any>, type: string): element is ReactHTMLElement<T>;
+    element: ReactElement, type: string): element is ReactHTMLElement<T>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
-    element: ReactElement<any>, type: string): element is DOMElement<P, T>;
+    element: ReactElement, type: string): element is DOMElement<P, T>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P>(
-    element: ReactElement<any>, type: SFC<P>): element is SFCElement<P>;
+    element: ReactElement, type: SFC<P>): element is SFCElement<P>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P, T extends Component<P>, C extends ComponentClass<P>>(
-    element: ReactElement<any>, type: ClassType<P, T, C>): element is CElement<P, T>;
+    element: ReactElement, type: ClassType<P, T, C>): element is CElement<P, T>;
 
 /**
  * Returns `true` if `instance` is a DOM component (such as a `<div>` or `<span>`).

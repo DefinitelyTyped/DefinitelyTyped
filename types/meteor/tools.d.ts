@@ -1,3 +1,4 @@
+import { EJSON } from 'meteor/ejson';
 declare module "meteor/tools" {
     module App {
         function accessRule(pattern: string, options?: {
@@ -40,9 +41,9 @@ declare module "meteor/tools" {
     }): String;
 
     module Assets {
-        function getBinary(assetPath: string, asyncCallback?: Function): EJSON;
+        function getBinary(assetPath: string, asyncCallback?: Function): EJSON | undefined;
 
-        function getText(assetPath: string, asyncCallback?: Function): string;
+        function getText(assetPath: string, asyncCallback?: Function): string | undefined;
 
         function absoluteFilePath(assetPath: string): string;
     }

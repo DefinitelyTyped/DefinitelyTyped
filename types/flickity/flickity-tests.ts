@@ -3,30 +3,30 @@
 // jQuery tests
 
 let $flickity = $("#flickity-selector").flickity({
-        initialIndex: 0,
-        accessibility: true,
-        asNavFor: "#nav-bar",
-        autoPlay: true,
-        cellAlign: "left",
-        cellSelector: ".gallery-cell",
-        contain: true,
-        draggable: true,
-        freeScroll: false,
-        freeScrollFriction: 0.5,
-        friction: 0.8,
-        imagesLoaded: false,
-        lazyLoad: false,
-        pageDots: false,
-        arrowShape: "arrow.svg",
-        percentPosition: false,
-        prevNextButtons: false,
-        selectedAttraction: 0.050,
-        setGallerySize: true,
-        watchCSS: true,
-        wrapAround: true,
-        resize: true,
-        rightToLeft: false
-    });
+    initialIndex: 0,
+    accessibility: true,
+    asNavFor: "#nav-bar",
+    autoPlay: true,
+    cellAlign: "left",
+    cellSelector: ".gallery-cell",
+    contain: true,
+    draggable: true,
+    freeScroll: false,
+    freeScrollFriction: 0.5,
+    friction: 0.8,
+    imagesLoaded: false,
+    lazyLoad: false,
+    pageDots: false,
+    arrowShape: "arrow.svg",
+    percentPosition: false,
+    prevNextButtons: false,
+    selectedAttraction: 0.050,
+    setGallerySize: true,
+    watchCSS: true,
+    wrapAround: true,
+    resize: true,
+    rightToLeft: false
+});
 
 $flickity.flickity("next")
     .flickity("select", 4);
@@ -101,6 +101,10 @@ flikty2.on("cellSelect", (evt, ele) => {
     // do something
 });
 
+flikty2.on('change', idx => {
+    // do something
+});
+
 flikty2.off("cellSelect", (evt, ele, pntr, vctr) => {
     // do something
 });
@@ -112,6 +116,20 @@ flikty2.once("cellSelect", (evt, ele, pntr) => {
 flikty2.listener("myCustomEvent", (evt: Event) => {
     // do something
 });
+
+function handleSettle(index: number): void {
+    // do something
+}
+
+flikty2.on("settle", handleSettle);
+flikty2.off("settle", handleSettle);
+
+function handleIsFullScreen(isFullscreen: boolean): void {
+    // do something
+}
+
+flikty2.on("fullscreenChange", handleIsFullScreen);
+flikty2.off("fullscreenChange", handleIsFullScreen);
 
 // static get data methods
 
@@ -126,6 +144,7 @@ let selectedIndex: number = flikty2.selectedIndex;
 
 let selectedElement: Element = flikty2.selectedElement;
 let cells: Element[] = flikty2.cells;
+let slider: HTMLElement = flikty2.slider;
 
 // arrow shape tests
 let flikty3: Flickity = new Flickity("#flickity-gallery", {
@@ -140,3 +159,74 @@ let flikty4: Flickity = new Flickity(new HTMLElement(), {
         x3: 30
     }
 });
+
+let flikty5: Flickity = new Flickity(new HTMLElement(), {
+    on: {
+        ready: () => {},
+        change: (index) => {},
+        select: (index) => {},
+        settle: (index) => {},
+        scroll: (progress) => {},
+        dragStart: (event, pointer) => {},
+        dragMove: (event, pointer, moveVector) => {},
+        dragEnd: (event, pointer) => {},
+        pointerDown: (event, pointer) => {},
+        pointerMove: (event, pointer, moveVector) => {},
+        pointerUp: (event, pointer) => {},
+        staticClick: (event, pointer, cellElement, cellIndex) => {},
+        lazyLoad: (event, cellElement) => {},
+        bgLazyLoad: (event, element) => {},
+        fullscreenChange: (isFullscreen) => {}
+    }
+});
+
+let fliktyBindings: Flickity.EventBindings = {
+    ready: () => {},
+    change: (index) => {},
+    select: (index) => {},
+    settle: (index) => {},
+    scroll: (progress) => {},
+    dragStart: (event, pointer) => {},
+    dragMove: (event, pointer, moveVector) => {},
+    dragEnd: (event, pointer) => {},
+    pointerDown: (event, pointer) => {},
+    pointerMove: (event, pointer, moveVector) => {},
+    pointerUp: (event, pointer) => {},
+    staticClick: (event, pointer, cellElement, cellIndex) => {},
+    lazyLoad: (event, cellElement) => {},
+    bgLazyLoad: (event, element) => {},
+    fullscreenChange: (isFullscreen) => {}
+};
+
+let fliktyOpts1: Flickity.Options = {
+    initialIndex: 0,
+    accessibility: true,
+    asNavFor: "#nav-bar",
+    autoPlay: true,
+    cellAlign: "left",
+    cellSelector: ".gallery-cell",
+    contain: true,
+    draggable: true,
+    freeScroll: false,
+    freeScrollFriction: 0.5,
+    friction: 0.8,
+    imagesLoaded: false,
+    lazyLoad: false,
+    pageDots: false,
+    arrowShape: "arrow.svg",
+    percentPosition: false,
+    prevNextButtons: false,
+    selectedAttraction: 0.050,
+    setGallerySize: true,
+    watchCSS: true,
+    wrapAround: true,
+    resize: true,
+    rightToLeft: false,
+    on: fliktyBindings
+};
+
+// options test
+let fliktyOpts2: Flickity.Options = {
+    autoPlay: true,
+    pauseAutoPlayOnHover: true,
+};

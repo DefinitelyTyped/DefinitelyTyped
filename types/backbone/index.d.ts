@@ -1,10 +1,16 @@
-// Type definitions for Backbone 1.3.3
+// Type definitions for Backbone 1.4
 // Project: http://backbonejs.org/
+//          https://github.com/jashkenas/backbone
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Natan Vivo <https://github.com/nvivo>
 //                 kenjiru <https://github.com/kenjiru>
+//                 jjoekoullas <https://github.com/jjoekoullas>
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>
+//                 Kyle Scully <https://github.com/zieka>
+//                 Robert Kesterson <https://github.com/rkesters>
+//                 Bulat Khasanov <https://github.com/khasanovbi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 
@@ -21,10 +27,12 @@ declare namespace Backbone {
         sort?: boolean;
     }
 
-    interface CollectionSetOptions extends Silenceable {
+    interface CollectionSetOptions extends Parseable, Silenceable {
         add?: boolean;
         remove?: boolean;
         merge?: boolean;
+        at?: number;
+        sort?: boolean;
     }
 
     interface HistoryOptions extends Silenceable {
@@ -54,16 +62,26 @@ declare namespace Backbone {
     }
 
     interface Parseable {
-        parse?: any;
+        parse?: boolean;
     }
 
     interface PersistenceOptions {
         url?: string;
         data?: any;
         beforeSend?: (jqxhr: JQueryXHR) => void;
+        timeout?: number;
+        // TODO: copy all parameters from JQueryAjaxSettings except success/error callbacks?
         success?: (modelOrCollection?: any, response?: any, options?: any) => void;
         error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
+        emulateJSON?: boolean;
+        emulateHTTP?: boolean;
     }
+
+    interface ModelConstructorOptions<TModel extends Model = Model> extends ModelSetOptions, Parseable {
+        collection?: Backbone.Collection<TModel>;
+    }
+
+    type CombinedModelConstructorOptions<E, M extends Model<any, any, E> = Model> = ModelConstructorOptions<M> & E;
 
     interface ModelSetOptions extends Silenceable, Validable {
     }
@@ -90,31 +108,117 @@ declare namespace Backbone {
         [routePattern: string]: string | {(...urlParts: string[]): void};
     }
 
+    /**
+     * DOM events (used in the events property of a View)
+     */
     interface EventsHash {
-        [selector: string]: string | {(eventObject: JQueryEventObject): void};
+        [selector: string]: string | {(eventObject: JQuery.TriggeredEvent): void};
     }
 
-    class Events {
-        on(eventName: string, callback?: Function, context?: any): any;
-        on(eventMap: EventsHash): any;
-        off(eventName?: string, callback?: Function, context?: any): any;
-        trigger(eventName: string, ...args: any[]): any;
-        bind(eventName: string, callback: Function, context?: any): any;
-        unbind(eventName?: string, callback?: Function, context?: any): any;
-
-        once(events: string, callback: Function, context?: any): any;
-        listenTo(object: any, events: string, callback: Function): any;
-        listenToOnce(object: any, events: string, callback: Function): any;
-        stopListening(object?: any, events?: string, callback?: Function): any;
+    /**
+     * JavaScript events (used in the methods of the Events interface)
+     */
+    interface EventHandler {
+        (...args: any[]): void;
+    }
+    interface EventMap {
+        [event: string]: EventHandler;
     }
 
-    class ModelBase extends Events {
+    export const Events: Events;
+    interface Events extends EventsMixin { }
+
+    /**
+     * Helper shorthands for classes that implement the Events interface.
+     * Define your class like this:
+     *
+     * import {
+     *     Events,
+     *     Events_On,
+     *     Events_Off,
+     *     Events_Trigger,
+     *     Events_Listen,
+     *     Events_Stop,
+     * } from 'backbone';
+     *
+     * class YourClass implements Events {
+     *     on: Events_On<YourClass>;
+     *     off: Events_Off<YourClass>;
+     *     trigger: Events_Trigger<YourClass>;
+     *     bind: Events_On<YourClass>;
+     *     unbind: Events_Off<YourClass>;
+     *
+     *     once: Events_On<YourClass>;
+     *     listenTo: Events_Listen<YourClass>;
+     *     listenToOnce: Events_Listen<YourClass>;
+     *     stopListening: Events_Stop<YourClass>;
+     *
+     *     // ... (other methods)
+     * }
+     *
+     * Object.assign(YourClass.prototype, Events);  // can also use _.extend
+     *
+     * If you are just writing a class type declaration that doesn't already
+     * extend some other base class, you can use the EventsMixin instead;
+     * see below.
+     */
+    interface Events_On<BaseT> {
+        <T extends BaseT>(this: T, eventName: string, callback: EventHandler, context?: any): T;
+        <T extends BaseT>(this: T, eventMap: EventMap, context?: any): T;
+    }
+    interface Events_Off<BaseT> {
+        <T extends BaseT>(this: T, eventName?: string, callback?: EventHandler, context?: any): T;
+    }
+    interface Events_Trigger<BaseT> {
+        <T extends BaseT>(this: T, eventName: string, ...args: any[]): T;
+    }
+    interface Events_Listen<BaseT> {
+        <T extends BaseT>(this: T, object: any, events: string, callback: EventHandler): T;
+        <T extends BaseT>(this: T, object: any, eventMap: EventMap): T;
+    }
+    interface Events_Stop<BaseT> {
+        <T extends BaseT>(this: T, object?: any, events?: string, callback?: EventHandler): T;
+    }
+
+    /**
+     * Helper to avoid code repetition in type declarations.
+     * Backbone.Events cannot be extended, hence a separate abstract
+     * class with a different name. Both classes and interfaces can
+     * extend from this helper class to reuse the signatures.
+     *
+     * For class type declarations that already extend another base
+     * class, and for actual class definitions, please see the
+     * Events_* interfaces above.
+     */
+    abstract class EventsMixin implements Events {
+        on(eventName: string, callback: EventHandler, context?: any): this;
+        on(eventMap: EventMap, context?: any): this;
+        off(eventName?: string, callback?: EventHandler, context?: any): this;
+        trigger(eventName: string, ...args: any[]): this;
+        bind(eventName: string, callback: EventHandler, context?: any): this;
+        bind(eventMap: EventMap, context?: any): this;
+        unbind(eventName?: string, callback?: EventHandler, context?: any): this;
+
+        once(events: string, callback: EventHandler, context?: any): this;
+        once(eventMap: EventMap, context?: any): this;
+        listenTo(object: any, events: string, callback: EventHandler): this;
+        listenTo(object: any, eventMap: EventMap): this;
+        listenToOnce(object: any, events: string, callback: EventHandler): this;
+        listenToOnce(object: any, eventMap: EventMap): this;
+        stopListening(object?: any, events?: string, callback?: EventHandler): this;
+    }
+
+    class ModelBase extends EventsMixin {
         parse(response: any, options?: any): any;
         toJSON(options?: any): any;
         sync(...arg: any[]): JQueryXHR;
     }
 
-    class Model extends ModelBase {
+    /**
+     * E - Extensions to the model constructor options. You can accept additional constructor options
+     * by listing them in the E parameter.
+     */
+    class Model<T = any, S = Backbone.ModelSetOptions, E = {}> extends ModelBase implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -125,7 +229,7 @@ declare namespace Backbone {
         changed: any[];
         cidPrefix: string;
         cid: string;
-        collection: Collection<any>;
+        collection: Collection<this>;
 
         private _changing: boolean;
         private _previousAttributes : any;
@@ -150,8 +254,16 @@ declare namespace Backbone {
 
         urlRoot: any;
 
-        constructor(attributes?: any, options?: any);
-        initialize(attributes?: any, options?: any): void;
+        /**
+         * For use with models as ES classes. If you define a preinitialize
+         * method, it will be invoked when the Model is first created, before
+         * any instantiation logic is run for the Model.
+         * @see https://backbonejs.org/#Model-preinitialize
+         */
+        preinitialize(attributes?: T, options?: CombinedModelConstructorOptions<E, this>): void;
+
+        constructor(attributes?: T, options?: CombinedModelConstructorOptions<E>);
+        initialize(attributes?: T, options?: CombinedModelConstructorOptions<E, this>): void;
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
@@ -162,7 +274,7 @@ declare namespace Backbone {
         *    return super.get("name");
         * }
         **/
-        /*private*/ get(attributeName: string): any;
+        get<a extends keyof T & string>(attributeName: a): T[a];
 
         /**
         * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
@@ -171,8 +283,9 @@ declare namespace Backbone {
         *    super.set("name", value);
         * }
         **/
-        /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
-        set(obj: any, options?: ModelSetOptions): Model;
+        set<a extends keyof T & string>(attributeName: a, value?: T[a], options?: S): Backbone.Model;
+        set(attributeName: Partial<T>, options?: S): Backbone.Model;
+        set<a extends keyof T & string>(attributeName: a | Partial<T>, value?: T[a] | S, options?: S): Backbone.Model;
 
         /**
          * Return an object containing all the attributes that have changed, or
@@ -191,7 +304,7 @@ declare namespace Backbone {
         isNew(): boolean;
         isValid(options?:any): boolean;
         previous(attribute: string): any;
-        previousAttributes(): any[];
+        previousAttributes(): any;
         save(attributes?: any, options?: ModelSaveOptions): any;
         unset(attribute: string, options?: Silenceable): Model;
         validate(attributes: any, options?: any): any;
@@ -215,7 +328,7 @@ declare namespace Backbone {
         matches(attrs: any): boolean;
     }
 
-    class Collection<TModel extends Model> extends ModelBase {
+    class Collection<TModel extends Model = Model> extends ModelBase implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -225,6 +338,14 @@ declare namespace Backbone {
         model: new (...args:any[]) => TModel;
         models: TModel[];
         length: number;
+
+        /**
+         * For use with collections as ES classes. If you define a preinitialize
+         * method, it will be invoked when the Collection is first created and
+         * before any instantiation logic is run for the Collection.
+         * @see https://backbonejs.org/#Collection-preinitialize
+         */
+        preinitialize(models?: TModel[] | Object[], options?: any): void;
 
         constructor(models?: TModel[] | Object[], options?: any);
         initialize(models?: TModel[] | Object[], options?: any): void;
@@ -251,7 +372,7 @@ declare namespace Backbone {
         pop(options?: Silenceable): TModel;
         remove(model: {}|TModel, options?: Silenceable): TModel;
         remove(models: ({}|TModel)[], options?: Silenceable): TModel[];
-        reset(models?: TModel[], options?: Silenceable): TModel[];
+        reset(models?: ({}|TModel)[], options?: Silenceable): TModel[];
 
         /**
          *
@@ -264,13 +385,18 @@ declare namespace Backbone {
          * @param models
          * @param options
          */
-        set(models?: TModel[], options?: CollectionSetOptions): TModel[];
+        set(models?: ({}|TModel)[], options?: CollectionSetOptions): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;
         where(properties: any): TModel[];
         findWhere(properties: any): TModel;
         modelId(attrs: any) : any
+
+        values(): Iterator<TModel>;
+        keys(): Iterator<any>;
+        entries(): Iterator<[any, TModel]>;
+        [Symbol.iterator](): Iterator<TModel>;
 
         private _prepareModel(attributes?: any, options?: any): any;
         private _removeReference(model: TModel): void;
@@ -353,7 +479,7 @@ declare namespace Backbone {
         without(...values: TModel[]): TModel[];
     }
 
-    class Router extends Events {
+    class Router extends EventsMixin implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -366,6 +492,14 @@ declare namespace Backbone {
         * That works only if you set it in the constructor or the initialize method.
         **/
         routes: RoutesHash | any;
+
+        /**
+         * For use with Router as ES classes. If you define a preinitialize method,
+         * it will be invoked when the Router is first created, before any
+         * instantiation logic is run for the Router.
+         * @see https://backbonejs.org/#Router-preinitialize
+         */
+        preinitialize(options?: RouterOptions): void;
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
@@ -382,7 +516,7 @@ declare namespace Backbone {
 
     var history: History;
 
-    class History extends Events {
+    class History extends EventsMixin implements Events {
 
         handlers: any[];
         interval: number;
@@ -407,7 +541,7 @@ declare namespace Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-   interface ViewOptions<TModel extends Model> {
+   interface ViewOptions<TModel extends Model = Model> {
       model?: TModel;
        // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
       collection?: Backbone.Collection<any>; //was: Collection<TModel>;
@@ -419,12 +553,20 @@ declare namespace Backbone {
       attributes?: {[id: string]: any};
     }
 
-    class View<TModel extends Model> extends Events {
+    class View<TModel extends Model = Model> extends EventsMixin implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
         public static extend(properties: any, classProperties?: any): any;
+
+        /**
+         * For use with views as ES classes. If you define a preinitialize
+         * method, it will be invoked when the view is first created, before any
+         * instantiation logic is run.
+         * @see https://backbonejs.org/#View-preinitialize
+         */
+        preinitialize(options?: ViewOptions<TModel>): void;
 
         constructor(options?: ViewOptions<TModel>);
         initialize(options?: ViewOptions<TModel>): void;
@@ -462,7 +604,7 @@ declare namespace Backbone {
     }
 
     // SYNC
-    function sync(method: string, model: Model | Collection<Model>, options?: JQueryAjaxSettings): any;
+    function sync(method: string, model: Model | Collection, options?: JQueryAjaxSettings): any;
     function ajax(options?: JQueryAjaxSettings): JQueryXHR;
     var emulateHTTP: boolean;
     var emulateJSON: boolean;

@@ -31,13 +31,13 @@ declare namespace gsap {
         addLabel(label: string, position: any): TimelineLite;
 
         /** Inserts a special callback that pauses playback of the timeline at a particular time or label. */
-        addPause(position?: any, callback?: () => void, params?: any[], scope?: any): TimelineLite;
+        addPause(position?: any, callback?: (...args: any[]) => void, params?: any[], scope?: any): TimelineLite;
 
         /**
          * Adds a callback to the end of the timeline (or elsewhere using the "position" parameter) - this is a convenience method that accomplishes exactly the same thing as
          * add( TweenLite.delayedCall(...) ) but with less code.
          */
-        call(callback: () => void, params?: any[], scope?: any, position?: any): TimelineLite;
+        call(callback: (...args: any[]) => void, params?: any[], scope?: any, position?: any): TimelineLite;
 
         /** Empties the timeline of all tweens, timelines, and callbacks (and optionally labels too). */
         clear(labels?: boolean): TimelineLite;
@@ -85,7 +85,7 @@ declare namespace gsap {
         removeLabel(label: string): any;
 
         /** Jumps to a specific time (or label) without affecting whether or not the instance is paused or reversed. */
-        seek(position: string | number, supressEvents: boolean): TimelineLite;
+        seek(position: string | number, supressEvents?: boolean): TimelineLite;
 
         /**
          * Adds a zero-duration tween to the end of the timeline (or elsewhere using the "position" parameter) that sets values immediately (when the virtual playhead reaches that
@@ -106,7 +106,7 @@ declare namespace gsap {
             vars: {},
             stagger?: number,
             position?: any,
-            onCompleteAll?: () => void,
+            onCompleteAll?: (...args: any[]) => void,
             onCompleteAllParams?: any[],
             onCompleteScope?: any
         ): TimelineLite;
@@ -122,7 +122,7 @@ declare namespace gsap {
             toVars: {},
             stagger?: number,
             position?: any,
-            onCompleteAll?: () => void,
+            onCompleteAll?: (...args: any[]) => void,
             onCompleteAllParams?: any[],
             onCompleteAllScope?: any
         ): TimelineLite;
@@ -137,7 +137,7 @@ declare namespace gsap {
             vars: {},
             stagger: number,
             position?: any,
-            onCompleteAll?: () => void,
+            onCompleteAll?: (...args: any[]) => void,
             onCompleteAllParams?: any[],
             onCompleteAllScope?: any
         ): TimelineLite;
@@ -156,14 +156,14 @@ declare namespace gsap {
     class TimelineMax extends TimelineLite {
         constructor(vars?: {});
 
-        addCallback(callback: () => void, position: any, params?: any[], scope?: any): TimelineMax;
+        addCallback(callback: (...args: any[]) => void, position: any, params?: any[], scope?: any): TimelineMax;
         currentLabel(): string;
         currentLabel(value: string): TimelineMax;
         getActive(nested?: boolean, tweens?: boolean, timelines?: boolean): Tween | Timeline[];
         getLabelAfter(time: number): string;
         getLabelBefore(time: number): string;
         getLabelsArray(): Array<{ name: string; time: number }>;
-        removeCallback(callback: () => void, timeOrLabel?: any): TimelineMax;
+        removeCallback(callback: (...args: any[]) => void, timeOrLabel?: any): TimelineMax;
         removePause(position: any): TimelineMax;
         repeat(): number;
         repeat(value: number): TimelineMax;

@@ -1,7 +1,11 @@
 // Type definitions for The Spotify Web API (including changes March 29th 2016)
 // Project: https://developer.spotify.com/web-api/
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
+//                 Magnar Ovedal Myrtveit <https://github.com/Stadly>
+//                 Nils Måsén <https://github.com/piksel>
+//                 Basti Ortiz <https://github.com/Some-Dood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 // Release comments:
 // -----------------
@@ -23,21 +27,46 @@ declare namespace SpotifyApi {
      * Object for search parameters for searching for tracks, playlists, artists or albums.
      * See: [Search for an item](https://developer.spotify.com/web-api/search-item/)
      *
-     * q and type are not optional in the API, however they are marked as optional here, since various libraries
-     * implement them as function call parameters instead. This could be changed.
-     *
-     * @param q Required. The search query's keywords (and optional field filters and operators).
-     * @param type Required. A comma-separated list of item types to search across. Valid types are: album, artist, playlist, and track.
-     * @param market Optional. An ISO 3166-1 alpha-2 country code or the string from_token
-     * @param limit Optional. The maximum number of results to return. Default: 20. Minimum: 1. Maximum: 50.
-     * @param offset Optional. The index of the first result to return. Default: 0 (i.e., the first result). Maximum offset: 100.000. Use with limit to get the next page of search results.
+     * `q` and `type` are required in the API. Previous versions of the type declarations marked them
+     * as optional in order for external libraries to "implement them as function call parameters instead".
+     * Now, the type declaration shall mark them as required. If necessary, one can consider this to be a
+     * "breaking change". In that case, one can use TypeScript's built-in utility type `Omit<T, K>`.
+     * For example, one can remove the `q` and `type` by annotating the type
+     * as `Omit<SpotifyApi.SearchForItemParameterObject, "q" | "type">`.
      */
     interface SearchForItemParameterObject {
-        q?: string;
-        type?: string;
+        /**
+         * The search query's keywords (and optional field filters and operators).
+         */
+        q: string;
+        /**
+         * A comma-separated list of item types to search across. Valid types are: `album`, `artist`, `playlist`, and `track`.
+         * Search results include hits from all the specified item types.
+         * For example: `q=name:abacab&type=album,track` returns both albums and tracks with `“abacab”` included in their name.
+         */
+        type: string;
+        /**
+         * An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or the string `from_token`.
+         * If a country code is specified, only artists, albums, and tracks with content that is playable in that market is returned.
+         */
         market?: string;
+        /**
+         * The maximum number of results to return.
+         * Default: `20`. Minimum: `1`. Maximum: `50`.
+         */
         limit?: number;
+        /**
+         * The index of the first result to return.
+         * Default: `0` (first result). Maximum offset (including limit): `2,000`.
+         * Use with limit to get the next page of search results.
+         */
         offset?: number;
+        /**
+         * Possible values: `audio`.
+         * If `include_external=audio` is specified, the response will include any relevant audio content that is hosted externally.
+         * By default external content is filtered out from responses.
+         */
+        include_external?: string;
     }
 
     /**
@@ -54,55 +83,91 @@ declare namespace SpotifyApi {
      * @target_ q Optional. Multiple values. For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request target_energy=0.6 and target_danceability=0.8. All target values will be weighed equally in ranking results.
      */
     interface RecommendationsOptionsObject {
-        limit?: number,
-        market?: string,
-        max_acousticness?: number,
-        max_danceability?: number,
-        max_duration_ms?: number,
-        max_energy?: number,
-        max_instrumentalness?: number,
-        max_key?: number,
-        max_liveness?: number,
-        max_loudness?: number,
-        max_mode?: number,
-        max_popularity?: number,
-        max_speechiness?: number,
-        max_tempo?: number,
-        max_time_signature?: number,
-        max_valence?: number,
-        min_acousticness?: number,
-        min_danceability?: number,
-        min_duration_ms?: number,
-        min_energy?: number,
-        min_instrumentalness?: number,
-        min_key?: number,
-        min_liveness?: number,
-        min_loudness?: number,
-        min_mode?: number,
-        min_popularity?: number,
-        min_speechiness?: number,
-        min_tempo?: number,
-        min_time_signature?: number,
-        min_valence?: number,
-        seed_artists?: string,   // Comma separated string
-        seed_genres?: string,   // Comma separated string
-        seed_tracks?: string,   // Comma separated string
-        target_acousticness?: number
-        target_danceability?: number
-        target_duration_ms?: number
-        target_energy?: number
-        target_instrumentalness?: number
-        target_key?: number
-        target_liveness?: number
-        target_loudness?: number
-        target_mode?: number
-        target_popularity?: number
-        target_speechiness?: number
-        target_tempo?: number
-        target_time_signature?: number
-        target_valence?: number
+        limit?: number;
+        market?: string;
+        max_acousticness?: number;
+        max_danceability?: number;
+        max_duration_ms?: number;
+        max_energy?: number;
+        max_instrumentalness?: number;
+        max_key?: number;
+        max_liveness?: number;
+        max_loudness?: number;
+        max_mode?: number;
+        max_popularity?: number;
+        max_speechiness?: number;
+        max_tempo?: number;
+        max_time_signature?: number;
+        max_valence?: number;
+        min_acousticness?: number;
+        min_danceability?: number;
+        min_duration_ms?: number;
+        min_energy?: number;
+        min_instrumentalness?: number;
+        min_key?: number;
+        min_liveness?: number;
+        min_loudness?: number;
+        min_mode?: number;
+        min_popularity?: number;
+        min_speechiness?: number;
+        min_tempo?: number;
+        min_time_signature?: number;
+        min_valence?: number;
+        seed_artists?: string[] | string;   // Array of strings or Comma separated string
+        seed_genres?: string[] | string;   // Array of strings or Comma separated string
+        seed_tracks?: string[] | string;   // Array of strings or Comma separated string
+        target_acousticness?: number;
+        target_danceability?: number;
+        target_duration_ms?: number;
+        target_energy?: number;
+        target_instrumentalness?: number;
+        target_key?: number;
+        target_liveness?: number;
+        target_loudness?: number;
+        target_mode?: number;
+        target_popularity?: number;
+        target_speechiness?: number;
+        target_tempo?: number;
+        target_time_signature?: number;
+        target_valence?: number;
     }
 
+    interface RecentlyPlayedParameterObject {
+        limit?: number;
+        after?: number;
+        before?: number;
+    }
+
+    interface TransferPlaybackParameterObject {
+        play?: boolean;
+    }
+
+    interface TrackRelinkingParameterObject {
+        market?: string;
+    }
+
+    interface DeviceSpecificParameterObject {
+        device_id?: string;
+        context_uri?: string;
+        position_ms?: number;
+        uris?: string[];
+        offset?: Object;
+    }
+
+    interface PlayParameterObject {
+        device_id?: string;
+        context_uri?: string;
+        uris?: string[];
+        offset?: {
+            position?: number;
+            uri?: string;
+        };
+        position_ms?: number;
+    }
+
+    interface RestrictionsObject {
+        reason: string;
+    }
 
     //
     // Responses from the Spotify Web API in the same order as in the API endpoint docs seen here:
@@ -120,7 +185,7 @@ declare namespace SpotifyApi {
      * Response with Playlist Snapshot
      */
     interface PlaylistSnapshotResponse {
-        snapshot_id: string
+        snapshot_id: string;
     }
 
 
@@ -141,7 +206,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/get-several-albums/ 
      */
     interface MultipleAlbumsResponse {
-        albums: AlbumObjectFull[]
+        albums: AlbumObjectFull[];
     }
 
     /**
@@ -167,7 +232,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/get-several-artists/
      */
     interface MultipleArtistsResponse {
-        artists: ArtistObjectFull[]
+        artists: ArtistObjectFull[];
     }
 
     /**
@@ -185,7 +250,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/get-artists-top-tracks/
      */
     interface ArtistsTopTracksResponse {
-        tracks: TrackObjectFull[]
+        tracks: TrackObjectFull[];
     }
 
     /**
@@ -195,7 +260,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/get-related-artists/
      */
     interface ArtistsRelatedArtistsResponse {
-        artists: ArtistObjectFull[]
+        artists: ArtistObjectFull[];
     }
 
     /**
@@ -224,7 +289,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/get-several-audio-features/
      */
     interface MultipleAudioFeaturesResponse {
-        "audio_features": AudioFeaturesObject[]
+        audio_features: AudioFeaturesObject[];
     }
 
     /**
@@ -234,8 +299,8 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/get-list-featured-playlists/
      */
     interface ListOfFeaturedPlaylistsResponse {
-        message?: string,
-        playlists: PagingObject<PlaylistObjectSimplified>
+        message?: string;
+        playlists: PagingObject<PlaylistObjectSimplified>;
     }
 
     /**
@@ -245,8 +310,8 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/get-list-new-releases/
      */
     interface ListOfNewReleasesResponse {
-        message?: string,
-        albums: PagingObject<AlbumObjectSimplified>
+        message?: string;
+        albums: PagingObject<AlbumObjectSimplified>;
     }
 
     /**
@@ -256,7 +321,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/get-list-categories/
      */
     interface MultipleCategoriesResponse {
-        categories: PagingObject<CategoryObject>
+        categories: PagingObject<CategoryObject>;
     }
 
     /**
@@ -274,7 +339,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/get-categorys-playlists/
      */
     interface CategoryPlaylistsReponse {
-        playlists: PagingObject<PlaylistObjectSimplified>
+        playlists: PagingObject<PlaylistObjectSimplified>;
     }
 
     /**
@@ -292,7 +357,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/get-followed-artists/
      */
     interface UsersFollowedArtistsResponse {
-        artists: CursorBasedPagingObject<ArtistObjectFull>
+        artists: CursorBasedPagingObject<ArtistObjectFull>;
     }
 
     /**
@@ -416,6 +481,14 @@ declare namespace SpotifyApi {
     interface UsersTopTracksResponse extends PagingObject<TrackObjectFull> {}
 
     /**
+     * Get a User’s Recently Played Tracks
+     * 
+     * GET /v1/me/player/recently-played
+     * https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+     */
+    interface UsersRecentlyPlayedTracksResponse extends CursorBasedPagingObject<PlayHistoryObject> {}
+
+    /**
      * Get recommendations based on seeds
      * 
      * GET /v1/recommendations
@@ -430,7 +503,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/get-recommendations/#available-genre-seeds
      */
     interface AvailableGenreSeedsResponse {
-        "genres": string[]
+        "genres": string[];
     }
 
     /**
@@ -450,7 +523,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/search-item/
      */
     interface ArtistSearchResponse {
-        artists: PagingObject<ArtistObjectFull>
+        artists: PagingObject<ArtistObjectFull>;
     }
 
     /**
@@ -460,7 +533,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/search-item/
      */
     interface PlaylistSearchResponse {
-        playlists: PagingObject<PlaylistObjectSimplified>
+        playlists: PagingObject<PlaylistObjectSimplified>;
     }
 
     /**
@@ -470,8 +543,16 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/search-item/
      */
     interface TrackSearchResponse {
-        tracks: PagingObject<TrackObjectFull>
+        tracks: PagingObject<TrackObjectFull>;
     }
+
+    /**
+     * Search for artists/albums/tracks/playlists
+     * 
+     * GET /v1/search?type=album
+     * https://developer.spotify.com/web-api/search-item/
+     */
+    interface SearchResponse extends Partial<ArtistSearchResponse>, Partial<AlbumSearchResponse>, Partial<TrackSearchResponse>, Partial<PlaylistSearchResponse> {}
 
     /**
      * Get a track
@@ -488,7 +569,7 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/get-several-tracks/
      */
     interface MultipleTracksResponse {
-        tracks: TrackObjectFull[]
+        tracks: TrackObjectFull[];
     }
 
     /**
@@ -580,6 +661,14 @@ declare namespace SpotifyApi {
     interface ReplacePlaylistTracksResponse extends VoidResponse {}
 
     /**
+     * Upload a Custom Playlist Cover Image
+     * 
+     * PUT /v1/users/{user_id}/playlists/{playlist_id}/images
+     * https://developer.spotify.com/web-api/upload-a-custom-playlist-cover-image/
+     */
+    interface UploadCustomPlaylistCoverImageReponse extends VoidResponse {}
+
+    /**
      * Check if Users Follow a Playlist
      * 
      * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
@@ -587,7 +676,13 @@ declare namespace SpotifyApi {
      */
     interface UsersFollowPlaylistReponse extends Array<boolean> {}
 
+    interface UserDevicesResponse {
+        devices: UserDevice[];
+    }
 
+    interface CurrentPlaybackResponse extends CurrentlyPlayingObject, PlaybackObject {}
+
+    interface CurrentlyPlayingResponse extends CurrentlyPlayingObject {}
 
     //
     // Objects from the Object Models of the Spotify Web Api, ordered alphabetically.
@@ -599,30 +694,88 @@ declare namespace SpotifyApi {
      * [album object (full)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
     interface AlbumObjectFull extends AlbumObjectSimplified {
-        artists: ArtistObjectSimplified[],
-        copyrights: CopyrightObject[],
-        external_ids: ExternalIdObject,
-        genres: string[],
-        popularity: number,
-        release_date: string,
-        release_date_precision: string,
-        tracks: PagingObject<TrackObjectSimplified>,
+        /**
+         * The copyright statements of the album.
+         */
+        copyrights: CopyrightObject[];
+        /**
+         * Known external IDs for the album.
+         */
+        external_ids: ExternalIdObject;
+        /**
+         * A list of the genres used to classify the album.
+         * For example: `"Prog Rock"` , `"Post-Grunge"`. (If not yet classified, the array is empty.)
+         */
+        genres: string[];
+        /**
+         * The label for the album.
+         */
+        label: string,
+        /**
+         * The popularity of the album. The value will be between `0` and `100`, with `100` being the most popular.
+         * The popularity is calculated from the popularity of the album’s individual tracks;
+         */
+        popularity: number;
+        /**
+         * The tracks of the album.
+         */
+        tracks: PagingObject<TrackObjectSimplified>;
     }
 
     /**
      * Simplified Album Object
      * [album object (simplified)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
-    interface AlbumObjectSimplified {
-        album_type: string,
-        available_markets?: string[],
-        external_urls: ExternalUrlObject,
-        href: string,
-        id: string,
-        images: ImageObject[],
-        name: string,
-        type: "album",
-        uri: string
+    interface AlbumObjectSimplified extends ContextObject {
+        /**
+         * The field is present when getting an artist’s albums.
+         * Possible values are “album”, “single”, “compilation”, “appears_on”.
+         * Compare to album_type this field represents relationship between the artist and the album.
+         */
+        album_group?: "album" | "single" | "compilation" | "appears_on";
+        /**
+         * The type of the album: one of “album”, “single”, or “compilation”.
+         */
+        album_type: "album" | "single" | "compilation";
+        /**
+         * The artists of the album.
+         * Each artist object includes a link in href to more detailed information about the artist.
+         */
+        artists: ArtistObjectSimplified[];
+        /**
+         * The markets in which the album is available: [ISO 3166-1 alpha-2 country codes](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+         * Note that an album is considered available in a market when at least 1 of its tracks is available in that market.
+         */
+        available_markets?: string[];
+        /**
+         * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the album.
+         */
+        id: string;
+        /**
+         * The cover art for the album in various sizes, widest first.
+         */
+        images: ImageObject[];
+        /**
+         * The name of the album. In case of an album takedown, the value may be an empty string.
+         */
+        name: string;
+        /**
+         * The date the album was first released, for example `1981`.
+         * Depending on the precision, it might be shown as `1981-12` or `1981-12-15`.
+         */
+        release_date: string;
+        /**
+         * The precision with which release_date value is known: `year`, `month`, or `day`.
+         */
+        release_date_precision: "year" | "month" | "day";
+        /**
+         * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/) is applied,
+         * the original track is not available in the given market, and Spotify did not have any tracks to relink it with.
+         * The track response will still contain metadata for the original track,
+         * and a restrictions object containing the reason why the track is not available: `"restrictions" : {"reason" : "market"}`
+         */
+        restrictions?: RestrictionsObject;
+        type: "album";
     }
 
     /**
@@ -630,23 +783,41 @@ declare namespace SpotifyApi {
      * [artist object (full)](https://developer.spotify.com/web-api/object-model/)
      */
     interface ArtistObjectFull extends ArtistObjectSimplified {
-        followers: FollowersObject,
-        genres: string[],
-        images: ImageObject[],
-        popularity: number,
+        /**
+         * Information about the followers of the artist.
+         */
+        followers: FollowersObject;
+        /**
+         * A list of the genres the artist is associated with.
+         * For example: `"Prog Rock"` , `"Post-Grunge"`.
+         * (If not yet classified, the array is empty.)
+         */
+        genres: string[];
+        /**
+         * Images of the artist in various sizes, widest first.
+         */
+        images: ImageObject[];
+        /**
+         * The popularity of the artist. The value will be between `0` and `100`, with `100` being the most popular.
+         * The artist’s popularity is calculated from the popularity of all the artist’s tracks.
+         */
+        popularity: number;
     }
 
     /**
      * Simplified Artist Object
      * [artist object (simplified)](https://developer.spotify.com/web-api/object-model/)
      */
-    interface ArtistObjectSimplified {
-        external_urls: ExternalUrlObject,
-        href: string,
-        id: string,
-        name: string,
-        type: "artist",
-        uri: string
+    interface ArtistObjectSimplified extends ContextObject {
+        /**
+         * The name of the artist.
+         */
+        name: string;
+        /**
+         * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the artist.
+         */
+        id: string;
+        type: "artist";
     }
 
     /**
@@ -654,24 +825,24 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/object-model/#audio-features-object
      */
     interface AudioFeaturesObject {
-        acousticness: number,
-        analysis_url: string,
-        danceability: number,
-        duration_ms: number,
-        energy: number,
-        id: string,
-        instrumentalness: number,
-        key: number,
-        liveness: number,
-        loudness: number,
-        mode: number,
-        speechiness: number,
-        tempo: number,
-        time_signature: number,
-        track_href: string,
-        type: "audio_features",
-        uri: string,
-        valence: number
+        acousticness: number;
+        analysis_url: string;
+        danceability: number;
+        duration_ms: number;
+        energy: number;
+        id: string;
+        instrumentalness: number;
+        key: number;
+        liveness: number;
+        loudness: number;
+        mode: number;
+        speechiness: number;
+        tempo: number;
+        time_signature: number;
+        track_href: string;
+        type: "audio_features";
+        uri: string;
+        valence: number;
     }
 
     /**
@@ -679,10 +850,10 @@ declare namespace SpotifyApi {
      * [category object](https://developer.spotify.com/web-api/object-model/)
      */
     interface CategoryObject {
-        href: string,
-        icons: ImageObject[],
-        id: string,
-        name: string
+        href: string;
+        icons: ImageObject[];
+        id: string;
+        name: string;
     }
 
     /**
@@ -690,8 +861,8 @@ declare namespace SpotifyApi {
      * [copyright object](https://developer.spotify.com/web-api/object-model/)
      */
     interface CopyrightObject {
-        text: string,
-        type: "C" | "P"
+        text: string;
+        type: "C" | "P";
     }
 
     /**
@@ -699,7 +870,8 @@ declare namespace SpotifyApi {
      * [cursor object](https://developer.spotify.com/web-api/object-model/)
      */
     interface CursorObject {
-        after: string
+        after: string;
+        before?: string;
     }
 
     /**
@@ -707,8 +879,15 @@ declare namespace SpotifyApi {
      * [error object](https://developer.spotify.com/web-api/object-model/)
      */
     interface ErrorObject {
-        status: number,
-        message: string
+        /**
+         * The HTTP status code (also returned in the response header;
+         * see [Response Status Codes](https://developer.spotify.com/documentation/web-api/#response-status-codes) for more information).
+         */
+        status: number;
+        /**
+         * A short description of the cause of the error.
+         */
+        message: string;
     }
 
     /**
@@ -718,9 +897,9 @@ declare namespace SpotifyApi {
      * Note that there might be other types available, it couldn't be found in the docs.
      */
     interface ExternalIdObject {
-        isrc?: string,
-        ean?: string,
-        upc?: string
+        isrc?: string;
+        ean?: string;
+        upc?: string;
     }
 
     /**
@@ -730,7 +909,7 @@ declare namespace SpotifyApi {
      * Note that there might be other types available, it couldn't be found in the docs.
      */
     interface ExternalUrlObject {
-        spotify: string
+        spotify: string;
     }
 
     /**
@@ -738,8 +917,15 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/)
      */
     interface FollowersObject {
-        href: string,
-        total: number
+        /**
+         * A link to the Web API endpoint providing full details of the followers; `null` if not available.
+         * Please note that this will always be set to `null`, as the Web API does not support it at the moment.
+         */
+        href: null;
+        /**
+         * The total number of followers.
+         */
+        total: number;
     }
 
     /**
@@ -747,9 +933,18 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/)
      */
     interface ImageObject {
-        height?: number,
-        url: string,
-        width?: number
+        /**
+         * The image height in pixels. If unknown: `null` or not returned.
+         */
+        height?: number;
+        /**
+         * The source URL of the image.
+         */
+        url: string;
+        /**
+         * The image width in pixels. If unknown: null or not returned.
+         */
+        width?: number;
     }
 
     /**
@@ -757,13 +952,13 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#paging-object)
      */
     interface PagingObject<T> {
-        href: string,
-        items: T[],
-        limit: number,
-        next: string,
-        offset: number,
-        previous: string,
-        total: number
+        href: string;
+        items: T[];
+        limit: number;
+        next: string;
+        offset: number;
+        previous: string;
+        total: number;
     }
 
     /**
@@ -771,40 +966,75 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#cursor-based-paging-object)
      */
     interface CursorBasedPagingObject<T> {
-        href: string,
-        items: T[],
-        limit: number,
-        next: string,
-        cursors: CursorObject,
-        total: number
+        href: string;
+        items: T[];
+        limit: number;
+        next: string;
+        cursors: CursorObject;
+        total?: number;
     }
 
     /**
      * Base Playlist Object. Does not in itself exist in Spotify Web Api,
      * but needs to be made since the tracks types vary in the Full and Simplified versions.
      */
-    interface PlaylistBaseObject {
-        collaborative: boolean,
-        external_urls: ExternalUrlObject,
-        href: string,
-        id: string,
-        images: ImageObject[],
-        name: string,
-        owner: UserObjectPublic,
-        public: boolean,
-        snapshot_id: string,
-        type: "playlist",
-        uri: string
+    interface PlaylistBaseObject extends ContextObject {
+        /**
+         * Returns `true` if context is not search and the owner allows other users to modify the playlist.
+         * Otherwise returns `false`.
+         */
+        collaborative: boolean;
+        /**
+         * The playlist description. Only returned for modified, verified playlists, otherwise null.
+         */
+        description: string | null;
+        /**
+         * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist.
+         */
+        id: string;
+        /**
+         * Images for the playlist. The array may be empty or contain up to three images.
+         * The images are returned by size in descending order.
+         * See [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/).
+         * Note: If returned, the source URL for the image (`url`) is temporary and will expire in less than a day.
+         */
+        images: ImageObject[];
+        /**
+         * The name of the playlist.
+         */
+        name: string;
+        /**
+         * The user who owns the playlist.
+         */
+        owner: UserObjectPublic;
+        /**
+         * The playlist’s public/private status:
+         * `true` the playlist is public,
+         * `false` the playlist is private,
+         * or `null` the playlist status is not relevant.
+         */
+        public: boolean | null;
+        /**
+         * The version identifier for the current playlist. Can be supplied in other requests to target a specific playlist version:
+         * see [Remove tracks from a playlist](https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/).
+         */
+        snapshot_id: string;
+        type: "playlist";
     }
 
     /**
      * Playlist Object Full
-     * [](https://developer.spotify.com/web-api/object-model/)
+     * [](https://developer.spotify.com/web-api/object-model/#playlist-object-full)
      */
     interface PlaylistObjectFull extends PlaylistBaseObject {
-        description: string,
-        followers: FollowersObject,
-        tracks: PagingObject<PlaylistTrackObject>
+        /**
+         * Information about the followers of the playlist.
+         */
+        followers: FollowersObject;
+        /**
+         * Information about the tracks of the playlist.
+         */
+        tracks: PagingObject<PlaylistTrackObject>;
     }
 
     /**
@@ -813,9 +1043,9 @@ declare namespace SpotifyApi {
      */
     interface PlaylistObjectSimplified extends PlaylistBaseObject {
         tracks: {
-            href: string,
-            total: number
-        }
+            href: string;
+            total: number;
+        };
     }
 
     /**
@@ -823,10 +1053,10 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/)
      */
     interface PlaylistTrackObject {
-        added_at: string,
-        added_by: UserObjectPublic,
-        is_local: boolean,
-        track: TrackObjectFull
+        added_at: string;
+        added_by: UserObjectPublic;
+        is_local: boolean;
+        track: TrackObjectFull;
     }
 
     /**
@@ -834,8 +1064,8 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#recommendations-object)
      */
     interface RecommendationsObject {
-        seeds: RecommendationsSeedObject[],
-        tracks: TrackObjectSimplified[]
+        seeds: RecommendationsSeedObject[];
+        tracks: TrackObjectSimplified[];
     }
 
     /**
@@ -843,12 +1073,12 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#recommendations-seed-object)
      */
     interface RecommendationsSeedObject {
-        afterFilteringSize: number,
-        afterRelinkingSize: number,
-        href: string,
-        id: string,
-        initialPoolSize: number,
-        type: "artist" | "track" | "genre"
+        afterFilteringSize: number;
+        afterRelinkingSize: number;
+        href: string;
+        id: string;
+        initialPoolSize: number;
+        type: "artist" | "track" | "genre";
     }
 
     /**
@@ -856,8 +1086,8 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/)
      */
     interface SavedTrackObject {
-        added_at: string,
-        track: TrackObjectFull
+        added_at: string;
+        track: TrackObjectFull;
     }
 
     /**
@@ -865,8 +1095,8 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/)
      */
     interface SavedAlbumObject {
-        added_at: string,
-        album: AlbumObjectFull
+        added_at: string;
+        album: AlbumObjectFull;
     }
 
     /**
@@ -874,9 +1104,25 @@ declare namespace SpotifyApi {
      * [track object (full)](https://developer.spotify.com/web-api/object-model/#track-object-full)
      */
     interface TrackObjectFull extends TrackObjectSimplified {
-        album: AlbumObjectSimplified,
-        external_ids: ExternalIdObject,
-        popularity: number
+        /**
+         * The album on which the track appears.
+         */
+        album: AlbumObjectSimplified;
+        /**
+         * Known external IDs for the track.
+         */
+        external_ids: ExternalIdObject;
+        /**
+         * The popularity of the track. The value will be between `0` and `100`, with `100` being the most popular.
+         * The popularity of a track is a value between `0` and `100`, with `100` being the most popular.
+         * The popularity is calculated by algorithm and is based, in the most part,
+         * on the total number of plays the track has had and how recent those plays are.
+         */
+        popularity: number;
+        /**
+         * Whether or not the track is from a local file.
+         */
+        is_local?: boolean;
     }
 
     /**
@@ -884,21 +1130,77 @@ declare namespace SpotifyApi {
      * [track object (simplified)](https://developer.spotify.com/web-api/object-model/#track-object-simplified)
      */
     interface TrackObjectSimplified {
-        artists: ArtistObjectSimplified[],
-        available_markets?: string[],
-        disc_number: number,
-        duration_ms: number,
-        explicit: boolean,
-        external_urls: ExternalUrlObject,
-        href: string,
-        id: string,
-        is_playable?: boolean,
-        linked_from?: TrackLinkObject,
-        name: string,
-        preview_url: string,
-        track_number: number,
-        type: "track",
-        uri: string
+        /**
+         * The artists who performed the track.
+         */
+        artists: ArtistObjectSimplified[];
+        /**
+         * A list of the countries in which the track can be played,
+         * identified by their [ISO 3166-1 alpha-2 code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+         */
+        available_markets?: string[];
+        /**
+         * The disc number (usually `1` unless the album consists of more than one disc).
+         */
+        disc_number: number;
+        /**
+         * The track length in milliseconds.
+         */
+        duration_ms: number;
+        /**
+         * Whether or not the track has explicit lyrics (`true` = yes it does; `false` = no it does not OR unknown).
+         */
+        explicit: boolean;
+        /**
+         * Known external URLs for this track.
+         */
+        external_urls: ExternalUrlObject;
+        /**
+         * A link to the Web API endpoint providing full details of the track.
+         */
+        href: string;
+        /**
+         * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
+         */
+        id: string;
+        /**
+         * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/) is applied.
+         * If `true`, the track is playable in the given market. Otherwise, `false`.
+         */
+        is_playable?: boolean;
+        /**
+         * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/) is applied,
+         * and the requested track has been replaced with different track.
+         * The track in the `linked_from` object contains information about the originally requested track.
+         */
+        linked_from?: TrackLinkObject;
+        /**
+         * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/) is applied,
+         * the original track is not available in the given market, and Spotify did not have any tracks to relink it with.
+         * The track response will still contain metadata for the original track, and a restrictions object containing the reason
+         * why the track is not available: `"restrictions" : {"reason" : "market"}`.
+         */
+        restrictions?: RestrictionsObject;
+        /**
+         * The name of the track.
+         */
+        name: string;
+        /**
+         * A link to a 30 second preview (MP3 format) of the track. Can be null
+         */
+        preview_url: string | null;
+        /**
+         * The number of the track. If an album has several discs, the track number is the number on the specified disc.
+         */
+        track_number: number;
+        /**
+         * The object type: “track”.
+         */
+        type: "track";
+        /**
+         * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
+         */
+        uri: string;
     }
 
     /**
@@ -906,11 +1208,11 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#track-object-simplified)
      */
     interface TrackLinkObject {
-        external_urls: ExternalUrlObject,
-        href: string,
-        id: string,
-        type: "track",
-        uri: string
+        external_urls: ExternalUrlObject;
+        href: string;
+        id: string;
+        type: "track";
+        uri: string;
     }
 
     /**
@@ -918,10 +1220,10 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#track-object-simplified)
      */
     interface UserObjectPrivate extends UserObjectPublic {
-        birthdate: string,
-        country: string,
-        email: string,
-        product: string
+        birthdate: string;
+        country: string;
+        email: string;
+        product: string;
     }
 
     /**
@@ -929,14 +1231,69 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#track-object-simplified)
      */
     interface UserObjectPublic {
-        display_name?: string,
-        external_urls: ExternalUrlObject,
-        followers?: FollowersObject,
-        href: string,
-        id: string,
-        images?: ImageObject[],
-        type: "user",
-        uri: string
+        display_name?: string;
+        external_urls: ExternalUrlObject;
+        followers?: FollowersObject;
+        href: string;
+        id: string;
+        images?: ImageObject[];
+        type: "user";
+        uri: string;
     }
 
+    /**
+     * Context Object
+     * [](https://developer.spotify.com/web-api/object-model/#context-object)
+     */
+    interface ContextObject {
+        /**
+         * The object type.
+         */
+        type: "artist" | "playlist" | "album";
+        /**
+         * A link to the Web API endpoint providing full details.
+         */
+        href: string;
+        /**
+         * Known external URLs.
+         */
+        external_urls: ExternalUrlObject;
+        /**
+         * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+         */
+        uri: string;
+    }
+
+    /**
+     * Play History Object
+     * [](https://developer.spotify.com/web-api/web-api-personalization-endpoints/get-recently-played/#play-history-object)
+     */
+    interface PlayHistoryObject {
+        track: TrackObjectSimplified;
+        played_at: string;
+        context: ContextObject;
+    }
+
+    interface PlaybackObject {
+        shuffle_state: boolean;
+        repeat_state: "off" | "track" | "context";
+    }
+
+    interface CurrentlyPlayingObject {
+        timestamp: number;
+        device: UserDevice;
+        progress_ms: number | null;
+        is_playing: boolean;
+        item: TrackObjectFull | null;
+        context: ContextObject | null;
+    }
+
+    interface UserDevice {
+        id: string | null;
+        is_active: boolean;
+        is_restricted: boolean;
+        name: string;
+        type: string;
+        volume_percent: number | null;
+    }
 }

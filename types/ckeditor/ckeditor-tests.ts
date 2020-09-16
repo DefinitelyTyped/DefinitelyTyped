@@ -289,6 +289,17 @@ function test_dom_node() {
     strong.insertBefore(em);
     strong.insertBeforeMe(em);
     element.isReadOnly();
+    var prev = node.getPreviousSourceNode();
+    prev = node.getPreviousSourceNode(true);
+    prev = node.getPreviousSourceNode(true, CKEDITOR.NODE_TEXT);
+    prev = node.getPreviousSourceNode(true, CKEDITOR.NODE_COMMENT, node);
+    prev = node.getPreviousSourceNode(true, CKEDITOR.NODE_COMMENT, (current: CKEDITOR.dom.node) => false);
+    var next = node.getNextSourceNode();
+    next = node.getNextSourceNode(true);
+    next = node.getNextSourceNode(true, CKEDITOR.NODE_ELEMENT);
+    next = node.getNextSourceNode(true, CKEDITOR.NODE_DOCUMENT, node);
+    next = node.getNextSourceNode(true, CKEDITOR.NODE_DOCUMENT_FRAGMENT, (current: CKEDITOR.dom.node) => true);
+    console.log(node.type);
 }
 
 function test_dom_nodeList() {
@@ -369,6 +380,7 @@ function test_dom_walker() {
     node = walker.lastForward();
     node = walker.next();
     node = walker.previous();
+    isSomething = walker.guard(node, true);
     walker.reset();
 
     isSomething = CKEDITOR.dom.walker.blockBoundary({ div: 1 })(node);
@@ -485,7 +497,7 @@ function test_dialog() {
                 {
                     id: 'tab-basic',
                     label: 'Basic Settings',
-                    elements: <any[]> []
+                    elements: [] as any []
                 },
                 {
                     id: 'tab-adv',
@@ -608,6 +620,7 @@ function test_filter() {
     allowed = filter.allow('rule', 'name', false);
 
     var apply: boolean = filter.applyTo(CKEDITOR.htmlParser.fragment.fromHtml('string'), true, false, 1);
+    apply = filter.applyTo(new CKEDITOR.htmlParser.element('name', null));
     apply = filter.applyTo(new CKEDITOR.htmlParser.element('name', null), true, false, 1);
 
     var checked: boolean = filter.check(style);

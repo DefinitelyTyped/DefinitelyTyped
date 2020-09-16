@@ -429,9 +429,9 @@ divs = divs
 
 divs = divs
     .style('background-color', 'blue') // string
-    .style('hidden', false) // boolean
-    // $ExpectError
-    .style('color', 'green', 'test') // fails, invalid priority value
+    .style('hidden', false); // boolean
+// $ExpectError
+divs = divs.style('color', 'green', 'test') // fails, invalid priority value
     .style('color', 'green', 'important');
 
 divs = divs
@@ -448,9 +448,9 @@ divs = divs
         }
         return d.padding; // string return value
     })
-    .style('hidden', () => true, null) // boolean return + test: priority = null
-    // $ExpectError
-    .style('color', () => 'green', 'test') // fails, test: invalid priority value
+    .style('hidden', () => true, null); // boolean return + test: priority = null
+// $ExpectError
+divs = divs.style('color', () => 'green', 'test') // fails, test: invalid priority value
     .style('color', () => 'green', 'important'); // boolean return + test: priority = 'important';
 
 // property(...) Tests
@@ -604,7 +604,7 @@ d3Selection.select('#svg-1') // irrelevant typing to get contextual typing in la
     .classed('has-transform-property', function(d) {
         console.log('Color of first data element array', d.length > 0 ? d[0].color : 'Data array empty'); // CircleDatumAlternative type
         // $ExpectError
-        return this.transform !== undefined;
+        return this!.transform !== undefined;
     });
 
 // SCENARIO 3: Only inferred typing (To have datum-type in 'classed' method call, no need for DOM object access)
@@ -649,6 +649,7 @@ const startCircleData: CircleDatumAlternative[] = [
         color: 'slateblue'
     }
 ];
+
 const endCircleData: CircleDatumAlternative[] = [
     {
         nodeId: 'n1',
@@ -685,7 +686,7 @@ circles2 = d3Selection.select<SVGSVGElement, any>('#svg2')
     .selectAll() // create empty Selection
     .data(startCircleData) // assign data for circles to be added (no previous circles)
     .enter() // obtain enter selection
-    .append<SVGCircleElement>('circle');
+    .append('circle');
 
 // UPDATE-selection with continuation in data type ---------------------------------
 
@@ -705,7 +706,7 @@ let enterElements: d3Selection.Selection<d3Selection.EnterElement, CircleDatumAl
 enterElements = circles2.enter(); // enter selection
 
 const enterCircles = enterElements
-    .append<SVGCircleElement>('circle') // enter selection with materialized DOM elements (svg circles)
+    .append('circle') // enter selection with materialized DOM elements (svg circles)
     .attr('cx', d => d.cx)
     .attr('cy', d => d.cy)
     .attr('r', d => d.r)
@@ -763,19 +764,34 @@ let nRow: number[];
 
 let tr: d3Selection.Selection<HTMLTableRowElement, number[], HTMLTableElement, any>;
 tr = d3Selection.select('body')
-    .append<HTMLTableElement>('table')
+    .append('table')
     .selectAll()
     .data(matrix)
     // $ExpectError
     .data<number[]>([{test: 1}, {test: 2}]) // fails, using this data statement instead, would fail because of its type parameter not being met by input
-    .enter().append<HTMLTableRowElement>('tr');
+    .enter().append('tr');
+
+let li: d3Selection.Selection<HTMLLIElement, number, HTMLElement, any>;
+li = d3Selection.select('li')
+    .data(matrix[0], d => <number> d)
+    .enter().append('li');
+
+const tr1 = d3Selection.select("body")
+    .append("table")
+    .selectAll("tr")
+    .data(matrix)
+    .join("tr")
+    .selectAll("td")
+    .data(d => d, e => <number> e)
+    .join("td")
+    .text(d => d);
 
 nMatrix = tr.data(); // i.e. matrix
 
 let td: d3Selection.Selection<HTMLTableDataCellElement, number, HTMLTableRowElement, number[]>;
 td = tr.selectAll()
     .data(d => d) // d : Array<number> inferred (Array[4] of number per parent <tr>)
-    .enter().append<HTMLTableDataCellElement>('td')
+    .enter().append('td')
     .text(function(d, i, g) {
         const that: HTMLTableDataCellElement = this;
         const datum: number = d;
@@ -810,19 +826,24 @@ nRow = td2.data(); // flattened matrix (Array[16] of number)
 
 // append(...), creator(...) and create(...) ---------------------------------------------
 
-// without append<...> typing returned selection has group element of type BaseType
-let newDiv: d3Selection.Selection<d3Selection.BaseType, BodyDatum, HTMLElement, any>;
+let newCircle: d3Selection.Selection<SVGCircleElement, BodyDatum, HTMLElement, any>;
+newCircle = body.append('circle');
+
+let newDiv: d3Selection.Selection<HTMLDivElement, BodyDatum, HTMLElement, any>;
 newDiv = body.append('div');
 
-let newDiv2: d3Selection.Selection<HTMLDivElement, BodyDatum, HTMLElement, any>;
-newDiv2 = body.append<HTMLDivElement>('div');
+newDiv = body.append<HTMLDivElement>('div');
 
 // using creator
-newDiv2 = body.append(d3Selection.creator<HTMLDivElement>('div'));
+newCircle = body.append(d3Selection.creator('circle'));
+newDiv = body.append(d3Selection.creator('div'));
+newDiv = body.append(d3Selection.creator<HTMLDivElement>('custom_div_elem'));
 // $ExpectError
-newDiv2 = body.append(d3Selection.creator('div')); // fails, as creator returns BaseType element, but HTMLDivElement is expected.
+newDiv = body.append(d3Selection.creator('a'));
+// $ExpectError
+newDiv = body.append(d3Selection.creator<HTMLAnchorElement>('a'));
 
-newDiv2 = body.append(function(d, i, g) {
+newDiv = body.append(function(d, i, g) {
     const that: HTMLBodyElement = this;
     // $ExpectError
     const that2: SVGElement  = this; // fails, type mismatch
@@ -830,33 +851,36 @@ newDiv2 = body.append(function(d, i, g) {
     const index: number = i;
     const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
     console.log('Body element foo property: ', d.foo); // data of type BodyDatum
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('div'); // this-type HTMLBodyElement
 });
 
 // $ExpectError
-newDiv2 = body.append<HTMLDivElement>(function(d) {
+newDiv = body.append<HTMLDivElement>(function(d) {
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('a'); // fails, HTMLDivElement expected by type parameter, HTMLAnchorElement returned
 });
 
 // $ExpectError
-newDiv2 = body.append(function(d) {
+newDiv = body.append(function(d) {
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('a'); // fails, HTMLDivElement expected by inference, HTMLAnchorElement returned
 });
 
 // create a detached element
 
+let detachedCircle: d3Selection.Selection<SVGCircleElement, undefined, null, undefined>;
+
+detachedCircle = d3Selection.create('circle');
+
 let detachedDiv: d3Selection.Selection<HTMLDivElement, undefined, null, undefined>;
 
-detachedDiv = d3Selection.create<HTMLDivElement>('div');
+detachedDiv = d3Selection.create('div');
+detachedDiv = d3Selection.create<HTMLDivElement>('custom_div_elem');
 
 // insert(...) ---------------------------------------------------------------------------
 
-// without insert<...> typing returned selection has group element of type BaseType
-let newParagraph: d3Selection.Selection<d3Selection.BaseType, BodyDatum, HTMLElement, any>;
-newParagraph = body.insert('p', 'p.second-paragraph');
-newParagraph = body.insert('p');
-
-// Two arguments; the first can be string, selection , or a
+// Two arguments; the first can be string, selection, or a
 
 const typeValueFunction = function(
   this: HTMLBodyElement,
@@ -864,6 +888,7 @@ const typeValueFunction = function(
   i: number,
   g: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>
 ) {
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('p'); // this-type HTMLParagraphElement
 };
 
@@ -876,32 +901,37 @@ const beforeValueFunction = function(
     return this.children[0];
 };
 
-let newParagraph2: d3Selection.Selection<HTMLParagraphElement, BodyDatum, HTMLElement, any>;
+let newParagraph: d3Selection.Selection<HTMLParagraphElement, BodyDatum, HTMLElement, any>;
+
+// 1 args, with 3 possibilities each, makes 3 possible combinations:
+newParagraph = body.insert('p', 'p.second-paragraph');
+newParagraph = body.insert('p', beforeValueFunction);
+newParagraph = body.insert('p');
 
 // 2 args, with 3 possibilities each, makes 9 possible combinations:
-newParagraph2 = body.insert<HTMLParagraphElement>('p', 'p.second-paragraph');
-newParagraph2 = body.insert<HTMLParagraphElement>('p', beforeValueFunction);
-newParagraph2 = body.insert<HTMLParagraphElement>('p');
+newParagraph = body.insert<HTMLParagraphElement>('p', 'p.second-paragraph');
+newParagraph = body.insert<HTMLParagraphElement>('p', beforeValueFunction);
+newParagraph = body.insert<HTMLParagraphElement>('p');
 
-newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'), 'p.second-paragraph');
-newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'), beforeValueFunction);
-newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'));
+newParagraph = body.insert(d3Selection.creator<HTMLParagraphElement>('p'), 'p.second-paragraph');
+newParagraph = body.insert(d3Selection.creator<HTMLParagraphElement>('p'), beforeValueFunction);
+newParagraph = body.insert(d3Selection.creator<HTMLParagraphElement>('p'));
 
-newParagraph2 = body.insert(typeValueFunction, 'p.second-paragraph');
-newParagraph2 = body.insert(typeValueFunction, beforeValueFunction);
-newParagraph2 = body.insert(typeValueFunction);
+newParagraph = body.insert(typeValueFunction, 'p.second-paragraph');
+newParagraph = body.insert(typeValueFunction, beforeValueFunction);
+newParagraph = body.insert(typeValueFunction);
 
 // clone(...) ----------------------------------------------------------------------------
 
 let clonedParagraph: d3Selection.Selection<HTMLParagraphElement, BodyDatum, HTMLElement, any>;
 
 // shallow clone
-clonedParagraph = newParagraph2.clone();
+clonedParagraph = newParagraph.clone();
 
 // deep clone
 
 newParagraph.append('span');
-clonedParagraph = newParagraph2.clone(true);
+clonedParagraph = newParagraph.clone(true);
 
 // sort(...) -----------------------------------------------------------------------------
 
@@ -1050,7 +1080,7 @@ interface SuccessEvent {
 const successEvent = { type: 'wonEuro2016', team: 'Island' };
 
 function customListener(this: HTMLBodyElement | null, finalOpponent: string): string {
-    const e = <SuccessEvent> d3Selection.event;
+    const e = d3Selection.event as SuccessEvent;
 
     return `${e.team} defeated ${finalOpponent} in the EURO 2016 Cup. Who would have thought!!!`;
 }
@@ -1159,3 +1189,134 @@ predefinedNamespaces['dummy'] = 'http://www.w3.org/2020/dummynamespace';
 xWindow = d3Selection.window(xElement);
 xWindow = d3Selection.window(xDoc);
 xWindow = d3Selection.window(xWindow);
+
+// ---------------------------------------------------------------------------------------
+// JOIN - Convenient alternative to explicit enter update and exit methods
+// ---------------------------------------------------------------------------------------
+
+interface OldDatum {
+    oldData: number;
+}
+
+interface Datum {
+    data: string;
+}
+
+let selText: d3Selection.Selection<SVGTextElement, Datum, SVGSVGElement, SVGDatum>;
+let selTextAndCircle: d3Selection.Selection<SVGTextElement | SVGCircleElement, Datum, SVGSVGElement, SVGDatum>;
+
+const text = svgEl.selectAll<SVGTextElement, OldDatum>('text').data<Datum>([{data: 'a'}]);
+
+declare const r: () => boolean;
+
+// with only enter param
+
+selText = text.join('text');
+selText = text.join<SVGTextElement>('custom');
+selText = text.join(enter => enter.append('text').text(d => d.data));
+
+selText = text.join('circle'); // $ExpectError
+selText = text.join<SVGCircleElement>('custom'); // $ExpectError
+selText = text.join(enter => enter.append('circle')); // $ExpectError
+
+selTextAndCircle = text.join('circle');
+selTextAndCircle = text.join<SVGCircleElement>('custom');
+selTextAndCircle = text.join(enter => enter.append('circle').text(d => d.data));
+
+// with all param
+
+selText = text.join(
+    'text',
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+selText = text.join<SVGTextElement>(
+    'custom',
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+selText = text.join(
+    enter => enter.append('text').text(d => d.data),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+selTextAndCircle = text.join(
+    'circle',
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+selTextAndCircle = text.join<SVGCircleElement>(
+    'custom',
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+selTextAndCircle = text.join(
+    enter => enter.append('circle').text(d => d.data),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+// with all param and old datum
+
+selText = text.join<'text', OldDatum>(
+    'text',
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => `Bye ${d.oldData}`).remove(),
+);
+
+selText = text.join<SVGTextElement, OldDatum>(
+    'custom',
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => `Bye ${d.oldData}`).remove(),
+);
+
+selText = text.join<SVGTextElement, OldDatum>(
+    enter => enter.append('text').text(d => d.data),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.oldData).remove(),
+);
+
+selTextAndCircle = text.join<'circle', OldDatum>(
+    'circle',
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.oldData).remove(),
+);
+
+selTextAndCircle = text.join<SVGCircleElement, OldDatum>(
+    'circle',
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.oldData).remove(),
+);
+
+selTextAndCircle = text.join<SVGCircleElement, OldDatum>(
+    enter => enter.append('circle').text(d => d.data),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.oldData).remove(),
+);
+
+// Example from: https://github.com/d3/d3-selection/issues/194#issuecomment-427577484
+const groups = svgEl.selectAll<SVGGElement, {}>('g')
+    .data([{r: 10, text: 'hi'}])
+    .join(
+        (enter) => {
+            const g = enter.append('g').attr('class', 'tick');
+            g.append('circle');
+            g.append('text');
+            return g;
+        },
+        () => undefined,
+        (exit) => exit.remove()
+    )
+    .attr('transform', (_, i) => `translate(0, ${i})`);
+
+    groups.select('circle')
+        .attr('r', d => d.r);
+
+    groups.select('text')
+        .text(d => d.text)
+        .attr('dy', '0.32em');

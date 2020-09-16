@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { MessageDescriptor } from '@lingui/core';
 import {
     t,
     select,
@@ -16,25 +17,25 @@ import {
 
 // JS
 const age = 12;
-const templateResult: string = t`${age} years old`;
-const templateIdResult: string = t('templateId')`${age} years old`;
+const templateResult: MessageDescriptor = t`${age} years old`;
+const templateIdResult: MessageDescriptor = t('templateId')`${age} years old`;
 
 const count = 42;
 
-const pluralResult: string = plural({
+const pluralResult: MessageDescriptor = plural({
     value: count,
     0: 'no books',
     one: '# book',
     other: '# books'
 });
-const pluralIdResult: string = plural('pluralId', {
+const pluralIdResult: MessageDescriptor = plural('pluralId', {
     value: count,
     0: 'no books',
     one: '# book',
     other: '# books'
 });
 
-const selectOrdinalResult: string = selectOrdinal({
+const selectOrdinalResult: MessageDescriptor = selectOrdinal({
     value: count,
     0: 'Zeroth book',
     one: '#st book',
@@ -42,7 +43,7 @@ const selectOrdinalResult: string = selectOrdinal({
     few: '#rd book',
     other: '#th book'
 });
-const selectOrdinalIdResult: string = selectOrdinal('selectOrdinalId', {
+const selectOrdinalIdResult: MessageDescriptor = selectOrdinal('selectOrdinalId', {
     value: count,
     0: 'Zeroth book',
     one: '#st book',
@@ -60,10 +61,10 @@ const selectResult = select({
     female: plural({
         value: numOfGuests,
         offset: 1,
-        0: t`${host} does not give a party.`,
-        1: t`${host} invites ${guest} to her party.`,
-        2: t`${host} invites ${guest} and one other person to her party.`,
-        other: t`${host} invites ${guest} and # other people to her party.`
+        0: `${host} does not give a party.`,
+        1: `${host} invites ${guest} to her party.`,
+        2: `${host} invites ${guest} and one other person to her party.`,
+        other: `${host} invites ${guest} and # other people to her party.`
     }),
     male: 'male',
     other: 'other'
@@ -76,8 +77,8 @@ const selectIdResult = select('selectId', {
     other: 'other'
 });
 
-const formattedDate: string = date(new Date(), { timeZone: 'UTC' });
-const formattedNumber: string = number(1234.56, { style: 'currency', currency: 'EUR' });
+const formattedDate: MessageDescriptor = date(new Date(), { timeZone: 'UTC' });
+const formattedNumber: MessageDescriptor = number(1234.56, { style: 'currency', currency: 'EUR' });
 
 // JSX
 const App = () => {

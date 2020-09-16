@@ -1,5 +1,5 @@
 // Type definitions for Quill 2.0
-// Project: https://github.com/quilljs/quill/
+// Project: https://github.com/quilljs/quill/, http://quilljs.com
 // Definitions by: Sumit <https://github.com/sumitkm>
 //                 Guillaume <https://github.com/guillaume-ro-fr>
 //                 James Garbutt <https://github.com/43081j>
@@ -22,7 +22,7 @@ export type DeltaOperation = { insert?: any, delete?: number, retain?: number } 
 export type Sources = "api" | "user" | "silent";
 
 export interface Key {
-    key: string;
+    key: string | number;
     shortKey?: boolean;
 }
 

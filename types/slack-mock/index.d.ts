@@ -1,8 +1,9 @@
 // Type definitions for slack-mock 1.1
 // Project: https://github.com/Skellington-Closet/slack-mock
 // Definitions by: Kris Kalavantavanich <https://github.com/kkalavantavanich>
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.4
 
 import { IncomingHttpHeaders } from "http";
 import * as nock from "nock";
@@ -54,7 +55,7 @@ declare namespace SlackMock {
     // Incoming Webhooks
 
     type IncomingWebhookUrl = string;
-    type IncomingWebhookHttpHeaders = nock.HttpHeaders;
+    type IncomingWebhookHttpHeaders = nock.ReplyHeaders;
 
     interface IncomingWebhooks<T> {
         addResponse: (opts: IncomingWebhookOptions<T>) => void;
@@ -78,7 +79,7 @@ declare namespace SlackMock {
     // Interactive Buttons
 
     type InteractiveButtonUrl = string | Url;
-    type InteractiveButtonHttpHeaders = nock.HttpHeaders;
+    type InteractiveButtonHttpHeaders = nock.ReplyHeaders;
 
     interface InteractiveButtons<T> {
         send: (targetUrl: InteractiveButtonUrl, body: T) => Promise<void>;
@@ -177,7 +178,7 @@ declare namespace SlackMock {
     // Web
 
     type WebUrl = string;
-    type WebHttpHeaders = nock.HttpHeaders;
+    type WebHttpHeaders = nock.ReplyHeaders;
 
     interface Web<T> {
         addResponse: (opts: WebOptions<T>) => void;

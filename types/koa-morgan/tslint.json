@@ -1,9 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "unified-signatures": false,
-        "no-empty-interface": false,
+        "callable-types": false,
         "prefer-method-signature": false,
-        "callable-types": false
+        "unified-signatures": false
     }
 }

@@ -18,6 +18,9 @@ declare namespace PropertiesReader {
         each<T>(iterator: (this: T, key: string, value: Value) => void, scope: T): Reader;
         getAllProperties(): { [key: string]: Value; };
         clone(): Reader;
+        save(destFile: string, onComplete?: (err: any, data: string) => void): Promise<string>;
+        getByRoot(root: any): { [key: string]: Value; };
+        bindToExpress(app: object, basePath?: string, makePaths?: boolean): Reader;
     }
 }
 

@@ -14,16 +14,19 @@ export interface ValidationParams {
 
 // const ValidationRule
 export interface ValidationRule {
+    (...params: any[]): boolean
     $params(): ValidationParams
     $pending(): boolean
 }
 
-export type CustomRule = (value: any, parentVm?: Vue) => boolean
+export type CustomRule = (value: any, parentVm?: any) => boolean | Promise<boolean>
+
+export type ValidationFunc = () => ValidationRule;
 
 export interface Helpers {
-    withParams(params: Params, rule: CustomRule): ValidationRule
-    req(value: any): ValidationRule
-    ref(reference: string, vm: any, parentVm?: Vue): any
+    withParams(params: Params, rule: CustomRule | ValidationRule): ValidationRule
+    req(value: any): boolean
+    ref(reference: string | ((vm: any, parentVm?: Vue) => any), vm: any, parentVm?: Vue): any
     len(value: any): number
     regex(type: string, expr: RegExp): ValidationRule
 }
@@ -32,20 +35,23 @@ export const helpers: Helpers
 
 // pre-defined rules
 export function required(): ValidationRule
-export function requiredIf(field: string): ValidationRule
-export function requiredUnless(field: string): ValidationRule
+export function requiredIf(field: string | ((vm: any, parentVm?: Vue) => any)): ValidationRule
+export function requiredUnless(field: string | ((vm: any, parentVm?: Vue) => any)): ValidationRule
 export function minLength(length: number): ValidationRule
 export function maxLength(length: number): ValidationRule
-export function minValue(min: number): ValidationRule
-export function maxValue(max: number): ValidationRule
-export function between(min: number, max: number): ValidationRule
+export function minValue(min: number | Date): ValidationRule
+export function maxValue(max: number | Date): ValidationRule
+export function between(min: number | Date, max: number | Date): ValidationRule
 export function alpha(): ValidationRule
 export function alphaNum(): ValidationRule
 export function numeric(): ValidationRule
+export function integer(): ValidationRule
+export function decimal(): ValidationRule
 export function email(): ValidationRule
 export function ipAddress(): ValidationRule
 export function macAddress(): ValidationRule
-export function sameAs(field: string): ValidationRule
+export function sameAs(field: string | ((vm: any, parentVm?: Vue) => any)): ValidationRule
 export function url(): ValidationRule
-export function or(...validators: ValidationRule[]): ValidationRule
-export function and(...validators: ValidationRule[]): ValidationRule
+export function not(validator: ValidationRule | CustomRule): ValidationRule
+export function or(...validators: Array<ValidationFunc | CustomRule>): ValidationRule
+export function and(...validators: Array<ValidationFunc | CustomRule>): ValidationRule

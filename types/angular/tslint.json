@@ -1,14 +1,13 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "class-name": true,
-        "indent": [true, "spaces"],
-        "quotemark": [true, "single"],
-        "variable-name": [true, "check-format"],
-
-        // Below are all TODOs
-        "callable-types": false,
         "ban-types": false,
+        "callable-types": false,
+        "class-name": true,
+        "indent": [
+            true,
+            "spaces"
+        ],
         "interface-name": false,
         "jsdoc-format": false,
         "max-line-length": false,
@@ -16,8 +15,15 @@
         "no-namespace": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
-        "no-void-expression": false,
+        "quotemark": [
+            true,
+            "single"
+        ],
         "unified-signatures": false,
+        "variable-name": [
+            true,
+            "check-format"
+        ],
         "void-return": false
     }
 }

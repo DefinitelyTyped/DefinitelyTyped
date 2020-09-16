@@ -15,10 +15,10 @@ gantt.config.xml_date = "%m-%d-%Y";
 
 //templates
 gantt.templates.task_class = function (start: Date, end: Date, task: any) {
-	if (task.some)
-		return "classA";
-	else
-		return "classB";
+    if (task.some)
+        return "classA";
+    else
+        return "classB";
 }
 
 //locale
@@ -28,10 +28,12 @@ gantt.locale.labels.new_task = "New task";
 gantt.init("scheduler_here", start);
 gantt.load("/data/events");
 
+const wbs: string = gantt.getWBSCode(gantt.getTask(1));
+
 //events
 gantt.attachEvent("onBeforeLightbox", function (id?: string) {
-	gantt.showTask(id);
+    gantt.showTask(id);
 });
 //gantt enterprise
 var gantt2 = Gantt.getGanttInstance();
-gantt2.config.api_date = "format";
+gantt2.config.xml_date = "format";

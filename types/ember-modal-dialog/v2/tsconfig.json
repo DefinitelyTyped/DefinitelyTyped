@@ -15,6 +15,7 @@
         ],
         "paths": {
             "ember-modal-dialog": ["ember-modal-dialog/v2"],
+            "ember-modal-dialog/*": ["ember-modal-dialog/v2/*"],
             "ember": ["ember/v2"]
         },
         "types": [],

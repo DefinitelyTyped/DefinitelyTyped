@@ -209,7 +209,7 @@ client.get({
   id: '1',
   routing: '1'
 }, (error, response) => {
-    const routing = response._routing;
+  const routing = response._routing;
 });
 
 client.mget({
@@ -230,6 +230,15 @@ client.mget({
   body: {
     ids: [1, 2, 3],
     _source: ['test']
+  }
+}, (error, response) => {
+  // ...
+});
+
+client.mget({
+  routing: "myroute",
+  body: {
+    ids: [1, 2, 3]
   }
 }, (error, response) => {
   // ...
@@ -338,22 +347,43 @@ client.indices.updateAliases({
   // ...
 });
 
-client.reindex({
-    body: {
-        source: {
-          index: "twitter"
-        },
-        dest: {
-          index: "new_twitter"
+client.indices.updateAliases({
+  body: {
+    actions: [
+      {
+        add: {
+          index: 'logstash-2018.11', alias: 'logstash-filtered', filter: {
+            query: {
+              exists: { field: 'id' }
+            }
+          },
+          routing: 'id'
         }
       }
+    ]
+  }
+}).then((response) => {
+  // ...
+}, (error) => {
+  // ...
+});
+
+client.reindex({
+  body: {
+    source: {
+      index: "twitter"
+    },
+    dest: {
+      index: "new_twitter"
+    }
+  }
 })
-.then(response => {
+  .then(response => {
     const { took, timed_out } = response;
     // ...
-});
+  });
 
 // Errors
 function testErrors() {
-    throw new elasticsearch.errors.AuthenticationException();
+  throw new elasticsearch.errors.AuthenticationException();
 }

@@ -22,3 +22,12 @@ const logger = Bunyan.createLogger({
 const middleware5 = expressBunyan({
     logger
 });
+
+expressBunyan({
+    format: () => "some format",
+    genReqId: req => req.header("foo") || "other",
+    name: "foo_app",
+    parseUA: false,
+    serializers: Bunyan.stdSerializers,
+    streams: [{ level: 'info', stream: process.stdout }]
+});

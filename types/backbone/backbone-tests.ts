@@ -1,6 +1,6 @@
 function test_events() {
 
-    var object = new Backbone.Events();
+    var object = Backbone.Events;
     object.on("alert", (eventName: string) => alert("Triggered " + eventName));
 
     object.trigger("alert", "an event");
@@ -15,6 +15,50 @@ function test_events() {
     object.off();
 }
 
+class PubSub implements Backbone.Events {
+    on: Backbone.Events_On<PubSub>;
+    off: Backbone.Events_Off<PubSub>;
+    trigger: Backbone.Events_Trigger<PubSub>;
+    bind: Backbone.Events_On<PubSub>;
+    unbind: Backbone.Events_Off<PubSub>;
+
+    once: Backbone.Events_On<PubSub>;
+    listenTo: Backbone.Events_Listen<PubSub>;
+    listenToOnce: Backbone.Events_Listen<PubSub>;
+    stopListening: Backbone.Events_Stop<PubSub>;
+}
+
+Object.assign(PubSub.prototype, Backbone.Events);
+
+function test_events_shorthands() {
+    let channel1 = new PubSub();
+    let channel2 = new PubSub();
+    let onChange = () => alert('whatever');
+
+    channel1.on("alert", (eventName: string) => alert("Triggered " + eventName));
+    channel1.trigger("alert", "an event");
+
+    channel1.once('invalid', () => { }, this);
+    channel1.once('invalid', () => { });
+    channel1.once({invalid: () => { }, success: () => { }}, this);
+    channel1.once({invalid: () => { }, success: () => { }});
+
+    channel1.off("change", onChange);
+    channel1.off("change");
+    channel1.off(null, onChange);
+    channel1.off(null, null, this);
+    channel1.off();
+
+    channel2.listenTo(channel1, 'invalid', () => { });
+    channel2.listenTo(channel1, {invalid: () => { }, success: () => { }});
+    channel2.listenToOnce(channel1, 'invalid', () => { });
+    channel2.listenToOnce(channel1, {invalid: () => { }, success: () => { }});
+
+    channel2.stopListening(channel1, 'invalid', () => { });
+    channel2.stopListening(channel1, 'invalid');
+    channel2.stopListening(channel1);
+}
+
 class SettingDefaults extends Backbone.Model {
 
     // 'defaults' could be set in one of the following ways:
@@ -23,6 +67,14 @@ class SettingDefaults extends Backbone.Model {
         return {
             name: "Joe"
         }
+    }
+
+    // will be invoked when the view is first created, before any instantiation logic is run
+    preinitialize() {
+        this.defaults = {
+            name: "Joe"
+        } as any;
+
     }
 
     constructor(attributes?: any, options?: any) {
@@ -42,6 +94,42 @@ class SettingDefaults extends Backbone.Model {
     }
 
     // same patterns could be used for setting 'Router.routes' and 'View.events'
+}
+
+class FullyTyped extends Backbone.Model<{iLikeBacon: boolean, iLikeToast: boolean}> {
+    public getILikeBacon(): boolean {
+        return this.get('iLikeBacon')
+    }
+
+    public setILikeBacon(value: boolean) {
+        return this.set('iLikeBacon', value);
+    }
+
+    public setAll(values: {iLikeBacon: boolean, iLikeToast?: boolean}) {
+        return this.set(values);
+    }
+
+    public setValue(key:keyof {iLikeBacon: boolean, iLikeToast: boolean}, value: any) {
+        return this.set(key, value);
+    }
+}
+
+class FullyTypedDefault extends Backbone.Model {
+    public getILikeBacon(): boolean {
+        return this.get('iLikeBacon')
+    }
+
+    public setILikeBacon(value: boolean) {
+        return this.set('iLikeBacon', value);
+    }
+
+    public setAll(values: {iLikeBacon: boolean, iLikeToast?: boolean}) {
+        return this.set(values);
+    }
+
+    public setValue(key: string, value: any) {
+        return this.set(key, value);
+    }
 }
 
 class Sidebar extends Backbone.Model {
@@ -152,9 +240,13 @@ class Library extends Backbone.Collection<Book> {
 
 class Books extends Backbone.Collection<Book> { }
 
+class ArbitraryCollection extends Backbone.Collection { }
+
 function test_collection() {
 
     var books = new Books();
+    books.set([{title: "Title 0", author: "Johan" }]);
+    books.reset();
 
     var book1: Book = new Book({ title: "Title 1", author: "Mike" });
     books.add(book1);
@@ -196,6 +288,14 @@ function test_collection() {
     models = books.slice();
     models = books.slice(1);
     models = books.slice(1, 3);
+
+    let it1: Iterator<Book>;
+    it1 = books.values();
+    it1 = books[Symbol.iterator]();
+    let it2: Iterator<any>;
+    it2 = books.keys();
+    let it3: Iterator<[any, Book]>;
+    it3 = books.entries();
 
     // underscore methods
     bool       = books.all((value: Book, index: number, list: Book[]) => true);
@@ -272,18 +372,22 @@ namespace v1Changes {
             var model = new Employee;
             model.once('invalid', () => { }, this);
             model.once('invalid', () => { });
+            model.once({invalid: () => { }, success: () => { }}, this);
+            model.once({invalid: () => { }, success: () => { }});
         }
 
         function test_listenTo() {
             var model = new Employee;
             var view = new Backbone.View<Employee>();
             view.listenTo(model, 'invalid', () => { });
+            view.listenTo(model, {invalid: () => { }, success: () => { }});
         }
 
         function test_listenToOnce() {
             var model = new Employee;
             var view = new Backbone.View<Employee>();
             view.listenToOnce(model, 'invalid', () => { });
+            view.listenToOnce(model, {invalid: () => { }, success: () => { }});
         }
 
         function test_stopListening() {
@@ -299,6 +403,12 @@ namespace v1Changes {
         function test_url() {
             Employee.prototype.url = () => '/employees';
             EmployeeCollection.prototype.url = () => '/employees';
+        }
+
+        function test_model_create_with_collection() {
+            var collection = new Books();
+            var employee = new Book({}, {collection, parse: true})
+            employee.collection
         }
 
         function test_parse() {
@@ -398,7 +508,7 @@ namespace v1Changes {
     namespace Collection {
         function test_fetch() {
             var collection = new EmployeeCollection;
-            collection.fetch({ 
+            collection.fetch({
                 reset: true,
                 remove: false
             });
@@ -433,5 +543,29 @@ namespace v1Changes {
         // Test for Backbone.sync override.
         Backbone.sync('create', new Employee());
         Backbone.sync('read', new EmployeeCollection());
+    }
+}
+
+interface BookViewOptions extends Backbone.ViewOptions<Book> {
+    featured: boolean;
+}
+
+class BookView extends Backbone.View<Book> {
+    featured: boolean;
+    constructor(options: BookViewOptions) {
+        super(options);
+        this.featured = !!options.featured;
+    }
+}
+
+interface ModellessViewOptions extends Backbone.ViewOptions {
+    color?: string;
+}
+
+class ModellessView extends Backbone.View {
+    color: string;
+    constructor(options: ModellessViewOptions) {
+        super(options);
+        this.color = options.color;
     }
 }

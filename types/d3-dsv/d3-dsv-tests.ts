@@ -21,6 +21,9 @@ const csvTestStringWithHeader = `Year,Make,Model,Length\n${csvTestString}`;
 const tsvTestStringWithHeader = `Year\tMake\tModel\tLength\n${tsvTestString}`;
 const pipedTestStringWithHeader = `Year|Make|Model|Length\n${pipedTestString}`;
 
+type Headers = "Year" | "Make" | "Model" | "Length";
+type ParsedHeaders = "year" | "make" | "model" | "length";
+
 interface ParsedTestObject {
     year: Date | null;
     make: string;
@@ -28,16 +31,55 @@ interface ParsedTestObject {
     length: number;
 }
 
-let parseArray: d3Dsv.DSVParsedArray<d3Dsv.DSVRowString>;
-let parseMappedArray: d3Dsv.DSVParsedArray<ParsedTestObject>;
-
 let parseRowsArray: string[][];
 let parseRowsMappedArray: ParsedTestObject[];
-
 let parsedTestObject: ParsedTestObject;
-let columns: string[];
+
+let num: number;
 let str: string;
 let strMaybe: string | undefined;
+
+let columns: string[];
+let headers: Headers[];
+let parsedHeaders: ParsedHeaders[];
+
+// ------------------------------------------------------------------------------------------
+// Test Shared Types and Interfaces
+// ------------------------------------------------------------------------------------------
+
+declare let row: d3Dsv.DSVRowString;
+strMaybe = row.property;
+
+declare let row2: d3Dsv.DSVRowString<Headers>;
+strMaybe = row2.Make;
+strMaybe = row2.Property; // $ExpectError
+
+declare let raw: d3Dsv.DSVRaw<ParsedTestObject>;
+strMaybe = raw.make;
+strMaybe = raw.property; // $ExpectError
+
+declare let rowArray: d3Dsv.DSVRowArray;
+strMaybe = rowArray[0].property;
+columns = rowArray.columns;
+num = rowArray.length;
+
+declare let rowArrayHeader: d3Dsv.DSVRowArray<Headers>;
+strMaybe = rowArrayHeader[0].Make;
+strMaybe = rowArrayHeader[0].Property; // $ExpectError
+headers = rowArrayHeader.columns;
+num = rowArrayHeader.length;
+
+declare let parseMappedArray: d3Dsv.DSVParsedArray<ParsedTestObject>;
+strMaybe = parseMappedArray[0].make;
+strMaybe = parseMappedArray[0].property; // $ExpectError
+parsedTestObject = parseMappedArray[0];
+parsedHeaders = parseMappedArray.columns;
+num = parseMappedArray.length;
+
+declare let parseArray: d3Dsv.DSVParsedArray<d3Dsv.DSVRowString>;
+strMaybe = parseArray[0].property;
+columns = parseArray.columns;
+num = parseArray.length;
 
 // ------------------------------------------------------------------------------------------
 // Test CSV
@@ -48,8 +90,7 @@ let strMaybe: string | undefined;
 // without row mapper -----------------------------------------------------------------------
 
 parseArray = d3Dsv.csvParse(csvTestStringWithHeader);
-columns = parseArray.columns;
-strMaybe = parseArray[0].Year;
+rowArrayHeader = d3Dsv.csvParse<Headers>(csvTestStringWithHeader);
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -73,8 +114,12 @@ parseMappedArray = d3Dsv.csvParse(csvTestStringWithHeader, (rawRow, index, colum
     return pr;
 });
 
-columns = parseMappedArray.columns;
-parsedTestObject = parseMappedArray[0];
+parseMappedArray = d3Dsv.csvParse<ParsedTestObject, Headers>(csvTestStringWithHeader, (rawRow, index, columns) => {
+    const rr: d3Dsv.DSVRowString<Headers> = rawRow;
+    const i: number = index;
+    const c: Headers[] = columns;
+    return parsedTestObject;
+});
 
 // csvParseRows(...) ============================================================================
 
@@ -108,12 +153,11 @@ parseRowsMappedArray = d3Dsv.csvParseRows(csvTestString, (rawRow, index) => {
 
 str = d3Dsv.csvFormat(parseRowsMappedArray);
 str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "length"]);
-// $ExpectError
-str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "unknown"]);
+str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
 
 // csvFormatRows(...) ========================================================================
 
-str = d3Dsv.csvFormatRows(parseRowsMappedArray.map((d, i) => [
+str = d3Dsv.csvFormatRows(parseRowsMappedArray.map((d) => [
     d.year ? d.year.getFullYear().toString() : '',
     d.make,
     d.model,
@@ -129,8 +173,7 @@ str = d3Dsv.csvFormatRows(parseRowsMappedArray.map((d, i) => [
 // without row mapper -----------------------------------------------------------------------
 
 parseArray = d3Dsv.tsvParse(tsvTestStringWithHeader);
-columns = parseArray.columns;
-strMaybe = parseArray[0].Year;
+rowArrayHeader = d3Dsv.tsvParse<Headers>(csvTestStringWithHeader);
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -154,8 +197,12 @@ parseMappedArray = d3Dsv.tsvParse(tsvTestStringWithHeader, (rawRow, index, colum
     return pr;
 });
 
-columns = parseMappedArray.columns;
-parsedTestObject = parseMappedArray[0];
+parseMappedArray = d3Dsv.tsvParse<ParsedTestObject, Headers>(tsvTestStringWithHeader, (rawRow, index, columns) => {
+    const rr: d3Dsv.DSVRowString<Headers> = rawRow;
+    const i: number = index;
+    const c: Headers[] = columns;
+    return parsedTestObject;
+});
 
 // tsvParseRows(...) ============================================================================
 
@@ -189,12 +236,11 @@ parseRowsMappedArray = d3Dsv.tsvParseRows(tsvTestString, (rawRow, index) => {
 
 str = d3Dsv.tsvFormat(parseRowsMappedArray);
 str = d3Dsv.tsvFormat(parseRowsMappedArray, ["year", "length"]);
-// $ExpectError
-str = d3Dsv.tsvFormat(parseRowsMappedArray, ["year", "unknown"]);
+str = d3Dsv.tsvFormat(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
 
 // tsvFormatRows(...) ========================================================================
 
-str = d3Dsv.tsvFormatRows(parseRowsMappedArray.map((d, i) => [
+str = d3Dsv.tsvFormatRows(parseRowsMappedArray.map((d) => [
     d.year ? d.year.getFullYear().toString() : '',
     d.make,
     d.model,
@@ -215,8 +261,7 @@ dsv = d3Dsv.dsvFormat('|');
 // without row mapper -----------------------------------------------------------------------
 
 parseArray = dsv.parse(pipedTestStringWithHeader);
-columns = parseArray.columns;
-strMaybe = parseArray[0].Year;
+rowArrayHeader = dsv.parse<Headers>(csvTestStringWithHeader);
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -240,8 +285,12 @@ parseMappedArray = dsv.parse(pipedTestStringWithHeader, (rawRow, index, columns)
     return pr;
 });
 
-columns = parseMappedArray.columns;
-parsedTestObject = parseMappedArray[0];
+parseMappedArray = dsv.parse<ParsedTestObject, Headers>(pipedTestStringWithHeader, (rawRow, index, columns) => {
+    const rr: d3Dsv.DSVRowString<Headers> = rawRow;
+    const i: number = index;
+    const c: Headers[] = columns;
+    return parsedTestObject;
+});
 
 // parseRows(...) ============================================================================
 
@@ -275,12 +324,11 @@ parseRowsMappedArray = dsv.parseRows(pipedTestString, (rawRow, index) => {
 
 str = dsv.format(parseRowsMappedArray);
 str = dsv.format(parseRowsMappedArray, ["year", "length"]);
-// $ExpectError
-str = dsv.format(parseRowsMappedArray, ["year", "unknown"]);
+str = dsv.format(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
 
 // formatRows(...) ========================================================================
 
-str = dsv.formatRows(parseRowsMappedArray.map((d, i) => [
+str = dsv.formatRows(parseRowsMappedArray.map((d) => [
     d.year ? d.year.getFullYear().toString() : '',
     d.make,
     d.model,

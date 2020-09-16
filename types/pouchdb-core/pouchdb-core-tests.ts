@@ -50,7 +50,7 @@ function testBulkDocs() {
     const isError = (
         result: PouchDB.Core.Response | PouchDB.Core.Error
     ): result is PouchDB.Core.Error => {
-        return !!(<PouchDB.Core.Error> result).error;
+        return !!(result as PouchDB.Core.Error).error;
     };
 
     db.bulkDocs([model, model2]).then((result) => {
@@ -241,6 +241,26 @@ function testRemoteOptions() {
             password: 'mysecretpassword'
         },
         skip_setup: true
+    });
+}
+
+function testViews() {
+    const db = new PouchDB('dbview');
+    db.put({
+        _id: '_design/index',
+        views: {
+            foo: {
+                map: 'func(doc){emit(doc.foo)}',
+                reduce: '_count'
+            },
+            bar: {
+                map: 'func(doc){emit(doc.bar, doc.buzz)}',
+                reduce: '_sum'
+            },
+            buzz: {
+                map: 'func(doc){emit(doc.buzz)}'
+            }
+        }
     });
 }
 

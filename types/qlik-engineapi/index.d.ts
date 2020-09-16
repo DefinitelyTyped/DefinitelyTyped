@@ -1,4 +1,4 @@
-// Type definitions for qlik-engineapi 12.67
+// Type definitions for non-npm package qlik-engineapi 12.67
 // Project: http://help.qlik.com/en-US/sense-developer/November2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 //                 Richard Ison <https://github.com/richardison>
@@ -392,6 +392,11 @@ declare namespace EngineAPI {
          * Array of dimension labels.
          */
         qFieldLabels: string[];
+
+        /**
+         * no docu
+         */
+        qLabelExpression: string;
     }
 
     /**
@@ -2974,7 +2979,7 @@ declare namespace EngineAPI {
 
         /**
          * Retrieves the variables that are tagged as favorite.
-         * @returns - return a Promise 	Array of String
+         * @returns - return a Promise     Array of String
          */
         getFavoriteVariables(): Promise<string[]>;
 
@@ -4812,6 +4817,11 @@ declare namespace EngineAPI {
          * Information about the selections.
          */
         qSelectionInfo: INxSelectionInfo;
+
+        /**
+         *     Name of the alternate state. Default is current selections $ .
+         */
+        qStateName: string;
     }
 
     /**
@@ -4846,9 +4856,9 @@ declare namespace EngineAPI {
      */
     interface IRangeSelectInfo {
         /* ToCheck!
-           qRangeLo	Lowest value in the range.	Double
-           qRangeHi	Highest value in the range.	Double
-           qMeasure	Label of the measure.	String
+           qRangeLo    Lowest value in the range.    Double
+           qRangeHi    Highest value in the range.    Double
+           qMeasure    Label of the measure.    String
          */
 
         /**
@@ -6356,7 +6366,7 @@ declare namespace EngineAPI {
         qNbr: number;
 
         /**
-         * Number of the parent rule definition.	Integer
+         * Number of the parent rule definition.    Integer
          */
         qPNbr: number;
 
@@ -7084,7 +7094,7 @@ declare namespace EngineAPI {
          * Note: If no app is opened, an error message is returned:
          * For example code: 1007 and No active document and App invalid
          */
-        getActiveDoc(): Promise<IApp | string>; // ?Result
+        getActiveDoc(): Promise<IApp>; // ?Result
 
         /**
          * Retrieves the meta data of an app.
@@ -7230,7 +7240,7 @@ declare namespace EngineAPI {
          * >> Default is all groups.
          * @returns A Promise <Function> or undefined
          */
-        getFunctions(qGroup?: FunctionGroupType): Promise<IFunction | undefined>;
+        getFunctions(qGroup?: FunctionGroupType): Promise<IFunction[]>;
 
         /**
          * Retrieves information on the user interaction that is requested by the engine.
@@ -7723,13 +7733,13 @@ declare namespace EngineAPI {
     interface INxAttrDimInfo {
         /**
          * Cardinality of the attribute expression.
-         * 	Integer
+         *     Integer
          */
         qCardinal: number;
 
         /**
          * Number of rows.
-         * 	Size
+         *     Size
          */
         qSize: number;
 

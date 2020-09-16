@@ -53,6 +53,7 @@ class ReactSwipeTest extends React.PureComponent {
                 id="test-carousel"
                 swipeOptions={swipeOptions}
                 style={style}
+                childCount={3}
                 ref={(swipeComponent) => { this.swipeComponent = swipeComponent; }}
             >
                 <div>PANE 1</div>

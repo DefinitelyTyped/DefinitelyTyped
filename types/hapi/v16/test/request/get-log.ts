@@ -1,9 +1,9 @@
 
 // From https://hapijs.com/api/16.1.1#requestgetlogtags-internal
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
-var request: Hapi.Request = <any> {};
+declare const request: Hapi.Request;
 
 request.getLog();
 request.getLog('error');

@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "base-x": "^3.0.6"
+    }
+}

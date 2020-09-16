@@ -1,4 +1,4 @@
-// Type definitions for blocked 1.2
+// Type definitions for blocked 1.3
 // Project: https://github.com/visionmedia/node-blocked#readme
 // Definitions by: Jonas Lochmann <https://github.com/l-jonas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,6 +19,7 @@ declare function Blocked(callback: (ms: number) => void, options?: Blocked.Optio
 
 declare namespace Blocked {
   interface Options {
-    threshold: number;  // in milliseconds
+    threshold?: number;  // in milliseconds
+    interval?: number; // in milliseconds
   }
 }

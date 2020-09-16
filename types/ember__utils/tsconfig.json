@@ -15,7 +15,9 @@
             "../"
         ],
         "paths": {
-            "@ember/utils": ["ember__utils"]
+            "@ember/utils": [
+                "ember__utils"
+            ]
         },
         "types": [],
         "noEmit": true,
@@ -23,7 +25,6 @@
     },
     "files": [
         "index.d.ts",
-        "-private/types.d.ts",
         "ember__utils-tests.ts"
     ]
 }

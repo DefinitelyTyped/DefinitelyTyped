@@ -337,7 +337,7 @@ function test_adding_dialog_by_definition() {
                 {
                     id: 'tab-basic',
                     label: 'Basic Settings',
-                    elements: <any[]> []
+                    elements: [] as any[]
                 },
                 {
                     id: 'tab-adv',

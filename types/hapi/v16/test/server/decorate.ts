@@ -1,7 +1,7 @@
 
 // From https://hapijs.com/api/16.1.1#serverdecoratetype-property-method-options
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 const server = new Hapi.Server();
 server.connection({ port: 80 });
 
@@ -12,7 +12,7 @@ const success = function (this: Hapi.ReplyNoContinue) {
 
 server.decorate('reply', 'success', success);
 
-declare module '../../' {
+declare module 'hapi' {
     interface Base_Reply {
         success: () => Response;
     }
@@ -36,7 +36,7 @@ server.decorate('request', 'some_request_method', (request) => {
     }
 }, {apply: true});
 
-declare module '../../' {
+declare module 'hapi' {
     interface Request {
         some_request_method(): void;
     }
@@ -59,7 +59,7 @@ server.decorate('server', 'some_server_method', (server: Hapi.Server) => {
     }
 });
 
-declare module '../../' {
+declare module 'hapi' {
     interface Server {
         some_server_method(arg1: number): string;
     }

@@ -22,7 +22,7 @@ declare namespace gsap {
         static ticker: any;
 
         /** Provides a simple way to call a () => void after a set amount of time (or frames). */
-        static delayedCall(delay: number, callback: () => void, params?: any[], scope?: any, useFrames?: boolean): TweenLite;
+        static delayedCall(delay: number, callback: (...args: any[]) => void, params?: any[], scope?: any, useFrames?: boolean): TweenLite;
 
         /**
          * Static method for creating a TweenLite instance that tweens backwards - you define the BEGINNING values and the current values are used as the destination values which is great for doing
@@ -49,7 +49,7 @@ declare namespace gsap {
         invalidate(): TweenLite;
 
         /** Immediately kills all of the delayedCalls to a particular () => void. */
-        static killDelayedCallsTo(func: () => void): void;
+        static killDelayedCallsTo(func: (...args: any[]) => void): void;
 
         /** Kills all the tweens (or specific tweening properties) of a particular object or delayedCalls to a particular () => void. */
         static killTweensOf(target: any, onlyActive?: boolean, vars?: any): void;
@@ -74,7 +74,7 @@ declare namespace gsap {
         constructor(target: {}, duration: number, vars: {});
 
         /** Provides a simple way to call a () => void after a set amount of time (or frames). */
-        static delayedCall(delay: number, callback: () => void, params?: any[], scope?: {}, useFrames?: boolean): TweenMax;
+        static delayedCall(delay: number, callback: (...args: any[]) => void, params?: any[], scope?: {}, useFrames?: boolean): TweenMax;
 
         /**
          * Static method for creating a TweenMax instance that tweens backwards - you define the BEGINNING values and the current values are used as the destination values which is great for
@@ -110,7 +110,7 @@ declare namespace gsap {
         static killChildTweensOf(parent: any, complete?: boolean): void;
 
         /** Immediately kills all of the delayedCalls to a particular () => void. */
-        static killDelayedCallsTo(func: () => void): void;
+        static killDelayedCallsTo(func: (...args: any[]) => void): void;
 
         /** Kills all the tweens (or specific tweening properties) of a particular object or the delayedCalls to a particular () => void. */
         static killTweensOf(target: {}, vars?: {}): void;
@@ -144,7 +144,7 @@ declare namespace gsap {
             duration: number,
             vars: {},
             stagger: number,
-            onCompleteAll?: () => void,
+            onCompleteAll?: (...args: any[]) => void,
             onCompleteAllParams?: any[],
             onCompleteAllScope?: any
         ): any[];
@@ -159,7 +159,7 @@ declare namespace gsap {
             fromVars: {},
             toVars: {},
             stagger: number,
-            onCompleteAll?: () => void,
+            onCompleteAll?: (...args: any[]) => void,
             onCompleteAllParams?: any[],
             onCompleteAllScope?: any
         ): any[];
@@ -173,7 +173,7 @@ declare namespace gsap {
             duration: number,
             vars: {},
             stagger: number,
-            onCompleteAll?: () => void,
+            onCompleteAll?: (...args: any[]) => void,
             onCompleteAllParams?: any[],
             onCompleteAllScope?: any
         ): any[];

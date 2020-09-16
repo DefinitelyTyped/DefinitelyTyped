@@ -1,11 +1,8 @@
+import bs58 = require('bs58');
 
-import * as bs58 from 'bs58';
+const bytes = Buffer.from('003c176e659bea0f29a3e9bf7880c112b1b31b4dc826268187', 'hex');
+const address = bs58.encode(bytes);
+address; // $ExpectType string
 
-{
-	let encoded: string;
-
-	encoded = bs58.encode([255]);
-	encoded = bs58.encode({0: 255, length: 1});
-}
-
-let decoded: number[] = bs58.decode('5Q');
+bs58.decode(address); // $ExpectType Buffer
+bs58.decodeUnsafe(address); // $ExpectType Buffer | undefined

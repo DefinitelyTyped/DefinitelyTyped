@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@wordpress/block-serialization-default-parser": ["wordpress__block-serialization-default-parser"],
+            "@wordpress/block-serialization-spec-parser": ["wordpress__block-serialization-spec-parser"]
+        }
+    },
+    "files": ["index.d.ts", "wordpress__block-serialization-default-parser-tests.ts"]
+}

@@ -51,14 +51,14 @@ Polymer({
   }
 });
 
-var MyElement = Polymer.Class(<polymer.Base>{
+var MyElement = Polymer.Class({
   is: 'my-element',
 
   created: function () {
     this.textContent = 'My element!';
   }
 
-});
+} as polymer.Base);
 
 document.registerElement('my-element', MyElement);
 

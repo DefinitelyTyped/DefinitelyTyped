@@ -19,9 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "atom-tests.ts",
-        "autocomplete-plus/index.d.ts",
-        "linter/index.d.ts",
-        "status-bar/index.d.ts"
+        "atom-tests.ts"
     ]
 }

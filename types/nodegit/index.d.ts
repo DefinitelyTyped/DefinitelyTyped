@@ -1,9 +1,15 @@
-// Type definitions for nodegit 0.22
-// Project: https://github.com/nodegit/nodegit
-// Definitions by: Dolan Miu <https://github.com/dolanmiu>, Tobias Nießen <https://github.com/tniessen>
+// Type definitions for nodegit 0.26
+// Project: https://github.com/nodegit/nodegit, http://nodegit.org
+// Definitions by: Dolan Miu <https://github.com/dolanmiu>,
+//                 Tobias Nießen <https://github.com/tniessen>,
+//                 Pierre Vigier <https://github.com/pvigier>
+//                 Jibril Saffi <https://github.com/IGI-111>
+//                 Benjamin Schuster-Boeckler <https://github.com/DaGaMs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { AnnotatedCommit } from './annotated-commit';
+export { Apply } from './apply';
+export { ApplyOptions } from './apply-options';
 export { Attr } from './attr';
 export { BlameHunk } from './blame-hunk';
 export { BlameOptions } from './blame-options';
@@ -37,6 +43,7 @@ export { DiffFile } from './diff-file';
 export { DiffLine } from './diff-line';
 export { DiffOptions } from './diff-options';
 export { DiffPerfdata } from './diff-perf-data';
+export { DiffStats } from './diff-stats';
 export { Diff, DiffFindOptions } from './diff';
 export { Enums } from './enums';
 export { Error } from './error';
@@ -79,7 +86,7 @@ export { Refspec } from './ref-spec';
 export { Reference } from './reference';
 export { RemoteCallbacks } from './remote-callbacks';
 export { Remote } from './remote';
-export { Repository } from './repository';
+export { Repository, RepositoryInitOptions } from './repository';
 export { Reset } from './reset';
 export { Revparse } from './rev-parse';
 export { Revwalk } from './rev-walk';
@@ -103,3 +110,6 @@ export { Treebuilder } from './tree-builder';
 export { TreeEntry } from './tree-entry';
 export { TreeUpdate } from './tree-update';
 export { Tree } from './tree';
+export const version: string;
+declare const _: typeof Promise;
+export { _ as Promise };

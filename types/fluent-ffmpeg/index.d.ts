@@ -3,7 +3,9 @@
 // Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>
 //                 DingWeizhe <https://github.com/DingWeizhe>
 //                 Mounir Abid <https://github.com/mabidina>
-// Definitions: https://github.com/DefinitelyType/DefinitelyTyped
+//                 Doyoung Ha <https://github.com/hados99>
+//                 Prasad Nayak <https://github.com/buzzertech>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
@@ -31,8 +33,8 @@ declare namespace Ffmpeg {
 
     interface FilterSpecification {
         filter: string;
-        inputs: string | string[];
-        outputs: string | string[];
+        inputs?: string | string[];
+        outputs?: string | string[];
         options?: any | string | any[];
     }
 
@@ -92,9 +94,89 @@ declare namespace Ffmpeg {
     type FormatsCallback = (err: Error, formats: Formats) => void;
 
     interface FfprobeData {
-        streams: any[];
-        format: any;
+        streams: FfprobeStream[];
+        format: FfprobeFormat;
         chapters: any[];
+    }
+
+    interface FfprobeStream {
+        [key: string]: any;
+        index: number;
+        codec_name?: string;
+        codec_long_name?: string;
+        profile?: number;
+        codec_type?: string;
+        codec_time_base?: string;
+        codec_tag_string?: string;
+        codec_tag?: string;
+        width?: number;
+        height?: number;
+        coded_width?: number;
+        coded_height?: number;
+        has_b_frames?: number;
+        sample_aspect_ratio?: string;
+        display_aspect_ratio?: string;
+        pix_fmt?: string;
+        level?: string;
+        color_range?: string;
+        color_space?: string;
+        color_transfer?: string;
+        color_primaries?: string;
+        chroma_location?: string;
+        field_order?: string;
+        timecode?: string;
+        refs?: number;
+        id?: string;
+        r_frame_rate?: string;
+        avg_frame_rate?: string;
+        time_base?: string;
+        start_pts?: number;
+        start_time?: number;
+        duration_ts?: string;
+        duration?: string;
+        bit_rate?: string;
+        max_bit_rate?: string;
+        bits_per_raw_sample?: string;
+        nb_frames?: string;
+        nb_read_frames?: string;
+        nb_read_packets?: string;
+        sample_fmt?: string;
+        sample_rate?: number;
+        channels?: number;
+        channel_layout?: string;
+        bits_per_sample?: number;
+        disposition?: FfprobeStreamDisposition;
+    }
+
+    interface FfprobeStreamDisposition {
+        [key: string]: any;
+        default?: number;
+        dub?: number;
+        original?: number;
+        comment?: number;
+        lyrics?: number;
+        karaoke?: number;
+        forced?: number;
+        hearing_impaired?: number;
+        visual_impaired?: number;
+        clean_effects?: number;
+        attached_pic?: number;
+        timed_thumbnails?: number;
+    }
+
+    interface FfprobeFormat {
+        [key: string]: any;
+        filename?: string;
+        nb_streams?: number;
+        nb_programs?: number;
+        format_name?: string;
+        format_long_name?: string;
+        start_time?: number;
+        duration?: number;
+        size?: number;
+        bit_rate?: number;
+        probe_score?: number;
+        tags?: any[];
     }
 
     interface ScreenshotsConfig {
@@ -111,6 +193,19 @@ declare namespace Ffmpeg {
         filter: string;
         options: string | string[] | {};
     }
+
+    // static methods
+    function setFfmpegPath(path: string): FfmpegCommand;
+    function setFfprobePath(path: string): FfmpegCommand;
+    function setFlvtoolPath(path: string): FfmpegCommand;
+    function availableFilters(callback: FiltersCallback): void;
+    function getAvailableFilters(callback: FiltersCallback): void;
+    function availableCodecs(callback: CodecsCallback): void;
+    function getAvailableCodecs(callback: CodecsCallback): void;
+    function availableEncoders(callback: EncodersCallback): void;
+    function getAvailableEncoders(callback: EncodersCallback): void;
+    function availableFormats(callback: FormatsCallback): void;
+    function getAvailableFormats(callback: FormatsCallback): void;
 
     class FfmpegCommand extends events.EventEmitter {
         constructor(options?: FfmpegCommandOptions);
@@ -136,7 +231,7 @@ declare namespace Ffmpeg {
         native(): FfmpegCommand;
         setStartTime(seek: string | number): FfmpegCommand;
         seekInput(seek: string | number): FfmpegCommand;
-        loop(duration: string | number): FfmpegCommand;
+        loop(duration?: string | number): FfmpegCommand;
 
         // options/audio
         withNoAudio(): FfmpegCommand;
@@ -161,8 +256,8 @@ declare namespace Ffmpeg {
         noVideo(): FfmpegCommand;
         withVideoCodec(codec: string): FfmpegCommand;
         videoCodec(codec: string): FfmpegCommand;
-        withVideoBitrate(bitrate: string | number): FfmpegCommand;
-        videoBitrate(bitrate: string | number): FfmpegCommand;
+        withVideoBitrate(bitrate: string | number, constant?: boolean): FfmpegCommand;
+        videoBitrate(bitrate: string | number, constant?: boolean): FfmpegCommand;
         withVideoFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
         withVideoFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
         videoFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
@@ -197,16 +292,16 @@ declare namespace Ffmpeg {
         setAspectRatio(aspect: string | number): FfmpegCommand;
         aspect(aspect: string | number): FfmpegCommand;
         aspectRatio(aspect: string | number): FfmpegCommand;
-        applyAutopadding(pad: boolean, color: string): FfmpegCommand;
-        applyAutoPadding(pad: boolean, color: string): FfmpegCommand;
-        applyAutopad(pad: boolean, color: string): FfmpegCommand;
-        applyAutoPad(pad: boolean, color: string): FfmpegCommand;
-        withAutopadding(pad: boolean, color: string): FfmpegCommand;
-        withAutoPadding(pad: boolean, color: string): FfmpegCommand;
-        withAutopad(pad: boolean, color: string): FfmpegCommand;
-        withAutoPad(pad: boolean, color: string): FfmpegCommand;
-        autoPad(pad: boolean, color: string): FfmpegCommand;
-        autopad(pad: boolean, color: string): FfmpegCommand;
+        applyAutopadding(pad?: boolean, color?: string): FfmpegCommand;
+        applyAutoPadding(pad?: boolean, color?: string): FfmpegCommand;
+        applyAutopad(pad?: boolean, color?: string): FfmpegCommand;
+        applyAutoPad(pad?: boolean, color?: string): FfmpegCommand;
+        withAutopadding(pad?: boolean, color?: string): FfmpegCommand;
+        withAutoPadding(pad?: boolean, color?: string): FfmpegCommand;
+        withAutopad(pad?: boolean, color?: string): FfmpegCommand;
+        withAutoPad(pad?: boolean, color?: string): FfmpegCommand;
+        autoPad(pad?: boolean, color?: string): FfmpegCommand;
+        autopad(pad?: boolean, color?: string): FfmpegCommand;
 
         // options/output
         addOutput(target: string | stream.Writable, pipeopts?: { end?: boolean }): FfmpegCommand;
@@ -258,8 +353,8 @@ declare namespace Ffmpeg {
         outputOption(...options: string[]): FfmpegCommand;
         outputOptions(options: string[]): FfmpegCommand;
         outputOptions(...options: string[]): FfmpegCommand;
-        filterGraph(spec: string | FilterSpecification[], map: string[]): FfmpegCommand;
-        complexFilter(spec: string | FilterSpecification[], map: string[]): FfmpegCommand;
+        filterGraph(spec: string | FilterSpecification | Array<string | FilterSpecification>, map?: string[] | string): FfmpegCommand;
+        complexFilter(spec: string | FilterSpecification | Array<string | FilterSpecification>, map?: string[] | string): FfmpegCommand;
 
         // options/misc
         usingPreset(proset: string | GetPreset): FfmpegCommand;
@@ -268,6 +363,7 @@ declare namespace Ffmpeg {
         // processor
         renice(niceness: number): FfmpegCommand;
         kill(signal: string): FfmpegCommand;
+        _getArguments(): string[];
 
         // capabilities
         setFfmpegPath(path: string): FfmpegCommand;

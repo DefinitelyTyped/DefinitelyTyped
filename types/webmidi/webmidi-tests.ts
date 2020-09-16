@@ -1,36 +1,43 @@
 const onFulfilled = (item: WebMidi.MIDIAccess) => {
-    this._midiPort = item;
+    const midiPort = item;
 
-    item.onstatechange = (event: WebMidi.MIDIConnectionEvent) => {
-        console.log("onstatechange");
+    midiPort.onstatechange = event => {
+        console.log('onstatechange');
         console.log(event);
     };
+    midiPort.addEventListener('statechange', event => {
+        console.log(event.port);
+    });
 
-    console.log("sysexenabled");
+    console.log('sysexenabled');
     console.log(item.sysexEnabled);
-
-    const inputs = this._midiPort.inputs.values();
-
-    for (const o of inputs) {
-        this._inputs.push(o);
-        console.log(o);
-    }
 
     const outputs = item.outputs.values();
     for (const op of outputs) {
-        this._outputs.push(op);
-        op.send([ 0x90, 0x45, 0x7f ]);
-        op.send(new Uint8Array([ 0x90, 0x45, 0x7f ]));
+        op.send([0x90, 0x45, 0x7f]);
+        op.send(new Uint8Array([0x90, 0x45, 0x7f]));
     }
 
-    for (const input of this._inputs) {
-        input.onmidimessage = (event: WebMidi.MIDIMessageEvent) => {
-            this.onMidiMessage(event.data);
+    const inputs = midiPort.inputs.values();
+    for (const input of inputs) {
+        input.onmidimessage = event => {
+            console.log(event.data);
         };
+        input.addEventListener('midimessage', event => {
+            console.log(event.data);
+        });
+    }
+
+    const inputOrOutput = [...inputs, ...outputs][0];
+    if (inputOrOutput.type === 'output') {
+        // 'send' only available on outputs
+        inputOrOutput.send([12345]);
     }
 };
 
-const onRejected = (e: Error) => { console.error(e); };
+const onRejected = (e: Error) => {
+    console.error(e);
+};
 
 if (navigator.requestMIDIAccess !== undefined) {
     navigator.requestMIDIAccess().then(onFulfilled, onRejected);

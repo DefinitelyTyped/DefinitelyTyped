@@ -4264,6 +4264,12 @@ const ListExampleSelectable = () => (
   </Paper>
 );
 
+const DirectSelectableList = makeSelectable(List);
+
+const DirectSelectableListExample = () => (
+    <DirectSelectableList onChange={(e, v) => console.log(v)} />
+);
+
 // "http://www.material-ui.com/#/components/menu"
 const MenuExampleSimple = () => (
   <div>

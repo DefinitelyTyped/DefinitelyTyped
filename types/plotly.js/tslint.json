@@ -1,9 +1,7 @@
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// TODOs
-		"no-duplicate-imports": false,
-		"no-object-literal-type-assertion": false,
-		"indent": [true, "tabs", 1]
-	}
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-duplicate-imports": false,
+        "no-object-literal-type-assertion": false
+    }
 }

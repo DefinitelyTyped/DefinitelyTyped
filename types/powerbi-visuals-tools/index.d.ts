@@ -268,7 +268,7 @@ declare namespace powerbi {
 
 declare namespace powerbi.visuals {
     import Selector = data.Selector;
-	import SelectorsByColumn = data.SelectorsByColumn;
+    import SelectorsByColumn = data.SelectorsByColumn;
 
     interface ISelectionIdBuilder {
         withCategory(categoryColumn: DataViewCategoryColumn, index: number): this;
@@ -736,7 +736,7 @@ declare namespace powerbi.data {
         DataViewRoleWildcard |
         DataViewScopeTotal;
 
-	interface SelectorsByColumn {
+    interface SelectorsByColumn {
         key?: string;
     }
 }
@@ -1342,5 +1342,5 @@ declare namespace powerbi.extensibility.visual {
         host: IVisualHost;
     }
 }
-
-export default powerbi;
+// tslint:disable-next-line:export-just-namespace
+export = powerbi;

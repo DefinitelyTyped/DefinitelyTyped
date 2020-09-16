@@ -489,24 +489,30 @@ utils.mapsEqual(map, map);
 
 // utils/mix ==================================================================
 
-class Editor {
-    b: () => number;
-}
-
 interface SomeMixin {
     a: () => string;
 }
 
+class Editor implements SomeMixin {
+    a: () => string;
+    b() { return 3; }
+}
+
 const SomeMixin = {
-    a() {
-        return "a";
-    }
+    a() { return "a"; }
+};
+
+const SomeMixinNum = {
+    a() { return 3; }
 };
 
 utils.mix(Editor, SomeMixin);
-const mixEditor = new Editor() as Editor & SomeMixin;
-mixEditor.a();
-mixEditor.b();
+// $ExpectError
+utils.mix(Editor, SomeMixinNum);
+
+const editor = new Editor();
+str = editor.a();
+num = editor.b();
 
 // utils/nth ==================================================================
 

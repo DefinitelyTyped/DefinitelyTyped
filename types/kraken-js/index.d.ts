@@ -1,9 +1,9 @@
 // Type definitions for krakenjs 2.2
-// Project: http://krakenjs.com
+// Project: http://krakenjs.com, https://github.com/krakenjs/kraken-js
 // Definitions by: Timur Manyanov <https://github.com/darkwebdev>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Express } from 'express';
 

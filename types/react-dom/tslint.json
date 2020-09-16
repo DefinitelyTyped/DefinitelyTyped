@@ -1,9 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "dt-header": false,
-        "no-unnecessary-generics": false,
-        "no-unnecessary-type-assertion": false
+        "no-unnecessary-generics": false
     }
 }

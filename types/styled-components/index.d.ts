@@ -1,25 +1,61 @@
-// Type definitions for styled-components 4.1
-// Project: https://github.com/styled-components/styled-components
+// Type definitions for styled-components 5.1
+// Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
 //                 Adam Lavin <https://github.com/lavoaster>
-//                 Jessica Franco <https://github.com/Kovensky>
+//                 Jessica Franco <https://github.com/Jessidhia>
+//                 Jason Killian <https://github.com/jkillian>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 David Ruisinger <https://github.com/flavordaaave>
+//                 Matthew Wagerfield <https://github.com/wagerfield>
+//                 Yuki Ito <https://github.com/Lazyuki>
+//                 Maciej Goszczycki <https://github.com/mgoszcz2>
+//                 Danilo Fuchs <https://github.com/danilofuchs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
-/// <reference types="node" />
+// forward declarations
+declare global {
+    namespace NodeJS {
+        // tslint:disable-next-line:no-empty-interface
+        interface ReadableStream {}
+    }
+}
 
-import * as React from 'react';
-import * as CSS from 'csstype';
+import * as CSS from "csstype";
+import * as React from "react";
+import * as hoistNonReactStatics from 'hoist-non-react-statics';
 
-export type CSSObject = CSS.Properties<string | number>;
+export type CSSProperties = CSS.Properties<string | number>;
+
+export type CSSPseudos = { [K in CSS.Pseudos]?: CSSObject };
+
+export interface CSSObject extends CSSProperties, CSSPseudos {
+    [key: string]: CSSObject | string | number | undefined;
+}
+
+export type CSSKeyframes = object & { [key: string]: CSSObject };
 
 export interface ThemeProps<T> {
     theme: T;
 }
 
 export type ThemedStyledProps<P, T> = P & ThemeProps<T>;
-export type StyledProps<P> = ThemedStyledProps<P, any>;
+export type StyledProps<P> = ThemedStyledProps<P, AnyIfEmpty<DefaultTheme>>;
+
+// Any prop that has a default prop becomes optional, but its type is unchanged
+// Undeclared default props are augmented into the resulting allowable attributes
+// If declared props have indexed properties, ignore default props entirely as keyof gets widened
+// Wrap in an outer-level conditional type to allow distribution over props that are unions
+type Defaultize<P, D> = P extends any
+    ? string extends keyof P ? P :
+        & Pick<P, Exclude<keyof P, keyof D>>
+        & Partial<Pick<P, Extract<keyof P, keyof D>>>
+        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
+    : never;
+
+type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D; }
+    ? Defaultize<P, D>
+    : P;
 
 export type StyledComponentProps<
     // The Component from whose props are derived
@@ -30,65 +66,75 @@ export type StyledComponentProps<
     O extends object,
     // The props that are made optional by .attrs
     A extends keyof any
-> = WithOptionalTheme<
-    Omit<React.ComponentPropsWithRef<C> & O, A> &
-        Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
-    T
->;
+> =
+    // Distribute O if O is a union type
+    O extends object
+    ? WithOptionalTheme<
+          Omit<ReactDefaultizedProps<C, React.ComponentPropsWithRef<C>> & O, A> &
+              Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
+          T
+      > &
+          WithChildrenIfReactComponentClass<C>
+    : never;
+
+// Because of React typing quirks, when getting props from a React.ComponentClass,
+// we need to manually add a `children` field.
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/31945
+// and https://github.com/DefinitelyTyped/DefinitelyTyped/pull/32843
+type WithChildrenIfReactComponentClass<
+    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
+> = C extends React.ComponentClass<any> ? { children?: React.ReactNode } : {};
 
 type StyledComponentPropsWithAs<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object,
     A extends keyof any
-> = StyledComponentProps<C, T, O, A> & { as?: C };
+> = StyledComponentProps<C, T, O, A> & { as?: C, forwardedAs?: C };
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> =
-    | FlattenInterpolation<P>
-    | ReadonlyArray<
-          FlattenInterpolation<P> | ReadonlyArray<FlattenInterpolation<P>>
-      >;
-export type FlattenInterpolation<P> =
     | InterpolationValue
-    | InterpolationFunction<P>;
+    | InterpolationFunction<P>
+    | FlattenInterpolation<P>;
+// cannot be made a self-referential interface, breaks WithPropNested
+// see https://github.com/microsoft/TypeScript/issues/34796
+export type FlattenInterpolation<P> = ReadonlyArray<Interpolation<P>>;
 export type InterpolationValue =
     | string
     | number
-    | Styles
     | FalseyValue
     | Keyframes
     | StyledComponentInterpolation
     | CSSObject;
 export type SimpleInterpolation =
     | InterpolationValue
-    | ReadonlyArray<InterpolationValue | ReadonlyArray<InterpolationValue>>;
-export interface Styles {
-    [ruleOrSelector: string]: string | number | Styles;
-}
+    | FlattenSimpleInterpolation;
+export type FlattenSimpleInterpolation = ReadonlyArray<SimpleInterpolation>;
 
 export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 
 type Attrs<P, A extends Partial<P>, T> =
     | ((props: ThemedStyledProps<P, T>) => A)
     | A;
-type DeprecatedAttrs<P, A extends Partial<P>, T> = {
-    [K in keyof A]: ((props: ThemedStyledProps<P, T>) => A[K]) | A[K]
-};
 
-export type ThemedGlobalStyledClassProps<P, T> = P & {
-    suppressMultiMountWarning?: boolean
-    theme?: T
+export type ThemedGlobalStyledClassProps<P, T> = WithOptionalTheme<P, T> & {
+    suppressMultiMountWarning?: boolean;
 };
 
 export interface GlobalStyleComponent<P, T>
     extends React.ComponentClass<ThemedGlobalStyledClassProps<P, T>> {}
 
 // remove the call signature from StyledComponent so Interpolation can still infer InterpolationFunction
-type StyledComponentInterpolation = Pick<
-    StyledComponent<any, any>,
-    keyof StyledComponent<any, any>
->;
+type StyledComponentInterpolation =
+    | Pick<
+          StyledComponentBase<any, any, any, any>,
+          keyof StyledComponentBase<any, any>
+      >
+    | Pick<
+          StyledComponentBase<any, any, any>,
+          keyof StyledComponentBase<any, any>
+      >;
 
 // abuse Pick to strip the call signature from ForwardRefExoticComponent
 type ForwardRefExoticBase<P> = Pick<
@@ -96,40 +142,43 @@ type ForwardRefExoticBase<P> = Pick<
     keyof React.ForwardRefExoticComponent<any>
 >;
 
+// Config to be used with withConfig
+export interface StyledConfig<O extends object = {}> {
+    // TODO: Add all types from the original StyledComponentWrapperProperties
+    shouldForwardProp?: (prop: keyof O, defaultValidatorFn: ((prop: keyof O) => boolean)) => boolean;
+}
+
+// extracts React defaultProps
+type ReactDefaultProps<C> = C extends { defaultProps: infer D; } ? D : never;
+
 // any doesn't count as assignable to never in the extends clause, and we default A to never
 export type AnyStyledComponent =
     | StyledComponent<any, any, any, any>
     | StyledComponent<any, any, any>;
 
-export interface StyledComponent<
+export type StyledComponent<
+    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    T extends object,
+    O extends object = {},
+    A extends keyof any = never
+> = // the "string" allows this to be used as an object key
+    // I really want to avoid this if possible but it's the only way to use nesting with object styles...
+    string & StyledComponentBase<C, T, O, A> & hoistNonReactStatics.NonReactStatics<C extends React.ComponentType<any> ? C : never>;
+
+export interface StyledComponentBase<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
     A extends keyof any = never
 > extends ForwardRefExoticBase<StyledComponentProps<C, T, O, A>> {
     // add our own fake call signature to implement the polymorphic 'as' prop
-    // NOTE: TS <3.2 will refuse to infer the generic and this component becomes impossible to use in JSX
-    // just the presence of the overload is enough to break JSX
-    //
-    // TODO (TypeScript 3.2): actually makes the 'as' prop polymorphic
-    // (
-    //     props: StyledComponentProps<C, T, O, A> & { as?: never }
-    //   ): React.ReactElement<StyledComponentProps<C, T, O, A>>
-    // <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
-    //   props: StyledComponentPropsWithAs<AsC, T, O, A>
-    // ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>
-
-    // TODO (TypeScript 3.2): delete this overload
     (
-        props: StyledComponentProps<C, T, O, A> & {
-            /**
-             * Typing Note: prefer using .withComponent for now as it is actually type-safe.
-             *
-             * String types need to be cast to themselves to become literal types (as={'a' as 'a'}).
-             */
-            as?: keyof JSX.IntrinsicElements | React.ComponentType<any>
-        }
-    ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
+        props: StyledComponentProps<C, T, O, A> & { as?: never, forwardedAs?: never }
+      ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
+    <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
+      props: StyledComponentPropsWithAs<AsC, T, O, A>
+    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>;
+
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC
     ): StyledComponent<
@@ -145,50 +194,59 @@ export interface StyledComponent<
     ): StyledComponent<WithC, T, O, A>;
 }
 
-export interface ThemedStyledFunction<
+export interface ThemedStyledFunctionBase<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
     A extends keyof any = never
 > {
+    (first: TemplateStringsArray): StyledComponent<C, T, O, A>;
     (
-        strings: TemplateStringsArray,
-        ...interpolations: Array<
+        first:
+            | TemplateStringsArray
+            | CSSObject
+            | InterpolationFunction<
+                  ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
+              >,
+        ...rest: Array<
             Interpolation<
                 ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
             >
         >
     ): StyledComponent<C, T, O, A>;
     <U extends object>(
-        strings: TemplateStringsArray,
-        ...interpolations: Array<
+        first:
+            | TemplateStringsArray
+            | CSSObject
+            | InterpolationFunction<
+                  ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
+              >,
+        ...rest: Array<
             Interpolation<
                 ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
             >
         >
     ): StyledComponent<C, T, O & U, A>;
+}
+
+export interface ThemedStyledFunction<
+    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    T extends object,
+    O extends object = {},
+    A extends keyof any = never
+> extends ThemedStyledFunctionBase<C, T, O, A> {
     // Fun thing: 'attrs' can also provide a polymorphic 'as' prop
     // My head already hurts enough so maybe later...
     attrs<
         U,
-        A extends Partial<StyledComponentPropsWithRef<C> & U> & {
-            [others: string]: any
+        NewA extends Partial<StyledComponentPropsWithRef<C> & U> & {
+            [others: string]: any;
         } = {}
     >(
-        attrs: Attrs<StyledComponentPropsWithRef<C> & U, A, T>
-    ): ThemedStyledFunction<C, T, O & A, keyof A>;
-    // Only this overload is deprecated
-    // tslint:disable:unified-signatures
-    /** @deprecated Prefer using the new single function style, to be removed in v5 */
-    attrs<
-        U,
-        A extends Partial<StyledComponentPropsWithRef<C> & U> & {
-            [others: string]: any
-        } = {}
-    >(
-        attrs: DeprecatedAttrs<StyledComponentPropsWithRef<C> & U, A, T>
-    ): ThemedStyledFunction<C, T, O & A, keyof A>;
-    // tslint:enable:unified-signatures
+        attrs: Attrs<StyledComponentPropsWithRef<C> & U, NewA, T>
+    ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
+
+    withConfig: <Props extends O = O>(config: StyledConfig<StyledComponentPropsWithRef<C> & Props>) => ThemedStyledFunction<C, T, Props, A>;
 }
 
 export type StyledFunction<
@@ -199,40 +257,33 @@ type ThemedStyledComponentFactories<T extends object> = {
     [TTag in keyof JSX.IntrinsicElements]: ThemedStyledFunction<TTag, T>
 };
 
-type StyledComponentInnerComponent<
+export type StyledComponentInnerComponent<
     C extends React.ComponentType<any>
-> = C extends
-    | StyledComponent<infer I, any, any, any>
-    | StyledComponent<infer I, any, any>
-    ? I
-    : C;
-type StyledComponentPropsWithRef<
+> = C extends StyledComponent<infer I, any, any, any> ? I :
+    C extends StyledComponent<infer I, any, any> ? I :
+    C;
+export type StyledComponentPropsWithRef<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
 > = C extends AnyStyledComponent
     ? React.ComponentPropsWithRef<StyledComponentInnerComponent<C>>
     : React.ComponentPropsWithRef<C>;
-type StyledComponentInnerOtherProps<C extends AnyStyledComponent> = C extends
-    | StyledComponent<any, any, infer O, any>
-    | StyledComponent<any, any, infer O>
-    ? O
-    : never;
-type StyledComponentInnerAttrs<
+export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> =
+    C extends StyledComponent<any, any, infer O, any> ? O :
+    C extends StyledComponent<any, any, infer O> ? O :
+    never;
+export type StyledComponentInnerAttrs<
     C extends AnyStyledComponent
 > = C extends StyledComponent<any, any, any, infer A> ? A : never;
 
 export interface ThemedBaseStyledInterface<T extends object>
     extends ThemedStyledComponentFactories<T> {
-    <TTag extends keyof JSX.IntrinsicElements>(tag: TTag): ThemedStyledFunction<
-        TTag,
-        T
-    >;
     <C extends AnyStyledComponent>(component: C): ThemedStyledFunction<
         StyledComponentInnerComponent<C>,
         T,
         StyledComponentInnerOtherProps<C>,
         StyledComponentInnerAttrs<C>
     >;
-    <C extends React.ComponentType<any>>(
+    <C extends keyof JSX.IntrinsicElements | React.ComponentType<any>>(
         // unfortunately using a conditional type to validate that it can receive a `theme?: Theme`
         // causes tests to fail in TS 3.1
         component: C
@@ -240,60 +291,75 @@ export interface ThemedBaseStyledInterface<T extends object>
 }
 
 export type ThemedStyledInterface<T extends object> = ThemedBaseStyledInterface<
-    Extract<keyof T, string> extends never ? any : T
+    AnyIfEmpty<T>
 >;
 export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 
 export interface BaseThemedCssFunction<T extends object> {
-    (cssObject: CSSObject): InterpolationValue[];
     (
-        strings: TemplateStringsArray,
+        first: TemplateStringsArray | CSSObject,
         ...interpolations: SimpleInterpolation[]
-    ): InterpolationValue[];
-    <P>(
-        strings: TemplateStringsArray,
+    ): FlattenSimpleInterpolation;
+    (
+        first:
+            | TemplateStringsArray
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<{}, T>>,
+        ...interpolations: Array<Interpolation<ThemedStyledProps<{}, T>>>
+    ): FlattenInterpolation<ThemedStyledProps<{}, T>>;
+    <P extends object>(
+        first:
+            | TemplateStringsArray
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
-    ): Array<FlattenInterpolation<ThemedStyledProps<P, T>>>;
-    <P>(func: InterpolationFunction<ThemedStyledProps<P, T>>): Array<
-        FlattenInterpolation<ThemedStyledProps<P, T>>
-    >;
+    ): FlattenInterpolation<ThemedStyledProps<P, T>>;
 }
+
 export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
-    Extract<keyof T, string> extends never ? any : T
+    AnyIfEmpty<T>
 >;
 
 // Helper type operators
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-type DiffBetween<T, U> = Pick<T, Exclude<keyof T, keyof U>> &
-    Pick<U, Exclude<keyof U, keyof T>>;
-type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, 'theme'> & {
-    theme?: T
+type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, "theme"> & {
+    theme?: T;
 };
+type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
 
-export interface ThemedStyledComponentsModule<T extends object> {
+export interface ThemedStyledComponentsModule<
+    T extends object,
+    U extends object = T
+> {
     default: ThemedStyledInterface<T>;
 
     css: ThemedCssFunction<T>;
 
-    keyframes(cssObject: CSSObject): Keyframes;
+    // unfortunately keyframes can't interpolate props from the theme
     keyframes(
-        strings: TemplateStringsArray,
+        strings: TemplateStringsArray | CSSKeyframes,
         ...interpolations: SimpleInterpolation[]
     ): Keyframes;
 
-    createGlobalStyle(cssObject: CSSObject): GlobalStyleComponent<{}, T>;
-    createGlobalStyle<P = {}>(
-        strings: TemplateStringsArray,
+    createGlobalStyle<P extends object = {}>(
+        first:
+            | TemplateStringsArray
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
-    ): GlobalStyleComponent<P, T>;
-    createGlobalStyle<P = {}>(
-        func: InterpolationFunction<ThemedStyledProps<P, T>>
     ): GlobalStyleComponent<P, T>;
 
     withTheme: WithThemeFnInterface<T>;
-    ThemeProvider: ThemeProviderComponent<T>;
+    ThemeProvider: ThemeProviderComponent<T, U>;
     ThemeConsumer: React.Consumer<T>;
     ThemeContext: React.Context<T>;
+    useTheme(): T;
+
+    // This could be made to assert `target is StyledComponent<any, T>` instead, but that feels not type safe
+    isStyledComponent: typeof isStyledComponent;
+
+    ServerStyleSheet: typeof ServerStyleSheet;
+    StyleSheetManager: typeof StyleSheetManager;
 }
 
 declare const styled: StyledInterface;
@@ -310,48 +376,53 @@ export type BaseWithThemeFnInterface<T extends object> = <
     WithOptionalTheme<React.ComponentPropsWithRef<C>, T>
 >;
 export type WithThemeFnInterface<T extends object> = BaseWithThemeFnInterface<
-    Extract<keyof T, string> extends never ? any : T
+    AnyIfEmpty<T>
 >;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
 
+export function useTheme(): DefaultTheme;
+
+/**
+ * This interface can be augmented by users to add types to `styled-components`' default theme
+ * without needing to reexport `ThemedStyledComponentsModule`.
+ */
+// Unfortunately, there is no way to write tests for this
+// as any augmentation will break the tests for the default case (not augmented).
 // tslint:disable-next-line:no-empty-interface
 export interface DefaultTheme {}
 
-export interface ThemeProviderProps<T extends object> {
-    children?: React.ReactChild; // only one child is allowed, goes through React.Children.only
-    theme: T | ((theme: T) => T);
+export interface ThemeProviderProps<T extends object, U extends object = T> {
+    children?: React.ReactNode;
+    theme: T | ((theme: U) => T);
 }
-export type BaseThemeProviderComponent<T extends object> = React.ComponentClass<
-    ThemeProviderProps<T>
->;
+export type BaseThemeProviderComponent<
+    T extends object,
+    U extends object = T
+> = React.ComponentClass<ThemeProviderProps<T, U>>;
 export type ThemeProviderComponent<
-    T extends object
-> = BaseThemeProviderComponent<Extract<keyof T, string> extends never ? any : T>;
-export const ThemeProvider: ThemeProviderComponent<DefaultTheme>;
-// NOTE: this technically starts as undefined
-// Also, this cannot be DefaultTheme as it breaks TypedComponents' assignability
-export const ThemeContext: React.Context<any>;
-export const ThemeConsumer: typeof ThemeContext['Consumer'];
+    T extends object,
+    U extends object = T
+> = BaseThemeProviderComponent<AnyIfEmpty<T>, AnyIfEmpty<U>>;
+export const ThemeProvider: ThemeProviderComponent<AnyIfEmpty<DefaultTheme>>;
+// NOTE: this technically starts as undefined, but allowing undefined is unhelpful when used correctly
+export const ThemeContext: React.Context<AnyIfEmpty<DefaultTheme>>;
+export const ThemeConsumer: typeof ThemeContext["Consumer"];
 
 export interface Keyframes {
     getName(): string;
 }
 
-export function keyframes(cssObject: CSSObject): Keyframes;
 export function keyframes(
-    strings: TemplateStringsArray,
+    strings: TemplateStringsArray | CSSKeyframes,
     ...interpolations: SimpleInterpolation[]
 ): Keyframes;
 
-export function createGlobalStyle(
-    cssObject: CSSObject
-): GlobalStyleComponent<{}, DefaultTheme>;
-export function createGlobalStyle<P = {}>(
-    strings: TemplateStringsArray,
+export function createGlobalStyle<P extends object = {}>(
+    first:
+        | TemplateStringsArray
+        | CSSObject
+        | InterpolationFunction<ThemedStyledProps<P, DefaultTheme>>,
     ...interpolations: Array<Interpolation<ThemedStyledProps<P, DefaultTheme>>>
-): GlobalStyleComponent<P, DefaultTheme>;
-export function createGlobalStyle<P = {}>(
-    func: InterpolationFunction<ThemedStyledProps<P, DefaultTheme>>
 ): GlobalStyleComponent<P, DefaultTheme>;
 
 export function isStyledComponent(
@@ -369,20 +440,61 @@ export class ServerStyleSheet {
         readableStream: NodeJS.ReadableStream
     ): NodeJS.ReadableStream;
     readonly instance: this;
+    seal(): void;
 }
 
-type StyleSheetManagerProps =
-    | {
-          sheet: ServerStyleSheet
-          target?: never
-      }
-    | {
-          sheet?: never
-          target: HTMLElement
-      };
+export type StylisPlugin = (
+    context: number,
+    selector: string[],
+    parent: string[],
+    content: string,
+    line: number,
+    column: number,
+    length: number,
+) => string | void;
+
+export interface StyleSheetManagerProps {
+    disableCSSOMInjection?: boolean;
+    disableVendorPrefixes?: boolean;
+    stylisPlugins?: StylisPlugin[];
+    sheet?: ServerStyleSheet;
+    target?: HTMLElement;
+}
 
 export class StyleSheetManager extends React.Component<
     StyleSheetManagerProps
 > {}
+
+/**
+ * The CSS prop is not declared by default in the types as it would cause 'css' to be present
+ * on the types of anything that uses styled-components indirectly, even if they do not use the
+ * babel plugin.
+ *
+ * You can load a default declaration by using writing this special import from
+ * a typescript file. This module does not exist in reality, which is why the {} is important:
+ *
+ * ```ts
+ * import {} from 'styled-components/cssprop'
+ * ```
+ *
+ * Or you can declare your own module augmentation, which allows you to specify the type of Theme:
+ *
+ * ```ts
+ * import { CSSProp } from 'styled-components'
+ *
+ * interface MyTheme {}
+ *
+ * declare module 'react' {
+ *   interface Attributes {
+ *     css?: CSSProp<MyTheme>
+ *   }
+ * }
+ * ```
+ */
+// ONLY string literals and inline invocations of css`` are supported, anything else crashes the plugin
+export type CSSProp<T = AnyIfEmpty<DefaultTheme>> =
+    | string
+    | CSSObject
+    | FlattenInterpolation<ThemeProps<T>>;
 
 export default styled;

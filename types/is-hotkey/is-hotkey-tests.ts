@@ -16,6 +16,9 @@ isHotkey("mod+s", { byKey: true })(event); // $ExpectType boolean
 isHotkey("mod+s", event); // $ExpectType boolean
 isHotkey("mod+s", { byKey: true }, event); // $ExpectType boolean
 
+isHotkey("mod+s"); // $ExpectType (event: KeyboardEvent) => boolean
+isHotkey("mod+s", { byKey: true }); // $ExpectType (event: KeyboardEvent) => boolean
+
 isCodeHotkey("mod+s")(event); // $ExpectType boolean
 isKeyHotkey("mod+s")(event); // $ExpectType boolean
 

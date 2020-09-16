@@ -200,7 +200,7 @@ export interface Query {
     consistentRead(read: boolean): Query;
     addKeyCondition(condition: any): Query;
     addFilterCondition(condition: any): Query;
-    startKey(hashKey: any, rangeKey: any): Query;
+    startKey(hashKey: any, rangeKey?: any): Query;
     attributes(attrs: any): Query;
     ascending(): Query;
     descending(): Query;
@@ -246,8 +246,8 @@ export interface ModelConfiguration {
     hashKey: string;
     rangeKey?: string;
     timestamps?: boolean;
-    createdAt?: boolean;
-    updatedAt?: string;
+    createdAt?: boolean | string;
+    updatedAt?: boolean | string;
     schema?: SchemaType;
     validation?: joi.ValidationOptions;
     tableName?: string | tableResolve;
@@ -259,8 +259,15 @@ export interface Document {
     [key: string]: any;
 }
 
+export interface ConsumedCapacity {
+    CapacityUnits: number;
+    TableName: string;
+}
+
 export interface DocumentCollection {
     Items: Document[];
     Count: number;
     ScannedCount: number;
+    ConsumedCapacity: ConsumedCapacity;
+    LastEvaluatedKey?: any;
 }

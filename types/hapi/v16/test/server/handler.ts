@@ -1,7 +1,7 @@
 
 // From https://hapijs.com/api/16.1.1#serverhandlername-method
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 const server = new Hapi.Server();
 server.connection({ host: 'localhost', port: 8000 });
 
@@ -20,7 +20,7 @@ interface TestPluginConfig {
     msg: string;
 }
 
-declare module '../../' {
+declare module 'hapi' {
     interface RouteHandlerPlugins {
         test?: TestPluginConfig;
     }

@@ -1,9 +1,9 @@
-// Type definitions for opentype.js 0.7
-// Project: https://github.com/nodebox/opentype.js
+// Type definitions for opentype.js 1.3
+// Project: https://github.com/opentypejs/opentype.js
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 //                 Edgar Simson <https://github.com/edzis>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 export as namespace opentype;
 
@@ -191,7 +191,7 @@ export interface Field {
  ******************************************/
 
 export class Glyph {
-    private index;
+    index: number;
     private xMin;
     private xMax;
     private yMin;
@@ -317,9 +317,9 @@ export interface Point {
  ******************************************/
 
 export class Path {
-    private fill;
-    private stroke;
-    private strokeWidth;
+    fill: string | null;
+    stroke: string | null;
+    strokeWidth: number;
     constructor();
     bezierCurveTo(
         x1: number,
@@ -353,22 +353,54 @@ export class Path {
     unitsPerEm: number;
 }
 
-export interface PathCommand {
-    type: string;
-    x?: number;
-    y?: number;
-    x1?: number;
-    y1?: number;
-    x2?: number;
-    y2?: number;
-}
+export type PathCommand =
+| {
+    type: "M";
+    x: number;
+    y: number;
+  }
+| {
+    type: "L";
+    x: number;
+    y: number;
+  }
+| {
+    type: "C";
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+    x: number;
+    y: number;
+  }
+| {
+    type: "Q";
+    x1: number;
+    y1: number;
+    x: number;
+    y: number;
+  }
+| {
+    type: "Z";
+  };
 
 /******************************************
  * UTIL CLASSES
  ******************************************/
 
-export type BoundingBox = () => any;
-// TODO add methods
+export class BoundingBox {
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+
+    isEmpty(): boolean;
+    addPoint(x: number, y: number): void;
+    addX(x: number): void;
+    addY(y: number): void;
+    addBezier(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, x: number, y: number): void;
+    addQuad(x0: number, y0: number, x1: number, y1: number, x: number, y: number): void;
+}
 
 export interface Encoding {
     charset: string;
@@ -387,7 +419,12 @@ export function load(
     url: string,
     callback: (error: any, font?: Font) => void
 ): void;
+export function load(
+    url: string,
+): Promise<Font>;
 
-export function loadSync(url: string): Font;
+export function loadSync(url: string, opt?: {
+    lowMemory: boolean;
+}): Font;
 
 export function parse(buffer: any): Font;

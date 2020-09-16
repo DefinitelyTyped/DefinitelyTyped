@@ -1,6 +1,6 @@
-// Type definitions for Google API Client 0.0
-// Project: https://code.google.com/p/google-api-javascript-client/
-// Definitions by: Frank M <https://github.com/sgtfrankieboy>
+// Type definitions for Google API Client
+// Project: https://github.com/google/google-api-javascript-client
+// Definitions by: Frank M <https://github.com/sgtfrankieboy>, grant <https://github.com/grant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -20,10 +20,17 @@ interface GoogleApiOAuth2TokenObject {
      * The duration, in seconds, the token is valid for. Only present in successful responses
      */
     expires_in: string;
+    session_state?: GoogleApiOAuth2TokenSessionState;
     /**
      * The Google API scopes related to this token
      */
     state: string;
+}
+
+interface GoogleApiOAuth2TokenSessionState {
+    extraQueryParams: {
+        authuser: string,
+    };
 }
 
 /**
@@ -230,6 +237,11 @@ declare namespace gapi.client {
      * @param apiKey The API key to set
      */
     export function setApiKey(apiKey: string): void;
+    /**
+     * Retrieves the OAuth 2.0 token for the application.
+     * @return The OAuth 2.0 token.
+     */
+    export function getToken(): GoogleApiOAuth2TokenObject;
     /**
      * Sets the authentication token to use in requests.
      * @param token The token to set.

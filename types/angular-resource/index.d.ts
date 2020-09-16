@@ -1,7 +1,7 @@
 // Type definitions for Angular JS (ngResource module) 1.5
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <https://github.com/diegovilar>, Michael Jess <https://github.com/miffels>
-// Definitions: https://github.com/daptiv/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 declare var _: string;
@@ -88,6 +88,7 @@ declare module 'angular' {
             withCredentials?: boolean;
             responseType?: string;
             interceptor?: IResourceInterceptor;
+            hasBody?: boolean;
         }
 
         // Allow specify more resource methods

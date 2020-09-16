@@ -14,7 +14,12 @@
             "../"
         ],
         "paths": {
-            "@rebass/grid": ["rebass__grid"]
+            "@rebass/grid": [
+                "rebass__grid"
+            ],
+            "@rebass/grid/emotion": [
+                "rebass__grid/emotion"
+            ]
         },
         "types": [],
         "noEmit": true,

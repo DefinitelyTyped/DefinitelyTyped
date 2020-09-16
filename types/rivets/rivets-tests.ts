@@ -10,7 +10,7 @@ Rivets.configure({
     // Template delimiters for text bindings
     templateDelimiters: ['[[', ']]'],
     // Augment the event handler of the on-* binder
-    handler: (target: any, event: any, binding: any) => {
+    handler(target: any, event: any, binding: any) {
         this.call(target, event, binding.view.models);
     }
 });

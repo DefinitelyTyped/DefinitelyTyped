@@ -23,7 +23,7 @@ export class Client<T> implements ClientApi<T> {
     /** start() - creates a connection to the cache server. Must be called before any other method is available. */
     start(): Promise<void>;
     /** stop() - terminates the connection to the cache server. */
-    stop(): void;
+    stop(): Promise<void>;
     /**
      * get(key, callback) - retrieve an item from the cache engine if found where:
      *  * key - a cache key object (see [ICacheKey]).
@@ -118,6 +118,8 @@ export interface ClientOptions {
 
 export type PolicyOptionVariants<T> = PolicyOptions<T> | DecoratedPolicyOptions<T>;
 
+export type Id = string | { id: string };
+
 /**
  * The Policy object provides a convenient cache interface by setting a
  * global policy which is automatically applied to every storage action.
@@ -138,7 +140,7 @@ export class Policy<T, O extends PolicyOptionVariants<T>> {
      * @param id the unique item identifier (within the policy segment).
      * Can be a string or an object with the required 'id' key.
      */
-    get(id: string | { id: string }): Promise<O extends DecoratedPolicyOptions<T> ? DecoratedResult<T> : T | null>;
+    get(id: Id): Promise<O extends DecoratedPolicyOptions<T> ? DecoratedResult<T> : T | null>;
 
     /**
      * store an item in the cache where:
@@ -148,12 +150,12 @@ export class Policy<T, O extends PolicyOptionVariants<T>> {
      * removed from the cache (or is marked invalid).
      *    This should be set to 0 in order to use the caching rules configured when creating the Policy object.
      */
-    set(id: string | { id: string }, value: T, ttl?: number): Promise<void>;
+    set(id: Id, value: T, ttl?: number): Promise<void>;
     /**
      * remove the item from cache where:
      * @param id the unique item identifier (within the policy segment).
      */
-    drop(id: string | { id: string }): Promise<void>;
+    drop(id: Id): Promise<void>;
     /**
      * given a created timestamp in milliseconds, returns the time-to-live left
      * based on the configured rules.
@@ -229,7 +231,7 @@ export interface DecoratedPolicyOptions<T> extends PolicyOptions<T> {
     /**
      * @default false
      */
-    getDecoratedValue?: boolean;
+    getDecoratedValue: boolean | undefined;
 }
 
 export interface GenerateFuncFlags {
@@ -247,7 +249,7 @@ export interface GenerateFuncFlags {
  *      * ttl - the cache ttl value in milliseconds. Set to 0 to skip storing in the cache. Defaults to the cache global policy.
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-export type GenerateFunc<T> = (id: string, flags: GenerateFuncFlags) => Promise<T>;
+export type GenerateFunc<T> = (id: Id, flags: GenerateFuncFlags) => Promise<T>;
 
 /**
  * An object with logging information about the generation operation containing the following keys (as relevant):

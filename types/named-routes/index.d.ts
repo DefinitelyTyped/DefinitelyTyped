@@ -2,7 +2,7 @@
 // Project: https://github.com/alubbe/named-routes#readme
 // Definitions by: Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as express from 'express';
 

@@ -1,8 +1,12 @@
-// Type definitions for hls.js 0.10
+// Type definitions for hls.js 0.13
 // Project: https://github.com/video-dev/hls.js
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
+//                 Johan Brook <https://github.com/brookback>
+//                 Adrián Caballero <https://github.com/adripanico>
+//                 Alexey I. Berezin <https://github.com/beraliv>
+//                 Arkadiusz Babiarz <https://github.com/drax98>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 // Event Keys
 type K_MEDIA_ATTACHING = "hlsMediaAttaching";
@@ -188,33 +192,65 @@ declare namespace Hls {
      */
     interface Level {
         /**
-         * level url. might contain sever items if failover/redundant streams are found in the manifest
+         * attribute list
          */
-        url: string[];
+        attrs: LevelAttr[];
+        /**
+         * audio codec
+         */
+        audioCodec: string;
         /**
          * level bitrate
          */
         bitrate: number;
         /**
-         * level name
+         * level details
          */
-        name: string;
+        details?: LevelDetails;
         /**
-         * used codecs
+         * whether there is any error on the fragment
          */
-        codecs: string;
-        /**
-         * video width
-         */
-        width: number;
+        fragmentError?: boolean;
         /**
          * video height
          */
         height: number;
         /**
-         * level details
+         * index of the level
          */
-        details: LevelDetails;
+        level?: number;
+        /**
+         * error code
+         */
+        loadError: number;
+        /**
+         * level name
+         */
+        name: string;
+        /**
+         * array of unrecognized codecs
+         */
+        unkownCodecs: string[];
+        /**
+         * level url. might contain several items if failover/redundant streams are found in the manifest
+         */
+        url: string[];
+        /**
+         * index of current url from url[] array
+         */
+        urlId: number;
+        /**
+         * video codec
+         */
+        videoCodec: string;
+        /**
+         * video width
+         */
+        width: number;
+    }
+
+    interface LevelAttr {
+        [key: string]: string;
     }
 
     /**
@@ -307,6 +343,41 @@ declare namespace Hls {
 
     // interface SubtitleTracks {}
 
+    type CustomLogger = (...args: any[]) => void;
+
+    interface CustomLoggerObject {
+        warn?: CustomLogger;
+        info?: CustomLogger;
+        log?: CustomLogger;
+        debug?: CustomLogger;
+        error?: CustomLogger;
+    }
+
+    interface HlsAudioTrack {
+        audioCodec: string;
+        autoselect: boolean;
+        default: boolean;
+        forced: boolean;
+        groupId: string;
+        id: number;
+        lang: string;
+        name: string;
+        type: string;
+        url: string;
+    }
+
+    interface SubtitleTrack {
+        autoselect: boolean;
+        default: boolean;
+        forced: boolean;
+        groupId: string;
+        id: number;
+        lang: string;
+        name: string;
+        type: string;
+        url: string;
+    }
+
     interface Config {
         /**
          * (default: false)
@@ -319,7 +390,7 @@ declare namespace Hls {
          * setting config.debug = true; will turn on debug logs on JS console.
          * a logger object could also be provided for custom logging: config.debug = customLogger;
          */
-        debug: boolean;
+        debug: boolean | CustomLoggerObject;
         /**
          * (default: true)
          * if set to true, start level playlist and first fragments will be loaded automatically, after triggering of Hls.Events.MANIFEST_PARSED event
@@ -475,6 +546,14 @@ declare namespace Hls {
          * Android Google Chrome, etc. set this value to true.
          */
         liveDurationInfinity: boolean;
+        /**
+         * (default: Infinity)
+         * Sets the maximum length of the buffer, in seconds, to keep during a live stream. Any video
+         * buffered past this time will be evicted. Infinity means no restriction on back buffer length;
+         * 0 keeps the minimum amount. The minimum amount is equal to the target duration of a segment
+         * to ensure that current playback is not interrupted.
+         */
+        liveBackBufferLength: number;
         /**
          * (default: true)
          * Enable WebWorker (if available on browser) for TS demuxing/MP4 remuxing, to improve performance and avoid lag/frame drops.
@@ -742,12 +821,12 @@ declare namespace Hls {
     }
 
     interface mediaAttachingData {
-        video: HTMLVideoElement;
+        media: HTMLMediaElement;
         mediaSource: string;
     }
 
     interface mediaAttachedData {
-        video: HTMLVideoElement;
+        media: HTMLMediaElement;
         mediaSource: string;
     }
 
@@ -849,7 +928,7 @@ declare namespace Hls {
     }
 
     interface audioTracksUpdatedData {
-        audioTracks: AudioTrack[];
+        audioTracks: HlsAudioTrack[];
     }
 
     interface audioTrackSwitchingData {
@@ -1588,7 +1667,7 @@ declare class Hls {
     /**
      * return array of available quality levels
      */
-    levels: Hls.Level[];
+    readonly levels: Hls.Level[];
     /**
      * get: return current playback quality level
      * set:  trigger an immediate quality level switch to new quality level
@@ -1614,15 +1693,9 @@ declare class Hls {
      */
     startLevel: number;
     /**
-     * (default: true)
-     * if set to true, start level playlist and first fragments will be loaded automatically, after triggering of Hls.Events.MANIFEST_PARSED event
-     * if set to false, an explicit API call (hls.startLoad(startPosition=-1)) will be needed to start quality level/fragment loading.
+     * get: Return the bound mediaElement (of type HTMLMediaElement, aka. HTMLVideoElement or HTMLAudioElement) from the hls instance
      */
-    autoStartLoad: boolean;
-    /**
-     * get: Return the bound videoElement from the hls instance
-     */
-    media: HTMLVideoElement;
+    readonly media?: HTMLMediaElement | null;
     /**
      *  hls.js config
      */
@@ -1654,22 +1727,23 @@ declare class Hls {
      */
     firstLevel: number;
     /**
-     * array of audio tracks exposed in manifest
+     * position of live sync point (ie edge of live position minus safety delay defined by hls.config.liveSyncDuration)
      */
-    audioTracks: AudioTrack[];
+    readonly liveSyncPosition: number;
     /**
-     * get: returns audio track id
-     * set: sets audio track id (returned by)
+     * get : array of audio tracks exposed in manifest
+     */
+    readonly audioTracks: Hls.HlsAudioTrack[];
+    /**
+     * get/set : audio track id (returned by).
+     * Returns -1 if no track is selected.
+     * Set to -1 to play default audio track.
      */
     audioTrack: number;
     /**
-     * position of live sync point (ie edge of live position minus safety delay defined by hls.config.liveSyncDuration)
-     */
-    liveSyncPosition: number;
-    /**
      * get : array of subtitle tracks exposed in manifest
      */
-    subtitleTracks: any[];
+    readonly subtitleTracks: Hls.SubtitleTrack[];
     /**
      * get/set : subtitle track id (returned by).
      * Returns -1 if no track is visible.
@@ -1684,22 +1758,22 @@ declare class Hls {
     subtitleDisplay: boolean;
     /**
      * calling this method will:
-     *      bind videoElement and hls instances
-     *      create MediaSource and set it as video source
+     *      bind mediaElement (of type HTMLMediaElement, aka. HTMLVideoElement or HTMLAudioElement) and hls instances
+     *      create MediaSource and set it as video or audio source
      *      once MediaSource object is successfully created, MEDIA_ATTACHED event will be fired
      */
-    attachMedia(videoElement: HTMLVideoElement): void;
+    attachMedia(mediaElement: HTMLMediaElement): void;
     /**
      * calling this method will:
-     *      unbind VideoElement from hls instance
+     *      unbind HTMLMediaElement (aka. HTMLVideoElement or HTMLAudioElement) from hls instance
      *      signal the end of the stream on MediaSource
-     *      reset video source ( video.src = '' )
+     *      resets media source ( media.src = '',  )
      */
     detachMedia(): void;
     /**
      * tell whether auto level selection is enabled or not
      */
-    autoLevelEnabled(enabled: boolean): boolean;
+    readonly autoLevelEnabled: boolean;
     /**
      * loads provided url as media source
      */
@@ -1736,7 +1810,7 @@ declare class Hls {
     /**
      * hls.js event listener
      */
-    on(event: K_MEDIA_ATTACHING, callback: (event: K_MEDIA_ATTACHING, data: Hls.mediaAttachedData) => void): void;
+    on(event: K_MEDIA_ATTACHING, callback: (event: K_MEDIA_ATTACHING, data: Hls.mediaAttachingData) => void): void;
     on(event: K_MEDIA_ATTACHED, callback: (event: K_MEDIA_ATTACHED, data: Hls.mediaAttachedData) => void): void;
     on(event: K_MEDIA_DETACHING, callback: (event: K_MEDIA_DETACHING, data: {}) => void): void;
     on(event: K_MEDIA_DETACHED, callback: (event: K_MEDIA_DETACHED, data: {}) => void): void;

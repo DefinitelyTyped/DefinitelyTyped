@@ -66,14 +66,15 @@ export const createListeners = (events: Event[]): string[] => {
         "",
         ...createListenerBlockFn("prependOnceListener")(events),
     ].reduce((acc, next, index, arr) => {
-        // removes trailing and consecutive empty lines
+        // removes leading, trailing and consecutive empty lines
+        const isFirst = index === 0;
         const isLast = index === arr.length - 1;
         const followsEmptyLine = acc.length > 0 && acc[acc.length - 1] === "";
-        if ((isLast || followsEmptyLine) && next === "") {
+        if ((isFirst || isLast || followsEmptyLine) && next === "") {
             return acc;
         } else {
             acc.push(next);
             return acc;
         }
-    }, []);
+    }, [] as string[]);
 };

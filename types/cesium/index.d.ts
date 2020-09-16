@@ -1,11 +1,18 @@
-// Type definitions for cesium 1.47
+// Type definitions for cesium 1.67
 // Project: http://cesiumjs.org
 // Definitions by: Aigars Zeiza <https://github.com/Zuzon>
 //                 Harry Nicholls <https://github.com/hnipps>
 //                 Jared Szechy <https://github.com/szechyjs>
 //                 Radek Goláň jr. <https://github.com/golyalpha>
+//                 Emma Krantz <https://github.com/KeyboardSounds>
+//                 Wing Ho <https://github.com/soyarsauce>
+//                 Joey Rafidi <https://github.com/jrafidi>
+//                 Morgan Snyder <https://github.com/morgansierrasnyder>
+//                 Federico Giacomini <https://github.com/crocsx>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 George Melissourgos <https://github.com/DrMerfy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 // tslint:disable-next-line:export-just-namespace
 export = Cesium;
@@ -16,6 +23,114 @@ declare namespace Cesium {
 
     interface Proxy {
         getURL(resource: string): string;
+    }
+
+    class IonResource extends Resource {
+        readonly credits: string[];
+        readonly extension: string;
+        readonly queryParameters: any;
+        readonly templateValues: any;
+
+        hasHeaders: boolean;
+        headers: any;
+        isBlobUri: boolean;
+        isCrossOriginUrl: boolean;
+        proxy: DefaultProxy;
+        request: Request;
+        retryAttempts: number;
+        url: string;
+
+        constructor(option: {
+            endpoint: any;
+            endpointResource: any;
+        })
+
+        static fromAssetId(
+            assetId: string,
+            options?: {
+                accessToken: string;
+                server: string | Resource;
+            }
+        ): Promise<IonResource>;
+
+        appendForwardSlash(): void;
+        appendQueryParameters(params: any): void;
+        clone(param: Resource): Resource;
+        delete(options?: {
+            responseType?: string;
+            headers?: any;
+            overrideMimeType?: string;
+        }): Promise<any> | undefined;
+        fetch(options?: {
+            responseType?: string;
+            headers?: any;
+            overrideMimeType?: string;
+        }): Promise<any> | undefined;
+        fetchArrayBuffer(): Promise<any> | undefined;
+        fetchBlob(): Promise<any> | undefined;
+        fetchImage(): Promise<any> | undefined;
+        fetchJson(): Promise<any> | undefined;
+        fetchJsonp(): Promise<any> | undefined;
+        fetchText(): Promise<any> | undefined;
+        fetchXMLS(): Promise<any> | undefined;
+        getUrlComponent(query?: boolean, proxy?: boolean): string;
+        getDerivedResource(option?: {
+            url?: string;
+            queryParameters?: any;
+            templateValues?: any;
+            headers?: any;
+            proxy?: DefaultProxy;
+            retryCallback?: any;
+            retryAttempts?: number;
+            request?: Request;
+            preserveQueryParameters?: boolean;
+        }): Resource;
+        head(options?: {
+            responseType?: string;
+            headers?: any;
+            overrideMimeType?: string;
+        }): Promise<any> | undefined;
+        options(options?: {
+            responseType?: string;
+            headers?: any;
+            overrideMimeType?: string;
+        }): Promise<any> | undefined;
+        patch(data: any, options?: {
+                responseType?: string;
+                headers?: any;
+                overrideMimeType?: string;
+            }
+        ): Promise<any> | undefined;
+        post(data: any, options?: {
+                responseType?: string;
+                headers?: any;
+                overrideMimeType?: string;
+            }
+        ): Promise<any> | undefined;
+        put(data: any,
+            options?: {
+                responseType?: string;
+                headers?: any;
+                overrideMimeType?: string;
+            }
+        ): Promise<any> | undefined;
+        setQueryParameters(params: any, useAsDefault?: boolean): void;
+        setTemplateValues(params: any, useAsDefault?: boolean): void;
+    }
+
+    class PropertyBag {
+        readonly definitionChanged: Event;
+        readonly isConstant: boolean;
+        propertyNames: string[];
+
+        constructor(value?: object, createPropertyCallback?: (value?: any) => void);
+
+        addProperty(propertyName: string, value?: any, createPropertyCallback?: (value: any) => void): void;
+        equals(other?: Property): boolean;
+        getValue(time: JulianDate, result?: object): object;
+        hasProperty(propertyName: string): boolean;
+        merge(source: object, createPropertyCallback?: (value: any) => void): void;
+        removeProperty(propertyName: string): void;
     }
 
     class ArcGisImageServerTerrainProvider extends TerrainProvider {
@@ -44,6 +159,34 @@ declare namespace Cesium {
         static clone(box: AxisAlignedBoundingBox, result?: AxisAlignedBoundingBox): AxisAlignedBoundingBox;
         static equals(left?: AxisAlignedBoundingBox, right?: AxisAlignedBoundingBox): boolean;
         static intersect(box: AxisAlignedBoundingBox, plane: Cartesian4): Intersect;
+    }
+
+    namespace PostProcessStageLibrary {
+        function createBlackAndWhiteStage(): PostProcessStage;
+        function createBlurStage(): PostProcessStageComposite;
+        function createBrightnessStage(): PostProcessStage;
+        function createEdgeDetectionStage(): PostProcessStage;
+        function createLensFlareStage(): PostProcessStageComposite;
+        function createNightVisionStage(): PostProcessStage;
+        function createSilhouetteStage(option: any): PostProcessStageComposite;
+        function isAmbientOcclusionSupported(scene: Scene): boolean;
+        function isDepthOfFieldSupported(scene: Scene): boolean;
+        function isEdgeDetectionSupported(scene: Scene): boolean;
+        function isSilhouetteSupported(scene: Scene): boolean;
+    }
+
+    class PostProcessStageComposite {
+        constructor(stages: PostProcessStage[], inputPreviousStageTexture?: boolean, name?: string, uniforms?: object);
+        enabled: boolean;
+        select: any[];
+        uniforms: object;
+        readonly inputPreviousStageTexture: boolean;
+        readonly length: number;
+        readonly name: string;
+        readonly ready: boolean;
+        get(index: number): PostProcessStage | PostProcessStageComposite;
+        isDestroyed(): boolean;
+        destroy(): void;
     }
 
     class BoundingRectangle {
@@ -261,6 +404,8 @@ declare namespace Cesium {
         toString(): string;
         static fromRadians(longitude: number, latitude: number, height?: number, result?: Cartographic): Cartographic;
         static fromDegrees(longitude: number, latitude: number, height?: number, result?: Cartographic): Cartographic;
+        static fromCartesian(cartesian: Cartesian3, ellipsoid?: Ellipsoid, result?: Cartographic): Cartographic;
+        static toCartesian(cartographic: Cartographic, ellipsoid?: Ellipsoid, result?: Cartesian3): Cartesian3;
         static clone(cartographic: Cartographic, result?: Cartographic): Cartographic;
         static equals(left?: Cartographic, right?: Cartographic): boolean;
         static equalsEpsilon(left: Cartographic, right: Cartographic, epsilon: number): boolean;
@@ -280,6 +425,56 @@ declare namespace Cesium {
         requestVertexNormals: boolean;
         requestWaterMask: boolean;
         constructor(options: { url: string; proxy?: Proxy; requestVertexNormals?: boolean; requestWaterMask?: boolean; ellipsoid?: Ellipsoid; credit?: Credit | string });
+    }
+
+    /**
+     * A 3D Tiles tileset represented by an Entity.
+     * The tileset modelMatrix is determined by the containing Entity position and orientation or is left unset if position is undefined.
+     */
+    class Cesium3DTilesetGraphics {
+        constructor(options?: Cesium3DTilesetGraphicsOptions);
+        /**
+         * Duplicates this instance.
+         */
+        clone(result?: Cesium3DTilesetGraphics): Cesium3DTilesetGraphics;
+        /**
+         * Assigns each unassigned property on this object to the value of the same property on the provided source object.
+         */
+        merge(source: Cesium3DTilesetGraphics): void;
+        /**
+         * Gets the event that is raised whenever a property or sub-property is changed or modified.
+         */
+        readonly definitionChanged: Event;
+        /**
+         * Gets or sets the maximum screen space error used to drive level of detail refinement.
+         * @default true
+         */
+        maximumScreenSpaceError: Property;
+        /**
+         * Gets or sets the boolean Property specifying the visibility of the model.
+         * @default true
+         */
+        show: Property;
+        /**
+         * Gets or sets the string Property specifying the URI of the glTF asset.
+         */
+        uri: Property;
+    }
+
+    interface Cesium3DTilesetGraphicsOptions {
+        /**
+         * A boolean Property specifying the visibility of the tilese
+         * @default true
+         */
+        show?: boolean | Property;
+        /**
+         * A string or Resource Property specifying the URI of the tileset.
+         */
+        uri?: string | Property;
+        /**
+         * A number or Property specifying the maximum screen space error used to drive level of detail refinement.
+         */
+        maximumScreenSpaceError?: number | Property;
     }
 
     class CircleGeometry extends Packable {
@@ -312,7 +507,7 @@ declare namespace Cesium {
         clockRange: ClockRange;
         canAnimate: boolean;
         shouldAnimate: boolean;
-        onTick: Event;
+        onTick: Event<[Clock]>;
         constructor(options: {
             startTime?: JulianDate;
             stopTime?: JulianDate;
@@ -506,6 +701,10 @@ declare namespace Cesium {
                 maximumAlpha?: number
             }, result?: Color): Color;
         static fromRgba(rgba: number): Color;
+        /**
+         * Computes the linear interpolation or extrapolation at t between the provided colors.
+         */
+        static lerp(start: Color, end: Color, t: number, result: Color): Color;
         static mod(left: Color, right: Color, result?: Color): Color;
         static multiply(left: Color, right: Color, result?: Color): Color;
         static multiplyByScalar(color: Color, scalar: number, result?: Color): Color;
@@ -679,13 +878,33 @@ declare namespace Cesium {
     }
 
     class EllipsoidGeometry extends Packable {
-        constructor(options?: { radii?: Cartesian3; stackPartitions?: number; slicePartitions?: number; vertexFormat?: VertexFormat });
+        constructor(options?: {
+            radii?: Cartesian3;
+            innerRadii?: Cartesian3;
+            minimumClock?: number;
+            maximumClock?: number;
+            minimumCone?: number;
+            maximumCone?: number;
+            stackPartitions?: number;
+            slicePartitions?: number;
+            vertexFormat?: VertexFormat;
+        });
         static unpack(array: number[], startingIndex?: number, result?: EllipsoidGeometry): EllipsoidGeometry;
         static createGeometry(ellipsoidGeometry: EllipsoidGeometry): Geometry;
     }
 
     class EllipsoidOutlineGeometry extends Packable {
-        constructor(options?: { radii?: Cartesian3; stackPartitions?: number; slicePartitions?: number; subdivisions?: number });
+        constructor(options?: {
+            radii?: Cartesian3;
+            innerRadii?: Cartesian3;
+            minimumClock?: number;
+            maximumClock?: number;
+            minimumCone?: number;
+            maximumCone?: number;
+            stackPartitions?: number;
+            slicePartitions?: number;
+            subdivisions?: number;
+        });
         static unpack(array: number[], startingIndex?: number, result?: EllipsoidOutlineGeometry): EllipsoidOutlineGeometry;
         static createGeometry(ellipsoidGeometry: EllipsoidOutlineGeometry): Geometry;
     }
@@ -697,18 +916,18 @@ declare namespace Cesium {
         projectPointOntoPlane(cartesian: Cartesian3, result?: Cartesian2): Cartesian2;
         projectPointsOntoPlane(cartesians: Cartesian3[], result?: Cartesian2[]): Cartesian2[];
         projectPointsOntoEllipsoid(cartesians: Cartesian2[], result?: Cartesian3[]): Cartesian3[];
-        static fromPoints(ellipsoid: Ellipsoid, cartesians: Cartesian3): EllipsoidTangentPlane;
+        static fromPoints(cartesians: Cartesian3[], ellipsoid?: Ellipsoid): EllipsoidTangentPlane;
     }
 
     class EllipsoidTerrainProvider extends TerrainProvider {
         constructor(options?: { tilingScheme?: TilingScheme; ellipsoid?: Ellipsoid });
     }
 
-    class Event {
+    class Event<T extends any[] = any[]> {
         numberOfListeners: number;
-        addEventListener(listener: () => void, scope?: any): Event.RemoveCallback;
-        removeEventListener(listener: () => void, scope?: any): boolean;
-        raiseEvent(...args: any[]): void;
+        addEventListener(listener: (...args: T) => void, scope?: any): Event.RemoveCallback;
+        removeEventListener(listener: (...args: T) => void, scope?: any): boolean;
+        raiseEvent(...args: T): void;
     }
 
     namespace Event {
@@ -775,7 +994,7 @@ declare namespace Cesium {
         modelMatrix: Matrix4;
         id: any;
         attributes: any;
-        constructor(options: { geometry: Geometry; modelMatrix?: Matrix4; id?: any; attributes?: any });
+        constructor(options: { geometry: Geometry | PolygonGeometry; modelMatrix?: Matrix4; id?: any; attributes?: any });
     }
 
     class GeometryInstanceAttribute {
@@ -906,6 +1125,203 @@ declare namespace Cesium {
         evaluate(time: number, result?: Cartesian3): Cartesian3;
     }
 
+    /**
+     * Provides tiled imagery hosted by Mapbox
+     */
+    class MapboxImageryProvider extends MapboxProviderCommonApi {
+        constructor(options?: MapboxImageryProviderOptions);
+    }
+
+    /**
+     * Provides tiled imagery hosted by Mapbox.
+     */
+    class MapboxStyleImageryProvider extends MapboxProviderCommonApi {
+        constructor(options?: MapboxStyleImageryProviderOptions);
+    }
+
+    abstract class MapboxProviderCommonApi {
+        /**
+         * Gets the credits to be displayed when a given tile is displayed.
+         * @param x - The tile X coordinate
+         * @param y - The tile Y coordinate.
+         * @param level - The tile level;
+         */
+        getTileCredits(x: number, y: number, level: number): Credit[];
+        /**
+         * Asynchronously determines what features, if any, are located at a given longitude and latitude within a tile.
+         * This function should not be called before provider ready returns true.
+         * This function is optional, so it may not exist on all ImageryProviders.
+         * @param x - The tile X coordinate
+         * @param y - The tile Y coordinate
+         * @param level - The tile level
+         * @param longitude - The longitude at which to pick features
+         * @param latitude - The latitude at which to pick features
+         */
+        pickFeatures(x: number, y: number, level: number, longitude: number, latitude: number): Promise<ImageryLayerFeatureInfo[]> | undefined;
+        /**
+         * Requests the image for a given tile.
+         * This function should not be called before provider ready returns true.
+         * @param x - The tile X coordinate
+         * @param y - The tile Y coordinate
+         * @param level - The tile level
+         * @param request - The request object. Intended for internal use only.
+         */
+        requestImage(x: number, y: number, level: number, request?: Request): Promise<HTMLImageElement | HTMLCanvasElement> | undefined;
+        /**
+         * Gets the credit to display when this imagery provider is active. Typically this is used to credit the source of the imagery.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly credit: Credit;
+        /**
+         * Gets an event that is raised when the imagery provider encounters an asynchronous error..
+         * By subscribing to the event, you will be notified of the error and can potentially recover from it.
+         * Event listeners are passed an instance of TileProviderError.
+         */
+        readonly errorEvent: Event;
+        /**
+         * Gets a value indicating whether or not the images provided by this imagery provider include an alpha channel.
+         * If this property is false, an alpha channel, if present, will be ignored.
+         * If this property is true, any images without an alpha channel will be treated as if their alpha is 1.0 everywhere.
+         * When this property is false, memory usage and texture upload time are reduced.
+         */
+        readonly hasAlphaChannel: boolean;
+        /**
+         * Gets the maximum level-of-detail that can be requested.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly maximumLevel: number;
+        /**
+         * Gets the minimum level-of-detail that can be requested.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         * Generally, a minimum level should only be used when the rectangle of the imagery is small enough
+         * that the number of tiles at the minimum level is small.
+         * An imagery provider with more than a few tiles at the minimum level will lead to rendering problems.
+         */
+        readonly minimumLevel: number;
+        /**
+         * Gets the proxy used by this provider.
+         */
+        readonly proxy: Proxy;
+        /**
+         * Gets a value indicating whether or not the provider is ready for use.
+         */
+        readonly ready: boolean;
+        /**
+         * Gets a promise that resolves to true when the provider is ready for use.
+         */
+        readonly readyPromise: Promise<boolean>;
+        /**
+         * Gets the rectangle, in radians, of the imagery provided by the instance.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly rectangle: Rectangle;
+        /**
+         * Gets the tile discard policy.
+         * If not undefined, the discard policy is responsible for filtering out "missing" tiles via its shouldDiscardImage function.
+         * If this function returns undefined, no tiles are filtered.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly tileDiscardPolicy: TileDiscardPolicy;
+        /**
+         * Gets the height of each tile, in pixels.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly tileHeight: number;
+        /**
+         * Gets the width of each tile, in pixels.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly tileWidth: number;
+        /**
+         * Gets the tiling scheme used by the provider.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly tilingScheme: TilingScheme;
+        /**
+         * Gets the URL of the Mapbox server.
+         */
+        readonly url: string;
+    }
+
+    interface MapboxProviderCommonOptions {
+        /**
+         * The ellipsoid.
+         * If not specified, the WGS84 ellipsoid is used
+         */
+        ellipsoid?: Ellipsoid;
+        /**
+         * The minimum level-of-detail supported by the imagery provider.
+         * Take care when specifying this that the number of tiles at the minimum level is small, such as four or less.
+         * A larger number is likely to result in rendering problems
+         * @default 0
+         */
+        minimumLevel?: number;
+        /**
+         * The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit
+         * @default undefined
+         */
+        maximumLevel?: number;
+        /**
+         * The rectangle, in radians, covered by the image
+         * @defualt Rectangle.MAX_VALUE
+         */
+        rectangle?: Rectangle;
+        /**
+         * A credit for the data source, which is displayed on the canvas
+         */
+        credit?: Credit | string;
+    }
+    interface MapboxImageryProviderOptions extends MapboxProviderCommonOptions {
+        /**
+         * The public access token for the imagery
+         */
+        accessToken?: string;
+        /**
+         * The format of the image request
+         * @default 'png'
+         */
+        format?: string;
+        /**
+         * The Mapbox Map ID
+         */
+        mapId: string;
+        /**
+         * The Mapbox server url
+         * @default 'https://api.mapbox.com/v4/'
+         */
+        url?: string;
+    }
+
+    interface MapboxStyleImageryProviderOptions extends MapboxProviderCommonOptions {
+        /**
+         * The Mapbox server url
+         * @default 'https://api.mapbox.com/styles/v1/'
+         */
+        url?: Resource | string;
+        /**
+         * The username of the map account.
+         * @default 'mapbox'
+         */
+        username?: string;
+        /**
+         * The Mapbox Style ID.
+         */
+        styleId: string;
+        /**
+         * The public access token for the imagery.
+         */
+        accessToken?: string;
+        /**
+         * The size of the image tiles
+         * @default 512
+         */
+        tilesize?: number;
+        /**
+         * Determines if tiles are rendered at a @2x scale factor
+         */
+        scaleFactor?: boolean;
+    }
+
     class MapProjection {
         ellipsoid: Ellipsoid;
         project(cartographic: Cartographic, result?: Cartesian3): Cartesian3;
@@ -986,6 +1402,7 @@ declare namespace Cesium {
         static toArray(matrix: Matrix3, result?: number[]): number[];
         static getElementIndex(row: number, column: number): number;
         static getColumn(matrix: Matrix3, index: number, result: Cartesian3): Cartesian3;
+        static getRotation(matrix: Matrix3, result: Matrix3): Matrix3;
         static setColumn(matrix: Matrix3, index: number, cartesian: Cartesian3, result: Cartesian3): Matrix3;
         static getRow(matrix: Matrix3, index: number, result: Cartesian3): Cartesian3;
         static setRow(matrix: Matrix3, index: number, cartesian: Cartesian3, result: Cartesian3): Matrix3;
@@ -1075,7 +1492,7 @@ declare namespace Cesium {
         static equals(left?: Matrix4, right?: Matrix4): boolean;
         static equalsEpsilon(left: Matrix4, right: Matrix4, epsilon: number): boolean;
         static getTranslation(matrix: Matrix4, result: Cartesian3): Cartesian3;
-        static getRotation(matrix: Matrix4, result: Matrix3): Matrix3;
+        static getMatrix3(matrix: Matrix4, result: Matrix3): Matrix3;
         static inverse(matrix: Matrix4, result: Matrix4): Matrix4;
         static inverseTransformation(matrix: Matrix4, result: Matrix4): Matrix4;
     }
@@ -1192,9 +1609,33 @@ declare namespace Cesium {
     }
 
     class PolylineGeometry extends Packable {
-        constructor(options: { positions: Cartesian3[]; width?: number; colors?: Color[]; colorsPerVertex?: boolean; followSurface?: boolean; granularity?: number; ellipsoid?: Ellipsoid });
+        constructor(options: {
+            positions: Cartesian3[];
+            width?: number;
+            colors?: Color[];
+            colorsPerVertex?: boolean;
+            vertexFormat?: VertexFormat;
+            granularity?: number;
+            ellipsoid?: Ellipsoid;
+            arcType?: ArcType;
+        });
         static unpack(array: number[], startingIndex?: number, result?: PolylineGeometry): PolylineGeometry;
         static createGeometry(polylineGeometry: PolylineGeometry): Geometry;
+    }
+
+    class GroundPolylineGeometry extends Packable {
+        arcType: ArcType;
+        granularity: boolean;
+        loop: boolean;
+        width: number;
+        constructor(options: {
+            positions: Cartesian3[];
+            width?: number;
+            granularity?: number;
+            arcType?: ArcType;
+            loop?: boolean;
+        });
+        static unpack(array: number[], startingIndex?: number, result?: GroundPolylineGeometry): GroundPolylineGeometry;
     }
 
     class PolylineVolumeGeometry extends Packable {
@@ -1312,7 +1753,7 @@ declare namespace Cesium {
         origin: Cartesian3;
         direction: Cartesian3;
         constructor(origin?: Cartesian3, direction?: Cartesian3);
-        static getPoint(t: number, result?: Cartesian3): Cartesian3;
+        static getPoint(ray: Ray, t: number, result?: Cartesian3): Cartesian3;
     }
 
     class Rectangle extends Packable {
@@ -1391,10 +1832,29 @@ declare namespace Cesium {
         constructor(message?: string);
     }
 
+    interface ScreenSpaceEventMap {
+        [ScreenSpaceEventType.LEFT_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_DOUBLE_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MOUSE_MOVE]: { startPosition: Cartesian2, endPosition: Cartesian2 };
+        [ScreenSpaceEventType.WHEEL]: number;
+        [ScreenSpaceEventType.PINCH_START]: { position1: Cartesian2, position2: Cartesian2 };
+        [ScreenSpaceEventType.PINCH_MOVE]: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 }};
+    }
+
     class ScreenSpaceEventHandler {
         constructor(element?: HTMLCanvasElement);
-        setInputAction(action: () => void, type: number, modifier?: number): void;
-        getInputAction(type: number, modifier?: number): () => void;
+        setInputAction<K extends keyof ScreenSpaceEventMap>(action: (event: ScreenSpaceEventMap[K]) => void, type: K, modifier?: number): void;
+        setInputAction(action: () => void, type: ScreenSpaceEventType, modifier?: number): void;
+        getInputAction<K extends keyof ScreenSpaceEventMap>(type: K, modifier?: number): (event: ScreenSpaceEventMap[K]) => void;
+        getInputAction(type: ScreenSpaceEventType, modifier?: number): () => void;
         removeInputAction(type: number, modifier?: number): void;
         isDestroyed(): boolean;
         destroy(): void;
@@ -1428,6 +1888,9 @@ declare namespace Cesium {
     }
 
     class Spherical {
+        clock: number;
+        cone: number;
+        magnitude: number;
         constructor(clock?: number, cone?: number, magnitude?: number);
         equals(other: Spherical): boolean;
         clone(result?: Spherical): Spherical;
@@ -1512,7 +1975,7 @@ declare namespace Cesium {
         retry: boolean;
         error: Error;
         constructor(provider: ImageryProvider | TerrainProvider, message: string, x?: number, y?: number, level?: number, timesRetried?: number, error?: Error);
-        static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event,
+        static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event<[TileProviderError]>,
                             message: string, x: number, y: number, level: number, retryFunction: TileProviderError.RetryFunction,
                             errorDetails?: Error): TileProviderError;
         static handleSuccess(previousError: TileProviderError): void;
@@ -1562,7 +2025,7 @@ declare namespace Cesium {
     }
 
     class TimeIntervalCollection {
-        readonly changedEvent: Event;
+        readonly changedEvent: Event<[TimeIntervalCollection]>;
         readonly start: JulianDate;
         readonly isStartIncluded: boolean;
         readonly stop: JulianDate;
@@ -1581,6 +2044,13 @@ declare namespace Cesium {
         addInterval(interval: TimeInterval, dataComparer?: TimeInterval.DataComparer): void;
         removeInterval(interval: TimeInterval): void;
         intersect(other: TimeIntervalCollection, dataComparer?: TimeInterval.DataComparer, mergeCallback?: TimeInterval.MergeCallback): TimeIntervalCollection;
+    }
+
+    namespace TrustedServers {
+        function add(host: string, port: number): void;
+        function remove(host: string, port: number): void;
+        function contains(contains: string): boolean;
+        function clear(): void;
     }
 
     class VRTheWorldTerrainProvider extends TerrainProvider {
@@ -1649,23 +2119,25 @@ declare namespace Cesium {
     }
 
     class BillboardGraphics {
-        definitionChanged: Event;
-        image: Property;
-        imageSubRegion: Property;
-        scale: Property;
-        rotation: Property;
-        alignedAxis: Property;
-        horizontalOrigin: Property;
-        verticalOrigin: Property;
-        color: Property;
-        eyeOffset: Property;
-        pixelOffset: Property;
-        show: Property;
-        width: Property;
-        height: Property;
-        scaleByDistance: Property;
-        translucencyByDistance: Property;
-        pixelOffsetScaleByDistance: Property;
+        definitionChanged?: Event;
+        image?: Property;
+        imageSubRegion?: Property;
+        scale?: Property;
+        rotation?: Property;
+        alignedAxis?: Property;
+        horizontalOrigin?: Property;
+        verticalOrigin?: Property;
+        color?: Property;
+        eyeOffset?: Property;
+        pixelOffset?: Property;
+        show?: Property;
+        width?: Property;
+        height?: Property;
+        scaleByDistance?: Property;
+        translucencyByDistance?: Property;
+        disableDepthTestDistance?: Property;
+        pixelOffsetScaleByDistance?: Property;
+        heightReference?: Property;
         constructor(options?: { image?: Property;
             show?: Property;
             scale?: Property;
@@ -1681,7 +2153,9 @@ declare namespace Cesium {
             scaleByDistance?: Property;
             translucencyByDistance?: Property;
             pixelOffsetScaleByDistance?: Property;
-            imageSubRegion?: Property
+            disableDepthTestDistance?: Property | number;
+            imageSubRegion?: Property;
+            heightReference?: Property;
         });
         clone(result?: BillboardGraphics): BillboardGraphics;
         merge(source: BillboardGraphics): BillboardGraphics;
@@ -1885,6 +2359,7 @@ declare namespace Cesium {
         clustering: EntityCluster;
         entities: EntityCollection;
         errorEvent: Event;
+        credit: Credit;
         isLoading: boolean;
         loadingEvent: Event;
         name: string;
@@ -1914,8 +2389,10 @@ declare namespace Cesium {
         remove(dataSource: DataSource, destroy?: boolean): boolean;
         removeAll(destroy?: boolean): void;
         contains(dataSource: DataSource): boolean;
+        lowerToBottom(dataSource: DataSource): void;
         indexOf(dataSource: DataSource): number;
         get(index: number): DataSource;
+        getByName(name: string): DataSource[];
         isDestroyed(): boolean;
         destroy(): void;
     }
@@ -1963,8 +2440,8 @@ declare namespace Cesium {
         outlineWidth: number;
         numberOfVerticalLines: Property;
         constructor(options?: {
-            semiMajorAxis?: number;
-            semiMinorAxis?: number;
+            semiMajorAxis?: Property | number;
+            semiMinorAxis?: Property | number;
             height?: Property;
             extrudedHeight?: Property;
             show?: Property;
@@ -2032,7 +2509,7 @@ declare namespace Cesium {
         label: LabelGraphics;
         model: ModelGraphics;
         name: string;
-        orientation: Property;
+        orientation: Property | Quaternion;
         parent: Entity;
         path: PathGraphics;
         plane: any;
@@ -2041,10 +2518,11 @@ declare namespace Cesium {
         polyline: PolylineGraphics;
         polylineVolume: PolylineVolumeGraphics;
         position: PositionProperty;
-        properties: any;
+        properties: PropertyBag;
         propertyNames: any[];
         rectangle: RectangleGraphics;
         show: boolean;
+        tileset: Cesium3DTilesetGraphics;
         viewFrom: Property;
         wall: WallGraphics;
         constructor(options?: {
@@ -2053,8 +2531,8 @@ declare namespace Cesium {
           availability?: TimeIntervalCollection;
           show?: boolean;
           description?: Property;
-          position?: PositionProperty;
-          orientation?: Property;
+          position?: CallbackProperty | PositionProperty;
+          orientation?: Property | Quaternion;
           viewFrom?: Property;
           parent?: Entity;
           billboard?: BillboardGraphics;
@@ -2071,7 +2549,9 @@ declare namespace Cesium {
           polygon?: PolygonGraphics;
           polyline?: PolylineGraphics;
           polylineVolume?: PolylineVolumeGraphics;
+          properties?: PropertyBag;
           rectangle?: RectangleGraphics;
+          tileset?: Cesium3DTilesetGraphics;
           wall?: WallGraphics
         });
         addProperty(propertyName: string): void;
@@ -2200,7 +2680,7 @@ declare namespace Cesium {
     class ImageMaterialProperty extends MaterialProperty {
         image: Property;
         repeat: Property;
-        constructor(options?: { image?: Property; repeat?: Property });
+        constructor(options?: { image?: Property; repeat?: Property, color?: Property, transparent?: Property });
     }
 
     class KmlDataSource extends DataSource {
@@ -2233,25 +2713,35 @@ declare namespace Cesium {
         verticalOrigin: Property;
         eyeOffset: Property;
         pixelOffset: Property;
+        backgroundColor: Property;
         scale: Property;
+        showBackground?: Property;
         show: Property;
         translucencyByDistance: Property;
         pixelOffsetScaleByDistance: Property;
+        distanceDisplayCondition?: Property;
         constructor(options?: {
-            text?: Property;
+            text?: Property | string;
             font?: string;
-            style?: Property;
+            style?: LabelStyle | Property;
             fillColor?: Color;
             outlineColor?: Color;
             outlineWidth?: number;
             show?: Property;
             scale?: Property;
+            showBackground?: Property;
+            backgroundColor?: Property;
+            backgroundPadding?: Property;
             horizontalOrigin?: Property;
-            verticalOrigin?: Property;
+            verticalOrigin?: VerticalOrigin | Property;
             eyeOffset?: Property;
-            pixelOffset?: Property;
+            pixelOffset?: Cartesian2 | Property;
             translucencyByDistance?: Property;
-            pixelOffsetScaleByDistance?: Property
+            pixelOffsetScaleByDistance?: Property;
+            heightReference?: Property;
+            scaleByDistance?: Property;
+            distanceDisplayCondition?: DistanceDisplayCondition | Property;
+            disableDepthTestDistance?: Property | number;
         });
         clone(result?: LabelGraphics): LabelGraphics;
         merge(source: LabelGraphics): LabelGraphics;
@@ -2266,45 +2756,50 @@ declare namespace Cesium {
     }
 
     class ModelGraphics {
+        articulations: PropertyBag;
         clampAnimations: Property | boolean;
-        clippingPlanes: Property;
-        color: Property;
+        clippingPlanes: Property | ClippingPlaneCollection;
+        color: Property | Color;
         colorBlendAmount: Property | number;
-        colorBlendMode: Property;
+        colorBlendMode: Property | ColorBlendMode;
         readonly definitionChanged: Event;
-        distanceDisplayCondition: Property;
-        heightReference: Property;
+        distanceDisplayCondition: Property | DistanceDisplayCondition;
+        heightReference: Property | HeightReference;
+        imageBasedLightingFactor: Property | Cartesian2;
         incrementallyLoadTextures: Property | boolean;
+        lightColor: Property | Cartesian3;
         maximumScale: Property | number;
-        minimumScale: Property | number;
         minimumPixelSize: Property | number;
-        nodeTransformations: any; // PropertyBag
+        nodeTransformations: PropertyBag;
         runAnimations: Property | boolean;
         scale: Property | number;
-        shadows: Property;
+        shadows: Property | ShadowMode;
         show: Property | boolean;
-        silhouetteColor: Property;
+        silhouetteColor: Property | Color;
         silhouetteSize: Property | number;
         uri: Property | string;
         constructor(options?: {
-          uri?: Property | string;
           show?: Property | boolean;
+          uri?: Property | string;
           scale?: Property | number;
           minimumPixelSize?: Property | number;
           maximumScale?: Property | number;
           incrementallyLoadTextures?: Property | boolean;
           runAnimations?: Property | boolean;
           clampAnimations?: Property | boolean;
-          nodeTransformations?: Property;
-          shadows?: Property;
-          heightReference?: Property;
-          distanceDisplayCondition?: Property;
-          silhouetteColor?: Property;
+          shadows?: Property | ShadowMode;
+          heightReference?: Property | HeightReference;
+          silhouetteColor?: Property | Color;
           silhouetteSize?: Property | number;
-          color?: Property;
-          colorBlendMode?: Property;
+          color?: Property | Color;
+          colorBlendMode?: Property | ColorBlendMode;
           colorBlendAmount?: Property | number;
-          clippingPlanes?: Property;
+          imageBasedLightingFactor?: Property | Cartesian2;
+          lightColor?: Property | Cartesian3;
+          distanceDisplayCondition?: Property | DistanceDisplayCondition;
+          nodeTransformations?: PropertyBag;
+          articulations?: PropertyBag;
+          clippingPlanes?: Property | ClippingPlaneCollection;
         });
         clone(result?: ModelGraphics): ModelGraphics;
         merge(source: ModelGraphics): ModelGraphics;
@@ -2377,13 +2872,19 @@ declare namespace Cesium {
     }
 
     class PolygonGraphics {
+        arcType: Property;
+        classificationType: Property;
+        closeBottom: Property;
+        closeTop: Property;
         definitionChanged: Event;
+        distanceDisplayCondition: Property;
         show: Property;
-        material: MaterialProperty | Color;
-        positions: Property;
+        material: MaterialProperty;
         hierarchy: Property;
         height: Property;
+        heightReference: Property;
         extrudedHeight: Property;
+        extrudedHeightReference: Property;
         granularity: Property;
         stRotation: Property;
         fill: boolean;
@@ -2391,33 +2892,37 @@ declare namespace Cesium {
         outlineColor: Color;
         outlineWidth: Property;
         perPositionHeight: Property;
+        shadows: Property;
+        zIndex: ConstantProperty;
         constructor(options?: {
-            hierarchy?: Property;
-            height?: number;
+            hierarchy?: Property | Cartesian3[] | PolygonHierarchy;
+            height?: Property | number;
+            heightReference?: Property;
             extrudedHeight?: Property;
-            show?: Property;
-            fill?: boolean;
+            extrudedHeightReference?: Property;
+            show?: Property | boolean;
+            fill?: Property | boolean;
             material?: MaterialProperty | Color;
-            outline?: boolean;
-            outlineColor?: Color;
-            outlineWidth?: number;
+            outline?: Property | boolean;
+            outlineColor?: Property | Color;
+            outlineWidth?: Property | number;
             stRotation?: Property;
             granularity?: Property;
-            perPositionHeight?: Property
+            perPositionHeight?: Property;
+            closeTop?: boolean;
+            closeBottom?: boolean;
+            arcType?: Property | ArcType;
+            shadows?: Property | ShadowMode;
+            distanceDisplayCondition?: Property;
+            classificationType?: Property | ClassificationType;
+            zIndex?: ConstantProperty | number;
         });
         clone(result?: PolygonGraphics): PolygonGraphics;
         merge(source: PolygonGraphics): PolygonGraphics;
     }
-
     class PolylineArrowMaterialProperty extends MaterialProperty {
         color: Property;
         constructor(color?: Property);
-    }
-
-    class PolylineGeometryUpdater extends GeometryUpdater {
-        readonly depthFailMaterialProperty: MaterialProperty;
-        readonly distanceDisplayConditionProperty: Property;
-        constructor(entity: Entity, scene: Scene);
     }
 
     class PolylineGlowMaterialProperty extends MaterialProperty {
@@ -2426,15 +2931,49 @@ declare namespace Cesium {
         constructor(options?: { color?: Property; glowPower?: Property });
     }
 
+    class PolylineDashMaterialProperty extends MaterialProperty {
+        color: Color;
+        gapColor: Color;
+        dashLength: Property;
+        dashPattern: Property;
+        constructor(options?: {color?: Color; gapColor?: Color; dashLength?: Property; dashPattern?: Property});
+    }
+
+    class PolylineGeometryUpdater extends GeometryUpdater {
+        readonly depthFailMaterialProperty: MaterialProperty;
+        readonly distanceDisplayConditionProperty: Property;
+        constructor(entity: Entity, scene: Scene);
+    }
+
     class PolylineGraphics {
-        definitionChanged: Event;
+        arcType: Property;
+        clampToGround: Property;
+        classificationType: Property;
+        readonly definitionChanged: Event;
+        depthFailMaterial: MaterialProperty;
+        distanceDisplayCondition: Property;
+        followSurface: Property;
+        granularity: Property;
+        shadows: Property;
         show: Property;
         material: MaterialProperty;
         positions: Property;
-        width: number;
-        followSurface: Property;
-        granularity: Property;
-        constructor(options?: { positions?: Cartesian3[]; followSurface?: Property; width?: number; show?: Property; material?: MaterialProperty; granularity?: Property });
+        width: Property | number;
+        zIndex: ConstantProperty;
+        constructor(options?: {
+            positions?: Property | Cartesian3[];
+            clampToGround?: Property | boolean;
+            width?: Property | number;
+            show?: Property | boolean;
+            material?: MaterialProperty | Color;
+            granularity?: Property;
+            arcType?: Property | ArcType;
+            depthFailMaterial?: MaterialProperty;
+            shadows?: Property | ShadowMode;
+            distanceDisplayCondition?: Property;
+            classificationType?: Property | ClassificationType;
+            zIndex?: Property | number;
+        });
         clone(result?: PolylineGraphics): PolylineGraphics;
         merge(source: PolylineGraphics): PolylineGraphics;
     }
@@ -2492,7 +3031,7 @@ declare namespace Cesium {
     abstract class Property {
         readonly isConstant: boolean;
         readonly definitionChanged: Event;
-        getValue(time: JulianDate, result?: any): any;
+        getValue(time?: JulianDate, result?: any): any;
         equals(other?: Property): boolean;
     }
 
@@ -2685,36 +3224,60 @@ declare namespace Cesium {
     }
 
     class Billboard {
-      alignedAxis: Cartesian3;
-      color: Color;
-      disableDepthTestDistance: number;
-      distanceDisplayCondition: DistanceDisplayCondition;
-      eyeOffset: Cartesian3;
-      height: number;
-      heightReference: HeightReference;
-      horizontalOrigin: HorizontalOrigin;
-      id: any;
-      image: string;
-      pixelOffset: Cartesian2;
-      pixelOffsetScaleByDistance: NearFarScalar;
-      position: Cartesian3;
-      readonly ready: boolean;
-      rotation: number;
-      scale: number;
-      scaleByDistance: NearFarScalar;
-      show: boolean;
-      sizeInMeters: boolean;
-      translucencyByDistance: NearFarScalar;
-      verticalOrigin: VerticalOrigin;
-      width: number;
-      computeScreenSpacePosition(scene: Scene, result?: Cartesian2): Cartesian2;
-      equals(other: Billboard): boolean;
-      setImage(id: string, image: HTMLImageElement | HTMLCanvasElement | string | Billboard.CreateImageCallback): void;
-      setImageSubRegion(id: string, subRegion: BoundingRectangle): void;
+        alignedAxis: Cartesian3;
+        color: Color;
+        disableDepthTestDistance: number;
+        distanceDisplayCondition: DistanceDisplayCondition;
+        eyeOffset: Cartesian3;
+        height: number;
+        heightReference: HeightReference;
+        horizontalOrigin: HorizontalOrigin;
+        id: any;
+        image: string;
+        pixelOffset: Cartesian2;
+        pixelOffsetScaleByDistance: NearFarScalar;
+        position: Cartesian3;
+        readonly ready: boolean;
+        rotation: number;
+        scale: number;
+        scaleByDistance: NearFarScalar;
+        show: boolean;
+        sizeInMeters: boolean;
+        translucencyByDistance: NearFarScalar;
+        verticalOrigin: VerticalOrigin;
+        width: number;
+        computeScreenSpacePosition(scene: Scene, result?: Cartesian2): Cartesian2;
+        equals(other: Billboard): boolean;
+        setImage(id: string, image: HTMLImageElement | HTMLCanvasElement | string | Billboard.CreateImageCallback): void;
+        setImageSubRegion(id: string, subRegion: BoundingRectangle): void;
     }
 
     namespace Billboard {
         type CreateImageCallback = (id: string) => HTMLImageElement | HTMLCanvasElement | Promise<HTMLImageElement | HTMLCanvasElement>;
+    }
+
+    interface BillboardOptions {
+        alignedAxis?: Cartesian3;
+        color?: Color;
+        distanceDisplayCondition?: DistanceDisplayCondition;
+        eyeOffset?: Cartesian3;
+        height?: number;
+        heightReference?: HeightReference;
+        horizontalOrigin?: HorizontalOrigin;
+        id?: any;
+        image?: HTMLImageElement | HTMLCanvasElement | string | Billboard.CreateImageCallback;
+        imageSubRegion?: BoundingRectangle;
+        pixelOffset?: Cartesian2;
+        pixelOffsetScaleByDistance?: NearFarScalar;
+        position?: Cartesian3;
+        rotation?: number;
+        scale?: number;
+        scaleByDistance?: NearFarScalar;
+        show?: boolean;
+        sizeInMeters?: boolean;
+        translucencyByDistance?: NearFarScalar;
+        verticalOrigin?: VerticalOrigin;
+        width?: number;
     }
 
     class BillboardCollection {
@@ -2722,8 +3285,13 @@ declare namespace Cesium {
         debugShowBoundingVolume: boolean;
         length: number;
         modelMatrix: Matrix4;
-        constructor(options?: { modelMatrix?: Matrix4; debugShowBoundingVolume?: boolean; scene?: Scene; blendOption?: BlendOption });
-        add(billboard?: any): Billboard;
+        constructor(options?: {
+            modelMatrix?: Matrix4;
+            debugShowBoundingVolume?:
+            boolean; scene?: Scene;
+            blendOption?: BlendOption
+        });
+        add(billboard?: BillboardOptions): Billboard;
         contains(billboard?: Billboard): boolean;
         destroy(): void;
         get(index: number): Billboard;
@@ -2824,7 +3392,7 @@ declare namespace Cesium {
         flyHome(duration: number): void;
         flyTo(options: {
             destination: Cartesian3 | Rectangle;
-            orientation?: any;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
             duration?: number;
             complete?: Camera.FlightCompleteCallback;
             cancel?: Camera.FlightCancelledCallback;
@@ -2833,7 +3401,8 @@ declare namespace Cesium {
             pitchAdjustHeight?: number;
             flyOverLongitude?: number;
             flyOverLongitudeWeight?: number;
-            easingFunction?: EasingFunction
+            easingFunction?: EasingFunction,
+            convert?: boolean,
         }): void;
         flyToBoundingSphere(boundingSphere: BoundingSphere, options?: {
             duration?: number;
@@ -2853,7 +3422,7 @@ declare namespace Cesium {
         getRectangleCameraCoordinates(rectangle: Rectangle, result?: Cartesian3): Cartesian3;
         look(axis: Cartesian3, angle?: number): void;
         lookAt(target: Cartesian3, offset: Cartesian3 | HeadingPitchRange): void;
-        lookAtTransform(transform: Matrix4, offset: Cartesian3 | HeadingPitchRange): void;
+        lookAtTransform(transform: Matrix4, offset?: Cartesian3 | HeadingPitchRange): void;
         lookDown(amount?: number): void;
         lookLeft(amount?: number): void;
         lookRight(amount?: number): void;
@@ -2871,7 +3440,12 @@ declare namespace Cesium {
         rotateLeft(angle?: number): void;
         rotateRight(angle?: number): void;
         rotateUp(angle?: number): void;
-        setView(options: {destination?: Cartesian3 | Rectangle; orientation?: any; endTransform?: Matrix4}): void;
+        setView(options: {
+            destination?: Cartesian3 | Rectangle;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
+            endTransform?: Matrix4,
+            convert?: boolean,
+        }): void;
         switchToOrthographicFrustum(): void;
         switchToPerspectiveFrustum(): void;
         twistLeft(amount?: number): void;
@@ -3012,21 +3586,40 @@ declare namespace Cesium {
     }
 
     class Globe {
-        terrainProvider: TerrainProvider;
-        northPoleColor: Cartesian3;
-        southPoleColor: Cartesian3;
-        show: boolean;
-        oceanNormalMapUrl: string;
-        depthTestAgainstTerrain: boolean;
-        maximumScreenSpaceError: number;
-        tileCacheSize: number;
-        enableLighting: boolean;
-        lightingFadeOutDistance: number;
-        lightingFadeInDistance: number;
-        showWaterEffect: boolean;
-        ellipsoid: Ellipsoid;
-        imageryLayers: ImageryLayerCollection;
+        atmosphereBrightnessShift: number;
+        atmosphereHueShift: number;
+        atmosphereSaturationShift: number;
         baseColor: Color;
+        cartographicLimitRectangle: Rectangle;
+        depthTestAgainstTerrain: boolean;
+        ellipsoid: Ellipsoid;
+        enableLighting: boolean;
+        fillHighlightColor: Color;
+        imageryLayers: ImageryLayerCollection;
+        readonly imageryLayersUpdatedEvent: Event;
+        lightingFadeInDistance: number;
+        lightingFadeOutDistance: number;
+        loadingDescendantLimit: number;
+        material: Material;
+        maximumScreenSpaceError: number;
+        nightFadeInDistance: number;
+        nightFadeOutDistance: number;
+        northPoleColor: Cartesian3;
+        oceanNormalMapUrl: string;
+        preloadSiblings: boolean;
+        preloadAncestors: boolean;
+        showSkirts: boolean;
+        showGroundAtmosphere: boolean;
+        dynamicAtmosphereLightingFromSun: boolean;
+        dynamicAtmosphereLighting: boolean;
+        show: boolean;
+        showWaterEffect: boolean;
+        southPoleColor: Cartesian3;
+        terrainProvider: TerrainProvider;
+        readonly terrainProviderChanged: Event<[TerrainProvider]>;
+        tileCacheSize: number;
+        tileLoadProgressEvent: Event<[number]>;
+        readonly tilesLoaded: boolean;
         constructor(ellipsoid?: Ellipsoid);
         pick(ray: Ray, scene: Scene, result?: Cartesian3): Cartesian3;
         getHeight(cartographic: Cartographic): number;
@@ -3134,6 +3727,247 @@ declare namespace Cesium {
         static clone(hpr: HeadingPitchRange, result?: HeadingPitchRange): HeadingPitchRange;
     }
 
+    class ClippingPlane {
+        normal: Cartesian3;
+        distance: number;
+        constructor(normal: Cartesian3, distance: number);
+
+        static clone(clippingPlane: ClippingPlane, result?: ClippingPlane): ClippingPlane;
+        static fromPlane(plane: Plane, result?: ClippingPlane): ClippingPlane;
+    }
+    class ClippingPlaneCollection {
+        edgeColor: Color;
+        edgeWidth: number;
+        enabled: boolean;
+        modelMatrix: Matrix4;
+        planeAdded: Event;
+        planeRemoved: Event;
+        unionClippingRegions: boolean;
+
+        readonly length: number;
+
+        constructor(options?: {
+            planes?: ClippingPlane[];
+            enabled?: boolean;
+            modelMatrix?: Matrix4;
+            unionClippingRegions?: boolean;
+            edgeColor?: Color;
+            edgeWidth?: number;
+        })
+
+        add(plane: ClippingPlane): void;
+        remove(plane: ClippingPlane): boolean;
+        update(): void;
+        isDestroyed(): boolean;
+        contains(plane: ClippingPlane): boolean;
+        destroy(): void;
+        getIndex(index: number): ClippingPlane;
+    }
+
+    enum Cesium3DTileColorBlendMode {
+        HIGHLIGHT,
+        REPLACE,
+        MIX
+    }
+
+    enum ColorBlendMode {
+        HIGHLIGHT,
+        REPLACE,
+        MIX
+    }
+
+    export class PointCloudShading {
+        attenuation: boolean;
+        backFaceCulling: boolean;
+        baseResolution: number;
+        eyeDomeLighting: number;
+        eyeDomeLightingRadius: number;
+        eyeDomeLightingStrenght: number;
+        geometricErrorScale: number;
+        maximumAttenuation: number;
+        normalShading: boolean;
+
+        constructor(option?: {
+            attenuation?: boolean;
+            geometricErrorScale?: number;
+            maximumAttenuation?: number;
+            baseResolution?: number;
+            eyeDomeLighting?: boolean;
+            eyeDomeLightingStrength?: number;
+            eyeDomeLightingRadius?: number;
+            backFaceCulling?: boolean;
+            normalShading?: boolean;
+        })
+
+        static isSupported(scene: Scene): boolean;
+    }
+
+    export class Cesium3DTileFeature {
+        color: Color;
+        show: boolean;
+        readonly primitive: Cesium3DTileset;
+        readonly tileset: Cesium3DTileset;
+
+        getProperty(name: string): any;
+        getPropertyNames(results: string[]): string[];
+        hasProperty(name: string): boolean;
+        setProperty(name: string, value: any): void;
+    }
+
+    export class StyleExpression {
+        evaluate(feature: Cesium3DTileFeature, result?: any): boolean | number | string | RegExp | Cartesian2 | Cartesian3 | Cartesian4 | Color;
+        evaluateColor(feature: Cesium3DTileFeature, result?: Color): Color;
+    }
+
+    export class Cesium3DTileStyle {
+        readonly style: any;
+        readonly readonlyreadyPromise: Promise<Cesium3DTileStyle>;
+        readonly ready: boolean;
+        pointSize: StyleExpression;
+        meta: StyleExpression;
+        color: StyleExpression;
+        constructor(style?: Resource | string | object)
+    }
+
+    // tslint:disable-next-line:no-unnecessary-class
+    class Cesium3DTileset {
+        readonly asset: any;
+        readonly baseScreenSpaceError: number;
+        readonly boundingSphere: BoundingSphere;
+        readonly classificationType: ClassificationType;
+        readonly ellipsoid: Ellipsoid;
+        readonly extras: any;
+        readonly properties: any;
+        readonly ready: boolean;
+        readonly readyPromise: Promise<Cesium3DTileset>;
+        readonly root: Cesium3DTileset;
+        readonly tilesLoaded: boolean;
+        readonly timeSinceLoad: number;
+        readonly totalMemoryUsageInBytes: number;
+        readonly url: string;
+
+        allTilesLoaded: Event;
+        clippingPlanes: ClippingPlane;
+        colorBlendAmount: number;
+        colorBlendMode: Cesium3DTileColorBlendMode;
+        cullRequestsWhileMovingMultiplier: number;
+        debugColorizeTiles: boolean;
+        debugFreezeFrame: boolean;
+        debugShowBoundingVolume: boolean;
+        debugShowContentBoundingVolume: boolean;
+        debugShowGeometricError: boolean;
+        debugShowMemoryUsage: boolean;
+        debugShowUrl: boolean;
+        debugShowViewerRequestVolume: boolean;
+        debugWireframe: boolean;
+        dynamicScreenSpaceError: boolean;
+        dynamicScreenSpaceErrorDensity: number;
+        dynamicScreenSpaceErrorFactor: number;
+        dynamicScreenSpaceErrorHeightFalloff: number;
+        foveatedConeSize: number;
+        foveatedInterpolationCallback: any;
+        foveatedMinimumScreenSpaceErrorRelaxation: number;
+        foveatedScreenSpaceError: boolean;
+        foveatedTimeDelay: number;
+        imageBasedLightingFactor: Cartesian2;
+        immediatelyLoadDesiredLevelOfDetail: boolean;
+        initialTilesLoaded: Event;
+        lightColor: Cartesian3;
+        loadProgress: Event;
+        loadSiblings: boolean;
+        luminanceAtZenith: number;
+        maximumMemoryUsage: number;
+        maximumScreenSpaceError: number;
+        modelMatrix: Matrix4;
+        pointCloudShading: PointCloudShading;
+        preferLeaves: boolean;
+        preloadFlightDestinations: boolean;
+        preloadWhenHidden: boolean;
+        progressiveResolutionHeightFraction: number;
+        shadow: ShadowMode;
+        show: boolean;
+        /**
+         * Optimization option.
+         * Determines if level of detail skipping should be applied during the traversal.
+         * @default false
+         */
+        skipLevelOfDetail: boolean;
+        skipLevels: number;
+        skipScreenSpaceErrorFactor: number;
+        specularEnvironmentMaps: string;
+        sphericalHarmonicCoefficients: Cartesian3[];
+        style: Cesium3DTileStyle;
+        tileFailed: Event;
+        tileLoad: Event;
+        tileUnloaded: Event;
+        tileVisible: Event;
+
+        constructor(Cesium3DTilesetItem: {
+            url: Resource | string | Promise<Resource> | Promise<string>;
+            show?: boolean;
+            modelMatrix?: Matrix4;
+            shadows?: ShadowMode;
+            maximumScreenSpaceError?: number;
+            maximumNumberOfLoadedTiles?: number;
+            maximumMemoryUsage?: number;
+            cullWithChildrenBounds?: boolean;
+            cullRequestsWhileMoving?: boolean;
+            cullRequestsWhileMovingMultiplier?: number;
+            preloadWhenHidden?: boolean;
+            preloadFlightDestinations?: boolean;
+            preferLeaves?: boolean;
+            dynamicScreenSpaceError?: boolean;
+            dynamicScreenSpaceErrorDensity?: number;
+            dynamicScreenSpaceErrorFactor?: number;
+            dynamicScreenSpaceErrorHeightFalloff?: number;
+            progressiveResolutionHeightFraction?: number;
+            foveatedScreenSpaceError?: boolean;
+            foveatedConeSize?: number;
+            foveatedMinimumScreenSpaceErrorRelaxation?: number;
+            foveatedInterpolationCallback?: Cesium3DTileset;
+            foveatedTimeDelay?: number;
+            /**
+             * Optimization option.
+             * Determines if level of detail skipping should be applied during the traversal.
+             * @default false
+             */
+            skipLevelOfDetail?: boolean;
+            baseScreenSpaceError?: number;
+            skipScreenSpaceErrorFactor?: number;
+            skipLevels?: number;
+            immediatelyLoadDesiredLevelOfDetail?: boolean;
+            loadSiblings?: boolean;
+            clippingPlane?: ClippingPlaneCollection;
+            classificationType?: ClassificationType;
+            ellipsoid?: Ellipsoid;
+            pointCloudShading?: any;
+            imageBasedLightingFactor?: Cartesian2;
+            lightColor?: Cartesian3;
+            luminanceAtZenith?: number;
+            sphericalHarmonicCoefficients?: Cartesian3[];
+            specularEnvironmentMaps?: string;
+            debugHeatmapTilePropertyName?: string;
+            debugFreezeFrame?: boolean;
+            debugColorizeTiles?: boolean;
+            debugWireframe?: boolean;
+            debugShowBoundingVolume?: boolean;
+            debugShowContentBoundingVolume?: boolean;
+            debugShowViewerRequestVolume?: boolean;
+            debugShowGeometricError?: boolean;
+            debugShowRenderingStatistics?: boolean;
+            debugShowMemoryUsage?: boolean;
+            debugShowUrl?: boolean;
+        })
+
+        static loadJson(tilesetUrl: Resource | string): Promise<any>;
+
+        destroy(): void;
+        hasExtension(extensionName: string): boolean;
+        isDestroyed(): boolean;
+        makeStyleDirty(): void;
+        trimLoadedTiles(): void;
+    }
+
     class ImageryLayer {
         alpha: number;
         brightness: number;
@@ -3225,9 +4059,9 @@ declare namespace Cesium {
         readonly tileHeight: number;
         readonly tilingScheme: TilingScheme;
         getTileCredits(x: number, y: number, level: number): Credit[];
-        requestImage(x: number, y: number, level: number): Promise<HTMLImageElement | HTMLCanvasElement>;
-        pickFeatures(x: number, y: number, level: number, longitude: number, latitude: number): Promise<ImageryLayerFeatureInfo[]>;
-        static loadImage(url: string): Promise<HTMLImageElement | HTMLCanvasElement>;
+        requestImage(x: number, y: number, level: number, request?: Request): Promise<HTMLImageElement | HTMLCanvasElement> | undefined;
+        pickFeatures(x: number, y: number, level: number, longitude: number, latitude: number): Promise<ImageryLayerFeatureInfo[]> | undefined;
+        static loadImage(imageryProvider: ImageryProvider, url: string): Promise<HTMLImageElement | HTMLCanvasElement> | undefined;
     }
 
     class Label {
@@ -3238,26 +4072,63 @@ declare namespace Cesium {
         fillColor: Color;
         outlineColor: Color;
         outlineWidth: number;
-        style: LabelStyle;
-        pixelOffset: Cartesian2;
+        definitionChanged: Event;
+        style: Property;
+        backgroundColor: Color;
+        backgroundPadding: Color;
+        disableDepthTestDistance: number;
+        distanceDisplayCondition: DistanceDisplayCondition;
+        heightReference: HeightReference;
+        totalScale: number;
+        horizontalOrigin: Property;
+        verticalOrigin: Property;
+        eyeOffset: Property;
+        pixelOffset: Property;
+        scale: Property;
         translucencyByDistance: NearFarScalar;
         pixelOffsetScaleByDistance: NearFarScalar;
-        eyeOffset: Cartesian3;
-        horizontalOrigin: HorizontalOrigin;
-        verticalOrigin: VerticalOrigin;
-        scale: number;
         id: any;
+        static enableRightToLeftDetection: boolean;
         computeScreenSpacePosition(scene: Scene, result?: Cartesian2): Cartesian2;
         equals(other: Label): boolean;
         isDestroyed(): boolean;
     }
 
+    interface LabelOptions {
+        show?: boolean;
+        position?: Cartesian3;
+        text?: string;
+        font?: string;
+        fillColor?: Color;
+        outlineColor?: Color;
+        outlineWidth?: number;
+        showBackground?: boolean;
+        backgroundColor?: Color;
+        backgroundPadding?: Cartesian2;
+        style?: LabelStyle;
+        pixelOffset?: Cartesian2;
+        eyeOffset?: Cartesian3;
+        horizontalOrigin?: HorizontalOrigin;
+        verticalOrigin?: VerticalOrigin;
+        scale?: number;
+        translucencyByDistance?: NearFarScalar;
+        pixelOffsetScaleByDistance?: NearFarScalar;
+        heightReference?: HeightReference;
+        distanceDisplayCondition?: DistanceDisplayCondition;
+    }
+
     class LabelCollection {
         modelMatrix: Matrix4;
+        blendOption: BlendOption;
         debugShowBoundingVolume: boolean;
         length: number;
-        constructor(options?: { modelMatrix?: Matrix4; debugShowBoundingVolume?: boolean });
-        add(options?: any): Label;
+        constructor(options?: {
+            modelMatrix?: Matrix4;
+            debugShowBoundingVolume?: boolean,
+            scene?: Scene,
+            blendOption?: BlendOption,
+        });
+        add(options?: LabelOptions): Label;
         remove(label: Label): boolean;
         removeAll(): void;
         contains(label: Label): boolean;
@@ -3271,7 +4142,7 @@ declare namespace Cesium {
         shaderSource: string;
         materials: any;
         uniforms: any;
-        translucent: boolean;
+        translucent: boolean | ((material: Material) => boolean);
         static DefaultImageId: string;
         static DefaultCubeMapId: string;
         static ColorType: string;
@@ -3292,7 +4163,13 @@ declare namespace Cesium {
         static PolylineArrowType: string;
         static PolylineGlowType: string;
         static PolylineOutlineType: string;
-        constructor(options?: { strict?: boolean; translucent?: boolean; fabric: any });
+        constructor(options?: {
+            strict?: boolean;
+            translucent?: boolean | ((material: Material) => boolean);
+            fabric: any;
+            minificationFilter?: TextureMinificationFilter;
+            magnificationFilter?: TextureMagnificationFilter;
+        });
         isTranslucent(): boolean;
         isDestroyed(): boolean;
         destroy(): void;
@@ -3326,21 +4203,40 @@ declare namespace Cesium {
     }
 
     class Model {
-        show: boolean;
-        modelMatrix: Matrix4;
-        scale: number;
-        minimumPixelSize: number;
-        id: any;
         activeAnimations: ModelAnimationCollection;
+        readonly allowPicking: boolean;
+        readonly asynchronous: boolean;
+        readonly basePath: string;
+        readonly boundingSphere: BoundingSphere;
+        clampAnimations: boolean;
+        clippingPlanes: ClippingPlaneCollection;
+        color: Color;
+        colorBlendAmount: number;
+        colorBlendMode: ColorBlendMode;
+        credit: Credit;
         debugShowBoundingVolume: boolean;
         debugWireframe: boolean;
-        gltf: any;
-        basePath: string;
-        boundingSphere: BoundingSphere;
-        ready: boolean;
-        readyPromise: Promise<Model>;
-        asynchronous: boolean;
-        allowPicking: boolean;
+        distanceDisplayCondition: DistanceDisplayCondition;
+        readonly gltf: any;
+        heightReference: HeightReference;
+        id: any;
+        imageBasedLightingFactor: Cartesian2;
+        readonly incrementallyLoadTextures: boolean;
+        lightColor: Cartesian3;
+        luminanceAtZenith: number;
+        maximumScale: number;
+        minimumPixelSize: number;
+        modelMatrix: Matrix4;
+        readonly pendingTextureLoads: number;
+        readonly ready: boolean;
+        readonly readyPromise: Promise<Model>;
+        shadows: ShadowMode;
+        scale: number;
+        show: boolean;
+        silhouetteColor: Color;
+        silhouetteSize: number;
+        specularEnvironmentMaps: string;
+        sphericalHarmonicCoefficients: Cartesian3[];
         constructor(options?: {
             gltf?: any;
             basePath?: string;
@@ -3348,30 +4244,69 @@ declare namespace Cesium {
             modelMatrix?: Matrix4;
             scale?: number;
             minimumPixelSize?: number;
+            maximumScale?: number;
             id?: any;
             allowPicking?: boolean;
+            incrementallyLoadTextures?: boolean;
             asynchronous?: boolean;
+            clampAnimations?: boolean;
+            shadows?: ShadowMode;
             debugShowBoundingVolume?: boolean;
-            debugWireframe?: boolean
+            debugWireframe?: boolean;
+            heightReference?: HeightReference;
+            scene?: Scene;
+            distanceDisplayCondition?: DistanceDisplayCondition;
+            color?: Color;
+            colorBlendMode?: Property;
+            colorBlendAmount?: number;
+            silhouetteColor?: Color;
+            silhouetteSize?: number;
+            clippingPlanes?: ClippingPlaneCollection;
+            dequantizeInShader?: boolean;
+            imageBasedLightingFactor?: Cartesian2;
+            lightColor?: Cartesian3;
+            luminanceAtZenith?: number;
+            sphericalHarmonicCoefficients?: Cartesian3[];
+            specularEnvironmentMaps?: string;
+            credit?: Credit | string;
         });
-        getNode(name: string): ModelNode;
-        getMesh(name: string): ModelMesh;
-        getMaterial(name: string): ModelMaterial;
-        update(): void;
-        isDestroyed(): boolean;
-        destroy(): void;
         static fromGltf(options: {
             url: string;
-            headers?: any;
+            basePath?: string;
             show?: boolean;
             modelMatrix?: Matrix4;
             scale?: number;
             minimumPixelSize?: number;
+            maximumScale?: number;
+            id?: any;
             allowPicking?: boolean;
+            incrementallyLoadTextures?: boolean;
             asynchronous?: boolean;
+            clampAnimations?: boolean;
+            shadows?: ShadowMode;
             debugShowBoundingVolume?: boolean;
-            debugWireframe?: boolean
+            debugWireframe?: boolean;
+            heightReference?: HeightReference;
+            scene?: Scene;
+            distanceDisplayCondition?: DistanceDisplayCondition;
+            color?: Color;
+            colorBlendMode?: ColorBlendMode;
+            colorBlendAmount?: number;
+            silhouetteColor?: Color;
+            silhouetteSize?: number;
+            clippingPlanes?: ClippingPlaneCollection;
+            dequantizeInShader?: boolean;
+            credit?: Credit;
         }): Model;
+        static siluhouetteSupported(scene: Scene): boolean;
+        applyArticulations(): void;
+        destroy(): void;
+        getMaterial(name: string): ModelMaterial;
+        getMesh(name: string): ModelMesh;
+        getNode(name: string): ModelNode;
+        isDestroyed(): boolean;
+        setArticulationStage(articulationStageKey: string, value: number): void;
+        update(): void;
     }
 
     class ModelAnimation {
@@ -3473,7 +4408,7 @@ declare namespace Cesium {
         far: number;
         readonly projectionMatrix: Matrix4;
         computeCullingVolume(position: Cartesian3, direction: Cartesian3, up: Cartesian3): CullingVolume;
-        getPixelDimensions(drawingBufferWidth: number, drawingBufferHeight: number, distance: number, result: Cartesian2): Cartesian2;
+        getPixelDimensions(drawingBufferWidth: number, drawingBufferHeight: number, distance: number, pixelRatio: number, result: Cartesian2): Cartesian2;
     }
 
     class OrthographicFrustum extends Frustum {
@@ -3495,7 +4430,7 @@ declare namespace Cesium {
         readonly infiniteProjectionMatrix: Matrix4;
         readonly fovy: number;
         static packedLength: number;
-        constructor(options?: {fov: number; aspectRatio: number; near: number; far: number; xOffset: number; yOffset: number});
+        constructor(options?: {fov: number; aspectRatio: number; near?: number; far?: number; xOffset?: number; yOffset?: number});
         pack(value: PerspectiveFrustum, array: number[], startingIndex: number): number[];
         unpack(array: number[], startingIndex: number, result: PerspectiveFrustum): PerspectiveFrustum;
         clone(result?: PerspectiveFrustum): PerspectiveFrustum;
@@ -3580,6 +4515,45 @@ declare namespace Cesium {
         constructor(options?: { translucent?: boolean; material?: Material; vertexShaderSource?: string; fragmentShaderSource?: string; renderState?: RenderState });
     }
 
+    class PostProcessStage {
+        readonly clearColor: Color;
+        enabled: boolean;
+        readonly forcePowerOfTwo: boolean;
+        readonly fragmentShader: string;
+        readonly name: string;
+        readonly pixelFormat: PixelFormat;
+        readonly ready: boolean;
+        readonly scissorRectangle: BoundingRectangle;
+        selected: any[];
+        readonly textureScale: number;
+        readonly uniforms: any;
+        constructor(options?: {
+            fragmentShader: string;
+            uniforms?: object;
+            textureScale?: number;
+            forcePowerOfTwo?: boolean;
+            pixelFormat?: PixelFormat;
+            clearColor?: Color;
+            scissorRectangle?: BoundingRectangle;
+            name?: string;
+        });
+        destroy(): void;
+        isDestroyed(): boolean;
+    }
+
+    class PostProcessStageCollection {
+        readonly fxaa: PostProcessStage;
+        readonly length: number;
+        readonly ready: boolean;
+        add(stage: PostProcessStage): PostProcessStage;
+        contains(stage: PostProcessStage): boolean;
+        destroy(): void;
+        get(index: number): PostProcessStage;
+        isDestroyed(): boolean;
+        remove(stage: PostProcessStage): boolean;
+        removeAll(): void;
+    }
+
     class Primitive {
         readonly allowPicking: boolean;
         appearance: Appearance;
@@ -3588,7 +4562,7 @@ declare namespace Cesium {
         cull: boolean;
         debugShowBoundingVolume: boolean;
         depthFailAppearance: Appearance;
-        readonly geometryInstances: GeometryInstance[] | GeometryInstance;
+        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
         readonly interleave: boolean;
         modelMatrix: Matrix4;
         readonly ready: boolean;
@@ -3598,7 +4572,7 @@ declare namespace Cesium {
         show: boolean;
         readonly vertexCacheOptimize: boolean;
         constructor(options?: {
-            geometryInstances?: any[] | GeometryInstance;
+            geometryInstances?: GeometryInstance[] | GeometryInstance;
             appearance?: Appearance;
             show?: boolean;
             modelMatrix?: Matrix4;
@@ -3623,7 +4597,7 @@ declare namespace Cesium {
         destroyPrimitives: boolean;
         readonly length: number;
         constructor(options?: { show?: boolean; destroyPrimitives?: boolean });
-        add(primitive: any): any;
+        add(primitive: any, index?: number): any;
         remove(primitive?: any): boolean;
         removeAll(): void;
         contains(primitive?: any): boolean;
@@ -3666,10 +4640,31 @@ declare namespace Cesium {
         destroy(): void;
     }
 
+    class Light {
+        color: Color;
+        intensity: number;
+    }
+
+    class DirectionalLight extends Light {
+        direction: Cartesian3;
+        constructor(option: {
+            direction: Cartesian3;
+            color?: Color;
+            intensity?: number;
+        })
+    }
+
+    class SunLight extends Light {
+        constructor(option?: {
+            color?: Color;
+            intensity?: number;
+        })
+    }
+
     class Scene {
         backgroundColor: Color;
         readonly camera: Camera;
-        readonly canvas: Element;
+        readonly canvas: HTMLCanvasElement;
         completeMorphOnUserInput: boolean;
         debugCommandFilter: (command: any) => boolean;
         readonly debugFrustumStatistics: any;
@@ -3683,16 +4678,20 @@ declare namespace Cesium {
         eyeSeparation: number;
         farToNearRatio: number;
         focalLength: number;
+        light: Light;
         fog: Fog;
         fxaa: boolean;
         globe: Globe;
         readonly groundPrimitives: PrimitiveCollection;
+        highDynamicRange: boolean;
+        highDynamicRangeSupported: boolean;
         readonly id: string;
         readonly imageryLayers: ImageryLayerCollection;
         imagerySplitPosition: number;
         invertClassification: boolean;
         invertClassificationColor: Color;
         readonly lastRenderTime: JulianDate;
+        logarithmicDepthBuffer: boolean;
         logarithmicDepthFarToNearRatio: number;
         mapMode2D: boolean;
         readonly mapProjection: MapProjection;
@@ -3701,7 +4700,7 @@ declare namespace Cesium {
         maximumRenderTimeChange: number;
         minimumDisableDepthTestDistance: number;
         mode: SceneMode;
-        moon: Moon;
+        moon?: Moon;
         morphComplete: Event;
         morphStart: Event;
         morphTime: number;
@@ -3709,19 +4708,22 @@ declare namespace Cesium {
         readonly orderIndependentTranslucency: boolean;
         readonly pickPositionSupported: boolean;
         pickTranslucentDepth: boolean;
+        postProcessStages: PostProcessStageCollection;
         readonly postRender: Event;
+        readonly postUpdate: Event;
         readonly preRender: Event;
         readonly preUpdate: Event;
         readonly primitives: PrimitiveCollection;
         readonly renderError: Event;
         requestRenderMode: boolean;
         rethrowRenderErrors: boolean;
+        readonly sampleHeightSupported: boolean;
         readonly scene3DOnly: boolean;
         readonly screenSpaceCameraController: ScreenSpaceCameraController;
         shadowMap: ShadowMap;
-        skyAtmosphere: SkyAtmosphere;
-        skyBox: SkyBox;
-        sun: Sun;
+        skyAtmosphere?: SkyAtmosphere;
+        skyBox?: SkyBox;
+        sun?: Sun;
         sunBloom: boolean;
         terrainExaggeration: number;
         terrainProvider: TerrainProvider;
@@ -3743,6 +4745,8 @@ declare namespace Cesium {
             maximumRenderTimeChange?: number
         });
         cartesianToCanvasCoordinates(position: Cartesian3, result?: Cartesian2): Cartesian2;
+        clampToHeight(cartesian: Cartesian3, objectsToExclude?: any[], width?: number, result?: Cartesian3): Cartesian3;
+        clampToHeightMostDetailed(cartesian: Cartesian3[], objectsToExclude?: any[], width?: number): Promise<Cartesian3[]>;
         completeMorph(): void;
         destroy(): void;
         drillPick(windowPosition: Cartesian2, limit?: number): any[];
@@ -3754,6 +4758,8 @@ declare namespace Cesium {
         pick(windowPosition: Cartesian2, width?: number, height?: number): any;
         pickPosition(windowPosition: Cartesian2, result?: Cartesian3): Cartesian3;
         requestRender(): void;
+        sampleHeight(cartographic: Cartographic, objectsToExclude?: any[], width?: number): number;
+        sampleHeightMostDetailed(cartographic: Cartographic, objectsToExclude?: any[], width?: number): Promise<number[]>;
     }
 
     class ScreenSpaceCameraController {
@@ -3792,6 +4798,9 @@ declare namespace Cesium {
     class SkyAtmosphere {
         show: boolean;
         ellipsoid: Ellipsoid;
+        saturationShift: number;
+        hueShift: number;
+        brightnessShift: number;
         constructor(ellipsoid?: Ellipsoid);
         isDestroyed(): boolean;
         destroy(): void;
@@ -3986,7 +4995,13 @@ declare namespace Cesium {
         tooltip: string;
         iconUrl: string;
         creationCommand: Command;
-        constructor(options: { name: string; tooltip: string; iconUrl: string; creationFunction: ProviderViewModel.CreationFunction | Command });
+        constructor(options: {
+            name: string;
+            tooltip: string;
+            iconUrl: string;
+            category?: string;
+            creationFunction: ProviderViewModel.CreationFunction | Command;
+        });
     }
 
     namespace ProviderViewModel {
@@ -4067,20 +5082,21 @@ declare namespace Cesium {
         readonly camera: Camera;
         clock: Clock;
         screenSpaceEventHandler: ScreenSpaceEventHandler;
+        useBrowserRecommendedResolution: boolean;
         targetFrameRate: number;
         useDefaultRenderLoop: boolean;
         resolutionScale: number;
         constructor(container: Element | string, options?: {
             clock?: Clock;
-            imageryProvider?: ImageryProvider;
+            imageryProvider?: ImageryProvider | false;
             terrainProvider?: TerrainProvider;
-            skyBox?: SkyBox;
-            skyAtmosphere?: SkyAtmosphere;
+            skyBox?: SkyBox | false;
+            skyAtmosphere?: SkyAtmosphere | false;
             sceneMode?: SceneMode;
             scene3DOnly?: boolean;
             orderIndependentTranslucency?: boolean;
             mapProjection?: MapProjection;
-            globe?: Globe;
+            globe?: Globe | false;
             useDefaultRenderLoop?: boolean;
             targetFrameRate?: number;
             showRenderLoopErrors?: boolean;
@@ -4375,12 +5391,13 @@ declare namespace Cesium {
         readonly screenSpaceEventHandler: ScreenSpaceEventHandler;
         targetFrameRate: number;
         useDefaultRenderLoop: boolean;
+        useBrowserRecommendedResolution: boolean;
         resolutionScale: number;
         allowDataSourcesToSuspendAnimation: boolean;
         trackedEntity: Entity;
         selectedEntity: Entity;
-        readonly trackedEntityChanged: Event;
-        readonly selectedEntityChanged: Event;
+        readonly trackedEntityChanged: Event<[Entity?]>;
+        readonly selectedEntityChanged: Event<[Entity?]>;
         readonly shadowMap: ShadowMap;
         readonly vrButton: VRButton;
         shadows: boolean;
@@ -4404,10 +5421,10 @@ declare namespace Cesium {
             imageryProviderViewModels?: ProviderViewModel[];
             selectedTerrainProviderViewModel?: ProviderViewModel;
             terrainProviderViewModels?: ProviderViewModel[];
-            imageryProvider?: ImageryProvider;
+            imageryProvider?: ImageryProvider | false;
             terrainProvider?: TerrainProvider;
-            skyBox?: SkyBox;
-            skyAtmosphere?: SkyAtmosphere;
+            skyBox?: SkyBox | false;
+            skyAtmosphere?: SkyAtmosphere | false;
             fullscreenElement?: Element | string;
             useDefaultRenderLoop?: boolean;
             targetFrameRate?: number;
@@ -4416,7 +5433,7 @@ declare namespace Cesium {
             contextOptions?: any;
             sceneMode?: SceneMode;
             mapProjection?: MapProjection;
-            globe?: Globe;
+            globe?: Globe | false;
             orderIndependentTranslucency?: boolean;
             creditContainer?: Element | string;
             creditViewport?: Element | string;
@@ -4466,6 +5483,9 @@ declare namespace Cesium {
 
     function getImagePixels(image: HTMLImageElement): number[];
 
+    /**
+     * @deprecated use Array.isArray
+     */
     function isArray(value: any): boolean;
 
     function isLeapYear(year: number): boolean;
@@ -4508,6 +5528,8 @@ declare namespace Cesium {
 
     function sampleTerrain(terrainProvider: TerrainProvider, level: number, positions: Cartographic[]): Promise<Cartographic[]>;
 
+    function sampleTerrainMostDetailed(terrainProvider: TerrainProvider, positions: Cartographic[]): Promise<Cartographic[]>;
+
     function subdivideArray(array: any[], numberOfArrays: number): undefined;
 
     function throttleRequestByServer(url: string, requestFunction: throttleRequestByServer.RequestFunction): Promise<any>;
@@ -4531,6 +5553,12 @@ declare namespace Cesium {
     namespace createTaskProcessorWorker {
         type WorkerFunction = (parameters: any, transferableObjects: any[]) => any;
         type TaskProcessorWorkerFunction = (event: any) => void;
+    }
+
+    enum ArcType {
+        NONE,
+        GEODESIC,
+        RHUMB
     }
 
     enum ClockRange {
@@ -4835,23 +5863,21 @@ declare namespace Cesium {
     }
 
     enum ScreenSpaceEventType {
-        LEFT_DOWN,
-        LEFT_UP,
-        LEFT_CLICK,
-        LEFT_DOUBLE_CLICK,
-        RIGHT_DOWN,
-        RIGHT_UP,
-        RIGHT_CLICK,
-        RIGHT_DOUBLE_CLICK,
-        MIDDLE_DOWN,
-        MIDDLE_UP,
-        MIDDLE_CLICK,
-        MIDDLE_DOUBLE_CLICK,
-        MOUSE_MOVE,
-        WHEEL,
-        PINCH_START,
-        PINCH_END,
-        PINCH_MOVE,
+        LEFT_DOWN = 0,
+        LEFT_UP = 1,
+        LEFT_CLICK = 2,
+        LEFT_DOUBLE_CLICK = 3,
+        RIGHT_DOWN = 5,
+        RIGHT_UP = 6,
+        RIGHT_CLICK = 7,
+        MIDDLE_DOWN = 10,
+        MIDDLE_UP = 11,
+        MIDDLE_CLICK = 12,
+        MOUSE_MOVE = 15,
+        WHEEL = 16,
+        PINCH_START = 17,
+        PINCH_END = 18,
+        PINCH_MOVE = 19,
     }
 
     namespace Simon1994PlanetaryPositions {
@@ -4894,6 +5920,7 @@ declare namespace Cesium {
     }
 
     namespace Transforms {
+        function fixedFrameToHeadingPitchRoll(transform: Matrix4, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame, result?: HeadingPitchRoll): HeadingPitchRoll;
         function eastNorthUpToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northEastDownToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northUpEastToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
@@ -4929,11 +5956,16 @@ declare namespace Cesium {
     }
 
     enum BingMapsStyle {
-        AERIAL,
-        AERIAL_WITH_LABELS,
-        ROAD,
-        ORDNANCE_SURVEY,
-        COLLINS_BART,
+        AERIAL = "Aerial",
+        AERIAL_WITH_LABELS = "AerialWithLabels",
+        AERIAL_WITH_LABELS_ON_DEMAND = "AerialWithLabelsOnDemand",
+        ROAD= "Road",
+        ROAD_ON_DEMAND= "RoadOnDemand",
+        CANVAS_DARK= "CanvasDark",
+        CANVAS_LIGHT= "CanvasLight",
+        CANVAS_GRAY= "CanvasGray",
+        ORDNANCE_SURVEY= "OrdnanceSurvey",
+        COLLINS_BART= "CollinsBart",
     }
 
     enum BlendEquation {
@@ -5020,7 +6052,7 @@ declare namespace Cesium {
         MORPHING,
         COLUMBUS_VIEW,
         SCENE2D,
-        SCENE3D,
+        SCENE3D
     }
 
     namespace SceneMode {
@@ -5060,38 +6092,76 @@ declare namespace Cesium {
         TOP,
     }
 
-    function createOpenStreetMapImageryProvider(options: {
-        url?: string,
-        fileExtension?: string,
-        rectangle?: Rectangle,
-        minimumLevel?: number,
-        maximumLevel?: number,
-        ellipsoid?: Ellipsoid,
-        credit?: Credit | string
-    }): UrlTemplateImageryProvider;
+    function when(promise: Promise<any>, callback?: (e: any) => void): {
+        then: (e: any) => any;
+        always: (e: any, t: any) => any;
+        otherwise: (e: any) => any;
+        spread: (t: any) => any;
+        yield: (e: any) => any;
+    };
 
-    function createTileMapServiceImageryProvider(options: {
-        url?: string,
-        fileExtension?: string,
-        credit?: Credit | string,
-        minimumLevel?: number,
-        maximumLevel?: number,
-        rectangle?: Rectangle,
-        tilingScheme?: TilingScheme,
-        ellipsoid?: Ellipsoid,
-        tileWidth?: number,
-        tileHeight?: number,
-        flipXY?: boolean
-    }): UrlTemplateImageryProvider;
-
-    function createWorldImagery(options: {
+    function createWorldImagery(options?: {
         style?: any // IonWorldImageryStyle
     }): IonImageryProvider;
 
-    function createWorldTerrain(options: {
+    interface IonType {
+        defaultAccessToken: string;
+        defaultServer: string | Resource;
+        getDefaultTokenCredit(providedKey: string): Credit;
+    }
+
+    interface BingMapsApiType {
+        defaultKey: string;
+        getKey(providedKey: string): string;
+    }
+
+    let Ion: IonType;
+    let BingMapsApi: BingMapsApiType;
+
+    enum TextureMinificationFilter {
+        LINEAR,
+        LINEAR_MIPMAP_LINEAR,
+        LINEAR_MIPMAP_NEAREST,
+        NEAREST,
+        NEAREST_MIPMAP_LINEAR,
+        NEAREST_MIPMAP_NEAREST
+    }
+
+    enum TextureMagnificationFilter {
+        LINEAR,
+        NEAREST
+    }
+
+    function createWorldTerrain(options?: {
         requestVertexNormals?: boolean,
         requestWaterMask?: boolean
     }): CesiumTerrainProvider;
+
+    class OpenStreetMapImageryProvider extends ImageryProvider {
+        constructor(options?: {
+            url?: string,
+            fileExtension?: string,
+            proxy?: any,
+            rectangle?: Rectangle,
+            minimumLevel?: number,
+            maximumLevel?: number,
+            credit?: Credit | string,
+            ellipsoid?: Ellipsoid,
+        });
+    }
+
+    class TileMapResourceImageryProvider extends ImageryProvider {
+        constructor(options?: {
+            url?: string,
+            fileExtension?: string,
+            proxy?: any,
+            rectangle?: Rectangle,
+            minimumLevel?: number,
+            maximumLevel?: number,
+            credit?: Credit | string,
+            ellipsoid?: Ellipsoid,
+        });
+    }
 
     class UrlTemplateImageryProvider extends ImageryProvider {
         url: string;
@@ -5202,7 +6272,683 @@ declare namespace Cesium {
 
     function defined(value: any): boolean;
 
+    function buildModuleUrl(value: string): string;
+
+    function defaultValue<T, D>(value: T, defaultValue: D): T | D;
+
+    namespace defaultValue {
+        const EMPTY_OBJECT: any;
+    }
+
+    class GroundPrimitive {
+        readonly allowPicking: boolean;
+        readonly asynchronous: boolean;
+        readonly compressVertices: boolean;
+        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
+        readonly interleave: boolean;
+        readonly ready: boolean;
+        readonly readyPromise: Promise<GroundPrimitive>;
+        readonly releaseGeometryInstances: boolean;
+        readonly vertexCacheOptimize: boolean;
+
+        show: boolean;
+        appearance: Appearance;
+        classificationType: ClassificationType;
+        debugShowBoundingVolume: boolean;
+        debugShowShadowVolume: boolean;
+
+        static initializeTerrainHeights(): Promise<any>;
+        static isSupported(scene: Scene): boolean;
+        static supportsMaterials(scene: Scene): boolean;
+
+        constructor(options: {
+            geometryInstances?: GeometryInstance[] | GeometryInstance,
+            appearance?: Appearance,
+            show?: boolean,
+            vertexCacheOptimize?: boolean,
+            interleave?: boolean,
+            compressVertices?: boolean,
+            releaseGeometryInstances?: boolean,
+            allowPicking?: boolean,
+            asynchronous?: boolean,
+            debugShowBoundingVolume?: boolean,
+            debugShowShadowVolume?: boolean,
+            classificationType?: ClassificationType
+        });
+
+        destroy(): void;
+        getGeometryInstanceAttributes(id: any): GeometryInstance;
+        isDestroyed(): boolean;
+        update(): void;
+    }
+
+    class GroundPolylinePrimitive {
+        readonly allowPicking: boolean;
+        readonly asynchronous: boolean;
+        readonly debugShowShadowVolume: boolean;
+        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
+        readonly interleave: boolean;
+        readonly ready: boolean;
+        readonly readyPromise: Promise<GroundPolylinePrimitive>;
+        readonly releaseGeometryInstances: boolean;
+
+        show: boolean;
+        appearance: Appearance;
+        classificationType: ClassificationType;
+        debugShowBoundingVolume: boolean;
+
+        static initializeTerrainHeights(): Promise<any>;
+        static isSupported(scene: Scene): boolean;
+
+        constructor(options: {
+            geometryInstances?: GeometryInstance[] | GeometryInstance,
+            appearance?: Appearance,
+            show?: boolean,
+            interleave?: boolean,
+            releaseGeometryInstances?: boolean,
+            allowPicking?: boolean,
+            asynchronous?: boolean,
+            debugShowBoundingVolume?: boolean,
+            debugShowShadowVolume?: boolean,
+            classificationType?: ClassificationType
+        });
+
+        destroy(): void;
+        getGeometryInstanceAttributes(id: any): GeometryInstance;
+        isDestroyed(): boolean;
+        update(): void;
+    }
+
+    enum ClassificationType {
+        BOTH,
+        CESIUM_3D_TILE,
+        TERRAIN
+    }
+
     namespace buildModuleUrl {
       function setBaseUrl(value: string): undefined;
+    }
+
+    enum WebGLConstants {
+        DEPTH_BUFFER_BIT,
+        STENCIL_BUFFER_BIT,
+        COLOR_BUFFER_BIT,
+        POINTS,
+        LINES,
+        LINE_LOOP,
+        LINE_STRIP,
+        TRIANGLES,
+        TRIANGLE_STRIP,
+        TRIANGLE_FAN,
+        ZERO,
+        ONE,
+        SRC_COLOR,
+        ONE_MINUS_SRC_COLOR,
+        SRC_ALPHA,
+        ONE_MINUS_SRC_ALPHA,
+        DST_ALPHA,
+        ONE_MINUS_DST_ALPHA,
+        DST_COLOR,
+        ONE_MINUS_DST_COLOR,
+        SRC_ALPHA_SATURATE,
+        FUNC_ADD,
+        BLEND_EQUATION,
+        BLEND_EQUATION_RGB, // same as BLEND_EQUATION
+        BLEND_EQUATION_ALPHA,
+        FUNC_SUBTRACT,
+        FUNC_REVERSE_SUBTRACT,
+        BLEND_DST_RGB,
+        BLEND_SRC_RGB,
+        BLEND_DST_ALPHA,
+        BLEND_SRC_ALPHA,
+        CONSTANT_COLOR,
+        ONE_MINUS_CONSTANT_COLOR,
+        CONSTANT_ALPHA,
+        ONE_MINUS_CONSTANT_ALPHA,
+        BLEND_COLOR,
+        ARRAY_BUFFER,
+        ELEMENT_ARRAY_BUFFER,
+        ARRAY_BUFFER_BINDING,
+        ELEMENT_ARRAY_BUFFER_BINDING,
+        STREAM_DRAW,
+        STATIC_DRAW,
+        DYNAMIC_DRAW,
+        BUFFER_SIZE,
+        BUFFER_USAGE,
+        CURRENT_VERTEX_ATTRIB,
+        FRONT,
+        BACK,
+        FRONT_AND_BACK,
+        CULL_FACE,
+        BLEND,
+        DITHER,
+        STENCIL_TEST,
+        DEPTH_TEST,
+        SCISSOR_TEST,
+        POLYGON_OFFSET_FILL,
+        SAMPLE_ALPHA_TO_COVERAGE,
+        SAMPLE_COVERAGE ,
+        NO_ERROR,
+        INVALID_ENUM,
+        INVALID_VALUE,
+        INVALID_OPERATION,
+        OUT_OF_MEMORY,
+        CW,
+        CCW,
+        LINE_WIDTH,
+        ALIASED_POINT_SIZE_RANGE,
+        ALIASED_LINE_WIDTH_RANGE,
+        CULL_FACE_MODE,
+        FRONT_FACE,
+        DEPTH_RANGE,
+        DEPTH_WRITEMASK,
+        DEPTH_CLEAR_VALUE,
+        DEPTH_FUNC,
+        STENCIL_CLEAR_VALUE,
+        STENCIL_FUNC,
+        STENCIL_FAIL,
+        STENCIL_PASS_DEPTH_FAIL,
+        STENCIL_PASS_DEPTH_PASS,
+        STENCIL_REF,
+        STENCIL_VALUE_MASK,
+        STENCIL_WRITEMASK,
+        STENCIL_BACK_FUNC,
+        STENCIL_BACK_FAIL,
+        STENCIL_BACK_PASS_DEPTH_FAIL,
+        STENCIL_BACK_PASS_DEPTH_PASS,
+        STENCIL_BACK_REF,
+        STENCIL_BACK_VALUE_MASK,
+        STENCIL_BACK_WRITEMASK,
+        VIEWPORT,
+        SCISSOR_BOX,
+        COLOR_CLEAR_VALUE,
+        COLOR_WRITEMASK,
+        UNPACK_ALIGNMENT,
+        PACK_ALIGNMENT,
+        MAX_TEXTURE_SIZE,
+        MAX_VIEWPORT_DIMS,
+        SUBPIXEL_BITS,
+        RED_BITS,
+        GREEN_BITS,
+        BLUE_BITS,
+        ALPHA_BITS,
+        DEPTH_BITS,
+        STENCIL_BITS,
+        POLYGON_OFFSET_UNITS,
+        POLYGON_OFFSET_FACTOR,
+        TEXTURE_BINDING_2D,
+        SAMPLE_BUFFERS,
+        SAMPLES,
+        SAMPLE_COVERAGE_VALUE,
+        SAMPLE_COVERAGE_INVERT,
+        COMPRESSED_TEXTURE_FORMATS,
+        DONT_CARE,
+        FASTEST,
+        NICEST ,
+        GENERATE_MIPMAP_HINT,
+        BYTE,
+        UNSIGNED_BYTE,
+        SHORT,
+        UNSIGNED_SHORT,
+        INT,
+        UNSIGNED_INT,
+        FLOAT,
+        DEPTH_COMPONENT,
+        ALPHA,
+        RGB,
+        RGBA,
+        LUMINANCE,
+        LUMINANCE_ALPHA,
+        UNSIGNED_SHORT_4_4_4_4,
+        UNSIGNED_SHORT_5_5_5_1,
+        UNSIGNED_SHORT_5_6_5,
+        FRAGMENT_SHADER,
+        VERTEX_SHADER,
+        MAX_VERTEX_ATTRIBS,
+        MAX_VERTEX_UNIFORM_VECTORS,
+        MAX_VARYING_VECTORS,
+        MAX_COMBINED_TEXTURE_IMAGE_UNITS,
+        MAX_VERTEX_TEXTURE_IMAGE_UNITS,
+        MAX_TEXTURE_IMAGE_UNITS,
+        MAX_FRAGMENT_UNIFORM_VECTORS,
+        SHADER_TYPE,
+        DELETE_STATUS,
+        LINK_STATUS,
+        VALIDATE_STATUS,
+        ATTACHED_SHADERS,
+        ACTIVE_UNIFORMS,
+        ACTIVE_ATTRIBUTES,
+        SHADING_LANGUAGE_VERSION,
+        CURRENT_PROGRAM,
+        NEVER,
+        LESS,
+        EQUAL,
+        LEQUAL,
+        GREATER,
+        NOTEQUAL,
+        GEQUAL,
+        ALWAYS,
+        KEEP,
+        REPLACE,
+        INCR,
+        DECR,
+        INVERT,
+        INCR_WRAP,
+        DECR_WRAP,
+        VENDOR,
+        RENDERER,
+        VERSION,
+        NEAREST,
+        LINEAR,
+        NEAREST_MIPMAP_NEAREST,
+        LINEAR_MIPMAP_NEAREST,
+        NEAREST_MIPMAP_LINEAR ,
+        LINEAR_MIPMAP_LINEAR,
+        TEXTURE_MAG_FILTER,
+        TEXTURE_MIN_FILTER,
+        TEXTURE_WRAP_S,
+        TEXTURE_WRAP_T,
+        TEXTURE_2D,
+        TEXTURE,
+        TEXTURE_CUBE_MAP,
+        TEXTURE_BINDING_CUBE_MAP,
+        TEXTURE_CUBE_MAP_POSITIVE_X,
+        TEXTURE_CUBE_MAP_NEGATIVE_X ,
+        TEXTURE_CUBE_MAP_POSITIVE_Y,
+        TEXTURE_CUBE_MAP_NEGATIVE_Y,
+        TEXTURE_CUBE_MAP_POSITIVE_Z,
+        TEXTURE_CUBE_MAP_NEGATIVE_Z,
+        MAX_CUBE_MAP_TEXTURE_SIZE,
+        TEXTURE0,
+        TEXTURE1,
+        TEXTURE2,
+        TEXTURE3,
+        TEXTURE4,
+        TEXTURE5,
+        TEXTURE6,
+        TEXTURE7,
+        TEXTURE8,
+        TEXTURE9,
+        TEXTURE10,
+        TEXTURE11,
+        TEXTURE12,
+        TEXTURE13,
+        TEXTURE14,
+        TEXTURE15,
+        TEXTURE16,
+        TEXTURE17,
+        TEXTURE18,
+        TEXTURE19,
+        TEXTURE20,
+        TEXTURE21,
+        TEXTURE22,
+        TEXTURE23,
+        TEXTURE24,
+        TEXTURE25,
+        TEXTURE26,
+        TEXTURE27,
+        TEXTURE28,
+        TEXTURE29,
+        TEXTURE30,
+        TEXTURE31,
+        ACTIVE_TEXTURE,
+        REPEAT,
+        CLAMP_TO_EDGE,
+        MIRRORED_REPEAT,
+        FLOAT_VEC2,
+        FLOAT_VEC3,
+        FLOAT_VEC4,
+        INT_VEC2,
+        INT_VEC3,
+        INT_VEC4,
+        BOOL,
+        BOOL_VEC2,
+        BOOL_VEC3,
+        BOOL_VEC4,
+        FLOAT_MAT2,
+        FLOAT_MAT3,
+        FLOAT_MAT4,
+        SAMPLER_2D,
+        SAMPLER_CUBE,
+        VERTEX_ATTRIB_ARRAY_ENABLED,
+        VERTEX_ATTRIB_ARRAY_SIZE,
+        VERTEX_ATTRIB_ARRAY_STRIDE,
+        VERTEX_ATTRIB_ARRAY_TYPE,
+        VERTEX_ATTRIB_ARRAY_NORMALIZED,
+        VERTEX_ATTRIB_ARRAY_POINTER,
+        VERTEX_ATTRIB_ARRAY_BUFFER_BINDING,
+        IMPLEMENTATION_COLOR_READ_TYPE,
+        IMPLEMENTATION_COLOR_READ_FORMAT,
+        COMPILE_STATUS,
+        LOW_FLOAT,
+        MEDIUM_FLOAT,
+        HIGH_FLOAT,
+        LOW_INT,
+        MEDIUM_INT,
+        HIGH_INT,
+        FRAMEBUFFER,
+        RENDERBUFFER,
+        RGBA4,
+        RGB5_A1,
+        RGB565,
+        DEPTH_COMPONENT16,
+        STENCIL_INDEX,
+        STENCIL_INDEX8,
+        DEPTH_STENCIL,
+        RENDERBUFFER_WIDTH,
+        RENDERBUFFER_HEIGHT,
+        RENDERBUFFER_INTERNAL_FORMAT,
+        RENDERBUFFER_RED_SIZE,
+        RENDERBUFFER_GREEN_SIZE,
+        RENDERBUFFER_BLUE_SIZE,
+        RENDERBUFFER_ALPHA_SIZE,
+        RENDERBUFFER_DEPTH_SIZE,
+        RENDERBUFFER_STENCIL_SIZE,
+        FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE,
+        FRAMEBUFFER_ATTACHMENT_OBJECT_NAME,
+        FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL,
+        FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE,
+        COLOR_ATTACHMENT0,
+        DEPTH_ATTACHMENT,
+        STENCIL_ATTACHMENT,
+        DEPTH_STENCIL_ATTACHMENT,
+        NONE,
+        FRAMEBUFFER_COMPLETE,
+        FRAMEBUFFER_INCOMPLETE_ATTACHMENT,
+        FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT,
+        FRAMEBUFFER_INCOMPLETE_DIMENSIONS,
+        FRAMEBUFFER_UNSUPPORTED,
+        FRAMEBUFFER_BINDING,
+        RENDERBUFFER_BINDING,
+        MAX_RENDERBUFFER_SIZE,
+        INVALID_FRAMEBUFFER_OPERATION,
+        UNPACK_FLIP_Y_WEBGL,
+        UNPACK_PREMULTIPLY_ALPHA_WEBGL,
+        CONTEXT_LOST_WEBGL,
+        UNPACK_COLORSPACE_CONVERSION_WEBGL,
+        BROWSER_DEFAULT_WEBGL,
+        COMPRESSED_RGB_S3TC_DXT1_EXT,
+        COMPRESSED_RGBA_S3TC_DXT1_EXT,
+        COMPRESSED_RGBA_S3TC_DXT3_EXT,
+        COMPRESSED_RGBA_S3TC_DXT5_EXT,
+        COMPRESSED_RGB_PVRTC_4BPPV1_IMG,
+        COMPRESSED_RGB_PVRTC_2BPPV1_IMG,
+        COMPRESSED_RGBA_PVRTC_4BPPV1_IMG,
+        COMPRESSED_RGBA_PVRTC_2BPPV1_IMG,
+        COMPRESSED_RGB_ETC1_WEBGL,
+        HALF_FLOAT_OES,
+        DOUBLE,
+        READ_BUFFER,
+        UNPACK_ROW_LENGTH,
+        UNPACK_SKIP_ROWS,
+        UNPACK_SKIP_PIXELS,
+        PACK_ROW_LENGTH,
+        PACK_SKIP_ROWS,
+        PACK_SKIP_PIXELS,
+        COLOR,
+        DEPTH,
+        STENCIL,
+        RED,
+        RGB8,
+        RGBA8,
+        RGB10_A2,
+        TEXTURE_BINDING_3D,
+        UNPACK_SKIP_IMAGES,
+        UNPACK_IMAGE_HEIGHT,
+        TEXTURE_3D,
+        TEXTURE_WRAP_R,
+        MAX_3D_TEXTURE_SIZE,
+        UNSIGNED_INT_2_10_10_10_REV,
+        MAX_ELEMENTS_VERTICES,
+        MAX_ELEMENTS_INDICES,
+        TEXTURE_MIN_LOD,
+        TEXTURE_MAX_LOD,
+        TEXTURE_BASE_LEVEL,
+        TEXTURE_MAX_LEVEL,
+        MIN,
+        MAX,
+        DEPTH_COMPONENT24,
+        MAX_TEXTURE_LOD_BIAS,
+        TEXTURE_COMPARE_MODE,
+        TEXTURE_COMPARE_FUNC,
+        CURRENT_QUERY,
+        QUERY_RESULT,
+        QUERY_RESULT_AVAILABLE,
+        STREAM_READ,
+        STREAM_COPY,
+        STATIC_READ,
+        STATIC_COPY,
+        DYNAMIC_READ,
+        DYNAMIC_COPY,
+        MAX_DRAW_BUFFERS,
+        DRAW_BUFFER0,
+        DRAW_BUFFER1,
+        DRAW_BUFFER2,
+        DRAW_BUFFER3,
+        DRAW_BUFFER4,
+        DRAW_BUFFER5,
+        DRAW_BUFFER6,
+        DRAW_BUFFER7,
+        DRAW_BUFFER8,
+        DRAW_BUFFER9,
+        DRAW_BUFFER10,
+        DRAW_BUFFER11,
+        DRAW_BUFFER12,
+        DRAW_BUFFER13,
+        DRAW_BUFFER14,
+        DRAW_BUFFER15,
+        MAX_FRAGMENT_UNIFORM_COMPONENTS,
+        MAX_VERTEX_UNIFORM_COMPONENTS,
+        SAMPLER_3D,
+        SAMPLER_2D_SHADOW,
+        FRAGMENT_SHADER_DERIVATIVE_HINT,
+        PIXEL_PACK_BUFFER,
+        PIXEL_UNPACK_BUFFER,
+        PIXEL_PACK_BUFFER_BINDING,
+        PIXEL_UNPACK_BUFFER_BINDING,
+        FLOAT_MAT2x3,
+        FLOAT_MAT2x4,
+        FLOAT_MAT3x2,
+        FLOAT_MAT3x4,
+        FLOAT_MAT4x2,
+        FLOAT_MAT4x3,
+        SRGB,
+        SRGB8,
+        SRGB8_ALPHA8,
+        COMPARE_REF_TO_TEXTURE,
+        RGBA32F,
+        RGB32F,
+        RGBA16F,
+        RGB16F,
+        VERTEX_ATTRIB_ARRAY_INTEGER,
+        MAX_ARRAY_TEXTURE_LAYERS,
+        MIN_PROGRAM_TEXEL_OFFSET,
+        MAX_PROGRAM_TEXEL_OFFSET,
+        MAX_VARYING_COMPONENTS,
+        TEXTURE_2D_ARRAY,
+        TEXTURE_BINDING_2D_ARRAY,
+        R11F_G11F_B10F,
+        UNSIGNED_INT_10F_11F_11F_REV,
+        RGB9_E5,
+        UNSIGNED_INT_5_9_9_9_REV,
+        TRANSFORM_FEEDBACK_BUFFER_MODE,
+        MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS,
+        TRANSFORM_FEEDBACK_VARYINGS,
+        TRANSFORM_FEEDBACK_BUFFER_START,
+        TRANSFORM_FEEDBACK_BUFFER_SIZE,
+        TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN,
+        RASTERIZER_DISCARD,
+        MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS,
+        MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS,
+        INTERLEAVED_ATTRIBS,
+        SEPARATE_ATTRIBS,
+        TRANSFORM_FEEDBACK_BUFFER,
+        TRANSFORM_FEEDBACK_BUFFER_BINDING,
+        RGBA32UI,
+        RGB32UI,
+        RGBA16UI,
+        RGB16UI,
+        RGBA8UI,
+        RGB8UI,
+        RGBA32I,
+        RGB32I,
+        RGBA16I,
+        RGB16I,
+        RGBA8I,
+        RGB8I,
+        RED_INTEGER,
+        RGB_INTEGER,
+        RGBA_INTEGER,
+        SAMPLER_2D_ARRAY,
+        SAMPLER_2D_ARRAY_SHADOW,
+        SAMPLER_CUBE_SHADOW,
+        UNSIGNED_INT_VEC2,
+        UNSIGNED_INT_VEC3,
+        UNSIGNED_INT_VEC4,
+        INT_SAMPLER_2D,
+        INT_SAMPLER_3D,
+        INT_SAMPLER_CUBE,
+        INT_SAMPLER_2D_ARRAY,
+        UNSIGNED_INT_SAMPLER_2D,
+        UNSIGNED_INT_SAMPLER_3D,
+        UNSIGNED_INT_SAMPLER_CUBE,
+        UNSIGNED_INT_SAMPLER_2D_ARRAY,
+        DEPTH_COMPONENT32F,
+        DEPTH32F_STENCIL8,
+        FLOAT_32_UNSIGNED_INT_24_8_REV,
+        FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING,
+        FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE,
+        FRAMEBUFFER_ATTACHMENT_RED_SIZE,
+        FRAMEBUFFER_ATTACHMENT_GREEN_SIZE,
+        FRAMEBUFFER_ATTACHMENT_BLUE_SIZE,
+        FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE,
+        FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE,
+        FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE,
+        FRAMEBUFFER_DEFAULT,
+        UNSIGNED_INT_24_8,
+        DEPTH24_STENCIL8,
+        UNSIGNED_NORMALIZED,
+        DRAW_FRAMEBUFFER_BINDING,
+        READ_FRAMEBUFFER,
+        DRAW_FRAMEBUFFER,
+        READ_FRAMEBUFFER_BINDING,
+        RENDERBUFFER_SAMPLES,
+        FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER,
+        MAX_COLOR_ATTACHMENTS,
+        COLOR_ATTACHMENT1,
+        COLOR_ATTACHMENT2,
+        COLOR_ATTACHMENT3,
+        COLOR_ATTACHMENT4,
+        COLOR_ATTACHMENT5,
+        COLOR_ATTACHMENT6,
+        COLOR_ATTACHMENT7,
+        COLOR_ATTACHMENT8,
+        COLOR_ATTACHMENT9,
+        COLOR_ATTACHMENT10,
+        COLOR_ATTACHMENT11,
+        COLOR_ATTACHMENT12,
+        COLOR_ATTACHMENT13,
+        COLOR_ATTACHMENT14,
+        COLOR_ATTACHMENT15,
+        FRAMEBUFFER_INCOMPLETE_MULTISAMPLE,
+        MAX_SAMPLES,
+        HALF_FLOAT,
+        RG,
+        RG_INTEGER,
+        R8,
+        RG8,
+        R16F,
+        R32F,
+        RG16F,
+        RG32F,
+        R8I,
+        R8UI,
+        R16I,
+        R16UI,
+        R32I,
+        R32UI,
+        RG8I,
+        RG8UI,
+        RG16I,
+        RG16UI,
+        RG32I,
+        RG32UI,
+        VERTEX_ARRAY_BINDING,
+        R8_SNORM,
+        RG8_SNORM,
+        RGB8_SNORM,
+        RGBA8_SNORM,
+        SIGNED_NORMALIZED,
+        COPY_READ_BUFFER,
+        COPY_WRITE_BUFFER,
+        COPY_READ_BUFFER_BINDING,
+        COPY_WRITE_BUFFER_BINDING,
+        UNIFORM_BUFFER,
+        UNIFORM_BUFFER_BINDING,
+        UNIFORM_BUFFER_START,
+        UNIFORM_BUFFER_SIZE,
+        MAX_VERTEX_UNIFORM_BLOCKS,
+        MAX_FRAGMENT_UNIFORM_BLOCKS,
+        MAX_COMBINED_UNIFORM_BLOCKS,
+        MAX_UNIFORM_BUFFER_BINDINGS,
+        MAX_UNIFORM_BLOCK_SIZE,
+        MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS,
+        MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS,
+        UNIFORM_BUFFER_OFFSET_ALIGNMENT,
+        ACTIVE_UNIFORM_BLOCKS,
+        UNIFORM_TYPE,
+        UNIFORM_SIZE,
+        UNIFORM_BLOCK_INDEX,
+        UNIFORM_OFFSET,
+        UNIFORM_ARRAY_STRIDE,
+        UNIFORM_MATRIX_STRIDE,
+        UNIFORM_IS_ROW_MAJOR,
+        UNIFORM_BLOCK_BINDING,
+        UNIFORM_BLOCK_DATA_SIZE,
+        UNIFORM_BLOCK_ACTIVE_UNIFORMS,
+        UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES,
+        UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER,
+        UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER,
+        INVALID_INDEX,
+        MAX_VERTEX_OUTPUT_COMPONENTS,
+        MAX_FRAGMENT_INPUT_COMPONENTS,
+        MAX_SERVER_WAIT_TIMEOUT,
+        OBJECT_TYPE,
+        SYNC_CONDITION,
+        SYNC_STATUS,
+        SYNC_FLAGS,
+        SYNC_FENCE,
+        SYNC_GPU_COMMANDS_COMPLETE,
+        UNSIGNALED,
+        SIGNALED,
+        ALREADY_SIGNALED,
+        TIMEOUT_EXPIRED,
+        CONDITION_SATISFIED,
+        WAIT_FAILED,
+        SYNC_FLUSH_COMMANDS_BIT,
+        VERTEX_ATTRIB_ARRAY_DIVISOR,
+        ANY_SAMPLES_PASSED,
+        ANY_SAMPLES_PASSED_CONSERVATIVE,
+        SAMPLER_BINDING,
+        RGB10_A2UI,
+        INT_2_10_10_10_REV,
+        TRANSFORM_FEEDBACK,
+        TRANSFORM_FEEDBACK_PAUSED,
+        TRANSFORM_FEEDBACK_ACTIVE,
+        TRANSFORM_FEEDBACK_BINDING,
+        COMPRESSED_R11_EAC,
+        COMPRESSED_SIGNED_R11_EAC,
+        COMPRESSED_RG11_EAC,
+        COMPRESSED_SIGNED_RG11_EAC,
+        COMPRESSED_RGB8_ETC2,
+        COMPRESSED_SRGB8_ETC2,
+        COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2,
+        COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2,
+        COMPRESSED_RGBA8_ETC2_EAC,
+        COMPRESSED_SRGB8_ALPHA8_ETC2_EAC,
+        TEXTURE_IMMUTABLE_FORMAT,
+        MAX_ELEMENT_INDEX,
+        TEXTURE_IMMUTABLE_LEVELS,
+        MAX_TEXTURE_MAX_ANISOTROPY_EXT
     }
 }

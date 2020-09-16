@@ -1,7 +1,7 @@
 import * as React from "react";
 import Cleave = require("cleave.js");
 import CleaveReact = require("cleave.js/react");
-import { Props } from "cleave.js/react/props";
+import { Props, ChangeEvent } from "cleave.js/react/props";
 
 const ExampleSelector1 = () => {
     const cleave = new Cleave("#my-input", { phone: true });
@@ -36,8 +36,22 @@ const ExampleReact2 = (props: Props) => {
         <CleaveReact
             value="test"
             className="form-control"
-            options={{ phone: true }}
             {...props}
+            options={{ phone: true }}
+        />
+    );
+};
+
+const ExampleReact3 = (props: Props) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        return e.target.rawValue;
+    };
+    return (
+        <CleaveReact
+            value="test"
+            className="form-control"
+            options={{ date: true }}
+            onChange={handleChange}
         />
     );
 };

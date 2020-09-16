@@ -18,10 +18,6 @@
         "jsx": "react"
     },
     "files": [
-        "Gateway.d.ts",
-        "GatewayDest.d.ts",
-        "GatewayProvider.d.ts",
-        "GatewayRegistry.d.ts",
         "index.d.ts",
         "react-gateway-tests.tsx"
     ]

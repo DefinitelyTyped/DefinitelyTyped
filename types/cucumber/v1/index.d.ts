@@ -4,6 +4,7 @@
 //                 Jan Molak <https://github.com/jan-molak>
 //                 Isaiah Soung <https://github.com/isoung>
 //                 BendingBender <https://github.com/BendingBender>
+//                 Peter Morlion <https://github.com/petermorlion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -13,9 +14,16 @@ export interface CallbackStepDefinition {
 }
 
 export interface TableDefinition {
+    /** Returns the table as a 2-D array. */
     raw(): string[][];
+
+    /** Returns the table as a 2-D array, without the first row. */
     rows(): string[][];
+
+    /** Returns an object where each row corresponds to an entry (first column is the key, second column is the value). */
     rowsHash(): { [firstCol: string]: string };
+
+    /** Returns an array of objects where each row is converted to an object (column header is the key). */
     hashes(): Array<{ [colName: string]: string }>;
 }
 

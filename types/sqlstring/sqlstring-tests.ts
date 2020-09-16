@@ -29,3 +29,6 @@ const sql6 =
 const userId4 = 1;
 const inserts = ["users", "id", userId4];
 const sql7 = SqlString.format("SELECT * FROM ?? WHERE ?? = ?", inserts);
+
+const CURRENT_TIMESTAMP = SqlString.raw('CURRENT_TIMESTAMP()');
+const sql8 = SqlString.format('UPDATE posts SET modified = ? WHERE id = ?', [CURRENT_TIMESTAMP, 42]);

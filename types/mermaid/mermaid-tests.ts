@@ -13,7 +13,7 @@ mermaid.initialize(config);
 // mermaidAPI usage
 
 const { mermaidAPI } = mermaid;
-mermaidAPI.initalize({});
+mermaidAPI.initialize({});
 
 const element = document.querySelector("#graphDiv")!;
 

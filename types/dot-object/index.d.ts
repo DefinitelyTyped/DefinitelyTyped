@@ -1,12 +1,19 @@
-// Type definitions for Dot-Object v1.5
+// Type definitions for Dot-Object 2.1
 // Project: https://github.com/rhalff/dot-object
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
+//                 Rico Sandyca <https://github.com/ricosandyca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 
 declare namespace DotObject {
     interface DotConstructor extends Dot {
-        new (separator: string): Dot;
+        new (
+          separator: string,
+          override?: boolean,
+          useArray?: boolean,
+          useBrackets?: boolean
+        ): Dot;
     }
 
     interface ModifierFunctionWrapper {
@@ -57,11 +64,43 @@ declare namespace DotObject {
          *
          * Remove value from an object using dot notation.
          *
-         * @param {String} path
+         * @param {String | Array<String>} path
          * @param {Object} obj
          * @return {Mixed} The removed value
          */
-        del(path: string, obj: any): any;
+        del(path: string | string[], obj: any): any;
+        /**
+         *
+         * Delete value from an object using dot notation.
+         *
+         * @param {String | Array<String>} path
+         * @param {Object} obj
+         * @return {any} The removed value
+         */
+        delete(path: string | string[], obj: any): any;
+        /**
+         *
+         * Keep array
+         *
+         * example:
+         *
+         * var obj = {
+         *   "id": "my-id",
+         *   "other": [1, 2, 3]
+         *   "some": {
+         *     "array": ["A", "B"]
+         *   }
+         * }
+         *
+         * if the keepArray property is true:
+         *
+         * {
+         *   "id": "my-id",
+         *   "other": [1, 2, 3],
+         *   "some.array": ["A", "B"]
+         * }
+         */
+        keepArray: boolean;
         /**
          *
          * Move a property from one place to the other.
@@ -98,7 +137,7 @@ declare namespace DotObject {
          * @param {Object} obj
          * @param {Object} mods
          */
-        object(obj: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
+        object(obj: object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): object;
         /**
          *
          * Pick a value from an object using dot notation.
@@ -114,18 +153,31 @@ declare namespace DotObject {
          *
          * Remove value from an object using dot notation.
          *
-         * @param {String} path
+         * @param {String | Array<String>} path
          * @param {Object} obj
          * @return {Mixed} The removed value
          */
-        remove(path: string, obj: any): any;
+        remove(path: string | string[], obj: any): any;
         /**
+         *
+         * Replace/create with a string
+         *
          * @param {String} path dotted path
          * @param {String} v value to be set
          * @param {Object} obj object to be modified
          * @param {Function|Array} mods optional modifier
         */
-        str(path: string, v: any, obj: Object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
+        str(path: string, v: any, obj: object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
+        /**
+         *
+         * Replace/merge an object to an existing object property
+         *
+         * @param {String} path dotted path
+         * @param {Object} v object to be set
+         * @param {Object} obj object to be modified
+         * @param {Boolean} merge optional merge
+        */
+        set(path: string, v: any, obj: object, merge?: boolean): void;
         /**
          *
          * Transfer a property from one object to another object.

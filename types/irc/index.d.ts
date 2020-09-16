@@ -8,8 +8,8 @@
 /** This library provides IRC client functionality. */
 
 import events = require('events');
-import crypto = require('crypto');
 import net = require('net');
+import tls = require('tls');
 
 /** This library provides IRC client functionality. */
 declare namespace NodeIRC {
@@ -287,7 +287,7 @@ declare namespace NodeIRC {
          * Should SSL be used? Can either be true or crypto credentials.
          * @default false
          */
-        secure?: boolean | crypto.Credentials;
+        secure?: boolean | tls.SecureContext;
 
         /**
          * Should we accept self-signed certificates?

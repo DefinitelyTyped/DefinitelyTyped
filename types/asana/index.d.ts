@@ -1,8 +1,11 @@
-// Type definitions for node-asana 0.14.0
+// Type definitions for node-asana 0.18.4
 // Project: https://github.com/Asana/node-asana
 // Definitions by: Qubo <https://github.com/tkqubo>
+//                 Tasyp <https://github.com/tasyp>
+//                 Filippo Sarzana <https://github.com/filipposarzana>
+//                 Lorant Szakacs <https://github.com/szlori>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 import * as Promise from 'bluebird';
 
 declare namespace asana {
@@ -36,6 +39,9 @@ declare namespace asana {
         clientSecret?: string;
         redirectUri?: string;
         asanaBaseUrl?: string;
+        defaultHeaders?: {
+            [key: string]: string;
+        };
     }
 
     interface Client {
@@ -109,6 +115,11 @@ declare namespace asana {
          */
         projects: resources.Projects;
         /**
+         * An instance of the Sections resource.
+         * @type {Sections}
+         */
+        sections: resources.Sections;
+        /**
          * An instance of the Stories resource.
          * @type {Stories}
          */
@@ -124,6 +135,11 @@ declare namespace asana {
          */
         tasks: resources.Tasks;
         /**
+         * An instance of the UserTaskLists resource.
+         * @type {UserTaskLists}
+         */
+        userTaskLists: resources.UserTaskLists;
+        /**
          * An instance of the Teams resource.
          * @type {Teams}
          */
@@ -138,6 +154,11 @@ declare namespace asana {
          * @type {Workspaces}
          */
         workspaces: resources.Workspaces;
+        /**
+         * An instance of the Webhooks resource.
+         * @type {Webhooks}
+         */
+        webhooks: resources.Webhooks;
         /**
          * Store off Oauth info.
          */
@@ -335,7 +356,7 @@ declare namespace asana {
             auth: {
                 username: string;
                 password: string;
-            }
+            };
         }
 
         var OauthAuthenticator: OauthAuthenticatorStatic;
@@ -386,7 +407,7 @@ declare namespace asana {
              */
             headers: {
                 Authorization: string;
-            }
+            };
         }
 
         /**
@@ -517,8 +538,7 @@ declare namespace asana {
             error_description?: string;
         }
 
-        interface OauthError extends Error {
-        }
+        interface OauthError extends Error {}
 
         /**
          * Auto-detects the type of Oauth flow to use that's appropriate to the
@@ -544,8 +564,7 @@ declare namespace asana {
             new (options: any): RedirectFlow;
         }
 
-        interface RedirectFlow extends BaseBrowserFlow {
-        }
+        interface RedirectFlow extends BaseBrowserFlow {}
 
         var PopupFlow: PopupFlowStatic;
 
@@ -732,7 +751,6 @@ declare namespace asana {
             constructor(value: any);
         }
 
-
         class InvalidRequest extends AsanaError {
             /**
              * @param value
@@ -828,7 +846,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByTask(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Attachments.Type>>;
+            findByTask(
+                task: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Attachments.Type>>;
         }
 
         interface EventsStatic {
@@ -837,6 +859,44 @@ declare namespace asana {
              * @return
              */
             new (dispatcher: Dispatcher): Events;
+        }
+
+        namespace Events {
+            interface Type {
+                data?: EventDataEntity[];
+                errors?: EventError[];
+                sync: string;
+            }
+
+            interface EventError {
+                message: string;
+            }
+
+            interface EventResource extends Resource {
+                resource_type: string;
+                resource_subtype: string;
+            }
+
+            interface EventSectionResource extends EventResource {
+                project: {
+                    gid: string;
+                    name: string;
+                };
+            }
+
+            type EventProject = EventResource & Partial<Tasks.Type>;
+            type EventSection = EventSectionResource & Partial<Sections.Type>;
+            type EventStory = EventResource & Partial<Stories.Type>;
+            type EventTask = EventResource & Partial<Tasks.Type>;
+
+            interface EventDataEntity {
+                user: Users.ShortType | null;
+                created_at: string;
+                type: string;
+                action: string;
+                resource: EventTask | EventProject | EventSection | EventStory;
+                parent: EventTask | EventProject | EventSection | null;
+            }
         }
 
         var Events: EventsStatic;
@@ -870,7 +930,19 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Events extends Resource { }
+        interface Events extends Resource {
+            /**
+             * Dispatches a GET request to /events of the API to get a set of recent
+             * changes to a resource.
+             * @param  {Number} resourceId  The id of the resource to get events for
+             * @param  {String} [syncToken] Token from a previous sync, if any
+             * @return {Promise}            The result of the API call:
+             *     {String} sync     The new sync token to use for the next request
+             *     {Object[]} [data] The changes on the resource since the last sync,
+             *                       may not exist if sync token is new.
+             */
+            get(resourceId: string | number, syncToken?: string, params?: Params): Promise<Events.Type>;
+        }
 
         interface ProjectsStatic {
             /**
@@ -899,7 +971,7 @@ declare namespace asana {
                 name?: string;
                 team?: number;
                 public?: boolean;
-                due_date: string;
+                due_date?: string;
                 notes?: string;
                 color?: string;
             }
@@ -983,7 +1055,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            createInWorkspace(workspace: number, data: Projects.CreateParams, dispatchOptions?: any): Promise<Projects.Type>;
+            createInWorkspace(
+                workspace: number,
+                data: Projects.CreateParams,
+                dispatchOptions?: any,
+            ): Promise<Projects.Type>;
 
             /**
              * * Creates a project shared with the given team.
@@ -1011,7 +1087,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findById(project: number, params?: Params, dispatchOptions?: any): Promise<Projects.Type>;
+            findById(project: string | number, params?: Params, dispatchOptions?: any): Promise<Projects.Type>;
 
             /**
              * * A specific, existing project can be updated by making a PUT request on the
@@ -1032,7 +1108,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            update(project: number, data: Projects.CreateParams, dispatchOptions?: any): Promise<Projects.Type>;
+            update(
+                project: string | number,
+                data: Projects.CreateParams,
+                dispatchOptions?: any,
+            ): Promise<Projects.Type>;
 
             /**
              * * A specific, existing project can be deleted by making a DELETE request
@@ -1046,7 +1126,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            delete(project: number, dispatchOptions?: any): Promise<void>;
+            delete(project: string | number, dispatchOptions?: any): Promise<void>;
 
             /**
              * * Returns the compact project records for some filtered set of projects.
@@ -1077,7 +1157,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByWorkspace(workspace: number, params?: Projects.FindByParams, dispatchOptions?: any): Promise<ResourceList<Projects.Type>>;
+            findByWorkspace(
+                workspace: number,
+                params?: Projects.FindByParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Projects.Type>>;
 
             /**
              * * Returns the compact project records for all projects in the team.
@@ -1092,7 +1176,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByTeam(team: number, params?: Projects.FindByParams, dispatchOptions?: any): Promise<ResourceList<Projects.Type>>;
+            findByTeam(
+                team: number,
+                params?: Projects.FindByParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Projects.Type>>;
 
             /**
              * * Returns compact records for all sections in the specified project.
@@ -1105,7 +1193,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            sections(project: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
+            sections(
+                project: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Sections.Type>>;
 
             /**
              * * Returns the compact task records for all tasks within the given project,
@@ -1119,7 +1211,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            tasks(project: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
+            tasks(
+                project: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.Type>>;
 
             /**
              * * Adds the specified list of users as followers to the project. Followers are a subset of members, therefore if
@@ -1135,7 +1231,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addFollowers(project: number, data: Projects.FollowersParams, dispatchOptions?: any): Promise<Projects.Type>;
+            addFollowers(
+                project: string | number,
+                data: Projects.FollowersParams,
+                dispatchOptions?: any,
+            ): Promise<Projects.Type>;
 
             /**
              * * Removes the specified list of users from following the project, this will not affect project membership status.
@@ -1150,7 +1250,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            removeFollowers(project: number, data: Projects.FollowersParams, dispatchOptions?: any): Promise<Projects.Type>;
+            removeFollowers(
+                project: string | number,
+                data: Projects.FollowersParams,
+                dispatchOptions?: any,
+            ): Promise<Projects.Type>;
 
             /**
              * * Adds the specified list of users as members of the project. Returns the updated project record.
@@ -1164,7 +1268,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addMembers(project: number, data: Projects.MembersParams, dispatchOptions?: any): Promise<Projects.Type>;
+            addMembers(
+                project: string | number,
+                data: Projects.MembersParams,
+                dispatchOptions?: any,
+            ): Promise<Projects.Type>;
 
             /**
              * * Removes the specified list of members from the project. Returns the updated project record.
@@ -1178,7 +1286,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            removeMembers(project: number, data: Projects.MembersParams, dispatchOptions?: any): Promise<Projects.Type>;
+            removeMembers(
+                project: string | number,
+                data: Projects.MembersParams,
+                dispatchOptions?: any,
+            ): Promise<Projects.Type>;
         }
 
         interface StoriesStatic {
@@ -1229,7 +1341,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByTask(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Stories.Type>>;
+            findByTask(
+                task: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Stories.Type>>;
 
             /**
              * * Returns the full record for a single story.
@@ -1260,7 +1376,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            createOnTask(task: number, data: any, dispatchOptions?: any): Promise<ResourceList<Stories.ShortType>>;
+            createOnTask(
+                task: string | number,
+                data: any,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Stories.ShortType>>;
         }
 
         interface TagsStatic {
@@ -1412,7 +1532,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByWorkspace(workspace: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tags.Type>>;
+            findByWorkspace(
+                workspace: number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tags.Type>>;
 
             /**
              * * Returns the compact task records for all tasks with the given tag.
@@ -1426,7 +1550,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            getTasksWithTag(tag: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
+            getTasksWithTag(
+                tag: number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.Type>>;
         }
 
         interface TasksStatic {
@@ -1440,12 +1568,12 @@ declare namespace asana {
             interface Type extends Resource {
                 created_at: string;
                 modified_at: string;
-                completed_at: string;
+                completed_at: string | null;
                 completed: boolean;
                 due_on: string;
                 due_at: string;
                 assignee_status: string;
-                assignee: Resource;
+                assignee: Assignee | null;
                 notes: string;
                 workspace: Resource;
                 num_hearts: number;
@@ -1455,6 +1583,7 @@ declare namespace asana {
                 projects: Resource[];
                 memberships: Membership[];
                 followers: Resource[];
+                custom_fields: CustomField[];
             }
 
             interface CreateParams {
@@ -1462,6 +1591,7 @@ declare namespace asana {
                 completed?: boolean;
                 hearted?: boolean;
                 notes?: string;
+                custom_fields?: Object;
             }
 
             interface FollowersParams {
@@ -1469,14 +1599,14 @@ declare namespace asana {
             }
 
             interface AddProjectParams {
-                project: number;
+                project: string | number;
                 insertBefore?: number;
                 insertAfter?: number;
                 section?: number;
             }
 
             interface RemoveProjectParams {
-                project: number;
+                project: string | number;
             }
 
             interface TagParams {
@@ -1484,7 +1614,8 @@ declare namespace asana {
             }
 
             interface CommentParams {
-                text: string;
+                text?: string;
+                html_text?: string;
             }
 
             interface FindAllParams extends PaginationParams {
@@ -1541,7 +1672,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            createInWorkspace(workspace: number, data: Tasks.CreateParams, dispatchOptions?: any): Promise<Tasks.Type>;
+            createInWorkspace(
+                workspace: number | string,
+                data: Tasks.CreateParams,
+                dispatchOptions?: any,
+            ): Promise<Tasks.Type>;
 
             /**
              * * Returns the complete task record for a single task.
@@ -1554,7 +1689,26 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findById(task: number, params?: Params, dispatchOptions?: any): Promise<Tasks.Type>;
+            findById(task: string | number, params?: Params, dispatchOptions?: any): Promise<Tasks.Type>;
+
+            /**
+             * * The search endpoint allows you to build complex queries to find and fetch exactly the data you need from Asana.
+             * * For a more comprehensive description of all the query parameters and limitations of this endpoint, see our
+             * * [long-form documentation](/developers/documentation/getting-started/search-api) for this feature.
+             *   * @param {Number} workspace The workspace to search in for tasks.
+             *   * @param {Object} [params] Parameters for the request
+             *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+             *   * @return {Promise} The response from the API
+             * @param task
+             * @param params?
+             * @param dispatchOptions?
+             * @return
+             */
+            searchInWorkspace(
+                workspace: number | string,
+                params?: Params,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.Type>>;
 
             /**
              * * A specific, existing task can be updated by making a PUT request on the
@@ -1575,7 +1729,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            update(task: number, data: Tasks.CreateParams, dispatchOptions?: any): Promise<Tasks.Type>;
+            update(task: string | number, data: Tasks.CreateParams, dispatchOptions?: any): Promise<Tasks.Type>;
 
             /**
              * * A specific, existing task can be deleted by making a DELETE request on the
@@ -1591,7 +1745,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            delete(task: number, dispatchOptions?: any): Promise<void>;
+            delete(task: string | number, dispatchOptions?: any): Promise<void>;
 
             /**
              * * Returns the compact task records for all tasks within the given project,
@@ -1605,7 +1759,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByProject(projectId: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
+            findByProject(
+                projectId: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.Type>>;
 
             /**
              * * Returns the compact task records for all tasks with the given tag.
@@ -1650,7 +1808,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addFollowers(task: number, data: Tasks.FollowersParams, dispatchOptions?: any): Promise<Tasks.Type>;
+            addFollowers(
+                task: string | number,
+                data: Tasks.FollowersParams,
+                dispatchOptions?: any,
+            ): Promise<Tasks.Type>;
 
             /**
              * * Removes each of the specified followers from the task if they are
@@ -1665,7 +1827,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            removeFollowers(task: number, data: Tasks.FollowersParams, dispatchOptions?: any): Promise<Tasks.Type>;
+            removeFollowers(
+                task: string | number,
+                data: Tasks.FollowersParams,
+                dispatchOptions?: any,
+            ): Promise<Tasks.Type>;
 
             /**
              * * Returns a compact representation of all of the projects the task is in.
@@ -1678,7 +1844,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            projects(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Projects.Type>>;
+            projects(
+                task: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Projects.Type>>;
 
             /**
              * * Adds the task to the specified project, in the optional location
@@ -1705,7 +1875,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addProject(task: number, data: Tasks.AddProjectParams, dispatchOptions?: any): Promise<{}>;
+            addProject(task: string | number, data: Tasks.AddProjectParams, dispatchOptions?: any): Promise<{}>;
 
             /**
              * * Removes the task from the specified project. The task will still exist
@@ -1722,7 +1892,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            removeProject(task: number, data: Tasks.RemoveProjectParams, dispatchOptions?: any): Promise<{}>;
+            removeProject(task: string | number, data: Tasks.RemoveProjectParams, dispatchOptions?: any): Promise<{}>;
 
             /**
              * * Returns a compact representation of all of the tags the task has.
@@ -1735,7 +1905,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            tags(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tags.Type>>;
+            tags(
+                task: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tags.Type>>;
 
             /**
              * * Adds a tag to a task. Returns an empty data block.
@@ -1749,7 +1923,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addTag(task: number, data: Tasks.TagParams, dispatchOptions?: any): Promise<{}>;
+            addTag(task: string | number, data: Tasks.TagParams, dispatchOptions?: any): Promise<{}>;
 
             /**
              * * Removes a tag from the task. Returns an empty data block.
@@ -1763,7 +1937,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            removeTag(task: number, data: Tasks.TagParams, dispatchOptions?: any): Promise<{}>;
+            removeTag(task: string | number, data: Tasks.TagParams, dispatchOptions?: any): Promise<{}>;
 
             /**
              * * Returns a compact representation of all of the subtasks of a task.
@@ -1776,7 +1950,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            subtasks(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
+            subtasks(
+                task: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.Type>>;
 
             /**
              * * Creates a new subtask and adds it to the parent task. Returns the full record
@@ -1790,7 +1968,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addSubtask(task: number, data: Tasks.CreateParams, dispatchOptions?: any): Promise<Tasks.Type>;
+            addSubtask(task: string | number, data: Tasks.CreateParams, dispatchOptions?: any): Promise<Tasks.Type>;
 
             /**
              * * Returns a compact representation of all of the stories on the task.
@@ -1803,7 +1981,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            stories(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Stories.Type>>;
+            stories(
+                task: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Stories.Type>>;
 
             /**
              * * Adds a comment to a task. The comment will be authored by the
@@ -1821,7 +2003,60 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addComment(task: number, data: Tasks.CommentParams, dispatchOptions?: any): Promise<Stories.Type>;
+            addComment(task: string | number, data: Tasks.CommentParams, dispatchOptions?: any): Promise<Stories.Type>;
+        }
+
+        interface SectionsStatic {
+            /**
+             * @param dispatcher
+             */
+            new (dispatcher: Dispatcher): Sections;
+        }
+
+        namespace Sections {
+            interface Type extends Resource {
+                created_at: string;
+            }
+
+            interface SectionsParams {
+                task: number | string;
+                insert_after?: string;
+                insert_before?: string;
+            }
+        }
+
+        var Sections: SectionsStatic;
+
+        interface Sections extends Resource {
+            /**
+             * Returns the compact records for all sections in the specified project.
+             * @param {String} project The project to get sections from.
+             * @param {Object} [params] Parameters for the request
+             * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+             * @return {Promise} The response from the API
+             */
+            findByProject(project: string | number, params?: Params, dispatchOptions?: any): Promise<Sections.Type[]>;
+
+            /**
+             * Returns the complete record for a single section.
+             * @param {String} section The section to get.
+             * @param {Object} [params] Parameters for the request
+             * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+             * @return {Promise} The requested resource
+             */
+            findById(section: string | number, params?: Params, dispatchOptions?: any): Promise<Sections.Type>;
+
+            /**
+             * * Adds the specified task to a specific section of project. Returns empty object.
+             * @param {String} section The section to add task to.
+             * @param {Object} data Data for the request
+             * @param {String} data.task The id of task to be added to specified section.
+             * @param {String} data.insert_after An existing task within this section after which the added task should be inserted. Cannot be provided together with insert_before.
+             * @param {String} data.insert_before An existing task within this section before which the added task should be inserted. Cannot be provided together with insert_after.
+             * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+             * @return {Promise} The response from the API
+             */
+            addTask(section: string | number, data: Sections.SectionsParams, dispatchOptions?: any): Promise<{}>;
         }
 
         interface TeamsStatic {
@@ -1871,7 +2106,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByOrganization(organization: number, params?: Params, dispatchOptions?: any): Promise<SimpleResourceList>;
+            findByOrganization(
+                organization: number,
+                params?: Params,
+                dispatchOptions?: any,
+            ): Promise<SimpleResourceList>;
 
             /**
              * * Returns the compact records for all users that are members of the team.
@@ -1935,10 +2174,13 @@ declare namespace asana {
                 workspace: number;
             }
 
-            interface Type extends Resource {
+            interface ShortType extends Resource {
                 email: string;
-                workspaces: Resource[];
                 photo: { [key: string]: string };
+            }
+
+            interface Type extends ShortType {
+                workspaces: Resource[];
             }
         }
 
@@ -1993,7 +2235,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByWorkspace(workspace: number, params?: Params, dispatchOptions?: any): Promise<ResourceList<Users.Type>>;
+            findByWorkspace(
+                workspace: number | string,
+                params?: Params,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Users.Type>>;
 
             /**
              * * Returns the user records for all users in all workspaces and organizations
@@ -2010,6 +2256,34 @@ declare namespace asana {
             findAll(params: Users.FindAllParams, dispatchOptions?: any): Promise<SimpleResourceList>;
         }
 
+        interface WebhooksStatic {
+            /**
+             * @param dispatcher
+             */
+            new (dispatcher: Dispatcher): Webhooks;
+        }
+
+        namespace Webhooks {
+            interface Filter {
+                action: string;
+                fields: string[];
+                resource_subtype: string;
+                resource_type: string;
+            }
+
+            interface Type extends Resource {
+                active: boolean;
+                resource: Resource;
+                target: string;
+                created_at: string;
+                last_failure_at: string;
+                last_failure_content: string;
+                last_success_at: string;
+                filters: Filter[];
+            }
+        }
+
+        var Webhooks: WebhooksStatic;
         /**
          * **Webhooks are currently in BETA - The information here may change.**
          *
@@ -2060,12 +2334,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        class Webhooks extends Resource {
-            /**
-             * @param dispatcher
-             */
-            constructor(dispatcher: Dispatcher);
-
+        interface Webhooks extends Resource {
             /**
              * * Establishing a webhook is a two-part process. First, a simple HTTP POST
              * * similar to any other resource creation. Since you could have multiple
@@ -2093,7 +2362,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            create(resource: number, target: string, data: any, dispatchOptions?: any): Promise<any>;
+            create(resource: number | string, target: string, data: any, dispatchOptions?: any): Promise<Webhooks.Type>;
 
             /**
              * * Returns the compact representation of all webhooks your app has
@@ -2108,7 +2377,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            getAll(workspace: number, params?: any, dispatchOptions?: any): Promise<any>;
+            getAll(workspace: number | string, params?: any, dispatchOptions?: any): Promise<any>;
 
             /**
              * * Returns the full record for the given webhook.
@@ -2249,7 +2518,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            typeahead(workspace: number, params?: Workspaces.TypeaheadParams, dispatchOptions?: any): Promise<SimpleResourceList>;
+            typeahead(
+                workspace: number,
+                params?: Workspaces.TypeaheadParams,
+                dispatchOptions?: any,
+            ): Promise<SimpleResourceList>;
 
             /**
              * * The user can be referenced by their globally unique user ID or their email address.
@@ -2284,6 +2557,87 @@ declare namespace asana {
              * @return
              */
             removeUser(workspace: number, data: UserParams, dispatchOptions?: any): Promise<any>;
+        }
+
+        interface UserTaskListsStatic {
+            /**
+             * @param dispatcher
+             */
+            new (dispatcher: Dispatcher): UserTaskLists;
+        }
+
+        namespace UserTaskLists {
+            interface Type extends Resource {
+                owner: Resource;
+                workspace: Resource;
+            }
+        }
+
+        var UserTaskLists: UserTaskListsStatic;
+
+        /**
+         * A user task list represents the tasks assigned to a particular user.
+         *
+         * A user’s “My Tasks” represent all of the tasks assigned to that user. It is visually divided
+         * into regions based on the task’s assignee_status for Asana users to triage their tasks based on
+         * when they can address them. When building an integration it’s worth noting that tasks with due dates
+         * will automatically move through assignee_status states as their due dates approach; read up on task
+         * auto-promotion, https://asana.com/guide/help/fundamentals/my-tasks#gl-auto-promote, for more information
+         * @class
+         * @param {Dispatcher} dispatcher The API dispatcher
+         */
+        interface UserTaskLists extends Resource {
+            /**
+             * Returns the full record for the user task list for the given user
+             * @param {String} user An identifier for the user. Can be one of an email address,
+             * the globally unique identifier for the user, or the keyword `me`
+             * to indicate the current user making the request.
+             * @param {Object} [params] Parameters for the request
+             * @param {String} params.workspace Globally unique identifier for the workspace or organization.
+             * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+             * @return {Promise} The requested resource
+             */
+            findByUser(user: number | string, params?: Params, dispatchOptions?: any): Promise<UserTaskLists.Type>;
+
+            /**
+             * Returns the full record for a user task list.
+             * @param {String} userTaskList Globally unique identifier for the user task list.
+             * @param {Object} [params] Parameters for the request
+             * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+             * @return {Promise} The requested resource
+             */
+            findById(
+                userTaskList: number | string,
+                params?: Params,
+                dispatchOptions?: any,
+            ): Promise<UserTaskLists.Type>;
+
+            /**
+             * Returns the compact list of tasks in a user's My Tasks list. The returned
+             * tasks will be in order within each assignee status group of `Inbox`,
+             * `Today`, and `Upcoming`.
+             *
+             * **Note:** tasks in `Later` have a different ordering in the Asana web app
+             * than the other assignee status groups; this endpoint will still return
+             * them in list order in `Later` (differently than they show up in Asana,
+             * but the same order as in Asana's mobile apps).
+             *
+             * **Note:** Access control is enforced for this endpoint as with all Asana
+             * API endpoints, meaning a user's private tasks will be filtered out if the
+             * API-authenticated user does not have access to them.
+             *
+             * **Note:** Both complete and incomplete tasks are returned by default
+             * unless they are filtered out (for example, setting `completed_since=now`
+             * will return only incomplete tasks, which is the default view for "My
+             * Tasks" in Asana.)
+             * @param {String} userTaskList The user task list in which to search for tasks.
+             * @param {Object} [params] Parameters for the request
+             * @param {String} [params.completed_since] Only return tasks that are either incomplete or that have been
+             * completed since this time.
+             * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
+             * @return {Promise} The response from the API
+             */
+            tasks(userTaskList: number | string, params?: Params, dispatchOptions?: any): Promise<SimpleResourceList>;
         }
 
         interface ResourceStatic {
@@ -2408,6 +2762,13 @@ declare namespace asana {
         }
 
         interface ResourceList<T extends Resource> {
+            /**
+             * Get the next page of results in a collection.
+             *
+             * @returns {Promise<Collection?>} Resolves to either a collection representing
+             *     the next page of results, or null if no more pages.
+             */
+            nextPage(): Promise<ResourceList<T> | null>;
             data: T[];
             _response: {
                 data: T[];
@@ -2421,7 +2782,7 @@ declare namespace asana {
                 retryOnRateLimit: boolean;
                 requestTimeout: number;
                 _cachedVersionInfo: VersionInfo;
-            }
+            };
         }
 
         type SimpleResourceList = ResourceList<Resource>;
@@ -2443,6 +2804,7 @@ declare namespace asana {
         interface Resource {
             id: number;
             name: string;
+            gid: string;
         }
 
         interface PaginationParams extends Params {
@@ -2461,7 +2823,24 @@ declare namespace asana {
 
         interface Membership {
             project: Resource;
-            section: Resource;
+            section: Resource | null;
+        }
+
+        interface Assignee extends Resource {
+            email?: string;
+            workspaces?: Resource[];
+            photo?: { [key: string]: string };
+        }
+
+        interface EnumValue extends Resource {
+            color: string;
+            enabled: boolean;
+        }
+
+        interface CustomField extends Resource {
+            enabled: boolean;
+            enum_options: EnumValue[] | null;
+            enum_value: EnumValue | null;
         }
     }
 

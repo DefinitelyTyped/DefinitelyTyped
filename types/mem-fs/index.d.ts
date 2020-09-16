@@ -10,13 +10,13 @@ import { Transform } from 'stream';
 import * as File from 'vinyl';
 
 export interface Store extends EventEmitter {
-    add: (file: File, content: string) => void;
-    each: (callback: (file: File, index: number) => void) => void;
     get: (filepath: string) => File;
+    add: (file: File) => this;
+    each: (callback: (file: File, index: number) => void) => this;
     stream: () => Transform;
 }
 
-export function create(...args: any[]): Store;
+export function create(): Store;
 
 export namespace memFs {
 }

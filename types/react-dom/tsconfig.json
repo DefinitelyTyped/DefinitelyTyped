@@ -1,10 +1,8 @@
 {
     "files": [
         "index.d.ts",
-        "react-dom-tests.tsx",
-        "server/index.d.ts",
-        "node-stream/index.d.ts",
-        "test-utils/index.d.ts"
+        "test/react-dom-tests.tsx",
+        "test/experimental-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -14,8 +12,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

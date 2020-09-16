@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "typescript": ">2.9.0"
+    }
+}

@@ -8,7 +8,6 @@
 //                 Jonathan Creamer <https://github.com/jcreamer898>
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Spencer Elliott <https://github.com/elliottsj>
-//                 Jason Cheatham <https://github.com/jason0x43>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
 //                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
 //                 Kyle Uehlein <https://github.com/kuehlein>
@@ -389,7 +388,7 @@ declare namespace webpack {
     }
     interface NewLoader {
         loader: string;
-        options?: { [name: string]: any };
+        options?: { [name: string]: any } | string;
     }
     type Loader = string | OldLoader | NewLoader;
 
@@ -455,7 +454,7 @@ declare namespace webpack {
         query?: { [name: string]: any };
     }
     interface NewLoaderRule extends BaseSingleLoaderRule {
-        options?: { [name: string]: any };
+        options?: { [name: string]: any } | string;
     }
     type LoaderRule = OldLoaderRule | NewLoaderRule;
     interface OldUseRule extends BaseDirectRule {

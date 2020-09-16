@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const LifetimeHooks = Ember.Object.extend({
-    resource: null as {} | null,
+    resource: undefined as {} | undefined,
 
     init() {
         this._super();
@@ -64,5 +64,12 @@ export class Foo2 extends Ember.Object {
     Ember.setProperties(this, {
         name
     });
+  }
+
+  bar() {
+      Ember.notifyPropertyChange(this, 'name');
+      Ember.notifyPropertyChange(this); // $ExpectError
+      Ember.notifyPropertyChange('name'); // $ExpectError
+      Ember.notifyPropertyChange(this, 'name', 'bar'); // $ExpectError
   }
 }

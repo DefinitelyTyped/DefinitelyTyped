@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import { assertType } from './lib/assert';
+import { Comment } from './relationships';
 
 declare const store: DS.Store;
 
@@ -12,7 +13,7 @@ class Post extends DS.Model {
 
 declare module 'ember-data/types/registries/model' {
     export default interface ModelRegistry {
-        'post': Post;
+        post: Post;
         'post-comment': PostComment;
     }
 }
@@ -23,6 +24,7 @@ let post = store.createRecord('post', {
 });
 
 post.save(); // => POST to '/posts'
+post.save({ adapterOptions: { makeItSo: 'number one ' } });
 post.save().then(saved => {
     assertType<Post>(saved);
 });
@@ -107,7 +109,7 @@ const SomeComponent = Ember.Object.extend({
     lookUpUsers() {
         assertType<User>(this.get('store').findRecord('user', 123));
         assertType<DS.PromiseArray<User>>(this.get('store').findAll('user'));
-    }
+    },
 });
 
 const MyRouteAsync = Ember.Route.extend({
@@ -119,10 +121,10 @@ const MyRouteAsync = Ember.Route.extend({
         const store = this.get('store');
         return await store.findRecord('post-comment', 1);
     },
-    async afterModel(): Promise<Ember.Array<PostComment>> {
+    async afterModel(): Promise<Ember.Array<Comment>> {
         const post = await this.get('store').findRecord('post', 1);
         return await post.get('comments');
-    }
+    },
 });
 
 class MyRouteAsyncES6 extends Ember.Route {
@@ -132,7 +134,7 @@ class MyRouteAsyncES6 extends Ember.Route {
     async model(): Promise<DS.Model> {
         return await this.store.findRecord('post-comment', 1);
     }
-    async afterModel(): Promise<Ember.Array<PostComment>> {
+    async afterModel(): Promise<Ember.Array<Comment>> {
         const post = await this.store.findRecord('post', 1);
         return await post.get('comments');
     }
@@ -208,3 +210,5 @@ assertType<UserSerializer>(store.serializerFor('user'));
 
 store.unloadAll();
 store.unloadAll('user');
+
+assertType<Ember.Service>(store);

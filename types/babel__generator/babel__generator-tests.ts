@@ -1,23 +1,29 @@
 // Example from https://github.com/babel/babel/tree/master/packages/babel-generator
 import generate from "@babel/generator";
-import { parse } from "@babel/parser";
+import * as t from "@babel/types";
 
 const code = "class Example {}";
-const ast = parse(code);
+declare const ast: t.Node;
 
 ast.type;
 ast.loc!.start;
 
 const output = generate(ast, { /* options */ }, code);
 
-// Example from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-generator
-const result = generate(ast, {
+// Example (originally) from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-generator
+const result = generate(
+  ast,
+  {
     retainLines: false,
-    compact: "auto",
+    compact: 'auto',
     concise: false,
-    quotes: "double",
+    jsescOption: {
+      quotes: 'double',
+    },
     jsonCompatibleStrings: true,
     // ...
-}, code);
+  },
+  code,
+);
 result.code;
 result.map;

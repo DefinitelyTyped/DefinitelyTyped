@@ -1,5 +1,5 @@
 // Type definitions for Acorn 4.0
-// Project: https://github.com/marijnh/acorn
+// Project: https://github.com/acornjs/acorn
 // Definitions by: RReverser <https://github.com/RReverser>, e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -246,9 +246,7 @@ declare namespace acorn {
     let LooseParser: ILooseParserClass | undefined;
     let pluginsLoose: PluginsObject | undefined;
 
-    interface ILooseParserClass {
-        new (input: string, options?: Options): ILooseParser;
-    }
+    type ILooseParserClass = new (input: string, options?: Options) => ILooseParser;
 
     interface ILooseParser {}
 

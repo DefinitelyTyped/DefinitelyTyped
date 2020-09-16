@@ -1,5 +1,5 @@
 // Type definitions for CanvasJS 1.9
-// Project: http://canvasjs.com/
+// Project: http://canvasjs.com/, https://github.com/tsur/canvasjs
 // Definitions by: ShuYin Zhang  <https://github.com/brutalimp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -280,6 +280,23 @@ declare namespace CanvasJS {
          * Example : 10, 20, 30, etc.
          */
         dataPointMaxWidth?: number;
+        /**
+         * dataPointMinWidth sets the minimum width of dataPoints in column / bar, ohlc and candlestick, charts.
+         * This allows you to set a minimum limit on the width of dataPoints so that they don’t become very thin when there are too many dataPoints.
+         * At the same time, when the number of dataPoints decrease, chart increase their width automatically.
+         * Default : 1.
+         * Example : 2, 10, 25, etc.
+         */
+        dataPointMinWidth?: number;
+        /**
+         * dataPointWidth sets the width of dataPoints in column / bar, ohlc and candlestick, charts.
+         * This allows you to fix the width of dataPoints such that their width doesn’t change when the total number of dataPoints varies.
+         * At the same time, when the number of dataPoints increase, it can lead to overlap if dataPointWidth is not set properly.
+         * This allows you to set the width of dataPoints.
+         * Default : Automatically calculated based on the chart size.
+         * Example : 10, 20, 30, etc.
+         */
+        dataPointWidth?: number;
         /**
          * Title allows you to set content, appearance and position of Chart’s Title.
          */

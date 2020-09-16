@@ -1,18 +1,22 @@
-import { FullTree, TreePath, TreeItem, TreeIndex, SearchData, NodeData, TreeNode } from '..';
+import { FullTree, TreePath, TreeItem, TreeIndex, SearchData, NodeData, TreeNode, FlatDataItem } from '..';
 
 export type GetNodeKeyFunction = (data: TreeIndex & TreeNode) => string | number;
 export type WalkAndMapFunctionParameters = FullTree & {getNodeKey: GetNodeKeyFunction, callback: Function, ignoreCollapsed?: boolean};
-export type FlattenedData = Array<TreeNode & TreePath & {lowerSiblingsCounts: number[]}>;
 
 export function getDescendantCount(data: TreeNode & {ignoreCollapsed?: boolean}): number;
 export function getVisibleNodeCount(data: FullTree): number;
 export function getVisibleNodeInfoAtIndex(
     data: FullTree & {
-        targetIndex: number,
+        index: number,
         getNodeKey: GetNodeKeyFunction,
     }): TreeNode & TreePath & {lowerSiblingsCounts: number[]} | null;
 export function walk(data: WalkAndMapFunctionParameters): void;
 export function map(data: WalkAndMapFunctionParameters): TreeItem[];
+export function toggleExpandedForAll(
+    data: FullTree & {
+        expanded?: boolean,
+    },
+): TreeItem[];
 export function changeNodeAtPath(
     data: FullTree & TreePath & {
         newNode: Function | any,
@@ -26,12 +30,18 @@ export function removeNodeAtPath(
         ignoreCollapsed?: boolean,
     },
 ): TreeItem[];
+export function removeNode(
+    data: FullTree & TreePath & {
+        getNodeKey: GetNodeKeyFunction,
+        ignoreCollapsed?: boolean,
+    },
+): (FullTree & TreeNode & TreeIndex) | null;
 export function getNodeAtPath(
     data: FullTree & TreePath & {
         getNodeKey: GetNodeKeyFunction,
         ignoreCollapsed?: boolean,
     },
-): TreeNode & TreeIndex | null;
+): (TreeNode & TreeIndex) | null;
 export function addNodeUnderParent(
     data: FullTree & {
         newNode: TreeItem,
@@ -39,6 +49,7 @@ export function addNodeUnderParent(
         getNodeKey: GetNodeKeyFunction,
         ignoreCollapsed?: boolean,
         expandParent?: boolean,
+        addAsFirstChild?: boolean,
     },
 ): FullTree & TreeIndex;
 export function insertNode(
@@ -56,13 +67,15 @@ export function getFlatDataFromTree(
         getNodeKey: GetNodeKeyFunction,
         ignoreCollapsed?: boolean,
     },
-): Array<TreeNode & TreePath & {lowerSiblingsCounts: number[], parentNode: TreeItem}>;
-export function getTreeFromFlatData(
+): FlatDataItem[];
+export function getTreeFromFlatData<T, K extends keyof T, P extends keyof T, I extends string | number>(
     data: {
-        flatData: FlattenedData,
-        getKey?: GetNodeKeyFunction,
-        getParentKey?: GetNodeKeyFunction,
-        rootKey?: string | number,
+        flatData: T[] | I extends string ? { [key: string]: T } : { [key: number]: T },
+        // tslint:disable-next-line:no-unnecessary-generics
+        getKey?: (item: T) => T[K],
+        // tslint:disable-next-line:no-unnecessary-generics
+        getParentKey?: (item: T) => T[P],
+        rootKey?: I,
     },
 ): TreeItem[];
 export function isDescendant(older: TreeItem, younger: TreeItem): boolean;

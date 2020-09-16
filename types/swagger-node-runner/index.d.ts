@@ -1,5 +1,5 @@
-// Type definitions for swagger-node-runner 0.5
-// Project: https://www.npmjs.com/package/swagger-node-runner
+// Type definitions for swagger-node-runner 0.6
+// Project: https://github.com/theganyo/swagger-node-runner
 // Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -36,6 +36,7 @@ import { Spec } from "swagger-schema-official";
 import { EventEmitter } from "events";
 import * as Hapi from "hapi";
 import * as Restify from "restify";
+import { OutgoingHttpHeaders } from "http";
 
 /**
  * Config object for SwaggerNodeRunner
@@ -117,12 +118,18 @@ export type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
 
 /**
  * @param  callback - Error is returned if request is unauthorized.
- * The Error may include "message", "state", and "code" fields to be conveyed to the client in the response body and a
+ * The Error may include "message", and "code" fields to be conveyed to the client in the response body and a
  * "headers" field containing an object representing headers to be set on the response to the client.
  * In addition, if the Error has a statusCode field, the response statusCode will be set to match -
  * otherwise, the statusCode will be set to 403.
  */
-export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any, scopes: any, callback: (err: Error) => void) => void;
+export interface SwaggerToolsSecurityHandlerCallbackError {
+    code?: string;
+    headers?: OutgoingHttpHeaders;
+    message?: string;
+    statusCode?: number;
+}
+export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any, scopes: any, callback: (err?: Error | SwaggerToolsSecurityHandlerCallbackError, result?: any) => void) => void;
 
 /**
  *  The keys match SecurityDefinition names and the associated values are functions that accept the following parameters:

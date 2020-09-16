@@ -1,32 +1,33 @@
+import { load, loadSync, parse, Glyph, Font, Path, PathCommand } from "opentype.js";
+
 const x = 0;
 const y = 0;
 const fontSize = 72;
-let ctx: CanvasRenderingContext2D;
+const canvas: HTMLCanvasElement = document.createElement("canvas");
+const ctx = canvas.getContext("2d")!;
 
-opentype.load('fonts/Roboto-Black.ttf', (err, font) => {
+load('fonts/Roboto-Black.ttf', (err, font) => {
     if (err) {
         alert('Font could not be loaded: ' + err);
     } else {
-        const path = font.getPath('Hello, World!', 0, 150, 72);
-        // If you just want to draw the text you can also use font.draw(ctx, text, x, y, fontSize).
+        const path = font!.getPath('Hello, World!', 0, 150, 72);
         path.draw(ctx);
     }
 });
 
-let myBuffer: ArrayBuffer;
-let font = opentype.parse(myBuffer);
-font = opentype.loadSync('fonts/Roboto-Black.ttf');
+let font = parse(new ArrayBuffer(0));
+font = loadSync('fonts/Roboto-Black.ttf', {lowMemory: true });
 
-const notdefGlyph = new opentype.Glyph({
+const notdefGlyph = new Glyph({
     name: '.notdef',
     unicode: 0,
     advanceWidth: 650,
-    path: new opentype.Path()
+    path: new Path()
 });
 
-const aPath = new opentype.Path();
+const aPath = new Path();
 // more drawing instructions...
-const aGlyph = new opentype.Glyph({
+const aGlyph = new Glyph({
     name: 'A',
     unicode: 65,
     advanceWidth: 650,
@@ -34,7 +35,7 @@ const aGlyph = new opentype.Glyph({
 });
 
 const glyphs = [notdefGlyph, aGlyph];
-const fontGenerated = new opentype.Font({
+const fontGenerated = new Font({
     familyName: 'OpenTypeSans',
     styleName: 'Medium',
     unitsPerEm: 1000,
@@ -113,7 +114,19 @@ aPath.extend(aPath);
 aPath.extend(aPath.commands);
 aPath.extend(aPath.getBoundingBox());
 const pathBBox: opentype.BoundingBox = aPath.getBoundingBox();
+pathBBox.addQuad(1, 1, 1, 1, 1, 1);
+const yDist = pathBBox.y2 - pathBBox.y1;
 aPath.draw(ctx);
 const pathData: string = aPath.toPathData(7);
 const pathSvg: string = aPath.toSVG(7);
 const pathDom: SVGPathElement = aPath.toDOMElement(7);
+const pathCommands: PathCommand[] = aPath.commands;
+const pathFill: string | null = aPath.fill;
+const pathStroke: string | null = aPath.stroke;
+const pathStrokeWidth: number =  aPath.strokeWidth;
+
+async function make() {
+    const font = await load('fonts/Roboto-Black.ttf');
+    const path = font.getPath('Hello, World!', 0, 150, 72);
+    console.log(path);
+}

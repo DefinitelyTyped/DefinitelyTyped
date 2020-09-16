@@ -1,10 +1,123 @@
 // Type definitions for stick 1.6.0
 // Project: http://kenwheeler.github.io/slick/
 // Definitions by: John Gouigouix <https://github.com/orchestra-ts/DefinitelyTyped/>
+//                 Hugo Alliaume <https://github.com/Kocal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
+
+interface JQuerySlick extends JQuerySlickInitials {
+    defaults: JQuerySlickOptions;
+    options: JQuerySlickOptions;
+    originalSettings: JQuerySlickOptions;
+    initials: JQuerySlickInitials;
+
+    /**
+     * Default: null
+     */
+    activeBreakpoint: number | null;
+
+    /**
+     * Default: null
+     */
+    animType: 'OTransform' | 'MozTransform' | 'webkitTransform' | 'msTransform' | 'transform' | false | null;
+
+    /**
+     * Default: null
+     */
+    animProp: null;
+
+    /**
+     * Default: []
+     */
+    breakpoints: number[];
+
+    /**
+     * Default: {}
+     */
+    breakpointSettings: { [breakpoint: number]: JQuerySlickOptions };
+
+    /**
+     * Default: false
+     */
+    cssTransitions: boolean;
+
+    /**
+     * Default: false
+     */
+    focussed: boolean;
+
+    /**
+     * Default: false
+     */
+    interrupted: boolean;
+
+    /**
+     * Default: 'hidden'
+     */
+    hidden: 'mozHidden' | 'webkitHidden' | 'hidden';
+
+    /**
+     * Default: true
+     */
+    paused: boolean;
+
+    /**
+     * Default: null
+     */
+    positionProp: 'top' | 'left' | null;
+
+    /**
+     * Default: null
+     */
+    respondTo: 'window' | 'slider' | 'min' | null;
+
+    /**
+     * Default: 1
+     */
+    rowCount: number;
+
+    /**
+     * Default: true
+     */
+    shouldClick: boolean;
+
+    /**
+     * Default: $(element)
+     */
+    $slider: JQuery;
+
+    /**
+     * Default: null
+     */
+    $slidesCache: JQuery | null;
+
+    /**
+     * Default: null
+     */
+    transformType: '-o-transform' | '-moz-transform' | '-webkit-transform' | '-ms-transform' | 'transition' | null;
+
+    /**
+     * Default: null
+     */
+    transitionType: 'OTransition' | 'MozTransition' | 'webkitTransition' | 'msTransition' | 'transition' | null;
+
+    /**
+     * Default: 'visibilitychange'
+     */
+    visibilityChange: 'visibilitychange' | 'mozvisibilitychange' | 'webkitvisibilitychange';
+
+    /**
+     * Default: 0
+     */
+    windowWidth: number;
+
+    /**
+     * Default: null
+     */
+    windowTimer: number | null;
+}
 
 interface JQuerySlickOptions {
 
@@ -116,6 +229,12 @@ interface JQuerySlickOptions {
      * Default: false
      */
     fade?: boolean;
+
+    /**
+     * Puts focus on slide after change
+     * Default: false
+     */
+    focusOnChange?: boolean;
 
     /**
      * Enable focus on selected element (click)
@@ -298,9 +417,170 @@ interface JQuerySlickOptions {
      * Default: 1000
      */
     zIndex?: number;
-    
+
 }
 
+interface JQuerySlickInitials {
+    /**
+     * When there is an animation running.
+     * Default: false
+     */
+    animating: boolean;
+
+    /**
+     * When they user is dragging a slide.
+     * Default: false
+     */
+    dragging: boolean;
+
+    /**
+     * Internal `setInterval` identifier.
+     * Default: null
+     */
+    autoPlayTimer: number|null;
+
+    /**
+     * The current direction (`0` for left and down, `1` for right and up).
+     * Default: 0
+     */
+    currentDirection: number;
+
+    /**
+     * Default: null
+     */
+    currentLeft: number|null;
+
+    /**
+     * The index of the current slide.
+     * Default: 0
+     */
+    currentSlide: number;
+
+    /**
+     * The direction (`0` for left and down, `1` for right and up).
+     * Default: null
+     */
+    direction: number;
+
+    /**
+     * jQuery instance that contains the "dots".
+     * Default: null
+     */
+    $dots: JQuery | null;
+
+    /**
+     * The list's width in pixels.
+     * Default: null
+     */
+    listWidth: number|null;
+
+    /**
+     * The list's height in pixels.
+     * Default: null
+     */
+    listHeight: number|null;
+
+    /**
+     * (actually it's not used in Slick, so I don't know what it is...)
+     * Default: 0
+     */
+    loadIndex: number;
+
+    /**
+     * jQuery instance that contains the "next arrow".
+     * Default: null
+     */
+    $nextArrow: JQuery | null;
+
+    /**
+     * jQuery instance that contains the "prev arrow".
+     * Default: null
+     */
+    $prevArrow: JQuery | null;
+
+    /**
+     * When they user is scrolling a slide.
+     * Default: false
+     */
+    scrolling: boolean;
+
+    /**
+     * The number of slides.
+     * Default: null
+     */
+    slideCount: number | null;
+
+    /**
+     * The slide's width in pixels.
+     * Default: null
+     */
+    slideWidth: Number | null;
+
+    /**
+     * jQuery instance that contains the "slide track".
+     * Default: null
+     */
+    $slideTrack: JQuery | null;
+
+    /**
+     * jQuery instance that contains the "slides".
+     * Default: null
+     */
+    $slides: JQuery | null;
+
+    /**
+     * When the slider is sliding.
+     * Default: false
+     */
+    sliding: boolean;
+
+    /**
+     * Slide offset in pixels.
+     * Default: 0
+     */
+    slideOffset: number;
+
+    /**
+     * Default: null
+     */
+    swipeLeft: number | null;
+
+    /**
+     * Default: false
+     */
+    swiping: boolean;
+
+    /**
+     * jQuery instance that contains the "list".
+     * Default: null
+     */
+    $list: null;
+
+    /**
+     * Object that contains properties relative to "touch" behavior.
+     */
+    touchObject: {
+        startX?: number;
+        startY?: number;
+        curX?: number;
+        curY?: number;
+        swipeLength?: number;
+        edgeHit?: boolean;
+        minSwipe?: number;
+        fingerCount?: number;
+        verticalSwiping?: boolean;
+    };
+
+    /**
+     * Default: false
+     */
+    transformsEnabled: boolean;
+
+    /**
+     * Default: false
+     */
+    unslicked: boolean;
+}
 
 interface JQuery {
 
@@ -421,6 +701,6 @@ interface JQuery {
      * Get Slick Object
      * @param methodName The name of the method
      */
-    slick(methodName: "getSlick"): Object;
+    slick(methodName: "getSlick"): JQuerySlick;
 
 }

@@ -9,12 +9,10 @@ Physijs.scripts.ammo = 'examples/js/ammo.js';
 
 var initScene, render,
     ground_material, box_material,
-    projector, renderer, render_stats, physics_stats, scene, ground, light, camera,
+    renderer, render_stats, physics_stats, scene, ground, light, camera,
     vehicle_body, vehicle;
 
 initScene = function() {
-    projector = new THREE.Projector;
-
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.shadowMapEnabled = true;
@@ -186,11 +184,11 @@ initScene = function() {
                 );
             }
 
-            input = <any>{
+            input = {
                 power: null,
                 direction: null,
                 steering: 0
-            };
+            } as any;
             document.addEventListener('keydown', function( ev ) {
                 switch ( ev.keyCode ) {
                     case 37: // left

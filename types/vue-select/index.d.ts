@@ -1,4 +1,4 @@
-// Type definitions for vue-select 2.4
+// Type definitions for vue-select 2.5
 // Project: https://github.com/sagalbot/vue-select#readme
 // Definitions by: Ilia Beliaev <https://github.com/silh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,6 +14,7 @@ export interface VueSelectProps {
     value: any;
     options: any[];
     disabled: boolean;
+    clearable: boolean;
     maxHeight: string;
     searchable: boolean;
     multiple: boolean;
@@ -22,17 +23,24 @@ export interface VueSelectProps {
     clearSearchOnSelect: boolean;
     closeOnSelect: boolean;
     label: string;
+    autocomplete: string;
+    index: string | null;
     getOptionLabel: (option: any) => string;
-    onChange: OptionConsumer;
+    onChange: (val: any) => void;
+    onInput: (val: any) => void;
+    onTab: () => void;
     taggable: boolean;
     tabindex: number | null;
     pushTags: boolean;
     filterable: boolean;
+    filterBy: (option: any, label: string, search: string) => boolean;
+    filter: (options: any[], search: string) => boolean;
     createOption: (option: any) => any;
     resetOnOptionsChange: boolean;
     noDrop: boolean;
     inputId: string | null;
     dir: string;
+    selectOnTab: boolean;
 }
 
 export interface VueSelectData {

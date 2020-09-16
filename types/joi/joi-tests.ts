@@ -19,28 +19,28 @@ declare const expArr: RegExp[];
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let schema: Joi.Schema = null;
+let schema: Joi.Schema = Joi.any();
 declare const schemaLike: Joi.SchemaLike;
 
-let anySchema: Joi.AnySchema = null;
-let numSchema: Joi.NumberSchema = null;
-let strSchema: Joi.StringSchema = null;
-let arrSchema: Joi.ArraySchema = null;
-let boolSchema: Joi.BooleanSchema = null;
-let binSchema: Joi.BinarySchema = null;
-let dateSchema: Joi.DateSchema = null;
-let funcSchema: Joi.FunctionSchema = null;
-let objSchema: Joi.ObjectSchema = null;
-let altSchema: Joi.AlternativesSchema = null;
+let anySchema: Joi.AnySchema = Joi.any();
+let numSchema: Joi.NumberSchema = Joi.number();
+let strSchema: Joi.StringSchema = Joi.string();
+let arrSchema: Joi.ArraySchema = Joi.array();
+let boolSchema: Joi.BooleanSchema = Joi.boolean();
+let binSchema: Joi.BinarySchema = Joi.binary();
+let dateSchema: Joi.DateSchema = Joi.date();
+let funcSchema: Joi.FunctionSchema = Joi.func();
+let objSchema: Joi.ObjectSchema = Joi.object();
+let altSchema: Joi.AlternativesSchema = Joi.alternatives();
 
 declare const schemaArr: Joi.Schema[];
 
-let ref: Joi.Reference = null;
-let description: Joi.Description = null;
+let ref: Joi.Reference = Joi.ref('test');
+let description: Joi.Description = {};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let validOpts: Joi.ValidationOptions = null;
+let validOpts: Joi.ValidationOptions = {};
 
 validOpts = { abortEarly: bool };
 validOpts = { convert: bool };
@@ -72,7 +72,7 @@ validOpts = {
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let renOpts: Joi.RenameOptions = null;
+let renOpts: Joi.RenameOptions = {};
 
 renOpts = { alias: bool };
 renOpts = { multiple: bool };
@@ -81,7 +81,7 @@ renOpts = { ignoreUndefined: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let emailOpts: Joi.EmailOptions = null;
+let emailOpts: Joi.EmailOptions = {};
 
 emailOpts = { errorLevel: num };
 emailOpts = { errorLevel: bool };
@@ -91,13 +91,13 @@ emailOpts = { minDomainAtoms: num };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let hexOpts: Joi.HexOptions = null;
+let hexOpts: Joi.HexOptions = {};
 
 hexOpts = { byteAligned: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let ipOpts: Joi.IpOptions = null;
+let ipOpts: Joi.IpOptions = {};
 
 ipOpts = { version: str };
 ipOpts = { version: strArr };
@@ -105,7 +105,7 @@ ipOpts = { cidr: str };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let uriOpts: Joi.UriOptions = null;
+let uriOpts: Joi.UriOptions = {};
 
 uriOpts = { scheme: str };
 uriOpts = { scheme: exp };
@@ -114,19 +114,21 @@ uriOpts = { scheme: expArr };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let base64Opts: Joi.Base64Options = null;
+let base64Opts: Joi.Base64Options = {};
 
 base64Opts = { paddingRequired: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let dataUriOpts: Joi.DataUriOptions = null;
+let dataUriOpts: Joi.DataUriOptions = {};
 
 dataUriOpts = { paddingRequired: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let whenOpts: Joi.WhenOptions = null;
+let whenOpts: Joi.WhenOptions = {
+    is: Joi.any(),
+};
 
 whenOpts = { is: x };
 whenOpts = { is: schema, then: schema };
@@ -135,7 +137,7 @@ whenOpts = { is: schemaLike, then: schemaLike, otherwise: schemaLike };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let whenSchemaOpts: Joi.WhenSchemaOptions = null;
+let whenSchemaOpts: Joi.WhenSchemaOptions = {};
 
 whenSchemaOpts = { then: schema };
 whenSchemaOpts = { otherwise: schema };
@@ -143,14 +145,14 @@ whenSchemaOpts = { then: schemaLike, otherwise: schemaLike };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let refOpts: Joi.ReferenceOptions = null;
+let refOpts: Joi.ReferenceOptions = {};
 
 refOpts = { separator: str };
 refOpts = { contextPrefix: str };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let stringRegexOpts: Joi.StringRegexOptions = null;
+let stringRegexOpts: Joi.StringRegexOptions = {};
 
 stringRegexOpts = { name: str };
 stringRegexOpts = { invert: bool };
@@ -204,7 +206,7 @@ anySchema = objSchema;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-let schemaMap: Joi.SchemaMap = null;
+let schemaMap: Joi.SchemaMap = {};
 
 schemaMap = {
     a: numSchema,
@@ -246,6 +248,7 @@ anySchema = Joi.any();
     anySchema = anySchema.allow(x);
     anySchema = anySchema.allow(x, x);
     anySchema = anySchema.allow([x, x, x]);
+    anySchema = anySchema.bind();
     anySchema = anySchema.valid(x);
     anySchema = anySchema.valid(x, x);
     anySchema = anySchema.valid([x, x, x]);
@@ -302,12 +305,14 @@ anySchema = Joi.any();
 
     anySchema = anySchema.error(err);
     anySchema = anySchema.error(validErrFunc);
+    anySchema = anySchema.error(validErrFunc, { self: true });
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 arrSchema = Joi.array();
 
+arrSchema = arrSchema.has(Joi.any());
 arrSchema = arrSchema.sparse();
 arrSchema = arrSchema.sparse(bool);
 arrSchema = arrSchema.single();
@@ -323,6 +328,7 @@ arrSchema = arrSchema.length(ref);
 arrSchema = arrSchema.unique();
 arrSchema = arrSchema.unique((a, b) => a.test === b.test);
 arrSchema = arrSchema.unique('customer.id');
+arrSchema = arrSchema.unique('customer.id', {ignoreUndefined: true});
 
 arrSchema = arrSchema.items(numSchema);
 arrSchema = arrSchema.items(numSchema, strSchema, schemaLike);
@@ -618,6 +624,7 @@ numSchema = numSchema.greater(ref);
 numSchema = numSchema.less(num);
 numSchema = numSchema.less(ref);
 numSchema = numSchema.integer();
+numSchema = numSchema.unsafe();
 numSchema = numSchema.precision(num);
 numSchema = numSchema.multiple(num);
 numSchema = numSchema.positive();
@@ -700,10 +707,17 @@ objSchema = objSchema.nand(str, str);
 objSchema = objSchema.nand(str, str, str);
 objSchema = objSchema.nand(strArr);
 
+objSchema = objSchema.schema();
+
 objSchema = objSchema.or(str);
 objSchema = objSchema.or(str, str);
 objSchema = objSchema.or(str, str, str);
 objSchema = objSchema.or(strArr);
+
+objSchema = objSchema.oxor(str);
+objSchema = objSchema.oxor(str, str);
+objSchema = objSchema.oxor(str, str, str);
+objSchema = objSchema.oxor(strArr);
 
 objSchema = objSchema.xor(str);
 objSchema = objSchema.xor(str, str);

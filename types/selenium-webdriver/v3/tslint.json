@@ -1,0 +1,21 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "align": false,
+        "ban-types": false,
+        "callable-types": false,
+        "interface-name": false,
+        "jsdoc-format": false,
+        "no-any-union": false,
+        "no-empty-interface": false,
+        "no-inferrable-types": false,
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false,
+        "no-redundant-undefined": false,
+        "no-unnecessary-class": false,
+        "no-unnecessary-generics": false,
+        "prefer-const": false,
+        "semicolon": false,
+        "unified-signatures": false
+    }
+}

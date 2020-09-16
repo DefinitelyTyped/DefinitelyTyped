@@ -1,7 +1,7 @@
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// TODO
-		"dt-header": false
-	}
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "npm-naming": false
+    }
 }

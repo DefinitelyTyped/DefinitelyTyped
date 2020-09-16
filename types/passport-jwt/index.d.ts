@@ -5,6 +5,7 @@
 //                 David Ng <https://github.com/davidNHK/>
 //                 Carlos Eduardo Scheffer <https://github.com/carlosscheffer/>
 //                 Byungjin Kim <https://github.com/jindev>
+//                 Svyatoslav Bychkov <https://github.com/stbychkov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,6 +16,7 @@ import { VerifyOptions } from 'jsonwebtoken'
 export declare class Strategy extends PassportStrategy {
     constructor(opt: StrategyOptions, verify: VerifyCallback);
     constructor(opt: StrategyOptions, verify: VerifyCallbackWithRequest);
+    name: string;
 }
 
 export interface StrategyOptions {
@@ -42,7 +44,7 @@ export interface VerifiedCallback {
 }
 
 export interface JwtFromRequestFunction {
-    (req: Request): string;
+    (req: Request): string | null;
 }
 
 export declare namespace ExtractJwt {

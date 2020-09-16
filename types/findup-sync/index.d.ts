@@ -1,14 +1,23 @@
-// Type definitions for findup-sync v0.3.0
-// Project: https://github.com/cowboy/node-findup-sync
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Nathan Brown <https://github.com/ngbrown>
+// Type definitions for findup-sync 2.0
+// Project: https://github.com/gulpjs/findup-sync
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Nathan Brown <https://github.com/ngbrown>
+//                 BendingBender <https://github.com/BendingBender>
+//                 Kotaro Sugawara <https://github.com/kotarella1110>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-import minimatch = require('minimatch');
+import micromatch = require('micromatch');
 
-interface IOptions extends minimatch.IOptions {
-    cwd?: string;
+export = findupSync;
+
+declare function findupSync(
+    patternOrPatterns: string[] | string,
+    micromatchOptions?: findupSync.Options
+): string | null;
+
+declare namespace findupSync {
+    interface Options extends micromatch.Options {
+        cwd?: string;
+    }
 }
-
-declare function mod(pattern: string[] | string, opts?: IOptions): string;
-
-export = mod;

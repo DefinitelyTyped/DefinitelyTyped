@@ -6,6 +6,10 @@ instance.checkOverflow();
 instance.close();
 instance.close();
 
+instance.setContent("string content");
+instance.setContent(new Node());
+instance.setContent(new DocumentFragment());
+
 instance = new modal({
     onOpen() {
         this.checkOverflow();
@@ -15,9 +19,6 @@ instance = new modal({
     },
 });
 
-instance.addFooterBtn('text', undefined, function(e) {
-    e.x;
-    this.innerText;
-});
+instance.addFooterBtn('text', undefined, e => e.x);
 
 instance.setStickyFooter(false);

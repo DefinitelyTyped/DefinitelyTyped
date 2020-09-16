@@ -1,10 +1,11 @@
-// Type definitions for react-native-snap-carousel 3.7
+// Type definitions for react-native-snap-carousel 3.8
 // Project: https://github.com/archriss/react-native-snap-carousel
 // Definitions by: jnbt <https://github.com/jnbt>
 //                 Jacob Froman <https://github.com/j-fro>
 //                 Nikolay Polukhin <https://github.com/gazaret>
 //                 Guillaume Amat <https://github.com/GuillaumeAmat>
 //                 Vitor Luiz Cavalcanti <https://github.com/VitorLuizC>
+//                 Lemon Garrett <https://github.com/egarrett94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -31,7 +32,7 @@ export interface AdditionalParallaxProps {
     vertical?: boolean;
 }
 
-export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
+export interface CarouselProps<T> {
     // Required
 
     /**
@@ -103,6 +104,10 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
      * will not be passed to carousel items if this is false
      */
     hasParallaxImages?: boolean;
+    /**
+     * How many items should be rendered at the start?
+     */
+    initialNumToRender?: number;
     /**
      * Prevent the user from interacting with the carousel while it is snapping. Ignored
      * if `enableMomentum` is `true`
@@ -258,45 +263,7 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
     onBeforeSnapToItem?(slideIndex: number): void;
 }
 
-export interface CarouselStatic<T> extends React.ComponentClass<CarouselProps<T>> {
-    /**
-     * Current active item (int, starts at 0)
-     */
-    currentIndex: number;
-    /**
-     * Underlying ScrollView's current content offset
-     * (int, starts at 0 if activeSlideAlignment is set to start, negative value otherwise)
-     */
-    currentScrollPosition: number;
-    /**
-     * Start the autoplay manually
-     */
-    startAutoplay(instantly?: boolean): void;
-    /**
-     * Stop the autoplay manually
-     */
-    stopAutoplay(): void;
-    /**
-     * Snap to an item manually
-     */
-    snapToItem(index: number, animated?: boolean, fireCallback?: boolean): void;
-    /**
-     * Snap to next item manually
-     */
-    snapToNext(animated?: boolean, fireCallback?: boolean): void;
-    /**
-     * Snap to previous item manually
-     */
-    snapToPrev(animated?: boolean, fireCallback?: boolean): void;
-    /**
-     * Call this when needed to work around a random FlatList bug that keeps content hidden until the carousel is scrolled
-     * (see #238). Note that the offset parameter is not required and will default to either 1 or -1 depending
-     * on the current scroll position
-     */
-    triggerRenderingHack(offset: number): void;
-}
-
-export type CarouselProperties<T> = ScrollViewProps & CarouselProps<T> & React.Props<CarouselStatic<T>>;
+export type CarouselProperties<T> = ScrollViewProps & FlatListProps<T> & CarouselProps<T>;
 
 export interface ParallaxImageProps extends ImageProps, AdditionalParallaxProps {
     /**
@@ -333,6 +300,18 @@ export class ParallaxImage extends React.Component<ParallaxImageProperties> { }
 
 export interface PaginationProps {
     /**
+     * Length of dot animation (milliseconds)
+     */
+    animatedDuration?: number;
+    /**
+     * Controls "bounciness"/overshoot on dot animation
+     */
+    animatedFriction?: number;
+    /**
+     * Controls speed dot animation
+     */
+    animatedTension?: number;
+    /**
      * Number of dots to display
      */
     dotsLength: number;
@@ -353,6 +332,10 @@ export interface PaginationProps {
      * Style for dots' container that will be merged with the default one
      */
     containerStyle?: StyleProp<ViewStyle>;
+    /**
+     * Delay in ms, from the start of the touch, before onPressIn is called on dot
+     */
+    delayPressInDot?: number;
     /**
      * Background color of the active dot.
      * Use this if you want to animate the change between active and inactive colors,
@@ -418,4 +401,54 @@ export type PaginationProperties = PaginationProps & React.Props<PaginationStati
 
 export class Pagination extends React.Component<PaginationProperties> { }
 
-export default class Carousel<T> extends React.Component<CarouselProperties<T>> { }
+export default class Carousel<T> extends React.Component<CarouselProperties<T>> {
+    /**
+     * Current active item (int, starts at 0)
+     */
+    currentIndex: number;
+    /**
+     * Underlying ScrollView's current content offset
+     * (int, starts at 0 if activeSlideAlignment is set to start, negative value otherwise)
+     */
+    currentScrollPosition: number;
+    /**
+     * Start the autoplay manually
+     */
+    startAutoplay(instantly?: boolean): void;
+    /**
+     * Stop the autoplay manually
+     */
+    stopAutoplay(): void;
+    /**
+     * Snap to an item manually
+     */
+    snapToItem(index: number, animated?: boolean, fireCallback?: boolean): void;
+    /**
+     * Snap to next item manually
+     */
+    snapToNext(animated?: boolean, fireCallback?: boolean): void;
+    /**
+     * Snap to previous item manually
+     */
+    snapToPrev(animated?: boolean, fireCallback?: boolean): void;
+    /**
+     * Call this when needed to work around a random FlatList bug that keeps content hidden until the carousel is scrolled
+     * (see #238). Note that the offset parameter is not required and will default to either 1 or -1 depending
+     * on the current scroll position
+     */
+    triggerRenderingHack(offset?: number): void;
+}
+
+/**
+ * Get scroll interpolator's input range from an array of slide indexes
+ * Indexes are relative to the current active slide (index 0)
+ * For example, using [3, 2, 1, 0, -1] will return:
+ * [
+ *     (index - 3) * sizeRef, // active + 3
+ *     (index - 2) * sizeRef, // active + 2
+ *     (index - 1) * sizeRef, // active + 1
+ *     index * sizeRef, // active
+ *     (index + 1) * sizeRef // active - 1
+ * ]
+ */
+export function getInputRangeFromIndexes(range: number[], index: number, carouselProps: CarouselProps<any>): number[];

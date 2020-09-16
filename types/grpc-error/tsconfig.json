@@ -13,7 +13,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-		"index.d.ts",
-		"grpc-error-tests.ts"
-	]
+        "index.d.ts",
+        "grpc-error-tests.ts"
+    ]
 }

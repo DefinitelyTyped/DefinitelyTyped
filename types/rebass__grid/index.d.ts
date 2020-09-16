@@ -4,71 +4,43 @@
 //                 Victor Orlov <https://github.com/vittorio>
 //                 Louis Hache <https://github.com/lhache>
 //                 Adam Lavin <https://github.com/lavoaster>
+//                 Erin Noe-Payne <https://github.com/autoric>
+//                 akameco <https://github.com/akameco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+import * as React from "react";
+import * as StyledSystem from "styled-system";
 
-import { ComponentType } from "react";
-import { StyledComponent, Interpolation } from "styled-components";
+export {};
 
-export type ResponsiveProp = number | string | Array<string | number>;
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-export interface CommonProps {
-    width?: ResponsiveProp;
-    fontSize?: ResponsiveProp;
-    color?: ResponsiveProp;
-    bg?: ResponsiveProp;
-    m?: ResponsiveProp;
-    mt?: ResponsiveProp;
-    mr?: ResponsiveProp;
-    mb?: ResponsiveProp;
-    ml?: ResponsiveProp;
-    mx?: ResponsiveProp;
-    my?: ResponsiveProp;
-    p?: ResponsiveProp;
-    pt?: ResponsiveProp;
-    pr?: ResponsiveProp;
-    pb?: ResponsiveProp;
-    pl?: ResponsiveProp;
-    px?: ResponsiveProp;
-    py?: ResponsiveProp;
-    theme?: any;
-    css?: Interpolation<any>;
+export interface BaseProps extends React.Props<any> {
+    as?: React.ElementType;
 }
 
+interface BoxKnownProps
+    extends BaseProps,
+        StyledSystem.SpaceProps,
+        StyledSystem.WidthProps,
+        StyledSystem.FontSizeProps,
+        StyledSystem.ColorProps,
+        StyledSystem.FlexProps,
+        StyledSystem.OrderProps,
+        StyledSystem.AlignSelfProps {}
 export interface BoxProps
-    extends Omit<React.ComponentPropsWithRef<'div'>, "color" | "is">, CommonProps {
-    flex?: ResponsiveProp;
-    order?: ResponsiveProp;
-    is?: string | ComponentType<any>;
-    alignSelf?: ResponsiveProp;
-}
+    extends BoxKnownProps,
+        Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
+export const Box: React.FunctionComponent<BoxProps>;
 
-export interface FlexProps extends BoxProps {
-    alignItems?: ResponsiveProp;
-    justifyContent?: ResponsiveProp;
-    flexDirection?: ResponsiveProp;
-    flexWrap?: ResponsiveProp;
-}
-
-export type BoxComponent = StyledComponent<
-    React.ForwardRefExoticComponent<Partial<BoxProps>>,
-    any
->;
-
-export type FlexComponent = StyledComponent<
-    React.ForwardRefExoticComponent<Partial<FlexProps>>,
-    any
->;
-
-export interface Theme {
-    breakpoints: string[];
-    space?: number[];
-    fontSizes?: number[];
-}
-
-export const Box: BoxComponent;
-export const Flex: FlexComponent;
-export const theme: Theme;
-export const div: ComponentType<React.HTMLProps<HTMLDivElement>>;
+interface FlexKnownProps
+    extends BoxKnownProps,
+        StyledSystem.FlexWrapProps,
+        StyledSystem.FlexDirectionProps,
+        StyledSystem.AlignItemsProps,
+        StyledSystem.JustifyContentProps {}
+export interface FlexProps
+    extends FlexKnownProps,
+        Omit<React.HTMLProps<HTMLDivElement>, keyof FlexKnownProps> {}
+export const Flex: React.FunctionComponent<FlexProps>;

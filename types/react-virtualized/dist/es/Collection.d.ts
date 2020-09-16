@@ -1,4 +1,4 @@
-import { PureComponent, Validator, Requireable } from "react";
+import { PureComponent, Validator, Requireable } from 'react';
 import {
     Alignment,
     Index,
@@ -6,8 +6,8 @@ import {
     ScrollPosition,
     SectionRenderedParams,
     SizeInfo,
-    SizeAndPositionInfo
-} from "../../index";
+    SizeAndPositionInfo,
+} from '../../index';
 
 export type CollectionCellSizeAndPosition = {
     height: number;
@@ -15,29 +15,23 @@ export type CollectionCellSizeAndPosition = {
     x: number;
     y: number;
 };
-export type CollectionCellSizeAndPositionGetter = (
-    params: Index
-) => CollectionCellSizeAndPosition;
+export type CollectionCellSizeAndPositionGetter = (params: Index) => CollectionCellSizeAndPosition;
 
 export type CollectionCellGroupRendererParams = {
     cellSizeAndPositionGetter: CollectionCellSizeAndPositionGetter;
     indices: number[];
     cellRenderer: CollectionCellRenderer;
 };
-export type CollectionCellGroupRenderer = (
-    params: CollectionCellGroupRendererParams
-) => React.ReactNode[];
+export type CollectionCellGroupRenderer = (params: CollectionCellGroupRendererParams) => React.ReactNode[];
 export type CollectionCellRendererParams = {
     index: number;
     isScrolling: boolean;
     key: number;
     style: React.CSSProperties;
 };
-export type CollectionCellRenderer = (
-    params: CollectionCellRendererParams
-) => React.ReactNode;
+export type CollectionCellRenderer = (params: CollectionCellRendererParams) => React.ReactNode;
 export type CollectionProps = {
-    "aria-label"?: string;
+    'aria-label'?: string;
     /**
      * Outer height of Collection is set to "auto". This property should only be
      * used in conjunction with the WindowScroller HOC.
@@ -134,18 +128,16 @@ export type CollectionProps = {
  */
 export class Collection extends PureComponent<CollectionProps> {
     static propTypes: {
-        "aria-label": Requireable<string>;
+        'aria-label': Requireable<string>;
         cellCount: Validator<number>;
         cellGroupRenderer: Validator<CollectionCellGroupRenderer>;
         cellRenderer: Validator<CollectionCellRenderer>;
-        cellSizeAndPositionGetter: Validator<
-            CollectionCellSizeAndPositionGetter
-        >;
+        cellSizeAndPositionGetter: Validator<CollectionCellSizeAndPositionGetter>;
         sectionSize: Requireable<number>;
     };
 
     static defaultProps: {
-        "aria-label": "grid";
+        'aria-label': 'grid';
         cellGroupRenderer: CollectionCellGroupRenderer;
     };
 
@@ -167,7 +159,7 @@ export class Collection extends PureComponent<CollectionProps> {
      * Calculates the minimum amount of change from the current scroll position to ensure the specified cell is (fully) visible.
      */
     getScrollPositionForCell(params: {
-        align: "auto" | "start" | "end" | "center";
+        align: 'auto' | 'start' | 'end' | 'center';
         cellIndex: number;
         height: number;
         scrollLeft: number;

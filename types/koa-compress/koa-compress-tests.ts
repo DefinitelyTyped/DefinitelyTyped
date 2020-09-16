@@ -7,7 +7,14 @@ app.use(compress({
     filter: (ctype) => {
         return /text/i.test(ctype)
     },
-    threshold: 2048
+    threshold: 2048,
+    gzip: {
+      flush: require('zlib').Z_SYNC_FLUSH
+    },
+    deflate: {
+      flush: require('zlib').Z_SYNC_FLUSH,
+    },
+    br: false // disable brotli
 }));
 
 app.listen(80)

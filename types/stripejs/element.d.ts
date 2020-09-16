@@ -163,10 +163,15 @@ export interface StripeElement {
  * The type of element that can be created by the ElementCreator
  * @see ElementCreator
  */
-export type ElementType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode';
+export type ElementType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton';
 
 // --- ELEMENT EVENTS --- //
 export interface OnChange {
+    /**
+     * The type of the Element that changed.
+     */
+    elementType: ElementType;
+
     /**
      * true if the value is empty
      */
@@ -295,6 +300,7 @@ export interface PaymentButtonOptions {
         complete?: PaymentRequestButtonStyle;
         empty?: PaymentRequestButtonStyle;
         invalid?: PaymentRequestButtonStyle;
+        paymentRequestButton?: PaymentRequestButtonStyle;
     };
 }
 

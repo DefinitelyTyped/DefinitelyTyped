@@ -1,4 +1,4 @@
-// Type definitions for slate 0.43
+// Type definitions for slate 0.47
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -7,18 +7,26 @@
 //                 Kalley Powell <https://github.com/kalley>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
-//                 Sebastian Greaves <https://github.com/sgreav>
+//                 Hanna Greaves <https://github.com/sgreav>
+//                 Jack Allen <https://github.com/jackall3n>
+//                 Benjamin Evenson <https://github.com/benjiro>
+//                 Han Jeon <https://github.com/hanstar17>
+//                 Kay Delaney <https://github.com/kaydelaney>
+//                 Yuichiro Tsuchiya <https://github.com/tuttieee>
+//                 Kamil Kamiński <https://github.com/0ctothorp>
+//                 Jay Chen <https://github.com/Jay0328>
+//                 Brian Ingles <https://github.com/bmingles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
 import { SyntheticEvent } from "react";
 
-export class Data extends Immutable.Record({}) {
-    [key: string]: any;
+export interface Data extends Immutable.Map<any, any> {}
 
-    static create(properties: object): Data;
-    static fromJSON(object: object): Data;
-    static fromJS(object: object): Data;
+export namespace Data {
+    function create(properties: Immutable.Map<string, any> | { [key: string]: any }): Data;
+    function fromJSON(object: { [key: string]: any }): Data;
+    function fromJS(object: { [key: string]: any }): Data;
 }
 
 export interface RulesByNodeType {
@@ -35,8 +43,13 @@ export interface Rules {
         [key: string]: (v: any) => boolean;
     };
     first?: ObjectAndType | ObjectAndType[];
+    isAtomic?: boolean;
     isVoid?: boolean;
     last?: ObjectAndType | ObjectAndType[];
+    marks?: Array<{
+        type: string | ((type: string) => boolean)
+    }>;
+    next?: ObjectAndType | ObjectAndType[];
     nodes?: Array<{
         min?: number;
         max?: number;
@@ -44,246 +57,264 @@ export interface Rules {
     }>;
     normalize?: (editor: Editor, error: SlateError) => void;
     parent?: ObjectAndType | ObjectAndType[];
-    text?: RegExp;
+    text?: RegExp | ((text: string) => boolean);
+    previous?: ObjectAndType | ObjectAndType[];
 }
 
 export interface SchemaProperties {
+    rules?: Array<{ match: ObjectAndType | ObjectAndType[] } & Rules>;
     document?: Rules;
     blocks?: RulesByNodeType;
     inlines?: RulesByNodeType;
+    marks?: RulesByNodeType;
+    annotations?: RulesByNodeType;
+    decorations?: RulesByNodeType;
 }
 
-export class Schema extends Immutable.Record({}) {
-    stack: Stack;
-    rules: Rules[];
-
-    static create(properties: SchemaProperties | Schema): Schema;
-    static fromJSON(object: SchemaProperties): Schema;
-    static fromJS(object: SchemaProperties): Schema;
-    static isSchema(maybeSchema: any): maybeSchema is Schema;
-
-    validateNode(node: Node): Error | void;
-    testNode(node: Node): boolean;
-    assertNode(node: Node): boolean;
-    getNodeRules(node: Node): any[];
-    isVoid(node: Node): boolean;
-    isAtomic(mark: Mark): boolean;
-    normalizeNode(node: Node): () => void;
-    testRules(object: any, rules: object | any[]): boolean;
-    validateRules(
-        object: any,
-        rule: object | any[],
-        rules: any[] | null,
-        options?: object
-    ): Error | void;
-
-    toJSON(): SchemaProperties;
-    toJS(): SchemaProperties;
-}
-
+export type Path = Immutable.List<number> | number[] | string;
 export interface ValueProperties {
+    object?: "value";
+    annotations?: Immutable.Map<string, Annotation> | { [key: string]: AnnotationJSON };
+    data?: Data | { [key: string]: any };
     document?: Document;
     selection?: Selection;
-    history?: History;
-    schema?: Schema;
-    data?: Data;
-    decorations?: Immutable.List<Decoration> | null;
 }
 
 export interface ValueJSON {
-    document?: DocumentJSON;
-    selection?: Selection;
-    history?: History;
-    schema?: Schema;
-    data?: Data;
-    decorations?: Immutable.List<Decoration> | null;
     object?: "value";
+    annotations?: { [key: string]: AnnotationJSON };
+    data?: { [key: string]: any };
+    document?: DocumentJSON;
+    selection?: SelectionJSON;
 }
 
-export type Path = Immutable.List<number> | string;
-
 export class Value extends Immutable.Record({}) {
+    object: "value";
+    annotations: Immutable.Map<string, Annotation>;
+    data: Data;
     document: Document;
     selection: Selection;
-    history: History;
-    schema: Schema;
-    data: Data;
-    object: "value";
-    decorations: Immutable.List<Decoration>;
 
-    readonly anchorText: Text;
-    readonly focusText: Text;
-    readonly startText: Text;
-    readonly endText: Text;
-    readonly nextText: Text;
-    readonly previousText: Text;
-
-    readonly anchorBlock: Block;
-    readonly focusBlock: Block;
     readonly startBlock: Block;
     readonly endBlock: Block;
+    readonly anchorBlock: Block;
+    readonly focusBlock: Block;
     readonly nextBlock: Block;
     readonly previousBlock: Block;
 
-    readonly anchorInline: Inline;
-    readonly focusInline: Inline;
     readonly startInline: Inline;
     readonly endInline: Inline;
+    readonly anchorInline: Inline;
+    readonly focusInline: Inline;
     readonly nextInline: Inline;
     readonly previousInline: Inline;
 
-    readonly marks: Immutable.Set<Mark>;
-    readonly activeMarks: Immutable.Set<Mark>;
+    readonly startText: Text;
+    readonly endText: Text;
+    readonly anchorText: Text;
+    readonly focusText: Text;
+    readonly nextText: Text;
+    readonly previousText: Text;
+
+    readonly marks: Immutable.OrderedSet<Mark>;
+    readonly activeMarks: Immutable.OrderedSet<Mark>;
     readonly blocks: Immutable.List<Block>;
     readonly fragment: Document;
     readonly inlines: Immutable.List<Inline>;
     readonly texts: Immutable.List<Text>;
 
-    static create(properties?: ValueProperties | Value): Value;
-    static createProperties(attrs: ValueProperties | Value): ValueProperties;
-    static fromJSON(properties: ValueJSON): Value;
-    static fromJS(properties: ValueJSON): Value;
+    static create(properties?: ValueProperties | ValueJSON | Value): Value;
+    static createProperties(attrs: ValueProperties | ValueJSON | Value): ValueProperties;
+    static fromJSON(properties: ValueProperties | ValueJSON): Value;
+    static fromJS(properties: ValueProperties | ValueJSON): Value;
     static isValue(maybeValue: any): maybeValue is Value;
 
-    toJSON(): ValueJSON;
-    addMark(path: Path, offset: number, length: number, mark: Mark): Value;
+    toJSON(options?: {
+        preserveAnnotations?: boolean,
+        preserveData?: boolean,
+        preserveSelection?: boolean }
+    ): ValueJSON;
+    toJS(options?: {
+        preserveAnnotations?: boolean,
+        preserveData?: boolean,
+        preserveSelection?: boolean }
+    ): ValueJSON;
+    addAnnotation(annotation: Annotation | AnnotationProperties | AnnotationJSON): Value;
+    addMark(path: Path, mark: MarkProperties | MarkJSON | Mark | string): Value;
     insertNode(path: Path, node: Node): Value;
     insertText(
         path: Path,
         offset: number,
         text: string,
-        marks: Immutable.Set<Mark>
     ): Value;
-    isValue(value: Value): boolean;
     mergeNode(path: Path): Value;
-    moveNode(path: Path, newPath: Path, newIndex?: number): Value;
-    removeMark(path: Path, offset: number, length: number, mark: Mark): Value;
+    moveNode(path: Immutable.List<number>, newPath: Immutable.List<number>, newIndex?: number): Value;
+    removeAnnotation(annotation: Annotation | AnnotationProperties | AnnotationJSON): Value;
+    removeMark(path: Path, mark: MarkProperties | MarkJSON | Mark | string): Value;
     removeNode(path: Path): Value;
-    removeText(path: Path, offset: number, text: Text): Value;
-    setNode(path: Path, properties: any): Value;
+    removeText(path: Path, offset: number, text: string): Value;
+    setAnnotation(
+        properties: AnnotationProperties | AnnotationJSON | Annotation,
+        newProperties: AnnotationProperties | AnnotationJSON | Annotation
+    ): Value;
+    setNode(path: Path, properties: NodeProperties): Value;
     setMark(
         path: Path,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
+        properties: MarkProperties,
+        newProperties: MarkProperties
     ): Value;
     setProperties(properties: ValueProperties): Value;
-    setSelection(properties: RangeProperties): Value;
-    splitNode(path: Path, position: number, properties: any): Value;
-    mapRanges(iterator: () => void): Value;
-    clearAtomicRanges(key: string, from: number, to?: number): Value;
+    setSelection(properties:
+        | RangeTypeProperties
+        | RangeTypeJSON
+        | RangeType
+        | string
+    ): Value;
+    splitNode(
+        path: Path,
+        position: number,
+        properties: NodeProperties
+    ): Value;
+    mapRanges(iterator: (val: Selection | Annotation) => any): Value;
+    mapPoints(iterator: (point: Point) => Point): Value;
 }
 
 export interface DocumentProperties {
+    object?: "document";
     nodes?: Immutable.List<Node> | Node[];
     key?: string;
-    data?: Immutable.Map<string, any> | { [key: string]: any };
+    data?: Data | { [key: string]: any };
 }
 
 export interface DocumentJSON {
+    object?: "document";
     nodes?: NodeJSON[];
     key?: string;
     data?: { [key: string]: any };
-    object?: "document";
 }
 
-export class Document<DataMap = { [key: string]: any }> extends BaseNode<
-    DataMap
-> {
+export class Document extends BaseNode {
     object: "document";
-    nodes: Immutable.List<Block>;
 
     static create(
         properties:
             | DocumentProperties
+            | DocumentJSON
             | Document
-            | Immutable.List<Node>
-            | Node[]
+            | Array<NodeJSON | NodeProperties | Node>
+            | Immutable.List<NodeJSON | NodeProperties | Node>
     ): Document;
-    static fromJSON(properties: DocumentJSON | Document): Document;
-    static fromJS(properties: DocumentJSON | Document): Document;
+    static fromJSON(properties: DocumentJSON | DocumentProperties | Document): Document;
+    static fromJS(properties: DocumentJSON | DocumentProperties | Document): Document;
     static isDocument(maybeDocument: any): maybeDocument is Document;
 
     toJSON(): DocumentJSON;
+    toJS(): DocumentJSON;
 }
 
 export interface BlockProperties {
+    object?: "block";
     type: string;
     key?: string;
-    nodes?: Immutable.List<Node>;
-    data?: Immutable.Map<string, any> | { [key: string]: any };
+    nodes?: Immutable.List<Block | Text | Inline> | Array<Block | Text | Inline>;
+    data?: Data | { [key: string]: any };
 }
 
 export interface BlockJSON {
+    object?: "block";
     type: string;
     key?: string;
     nodes?: Array<BlockJSON | InlineJSON | TextJSON>;
     data?: { [key: string]: any };
-    object: "block";
 }
 
 export class Block extends BaseNode {
     object: "block";
     nodes: Immutable.List<Block | Text | Inline>;
 
-    static create(properties: BlockProperties | Block | string): Block;
-    static createList(
-        array?: BlockProperties[] | Block[] | string[]
+    static create(properties:
+        | BlockProperties
+        | BlockJSON
+        | Block
+        | string
+    ): Block;
+    static createList(array?:
+        | Array<BlockProperties | BlockJSON | Block | string>
+        | Immutable.List<BlockProperties | BlockJSON | Block | string>
     ): Immutable.List<Block>;
-    static fromJSON(properties: BlockJSON | Block): Block;
-    static fromJS(properties: BlockJSON | Block): Block;
+    static fromJSON(properties: BlockJSON | BlockProperties | Block): Block;
+    static fromJS(properties: BlockJSON | BlockProperties | Block): Block;
     static isBlock(maybeBlock: any): maybeBlock is Block;
     static isBlockList(
         maybeBlockList: any
     ): maybeBlockList is Immutable.List<Block>;
 
     toJSON(): BlockJSON;
+    toJS(): BlockJSON;
 }
 
 export interface InlineProperties {
+    object?: "inline";
     type: string;
     key?: string;
-    nodes?: Immutable.List<Node>;
-    data?: Immutable.Map<string, any> | { [key: string]: any };
+    nodes?: Immutable.List<Inline | Text> | Array<Inline | Text>;
+    data?: Data | { [key: string]: any };
 }
 
 export interface InlineJSON {
+    object?: "inline";
     type: string;
     key?: string;
-    nodes?: NodeJSON[];
+    nodes?: Array<InlineJSON | TextJSON>;
     data?: { [key: string]: any };
-    object: "inline";
 }
 
 export class Inline extends BaseNode {
     object: "inline";
     nodes: Immutable.List<Inline | Text>;
 
-    static create(properties: InlineProperties | Inline | string): Inline;
+    static create(properties:
+        | InlineProperties
+        | InlineJSON
+        | Inline
+        | string
+    ): Inline;
     static createList(
-        array?: InlineProperties[] | Inline[] | string[]
+        elements?:
+        | Immutable.List<InlineProperties | InlineJSON | Inline | string>
+        | Array<InlineProperties | InlineJSON | Inline | string>
     ): Immutable.List<Inline>;
-    static fromJSON(properties: InlineJSON | Inline): Inline;
-    static fromJS(properties: InlineJSON | Inline): Inline;
+    static fromJSON(properties:
+        | InlineProperties
+        | InlineJSON
+        | Inline
+    ): Inline;
+    static fromJS(properties:
+        | InlineProperties
+        | InlineJSON
+        | Inline
+    ): Inline;
     static isInline(maybeInline: any): maybeInline is Inline;
     static isInlineList(
         maybeInlineList: any
     ): maybeInlineList is Immutable.List<Inline>;
 
     toJSON(): InlineJSON;
+    toJS(): InlineJSON;
 }
 
 export interface TextProperties {
+    object?: "text";
     key?: string;
     text?: string;
-    marks?: Mark[];
+    marks?: Immutable.Set<Mark> | Mark[];
 }
 
 export interface TextJSON {
+    object?: "text";
     key?: string;
-    leaves: LeafJSON[];
-    object: "text";
+    text?: string;
+    marks?: MarkJSON[];
 }
 
 export interface LeafAndOffset {
@@ -298,71 +329,62 @@ export class Text extends Immutable.Record({}) {
     key: string;
 
     readonly text: string;
+    readonly marks: Immutable.Set<Mark> | null;
 
-    static create(properties: TextProperties | Text | string): Text;
+    static create(properties?: TextProperties | TextJSON | Text | string): Text;
     static createList(
         elements?:
-            | Text[]
-            | TextProperties[]
-            | Immutable.List<Text>
-            | Immutable.List<TextProperties>
+            | Array<TextProperties | TextJSON | Text | string>
+            | Immutable.List<TextProperties | TextJSON | Text | string>
     ): Immutable.List<Text>;
-    static fromJSON(properties: TextJSON | Text): Text;
-    static fromJS(properties: TextJSON | Text): Text;
+    static fromJSON(properties: TextJSON | TextProperties | Text): Text;
+    static fromJS(properties: TextJSON | TextProperties | Text): Text;
     static isText(maybeText: any): maybeText is Text;
+    static isTextList(maybeTextList: any): maybeTextList is Immutable.List<Text>;
 
-    toJSON(): TextJSON;
+    toJSON(options?: { preserveKeys?: boolean }): TextJSON;
+    toJS(options?: { preserveKeys?: boolean }): TextJSON;
 
-    getKeysToPathsTable(): object;
-    getString(): string;
-    searchLeafAtOffset(offset: number): LeafAndOffset;
-    addMark(index: number, length: number, mark: Mark): Text;
-    addMarks(index: number, lenght: number, marks: Immutable.Set<Mark>): Text;
-    getLeaves(decorations?: Range[]): Immutable.List<Leaf>;
-    getActiveMarksBetweenOffset(
-        startOffset: number,
-        endOffset: number
-    ): Immutable.Set<Mark>;
-    getActiveMarks(): Immutable.Set<Mark>;
-    getFirstText(): Text;
-    getLastText(): Text;
-    getText(): string;
-    getMarksBetweenOffset(
-        startOffset: number,
-        endOffset: number
-    ): Immutable.Set<Mark>;
-    getMarks(): Immutable.OrderedSet<Mark>;
-    getMarksAsArray(): Mark[];
-    getMarksAtIndex(index: number): Mark;
-    getNode(key: string): Node | null;
-    getPath(key: string | Path): Path;
-    hasNode(key: string): boolean;
-    insertText(offset: number, text: string, marks?: Immutable.Set<Mark>): Text;
-    regenerateKey(): Text;
-    removeMark(index: number, length: Mark, mark: Mark): Text;
-    removeText(start: number, length: number): Text;
-    resolvePath(path: Path, index: number): Immutable.List<string>;
-    updateMark(
-        index: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
+    addMark(mark: MarkProperties | MarkJSON | Mark | string): Text;
+    addMarks(marks:
+        | Array<MarkProperties | MarkJSON | Mark | string>
+        | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
     ): Text;
-    splitText(offset: number): Text[];
-    mergeText(text: Text): Text;
-    normalize(schema: Schema): () => void | null;
-    validate(schema: Schema): Error | null;
-    getFirstInvalidNode(schema: Schema): Text | null;
-    setLeaves(leaves: Immutable.List<Leaf>): Text;
+    getKeysToPathsTable(): { [key: string]: number[] };
+    getLeaves(
+        annotations: Immutable.Map<string, Annotation>,
+        decorations?: Decoration[] | Immutable.List<Decoration>
+    ): Immutable.List<Leaf>;
+    getFirstText(): Text | null;
+    getLastText(): Text | null;
+    getText(): string;
+    getNode(path: Path): Node | null;
+    getPath(key: Immutable.List<number> | string | Node): Immutable.List<number> | null;
+    hasNode(path: Path): boolean;
+    insertText(index: number, string: string): Text;
+    regenerateKey(): Text;
+    removeMark(mark: MarkProperties | MarkJSON | Mark | string): Text;
+    removeText(index: number, length: number): Text;
+    resolvePath(path: Path, index?: number): Immutable.List<number>;
+    setMark(
+        properties: MarkProperties | MarkJSON | Mark | string,
+        newProperties: MarkProperties
+    ): Text;
+    splitText(index: number): Text[];
+    mergeText(other: Text): Text;
+    normalize(editor: Editor): () => void | void;
+    validate(editor: Editor): Error | void;
 }
 
 export interface LeafProperties {
-    marks?: Immutable.Set<Mark>;
+    object?: "leaf";
+    marks?: Immutable.Set<Mark> | Mark[];
     text?: string;
 }
 
 export interface LeafJSON {
-    marks?: Mark[];
+    object?: "leaf";
+    marks?: MarkJSON[];
     text?: string;
 }
 
@@ -371,7 +393,7 @@ export class Leaf extends Immutable.Record({}) {
     marks: Immutable.Set<Mark> | null;
     text: string;
 
-    static create(properties: LeafProperties): Leaf;
+    static create(properties: LeafProperties | LeafJSON | Leaf): Leaf;
     static createLeaves(leaves: Immutable.List<Leaf>): Immutable.List<Leaf>;
     static splitLeaves(
         leaves: Immutable.List<Leaf>,
@@ -379,13 +401,11 @@ export class Leaf extends Immutable.Record({}) {
     ): Array<Immutable.List<Leaf>>;
     static createList(
         attrs?:
-            | Leaf[]
-            | LeafProperties[]
-            | Immutable.List<Leaf>
-            | Immutable.List<LeafProperties>
+            | Array<LeafProperties | LeafJSON | Leaf>
+            | Immutable.List<LeafProperties | LeafJSON | Leaf>
     ): Immutable.List<Leaf>;
-    static fromJSON(properties: LeafJSON): Leaf;
-    static fromJS(properties: LeafJSON): Leaf;
+    static fromJSON(properties: LeafJSON | LeafProperties): Leaf;
+    static fromJS(properties: LeafJSON | LeafProperties): Leaf;
     static isLeaf(maybeLeaf: any): maybeLeaf is Leaf;
     static isLeafList(
         maybeLeafList: any
@@ -395,10 +415,44 @@ export class Leaf extends Immutable.Record({}) {
     addMarks(marks: Immutable.Set<Mark>): Leaf;
     addMark(mark: Mark): Leaf;
     removeMark(mark: Mark): Leaf;
-    toJSON(): LeafProperties;
+
+    insertText(offset: number, string: string): Leaf;
+
+    toJSON(): LeafJSON;
+    toJS(): LeafJSON;
 }
 
-export type Node = Document | Block | Inline | Text;
+interface IterableOptions {
+    direction?: string;
+    downward?: boolean;
+    upward?: boolean;
+    includeBlocks?: boolean;
+    includeDocument?: boolean;
+    includeInlines?: boolean;
+    includeRoot?: boolean;
+    includeTarget?: boolean;
+    includeTargetAncestors?: boolean;
+    includeTexts?: boolean;
+    match?: (node: Node, path: Immutable.List<number>) => boolean | null;
+    range?: RangeProperties | RangeJSON | Range;
+    path?: Path;
+}
+
+export namespace NodeFactory {
+  function create(attrs: Node | NodeJSON | NodeProperties): Node;
+  function createList(
+    elements?:
+        | Array<Node | NodeJSON | NodeProperties>
+        | Immutable.List<Node | NodeJSON | NodeProperties>
+  ): Immutable.List<Node>;
+  function createProperties(attrs?: Block | Inline | string | { type?: string, data?: object }): NodeProperties;
+  function fromJSON(value: { [key: string]: any }): NodeJSON;
+  function fromJS(value: { [key: string]: any }): NodeJSON;
+  function isNode(maybeNode: any): maybeNode is Node;
+  function isNodeList(maybeNodeList: any): maybeNodeList is Immutable.List<Node>;
+}
+
+export type Node = (Document | Block | Inline | Text);
 export type NodeJSON = DocumentJSON | BlockJSON | InlineJSON | TextJSON;
 export type NodeProperties =
     | DocumentProperties
@@ -407,10 +461,8 @@ export type NodeProperties =
     | TextProperties;
 
 // tslint:disable-next-line strict-export-declare-modifiers
-declare class BaseNode<
-    DataMap = { [key: string]: any }
-> extends Immutable.Record({}) {
-    data: Immutable.Map<keyof DataMap, DataMap[keyof DataMap]>;
+declare class BaseNode extends Immutable.Record({}) {
+    data: Data;
     type: string;
     key: string;
     object: "document" | "block" | "inline" | "text";
@@ -425,138 +477,225 @@ declare class BaseNode<
     static createProperties(
         attrs: NodeProperties | string | Node
     ): NodeProperties;
-    static fromJSON(value: NodeJSON | Node): Node;
-    static fromJS(value: NodeJSON | Node): Node;
+    static fromJSON(value: NodeJSON | NodeProperties | Node): Node;
+    static fromJS(value: NodeJSON | NodeProperties | Node): Node;
 
-    addMark(path: Path, offset: number, length: number, mark: Mark): Node;
-    createDecoration(properties: DecorationProperties | Decoration): Decoration;
-    createPoint(properties: PointProperties | Point): Point;
-    createRange(properties: RangeProperties | Range): Range;
-    createSelection(properties: SelectionProperties | Selection): Selection;
-    filterDescendants(iterator: (node: Node) => boolean): Immutable.List<Node>;
-    findDescendants(iterator: (node: Node) => boolean): Node | null;
-    getActiveMarksAtRange(range: Range): Immutable.Set<Mark>;
+    addMark(path: Path, mark: Mark): Node;
+    ancestors(path: Path): Iterable<[Node, Immutable.List<number>]>;
+    blocks(options?: IterableOptions & {
+        onlyLeaves?: boolean;
+        onlyRoots?: boolean;
+        onlyTypes?: string[]}): Iterable<[Block, Immutable.List<number>]>;
+    createAnnotation(properties: AnnotationProperties | AnnotationJSON | Annotation): Annotation;
+    createDecoration(properties: DecorationProperties | DecorationJSON | Decoration): Decoration;
+    createIterable(options?: IterableOptions): Iterable<[Node, Immutable.List<number>]>;
+    createPoint(properties: PointProperties | PointJSON | Point): Point;
+    createRange(properties: RangeTypeProperties | RangeTypeJSON | RangeType): Range;
+    createSelection(properties: SelectionProperties | SelectionJSON | Selection | Range): Selection;
+    descendants(options?: IterableOptions): Iterable<[Node, Immutable.List<number>]>;
+    filterDescendants(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Immutable.List<Node>;
+    findDescendant(predicate?: (node: Node, path: Immutable.List<number>) => boolean): Node | null;
+    forEachDescendant(predicate?: (node: Node, path: Immutable.List<number>) => boolean): void;
+    getActiveMarksAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;
-    getBlocksAtRange(range: Range): Immutable.List<Block>;
-    getBlocksAtRangeAsArray(range: Range): Block[];
     getBlocks(): Immutable.List<Block>;
-    getBlocksAsArray(): Block[];
     getBlocksByType(type: string): Immutable.List<Block>;
-    getBlocksByTypeAsArray(type: string): Block[];
     getChild(path: Path): Node | null;
+    getClosest(path: Path, predicate: (node: Node, path: Immutable.List<number>) => boolean): Node | null;
     getClosestBlock(path: Path): Block | null;
     getClosestInline(path: Path): Inline | null;
-    getClosestVoid(path: Path, schema: Schema): Node | null;
-    getClosest(path: Path, iterator: (node: Node) => boolean): Node | null;
-    getCommonAncestor(a: Path, b: Path): Node;
-    getDecorations(stack: Stack): Immutable.List<Range>;
-    getDepth(path: Path, startAt?: number): number;
+    getClosestVoid(path: Path, editor: Editor): Node | null;
+    getCommonAncestor(a: Path, b: Path): Node | null;
+    getDecorations(editor: Editor): Immutable.List<Decoration>;
+    getDepth(path: Path, startAt?: number): number | null;
     getDescendant(path: Path): Node | null;
-    getFirstInvalidNode(schema: Schema): Node | null;
+    getDescendantsAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.List<Node>;
     getFirstText(): Text | null;
-    getFragmentAtRange(range: Range): Document;
-    getFurthest(path: Path, iterator: (node: Node) => boolean): Node | null;
-    getFurthestAncestor(path: Path): Node | null;
+    getFragmentAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Document;
+    getFurthest(path: Path, predicate?: (node: Node, path: Immutable.List<number>) => boolean): Node | null;
     getFurthestBlock(path: Path): Block | null;
+    getFurthestChild(path: Path): Node | null;
     getFurthestInline(path: Path): Inline | null;
-    getFurthestOnlyChildAncestor(path: Path): Node | null;
     getInlines(): Immutable.List<Inline>;
-    getInlinesAsArray(): Inline[];
-    getInlinesAtRange(range: Range): Immutable.List<Inline>;
-    getInlinesAtRangeAsArray(range: Range): Inline[];
     getInlinesByType(type: string): Immutable.List<Inline>;
-    getInlinesByTypeAsArray(type: string): Inline[];
-    getInsertMarksAtRange(range: Range): Immutable.Set<Mark>;
-    getKeysToPathsTable(): object;
+    getInsertMarksAtPoint(point: PointProperties | PointJSON | Point): Immutable.Set<Mark>;
+    getInsertMarksAtRange(range: RangeProperties | RangeJSON | Range): Immutable.Set<Mark>;
+    getKeysToPathsTable(): { [key: string]: number[] };
     getLastText(): Text | null;
-    getMarks(): Immutable.Set<Mark>;
-    getMarksAsArray(): Mark[];
-    getMarksAtPosition(key: string, offset: number): Immutable.Set<Mark>;
-    getMarksAtRange(range: Range): Immutable.Set<Mark>;
-    getMarksByType(type: string): Immutable.Set<Mark>;
-    getMarksByTypeAsArray(type: string): Mark[];
-    getNextBlock(key: string | Node): Block | null;
+    getLeafBlocksAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.List<Block>;
+    getLeafInlinesAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.List<Inline>;
+    getNode(path: Path): Node | null;
+    getNodesToPathsMap(): Map<Node, Immutable.List<number>>;
+    getMarks(): Immutable.OrderedSet<Mark>;
+    getMarksAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.OrderedSet<Mark>;
+    getMarksByType(type: string): Immutable.OrderedSet<Mark>;
+    getNextBlock(path: Path): Block | null;
     getNextNode(path: Path): Node | null;
     getNextSibling(path: Path): Node | null;
     getNextText(path: Path): Text | null;
-    getNode(path: Path): Node | null;
-    getOffset(key: string): number;
-    getOffsetAtRange(range: Range): number;
-    getOrderedMarks(): Immutable.OrderedSet<Mark>;
-    getOrderedMarksAtRange(range: Range): Immutable.OrderedSet<Mark>;
-    getOrderedMarksBetweenPositions(
-        startKey: string,
-        startOffset: number,
-        endKey: string,
-        endOffset: number
-    ): Immutable.OrderedSet<Mark>;
-    getOrderedMarksByType(type: string): Immutable.OrderedSet<Mark>;
+    getOffset(path: Path): number;
+    getOffsetAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): number;
     getParent(path: Path): Node | null;
-    getPath(key: string | Path): Path;
-    getPreviousBlock(key: string | Node): Block | null;
+    getPath(key: Immutable.List<number> | string | Node): Immutable.List<number> | null;
+    getPreviousBlock(path: Path): Block | null;
     getPreviousNode(path: Path): Node | null;
     getPreviousSibling(path: Path): Node | null;
     getPreviousText(path: Path): Text | null;
-    getSelectionIndexes(
-        range: Range,
-        isSelected?: boolean
-    ): { start: number; end: number } | null;
+    getRootBlocksAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.List<Block>;
+    getRootInlinesAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.List<Inline>;
     getText(): string;
     getTextAtOffset(offset: number): Text | null;
     getTextDirection(): string | null;
     getTexts(): Immutable.List<Text>;
-    getTextsAsArray(): Text[];
-    getTextsAtRange(range: Range): Immutable.List<Text>;
-    getTextsAtRangeAsArray(range: Range): Text[];
-    getTextsBetweenPositionsAsArray(startKey: string, endKey: string): Text[];
+    getTextsAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Immutable.List<Text>;
     hasBlockChildren(): boolean;
     hasChild(path: Path): boolean;
     hasInlineChildren(): boolean;
     hasDescendant(path: Path): boolean;
     hasNode(path: Path): boolean;
-    hasVoidParent(path: Path, schema: Schema): boolean;
+    hasVoidParent(path: Path, editor: Editor): boolean;
+    inlines(options?: IterableOptions & {
+        onlyLeaves?: boolean;
+        onlyRoots?: boolean;
+        onlyTypes?: string[]}): Iterable<[Inline, Immutable.List<number>]>;
     insertNode(path: Path, node: Node): Node;
     insertText(
         path: Path,
         offset: number,
-        text: string,
-        marks: Immutable.Set<Mark>
+        text: string
     ): Node;
-    isLeafBlock(): boolean;
-    isLeafInline(): boolean;
-    mapChildren(iterator: () => void): Node;
-    mapDescendants(iterator: () => void): Node;
+    isLeafBlock(): this is Block;
+    isLeafInline(): this is Inline;
+    isInRange(path: Path, range: RangeTypeProperties | RangeTypeJSON | RangeType): boolean;
+    mapChildren(predicate?: (node: Node, index: number, nodes: Immutable.List<Node>) => Node): Node;
+    mapDescendants(predicate?: (node: Node, index: number, nodes: Immutable.List<Node>) => Node): Node | void;
+    marks(options?: IterableOptions & { onlyTypes: string[] }): Iterable<[Mark, Node, Immutable.List<number>]>;
     mergeNode(path: Path): Node;
     moveNode(path: Path, newPath: Path, newIndex?: number): Node;
-    normalize(schema: Schema): () => void | void;
-    refinedNOde(path: Path, key: string): Node | null;
-    refindPath(path: Path, key: string): Immutable.List<string> | null;
+    normalize(editor: Editor): () => void | void;
     regenerateKey(): Node;
-    removeMark(path: Path, offset: number, length: number, mark: Mark): Node;
+    removeMark(path: Path, mark: Mark): Node;
     removeNode(path: Path): Node;
     removeText(path: Path, offset: number, text: string): Node;
     replaceNode(path: Path, node: Node): Node;
-    resolvePath(path: Path, index: number): Immutable.List<string>;
-    resolvePoint(point: Point): Point;
-    resolveRange(range: Range): Range;
+    resolveAnnotation(annotation: Annotation | AnnotationProperties | AnnotationJSON): Annotation;
+    resolveDecoration(decoration: RangeType | RangeTypeProperties | RangeTypeJSON): Decoration;
+    resolvePath(path: Path, index?: number): Immutable.List<number>;
+    resolvePoint(point: Point | PointProperties | PointJSON): Point;
+    resolveRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Range;
+    resolveSelection(selection: Selection | SelectionProperties | SelectionJSON | Range): Selection;
     setNode(path: Path, properties: NodeProperties): Node;
     setMark(
         path: Path,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
+        properties: MarkProperties,
+        newProperties: MarkProperties
     ): Node;
+    siblings(path: Path, options?: IterableOptions): Iterable<[Node, Immutable.List<number>]>;
     splitNode(path: Path, position: number, properties: NodeProperties): Node;
-    validate(schema: Schema): Error | void;
+    texts(options: IterableOptions): Iterable<[Text, Immutable.List<number>]>;
+    validate(editor: Editor): Error | void;
+
+    /**
+     * Deprecated.
+     */
+
+    getBlocksAtRange(range: RangeProperties | RangeJSON | Range): Immutable.List<Block>;
+    getBlocksAtRangeAsArray(range: RangeProperties | RangeJSON | Range): Block[];
+    getInlinesAtRange(range: RangeProperties | RangeJSON | Range): Immutable.List<Inline>;
+    getInlinesAtRangeAsArray(range: RangeProperties | RangeJSON | Range): Inline[];
+    getNextTextAndPath(path: Path): Text | null;
+    getNextDeepMatchingNodeAndPath(path: Immutable.List<number>, iterator?: () => boolean): null | [Node, Immutable.List<number>];
+    getPreviousTextAndPath(path: Path): Text | null;
+    findFirstDescendantAndPath(
+        iterator: (
+            node: Node,
+            path: Immutable.List<number>,
+            nodes: Immutable.List<Node>
+        ) => boolean,
+        pathToThisNode: Immutable.List<number>
+    ): [Node, Immutable.List<number>] | null;
+    getPreviousMatchingNodeAndPath(path: Immutable.List<number>, iterator?: (node: Node) => boolean): [Node, Immutable.List<number>] | null;
+    getPreviousDeepMatchingNodeAndPath(path: Immutable.List<number>, iterator?: (node: Node) => boolean): [Node, Immutable.List<number>] | null;
+    findLastDescendantAndPath(
+        iterator: (
+            node: Node,
+            path: Immutable.List<number>,
+            nodes: Immutable.List<Node>
+        ) => boolean,
+        pathToThisNode: Immutable.List<number>
+    ): [Node, Immutable.List<number>] | null;
+    findDescendantAndPath(
+        iterator: (
+            node: Node,
+            path: Immutable.List<number>,
+            nodes: Immutable.List<Node>
+        ) => boolean,
+        path?: Immutable.List<number>,
+        findLast?: boolean
+    ): [Node, Immutable.List<number>] | null;
+    forEachDescendantWithPath(
+        iterator: (
+            node: Node,
+            path: Immutable.List<number>,
+            nodes: Immutable.List<Node>
+        ) => boolean,
+        path?: Immutable.List<number>,
+        findLast?: boolean
+    ): boolean;
+    getNextMatchingNodeAndPath(path: Immutable.List<number>, iterator?: (node: Node) => boolean): [Node, Immutable.List<number>]| null;
+    getSelectionIndexes(range: RangeType, isSelected?: boolean): { start: number, end: number } | boolean | null;
+    getTextsBetweenPositionsAsArray(startPath: Path, endPath: Path): Array<Node | null>;
+    getOrderedMarksBetweenPositions(
+        startPath: Path,
+        startOffset: number,
+        endPath: Path,
+        endOffset: number
+    ): Immutable.OrderedSet<Mark>;
+    getTextsBetweenPathPositionsAsArray(
+        startPath: Immutable.List<number>,
+        endPath: Immutable.List<number>
+    ): Array<Node | null>;
+    getFurthestAncestor(path: Path): Node | null;
+    getLeafBlocksAtRangeAsArray(range: Range | RangeProperties | RangeJSON): Block[];
+    getLeafBlocksBetweenPathPositionsAsArray(startPath: Immutable.List<number>, endPath: Immutable.List<number>): Block[];
+    getBlocksAsArray(): Block[];
+    getBlocksByTypeAsArray(type: string): Block[];
+    getFurthestOnlyChildAncestor(path: Path): Node | null;
+    getInlinesAsArray(): Inline[];
+    getInlinesByTypeAsArray(type: string): Inline[];
+    getLeafInlinesAtRangeAsArray(range: Range | RangeProperties | RangeJSON): Inline[];
+    getOrderedMarks(): Immutable.OrderedSet<Mark>;
+    getOrderedMarksAtRange(range: RangeProperties | RangeJSON | Range): Immutable.OrderedSet<Mark>;
+    getOrderedMarksByType(type: string): Immutable.OrderedSet<Mark>;
+    getOrderedMarksByTypeAsArray(type: string): Mark[];
+    getMarksAsArray(): Mark[];
+    getRootInlinesAtRangeAsArray(range: RangeProperties | RangeJSON | Range): Inline[];
+    getTextsAsArray(): Text[];
+    getTextsAtRangeAsArray(range: RangeProperties | RangeJSON | Range): Text[];
+    getMarksAtPosition(path: Path, offset: number): Immutable.OrderedSet<Mark>;
+    getNodesAtRange(range: RangeProperties | RangeJSON | Range): boolean;
+    isNodeInRange(path: Path, range: RangeProperties | RangeJSON | Range): boolean;
+
+    /**
+     * Assertion variants.
+     */
+
+     assertChild(path: Path): Node;
+     assertDepth(path: Path, startAt?: number): number;
+     assertDescendant(path: Path): Node;
+     assertNode(path: Path): Node;
+     assertParent(path: Path): Node;
+     assertPath(key: Path): Immutable.List<number>;
 }
 
 export interface MarkProperties {
+    object?: "mark";
     type: string;
-    data?: Immutable.Map<string, any> | { [key: string]: any };
+    data?: Data | { [key: string]: any };
 }
 
 export interface MarkJSON {
+    object?: "mark";
     type: string;
     data?: { [key: string]: any };
 }
@@ -564,32 +703,38 @@ export interface MarkJSON {
 export class Mark extends Immutable.Record({}) {
     object: "mark";
     type: string;
-    data: Immutable.Map<string, any>;
+    data: Data;
 
-    static create(properties: MarkProperties | Mark | string): Mark;
+    static create(properties: MarkProperties | MarkJSON | Mark | string): Mark;
     static createSet(
-        array: MarkProperties[] | Mark[] | string[]
+        element?:
+            | Array<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
     ): Immutable.Set<Mark>;
-    static fromJSON(properties: MarkJSON | Mark): Mark;
-    static fromJS(properties: MarkJSON | Mark): Mark;
+    static createProperties(attrs: Partial<MarkProperties | MarkJSON  | Mark | string>): MarkProperties;
+    static fromJSON(properties: MarkProperties | MarkJSON | Mark): Mark;
+    static fromJS(properties: MarkProperties | MarkJSON | Mark): Mark;
     static isMark(maybeMark: any): maybeMark is Mark;
+    static isMarkSet(maybeMarkSet: any): maybeMarkSet is Immutable.Set<Mark>;
 
-    toJSON(): MarkProperties;
+    toJSON(): MarkJSON;
+    toJS(): MarkJSON;
 }
 
 export interface SelectionProperties {
+    object?: "selection";
     anchor?: Point;
     focus?: Point;
     isFocused?: boolean;
-    marks?: Immutable.Set<Mark> | null;
+    marks?: Immutable.Set<Mark> | Mark[];
 }
 
 export interface SelectionJSON {
+    object?: "selection";
     anchor?: PointJSON;
     focus?: PointJSON;
     isFocused?: boolean;
-    isBackward?: boolean | null;
-    marks?: MarkJSON[] | null;
+    marks?: MarkJSON[];
 }
 
 export class Selection extends BaseRange {
@@ -597,32 +742,54 @@ export class Selection extends BaseRange {
     anchor: Point;
     focus: Point;
     isFocused: boolean;
-    marks: Immutable.Set<Mark> | null;
+    marks: Immutable.Set<Mark>;
 
     readonly isBlurred: boolean;
 
     static create(
-        properties: SelectionProperties | Selection | Range
+        properties:
+            | RangeTypeProperties
+            | RangeTypeJSON
+            | RangeType
     ): Selection;
     static createProperties(
-        attrs: SelectionProperties | string | Selection | Range
+        attrs:
+            | RangeTypeProperties
+            | RangeTypeJSON
+            | RangeType
+            | string
     ): SelectionProperties;
-    static fromJSON(properties: SelectionJSON): Selection;
+    static fromJSON(properties:
+        | RangeTypeProperties
+        | RangeTypeJSON
+    ): Selection;
+    static fromJS(properties:
+        | RangeTypeProperties
+        | RangeTypeJSON
+    ): Selection;
 
     toJSON(): SelectionJSON;
+    toJS(): SelectionJSON;
 
     isSelection(maybeSelection: any): maybeSelection is Selection;
     setIsFocused(value: boolean): Selection;
     setMarks(marks: Immutable.Set<Mark>): Selection;
-    setProperties(properties: Selection | SelectionProperties): Selection;
+    setProperties(properties:
+        | RangeTypeProperties
+        | RangeTypeJSON
+        | RangeType
+        | string
+    ): Selection;
 }
 
 export interface RangeProperties {
+    object?: "range";
     anchor?: Point;
     focus?: Point;
 }
 
 export interface RangeJSON {
+    object?: "range";
     anchor?: PointJSON;
     focus?: PointJSON;
 }
@@ -630,69 +797,124 @@ export interface RangeJSON {
 export class Range extends BaseRange {
     object: "range";
     anchor: Point;
+    focus: Point;
 
-    static create(properties: RangeProperties | Range): Range;
+    static create(properties: RangeTypeProperties | RangeTypeJSON | RangeType): Range;
     static createList(
         elements?:
-            | Range[]
-            | RangeProperties[]
-            | Immutable.List<Range>
-            | Immutable.List<RangeProperties>
+            | Array<RangeTypeProperties | RangeTypeJSON | RangeType>
+            | Immutable.List<RangeTypeProperties | RangeTypeJSON | RangeType>
     ): Immutable.List<Range>;
     static createProperties(
-        attrs: RangeProperties | string | Range
+        attrs: RangeTypeProperties | RangeTypeJSON | RangeType
     ): RangeProperties;
-    static fromJSON(properties: RangeJSON): Range;
-    static fromJS(properties: RangeJSON): Range;
-    static isRange(maybeRange: any): maybeRange is Range;
+    static fromJSON(properties: RangeTypeJSON): Range;
+    static fromJS(properties: RangeTypeJSON): Range;
+    static isRange(maybeRange: any): maybeRange is RangeType;
 
-    toJSON(): RangeJSON;
+    toJSON(options?: { preserveKeys?: boolean }): RangeJSON;
+    toJS(options?: { preserveKeys?: boolean }): RangeJSON;
 }
 
 export interface DecorationProperties {
+    object?: "decoration";
     anchor?: Point;
     focus?: Point;
-    mark?: Mark | null;
+    type?: string;
+    data?: Data | { [key: string]: any };
 }
 
 export interface DecorationJSON {
+    object?: "decoration";
     anchor?: PointJSON;
     focus?: PointJSON;
-    mark?: MarkJSON | null;
+    type?: string;
+    data?: { [key: string]: any };
 }
 
 export class Decoration extends BaseRange {
     object: "decoration";
     anchor: Point;
     focus: Point;
-    mark: Mark | null;
-    static create(properties: DecorationProperties | Range): Decoration;
+    type: string;
+    data: Data;
+
+    static create(properties:
+        | RangeTypeProperties
+        | RangeTypeJSON
+        | RangeType
+    ): Decoration;
     static createList(
         elements?:
-            | Decoration[]
-            | DecorationProperties[]
-            | Immutable.List<Decoration>
-            | Immutable.List<DecorationProperties>
+            | Array<RangeTypeProperties | RangeTypeJSON | RangeType>
+            | Immutable.List<RangeTypeProperties | RangeTypeJSON | RangeType>
     ): Immutable.List<Decoration>;
     static createProperties(
-        attrs: DecorationProperties | string | Decoration
+        attrs: RangeTypeProperties | RangeTypeJSON | RangeType
     ): DecorationProperties;
-    static fromJSON(properties: DecorationJSON): Decoration;
-    static fromJS(properties: DecorationJSON): Decoration;
+    static fromJSON(properties: DecorationJSON & { mark?: MarkJSON }): Decoration;
+    static fromJSON(properties: DecorationJSON & { mark?: MarkJSON }): Decoration;
     static isDecoration(maybeDecoration: any): maybeDecoration is Decoration;
 
-    toJSON(): DecorationJSON;
+    setProperties(properties: RangeTypeProperties | RangeTypeJSON | RangeType): Decoration;
 
-    setProperties(properties: Decoration | DecorationProperties): Decoration;
+    toJSON(): DecorationJSON;
+    toJS(): DecorationJSON;
+}
+
+export interface AnnotationProperties {
+    object?: "annotation";
+    key: string;
+    type: string;
+    data?: Data | { [key: string]: any };
+    anchor?: Point;
+    focus?: Point;
+}
+
+export interface AnnotationJSON {
+    object?: "annotation";
+    key: string;
+    type: string;
+    data?: { [key: string]: any };
+    anchor?: PointJSON;
+    focus?: PointJSON;
+}
+
+export class Annotation extends BaseRange {
+    object: "annotation";
+    key: string;
+    type: string;
+    data: Data;
+    anchor: Point;
+    focus: Point;
+
+    static create(properties: Annotation | AnnotationProperties | AnnotationJSON): Annotation;
+    static createMap(
+        elements?:
+            | { [key: string]: Annotation | AnnotationProperties | AnnotationJSON }
+            | Immutable.Map<string, Annotation>
+    ): Immutable.Map<string, Annotation>;
+    static createProperties(
+        attrs: AnnotationProperties | AnnotationJSON | Annotation
+    ): AnnotationProperties;
+    static fromJSON(properties: AnnotationProperties | AnnotationJSON): Annotation;
+    static fromJS(properties: AnnotationProperties | AnnotationJSON): Annotation;
+    static isAnnotation(maybeAnnotation: any): maybeAnnotation is Annotation;
+
+    toJSON(): AnnotationJSON;
+    toJS(): AnnotationJSON;
+
+    setProperties(properties: AnnotationProperties | AnnotationJSON | Annotation): Annotation;
 }
 
 export type RangeTypeProperties =
     | RangeProperties
     | SelectionProperties
-    | DecorationProperties;
+    | DecorationProperties
+    | AnnotationProperties;
 
-export type RangeTypeJSON = RangeJSON | SelectionJSON | DecorationJSON;
-export type RangeType = Range | Selection | Decoration;
+export type RangeTypeJSON = RangeJSON | SelectionJSON | DecorationJSON | AnnotationJSON;
+export type RangeType = Range | Selection | Decoration | Annotation;
 
 // tslint:disable-next-line strict-export-declare-modifiers
 declare class BaseRange extends Immutable.Record({}) {
@@ -711,25 +933,25 @@ declare class BaseRange extends Immutable.Record({}) {
 
     moveAnchorBackward(n?: number): RangeType;
     moveAnchorForward(n?: number): RangeType;
-    moveAnchorTo(path: Path, offset?: number): RangeType;
+    moveAnchorTo(path: string | number | Immutable.List<number>, offset?: number): RangeType;
     moveAnchorToStartOfNode(node: Node): RangeType;
     moveAnchorToEndOfNode(node: Node): RangeType;
 
     moveEndBackward(n?: number): RangeType;
     moveEndForward(n?: number): RangeType;
-    moveEndTo(path: Path, offset?: number): RangeType;
+    moveEndTo(path: string | number | Immutable.List<number>, offset?: number): RangeType;
     moveEndToStartOfNode(node: Node): RangeType;
     moveEndToEndOfNode(node: Node): RangeType;
 
     moveFocusBackward(n?: number): RangeType;
     moveFocusForward(n?: number): RangeType;
-    moveFocusTo(path: Path, offset?: number): RangeType;
+    moveFocusTo(path: string | number | Immutable.List<number>, offset?: number): RangeType;
     moveFocusToStartOfNode(node: Node): RangeType;
     moveFocusToEndOfNode(node: Node): RangeType;
 
     moveStartBackward(n?: number): RangeType;
     moveStartForward(n?: number): RangeType;
-    moveStartTo(path: Path, offset?: number): RangeType;
+    moveStartTo(path: string | number | Immutable.List<number>, offset?: number): RangeType;
     moveStartToStartOfNode(node: Node): RangeType;
     moveStartToEndOfNode(node: Node): RangeType;
 
@@ -750,59 +972,70 @@ declare class BaseRange extends Immutable.Record({}) {
     setIsFocused(value: boolean): RangeType;
     setMarks(marks: Immutable.Set<Mark>): RangeType;
     setPoints(values: Point[]): RangeType;
-    updatePoints(updator: () => Point): RangeType;
+    updatePoints(updater: (point: Point) => Point): RangeType;
     setStart(point: Point): RangeType;
     setProperties(
-        properties: RangeTypeProperties | string | RangeType
+        properties: RangeTypeProperties | RangeTypeJSON | RangeType
     ): RangeType;
 
     toJSON(): RangeTypeJSON;
+    toJS(): RangeTypeJSON;
     toRange(): RangeType;
     unset(): RangeType;
 }
 
 export interface PointProperties {
-    key?: string | null;
+    object?: "point";
+    key?: string;
     offset?: number;
-    path?: Path | null;
+    path?: Immutable.List<number>;
 }
 
 export interface PointJSON {
-    key?: string | null;
+    object?: "point";
+    key?: string;
     offset?: number;
-    path?: Path | null;
-    object: "point";
+    path?: number[];
 }
 
 export class Point extends Immutable.Record({}) {
     object: "point";
-    key: string | null;
+    key: string;
     offset: number;
-    path: Path | null;
+    path: Immutable.List<number>;
 
-    static create(properties: PointProperties | Point): Point;
-    static createProperties(properties: PointProperties | Point): Point;
-    static fromJSON(properties: PointJSON): Point;
-    static fromJS(properties: PointJSON): Point;
+    static create(properties: PointProperties | PointJSON | Point): Point;
+    static createProperties(properties: PointProperties | PointJSON | Point): Point;
+    static fromJSON(properties: PointJSON | PointProperties): Point;
+    static fromJS(properties: PointJSON | PointProperties): Point;
     static isPoint(maybePoint: any): maybePoint is Point;
 
     readonly isSet: boolean;
     readonly isUnset: boolean;
 
+    isAfterPoint(point: Point): boolean;
+    isAfterRange(range: RangeType): boolean;
+    isAtEndofRange(range: RangeType): boolean;
+    isAtStartOfRange(range: RangeType): boolean;
+    isBeforePoint(point: Point): boolean;
+    isBeforeRange(range: RangeType): boolean;
+    isInRange(range: RangeType): boolean;
     isAtEndOfNode(node: Node): boolean;
     isAtStartOfNode(node: Node): boolean;
     isInNode(node: Node): boolean;
-    moveBackward(n?: number): Point;
-    moveForward(n?: number): Point;
-    moveTo(path: Path, offset?: number): Point;
-    moveToStartOfNode(node: Node): Point;
-    moveToEndOfNode(node: Node): Point;
-    normalize(node: Node): Point;
-    setKey(key: string): Point;
-    setOffset(offset: number): Point;
-    setPath(path: Path): Point;
-    toJSON(options: any): object;
-    unset(): Point;
+
+    moveBackward(n?: number): this;
+    moveForward(n?: number): this;
+    moveTo(path: string | number | Immutable.List<number>, offset?: number): this;
+    moveToStartOfNode(node: Node): this;
+    moveToEndOfNode(node: Node): this;
+    normalize(node: Node): this;
+    setKey(key: string): this;
+    setOffset(offset: number): this;
+    setPath(path: Immutable.List<number> | number[]): this;
+    toJSON(options?: { preserveKeys?: boolean }): PointJSON;
+    toJS(options?: { preserveKeys?: boolean }): PointJSON;
+    unset(): this;
 }
 
 export type Operation =
@@ -811,6 +1044,9 @@ export type Operation =
     | AddMarkOperation
     | RemoveMarkOperation
     | SetMarkOperation
+    | AddAnnotationOperation
+    | RemoveAnnotationOperation
+    | SetAnnotationOperation
     | InsertNodeOperation
     | MergeNodeOperation
     | MoveNodeOperation
@@ -820,156 +1056,199 @@ export type Operation =
     | SetSelectionOperation
     | SetValueOperation;
 
-export interface InsertTextOperation {
+export interface OperationProperties {
+    object?: "operation";
+    type: string;
+    text?: string;
+    target?: number;
+    properties?:
+        | NodeProperties
+        | ValueProperties
+        | SelectionProperties
+        | AnnotationProperties;
+    position?: number;
+    path?: Immutable.List<number>;
+    offset?: number;
+    node?: Node;
+    newProperties?:
+        | NodeProperties
+        | ValueProperties
+        | SelectionProperties
+        | MarkProperties
+        | AnnotationProperties;
+    newPath?: Immutable.List<number>;
+    mark?: Mark;
+    data?: Data | { [key: string]: any };
+    annotation?: Annotation;
+}
+
+export interface OperationJSON {
+    object?: "operation";
+    type: string;
+    text?: string;
+    target?: number;
+    properties?:
+        | NodeJSON
+        | ValueJSON
+        | SelectionJSON
+        | AnnotationJSON;
+    position?: number;
+    path?: number[];
+    offset?: number;
+    node?: Node;
+    newProperties?:
+        | NodeJSON
+        | ValueJSON
+        | SelectionJSON
+        | MarkJSON
+        | AnnotationJSON;
+    newPath?: number[];
+    mark?: MarkJSON;
+    data?: { [key: string]: any };
+    annotation?: AnnotationJSON;
+}
+
+export class BaseOperation extends Immutable.Record({}) {
+    object: "operation";
+    type: string;
+
+    static create(attrs?: Operation | OperationProperties | OperationJSON): Operation;
+    static createList():
+        | Immutable.List<Operation | OperationProperties | OperationJSON>
+        | Array<Operation | OperationProperties | OperationJSON>;
+
+    static fromJSON(object: OperationProperties | OperationJSON): Operation;
+    static fromJS(object: OperationProperties | OperationJSON): Operation;
+
+    static isOperation(maybeOperation: any): maybeOperation is Operation;
+    static isOperationList(maybeOperationList: any): maybeOperationList is Immutable.List<Operation>;
+
+    toJSON(): OperationJSON;
+
+    apply(value: Value): Value;
+    invert(): this;
+}
+
+export class InsertTextOperation extends BaseOperation {
     type: "insert_text";
-    path: number[];
+    path: Immutable.List<number>;
     offset: number;
     text: string;
-    marks: Mark[];
+    data: Data;
 }
 
-export interface RemoveTextOperation {
+export class RemoveTextOperation extends BaseOperation {
     type: "remove_text";
-    path: number[];
+    path: Immutable.List<number>;
     offset: number;
     text: string;
+    data: Data;
 }
 
-export interface AddMarkOperation {
+export class AddMarkOperation extends BaseOperation {
     type: "add_mark";
-    path: number[];
-    offset: number;
-    length: number;
+    path: Immutable.List<number>;
     mark: Mark;
+    data: Data;
 }
 
-export interface RemoveMarkOperation {
+export class RemoveMarkOperation extends BaseOperation {
     type: "remove_mark";
-    path: number[];
-    offset: number;
-    length: number;
+    path: Immutable.List<number>;
     mark: Mark;
+    data: Data;
 }
 
-export interface SetMarkOperation {
+export class SetMarkOperation extends BaseOperation {
     type: "set_mark";
-    path: number[];
-    offset: number;
-    length: number;
-    mark: Mark;
+    path: Immutable.List<number>;
     properties: MarkProperties;
+    newProperties: MarkProperties;
+    data: Data;
 }
 
-export interface InsertNodeOperation {
+export class AddAnnotationOperation extends BaseOperation {
+    type: "add_annotation";
+    annotation: Annotation;
+    data: Data;
+}
+
+export class RemoveAnnotationOperation extends BaseOperation {
+    type: "remove_annotation";
+    annotation: Annotation;
+    data: Data;
+}
+
+export class SetAnnotationOperation extends BaseOperation {
+    type: "set_annotation";
+    properties: AnnotationProperties;
+    newProperties: AnnotationProperties;
+    data: Data;
+}
+
+export class InsertNodeOperation extends BaseOperation {
     type: "insert_node";
-    path: number[];
+    path: Immutable.List<number>;
     node: Node;
+    data: Data;
 }
 
-export interface MergeNodeOperation {
+export class MergeNodeOperation extends BaseOperation {
     type: "merge_node";
-    path: number[];
+    path: Immutable.List<number>;
     position: number;
+    properties: NodeProperties;
+    data: Data;
 }
 
-export interface MoveNodeOperation {
+export class MoveNodeOperation extends BaseOperation {
     type: "move_node";
-    path: number[];
-    newPath: number[];
+    path: Immutable.List<number>;
+    newPath: Immutable.List<number>;
+    data: Data;
 }
 
-export interface RemoveNodeOperation {
+export class RemoveNodeOperation extends BaseOperation {
     type: "remove_node";
-    path: number[];
+    path: Immutable.List<number>;
     node: Node;
+    data: Data;
 }
 
-export interface SetNodeOperation {
+export class SetNodeOperation extends BaseOperation {
     type: "set_node";
-    path: number[];
-    properties: BlockProperties | InlineProperties | TextProperties;
+    path: Immutable.List<number>;
+    properties: NodeProperties;
+    newProperties: NodeProperties;
+    data: Data;
 }
 
-export interface SplitNodeOperation {
+export class SplitNodeOperation extends BaseOperation {
     type: "split_node";
-    path: number[];
+    path: Immutable.List<number>;
     position: number;
     target: number;
+    properties: NodeProperties;
+    data: Data;
 }
 
-export interface SetSelectionOperation {
+export class SetSelectionOperation extends BaseOperation {
     type: "set_selection";
-    properties: RangeProperties;
-    selection: Range;
+    properties: SelectionProperties;
+    newProperties: SelectionProperties;
+    data: Data;
 }
 
-export interface SetValueOperation {
+export class SetValueOperation extends BaseOperation {
     type: "set_value";
     properties: ValueProperties;
-    value: Value;
-}
-
-export interface Operations {
-    apply: (value: Value, operation: Operation) => Value;
-    invert: (operation: Operation) => Operation;
-}
-
-export interface StackProperties {
-    plugins?: any[];
-}
-
-export interface StackJSON {
-    object: "stack";
-    plugins: any[];
-}
-
-export class Stack extends Immutable.Record({}) {
-    object: "stack";
-    plugins: any[];
-
-    static create(attrs: StackProperties): Stack;
-    static isStack(maybeStack: any): maybeStack is Stack;
-
-    static fromJSON(properties: StackJSON): Stack;
-    static fromJS(properties: StackJSON): Stack;
-    toJSON(options: any): object;
-}
-
-export interface HistoryProperties {
-    undos?: Operation[];
-    redos?: Operation[];
-}
-
-export interface HistoryJSON {
-    object: "history";
-    undos: any[];
-    redos: any[];
-}
-
-export interface HistoryOptions {
-    merge?: boolean;
-    skip?: boolean;
-}
-
-export class History extends Immutable.Record({}) {
-    redos: Stack;
-    undos: Stack;
-    object: "history";
-
-    static create(attrs: History | HistoryProperties): History;
-    static createOperationsList(
-        oeprations?: Immutable.List<Operation> | Operation[]
-    ): Immutable.List<Operation>;
-    static fromJSON(object: HistoryJSON): History;
-    static fromJS(object: HistoryJSON): History;
-    static isHistory(maybeHistory: any): maybeHistory is History;
-
-    save(operation: Operation, options?: HistoryOptions): History;
-    toJSON(): HistoryJSON;
-    toJS(): HistoryJSON;
+    newProperties: ValueProperties;
+    data: Data;
 }
 
 export type ErrorCode =
+    | "child_max_invalid"
+    | "child_min_invalid"
     | "child_object_invalid"
     | "child_required"
     | "child_type_invalid"
@@ -1002,70 +1281,226 @@ export namespace KeyUtils {
     function resetGenerator(): void;
 }
 
-export type useMemoization = () => void;
+export type useMemoization = (enabled: boolean) => void;
 export type resetMemoization = () => void;
 
-export interface PathUtils {
-    compare(
+export namespace PathUtils {
+    /**
+     * Compare paths `path` and `target` to see which is before or after.
+     */
+    function compare(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): number | null;
-    create(attrs: Immutable.List<number> | string): Immutable.List<number>;
-    crop(
+
+    /**
+     * Create a path from `attrs`.
+     */
+    function create(
+        attrs: Immutable.List<number> | number[]
+    ): Immutable.List<number>;
+
+    /**
+     * Crop paths `a` and `b` to an equal size, defaulting to the shortest.
+     */
+    function crop(
         a: Immutable.List<number>,
         b: Immutable.List<number>,
         size?: number
     ): Array<Immutable.List<number>>;
-    decrement(
+
+    /**
+     * Decrement a `path` by `n` at `index`, defaulting to the last index.
+     */
+    function decrement(
         path: Immutable.List<number>,
         n?: number,
         index?: number
     ): Immutable.List<number>;
-    increment(
+
+    /**
+     * Get all ancestor paths of the given path.
+     */
+    function getAncestors(
+        path: Immutable.List<number>
+    ): Immutable.List<number>;
+
+    /**
+     * Increment a `path` by `n` at `index`, defaulting to the last index.
+     */
+    function increment(
         path: Immutable.List<number>,
         n?: number,
         index?: number
     ): Immutable.List<number>;
-    isAbove(
+
+    /**
+     * Is a `path` above another `target` path?
+     */
+    function isAbove(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): boolean;
-    isAfter(
+
+    /**
+     * Is a `path` after another `target` path in a document?
+     */
+    function isAfter(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): boolean;
-    isBefore(
+
+    /**
+     * Is a `path` before another `target` path in a document?
+     */
+    function isBefore(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): boolean;
-    lift(path: Immutable.List<number>): Immutable.List<number>;
-    max(a: Immutable.List<number>, b: Immutable.List<number>): number;
-    min(a: Immutable.List<number>, b: Immutable.List<number>): number;
-    relate(
+
+    /**
+     * Is a `path` equal to another `target` path in a document?
+     */
+    function isEqual(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Is a `path` older than a `target` path? Meaning that it ends as an older
+     * sibling of one of the indexes in the target.
+     */
+    function isOlder(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Is an `any` object a path?
+     */
+    function isPath(
+        maybePath: any
+    ): maybePath is (Immutable.List<number> | number[]);
+
+    /**
+     * Is a `path` a sibling of a `target` path?
+     */
+    function isSibling(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Is a `path` younger than a `target` path? Meaning that it ends as a younger
+     * sibling of one of the indexes in the target.
+     */
+    function isYounger(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Lift a `path` to refer to its `n`th ancestor.
+     */
+    function lift(
+        path: Immutable.List<number>,
+        n?: number
+    ): Immutable.List<number>;
+
+    /**
+     * Drop a `path`, returning a relative path from a depth of `n`.
+     */
+    function drop(
+        path: Immutable.List<number>,
+        n?: number
+    ): Immutable.List<number>;
+
+    /**
+     * Get the maximum length of paths `a` and `b`.
+     */
+    function max(
+        a: Immutable.List<number>,
+        b: Immutable.List<number>
+    ): number;
+
+    /**
+     * Get the minimum length of paths `a` and `b`.
+     */
+    function min(
+        a: Immutable.List<number>,
+        b: Immutable.List<number>
+    ): number;
+
+    /**
+     * Get the common ancestor path of path `a` and path `b`.
+     */
+    function relate(
         a: Immutable.List<number>,
         b: Immutable.List<number>
     ): Immutable.List<number>;
+
+    /**
+     * Transform a `path` by an `operation`, adjusting it to stay current.
+     */
+    function transform(
+        path: Immutable.List<number>,
+        operation: Operation | OperationJSON | OperationProperties
+    ): Immutable.List<Immutable.List<number>>;
 }
 
-export interface EditorProperties {
-    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
-    plugins?: any[];
+export interface Command {
+    type: string;
+    args: any[];
+}
+
+export interface Query {
+    type: string;
+    args: any[];
+}
+
+export type CommandFunc<T extends Controller = Controller> = (editor: T, ...args: any[]) => T;
+export type QueryFunc<T extends Controller = Controller> = (editor: T, ...args: any[]) => any;
+
+export interface Plugin<T extends Controller = Controller> {
+    normalizeNode?: (node: Node, editor: T, next: () => void) => ((editor: T) => void) | void;
+    onChange?: (editor: T, next: () => void) => void;
+    onCommand?: (command: Command, editor: T, next: () => void) => void;
+    onConstruct?: (editor: T, next: () => void) => void;
+    onQuery?: (query: Query, editor: T, next: () => void) => void;
+    validateNode?: (node: Node, editor: T, next: () => void) => SlateError | void;
+
+    commands?: {[name: string]: CommandFunc<T>};
+    queries?: {[name: string]: QueryFunc<T>};
+    schema?: SchemaProperties;
+}
+
+export interface Plugins<T extends Controller = Controller> extends Array<Plugin<T> | Plugins<T>> {}
+
+export interface EditorProperties<T extends Controller = Controller> {
+    object?: "editor";
+    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
+    plugins?: Plugins<T>;
     readOnly?: boolean;
     value?: Value;
 }
 
-export class Editor {
+export interface EditorOptions {
+    controller?: Controller;
+    construct?: boolean;
+    normalize?: boolean;
+}
+
+export class Editor implements Controller {
     object: "editor";
+    controller: Controller;
+    middleware: object;
     onChange: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
-    plugins: any[];
+    operations: Immutable.List<Operation>;
+    plugins: Array<Plugin<Editor>>;
     readOnly: boolean;
     value: Value;
-    constructor(attributes: EditorProperties)
 
-    /**
-     * Apply an `operation` to the editor, updating its value.
-     */
-    applyOperation(operation: Operation): Editor;
+    constructor(attributes: EditorProperties<Editor>, options?: EditorOptions);
 
     /**
      * Synchronously flush the current changes to editor, calling onChange.
@@ -1073,24 +1508,6 @@ export class Editor {
      */
     flush(): Editor;
 
-    command(name: string, ...args: any[]): void;
-    query(query: string, ...args: any[]): any;
-
-    /**
-     * Add a new command by type with the editor. This will make the command available as a top-level method on the editor
-     */
-    registerCommand(command: string): void;
-
-    /**
-     * Add a new query by type with the editor. This will make the query available as a top-level method on the editor.
-     */
-    registerQuery(query: string): void;
-
-    /**
-     * Run the middleware stack by key with args, returning its result.
-     * In normal operation you never need to use this method! Reserved for testing.
-     */
-    run(key: string, ...args: any[]): any;
     setReadOnly(readOnly: boolean): Editor;
 
     /**
@@ -1100,678 +1517,1023 @@ export class Editor {
      */
     setValue(value: Value, options?: { normalize: boolean }): Editor;
 
-    // Built in Command Operations //
+    isEditor(maybeEditor: any): maybeEditor is Editor;
+
+    addMark(mark: string | MarkProperties | MarkJSON | Mark): Editor;
+    addMarks(mark: Set<string | MarkProperties | MarkJSON | Mark> | Array<string | MarkProperties | MarkJSON | Mark>): Editor;
+    delete(): Editor;
+    deleteBackward(n?: number): Editor;
+    deleteForward(n?: number): Editor;
+    insertBlock(block: string | Block | BlockProperties | BlockJSON): Editor;
+    insertFragment(fragment: Document): Editor;
+    insertInline(inline: string | Inline | InlineProperties | InlineJSON): Editor;
+    insertText(text: string, marks?: Immutable.Set<string | MarkProperties | MarkJSON | Mark> | Array<string | MarkProperties | MarkJSON | Mark>): Editor;
+    setBlocks(properties: string | Block | BlockProperties | BlockJSON): Editor;
+    setInlines(properties: string | Inline | InlineProperties): Editor;
+    splitBlock(depth?: number): Editor;
+    splitInline(depth: number): Editor;
+    removeMark(mark: string | MarkProperties | MarkJSON | Mark): Editor;
+    replaceMark(mark: string | MarkProperties | MarkJSON | Mark, newMark: string | MarkProperties | MarkJSON | Mark): Editor;
+    toggleMark(mark: string | MarkProperties | MarkJSON | Mark): Editor;
+    unwrapBlock(properties: string | Block | BlockProperties | BlockJSON): Editor;
+    unwrapInline(properties: string | Inline | InlineProperties | InlineJSON): Editor;
+    wrapBlock(properties: string | Block | BlockProperties | BlockJSON): Editor;
+    wrapInline(properties: string | Inline | InlineProperties | InlineJSON): Editor;
+    wrapText(prefix: string, suffix?: string): Editor;
+    blur(): Editor;
+    deselect(): Editor;
+    flip(): Editor;
+    focus(): Editor;
+    moveAnchorBackward(n?: number): Editor;
+    moveAnchorWordBackward(): Editor;
+    moveAnchorForward(n?: number): Editor;
+    moveAnchorWordForward(): Editor;
+    moveAnchorTo(path: string | number | Immutable.List<number>, offset?: number): Editor;
+    moveAnchorToEndOfBlock(): Editor;
+    moveAnchorToEndOfInline(): Editor;
+    moveAnchorToEndOfDocument(): Editor;
+    moveAnchorToEndOfNextBlock(): Editor;
+    moveAnchorToEndOfNextInline(): Editor;
+    moveAnchorToEndOfNextText(): Editor;
+    moveAnchorToEndOfNode(node: Block | Document | Inline | Text): Editor;
+    moveAnchorToEndOfPreviousBlock(): Editor;
+    moveAnchorToEndOfPreviousInline(): Editor;
+    moveAnchorToEndOfPreviousText(): Editor;
+    moveAnchorToEndOfText(): Editor;
+    moveAnchorToStartOfBlock(): Editor;
+    moveAnchorToStartOfDocument(): Editor;
+    moveAnchorToStartOfInline(): Editor;
+    moveAnchorToStartOfNextBlock(): Editor;
+    moveAnchorToStartOfNextInline(): Editor;
+    moveAnchorToStartOfNextText(): Editor;
+    moveAnchorToStartOfNode(node: Block | Document | Inline | Text): Editor;
+    moveAnchorToStartOfPreviousBlock(): Editor;
+    moveAnchorToStartOfPreviousInline(): Editor;
+    moveAnchorToStartOfPreviousText(): Editor;
+    moveAnchorToStartOfText(): Editor;
+    moveEndBackward(n?: number): Editor;
+    moveEndForward(n?: number): Editor;
+    moveEndTo(path: string | number | Immutable.List<number>, offset?: number): Editor;
+    moveEndToEndOfBlock(): Editor;
+    moveEndToEndOfDocument(): Editor;
+    moveEndToEndOfInline(): Editor;
+    moveEndToEndOfNextBlock(): Editor;
+    moveEndToEndOfNextInline(): Editor;
+    moveEndToEndOfNextText(): Editor;
+    moveEndToEndOfNode(node: Block | Document | Inline | Text): Editor;
+    moveEndToEndOfPreviousBlock(): Editor;
+    moveEndToEndOfPreviousInline(): Editor;
+    moveEndToEndOfPreviousText(): Editor;
+    moveEndToEndOfText(): Editor;
+    moveEndToStartOfBlock(): Editor;
+    moveEndToStartOfDocument(): Editor;
+    moveEndToStartOfInline(): Editor;
+    moveEndToStartOfNextBlock(): Editor;
+    moveEndToStartOfNextInline(): Editor;
+    moveEndToStartOfNextText(): Editor;
+    moveEndToStartOfNode(node: Block | Document | Inline | Text): Editor;
+    moveEndToStartOfPreviousBlock(): Editor;
+    moveEndToStartOfPreviousInline(): Editor;
+    moveEndToStartOfPreviousText(): Editor;
+    moveEndToStartOfText(): Editor;
+    moveEndWordBackward(): Editor;
+    moveEndWordForward(): Editor;
+    moveFocusBackward(n?: number): Editor;
+    moveFocusForward(n?: number): Editor;
+    moveFocusTo(path: string | number | Immutable.List<number>, offset?: number): Editor;
+    moveFocusToEndOfBlock(): Editor;
+    moveFocusToEndOfDocument(): Editor;
+    moveFocusToEndOfInline(): Editor;
+    moveFocusToEndOfNextBlock(): Editor;
+    moveFocusToEndOfNextInline(): Editor;
+    moveFocusToEndOfNextText(): Editor;
+    moveFocusToEndOfNode(node: Block | Document | Inline | Text): Editor;
+    moveFocusToEndOfPreviousBlock(): Editor;
+    moveFocusToEndOfPreviousInline(): Editor;
+    moveFocusToEndOfPreviousText(): Editor;
+    moveFocusToEndOfText(): Editor;
+    moveFocusToStartOfBlock(): Editor;
+    moveFocusToStartOfDocument(): Editor;
+    moveFocusToStartOfInline(): Editor;
+    moveFocusToStartOfNextBlock(): Editor;
+    moveFocusToStartOfNextInline(): Editor;
+    moveFocusToStartOfNextText(): Editor;
+    moveFocusToStartOfNode(node: Block | Document | Inline | Text): Editor;
+    moveFocusToStartOfPreviousBlock(): Editor;
+    moveFocusToStartOfPreviousInline(): Editor;
+    moveFocusToStartOfPreviousText(): Editor;
+    moveFocusToStartOfText(): Editor;
+    moveFocusWordBackward(): Editor;
+    moveFocusWordForward(): Editor;
+    moveStartForward(n?: number): Editor;
+    moveStartBackward(n?: number): Editor;
+    moveStartTo(path: string | number | Immutable.List<number>, n?: number): Editor;
+    moveStartToEndOfBlock(): Editor;
+    moveStartToEndOfDocument(): Editor;
+    moveStartToEndOfInline(): Editor;
+    moveStartToEndOfNextBlock(): Editor;
+    moveStartToEndOfNextInline(): Editor;
+    moveStartToEndOfNextText(): Editor;
+    moveStartToEndOfNode(node: Block | Document | Inline | Text): Editor;
+    moveStartToEndOfPreviousBlock(): Editor;
+    moveStartToEndOfPreviousInline(): Editor;
+    moveStartToEndOfPreviousText(): Editor;
+    moveStartToEndOfText(): Editor;
+    moveStartToStartOfBlock(): Editor;
+    moveStartToStartOfDocument(): Editor;
+    moveStartToStartOfInline(): Editor;
+    moveStartToStartOfNextBlock(): Editor;
+    moveStartToStartOfNextInline(): Editor;
+    moveStartToStartOfNextText(): Editor;
+    moveStartToStartOfNode(node: Block | Document | Inline | Text): Editor;
+    moveStartToStartOfPreviousBlock(): Editor;
+    moveStartToStartOfPreviousInline(): Editor;
+    moveStartToStartOfPreviousText(): Editor;
+    moveStartToStartOfText(): Editor;
+    moveStartWordForward(): Editor;
+    moveStartWordBackward(): Editor;
+    moveBackward(n?: number): Editor;
+    moveForward(n?: number): Editor;
+    moveTo(path: string | number | Immutable.List<number>, offset?: number): Editor;
+    moveToAnchor(): Editor;
+    moveToFocus(): Editor;
+    moveToStart(): Editor;
+    moveToEnd(): Editor;
+    moveToEndOfBlock(): Editor;
+    moveToEndOfDocument(): Editor;
+    moveToEndOfInline(): Editor;
+    moveToEndOfNextBlock(): Editor;
+    moveToEndOfNextInline(): Editor;
+    moveToEndOfNextText(): Editor;
+    moveToEndOfNode(node: Block | Document | Inline | Text): Editor;
+    moveToEndOfPreviousBlock(): Editor;
+    moveToEndOfPreviousInline(): Editor;
+    moveToEndOfPreviousText(): Editor;
+    moveToEndOfText(): Editor;
+    moveToStartOfBlock(): Editor;
+    moveToStartOfDocument(): Editor;
+    moveToStartOfInline(): Editor;
+    moveToStartOfNextBlock(): Editor;
+    moveToStartOfNextInline(): Editor;
+    moveToStartOfNextText(): Editor;
+    moveToStartOfNode(node: Block | Document | Inline | Text): Editor;
+    moveToStartOfPreviousBlock(): Editor;
+    moveToStartOfPreviousInline(): Editor;
+    moveToStartOfPreviousText(): Editor;
+    moveToStartOfText(): Editor;
+    moveWordBackward(): Editor;
+    moveWordForward(): Editor;
+    moveToRangeOfDocument(): Editor;
+    moveToRangeOfNode(node: Block | Document | Inline | Text): Editor;
+    select(
+        properties: string | RangeTypeProperties| RangeTypeJSON | RangeType,
+        options?: { snapshot?: boolean }
+    ): Editor;
+    setAnchor(point: Point): void;
+    setEnd(point: Point): void;
+    setFocus(point: Point): void;
+    setStart(point: Point): void;
+    addMarkAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, mark: string | MarkProperties | Mark): Editor;
+    addMarksAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, marks: Array<string | MarkProperties | MarkJSON | Mark> | Immutable.Set<string | MarkProperties | MarkJSON | Mark>): Editor;
+    deleteAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
+    deleteCharBackward(): Editor;
+    deleteCharBackwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
+    deleteLineBackward(): Editor;
+    deleteLineBackwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
+    deleteWordBackward(): Editor;
+    deleteWordBackwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
+    deleteBackwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, n?: number): Editor;
+    deleteCharForward(): Editor;
+    deleteCharForwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
+    deleteLineForward(): Editor;
+    deleteLineForwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
+    deleteWordForwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
+    deleteWordForward(): Editor;
+    deleteForwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, n?: number): Editor;
+    insertBlockAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, block: string | Block | BlockProperties | BlockJSON): Editor;
+    insertFragmentAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, fragment: Document): Editor;
+    insertInlineAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, inline: Inline | InlineProperties | InlineJSON): Editor;
+    insertTextAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, text: string): Editor;
+    setBlocksAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Block | BlockProperties | BlockJSON): Editor;
+    setInlinesAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Inline | InlineProperties | InlineJSON): Editor;
+    splitBlockAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, height?: number): Editor;
+    splitInlineAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, height?: number): Editor;
+    removeMarkAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, mark: string | MarkProperties | MarkJSON | Mark): Editor;
+    toggleMarkAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, mark: string | MarkProperties | MarkJSON | Mark): Editor;
+    unwrapBlockAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Block | BlockProperties | BlockJSON): Editor;
+    unwrapInlineAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Inline | InlineProperties | InlineJSON): Editor;
+    wrapBlockAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Block | BlockProperties | BlockJSON): Editor;
+    wrapInlineAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Inline | InlineProperties | InlineJSON): Editor;
+    wrapTextAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, prefix: string, suffix?: string): Editor;
+    addMarkByKey(key: string, offset: number, length: number, mark: string | MarkProperties | MarkJSON | Mark): Editor;
+    addMarkByPath(path: Immutable.List<number>, offset: number, length: number, mark: string | MarkProperties | MarkJSON | Mark): Editor;
+    addMarksByPath(
+        path: Immutable.List<number>,
+        offset: number, length: number,
+        marks:
+            | Array<string | MarkProperties | MarkJSON | Mark>
+            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>
+    ): Editor;
+    insertNodeByKey(key: string, index: number, node: Block | Document | Inline | Text): Editor;
+    insertNodeByPath(path: Immutable.List<number>, index: number, node: Block | Document | Inline | Text): Editor;
+    insertFragmentByKey(key: string, index: number, fragment: Document): Editor;
+    insertFragmentByPath(path: Immutable.List<number>, index: number, fragment: Document): Editor;
+    insertTextByKey(
+        key: string,
+        offset: number,
+        text: string,
+        marks?:
+            | Array<string | MarkProperties | MarkJSON | Mark>
+            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>
+    ): Editor;
+    insertTextByPath(
+        path: Immutable.List<number>,
+        offset: number,
+        text: string,
+        marks?:
+            | Array<string | MarkProperties | MarkJSON | Mark>
+            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>
+    ): Editor;
+    mergeNodeByKey(key: string): Editor;
+    mergeNodeByPath(path: Immutable.List<number>): Editor;
+    moveNodeByKey(key: string, newKey: string, newIndex: number): Editor;
+    moveNodeByPath(path: Immutable.List<number>, newPath: Immutable.List<number>, newIndex: number): Editor;
+    removeMarkByKey(key: string, offset: number, length: number, mark: string | MarkProperties | MarkJSON | Mark): Editor;
+    removeMarkByPath(path: Immutable.List<number>, offset: number, length: number, mark: string | MarkProperties | MarkJSON | Mark): Editor;
+    removeAllMarksByKey(key: string): Editor;
+    removeAllMarksByPath(path: Immutable.List<number>): Editor;
+    removeMarksByPath(
+        path: Immutable.List<number>,
+        offset: number,
+        length: number,
+        marks:
+            | Array<string | MarkProperties | MarkJSON | Mark>
+            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>
+    ): Editor;
+    removeNodeByKey(key: string): Editor;
+    removeNodeByPath(path: Immutable.List<number>): Editor;
+    replaceNodeByKey(key: string, node: Block | Document | Inline | Text): Editor;
+    replaceNodeByPath(path: Immutable.List<number>, newNode: Block | Document | Inline | Text): Editor;
+    removeTextByKey(key: string, offset: number, length: number): Editor;
+    removeTextByPath(path: Immutable.List<number>, offset: number, length: number): Editor;
+    replaceTextByKey(key: string, node: Block | Document | Inline | Text): Editor;
+    replaceTextByPath(
+        path: Immutable.List<number>,
+        offset: number,
+        length: number,
+        text: string,
+        marks?: Immutable.Set<Mark> | Mark[]
+    ): Editor;
+    setMarkByKey(
+        key: string,
+        offset: number,
+        length: number,
+        properties: string | MarkProperties | MarkJSON | Mark,
+        newProperties: string | Partial<MarkProperties> | Partial<MarkJSON> | Partial<Mark>
+    ): Editor;
+    setMarkByPath(
+        path: Immutable.List<number>,
+        offset: number,
+        length: number,
+        properties: string | MarkProperties | MarkJSON | Mark,
+        newProperties: string | Partial<MarkProperties> | Partial<MarkJSON> | Partial<Mark>
+    ): Editor;
+    setNodeByKey(key: string, properties: string | Partial<BlockProperties> | Partial<InlineProperties>): Editor;
+    setNodeByPath(path: Immutable.List<number>, newProperties: string | NodeProperties): Editor;
+    setTextByKey(key: string, text: string, marks: Immutable.Set<Mark>): Editor;
+    setTextByPath(path: Immutable.List<number>, text: string, marks: Immutable.Set<Mark>): Editor;
+    splitDescendantsByKey(key: string, textKey: string, textOffset: number): Editor;
+    splitDescendantsByPath(path: Immutable.List<number>, textPath: Immutable.List<number>, textOffset: number): Editor;
+    splitNodeByKey(key: string, offset: number): Editor;
+    splitNodeByPath(path: Immutable.List<number>, position: number, options?: { target?: number }): Editor;
+    unwrapInlineByKey(key: string, properties: string | InlineProperties): Editor;
+    unwrapInlineByPath(path: Path, properties: string | InlineProperties): Editor;
+    unwrapBlockByKey(key: string, properties: string | BlockProperties): Editor;
+    unwrapBlockByPath(path: Path, properties: string | BlockProperties): Editor;
+    unwrapChildrenByKey(key: string): Editor;
+    unwrapChildrenByPath(path: Immutable.List<number> | number[]): Editor;
+    unwrapNodeByKey(key: string): Editor;
+    unwrapNodeByPath(path: Immutable.List<number>): Editor;
+    wrapInlineByKey(key: string, properties: string | InlineProperties): Editor;
+    wrapInlineByPath(path: Path, properties: string | InlineProperties): Editor;
+    wrapBlockByKey(key: string, properties: string | BlockProperties): Editor;
+    wrapBlockByPath(path: Immutable.List<number>, block: string | Block): Editor;
+    wrapNodeByKey(key: string, parent: Block | Document | Inline | Text): Editor;
+    wrapNodeByPath(path: Immutable.List<number>, parent: Block | Document | Inline | Text): Editor;
+    normalize(): Editor;
+    withoutNormalizing(fn: () => void): Editor;
+    withoutSaving(fn: () => void): Editor;
+    withoutMerging(fn: () => void): Editor;
+    redo(): Editor;
+    undo(): Editor;
+    save(operation: Operation): void;
+    snapshotSelection(): Editor;
+    command(type: string | ((...args: any[]) => any), ...args: any[]): Editor;
+    hasCommand(type: string): boolean;
+    hasQuery(type: string): boolean;
+    query(query: string | ((...args: any[]) => any), ...args: any[]): any;
+    registerCommand(command: string): Editor;
+    registerQuery(query: string): Editor;
+    applyOperation(operation: Operation | OperationJSON | OperationProperties): Editor;
+    run(key: string, ...args: any[]): Editor;
+    setData(data: Data): Editor;
+    addAnnotation(annotation: AnnotationProperties | AnnotationJSON | Annotation): Editor;
+    removeAnnotation(annotation: AnnotationProperties | AnnotationJSON | Annotation): Editor;
+    setAnnotation(annotation: Annotation, newProperties: AnnotationProperties | AnnotationJSON | Annotation): Editor;
+}
+
+export interface Controller {
     // Current Selection Commands //
     /**
      * Add a mark to the characters in the current selection
      */
-    addMark(mark: Mark | MarkProperties | string): Editor;
-
+    addMark(mark: MarkProperties | MarkJSON | Mark | string): Controller;
+    addMarks(mark:
+        | Set<MarkProperties | MarkJSON | Mark | string>
+        | Array<MarkProperties | MarkJSON | Mark | string>
+    ): Controller;
     /**
      * Delete everything in the current selection.
      */
-    delete(): Editor;
+    delete(): Controller;
 
     /**
      * Delete backward n characters at the current cursor.
      * If the selection is expanded, behaviour is equivalent to delete()
      */
-    deleteBackward(n: number): Editor;
+    deleteBackward(n?: number): Controller;
 
     /**
      * Delete backward n characters at the current cursor.
      * If the selection is expanded, behaviour is equivalent to delete()
      */
-    deleteForward(n: number): Editor;
+    deleteForward(n?: number): Controller;
 
     /**
      * Insert a new block at the same level as the current block, splitting the current block to make room if it is non-empty.
      * If the selection is expanded, it will be deleted first.
      */
-    insertBlock(block: Block | BlockProperties | string): Editor;
+    insertBlock(block: Block | BlockProperties | BlockJSON | string): Controller;
 
     /**
      * Insert a document fragment at the current selection. If the selection is expanded, it will be deleted first.
      */
-    insertFragment(fragment: Document): Editor;
+    insertFragment(fragment: Document): Controller;
 
     /**
      * Insert a new inline at the current cursor position, splitting the text to make room if it is non-empty.
      * If the selection is expanded, it will be deleted first.
      */
-    insertInline(inline: Inline | InlineProperties): Editor;
+    insertInline(inline: Inline | InlineProperties | InlineJSON | string): Controller;
 
     /**
      * Insert a string of text at the current selection. If the selection is expanded, it will be deleted first
      */
-    insertText(text: string): Editor;
+    insertText(text: string): Controller;
 
     /**
      * Set the properties of the Blocks in the current selection.
      * Passing a string will set the blocks' type only.
      */
-    setBlocks(properties: BlockProperties | string): Editor;
+    setBlocks(properties: Block | BlockProperties | BlockJSON | string): Controller;
 
     /**
      * Set the properties of the Inlines nodes in the current selection.
      * Passing a string will set the nodes' type only.
      */
-    setInlines(properties: InlineProperties | string): Editor;
+    setInlines(properties: Inline | InlineProperties | InlineProperties | string): Controller;
 
     /**
      * Split the Block in the current selection by depth levels.
      * If the selection is expanded, it will be deleted first.
      */
-    splitBlock(depth: number): Editor;
+    splitBlock(depth?: number): Controller;
 
     /**
      * Split the Inline node in the current selection by depth levels.
      * If the selection is expanded, it will be deleted first
      */
-    splitInline(depth: number): Editor;
+    splitInline(depth: number): Controller;
 
     /**
      * Remove a mark from the characters in the current selection.
      * Passing a string will implicitly create a Mark of that type for removal.
      */
-    removeMark(mark: Mark | MarkProperties | string): Editor;
+    removeMark(mark: Mark | MarkProperties | MarkJSON | string): Controller;
 
     /**
      * Remove a mark from the characters in the current selection.
      * Passing a string will implicitly create a Mark of that type.
      */
     replaceMark(
-        mark: Mark | MarkProperties | string,
-        newMark: Mark | MarkProperties | string
-    ): Editor;
+        mark: MarkProperties | MarkJSON | Mark | string,
+        newMark: MarkProperties | MarkJSON | Mark | string
+    ): Controller;
 
     /**
      * Add or remove a mark from the characters in the current selection, depending on it already exists on any or not.
      * Passing a string will implicitly create a Mark of that type to toggle.
      */
-    toggleMark(mark: Mark | MarkProperties | string): Editor;
+    toggleMark(mark: MarkProperties | MarkJSON | Mark | string): Controller;
 
     /**
      * Unwrap all Block nodes in the current selection that match a type and/or data
      */
-    unwrapBlock(properties: BlockProperties | string): Editor;
+    unwrapBlock(properties: BlockProperties | BlockJSON | Block | string): Controller;
 
     /**
      * Unwrap all Inline nodes in the current selection that match a type and/or data
      */
-    unwrapInline(properties: InlineProperties | string): Editor;
+    unwrapInline(properties: InlineProperties | InlineJSON | Inline | string): Controller;
 
     /**
      * Wrap the Block nodes in the current selection with a new Block
      */
-    wrapBlock(properties: BlockProperties | string): Editor;
+    wrapBlock(properties: BlockProperties | BlockJSON | Block | string): Controller;
 
     /**
      *  Wrap the Block nodes in the current selection with a new Inline
      */
-    wrapInline(properties: InlineProperties | string): Editor;
+    wrapInline(properties: InlineProperties | InlineJSON | Inline | string): Controller;
 
     /**
      * Surround the text in the current selection with prefix and suffix strings.
      * If the suffix is ommitted, the prefix will be used instead.
      */
-    wrapText(prefix: string, suffix?: string): Editor;
+    wrapText(prefix: string, suffix?: string): Controller;
 
     // Selection Commands //
     /**
      * Blur the current selection
      */
-    blur(): Editor;
+    blur(): Controller;
 
     /**
      * Unset the selection
      */
-    deselect(): Editor;
+    deselect(): Controller;
 
     /**
      * Flip the selection
      */
-    flip(): Editor;
+    flip(): Controller;
 
     /**
      * Focus the current selection
      */
-    focus(): Editor;
+    focus(): Controller;
 
     /**
      * Move the anchor of the current selection backward n characters
      */
-    moveAnchorBackward(n?: number): Editor;
+    moveAnchorBackward(n?: number): Controller;
+    moveAnchorWordBackward(): Controller;
     /**
      * Move the anchor of the current selection forward n characters
      */
-    moveAnchorForward(n?: number): Editor;
+    moveAnchorForward(n?: number): Controller;
+    moveAnchorWordForward(): Controller;
     /**
      * Move the anchor of the current selection to a new path and offset
      */
-    moveAnchorTo(path: Path, offset?: number): Editor;
+    moveAnchorTo(path: string | number | Immutable.List<number>, offset?: number): Controller;
     /**
      * Move the anchor of the current selection to the end of the closest block parent.
      */
-    moveAnchorToEndOfBlock(): Editor;
+    moveAnchorToEndOfBlock(): Controller;
     /**
      * Move the anchor of the current selection to the end of the closest inline parent.
      */
-    moveAnchorToEndOfInline(): Editor;
+    moveAnchorToEndOfInline(): Controller;
     /**
      * Move the anchor of the current selection to the end of the document.
      */
-    moveAnchorToEndOfDocument(): Editor;
+    moveAnchorToEndOfDocument(): Controller;
     /**
      * Move the anchor of the current selection to the end of the next block.
      */
-    moveAnchorToEndOfNextBlock(): Editor;
+    moveAnchorToEndOfNextBlock(): Controller;
     /**
      * Move the anchor of the current selection to the end of the next inline.
      */
-    moveAnchorToEndOfNextInline(): Editor;
+    moveAnchorToEndOfNextInline(): Controller;
     /**
      * Move the anchor of the current selection to the end of the next text.
      */
-    moveAnchorToEndOfNextText(): Editor;
+    moveAnchorToEndOfNextText(): Controller;
     /**
      * Move the anchor of the current selection to the end of the provided node.
      */
-    moveAnchorEndOfNode(node: Node): Editor;
+    moveAnchorToEndOfNode(node: Node): Controller;
     /**
      * Move the anchor of the current selection to the end of the previous block.
      */
-    moveAnchorToEndOfPreviousBlock(): Editor;
+    moveAnchorToEndOfPreviousBlock(): Controller;
     /**
      * Move the anchor of the current selection to the end of the previous inline.
      */
-    moveAnchorToEndOfPreviousInline(): Editor;
+    moveAnchorToEndOfPreviousInline(): Controller;
     /**
      * Move the anchor of the current selection to the end of the previous text.
      */
-    moveAnchorToEndOfPreviousText(): Editor;
+    moveAnchorToEndOfPreviousText(): Controller;
     /**
      * Move the anchor of the current selection to the end of the current text node.
      */
-    moveAnchorToEndOfText(): Editor;
+    moveAnchorToEndOfText(): Controller;
     /**
      * Move the anchor of the current selection to the start of the closest block parent.
      */
-    moveAnchorToStartOfBlock(): Editor;
+    moveAnchorToStartOfBlock(): Controller;
     /**
      * Move the anchor of the current selection to the start of the document.
      */
-    moveAnchorToStartOfDocument(): Editor;
+    moveAnchorToStartOfDocument(): Controller;
     /**
      * Move the anchor of the current selection to the start of the closest inline parent.
      */
-    moveAnchorToStartOfInline(): Editor;
+    moveAnchorToStartOfInline(): Controller;
     /**
      * Move the anchor of the current selection to the start of the next block.
      */
-    moveAnchorToStartOfNextBlock(): Editor;
+    moveAnchorToStartOfNextBlock(): Controller;
     /**
      * Move the anchor of the current selection to the start of the next inline.
      */
-    moveAnchorToStartOfNextInline(): Editor;
+    moveAnchorToStartOfNextInline(): Controller;
     /**
      * Move the anchor of the current selection to the start of the next text node.
      */
-    moveAnchorToStartOfNextText(): Editor;
+    moveAnchorToStartOfNextText(): Controller;
     /**
      * Move the anchor of the current selection to the start of the provided node.
      */
-    moveAnchorToStartOfNode(node: Node): Editor;
+    moveAnchorToStartOfNode(node: Node): Controller;
     /**
      * Move the anchor of the current selection to the start of the previous block.
      */
-    moveAnchorToStartOfPreviousBlock(): Editor;
+    moveAnchorToStartOfPreviousBlock(): Controller;
     /**
      * Move the anchor of the current selection to the start of the previous inline.
      */
-    moveAnchorToStartOfPreviousInline(): Editor;
+    moveAnchorToStartOfPreviousInline(): Controller;
     /**
      * Move the anchor of the current selection to the start of the previous text node.
      */
-    moveAnchorToStartOfPreviousText(): Editor;
+    moveAnchorToStartOfPreviousText(): Controller;
     /**
      * Move the anchor of the current selection to the start of the current text node.
      */
-    moveAnchorToStartOfText(): Editor;
+    moveAnchorToStartOfText(): Controller;
 
     /**
      * Move the end of the selection backward n characters
      */
-    moveEndBackward(n?: number): Editor;
+    moveEndBackward(n?: number): Controller;
     /**
      * Move the end of the selection foward n characters
      */
-    moveEndForward(n?: number): Editor;
+    moveEndForward(n?: number): Controller;
 
     /**
      * Move the end of the selection to a new path and offset
      */
-    moveEndTo(path: Path, offset?: number): Editor;
+    moveEndTo(path: string | number | Immutable.List<number>, offset?: number): Controller;
     /**
      * Move the end of the current selection to the end of the closest block parent.
      */
-    moveEndToEndOfBlock(): Editor;
+    moveEndToEndOfBlock(): Controller;
     /**
      * Move the end of the current selection to the end of the document.
      */
-    moveEndToEndOfDocument(): Editor;
+    moveEndToEndOfDocument(): Controller;
     /**
      * Move the end of the current selection to the end of the closest inline parent.
      */
-    moveEndToEndOfInline(): Editor;
+    moveEndToEndOfInline(): Controller;
     /**
      * Move the anchor of the current selection to the end of the next block.
      */
-    moveEndToEndOfNextBlock(): Editor;
+    moveEndToEndOfNextBlock(): Controller;
     /**
      * Move the end of the current selection to the end of the next inline.
      */
-    moveEndToEndOfNextInline(): Editor;
+    moveEndToEndOfNextInline(): Controller;
     /**
      * Move the end of the current selection to the end of the next text.
      */
-    moveEndToEndOfNextText(): Editor;
+    moveEndToEndOfNextText(): Controller;
     /**
      * Move the end of the current selection to the end of the provided node.
      */
-    moveEndToEndOfNode(node: Node): Editor;
+    moveEndToEndOfNode(node: Node): Controller;
     /**
      * Move the end of the current selection to the end of the previous block.
      */
-    moveEndToEndOfPreviousBlock(): Editor;
+    moveEndToEndOfPreviousBlock(): Controller;
     /**
      * Move the end of the current selection to the end of the previous inline.
      */
-    moveEndToEndOfPreviousInline(): Editor;
+    moveEndToEndOfPreviousInline(): Controller;
     /**
-     * Move the editor of the current selection to the end of the previous text.
+     * Move the commandable of the current selection to the end of the previous text.
      */
-    moveEndToEndOfPreviousText(): Editor;
+    moveEndToEndOfPreviousText(): Controller;
     /**
      * Move the end of the current selection to the end of the current text node.
      */
-    moveEndToEndOfText(): Editor;
+    moveEndToEndOfText(): Controller;
     /**
      * Move the end of the current selection to the start of the closest block parent.
      */
-    moveEndToStartOfBlock(): Editor;
+    moveEndToStartOfBlock(): Controller;
     /**
      * Move the end of the current selection to the start of the document.
      */
-    moveEndToStartOfDocument(): Editor;
+    moveEndToStartOfDocument(): Controller;
     /**
      * Move the end of the current selection to the start of the closest inline parent.
      */
-    moveEndToStartOfInline(): Editor;
+    moveEndToStartOfInline(): Controller;
     /**
      * Move the end of the current selection to the start of the next block.
      */
-    moveEndToStartOfNextBlock(): Editor;
+    moveEndToStartOfNextBlock(): Controller;
     /**
      * Move the end of the current selection to the start of the next inline.
      */
-    moveEndToStartOfNextInline(): Editor;
+    moveEndToStartOfNextInline(): Controller;
     /**
      * Move the end of the current selection to the start of the next text node.
      */
-    moveEndToStartOfNextText(): Editor;
+    moveEndToStartOfNextText(): Controller;
     /**
      * Move the end of the current selection to the start of the provided node.
      */
-    moveEndToStartOfNode(node: Node): Editor;
+    moveEndToStartOfNode(node: Node): Controller;
     /**
      * Move the end of the current selection to the start of the previous block.
      */
-    moveEndToStartOfPreviousBlock(): Editor;
+    moveEndToStartOfPreviousBlock(): Controller;
     /**
      * Move the end of the current selection to the start of the previous inline.
      */
-    moveEndToStartOfPreviousInline(): Editor;
+    moveEndToStartOfPreviousInline(): Controller;
     /**
      * Move the end of the current selection to the start of the previous text node.
      */
-    moveEndToStartOfPreviousText(): Editor;
+    moveEndToStartOfPreviousText(): Controller;
     /**
      * Move the end of the current selection to the start of the current text node.
      */
-    moveEndToStartOfText(): Editor;
-
+    moveEndToStartOfText(): Controller;
+    moveEndWordBackward(): Controller;
+    moveEndWordForward(): Controller;
     /**
      * Move the focus of the current selection backward n characters
      */
-    moveFocusBackward(n?: number): Editor;
+    moveFocusBackward(n?: number): Controller;
     /**
      * Move the focus of the current selection forward n characters
      */
-    moveFocusForward(n?: number): Editor;
+    moveFocusForward(n?: number): Controller;
     /**
      * Move the focus of the current selection to a new path and offset
      */
-    moveFocusTo(path: Path, offset?: number): Editor;
+    moveFocusTo(path: string | number | Immutable.List<number>, offset?: number): Controller;
     /**
      * Move the focus of the current selection to the end of the closest block parent.
      */
-    moveFocusToEndOfBlock(): Editor;
+    moveFocusToEndOfBlock(): Controller;
     /**
      * Move the focus of the current selection to the end of the document.
      */
-    moveFocusToEndOfDocument(): Editor;
+    moveFocusToEndOfDocument(): Controller;
     /**
      * Move the focus of the current selection to the end of the closest inline parent.
      */
-    moveFocusToEndOfInline(): Editor;
+    moveFocusToEndOfInline(): Controller;
     /**
      * Move the focus of the current selection to the end of the next block.
      */
-    moveFocusToEndOfNextBlock(): Editor;
+    moveFocusToEndOfNextBlock(): Controller;
     /**
      * Move the focus of the current selection to the end of the next inline.
      */
-    moveFocusToEndOfNextInline(): Editor;
+    moveFocusToEndOfNextInline(): Controller;
     /**
      * Move the focus of the current selection to the end of the next text.
      */
-    moveFocusToEndOfNextText(): Editor;
+    moveFocusToEndOfNextText(): Controller;
     /**
      * Move the focus of the current selection to the end of the provided node.
      */
-    moveFocusToEndOfNode(node: Node): Editor;
+    moveFocusToEndOfNode(node: Node): Controller;
     /**
      * Move the focus of the current selection to the end of the previous block.
      */
-    moveFocusToEndOfPreviousBlock(): Editor;
+    moveFocusToEndOfPreviousBlock(): Controller;
     /**
      * Move the focus of the current selection to the end of the previous inline.
      */
-    moveFocusToEndOfPreviousInline(): Editor;
+    moveFocusToEndOfPreviousInline(): Controller;
     /**
      * Move the focus of the current selection to the end of the previous text.
      */
-    moveFocusToEndOfPreviousText(): Editor;
+    moveFocusToEndOfPreviousText(): Controller;
     /**
      * Move the focus of the current selection to the end of the current text node.
      */
-    moveFocusToEndOfText(): Editor;
+    moveFocusToEndOfText(): Controller;
     /**
      * Move the focus of the current selection to the start of the closest block parent.
      */
-    moveFocusToStartOfBlock(): Editor;
+    moveFocusToStartOfBlock(): Controller;
     /**
      * Move the focus of the current selection to the start of the document.
      */
-    moveFocusToStartOfDocument(): Editor;
+    moveFocusToStartOfDocument(): Controller;
     /**
      * Move the focus of the current selection to the start of the closest inline parent.
      */
-    moveFocusToStartOfInline(): Editor;
+    moveFocusToStartOfInline(): Controller;
     /**
      * Move the focus of the current selection to the start of the next block.
      */
-    moveFocusToStartOfNextBlock(): Editor;
+    moveFocusToStartOfNextBlock(): Controller;
     /**
      * Move the focus of the current selection to the start of the next inline.
      */
-    moveFocusToStartOfNextInline(): Editor;
+    moveFocusToStartOfNextInline(): Controller;
     /**
      * Move the focus of the current selection to the start of the next text node.
      */
-    moveFocusToStartOfNextText(): Editor;
+    moveFocusToStartOfNextText(): Controller;
     /**
      * Move the focus of the current selection to the start of the provided node.
      */
-    moveFocusToStartOfNode(node: Node): Editor;
+    moveFocusToStartOfNode(node: Node): Controller;
     /**
      * Move the focus of the current selection to the start of the previous block.
      */
-    moveFocusToStartOfPreviousBlock(): Editor;
+    moveFocusToStartOfPreviousBlock(): Controller;
     /**
      * Move the focus of the current selection to the start of the previous inline.
      */
-    moveFocusToStartOfPreviousInline(): Editor;
+    moveFocusToStartOfPreviousInline(): Controller;
     /**
      * Move the focus of the current selection to the start of the previous text node.
      */
-    moveFocusToStartOfPreviousText(): Editor;
+    moveFocusToStartOfPreviousText(): Controller;
     /**
      * Move the focus of the current selection to the start of the current text node.
      */
-    moveFocusToStartOfText(): Editor;
-
+    moveFocusToStartOfText(): Controller;
+    moveFocusWordBackward(): Controller;
+    moveFocusWordForward(): Controller;
     /**
      * Move the start of the current selection backward n characters
      */
-    moveStartForward(n?: number): Editor;
+    moveStartForward(n?: number): Controller;
     /**
      * Move the start of the current selection forward n characters
      */
-    moveStartBackward(n?: number): Editor;
+    moveStartBackward(n?: number): Controller;
     /**
      * Move the start of the current selection to a new path and offset
      */
-    moveStartTo(path: Path, n?: number): Editor;
+    moveStartTo(path: string | number | Immutable.List<number>, n?: number): Controller;
     /**
      * Move the start of the current selection to the end of the closest block parent.
      */
-    moveStartToEndOfBlock(): Editor;
+    moveStartToEndOfBlock(): Controller;
     /**
      * Move the start of the current selection to the end of the document.
      */
-    moveStartToEndOfDocument(): Editor;
+    moveStartToEndOfDocument(): Controller;
     /**
      * Move the start of the current selection to the end of the closest inline parent.
      */
-    moveStartToEndOfInline(): Editor;
+    moveStartToEndOfInline(): Controller;
     /**
      * Move the start of the current selection to the end of the next block.
      */
-    moveStartToEndOfNextBlock(): Editor;
+    moveStartToEndOfNextBlock(): Controller;
     /**
      * Move the start of the current selection to the end of the next inline.
      */
-    moveStartToEndOfNextInline(): Editor;
+    moveStartToEndOfNextInline(): Controller;
     /**
      * Move the start of the current selection to the end of the next text.
      */
-    moveStartToEndOfNextText(): Editor;
+    moveStartToEndOfNextText(): Controller;
     /**
      * Move the start of the current selection to the end of the provided node.
      */
-    moveStartToEndOfNode(node: Node): Editor;
+    moveStartToEndOfNode(node: Node): Controller;
     /**
      * Move the start of the current selection to the end of the previous block.
      */
-    moveStartToEndOfPreviousBlock(): Editor;
+    moveStartToEndOfPreviousBlock(): Controller;
     /**
      * Move the start of the current selection to the end of the previous inline.
      */
-    moveStartToEndOfPreviousInline(): Editor;
+    moveStartToEndOfPreviousInline(): Controller;
     /**
      * Move the start of the current selection to the end of the previous text.
      */
-    moveStartToEndOfPreviousText(): Editor;
+    moveStartToEndOfPreviousText(): Controller;
     /**
      * Move the start of the current selection to the end of the current text node.
      */
-    moveStartToEndOfText(): Editor;
+    moveStartToEndOfText(): Controller;
     /**
      * Move the start of the current selection to the start of the closest block parent.
      */
-    moveStartToStartOfBlock(): Editor;
+    moveStartToStartOfBlock(): Controller;
     /**
      * Move the start of the current selection to the start of the document.
      */
-    moveStartToStartOfDocument(): Editor;
+    moveStartToStartOfDocument(): Controller;
     /**
      * Move the start of the current selection to the start of the closest inline parent.
      */
-    moveStartToStartOfInline(): Editor;
+    moveStartToStartOfInline(): Controller;
     /**
      * Move the start of the current selection to the start of the next block.
      */
-    moveStartToStartOfNextBlock(): Editor;
+    moveStartToStartOfNextBlock(): Controller;
     /**
      * Move the start of the current selection to the start of the next inline.
      */
-    moveStartToStartOfNextInline(): Editor;
+    moveStartToStartOfNextInline(): Controller;
     /**
      * Move the start of the current selection to the start of the next text node.
      */
-    moveStartToStartOfNextText(): Editor;
+    moveStartToStartOfNextText(): Controller;
     /**
      * Move the start of the current selection to the start of the provided node.
      */
-    moveStartToStartOfNode(node: Node): Editor;
+    moveStartToStartOfNode(node: Node): Controller;
     /**
      * Move the start of the current selection to the start of the previous block.
      */
-    moveStartToStartOfPreviousBlock(): Editor;
+    moveStartToStartOfPreviousBlock(): Controller;
     /**
      * Move the start of the current selection to the start of the previous inline.
      */
-    moveStartToStartOfPreviousInline(): Editor;
+    moveStartToStartOfPreviousInline(): Controller;
     /**
      * Move the start of the current selection to the start of the previous text node.
      */
-    moveStartToStartOfPreviousText(): Editor;
+    moveStartToStartOfPreviousText(): Controller;
     /**
      * Move the start of the current selection to the start of the current text node.
      */
-    moveStartToStartOfText(): Editor;
-
+    moveStartToStartOfText(): Controller;
+    moveStartWordForward(): Controller;
+    moveStartWordBackward(): Controller;
     /**
      * Move the anchor and focus of the selection backward n characters.
      */
-    moveBackward(n?: number): Editor;
+    moveBackward(n?: number): Controller;
     /**
      * Move the anchor and focus of the selection forward n characters.
      */
-    moveForward(n?: number): Editor;
+    moveForward(n?: number): Controller;
     /**
      * Collapse the current selection at the provided new path and offset.
      */
-    moveTo(path: Path, offset?: number): Editor;
+    moveTo(path: string | number | Immutable.List<number>, offset?: number): Controller;
     /**
      * Collapse the current selection at the anchor.
      */
-    moveToAnchor(): Editor;
+    moveToAnchor(): Controller;
     /**
      * Collapse the current selection at the focus.
      */
-    moveToFocus(): Editor;
+    moveToFocus(): Controller;
     /**
      * Collapse the current selection at the start.
      */
-    moveToStart(): Editor;
+    moveToStart(): Controller;
     /**
      * Collapse the current selection at the end.
      */
-    moveToEnd(): Editor;
+    moveToEnd(): Controller;
     /**
      * Collapse the current selection at the end of the closest block parent.
      */
-    moveToEndOfBlock(): Editor;
+    moveToEndOfBlock(): Controller;
     /**
      * Collapse the current selection at the end of the document.
      */
-    moveToEndOfDocument(): Editor;
+    moveToEndOfDocument(): Controller;
     /**
      * Collapse the current selection at the end of the closest inline parent.
      */
-    moveToEndOfInline(): Editor;
+    moveToEndOfInline(): Controller;
     /**
      * Collapse the current selection at the end of the next block.
      */
-    moveToEndOfNextBlock(): Editor;
+    moveToEndOfNextBlock(): Controller;
     /**
      * Collapse the current selection at the end of the inline.
      */
-    moveToEndOfNextInline(): Editor;
+    moveToEndOfNextInline(): Controller;
     /**
      * Collapse the current selection at the end of the next text node.
      */
-    moveToEndOfNextText(): Editor;
+    moveToEndOfNextText(): Controller;
     /**
      * Collapse the current selection at the end of the provided node.
      */
-    moveToEndOfNode(node: Node): Editor;
+    moveToEndOfNode(node: Node): Controller;
     /**
      * Collapse the current selection at the end of the previous block.
      */
-    moveToEndOfPreviousBlock(): Editor;
+    moveToEndOfPreviousBlock(): Controller;
     /**
      * Collapse the current selection at the end of the previous inline.
      */
-    moveToEndOfPreviousInline(): Editor;
+    moveToEndOfPreviousInline(): Controller;
     /**
      * Collapse the current selection at the end of the previous text node.
      */
-    moveToEndOfPreviousText(): Editor;
+    moveToEndOfPreviousText(): Controller;
     /**
      * Collapse the current selection at the end of the current text node.
      */
-    moveToEndOfText(): Editor;
+    moveToEndOfText(): Controller;
     /**
      * Collapse the current selection at the start of the nearest block parent.
      */
-    moveToStartOfBlock(): Editor;
+    moveToStartOfBlock(): Controller;
     /**
      * Collapse the current selection at the start of the document.
      */
-    moveToStartOfDocument(): Editor;
+    moveToStartOfDocument(): Controller;
     /**
      * Collapse the current selection at the start of the nearest inline parent.
      */
-    moveToStartOfInline(): Editor;
+    moveToStartOfInline(): Controller;
     /**
      * Collapse the current selection at the start of the next block.
      */
-    moveToStartOfNextBlock(): Editor;
+    moveToStartOfNextBlock(): Controller;
     /**
      * Collapse the current selection at the start of the next inline.
      */
-    moveToStartOfNextInline(): Editor;
+    moveToStartOfNextInline(): Controller;
     /**
      * Collapse the current selection at the start of the next text node.
      */
-    moveToStartOfNextText(): Editor;
+    moveToStartOfNextText(): Controller;
     /**
      * Collapse the current selection at the start of the provided node.
      */
-    moveToStartOfNode(node: Node): Editor;
+    moveToStartOfNode(node: Node): Controller;
     /**
      * Collapse the current selection at the start of the previous block.
      */
-    moveToStartOfPreviousBlock(): Editor;
+    moveToStartOfPreviousBlock(): Controller;
     /**
      * Collapse the current selection at the start of the previous inline.
      */
-    moveToStartOfPreviousInline(): Editor;
+    moveToStartOfPreviousInline(): Controller;
     /**
      * Collapse the current selection at the start of the previous text node.
      */
-    moveToStartOfPreviousText(): Editor;
+    moveToStartOfPreviousText(): Controller;
     /**
      * Collapse the current selection at the start of the current text node.
      */
-    moveToStartOfText(): Editor;
-
+    moveToStartOfText(): Controller;
+    moveWordBackward(): Controller;
+    moveWordForward(): Controller;
     /**
      * Move the current selection's anchor to the start of the document and its focus to the end of it, selecting everything.
      */
-    moveToRangeOfDocument(): Editor;
+    moveToRangeOfDocument(): Controller;
     /**
      * Move the current selection's anchor to the start of the provided node and its focus to the end of it.
      */
-    moveToRangeOf(node: Node): Editor;
+    moveToRangeOfNode(node: Node): Controller;
     /**
      * Merge the current selection with the provided properties
      */
-    select(properties: Range | RangeProperties): Editor;
+    select(
+        properties:
+            | RangeTypeProperties
+            | RangeTypeJSON
+            | RangeType
+            | string,
+        options?: { snapshot?: boolean }
+    ): Controller;
+    setAnchor(point: Point): void;
+    setEnd(point: Point): void;
+    setFocus(point: Point): void;
+    setStart(point: Point): void;
 
     // Document Range Commands //
 
@@ -1779,111 +2541,188 @@ export class Editor {
      * Add a mark to the characters in the range.
      * Passing a string as `mark` will implicitly create a mark with that `type`
      */
-    addMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
+    addMarkAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        mark: Mark | MarkProperties | string): Controller;
+    addMarksAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        marks:
+            | Array<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+    ): Controller;
     /**
      * Delete everything in the range
      */
-    deleteAtRange(range: Range): Editor;
+    deleteAtRange(range: RangeType | RangeTypeProperties | RangeTypeJSON): Controller;
+    /**
+     * Delete backward one character
+     */
+    deleteCharBackward(): Controller;
     /**
      * Delete backward until the char boundary at a range
      */
-    deleteCharBackwardAtRange(range: Range): Editor;
+    deleteCharBackwardAtRange(range: RangeType | RangeTypeProperties | RangeTypeJSON): Controller;
+    /**
+     * Delete backward one line
+     */
+    deleteLineBackward(): Controller;
     /**
      * Delete backward until the line boundary at a range
      */
-    deleteLineBackwardAtRange(range: Range): Editor;
+    deleteLineBackwardAtRange(range: RangeType | RangeTypeProperties | RangeTypeJSON): Controller;
+    /**
+     * Delete backward one word.
+     */
+    deleteWordBackward(): Controller;
     /**
      * Delete backward until the word boundary at a range
      */
-    deleteWordBackwardAtRange(range: Range): Editor;
+    deleteWordBackwardAtRange(range: RangeType | RangeTypeProperties | RangeTypeJSON): Controller;
     /**
      * Delete backward n characters at a range
      */
-    deleteBackwardAtRange(range: Range, n: number): Editor;
+    deleteBackwardAtRange(range: RangeType | RangeTypeProperties | RangeTypeJSON, n?: number): Controller;
+    /**
+     * Delete forward one character
+     */
+    deleteCharForward(): Controller;
     /**
      * Delete forward until the char boundary at a range
      */
-    deleteCharForwardAtRange(range: Range): Editor;
+    deleteCharForwardAtRange(range: RangeType | RangeTypeProperties | RangeTypeJSON): Controller;
+    /**
+     * Delete forward one line
+     */
+    deleteLineForward(): Controller;
     /**
      * Delete forward until the line boundary at a range
      */
-    deleteLineForwardAtRange(range: Range): Editor;
+    deleteLineForwardAtRange(range: RangeType | RangeTypeProperties | RangeTypeJSON): Controller;
     /**
      * Delete forward until the word boundary at a range
      */
-    deleteWordForwardAtRange(range: Range): Editor;
+    deleteWordForwardAtRange(range: RangeType | RangeTypeProperties | RangeTypeJSON): Controller;
+    /**
+     * Delete forward one word
+     */
+    deleteWordForward(): Controller;
     /**
      * Delete forward n characters at a range
      */
-    deleteForwardAtRange(range: Range, n: number): Editor;
-
+    deleteForwardAtRange(range: RangeType | RangeTypeProperties | RangeTypeJSON, n?: number): Controller;
     /**
      * Insert a block node at range, splitting text to make room if it is non-empty.
      * If the range is expanded, it will be deleted first.
      */
-    insertBlockAtRange(range: Range, block: Block | BlockProperties | string): Editor;
+    insertBlockAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        block: Block | BlockProperties | BlockJSON | string
+    ): Controller;
     /**
      * Insert a document fragment at a range, if the range is expanded, it will be deleted first.
      */
-    insertFragmentAtRange(range: Range, fragment: Document): Editor;
+    insertFragmentAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        fragment: Document
+    ): Controller;
     /**
      * Insert a new inline at range, splitting text to make room if it is non-empty.
      * If the range is expanded, it will be deleted first.
      */
-    insertInlineAtRange(range: Range, inline: Inline | InlineProperties): Editor;
+    insertInlineAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        inline: Inline | InlineJSON | InlineProperties
+    ): Controller;
     /**
      * Insert text at range. If the range is expanded it will be deleted first
      */
-    insertTextAtRange(range: Range, text: string): Editor;
+    insertTextAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        text: string
+        ): Controller;
     /**
      * Set the properties of the block nodes in a range.
      * Passing a string will set the nodes' type only
      */
-    setBlocksAtRange(range: Range, properties: BlockProperties | string): Editor;
+    setBlocksAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        properties: Block | BlockJSON | BlockProperties | string
+    ): Controller;
     /**
      * Set the properties of the inline nodes in a range.
      * Passing a string will set the nodes' type only
      */
-    setInlinesAtRange(range: Range, properties: InlineProperties | string): Editor;
+    setInlinesAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        properties: InlineProperties | InlineJSON | Inline | string
+    ): Controller;
     /**
-     * Split the block in a range by depth levels. If the range is expanded it will be deleted first.
+     * Split the block nodes at a `range`, to optional `height`.
      */
-    splitBlockAtRange(range: Range, depth: number): Editor;
+    splitBlockAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        height?: number
+    ): Controller;
     /**
-     * Split the inline in a range by depth levels. If the range is expanded it will be deleted first.
+     * Split the inline nodes at a `range`, to optional `height`.
      */
-    splitInlineAtRange(range: Range, depth: number): Editor;
+    splitInlineAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        height?: number
+    ): Controller;
     /**
      * Remove a mark from characters in the range. Passing a string will
      * implicitly create a mark of that type for deletion.
      */
-    removeMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
+    removeMarkAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        mark: Mark | MarkProperties | MarkJSON | string
+    ): Controller;
     /**
      * Add or remove a mark from characters in the range. Passing a string will
      * implicitly create a mark of that type for deletion.
      */
-    toggleMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
+    toggleMarkAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        mark: Mark | MarkProperties | MarkJSON | string
+    ): Controller;
     /**
      * Unwrap all block nodes in a range that match properties
      */
-    unwrapBlockAtRange(range: Range, properties: BlockProperties | string): Editor;
+    unwrapBlockAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        properties: BlockProperties | BlockJSON | Block | string
+    ): Controller;
     /**
      * Unwrap all inline nodes in a range that match properties
      */
-    unwrapInlineAtRange(range: Range, properties: InlineProperties | string): Editor;
+    unwrapInlineAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        properties: InlineProperties | InlineJSON | Inline | string
+    ): Controller;
     /**
      * wrap all block nodes in a range with a new block node with the provided properties
      */
-    wrapBlockAtRange(range: Range, properties: BlockProperties | string): Editor;
+    wrapBlockAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        properties: BlockProperties | BlockJSON | Block | string
+    ): Controller;
     /**
      * wrap all inline nodes in a range with a new inline node with the provided properties
      */
-    wrapInlineAtRange(range: Range, properties: InlineProperties | string): Editor;
+    wrapInlineAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        properties: InlineProperties | InlineJSON | Inline | string
+    ): Controller;
     /**
      * Surround the text in a range with a prefix and suffix. If the suffix is ommitted,
      * the prefix will be used instead.
      */
-    wrapTextAtRange(range: Range, prefix: string, suffix?: string): Editor;
+    wrapTextAtRange(
+        range: RangeType | RangeTypeProperties | RangeTypeJSON,
+        prefix: string,
+        suffix?: string
+    ): Controller;
 
     // Node commands //
     /**
@@ -1893,33 +2732,41 @@ export class Editor {
         key: string,
         offset: number,
         length: number,
-        mark: MarkProperties | Mark | string
-    ): Editor;
+        mark: MarkProperties | MarkJSON | Mark | string
+    ): Controller;
     /**
      * Add a mark to length characters starting at an offset in a node by path
      */
     addMarkByPath(
-        path: Path,
+        path: Immutable.List<number>,
         offset: number,
         length: number,
-        mark: MarkProperties | Mark | string
-    ): Editor;
+        mark: MarkProperties | MarkJSON | Mark | string
+    ): Controller;
+    addMarksByPath(
+        path: Immutable.List<number>,
+        offset: number,
+        length: number,
+        marks:
+            | Array<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+    ): Controller;
     /**
      * Insert a node at index inside a parent node by key
      */
-    insertNodeByKey(key: string, index: number, node: Node): Editor;
+    insertNodeByKey(key: string, index: number, node: Node): Controller;
     /**
      * Insert a node at index inside a parent node by apth
      */
-    insertNodeByPath(path: Path, index: number, node: Node): Editor;
+    insertNodeByPath(path: Immutable.List<number>, index: number, node: Node): Controller;
     /**
      * Insert a document fragment at index inside a parent node by key
      */
-    insertFragmentByKey(key: string, index: number, fragment: Document): Editor;
+    insertFragmentByKey(key: string, index: number, fragment: Document): Controller;
     /**
      * Insert a document fragment at index inside a parent node by path
      */
-    insertFragmentByPath(path: Path, index: number, fragment: Document): Editor;
+    insertFragmentByPath(path: Immutable.List<number>, index: number, fragment: Document): Controller;
     /**
      * Insert text at an offset in a text node by its key with optional marks
      */
@@ -1927,33 +2774,41 @@ export class Editor {
         key: string,
         offset: number,
         text: string,
-        marks?: Immutable.Set<Mark> | Mark[]
-    ): Editor;
+        marks?:
+            | Array<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+    ): Controller;
     /**
      * Insert text at an offset in a text node by its path with optional marks
      */
     insertTextByPath(
-        path: Path,
+        path: Immutable.List<number>,
         offset: number,
         text: string,
-        marks?: Immutable.Set<Mark> | Mark[]
-    ): Editor;
+        marks?:
+            | Array<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+    ): Controller;
     /**
      * Merge a node by its key with its previous sibling
      */
-    mergeNodeByKey(key: string): Editor;
+    mergeNodeByKey(key: string): Controller;
     /**
      * Merge a node by its path with its previous sibling
      */
-    mergeNodeByPath(path: Path): Editor;
+    mergeNodeByPath(path: Immutable.List<number>): Controller;
     /**
      * Move a node by its key to a new parent node with with newkey at newindex
      */
-    moveNodeByKey(key: string, newKey: string, newIndex: number): Editor;
+    moveNodeByKey(key: string, newKey: string, newIndex: number): Controller;
     /**
      * Move a node by its path to a new parent node with with newpath at newindex
      */
-    moveNodeByPath(path: Path, newPath: Path, newIndex: number): Editor;
+    moveNodeByPath(
+        path: Immutable.List<number>,
+        newPath: Immutable.List<number>,
+        newIndex: number
+    ): Controller;
     /**
      * Remove a mark from length characters starting at an offset in a node by key
      */
@@ -1961,165 +2816,271 @@ export class Editor {
         key: string,
         offset: number,
         length: number,
-        mark: Mark | Mark | string
-    ): Editor;
+        mark: MarkProperties | MarkJSON | Mark | string
+    ): Controller;
     /**
      * Remove a mark from length characters starting at an offset in a node by path
      */
     removeMarkByPath(
-        path: Path,
+        path: Immutable.List<number>,
         offset: number,
         length: number,
-        mark: MarkProperties | Mark | string
-    ): Editor;
+        mark: MarkProperties | MarkJSON | Mark | string
+    ): Controller;
+    /**
+     * Remove all `marks` from node by `key`.
+     */
+    removeAllMarksByKey(key: string): Controller;
+    /**
+     * Remove all `marks` from node by `path`.
+     */
+    removeAllMarksByPath(path: Immutable.List<number>): Controller;
+    removeMarksByPath(
+        path: Immutable.List<number>,
+        offset: number,
+        length: number,
+        marks:
+        | Array<MarkProperties | MarkJSON | Mark | string>
+        | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+    ): Controller;
     /**
      * Remove a node from the document by its key
      */
-    removeNodeByKey(key: string): Editor;
+    removeNodeByKey(key: string): Controller;
     /**
      * Remove a node from the document by its path
      */
-    removeNodeByPath(path: Path): Editor;
+    removeNodeByPath(path: Immutable.List<number>): Controller;
     /**
      * Replace a node in the document with a new node by key
      */
-    replaceNodeByKey(key: string, node: Node): Editor;
+    replaceNodeByKey(key: string, node: Node): Controller;
     /**
      * Replace a node in the document with a new node by path
      */
-    replaceNodeByPath(path: Path, newNode: Node): Editor;
+    replaceNodeByPath(path: Immutable.List<number>, newNode: Node): Controller;
     /**
      * Remove length characters of text starting at an offset in a node by key
      */
-    removeTextByKey(key: string, offset: number, length: number): Editor;
+    removeTextByKey(key: string, offset: number, length: number): Controller;
     /**
      * Remove length characters of text starting at an offset in a node by path
      */
-    removeTextByPath(path: Path, offset: number, length: number): Editor;
+    removeTextByPath(path: Immutable.List<number>, offset: number, length: number): Controller;
     /**
-     * Set a dictionary of properties on a mark by its key.
+     * Set a dictionary of newProperties on a mark by its key.
+     */
+    /**
+     * Replace a length of text at offset with new text and optional marks by key
+     */
+    replaceTextByKey(key: string, node: Node): Controller;
+    /**
+     * Replace a length of text at offset with new text and optional marks by path
+     */
+    replaceTextByPath(
+        path: Immutable.List<number>,
+        offset: number,
+        length: number,
+        text: string,
+        marks?: Immutable.Set<Mark> | Mark[]
+    ): Controller;
+    /**
+     * Remove length characters of text starting at an offset in a node by key
      */
     setMarkByKey(
         key: string,
         offset: number,
         length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Editor;
+        properties: MarkProperties | MarkJSON | Mark | string,
+        newProperties: Partial<MarkProperties | MarkJSON | Mark | string>
+    ): Controller;
     /**
-     * Set a dictionary of properties on a mark by its path.
+     * Set a dictionary of newProperties on a mark by its path.
      */
-    setMarksByPath(
-        path: Path,
+    setMarkByPath(
+        path: Immutable.List<number>,
         offset: number,
         length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Editor;
+        properties: MarkProperties | MarkJSON | Mark | string,
+        newProperties: Partial<MarkProperties | MarkJSON | Mark | string>,
+    ): Controller;
     /**
      * Set a dictionary of properties on a node by its key.
      */
-    setNodeByKey(key: string, properties: BlockProperties | InlineProperties | string): Editor;
+    setNodeByKey(key: string, properties: BlockProperties | InlineProperties | string): Controller;
     /**
      * Set a dictionary of properties on a node by its key.
      */
-    setNodeByPath(path: Path, properties: NodeProperties | InlineProperties | string): Editor;
+    setNodeByPath(path: Immutable.List<number>, newProperties: NodeProperties | InlineProperties | string): Controller;
+    /**
+     *  Insert `text` at `offset` in node by `key`.
+     */
+    setTextByKey(key: string, text: string, marks: Immutable.Set<Mark>): Controller;
+    /**
+     *  Insert `text` at `offset` in node by `path`.
+     */
+    setTextByPath(path: Immutable.List<number>, text: string, marks: Immutable.Set<Mark>): Controller;
+    /**
+     * Split a node deeply down the tree by `key`, `textKey` and `textOffset`.
+     */
+    splitDescendantsByKey(key: string, textKey: string, textOffset: number): Controller;
+    /**
+     * Split a node deeply down the tree by `path`, `textPath` and `textOffset`.
+     */
+    splitDescendantsByPath(path: Immutable.List<number>, textPath: Immutable.List<number>, textOffset: number): Controller;
+
     /**
      * Split a node by its key at an offset
      */
-    splitNodeByKey(key: string, offset: number): Editor;
+    splitNodeByKey(key: string, offset: number): Controller;
     /**
      * Split a node by its path at an offset
      */
-    splitNodeByPath(path: Path, position: number): Editor;
+    splitNodeByPath(path: Immutable.List<number>, position: number, options?: { target?: number }): Controller;
     /**
      * Unwrap all inner content of an inline node by its key that match properties
      */
-    unwrapInlineByKey(key: string, properties: InlineProperties | string): Editor;
+    unwrapInlineByKey(key: string, properties: InlineProperties | string): Controller;
     /**
      * Unwrap all inner content of an inline node by its path that match properties
      */
-    unwrapInlineByPath(path: Path, properties: InlineProperties | string): Editor;
+    unwrapInlineByPath(path: Path, properties: InlineProperties | string): Controller;
     /**
      * Unwrap all inner content of a block node by its key that match properties
      */
-    unwrapBlockByKey(key: string, properties: BlockProperties | string): Editor;
+    unwrapBlockByKey(key: string, properties: BlockProperties | string): Controller;
     /**
      * Unwrap all inner content of a block node by its path that match properties
      */
-    unwrapBlockByPath(path: Path, properties: BlockProperties | string): Editor;
+    unwrapBlockByPath(path: Path, properties: BlockProperties | string): Controller;
+    /**
+     * Unwrap all of the children of a node by its key.
+     */
+    unwrapChildrenByKey(key: string): Controller;
+    /**
+     * Unwrap all of the children of a node, by removing the node and replacing it
+     * with the children in the tree.
+     */
+    unwrapChildrenByPath(path: Immutable.List<number> | number[]): Controller;
     /**
      * Unwrap a single node from its parent. if the node is surrounded with siblings the parent will be split.
      * If the node is an only child, it will replace the parent
      */
-    unwrapNodeByKey(key: string): Editor;
+    unwrapNodeByKey(key: string): Controller;
     /**
      * Unwrap a single node from its parent. if the node is surrounded with siblings the parent will be split.
      * If the node is an only child, it will replace the parent
      */
-    unwrapNodeByPath(path: Path): Editor;
+    unwrapNodeByPath(path: Immutable.List<number>): Controller;
     /**
      * Wrap the given node by key in an Inline node that matches properties.
      */
-    wrapInlineByKey(key: string, properties: InlineProperties | string): Editor;
+    wrapInlineByKey(key: string, properties: InlineProperties | string): Controller;
     /**
      * Wrap the given node by path in an Inline node that matches properties.
      */
-    wrapInlineByPath(path: Path, properties: InlineProperties | string): Editor;
+    wrapInlineByPath(path: Path, properties: InlineProperties | string): Controller;
     /**
      * Wrap the given node by key in a block node that matches properties.
      */
-    wrapBlockByKey(key: string, properties: BlockProperties | string): Editor;
+    wrapBlockByKey(key: string, properties: BlockProperties | string): Controller;
     /**
      * Wrap the given node by path in a block node that matches properties.
      */
-    wrapBlockByPath(path: Path, block: Block | string): Editor;
+    wrapBlockByPath(path: Immutable.List<number>, block: Block | string): Controller;
     /**
      * Wrap the node with the specified key with the parent node, this will clear all children of the parent.
      */
-    wrapNodeByKey(key: string, parent: Node): Editor;
+    wrapNodeByKey(key: string, parent: Node): Controller;
     /**
      * Wrap the node with the specified key with the parent node, this will clear all children of the parent.
      */
-    wrapNodeByPath(path: Path, parent: Node): Editor;
+    wrapNodeByPath(path: Immutable.List<number>, parent: Node): Controller;
 
     // Miscellaneous Commands //
     /**
      * Normalizes the document with the value's schema. Run automatically unless manually disabled.
      * Use it sparingly and strategically, as it can be very expensive.
      */
-    normalize(): Editor;
+    normalize(): Controller;
     /**
-     * Calls the provided function with the current editor as the first argument.
+     * Calls the provided function with the current commandable as the first argument.
      * Normalization does not occur while the function is executing and is deferred to execute immediately after completion.
      *
      * This allows for sequence change operations to not be interrupted by normalization
      */
-    withoutNormalizing(fn: () => void): Editor;
+    withoutNormalizing(fn: () => void): Controller;
     /**
-     * By default all operations are saved to the editor's history. If you have
+     * By default all operations are saved to the commandable's history. If you have
      * changes that you don't want to show up in history, use this function.
      */
-    withoutSaving(fn: () => void): Editor;
+    withoutSaving(fn: () => void): void;
     /**
      * Usually all command operations are merged into a single save point in history,
      * if more control is desired, create single save points using this function.
      */
-    withoutMerging(fn: () => void): Editor;
+    withoutMerging(fn: () => void): void;
 
     // History Commands //
     /**
      * Move forward one step in the history
      */
-    redo(): Editor;
+    redo(): Controller;
     /**
      * Move backward one step in the history
      */
-    undo(): Editor;
+    undo(): Controller;
+    /**
+     * Save an `operation` into the history.
+     */
+    save(operation: Operation): void;
     /**
      * Snapshot the current selection for undo purposes.
      */
-    snapshotSelection(): Editor;
+    snapshotSelection(): Controller;
+    command(type: string | ((...args: any[]) => any), ...args: any[]): Controller;
+    /**
+     * Check if a command by type has been registered.
+     */
+    hasCommand(type: string): boolean;
+    /**
+     * Check if a query by type has been registered.
+     */
+    hasQuery(type: string): boolean;
+    query(query: string | ((...args: any[]) => any), ...args: any[]): any;
+    /**
+     * Add a new command by type to the controller. This will make the command available as a top-level method on the controller
+     */
+    registerCommand(command: string): Controller;
+    /**
+     * Add a new query by type to the controller. This will make the query available as a top-level method on the controller.
+     */
+    registerQuery(query: string): Controller;
+    /**
+     * Apply an `operation` to the controller, updating its value.
+     */
+    applyOperation(operation: Operation | OperationJSON | OperationProperties): Controller;
+    /**
+     * Run the middleware stack by key with args, returning its result.
+     * In normal operation you never need to use this method! Reserved for testing.
+     */
+    run(key: string, ...args: any[]): Controller;
+    /**
+     * Set data
+     */
+    setData(data: Data): Controller;
+    /**
+     * Add annotation
+     */
+    addAnnotation(annotation: Annotation | AnnotationProperties | AnnotationJSON): Controller;
+    /**
+     * Remove annotation
+     */
+    removeAnnotation(annotation: Annotation | AnnotationProperties | AnnotationJSON): Controller;
+    /**
+     * Set annotation
+     */
+    setAnnotation(annotation: Annotation, newProperties: AnnotationProperties | AnnotationJSON | Annotation): Controller;
 }
 
 export {};

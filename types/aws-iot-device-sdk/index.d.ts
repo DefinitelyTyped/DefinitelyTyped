@@ -1,4 +1,4 @@
-// Type definitions for aws-iot-device-sdk 2.1.0
+// Type definitions for aws-iot-device-sdk 2.2.0
 // Project: https://github.com/aws/aws-iot-device-sdk-js
 // Definitions by: Markus Olsson <https://github.com/niik>
 //                 Margus Lamp <https://github.com/mlamp>
@@ -8,6 +8,7 @@
 
 import * as mqtt from "mqtt";
 import * as WebSocket from "ws";
+import { EventEmitter } from 'events';
 
 export interface DeviceOptions extends mqtt.IClientOptions {
   /** the AWS IoT region you will operate in (default "us-east-1") */
@@ -140,7 +141,7 @@ export interface DeviceOptions extends mqtt.IClientOptions {
   debug?: boolean;
 }
 
-export class device extends NodeJS.EventEmitter {
+export class device extends EventEmitter {
   /**
    * Returns a wrapper for the mqtt.Client() class, configured for a TLS
    * connection with the AWS IoT platform and with arguments as specified
@@ -193,10 +194,9 @@ export class device extends NodeJS.EventEmitter {
    * Unsubscribe from a topic or topics
    *
    * @param topic  is a String topic or an array of topics to unsubscribe from
-   * @param options
    * @param callback  fired on unsuback
    */
-  unsubscribe(topic: string | string[], options?: mqtt.IClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
+  unsubscribe(topic: string | string[], callback?: mqtt.PacketCallback): mqtt.Client;
 
   /**
    * end - close connection
@@ -241,7 +241,7 @@ export interface RegisterOptions {
  * The thingShadow class wraps an instance of the device class with
  * additional functionality to operate on Thing Shadows via the AWS IoT API.
  */
-export class thingShadow extends NodeJS.EventEmitter {
+export class thingShadow extends EventEmitter {
 
   constructor(options?: ThingShadowOptions);
 
@@ -390,4 +390,116 @@ export class thingShadow extends NodeJS.EventEmitter {
 
   /** Emitted when a different client"s update or delete operation is accepted on the shadow. */
   on(event: "foreignStateChange", listener: (thingName: string, operation: "update" | "delete", stateObject: any) => void): this;
+}
+
+export interface statusDetails {
+    progress: string;
+}
+
+export interface jobStatus {
+    status: string;
+    statusDetails: statusDetails;
+}
+
+export interface jobDocument {
+    [key: string]: any
+}
+
+export interface job {
+    /** Object that contains job execution information and functions for updating job execution status. */
+
+    /** Returns the job id. */
+    id: string;
+
+    /**
+     * The JSON document describing details of the job to be executed eg.
+     * {
+     *   "operation": "install",
+     *   "otherProperty": "value",
+     *   ...
+     * }
+     */
+    document: jobDocument;
+
+    /**
+     * Returns the job operation from the job document. Eg. 'install', 'reboot', etc.
+     */
+    operation: string;
+
+    /**
+     * Returns the current job status according to AWS Orchestra.
+     */
+    status: jobStatus;
+
+    /**
+     * Update the status of the job execution to be IN_PROGRESS for the thing associated with the job.
+     *
+     * @param statusDetails - optional document describing the status details of the in progress job
+     * @param callback - function(err) optional callback for when the operation completes, err is null if no error occurred
+     */
+    inProgress(statusDetails?: statusDetails, callback?: (err: Error) => void): void;
+
+    /**
+     * Update the status of the job execution to be FAILED for the thing associated with the job.
+     *
+     * @param statusDetails - optional document describing the status details of the in progress job e.g.
+     * @param callback - function(err) optional callback for when the operation completes, err is null if no error occurred
+     */
+    failed(statusDetails?: statusDetails, callback?: (err: Error) => void): void;
+
+    /**
+     * Update the status of the job execution to be SUCCESS for the thing associated with the job.
+     *
+     * @param statusDetails - optional document describing the status details of the in progress job e.g.
+     * @param callback - function(err) optional callback for when the operation completes, err is null if no error occurred
+     */
+    succeeded(statusDetails?: statusDetails, callback?: (err: Error) => void): void;
+}
+
+export class jobs extends device {
+  /**
+   * The `jobs` class wraps an instance of the `device` class with additional functionality to
+   * handle job execution management through the AWS IoT Jobs platform. Arguments in `deviceOptions`
+   * are the same as those in the device class and the `jobs` class supports all of the
+   * same events and functions as the `device` class.
+   */
+  constructor(options?: DeviceOptions);
+
+  /**
+   * Subscribes to job execution notifications for the thing named `thingName`. If
+   * `operationName` is specified then the callback will only be called when a job
+   * ready for execution contains a property called `operation` in its job document with
+   * a value matching `operationName`. If `operationName` is omitted then the callback
+   * will be called for every job ready for execution that does not match another
+   * `subscribeToJobs` subscription.
+   *
+   * @param thingName - name of the Thing to receive job execution notifications
+   * @param operationName - optionally filter job execution notifications to jobs with a value
+   *      for the `operation` property that matches `operationName
+   * @param callback - function (err, job) callback for when a job execution is ready for processing or an error occurs
+   *     - `err` a subscription error or an error that occurs when client is disconnecting
+   *     - `job` an object that contains  job execution information and functions for updating job execution status.
+   */
+  subscribeToJobs(thingName: string, operationName: string, callback?: (err: Error, job: job) => void): void;
+
+   /**
+    * Causes any existing queued job executions for the given thing to be published
+    * to the appropriate subscribeToJobs handler. Only needs to be called once per thing.
+    *
+    * @param thingName - name of the Thing to cancel job execution notifications for
+    * @param callback - function (err) callback for when the startJobNotifications operation completes
+    */
+  startJobNotifications(thingName: string, callback: (error: Error) => void): mqtt.Client;
+
+  /**
+   * Unsubscribes from job execution notifications for the thing named `thingName` having
+   * operations with a value of the given `operationName`. If `operationName` is omitted then
+   * the default handler for the thing with the given name is unsubscribed.
+   *
+   * @param thingName - name of the Thing to cancel job execution notifications for
+   * @param operationName - optional name of previously subscribed operation names
+   * @param callback - function (err) callback for when the unsubscribe operation completes
+   */
+  unsubscribeFromJobs(thingName: string, operationName: string, callback: (err: Error) => void): void;
+
 }

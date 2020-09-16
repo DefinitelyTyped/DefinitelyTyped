@@ -1,33 +1,36 @@
+// package: google.protobuf
+// file: type.proto
+
 import * as jspb from "../../index";
 import * as google_protobuf_any_pb from "./any_pb";
 import * as google_protobuf_source_context_pb from "./source_context_pb";
 
 export class Type extends jspb.Message {
   getName(): string;
-  setName(value: string): void;
+  setName(value: string): Type;
 
-  clearFieldsList(): void;
+  clearFieldsList(): Type;
   getFieldsList(): Array<Field>;
-  setFieldsList(value: Array<Field>): void;
-  addFields(value?: Field, index?: number): void;
+  setFieldsList(value: Array<Field>): Type;
+  addFields(value?: Field, index?: number): Field;
 
-  clearOneofsList(): void;
+  clearOneofsList(): Type;
   getOneofsList(): Array<string>;
-  setOneofsList(value: Array<string>): void;
-  addOneofs(value: string, index?: number): void;
+  setOneofsList(value: Array<string>): Type;
+  addOneofs(value: string, index?: number): string;
 
-  clearOptionsList(): void;
+  clearOptionsList(): Type;
   getOptionsList(): Array<Option>;
-  setOptionsList(value: Array<Option>): void;
-  addOptions(value?: Option, index?: number): void;
+  setOptionsList(value: Array<Option>): Type;
+  addOptions(value?: Option, index?: number): Option;
 
   hasSourceContext(): boolean;
-  clearSourceContext(): void;
+  clearSourceContext(): Type;
   getSourceContext(): google_protobuf_source_context_pb.SourceContext | undefined;
-  setSourceContext(value?: google_protobuf_source_context_pb.SourceContext): void;
+  setSourceContext(value?: google_protobuf_source_context_pb.SourceContext): Type;
 
   getSyntax(): Syntax;
-  setSyntax(value: Syntax): void;
+  setSyntax(value: Syntax): Type;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Type.AsObject;
@@ -52,36 +55,36 @@ export namespace Type {
 
 export class Field extends jspb.Message {
   getKind(): Field.Kind;
-  setKind(value: Field.Kind): void;
+  setKind(value: Field.Kind): Field;
 
   getCardinality(): Field.Cardinality;
-  setCardinality(value: Field.Cardinality): void;
+  setCardinality(value: Field.Cardinality): Field;
 
   getNumber(): number;
-  setNumber(value: number): void;
+  setNumber(value: number): Field;
 
   getName(): string;
-  setName(value: string): void;
+  setName(value: string): Field;
 
   getTypeUrl(): string;
-  setTypeUrl(value: string): void;
+  setTypeUrl(value: string): Field;
 
   getOneofIndex(): number;
-  setOneofIndex(value: number): void;
+  setOneofIndex(value: number): Field;
 
   getPacked(): boolean;
-  setPacked(value: boolean): void;
+  setPacked(value: boolean): Field;
 
-  clearOptionsList(): void;
+  clearOptionsList(): Field;
   getOptionsList(): Array<Option>;
-  setOptionsList(value: Array<Option>): void;
-  addOptions(value?: Option, index?: number): void;
+  setOptionsList(value: Array<Option>): Field;
+  addOptions(value?: Option, index?: number): Option;
 
   getJsonName(): string;
-  setJsonName(value: string): void;
+  setJsonName(value: string): Field;
 
   getDefaultValue(): string;
-  setDefaultValue(value: string): void;
+  setDefaultValue(value: string): Field;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Field.AsObject;
@@ -139,25 +142,25 @@ export namespace Field {
 
 export class Enum extends jspb.Message {
   getName(): string;
-  setName(value: string): void;
+  setName(value: string): Enum;
 
-  clearEnumvalueList(): void;
+  clearEnumvalueList(): Enum;
   getEnumvalueList(): Array<EnumValue>;
-  setEnumvalueList(value: Array<EnumValue>): void;
-  addEnumvalue(value?: EnumValue, index?: number): void;
+  setEnumvalueList(value: Array<EnumValue>): Enum;
+  addEnumvalue(value?: EnumValue, index?: number): EnumValue;
 
-  clearOptionsList(): void;
+  clearOptionsList(): Enum;
   getOptionsList(): Array<Option>;
-  setOptionsList(value: Array<Option>): void;
-  addOptions(value?: Option, index?: number): void;
+  setOptionsList(value: Array<Option>): Enum;
+  addOptions(value?: Option, index?: number): Option;
 
   hasSourceContext(): boolean;
-  clearSourceContext(): void;
+  clearSourceContext(): Enum;
   getSourceContext(): google_protobuf_source_context_pb.SourceContext | undefined;
-  setSourceContext(value?: google_protobuf_source_context_pb.SourceContext): void;
+  setSourceContext(value?: google_protobuf_source_context_pb.SourceContext): Enum;
 
   getSyntax(): Syntax;
-  setSyntax(value: Syntax): void;
+  setSyntax(value: Syntax): Enum;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Enum.AsObject;
@@ -181,15 +184,15 @@ export namespace Enum {
 
 export class EnumValue extends jspb.Message {
   getName(): string;
-  setName(value: string): void;
+  setName(value: string): EnumValue;
 
   getNumber(): number;
-  setNumber(value: number): void;
+  setNumber(value: number): EnumValue;
 
-  clearOptionsList(): void;
+  clearOptionsList(): EnumValue;
   getOptionsList(): Array<Option>;
-  setOptionsList(value: Array<Option>): void;
-  addOptions(value?: Option, index?: number): void;
+  setOptionsList(value: Array<Option>): EnumValue;
+  addOptions(value?: Option, index?: number): Option;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EnumValue.AsObject;
@@ -211,12 +214,12 @@ export namespace EnumValue {
 
 export class Option extends jspb.Message {
   getName(): string;
-  setName(value: string): void;
+  setName(value: string): Option;
 
   hasValue(): boolean;
-  clearValue(): void;
+  clearValue(): Option;
   getValue(): google_protobuf_any_pb.Any | undefined;
-  setValue(value?: google_protobuf_any_pb.Any): void;
+  setValue(value?: google_protobuf_any_pb.Any): Option;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Option.AsObject;

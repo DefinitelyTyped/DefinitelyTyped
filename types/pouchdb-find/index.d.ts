@@ -1,5 +1,5 @@
 // Type definitions for pouchdb-find 6.3
-// Project: https://pouchdb.com/
+// Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
 // Definitions by: Jakub Navratil <https://github.com/trubit>
 //                 Sebastian Ramirez <https://github.com/tiangolo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -77,7 +77,7 @@ declare namespace PouchDB {
         interface Selector extends CombinationOperators {
             [field: string]: Selector | Selector[] | ConditionOperators | any;
 
-            _id?: ConditionOperators;
+            _id?: string | ConditionOperators;
         }
 
         interface FindRequest<Content extends {}> {
@@ -102,6 +102,7 @@ declare namespace PouchDB {
 
         interface FindResponse<Content extends {}> {
             docs: Array<Core.ExistingDocument<Content>>;
+            warning?: string;
         }
 
         interface CreateIndexOptions {

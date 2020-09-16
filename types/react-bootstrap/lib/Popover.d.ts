@@ -8,6 +8,7 @@ declare namespace Popover {
         arrowOffsetTop?: number | string;
         bsSize?: Sizes;
         bsStyle?: string;
+        bsClass?: string;
         placement?: string;
         positionLeft?: number | string; // String support added since v0.30.0
         positionTop?: number | string; // String support added since v0.30.0

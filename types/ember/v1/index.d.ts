@@ -192,7 +192,6 @@ interface String {
 }
 
 interface Array<T> {
-    constructor(arr: any[]): void;
     activate(): void;
     addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
     addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): any[];

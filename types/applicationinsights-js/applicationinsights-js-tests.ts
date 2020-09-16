@@ -47,7 +47,8 @@ appInsights = {
     startTrackEvent(name: string) { return null; },
     stopTrackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null; },
     trackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null; },
-    trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number) { return null; },
+    trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean,
+        resultCode: number, properties?: { [name: string]: string }, measurements?: { [name: string]: number }) { return null; },
     trackException(exception: Error, handledAt?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }, severityLevel?: AI.SeverityLevel) { return null; },
     trackMetric(name: string, average: number, sampleCount?: number, min?: number, max?: number, properties?: { [name: string]: string; }) { return null; },
     trackTrace(message: string, properties?: { [name: string]: string; }, severityLevel?: AI.SeverityLevel) { return null; },
@@ -86,7 +87,7 @@ appInsights.trackTrace("message", null);
 appInsights.trackTrace("message", { a: '1', b: '2' }, AI.SeverityLevel.Error);
 
 // trackDependency
-appInsights.trackDependency("id", "POST", "http://example.com/test/abc", "/test/abc", null, true, null);
+appInsights.trackDependency("id", "POST", "http://example.com/test/abc", "/test/abc", null, true, null, {prop1: 'abc'}, {meas1: 4.5});
 
 // flush
 appInsights.flush();

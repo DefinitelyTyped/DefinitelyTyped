@@ -1,19 +1,22 @@
-import LevelDOWN from 'leveldown';
+import LevelDOWN, { Bytes } from 'leveldown';
 
-// can use new, or not.
-const a = new LevelDOWN("./tmp/leveldown");
-const b = LevelDOWN("./tmp/leveldown");
+// Can use new, or not.
+const a = new LevelDOWN("/tmp/db");
+const b = LevelDOWN("/tmp/db");
 
-const down = new LevelDOWN("./tmp/leveldown");
+const db = new LevelDOWN("/tmp/db");
 
-down.open(() => {
-  down.put("key", "value", (err?) => { });
-  down.put(Buffer.from([1]), "value", { something: true }, (err?) => { });
+db.open(() => {
+  db.put("key", "value", (err: Error | undefined) => { });
+  db.put(Buffer.from([1]), "value", { something: true }, (err: Error | undefined) => { });
 
-  down.get("key", (err?) => { });
-  down.get(Buffer.from([1]), { something: true }, (err: Error | undefined, value: any) => { });
+  db.get("key", (err: Error | undefined) => { });
+  db.get(Buffer.from([1]), { something: true }, (err: Error | undefined, value: Bytes) => { });
 
-  down.close(() => {
-    // do nothing
-  });
+  db.close((err: Error | undefined) => { });
 });
+
+db.clear((err: Error | undefined) => { });
+
+LevelDOWN.destroy("/tmp/db", (err: Error | undefined) => { });
+LevelDOWN.repair("/tmp/db", (err: Error | undefined) => { });

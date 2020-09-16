@@ -13,6 +13,7 @@ var pusher: Pusher.Pusher;
 //
 
 Pusher.logToConsole = true;
+Pusher.instances = [];
 
 Pusher.log = (msg) => {
     console.log(msg);
@@ -25,6 +26,8 @@ Pusher.log = (msg) => {
 pusher = new Pusher(APP_KEY, {
     authEndpoint: "http://example.com/pusher/auth"
 });
+
+console.assert(!!Pusher.instances.length, "Pusher.instances not filling with new instances");
 
 pusher = new Pusher(APP_KEY, {
     auth: {
@@ -169,7 +172,7 @@ var data: any;
 pusher = new Pusher(applicationKey, options);
 
 options = {
-    encrypted: true, // true/false
+    forceTLS: true, // true/false
     auth: {
         params: { // {key: value} pairs
             param1: 'value1',
@@ -200,7 +203,7 @@ pusher = new Pusher('app_key', {
 
 pusher = new Pusher('app_key', { cluster: 'eu' });
 
-pusher = new Pusher('app_key', { encrypted: true });
+pusher = new Pusher('app_key', { forceTLS: true });
 
 pusher = new Pusher('app_key');
 pusher.connection.bind('error', function(err: any) {
