@@ -164,7 +164,7 @@ export interface Plugin {
     languages?: SupportLanguage[];
     parsers?: { [parserName: string]: Parser };
     printers?: { [astFormat: string]: Printer };
-    options?: SupportOption[] | SupportOptions;
+    options?: SupportOptions;
     defaultOptions?: Partial<RequiredOptions>;
 }
 
@@ -325,12 +325,13 @@ export interface SupportLanguage {
     vscodeLanguageIds?: string[];
 }
 
-export interface SupportOptionDefault {
-    since: string;
-    value: SupportOptionValue;
-}
+export type SupportOptionValue = number | boolean | string;
 
-export interface SupportOptions extends Record<string, SupportOption> {}
+export interface SupportOptionRange {
+    start: number;
+    end: number;
+    step: number;
+}
 
 export type SupportOptionType = 'int' | 'boolean' | 'choice' | 'path';
 
@@ -362,6 +363,7 @@ export interface BaseSupportOption<Type extends SupportOptionType> {
 export interface IntSupportOption extends BaseSupportOption<'int'> {
     default: number;
     array?: false;
+    range?: SupportOptionRange;
 }
 
 export interface IntArraySupportOption extends BaseSupportOption<'int'> {
@@ -401,41 +403,15 @@ export interface PathArraySupportOption extends BaseSupportOption<'path'> {
     array: true;
 }
 
-export interface SupportOption {
-    name: string;
-    since?: string;
-    type: 'int' | 'boolean' | 'choice' | 'path';
-    array?: boolean;
-    deprecated?: string;
-    redirect?: SupportOptionRedirect;
-    description: string;
-    oppositeDescription?: string;
-    default: SupportOptionValue | SupportOptionDefault[];
-    range?: SupportOptionRange;
-    choices?: SupportOptionChoice[];
-    category: string;
-}
+export type SupportOption =
+    | IntSupportOption
+    | IntArraySupportOption
+    | BooleanSupportOption
+    | ChoiceSupportOption
+    | PathSupportOption
+    | PathArraySupportOption;
 
-export interface SupportOptionRedirect {
-    options: string;
-    value: SupportOptionValue;
-}
-
-export interface SupportOptionRange {
-    start: number;
-    end: number;
-    step: number;
-}
-
-export interface SupportOptionChoice {
-    value: boolean | string;
-    description?: string;
-    since?: string;
-    deprecated?: string;
-    redirect?: SupportOptionValue;
-}
-
-export type SupportOptionValue = number | boolean | string;
+export interface SupportOptions extends Record<string, SupportOption> {}
 
 export interface SupportInfo {
     languages: SupportLanguage[];
