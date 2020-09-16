@@ -1,2 +1,2 @@
-declare const useIsAuthenticated: () => () => boolean;
+declare function useIsAuthenticated(): () => boolean;
 export default useIsAuthenticated;
