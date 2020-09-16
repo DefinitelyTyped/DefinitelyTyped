@@ -4,9 +4,5 @@
 // Typically type modifiations should be made in base.d.ts instead of here
 
 /// <reference path="base.d.ts" />
-
-// tslint:disable-next-line:no-bad-reference
-/// <reference path="../ts3.1/assert.d.ts" />
-
-// tslint:disable-next-line:no-bad-reference
-/// <reference path="../ts3.1/globals.global.d.ts" />
+/// <reference path="assert.d.ts" />
+/// <reference path="globals.global.d.ts" />

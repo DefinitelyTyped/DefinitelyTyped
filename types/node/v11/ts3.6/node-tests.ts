@@ -1,4 +1,3 @@
-import { types } from 'util';
 import assert = require("assert");
 import * as fs from "fs";
 import * as url from "url";
@@ -1219,10 +1218,10 @@ import moduleModule = require('module');
 //////////////////////////////////////////////////////////
 {
     const value: BigInt64Array | BigUint64Array | number = [] as any;
-    if (types.isBigInt64Array(value)) {
+    if (util.types.isBigInt64Array(value)) {
         // $ExpectType BigInt64Array
         const b = value;
-    } else if (types.isBigUint64Array(value)) {
+    } else if (util.types.isBigUint64Array(value)) {
         // $ExpectType BigUint64Array
         const b = value;
     } else {
