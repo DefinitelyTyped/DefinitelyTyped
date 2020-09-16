@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js';
+import CryptoJS = require('crypto-js');
 
 // Hashers
 var wordArray: CryptoJS.WordArray;
