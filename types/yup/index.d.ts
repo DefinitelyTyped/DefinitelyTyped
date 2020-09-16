@@ -14,6 +14,7 @@
 //                 Elías García <https://github.com/elias-garcia>
 //                 Ian Sanders <https://github.com/iansan5653>
 //                 Jay Fong <https://github.com/fjc0k>
+//                 Aerophite <https://github.com/Aerophite>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -82,8 +83,8 @@ export interface Schema<T, C = object> {
 // `defined`, and `required` would all have no effect.
 
 export interface MixedSchemaConstructor {
-    (): MixedSchema;
-    new (options?: { type?: string; [key: string]: any }): MixedSchema;
+    <T = {} | null | undefined>(): MixedSchema<T>; <T = {} | null | undefined, C = object>(): MixedSchema<T, C>;
+    new <T = {} | null | undefined>(options?: { type?: string;[key: string]: any; }): MixedSchema<T>;
 }
 
 export interface MixedSchema<T extends any = {} | null | undefined, C = object> extends Schema<T, C> {
@@ -274,6 +275,7 @@ export interface DateSchema<T extends Date | null | undefined = Date | undefined
 
 export interface ArraySchemaConstructor {
     <T, C = object>(schema?: Schema<T, C>): NotRequiredArraySchema<T, C>;
+    // tslint:disable-next-line:no-unnecessary-generics
     new <C = object>(): NotRequiredArraySchema<{}, C>;
 }
 
@@ -358,6 +360,7 @@ export type Shape<T extends object | null | undefined, U extends object> =
 
 export interface ObjectSchemaConstructor {
     <T extends object, C = object>(fields?: ObjectSchemaDefinition<T, C>): ObjectSchema<T | undefined, C>;
+    // tslint:disable-next-line:no-unnecessary-generics
     new <C = object>(): ObjectSchema<{}, C>;
 }
 
