@@ -38,6 +38,7 @@ resultStr = faker.commerce.price(0, 0, 0, '#');
 resultStr = faker.commerce.productAdjective();
 resultStr = faker.commerce.productMaterial();
 resultStr = faker.commerce.product();
+resultStr = faker.commerce.productDescription();
 
 resultStrArr = faker.company.suffixes();
 resultStr = faker.company.companyName();

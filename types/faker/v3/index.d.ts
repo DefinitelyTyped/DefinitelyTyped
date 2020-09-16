@@ -36,6 +36,7 @@ declare namespace Faker {
             productAdjective(): string;
             productMaterial(): string;
             product(): string;
+            productDescription(): string;
         };
 
         company: {
