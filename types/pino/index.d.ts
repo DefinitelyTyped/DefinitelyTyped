@@ -46,6 +46,7 @@ declare namespace P {
      */
     const LOG_VERSION: number;
     const levels: LevelMapping;
+    const symbols: { [key: string]: symbol };
     /**
      * Exposes the Pino package version. Also available on the logger instance.
      */
