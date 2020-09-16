@@ -1,3 +1,3 @@
-import CryptoJS from './index';
+import CryptoJS = require('./index');
 
-export default CryptoJS.enc.Latin1;
+export = CryptoJS.enc.Latin1;

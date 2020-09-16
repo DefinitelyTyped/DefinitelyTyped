@@ -1,3 +1,3 @@
-import CryptoJS from './index';
+import CryptoJS = require('./index');
 
-export default CryptoJS.HmacSHA512;
+export = CryptoJS.HmacSHA512;

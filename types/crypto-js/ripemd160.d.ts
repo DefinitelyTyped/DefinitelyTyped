@@ -1,3 +1,3 @@
-import CryptoJS from './index';
+import CryptoJS = require('./index');
 
-export default CryptoJS.RIPEMD160;
+export = CryptoJS.RIPEMD160;

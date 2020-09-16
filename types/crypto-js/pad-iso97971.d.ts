@@ -1,3 +1,3 @@
-import CryptoJS from './index';
+import CryptoJS = require('./index');
 
-export default CryptoJS.pad.Iso97971;
+export = CryptoJS.pad.Iso97971;

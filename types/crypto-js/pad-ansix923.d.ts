@@ -1,3 +1,3 @@
-import CryptoJS from './index';
+import CryptoJS = require('./index');
 
-export default CryptoJS.pad.AnsiX923;
+export = CryptoJS.pad.AnsiX923;

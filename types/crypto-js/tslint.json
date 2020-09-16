@@ -20,7 +20,6 @@
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
         "whitespace": false,
-        "npm-naming": [true,{"mode":"code","errors":[["NoDefaultExport",false]]}],
         "no-redundant-jsdoc-2": false
     }
 }

@@ -1,60 +1,58 @@
-import Core from 'crypto-js/core';
-import X64Core from 'crypto-js/x64-core';
-import LibTypedarrays from 'crypto-js/lib-typedarrays';
+import Core = require('crypto-js/core');
+import X64Core = require('crypto-js/x64-core');
+import LibTypedarrays = require('crypto-js/lib-typedarrays');
 // ---
-import MD5 from 'crypto-js/md5';
-import SHA1 from 'crypto-js/sha1';
-import SHA256 from 'crypto-js/sha256';
-import SHA224 from 'crypto-js/sha224';
-import SHA512 from 'crypto-js/sha512';
-import SHA384 from 'crypto-js/sha384';
-import SHA3 from 'crypto-js/sha3';
-import RIPEMD160 from 'crypto-js/ripemd160';
+import MD5 = require('crypto-js/md5');
+import SHA1 = require('crypto-js/sha1');
+import SHA256 = require('crypto-js/sha256');
+import SHA224 = require('crypto-js/sha224');
+import SHA512 = require('crypto-js/sha512');
+import SHA384 = require('crypto-js/sha384');
+import SHA3 = require('crypto-js/sha3');
+import RIPEMD160 = require('crypto-js/ripemd160');
 // ---
-import HmacMD5 from 'crypto-js/hmac-md5';
-import HmacSHA1 from 'crypto-js/hmac-sha1';
-import HmacSHA256 from 'crypto-js/hmac-sha256';
-import HmacSHA224 from 'crypto-js/hmac-sha224';
-import HmacSHA512 from 'crypto-js/hmac-sha512';
-import HmacSHA384 from 'crypto-js/hmac-sha384';
-import HmacSHA3 from 'crypto-js/hmac-sha3';
-import HmacRIPEMD160 from 'crypto-js/hmac-ripemd160';
+import HmacMD5 = require('crypto-js/hmac-md5');
+import HmacSHA1 = require('crypto-js/hmac-sha1');
+import HmacSHA256 = require('crypto-js/hmac-sha256');
+import HmacSHA224 = require('crypto-js/hmac-sha224');
+import HmacSHA512 = require('crypto-js/hmac-sha512');
+import HmacSHA384 = require('crypto-js/hmac-sha384');
+import HmacSHA3 = require('crypto-js/hmac-sha3');
+import HmacRIPEMD160 = require('crypto-js/hmac-ripemd160');
 // ---
-import PBKDF2 from 'crypto-js/pbkdf2';
+import PBKDF2 = require('crypto-js/pbkdf2');
 // ---
-import AES from 'crypto-js/aes';
-import TripleDES from 'crypto-js/tripledes';
-import RC4 from 'crypto-js/rc4';
-import Rabbit from 'crypto-js/rabbit';
-import RabbitLegacy from 'crypto-js/rabbit-legacy';
-import EvpKDF from 'crypto-js/evpkdf';
+import AES = require('crypto-js/aes');
+import TripleDES = require('crypto-js/tripledes');
+import RC4 = require('crypto-js/rc4');
+import Rabbit = require('crypto-js/rabbit');
+import RabbitLegacy = require('crypto-js/rabbit-legacy');
+import EvpKDF = require('crypto-js/evpkdf');
 // ---
-import FormatOpenSSL from 'crypto-js/format-openssl';
-import FormatHex from 'crypto-js/format-hex';
+import FormatOpenSSL = require('crypto-js/format-openssl');
+import FormatHex = require('crypto-js/format-hex');
 // ---
-import EncLatin1 from 'crypto-js/enc-latin1';
-import EncUtf8 from 'crypto-js/enc-utf8';
-import EncHex from 'crypto-js/enc-hex';
-import EncUtf16 from 'crypto-js/enc-utf16';
-import EncBase64 from 'crypto-js/enc-base64';
+import EncLatin1 = require('crypto-js/enc-latin1');
+import EncUtf8 = require('crypto-js/enc-utf8');
+import EncHex = require('crypto-js/enc-hex');
+import EncUtf16 = require('crypto-js/enc-utf16');
+import EncBase64 = require('crypto-js/enc-base64');
 // ---
-import ModeCFB from 'crypto-js/mode-cfb';
-import ModeCTR from 'crypto-js/mode-ctr';
-import ModeCTRGladman from 'crypto-js/mode-ctr-gladman';
-import ModeOFB from 'crypto-js/mode-ofb';
-import ModeECB from 'crypto-js/mode-ecb';
+import ModeCFB = require('crypto-js/mode-cfb');
+import ModeCTR = require('crypto-js/mode-ctr');
+import ModeCTRGladman = require('crypto-js/mode-ctr-gladman');
+import ModeOFB = require('crypto-js/mode-ofb');
+import ModeECB = require('crypto-js/mode-ecb');
 // ---
-import PadPkcs7 from 'crypto-js/pad-pkcs7';
-import PadAnsiX923 from 'crypto-js/pad-ansix923';
-import PadIso10126 from 'crypto-js/pad-iso10126';
-import PadIso97971 from 'crypto-js/pad-iso97971';
-import PadZeroPadding from 'crypto-js/pad-zeropadding';
-import PadNoPadding from 'crypto-js/pad-nopadding';
-
-import { WordArray, Format } from 'crypto-js';
+import PadPkcs7 = require('crypto-js/pad-pkcs7');
+import PadAnsiX923 = require('crypto-js/pad-ansix923');
+import PadIso10126 = require('crypto-js/pad-iso10126');
+import PadIso97971 = require('crypto-js/pad-iso97971');
+import PadZeroPadding = require('crypto-js/pad-zeropadding');
+import PadNoPadding = require('crypto-js/pad-nopadding');
 
 // Hashing
-var hash: WordArray;
+var hash: Core.lib.WordArray;
 hash = MD5('Message');
 hash = SHA1('Message');
 hash = SHA256('Message');
@@ -140,8 +138,8 @@ encrypted = AES.encrypt('Message', 'Secret Passphrase', {
 });
 
 // The Cipher Output
-var JsonFormatter: Format = {
-    stringify: function (cipherParams) {
+var JsonFormatter = {
+    stringify: function (cipherParams: Core.lib.CipherParams) {
         // create json object with ciphertext
         var jsonObj: any = { ct: cipherParams.ciphertext.toString(EncBase64) };
         // optionally add iv or salt
@@ -154,7 +152,7 @@ var JsonFormatter: Format = {
         // stringify json object
         return JSON.stringify(jsonObj);
     },
-    parse: function (jsonStr) {
+    parse: function (jsonStr: string) {
         // parse json string
         var jsonObj = JSON.parse(jsonStr);
         // extract ciphertext from json object, and create cipher params object

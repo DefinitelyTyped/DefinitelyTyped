@@ -1,3 +1,3 @@
-import CryptoJS from './index';
+import CryptoJS = require('./index');
 
-export default CryptoJS.enc.Utf8;
+export = CryptoJS.enc.Utf8;

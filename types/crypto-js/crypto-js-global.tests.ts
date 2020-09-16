@@ -1,10 +1,9 @@
 /**
  * Test cases according to https://cryptojs.gitbook.io/docs/
  */
-import CryptoJS, { WordArray, Format } from 'crypto-js';
 
 // Hashing
-var hash: WordArray;
+var hash: CryptoJS.lib.WordArray;
 hash = CryptoJS.MD5('Message');
 hash = CryptoJS.SHA1('Message');
 hash = CryptoJS.SHA256('Message');
@@ -90,8 +89,8 @@ encrypted = CryptoJS.AES.encrypt('Message', 'Secret Passphrase', {
 });
 
 // The Cipher Output
-var JsonFormatter: Format = {
-    stringify: function (cipherParams) {
+var JsonFormatter = {
+    stringify: function (cipherParams: CryptoJS.lib.CipherParams) {
         // create json object with ciphertext
         var jsonObj: any = { ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64) };
         // optionally add iv or salt
@@ -104,7 +103,7 @@ var JsonFormatter: Format = {
         // stringify json object
         return JSON.stringify(jsonObj);
     },
-    parse: function (jsonStr) {
+    parse: function (jsonStr: string) {
         // parse json string
         var jsonObj = JSON.parse(jsonStr);
         // extract ciphertext from json object, and create cipher params object
