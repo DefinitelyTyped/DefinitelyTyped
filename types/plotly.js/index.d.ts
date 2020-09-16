@@ -1475,7 +1475,7 @@ export interface Config {
      * buttons config objects or names of default buttons
      * (see ./components/modebar/buttons.js for more info)
      */
-    modeBarButtons: ModeBarDefaultButtons[][] | ModeBarButton[][] | false;
+    modeBarButtons: Array<ModeBarDefaultButtons[] | ModeBarButton[]> | false;
 
     /** add the plotly logo on the end of the mode bar */
     displaylogo: boolean;
