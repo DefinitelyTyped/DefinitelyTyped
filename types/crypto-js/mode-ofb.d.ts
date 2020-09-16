@@ -1,3 +1,3 @@
 import CryptoJS from './index';
 
-export default CryptoJS.mode.OFB
+export default CryptoJS.mode.OFB;

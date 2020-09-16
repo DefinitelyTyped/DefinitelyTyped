@@ -215,7 +215,7 @@ interface HasherStatic {
 }
 
 export interface HasherHelper {
-    (message: WordArray | string): WordArray;
+    (message: WordArray | string, cfg?: object): WordArray;
 }
 
 export interface HmacHasherHelper {
@@ -324,8 +324,8 @@ export interface CipherStatic {
 }
 
 interface CipherHelper {
-    encrypt(message: WordArray | string, key: WordArray, cfg?: CipherOption): CipherParams;
-    decrypt(message: WordArray | string, key: WordArray, cfg?: CipherOption): CipherParams;
+    encrypt(message: WordArray | string, key: WordArray | string, cfg?: CipherOption): CipherParams;
+    decrypt(ciphertext: CipherParams | string, key: WordArray | string, cfg?: CipherOption): CipherParams;
 }
 
 /**
@@ -336,6 +336,7 @@ interface CipherHelper {
 export interface CipherOption {
     iv?: WordArray;
     format?: Format;
+    [key: string]: any;
 }
 
 /**
@@ -730,7 +731,10 @@ declare namespace CryptoJS {
      * Library namespace.
      */
     namespace lib {
-        abstract class Base {
+        /**
+         * Base object for prototypal inheritance.
+         */
+        const Base: {
             /**
              * Creates a new object that inherits from this object.
              *
@@ -749,7 +753,7 @@ declare namespace CryptoJS {
              *         }
              *     });
              */
-            static extend<T extends Base>(overrides: object): T;
+            extend(overrides: object): any;
 
             /**
              * Extends this object and runs the init method.
@@ -763,7 +767,7 @@ declare namespace CryptoJS {
              *
              *     var instance = MyType.create();
              */
-            static create(...args: any[]): any;
+            create(...args: any[]): any;
 
             /**
              * Copies properties into this object.
@@ -776,8 +780,8 @@ declare namespace CryptoJS {
              *         field: 'value'
              *     });
              */
-            static mixIn(properties: object): any;
-        }
+            mixIn(properties: object): any;
+        };
 
         const WordArray: {
             /**
@@ -894,7 +898,7 @@ declare namespace CryptoJS {
         /**
          * Abstract base block cipher mode template.
          */
-        abstract class BlockCipherMode extends Base {}
+        const BlockCipherMode: any;
 
         /**
          * A cipher wrapper that returns ciphertext as a serializable cipher params object.
@@ -1103,7 +1107,8 @@ declare namespace CryptoJS {
          * Counter block mode.
          */
         const CTR: BlockCipherMode;
-        /** @preserve
+        /**
+         * @preserve
          * Counter block mode compatible with  Dr Brian Gladman fileenc.c
          * derived from CryptoJS.mode.CTR
          * Jan Hruby jhruby.web@gmail.com
@@ -1205,7 +1210,7 @@ declare namespace CryptoJS {
         /**
          * HMAC algorithm.
          */
-        abstract class HMAC extends CryptoJS.lib.Base {
+        abstract class HMAC {
             /**
              * Initializes a newly created HMAC.
              *
@@ -1259,7 +1264,7 @@ declare namespace CryptoJS {
         /**
          * Password-Based Key Derivation Function 2 algorithm.
          */
-        abstract class PBKDF2 extends CryptoJS.lib.Base {
+        abstract class PBKDF2 {
             /**
              * Initializes a newly created key derivation function.
              *
@@ -1291,7 +1296,7 @@ declare namespace CryptoJS {
          * This key derivation function is meant to conform with EVP_BytesToKey.
          * www.openssl.org/docs/crypto/EVP_BytesToKey.html
          */
-        abstract class EvpKDF extends CryptoJS.lib.Base {
+        abstract class EvpKDF {
             /**
              * Initializes a newly created key derivation function.
              *
@@ -1620,15 +1625,7 @@ declare namespace CryptoJS {
      *     var key = CryptoJS.PBKDF2(password, salt, { keySize: 8 });
      *     var key = CryptoJS.PBKDF2(password, salt, { keySize: 8, iterations: 1000 });
      */
-    function PBKDF2(
-        password: WordArray | string,
-        salt: WordArray | string,
-        cfg?: {
-            keySize: number;
-            hasher?: Hasher;
-            iterations: number;
-        },
-    ): WordArray;
+    function PBKDF2(password: WordArray | string, salt: WordArray | string, cfg?: KDFOption): WordArray;
 
     /**
      * Shortcut functions to the cipher's object interface.
