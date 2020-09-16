@@ -843,6 +843,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particularly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toContain<E = T>(expected: E extends string ? string : CollectionElementType<E>): R;
         /**
          * Used when you want to check that an item is in a list.
@@ -852,6 +853,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particularly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toContainEqual<E = T>(expected: CollectionElementType<E>): R;
         /**
          * Used when you want to check that two objects have the same value.
@@ -860,6 +862,7 @@ declare namespace jest {
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particularly useful for ensuring expected objects have the right structure.
          */
+        // tslint:disable-next-line: no-unnecessary-generics
         toEqual<E = T>(expected: E): R;
         /**
          * Ensures that a mock function is called.
