@@ -1,6 +1,6 @@
 import * as S from 'sanctuary';
 
-// $ExpectType ReadonlyArray<ReadonlyArray<number>>
+// $ExpectType readonly (readonly number[])[] || ReadonlyArray<ReadonlyArray<number>>
 S.duplicate([1]);
 
 // $ExpectType Maybe<Maybe<number>>
@@ -42,10 +42,10 @@ S.boolean('no')('yes')(false);
 // $ExpectType number
 S.clamp(0)(100)(42);
 
-// $ExpectType number
+// $ExpectType number || 1
 S.min(1)(100);
 
-// $ExpectType number
+// $ExpectType number || 100
 S.max(0)(100);
 
 // $ExpectType boolean
