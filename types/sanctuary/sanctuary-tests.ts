@@ -1,6 +1,6 @@
 import * as S from 'sanctuary';
 
-// $ExpectType readonly (readonly number[])[] || ReadonlyArray<ReadonlyArray<number>>
+// $ExpectType ReadonlyArray<ReadonlyArray<number>>
 S.duplicate([1]);
 
 // $ExpectType Maybe<Maybe<number>>
@@ -42,10 +42,10 @@ S.boolean('no')('yes')(false);
 // $ExpectType number
 S.clamp(0)(100)(42);
 
-// $ExpectType number || 1
+// $ExpectType number
 S.min(1)(100);
 
-// $ExpectType number || 100
+// $ExpectType number
 S.max(0)(100);
 
 // $ExpectType boolean
@@ -62,3 +62,9 @@ S.intercalate(', ')([]);
 
 // $ExpectType number[]
 S.intercalate([0, 0, 0])([[1], [2, 3], [4, 5, 6], [7, 8], [9]]);
+
+// $ExpectType number
+S.fromLeft(1)(S.Right('a'));
+
+// $ExpectType number
+S.fromRight(1)(S.Left('a'));
