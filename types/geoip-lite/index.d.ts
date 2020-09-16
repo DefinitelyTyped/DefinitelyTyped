@@ -1,6 +1,7 @@
 // Type definitions for GeoIP-lite 1.4.2
 // Project: https://github.com/bluesmoon/node-geoip
 // Definitions by: Yuce Tekol <http://yuce.me/>
+//                 Artem <https://github.com/witem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace mod {
