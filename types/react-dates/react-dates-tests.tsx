@@ -1,5 +1,5 @@
 import * as React from 'react';
-import moment = require('moment');
+import * as moment from 'moment';
 
 import {
     CalendarDay,
@@ -11,6 +11,7 @@ import {
     DayPicker,
     DayPickerRangeController,
     DayPickerSingleDateController,
+    RenderMonthProps,
     SingleDatePicker,
     SingleDatePickerInput,
     isInclusivelyAfterDay,
@@ -21,6 +22,18 @@ import {
     toLocalizedDateString,
     toMomentObject,
 } from 'react-dates';
+
+const onlyRenderText: RenderMonthProps = {
+    renderMonthText: month => month.format('MMMM'),
+};
+const onlyRenderElement: RenderMonthProps = {
+    renderMonthElement: ({ isVisible, month, onMonthSelect, onYearSelect }) => month.format('MMMM'),
+};
+// $ExpectError
+const bothRenderMethods: RenderMonthProps = {
+    renderMonthText: month => month.format('MMMM'),
+    renderMonthElement: ({ isVisible, month, onMonthSelect, onYearSelect }) => month.format('MMMM'),
+};
 
 const CalendarDayMinimumTest: React.FC = () => <CalendarDay />;
 
@@ -111,7 +124,7 @@ const CalendarMonthGridFullTest: React.FC = () => (
         }}
         renderCalendarDay={props => <CalendarDay {...props} />}
         renderDayContents={(day, modifiers) => modifiers.size}
-        renderMonthElement={({ isVisible, month, onMonthSelect, onYearSelect }) => null}
+        renderMonthElement={({ isVisible, month, onMonthSelect, onYearSelect }) => month.format('MMMM')}
         setMonthTitleHeight={height => {}}
         transitionDuration={75}
         translationValue={46}
@@ -162,7 +175,6 @@ class DateRangePickerFullTest extends React.Component {
                 endDateId="id2"
                 endDateOffset={day => day.add(5, 'days')}
                 endDatePlaceholderText="placeholder"
-                endDateTitleText="End"
                 firstDayOfWeek={0}
                 focusedInput="startDate"
                 hideKeyboardShortcutsPanel={false}
@@ -215,7 +227,6 @@ class DateRangePickerFullTest extends React.Component {
                 startDateId="id1"
                 startDateOffset={day => day.subtract(3, 'days')}
                 startDatePlaceholderText="placeholder"
-                startDateTitleText="Start"
                 transitionDuration={5}
                 verticalHeight={20}
                 verticalSpacing={12}
@@ -244,7 +255,6 @@ const DateRangePickerInputFullTest: React.FC = () => (
         endDateAriaLabel="dd"
         endDateId="end"
         endDatePlaceholderText="End"
-        endDateTitleText="End"
         inputIconPosition="before"
         isEndDateFocused={false}
         isFocused={true}
@@ -276,7 +286,6 @@ const DateRangePickerInputFullTest: React.FC = () => (
         startDateAriaLabel="dd"
         startDateId="start"
         startDatePlaceholderText="Start"
-        startDateTitleText="Start"
         verticalSpacing={20}
     />
 );
@@ -299,9 +308,7 @@ const DateRangePickerInputControllerFullTest: React.FC = () => (
         endDateAriaLabel="dd"
         endDateId="end"
         endDatePlaceholderText="End"
-        endDateTitleText="End"
         inputIconPosition="before"
-        isDayBlocked={day => false}
         isEndDateFocused={false}
         isFocused={true}
         isOutsideRange={day => false}
@@ -332,7 +339,6 @@ const DateRangePickerInputControllerFullTest: React.FC = () => (
         startDateAriaLabel="dd"
         startDateId="start"
         startDatePlaceholderText="Start"
-        startDateTitleText="Start"
         verticalSpacing={20}
         withFullScreenPortal={false}
     />
@@ -380,7 +386,7 @@ const DayPickerFullTest: React.FC = () => (
         onShiftTab={() => {}}
         onTab={event => {}}
         onYearChange={newMonth => {}}
-        orientation="horizontal"
+        orientation="verticalScrollable"
         phrases={{
             enterKey: 'Enter',
         }}
@@ -406,6 +412,13 @@ const DayPickerFullTest: React.FC = () => (
         weekDayFormat="dd"
         withPortal={false}
     />
+);
+
+// $ExpectError
+const DayPickerNoOrientationError: React.FC = () => <DayPicker onGetPrevScrollableMonths={event => {}} />;
+const DayPickerWrongOrientationError: React.FC = () => (
+    // $ExpectError
+    <DayPicker orientation="horizontal" onGetNextScrollableMonths={event => {}} />
 );
 
 class DayPickerRangeControllerMinimumTest extends React.Component {
@@ -446,8 +459,6 @@ const DayPickerRangeControllerFullTest: React.FC = () => (
         isOutsideRange={day => false}
         isRTL={false}
         keepOpenOnDateSelect={true}
-        maxDate={moment()}
-        minDate={moment()}
         minimumNights={2}
         monthFormat="MMM"
         navNext={<div>Next</div>}
@@ -530,8 +541,6 @@ const DayPickerSingleDateControllerFullTest: React.FC = () => (
         isOutsideRange={day => false}
         isRTL={false}
         keepOpenOnDateSelect={true}
-        maxDate={moment()}
-        minDate={moment()}
         monthFormat="MMM"
         navNext={<div>Next</div>}
         navPosition="navPositionTop"
@@ -557,14 +566,6 @@ const DayPickerSingleDateControllerFullTest: React.FC = () => (
         renderCalendarDay={props => <CalendarDay {...props} />}
         renderCalendarInfo={() => <div>Info</div>}
         renderDayContents={day => day.format('d')}
-        renderKeyboardShortcutsButton={({ ariaLabel, onClick, ref }) => <button>shortcuts</button>}
-        renderKeyboardShortcutsPanel={({
-            closeButtonAriaLabel,
-            keyboardShortcuts,
-            onCloseButtonClick,
-            onKeyDown,
-            title,
-        }) => <div>panel</div>}
         renderMonthText={month => month.format('MMM')}
         renderNavNextButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
         renderNavPrevButton={({ ariaLabel, disabled, onClick, onKeyUp, onMouseUp }) => <div>Next</div>}
@@ -629,8 +630,6 @@ class SingleDatePickerFullTest extends React.Component {
                 isRTL={false}
                 keepFocusOnInput={true}
                 keepOpenOnDateSelect={true}
-                maxDate={moment()}
-                minDate={moment()}
                 monthFormat="MM"
                 navNext={<React.Fragment>Next</React.Fragment>}
                 navPosition="navPositionTop"
