@@ -86,7 +86,7 @@ export interface MixedSchemaConstructor {
     // tslint:disable-next-line:no-unnecessary-generics
     <T = {} | null | undefined, C = object>(): MixedSchema<T, C>;
     // tslint:disable-next-line:no-unnecessary-generics
-    new <T = {} | null | undefined, C = object>(options?: { type?: string;[key: string]: any; }): MixedSchema<T, C>;
+    new <T = {} | null | undefined, C = object>(options?: { type?: string; [key: string]: any }): MixedSchema<T, C>;
 }
 
 export interface MixedSchema<T extends any = {} | null | undefined, C = object> extends Schema<T, C> {
