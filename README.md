@@ -65,11 +65,11 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of TypeScript (3.0 and earlier)
+#### Older versions of TypeScript (3.1 and earlier)
 
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
-Currently versions 3.1 and above are tested.
-If you're using TypeScript 2.0 to 3.0, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+Currently versions 3.2 and above are tested.
+If you're using TypeScript 2.0 to 3.1, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
