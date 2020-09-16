@@ -18,11 +18,11 @@ export interface PreloadOptions {
     readonly networkCacheConfig?: CacheConfig;
 }
 
-export type LoadQueryOptions = {
+export interface LoadQueryOptions {
     fetchPolicy?: PreloadFetchPolicy;
     networkCacheConfig?: CacheConfig | null;
     onQueryAstLoadTimeout?: (() => void) | null;
-};
+}
 
 // Note: the phantom type parameter here helps ensures that the
 // $Parameters.js value matches the type param provided to preloadQuery.

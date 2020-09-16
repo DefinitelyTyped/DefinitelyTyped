@@ -920,6 +920,10 @@ function QueryLoader() {
     function NameDisplay({ queryReference }: { queryReference: NonNullable<queryReferenceType> }) {
         const data = usePreloadedQuery(query, queryReference);
 
-        return <h1>{data.user?.name}</h1>;
+        if (data.user) {
+            return <h1>{data.user.name}</h1>;
+        } else {
+            return null;
+        }
     }
 }
