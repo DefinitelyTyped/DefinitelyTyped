@@ -2,7 +2,7 @@
 // Project: https://github.com/werk85/node-html-to-text
 // Definitions by: Eryk Warren <https://github.com/erykwarren>
 //                 Carson Full <https://github.com/CarsonF>
-// Definitions: https://github.com/DefinitelyTyped/html-to-text
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Convert html string to text

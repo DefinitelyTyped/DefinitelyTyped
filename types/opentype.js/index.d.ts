@@ -191,7 +191,7 @@ export interface Field {
  ******************************************/
 
 export class Glyph {
-    private index;
+    index: number;
     private xMin;
     private xMax;
     private yMin;
@@ -317,9 +317,9 @@ export interface Point {
  ******************************************/
 
 export class Path {
-    private fill;
-    private stroke;
-    private strokeWidth;
+    fill: string | null;
+    stroke: string | null;
+    strokeWidth: number;
     constructor();
     bezierCurveTo(
         x1: number,
@@ -353,15 +353,36 @@ export class Path {
     unitsPerEm: number;
 }
 
-export interface PathCommand {
-    type: string;
-    x?: number;
-    y?: number;
-    x1?: number;
-    y1?: number;
-    x2?: number;
-    y2?: number;
-}
+export type PathCommand =
+| {
+    type: "M";
+    x: number;
+    y: number;
+  }
+| {
+    type: "L";
+    x: number;
+    y: number;
+  }
+| {
+    type: "C";
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+    x: number;
+    y: number;
+  }
+| {
+    type: "Q";
+    x1: number;
+    y1: number;
+    x: number;
+    y: number;
+  }
+| {
+    type: "Z";
+  };
 
 /******************************************
  * UTIL CLASSES

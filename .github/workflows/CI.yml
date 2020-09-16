@@ -15,7 +15,7 @@ jobs:
       - run: npm install
 
       # Run tests
-      - run: npm run test
+      - run: npm run test-all
 
       - name: "Run Danger"
         env:

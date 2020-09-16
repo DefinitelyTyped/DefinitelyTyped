@@ -1,12 +1,10 @@
 import { Coordinate } from '../coordinate';
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import ImageTile from '../ImageTile';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
-import Projection from '../proj/Projection';
 import { LoadFunction } from '../Tile';
-import { TileCoord } from '../tilecoord';
 import TileGrid from '../tilegrid/TileGrid';
 import { AttributionLike } from './Source';
 import { TileSourceEvent } from './Tile';
@@ -17,6 +15,7 @@ export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
     crossOrigin?: string;
+    imageSmoothing?: boolean;
     params: { [key: string]: any };
     gutter?: number;
     hidpi?: boolean;
@@ -34,10 +33,12 @@ export interface Options {
 export default class TileWMS extends TileImage {
     constructor(opt_options?: Options);
     getFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: any): string;
+    getGutter(): number;
     getLegendUrl(resolution?: number, params?: any): string;
     getParams(): any;
+    getTilePixelRatio(pixelRatio: number): number;
     updateParams(params: any): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

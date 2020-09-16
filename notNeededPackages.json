@@ -1999,6 +1999,12 @@
             "asOfVersion": "4.0.1"
         },
         {
+            "libraryName": "imagemin-pngquant",
+            "typingsPackageName": "imagemin-pngquant",
+            "sourceRepoURL": "https://github.com/imagemin/imagemin-pngquant.git",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "immutability-helper",
             "typingsPackageName": "immutability-helper",
             "sourceRepoURL": "https://github.com/kolodny/immutability-helper",
@@ -4201,6 +4207,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-filepond",
+            "typingsPackageName": "react-filepond",
+            "sourceRepoURL": "https://github.com/pqina/react-filepond",
+            "asOfVersion": "7.1.0"
+        },
+        {
             "libraryName": "react-flip-move",
             "typingsPackageName": "react-flip-move",
             "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
@@ -5789,6 +5801,12 @@
             "typingsPackageName": "winston",
             "sourceRepoURL": "https://github.com/winstonjs/winston.git",
             "asOfVersion": "2.4.4"
+        },
+        {
+            "libraryName": "wix-style-react",
+            "typingsPackageName": "wix-style-react",
+            "sourceRepoURL": "https://github.com/wix/wix-style-react",
+            "asOfVersion": "7.47.1"
         },
         {
             "libraryName": "wolfy87-eventemitter",

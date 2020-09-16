@@ -336,14 +336,12 @@ export interface NativeMethods {
 
     /**
      * Like [`measure()`](#measure), but measures the view relative an ancestor,
-     * specified as `relativeToNativeNode`. This means that the returned x, y
+     * specified as `relativeToNativeComponentRef`. This means that the returned x, y
      * are relative to the origin x, y of the ancestor view.
-     *
-     * As always, to obtain a native node handle for a component, you can use
-     * `React.findNodeHandle(component)`.
+     * _Can also be called with a relativeNativeNodeHandle but is deprecated._
      */
     measureLayout(
-        relativeToNativeNode: number,
+        relativeToNativeComponentRef: HostComponent<unknown> | number,
         onSuccess: MeasureLayoutOnSuccessCallback,
         onFail: () => void /* currently unused */,
     ): void;
@@ -507,7 +505,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * Either children or a render prop that receives a boolean reflecting whether
      * the component is currently pressed.
      */
-    children: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode);
+    children?: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode);
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -811,6 +809,10 @@ interface SkewYTransform {
     skewY: string;
 }
 
+interface MatrixTransform {
+    matrix: number[];
+}
+
 export interface TransformsStyle {
     transform?: (
         | PerpectiveTransform
@@ -825,12 +827,31 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform
+        | MatrixTransform
     )[];
+    /**
+     * @deprecated Use matrix in transform prop instead.
+     */
     transformMatrix?: Array<number>;
+    /**
+     * @deprecated Use rotate in transform prop instead.
+     */
     rotation?: number;
+    /**
+     * @deprecated Use scaleX in transform prop instead.
+     */
     scaleX?: number;
+    /**
+     * @deprecated Use scaleY in transform prop instead.
+     */
     scaleY?: number;
+    /**
+     * @deprecated Use translateX in transform prop instead.
+     */
     translateX?: number;
+    /**
+     * @deprecated Use translateY in transform prop instead.
+     */
     translateY?: number;
 }
 
@@ -6815,7 +6836,7 @@ export class ScrollView extends ScrollViewBase {
      * implement this method so that they can be composed while providing access
      * to the underlying scroll responder's methods.
      */
-    getScrollResponder(): JSX.Element;
+    getScrollResponder(): ScrollResponderMixin;
 
     getScrollableNode(): any;
 
@@ -8458,7 +8479,7 @@ export interface UIManagerStatic {
      * commandID - Id of the native method that should be called.
      * commandArgs - Args of the native method that we can pass from JS to native.
      */
-    dispatchViewManagerCommand: (reactTag: number | null, commandID: number, commandArgs?: Array<any>) => void;
+    dispatchViewManagerCommand: (reactTag: number | null, commandID: number | string, commandArgs?: Array<any>) => void;
 }
 
 export interface SwitchPropsIOS extends ViewProps {
