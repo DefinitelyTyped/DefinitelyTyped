@@ -19,7 +19,6 @@
         "semicolon": false,
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
-        "whitespace": false,
-        "no-redundant-jsdoc-2": false
+        "whitespace": false
     }
 }

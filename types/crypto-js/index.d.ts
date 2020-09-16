@@ -18,11 +18,9 @@ interface Encoder {
     /**
      * Converts a word array to a hex string.
      *
-     * @param {WordArray} wordArray The word array.
+     * @param wordArray The word array.
      *
-     * @return {string} The hex string.
-     *
-     * @static
+     * @return The hex string.
      *
      * @example
      *
@@ -32,11 +30,9 @@ interface Encoder {
     /**
      * Converts a hex string to a word array.
      *
-     * @param {string} hexStr The hex string.
+     * @param hexStr The hex string.
      *
-     * @return {WordArray} The word array.
-     *
-     * @static
+     * @return The word array.
      *
      * @example
      *
@@ -49,10 +45,11 @@ interface Encoder {
  * Abstract buffered block algorithm template.
  *
  * The property blockSize must be implemented in a concrete subtype.
- *
- * @property {number} _minBufferSize The number of blocks that should be kept unprocessed in the buffer. Default: 0
  */
 interface BufferedBlockAlgorithm {
+    /**
+     * The number of blocks that should be kept unprocessed in the buffer. Default: 0
+     */
     _minBufferSize: number;
     /**
      * Resets this block algorithm's data buffer to its initial state.
@@ -65,7 +62,7 @@ interface BufferedBlockAlgorithm {
     /**
      * Adds new data to this block algorithm's buffer.
      *
-     * @param {WordArray|string} data The data to append. Strings are converted to a WordArray using UTF-8.
+     * @param data The data to append. Strings are converted to a WordArray using UTF-8.
      *
      * @example
      *
@@ -78,9 +75,9 @@ interface BufferedBlockAlgorithm {
      *
      * This method invokes _doProcessBlock(offset), which must be implemented by a concrete subtype.
      *
-     * @param {boolean} doFlush Whether all blocks and partial blocks should be processed.
+     * @param doFlush Whether all blocks and partial blocks should be processed.
      *
-     * @return {WordArray} The processed data.
+     * @return The processed data.
      *
      * @example
      *
@@ -91,7 +88,7 @@ interface BufferedBlockAlgorithm {
     /**
      * Creates a copy of this object.
      *
-     * @return {Object} The clone.
+     * @return The clone.
      *
      * @example
      *
@@ -102,10 +99,11 @@ interface BufferedBlockAlgorithm {
 
 /**
  * Abstract hasher template.
- *
- * @property {number} blockSize The number of 32-bit words this hasher operates on. Default: 16 (512 bits)
  */
 interface Hasher {
+    /**
+     * The number of 32-bit words this hasher operates on. Default: 16 (512 bits)
+     */
     blockSize: number;
     /**
      * Resets this hasher to its initial state.
@@ -118,9 +116,9 @@ interface Hasher {
     /**
      * Updates this hasher with a message.
      *
-     * @param {WordArray|string} messageUpdate The message to append.
+     * @param messageUpdate The message to append.
      *
-     * @return {Hasher} This hasher.
+     * @return This hasher.
      *
      * @example
      *
@@ -132,9 +130,9 @@ interface Hasher {
      * Finalizes the hash computation.
      * Note that the finalize operation is effectively a destructive, read-once operation.
      *
-     * @param {WordArray|string} messageUpdate (Optional) A final message update.
+     * @param messageUpdate (Optional) A final message update.
      *
-     * @return {WordArray} The hash.
+     * @return The hash.
      *
      * @example
      *
@@ -149,7 +147,7 @@ interface HasherStatic {
     /**
      * Initializes a newly created hasher.
      *
-     * @param {Object} cfg (Optional) The configuration options to use for this hash computation.
+     * @param cfg (Optional) The configuration options to use for this hash computation.
      *
      * @example
      *
@@ -168,16 +166,23 @@ interface HmacHasherHelper {
 
 /**
  * Abstract base cipher template.
- *
- * @property {number} keySize This cipher's key size. Default: 4 (128 bits)
- * @property {number} ivSize This cipher's IV size. Default: 4 (128 bits)
- * @property {number} _ENC_XFORM_MODE A constant representing encryption mode.
- * @property {number} _DEC_XFORM_MODE A constant representing decryption mode.
  */
 interface Cipher {
+    /**
+     * This cipher's key size. Default: 4 (128 bits)
+     */
     keySize: number;
+    /**
+     * This cipher's IV size. Default: 4 (128 bits)
+     */
     ivSize: number;
+    /**
+     * A constant representing encryption mode.
+     */
     readonly _ENC_XFORM_MODE: number;
+    /**
+     * A constant representing decryption mode.
+     */
     readonly _DEV_XFORM_MODE: number;
 
     /**
@@ -192,9 +197,9 @@ interface Cipher {
     /**
      * Adds data to be encrypted or decrypted.
      *
-     * @param {WordArray|string} dataUpdate The data to encrypt or decrypt.
+     * @param dataUpdate The data to encrypt or decrypt.
      *
-     * @return {WordArray} The data after processing.
+     * @return The data after processing.
      *
      * @example
      *
@@ -207,9 +212,9 @@ interface Cipher {
      * Finalizes the encryption or decryption process.
      * Note that the finalize operation is effectively a destructive, read-once operation.
      *
-     * @param {WordArray|string} dataUpdate The final data to encrypt or decrypt.
+     * @param dataUpdate The final data to encrypt or decrypt.
      *
-     * @return {WordArray} The data after final processing.
+     * @return The data after final processing.
      *
      * @example
      *
@@ -224,12 +229,10 @@ interface CipherStatic {
     /**
      * Creates this cipher in encryption mode.
      *
-     * @param {WordArray} key The key.
-     * @param {Object} cfg (Optional) The configuration options to use for this operation.
+     * @param key The key.
+     * @param cfg (Optional) The configuration options to use for this operation.
      *
-     * @return {Cipher} A cipher instance.
-     *
-     * @static
+     * @return A cipher instance.
      *
      * @example
      *
@@ -240,12 +243,10 @@ interface CipherStatic {
     /**
      * Creates this cipher in decryption mode.
      *
-     * @param {WordArray} key The key.
-     * @param {Object} cfg (Optional) The configuration options to use for this operation.
+     * @param key The key.
+     * @param cfg (Optional) The configuration options to use for this operation.
      *
-     * @return {Cipher} A cipher instance.
-     *
-     * @static
+     * @return A cipher instance.
      *
      * @example
      *
@@ -256,9 +257,9 @@ interface CipherStatic {
     /**
      * Initializes a newly created cipher.
      *
-     * @param {number} xformMode Either the encryption or decryption transormation mode constant.
-     * @param {WordArray} key The key.
-     * @param {Object} cfg (Optional) The configuration options to use for this operation.
+     * @param xformMode Either the encryption or decryption transormation mode constant.
+     * @param key The key.
+     * @param cfg (Optional) The configuration options to use for this operation.
      *
      * @example
      *
@@ -274,10 +275,11 @@ interface CipherHelper {
 
 /**
  * Configuration options.
- *
- * @property {WordArray} iv The IV to use for this operation.
  */
 interface CipherOption {
+    /**
+     * The IV to use for this operation.
+     */
     iv?: WordArray;
     format?: Format;
     [key: string]: any;
@@ -287,8 +289,8 @@ interface Mode {
     /**
      * Processes the data block at offset.
      *
-     * @param {Array} words The data words to operate on.
-     * @param {number} offset The offset where the block starts.
+     * @param words The data words to operate on.
+     * @param offset The offset where the block starts.
      *
      * @example
      *
@@ -301,8 +303,8 @@ interface ModeStatic {
     /**
      * Initializes a newly created mode.
      *
-     * @param {Cipher} cipher A block cipher instance.
-     * @param {Array} iv The IV words.
+     * @param cipher A block cipher instance.
+     * @param iv The IV words.
      *
      * @example
      *
@@ -320,10 +322,8 @@ interface BlockCipherMode {
     /**
      * Creates this mode for encryption.
      *
-     * @param {Cipher} cipher A block cipher instance.
-     * @param {Array} iv The IV words.
-     *
-     * @static
+     * @param cipher A block cipher instance.
+     * @param iv The IV words.
      *
      * @example
      *
@@ -334,10 +334,8 @@ interface BlockCipherMode {
     /**
      * Creates this mode for decryption.
      *
-     * @param {Cipher} cipher A block cipher instance.
-     * @param {Array} iv The IV words.
-     *
-     * @static
+     * @param cipher A block cipher instance.
+     * @param iv The IV words.
      *
      * @example
      *
@@ -353,10 +351,8 @@ interface BlockCipherMode {
     /**
      * Creates this mode for encryption.
      *
-     * @param {Cipher} cipher A block cipher instance.
-     * @param {Array} iv The IV words.
-     *
-     * @static
+     * @param cipher A block cipher instance.
+     * @param iv The IV words.
      *
      * @example
      *
@@ -372,10 +368,8 @@ interface Padding {
     /**
      * Pads data using the algorithm defined in PKCS #5/7.
      *
-     * @param {WordArray} data The data to pad.
-     * @param {number} blockSize The multiple that the data should be padded to.
-     *
-     * @static
+     * @param data The data to pad.
+     * @param blockSize The multiple that the data should be padded to.
      *
      * @example
      *
@@ -386,9 +380,7 @@ interface Padding {
     /**
      * Unpads data that had been padded using the algorithm defined in PKCS #5/7.
      *
-     * @param {WordArray} data The data to unpad.
-     *
-     * @static
+     * @param data The data to unpad.
      *
      * @example
      *
@@ -399,19 +391,25 @@ interface Padding {
 
 /**
  * Abstract base block cipher template.
- *
- * @property {number} blockSize The number of 32-bit words this cipher operates on. Default: 4 (128 bits)
  */
-interface BlockCipher {}
+interface BlockCipher {
+    /**
+     * The number of 32-bit words this cipher operates on. Default: 4 (128 bits)
+     */
+    blockSize: number;
+}
 
 /**
  * Configuration options.
- *
- * @property {Mode} mode The block mode to use. Default: CBC
- * @property {Padding} padding The padding strategy to use. Default: Pkcs7
  */
 interface BlockCipherOption {
+    /**
+     * The block mode to use. Default: CBC
+     */
     mode: Mode;
+    /**
+     * The padding strategy to use. Default: Pkcs7
+     */
     padding: Padding;
 }
 /**
@@ -421,11 +419,9 @@ interface Format {
     /**
      * Converts a cipher params object to an OpenSSL-compatible string.
      *
-     * @param {CipherParams} cipherParams The cipher params object.
+     * @param cipherParams The cipher params object.
      *
-     * @return {string} The OpenSSL-compatible string.
-     *
-     * @static
+     * @return The OpenSSL-compatible string.
      *
      * @example
      *
@@ -436,11 +432,9 @@ interface Format {
     /**
      * Converts an OpenSSL-compatible string to a cipher params object.
      *
-     * @param {string} openSSLStr The OpenSSL-compatible string.
+     * @param openSSLStr The OpenSSL-compatible string.
      *
-     * @return {CipherParams} The cipher params object.
-     *
-     * @static
+     * @return The cipher params object.
      *
      * @example
      *
@@ -456,7 +450,7 @@ interface X64Word {
     /**
      * Bitwise NOTs this word.
      *
-     * @return {X64Word} A new x64-Word object after negating.
+     * @return A new x64-Word object after negating.
      *
      * @example
      *
@@ -466,9 +460,9 @@ interface X64Word {
     /**
      * Bitwise ANDs this word with the passed word.
      *
-     * @param {X64Word} word The x64-Word to AND with this word.
+     * @param word The x64-Word to AND with this word.
      *
-     * @return {X64Word} A new x64-Word object after ANDing.
+     * @return A new x64-Word object after ANDing.
      *
      * @example
      *
@@ -479,9 +473,9 @@ interface X64Word {
     /**
      * Bitwise ORs this word with the passed word.
      *
-     * @param {X64Word} word The x64-Word to OR with this word.
+     * @param word The x64-Word to OR with this word.
      *
-     * @return {X64Word} A new x64-Word object after ORing.
+     * @return A new x64-Word object after ORing.
      *
      * @example
      *
@@ -492,9 +486,9 @@ interface X64Word {
     /**
      * Bitwise XORs this word with the passed word.
      *
-     * @param {X64Word} word The x64-Word to XOR with this word.
+     * @param word The x64-Word to XOR with this word.
      *
-     * @return {X64Word} A new x64-Word object after XORing.
+     * @return A new x64-Word object after XORing.
      *
      * @example
      *
@@ -504,9 +498,9 @@ interface X64Word {
     /**
      * Shifts this word n bits to the left.
      *
-     * @param {number} n The number of bits to shift.
+     * @param n The number of bits to shift.
      *
-     * @return {X64Word} A new x64-Word object after shifting.
+     * @return A new x64-Word object after shifting.
      *
      * @example
      *
@@ -516,9 +510,9 @@ interface X64Word {
     /**
      * Shifts this word n bits to the right.
      *
-     * @param {number} n The number of bits to shift.
+     * @param n The number of bits to shift.
      *
-     * @return {X64Word} A new x64-Word object after shifting.
+     * @return A new x64-Word object after shifting.
      *
      * @example
      *
@@ -528,9 +522,9 @@ interface X64Word {
     /**
      * Rotates this word n bits to the left.
      *
-     * @param {number} n The number of bits to rotate.
+     * @param n The number of bits to rotate.
      *
-     * @return {X64Word} A new x64-Word object after rotating.
+     * @return A new x64-Word object after rotating.
      *
      * @example
      *
@@ -541,9 +535,9 @@ interface X64Word {
     /**
      * Rotates this word n bits to the right.
      *
-     * @param {number} n The number of bits to rotate.
+     * @param n The number of bits to rotate.
      *
-     * @return {X64Word} A new x64-Word object after rotating.
+     * @return A new x64-Word object after rotating.
      *
      * @example
      *
@@ -553,9 +547,9 @@ interface X64Word {
     /**
      * Adds this word with the passed word.
      *
-     * @param {X64Word} word The x64-Word to add with this word.
+     * @param word The x64-Word to add with this word.
      *
-     * @return {X64Word} A new x64-Word object after adding.
+     * @return A new x64-Word object after adding.
      *
      * @example
      *
@@ -566,18 +560,21 @@ interface X64Word {
 
 /**
  * An array of 64-bit words.
- *
- * @property {Array} words The array of CryptoJS.x64.Word objects.
- * @property {number} sigBytes The number of significant bytes in this word array.
  */
 interface X64WordArray {
+    /**
+     * The array of CryptoJS.x64.Word objects.
+     */
     words: number[];
+    /**
+     * The number of significant bytes in this word array.
+     */
     sigBytes: number;
 
     /**
      * Converts this 64-bit word array to a 32-bit word array.
      *
-     * @return {CryptoJS.lib.WordArray} This word array's data as a 32-bit word array.
+     * @return This word array's data as a 32-bit word array.
      *
      * @example
      *
@@ -588,7 +585,7 @@ interface X64WordArray {
     /**
      * Creates a copy of this word array.
      *
-     * @return {X64WordArray} The clone.
+     * @return The clone.
      *
      * @example
      *
@@ -604,7 +601,7 @@ interface Base {
     /**
      * Creates a copy of this object.
      *
-     * @return {Object} The clone.
+     * @return The clone.
      *
      * @example
      *
@@ -615,14 +612,19 @@ interface Base {
 
 /**
  * Configuration options.
- *
- * @property {number} keySize The key size in words to generate.
- * @property {Hasher} hasher The hasher to use.
- * @property {number} iterations The number of iterations to perform.
  */
 interface KDFOption {
+    /**
+     * The key size in words to generate.
+     */
     keySize?: number;
+    /**
+     * The hasher to use.
+     */
     hasher?: HasherStatic;
+    /**
+     * The number of iterations to perform.
+     */
     iterations?: number;
 }
 
@@ -639,11 +641,9 @@ declare global {
                 /**
                  * Creates a new object that inherits from this object.
                  *
-                 * @param {Object} overrides Properties to copy into the new object.
+                 * @param overrides Properties to copy into the new object.
                  *
-                 * @return {Object} The new object.
-                 *
-                 * @static
+                 * @return The new object.
                  *
                  * @example
                  *
@@ -660,9 +660,7 @@ declare global {
                  * Extends this object and runs the init method.
                  * Arguments to create() will be passed to init().
                  *
-                 * @return {Object} The new object.
-                 *
-                 * @static
+                 * @return The new object.
                  *
                  * @example
                  *
@@ -673,7 +671,7 @@ declare global {
                 /**
                  * Copies properties into this object.
                  *
-                 * @param {Object} properties The properties to mix in.
+                 * @param properties The properties to mix in.
                  *
                  * @example
                  *
@@ -686,19 +684,22 @@ declare global {
 
             /**
              * An array of 32-bit words.
-             *
-             * @property {Array} words The array of 32-bit words.
-             * @property {number} sigBytes The number of significant bytes in this word array.
              */
             interface WordArray {
+                /**
+                 * The array of 32-bit words.
+                 */
                 words: number[];
+                /**
+                 * The number of significant bytes in this word array.
+                 */
                 sigBytes: number;
                 /**
                  * Converts this word array to a string.
                  *
-                 * @param {Encoder} encoder (Optional) The encoding strategy to use. Default: CryptoJS.enc.Hex
+                 * @param encoder (Optional) The encoding strategy to use. Default: CryptoJS.enc.Hex
                  *
-                 * @return {string} The stringified word array.
+                 * @return The stringified word array.
                  *
                  * @example
                  *
@@ -711,9 +712,9 @@ declare global {
                 /**
                  * Concatenates a word array to this word array.
                  *
-                 * @param {WordArray} wordArray The word array to append.
+                 * @param wordArray The word array to append.
                  *
-                 * @return {WordArray} This word array.
+                 * @return This word array.
                  *
                  * @example
                  *
@@ -733,7 +734,7 @@ declare global {
                 /**
                  * Creates a copy of this word array.
                  *
-                 * @return {WordArray} The clone.
+                 * @return The clone.
                  *
                  * @example
                  *
@@ -745,8 +746,8 @@ declare global {
                 /**
                  * Initializes a newly created word array.
                  *
-                 * @param {Array} words (Optional) An array of 32-bit words.
-                 * @param {number} sigBytes (Optional) The number of significant bytes in the words.
+                 * @param words (Optional) An array of 32-bit words.
+                 * @param sigBytes (Optional) The number of significant bytes in the words.
                  *
                  * @example
                  *
@@ -758,11 +759,9 @@ declare global {
                 /**
                  * Creates a word array filled with random bytes.
                  *
-                 * @param {number} nBytes The number of random bytes to generate.
+                 * @param nBytes The number of random bytes to generate.
                  *
-                 * @return {WordArray} The random word array.
-                 *
-                 * @static
+                 * @return The random word array.
                  *
                  * @example
                  *
@@ -777,11 +776,9 @@ declare global {
                 /**
                  * Creates a shortcut function to a hasher's object interface.
                  *
-                 * @param {Hasher} hasher The hasher to create a helper for.
+                 * @param hasher The hasher to create a helper for.
                  *
-                 * @return {Function} The shortcut function.
-                 *
-                 * @static
+                 * @return The shortcut function.
                  *
                  * @example
                  *
@@ -791,11 +788,9 @@ declare global {
                 /**
                  * Creates a shortcut function to the HMAC's object interface.
                  *
-                 * @param {Hasher} hasher The hasher to use in this HMAC helper.
+                 * @param hasher The hasher to use in this HMAC helper.
                  *
-                 * @return {Function} The shortcut function.
-                 *
-                 * @static
+                 * @return The shortcut function.
                  *
                  * @example
                  *
@@ -808,11 +803,9 @@ declare global {
                 /**
                  * Creates shortcut functions to a cipher's object interface.
                  *
-                 * @param {Cipher} cipher The cipher to create a helper for.
+                 * @param cipher The cipher to create a helper for.
                  *
-                 * @return {Object} An object with encrypt and decrypt shortcut functions.
-                 *
-                 * @static
+                 * @return An object with encrypt and decrypt shortcut functions.
                  *
                  * @example
                  *
@@ -823,33 +816,50 @@ declare global {
 
             /**
              * A collection of cipher parameters.
-             *
-             * @property {WordArray} ciphertext The raw ciphertext.
-             * @property {WordArray} key The key to this ciphertext.
-             * @property {WordArray} iv The IV used in the ciphering operation.
-             * @property {WordArray} salt The salt used with a key derivation function.
-             * @property {Cipher} algorithm The cipher algorithm.
-             * @property {Mode} mode The block mode used in the ciphering operation.
-             * @property {Padding} padding The padding scheme used in the ciphering operation.
-             * @property {number} blockSize The block size of the cipher.
-             * @property {Format} formatter The default formatting strategy to convert this cipher params object to a string.
              */
             interface CipherParams {
+                /**
+                 * The raw ciphertext.
+                 */
                 ciphertext: WordArray;
+                /**
+                 * The key to this ciphertext.
+                 */
                 key: WordArray;
+                /**
+                 * The IV used in the ciphering operation.
+                 */
                 iv: WordArray;
+                /**
+                 * The salt used with a key derivation function.
+                 */
                 salt: WordArray;
-                algorithm: Cipher;
+                /**
+                 * The cipher algorithm.
+                 */
+                algorithm: CipherStatic;
+                /**
+                 * The block mode used in the ciphering operation.
+                 */
                 mode: Mode;
+                /**
+                 * The padding scheme used in the ciphering operation.
+                 */
                 padding: Padding;
+                /**
+                 * The block size of the cipher.
+                 */
                 blockSize: number;
+                /**
+                 * The default formatting strategy to convert this cipher params object to a string.
+                 */
                 formatter: Format;
                 /**
                  * Converts this cipher params object to a string.
                  *
-                 * @param {Format} formatter (Optional) The formatting strategy to use.
+                 * @param formatter (Optional) The formatting strategy to use.
                  *
-                 * @return {string} The stringified cipher params.
+                 * @return The stringified cipher params.
                  *
                  * @throws Error If neither the formatter nor the default formatter is set.
                  *
@@ -865,7 +875,7 @@ declare global {
                 /**
                  * Initializes a newly created cipher params object.
                  *
-                 * @param {Object} cipherParams An object with any of the possible cipher parameters.
+                 * @param cipherParams An object with any of the possible cipher parameters.
                  *
                  * @example
                  *
@@ -886,10 +896,11 @@ declare global {
 
             /**
              * Abstract base stream cipher template.
-             *
-             * @property {number} blockSize The number of 32-bit words this cipher operates on. Default: 1 (32 bits)
              */
             interface StreamCipher extends Cipher {
+                /**
+                 * The number of 32-bit words this cipher operates on. Default: 1 (32 bits)
+                 */
                 blockSize: number;
             }
 
@@ -905,14 +916,12 @@ declare global {
                 /**
                  * Encrypts a message.
                  *
-                 * @param {CipherStatic} cipher The cipher algorithm to use.
-                 * @param {WordArray|string} message The message to encrypt.
-                 * @param {WordArray} key The key.
-                 * @param {Object} cfg (Optional) The configuration options to use for this operation.
+                 * @param cipher The cipher algorithm to use.
+                 * @param message The message to encrypt.
+                 * @param key The key.
+                 * @param cfg (Optional) The configuration options to use for this operation.
                  *
-                 * @return {CipherParams} A cipher params object.
-                 *
-                 * @static
+                 * @return A cipher params object.
                  *
                  * @example
                  *
@@ -930,14 +939,12 @@ declare global {
                 /**
                  * Decrypts serialized ciphertext.
                  *
-                 * @param {CipherStatic} cipher The cipher algorithm to use.
-                 * @param {CipherParams|string} ciphertext The ciphertext to decrypt.
-                 * @param {WordArray} key The key.
-                 * @param {Object} cfg (Optional) The configuration options to use for this operation.
+                 * @param cipher The cipher algorithm to use.
+                 * @param ciphertext The ciphertext to decrypt.
+                 * @param key The key.
+                 * @param cfg (Optional) The configuration options to use for this operation.
                  *
-                 * @return {WordArray} The plaintext.
-                 *
-                 * @static
+                 * @return The plaintext.
                  *
                  * @example
                  *
@@ -955,12 +962,10 @@ declare global {
                  * Converts serialized ciphertext to CipherParams,
                  * else assumed CipherParams already and returns ciphertext unchanged.
                  *
-                 * @param {CipherParams|string} ciphertext The ciphertext.
-                 * @param {Format} format The formatting strategy to use to parse serialized ciphertext.
+                 * @param ciphertext The ciphertext.
+                 * @param format The formatting strategy to use to parse serialized ciphertext.
                  *
-                 * @return {CipherParams} The unserialized ciphertext.
-                 *
-                 * @static
+                 * @return The unserialized ciphertext.
                  *
                  * @example
                  *
@@ -977,14 +982,12 @@ declare global {
                 /**
                  * Encrypts a message using a password.
                  *
-                 * @param {CipherStatic} cipher The cipher algorithm to use.
-                 * @param {WordArray|string} message The message to encrypt.
-                 * @param {string} password The password.
-                 * @param {Object} cfg (Optional) The configuration options to use for this operation.
+                 * @param cipher The cipher algorithm to use.
+                 * @param message The message to encrypt.
+                 * @param password The password.
+                 * @param cfg (Optional) The configuration options to use for this operation.
                  *
-                 * @return {CipherParams} A cipher params object.
-                 *
-                 * @static
+                 * @return A cipher params object.
                  *
                  * @example
                  *
@@ -1001,14 +1004,12 @@ declare global {
                 /**
                  * Decrypts serialized ciphertext using a password.
                  *
-                 * @param {CipherStatic} cipher The cipher algorithm to use.
-                 * @param {CipherParams|string} ciphertext The ciphertext to decrypt.
-                 * @param {string} password The password.
-                 * @param {Object} cfg (Optional) The configuration options to use for this operation.
+                 * @param cipher The cipher algorithm to use.
+                 * @param ciphertext The ciphertext to decrypt.
+                 * @param password The password.
+                 * @param cfg (Optional) The configuration options to use for this operation.
                  *
-                 * @return {WordArray} The plaintext.
-                 *
-                 * @static
+                 * @return The plaintext.
                  *
                  * @example
                  *
@@ -1069,14 +1070,12 @@ declare global {
                 /**
                  * Derives a key and IV from a password.
                  *
-                 * @param {string} password The password to derive from.
-                 * @param {number} keySize The size in words of the key to generate.
-                 * @param {number} ivSize The size in words of the IV to generate.
-                 * @param {WordArray|string} salt (Optional) A 64-bit salt to use. If omitted, a salt will be generated randomly.
+                 * @param password The password to derive from.
+                 * @param keySize The size in words of the key to generate.
+                 * @param ivSize The size in words of the IV to generate.
+                 * @param salt (Optional) A 64-bit salt to use. If omitted, a salt will be generated randomly.
                  *
-                 * @return {CipherParams} A cipher params object with the key, IV, and salt.
-                 *
-                 * @static
+                 * @return A cipher params object with the key, IV, and salt.
                  *
                  * @example
                  *
@@ -1211,8 +1210,8 @@ declare global {
                 /**
                  * Initializes a newly created HMAC.
                  *
-                 * @param {Hasher} hasher The hash algorithm to use.
-                 * @param {WordArray|string} key The secret key.
+                 * @param hasher The hash algorithm to use.
+                 * @param key The secret key.
                  *
                  * @example
                  *
@@ -1231,9 +1230,9 @@ declare global {
                 /**
                  * Updates this HMAC with a message.
                  *
-                 * @param {WordArray|string} messageUpdate The message to append.
+                 * @param messageUpdate The message to append.
                  *
-                 * @return {HMAC} This HMAC instance.
+                 * @return This HMAC instance.
                  *
                  * @example
                  *
@@ -1246,9 +1245,9 @@ declare global {
                  * Finalizes the HMAC computation.
                  * Note that the finalize operation is effectively a destructive, read-once operation.
                  *
-                 * @param {WordArray|string} messageUpdate (Optional) A final message update.
+                 * @param messageUpdate (Optional) A final message update.
                  *
-                 * @return {WordArray} The HMAC.
+                 * @return The HMAC.
                  *
                  * @example
                  *
@@ -1265,7 +1264,7 @@ declare global {
                 /**
                  * Initializes a newly created key derivation function.
                  *
-                 * @param {Object} cfg (Optional) The configuration options to use for the derivation.
+                 * @param cfg (Optional) The configuration options to use for the derivation.
                  *
                  * @example
                  *
@@ -1278,10 +1277,10 @@ declare global {
                 /**
                  * Computes the Password-Based Key Derivation Function 2.
                  *
-                 * @param {WordArray|string} password The password.
-                 * @param {WordArray|string} salt A salt.
+                 * @param password The password.
+                 * @param salt A salt.
                  *
-                 * @return {WordArray} The derived key.
+                 * @return The derived key.
                  *
                  * @example
                  *
@@ -1297,7 +1296,7 @@ declare global {
                 /**
                  * Initializes a newly created key derivation function.
                  *
-                 * @param {Object} cfg (Optional) The configuration options to use for the derivation.
+                 * @param cfg (Optional) The configuration options to use for the derivation.
                  *
                  * @example
                  *
@@ -1310,10 +1309,10 @@ declare global {
                 /**
                  * Derives a key from a password.
                  *
-                 * @param {WordArray|string} password The password.
-                 * @param {WordArray|string} salt A salt.
+                 * @param password The password.
+                 * @param salt A salt.
                  *
-                 * @return {WordArray} The derived key.
+                 * @return The derived key.
                  *
                  * @example
                  *
@@ -1370,8 +1369,8 @@ declare global {
                 /**
                  * Initializes a newly created 64-bit word.
                  *
-                 * @param {number} high The high 32 bits.
-                 * @param {number} low The low 32 bits.
+                 * @param high The high 32 bits.
+                 * @param low The low 32 bits.
                  *
                  * @example
                  *
@@ -1383,8 +1382,8 @@ declare global {
             /**
              * Initializes a newly created word array.
              *
-             * @param {Array} words (Optional) An array of CryptoJS.x64.Word objects.
-             * @param {number} sigBytes (Optional) The number of significant bytes in the words.
+             * @param words (Optional) An array of CryptoJS.x64.Word objects.
+             * @param sigBytes (Optional) The number of significant bytes in the words.
              *
              * @example
              *
@@ -1408,11 +1407,9 @@ declare global {
         /**
          * Shortcut function to the hasher's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
+         * @param message The message to hash.
          *
-         * @return {WordArray} The hash.
-         *
-         * @static
+         * @return The hash.
          *
          * @example
          *
@@ -1423,12 +1420,10 @@ declare global {
         /**
          * Shortcut function to the HMAC's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
-         * @param {WordArray|string} key The secret key.
+         * @param message The message to hash.
+         * @param key The secret key.
          *
-         * @return {WordArray} The HMA'C.
-         *
-         * @static
+         * @return The HMA'C.
          *
          * @example
          *
@@ -1438,11 +1433,9 @@ declare global {
         /**
          * Shortcut function to the hasher's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
+         * @param message The message to hash.
          *
-         * @return {WordArray} The hash.
-         *
-         * @static
+         * @return The hash.
          *
          * @example
          *
@@ -1453,12 +1446,10 @@ declare global {
         /**
          * Shortcut function to the HMAC's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
-         * @param {WordArray|string} key The secret key.
+         * @param message The message to hash.
+         * @param key The secret key.
          *
-         * @return {WordArray} The HMAC.
-         *
-         * @static
+         * @return The HMAC.
          *
          * @example
          *
@@ -1469,11 +1460,9 @@ declare global {
         /**
          * Shortcut function to the hasher's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
+         * @param message The message to hash.
          *
-         * @return {WordArray} The hash.
-         *
-         * @static
+         * @return The hash.
          *
          * @example
          *
@@ -1484,12 +1473,10 @@ declare global {
         /**
          * Shortcut function to the HMAC's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
-         * @param {WordArray|string} key The secret key.
+         * @param message The message to hash.
+         * @param key The secret key.
          *
-         * @return {WordArray} The HMAC.
-         *
-         * @static
+         * @return The HMAC.
          *
          * @example
          *
@@ -1499,11 +1486,9 @@ declare global {
         /**
          * Shortcut function to the hasher's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
+         * @param message The message to hash.
          *
-         * @return {WordArray} The hash.
-         *
-         * @static
+         * @return The hash.
          *
          * @example
          *
@@ -1514,12 +1499,10 @@ declare global {
         /**
          * Shortcut function to the HMAC's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
-         * @param {WordArray|string} key The secret key.
+         * @param message The message to hash.
+         * @param key The secret key.
          *
-         * @return {WordArray} The HMAC.
-         *
-         * @static
+         * @return The HMAC.
          *
          * @example
          *
@@ -1529,11 +1512,9 @@ declare global {
         /**
          * Shortcut function to the hasher's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
+         * @param message The message to hash.
          *
-         * @return {WordArray} The hash.
-         *
-         * @static
+         * @return The hash.
          *
          * @example
          *
@@ -1544,12 +1525,10 @@ declare global {
         /**
          * Shortcut function to the HMAC's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
-         * @param {WordArray|string} key The secret key.
+         * @param message The message to hash.
+         * @param key The secret key.
          *
-         * @return {WordArray} The HMAC.
-         *
-         * @static
+         * @return The HMAC.
          *
          * @example
          *
@@ -1559,11 +1538,9 @@ declare global {
         /**
          * Shortcut function to the hasher's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
+         * @param message The message to hash.
          *
-         * @return {WordArray} The hash.
-         *
-         * @static
+         * @return The hash.
          *
          * @example
          *
@@ -1574,12 +1551,10 @@ declare global {
         /**
          * Shortcut function to the HMAC's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
-         * @param {WordArray|string} key The secret key.
+         * @param message The message to hash.
+         * @param key The secret key.
          *
-         * @return {WordArray} The HMAC.
-         *
-         * @static
+         * @return The HMAC.
          *
          * @example
          *
@@ -1590,11 +1565,9 @@ declare global {
         /**
          * Shortcut function to the hasher's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
+         * @param message The message to hash.
          *
-         * @return {WordArray} The hash.
-         *
-         * @static
+         * @return The hash.
          *
          * @example
          *
@@ -1605,12 +1578,10 @@ declare global {
         /**
          * Shortcut function to the HMAC's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
-         * @param {WordArray|string} key The secret key.
+         * @param message The message to hash.
+         * @param key The secret key.
          *
-         * @return {WordArray} The HMAC.
-         *
-         * @static
+         * @return The HMAC.
          *
          * @example
          *
@@ -1621,11 +1592,9 @@ declare global {
         /**
          * Shortcut function to the hasher's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
+         * @param message The message to hash.
          *
-         * @return {WordArray} The hash.
-         *
-         * @static
+         * @return The hash.
          *
          * @example
          *
@@ -1636,12 +1605,10 @@ declare global {
         /**
          * Shortcut function to the HMAC's object interface.
          *
-         * @param {WordArray|string} message The message to hash.
-         * @param {WordArray|string} key The secret key.
+         * @param message The message to hash.
+         * @param key The secret key.
          *
-         * @return {WordArray} The HMAC.
-         *
-         * @static
+         * @return The HMAC.
          *
          * @example
          *
@@ -1651,13 +1618,11 @@ declare global {
         /**
          * Computes the Password-Based Key Derivation Function 2.
          *
-         * @param {WordArray|string} password The password.
-         * @param {WordArray|string} salt A salt.
-         * @param {Object} cfg (Optional) The configuration options to use for this computation.
+         * @param password The password.
+         * @param salt A salt.
+         * @param cfg (Optional) The configuration options to use for this computation.
          *
-         * @return {WordArray} The derived key.
-         *
-         * @static
+         * @return The derived key.
          *
          * @example
          *
@@ -1740,13 +1705,11 @@ declare global {
         /**
          * Derives a key from a password.
          *
-         * @param {WordArray|string} password The password.
-         * @param {WordArray|string} salt A salt.
-         * @param {Object} cfg (Optional) The configuration options to use for this computation.
+         * @param password The password.
+         * @param salt A salt.
+         * @param cfg (Optional) The configuration options to use for this computation.
          *
-         * @return {WordArray} The derived key.
-         *
-         * @static
+         * @return The derived key.
          *
          * @example
          *
