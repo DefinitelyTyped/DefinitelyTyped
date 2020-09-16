@@ -82,10 +82,8 @@ export interface Schema<T, C = object> {
 // `defined`, and `required` would all have no effect.
 
 export interface MixedSchemaConstructor {
-    // tslint:disable-next-line:no-unnecessary-generics
-    <T = {} | null | undefined, C = object>(): MixedSchema<T, C>;
-    // tslint:disable-next-line:no-unnecessary-generics
-    new <T = {} | null | undefined, C = object>(options?: { type?: string; [key: string]: any }): MixedSchema<T, C>;
+    (): MixedSchema;
+    new (options?: { type?: string; [key: string]: any }): MixedSchema;
 }
 
 export interface MixedSchema<T extends any = {} | null | undefined, C = object> extends Schema<T, C> {
@@ -117,10 +115,8 @@ export interface MixedSchema<T extends any = {} | null | undefined, C = object> 
 }
 
 export interface StringSchemaConstructor {
-    // tslint:disable-next-line:no-unnecessary-generics
-    <T extends string | null | undefined = string | undefined, C = object>(): StringSchema<T, C>;
-    // tslint:disable-next-line:no-unnecessary-generics
-    new <T extends string | null | undefined = string | undefined, C = object>(): StringSchema<T, C>;
+    (): StringSchema;
+    new (): StringSchema;
 }
 
 export interface StringSchema<T extends string | null | undefined = string | undefined, C = object>
@@ -171,10 +167,8 @@ export interface StringSchema<T extends string | null | undefined = string | und
 }
 
 export interface NumberSchemaConstructor {
-    // tslint:disable-next-line:no-unnecessary-generics
-    <T extends number | null | undefined = number | undefined, C = object>(): NumberSchema<T, C>;
-    // tslint:disable-next-line:no-unnecessary-generics
-    new <T extends number | null | undefined = number | undefined, C = object>(): NumberSchema<T, C>;
+    (): NumberSchema;
+    new (): NumberSchema;
 }
 
 export interface NumberSchema<T extends number | null | undefined = number | undefined, C = object>
@@ -214,10 +208,8 @@ export interface NumberSchema<T extends number | null | undefined = number | und
 }
 
 export interface BooleanSchemaConstructor {
-    // tslint:disable-next-line:no-unnecessary-generics
-    <T extends boolean | null | undefined = boolean | undefined, C = object>(): BooleanSchema<T, C>;
-    // tslint:disable-next-line:no-unnecessary-generics
-    new <T extends boolean | null | undefined = boolean | undefined, C = object>(): BooleanSchema<T, C>;
+    (): BooleanSchema;
+    new (): BooleanSchema;
 }
 
 export interface BooleanSchema<T extends boolean | null | undefined = boolean | undefined, C = object>
@@ -248,10 +240,8 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean | 
 }
 
 export interface DateSchemaConstructor {
-    // tslint:disable-next-line:no-unnecessary-generics
-    <T extends Date | null | undefined = Date | undefined, C = object>(): DateSchema<T, C>;
-    // tslint:disable-next-line:no-unnecessary-generics
-    new <T extends Date | null | undefined = Date | undefined, C = object>(): DateSchema<T, C>;
+    (): DateSchema;
+    new (): DateSchema;
 }
 
 export interface DateSchema<T extends Date | null | undefined = Date | undefined, C = object> extends Schema<T, C> {
@@ -284,7 +274,6 @@ export interface DateSchema<T extends Date | null | undefined = Date | undefined
 
 export interface ArraySchemaConstructor {
     <T, C = object>(schema?: Schema<T, C>): NotRequiredArraySchema<T, C>;
-    // tslint:disable-next-line:no-unnecessary-generics
     new <C = object>(): NotRequiredArraySchema<{}, C>;
 }
 
@@ -369,7 +358,6 @@ export type Shape<T extends object | null | undefined, U extends object> =
 
 export interface ObjectSchemaConstructor {
     <T extends object, C = object>(fields?: ObjectSchemaDefinition<T, C>): ObjectSchema<T | undefined, C>;
-    // tslint:disable-next-line:no-unnecessary-generics
     new <C = object>(): ObjectSchema<{}, C>;
 }
 
