@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
-import { File } from "vinyl";
+import * as File from 'vinyl';
 
 declare namespace rename {
     interface ParsedPath {
