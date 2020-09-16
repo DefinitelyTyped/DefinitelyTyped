@@ -174,7 +174,7 @@ These files are used to validate the API exported from the `*.d.ts` files which 
 Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
 If you don't see any test files in the module's folder, create a `[modulename]-tests.ts`
 
-For example, this change to a function in a `.d.ts` file adding an a new param to a function:
+For example, this change to a function in a `.d.ts` file adding a new param to a function:
 
 `index.d.ts`:
 
@@ -537,7 +537,7 @@ At the time of writing, the [history v2 `tsconfig.json`](https://github.com/Defi
 ```
 
 If there are other packages in Definitely Typed that are incompatible with the new version, you will need to add path mappings to the old version.
-You will also need to do this recursively for packages depending on packages depending on the old version.
+You will also need to do this recursively for packages depending on the old version.
 
 For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`.
 Transitively, `react-router-bootstrap` (which depends on `react-router`) also needed to add the same path mapping (`"history": [ "history/v2" ]`) in its `tsconfig.json` until its `react-router` dependency was updated to the latest version.
