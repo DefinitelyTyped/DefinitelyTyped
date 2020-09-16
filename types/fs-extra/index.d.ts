@@ -207,6 +207,7 @@ export function readFile(file: string | Buffer | number): Promise<Buffer>;
 
 export function readdir(path: string | Buffer, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
 export function readdir(path: string | Buffer): Promise<string[]>;
+export function readdir(path: string | Buffer, options: fs.BaseEncodingOptions & { withFileTypes: true }): Promise<fs.Dirent[]>;
 
 export function readlink(path: string | Buffer, callback: (err: NodeJS.ErrnoException, linkString: string) => any): void;
 export function readlink(path: string | Buffer): Promise<string>;

@@ -255,3 +255,6 @@ const openDirTest = async (path: string, opts: fs.OpenDirOptions) => {
     await fs.opendir(path); // $ExpectType Dir
     await fs.opendir(path, opts); // $ExpectType Dir
 };
+
+// $ExpectType Promise<Dirent[]>
+fs.readdir(path, {withFileTypes: true});
