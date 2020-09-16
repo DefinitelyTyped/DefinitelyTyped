@@ -50,10 +50,10 @@ const grachtenGordel = [
  *     ]
  * }]
  */
-const polyGordel = UnlCore.toPolyhash(grachtenGordel, 7);
+const polyGordel: UnlCore.Polyhash[] = UnlCore.toPolyhash(grachtenGordel, 7);
 
 // u0COMqBaDeexPoRh4hvxrYSUjgDfbrPUn4AyoFo=
-let compressed = UnlCore.compressPolyhash(polyGordel);
+let compressed: string = UnlCore.compressPolyhash(polyGordel);
 
 /**
  * [
@@ -65,10 +65,10 @@ let compressed = UnlCore.compressPolyhash(polyGordel);
  *    'u176p0e'
  * ]
  */
-const decompressed = UnlCore.decompressPolyhash(compressed);
+const decompressed: string[] = UnlCore.decompressPolyhash(compressed);
 
 // == grachtenGordel
-const coords = UnlCore.toCoordinates(decompressed);
+const coords: number[][] = UnlCore.toCoordinates(decompressed);
 
 /**
  * [
@@ -76,7 +76,7 @@ const coords = UnlCore.toCoordinates(decompressed);
  *     { precision: 7, data: [ 'yvp', 'w', 'x', 'y', 'z', 'yj','n', 'p', 'q', 'r', ... ] }
  * ]
  */
-const clusterGordel = UnlCore.toCluster(grachtenGordel, 7);
+const clusterGordel: UnlCore.Polyhash[] = UnlCore.toCluster(grachtenGordel, 7);
 
 /**
  * s0COG/kzbOHLy7zerx6+fnsWjVs3ePX58Xx6+fh4 ...
@@ -86,7 +86,7 @@ compressed = UnlCore.compressPolyhash(clusterGordel);
 /**
  * [ 'u173zk',  'u173zm',  'u173zq',  ... ]
  */
-const inflated = UnlCore.inflate(clusterGordel);
+const inflated: string[] = UnlCore.inflate(clusterGordel);
 
 /**
  * [
@@ -94,7 +94,7 @@ const inflated = UnlCore.inflate(clusterGordel);
  *    [ 'u173yvp', 'w',  'x',  'y', 'z', 'yj', ... ]
  * ]
  */
-const grouped = UnlCore.groupByPrefix(inflated);
+const grouped: string[][] = UnlCore.groupByPrefix(inflated);
 
 // == clusterGordel
-const deflated = UnlCore.deflate(inflated);
+const deflated: UnlCore.Polyhash[] = UnlCore.deflate(inflated);

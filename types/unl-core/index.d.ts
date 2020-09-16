@@ -24,21 +24,20 @@ export interface Point {
     lon: number;
 }
 
-export interface PointWithElevation extends Point {
-    lat: number;
-    lon: number;
-    elevation: number;
-    elevationType: ElevationType;
-}
-
 export interface Bounds {
     sw: Point;
     ne: Point;
 }
 
 export interface BoundsWithElevation extends Bounds {
-    sw: PointWithElevation;
-    ne: PointWithElevation;
+    elevation: number;
+    elevationType: ElevationType;
+}
+
+export interface PointWithElevation extends Point {
+    elevation: number;
+    elevationType: ElevationType;
+    bounds: BoundsWithElevation;
 }
 
 export interface EncodeOptions {
