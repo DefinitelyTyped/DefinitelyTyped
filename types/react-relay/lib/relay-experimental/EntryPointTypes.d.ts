@@ -5,6 +5,7 @@ import {
     IEnvironment,
     Observable,
     GraphQLResponse,
+    CacheConfig,
 } from 'relay-runtime';
 
 import { Component } from 'react';
@@ -14,7 +15,14 @@ export type PreloadFetchPolicy = 'store-or-network' | 'store-and-network' | 'net
 export interface PreloadOptions {
     readonly fetchKey?: string | number;
     readonly fetchPolicy?: PreloadFetchPolicy;
+    readonly networkCacheConfig?: CacheConfig;
 }
+
+export type LoadQueryOptions = {
+    fetchPolicy?: PreloadFetchPolicy;
+    networkCacheConfig?: CacheConfig | null;
+    onQueryAstLoadTimeout?: (() => void) | null;
+};
 
 // Note: the phantom type parameter here helps ensures that the
 // $Parameters.js value matches the type param provided to preloadQuery.

@@ -17,3 +17,4 @@ export { usePreloadedQuery } from './relay-experimental/usePreloadedQuery';
 export { useRefetchableFragment } from './relay-experimental/useRefetchableFragment';
 export { useRelayEnvironment } from './relay-experimental/useRelayEnvironment';
 export { useSubscription } from './relay-experimental/useSubscription';
+export { useQueryLoader } from './relay-experimental/useQueryLoader';
