@@ -155,10 +155,11 @@ function whileFn(callback: any) {
 }
 
 function whileTest() { return count < 5; }
+function whilstTest(callback: (error: any, truth: boolean) => boolean) { return callback(null, count < 5); }
 function doWhileTest(count: number) { return count < 5; }
 
 let count = 0;
-async.whilst(whileTest, whileFn, err => { });
+async.whilst(whilstTest, whileFn, err => { });
 async.until(whileTest, whileFn, err => { });
 async.doWhilst(whileFn, doWhileTest, err => { });
 async.doUntil(whileFn, doWhileTest, err => { });

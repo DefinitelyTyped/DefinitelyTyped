@@ -207,8 +207,8 @@ export function parallel<T, R, E = Error>(tasks: Array<AsyncFunction<T, E>> | Di
 export function parallelLimit<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, limit: number, callback?: AsyncResultArrayCallback<T, E>): void;
 export function parallelLimit<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, limit: number, callback?: AsyncResultObjectCallback<T, E>): void;
 export function parallelLimit<T, R, E = Error>(tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>, limit: number): Promise<R>;
-export function whilst<E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
-export function whilst<R, E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>): Promise<R>;
+export function whilst<E = Error>(test: (cb: (err: any, truth: boolean) => boolean) => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
+export function whilst<R, E = Error>(test: (cb: (err: any, truth: boolean) => boolean) => boolean, fn: AsyncVoidFunction<E>): Promise<R>;
 export function doWhilst<T, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean, callback: ErrorCallback<E>): void;
 export function doWhilst<T, R, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean): Promise<R>;
 export function until<E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
