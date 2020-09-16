@@ -10,6 +10,7 @@ export = CryptoJS;
 
 type WordArray = CryptoJS.lib.WordArray;
 type CipherParams = CryptoJS.lib.CipherParams;
+type X64Word = CryptoJS.x64.Word;
 
 /**
  * Encoding strategy.
@@ -441,121 +442,6 @@ interface Format {
      *     var cipherParams = CryptoJS.format.OpenSSL.parse(openSSLString);
      */
     parse(str: string): CipherParams;
-}
-
-/**
- * A 64-bit word.
- */
-interface X64Word {
-    /**
-     * Bitwise NOTs this word.
-     *
-     * @return A new x64-Word object after negating.
-     *
-     * @example
-     *
-     *     var negated = x64Word.not();
-     */
-    not(): X64Word;
-    /**
-     * Bitwise ANDs this word with the passed word.
-     *
-     * @param word The x64-Word to AND with this word.
-     *
-     * @return A new x64-Word object after ANDing.
-     *
-     * @example
-     *
-     *     var anded = x64Word.and(anotherX64Word);
-     */
-    and(word: X64Word): X64Word;
-
-    /**
-     * Bitwise ORs this word with the passed word.
-     *
-     * @param word The x64-Word to OR with this word.
-     *
-     * @return A new x64-Word object after ORing.
-     *
-     * @example
-     *
-     *     var ored = x64Word.or(anotherX64Word);
-     */
-    or(word: X64Word): X64Word;
-
-    /**
-     * Bitwise XORs this word with the passed word.
-     *
-     * @param word The x64-Word to XOR with this word.
-     *
-     * @return A new x64-Word object after XORing.
-     *
-     * @example
-     *
-     *     var xored = x64Word.xor(anotherX64Word);
-     */
-    xor(word: X64Word): X64Word;
-    /**
-     * Shifts this word n bits to the left.
-     *
-     * @param n The number of bits to shift.
-     *
-     * @return A new x64-Word object after shifting.
-     *
-     * @example
-     *
-     *     var shifted = x64Word.shiftL(25);
-     */
-    shiftL(n: number): X64Word;
-    /**
-     * Shifts this word n bits to the right.
-     *
-     * @param n The number of bits to shift.
-     *
-     * @return A new x64-Word object after shifting.
-     *
-     * @example
-     *
-     *     var shifted = x64Word.shiftR(7);
-     */
-    shiftR(n: number): X64Word;
-    /**
-     * Rotates this word n bits to the left.
-     *
-     * @param n The number of bits to rotate.
-     *
-     * @return A new x64-Word object after rotating.
-     *
-     * @example
-     *
-     *     var rotated = x64Word.rotL(25);
-     */
-    rotL(n: number): X64Word;
-
-    /**
-     * Rotates this word n bits to the right.
-     *
-     * @param n The number of bits to rotate.
-     *
-     * @return A new x64-Word object after rotating.
-     *
-     * @example
-     *
-     *     var rotated = x64Word.rotR(7);
-     */
-    rotR(n: number): X64Word;
-    /**
-     * Adds this word with the passed word.
-     *
-     * @param word The x64-Word to add with this word.
-     *
-     * @return A new x64-Word object after adding.
-     *
-     * @example
-     *
-     *     var added = x64Word.add(anotherX64Word);
-     */
-    add(word: X64Word): X64Word;
 }
 
 /**
@@ -1365,6 +1251,121 @@ declare global {
          * x64 namespace.
          */
         export namespace x64 {
+            /**
+             * A 64-bit word.
+             */
+            interface Word {
+                /**
+                 * Bitwise NOTs this word.
+                 *
+                 * @return A new x64-Word object after negating.
+                 *
+                 * @example
+                 *
+                 *     var negated = x64Word.not();
+                 */
+                not(): X64Word;
+                /**
+                 * Bitwise ANDs this word with the passed word.
+                 *
+                 * @param word The x64-Word to AND with this word.
+                 *
+                 * @return A new x64-Word object after ANDing.
+                 *
+                 * @example
+                 *
+                 *     var anded = x64Word.and(anotherX64Word);
+                 */
+                and(word: X64Word): X64Word;
+
+                /**
+                 * Bitwise ORs this word with the passed word.
+                 *
+                 * @param word The x64-Word to OR with this word.
+                 *
+                 * @return A new x64-Word object after ORing.
+                 *
+                 * @example
+                 *
+                 *     var ored = x64Word.or(anotherX64Word);
+                 */
+                or(word: X64Word): X64Word;
+
+                /**
+                 * Bitwise XORs this word with the passed word.
+                 *
+                 * @param word The x64-Word to XOR with this word.
+                 *
+                 * @return A new x64-Word object after XORing.
+                 *
+                 * @example
+                 *
+                 *     var xored = x64Word.xor(anotherX64Word);
+                 */
+                xor(word: X64Word): X64Word;
+                /**
+                 * Shifts this word n bits to the left.
+                 *
+                 * @param n The number of bits to shift.
+                 *
+                 * @return A new x64-Word object after shifting.
+                 *
+                 * @example
+                 *
+                 *     var shifted = x64Word.shiftL(25);
+                 */
+                shiftL(n: number): X64Word;
+                /**
+                 * Shifts this word n bits to the right.
+                 *
+                 * @param n The number of bits to shift.
+                 *
+                 * @return A new x64-Word object after shifting.
+                 *
+                 * @example
+                 *
+                 *     var shifted = x64Word.shiftR(7);
+                 */
+                shiftR(n: number): X64Word;
+                /**
+                 * Rotates this word n bits to the left.
+                 *
+                 * @param n The number of bits to rotate.
+                 *
+                 * @return A new x64-Word object after rotating.
+                 *
+                 * @example
+                 *
+                 *     var rotated = x64Word.rotL(25);
+                 */
+                rotL(n: number): X64Word;
+
+                /**
+                 * Rotates this word n bits to the right.
+                 *
+                 * @param n The number of bits to rotate.
+                 *
+                 * @return A new x64-Word object after rotating.
+                 *
+                 * @example
+                 *
+                 *     var rotated = x64Word.rotR(7);
+                 */
+                rotR(n: number): X64Word;
+                /**
+                 * Adds this word with the passed word.
+                 *
+                 * @param word The x64-Word to add with this word.
+                 *
+                 * @return A new x64-Word object after adding.
+                 *
+                 * @example
+                 *
+                 *     var added = x64Word.add(anotherX64Word);
+                 */
+                add(word: X64Word): X64Word;
+            }
+
             const Word: {
                 /**
                  * Initializes a newly created 64-bit word.
