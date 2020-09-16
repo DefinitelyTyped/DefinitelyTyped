@@ -210,14 +210,14 @@ declare module "crypto" {
         final(output_encoding: string): string;
         setAutoPadding(auto_padding?: boolean): this;
         // getAuthTag(): Buffer;
-        // setAAD(buffer: Buffer): this; // docs only say buffer
+        // setAAD(buffer: NodeJS.ArrayBufferView): this;
     }
     interface CipherCCM extends Cipher {
-        setAAD(buffer: Buffer, options: { plaintextLength: number }): this;
+        setAAD(buffer: NodeJS.ArrayBufferView, options: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     interface CipherGCM extends Cipher {
-        setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
+        setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use createDecipheriv() */

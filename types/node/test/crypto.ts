@@ -838,3 +838,9 @@ import { promisify } from 'util';
             dsaEncoding: 'der'
         }, Buffer.from('sig'));
 }
+
+{
+    const cipher = crypto.createCipheriv('aes-256-gcm', Buffer.from('key'), Buffer.from('iv'), { authTagLength: 16 });
+    cipher.setAAD(Buffer.from('iv'));
+    cipher.setAAD(new Uint8Array());
+}
