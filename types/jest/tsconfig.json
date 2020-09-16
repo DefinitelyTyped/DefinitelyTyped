@@ -1,10 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "lib": ["dom", "es6", "esnext", "es2020"],
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,

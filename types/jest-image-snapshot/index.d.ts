@@ -1,4 +1,4 @@
-// Type definitions for jest-image-snapshot 3.1
+// Type definitions for jest-image-snapshot 4.1
 // Project: https://github.com/americanexpress/jest-image-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 //                 erbridge <https://github.com/erbridge>
@@ -7,23 +7,8 @@
 // TypeScript Version: 3.1
 
 /// <reference types="jest" />
-
-/**
- * Options to be passed to the 'pixelmatch' image diffing function.
- */
-export interface PixelmatchOptions {
-    /**
-     * Matching threshold, ranges from 0 to 1.
-     * Smaller values make the comparison more sensitive.
-     * @default 0.1
-     */
-    readonly threshold?: number;
-    /**
-     * If true, disables detecting and ignoring anti-aliased pixels.
-     * @default false
-     */
-    readonly includeAA?: boolean;
-}
+import { PixelmatchOptions } from 'pixelmatch';
+import { Options as SSIMOptions } from 'ssim.js';
 
 export interface MatchImageSnapshotOptions {
     /**
@@ -32,9 +17,15 @@ export interface MatchImageSnapshotOptions {
      */
     allowSizeMismatch?: boolean;
     /**
-     * Custom config passed to 'pixelmatch'
+     * Custom config passed to 'pixelmatch' or 'ssim'
      */
-    customDiffConfig?: PixelmatchOptions;
+    customDiffConfig?: PixelmatchOptions | SSIMOptions;
+    /**
+     * The method by which images are compared.
+     * `pixelmatch` does a pixel by pixel comparison, whereas `ssim` does a structural similarity comparison.
+     * @default 'pixelmatch'
+     */
+    comparisonMethod?: 'pixelmatch' | 'ssim';
     /**
      * Custom snapshots directory.
      * Absolute path of a directory to keep the snapshot in.

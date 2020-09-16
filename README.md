@@ -26,7 +26,7 @@ This section tracks the health of the repository and publishing process.
 It may be helpful for contributors experiencing any issues with their PRs and packages.
 
 * Most recent build [type-checked/linted](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
-* All packages are type-checking/linting cleanly on typescript@next: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
+* All packages are type-checking/linting cleanly on typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * All packages are being [published to npm](https://github.com/microsoft/types-publisher) in under an hour: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * Current [infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
@@ -65,11 +65,11 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of TypeScript (2.9 and earlier)
+#### Older versions of TypeScript (3.0 and earlier)
 
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
-Currently versions 3.0 and above are tested.
-If you're using TypeScript 2.0 to 2.9, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+Currently versions 3.1 and above are tested.
+If you're using TypeScript 2.0 to 3.0, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -77,7 +77,7 @@ Version | Released | End of Support
 -- | -- | --
 2.8 | March 2018 | March 2020
 2.9 | May 2018 | May 2020
-3.0 | July 2018 | July 2020
+3.0 | July 2018 | August 2020
 3.1 | September 2018 | September 2020
 3.2 | November 2018 | November 2020
 3.3 | January 2019 | January 2021
@@ -87,6 +87,7 @@ Version | Released | End of Support
 3.7 | November 2019 | November 2021
 3.8 | February 2020 | February 2022
 3.9 | May 2020 | May 2022
+4.0 | August 2020 | August 2022
 
 `@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
 For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
@@ -149,6 +150,9 @@ Once you've tested your package, you can share it on Definitely Typed.
 
 First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`.
 
+We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life-cycle of a pull request to DT:
+
+<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.png?raw=true">
 
 #### Edit an existing package
 
@@ -193,7 +197,7 @@ const result = twoslash("//")
 + const resultWithOptions = twoslash("//", {  })
 ```
 
-You can validate your changes with `npm test` from the root of this repo, which takes changed files into account.
+You can validate your changes with `npm test package-name` from the root of this repo, which takes changed files into account.
 
 #### Create a new package
 
@@ -334,16 +338,15 @@ For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests
 
 ## Verifying
 
-Test your changes by running `npm run lint package-name` where `package-name` is the name of your package.
+Test your changes by running `npm test package-name` where `package-name` is the name of your package.
 
-This script uses [dtslint](https://github.com/Microsoft/dtslint) to run the TypeScript compiler against your dts files.
-
+This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
 
 ## FAQ
 
 #### What exactly is the relationship between this repository and the `@types` packages on NPM?
 
-The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
+The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/microsoft/DefinitelyTyped-tools).
 
 #### I've submitted a pull request. How long until it is merged?
 
@@ -414,14 +417,14 @@ compiler options.
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` works to import a module, and `export default` is accurate if `node -p 'require("foo").default'` works to import a module.
 
-#### I want to use features from TypeScript 3.1 or above.
+#### I want to use features from TypeScript 3.2 or above.
 
-Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
+Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: 3.2`.
 
-However, if your project needs to maintain types that are compatible with 3.1 and above *at the same time as* types that are compatible with 3.0 or below, you will need to use the `typesVersions` feature, which is available in TypeScript 3.1 and above.
+However, if your project needs to maintain types that are compatible with, say, 3.7 and above *at the same time as* types that are compatible with 3.6 or below, you will need to use the `typesVersions` feature.
 You can find a detailed explanation of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
 
-Here's a short explanation to get you started:
+Here's a short example to get you started:
 
 1. You'll have to add a `package.json` file to your package definition, with the following contents:
 
@@ -430,16 +433,17 @@ Here's a short explanation to get you started:
     "private": true,
     "types": "index",
     "typesVersions": {
-        ">=3.1.0-0": { "*": ["ts3.1/*"] }
+        "<=3.6": { "*": ["ts3.6/*"] }
     }
 }
 ```
 
-2. Create the sub-directory mentioned in the `typesVersions` field inside your types directory (`ts3.1/` in this example)
-and add the types and tests specific for the new TypeScript version. You don't need the typical definition header
-in any of the files from the `ts3.1/` directory.
+2. Create the sub-directory mentioned in the `typesVersions` field inside your types directory (`ts3.6/` in this example).
+`ts3.6/` will support TypeScript versions 3.6 and below, so copy the existing types and tests there.
 
-3. Set the `baseUrl` and `typeRoots` options in `ts3.1/tsconfig.json` to the correct paths, they should look something like this:
+You'll need to delete the definition header from `ts3.6/index.d.ts` since only the root `index.d.ts` is supposed to have it.
+
+3. Set the `baseUrl` and `typeRoots` options in `ts3.6/tsconfig.json` to the correct paths, which should look something like this:
 ```json
 {
     "compilerOptions": {
@@ -449,7 +453,10 @@ in any of the files from the `ts3.1/` directory.
 }
 ```
 
-You can look [here](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) and [here](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/create-html-element) for examples.
+4. Back in the root of the package, add the TypeScript 3.7 features you want to use.
+When people install the package, TypeScript 3.6 and below will start from `ts3.6/index.d.ts`, whereas TypeScript 3.7 and above will start from `index.d.ts`.
+
+You can look at [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components).
 
 #### I want to add a DOM API not present in TypeScript by default.
 

@@ -6,7 +6,6 @@
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
-//                 Johannes Schneider <https://github.com/neshanjo>
 //                 Meng Bernie Sung <https://github.com/MengRS>
 //                 Léo Haddad Carneiro <https://github.com/Scoup>
 //                 Isabela Morais <https://github.com/isabela-morais>
@@ -1018,12 +1017,12 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   addPermissionsInRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
   addPermissionsInRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
 
-  getUsersInRole(params: ObjectWithId): Promise<User<A, U>[]>;
-  getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User<A, U>[]) => void): void;
-  getUsersInRole(params: GetRoleUsersData): Promise<User<A, U>[]>;
-  getUsersInRole(params: GetRoleUsersData, cb: (err: Error, users: User<A, U>[]) => void): void;
   getUsersInRole(params: GetRoleUsersDataPaged): Promise<UserPage<A, U>>;
   getUsersInRole(params: GetRoleUsersDataPaged, cb: (err: Error, userPage: UserPage<A, U>) => void): void;
+  getUsersInRole(params: GetRoleUsersData): Promise<User<A, U>[]>;
+  getUsersInRole(params: GetRoleUsersData, cb: (err: Error, users: User<A, U>[]) => void): void;
+  getUsersInRole(params: ObjectWithId): Promise<User<A, U>[]>;
+  getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User<A, U>[]) => void): void;
 
     // Rules
   getRules(): Promise<Rule[]>;

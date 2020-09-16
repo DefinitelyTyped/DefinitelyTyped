@@ -33,6 +33,7 @@ SOFTWARE.
 declare namespace BMapGL {
     class TileLayer {
         constructor(opts?: TileLayerOptions);
+        zIndex?: number;
         getTilesUrl(tileCoord: Pixel, zoom: number): string;
         getCopyright(): Copyright;
         isTransparentPng(): boolean;
