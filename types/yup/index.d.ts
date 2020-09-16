@@ -83,7 +83,9 @@ export interface Schema<T, C = object> {
 // `defined`, and `required` would all have no effect.
 
 export interface MixedSchemaConstructor {
+    // tslint:disable-next-line:no-unnecessary-generics
     <T = {} | null | undefined>(): MixedSchema<T>; <T = {} | null | undefined, C = object>(): MixedSchema<T, C>;
+    // tslint:disable-next-line:no-unnecessary-generics
     new <T = {} | null | undefined>(options?: { type?: string;[key: string]: any; }): MixedSchema<T>;
 }
 
