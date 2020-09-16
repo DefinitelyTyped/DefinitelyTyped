@@ -1,15 +1,12 @@
 // Type definitions for d3-indirections 0.1
 // Project: https://github.com/herobank110/types-d3-indirections
 // Definitions by: David Kanekanian <https://github.com/herobank110>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Type of resource indirections may control.
  */
-declare const enum ResourceType {
-    VideoClip = 'VideoClip',
-    Projection = 'Projection',
-    Unknown = 'unknown',
-}
+type ResourceType = 'VideoClip' | 'Projection' | 'unknown';
 
 /**
  * Base class for all indirections. Should not be used directly.
@@ -48,7 +45,7 @@ interface ListIndirection extends IndirectionBase {
         resourceIndex: number;
 
         /** List of resources available to pick from. */
-        resourceUids: Array<string>;
+        resourceUids: string[];
     };
 }
 
@@ -92,7 +89,7 @@ type Assignment = ManualAssignment | ListAssignment;
  * This is actually what gets sent to the PUT assignment.
  */
 interface Assignments {
-    assignments: Assignment | Array<Assignment>;
+    assignments: Assignment | Assignment[];
 }
 
 /**
@@ -113,7 +110,7 @@ interface IndirectionByUidResponse extends ResponseBase {
  * Response from a GET all indirections request.
  */
 interface AllIndirectionsResponse extends ResponseBase {
-    result: Array<Indirection>;
+    result: Indirection[];
 }
 
 /**
@@ -136,7 +133,7 @@ interface Resource<T extends ResourceType> {
 /**
  * Response from a GET resource by UID request.
  */
-interface ResourceByUidResponse<T extends ResourceType = ResourceType.Unknown> extends ResponseBase {
+interface ResourceByUidResponse<T extends ResourceType = "unknown"> extends ResponseBase {
     result: Resource<T>;
 }
 
@@ -156,5 +153,5 @@ type AssignmentFailure = Assignment & { error: string };
  * Response from a PUT indirections resource request.
  */
 interface AssignmentsResponse {
-    failedAssignments: Array<AssignmentFailure>;
+    failedAssignments: AssignmentFailure[];
 }

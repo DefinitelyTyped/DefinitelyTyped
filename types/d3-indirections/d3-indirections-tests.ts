@@ -1,10 +1,10 @@
 /// <reference types="./index" />
 
 function request(url: string, method: string, b: (response: any) => void, body?: any) {
-    let a = new XMLHttpRequest();
+    const a = new XMLHttpRequest();
     a.open(method, url);
-    a.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+    a.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
             b(JSON.parse(this.responseText));
         }
     };
@@ -23,7 +23,7 @@ request('GET', 'http://localhost:80/api/v1/indirections/' + indirectionUid, (res
     console.log(`${value.uid}:: ${value.name} is a ${value.resourceType}`);
 });
 
-const resourceType = ResourceType.VideoClip;
+const resourceType = 'VideoClip';
 request(
     'GET',
     'http://localhost:80/api/v1/resources?type=' + resourceType,
@@ -39,7 +39,7 @@ request('GET', 'http://localhost:80/api/v1/resources/' + resourceUid, (response:
     const value = response.result;
     console.log(`${value.uid}:: ${value.name} is a ${value.type} stored at ${value.path}`);
 
-    if ((value.type as string) == ResourceType.VideoClip) {
+    if ((value.type as string) === 'VideoClip') {
         console.log('It is definitely a video clip');
     }
 });
@@ -47,7 +47,7 @@ request('GET', 'http://localhost:80/api/v1/resources/' + resourceUid, (response:
 const assignments: Assignments = {
     assignments: {
         uid: indirectionUid,
-        resourceUid: resourceUid,
+        resourceUid,
     },
 };
 request(
