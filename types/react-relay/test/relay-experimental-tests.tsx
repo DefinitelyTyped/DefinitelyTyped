@@ -15,6 +15,7 @@ import {
     RelayEnvironmentProvider,
     useRelayEnvironment,
     preloadQuery,
+    PreloadedQuery,
     usePreloadedQuery,
     useLazyLoadQuery,
     useFragment,
@@ -896,7 +897,6 @@ function QueryLoader() {
     `;
 
     const [queryReference, loadQuery, disposeQuery] = useQueryLoader<AppQuery>(query);
-    type queryReferenceType = typeof queryReference;
 
     function QueryFetcherExample(): React.ReactElement {
         React.useEffect(() => {
@@ -917,7 +917,7 @@ function QueryLoader() {
         );
     }
 
-    function NameDisplay({ queryReference }: { queryReference: NonNullable<queryReferenceType> }) {
+    function NameDisplay({ queryReference }: { queryReference: PreloadedQuery<AppQuery> }) {
         const data = usePreloadedQuery(query, queryReference);
 
         if (data.user) {

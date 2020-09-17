@@ -1,6 +1,8 @@
 export { graphql } from 'relay-runtime';
 export { fetchQuery } from './relay-experimental/fetchQuery';
 
+export * from './relay-experimental/EntryPointTypes';
+
 export { EntryPointContainer } from './relay-experimental/EntryPointContainer';
 export { LazyLoadEntryPointContainer } from './relay-experimental/LazyLoadEntryPointContainer';
 export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentProvider';
