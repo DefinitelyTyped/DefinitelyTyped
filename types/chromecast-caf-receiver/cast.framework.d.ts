@@ -558,6 +558,11 @@ export class PlayerManager {
      */
     getQueueManager(): QueueManager;
 
+    /**
+     * Returns stats about playback. Stats are aggregated over the entire playback session where appropriate.
+     */
+    getStats(): Stats;
+
     getTextTracksManager(): TextTracksManager;
 
     /**
@@ -1260,4 +1265,16 @@ export class AudioTracksManager {
     getTracksByLanguage(language: string): messages.Track[];
     setActiveById(id: number): void;
     setActiveByLanguage(language: string): void;
+}
+
+/** Represents playback statistics */
+export class Stats {
+    bufferingTime: number;
+    decodedFrames: number;
+    droppedFrames: number;
+    estimatedBandwidth: number;
+    height: number;
+    playTime: number;
+    streamBandwidth: number;
+    width: number;
 }
