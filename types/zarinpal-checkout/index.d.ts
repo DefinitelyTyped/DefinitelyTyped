@@ -3,7 +3,7 @@
 // Definitions by: Omid Seyfan <https://github.com/iamomiid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace ZarinPal {
-    interface Authroity {
+    interface Authority {
         Authority: string;
         Amount: string;
         Channel: string;
@@ -36,7 +36,7 @@ declare namespace ZarinPal {
 
     interface UnverifiedTransactionsOutput {
         status: number;
-        authorities: Authroity[];
+        authorities: Authority[];
     }
 
     interface RefreshAuthorityInput {
@@ -58,4 +58,4 @@ declare namespace ZarinPal {
 
 declare const zarinpal: { create(merchantID: string, sandbox: boolean): ZarinPal.ZarinPalInstance };
 
-export default zarinpal;
+export = zarinpal;

@@ -1,4 +1,4 @@
-import ZarinpalCheckout from 'zarinpal-checkout';
+import * as ZarinpalCheckout from 'zarinpal-checkout';
 
 const zarinpal = ZarinpalCheckout.create('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', false);
 
