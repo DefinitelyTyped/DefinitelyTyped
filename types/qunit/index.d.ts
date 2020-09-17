@@ -693,3 +693,7 @@ interface QUnit {
 
 /* QUnit */
 declare const QUnit: QUnit;
+
+declare module 'qunit' {
+    export = QUnit;
+}
