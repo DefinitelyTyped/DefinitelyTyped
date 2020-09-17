@@ -150,7 +150,7 @@ export interface PayPal {
         shippingAddressOverride?: PayPalShippingAddress;
         shippingAddressEditable?: boolean;
         billingAgreementDescription?: string;
-    }): Promise<PayPalTokenizeReturn>;
+    }): Promise<PayPalTokenizePayload>;
     tokenize(
         options: {
             flow: string;
@@ -166,7 +166,7 @@ export interface PayPal {
             shippingAddressEditable?: boolean;
             billingAgreementDescription?: string;
         },
-        callback: callback,
+        callback: callback<PayPalTokenizePayload>,
     ): PayPalTokenizeReturn;
 
     /**
