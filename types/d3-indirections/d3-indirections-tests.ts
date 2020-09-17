@@ -1,4 +1,4 @@
-/// <reference types="./index" />
+/// <reference types="d3-indirections" />
 
 function request(url: string, method: string, b: (response: any) => void, body?: any) {
     const a = new XMLHttpRequest();
