@@ -7,8 +7,6 @@
 
 export as namespace Printer;
 
-/*~ If this module has methods, declare them as functions like so.
- */
 export function getPrinters(): PrinterDetails[];
 export function getPrinter(printerName: string): PrinterDetails;
 export function getPrinterDriverOptions(printerName: string): PrinterDriverOptions;
