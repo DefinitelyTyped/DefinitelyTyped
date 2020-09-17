@@ -1,5 +1,5 @@
 // Type definitions for passport-instagram-graph 1.0
-// Project: https://github.com/ghaiklor/passport-instagram-graph
+// Project: https://github.com/huynhsang/passport-instagram-graph#readme
 // Definitions by: Sagar Jain <https://github.com/sagar7993>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

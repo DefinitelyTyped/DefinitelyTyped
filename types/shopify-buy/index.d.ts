@@ -1,5 +1,5 @@
 // Type definitions for shopify-buy 2.10
-// Project: http://shopify.github.io/js-buy-sdk/api/
+// Project: https://github.com/Shopify/js-buy-sdk#readme
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
 //                 Rosana Ruiz <https://github.com/totemika>
