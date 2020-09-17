@@ -21,6 +21,7 @@ declare global {
             afterTime(date: Date): Assertion;
             beforeTime(date: Date): Assertion;
             equalTime(date: Date): Assertion;
+            closeToTime(date: Date, delta: number): Assertion;
             withinTime(dateFrom: Date, dateTo: Date): Assertion;
         }
 
