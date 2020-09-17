@@ -98,7 +98,7 @@ export interface Options {
     activityItemSources?: ActivityItemSource[];
     filename?: string;
     saveToFiles?: boolean;
-    excludedActivityTypes?: string;
+    excludedActivityTypes?: string[];
     failOnCancel?: boolean;
     showAppsToView?: boolean;
 }
@@ -109,7 +109,7 @@ export interface MultipleOptions {
     message?: string;
     title?: string;
     subject?: string;
-    excludedActivityTypes?: string;
+    excludedActivityTypes?: string[];
     failOnCancel?: boolean;
     showAppsToView?: boolean;
 }
