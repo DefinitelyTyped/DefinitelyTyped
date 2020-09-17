@@ -1017,6 +1017,7 @@ declare namespace Pubnub {
         read?: boolean;
         write?: boolean;
         manage?: boolean;
+        delete?: boolean;
         get?: boolean;
         join?: boolean;
         update?: boolean;

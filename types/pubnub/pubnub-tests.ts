@@ -170,6 +170,15 @@ pubnub.grant(grantOptions).then(status => {
     console.log(status);
 });
 
+const grantUuidOptions = {
+    uuids: ['uuid-1'],
+    authKeys: ['auth-key'],
+    update: true
+};
+pubnub.grant(grantUuidOptions).then(status => {
+    console.log(status);
+});
+
 pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => console.log(status, res));
 
 pubnub.history({ channel: 'channel-1', count: 2 }).then(res => console.log(res));
