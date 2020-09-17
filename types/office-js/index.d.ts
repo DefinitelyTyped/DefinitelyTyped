@@ -17589,19 +17589,7 @@ declare namespace Excel {
         fiveBoxes: FiveBoxesSet;
     }
     var icons: IconCollections;
-    /**
-     * Provides connection session for a remote workbook.
-     */
-    class Session {
-        private static WorkbookSessionIdHeaderName;
-        private static WorkbookSessionIdHeaderNameLower;
-        constructor(workbookUrl?: string, requestHeaders?: {
-            [name: string]: string;
-        }, persisted?: boolean);
-        /**
-         * Close the session.
-         */
-        close(): Promise<void>;
+    interface Session {
     }
     /**
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
@@ -17656,6 +17644,698 @@ declare namespace Excel {
     function run<T>(context: OfficeExtension.ClientRequestContext, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     function postprocessBindingDescriptor(response: any): any;
     function getDataCommonPostprocess(response: any, callArgs: any): any;
+    /**
+     *
+     * Enum representing all accepted conditions by which a date filter can be applied.
+                Used to configure the type of PivotFilter that is applied to the field.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    enum DateFilterCondition {
+        /**
+         * DateFilterCondition is unknown or unsupported.
+         *
+         */
+        unknown = "Unknown",
+        /**
+         * Equals comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`wholeDays`, `exclusive`}.
+         *
+         */
+        equals = "Equals",
+        /**
+         * Date is before comparator date.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`wholeDays`}.
+         *
+         */
+        before = "Before",
+        /**
+         * Date is before or equal to comparator date.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`wholeDays`}.
+         *
+         */
+        beforeOrEqualTo = "BeforeOrEqualTo",
+        /**
+         * Date is after comparator date.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`wholeDays`}.
+         *
+         */
+        after = "After",
+        /**
+         * Date is after or equal to comparator date.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`wholeDays`}.
+         *
+         */
+        afterOrEqualTo = "AfterOrEqualTo",
+        /**
+         * Between `lowerBound` and `upperBound` dates.
+                    
+                    Required Criteria: {`lowerBound`, `upperBound`}.
+                    Optional Criteria: {`wholeDays`, `exclusive`}.
+         *
+         */
+        between = "Between",
+        /**
+         * Date is tomorrow.
+         *
+         */
+        tomorrow = "Tomorrow",
+        /**
+         * Date is today.
+         *
+         */
+        today = "Today",
+        /**
+         * Date is yesterday.
+         *
+         */
+        yesterday = "Yesterday",
+        /**
+         * Date is next week.
+         *
+         */
+        nextWeek = "NextWeek",
+        /**
+         * Date is this week.
+         *
+         */
+        thisWeek = "ThisWeek",
+        /**
+         * Date is last week.
+         *
+         */
+        lastWeek = "LastWeek",
+        /**
+         * Date is next month.
+         *
+         */
+        nextMonth = "NextMonth",
+        /**
+         * Date is this month.
+         *
+         */
+        thisMonth = "ThisMonth",
+        /**
+         * Date is last month.
+         *
+         */
+        lastMonth = "LastMonth",
+        /**
+         * Date is next quarter.
+         *
+         */
+        nextQuarter = "NextQuarter",
+        /**
+         * Date is this quarter.
+         *
+         */
+        thisQuarter = "ThisQuarter",
+        /**
+         * Date is last quarter.
+         *
+         */
+        lastQuarter = "LastQuarter",
+        /**
+         * Date is next year.
+         *
+         */
+        nextYear = "NextYear",
+        /**
+         * Date is this year.
+         *
+         */
+        thisYear = "ThisYear",
+        /**
+         * Date is last year.
+         *
+         */
+        lastYear = "LastYear",
+        /**
+         * Date is in the same year to date.
+         *
+         */
+        yearToDate = "YearToDate",
+        /**
+         * Date is in Quarter 1.
+         *
+         */
+        allDatesInPeriodQuarter1 = "AllDatesInPeriodQuarter1",
+        /**
+         * Date is in Quarter 2.
+         *
+         */
+        allDatesInPeriodQuarter2 = "AllDatesInPeriodQuarter2",
+        /**
+         * Date is in Quarter 3.
+         *
+         */
+        allDatesInPeriodQuarter3 = "AllDatesInPeriodQuarter3",
+        /**
+         * Date is in Quarter 4.
+         *
+         */
+        allDatesInPeriodQuarter4 = "AllDatesInPeriodQuarter4",
+        /**
+         * Date is in January.
+         *
+         */
+        allDatesInPeriodJanuary = "AllDatesInPeriodJanuary",
+        /**
+         * Date is in February.
+         *
+         */
+        allDatesInPeriodFebruary = "AllDatesInPeriodFebruary",
+        /**
+         * Date is in March.
+         *
+         */
+        allDatesInPeriodMarch = "AllDatesInPeriodMarch",
+        /**
+         * Date is in April.
+         *
+         */
+        allDatesInPeriodApril = "AllDatesInPeriodApril",
+        /**
+         * Date is in May.
+         *
+         */
+        allDatesInPeriodMay = "AllDatesInPeriodMay",
+        /**
+         * Date is in June.
+         *
+         */
+        allDatesInPeriodJune = "AllDatesInPeriodJune",
+        /**
+         * Date is in July.
+         *
+         */
+        allDatesInPeriodJuly = "AllDatesInPeriodJuly",
+        /**
+         * Date is in August.
+         *
+         */
+        allDatesInPeriodAugust = "AllDatesInPeriodAugust",
+        /**
+         * Date is in September.
+         *
+         */
+        allDatesInPeriodSeptember = "AllDatesInPeriodSeptember",
+        /**
+         * Date is in October.
+         *
+         */
+        allDatesInPeriodOctober = "AllDatesInPeriodOctober",
+        /**
+         * Date is in November.
+         *
+         */
+        allDatesInPeriodNovember = "AllDatesInPeriodNovember",
+        /**
+         * Date is in December.
+         *
+         */
+        allDatesInPeriodDecember = "AllDatesInPeriodDecember"
+    }
+    /**
+     *
+     * Enum representing all accepted conditions by which a label filter can be applied.
+                Used to configure the type of PivotFilter that is applied to the field.
+                `PivotFilter.criteria.exclusive` can be set to true to invert many of these conditions.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    enum LabelFilterCondition {
+        /**
+         * LabelFilterCondition is unknown or unsupported.
+         *
+         */
+        unknown = "Unknown",
+        /**
+         * Equals comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        equals = "Equals",
+        /**
+         * Label begins with substring criterion.
+                    
+                    Required Criteria: {`substring`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        beginsWith = "BeginsWith",
+        /**
+         * Label ends with substring criterion.
+                    
+                    Required Criteria: {`substring`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        endsWith = "EndsWith",
+        /**
+         * Label contains substring criterion.
+                    
+                    Required Criteria: {`substring`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        contains = "Contains",
+        /**
+         * Greater than comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+         *
+         */
+        greaterThan = "GreaterThan",
+        /**
+         * Greater than or equal to comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+         *
+         */
+        greaterThanOrEqualTo = "GreaterThanOrEqualTo",
+        /**
+         * Less than comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+         *
+         */
+        lessThan = "LessThan",
+        /**
+         * Less than or equal to comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+         *
+         */
+        lessThanOrEqualTo = "LessThanOrEqualTo",
+        /**
+         * Between `lowerBound` and `upperBound` criteria.
+                    
+                    Required Criteria: {`lowerBound`, `upperBound`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        between = "Between"
+    }
+    /**
+     *
+     * Configurable template for a date filter to apply to a PivotField.
+                The `condition` defines what criteria need to be set in order for the filter to operate.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    interface PivotDateFilter {
+        /**
+         *
+         * The comparator is the static value to which other values are compared. The type of comparison is defined by the condition.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        comparator?: Excel.FilterDatetime;
+        /**
+         *
+         * Specifies the condition for the filter, which defines the necessary filtering criteria.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        condition: Excel.DateFilterCondition | "Unknown" | "Equals" | "Before" | "BeforeOrEqualTo" | "After" | "AfterOrEqualTo" | "Between" | "Tomorrow" | "Today" | "Yesterday" | "NextWeek" | "ThisWeek" | "LastWeek" | "NextMonth" | "ThisMonth" | "LastMonth" | "NextQuarter" | "ThisQuarter" | "LastQuarter" | "NextYear" | "ThisYear" | "LastYear" | "YearToDate" | "AllDatesInPeriodQuarter1" | "AllDatesInPeriodQuarter2" | "AllDatesInPeriodQuarter3" | "AllDatesInPeriodQuarter4" | "AllDatesInPeriodJanuary" | "AllDatesInPeriodFebruary" | "AllDatesInPeriodMarch" | "AllDatesInPeriodApril" | "AllDatesInPeriodMay" | "AllDatesInPeriodJune" | "AllDatesInPeriodJuly" | "AllDatesInPeriodAugust" | "AllDatesInPeriodSeptember" | "AllDatesInPeriodOctober" | "AllDatesInPeriodNovember" | "AllDatesInPeriodDecember";
+        /**
+         *
+         * If true, filter *excludes* items that meet criteria. The default is false (filter to include items that meet criteria).
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        exclusive?: boolean;
+        /**
+         *
+         * The lower-bound of the range for the `Between` filter condition.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        lowerBound?: Excel.FilterDatetime;
+        /**
+         *
+         * The upper-bound of the range for the `Between` filter condition.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        upperBound?: Excel.FilterDatetime;
+        /**
+         *
+         * For `Equals`, `Before`, `After`, and `Between` filter conditions, indicates if comparisons should be made as whole days.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        wholeDays?: boolean;
+    }
+    /**
+     *
+     * A simple enum that represents a type of filter for a PivotField.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    enum PivotFilterType {
+        /**
+         * PivotFilterType is unknown or unsupported.
+         *
+         */
+        unknown = "Unknown",
+        /**
+         * Filters based on the value of a PivotItem with respect to a DataPivotHierarchy.
+         *
+         */
+        value = "Value",
+        /**
+         * Filters specific manually selected PivotItems from the PivotTable.
+         *
+         */
+        manual = "Manual",
+        /**
+         * Filters PivotItems based on their labels.
+                    Note: A PivotField cannot simultaneously have a label filter and a date filter applied.
+         *
+         */
+        label = "Label",
+        /**
+         * Filters PivotItems with a date in place of a label.
+                    Note: A PivotField cannot simultaneously have a label filter and a date filter applied.
+         *
+         */
+        date = "Date"
+    }
+    /**
+     *
+     * An interface representing all PivotFilters currently applied to a given PivotField.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    interface PivotFilters {
+        /**
+         *
+         * The PivotField's currently applied date filter. Null if none is applied.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        dateFilter?: Excel.PivotDateFilter;
+        /**
+         *
+         * The PivotField's currently applied label filter. Null if none is applied.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        labelFilter?: Excel.PivotLabelFilter;
+        /**
+         *
+         * The PivotField's currently applied manual filter. Null if none is applied.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        manualFilter?: Excel.PivotManualFilter;
+        /**
+         *
+         * The PivotField's currently applied value filter. Null if none is applied.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        valueFilter?: Excel.PivotValueFilter;
+    }
+    /**
+     *
+     * Configurable template for a label filter to apply to a PivotField.
+                The `condition` defines what criteria need to be set in order for the filter to operate.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    interface PivotLabelFilter {
+        /**
+         *
+         * The comparator is the static value to which other values are compared. The type of comparison is defined by the condition.
+                    Note: A numeric string is treated as a number when being compared against other numeric strings.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        comparator?: string;
+        /**
+         *
+         * Specifies the condition for the filter, which defines the necessary filtering criteria.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        condition: Excel.LabelFilterCondition | "Unknown" | "Equals" | "BeginsWith" | "EndsWith" | "Contains" | "GreaterThan" | "GreaterThanOrEqualTo" | "LessThan" | "LessThanOrEqualTo" | "Between";
+        /**
+         *
+         * If true, filter *excludes* items that meet criteria. The default is false (filter to include items that meet criteria).
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        exclusive?: boolean;
+        /**
+         *
+         * The lower-bound of the range for the Between filter condition.
+                    Note: A numeric string is treated as a number when being compared against other numeric strings.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        lowerBound?: string;
+        /**
+         *
+         * The substring used for `BeginsWith`, `EndsWith`, and `Contains` filter conditions.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        substring?: string;
+        /**
+         *
+         * The upper-bound of the range for the Between filter condition.
+                    Note: A numeric string is treated as a number when being compared against other numeric strings.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        upperBound?: string;
+    }
+    /**
+     *
+     * Configurable template for a manual filter to apply to a PivotField.
+                The `condition` defines what criteria need to be set in order for the filter to operate.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    interface PivotManualFilter {
+        /**
+         *
+         * A list of selected items to manually filter. These must be existing and valid items from the chosen field.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        selectedItems?: (string | PivotItem)[];
+    }
+    /**
+     *
+     * Configurable template for a value filter to apply to a PivotField.
+                The `condition` defines what criteria need to be set in order for the filter to operate.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    interface PivotValueFilter {
+        /**
+         *
+         * The comparator is the static value to which other values are compared. The type of comparison is defined by the condition.
+                    For example, if comparator is "50" and condition is "GreaterThan", all item values that are not greater than 50 will be removed by the filter.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        comparator?: number;
+        /**
+         *
+         * Specifies the condition for the filter, which defines the necessary filtering criteria.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        condition: Excel.ValueFilterCondition | "Unknown" | "Equals" | "GreaterThan" | "GreaterThanOrEqualTo" | "LessThan" | "LessThanOrEqualTo" | "Between" | "TopN" | "BottomN";
+        /**
+         *
+         * If true, filter *excludes* items that meet criteria. The default is false (filter to include items that meet criteria).
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        exclusive?: boolean;
+        /**
+         *
+         * The lower-bound of the range for the `Between` filter condition.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        lowerBound?: number;
+        /**
+         *
+         * Specifies if the filter is for the top/bottom N items, top/bottom N percent, or top/bottom N sum.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        selectionType?: Excel.TopBottomSelectionType | "Items" | "Percent" | "Sum";
+        /**
+         *
+         * The "N" threshold number of items, percent, or sum to be filtered for a Top/Bottom filter condition.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        threshold?: number;
+        /**
+         *
+         * The upper-bound of the range for the `Between` filter condition.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        upperBound?: number;
+        /**
+         *
+         * Name of the chosen "value" in the field by which to filter.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        value: string;
+    }
+    /**
+     *
+     * A simple enum for Top/Bottom filters to select whether to filter by the top N or bottom N percent, number, or sum of values.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    enum TopBottomSelectionType {
+        /**
+         * Filter the top/bottom N number of items as measured by the chosen value.
+         *
+         */
+        items = "Items",
+        /**
+         * Filter the top/bottom N percent of items as measured by the chosen value.
+         *
+         */
+        percent = "Percent",
+        /**
+         * Filter the top/bottom N sum as measured by the chosen value.
+         *
+         */
+        sum = "Sum"
+    }
+    /**
+     *
+     * Enum representing all accepted conditions by which a value filter can be applied.
+                Used to configure the type of PivotFilter that is applied to the field.
+                `PivotFilter.exclusive` can be set to true to invert many of these conditions.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    enum ValueFilterCondition {
+        /**
+         * ValueFilterCondition is unknown or unsupported.
+         *
+         */
+        unknown = "Unknown",
+        /**
+         * Equals comparator criterion.
+                    
+                    Required Criteria: {`value`, `comparator`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        equals = "Equals",
+        /**
+         * Greater than comparator criterion.
+                    
+                    Required Criteria: {`value`, `comparator`}.
+         *
+         */
+        greaterThan = "GreaterThan",
+        /**
+         * Greater than or equal to comparator criterion.
+                    
+                    Required Criteria: {`value`, `comparator`}.
+         *
+         */
+        greaterThanOrEqualTo = "GreaterThanOrEqualTo",
+        /**
+         * Less than comparator criterion.
+                    
+                    Required Criteria: {`value`, `comparator`}.
+         *
+         */
+        lessThan = "LessThan",
+        /**
+         * Less than or equal to comparator criterion.
+                    
+                    Required Criteria: {`value`, `comparator`}.
+         *
+         */
+        lessThanOrEqualTo = "LessThanOrEqualTo",
+        /**
+         * Between `lowerBound` and `upperBound` criteria.
+                    
+                    Required Criteria: {`value`, `lowerBound`, `upperBound`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        between = "Between",
+        /**
+         * In top N (`threshold`) [items, percent, sum] of value category.
+                    
+                    Required Criteria: {`value`, `threshold`, `selectionType`}.
+         *
+         */
+        topN = "TopN",
+        /**
+         * In bottom N (`threshold`) [items, percent, sum] of value category.
+                    
+                    Required Criteria: {`value`, `threshold`, `selectionType`}.
+         *
+         */
+        bottomN = "BottomN"
+    }
+    /**
+     *
+     * Represents the dimensions when getting values from chart series.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    enum ChartSeriesDimension {
+        /**
+         * The chart series axis for the categories.
+         *
+         */
+        categories = "Categories",
+        /**
+         * The chart series axis for the values.
+         *
+         */
+        values = "Values",
+        /**
+         * The chart series axis for the x-axis values in scatter and bubble charts.
+         *
+         */
+        xvalues = "XValues",
+        /**
+         * The chart series axis for the y-axis values in scatter and bubble charts.
+         *
+         */
+        yvalues = "YValues",
+        /**
+         * The chart series axis for the bubble sizes in bubble charts.
+         *
+         */
+        bubbleSizes = "BubbleSizes"
+    }
     /**
      *
      * Provides information about the selection that raised the "SelectionChanged" event.
@@ -18557,6 +19237,143 @@ declare namespace Excel {
     }
     /**
      *
+     * Provides information about the comment(s) that raised the Added event.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    interface CommentAddedEventArgs {
+        /**
+         *
+         * Get the CommentDetail array which contains the comment Id and Ids of its related replies.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        commentDetails: Excel.CommentDetail[];
+        /**
+         *
+         * Specifies the source of the event. See Excel.EventSource for details.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        type: "CommentAdded";
+        /**
+         *
+         * Gets the Id of the worksheet in which the event happened.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Provides information about the comment(s) that raised the Deleted event.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    interface CommentDeletedEventArgs {
+        /**
+         *
+         * Get the CommentDetail array which contains the comment Id and Ids of its related replies.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        commentDetails: Excel.CommentDetail[];
+        /**
+         *
+         * Specifies the source of the event. See Excel.EventSource for details.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        type: "CommentDeleted";
+        /**
+         *
+         * Gets the Id of the worksheet in which the event happened.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Occurs when existing comments are changed.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    interface CommentChangedEventArgs {
+        /**
+         *
+         * Gets the change type that represents how the changed event is triggered.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        changeType: Excel.CommentChangeType | "CommentEdited" | "CommentResolved" | "CommentReopened" | "ReplyAdded" | "ReplyDeleted" | "ReplyEdited";
+        /**
+         *
+         * Get the CommentDetail array which contains the comment Id and Ids of its related replies.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        commentDetails: Excel.CommentDetail[];
+        /**
+         *
+         * Specifies the source of the event. See Excel.EventSource for details.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        type: "CommentChanged";
+        /**
+         *
+         * Gets the Id of the worksheet in which the event happened.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * A structure for the comment Id and Ids of its related replies.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    interface CommentDetail {
+        /**
+         *
+         * Represents the ids of the related replies belong to comment.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        replyIds: string[];
+        /**
+         *
+         * Represents the id of comment.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        commentId: string;
+    }
+    /**
+     *
      * Provides information about the shape that raised the Activated event.
      *
      * [Api set: ExcelApi 1.9]
@@ -19342,6 +20159,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          */
         readonly comments: Excel.CommentCollection;
+        /**
+         *
+         * Gets a collection of worksheet-level custom properties.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly customProperties: Excel.WorksheetCustomPropertyCollection;
         /**
          *
          * Gets an object that can be used to manipulate frozen panes on the worksheet.
@@ -20332,6 +21156,15 @@ declare namespace Excel {
         formulasR1C1: any[][];
         /**
          *
+         * Represents if all cells have a spill border.
+                    Returns true if all cells have a spill border, or false if all cells do not have a spill border.
+                    Returns null if there are cells both with and without spill borders within the range.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly hasSpill: boolean;
+        /**
+         *
          * Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range.
          *
          * [Api set: ExcelApi 1.10]
@@ -20388,6 +21221,13 @@ declare namespace Excel {
         numberFormat: any[][];
         /**
          *
+         * Represents the category of number format of each cell.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly numberFormatCategories: Excel.NumberFormatCategory[][];
+        /**
+         *
          * Represents Excel's number format code for the given range, based on the language settings of the user.​
                     Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
                     Any returned text uses the locally-formatted strings based on the language specified in the system settings.
@@ -20416,6 +21256,15 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         readonly rowIndex: number;
+        /**
+         *
+         * Represents if ALL the cells would be saved as an array formula.
+                    Returns true if ALL cells would be saved as an array formula, or false if ALL cells would NOT be saved as an array formula.
+                    Returns null if some cells would be saved as an array formula and some would not be.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly savedAsArray: boolean;
         /**
          *
          * Represents the style of the current range.
@@ -20675,6 +21524,12 @@ declare namespace Excel {
          */
         getColumnsBefore(count?: number): Excel.Range;
         /**
+         * Returns a WorkbookRangeAreas object that represents the range containing all the direct precedents of a cell in same worksheet or in multiple worksheets.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        getDirectPrecedents(): Excel.WorkbookRangeAreas;
+        /**
          * Gets an object that represents the entire column of the range (for example, if the current range represents cells "B4:E11", its `getEntireColumn` is a range that represents columns "B:E").
          *
          * [Api set: ExcelApi 1.1]
@@ -20740,7 +21595,7 @@ declare namespace Excel {
         /**
          * Gets a scoped collection of PivotTables that overlap with the range.
          *
-         * [Api set: ExcelApiOnline 1.1]
+         * [Api set: ExcelApi 1.12]
          *
          * @param fullyContained If true, returns only PivotTables that are fully contained within the range bounds. The default value is false.
          * @returns
@@ -20828,6 +21683,32 @@ declare namespace Excel {
          * @param cellValueType If cellType is either Constants or Formulas, this argument is used to determine which types of cells to include in the result. These values can be combined together to return more than one type. The default is to select all constants or formulas, no matter what the type.
          */
         getSpecialCellsOrNullObject(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
+        /**
+         * Gets the range object containing the anchor cell for a cell getting spilled into. Fails if applied to a range with more than one cell.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        getSpillParent(): Excel.Range;
+        /**
+         * Gets the range object containing the anchor cell for a cell getting spilled into.
+                    If it is not a spill cell or more than once cells are give, a null object will be returned.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        getSpillParentOrNullObject(): Excel.Range;
+        /**
+         * Gets the range object containing the spill range when called on an anchor cell. Fails if applied to a range with more than one cell.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        getSpillingToRange(): Excel.Range;
+        /**
+         * Gets the range object containing the spill range when called on an anchor cell.
+                    If the range is not an anchor cell or spill range can't be found, a null object will be returned.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        getSpillingToRangeOrNullObject(): Excel.Range;
         /**
          * Returns a Range object that represents the surrounding region for the top-left cell in this range. A surrounding region is a range bounded by any combination of blank rows and blank columns relative to this range.
          *
@@ -21432,6 +22313,87 @@ declare namespace Excel {
         * Whereas the original Excel.RangeAreas object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.RangeAreasData`) that contains shallow copies of any loaded child properties from the original object.
         */
         toJSON(): Excel.Interfaces.RangeAreasData;
+    }
+    /**
+     *
+     * Represents a collection of one or more rectangular ranges in multiple worksheets.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    class WorkbookRangeAreas extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Returns the `RangeAreasCollection` object. Each `RangeAreas` object in the collection represents one or more rectangle ranges in one worksheet.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly areas: Excel.RangeAreasCollection;
+        /**
+         *
+         * Returns ranges that comprise this object in a `RangeCollection` object.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly ranges: Excel.RangeCollection;
+        /**
+         *
+         * Returns an array of address in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g., "Sheet1!A1:B4, Sheet1!D1:D4"). Read-only.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly addresses: string[];
+        /**
+         * Returns the `RangeAreas` object based on worksheet id or name in the collection.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param key The name or id of the worksheet.
+         */
+        getRangeAreasBySheet(key: string): Excel.RangeAreas;
+        /**
+         * Returns the `RangeAreas` object based on worksheet name or id in the collection. If the worksheet does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param key The name or id of the worksheet.
+         */
+        getRangeAreasOrNullObjectBySheet(key: string): Excel.RangeAreas;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.WorkbookRangeAreasLoadOptions): Excel.WorkbookRangeAreas;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.WorkbookRangeAreas;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.WorkbookRangeAreas;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         */
+        track(): Excel.WorkbookRangeAreas;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
+         */
+        untrack(): Excel.WorkbookRangeAreas;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.WorkbookRangeAreas object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.WorkbookRangeAreasData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.WorkbookRangeAreasData;
     }
     /**
      *
@@ -24425,7 +25387,7 @@ declare namespace Excel {
         italic: boolean;
         /**
          *
-         * Font name (e.g., "Calibri")
+         * Font name (e.g., "Calibri"). The name's length should not be greater than 31 characters.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -25430,7 +26392,7 @@ declare namespace Excel {
         markerStyle: Excel.ChartMarkerStyle | "Invalid" | "Automatic" | "None" | "Square" | "Diamond" | "Triangle" | "X" | "Star" | "Dot" | "Dash" | "Circle" | "Plus" | "Picture";
         /**
          *
-         * Specifies the name of a series in a chart.
+         * Specifies the name of a series in a chart. The name's length should not be greater than 255 characters.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -25532,6 +26494,22 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         delete(): void;
+        /**
+         * Gets the values from a single dimension of the chart series. These could be either category values or data values, depending on the dimension specified and how the data is mapped for the chart series.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param dimension the dimension of axis where the data from
+         */
+        getDimensionValues(dimension: Excel.ChartSeriesDimension): OfficeExtension.ClientResult<string[]>;
+        /**
+         * Gets the values from a single dimension of the chart series. These could be either category values or data values, depending on the dimension specified and how the data is mapped for the chart series.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param dimension the dimension of axis where the data from
+         */
+        getDimensionValues(dimension: "Categories" | "Values" | "XValues" | "YValues" | "BubbleSizes"): OfficeExtension.ClientResult<string[]>;
         /**
          * Sets the bubble sizes for a chart series. Only works for bubble charts.
          *
@@ -26407,7 +27385,7 @@ declare namespace Excel {
          *
          * Specifies the angle to which the text is oriented for the chart axis title. The value should either be an integer from -90 to 90 or the integer 180 for vertically-oriented text.
          *
-         * [Api set: ExcelApiOnline 1.1]
+         * [Api set: ExcelApi 1.12]
          */
         textOrientation: number;
         /**
@@ -29580,6 +30558,13 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
+         * Defines the culturally appropriate format of displaying date and time. This is based on current system culture settings.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly datetimeFormat: Excel.DatetimeFormatInfo;
+        /**
+         *
          * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
          *
          * [Api set: ExcelApi 1.11]
@@ -29668,6 +30653,77 @@ declare namespace Excel {
         * Whereas the original Excel.NumberFormatInfo object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.NumberFormatInfoData`) that contains shallow copies of any loaded child properties from the original object.
         */
         toJSON(): Excel.Interfaces.NumberFormatInfoData;
+    }
+    /**
+     *
+     * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    class DatetimeFormatInfo extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Gets the string used as the date separator. This is based on current system settings.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly dateSeparator: string;
+        /**
+         *
+         * Gets the format string for a long date value. This is based on current system settings.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly longDatePattern: string;
+        /**
+         *
+         * Gets the format string for a long time value. This is based on current system settings.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly longTimePattern: string;
+        /**
+         *
+         * Gets the format string for a short date value. This is based on current system settings.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly shortDatePattern: string;
+        /**
+         *
+         * Gets the string used as the time separator. This is based on current system settings.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly timeSeparator: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.DatetimeFormatInfoLoadOptions): Excel.DatetimeFormatInfo;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.DatetimeFormatInfo;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.DatetimeFormatInfo;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.DatetimeFormatInfo object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.DatetimeFormatInfoData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.DatetimeFormatInfoData;
     }
     /**
      *
@@ -29913,7 +30969,7 @@ declare namespace Excel {
      *
      * Represents a scoped collection of PivotTables. The PivotTables are sorted based on the location of the PivotTable's top-left corner. They are ordered top to bottom and then left to right.
      *
-     * [Api set: ExcelApiOnline 1.1]
+     * [Api set: ExcelApi 1.12]
      */
     class PivotTableScopedCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -29923,19 +30979,19 @@ declare namespace Excel {
         /**
          * Gets the number of PivotTables in the collection.
          *
-         * [Api set: ExcelApiOnline 1.1]
+         * [Api set: ExcelApi 1.12]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          * Gets the first PivotTable in the collection. The PivotTables in the collection are sorted top to bottom and left to right, such that top-left table is the first PivotTable in the collection.
          *
-         * [Api set: ExcelApiOnline 1.1]
+         * [Api set: ExcelApi 1.12]
          */
         getFirst(): Excel.PivotTable;
         /**
          * Gets a PivotTable by name.
          *
-         * [Api set: ExcelApiOnline 1.1]
+         * [Api set: ExcelApi 1.12]
          *
          * @param key Name of the PivotTable to be retrieved.
          */
@@ -29943,7 +30999,7 @@ declare namespace Excel {
         /**
          * Gets a PivotTable by name. If the PivotTable does not exist, will return a null object.
          *
-         * [Api set: ExcelApiOnline 1.1]
+         * [Api set: ExcelApi 1.12]
          *
          * @param name Name of the PivotTable to be retrieved.
          */
@@ -30105,6 +31161,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.3]
          */
         readonly worksheet: Excel.Worksheet;
+        /**
+         *
+         * Specifies if the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        allowMultipleFiltersPerField: boolean;
         /**
          *
          * Specifies if the PivotTable allows values in the data body to be edited by the user.
@@ -31121,6 +32184,62 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.PivotField): void;
         /**
+         * Sets one or more of the field's current PivotFilters and applies them to the field.
+                    If the provided filters are invalid or cannot be applied, an exception is thrown.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param filter A configured specific PivotFilter or a PivotFilters interface containing multiple configured filters.
+         */
+        applyFilter(filter: Excel.PivotFilters): void;
+        /**
+         * Clears all criteria from all of the field's filters. This removes any active filtering on the field.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        clearAllFilters(): void;
+        /**
+         * Clears all existing criteria from the field's filter of the given type (if one is currently applied).
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param filterType The type of filter on the field of which to clear all criteria.
+         */
+        clearFilter(filterType: Excel.PivotFilterType): void;
+        /**
+         * Clears all existing criteria from the field's filter of the given type (if one is currently applied).
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param filterType The type of filter on the field of which to clear all criteria.
+         */
+        clearFilter(filterType: "Unknown" | "Value" | "Manual" | "Label" | "Date"): void;
+        /**
+         * Gets all filters currently applied on the field.
+         *
+         * [Api set: ExcelApi 1.12]
+         * @returns A PivotFilters interface with all active filters.
+         */
+        getFilters(): OfficeExtension.ClientResult<Excel.PivotFilters>;
+        /**
+         * Checks if there are any applied filters on the field.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param filterType The filter type to check. If no type is provided, this method will check if any filter is applied.
+         * @returns True if the field has a filter of type `filterType` applied. If filterType is not specified, true is returned if the field has any applied filters.
+         */
+        isFiltered(filterType?: Excel.PivotFilterType): OfficeExtension.ClientResult<boolean>;
+        /**
+         * Checks if there are any applied filters on the field.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param filterType The filter type to check. If no type is provided, this method will check if any filter is applied.
+         * @returns True if the field has a filter of type `filterType` applied. If filterType is not specified, true is returned if the field has any applied filters.
+         */
+        isFiltered(filterType?: "Unknown" | "Value" | "Manual" | "Label" | "Date"): OfficeExtension.ClientResult<boolean>;
+        /**
          * Sorts the PivotField. If a DataPivotHierarchy is specified, then sort will be applied based on it, if not sort will be based on the PivotField itself.
          *
          * [Api set: ExcelApi 1.8]
@@ -31571,6 +32690,142 @@ declare namespace Excel {
          *
          */
         filter = "Filter"
+    }
+    /**
+     *
+     * Represents a worksheet-level custom property.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    class WorksheetCustomProperty extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Gets the key of the custom property. Custom property keys are case-insensitive. The key is limited to 255 characters (larger values will cause an "InvalidArgument" error to be thrown.)
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly key: string;
+        /**
+         *
+         * Gets or sets the value of the custom property.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        value: string;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.WorksheetCustomProperty): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.WorksheetCustomPropertyUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.WorksheetCustomProperty): void;
+        /**
+         * Deletes the custom property.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        delete(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.WorksheetCustomPropertyLoadOptions): Excel.WorksheetCustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.WorksheetCustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.WorksheetCustomProperty;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.WorksheetCustomProperty object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.WorksheetCustomPropertyData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.WorksheetCustomPropertyData;
+    }
+    /**
+     *
+     * Contains the collection of worksheet-level custom property.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    class WorksheetCustomPropertyCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.WorksheetCustomProperty[];
+        /**
+         * Adds a new custom property that maps to the provided key. This overwrites existing custom properties with that key.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param key The key that identifies the custom property object. It is case-insensitive.The key is limited to 255 characters (larger values will cause an "InvalidArgument" error to be thrown.)
+         * @param value The value of this custom property.
+         */
+        add(key: string, value: string): Excel.WorksheetCustomProperty;
+        /**
+         * Gets the number of custom properties on this worksheet.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         * Gets a custom property object by its key, which is case-insensitive. Throws if the custom property does not exist.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param key The key that identifies the custom property object. It is case-insensitive.
+         */
+        getItem(key: string): Excel.WorksheetCustomProperty;
+        /**
+         * Gets a custom property object by its key, which is case-insensitive. Returns a null object if the custom property does not exist.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param key The key that identifies the custom property object. It is case-insensitive.
+         */
+        getItemOrNullObject(key: string): Excel.WorksheetCustomProperty;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.WorksheetCustomPropertyCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.WorksheetCustomPropertyCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.WorksheetCustomPropertyCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.WorksheetCustomPropertyCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.WorksheetCustomPropertyCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.WorksheetCustomPropertyCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.WorksheetCustomPropertyCollectionData;
     }
     /**
      *
@@ -35210,6 +36465,55 @@ declare namespace Excel {
     }
     /**
      *
+     * Contains the collection of cross-worksheets level Ranges.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    class RangeAreasCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.RangeAreas[];
+        /**
+         * Gets the number of RangeAreas objects in this collection.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         * Returns the RangeAreas object based on position in the collection.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @param index Index value of the range object to be retrieved. Zero-indexed.
+         */
+        getItemAt(index: number): Excel.RangeAreas;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.RangeAreasCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.RangeAreasCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.RangeAreasCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.RangeAreasCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.RangeAreasCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.RangeAreasCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.RangeAreasCollectionData;
+    }
+    /**
+     *
      * Represents the entity that is mentioned in comments.
      *
      * [Api set: ExcelApi 1.11]
@@ -35347,6 +36651,33 @@ declare namespace Excel {
          */
         load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.CommentCollection;
         /**
+         *
+         * Occurs when the comments are added.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @eventproperty
+         */
+        readonly onAdded: OfficeExtension.EventHandlers<Excel.CommentAddedEventArgs>;
+        /**
+         *
+         * Occurs when comments or replies in a comment collection are changed, including when replies are deleted.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @eventproperty
+         */
+        readonly onChanged: OfficeExtension.EventHandlers<Excel.CommentChangedEventArgs>;
+        /**
+         *
+         * Occurs when comments are deleted in the comment collection.
+         *
+         * [Api set: ExcelApi 1.12]
+         *
+         * @eventproperty
+         */
+        readonly onDeleted: OfficeExtension.EventHandlers<Excel.CommentDeletedEventArgs>;
+        /**
         * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
         * Whereas the original `Excel.CommentCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.CommentCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
         */
@@ -35389,6 +36720,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          */
         content: string;
+        /**
+         *
+         * Gets the content type of the comment.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly contentType: Excel.ContentType | "Plain" | "Mention";
         /**
          *
          * Gets the creation time of the comment. Returns null if the comment was converted from a note, since the comment does not have a creation date.
@@ -35590,6 +36928,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          */
         content: string;
+        /**
+         *
+         * The content type of the reply.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        readonly contentType: Excel.ContentType | "Plain" | "Mention";
         /**
          *
          * Gets the creation time of the comment reply.
@@ -38999,6 +40344,44 @@ declare namespace Excel {
         hidden = "Hidden"
     }
     /**
+     *
+     * Represents how the comments in the event were changed.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    enum CommentChangeType {
+        /**
+         * Comments were edited.
+         *
+         */
+        commentEdited = "CommentEdited",
+        /**
+         * Comments were resolved.
+         *
+         */
+        commentResolved = "CommentResolved",
+        /**
+         * Comments were reopened.
+         *
+         */
+        commentReopened = "CommentReopened",
+        /**
+         * Replies were added.
+         *
+         */
+        replyAdded = "ReplyAdded",
+        /**
+         * Replies were deleted.
+         *
+         */
+        replyDeleted = "ReplyDeleted",
+        /**
+         * Replies were edited.
+         *
+         */
+        replyEdited = "ReplyEdited"
+    }
+    /**
      * [Api set: ExcelApi 1.7]
      */
     enum EventType {
@@ -40165,6 +41548,74 @@ declare namespace Excel {
         developer = "Developer",
         addIns = "AddIns",
         help = "Help"
+    }
+    /**
+     *
+     * Represents a category of number formats.
+     *
+     * [Api set: ExcelApi 1.12]
+     */
+    enum NumberFormatCategory {
+        /**
+         * General format cells have no specific number format.
+         *
+         */
+        general = "General",
+        /**
+         * Number is used for general display of numbers. Currency and Accounting offer specialized formatting for monetary value.
+         *
+         */
+        number = "Number",
+        /**
+         * Currency formats are used for general monetary values. Use Accounting formats to align decimal points in a column.
+         *
+         */
+        currency = "Currency",
+        /**
+         * Accounting formats line up the currency symbols and decimal points in a column.
+         *
+         */
+        accounting = "Accounting",
+        /**
+         * Date formats display date and time serial numbers as date values.  Date formats that begin with an asterisk (*) respond to changes in regional date and time settings that are specified for the operating system. Formats without an asterisk are not affected by operating system settings.
+         *
+         */
+        date = "Date",
+        /**
+         * Time formats display date and time serial numbers as date values.  Time formats that begin with an asterisk (*) respond to changes in regional date and time settings that are specified for the operating system. Formats without an asterisk are not affected by operating system settings.
+         *
+         */
+        time = "Time",
+        /**
+         * Percentage formats multiply the cell value by 100 and displays the result with a percent symbol.
+         *
+         */
+        percentage = "Percentage",
+        /**
+         * Fraction formats display the cell value as a whole number with the remainder rounded to the nearest fraction value.
+         *
+         */
+        fraction = "Fraction",
+        /**
+         * Scientific formats display the cell value as a number between 1 and 10 multiplied by a power of 10.
+         *
+         */
+        scientific = "Scientific",
+        /**
+         * Text format cells are treated as text even when a number is in the cell. The cell is displayed exactly as entered.
+         *
+         */
+        text = "Text",
+        /**
+         * Special formats are useful for tracking list and database values.
+         *
+         */
+        special = "Special",
+        /**
+         * A custom format that is not a part of any category.
+         *
+         */
+        custom = "Custom"
     }
     /**
      *
@@ -43607,6 +45058,7 @@ declare namespace Excel {
         accessDenied = "AccessDenied",
         apiNotFound = "ApiNotFound",
         conflict = "Conflict",
+        filteredRangeConflict = "FilteredRangeConflict",
         generalException = "GeneralException",
         insertDeleteConflict = "InsertDeleteConflict",
         invalidArgument = "InvalidArgument",
@@ -44015,6 +45467,13 @@ declare namespace Excel {
         /** An interface for updating data on the Table object, for use in `table.set({ ... })`. */
         interface TableUpdateData {
             /**
+            *
+            * The style applied to the Table.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            tableStyle?: Excel.Interfaces.TableStyleUpdateData;
+            /**
              *
              * Specifies if the first column contains special formatting.
              *
@@ -44396,7 +45855,7 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Font name (e.g., "Calibri")
+             * Font name (e.g., "Calibri"). The name's length should not be greater than 31 characters.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -44905,7 +46364,7 @@ declare namespace Excel {
             markerStyle?: Excel.ChartMarkerStyle | "Invalid" | "Automatic" | "None" | "Square" | "Diamond" | "Triangle" | "X" | "Star" | "Dot" | "Dash" | "Circle" | "Plus" | "Picture";
             /**
              *
-             * Specifies the name of a series in a chart.
+             * Specifies the name of a series in a chart. The name's length should not be greater than 255 characters.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -45345,7 +46804,7 @@ declare namespace Excel {
              *
              * Specifies the angle to which the text is oriented for the chart axis title. The value should either be an integer from -90 to 90 or the integer 180 for vertically-oriented text.
              *
-             * [Api set: ExcelApiOnline 1.1]
+             * [Api set: ExcelApi 1.12]
              */
             textOrientation?: number;
             /**
@@ -46420,6 +47879,13 @@ declare namespace Excel {
         interface PivotTableUpdateData {
             /**
              *
+             * Specifies if the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            allowMultipleFiltersPerField?: boolean;
+            /**
+             *
              * Specifies if the PivotTable allows values in the data body to be edited by the user.
              *
              * [Api set: ExcelApi 1.9]
@@ -46442,6 +47908,13 @@ declare namespace Excel {
         }
         /** An interface for updating data on the PivotLayout object, for use in `pivotLayout.set({ ... })`. */
         interface PivotLayoutUpdateData {
+            /**
+            *
+            * The style applied to the PivotTable.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            pivotStyle?: Excel.Interfaces.PivotTableStyleUpdateData;
             /**
              *
              * Specifies if formatting will be automatically formatted when it’s refreshed or when fields are moved.
@@ -46659,6 +48132,20 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.8]
              */
             visible?: boolean;
+        }
+        /** An interface for updating data on the WorksheetCustomProperty object, for use in `worksheetCustomProperty.set({ ... })`. */
+        interface WorksheetCustomPropertyUpdateData {
+            /**
+             *
+             * Gets or sets the value of the custom property.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            value?: string;
+        }
+        /** An interface for updating data on the WorksheetCustomPropertyCollection object, for use in `worksheetCustomPropertyCollection.set({ ... })`. */
+        interface WorksheetCustomPropertyCollectionUpdateData {
+            items?: Excel.Interfaces.WorksheetCustomPropertyData[];
         }
         /** An interface for updating data on the DocumentProperties object, for use in `documentProperties.set({ ... })`. */
         interface DocumentPropertiesUpdateData {
@@ -47746,6 +49233,10 @@ declare namespace Excel {
         interface RangeCollectionUpdateData {
             items?: Excel.Interfaces.RangeData[];
         }
+        /** An interface for updating data on the RangeAreasCollection object, for use in `rangeAreasCollection.set({ ... })`. */
+        interface RangeAreasCollectionUpdateData {
+            items?: Excel.Interfaces.RangeAreasData[];
+        }
         /** An interface for updating data on the CommentCollection object, for use in `commentCollection.set({ ... })`. */
         interface CommentCollectionUpdateData {
             items?: Excel.Interfaces.CommentData[];
@@ -48154,6 +49645,13 @@ declare namespace Excel {
         interface SlicerUpdateData {
             /**
             *
+            * The style applied to the Slicer.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            slicerStyle?: Excel.Interfaces.SlicerStyleUpdateData;
+            /**
+            *
             * Represents the worksheet containing the slicer.
             *
             * [Api set: ExcelApi 1.10]
@@ -48548,6 +50046,13 @@ declare namespace Excel {
             comments?: Excel.Interfaces.CommentData[];
             /**
             *
+            * Gets a collection of worksheet-level custom properties.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            customProperties?: Excel.Interfaces.WorksheetCustomPropertyData[];
+            /**
+            *
             * Gets the horizontal page break collection for the worksheet. This collection only contains manual page breaks.
             *
             * [Api set: ExcelApi 1.9]
@@ -48793,6 +50298,15 @@ declare namespace Excel {
             formulasR1C1?: any[][];
             /**
              *
+             * Represents if all cells have a spill border.
+                        Returns true if all cells have a spill border, or false if all cells do not have a spill border.
+                        Returns null if there are cells both with and without spill borders within the range.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            hasSpill?: boolean;
+            /**
+             *
              * Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range.
              *
              * [Api set: ExcelApi 1.10]
@@ -48849,6 +50363,13 @@ declare namespace Excel {
             numberFormat?: any[][];
             /**
              *
+             * Represents the category of number format of each cell.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            numberFormatCategories?: Excel.NumberFormatCategory[][];
+            /**
+             *
              * Represents Excel's number format code for the given range, based on the language settings of the user.​
                         Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
                         Any returned text uses the locally-formatted strings based on the language specified in the system settings.
@@ -48877,6 +50398,15 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             rowIndex?: number;
+            /**
+             *
+             * Represents if ALL the cells would be saved as an array formula.
+                        Returns true if ALL cells would be saved as an array formula, or false if ALL cells would NOT be saved as an array formula.
+                        Returns null if some cells would be saved as an array formula and some would not be.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            savedAsArray?: boolean;
             /**
              *
              * Represents the style of the current range.
@@ -49003,6 +50533,30 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.9]
              */
             style?: string;
+        }
+        /** An interface describing the data returned by calling `workbookRangeAreas.toJSON()`. */
+        interface WorkbookRangeAreasData {
+            /**
+            *
+            * Returns the RangeAreasCollection object, each RangeAreas in the collection represent one or more rectangle ranges in one worksheet.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            areas?: Excel.Interfaces.RangeAreasData[];
+            /**
+            *
+            * Returns a collection of ranges that comprise this WorkbookRangeAreas object.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            ranges?: Excel.Interfaces.RangeData[];
+            /**
+             *
+             * Returns an array of address in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g., "Sheet1!A1:B4, Sheet1!D1:D4"). Read-only.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            addresses?: string[];
         }
         /** An interface describing the data returned by calling `rangeView.toJSON()`. */
         interface RangeViewData {
@@ -49255,6 +50809,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.2]
             */
             sort?: Excel.Interfaces.TableSortData;
+            /**
+            *
+            * The style applied to the Table.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            tableStyle?: Excel.Interfaces.TableStyleData;
             /**
              *
              * Specifies if the first column contains special formatting.
@@ -49711,7 +51272,7 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Font name (e.g., "Calibri")
+             * Font name (e.g., "Calibri"). The name's length should not be greater than 31 characters.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -50248,7 +51809,7 @@ declare namespace Excel {
             markerStyle?: Excel.ChartMarkerStyle | "Invalid" | "Automatic" | "None" | "Square" | "Diamond" | "Triangle" | "X" | "Star" | "Dot" | "Dash" | "Circle" | "Plus" | "Picture";
             /**
              *
-             * Specifies the name of a series in a chart.
+             * Specifies the name of a series in a chart. The name's length should not be greater than 255 characters.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -50751,7 +52312,7 @@ declare namespace Excel {
              *
              * Specifies the angle to which the text is oriented for the chart axis title. The value should either be an integer from -90 to 90 or the integer 180 for vertically-oriented text.
              *
-             * [Api set: ExcelApiOnline 1.1]
+             * [Api set: ExcelApi 1.12]
              */
             textOrientation?: number;
             /**
@@ -51952,6 +53513,13 @@ declare namespace Excel {
         interface CultureInfoData {
             /**
             *
+            * Defines the culturally appropriate format of displaying date and time. This is based on current system culture settings.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            datetimeFormat?: Excel.Interfaces.DatetimeFormatInfoData;
+            /**
+            *
             * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
             *
             * [Api set: ExcelApi 1.11]
@@ -51981,6 +53549,44 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.11]
              */
             numberGroupSeparator?: string;
+        }
+        /** An interface describing the data returned by calling `datetimeFormatInfo.toJSON()`. */
+        interface DatetimeFormatInfoData {
+            /**
+             *
+             * Gets the string used as the date separator. This is based on current system settings.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            dateSeparator?: string;
+            /**
+             *
+             * Gets the format string for a long date value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            longDatePattern?: string;
+            /**
+             *
+             * Gets the format string for a long time value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            longTimePattern?: string;
+            /**
+             *
+             * Gets the format string for a short date value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            shortDatePattern?: string;
+            /**
+             *
+             * Gets the string used as the time separator. This is based on current system settings.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            timeSeparator?: string;
         }
         /** An interface describing the data returned by calling `customXmlPartScopedCollection.toJSON()`. */
         interface CustomXmlPartScopedCollectionData {
@@ -52054,6 +53660,13 @@ declare namespace Excel {
             rowHierarchies?: Excel.Interfaces.RowColumnPivotHierarchyData[];
             /**
              *
+             * Specifies if the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            allowMultipleFiltersPerField?: boolean;
+            /**
+             *
              * Specifies if the PivotTable allows values in the data body to be edited by the user.
              *
              * [Api set: ExcelApi 1.9]
@@ -52083,6 +53696,13 @@ declare namespace Excel {
         }
         /** An interface describing the data returned by calling `pivotLayout.toJSON()`. */
         interface PivotLayoutData {
+            /**
+            *
+            * The style applied to the PivotTable.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            pivotStyle?: Excel.Interfaces.PivotTableStyleData;
             /**
              *
              * Specifies if formatting will be automatically formatted when it’s refreshed or when fields are moved.
@@ -52370,6 +53990,27 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.8]
              */
             visible?: boolean;
+        }
+        /** An interface describing the data returned by calling `worksheetCustomProperty.toJSON()`. */
+        interface WorksheetCustomPropertyData {
+            /**
+             *
+             * Gets the key of the custom property. Custom property keys are case-insensitive. The key is limited to 255 characters (larger values will cause an "InvalidArgument" error to be thrown.)
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            key?: string;
+            /**
+             *
+             * Gets or sets the value of the custom property.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            value?: string;
+        }
+        /** An interface describing the data returned by calling `worksheetCustomPropertyCollection.toJSON()`. */
+        interface WorksheetCustomPropertyCollectionData {
+            items?: Excel.Interfaces.WorksheetCustomPropertyData[];
         }
         /** An interface describing the data returned by calling `documentProperties.toJSON()`. */
         interface DocumentPropertiesData {
@@ -53551,6 +55192,10 @@ declare namespace Excel {
         interface RangeCollectionData {
             items?: Excel.Interfaces.RangeData[];
         }
+        /** An interface describing the data returned by calling `rangeAreasCollection.toJSON()`. */
+        interface RangeAreasCollectionData {
+            items?: Excel.Interfaces.RangeAreasData[];
+        }
         /** An interface describing the data returned by calling `commentCollection.toJSON()`. */
         interface CommentCollectionData {
             items?: Excel.Interfaces.CommentData[];
@@ -53585,6 +55230,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.10]
              */
             content?: string;
+            /**
+             *
+             * Gets the content type of the comment.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            contentType?: Excel.ContentType | "Plain" | "Mention";
             /**
              *
              * Gets the creation time of the comment. Returns null if the comment was converted from a note, since the comment does not have a creation date.
@@ -53648,6 +55300,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.10]
              */
             content?: string;
+            /**
+             *
+             * The content type of the reply.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            contentType?: Excel.ContentType | "Plain" | "Mention";
             /**
              *
              * Gets the creation time of the comment reply.
@@ -54190,6 +55849,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.10]
             */
             slicerItems?: Excel.Interfaces.SlicerItemData[];
+            /**
+            *
+            * The style applied to the Slicer.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            slicerStyle?: Excel.Interfaces.SlicerStyleData;
             /**
             *
             * Represents the worksheet containing the slicer.
@@ -54947,6 +56613,15 @@ declare namespace Excel {
             formulasR1C1?: boolean;
             /**
              *
+             * Represents if all cells have a spill border.
+                        Returns true if all cells have a spill border, or false if all cells do not have a spill border.
+                        Returns null if there are cells both with and without spill borders within the range.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            hasSpill?: boolean;
+            /**
+             *
              * Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range.
              *
              * [Api set: ExcelApi 1.10]
@@ -55003,6 +56678,13 @@ declare namespace Excel {
             numberFormat?: boolean;
             /**
              *
+             * Represents the category of number format of each cell.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            numberFormatCategories?: boolean;
+            /**
+             *
              * Represents Excel's number format code for the given range, based on the language settings of the user.​
                         Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
                         Any returned text uses the locally-formatted strings based on the language specified in the system settings.
@@ -55031,6 +56713,15 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             rowIndex?: boolean;
+            /**
+             *
+             * Represents if ALL the cells would be saved as an array formula.
+                        Returns true if ALL cells would be saved as an array formula, or false if ALL cells would NOT be saved as an array formula.
+                        Returns null if some cells would be saved as an array formula and some would not be.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            savedAsArray?: boolean;
             /**
              *
              * Represents the style of the current range.
@@ -55160,6 +56851,25 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.9]
              */
             style?: boolean;
+        }
+        /**
+         *
+         * WorkbookRangeAreas represents a collection of one or more rectangular ranges in multi worksheet.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        interface WorkbookRangeAreasLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Returns an array of address in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g., "Sheet1!A1:B4, Sheet1!D1:D4"). Read-only.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            addresses?: boolean;
         }
         /**
          *
@@ -55674,6 +57384,13 @@ declare namespace Excel {
             sort?: Excel.Interfaces.TableSortLoadOptions;
             /**
             *
+            * For EACH ITEM in the collection: The style applied to the Table.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
+            /**
+            *
             * For EACH ITEM in the collection: The worksheet containing the current table.
             *
             * [Api set: ExcelApi 1.2]
@@ -55798,6 +57515,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.2]
             */
             sort?: Excel.Interfaces.TableSortLoadOptions;
+            /**
+            *
+            * For EACH ITEM in the collection: The style applied to the Table.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
             *
             * For EACH ITEM in the collection: The worksheet containing the current table.
@@ -55925,6 +57649,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.2]
             */
             sort?: Excel.Interfaces.TableSortLoadOptions;
+            /**
+            *
+            * The style applied to the Table.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
             *
             * The worksheet containing the current table.
@@ -56589,7 +58320,7 @@ declare namespace Excel {
             italic?: boolean;
             /**
              *
-             * Font name (e.g., "Calibri")
+             * Font name (e.g., "Calibri"). The name's length should not be greater than 31 characters.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -57339,7 +59070,7 @@ declare namespace Excel {
             markerStyle?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Specifies the name of a series in a chart.
+             * For EACH ITEM in the collection: Specifies the name of a series in a chart. The name's length should not be greater than 255 characters.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -57668,7 +59399,7 @@ declare namespace Excel {
             markerStyle?: boolean;
             /**
              *
-             * Specifies the name of a series in a chart.
+             * Specifies the name of a series in a chart. The name's length should not be greater than 255 characters.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -58312,7 +60043,7 @@ declare namespace Excel {
              *
              * Specifies the angle to which the text is oriented for the chart axis title. The value should either be an integer from -90 to 90 or the integer 180 for vertically-oriented text.
              *
-             * [Api set: ExcelApiOnline 1.1]
+             * [Api set: ExcelApi 1.12]
              */
             textOrientation?: boolean;
             /**
@@ -59912,6 +61643,13 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
+            * Defines the culturally appropriate format of displaying date and time. This is based on current system culture settings.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            datetimeFormat?: Excel.Interfaces.DatetimeFormatInfoLoadOptions;
+            /**
+            *
             * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
             *
             * [Api set: ExcelApi 1.11]
@@ -59950,6 +61688,53 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.11]
              */
             numberGroupSeparator?: boolean;
+        }
+        /**
+         *
+         * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        interface DatetimeFormatInfoLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Gets the string used as the date separator. This is based on current system settings.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            dateSeparator?: boolean;
+            /**
+             *
+             * Gets the format string for a long date value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            longDatePattern?: boolean;
+            /**
+             *
+             * Gets the format string for a long time value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            longTimePattern?: boolean;
+            /**
+             *
+             * Gets the format string for a short date value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            shortDatePattern?: boolean;
+            /**
+             *
+             * Gets the string used as the time separator. This is based on current system settings.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            timeSeparator?: boolean;
         }
         /**
          *
@@ -60035,7 +61820,7 @@ declare namespace Excel {
          *
          * Represents a scoped collection of PivotTables. The PivotTables are sorted based on the location of the PivotTable's top-left corner. They are ordered top to bottom and then left to right.
          *
-         * [Api set: ExcelApiOnline 1.1]
+         * [Api set: ExcelApi 1.12]
          */
         interface PivotTableScopedCollectionLoadOptions {
             /**
@@ -60056,6 +61841,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.3]
             */
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Specifies if the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            allowMultipleFiltersPerField?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Specifies if the PivotTable allows values in the data body to be edited by the user.
@@ -60110,6 +61902,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.3]
             */
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Specifies if the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            allowMultipleFiltersPerField?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Specifies if the PivotTable allows values in the data body to be edited by the user.
@@ -60167,6 +61966,13 @@ declare namespace Excel {
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
             /**
              *
+             * Specifies if the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            allowMultipleFiltersPerField?: boolean;
+            /**
+             *
              * Specifies if the PivotTable allows values in the data body to be edited by the user.
              *
              * [Api set: ExcelApi 1.9]
@@ -60205,6 +62011,13 @@ declare namespace Excel {
               Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
              */
             $all?: boolean;
+            /**
+            *
+            * The style applied to the PivotTable.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            pivotStyle?: Excel.Interfaces.PivotTableStyleLoadOptions;
             /**
              *
              * Specifies if formatting will be automatically formatted when it’s refreshed or when fields are moved.
@@ -60734,6 +62547,58 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.8]
              */
             visible?: boolean;
+        }
+        /**
+         *
+         * Represents a worksheet-level custom property.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        interface WorksheetCustomPropertyLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Gets the key of the custom property. Custom property keys are case-insensitive. The key is limited to 255 characters (larger values will cause an "InvalidArgument" error to be thrown.)
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            key?: boolean;
+            /**
+             *
+             * Gets or sets the value of the custom property.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            value?: boolean;
+        }
+        /**
+         *
+         * Contains the collection of worksheet-level custom property.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        interface WorksheetCustomPropertyCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the key of the custom property. Custom property keys are case-insensitive. The key is limited to 255 characters (larger values will cause an "InvalidArgument" error to be thrown.)
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            key?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets or sets the value of the custom property.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            value?: boolean;
         }
         /**
          *
@@ -62726,6 +64591,15 @@ declare namespace Excel {
             formulasR1C1?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Represents if all cells have a spill border.
+                        Returns true if all cells have a spill border, or false if all cells do not have a spill border.
+                        Returns null if there are cells both with and without spill borders within the range.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            hasSpill?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Returns the distance in points, for 100% zoom, from top edge of the range to bottom edge of the range.
              *
              * [Api set: ExcelApi 1.10]
@@ -62782,6 +64656,13 @@ declare namespace Excel {
             numberFormat?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Represents the category of number format of each cell.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            numberFormatCategories?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Represents Excel's number format code for the given range, based on the language settings of the user.​
                         Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
                         Any returned text uses the locally-formatted strings based on the language specified in the system settings.
@@ -62810,6 +64691,15 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             rowIndex?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents if ALL the cells would be saved as an array formula.
+                        Returns true if ALL cells would be saved as an array formula, or false if ALL cells would NOT be saved as an array formula.
+                        Returns null if some cells would be saved as an array formula and some would not be.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            savedAsArray?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the style of the current range.
@@ -62857,6 +64747,90 @@ declare namespace Excel {
         }
         /**
          *
+         * Contains the collection of cross-worksheets level Ranges.
+         *
+         * [Api set: ExcelApi 1.12]
+         */
+        interface RangeAreasCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+            *
+            * For EACH ITEM in the collection: Returns a dataValidation object for all ranges in the RangeAreas.
+            *
+            * [Api set: ExcelApi 1.9]
+            */
+            dataValidation?: Excel.Interfaces.DataValidationLoadOptions;
+            /**
+            *
+            * For EACH ITEM in the collection: Returns a RangeFormat object, encapsulating the the font, fill, borders, alignment, and other properties for all ranges in the RangeAreas object.
+            *
+            * [Api set: ExcelApi 1.9]
+            */
+            format?: Excel.Interfaces.RangeFormatLoadOptions;
+            /**
+            *
+            * For EACH ITEM in the collection: Returns the worksheet for the current RangeAreas.
+            *
+            * [Api set: ExcelApi 1.9]
+            */
+            worksheet?: Excel.Interfaces.WorksheetLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the RangeAreas reference in A1-style. Address value will contain the worksheet name for each rectangular block of cells (e.g., "Sheet1!A1:B4, Sheet1!D1:D4").
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            address?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the RangeAreas reference in the user locale.
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            addressLocal?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the number of rectangular ranges that comprise this RangeAreas object.
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            areaCount?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns the number of cells in the RangeAreas object, summing up the cell counts of all of the individual rectangular ranges. Returns -1 if the cell count exceeds 2^31-1 (2,147,483,647).
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            cellCount?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Specifies if all the ranges on this RangeAreas object represent entire columns (e.g., "A:C, Q:Z").
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            isEntireColumn?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Specifies if all the ranges on this RangeAreas object represent entire rows (e.g., "1:3, 5:7").
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            isEntireRow?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the style for all ranges in this RangeAreas object.
+                        If the styles of the cells are inconsistent, null will be returned.
+                        For custom styles, the style name will be returned. For built-in styles, a string representing a value in the BuiltInStyle enum will be returned.
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            style?: boolean;
+        }
+        /**
+         *
          * Represents a collection of comment objects that are part of the workbook.
          *
          * [Api set: ExcelApi 1.10]
@@ -62887,6 +64861,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.10]
              */
             content?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the content type of the comment.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            contentType?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Gets the creation time of the comment. Returns null if the comment was converted from a note, since the comment does not have a creation date.
@@ -62957,6 +64938,13 @@ declare namespace Excel {
             content?: boolean;
             /**
              *
+             * Gets the content type of the comment.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            contentType?: boolean;
+            /**
+             *
              * Gets the creation time of the comment. Returns null if the comment was converted from a note, since the comment does not have a creation date.
              *
              * [Api set: ExcelApi 1.10]
@@ -63025,6 +65013,13 @@ declare namespace Excel {
             content?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: The content type of the reply.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            contentType?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Gets the creation time of the comment reply.
              *
              * [Api set: ExcelApi 1.10]
@@ -63091,6 +65086,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.10]
              */
             content?: boolean;
+            /**
+             *
+             * The content type of the reply.
+             *
+             * [Api set: ExcelApi 1.12]
+             */
+            contentType?: boolean;
             /**
              *
              * Gets the creation time of the comment reply.
@@ -64186,6 +66188,13 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
+            * The style applied to the Slicer.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            slicerStyle?: Excel.Interfaces.SlicerStyleLoadOptions;
+            /**
+            *
             * Represents the worksheet containing the slicer.
             *
             * [Api set: ExcelApi 1.10]
@@ -64277,6 +66286,13 @@ declare namespace Excel {
               Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
              */
             $all?: boolean;
+            /**
+            *
+            * For EACH ITEM in the collection: The style applied to the Slicer.
+            *
+            * [Api set: ExcelApi 1.12]
+            */
+            slicerStyle?: Excel.Interfaces.SlicerStyleLoadOptions;
             /**
             *
             * For EACH ITEM in the collection: Represents the worksheet containing the slicer.
