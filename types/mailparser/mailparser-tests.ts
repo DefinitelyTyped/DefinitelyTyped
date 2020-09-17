@@ -1,16 +1,14 @@
-import mailparser_mod = require('mailparser');
-import MailParser = mailparser_mod.MailParser;
-import simpleParser = mailparser_mod.simpleParser;
+import { MailParser, simpleParser } from 'mailparser';
 
-var mailparser = new MailParser();
+const mailparser = new MailParser();
 
-mailparser.on('headers', function(headers){
-    console.log('Subject:', headers.get('subject'));
-});
+mailparser.on('headers', (headers) => {
+        console.log('Subject:', headers.get('subject'));
+    });
 
 // Attachments
 mailparser.on('data', data => {
-    if (data.type === 'attachment'){
+    if (data.type === 'attachment') {
         console.log(data.filename);
         data.content.pipe(process.stdout);
         data.content.on('end', () => data.release());
@@ -18,7 +16,7 @@ mailparser.on('data', data => {
 });
 
 mailparser.on('data', data => {
-    if (data.type === 'text'){
+    if (data.type === 'text') {
         console.log(data.html);
     }
 });
@@ -29,9 +27,9 @@ import fs = require('fs');
 fs.createReadStream('email.eml').pipe(mailparser);
 
 // check different sources and promise/callback api for simpleParser
-var sourceString = '';
-var sourceBuffer = new Buffer('');
-var sourceStream = fs.createReadStream('foo.eml');
+const sourceString = '';
+const sourceBuffer = new Buffer('');
+const sourceStream = fs.createReadStream('foo.eml');
 
 simpleParser(sourceString, (err, mail) => err ? err : mail.html);
 simpleParser(sourceBuffer, (err, mail) => err ? err : mail.html);
