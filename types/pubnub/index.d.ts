@@ -1011,11 +1011,15 @@ declare namespace Pubnub {
     interface GrantParameters {
         channels?: string[];
         channelGroups?: string[];
+        uuids?: string[];
         authKeys?: string[];
         ttl?: number;
         read?: boolean;
         write?: boolean;
         manage?: boolean;
+        get?: boolean;
+        join?: boolean;
+        update?: boolean;
     }
 
     // Objects v1
