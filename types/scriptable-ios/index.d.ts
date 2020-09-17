@@ -1,4 +1,4 @@
-// Type definitions for non-npm package scriptable-ios 1.4
+// Type definitions for non-npm package scriptable-ios 1.5
 // Project: https://scriptable.app/
 // Definitions by: schl3ck <https://github.com/schl3ck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -48,7 +48,8 @@ declare class Alert {
     /**
      * _Adds a cancel action to the alert._
      *
-     * Adds a cancel action to the alert. When a cancel action is selected the index provided by presentAlert() or presentSheet() will always be -1.
+     * Adds a cancel action to the alert. When a cancel action is selected the index provided by presentAlert() or presentSheet() will always be -1. Please note that when running on the
+     * iPad and presenting using presentSheet(), the action will not be shown in the list of actions. The operation is cancelled by tapping outside the sheet.
      * @param title - Title of the action.
      * @see https://docs.scriptable.app/alert/#-addcancelaction
      */
@@ -172,13 +173,23 @@ declare var args: {
     /**
      * _Parameter passed to a Shortcut._
      *
-     * When creating a shortcut using the Shortcuts app, you can pass an input parameter that is passed to your script and that can be read using `args.shortcutParameter`.
+     * When creating a shortcut using the Shortcuts app, you can pass an input parameter that can be read in your script using `args.shortcutParameter`.
      *
      * This parameter can be any text, list, dictionary or file and will be exposed in your script using the appropriate type. When passing a file, the "Run Script" action will attempt to
      * read the file as JSON or a plain text. If the file cannot be read as JSON or a plain text, a path to the file will be passed as the input parameter.
      * @see https://docs.scriptable.app/args/#shortcutparameter
      */
     shortcutParameter: any;
+
+    /**
+     * _Parameter passed to a widget._
+     *
+     * When creating a widget on the Home screen, you can define a parameter that can be read in your script using `args.widgetParameter`.
+     *
+     * The parameter can be used to differentiate the behavior of multiple widgets.
+     * @see https://docs.scriptable.app/args/#widgetparameter
+     */
+    widgetParameter: any;
 
     /**
      * _Notification being handled by the script._
@@ -754,6 +765,12 @@ declare var config: {
     runsWithSiri: boolean;
 
     /**
+     * Whether the script is running in a widget.
+     * @see https://docs.scriptable.app/config/#runsinwidget
+     */
+    runsInWidget: boolean;
+
+    /**
      * Whether the script is running in a notification.
      * @see https://docs.scriptable.app/config/#runsinnotification
      */
@@ -764,6 +781,14 @@ declare var config: {
      * @see https://docs.scriptable.app/config/#runsfromhomescreen
      */
     runsFromHomeScreen: boolean;
+
+    /**
+     * The size of the widget the script is running in.
+     *
+     * Possible values are: `small`, `medium`, `large` and `null`. The value is `null` when the script is not running in a widget.
+     * @see https://docs.scriptable.app/config/#widgetfamily
+     */
+    widgetFamily: string;
 };
 
 /**
@@ -2211,13 +2236,13 @@ declare class DrawContext {
     drawTextInRect(text: string, rect: Rect): void;
 
     /**
-     * _Sets the font size used when drawing text._
+     * _Sets the font to use when drawing text._
      *
-     * Sets the font size to be used when drawing text strings to the context.
-     * @param size - Font size to use when drawing text.
-     * @see https://docs.scriptable.app/drawcontext/#-setfontsize
+     * Sets the font to be used when drawing texts to the context.
+     * @param font - Font to use when drawing text.
+     * @see https://docs.scriptable.app/drawcontext/#-setfont
      */
-    setFontSize(size: number): void;
+    setFont(font: Font): void;
 
     /**
      * _Sets the text color used when drawing text._
@@ -2671,6 +2696,294 @@ declare class FileManager {
 }
 
 /**
+ * _Represents a font and text size._
+ *
+ * Refer to [iosfonts.com](http://iosfonts.com) for a list of the fonts that are available in iOS and iPadOS.
+ * @see https://docs.scriptable.app/font/#-new-font
+ */
+// tslint:disable-next-line no-unnecessary-class
+declare class Font {
+    /**
+     * _Represents a font and text size._
+     *
+     * Refer to [iosfonts.com](http://iosfonts.com) for a list of the fonts that are available in iOS and iPadOS.
+     * @param name - Name of the font.
+     * @param size - Size of the font.
+     * @see https://docs.scriptable.app/font/#-new-font
+     */
+    constructor(name: string, size: number);
+
+    /**
+     * _Preferred font for large titles._
+     * @see https://docs.scriptable.app/font/#largetitle
+     */
+    static largeTitle(): Font;
+
+    /**
+     * _Preferred font for first level hierarchical headings._
+     * @see https://docs.scriptable.app/font/#title1
+     */
+    static title1(): Font;
+
+    /**
+     * _Preferred font for second level hierarchical headings._
+     * @see https://docs.scriptable.app/font/#title2
+     */
+    static title2(): Font;
+
+    /**
+     * _Preferred font for third level hierarchical headings._
+     * @see https://docs.scriptable.app/font/#title3
+     */
+    static title3(): Font;
+
+    /**
+     * _Preferred font for headings._
+     * @see https://docs.scriptable.app/font/#headline
+     */
+    static headline(): Font;
+
+    /**
+     * _Preferred font for subheadings._
+     * @see https://docs.scriptable.app/font/#subheadline
+     */
+    static subheadline(): Font;
+
+    /**
+     * _Preferred font for body texts._
+     * @see https://docs.scriptable.app/font/#body
+     */
+    static body(): Font;
+
+    /**
+     * _Preferred font for callouts._
+     * @see https://docs.scriptable.app/font/#callout
+     */
+    static callout(): Font;
+
+    /**
+     * _Preferred font for footnotes._
+     * @see https://docs.scriptable.app/font/#footnote
+     */
+    static footnote(): Font;
+
+    /**
+     * _Preferred font for standard captions._
+     * @see https://docs.scriptable.app/font/#caption1
+     */
+    static caption1(): Font;
+
+    /**
+     * _Preferred font for alternate captions._
+     * @see https://docs.scriptable.app/font/#caption2
+     */
+    static caption2(): Font;
+
+    /**
+     * _Creates a system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#systemfont
+     */
+    static systemFont(size: number): Font;
+
+    /**
+     * _Creates an ultra light system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#ultralightsystemfont
+     */
+    static ultraLightSystemFont(size: number): Font;
+
+    /**
+     * _Creates a thin system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#thinsystemfont
+     */
+    static thinSystemFont(size: number): Font;
+
+    /**
+     * _Creates a light system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#lightsystemfont
+     */
+    static lightSystemFont(size: number): Font;
+
+    /**
+     * _Creates a regular system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#regularsystemfont
+     */
+    static regularSystemFont(size: number): Font;
+
+    /**
+     * _Creates a medium system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#mediumsystemfont
+     */
+    static mediumSystemFont(size: number): Font;
+
+    /**
+     * _Creates a semibold system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#semiboldsystemfont
+     */
+    static semiboldSystemFont(size: number): Font;
+
+    /**
+     * _Creates a bold system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#boldsystemfont
+     */
+    static boldSystemFont(size: number): Font;
+
+    /**
+     * _Creates a heavy system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#heavysystemfont
+     */
+    static heavySystemFont(size: number): Font;
+
+    /**
+     * _Creates a font with the system appearance with the black weight._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#blacksystemfont
+     */
+    static blackSystemFont(size: number): Font;
+
+    /**
+     * C- Summary: reates an italic system font.
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#italicsystemfont
+     */
+    static italicSystemFont(size: number): Font;
+
+    /**
+     * _Creates an ultra light monospaced system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#ultralightmonospacedsystemfont
+     */
+    static ultraLightMonospacedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a thin monospaced system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#thinmonospacedsystemfont
+     */
+    static thinMonospacedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a light monospaced system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#lightmonospacedsystemfont
+     */
+    static lightMonospacedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a regular monospaced system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#regularmonospacedsystemfont
+     */
+    static regularMonospacedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a medium monospaced system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#mediummonospacedsystemfont
+     */
+    static mediumMonospacedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a semibold monospaced system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#semiboldmonospacedsystemfont
+     */
+    static semiboldMonospacedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a bold monospaced system font.._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#boldmonospacedsystemfont
+     */
+    static boldMonospacedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a heavy monospaced system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#heavymonospacedsystemfont
+     */
+    static heavyMonospacedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a monospaced system font with the black weight._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#blackmonospacedsystemfont
+     */
+    static blackMonospacedSystemFont(size: number): Font;
+
+    /**
+     * _Creates an ultra light and rounded system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#ultralightroundedsystemfont
+     */
+    static ultraLightRoundedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a thin and rounded system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#thinroundedsystemfont
+     */
+    static thinRoundedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a light and rounded system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#lightroundedsystemfont
+     */
+    static lightRoundedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a regular and rounded system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#regularroundedsystemfont
+     */
+    static regularRoundedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a medium and rounded system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#mediumroundedsystemfont
+     */
+    static mediumRoundedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a semibold and rounded system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#semiboldroundedsystemfont
+     */
+    static semiboldRoundedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a bold and rounded system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#boldroundedsystemfont
+     */
+    static boldRoundedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a heavy and rounded system font._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#heavyroundedsystemfont
+     */
+    static heavyRoundedSystemFont(size: number): Font;
+
+    /**
+     * _Creates a rounded system font with the black weight._
+     * @param size - Size of the text.
+     * @see https://docs.scriptable.app/font/#blackroundedsystemfont
+     */
+    static blackRoundedSystemFont(size: number): Font;
+}
+
+/**
  * _Manages image data._
  * @see https://docs.scriptable.app/image
  */
@@ -2742,6 +3055,162 @@ declare var Keychain: {
      */
     remove(key: string): void;
 };
+
+/**
+ * _Linear gradient._
+ * @see https://docs.scriptable.app/lineargradient/#-new-lineargradient
+ */
+declare class LinearGradient {
+    /**
+     * _Colors of the gradient._
+     *
+     * The array of colors should include the same amount of elements as the gradients `locations` property.
+     * @see https://docs.scriptable.app/lineargradient/#colors
+     */
+    colors: Color[];
+
+    /**
+     * _Locations of each color._
+     *
+     * Each location should be a value in the range of 0 to 1 and indicates the location of each color in the gradients `colors` array.
+     *
+     * The array of locations should include the same amount of elements as the gradients `colors` property.
+     * @see https://docs.scriptable.app/lineargradient/#locations
+     */
+    locations: number[];
+
+    /**
+     * _Linear gradient._
+     * @see https://docs.scriptable.app/lineargradient/#-new-lineargradient
+     */
+    constructor();
+}
+
+/**
+ * _Widget showing a list of elements._
+ *
+ * A widget showing a list of elements. Pass the widget to Script.setWidget() display it on your Home screen.
+ * @see https://docs.scriptable.app/listwidget/#-new-listwidget
+ */
+declare class ListWidget {
+    /**
+     * _Background color of the widget._
+     * @see https://docs.scriptable.app/listwidget/#backgroundcolor
+     */
+    backgroundColor: Color;
+
+    /**
+     * _Background image._
+     * @see https://docs.scriptable.app/listwidget/#backgroundimage
+     */
+    backgroundImage: Image;
+
+    /**
+     * _Background gradient._
+     * @see https://docs.scriptable.app/listwidget/#backgroundgradient
+     */
+    backgroundGradient: LinearGradient;
+
+    /**
+     * _Spacing between elements._
+     *
+     * Specifies the spacing between elements in the widget. You can also use the `addSpacer()` function on the widget to add spacing between elements. Defaults to 0.
+     * @see https://docs.scriptable.app/listwidget/#spacing
+     */
+    spacing: number;
+
+    /**
+     * _URL to open._
+     *
+     * The URL will be opened when the widget is tapped. This will override any behavior defined in the configuration of the widget. E.g. if the widget is configured to run the script
+     * when interacting with the widget but a URL is is set, the URL will take precedence.
+     * @see https://docs.scriptable.app/listwidget/#url
+     */
+    url: string;
+
+    /**
+     * _Widget showing a list of elements._
+     *
+     * A widget showing a list of elements. Pass the widget to Script.setWidget() display it on your Home screen.
+     * @see https://docs.scriptable.app/listwidget/#-new-listwidget
+     */
+    constructor();
+
+    /**
+     * _Add text to the widget._
+     *
+     * Adds a text element to the widget. Use the properties on the returned element to style the text.
+     * @see https://docs.scriptable.app/listwidget/#-addtext
+     */
+    addText(text: string): WidgetText;
+
+    /**
+     * _Add image to the widget._
+     *
+     * Adds an image element to the widget.
+     * @see https://docs.scriptable.app/listwidget/#-addimage
+     */
+    addImage(image: Image): WidgetImage;
+
+    /**
+     * _Add spacer._
+     *
+     * Adds a spacer to the widget. This can be used to offset the content vertically in the widget.
+     * @param length - Length of the spacer. Pass null to create a spacer with a flexible length.
+     * @see https://docs.scriptable.app/listwidget/#-addspacer
+     */
+    addSpacer(length: number): WidgetSpacer;
+
+    /**
+     * _Set padding._
+     *
+     * Sets the padding on each side of the widget.
+     * @param top - Padding on the top edge.
+     * @param leading - Padding on the leading edge.
+     * @param bottom - Padding on the bottom edge.
+     * @param trailing - Padding on the trailing edge.
+     * @see https://docs.scriptable.app/listwidget/#-setpadding
+     */
+    setPadding(top: number, leading: number, bottom: number, trailing: number): void;
+
+    /**
+     * _Use the default padding._
+     *
+     * Configure the widget to use the default padding. Any padding previously defined with `setPadding()` will be discarded.
+     * @see https://docs.scriptable.app/listwidget/#-usedefaultpadding
+     */
+    useDefaultPadding(): void;
+
+    /**
+     * _Presents a preview of the widget._
+     *
+     * The widget is presented in its small size.
+     *
+     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     * @see https://docs.scriptable.app/listwidget/#-presentsmall
+     */
+    presentSmall(): Promise<void>;
+
+    /**
+     * _Presents a preview of the widget._
+     *
+     * The widget is presented in its medium size.
+     *
+     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     * @see https://docs.scriptable.app/listwidget/#-presentmedium
+     */
+    presentMedium(): Promise<void>;
+
+    /**
+     * _Presents a preview of the widget._
+     *
+     * The widget is presented in its large size.
+     *
+     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     * @see https://docs.scriptable.app/listwidget/#-presentlarge
+     */
+    presentLarge(): Promise<void>;
+}
 
 /**
  * _Fetches your location._
@@ -4480,7 +4949,15 @@ declare class Request {
      *       "headers": {
      *         "Content-Type": "application/json;charset=utf-8",
      *         "Content-Length": "17671"
-     *       }
+     *       },
+     *       "cookies": [{
+     *         "path": "/",
+     *         "httpOnly": true,
+     *         "domain": "www.example.com",
+     *         "sessionOnly": true,
+     *         "name": "JSESSIONID",
+     *         "value": "7616271F4878CFD05182D20C45F4CEB3"
+     *       }]
      *     }
      * @see https://docs.scriptable.app/request/#response
      */
@@ -4668,6 +5145,13 @@ declare var Script: {
      * @see https://docs.scriptable.app/script/#setshortcutoutput
      */
     setShortcutOutput(value: any): void;
+
+    /**
+     * _Sets the widget to be displayed._
+     * @param widget - Widget to display.
+     * @see https://docs.scriptable.app/script/#setwidget
+     */
+    setWidget(widget: any): void;
 };
 
 /**
@@ -4892,6 +5376,18 @@ declare class UITableCell {
      * @see https://docs.scriptable.app/uitablecell/#subtitlecolor
      */
     subtitleColor: Color;
+
+    /**
+     * _Font of the title._
+     * @see https://docs.scriptable.app/uitablecell/#titlefont
+     */
+    titleFont: Font;
+
+    /**
+     * _Font of the subtitle._
+     * @see https://docs.scriptable.app/uitablecell/#subtitlefont
+     */
+    subtitleFont: Font;
 
     /**
      * _Constructs a text cell._
@@ -5272,6 +5768,166 @@ declare class WebView {
      * @see https://docs.scriptable.app/webview/#shouldallowrequest
      */
     shouldAllowRequest: (arg0: Request) => boolean;
+}
+
+/**
+ * _Image element shown in widget._
+ * @see https://docs.scriptable.app/widgetimage
+ */
+declare class WidgetImage {
+    /**
+     * _Image to show in widget._
+     * @see https://docs.scriptable.app/widgetimage/#image
+     */
+    image: Image;
+
+    /**
+     * _Opacity when shown in widget._
+     *
+     * Opacity of the image. This must be a value between 0 and 1. Defaults to 1.
+     * @see https://docs.scriptable.app/widgetimage/#imageopacity
+     */
+    imageOpacity: number;
+
+    /**
+     * _Size of the image in the widget._
+     *
+     * Size of the image. When set to null, the image will be shwon at its full size. Defaults to null.
+     * @see https://docs.scriptable.app/widgetimage/#imagesize
+     */
+    imageSize: Size;
+
+    /**
+     * _Radius of the corners._
+     *
+     * Radius of the rounded corners. This property is ignored when `containerRelativeShape` is set to true. Defaults to 0.
+     * @see https://docs.scriptable.app/widgetimage/#cornerradius
+     */
+    cornerRadius: number;
+
+    /**
+     * _Border width._
+     *
+     * Width of the border around the image. Defaults to 0.
+     * @see https://docs.scriptable.app/widgetimage/#borderwidth
+     */
+    borderWidth: number;
+
+    /**
+     * _Border color._
+     *
+     * Color of the border around the image. Defaults to black.
+     * @see https://docs.scriptable.app/widgetimage/#bordercolor
+     */
+    borderColor: Color;
+
+    /**
+     * _Shape the image relative to its container._
+     *
+     * When true the corners of the image will be rounded relative to the containing widget. The value of `cornerRadius` is ignored when this is true. Defaults to false.
+     * @see https://docs.scriptable.app/widgetimage/#containerrelativeshape
+     */
+    containerRelativeShape: boolean;
+
+    /**
+     * _Left aligns the image._
+     *
+     * Specifies that image should be left aligned. This is the default.
+     * @see https://docs.scriptable.app/widgetimage/#-leftalignimage
+     */
+    leftAlignImage(): void;
+
+    /**
+     * _Left aligns the image._
+     *
+     * Specifies that image should be left aligned.
+     * @see https://docs.scriptable.app/widgetimage/#-centeralignimage
+     */
+    centerAlignImage(): void;
+
+    /**
+     * _Right aligns the image._
+     *
+     * Specifies that image should be right aligned.
+     * @see https://docs.scriptable.app/widgetimage/#-rightalignimage
+     */
+    rightAlignImage(): void;
+}
+
+/**
+ * _Spacer element shown in widget._
+ * @see https://docs.scriptable.app/widgetspacer
+ */
+declare class WidgetSpacer {
+    /**
+     * _Text to show in widget._
+     * @see https://docs.scriptable.app/widgetspacer/#length
+     */
+    length: number;
+}
+
+/**
+ * _Text element shown in widget._
+ * @see https://docs.scriptable.app/widgettext
+ */
+declare class WidgetText {
+    /**
+     * _Text to show in widget._
+     * @see https://docs.scriptable.app/widgettext/#text
+     */
+    text: string;
+
+    /**
+     * _Color of the text in widget._
+     * @see https://docs.scriptable.app/widgettext/#textcolor
+     */
+    textColor: Color;
+
+    /**
+     * _Font and text size of the text in widget._
+     * @see https://docs.scriptable.app/widgettext/#font
+     */
+    font: Font;
+
+    /**
+     * _Opacity when shown in widget._
+     *
+     * Opacity of the text. This must be a value between 0 and 1. Defaults to 1.
+     * @see https://docs.scriptable.app/widgettext/#textopacity
+     */
+    textOpacity: number;
+
+    /**
+     * _Maximum number of lines._
+     *
+     * Maximum number of lines to display. The limit is disabled when the value is 0 or less. Defaults to 0.
+     * @see https://docs.scriptable.app/widgettext/#linelimit
+     */
+    lineLimit: number;
+
+    /**
+     * _Left aligns the text._
+     *
+     * Specifies that text should be left aligned. This is the default.
+     * @see https://docs.scriptable.app/widgettext/#-leftaligntext
+     */
+    leftAlignText(): void;
+
+    /**
+     * _Left aligns the text._
+     *
+     * Specifies that text should be left aligned.
+     * @see https://docs.scriptable.app/widgettext/#-centeraligntext
+     */
+    centerAlignText(): void;
+
+    /**
+     * _Right aligns the text._
+     *
+     * Specifies that text should be right aligned.
+     * @see https://docs.scriptable.app/widgettext/#-rightaligntext
+     */
+    rightAlignText(): void;
 }
 
 /**
