@@ -1,16 +1,16 @@
-// Type definitions for zarinpal-checkout 0.2.7
+// Type definitions for zarinpal-checkout 0.2
 // Project: https://github.com/siamak/zarinpal-checkout
 // Definitions by: Omid Seyfan <https://github.com/iamomiid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare module 'zarinpal-checkout' {
-    export interface Authroity {
+declare namespace ZarinPal {
+    interface Authroity {
         Authority: string;
         Amount: string;
         Channel: string;
         Date: string;
     }
 
-    export interface PaymentRequestInput {
+    interface PaymentRequestInput {
         Amount: number;
         CallbackURL: string;
         Description: string;
@@ -18,33 +18,33 @@ declare module 'zarinpal-checkout' {
         Mobile?: string;
     }
 
-    export interface PaymentRequestOutput {
+    interface PaymentRequestOutput {
         status: number;
         authority: string;
         url: string;
     }
 
-    export interface PaymentVerificationInput {
+    interface PaymentVerificationInput {
         Amount: number;
         Authority: string;
     }
 
-    export interface PaymentVerificationOutput {
+    interface PaymentVerificationOutput {
         status: number;
         RefID: number;
     }
 
-    export interface UnverifiedTransactionsOutput {
+    interface UnverifiedTransactionsOutput {
         status: number;
         authorities: Authroity[];
     }
 
-    export interface RefreshAuthorityInput {
+    interface RefreshAuthorityInput {
         Expire: number;
         Authority: string;
     }
 
-    export interface RefreshAuthorityOutput {
+    interface RefreshAuthorityOutput {
         status: number;
     }
 
@@ -54,12 +54,8 @@ declare module 'zarinpal-checkout' {
         UnverifiedTransactions(): Promise<UnverifiedTransactionsOutput>;
         RefreshAuthority(input: RefreshAuthorityInput): Promise<RefreshAuthorityOutput>;
     }
-
-    interface ZarinPal {
-        create(merchantID: string, sandbox: boolean): ZarinPalInstance;
-    }
-
-    const zarinpal: ZarinPal;
-
-    export default zarinpal;
 }
+
+declare const zarinpal: { create(merchantID: string, sandbox: boolean): ZarinPal.ZarinPalInstance };
+
+export default zarinpal;
