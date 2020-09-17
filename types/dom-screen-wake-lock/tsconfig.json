@@ -2,15 +2,16 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es5"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../../",
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
         "types": [],
         "noEmit": true,
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "es-to-primitive-tests.ts"
+        "dom-screen-wake-lock-tests.ts"
     ]
 }
