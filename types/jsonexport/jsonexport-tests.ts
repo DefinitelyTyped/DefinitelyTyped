@@ -1,4 +1,4 @@
-import jsonexport from 'jsonexport';
+import jsonexport = require('jsonexport');
 import { Transform } from 'stream';
 
 // No user options
@@ -8,7 +8,6 @@ const b: Promise<string> = jsonexport({ key: 'value' });
 jsonexport({ key: 'value' }, (err: Error, csv: string) => undefined);
 
 // With user options
-
 const userOptions: jsonexport.UserOptions = {
     textDelimiter: ';',
 };
