@@ -63,7 +63,7 @@ export interface PayPal {
      * });
      */
     create(options: { client: Client }): Promise<PayPal>;
-    create(options: { client: Client }, callback: callback): void;
+    create(options: { client: Client }, callback: callback<PayPal>): void;
 
     VERSION: string;
 
