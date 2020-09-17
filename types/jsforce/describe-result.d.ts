@@ -246,6 +246,7 @@ export interface DescribeSObjectOptions {
 export interface BatchDescribeSObjectOptions {
     types: string[];
     autofetch?: boolean;
+    maxConcurrentRequests?: number;
 }
 
 export interface DescribeGlobalResult {
