@@ -51,6 +51,61 @@ type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 type Booleanish = boolean | 'true' | 'false';
+type HTMLAutoCompleteAttribute =
+    | 'off'
+    | 'on'
+    | 'name'
+    | 'honorific-prefix'
+    | 'given-name'
+    | 'additional-name'
+    | 'family-name'
+    | 'honorific-suffix'
+    | 'nickname'
+    | 'email'
+    | 'username'
+    | 'new-password'
+    | 'current-password'
+    | 'one-time-code'
+    | 'organization-title'
+    | 'organization'
+    | 'street-address'
+    | 'address-line1'
+    | 'address-line2'
+    | 'address-line3'
+    | 'address-level4'
+    | 'address-level3'
+    | 'address-level2'
+    | 'address-level1'
+    | 'country'
+    | 'country-name'
+    | 'postal-code'
+    | 'cc-name'
+    | 'cc-given-name'
+    | 'cc-additional-name'
+    | 'cc-family-name'
+    | 'cc-number'
+    | 'cc-exp'
+    | 'cc-exp-month'
+    | 'cc-exp-year'
+    | 'cc-csc'
+    | 'cc-type'
+    | 'transaction-currency'
+    | 'transaction-amount'
+    | 'language'
+    | 'bday'
+    | 'bday-day'
+    | 'bday-month'
+    | 'bday-year'
+    | 'sex'
+    | 'tel'
+    | 'tel-country-code'
+    | 'tel-national'
+    | 'tel-area-code'
+    | 'tel-local'
+    | 'tel-extension'
+    | 'impp'
+    | 'url'
+    | 'photo';
 
 /**
  * defined in scheduler/tracing
@@ -1821,60 +1876,7 @@ declare namespace React {
         alt?: string;
         as?: string;
         async?: boolean;
-        autoComplete?:  | 'off'
-                        | 'on'
-                        | 'name'
-                        | 'honorific-prefix'
-                        | 'given-name'
-                        | 'additional-name'
-                        | 'family-name'
-                        | 'honorific-suffix'
-                        | 'nickname'
-                        | 'email'
-                        | 'username'
-                        | 'new-password'
-                        | 'current-password'
-                        | 'one-time-code'
-                        | 'organization-title'
-                        | 'organization'
-                        | 'street-address'
-                        | 'address-line1'
-                        | 'address-line2'
-                        | 'address-line3'
-                        | 'address-level4'
-                        | 'address-level3'
-                        | 'address-level2'
-                        | 'address-level1'
-                        | 'country'
-                        | 'country-name'
-                        | 'postal-code'
-                        | 'cc-name'
-                        | 'cc-given-name'
-                        | 'cc-additional-name'
-                        | 'cc-family-name'
-                        | 'cc-number'
-                        | 'cc-exp'
-                        | 'cc-exp-month'
-                        | 'cc-exp-year'
-                        | 'cc-csc'
-                        | 'cc-type'
-                        | 'transaction-currency'
-                        | 'transaction-amount'
-                        | 'language'
-                        | 'bday'
-                        | 'bday-day'
-                        | 'bday-month'
-                        | 'bday-year'
-                        | 'sex'
-                        | 'tel'
-                        | 'tel-country-code'
-                        | 'tel-national'
-                        | 'tel-area-code'
-                        | 'tel-local'
-                        | 'tel-extension'
-                        | 'impp'
-                        | 'url'
-                        | 'photo';
+        autoComplete?: HTMLAutoCompleteAttribute;
         autoFocus?: boolean;
         autoPlay?: boolean;
         capture?: boolean | string;
@@ -2072,7 +2074,7 @@ declare namespace React {
     interface FormHTMLAttributes<T> extends HTMLAttributes<T> {
         acceptCharset?: string;
         action?: string;
-        autoComplete?: string;
+        autoComplete?: HTMLAutoCompleteAttribute;
         encType?: string;
         method?: string;
         name?: string;
@@ -2125,7 +2127,7 @@ declare namespace React {
     interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
         accept?: string;
         alt?: string;
-        autoComplete?: string;
+        autoComplete?: HTMLAutoCompleteAttribute;
         autoFocus?: boolean;
         capture?: boolean | string; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean;
@@ -2296,7 +2298,7 @@ declare namespace React {
     }
 
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoComplete?: string;
+        autoComplete?: HTMLAutoCompleteAttribute;
         autoFocus?: boolean;
         disabled?: boolean;
         form?: string;
@@ -2331,7 +2333,7 @@ declare namespace React {
     }
 
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoComplete?: string;
+        autoComplete?: HTMLAutoCompleteAttribute;
         autoFocus?: boolean;
         cols?: number;
         dirName?: string;
