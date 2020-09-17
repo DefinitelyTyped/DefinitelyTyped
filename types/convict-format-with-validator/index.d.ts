@@ -5,14 +5,10 @@
 
 import * as convict from 'convict';
 
-declare namespace convictValidators {
-    interface validators {
-        email: convict.Format;
-        ipaddress: convict.Format;
-        url: convict.Format;
-    }
-}
-
-declare var validators: convictValidators.validators;
+declare var validators: {
+    email: convict.Format;
+    ipaddress: convict.Format;
+    url: convict.Format;
+};
 
 export = validators;
