@@ -276,9 +276,9 @@ Si la import predeterminada trabaja en tu ambiente, considera hacer un cambio en
 No cambies la type definition si es preciso.
 Para un paquete NPM, `export =` es exacto si `node -p 'require("foo")'` es la export, y `export default` es exacto si `node -p 'require("foo").default'` es el export.
 
-#### Quiero usar las características de TypeScript 3.1 o superior.
+#### Quiero usar las características de TypeScript 3.3 o superior.
 
-Entonces deberás añadir un comentario a la última línea de la definición en el encabezado (despues de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
+Entonces deberás añadir un comentario a la última línea de la definición en el encabezado (despues de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: 3.3`.
 
 #### Quiero añadir un DOM API que no está presente en TypeScript por defecto.
 
