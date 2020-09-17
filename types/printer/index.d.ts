@@ -5,8 +5,6 @@
 
 /// <reference types="node" />
 
-export as namespace Printer;
-
 export function getPrinters(): PrinterDetails[];
 export function getPrinter(printerName: string): PrinterDetails;
 export function getPrinterDriverOptions(printerName: string): PrinterDriverOptions;
