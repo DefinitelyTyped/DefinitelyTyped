@@ -4,5 +4,5 @@ import { PreloadedQuery } from './EntryPointTypes';
 
 export function usePreloadedQuery<TQuery extends OperationType>(
     gqlQuery: GraphQLTaggedNode,
-    preloadedQuery: PreloadedQuery<TQuery>,
+    preloadedQuery?: PreloadedQuery<TQuery> | null,
 ): TQuery['response'];
