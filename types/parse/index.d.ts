@@ -72,7 +72,7 @@ declare enum ErrorCode {
     FILE_DELETE_ERROR = 153,
     REQUEST_LIMIT_EXCEEDED = 155,
     INVALID_EVENT_NAME = 160,
-    USERNAME_MISSING = 200,
+        USERNAME_MISSING = 200,
     PASSWORD_MISSING = 201,
     USERNAME_TAKEN = 202,
     EMAIL_TAKEN = 203,
@@ -891,6 +891,7 @@ namespace Parse {
         logIn(options?: FullOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
+        verifyPassword(username?: string, password?: string, options?: UseMasterKeyOption): Promise<this>;
 
         getEmail(): string | undefined;
         setEmail(email: string, options?: SuccessFailureOptions): boolean;
