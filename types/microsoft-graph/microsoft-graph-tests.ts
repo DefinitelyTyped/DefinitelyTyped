@@ -3,7 +3,8 @@
 
 import {
     User, Event, DateTimeTimeZone, ItemBody, ServicePrincipal,
-    Invitation, Application, CallTranscriptionInfo, CancelMediaProcessingOperation, ResultInfo, CallRecords, IdentitySet, Identity
+    Invitation, Application, CallTranscriptionInfo, CancelMediaProcessingOperation, ResultInfo, CallRecords,
+    IdentitySet, Identity, RiskLevel, EventMessageResponse, PermissionClassificationType, DelegatedPermissionClassification
 } from "microsoft-graph";
 
 const user: User = {
@@ -97,4 +98,16 @@ const identitySet: IdentitySet = {
 // Testing cross namespace property reference
 const info: CallRecords.ParticipantEndpoint = {
     identity: identitySet
+};
+
+const riskLevel: RiskLevel = "hidden";
+
+const eventMessageResponse: EventMessageResponse = {
+    type: null
+};
+
+const permissionClassificationType: PermissionClassificationType = "medium";
+
+const delegatedPermissionClassification: DelegatedPermissionClassification = {
+    classification: permissionClassificationType
 };

@@ -225,3 +225,7 @@ pool.end().then(() => console.log('pool has ended'));
 // client config object tested above
 let c = new Client(); // empty constructor allowed
 c = new Client('connectionString'); // connection string allowed
+c = new Client({
+    connectionString: 'connectionString',
+    connectionTimeoutMillis: 1000, // connection timeout optionally specified
+});

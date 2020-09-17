@@ -29,6 +29,7 @@
 //                 Saul Mirone <https://github.com/Saul-Mirone>
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
 //                 Mike Deverell <https://github.com/devrelm>
+//                 Jorge Santana <https://github.com/LORDBABUINO>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -361,11 +362,11 @@ export function composeWith<V0, T>(composer: (a: any) => any, fns: ComposeWithFn
 export function composeWith(composer: (a: any) => any): <V0, T>(fns: ComposeWithFns<V0, T>) => (x: V0) => T;
 
 /**
- * Returns a new list consisting of the elements of the first list followed by the elements
- * of the second.
+ * Returns the result of concatenating the given lists or strings.
  */
-export function concat<T>(placeholder: Placeholder): (list2: readonly T[], list1: readonly T[]) => T[];
+export function concat<T extends string | readonly any[]>(placeholder: Placeholder): (list2: T, list1: T) => T;
 export function concat<T>(placeholder: Placeholder, list2: readonly T[]): (list1: readonly T[]) => T[];
+export function concat(placeholder: Placeholder, list2: string): (list1: string) => string;
 export function concat<T>(list1: readonly T[], list2: readonly T[]): T[];
 export function concat<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
 export function concat(list1: string, list2: string): string;
@@ -1964,7 +1965,7 @@ export function unapply<T>(fn: (args: readonly any[]) => T): (...args: readonly 
  * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
  * Any extraneous parameters will not be passed to the supplied function.
  */
-export function unary<T>(fn: (a: T, ...args: readonly any[]) => any): (a: T) => any;
+export function unary<T, R>(fn: (a: T, ...args: readonly any[]) => R): (a: T) => R;
 
 /**
  * Returns a function of arity n from a (manually) curried function.

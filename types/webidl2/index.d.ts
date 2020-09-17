@@ -3,9 +3,9 @@
 // Definitions by: Kagama Sascha Rosylight <https://github.com/saschanaz>
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 export as namespace WebIDL2;
+export {};
 
 export function parse(str: string, options?: ParseOptions): IDLRootType[];
 
@@ -29,11 +29,7 @@ export type IDLInterfaceMemberType =
     | DeclarationMemberType
     | OperationMemberType;
 
-export type IDLInterfaceMixinMemberType =
-    | AttributeMemberType
-    | ConstantMemberType
-    | (DeclarationMemberType & { type: "stringifier" })
-    | OperationMemberType;
+export type IDLInterfaceMixinMemberType = AttributeMemberType | ConstantMemberType | OperationMemberType;
 
 export type IDLNamespaceMemberType = AttributeMemberType | OperationMemberType;
 
@@ -107,25 +103,55 @@ export interface AbstractTypeDescription extends AbstractBase {
         | UnionTypeDescription;
 }
 
-export interface GenericTypeDescription extends AbstractTypeDescription {
+interface AbstractNonUnionTypeDescription extends AbstractTypeDescription {
     /** String indicating the generic type (e.g. "Promise", "sequence"). The empty string otherwise. */
-    generic: "FrozenArray" | "ObservableArray" | "Promise"| "record" | "sequence";
+    generic: IDLTypeDescription["generic"];
     /** Boolean indicating whether this is a union type or not. */
     union: false;
+}
+
+interface AbstractGenericTypeDescription extends AbstractNonUnionTypeDescription {
     /**
-     * In most cases, this will just be a string with the type name.
-     * If the type is a union, then this contains an array of the types it unites.
-     * If it is a generic type, it contains the IDL type description for the type in the sequence,
+     * Contains the IDL type description for the type in the sequence,
      * the eventual value of the promise, etc.
      */
     idlType: IDLTypeDescription[];
 }
 
-export interface SingleTypeDescription extends AbstractTypeDescription {
-    /** String indicating the generic type (e.g. "Promise", "sequence"). The empty string otherwise. */
+export type GenericTypeDescription =
+    | FrozenArrayTypeDescription
+    | ObservableArrayTypeDescription
+    | PromiseTypeDescription
+    | RecordTypeDescription
+    | SequenceTypeDescription;
+
+export interface FrozenArrayTypeDescription extends AbstractGenericTypeDescription {
+    generic: "FrozenArray";
+    idlType: [IDLTypeDescription];
+}
+
+export interface ObservableArrayTypeDescription extends AbstractGenericTypeDescription {
+    generic: "ObservableArray";
+    idlType: [IDLTypeDescription];
+}
+
+export interface PromiseTypeDescription extends AbstractGenericTypeDescription {
+    generic: "Promise";
+    idlType: [IDLTypeDescription];
+}
+
+export interface RecordTypeDescription extends AbstractGenericTypeDescription {
+    generic: "record";
+    idlType: [IDLTypeDescription, IDLTypeDescription];
+}
+
+export interface SequenceTypeDescription extends AbstractGenericTypeDescription {
+    generic: "sequence";
+    idlType: [IDLTypeDescription];
+}
+
+export interface SingleTypeDescription extends AbstractNonUnionTypeDescription {
     generic: "";
-    /** Boolean indicating whether this is a union type or not. */
-    union: false;
     /**
      * In most cases, this will just be a string with the type name.
      * If the type is a union, then this contains an array of the types it unites.
@@ -297,8 +323,8 @@ export interface ConstantMemberType extends AbstractBase {
     parent: CallbackInterfaceType | InterfaceMixinType | InterfaceType;
 }
 
-export interface DeclarationMemberType extends AbstractBase {
-    type: "iterable" | "maplike" | "setlike";
+interface AbstractDeclarationMemberType extends AbstractBase {
+    type: DeclarationMemberType["type"];
     /** An array with one or more IDL Types representing the declared type arguments. */
     idlType: IDLTypeDescription[];
     /** Whether the iterable is declared as async. */
@@ -308,6 +334,34 @@ export interface DeclarationMemberType extends AbstractBase {
     /** An array of arguments for the iterable declaration. */
     arguments: Argument[];
     parent: InterfaceMixinType | InterfaceType;
+}
+
+export type DeclarationMemberType =
+    | IterableDeclarationMemberType
+    | MaplikeDeclarationMemberType
+    | SetlikeDeclarationMemberType;
+
+export interface IterableDeclarationMemberType extends AbstractDeclarationMemberType {
+    type: "iterable";
+    idlType: [IDLTypeDescription] | [IDLTypeDescription, IDLTypeDescription];
+    async: boolean;
+    readonly: false;
+}
+
+interface AbstractCollectionLikeMemberType extends AbstractDeclarationMemberType {
+    async: false;
+    readonly: boolean;
+    arguments: [];
+}
+
+export interface MaplikeDeclarationMemberType extends AbstractCollectionLikeMemberType {
+    type: "maplike";
+    idlType: [IDLTypeDescription, IDLTypeDescription];
+}
+
+export interface SetlikeDeclarationMemberType extends AbstractCollectionLikeMemberType {
+    type: "setlike";
+    idlType: [IDLTypeDescription];
 }
 
 export interface Argument extends AbstractBase {

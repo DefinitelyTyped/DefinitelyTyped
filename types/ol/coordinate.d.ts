@@ -11,6 +11,7 @@ export function degreesToStringHDMS(hemispheres: string, degrees: number, opt_fr
 export function distance(coord1: Coordinate, coord2: Coordinate): number;
 export function equals(coordinate1: Coordinate, coordinate2: Coordinate): boolean;
 export function format(coordinate: Coordinate, template: string, opt_fractionDigits?: number): string;
+export function getWorldsAway(coordinate: Coordinate, projection: Projection, opt_sourceExtentWidth?: number): number;
 export function rotate(coordinate: Coordinate, angle: number): Coordinate;
 export function scale(coordinate: Coordinate, scale: number): Coordinate;
 export function squaredDistance(coord1: Coordinate, coord2: Coordinate): number;
