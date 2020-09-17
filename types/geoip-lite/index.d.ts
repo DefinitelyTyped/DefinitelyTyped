@@ -43,7 +43,7 @@ declare namespace mod {
 
     export function cmp(a: CmpArgs, b: CmpArgs): null | Lookup;
     export function lookup(ip: string | number): null | Lookup;
-    export function pretty(ip: string | number | [string | number]): string;
+    export function pretty(ip: string | number | Array<string | number>): string;
     export function startWatchingDataUpdate(cb?: AsyncCallback): void;
     export function stopWatchingDataUpdate(cb?: AsyncCallback): void;
     export function clear(): void;
