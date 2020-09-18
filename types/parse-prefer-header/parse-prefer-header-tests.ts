@@ -1,4 +1,4 @@
-import parsePreferHeader = require('parse-prefer-header');
+import parsePreferHeader from 'parse-prefer-header';
 
 const testArray = ['respond-async, wait=100', 'handling=lenient'];
 
