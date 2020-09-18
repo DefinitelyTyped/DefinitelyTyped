@@ -1,4 +1,4 @@
-// Type definitions for non-npm package custom-functions-runtime 1.5
+// Type definitions for non-npm package custom-functions-runtime 1.3
 // Project: https://github.com/OfficeDev/office-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,
 //                 Adam Krantz <https://github.com/akrantz>,
@@ -65,9 +65,9 @@ declare namespace CustomFunctions {
          * `{ "requiresParameterAddresses": true }`
          *
          * If the metadata JSON file is being generated from JSDoc comments, include the tag `@requiresParameterAddresses`.
-         * [Api set: CustomFunctionsRuntime 1.1]
+         * [Api set: CustomFunctionsRuntime 1.3]
          */
-        parameterAddresses?: string;
+        parameterAddresses?: string[];
     }
 
     /**
@@ -103,20 +103,23 @@ declare namespace CustomFunctions {
     }
 
     /**
-     * Error codes for custom functions. These errors will appear in the cell that invoked the function.
+     * Error codes for custom functions. The error codes will appear in the cell that invoked the function.
+     *
+     * Custom error messages will appear in addition to these error codes. Custom messages will display in the error
+     * indicator menu, which is accessed by clicking the error flag on each cell with an error.
      */
     enum ErrorCode {
         /**
          *
          * This error code indicates that a value used in the function is of the wrong data type.
-         * A custom error message can also be used in place of the error code, if desired.
+         * A custom error message can be used in addition to the error code, if desired.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         invalidValue = "#VALUE!",
         /**
          *
          * This error code indicates that the function or service isn't available.
-         * A custom error message can also be used in place of the error code, if desired.
+         * A custom error message can be used in addition to the error code, if desired.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         notAvailable = "#N/A",
@@ -129,28 +132,28 @@ declare namespace CustomFunctions {
         divisionByZero = "#DIV/0!",
         /**
          *
-         * There is a problem with a number used in the function.
+         * This error code indicates that there is a problem with a number used in the function.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         invalidNumber = "#NUM!",
         /**
          *
-         * The ranges in the function don't intersect.
+         * This error code indicates that the ranges in the function don't intersect.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         nullReference = "#NULL!",
         /**
          *
-         * There is a typo in the function name.
+         * This error code indicates that there is a typo in the function name.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         invalidName = "#NAME?",
         /**
          *
-         * The function refers to an invalid cell.
+         * This error code indicates that the function refers to an invalid cell.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
