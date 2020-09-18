@@ -24,3 +24,6 @@ interface QueryParams {
 yesql.mysql<QueryParams>('')(); // $ExpectError
 yesql.mysql<QueryParams>('')({ id: 'string-id' }); // $ExpectError
 yesql.mysql<QueryParams>('')({ id: 123, name: 'foo' }); // $ExpectType { sql: string; values: (string | number)[]; }
+
+yesql.pg('', { useNullForMissing: true })({}); // $ExpectType { text: string; values: any[]; }
+yesql.pg('', { useNullForMissing: 1 })({}); // $ExpectError

@@ -1060,6 +1060,16 @@ declare namespace Office {
          * - Called from a module extension: No effect.
          */
         closeContainer(): void;
+        /**
+         * Opens a browser window and loads the specified URL. 
+         * 
+         * @remarks
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/open-browser-window-requirement-sets | OpenBrowserWindowApi 1.1}
+         *  
+         * @param url The full URL to be opened including protocol (e.g., https), and port number, if any.
+         */
+        openBrowserWindow(url: string): void;
     }
 
     /**
@@ -31260,13 +31270,6 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
-         * The style applied to the PivotTable.
-         *
-         * [Api set: ExcelApi 1.12]
-         */
-        readonly pivotStyle: Excel.PivotTableStyle;
-        /**
-         *
          * Specifies if formatting will be automatically formatted when it’s refreshed or when fields are moved.
          *
          * [Api set: ExcelApi 1.9]
@@ -38442,13 +38445,6 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.10]
          */
         readonly slicerItems: Excel.SlicerItemCollection;
-        /**
-         *
-         * The style applied to the Slicer.
-         *
-         * [Api set: ExcelApi 1.12]
-         */
-        readonly slicerStyle: Excel.SlicerStyle;
         /**
          *
          * Represents the worksheet containing the slicer.

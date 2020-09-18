@@ -5,48 +5,30 @@
  * in the sense of typing and call signature consistency. They
  * are not intended as functional tests.
  */
-import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import Adapters from 'next-auth/adapters';
 import * as client from 'next-auth/client';
 import * as JWT from 'next-auth/jwt';
+import NextAuth, * as NextAuthTypes from 'next-auth';
+import { GenericObject, NextApiRequest, NextApiResponse } from 'next-auth/_utils';
+import { IncomingMessage, ServerResponse } from 'http';
+import { Socket } from 'net';
 
 // --------------------------------------------------------------------------
 // Server
 // --------------------------------------------------------------------------
 
-interface GenericObject {
-    [key: string]: any;
-}
+const req: NextApiRequest = Object.assign(new IncomingMessage(new Socket()), {
+    query: {},
+    cookies: {},
+    body: {},
+});
 
-interface Session {
-    jwt?: boolean;
-    maxAge?: number;
-    updateAge?: number;
-}
-
-const req = {
-    query: {
-        foo: 'bar',
-    },
-    cookies: {
-        bar: 'baz',
-    },
-    body: {
-        bam: 'bom',
-    },
-    env: {
-        SOMETHING: 'SOMETHING',
-    },
-};
-
-const res = {
+const res: NextApiResponse = Object.assign(new ServerResponse(req), {
     send: () => undefined,
     json: () => undefined,
     status: (code: number) => res,
-    setPreviewData: (data: object | string) => res,
-    clearPreviewData: () => res,
-};
+});
 
 const pageOptions = {
     signin: 'path/to/signin',
@@ -94,7 +76,7 @@ const allConfig = {
     callbacks: {
         signIgn: (user: GenericObject, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
-        session: (session: Session, user: GenericObject) => Promise.resolve<any>(user),
+        session: (session: NextAuthTypes.Session, user: GenericObject) => Promise.resolve<any>(user),
         jwt: (
             token: GenericObject,
             user: GenericObject,
@@ -123,17 +105,29 @@ const allConfig = {
             return undefined;
         },
     },
-    adapter: () => {
-        async function getAdapter() {
+    adapter: {
+        getAdapter: (appOptions: NextAuthTypes.AppOptions) => {
             return Promise.resolve({
-                getSession: async function getSession() {
-                    return null;
-                },
+                createUser: (profile: any) => Promise.resolve({}),
+                getUser: (id: string) => Promise.resolve({}),
+                getUserByEmail: (email: string) => Promise.resolve({}),
+                getUserByProviderAccountId: (providerId: string, providerAccountId: string) => Promise.resolve({}),
+                updateUser: (profile: any) => Promise.resolve({}),
+                linkAccount: (
+                    userId: string,
+                    providerId: string,
+                    providerType: string,
+                    providerAccountId: string,
+                    refreshToken: string,
+                    accessToken: string,
+                    accessTokenExpires: number,
+                ) => Promise.resolve(),
+                createSession: (user: any) => Promise.resolve({}),
+                getSession: (sessionToken: string) => Promise.resolve({}),
+                updateSession: (session: any) => Promise.resolve(),
+                deleteSession: (sessionToken: string) => Promise.resolve(),
             });
-        }
-        return {
-            getAdapter,
-        };
+        },
     },
     useSecureCookies: true,
     cookies: {
@@ -141,7 +135,7 @@ const allConfig = {
             name: `__Secure-next-auth.session-token`,
             options: {
                 httpOnly: true,
-                sameSite: 'foo',
+                sameSite: true as true,
                 path: '/',
                 secure: true,
             },
@@ -177,11 +171,6 @@ const baseContext = {
     triggerEvent: false,
 };
 
-const pageContext = {
-    ...baseContext,
-    ctx: { ...baseContext },
-};
-
 const githubProvider = {
     id: '123',
     name: 'github',
@@ -204,22 +193,22 @@ const session = {
 client.useSession();
 
 // $ExpectType Promise<Session | null>
-client.getSession(pageContext);
+client.getSession({ req });
 
 // $ExpectType Promise<Session | null>
-client.session(pageContext);
+client.session({ req });
 
 // $ExpectType Promise<GetProvidersResponse | null>
-client.getProviders(pageContext);
+client.getProviders();
 
 // $ExpectType Promise<GetProvidersResponse | null>
-client.providers(pageContext);
+client.providers();
 
 // $ExpectType Promise<string | null>
-client.getCsrfToken(pageContext);
+client.getCsrfToken({ req });
 
 // $ExpectType Promise<string | null>
-client.csrfToken(pageContext);
+client.csrfToken({ req });
 
 // $ExpectType Promise<void>
 client.signin('github', { data: 'foo' });
@@ -234,7 +223,7 @@ client.signout({ callbackUrl: 'https://foo.com/callback' });
 client.Provider({
     session,
     options: {
-        site: 'https://foo.com',
+        baseUrl: 'https://foo.com',
         basePath: '/',
         clientMaxAge: 1234,
     },

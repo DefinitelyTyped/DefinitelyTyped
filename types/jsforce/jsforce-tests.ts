@@ -7,6 +7,7 @@ import * as sf from 'jsforce';
 import { RecordReference, Record } from 'jsforce/record';
 import { SObject } from 'jsforce/salesforce-object';
 import { RecordResult } from 'jsforce/record-result';
+import { BatchDescribeSObjectOptions, DescribeSObjectOptions, DescribeSObjectResult } from 'jsforce/describe-result';
 
 const salesforceConnection: sf.Connection = new sf.Connection({
     instanceUrl: '',
@@ -758,6 +759,12 @@ async function testDescribe() {
 
         const correctlyCached = object === cachedObject;
     });
+
+    const types = globalCached.sobjects.map(sobject => sobject.name);
+    const options: DescribeSObjectOptions = { type: types[0], ifModifiedSince: new Date().toUTCString() };
+    const sobject: DescribeSObjectResult = await salesforceConnection.describe(options);
+    const cachedSObject: DescribeSObjectResult = await salesforceConnection.describe$(options);
+    const batchSObjects: DescribeSObjectResult[] = await salesforceConnection.batchDescribe({ types, autofetch: false, maxConcurrentRequests: 15 });
 }
 
 async function testApex(conn: sf.Connection): Promise<void> {

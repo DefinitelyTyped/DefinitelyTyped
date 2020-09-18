@@ -1130,6 +1130,16 @@ declare namespace Office {
          * - Called from a module extension: No effect.
          */
         closeContainer(): void;
+        /**
+         * Opens a browser window and loads the specified URL. 
+         * 
+         * @remarks
+         * 
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/open-browser-window-requirement-sets | OpenBrowserWindowApi 1.1}
+         *  
+         * @param url The full URL to be opened including protocol (e.g., https), and port number, if any.
+         */
+        openBrowserWindow(url: string): void;
     }
 
     /**
@@ -41119,7 +41129,8 @@ declare namespace Excel {
          *
          * The style applied to the Slicer.
          *
-         * [Api set: ExcelApi 1.12]
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
          */
         readonly slicerStyle: Excel.SlicerStyle;
         /**
