@@ -4,8 +4,8 @@
 //                 [Aleksey Rezvov] <https://github.com/aleksey-rezvov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
-// Last Update  : 08-11-2019
-// Developed in www.nowcando.com
+// Last Update  : 09-18-2020
+// Developed in www.nowcando.ir
 
 /// <reference types="node" />
 
@@ -1126,7 +1126,7 @@ declare namespace orientjs {
         close(): Promise<void>;
     }
 
-    class ODatabaseTransaction {
+    class ODatabaseTransaction extends OTransaction {
         /**
          * Execute an SQL command against the database and retreive the results
          * @param   command    The command to execute.
@@ -1402,3 +1402,4 @@ export = orientjs;
     });
     });
  =============================================== */
+
