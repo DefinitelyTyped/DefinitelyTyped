@@ -1476,7 +1476,7 @@ declare namespace Office {
          column?: number
     }
 	/**
-	 * Used to strong type the `handler` property of RemoveHandlerOptions.
+	 * Used to strongly type the `handler` property of RemoveHandlerOptions.
 	 */
 	 type BindingEventHandler = (eventArgs?: Office.BindingDataChangedEventArgs | Office.BindingSelectionChangedEventArgs) => any;
     /**
