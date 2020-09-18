@@ -777,3 +777,7 @@ import { promisify } from 'util';
         (await pGenerateKeyPair('ed448', opts)).privateKey; // $ExpectType KeyObject
     });
 }
+
+{
+    crypto.createSecretKey(new Uint8Array([0])); // $ExpectType KeyObject
+}
