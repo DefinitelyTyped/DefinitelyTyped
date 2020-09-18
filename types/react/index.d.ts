@@ -2130,6 +2130,7 @@ declare namespace React {
         crossOrigin?: string;
         href?: string;
         hrefLang?: string;
+        imagesrcset?: string;
         integrity?: string;
         media?: string;
         rel?: string;
