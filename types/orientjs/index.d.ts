@@ -3,7 +3,7 @@
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 //                 [Aleksey Rezvov] <https://github.com/aleksey-rezvov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0.2
+// TypeScript Version: 4.0
 // Last Update  : 09-18-2020
 // Developed in www.nowcando.ir
 
