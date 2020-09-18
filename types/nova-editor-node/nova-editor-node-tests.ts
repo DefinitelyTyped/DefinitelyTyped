@@ -114,7 +114,7 @@ class MyLinterClass {
         return this.issueCollection.has(fileURI);
     }
 
-    // $ExpectType (fileURI: string) => readonly Issue[]
+    // $ExpectType (fileURI: string) => ReadonlyArray<Issue>
     getIssues(fileURI: string) {
         return this.issueCollection.get(fileURI);
     }
