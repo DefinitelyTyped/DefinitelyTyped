@@ -12,13 +12,38 @@ declare namespace RecordRTC {
         gif?: Blob;
     }
 
+    type MediaStreamKind = "videoinput" | "audioinput" | "audiooutput";
+
+    /* tslint:disable:no-unnecessary-class */
+    class MediaStreamRecorder {
+        constructor(mediaStream: any, config: any);
+    }
+    class StereoAudioRecorder {
+        constructor(mediaStream: any, config: any);
+    }
+    class CanvasRecorder {
+        constructor(htmlElement: any, config: any);
+    }
+    class WhammyRecorder {
+        constructor(mediaStream: any, config: any);
+    }
+    class GifRecorder {
+        constructor(mediaStream: any, config: any);
+    }
+    class WebAssemblyRecorder {
+        constructor(stream: any, config: any);
+    }
+
     interface Options {
         type?: 'video' | 'audio' | 'canvas' | 'gif';
 
+        recorderType?: MediaStreamRecorder | StereoAudioRecorder | WebAssemblyRecorder | CanvasRecorder | GifRecorder | WhammyRecorder;
+
         mimeType?:
-            | 'video/webm'
             | 'audio/webm'
+            | 'audio/webm;codecs=pcm'
             | 'video/mp4'
+            | 'video/webm'
             | 'video/webm;codecs=vp9'
             | 'video/webm;codecs=vp8'
             | 'video/webm;codecs=h264'
@@ -33,13 +58,13 @@ declare namespace RecordRTC {
         timeSlice?: number;
 
         /** requires `timeSlice` to be set */
-        ondataavailable?(cb: (blob: Blob) => void): void;
+        ondataavailable?: (blob: Blob) => void;
 
         /** auto stop recording if camera stops */
         checkForInactiveTracks?: boolean;
 
         /** requires timeSlice above */
-        onTimeStamp?(cb: (timestamp: number) => void): void;
+        onTimeStamp?: (timestamp: number, timestamps: number[]) => void;
 
         /** both for audio and video tracks */
         bitsPerSecond?: number;
@@ -54,7 +79,7 @@ declare namespace RecordRTC {
         frameInterval?: number;
 
         /** if you are recording multiple streams into single file, this helps you see what is being recorded */
-        previewStream?(cb: (stream: MediaStream) => void): void;
+        previewStream?: (stream: MediaStream) => void;
 
         /** used by CanvasRecorder and WhammyRecorder */
         video?: HTMLVideoElement;
@@ -135,6 +160,10 @@ declare class RecordRTC {
 
     /** get recorded blob from indexded-db storage */
     getFromDisk(type: 'all' | keyof RecordRTC.Disk, cb: (dataURL: string, type: keyof RecordRTC.Disk) => void): void;
+
+    getTracks: (stream: MediaStream, kind: RecordRTC.MediaStreamKind) => MediaStreamTrack[];
+
+    getSeekableBlob: (inputBlob: Blob, cb: (outputBlob: Blob) => void) => void;
 
     /** @deprecated */
     setAdvertisementArray(webPImages: Array<{ image: string }>): void;

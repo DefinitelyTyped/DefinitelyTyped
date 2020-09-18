@@ -106,7 +106,7 @@ export interface ExportCSVButtonProps {
 }
 
 export namespace CSVExport {
-    function ToggleList(props: ExportCSVButtonProps): React.ReactElement | null;
+    function ExportCSVButton(props: ExportCSVButtonProps): React.ReactElement | null;
 }
 
 export interface SearchBarProps {

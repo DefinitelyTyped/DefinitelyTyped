@@ -13,9 +13,18 @@ async () => {
         pipeline.addTag('userId', '012345')
     ]);
 
+    const signaling = {
+        emit: (...args: any[]): void => {},
+        on(event: string, handler: (...args: any[]) => void): void {},
+    };
+
     endpoint.addIceCandidate(candidate);
 
     endpoint.on('OnIceCandidate', ({ candidate }) => {
+        signaling.emit(candidate.candidate);
+    });
+
+    signaling.on('icecandidate', candidate => {
         const value = kurento.getComplexType('IceCandidate')(candidate);
 
         endpoint.addIceCandidate(value);

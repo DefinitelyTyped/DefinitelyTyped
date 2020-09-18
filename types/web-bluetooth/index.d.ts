@@ -158,6 +158,7 @@ interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, Cha
 }
 
 interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers {
+    getDevices(): Promise<BluetoothDevice[]>;
     getAvailability(): Promise<boolean>;
     onavailabilitychanged: (this: this, ev: Event) => any;
     readonly referringDevice?: BluetoothDevice;

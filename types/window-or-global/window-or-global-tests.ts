@@ -1,8 +1,9 @@
 import * as root from "window-or-global";
 
-if ('location' in root) {
-    const location: Location = root.location;
-    root.addEventListener("click", () => console.log("Hi!"));
-} else {
-    const process: NodeJS.Process = root.process;
+if (Reflect.has(root, "location")) {
+    // $ExpectType Location
+    root.location;
+} else if (Reflect.has(root, "process")) {
+    // $ExpectType Process
+    root.process;
 }

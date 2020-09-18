@@ -47,6 +47,8 @@ declare namespace Bull {
     duration: number;
     /** When jobs get rate limited, they stay in the waiting queue and are not moved to the delayed queue */
     bounceBack?: boolean;
+    /** Groups jobs with the specified key from the data object passed to the Queue#add ex. "network.handle" */
+    groupKey?: string;
   }
 
   interface QueueOptions {
@@ -237,7 +239,7 @@ declare namespace Bull {
     /**
      * Update a specific job's data. Promise resolves when the job has been updated.
      */
-    update(data: any): Promise<void>;
+    update(data: T): Promise<void>;
 
     /**
      * Removes a job from the queue and from any lists it may be included in.

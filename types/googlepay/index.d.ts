@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Pay API 0.4
+// Type definitions for non-npm package Google Pay API 0.5
 // Project: https://developers.google.com/pay/api/web/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
 //                 Radu Raicea <https://github.com/Radu-Raicea>,
@@ -6,6 +6,7 @@
 //                 Alexandre Couret <https://github.com/ozotek>
 //                 Sergi Ferriz <https://github.com/mumpo>
 //                 Soc Sieng <https://github.com/socsieng>
+//                 Jose L Ugia <https://github.com/JlUgia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google.payments.api {
@@ -1667,9 +1668,14 @@ declare namespace google.payments.api {
         buttonColor?: ButtonColor;
 
         /**
-         * @default "long"
+         * @default "buy"
          */
         buttonType?: ButtonType;
+
+        /**
+         * @default "static"
+         */
+        buttonSizeMode?: ButtonSizeMode;
     }
 
     /**
@@ -1914,18 +1920,42 @@ declare namespace google.payments.api {
     /**
      * Supported methods for presenting the Google Pay button.
      *
+     * A translated button label may appear if a language specified in the
+     * viewer's browser matches an [available
+     * language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
+     *
+     *
      * Options:
      *
+     * - `buy`:
+     *   "Buy with Google Pay" button.
+     *
+     * - `donate`:
+     *   "Donate with Google Pay" button.
+     *
+     * - `plain`:
+     *   "Google Pay" button without text.
+     *
      * - `long`:
-     *   "Buy with Google Pay" button. A translated button label may
-     *   appear if a language specified in the viewer's browser matches an
-     *   [available
-     *   language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
+     *   Same as "buy".
      *
      * - `short`:
-     *   Google Pay payment button without the "Buy with" text.
+     *   Same as "plain".
      */
-    type ButtonType = "long" | "short";
+    type ButtonType = "buy" | "donate" | "plain" | "long" | "short";
+
+    /**
+     * Supported methods for controlling the size of the Google Pay button.
+     *
+     * Options:
+     *
+     * - `static`:
+     *   Default behavior. The button has a fixed width and height.
+     *
+     * - `fill`:
+     *   The button fills its container.
+     */
+    type ButtonSizeMode = "static" | "fill";
 
     /**
      * Supported environment names to run Google Pay.

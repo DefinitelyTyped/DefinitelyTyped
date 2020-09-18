@@ -30,5 +30,6 @@ declare namespace CodeFlask {
         handleTabs?: boolean;
         handleSelfClosingCharacters?: boolean;
         handleNewLineIndentation?: boolean;
+        styleParent?: ShadowRoot;
     }
 }
