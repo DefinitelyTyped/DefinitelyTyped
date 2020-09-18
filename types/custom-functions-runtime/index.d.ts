@@ -67,7 +67,7 @@ declare namespace CustomFunctions {
          * If the metadata JSON file is being generated from JSDoc comments, include the tag `@requiresParameterAddresses`.
          * [Api set: CustomFunctionsRuntime 1.1]
          */
-        parameterAddresses?: string;
+        parameterAddresses?: string[];
     }
 
     /**
