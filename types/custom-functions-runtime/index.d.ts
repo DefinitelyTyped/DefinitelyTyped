@@ -104,15 +104,15 @@ declare namespace CustomFunctions {
 
     /**
      * Error codes for custom functions. The error codes will appear in the cell that invoked the function.
-     * 
-     * Custom error messages will appear in addition to these error codes. Custom messages will display in the error 
+     *
+     * Custom error messages will appear in addition to these error codes. Custom messages will display in the error
      * indicator menu, which is accessed by clicking the error flag on each cell with an error.
      */
     enum ErrorCode {
         /**
          *
          * This error code indicates that a value used in the function is of the wrong data type.
-         * A custom error message can be used in addition to the error code, if desired. 
+         * A custom error message can be used in addition to the error code, if desired.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         invalidValue = "#VALUE!",
