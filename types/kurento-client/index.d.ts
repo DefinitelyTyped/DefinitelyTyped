@@ -18,6 +18,48 @@ declare namespace kurento {
         on: undefined;
     }
 
+    interface ElementConnectionData {
+        source: WebRtcEndpoint;
+        sink: WebRtcEndpoint;
+        type: any;
+        sourceDescription: string;
+        sinkDescription: string;
+    }
+
+    interface Error {
+        description: string;
+        errorCode: number;
+        type: string;
+    }
+
+    interface Tag {
+        key: string;
+        value: string;
+    }
+
+    interface IceConnection {
+        streamId: string;
+        componentId: number;
+        state: any;
+    }
+
+    interface IceCandidate {
+        candidate: string;
+        sdpMid: string;
+        sdpMLineIndex: number;
+    }
+
+    interface IceCandidateEvent {
+        candidate: IceCandidate;
+        souce: string;
+        tags: object;
+        timestamp: string;
+        timestampMillis: string;
+        type: 'OnIceCandidate';
+    }
+
+    type Callback<T> = (error: Error, result: T) => void;
+
     interface RecorderEndpointOptions {
         uri: string;
         stopOnEndOfStream?: boolean;
@@ -139,6 +181,50 @@ declare namespace kurento {
         setLatencyStats: (callback?: Callback<string>) => Promise<string>;
     }
 
+    // interface Endpoint extends MediaElement {}
+    type Endpoint = MediaElement;
+
+    interface UriEndpoint extends Endpoint {
+        pause(callback?: Callback<UriEndpointState>): Promise<UriEndpointState>;
+        stop(callback?: Callback<UriEndpointState>): Promise<UriEndpointState>;
+        getState(callback?: Callback<UriEndpointState>): Promise<UriEndpointState>;
+        getUri(callback?: Callback<string>): Promise<string>;
+
+        on(eventName: 'UriEndpointStateChanged', callback: (event: { state: UriEndpointState }) => void): UriEndpoint;
+
+        // Inherited from MediaElement
+        on(
+            eventName: 'ElementConnected',
+            callback: (event: {
+                sink: MediaElement;
+                mediaType: MediaType;
+                sourceMediaDescription: string;
+                sinkMediaDescription: string;
+            }) => void,
+        ): UriEndpoint;
+        on(
+            eventName: 'ElementDisconnected',
+            callback: (event: {
+                sink: MediaElement;
+                mediaType: MediaType;
+                sourceMediaDescription: string;
+                sinkMediaDescription: string;
+            }) => void,
+        ): UriEndpoint;
+        on(
+            eventName: 'MediaFlowInStateChange',
+            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
+        ): UriEndpoint;
+        on(
+            eventName: 'MediaFlowOutStateChange',
+            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
+        ): UriEndpoint;
+        on(
+            eventName: 'MediaTranscodingStateChange',
+            callback: (event: { state: MediaTranscodingState; binName: string; mediaType: MediaType }) => void,
+        ): UriEndpoint;
+    }
+
     interface RecorderEndpoint extends UriEndpoint {
         stopOnEndOfStream: boolean;
         uri: string;
@@ -148,9 +234,9 @@ declare namespace kurento {
         getMinOutputBitrate: (callback?: Callback<number>) => Promise<number>;
         setMaxOutputBitrate: (bitrate: number, callback?: Callback<number>) => Promise<number>;
         setMinOutputBitrate: (bitrate: number, callback?: Callback<number>) => Promise<number>;
-        on(eventName: 'Recording', callback: () => void): void;
-        on(eventName: 'Paused', callback: () => void): void;
-        on(eventName: 'Stopped', callback: () => void): void;
+        on(eventName: 'Recording', callback: () => void): RecorderEndpoint;
+        on(eventName: 'Paused', callback: () => void): RecorderEndpoint;
+        on(eventName: 'Stopped', callback: () => void): RecorderEndpoint;
 
         // Inherited from UriEndpoint
         on(
@@ -189,6 +275,106 @@ declare namespace kurento {
             eventName: 'MediaTranscodingStateChange',
             callback: (event: { state: MediaTranscodingState; binName: string; mediaType: MediaType }) => void,
         ): RecorderEndpoint;
+    }
+
+    interface PlayerEndpoint extends UriEndpoint {
+        mediaPipeline: MediaPipeline;
+        networkCache?: number;
+        uri: string;
+        useEncodedMedia?: boolean;
+
+        play(callback?: (error: Error) => void): Promise<void>;
+
+        on(eventName: 'EndOfStream', callback: (event: {}) => void): PlayerEndpoint;
+
+        // Inherited from UriEndpoint
+        on(
+            eventName: 'UriEndpointStateChanged',
+            callback: (event: { state: UriEndpointState }) => void,
+        ): PlayerEndpoint;
+
+        // Inherited from MediaElement
+        on(
+            eventName: 'ElementConnected',
+            callback: (event: {
+                sink: MediaElement;
+                mediaType: MediaType;
+                sourceMediaDescription: string;
+                sinkMediaDescription: string;
+            }) => void,
+        ): PlayerEndpoint;
+        on(
+            eventName: 'ElementDisconnected',
+            callback: (event: {
+                sink: MediaElement;
+                mediaType: MediaType;
+                sourceMediaDescription: string;
+                sinkMediaDescription: string;
+            }) => void,
+        ): PlayerEndpoint;
+        on(
+            eventName: 'MediaFlowInStateChange',
+            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
+        ): PlayerEndpoint;
+        on(
+            eventName: 'MediaFlowOutStateChange',
+            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
+        ): PlayerEndpoint;
+        on(
+            eventName: 'MediaTranscodingStateChange',
+            callback: (event: { state: MediaTranscodingState; binName: string; mediaType: MediaType }) => void,
+        ): PlayerEndpoint;
+    }
+
+    // interface SessionEndpoint extends Endpoint {}
+    type SessionEndpoint = Endpoint;
+    // interface SdpEndpoint extends SessionEndpoint {}
+    type SdpEndpoint = SessionEndpoint;
+
+    interface BaseRtpEndpoint extends SdpEndpoint {
+        getConnectionState(callback?: Callback<ConnectionState>): Promise<ConnectionState>;
+        getMediaState(callback?: Callback<MediaState>): Promise<MediaState>;
+
+        on(
+            eventName: 'ConnectionStateChanged',
+            callback: (event: { oldState: ConnectionState; newState: ConnectionState }) => void,
+        ): BaseRtpEndpoint;
+        on(
+            eventName: 'MediaStateChanged',
+            callback: (event: { oldState: MediaState; newState: MediaState }) => void,
+        ): BaseRtpEndpoint;
+
+        // Inherited from MediaElement
+        on(
+            eventName: 'ElementConnected',
+            callback: (event: {
+                sink: MediaElement;
+                mediaType: MediaType;
+                sourceMediaDescription: string;
+                sinkMediaDescription: string;
+            }) => void,
+        ): BaseRtpEndpoint;
+        on(
+            eventName: 'ElementDisconnected',
+            callback: (event: {
+                sink: MediaElement;
+                mediaType: MediaType;
+                sourceMediaDescription: string;
+                sinkMediaDescription: string;
+            }) => void,
+        ): BaseRtpEndpoint;
+        on(
+            eventName: 'MediaFlowInStateChange',
+            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
+        ): BaseRtpEndpoint;
+        on(
+            eventName: 'MediaFlowOutStateChange',
+            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
+        ): BaseRtpEndpoint;
+        on(
+            eventName: 'MediaTranscodingStateChange',
+            callback: (event: { state: MediaTranscodingState; binName: string; mediaType: MediaType }) => void,
+        ): BaseRtpEndpoint;
     }
 
     interface WebRtcEndpoint extends BaseRtpEndpoint {
@@ -287,100 +473,6 @@ declare namespace kurento {
         ): WebRtcEndpoint;
     }
 
-    interface ElementConnectionData {
-        source: WebRtcEndpoint;
-        sink: WebRtcEndpoint;
-        type: any;
-        sourceDescription: string;
-        sinkDescription: string;
-    }
-
-    interface Error {
-        description: string;
-        errorCode: number;
-        type: string;
-    }
-
-    interface Tag {
-        key: string;
-        value: string;
-    }
-
-    interface IceConnection {
-        streamId: string;
-        componentId: number;
-        state: any;
-    }
-
-    interface IceCandidate {
-        candidate: string;
-        sdpMid: string;
-        sdpMLineIndex: number;
-    }
-
-    interface IceCandidateEvent {
-        candidate: IceCandidate;
-        souce: string;
-        tags: object;
-        timestamp: string;
-        timestampMillis: string;
-        type: 'OnIceCandidate';
-    }
-
-    type Callback<T> = (error: Error, result: T) => void;
-
-    // interface Endpoint extends MediaElement {}
-    type Endpoint = MediaElement;
-    // interface SessionEndpoint extends Endpoint {}
-    type SessionEndpoint = Endpoint;
-    // interface SdpEndpoint extends SessionEndpoint {}
-    type SdpEndpoint = SessionEndpoint;
-
-    interface BaseRtpEndpoint extends SdpEndpoint {
-        getConnectionState(callback?: Callback<ConnectionState>): Promise<ConnectionState>;
-        getMediaState(callback?: Callback<MediaState>): Promise<MediaState>;
-
-        on(
-            eventName: 'ConnectionStateChanged',
-            callback: (event: { oldState: ConnectionState; newState: ConnectionState }) => void,
-        ): BaseRtpEndpoint;
-        on(
-            eventName: 'MediaStateChanged',
-            callback: (event: { oldState: MediaState; newState: MediaState }) => void,
-        ): BaseRtpEndpoint;
-
-        // Inherited from MediaElement
-        on(
-            eventName: 'ElementConnected',
-            callback: (event: {
-                sink: MediaElement;
-                mediaType: MediaType;
-                sourceMediaDescription: string;
-                sinkMediaDescription: string;
-            }) => void,
-        ): BaseRtpEndpoint;
-        on(
-            eventName: 'ElementDisconnected',
-            callback: (event: {
-                sink: MediaElement;
-                mediaType: MediaType;
-                sourceMediaDescription: string;
-                sinkMediaDescription: string;
-            }) => void,
-        ): BaseRtpEndpoint;
-        on(
-            eventName: 'MediaFlowInStateChange',
-            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
-        ): BaseRtpEndpoint;
-        on(
-            eventName: 'MediaFlowOutStateChange',
-            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
-        ): BaseRtpEndpoint;
-        on(
-            eventName: 'MediaTranscodingStateChange',
-            callback: (event: { state: MediaTranscodingState; binName: string; mediaType: MediaType }) => void,
-        ): BaseRtpEndpoint;
-    }
     type ConnectionState = 'DISCONNECTED' | 'CONNECTED'; // https://github.com/Kurento/kurento-client-core-js/blob/master/lib/complexTypes/ConnectionState.js
     type MediaState = 'DISCONNECTED' | 'CONNECTED'; // https://github.com/Kurento/kurento-client-core-js/blob/master/lib/complexTypes/MediaState.js
 
@@ -392,95 +484,6 @@ declare namespace kurento {
         remoteCandidate: string;
     } // https://github.com/Kurento/kurento-client-elements-js/blob/master/lib/complexTypes/IceCandidatePair.js
 
-    interface PlayerEndpoint extends UriEndpoint {
-        mediaPipeline: MediaPipeline;
-        networkCache?: number;
-        uri: string;
-        useEncodedMedia?: boolean;
-
-        play(callback?: (error: Error) => void): Promise<void>;
-
-        on(eventName: 'EndOfStream', callback: (event: {}) => void): PlayerEndpoint;
-
-        // Inherited from UriEndpoint
-        on(
-            eventName: 'UriEndpointStateChanged',
-            callback: (event: { state: UriEndpointState }) => void,
-        ): PlayerEndpoint;
-
-        // Inherited from MediaElement
-        on(
-            eventName: 'ElementConnected',
-            callback: (event: {
-                sink: MediaElement;
-                mediaType: MediaType;
-                sourceMediaDescription: string;
-                sinkMediaDescription: string;
-            }) => void,
-        ): PlayerEndpoint;
-        on(
-            eventName: 'ElementDisconnected',
-            callback: (event: {
-                sink: MediaElement;
-                mediaType: MediaType;
-                sourceMediaDescription: string;
-                sinkMediaDescription: string;
-            }) => void,
-        ): PlayerEndpoint;
-        on(
-            eventName: 'MediaFlowInStateChange',
-            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
-        ): PlayerEndpoint;
-        on(
-            eventName: 'MediaFlowOutStateChange',
-            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
-        ): PlayerEndpoint;
-        on(
-            eventName: 'MediaTranscodingStateChange',
-            callback: (event: { state: MediaTranscodingState; binName: string; mediaType: MediaType }) => void,
-        ): PlayerEndpoint;
-    }
-
-    interface UriEndpoint extends Endpoint {
-        pause(callback?: Callback<UriEndpointState>): Promise<UriEndpointState>;
-        stop(callback?: Callback<UriEndpointState>): Promise<UriEndpointState>;
-        getState(callback?: Callback<UriEndpointState>): Promise<UriEndpointState>;
-        getUri(callback?: Callback<string>): Promise<string>;
-
-        on(eventName: 'UriEndpointStateChanged', callback: (event: { state: UriEndpointState }) => void): UriEndpoint;
-
-        // Inherited from MediaElement
-        on(
-            eventName: 'ElementConnected',
-            callback: (event: {
-                sink: MediaElement;
-                mediaType: MediaType;
-                sourceMediaDescription: string;
-                sinkMediaDescription: string;
-            }) => void,
-        ): UriEndpoint;
-        on(
-            eventName: 'ElementDisconnected',
-            callback: (event: {
-                sink: MediaElement;
-                mediaType: MediaType;
-                sourceMediaDescription: string;
-                sinkMediaDescription: string;
-            }) => void,
-        ): UriEndpoint;
-        on(
-            eventName: 'MediaFlowInStateChange',
-            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
-        ): UriEndpoint;
-        on(
-            eventName: 'MediaFlowOutStateChange',
-            callback: (event: { state: MediaFlowState; mediaType: MediaType; padName: string }) => void,
-        ): UriEndpoint;
-        on(
-            eventName: 'MediaTranscodingStateChange',
-            callback: (event: { state: MediaTranscodingState; binName: string; mediaType: MediaType }) => void,
-        ): UriEndpoint;
-    }
     type UriEndpointState = 'STOP' | 'START' | 'PAUSE'; // https://github.com/Kurento/kurento-client-core-js/blob/2160f8e6938f138b52b72a5c5c354d1e5fce1ca0/lib/complexTypes/UriEndpointState.js
 
     type MediaType = 'AUDIO' | ' DATA' | 'VIDEO';
