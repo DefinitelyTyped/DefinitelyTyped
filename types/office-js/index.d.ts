@@ -1404,6 +1404,10 @@ declare namespace Office {
          */
          column?: number
     }
+	/**
+	 * Used to strong type the handler property of RemoveHandlerOptions.
+	 */
+	 type BindingEventHandler = (name: string) => number;
     /**
      * Provides options to determine which event handler or handlers are removed.
      */
