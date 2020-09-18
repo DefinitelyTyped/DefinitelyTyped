@@ -278,7 +278,7 @@ declare module "crypto" {
 
     function createPrivateKey(key: PrivateKeyInput | string | Buffer): KeyObject;
     function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject): KeyObject;
-    function createSecretKey(key: Buffer): KeyObject;
+    function createSecretKey(key: NodeJS.ArrayBufferView): KeyObject;
 
     function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
 
