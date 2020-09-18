@@ -1,4 +1,4 @@
-# DefinitelyTyped
+# Definitely Typed
 
 > 这是一个 *高质量* 的 TypeScript 类型定义的仓库。
 
@@ -29,9 +29,9 @@
 * 最近的构建都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * 所有的包基于 typescript@next 版本都有完善的类型标注：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
 * 所有的包都会在1小时内 [发布到 npm](https://github.com/Microsoft/types-publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
-* [typescript-bot](https://github.com/typescript-bot) 在 DefinitelyTyped 一直处于活跃状态 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+* [typescript-bot](https://github.com/typescript-bot) 在 Definitely Typed 一直处于活跃状态 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
-如果这里面的任何内容出现问题或者失败的情况，请在 [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped) 提出问题。
+如果这里面的任何内容出现问题或者失败的情况，请在 [the Definitely Typed Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped) 提出问题。
 
 [![Join the chat at https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -59,9 +59,9 @@ npm install --save-dev @types/node
 这通常会在 `package.json` 文件中的 `"types"` 或 `"typings"` 字段中提供，
 或者可以只查找包中的任何 ".d.ts" 文件并手动将它们包含在 `/// <reference path="" />`.
 
-#### 旧版本的 TypeScript（2.8 和更早版本）
+#### 旧版本的 TypeScript（2.9 和更早版本）
 
-Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 2.9 及更高版本。如果您使用的是 TypeScript 2.0 到 2.8，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.0 及更高版本。如果您使用的是 TypeScript 2.0 到 2.9，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
 Version | Released | End of Support
 -- | -- | --
@@ -342,13 +342,9 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
 请不要更改准确的类型定义。
 对于一个 NPM 包，如果使用 `node -p 'require("foo")'` 去导入模块，那么 `export =` 是准确的。如果使用 `node -p 'require("foo").default'` 去导入模块，那么 `export default` 是准确的。
 
-#### 我想使用 TypeScript 2.1 或更高版本的功能。
-
-那么你必须在你的定义头部的最后一行添加注释（在 `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped` 之后）：`// TypeScript Version: 2.1`.
-
 #### 我想使用 TypeScript 3.1 或更高版本的功能。
 
-你可以使用与上面相同的 `// TypeScript Version: 3.1` 注释。
+那么你必须在你的定义头部的最后一行添加注释（在 `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped` 之后）：`// TypeScript Version: 3.1`.
 但是，如果你的项目在维护类型时需要在兼容 3.1 版本及以上的同时还要兼容 3.0 及以下的版本，那么你需要使用一个只有在 TypeScript 3.1 及以上版本的新特性 `typesVersions`.
 你可以在 [官方 TypeScript 文档](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions) 中找到此功能的详细说明。
 
@@ -466,7 +462,7 @@ _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.
 
 TypeScript 手册包含了优秀的 [关于编写类型定义的概括信息](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), 以及 [此示例定义文件](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)，它展示了如何使用 ES6 模块语法创建定义，同时还指定了全局范围可用的对象。这个技术在 [big.js 的定义](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts) 得到了实际证明。该库可以通过网页上的脚本标记全局加载，也可以通过 require 或者 ES6 风格的风格导入。
 
-要测试你的类型定义是否能全局引用或者作为模块导入，清创建一个 `test` 文件，并在其中放置两个测试文件。一个命名为 `YourLibraryName-global.test.ts`, 另一个为 `YourLibraryName-module.test.ts`. *全局* 测试文件应该根据如何在全局范围内库可用的网页上加载的脚本中使用它来执行定义，在这种情况下，你不应该制定 import 语句。*模块* 测试文件应该根据导入时的使用方式（包括 `import` 语句）来执行定义。如果在 `tsconfig.json` 文件中指定了 `files` 属性，请确保包含了两个测试文件。big.js 定义中还提供了一个 [实际例子](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)。
+要测试你的类型定义是否能全局引用或者作为模块导入，请创建一个 `test` 文件，并在其中放置两个测试文件。一个命名为 `YourLibraryName-global.test.ts`, 另一个为 `YourLibraryName-module.test.ts`. *全局* 测试文件应该根据如何在全局范围内库可用的网页上加载的脚本中使用它来执行定义，在这种情况下，你不应该制定 import 语句。*模块* 测试文件应该根据导入时的使用方式（包括 `import` 语句）来执行定义。如果在 `tsconfig.json` 文件中指定了 `files` 属性，请确保包含了两个测试文件。big.js 定义中还提供了一个 [实际例子](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)。
 
 请注意，不需要在每个测试文件中完全执行定义 - 只需要在全局测试文件中测试全局可访问元素并在模块测试文件中完全执行定义，反之亦然。
 

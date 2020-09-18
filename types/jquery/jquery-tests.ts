@@ -5925,6 +5925,14 @@ function JQuery() {
             $('p').find('span').first();
         }
 
+        function even() {
+            $('li').even().css('background-color', 'red');
+        }
+
+        function odd() {
+            $('li').odd().css('background-color', 'red');
+        }
+
         function offsetParent() {
             // $ExpectType JQuery<HTMLElement>
             $('p').offsetParent();

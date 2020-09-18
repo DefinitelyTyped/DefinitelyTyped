@@ -575,8 +575,12 @@ declare module "http2" {
 
         readonly aborted: boolean;
         readonly authority: string;
+        readonly connection: net.Socket | tls.TLSSocket;
+        readonly complete: boolean;
         readonly headers: IncomingHttpHeaders;
         readonly httpVersion: string;
+        readonly httpVersionMinor: number;
+        readonly httpVersionMajor: number;
         readonly method: string;
         readonly rawHeaders: string[];
         readonly rawTrailers: string[];

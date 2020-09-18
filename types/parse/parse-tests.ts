@@ -160,6 +160,11 @@ function test_query() {
             objectId: '$name',
         },
     });
+    query.aggregate({
+        sample: {
+            size: 1
+        },
+    });
 
     // Find objects with distinct key
     query.distinct('name');

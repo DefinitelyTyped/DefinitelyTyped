@@ -32,10 +32,10 @@ export interface TFontDictionary {
 }
 
 export interface TFontFamilyTypes {
-    normal?: string;
-    bold?: string;
-    italics?: string;
-    bolditalics?: string;
+    normal?: PDFKit.Mixins.PDFFontSource;
+    bold?: PDFKit.Mixins.PDFFontSource;
+    italics?: PDFKit.Mixins.PDFFontSource;
+    bolditalics?: PDFKit.Mixins.PDFFontSource;
 }
 
 export interface TDocumentInformation {

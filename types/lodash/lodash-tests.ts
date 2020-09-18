@@ -587,10 +587,16 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
 
     _.intersection(list, list); // $ExpectType AbcObject[]
     _.intersection(list, list, list); // $ExpectType AbcObject[]
+    _.intersection(undefined, list); // $ExpectType AbcObject[]
+    _.intersection(null, list); // $ExpectType AbcObject[]
     _(list).intersection(list); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _(list).intersection(list, list); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(list).intersection(undefined); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
+    _(list).intersection(null); // $ExpectType LoDashImplicitWrapper<AbcObject[]>
     _.chain(list).intersection(list); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).intersection(list, list); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(list).intersection(undefined); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
+    _.chain(list).intersection(null); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     fp.intersection(list, list); // $ExpectType AbcObject[]
     fp.intersection(list)(list); // $ExpectType AbcObject[]
 }
@@ -699,6 +705,12 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     _.intersectionWith(list, list, list, (a, b) => {
         a; // $ExpectType AbcObject
         b; // $ExpectType AbcObject
+        return true;
+    });
+    // $ExpectType AbcObject[]
+    _.intersectionWith(...[list, list], (a, b) => {
+        a; // $ExpectType AbcObject
+        b; // $ExpectType never
         return true;
     });
 
@@ -4241,14 +4253,20 @@ fp.now(); // $ExpectType number
 
 // _.isMatchWith
 {
-    const testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string|symbol, object: object, source: object) => true;
+    const testIsMatchCustiomizerFnBoolean = (value: any, other: any, indexOrKey: number|string|symbol, object: object, source: object) => true;
+    const testIsMatchCustiomizerFnUndefined = (value: any, other: any, indexOrKey: number|string|symbol, object: object, source: object) => undefined;
 
-    _.isMatchWith({}, {}, testIsMatchCustiomizerFn); // $ExpectType boolean
-    _({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType boolean
-    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType LoDashExplicitWrapper<boolean>
+    _.isMatchWith({}, {}, testIsMatchCustiomizerFnBoolean); // $ExpectType boolean
+    _.isMatchWith({}, {}, testIsMatchCustiomizerFnUndefined); // $ExpectType boolean
+    _({}).isMatchWith({}, testIsMatchCustiomizerFnBoolean); // $ExpectType boolean
+    _({}).isMatchWith({}, testIsMatchCustiomizerFnUndefined); // $ExpectType boolean
+    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFnBoolean); // $ExpectType LoDashExplicitWrapper<boolean>
+    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFnUndefined); // $ExpectType LoDashExplicitWrapper<boolean>
 
-    fp.isMatchWith(testIsMatchCustiomizerFn, {}, {}); // $ExpectType boolean
-    fp.isMatchWith(testIsMatchCustiomizerFn)({})({}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnBoolean, {}, {}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnUndefined, {}, {}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnBoolean)({})({}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustiomizerFnUndefined)({})({}); // $ExpectType boolean
 }
 
 // _.isNaN
@@ -4431,6 +4449,12 @@ fp.now(); // $ExpectType number
     _(42).isSymbol(); // $ExpectType boolean
     _.chain([]).isSymbol(); // $ExpectType LoDashExplicitWrapper<boolean>
     fp.isSymbol(anything); // $ExpectType boolean
+    if (fp.isSymbol(anything)) {
+        anything; // $ExpectType symbol
+    }
+    if (_.isSymbol(anything)) {
+        anything; // $ExpectType symbol
+    }
 }
 
 // _.isTypedArray
@@ -6394,16 +6418,29 @@ fp.now(); // $ExpectType number
 
 // _.split
 {
+    _.split(undefined); // $ExpectType string[]
+    _.split(null); // $ExpectType string[]
     _.split("a-b-c"); // $ExpectType string[]
+    _.split(null, "-"); // $ExpectType string[]
     _.split("a-b-c", "-"); // $ExpectType string[]
+    _.split(null, "-", 2); // $ExpectType string[]
     _.split("a-b-c", "-", 2); // $ExpectType string[]
+    _(null).split();  // $ExpectType LoDashImplicitWrapper<string[]>
     _("a-b-c").split(); // $ExpectType LoDashImplicitWrapper<string[]>
+    _(null).split("-");  // $ExpectType LoDashImplicitWrapper<string[]>
     _("a-b-c").split("-"); // $ExpectType LoDashImplicitWrapper<string[]>
+    _(null).split("-", 2);  // $ExpectType LoDashImplicitWrapper<string[]>
     _("a-b-c").split("-", 2); // $ExpectType LoDashImplicitWrapper<string[]>
+    _.chain(null).split(); // $ExpectType LoDashExplicitWrapper<string[]>
     _.chain("a-b-c").split(); // $ExpectType LoDashExplicitWrapper<string[]>
+    _.chain(null).split("-"); // $ExpectType LoDashExplicitWrapper<string[]>
     _.chain("a-b-c").split("-"); // $ExpectType LoDashExplicitWrapper<string[]>
+    _.chain(null).split("-", 2); // $ExpectType LoDashExplicitWrapper<string[]>
     _.chain("a-b-c").split("-", 2); // $ExpectType LoDashExplicitWrapper<string[]>
+    fp.split("-", undefined); // $ExpectType string[]
+    fp.split("-", null); // $ExpectType string[]
     fp.split("-", "a-b-c"); // $ExpectType string[]
+    fp.split("-")(null); // $ExpectType string[]
     fp.split("-")("a-b-c"); // $ExpectType string[]
 
     _.map(["abc", "def"], _.split); // $ExpectType string[][]

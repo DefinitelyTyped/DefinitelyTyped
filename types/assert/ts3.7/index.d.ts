@@ -1,7 +1,7 @@
 declare function assert(value: any, message?: string): asserts value;
 
 declare namespace assert {
-    function fail(actual?: any, expected?: any, message?: string, operator?: string): void;
+    function fail(actual?: any, expected?: any, message?: string, operator?: string): never;
 
     function ok(value: any, message?: string): asserts value;
 
@@ -53,6 +53,8 @@ declare namespace assert {
             stackStartFunction?: () => void;
         });
     }
+
+    const strict: typeof assert;
 }
 
 export = assert;

@@ -6,26 +6,26 @@
 
 import { Commands, RedisClient, ClientOpts } from 'redis';
 
-type MethodsToPromisify = keyof Commands<boolean>;
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-type Promisified<T = RedisClient> = {
-  [K in keyof T]: K extends MethodsToPromisify
-    ? T[K] extends (...args: infer A) => infer R
-      ? (...args: A) => Promise<R>
-      : T[K]
-    : T[K];
-};
+type Omitted = Omit<RedisClient, keyof Commands<boolean>>;
+
+interface Promisified<T = RedisClient>
+    extends Omitted,
+        Commands<Promise<boolean>> {}
 
 interface AsyncRedisConstructor {
   new (port: number, host?: string, options?: ClientOpts): Promisified;
   new (unix_socket: string, options?: ClientOpts): Promisified;
   new (redis_url: string, options?: ClientOpts): Promisified;
   new (options?: ClientOpts): Promisified;
-  decorate: (client: RedisClient) => Promisified;
+
   createClient(port: number, host?: string, options?: ClientOpts): Promisified;
   createClient(unix_socket: string, options?: ClientOpts): Promisified;
   createClient(redis_url: string, options?: ClientOpts): Promisified;
   createClient(options?: ClientOpts): Promisified;
+
+  decorate: (client: RedisClient) => Promisified;
 }
 
 declare const AsyncRedis: AsyncRedisConstructor;

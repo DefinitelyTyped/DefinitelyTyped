@@ -59,6 +59,18 @@ declare global {
 
         interface Device {
             /**
+             * Holds the environment-unique ID of the device - namely, the adb ID on Android (e.g. emulator-5554) and the Mac-global simulator UDID on iOS,
+             * as used by simctl (e.g. AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE).
+             *
+             * The value will be undefined until the device is properly prepared (i.e. in detox.init())
+             */
+            id: string;
+            /**
+             * Holds a descriptive name of the device. Example: emulator-5554 (Pixel_API_26)
+             * The value will be undefined until the device is properly prepared (i.e. in detox.init()).
+             */
+            name: string;
+            /**
              * Launch the app
              * @param config
              * @example // Terminate the app and launch it again. If set to false, the simulator will try to bring app from background,
@@ -185,7 +197,7 @@ declare global {
              * // or
              * await device.setBiometricEnrollment(false);
              */
-            setBiometricEnrollment(enabled: true): Promise<void>;
+            setBiometricEnrollment(enabled: boolean): Promise<void>;
             /**
              * Simulates the success of a face match via FaceID (iOS Only)
              */
@@ -529,6 +541,7 @@ declare global {
             reminders?: RemindersPermission;
             siri?: SiriPermission;
             speech?: SpeechPermission;
+            faceid?: FaceIDPermission;
         }
 
         type LocationPermission = 'always' | 'inuse' | 'never' | 'unset';
@@ -546,6 +559,7 @@ declare global {
         type SiriPermission = PermissionState;
         type SpeechPermission = PermissionState;
         type NotificationsPermission = PermissionState;
+        type FaceIDPermission = PermissionState;
 
         interface DeviceLanchAppConfig {
             /**

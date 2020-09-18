@@ -1,4 +1,4 @@
-// Type definitions for react-calendar 3.0
+// Type definitions for react-calendar 3.1
 // Project: https://github.com/wojtekmaj/react-calendar
 // Definitions by: Stéphane Saquet <https://github.com/Guymestef>, Katie Soldau <https://github.com/ksoldau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,7 +62,7 @@ export interface CalendarProps {
   tileClassName?: string | string[] | ((props: CalendarTileProperties) => string | string[] | null);
   tileContent?: JSX.Element | ((props: CalendarTileProperties) => JSX.Element | null);
   tileDisabled?: (props: CalendarTileProperties & { activeStartDate: Date }) => boolean;
-  value?: Date | Date[];
+  value?: Date | Date[] | null;
   view?: Detail;
 }
 

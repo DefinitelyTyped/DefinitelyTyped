@@ -1,5 +1,5 @@
 // Type definitions for UglifyJS 3.9
-// Project: https://github.com/mishoo/UglifyJS2
+// Project: https://github.com/mishoo/UglifyJS
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 John Reilly <https://github.com/johnnyreilly>
@@ -433,7 +433,7 @@ export interface SourceMapOptions {
     names?: boolean;
     url?: string | 'inline';
     root?: string;
-    content?: RawSourceMap;
+    content?: RawSourceMap | 'inline';
 }
 
 export function minify(files: string | string[] | { [file: string]: string }, options?: MinifyOptions): MinifyOutput;

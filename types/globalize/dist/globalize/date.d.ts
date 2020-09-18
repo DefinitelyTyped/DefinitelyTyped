@@ -32,6 +32,11 @@ declare module "../globalize" {
          */
         timeZone?: string;
     }
+    type DateFormatPartTypes = "day" | "dayperiod" | "era" | "hour" | "literal" | "minute" | "month" | "second" | "zone" | "weekday" | "year";
+    interface DateFormatPart {
+        type: DateFormatPartTypes;
+        value: string;
+    }
     interface Static {
         /**
          * Globalize.loadTimeZone ( ianaTzData, ... )
@@ -49,11 +54,22 @@ declare module "../globalize" {
          */
         dateFormatter(options?: DateFormatterOptions): (value: Date) => string;
 
+        /**
+         * .dateToPartsFormatter( options )
+         * @param {DateFormatterOptions} options see date/expand_pattern for more info.
+         * @returns {Function} Return a function that formats a date into parts tokens according to the given options. The default formatting is numeric year, month, and day (i.e., `{ skeleton: "yMd" }`).
+         */
+        dateToPartsFormatter(options?: DateFormatterOptions): (value: Date) => DateFormatPart[];
+
         //Return a function that parses a string representing a date into a JavaScript Date object according to the given options. The default parsing assumes numeric year, month, and day (i.e., { skeleton: "yMd" }).
         dateParser(options?: DateFormatterOptions): (value: string) => Date;
 
         //Alias for .dateFormatter( [options] )( value ).
         formatDate(value: Date, options?: DateFormatterOptions): string;
+
+        //Alias for .dateToPartsFormatter( [options] )( value ).
+        formatDateToParts(value: Date, options?: DateFormatterOptions): DateFormatPart[];
+
         /**
          * Alias for .dateParser( [options] )( value ).
          * @param {string} value The object whose module id you wish to determine.

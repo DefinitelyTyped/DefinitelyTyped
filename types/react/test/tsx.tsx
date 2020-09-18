@@ -92,6 +92,14 @@ const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
 // React.createContext
 const ContextWithRenderProps = React.createContext('defaultValue');
 
+// unstable APIs should not be part of the typings
+// $ExpectError
+const ContextUsingUnstableObservedBits = React.createContext(undefined, (previous, next) => 7);
+// $ExpectError
+<ContextWithRenderProps.Consumer unstable_observedBits={4}>
+    {(value: unknown) => null}
+</ContextWithRenderProps.Consumer>;
+
 // Fragments
 <div>
     <React.Fragment>
@@ -267,6 +275,10 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 // $ExpectError
 <React.Suspense/>;
 
+// unstable API should not be part of the typings
+// $ExpectError
+<React.Suspense fallback={null} unstable_avoidThisFallback />;
+
 class LegacyContext extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
 
@@ -426,3 +438,38 @@ type propTypesTest1 = typeof testPropTypes extends DeclaredPropTypes<TestPropTyp
 type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps2> ? true : false;
 // $ExpectType true
 type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
+function CustomSelect(props: {
+    children: Array<
+      React.ReactElement<
+        React.ComponentPropsWithoutRef<typeof CustomSelectOption>
+      >
+    >;
+  }): JSX.Element {
+    return (
+      <div>
+        <ul>{props.children}</ul>
+        <select>
+          {React.Children.map(props.children, child => (
+            // key should be mappable from children.
+            <option key={child.key} value={child.props.value}>
+              {child.props.children}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+}
+function CustomSelectOption(props: {
+    value: string;
+    children: React.ReactNode;
+}): JSX.Element {
+    return <li data-value={props.value}>{props.children}</li>;
+}
+function Example() {
+    return (
+        <CustomSelect>
+        <CustomSelectOption value="one">One</CustomSelectOption>
+        <CustomSelectOption value="two">Two</CustomSelectOption>
+        </CustomSelect>
+    );
+}

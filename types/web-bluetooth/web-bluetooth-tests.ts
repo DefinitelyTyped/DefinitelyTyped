@@ -22,6 +22,13 @@ function handleBodySensorLocationCharacteristic(characteristic: BluetoothRemoteG
         console.log("Unknown sensor location.");
         return Promise.resolve();
     }
+
+    // not from the spec - exercising additional APIs
+    const buffer = new Uint8Array(0);
+    characteristic.writeValue(buffer);
+    characteristic.writeValueWithResponse(buffer);
+    characteristic.writeValueWithoutResponse(buffer);
+
     return characteristic.readValue()
         .then(sensorLocationData => {
             let sensorLocation = sensorLocationData.getUint8(0);
@@ -83,3 +90,50 @@ function parseHeartRate(data: DataView) {
     }
     return result;
 }
+
+// Example from the scanning spec
+navigator.bluetooth.requestLEScan({
+    acceptAllAdvertisements: true,
+}).then((scan) => {
+    console.log('Scan started with:');
+    console.log(' acceptAllAdvertisements: ' + scan.acceptAllAdvertisements);
+    console.log(' active: ' + scan.active);
+    console.log(' keepRepeatedDevices: ' + scan.keepRepeatedDevices);
+    console.log(' filters: ' + JSON.stringify(scan.filters));
+
+    navigator.bluetooth.addEventListener('advertisementreceived', event => {
+        console.log('Advertisement received.');
+        console.log('  Device Name: ' + event.device.name);
+        console.log('  Device ID: ' + event.device.id);
+        console.log('  RSSI: ' + event.rssi);
+        console.log('  TX Power: ' + event.txPower);
+        console.log('  UUIDs: ' + event.uuids);
+        event.manufacturerData.forEach((valueDataView, key) => {
+            logDataView('Manufacturer', key, valueDataView);
+        });
+        event.serviceData.forEach((valueDataView, key) => {
+            logDataView('Service', key, valueDataView);
+        });
+    });
+
+    setTimeout(stopScan, 10000);
+    function stopScan() {
+        console.log('Stopping scan...');
+        scan.stop();
+        console.log('Stopped.  scan.active = ' + scan.active);
+    }
+});
+
+/* Utils */
+const logDataView = (labelOfDataSource: string, key: string | number, valueDataView: DataView) => {
+    const array = new Uint8Array(valueDataView.buffer);
+    const hexString = Array(array.length).map((_, index) => {
+        return `0${array[index].toString(16)}`.slice(-2);
+    }).join(' ');
+    const textDecoder = new TextDecoder('ascii');
+    const asciiString = textDecoder.decode(valueDataView.buffer);
+    console.log(`  ${labelOfDataSource} Data: ${key}
+        (Hex): ${hexString}
+        (ASCII): ${asciiString}
+    `);
+};

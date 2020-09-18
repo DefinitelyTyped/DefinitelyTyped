@@ -23,7 +23,6 @@
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Nicolas Even <https://github.com/n-e>
-//                 Nicolas Voigt <https://github.com/octo-sniffle>
 //                 Nikita Galkin <https://github.com/galkin>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
@@ -43,6 +42,7 @@
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Surasak Chaisurin <https://github.com/Ryan-Willpower>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.5.
@@ -59,7 +59,10 @@
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
 
-// We can't include assert.d.ts in base.d.ts, as it'll cause duplication errors in +ts3.7
+// We can't include globals.global.d.ts in globals.d.ts, as it'll cause duplication errors in TypeScript 3.5+
+/// <reference path="globals.global.d.ts" />
+
+// We can't include assert.d.ts in base.d.ts, as it'll cause duplication errors in TypeScript 3.7+
 /// <reference path="assert.d.ts" />
 
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)

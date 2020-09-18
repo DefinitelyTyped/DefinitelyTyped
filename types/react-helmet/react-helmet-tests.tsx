@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Helmet, HelmetData } from "react-helmet";
+import { Helmet as HelmedNamedExport, HelmetData } from "react-helmet";
+import Helmet from 'react-helmet';
 
 const Application = () =>
     <div className="application">

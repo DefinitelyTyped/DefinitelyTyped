@@ -8,6 +8,7 @@
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false
+        "strict-export-declare-modifiers": false,
+        "npm-naming": [true, { "mode": "code", "errors": [["NoDefaultExport", false]] }]
     }
 }

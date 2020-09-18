@@ -20,12 +20,11 @@ const service: KapShareService<Config> = {
         greeting: { type: 'string', default: true },
     },
     action: async context => {
-        // $ExpectType string
+        // $ExpectType string | undefined
         const name = context.config.get('name');
 
         context.config.get('accessToken');
 
-        // $ExpectError
         context.config.get('unknown');
 
         await context.request(`https://example.com/greet/${name}`);

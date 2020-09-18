@@ -726,7 +726,7 @@ declare module "tls" {
     function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     /**
-     * @deprecated
+     * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
      */
     function createSecurePair(credentials?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
     function createSecureContext(details: SecureContextOptions): SecureContext;

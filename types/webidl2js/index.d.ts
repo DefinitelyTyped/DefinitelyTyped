@@ -2,7 +2,7 @@
 // Project: https://github.com/jsdom/webidl2js#readme
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript 3.0
+// TypeScript Version: 3.0
 
 import { AttributeMemberType } from 'webidl2';
 

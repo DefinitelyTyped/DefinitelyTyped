@@ -430,19 +430,20 @@ declare module "child_process" {
         detached?: boolean;
         windowsVerbatimArguments?: boolean;
     }
+    function fork(modulePath: string, options?: ForkOptions): ChildProcess;
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     interface SpawnSyncOptions extends CommonSpawnOptions {
         input?: string | NodeJS.ArrayBufferView;
         killSignal?: NodeJS.Signals | number;
         maxBuffer?: number;
-        encoding?: BufferEncoding;
+        encoding?: BufferEncoding | 'buffer' | null;
     }
     interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
     }
     interface SpawnSyncOptionsWithBufferEncoding extends SpawnSyncOptions {
-        encoding: BufferEncoding; // specify `null`.
+        encoding?: 'buffer' | null;
     }
     interface SpawnSyncReturns<T> {
         pid: number;
@@ -467,13 +468,13 @@ declare module "child_process" {
         shell?: string;
         killSignal?: NodeJS.Signals | number;
         maxBuffer?: number;
-        encoding?: BufferEncoding;
+        encoding?: BufferEncoding | 'buffer' | null;
     }
     interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
         encoding: BufferEncoding;
     }
     interface ExecSyncOptionsWithBufferEncoding extends ExecSyncOptions {
-        encoding: BufferEncoding; // specify `null`.
+        encoding?: 'buffer' | null;
     }
     function execSync(command: string): Buffer;
     function execSync(command: string, options?: ExecSyncOptionsWithStringEncoding): string;

@@ -1,5 +1,5 @@
 import { Transform, TransformOptions } from 'stream';
-import * as Assembler from '../Assembler';
+import Assembler = require('../Assembler');
 
 export = StreamBase;
 

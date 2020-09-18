@@ -51,6 +51,19 @@ mongodb.MongoClient.connect(
   },
 );
 
+const unifiedTopologyOptions: mongodb.UnifiedTopologyOptions = {
+    useUnifiedTopology: true,
+    heartbeatFrequencyMS: 20_000,
+    localThresholdMS: 10,
+    maxIdleTimeMS: 1_000,
+    maxPoolSize: 20,
+    minPoolSize: 5,
+    serverSelectionTimeoutMS: 20_000,
+    waitQueueTimeoutMS: 15,
+};
+
+new mongodb.MongoClient('mongodb://localhost:27017', unifiedTopologyOptions);
+
 async function testFunc(): Promise<mongodb.MongoClient> {
   const testClient: mongodb.MongoClient = await mongodb.connect(connectionString);
   return testClient;
@@ -89,10 +102,14 @@ const gridFSBucketTests = (bucket: mongodb.GridFSBucket) => {
     const openUploadStream  = bucket.openUploadStream('file.dat');
     openUploadStream.on('close', () => {});
     openUploadStream.on('end', () => {});
+    openUploadStream.abort(); // $ExpectType void
     openUploadStream.abort(() => {
         openUploadStream.removeAllListeners();
     });
-    openUploadStream.abort();
+    openUploadStream.abort((error) => {
+        error; // $ExpectType MongoError
+    });
+    openUploadStream.abort((error, result) => {});
 };
 
 // Compression

@@ -2,6 +2,7 @@ import * as React from "react";
 import { ReactAttr, ForwardRefReturn } from "../../../typings/shared";
 
 interface InheritedProps {
+    children?: ReactAttr["children"],
     className?: ReactAttr["className"],
     onChange?(event: React.ChangeEvent<HTMLSelectElement>): void,
 }

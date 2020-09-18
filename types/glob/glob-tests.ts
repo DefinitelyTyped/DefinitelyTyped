@@ -1,5 +1,7 @@
 import glob = require("glob");
 const Glob = glob.Glob;
+// ExpectType glob
+const globAlias = glob.glob;
 
 (() => {
     const pattern = "test/a/**/[cg]/../[cg]";
@@ -32,3 +34,15 @@ const Glob = glob.Glob;
 declare const ignore: ReadonlyArray<string>;
 glob.sync('/foo/*', {realpath: true, realpathCache: {'/foo/bar': '/bar'}, ignore: '/foo/baz'});
 glob.sync('/*', {ignore, nodir: true, cache: {'/': ['bar', 'baz']}, statCache: {'/foo/bar': false, '/foo/baz': {isDirectory() { return true; }}}});
+
+// $ExpectType IGlob
+const globInstance = glob('**/*.js', { mark: true }, (er, matches) => {
+    if (er) {
+        return;
+    }
+    er; // $ExpectType null
+    matches; // $ExpectType string[]
+});
+globInstance.pause();
+globInstance.resume();
+globInstance.abort();

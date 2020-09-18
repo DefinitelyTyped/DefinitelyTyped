@@ -144,6 +144,9 @@ import * as net from 'net';
 
     agent = http.globalAgent;
 
+    let sockets: NodeJS.ReadOnlyDict<net.Socket[]> = agent.sockets;
+    sockets = agent.freeSockets;
+
     http.request({ agent: false });
     http.request({ agent });
     http.request({ agent: undefined });
@@ -203,6 +206,10 @@ import * as net from 'net';
         'content-type': 'application/json',
         'set-cookie': [ 'type=ninja', 'language=javascript' ]
     };
+
+    headers["access-control-request-headers"] = "content-type, x-custom-header";
+    headers["access-control-request-method"] = "PUT";
+    headers.origin = "https://example.com";
 }
 
 // statics

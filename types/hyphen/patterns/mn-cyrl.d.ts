@@ -1,4 +1,4 @@
-import { PatternsDefinition } from "../common";
+import { PatternsDefinition } from "..";
 
 /** The hyphenation patterns definition for this language. */
 declare const patterns: PatternsDefinition;

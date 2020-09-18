@@ -108,6 +108,10 @@ export interface ColumnDescription<T extends object = any, E = any> {
      * Column header field
      */
     text: string;
+    classes?: string | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => string);
+    style?:
+        | React.CSSProperties
+        | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => React.CSSProperties);
     sort?: boolean;
     sortFunc?: ColumnSortFunc<T>;
     searchable?: boolean;
@@ -226,19 +230,19 @@ export type PaginationOptions = Partial<{
     /**
      * the text of first page button
      */
-    firstPageText: string;
+    firstPageText: string | JSX.Element;
     /**
      * the text of previous page button
      */
-    prePageText: string;
+    prePageText: string | JSX.Element;
     /**
      * the text of next page button
      */
-    nextPageText: string;
+    nextPageText: string | JSX.Element;
     /**
      * the text of last page button
      */
-    lastPageText: string;
+    lastPageText: string | JSX.Element;
     /**
      * the title of next page button
      */
@@ -374,10 +378,15 @@ export interface SelectRowProps<T> {
     nonSelectable?: number[];
     nonSelectableStyle?: ((row: T, rowIndex: number) => CSSProperties | undefined) | CSSProperties;
     nonSelectableClasses?: ((row: T, rowIndex: number) => string | undefined) | string;
-    bgColor?: string;
+    bgColor?: (row: T, rowIndex: number) => string | string;
     hideSelectColumn?: boolean;
-    selectionRenderer?: ReactElement<{ mode: string; checked: boolean; disabled: boolean }>;
-    selectionHeaderRenderer?: ReactElement<{ mode: string; checked: boolean; indeterminate: boolean }>;
+    selectionRenderer?: (options: {
+        checked: boolean;
+        disabled: boolean;
+        mode: string;
+        rowIndex: number;
+    }) => JSX.Element;
+    selectionHeaderRenderer?: (options: { mode: string; checked: boolean; indeterminate: boolean }) => JSX.Element;
     headerColumnStyle?: ((status: TableCheckboxStatus) => CSSProperties | undefined) | CSSProperties;
     selectColumnStyle?:
         | ((props: {
@@ -433,7 +442,9 @@ export interface BootstrapTableProps<T extends object = any> {
     data: any[];
     columns: ColumnDescription[];
     bootstrap4?: boolean;
-    remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
+    remote?:
+        | boolean
+        | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
     noDataIndication?: () => JSX.Element | JSX.Element | string;
     striped?: boolean;
     bordered?: boolean;
@@ -510,17 +521,17 @@ export interface ExpandHeaderColumnRenderer {
 
 export interface ExpandRowProps<T> {
     renderer: (row: T, rowIndex: number) => JSX.Element;
-    expanded?: number[];
+    expanded?: any[];
     onExpand?: (row: T, isExpand: boolean, rowIndex: number, e: SyntheticEvent) => void;
-    onExpandAll: (isExpandAll: boolean, results: number[], e: SyntheticEvent) => void;
-    nonExpandable: number[];
+    onExpandAll?: (isExpandAll: boolean, results: number[], e: SyntheticEvent) => void;
+    nonExpandable?: number[];
     showExpandColumn?: boolean;
     onlyOneExpanding?: boolean;
     expandByColumnOnly?: boolean;
-    expandColumnRenderer: ReactElement<ExpandColumnRendererProps>;
-    expandHeaderColumnRenderer: ReactElement<ExpandHeaderColumnRenderer>;
-    expandColumnPosition: 'left' | 'right';
-    className: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
+    expandColumnRenderer?: ReactElement<ExpandColumnRendererProps>;
+    expandHeaderColumnRenderer?: ReactElement<ExpandHeaderColumnRenderer>;
+    expandColumnPosition?: 'left' | 'right';
+    className?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
 }
 
 export type TableColumnFilterProps<FT = any, T extends object = any> = Partial<{

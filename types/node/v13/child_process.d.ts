@@ -21,6 +21,10 @@ declare module "child_process" {
         readonly killed: boolean;
         readonly pid: number;
         readonly connected: boolean;
+        readonly exitCode: number | null;
+        readonly signalCode: number | null;
+        readonly spawnargs: string[];
+        readonly spawnfile: string;
         kill(signal?: NodeJS.Signals | number): boolean;
         send(message: Serializable, callback?: (error: Error | null) => void): boolean;
         send(message: Serializable, sendHandle?: SendHandle, callback?: (error: Error | null) => void): boolean;
@@ -421,6 +425,7 @@ declare module "child_process" {
         detached?: boolean;
         windowsVerbatimArguments?: boolean;
     }
+    function fork(modulePath: string, options?: ForkOptions): ChildProcess;
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     interface SpawnSyncOptions extends CommonSpawnOptions {

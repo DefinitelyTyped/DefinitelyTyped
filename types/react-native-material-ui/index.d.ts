@@ -54,7 +54,7 @@ export class Avatar extends Component<AvatarProps, any> {}
 export interface BadgeProps {
     children?: JSX.Element;
     text?: string;
-    icon?: string | { name: string, color: string, size: string };
+    icon?: string | { name: string, color: string, size: number };
     size?: number;
     stroke?: number;
     accent?: boolean;

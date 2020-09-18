@@ -90,6 +90,7 @@ var polyC = [ 0, 0 ]
 query.where('loc').within().geometry({ type: 'Point', coordinates: polyC })
 query.where('loc').intersects().geometry({ type: 'Point', coordinates: polyC })
 query.getQuery();
+query.getFilter();
 query.getUpdate();
 query.find().where('age').gt(21);
 query.find().gt('age', 21);

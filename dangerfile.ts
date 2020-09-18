@@ -58,6 +58,14 @@ if (danger.git.created_files.some(f => path.basename(f) === ".editorconfig")) {
     fail("A nested .editorconfig file may not be added to a package on DefinitelyTyped. Please respect the root .editorconfig.", danger.git.created_files.find(f => path.basename(f) === ".editorconfig"), 1)
 }
 
+// Tell people that they've added @me to their lib and not themselves
+const newDTSFiles = danger.git.created_files.filter(f => f.endsWith(".d.ts"))
+newDTSFiles.forEach(dts => {
+    const file = fs.readFileSync(dts, "utf8")
+    if (file.includes("<https://github.com/me>")) {
+        fail("This line should have your github username in it, not /me", dts, 3)
+    }
+})
 
 for (const filename of danger.git.modified_files.concat(danger.git.created_files)) {
     danger.git.diffForFile(filename).then(d => {

@@ -26,6 +26,9 @@ declare module "stream" {
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
 
             readable: boolean;
+            readonly readableEncoding: BufferEncoding | null;
+            readonly readableEnded: boolean;
+            readonly readableFlowing: boolean | null;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
             readonly readableObjectMode: boolean;

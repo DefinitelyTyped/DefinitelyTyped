@@ -1,9 +1,9 @@
-// Type definitions for es-abstract 1.16
-// Project: https://github.com/ljharb/es-abstract#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-//                 Jordan Harband <https://github.com/ljharb>
+// Type definitions for es-abstract 1.17
+// Project: https://github.com/ljharb/es-abstract
+// Definitions by: Jordan Harband <https://github.com/ljharb>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 3.8
 
 import ES5 = require('./es5');
 import ES6 = require('./es6');
@@ -21,21 +21,21 @@ declare namespace ESAbstract {
 
     // ES5 types:
     interface GenericDescriptor {
-        '[[Enumerable]]'?: boolean;
         '[[Configurable]]'?: boolean;
+        '[[Enumerable]]'?: boolean;
     }
 
-    interface AccessorDescriptor extends GenericDescriptor {
-        '[[Get]]'?(): any;
-        '[[Set]]'?(value: any): void;
+    interface AccessorDescriptor<T = unknown> extends GenericDescriptor {
+        '[[Get]]'?(): T;
+        '[[Set]]'?(value: T): void;
     }
 
-    interface DataDescriptor extends GenericDescriptor {
-        '[[Value]]'?: any;
+    interface DataDescriptor<T = unknown> extends GenericDescriptor {
         '[[Writable]]'?: boolean;
+        '[[Value]]'?: T;
     }
 
-    type PropertyDescriptor = AccessorDescriptor | DataDescriptor;
+    type PropertyDescriptor<T = unknown> = AccessorDescriptor<T> | DataDescriptor<T>;
 }
 
 interface ESAbstract extends ES6 {

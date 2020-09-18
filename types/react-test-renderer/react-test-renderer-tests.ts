@@ -11,12 +11,20 @@ const renderer = create(React.createElement("div"), {
 });
 
 const json = renderer.toJSON();
-if (json) {
+if (json && !Array.isArray(json)) {
     json.type = "t";
     json.props = {
         prop1: "p",
     };
     json.children = [json];
+}
+
+if (json && Array.isArray(json)) {
+    json[json.length - 1].type = "t";
+    json[json.length - 1].props = {
+        prop1: "p",
+    };
+    json[json.length - 1].children = [json[json.length - 1]];
 }
 
 const tree = renderer.toTree();
@@ -27,6 +35,7 @@ if (tree) {
     };
     tree.children = [tree];
     tree.rendered = tree;
+    tree.rendered = [tree];
     tree.nodeType = "component";
     tree.nodeType = "host";
 }

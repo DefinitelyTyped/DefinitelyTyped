@@ -62,6 +62,9 @@ declare class Sortable {
     /** Get the Sortable instance on an element. */
     static get(element: HTMLElement): Sortable | undefined;
 
+    /** Get the Sortable version */
+    static readonly version: string;
+
     /**
      * Options getter/setter
      * @param name a Sortable.Options property.

@@ -8,7 +8,7 @@
 
 // Last module patch version validated against: 1.0.3
 
-export interface Dispatch<T extends EventTarget> {
+export interface Dispatch<T extends object> {
     /**
      * Like `function.apply`, invokes each registered callback for the specified type,
      * passing the callback the specified arguments, with `that` as the `this` context.
@@ -71,4 +71,4 @@ export interface Dispatch<T extends EventTarget> {
  * @param types The event types.
  * @throws "illegal type" on empty string or duplicated event types.
  */
-export function dispatch<T extends EventTarget>(...types: string[]): Dispatch<T>;
+export function dispatch<T extends object>(...types: string[]): Dispatch<T>;

@@ -1,6 +1,6 @@
 import { Identity } from '../../../identity';
 import Transport, { Message } from '../../../transport/transport';
-import { ProviderIdentity } from '../../../shapes';
+import { ProviderIdentity } from '../../../shapes/Identity';
 export declare type Action = (() => any) | ((payload: any) => any) | ((payload: any, id: ProviderIdentity) => any);
 export declare type Middleware = (() => any) | ((action: string) => any) | ((action: string, payload: any) => any) | ((action: string, payload: any, id: ProviderIdentity) => any);
 export interface ChannelMessagePayload extends Identity {

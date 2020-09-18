@@ -1,4 +1,4 @@
-// Type definitions for pino 6.0
+// Type definitions for pino 6.3
 // Project: https://github.com/pinojs/pino.git, http://getpino.io
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
@@ -46,6 +46,10 @@ declare namespace P {
      */
     const LOG_VERSION: number;
     const levels: LevelMapping;
+    /**
+     * Exposes the Pino package version. Also available on the logger instance.
+     */
+    const version: string;
 
     type SerializedError = pinoStdSerializers.SerializedError;
     type SerializedResponse = pinoStdSerializers.SerializedResponse;
@@ -172,7 +176,7 @@ declare namespace P {
     /**
      * The pino.final method can be used to create an exit listener function.
      * This listener function can be supplied to process exit events.
-     * The exit listener function will cal the handler with
+     * The exit listener function will call the handler with
      * @param [logger]: pino logger that serves as reference for the final logger
      * @param [handler]: Function that will be called by the handler returned from this function
      * @returns Exit listener function that can be supplied to process exit events and will call the supplied handler function
@@ -491,6 +495,20 @@ declare namespace P {
            */
           log?: (object: object) => object;
         };
+
+        /**
+         * An object mapping to hook functions. Hook functions allow for customizing internal logger operations.
+         * Hook functions must be synchronous functions.
+         */
+        hooks?: {
+            /**
+             * Allows for manipulating the parameters passed to logger methods. The signature for this hook is
+             * logMethod (args, method) {}, where args is an array of the arguments that were passed to the
+             * log method and method is the log method itself. This hook must invoke the method function by
+             * using apply, like so: method.apply(this, newArgumentsArray).
+             */
+            logMethod?: (args: any[], method: LogFn) => void;
+        };
     }
 
     interface PrettyOptions {
@@ -542,6 +560,10 @@ declare namespace P {
          * Ignore one or several keys. Example: "time,hostname"
          */
         ignore?: string;
+        /**
+         * Suppress warning on first synchronous flushing.
+         */
+        suppressFlushSyncWarning?: boolean;
     }
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
@@ -613,6 +635,10 @@ declare namespace P {
          * Holds the current log format version (as output in the v property of each log record).
          */
         readonly LOG_VERSION: number;
+        /**
+         * Exposes the Pino package version. Also available on the exported pino function.
+         */
+        readonly version: string;
 
         levels: LevelMapping;
 
@@ -729,6 +755,10 @@ declare namespace P {
          * @param ...args: format string values when `msg` is a format string
          */
         trace: LogFn;
+        /**
+         * Noop function.
+         */
+        silent: LogFn;
 
         /**
          * Flushes the content of the buffer in extreme mode. It has no effect if extreme mode is not enabled.

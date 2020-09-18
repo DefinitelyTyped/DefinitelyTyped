@@ -6,6 +6,7 @@ export class Example extends React.Component {
         return (
             <div>
                 <Graph
+                    onClickGraph={() => {}}
                     id="test"
                     data={{
                         nodes: [

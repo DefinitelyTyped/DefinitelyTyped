@@ -20,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
+        "test/animatedScrollTo.ts",
         "test/data.ts",
         "test/styled-components.tsx",
         "test/AtlaskitDummy.ts",

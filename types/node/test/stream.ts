@@ -53,7 +53,8 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
-        }
+        },
+        defaultEncoding: 'utf8',
     });
 
     new Duplex({

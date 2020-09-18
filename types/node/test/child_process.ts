@@ -18,6 +18,13 @@ import { Writable, Readable, Pipe } from 'stream';
     childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
     childProcess.spawnSync("echo test", {input: new Uint8Array([])});
     childProcess.spawnSync("echo test", {input: new DataView(new ArrayBuffer(1))});
+    childProcess.spawnSync("echo test", { encoding: 'utf-8' });
+    childProcess.spawnSync("echo test", { encoding: 'buffer' });
+}
+
+{
+    childProcess.execSync("echo test", { encoding: 'utf-8' });
+    childProcess.execSync("echo test", { encoding: 'buffer' });
 }
 
 {
@@ -50,6 +57,20 @@ import { Writable, Readable, Pipe } from 'stream';
     ipc.close();
     ipc.unref();
     ipc.ref();
+}
+
+{
+    const forked = childProcess.fork('./', {
+        windowsVerbatimArguments: true,
+        silent: false,
+        stdio: ["inherit"],
+        execPath: '',
+        execArgv: ['asda']
+    });
+}
+
+{
+    const forked = childProcess.fork('./');
 }
 
 async function testPromisify() {

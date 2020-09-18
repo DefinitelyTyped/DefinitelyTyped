@@ -14,7 +14,6 @@
         "forceConsistentCasingInFileNames": true,
         "paths": {
             "@wordpress/data": ["wordpress__data"],
-            "@wordpress/element": ["wordpress__element"],
             "@wordpress/components": ["wordpress__components"],
             "@wordpress/notices": ["wordpress__notices"],
             "@wordpress/plugins": ["wordpress__plugins"],

@@ -842,7 +842,7 @@ export interface Response<ResBody = any> extends http.ServerResponse, Express.Re
     render(view: string, options?: object, callback?: (err: Error, html: string) => void): void;
     render(view: string, callback?: (err: Error, html: string) => void): void;
 
-    locals: any;
+    locals: Record<string, any>;
 
     charset: string;
 
@@ -930,7 +930,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      * engines to follow this convention, thus allowing them to
      * work seamlessly within Express.
      */
-    engine(ext: string, fn: (path: string, options: object, callback: (e: any, rendered: string) => void) => void): this;
+    engine(ext: string, fn: (path: string, options: object, callback: (e: any, rendered?: string) => void) => void): this;
 
     /**
      * Assign `setting` to `val`, or return `setting`'s value.
@@ -1044,7 +1044,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
 
     map: any;
 
-    locals: any;
+    locals: Record<string, any>;
 
     /**
      * The app.routes object houses all of the routes defined mapped by the

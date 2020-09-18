@@ -132,7 +132,7 @@ the following request errors:
 * `ALREADY_EXISTS` if an alias was specified in the `id` and
 already exists.
 */
-await gapi.client.courses.create({  });
+await gapi.client.classroom.courses.create({  });
 
 /*
 Deletes a course.
@@ -143,7 +143,7 @@ This method returns the following error codes:
 requested course or for access errors.
 * `NOT_FOUND` if no course exists with the requested ID.
 */
-await gapi.client.courses.delete({ id: "id",  });
+await gapi.client.classroom.courses.delete({ id: "id",  });
 
 /*
 Returns a course.
@@ -154,7 +154,7 @@ This method returns the following error codes:
 requested course or for access errors.
 * `NOT_FOUND` if no course exists with the requested ID.
 */
-await gapi.client.courses.get({ id: "id",  });
+await gapi.client.classroom.courses.get({ id: "id",  });
 
 /*
 Returns a list of courses that the requesting user is permitted to view,
@@ -167,7 +167,7 @@ This method returns the following error codes:
 * `INVALID_ARGUMENT` if the query argument is malformed.
 * `NOT_FOUND` if any users specified in the query arguments do not exist.
 */
-await gapi.client.courses.list({  });
+await gapi.client.classroom.courses.list({  });
 
 /*
 Updates one or more fields in a course.
@@ -182,7 +182,7 @@ if no update mask is supplied.
 * `FAILED_PRECONDITION` for the following request errors:
     * CourseNotModifiable
 */
-await gapi.client.courses.patch({ id: "id",  });
+await gapi.client.classroom.courses.patch({ id: "id",  });
 
 /*
 Updates a course.
@@ -195,7 +195,7 @@ requested course or for access errors.
 * `FAILED_PRECONDITION` for the following request errors:
     * CourseNotModifiable
 */
-await gapi.client.courses.update({ id: "id",  });
+await gapi.client.classroom.courses.update({ id: "id",  });
 
 /*
 Accepts an invitation, removing it and adding the invited user to the
@@ -213,7 +213,7 @@ requested invitation or for access errors.
     * UserGroupsMembershipLimitReached
 * `NOT_FOUND` if no invitation exists with the requested ID.
 */
-await gapi.client.invitations.accept({ id: "id",  });
+await gapi.client.classroom.invitations.accept({ id: "id",  });
 
 /*
 Creates an invitation. Only one invitation for a user and course may exist
@@ -229,7 +229,7 @@ the user already has this role or a role with greater permissions.
 * `ALREADY_EXISTS` if an invitation for the specified user and course
 already exists.
 */
-await gapi.client.invitations.create({  });
+await gapi.client.classroom.invitations.create({  });
 
 /*
 Deletes an invitation.
@@ -240,7 +240,7 @@ This method returns the following error codes:
 requested invitation or for access errors.
 * `NOT_FOUND` if no invitation exists with the requested ID.
 */
-await gapi.client.invitations.delete({ id: "id",  });
+await gapi.client.classroom.invitations.delete({ id: "id",  });
 
 /*
 Returns an invitation.
@@ -251,7 +251,7 @@ This method returns the following error codes:
 requested invitation or for access errors.
 * `NOT_FOUND` if no invitation exists with the requested ID.
 */
-await gapi.client.invitations.get({ id: "id",  });
+await gapi.client.classroom.invitations.get({ id: "id",  });
 
 /*
 Returns a list of invitations that the requesting user is permitted to
@@ -264,7 +264,7 @@ This method returns the following error codes:
 
 * `PERMISSION_DENIED` for access errors.
 */
-await gapi.client.invitations.list({  });
+await gapi.client.classroom.invitations.list({  });
 
 /*
 Creates a `Registration`, causing Classroom to start sending notifications
@@ -299,13 +299,13 @@ This method may return the following error codes:
     * the specified `cloudPubsubTopic` cannot be located, or Classroom has
       not been granted permission to publish to it.
 */
-await gapi.client.registrations.create({  });
+await gapi.client.classroom.registrations.create({  });
 
 /*
 Deletes a `Registration`, causing Classroom to stop sending notifications
 for that `Registration`.
 */
-await gapi.client.registrations.delete({ registrationId: "registrationId",  });
+await gapi.client.classroom.registrations.delete({ registrationId: "registrationId",  });
 
 /*
 Returns a user profile.
@@ -316,5 +316,5 @@ This method returns the following error codes:
 this user profile, if no profile exists with the requested ID, or for
 access errors.
 */
-await gapi.client.userProfiles.get({ userId: "userId",  });
+await gapi.client.classroom.userProfiles.get({ userId: "userId",  });
 ```

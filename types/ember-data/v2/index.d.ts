@@ -4,7 +4,7 @@
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.7
 
 import Ember from 'ember';
 import RSVP from 'rsvp';

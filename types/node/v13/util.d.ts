@@ -123,6 +123,7 @@ declare module "util" {
         function isAnyArrayBuffer(object: any): boolean;
         function isArgumentsObject(object: any): object is IArguments;
         function isArrayBuffer(object: any): object is ArrayBuffer;
+        function isArrayBufferView(object: any): object is ArrayBufferView;
         function isAsyncFunction(object: any): boolean;
         function isBooleanObject(object: any): object is Boolean;
         function isBoxedPrimitive(object: any): object is (Number | Boolean | String | Symbol /* | Object(BigInt) | Object(Symbol) */);

@@ -1,4 +1,4 @@
-// Type definitions for react-native-auth0 2.0
+// Type definitions for react-native-auth0 2.5
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 //                 Mark Nelissen <https://github.com/marknelissen>
@@ -180,12 +180,16 @@ export interface AuthorizeParams {
     prompt?: string;
 }
 
+export interface AuthorizeOptions {
+    ephemeralSession?: boolean;
+}
+
 export interface ClearSessionParams {
     federated: boolean;
 }
 
 export class WebAuth {
-    authorize(parameters: AuthorizeParams): Promise<any>;
+    authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<any>;
     clearSession(parameters?: ClearSessionParams): Promise<any>;
 }
 

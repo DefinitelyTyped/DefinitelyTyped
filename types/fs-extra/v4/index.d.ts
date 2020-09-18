@@ -285,7 +285,7 @@ export interface ReadOptions {
 }
 
 export interface WriteFileOptions {
-    encoding?: BufferEncoding;
+    encoding?: BufferEncoding | null;
     flag?: string;
     mode?: number;
 }

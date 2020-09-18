@@ -1,9 +1,40 @@
 import * as auth0 from 'auth0-js';
 
+auth0.version.raw; // $ExpectType string
+auth0.version; // $ExpectType { raw: string; }
+
 const webAuth = new auth0.WebAuth({
     domain: 'mine.auth0.com',
     clientID: 'dsa7d77dsa7d7',
     maxAge: 40,
+    responseType: "code",
+    responseMode: "mode",
+    redirectUri: "http://example.com/redirect",
+    scope: "openid offline_access",
+    audience: "http://audience.com/aud",
+    leeway: 50,
+    jwksURI: "./well-known/jwks.json",
+    overrides: {
+        __tenant: "tenant",
+        __token_issuer: "mine.auth0.com",
+        __jwks_uri: "/jwks.json"
+    },
+    plugins: {
+        plugins: []
+    },
+    popupOrigin: "http://example.com/popup",
+    protocol: "oauth2",
+    response_type: "code",
+    state: "G96SDdfQW01SmVKcXdlVjRN",
+    tenant: "tenant",
+    universalLoginPage: true,
+    _csrf: "vMSoQzzI",
+    _intstate: "deprecated",
+    _timesToRetryFailedRequests: 1,
+    _disableDeprecationWarnings: false,
+    _sendTelemetry: true,
+    _telemetryInfo: {},
+    __tryLocalStorageFirst: true,
 });
 
 webAuth.authorize({
@@ -205,6 +236,15 @@ webAuth.checkSession({
   usePostMessage: true
   }, (err, authResult) => {
     // Renewed tokens or error
+});
+
+//  use case; get a new token for the API
+webAuth.checkSession({}, (err, authResult: auth0.Auth0Result) => {
+    if (err) {
+        err; // $ExpectType Auth0Error
+    } else {
+        authResult.accessToken; // $ExpectType string
+    }
 });
 
 const authentication = new auth0.Authentication({

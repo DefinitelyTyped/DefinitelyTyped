@@ -48,6 +48,8 @@ sharp('input.jpg')
 
 sharp('input.jpg')
     .resize({width: 300})
+    .blur(false)
+    .blur(true)
     .toFile('output.jpg');
 
 sharp({

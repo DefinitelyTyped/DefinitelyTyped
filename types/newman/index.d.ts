@@ -1,10 +1,11 @@
-// Type definitions for newman 4.5
+// Type definitions for newman 5.1
 // Project: https://github.com/postmanlabs/newman
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 //                 Graham McGregor <https://github.com/Graham42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+import * as http from 'http';
 import { EventEmitter } from "events";
 import {
     Collection,
@@ -130,6 +131,13 @@ export interface NewmanRunOptions {
      * The secret client key passphrase.
      */
     sslClientPassphrase?: string;
+    /**
+     * Custom HTTP(S) agents which will be used for making the requests. This allows for use of various proxies (e.g. socks)
+     */
+    requestAgents?: {
+        http?: http.Agent;
+        https?: http.Agent;
+    };
 }
 
 export interface NewmanRunSummary {

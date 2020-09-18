@@ -10,16 +10,16 @@ export default function elements() {
         fontWeight: 'bold',
         content: {
           number: 'Card number',
-          cvv: 'CVC',
-        },
+          cvv: 'CVC'
+        }
       },
       invalid: {
-        fontColor: 'red',
-      },
-    },
+        fontColor: 'red'
+      }
+    }
   });
 
-  const elementStyle = {
+  const elementOptions = {
     format: true,
     inputType: 'text',
     tabIndex: '1',
@@ -39,10 +39,10 @@ export default function elements() {
   }
 
   [
-    elements.CardNumberElement(elementStyle),
-    elements.CardMonthElement(elementStyle),
-    elements.CardYearElement(elementStyle),
-    elements.CardCvvElement(elementStyle),
+    elements.CardNumberElement(elementOptions),
+    elements.CardMonthElement(elementOptions),
+    elements.CardYearElement(elementOptions),
+    elements.CardCvvElement(elementOptions)
   ].forEach(element => {
     element.attach('#recurly-elements');
     element.on('attach', () => {});

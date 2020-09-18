@@ -1,14 +1,21 @@
 import * as React from 'react';
 import {
     AccordionItem,
+    Button,
+    Column,
     DataTable,
     DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
     DatePickerInput,
     Dropdown,
+    HeaderContainer,
+    HeaderMenu,
+    HeaderMenuItem,
     FileUploader,
     NumberInput,
+    Row,
+    SecondaryButton,
     Slider,
     Tab,
     Table,
@@ -20,11 +27,17 @@ import {
     TooltipDefinition,
     TextArea,
     TextInput,
-    FormItem,
     FileUploaderDropContainer,
     FileUploaderItem,
     MultiSelect,
     Tabs,
+    SideNav,
+    SideNavItem,
+    SideNavItems,
+    ButtonRenderIconRenderProps,
+    Modal,
+    InlineLoading,
+    DataTableSkeleton,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -45,6 +58,88 @@ const accordionItemTwo = (
         Lorem ipsum.
     </AccordionItem>
 );
+
+//
+// Button
+//
+
+const buttonDefaultT1 = (
+    <Button onClick={(event) => event.preventDefault()}>Basic Button</Button>
+);
+
+const buttonRef = React.useRef<HTMLButtonElement>(null);
+const SimpleButtonIcon = () => <div/>;
+const buttonDefaultT2 = (
+    <Button
+        kind="danger"
+        onClick={(event) => {
+            event.preventDefault();
+        }}
+        renderIcon={SimpleButtonIcon}
+        ref={buttonRef}
+        type="reset"
+    >
+        Reset
+    </Button>
+);
+
+const buttonIconT1 = (
+    <Button renderIcon={SimpleButtonIcon}>With Render Icon</Button>
+);
+// TODO: find a way to make this fail because someProp is required by the component but it will never be provided.
+const IconWithProps: React.FC<{ someProp: number, anotherProp?: string }> = () => <div/>;
+const buttonIconT2 = (
+    <Button renderIcon={IconWithProps}>With Render Icon</Button>
+);
+
+const buttonIconT3 = (
+    <Button renderIcon={({ className }: ButtonRenderIconRenderProps) => <div className={className}/>}>Anon Icon Render</Button>
+);
+
+const anchorRef = React.useRef<HTMLAnchorElement>(null);
+const buttonAnchorT1 = (
+    <Button href="https://github.com/DefinitelyTyped/DefinitelyTyped" asdf={"asdf"} target="_blank" ref={anchorRef}>Anchor Link</Button>
+);
+
+const spanRef = React.useRef<HTMLSpanElement>(null);
+const buttonIntrinsicT1 = (
+    <Button
+        as="span"
+        kind="danger"
+        onClick={(event) => {
+            event.preventDefault();
+        }}
+        ref={spanRef}
+    >
+        Reset
+    </Button>
+);
+
+const ButtonCustomRenderComp1: React.FC<{ someProp: number, anotherProp?: string }> = () => <div/>;
+
+const buttonCustomRenderT1 = (
+    <Button
+        as={ButtonCustomRenderComp1}
+        kind="danger"
+        someProp={5}
+        anotherProp="test"
+    >
+        Custom Render
+    </Button>
+);
+
+//
+// SecondaryButton
+//
+const secondaryButtonT1 = (
+    <SecondaryButton onClick={(event) => event.preventDefault()}>Secondary</SecondaryButton>
+);
+const secondaryButtonT2 = (
+    <SecondaryButton as="span" onClick={(event) => event.preventDefault()}>Secondary</SecondaryButton>
+);
+const secondaryButtonT3 = (
+    <SecondaryButton as={ButtonCustomRenderComp1} someProp={6}>Secondary</SecondaryButton>
+)
 
 interface Row1 extends DataTableRow {
     rowProp: string;
@@ -255,6 +350,60 @@ const uisLinkT4 = (
     </Link>
 );
 
+// UI Shell - HeaderContainer
+const uisHeaderContainerAnonRender = (
+    <HeaderContainer
+        render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+            <button disabled={isSideNavExpanded} onClick={onClickSideNavExpand}>
+                Expand
+            </button>
+        )}
+    />
+);
+
+const HeaderCompRender1: React.FC<{ someProp: number }> = () => <div />;
+const HeaderCompRender2: React.FC<{ someProp?: number }> = () => <div />;
+
+/*
+ * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
+ *  will be used.
+ */
+const uisHeaderContainerCompRenderNotMatchingRequiredProps = <HeaderContainer render={HeaderCompRender1} />;
+
+const uisHeaderContainerCompRenderNotMatchingOptionalProps = <HeaderContainer render={HeaderCompRender2} />;
+
+// UI Shell - HeaderMenu
+
+const uisHeaderMenuAnonRender = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />}>
+        <div />
+    </HeaderMenu>
+);
+
+/*
+ * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
+ *  will be used.
+ */
+const uisHeaderMenuCompRenderNotMatchingRequiredProps = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={HeaderCompRender1} />
+);
+
+const uisHeaderMenuCompRenderNotMatchingOptionalProps = (
+    <HeaderMenu menuLinkName="test" renderMenuContent={HeaderCompRender2} />
+);
+
+//
+// HeaderMenuItem
+//
+
+const uisHeaderMenuItemRequiredChild = (
+    <HeaderMenuItem>Required Child</HeaderMenuItem>
+);
+
+//
+// UIShell Link
+//
+
 interface TestCompPropsOverwrite {
     element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
     someProp: string;
@@ -418,4 +567,76 @@ const multiSelectFilterable = (
         itemToString={item => item}
         onChange={({ selectedItems }) => {}}
     />
+);
+
+// Grid
+
+const GridCustomRenderComp1: React.FC<{ someProp: number }> = () => <div />;
+
+// Grid: Row
+const rowDefaultT1 = <Row onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>Contents</Row>;
+
+const rowDefaultT2 = (
+    <Row as={undefined} onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+        Contents
+    </Row>
+);
+
+const rowCustomIntrinsic = (
+    <Row as="li" onClick={(event: React.MouseEvent<HTMLLIElement>) => {}}>
+        Contents
+    </Row>
+);
+
+const rowCustomComp1 = (
+    <Row as={GridCustomRenderComp1} someProp={5} condensed>
+        Content
+    </Row>
+);
+
+// Grid: Column
+const columnDefaultT1 = (
+    <Column onClick={(event: React.MouseEvent<HTMLDivElement>) => {}} lg={{ offset: 4 }}>
+        Contents
+    </Column>
+);
+
+const columnDefaultT2 = (
+    <Column as={undefined} onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+        Contents
+    </Column>
+);
+
+const columnCustomIntrinsic = (
+    <Column as="li" onClick={(event: React.MouseEvent<HTMLLIElement>) => {}}>
+        Contents
+    </Column>
+);
+
+const columnCustomComp1 = (
+    <Column as={GridCustomRenderComp1} someProp={5} xlg={5} sm={2}>
+        Content
+    </Column>
+);
+
+// SideNav
+const sideNavChildren = (
+    <SideNav>
+        <SideNavItems>
+            <SideNavItem>Test</SideNavItem>
+        </SideNavItems>
+    </SideNav>
+)
+
+const modal = (
+    <Modal primaryButtonText={<InlineLoading />} secondaryButtonText={<InlineLoading />} />
+)
+
+// DataTableSkeleton
+const dataTableSkeleton = (
+    <DataTableSkeleton showHeader={true} showToolbar={true} columnCount={5} rowCount={6} compact={false} zebra={false} />
+);
+
+const dataTableSkeletonBasic = (
+    <DataTableSkeleton />
 );

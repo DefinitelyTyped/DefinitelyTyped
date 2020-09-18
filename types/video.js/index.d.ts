@@ -3093,7 +3093,7 @@ declare namespace videojs {
          *
          * @return The current logging level.
          */
-        level(lvl: string): string;
+        level(lvl?: string): string;
 
         /**
          * Enumeration of available logging levels, where the keys are the level names

@@ -1,10 +1,9 @@
-// Type definitions for ioredis 4.16
+// Type definitions for ioredis 4.17
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
-//                 Shahar Mor <https://github.com/shaharmor>
 //                 Whemoon Jang <https://github.com/palindrom615>
 //                 Francis Gulotta <https://github.com/reconbot>
 //                 Dmitry Motovilov <https://github.com/funthing>
@@ -16,6 +15,7 @@
 //                 Demian Rodriguez <https://github.com/demian85>
 //                 Andrew Lavers <https://github.com/alavers>
 //                 Claudiu Ceia <https://github.com/ClaudiuCeia>
+//                 Asyrique <https://github.com/asyrique>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -147,8 +147,8 @@ declare namespace IORedis {
         (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, cb: Callback<U>): void;
-        (data: T[] | { [key: string]: T }, cb: Callback<U>): void;
-        (data: T[] | { [key: string]: T }): Promise<U>;
+        (data: T[] | { [key: string]: T } | Map<string, T>, cb: Callback<U>): void;
+        (data: T[] | { [key: string]: T } | Map<string, T>): Promise<U>;
         (...args: T[]): Promise<U>;
     }
 
@@ -156,8 +156,8 @@ declare namespace IORedis {
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, cb: Callback<U>): void;
-        (key: KeyType, data: T[] | { [key: string]: T }, cb: Callback<U>): void;
-        (key: KeyType, data: T[] | { [key: string]: T }): Promise<U>;
+        (key: KeyType, data: T[] | { [key: string]: T } | Map<string, ValueType>, cb: Callback<U>): void;
+        (key: KeyType, data: T[] | { [key: string]: T } | Map<string, ValueType>): Promise<U>;
         (key: KeyType, ...args: T[]): Promise<U>;
     }
 
@@ -208,10 +208,10 @@ declare namespace IORedis {
             expiryMode?: string | any[],
             time?: number | string,
             setMode?: number | string,
-        ): Promise<Ok>;
+        ): Promise<Ok | null>;
 
         set(key: KeyType, value: ValueType, callback: Callback<Ok>): void;
-        set(key: KeyType, value: ValueType, setMode: string | any[], callback: Callback<Ok>): void;
+        set(key: KeyType, value: ValueType, setMode: string | any[], callback: Callback<Ok | null>): void;
         set(key: KeyType, value: ValueType, expiryMode: string, time: number | string, callback: Callback<Ok>): void;
         set(
             key: KeyType,
@@ -219,7 +219,7 @@ declare namespace IORedis {
             expiryMode: string,
             time: number | string,
             setMode: number | string,
-            callback: Callback<Ok>,
+            callback: Callback<Ok | null>,
         ): void;
 
         setBuffer(
@@ -704,7 +704,10 @@ declare namespace IORedis {
         dbsize(callback: Callback<number>): void;
         dbsize(): Promise<number>;
 
+        auth(username: string, password: string, callback: Callback<string>): void;
         auth(password: string, callback: Callback<string>): void;
+        // tslint:disable-next-line unified-signatures
+        auth(username: string, password: string): Promise<string>;
         auth(password: string): Promise<string>;
 
         ping(callback: Callback<string>): void;
@@ -918,7 +921,8 @@ declare namespace IORedis {
 
     interface Redis extends EventEmitter, Commander, Commands {
         Promise: typeof Promise;
-        status: string;
+        readonly options: RedisOptions;
+        readonly status: string;
         connect(callback?: () => void): Promise<void>;
         disconnect(): void;
         duplicate(): Redis;
@@ -927,9 +931,9 @@ declare namespace IORedis {
     }
 
     interface Pipeline {
-        readonly redis: Redis;
+        readonly redis: Redis | Cluster;
         readonly isCluster: boolean;
-        readonly options: RedisOptions;
+        readonly options: RedisOptions | ClusterOptions;
         readonly length: number;
 
         bitcount(key: KeyType, callback?: Callback<number>): Pipeline;
@@ -1231,6 +1235,7 @@ declare namespace IORedis {
         dbsize(callback?: Callback<number>): Pipeline;
 
         auth(password: string, callback?: Callback<string>): Pipeline;
+        auth(username: string, password: string, callback?: Callback<string>): Pipeline;
 
         ping(callback?: Callback<string>): Pipeline;
         ping(message: string, callback?: Callback<string>): Pipeline;
@@ -1335,11 +1340,11 @@ declare namespace IORedis {
             matchOption: 'match' | 'MATCH',
             pattern: string,
         ): Pipeline;
-        sscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        sscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
-        hscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        hscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
-        zscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
+        zscan(key: KeyType, cursor: number | string, ...args: ValueType[]): Pipeline;
 
         pfmerge(destkey: KeyType, ...sourcekeys: KeyType[]): Pipeline;
 
@@ -1395,7 +1400,9 @@ declare namespace IORedis {
     type Ok = 'OK';
 
     interface Cluster extends EventEmitter, Commander, Commands {
-        connect(callback: () => void): Promise<void>;
+        readonly options: ClusterOptions;
+        readonly status: string;
+        connect(): Promise<void>;
         disconnect(): void;
         nodes(role?: NodeRole): Redis[];
     }
@@ -1420,6 +1427,10 @@ declare namespace IORedis {
          */
         keepAlive?: number;
         connectionName?: string;
+        /**
+         * If set, client will send AUTH command with the value of this option as the first argument when connected. The `password` option must be set too. Username should only be set for Redis >=6.
+         */
+        username?: string;
         /**
          * If set, client will send AUTH command with the value of this option when connected.
          */
@@ -1490,6 +1501,7 @@ declare namespace IORedis {
          * default: null.
          */
         name?: string;
+        sentinelUsername?: string;
         sentinelPassword?: string;
         sentinels?: Array<{ host: string; port: number }>;
         /**
@@ -1590,7 +1602,7 @@ declare namespace IORedis {
 
     type DNSLookupFunction = (
         hostname: string,
-        callback: (err: NodeJS.ErrnoException, address: string, family: number) => void,
+        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
     ) => void;
     interface NatMap {
         [key: string]: { host: string; port: number };

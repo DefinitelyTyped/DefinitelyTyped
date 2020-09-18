@@ -1,4 +1,4 @@
-import asyncRedis =  require("async-redis");
+import asyncRedis = require("async-redis");
 
 // $ExpectType Promisified<RedisClient>
 const client = asyncRedis.createClient();
@@ -54,3 +54,41 @@ client.discard((err, data) => data);
 
 // $ExpectType Promise<boolean>
 client.brpoplpush("some", "value", 1000, (err, data) => data);
+
+// overloaded method
+
+// $ExpectError
+client.set();
+
+// $ExpectError
+client.set("arg1");
+
+// $ExpectError
+client.set("arg1", false);
+
+// $ExpectType Promise<boolean>
+client.set("arg1", "arg2");
+
+// $ExpectType Promise<boolean>
+client.set("key", "value", "flag");
+
+// $ExpectType Promise<boolean>
+client.set("key", "value", "flag", (err, reply) => {});
+
+// $ExpectType Promise<boolean>
+client.set("key", "value", "arg3", (err, reply) => {});
+
+// $ExpectType Promise<boolean>
+client.set("key", "value", "mode", 1000, (err, reply) => {});
+
+// $ExpectType Promise<boolean>
+client.set("key", "value", "mode", 1000, "flag");
+
+// $ExpectType Promise<boolean>
+client.set("key", "value", "mode", 1000, "flag", (err, reply) => {});
+
+// $ExpectError
+client.set("key", "value", "mode", 1000, "flag", 100);
+
+// $ExpectError
+client.set("key", "value", "mode", 1000, (err, reply) => {}, "flag");

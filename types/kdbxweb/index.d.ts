@@ -36,8 +36,8 @@ export interface editingStateDict {
 
 export class Credentials {
     constructor(
-        password: ProtectedValue,
-        keyFile: string | ArrayBuffer | Uint8Array
+        password: ProtectedValue | null,
+        keyFile: string | ArrayBuffer | Uint8Array | null
     );
 
     getHash(): Promise<ArrayBuffer>;

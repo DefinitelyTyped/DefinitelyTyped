@@ -27,10 +27,8 @@ libxslt.parseFile('/path/to/file', (err, result) => {
     }
 });
 
-let applyOptions: libxslt.ApplyOptions = {};
-
-applyOptions = {
-    outputFormat: 'string',
+const applyOptions: libxslt.ApplyOptions = {
+    outputFormat: 'document',
     noWrapParams: true
 };
 

@@ -1,10 +1,10 @@
-import assertRecord = require("es-abstract/helpers/assertRecord");
-import ESAbstract = require("es-abstract");
+import assertRecord = require('es-abstract/helpers/assertRecord');
+import ES5 = require('es-abstract/es5');
 
-declare const desc: ESAbstract.PropertyDescriptor;
+declare const desc: ES5.PropertyDescriptor;
 
 // $ExpectType void
-assertRecord(ESAbstract, "Property Descriptor", "desc", desc);
+assertRecord(ES5, 'Property Descriptor', 'desc', desc);
 
 // $ExpectError
-assertRecord(ESAbstract, "Property Descriptor", "desc", null);
+assertRecord(ES5, 'Property Descriptor', 'desc', null);

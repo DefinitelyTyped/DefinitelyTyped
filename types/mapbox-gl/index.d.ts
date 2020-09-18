@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.10
+// Type definitions for Mapbox GL JS 1.11
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -197,13 +197,21 @@ declare namespace mapboxgl {
 
         setMaxBounds(lnglatbounds?: LngLatBoundsLike): this;
 
-        setMinZoom(minZoom?: number): this;
+        setMinZoom(minZoom?: number | null): this;
 
         getMinZoom(): number;
 
-        setMaxZoom(maxZoom?: number): this;
+        setMaxZoom(maxZoom?: number | null): this;
 
         getMaxZoom(): number;
+
+        setMinPitch(minPitch?: number | null): this;
+
+        getMinPitch(): number;
+
+        setMaxPitch(maxPitch?: number | null): this;
+
+        getMaxPitch(): number;
 
         getRenderWorldCopies(): boolean;
 
@@ -606,16 +614,16 @@ declare namespace mapboxgl {
         /** If set, the map is constrained to the given bounds. */
         maxBounds?: LngLatBoundsLike;
 
-        /** Maximum pitch of the map */
+        /** Maximum pitch of the map. */
         maxPitch?: number;
 
-        /** Maximum zoom of the map */
+        /** Maximum zoom of the map. */
         maxZoom?: number;
 
-        /** Minimum pitch of the map */
+        /** Minimum pitch of the map. */
         minPitch?: number;
 
-        /** Minimum zoom of the map */
+        /** Minimum zoom of the map. */
         minZoom?: number;
 
         /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
@@ -844,17 +852,17 @@ declare namespace mapboxgl {
         enableRotation(): void;
     }
 
-     export class TouchPitchHandler {
-         constructor(map: mapboxgl.Map);
+    export class TouchPitchHandler {
+        constructor(map: mapboxgl.Map);
 
-         enable(): void;
+        enable(): void;
 
-         isActive(): boolean;
+        isActive(): boolean;
 
-         isEnabled(): boolean;
+        isEnabled(): boolean;
 
-         disable(): void;
-     }
+        disable(): void;
+    }
 
     export interface IControl {
         onAdd(map: Map): HTMLElement;
@@ -1127,6 +1135,13 @@ declare namespace mapboxgl {
         clusterRadius?: number;
 
         clusterMaxZoom?: number;
+
+        /**
+         * Minimum number of points necessary to form a cluster if clustering is enabled. Defaults to `2`.
+         */
+        clusterMinPoints?: number;
+
+        clusterProperties?: object;
 
         lineMetrics?: boolean;
 
@@ -1452,6 +1467,14 @@ declare namespace mapboxgl {
         setDraggable(shouldBeDraggable: boolean): this;
 
         isDraggable(): boolean;
+
+        getRotationAlignment(): Alignment;
+
+        setRotationAlignment(alignment: Alignment): this;
+
+        getPitchAlignment(): Alignment;
+
+        setPitchAlignment(alignment: Alignment): this;
     }
 
     type Alignment = 'map' | 'viewport' | 'auto';
@@ -1493,6 +1516,11 @@ declare namespace mapboxgl {
          * The default value is `auto`.
          */
         pitchAlignment?: Alignment;
+
+        /** The scale to use for the default marker if options.element is not provided.
+         * The default scale (1) corresponds to a height of `41px` and a width of `27px`.
+         */
+        scale?: number;
     }
 
     /**
@@ -2018,7 +2046,7 @@ declare namespace mapboxgl {
         'text-field'?: string | StyleFunction | Expression;
         'text-font'?: string | string[] | Expression;
         'text-size'?: number | StyleFunction | Expression;
-        'text-max-width'?: number | Expression;
+        'text-max-width'?: number | StyleFunction | Expression;
         'text-line-height'?: number | Expression;
         'text-letter-spacing'?: number | Expression;
         'text-justify'?: 'left' | 'center' | 'right' | Expression;

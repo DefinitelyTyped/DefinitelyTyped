@@ -31,6 +31,11 @@ export enum ContentProtection {
 }
 
 /**
+ * Version of CAF receiver SDK.
+ */
+export const VERSION: string;
+
+/**
  * Manages text tracks.
  */
 export class TextTracksManager {
@@ -923,6 +928,19 @@ export class PlayerManager {
      * by a load request or explicit change to text tracks. (Should be called only in idle state; and Will only apply to next loaded media).
      */
     setPreferredTextLanguage(preferredTextLanguage: string): void;
+
+    /**
+     * Set receiver supported media commands.
+     * Flags describing which media commands the media player supports:
+     * 1  Pause
+     * 2  Seek
+     * 4  Stream volume
+     * 8  Stream mute
+     * 16  Skip forward
+     * 32  Skip backward
+     * Combinations are described as summations; for example, Pause+Seek+StreamVolume+Mute == 15.
+     */
+    setSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
 
     /**
      * Stops currently playing media.

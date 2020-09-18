@@ -22,6 +22,7 @@ interface HCaptchaProps {
     size?: 'normal' | 'compact' | 'invisible';
     theme?: 'light' | 'dark';
     tabIndex?: number;
+    id?: string;
 }
 
 declare class HCaptcha extends React.Component<HCaptchaProps, HCaptchaState> {

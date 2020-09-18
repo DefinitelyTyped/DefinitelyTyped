@@ -157,6 +157,7 @@ interface Enumerable<T> {
      * The default implementation returns an array regardless of the receiver type.
      */
     uniqBy(property: string): NativeArray<T>;
+    uniqBy(callback: (value: T) => unknown): NativeArray<T>;
     /**
      * Returns `true` if the passed object can be found in the enumerable.
      */

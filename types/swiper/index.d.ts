@@ -1,4 +1,4 @@
-// Type definitions for Swiper 5.3
+// Type definitions for Swiper 5.4
 // Project: https://github.com/nolimits4web/Swiper, http://www.idangero.us/swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>
 //                 Luca Trazzi <https://github.com/lucax88x>
@@ -62,9 +62,14 @@ export type AutoplayEvent = 'autoplayStart' | 'autoplayStop' | 'autoplay';
 export type LazyLoadingEvent = 'lazyImageLoad' | 'lazyImageReady';
 
 /**
+ * Swiper hash-navigation event names.
+ */
+export type HashNavigationEvent = 'hashChange' | 'hashSet';
+
+/**
  * Swiper event names.
  */
-export type SwiperEvent = CommonEvent | PaginationEvent | AutoplayEvent | LazyLoadingEvent;
+export type SwiperEvent = CommonEvent | PaginationEvent | AutoplayEvent | LazyLoadingEvent | HashNavigationEvent;
 
 /**
  * Swiper module types.
@@ -1014,6 +1019,8 @@ export interface ThumbsOptions {
     swiper?: Swiper;
     slideThumbActiveClass?: string;
     thumbsContainerClass?: string;
+    multipleActiveThumbs?: boolean;
+    autoScrollOffset?: number;
 }
 
 export interface ZoomOptions {

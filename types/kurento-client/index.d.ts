@@ -1,12 +1,13 @@
 // Type definitions for kurento-client 6.12
 // Project: https://github.com/Kurento/kurento-client-js, https://www.kurento.org
-// Definitions by: James Hill <https://github.com/jhdevuk>, Michel Albers <https://github.com/michelalbers>
+// Definitions by: James Hill <https://github.com/jhukdev>, Michel Albers <https://github.com/michelalbers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 declare namespace kurento {
     interface Constructor {
         (ws_uri: string, options?: Options): Promise<ClientInstance>;
         getComplexType: (complex: 'IceCandidate') => (value: any) => any;
+        getSingleton(ws_uri: string, options?: Options): Promise<ClientInstance>;
     }
 
     interface RecorderEndpointOptions {
@@ -34,7 +35,17 @@ declare namespace kurento {
         on(event: 'Error', callback: (error: Error) => void): void;
         on(event: 'Recording' | 'Paused' | 'Stopped', callback: () => void): void;
         getMediaobjectById(objectId: string): Promise<MediaPipeline | WebRtcEndpoint | RecorderEndpoint>;
+        getServerManager: (callback?: Callback<MediaServer>) => Promise<MediaServer>;
         close(): void;
+    }
+
+    interface MediaServer {
+        getCpuCount: (callback?: Callback<number[]>) => Promise<number[]>;
+        getKmd: (moduleName: string, callback?: Callback<string>) => Promise<string>;
+        getUsedCpu: (interval: number, callback?: Callback<number>) => Promise<number>;
+        getUsedMemory: (callback?: Callback<number>) => Promise<number>;
+        getChildren: (callback?: Callback<MediaObject>) => Promise<MediaObject>;
+        getName: (callback?: Callback<string>) => Promise<string>;
     }
 
     interface MediaObject {
@@ -52,6 +63,7 @@ declare namespace kurento {
         getParent: (callback?: Callback<MediaObject>) => Promise<MediaObject>;
         getName: (callback?: Callback<string>) => Promise<string>;
         setName: (name: string, callback?: Callback<void>) => Promise<void>;
+        release: (callback?: Callback<void>) => Promise<void>;
     }
 
     interface MediaElement {

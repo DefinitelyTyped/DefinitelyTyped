@@ -163,6 +163,11 @@ import { Observable, Pool, Stream, Property, Event, Emitter } from 'kefir';
         let observable02: Observable<number, void> = Kefir.combine<number, void, number>([a, b], [c], (a, b, c) => a + b + c);
     }
     {
+        let a: Stream<number, void> = Kefir.sequentially(100, [1, 3]);
+        let b: Stream<number, void> = Kefir.sequentially(60, [5, 6, 7]);
+        let ab: Observable<{ first: number, second: number }, void> = Kefir.combine({ first: a }, { second: b });
+    }
+    {
         let a: Stream<number, void> = Kefir.sequentially(100, [0, 1, 2, 3]);
         let b: Stream<number, void> = Kefir.sequentially(160, [4, 5, 6]);
         let c: Property<number, void> = Kefir.sequentially(100, [8, 9]).delay(260).toProperty(() => 7);

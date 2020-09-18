@@ -543,6 +543,9 @@ stripe.customers
         customer.subscriptions
             .create({ items: [{ plan: 'gold' }], billing: 'charge_automatically' })
             .then(subscription => {});
+        customer.subscriptions
+            .create({ items: [{ plan: 'gold' }], transfer_data: { destination: 'acct_17wV8KBoqMA9o2xk' }})
+            .then(subscription => {});
         customer.subscriptions.retrieve('sub_8Eluur5KoIKxuy').then(subscription => {
             customer.subscriptions
                 .update('sub_8Eluur5KoIKxuy', { items: [{ id: subscription.items.data[0].id, plan: 'silver' }] })

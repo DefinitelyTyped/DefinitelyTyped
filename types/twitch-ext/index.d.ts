@@ -1,4 +1,4 @@
-// Type definitions for non-npm package twitch-ext 1.20
+// Type definitions for non-npm package twitch-ext 1.24
 // Project: https://dev.twitch.tv/docs/extensions/reference/#javascript-helper
 // Definitions by: Benedict Etzel <https://github.com/beheh>
 //                 Federico Della Rovere <https://github.com/FedeDR>
@@ -23,7 +23,7 @@ interface TwitchExt {
     /**
      * This encodes the environment. For external users, this is always production.
      */
-    environment: "production";
+    environment: 'production';
 
     /**
      * @see https://dev.twitch.tv/docs/extensions/reference/#twitch-extension-actions
@@ -41,9 +41,14 @@ interface TwitchExt {
     features: TwitchExtFeatures;
 
     /**
-     * @see https://dev.twitch.tv/docs/extensions/bits/#javascript-helper
+     * @see https://dev.twitch.tv/docs/extensions/reference#helper-bits
      */
     bits: TwitchExtBits;
+
+    /**
+     * @see https://dev.twitch.tv/docs/extensions/reference#helper-viewer
+     */
+    viewer: TwitchExtViewer;
 
     /**
      * Helper methods for the Twitch Extension rig.
@@ -66,10 +71,7 @@ interface TwitchExt {
      * @see https://dev.twitch.tv/docs/extensions/reference/#oncontext
      */
     onContext(
-        contextCallback: <T extends Partial<TwitchExtContext>>(
-            context: T,
-            changed: ReadonlyArray<keyof T>
-        ) => void
+        contextCallback: <T extends Partial<TwitchExtContext>>(context: T, changed: ReadonlyArray<keyof T>) => void,
     ): void;
 
     /**
@@ -81,15 +83,23 @@ interface TwitchExt {
     onError(errorCallback: (errorValue: any) => void): void;
 
     /**
+     * This function allows an extension to adjust its visibility when the viewer highlights the extension by hovering
+     * over the extension’s menu icon or open menu, in the video player. The function applies only to video-overlay and
+     * component Extensions.
+     *
+     * @param callback This callback is called whenever the extension is or is no longer highlighted by the user.
+     * @see https://dev.twitch.tv/docs/extensions/reference/#onhighlightchanged
+     */
+    onHighlightChanged(callback: (isHighlighted: boolean) => void): void;
+
+    /**
      * This function registers a callback that gets called whenever an extension changes position in the player. This
      * occurs only for video-component extensions. This also is triggered as the extension loads.
      *
      * @param callback This callback is called whenever an extension changes position in the player.
      * @see https://dev.twitch.tv/docs/extensions/reference/#onpositionchanged
      */
-    onPositionChanged(
-        callback: (position: { x: number; y: number }) => void
-    ): void;
+    onPositionChanged(callback: (position: { x: number; y: number }) => void): void;
 
     /**
      * This function registers a callback that gets called whenever an extension is hidden/re-shown. (This occurs only
@@ -100,9 +110,7 @@ interface TwitchExt {
      * @see https://dev.twitch.tv/docs/extensions/reference/#onvisibilitychanged
      */
     onVisibilityChanged(
-        callback:
-            | ((isVisible: false) => void)
-            | ((isVisible: true, context: Partial<TwitchExtContext>) => void)
+        callback: ((isVisible: false) => void) | ((isVisible: true, context: Partial<TwitchExtContext>) => void),
     ): void;
 
     /**
@@ -122,10 +130,7 @@ interface TwitchExt {
      * @param callback These fields correspond to the values in the send() message, except the message is always a string.
      * @see https://dev.twitch.tv/docs/extensions/reference/#listen
      */
-    listen(
-        target: string,
-        callback: (target: string, contentType: string, message: string) => void
-    ): void;
+    listen(target: string, callback: (target: string, contentType: string, message: string) => void): void;
 
     /**
      * This function unbinds the listen callback from the target.
@@ -134,10 +139,7 @@ interface TwitchExt {
      * @param callback These fields correspond to the values in the send() message, except the message is always a string.
      * @see https://dev.twitch.tv/docs/extensions/reference/#unlisten
      */
-    unlisten(
-        target: string,
-        callback: (target: string, contentType: string, message: string) => void
-    ): void;
+    unlisten(target: string, callback: (target: string, contentType: string, message: string) => void): void;
 }
 
 /**
@@ -201,9 +203,7 @@ interface TwitchExtConfiguration {
      * the records for the global, developer and broadcaster segments will be set if the data is available.
      * @param callback The callback that is fired.
      */
-    onChanged(
-        callback: () => void
-    ): void;
+    onChanged(callback: () => void): void;
 
     /**
      * This function can be called by the front end to set an extension configuration.
@@ -211,15 +211,27 @@ interface TwitchExtConfiguration {
      * @param version The version of configuration with which the segment is stored.
      * @param content The string-encoded configuration.
      */
-    set(segment: "broadcaster", version: string, content: string): void;
+    set(segment: 'broadcaster', version: string, content: string): void;
 }
 
 interface TwitchExtFeatureFlags {
+    /**
+     * If this flag is true, Bits in Extensions features will work in your extension on the current channel.
+     * If this flag is false, disable or hide the Bits in Extensions features in your extension.
+     */
+    isBitsEnabled: boolean;
+
     /**
      * If this flag is true, you can send a chat message to the current channel using Send Extension Chat Message
      * (subject to the authentication requirements documented for that endpoint).
      */
     isChatEnabled: boolean;
+
+    /**
+     * If this flag is true, your extension has the ability to get the subscription status of identity-linked viewers
+     * from both the helper in the twitch.ext.viewer.subscriptionStatus object and via the Twitch API.
+     */
+    isSubscriptionStatusAvailable: boolean;
 }
 
 /**
@@ -233,9 +245,7 @@ interface TwitchExtFeatures extends TwitchExtFeatureFlags {
      *
      * @param callback The callback is called with an array of feature flags which were updated.
      */
-    onChanged(
-        callback: (changed: ReadonlyArray<keyof TwitchExtFeatureFlags>) => void
-    ): void;
+    onChanged(callback: (changed: ReadonlyArray<keyof TwitchExtFeatureFlags>) => void): void;
 }
 
 interface TwitchExtBitsProductCost {
@@ -247,7 +257,7 @@ interface TwitchExtBitsProductCost {
     /**
      * Always the string "bits". Reserved for future use.
      */
-    type: "bits";
+    type: 'bits';
 }
 
 interface TwitchExtBitsProduct {
@@ -278,12 +288,17 @@ interface TwitchExtBitsTransaction {
      */
     displayName: string;
 
-    initiator: "CURRENT_USER" | "OTHER";
+    initiator: 'CURRENT_USER' | 'OTHER';
 
     /**
      * Full product object from getProducts call
      */
     product: TwitchExtBitsProduct;
+
+    /**
+     * Will be "twitch.ext" + your extension ID.
+     */
+    domainID: string;
 
     /**
      * ID of the transaction.
@@ -332,9 +347,7 @@ interface TwitchExtBits {
      *
      * @see https://dev.twitch.tv/docs/extensions/bits/#ontransactioncompletecallbacktransactionobject
      */
-    onTransactionComplete(
-        callback: (transaction: TwitchExtBitsTransaction) => void
-    ): void;
+    onTransactionComplete(callback: (transaction: TwitchExtBitsTransaction) => void): void;
 
     /**
      * This function sets the state of the extension helper, so it does not call live services for
@@ -370,6 +383,59 @@ interface TwitchExtBits {
      * @see https://dev.twitch.tv/docs/extensions/bits/#exchanging-bits-for-a-product
      */
     useBits(sku: string): void;
+}
+
+interface TwitchExtViewerSubscriptionStatus {
+    /**
+     * This tier of the subscription.
+     * Possible values are 1000, 200 and 300 for tier one, two and three subscriptions respectively.
+     */
+    tier: string;
+}
+
+/**
+ * @see TwitchExt.viewer
+ */
+interface TwitchExtViewer {
+    /**
+     * The opaque id of the viewer.
+     */
+    opaqueId: string;
+
+    /**
+     * The Twitch ID of a linked viewer. null if the viewer has not opted to share their identity with the extension.
+     */
+    id: string | null;
+
+    /**
+     * The role of the user. See the JWT schema for possible values.
+     */
+    role: string;
+
+    /**
+     * Provided as a convenience to check whether or not a user has shared their identity with their extension
+     */
+    isLinked: boolean;
+
+    /**
+     * The encoded JWT. This is the same as the token property of the authData parameter that currently gets passed to
+     * the onAuthorized callback.
+     */
+    sessionToken: string;
+
+    /**
+     * An object containing information about the viewer’s subscription. The value of subscriptionStatus will be null if
+     * the user is either not a subscriber, or opting not to share their identity. The value will also be null if the
+     * extension otherwise doesn't have subscription capabilities.
+     */
+    subscriptionStatus: TwitchExtViewerSubscriptionStatus | null;
+
+    /**
+     * This function binds a callback will be invoked when the viewer’s status changes (e.g. if a viewer subscribes and
+     * changes their subscription status).
+     * @param callback The callback that is called whenever the viewer's status changes
+     */
+    onChanged(callback: () => void): void;
 }
 
 /**
@@ -452,6 +518,21 @@ interface TwitchExtContext {
     hlsLatencyBroadcaster: number;
 
     /**
+     * Information about the current channel’s hosting status, or undefined if the channel is not currently hosting.
+     */
+    hostingInfo?: {
+        /**
+         * Numeric ID of the channel being hosted by the currently visible channel
+         */
+        hostedChannelId: string;
+
+        /**
+         * Numeric ID of the host channel
+         */
+        hostingChannelId: string;
+    };
+
+    /**
      * If true, the viewer is watching in fullscreen mode.
      * Do not use this for mobile extensions; it is not sent for mobile.
      */
@@ -481,17 +562,17 @@ interface TwitchExtContext {
     /**
      * The mode the extension is currently run in.
      */
-    mode: "viewer" | "dashboard" | "config";
+    mode: 'viewer' | 'dashboard' | 'config';
 
     /**
      * Indicates how the stream is being played.
      */
-    playbackMode: "video" | "audio" | "remote" | "chat-only";
+    playbackMode: 'video' | 'audio' | 'remote' | 'chat-only';
 
     /**
      * The user’s theme setting on the Twitch website.
      */
-    theme: "light" | "dark";
+    theme: 'light' | 'dark';
 
     /**
      * Resolution of the broadcast.
@@ -507,7 +588,8 @@ interface TwitchExtContext {
 /**
  * The extension window receives the following query parameters, which indicate
  * information about the extension environment that isn’t subject to change over
- * the frame’s life cycle.
+ * the frame’s life cycle. Note that all parameters are encoded as strings here,
+ * because they are always part of the URL.
  *
  * @see https://dev.twitch.tv/docs/extensions/reference/#client-query-parameters
  */
@@ -515,40 +597,47 @@ interface TwitchExtClientQueryParams {
     /**
      * The type of the anchor in which the extension is activated.
      */
-    anchor: "component" | "panel" | "video_overlay";
+    anchor: 'component' | 'panel' | 'video_overlay';
 
     /**
      * The user’s language setting.
      *
-     * @example en
+     * @example "en"
      */
     language: string;
 
     /**
+     * The user’s language locale.
+     *
+     * @example "en-US"
+     */
+    locale: string;
+
+    /**
      * The extension’s mode.
      */
-    mode: "config" | "dashboard" | "viewer";
+    mode: 'config' | 'dashboard' | 'viewer';
 
     /**
      * The platform on which the Twitch client is running.
      */
-    platform: "mobile" | "web";
+    platform: 'mobile' | 'web';
 
     /**
      * Indicates whether the extension is popped out.
      */
-    popout: "true" | "false";
+    popout: 'true' | 'false';
 
     /**
      * The release state of the extension.
      */
     state:
-        | "testing"
-        | "hosted_test"
-        | "approved"
-        | "released"
-        | "ready_for_review"
-        | "in_review"
-        | "pending_action"
-        | "uploading";
+        | 'testing'
+        | 'hosted_test'
+        | 'approved'
+        | 'released'
+        | 'ready_for_review'
+        | 'in_review'
+        | 'pending_action'
+        | 'uploading';
 }

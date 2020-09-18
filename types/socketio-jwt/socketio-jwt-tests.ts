@@ -21,13 +21,12 @@ const io = SocketIo(app);
 // This example test code is using the Node Http Server
 
 io.on('connection', authorize({
-    secret: 'Your Secret Here',
-    decodedPropertyName: 'anyNameYouWant'
+    secret: 'Your Secret Here'
 }));
 
 io.on('authenticated', (socket: SocketIo.Socket) => {
-    console.log('authenticated!!');
-    console.log(JSON.stringify((socket as any).anyNameYouWant));
+    console.log('Authenticated!');
+    console.log(JSON.stringify((socket as any).decoded_token));
 });
 
 const secrets: any = {
@@ -42,6 +41,5 @@ function secretFunc(request: any, payload: any, callback: JwtSecretFuncCallback)
 
 // This example test code provides a callback function to get the secret
 io.on('connection', authorize({
-    secret: secretFunc,
-    decodedPropertyName: 'anyNameYouWant'
+    secret: secretFunc
 }));
