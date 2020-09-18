@@ -26,8 +26,8 @@ qs.parse('a=b&c=d', { delimiter: '&' });
             }
         },
     });
-    obj; // $ExpectType { [key: string]: UnknownFacade; }
-    obj.a; // $ExpectType UnknownFacade
+    obj; // $ExpectType { [key: string]: unknown; }
+    obj.a; // $ExpectType unknown
 }
 
 {
@@ -40,8 +40,8 @@ qs.parse('a=b&c=d', { delimiter: '&' });
         },
     };
     let obj = qs.parse('a=c', options);
-    obj; // $ExpectType { [key: string]: UnknownFacade; }
-    obj.a; // $ExpectType UnknownFacade
+    obj; // $ExpectType { [key: string]: unknown; }
+    obj.a; // $ExpectType unknown
 }
 
 () => {

@@ -603,6 +603,10 @@ import { promisify } from 'util';
 }
 
 {
+    const fips: 0 | 1 = crypto.getFips();
+}
+
+{
     crypto.createPrivateKey(Buffer.from('asdf'));
     crypto.createPrivateKey({
         key: 'asd',
@@ -785,4 +789,58 @@ import { promisify } from 'util';
     const b: number = crypto.randomInt(1, 10);
     crypto.randomInt(10, callback);
     crypto.randomInt(1, 10, callback);
+}
+
+{
+    const key = crypto.createPrivateKey('pkey');
+    crypto.sign('sha256', Buffer.from('asd'), {
+        key: Buffer.from('keylike'),
+        dsaEncoding: 'der'
+    });
+    crypto.createSign('sha256')
+        .update(Buffer.from('asd'))
+        .sign({
+            key: Buffer.from('keylike'),
+            dsaEncoding: 'der'
+        });
+    crypto.sign('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der'
+    });
+    crypto.createSign('sha256')
+        .update(Buffer.from('asd'))
+        .sign({
+            key,
+            dsaEncoding: 'der'
+        });
+}
+
+{
+    const key = crypto.createPublicKey('pkey');
+    crypto.verify('sha256', Buffer.from('asd'), {
+        key: Buffer.from('keylike'),
+        dsaEncoding: 'der'
+    }, Buffer.from('sig'));
+    crypto.createVerify('sha256')
+        .update(Buffer.from('asd'))
+        .verify({
+            key: Buffer.from('keylike'),
+            dsaEncoding: 'der'
+        }, Buffer.from('sig'));
+    crypto.verify('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der'
+    }, Buffer.from('sig'));
+    crypto.createVerify('sha256')
+        .update(Buffer.from('asd'))
+        .verify({
+            key,
+            dsaEncoding: 'der'
+        }, Buffer.from('sig'));
+}
+
+{
+    const cipher = crypto.createCipheriv('aes-256-gcm', Buffer.from('key'), Buffer.from('iv'), { authTagLength: 16 });
+    cipher.setAAD(Buffer.from('iv'));
+    cipher.setAAD(new Uint8Array());
 }

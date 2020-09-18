@@ -20,7 +20,7 @@ export interface Options {
     zIndex?: number;
 }
 export type RenderFunction = (p0: Coordinate | Coordinate[] | Coordinate[][], p1: State) => void;
-export type StyleFunction = (p0: FeatureLike, p1: number) => Style | Style[] | void;
+export type StyleFunction = (p0: FeatureLike, p1: number) => Style | Style[];
 export type StyleLike = Style | Style[] | StyleFunction;
 export default class Style {
     constructor(opt_options?: Options);

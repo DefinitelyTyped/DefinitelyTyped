@@ -1,4 +1,4 @@
-// Type definitions for ioBroker 3.0
+// Type definitions for ioBroker 3.2
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -63,18 +63,9 @@ declare global {
 
         type Languages = 'en' | 'de' | 'ru' | 'pt' | 'nl' | 'fr' | 'it' | 'es' | 'pl' | 'zh-cn';
 
-        // Objects are JSON-serializable
-        type ObjectField =
-            | string
-            | number
-            | boolean
-            | null
-            | ObjectField[]
-            | {[property: string]: ObjectField};
-
         interface ObjectCommon {
-            /** name of this object */
-            name: string;
+            /** The name of this object as a simple string or an object with translations */
+            name: string | { [lang in Languages]?: string; };
 
             // Icon and role aren't defined in SCHEMA.md,
             // but they are being used by some adapters
@@ -171,7 +162,7 @@ declare global {
             members?: string[];
         }
         interface OtherCommon extends ObjectCommon {
-            [propName: string]: ObjectField | undefined;
+            [propName: string]: any;
 
             // Only states can have common.custom
             custom?: undefined;
@@ -180,8 +171,9 @@ declare global {
         interface BaseObject {
             /** The ID of this object */
             _id: string;
-            // Be strict with what we allow here. Read objects overwrite this with any.
-            native: Record<string, ObjectField>;
+            // Ideally we would limit this to JSON-serializable objects, but TypeScript doesn't allow this
+            // without bugging users to change their code --> https://github.com/microsoft/TypeScript/issues/15300
+            native: any;
             /** An array of `native` properties which cannot be accessed from outside the defining adapter */
             protectedNative?: string[];
             /** Like protectedNative, but the properties are also encrypted and decrypted automatically */
@@ -192,6 +184,8 @@ declare global {
             common: StateCommon | ChannelCommon | DeviceCommon | EnumCommon | OtherCommon;
             acl?: ObjectACL;
             from?: string;
+            /** The user who created or updated this object */
+            user?: string;
             ts?: number;
         }
 
@@ -544,6 +538,9 @@ declare global {
 
             /** If true, the adapter will have a property `oStates` that contains a live cache of the adapter's states */
             states?: boolean;
+
+            /** Whether the adapter should warn if states are set without an corresponding existing object. Default: `true` */
+            strictObjectChecks?: boolean;
         } // end interface AdapterOptions
 
         // tslint:disable-next-line:no-empty-interface
@@ -620,8 +617,8 @@ declare global {
             /** Validates username and password */
             checkPasswordAsync(user: string, password: string, options?: unknown): Promise<boolean>;
             /** Sets a new password for the given user */
-            setPassword(user: string, password: string, callback?: (err?: any) => void): void;
-            setPassword(user: string, password: string, options: unknown, callback?: (err?: any) => void): void;
+            setPassword(user: string, password: string, callback?: ErrorCallback): void;
+            setPassword(user: string, password: string, options: unknown, callback?: ErrorCallback): void;
             /** Sets a new password for the given user */
             setPasswordAsync(user: string, password: string, options?: unknown): Promise<void>;
             /** <INTERNAL> Checks if a user exists and is in the given group. */
@@ -652,7 +649,7 @@ declare global {
                 publicName: string,
                 privateName: string,
                 chainedName: string,
-                callback: (err: string | null, certs?: Certificates, useLetsEncryptCert?: boolean) => void,
+                callback: (err?: Error | null, certs?: Certificates, useLetsEncryptCert?: boolean) => void,
             ): void;
             // TODO: getCertificates cannot be represented with promises right now
 
@@ -1597,6 +1594,14 @@ declare global {
              * Returns a list of all channels in this adapter instance
              * @param parentDevice (optional) Name of the parent device to filter the channels by
              * @param options (optional) Some internal options.
+             */
+            getChannelsAsync(): Promise<ChannelObject[]>;
+            // tslint:disable-next-line:unified-signatures
+            getChannelsAsync(parentDevice: string, options?: unknown): Promise<ChannelObject[]>;
+            /**
+             * Returns a list of all channels in this adapter instance
+             * @param parentDevice (optional) Name of the parent device to filter the channels by
+             * @param options (optional) Some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
             getChannelsOf(callback: GetObjectsCallback3<ChannelObject>): void;
@@ -1660,8 +1665,8 @@ declare global {
                 options?: unknown,
             ): ReadDirPromise;
 
-            mkDir(adapterName: string | null, path: string, callback: ErrorCallback): void;
-            mkDir(adapterName: string | null, path: string, options: unknown, callback: ErrorCallback): void;
+            mkDir(adapterName: string | null, path: string, callback: ErrnoCallback): void;
+            mkDir(adapterName: string | null, path: string, options: unknown, callback: ErrnoCallback): void;
             mkDirAsync(adapterName: string | null, path: string, options?: unknown): Promise<void>;
 
             readFile(adapterName: string | null, path: string, callback: ReadFileCallback): void;
@@ -1672,14 +1677,14 @@ declare global {
                 options?: unknown,
             ): ReadFilePromise;
 
-            writeFile(adapterName: string | null, path: string, data: Buffer | string, callback: ErrorCallback): void;
+            writeFile(adapterName: string | null, path: string, data: Buffer | string, callback: ErrnoCallback): void;
             // options see https://github.com/ioBroker/ioBroker.js-controller/blob/master/lib/objects/objectsInMemServer.js#L599
             writeFile(
                 adapterName: string | null,
                 path: string,
                 data: Buffer | string,
                 options: unknown,
-                callback: ErrorCallback,
+                callback: ErrnoCallback,
             ): void;
             writeFileAsync(
                 adapterName: string | null,
@@ -1693,8 +1698,8 @@ declare global {
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
              * @param path - path to directory without adapter name. E.g. If you want to delete "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
              */
-            delFile(adapterName: string | null, path: string, callback: ErrorCallback): void;
-            delFile(adapterName: string | null, path: string, options: unknown, callback: ErrorCallback): void;
+            delFile(adapterName: string | null, path: string, callback: ErrnoCallback): void;
+            delFile(adapterName: string | null, path: string, options: unknown, callback: ErrnoCallback): void;
             /**
              * Deletes a given file
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
@@ -1707,8 +1712,8 @@ declare global {
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
              * @param path - path to directory without adapter name. E.g. If you want to delete "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
              */
-            unlink(adapterName: string | null, path: string, callback: ErrorCallback): void;
-            unlink(adapterName: string | null, path: string, options: unknown, callback: ErrorCallback): void;
+            unlink(adapterName: string | null, path: string, callback: ErrnoCallback): void;
+            unlink(adapterName: string | null, path: string, options: unknown, callback: ErrnoCallback): void;
             /**
              * Deletes a given file
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
@@ -1716,13 +1721,13 @@ declare global {
              */
             unlinkAsync(adapterName: string | null, path: string, options?: unknown): Promise<void>;
 
-            rename(adapterName: string | null, oldName: string, newName: string, callback: ErrorCallback): void;
+            rename(adapterName: string | null, oldName: string, newName: string, callback: ErrnoCallback): void;
             rename(
                 adapterName: string | null,
                 oldName: string,
                 newName: string,
                 options: unknown,
-                callback: ErrorCallback,
+                callback: ErrnoCallback,
             ): void;
             renameAsync(adapterName: string | null, oldName: string, newName: string, options?: unknown): Promise<void>;
 
@@ -1790,6 +1795,18 @@ declare global {
             removeListener(event: 'message', handler: MessageHandler): this;
 
             removeAllListeners(event?: 'ready' | 'unload' | 'stateChange' | 'objectChange' | 'message'): this;
+
+            // =============================================
+            // Managed version of builtin setTimeout/setInterval/clear...
+            // =============================================
+
+            /** Creates a timeout that can automatically be cleared when the adapter is terminated */
+            setTimeout<T extends any[]>(callback: (...args: T) => void, ms: number, ...args: T): Timeout;
+            clearTimeout(timeoutId: Timeout): void;
+
+            /** Creates an interval that can automatically be cleared when the adapter is terminated */
+            setInterval<T extends any[]>(callback: (...args: T) => void, ms: number, ...args: T): Interval;
+            clearInterval(intervalId: Interval): void;
         } // end interface Adapter
 
         type ReadyHandler = () => void | Promise<void>;
@@ -1800,33 +1817,35 @@ declare global {
         type ErrorHandler = (err: Error) => boolean;
 
         type EmptyCallback = () => void;
-        type ErrorCallback = (err?: string) => void;
+        type ErrorCallback = (err?: Error | null) => void;
+        /** Special variant of ErrorCallback for methods where Node.js returns an ErrnoException */
+        type ErrnoCallback = (err?: NodeJS.ErrnoException | null) => void;
         // TODO: Redefine callbacks as subclass of GenericCallback
-        type GenericCallback<T> = (err: string | null, result?: T) => void;
+        type GenericCallback<T> = (err?: Error | null, result?: T) => void;
 
         type MessageCallback = (response?: Message) => void;
 
-        type SetObjectCallback = (err: string | null, obj?: { id: string }) => void;
+        type SetObjectCallback = (err?: Error | null, obj?: { id: string }) => void;
         type SetObjectPromise = Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
 
-        type GetObjectCallback = (err: string | null, obj?: ioBroker.Object | null) => void;
+        type GetObjectCallback = (err?: Error | null, obj?: ioBroker.Object | null) => void;
         type GetObjectPromise = Promise<CallbackReturnTypeOf<GetObjectCallback>>;
 
-        type GetEnumCallback = (err: string | null, enums?: Record<string, Enum>, requestedEnum?: string) => void;
+        type GetEnumCallback = (err?: Error | null, enums?: Record<string, Enum>, requestedEnum?: string) => void;
         type GetEnumsCallback = (
-            err: string | null,
+            err?: Error | null,
             result?: {
                 [groupName: string]: Record<string, Enum>;
             },
         ) => void;
         type GetEnumsPromise = Promise<NonNullCallbackReturnTypeOf<GetEnumsCallback>>;
 
-        type GetObjectsCallback = (err: string | null, objects?: Record<string, ioBroker.Object>) => void;
+        type GetObjectsCallback = (err?: Error | null, objects?: Record<string, ioBroker.Object>) => void;
         type GetObjectsPromise = Promise<NonNullCallbackReturnTypeOf<GetObjectsCallback>>;
 
         type FindObjectCallback = (
             /** If an error happened, this contains the message */
-            err: string | null,
+            err?: Error | null,
             /** If an object was found, this contains the ID */
             id?: string,
             /** If an object was found, this contains the common.name */
@@ -1840,7 +1859,7 @@ declare global {
             value: T;
         }
         // This is a version used by GetDevices/GetChannelsOf/GetStatesOf
-        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: T[]) => void;
+        type GetObjectsCallback3<T extends BaseObject> = (err?: Error | null, result?: T[]) => void;
 
         type SecondParameterOf<T extends (...args: any[]) => any> = T extends (
             arg0: any,
@@ -1857,26 +1876,26 @@ declare global {
         /** Infers the return type from a callback-style API and and leaves null and undefined in */
         type CallbackReturnTypeOf<T extends (...args: any[]) => any> = SecondParameterOf<T>;
 
-        type GetStateCallback = (err: string | null, state: State | null | undefined) => void;
+        type GetStateCallback = (err: Error | null, state: State | null | undefined) => void;
         type GetStatePromise = Promise<CallbackReturnTypeOf<GetStateCallback>>;
 
-        type GetStatesCallback = (err: string | null, states: Record<string, State>) => void;
+        type GetStatesCallback = (err: Error | null, states: Record<string, State>) => void;
         type GetStatesPromise = Promise<CallbackReturnTypeOf<GetStatesCallback>>;
 
-        type GetBinaryStateCallback = (err: string | null, state?: Buffer) => void;
+        type GetBinaryStateCallback = (err?: Error | null, state?: Buffer) => void;
         type GetBinaryStatePromise = Promise<CallbackReturnTypeOf<GetBinaryStateCallback>>;
 
-        type SetStateCallback = (err: string | null, id?: string) => void;
+        type SetStateCallback = (err?: Error | null, id?: string) => void;
         type SetStatePromise = Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
 
-        type SetStateChangedCallback = (err: string | null, id: string, notChanged: boolean) => void;
+        type SetStateChangedCallback = (err: Error | null, id: string, notChanged: boolean) => void;
         type SetStateChangedPromise = Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
 
-        type DeleteStateCallback = (err: string | null, id?: string) => void;
+        type DeleteStateCallback = (err?: Error | null, id?: string) => void;
 
         type GetHistoryResult = Array<State & { id?: string }>;
         type GetHistoryCallback = (
-            err: string | null,
+            err: Error | null,
             result: GetHistoryResult,
             step: number,
             sessionId?: string,
@@ -1897,10 +1916,10 @@ declare global {
             /** Date of creation */
             createdAt?: number;
         }
-        type ReadDirCallback = (err: string | null, entries?: ReadDirResult[]) => void;
+        type ReadDirCallback = (err?: NodeJS.ErrnoException | null, entries?: ReadDirResult[]) => void;
         type ReadDirPromise = Promise<NonNullCallbackReturnTypeOf<ReadDirCallback>>;
 
-        type ReadFileCallback = (err: string | null, file?: Buffer | string, mimeType?: string) => void;
+        type ReadFileCallback = (err?: NodeJS.ErrnoException | null, file?: Buffer | string, mimeType?: string) => void;
         type ReadFilePromise = Promise<{ file: string | Buffer; mimeType: string }>;
 
         /** Contains the return values of chownFile */
@@ -1920,7 +1939,7 @@ declare global {
             /** Date of creation */
             createdAt: number;
         }
-        type ChownFileCallback = (err: string | null, entries?: ChownFileResult[], id?: string) => void;
+        type ChownFileCallback = (err?: NodeJS.ErrnoException | null, entries?: ChownFileResult[], id?: string) => void;
 
         /** Contains the return values of rm */
         interface RmResult {
@@ -1931,11 +1950,11 @@ declare global {
             /** Whether the deleted object was a directory or a file */
             isDir: boolean;
         }
-        type RmCallback = (err: string | null, entries?: RmResult[]) => void;
+        type RmCallback = (err?: NodeJS.ErrnoException | null, entries?: RmResult[]) => void;
 
-        type ChownObjectCallback = (err: string | null, list?: ioBroker.Object[]) => void;
+        type ChownObjectCallback = (err?: NodeJS.ErrnoException | null, list?: ioBroker.Object[]) => void;
 
-        type GetConfigKeysCallback = (err: string | null, list?: string[]) => void;
+        type GetConfigKeysCallback = (err?: Error | null, list?: string[]) => void;
 
         interface GetObjectViewItem {
             /** The ID of this object */
@@ -1943,7 +1962,7 @@ declare global {
             /** A copy of the object from the DB */
             value: ioBroker.Object | null;
         }
-        type GetObjectViewCallback = (err: string | null, result?: { rows: GetObjectViewItem[] }) => void;
+        type GetObjectViewCallback = (err?: Error | null, result?: { rows: GetObjectViewItem[] }) => void;
         type GetObjectViewPromise = Promise<NonNullCallbackReturnTypeOf<GetObjectViewCallback>>;
 
         interface GetObjectListItem extends GetObjectViewItem {
@@ -1952,15 +1971,18 @@ declare global {
             /** The same as @link{value} */
             doc: ioBroker.Object;
         }
-        type GetObjectListCallback = (err: string | null, result?: { rows: GetObjectListItem[] }) => void;
+        type GetObjectListCallback = (err?: Error | null, result?: { rows: GetObjectListItem[] }) => void;
         type GetObjectListPromise = Promise<NonNullCallbackReturnTypeOf<GetObjectListCallback>>;
 
         type ExtendObjectCallback = (
-            err: string | null,
+            err?: Error | null,
             result?: { id: string; value: ioBroker.Object },
             id?: string,
         ) => void;
 
         type GetSessionCallback = (session: Session) => void;
+
+        type Timeout = number & {__ioBrokerBrand: "Timeout"};
+        type Interval = number & {__ioBrokerBrand: "Interval"};
     } // end namespace ioBroker
 } // end declare global

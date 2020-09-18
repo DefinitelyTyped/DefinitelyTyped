@@ -94,7 +94,7 @@ declare module _ {
         (value: T): boolean;
     }
 
-    interface CollectionIterator<T extends TypeOfCollection<V, any>, TResult, V = Collection<T>> {
+    interface CollectionIterator<T extends TypeOfList<V> | TypeOfDictionary<V, any>, TResult, V = Collection<T>> {
         (element: T, key: CollectionKey<V>, collection: V): TResult;
     }
 
@@ -120,7 +120,7 @@ declare module _ {
 
     type PropertyTypeOrAny<T, K> = K extends keyof T ? T[K] : any;
 
-    interface MemoCollectionIterator<T extends TypeOfCollection<V>, TResult, V = Collection<T>> {
+    interface MemoCollectionIterator<T extends TypeOfList<V> | TypeOfDictionary<V, any>, TResult, V = Collection<T>> {
         (prev: TResult, curr: T, key: CollectionKey<V>, collection: V): TResult;
     }
 
@@ -138,7 +138,7 @@ declare module _ {
         : V extends Dictionary<infer T> ? T
         : TDefault;
 
-    type TypeOfCollection<V, TObjectDefault = never> = TypeOfList<V> | TypeOfDictionary<V, TObjectDefault>;
+    type TypeOfCollection<V, TObjectDefault = never> = V extends List<any> ? TypeOfList<V> : TypeOfDictionary<V, TObjectDefault>;
 
     type ListItemOrSelf<T> = T extends List<infer TItem> ? TItem : T;
 

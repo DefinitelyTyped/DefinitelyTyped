@@ -21,15 +21,15 @@ export default abstract class FeatureFormat {
     protected dataProjection: Projection;
     protected defaultFeatureProjection: Projection;
     protected adaptOptions(options: WriteOptions | ReadOptions | undefined): WriteOptions | ReadOptions;
-    protected getReadOptions(source: Document | Node | object | string, opt_options?: ReadOptions): ReadOptions;
+    protected getReadOptions(source: Document | Element | object | string, opt_options?: ReadOptions): ReadOptions;
     abstract getType(): FormatType;
-    abstract readFeature(source: Document | Node | object | string, opt_options?: ReadOptions): FeatureLike;
+    abstract readFeature(source: Document | Element | object | string, opt_options?: ReadOptions): FeatureLike;
     abstract readFeatures(
-        source: Document | Node | ArrayBuffer | object | string,
+        source: Document | Element | ArrayBuffer | object | string,
         opt_options?: ReadOptions,
     ): FeatureLike[];
-    abstract readGeometry(source: Document | Node | object | string, opt_options?: ReadOptions): Geometry;
-    abstract readProjection(source: Document | Node | object | string): Projection;
+    abstract readGeometry(source: Document | Element | object | string, opt_options?: ReadOptions): Geometry;
+    abstract readProjection(source: Document | Element | object | string): Projection;
     abstract writeFeature(feature: Feature<Geometry>, opt_options?: WriteOptions): string;
     abstract writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string;
     abstract writeGeometry(geometry: Geometry, opt_options?: WriteOptions): string;

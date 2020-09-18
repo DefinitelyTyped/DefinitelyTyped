@@ -29,11 +29,7 @@ export type IDLInterfaceMemberType =
     | DeclarationMemberType
     | OperationMemberType;
 
-export type IDLInterfaceMixinMemberType =
-    | AttributeMemberType
-    | ConstantMemberType
-    | (DeclarationMemberType & { type: "stringifier" })
-    | OperationMemberType;
+export type IDLInterfaceMixinMemberType = AttributeMemberType | ConstantMemberType | OperationMemberType;
 
 export type IDLNamespaceMemberType = AttributeMemberType | OperationMemberType;
 
@@ -327,8 +323,8 @@ export interface ConstantMemberType extends AbstractBase {
     parent: CallbackInterfaceType | InterfaceMixinType | InterfaceType;
 }
 
-export interface DeclarationMemberType extends AbstractBase {
-    type: "iterable" | "maplike" | "setlike";
+interface AbstractDeclarationMemberType extends AbstractBase {
+    type: DeclarationMemberType["type"];
     /** An array with one or more IDL Types representing the declared type arguments. */
     idlType: IDLTypeDescription[];
     /** Whether the iterable is declared as async. */
@@ -338,6 +334,34 @@ export interface DeclarationMemberType extends AbstractBase {
     /** An array of arguments for the iterable declaration. */
     arguments: Argument[];
     parent: InterfaceMixinType | InterfaceType;
+}
+
+export type DeclarationMemberType =
+    | IterableDeclarationMemberType
+    | MaplikeDeclarationMemberType
+    | SetlikeDeclarationMemberType;
+
+export interface IterableDeclarationMemberType extends AbstractDeclarationMemberType {
+    type: "iterable";
+    idlType: [IDLTypeDescription] | [IDLTypeDescription, IDLTypeDescription];
+    async: boolean;
+    readonly: false;
+}
+
+interface AbstractCollectionLikeMemberType extends AbstractDeclarationMemberType {
+    async: false;
+    readonly: boolean;
+    arguments: [];
+}
+
+export interface MaplikeDeclarationMemberType extends AbstractCollectionLikeMemberType {
+    type: "maplike";
+    idlType: [IDLTypeDescription, IDLTypeDescription];
+}
+
+export interface SetlikeDeclarationMemberType extends AbstractCollectionLikeMemberType {
+    type: "setlike";
+    idlType: [IDLTypeDescription];
 }
 
 export interface Argument extends AbstractBase {
