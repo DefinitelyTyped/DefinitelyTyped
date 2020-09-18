@@ -1411,7 +1411,7 @@ declare namespace Office {
         /**
          * The handler to be removed. If not specified all handlers for the specified event type are removed.
          */
-        handler?: string
+        handler?: any
         /**
          * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
