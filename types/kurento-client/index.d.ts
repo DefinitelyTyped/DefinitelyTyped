@@ -660,22 +660,22 @@ declare namespace kurento {
         ): WebRtcEndpoint;
     }
 
-    type ConnectionState = 'DISCONNECTED' | 'CONNECTED'; // https://github.com/Kurento/kurento-client-core-js/blob/master/lib/complexTypes/ConnectionState.js
-    type MediaState = 'DISCONNECTED' | 'CONNECTED'; // https://github.com/Kurento/kurento-client-core-js/blob/master/lib/complexTypes/MediaState.js
+    // Ref: https://github.com/Kurento/kurento-client-core-js/tree/master/lib/complexTypes
+    type ConnectionState = 'DISCONNECTED' | 'CONNECTED';
+    type MediaState = 'DISCONNECTED' | 'CONNECTED';
+    type UriEndpointState = 'STOP' | 'START' | 'PAUSE';
+    type MediaType = 'AUDIO' | ' DATA' | 'VIDEO';
+    type MediaFlowState = 'FLOWING' | 'NOT_FLOWING';
+    type MediaTranscodingState = 'TRANSCODING' | 'NOT_TRANSCODING';
 
-    type IceComponentState = 'DISCONNECTED' | 'GATHERING' | 'CONNECTING' | 'CONNECTED' | 'READY' | 'FAILED'; // https://github.com/Kurento/kurento-client-elements-js/blob/master/lib/complexTypes/IceComponentState.js
+    // Ref: https://github.com/Kurento/kurento-client-elements-js/tree/master/lib/complexTypes
+    type IceComponentState = 'DISCONNECTED' | 'GATHERING' | 'CONNECTING' | 'CONNECTED' | 'READY' | 'FAILED';
     interface IceCandidatePair {
         streamID: string;
         componentID: number;
         localCandidate: string;
         remoteCandidate: string;
-    } // https://github.com/Kurento/kurento-client-elements-js/blob/master/lib/complexTypes/IceCandidatePair.js
-
-    type UriEndpointState = 'STOP' | 'START' | 'PAUSE'; // https://github.com/Kurento/kurento-client-core-js/blob/2160f8e6938f138b52b72a5c5c354d1e5fce1ca0/lib/complexTypes/UriEndpointState.js
-
-    type MediaType = 'AUDIO' | ' DATA' | 'VIDEO';
-    type MediaFlowState = 'FLOWING' | 'NOT_FLOWING'; // https://github.com/Kurento/kurento-client-core-js/blob/master/lib/complexTypes/MediaFlowState.js
-    type MediaTranscodingState = 'TRANSCODING' | 'NOT_TRANSCODING'; // https://github.com/Kurento/kurento-client-core-js/blob/master/lib/complexTypes/MediaTranscodingState.js
+    }
 }
 
 declare const kurento: kurento.Constructor;
