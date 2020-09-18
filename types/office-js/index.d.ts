@@ -12818,13 +12818,13 @@ declare namespace Office {
          * @param parameters - A dictionary containing all values to be filled in for the user in the new form. All parameters are optional.
          * 
          *        `toRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
-         *        for each of the recipients on the To line. The array is limited to a maximum of 100 entries.
+         *        for each of the recipients on the **To** line. The array is limited to a maximum of 100 entries.
          * 
          *        `ccRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
-         *        for each of the recipients on the Cc line. The array is limited to a maximum of 100 entries.
+         *        for each of the recipients on the **Cc** line. The array is limited to a maximum of 100 entries.
          * 
          *        `bccRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
-         *        for each of the recipients on the Bcc line. The array is limited to a maximum of 100 entries.
+         *        for each of the recipients on the **Bcc** line. The array is limited to a maximum of 100 entries.
          * 
          *        `subject`: A string containing the subject of the message. The string is limited to a maximum of 255 characters.
          * 
@@ -14589,7 +14589,7 @@ declare namespace Office {
          */
         subject: string;
         /**
-         * Provides access to the recipients on the To line of a message. The type of object and level of access depend on the mode of the
+         * Provides access to the recipients on the **To** line of a message. The type of object and level of access depend on the mode of the
          * current item.
          *
          * The `to` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
