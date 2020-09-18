@@ -416,7 +416,7 @@ declare namespace kurento {
 
         on(event: 'DataChannelClose', callback: (event: { channelId: number }) => void): WebRtcEndpoint;
         on(event: 'DataChannelOpen', callback: (event: { channelId: number }) => void): WebRtcEndpoint;
-        on(event: 'IceCandidateFound', callback: (event: IceCandidate) => void): WebRtcEndpoint;
+        on(event: 'IceCandidateFound', callback: (event: { candidate: IceCandidate }) => void): WebRtcEndpoint;
         on(
             event: 'IceComponentStateChange',
             callback: (event: { streamId: number; componentId: number; state: IceComponentState }) => void,
@@ -428,7 +428,7 @@ declare namespace kurento {
         ): WebRtcEndpoint;
 
         // Deprecated. See https://doc-kurento.readthedocs.io/en/stable/_static/client-jsdoc/module-elements.html#event:OnIceCandidate
-        on(event: 'OnIceCandidate', callback: (event: IceCandidate) => void): WebRtcEndpoint;
+        on(event: 'OnIceCandidate', callback: (event: { candidate: IceCandidate }) => void): WebRtcEndpoint;
 
         // Inherited from BaseRtpEndpoint
         on(
