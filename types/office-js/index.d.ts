@@ -9149,14 +9149,11 @@ declare namespace Office {
          */
         notificationMessages: NotificationMessages;
         /**
-         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
-         * 
-         * The `optionalAttendees` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the optional attendees 
-         * for a meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
-         * 
-         * - Get 500 members maximum.
+         * Provides access to the optional attendees of an event. The type of object and level of access depend on the mode of the current item.
          *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * The `optionalAttendees` property returns a `Recipients` object that provides methods to get or update the
+         * optional attendees for a meeting. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many
+         * recipients you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
          *
          * @remarks
          *
@@ -9200,14 +9197,11 @@ declare namespace Office {
          */
         recurrence: Recurrence;
         /**
-         * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
+         * Provides access to the required attendees of an event. The type of object and level of access depend on the mode of the current item.
          *
-         * The `requiredAttendees` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the required attendees 
-         * for a meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
-         *
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * The `requiredAttendees` property returns a `Recipients` object that provides methods to get or update the
+         * required attendees for a meeting. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many
+         * recipients you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
          *
          * @remarks
          *
@@ -10116,21 +10110,24 @@ declare namespace Office {
         */
        location: Location | string;
        /**
-        * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
+        * Provides access to the optional attendees of an event. The type of object and level of access depend on the mode of the current item.
         *
         * *Read mode*
         *
-        * The `optionalAttendees` property returns an array that contains an `EmailAddressDetails` object for each optional attendee to the meeting.
-        * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+        * The `optionalAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+        * each optional attendee to the meeting. Collection size limits:
+        *
+        * - Windows: 500 members
+        *
+        * - Mac: 100 members
+        *
+        * - Other: No limit
         *
         * *Compose mode*
         *
-        * The `optionalAttendees` property returns a `Recipients` object that provides methods to get or update the optional attendees for a meeting.
-        * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
-        * 
-        * - Get 500 members maximum.
-        *
-        * - Set a maximum of 100 members per call, up to 500 members total.
+        * The `optionalAttendees` property returns a `Recipients` object that provides methods to get or update the
+        * optional attendees for a meeting. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many
+        * recipients you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
         *
         * @remarks
         *
@@ -10150,21 +10147,24 @@ declare namespace Office {
         */
        resources: string[];
         /**
-         * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
+         * Provides access to the required attendees of an event. The type of object and level of access depend on the mode of the current item.
          *
          * *Read mode*
          *
-         * The `requiredAttendees` property returns an array that contains an `EmailAddressDetails` object for each required attendee to the meeting.
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+         * The `requiredAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+         * each required attendee to the meeting. Collection size limits:
+         *
+         * - Windows: 500 members
+         *
+         * - Mac: 100 members
+         *
+         * - Other: No limit
          *
          * *Compose mode*
          *
-         * The `requiredAttendees` property returns a `Recipients` object that provides methods to get or update the required attendees for a meeting.
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
-         *
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * The `requiredAttendees` property returns a `Recipients` object that provides methods to get or update the
+         * required attendees for a meeting. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many
+         * recipients you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
          *
          * @remarks
          *
@@ -10427,10 +10427,16 @@ declare namespace Office {
          */
         notificationMessages: NotificationMessages;
         /**
-         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
+         * Provides access to the optional attendees of an event. The type of object and level of access depend on the mode of the current item.
          *
-         * The `optionalAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for each optional attendee to 
-         * the meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+         * The `optionalAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+         * each optional attendee to the meeting. Collection size limits:
+         *
+         * - Windows: 500 members
+         *
+         * - Mac: 100 members
+         *
+         * - Other: No limit
          *
          * @remarks
          *
@@ -10470,11 +10476,16 @@ declare namespace Office {
          */
         recurrence: Recurrence;
         /**
-         * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
+         * Provides access to the required attendees of an event. The type of object and level of access depend on the mode of the current item.
          *
-         * The `requiredAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object
-         * for each required attendee to the meeting. By default, the collection is limited to a maximum of 100 members.
-         * However, on Windows and Mac, you can get 500 members maximum.
+         * The `requiredAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+         * each required attendee to the meeting. Collection size limits:
+         *
+         * - Windows: 500 members
+         *
+         * - Mac: 100 members
+         *
+         * - Other: No limit
          *
          * @remarks
          *
@@ -12807,13 +12818,13 @@ declare namespace Office {
          * @param parameters - A dictionary containing all values to be filled in for the user in the new form. All parameters are optional.
          * 
          *        `toRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
-         *        for each of the recipients on the To line. The array is limited to a maximum of 100 entries.
+         *        for each of the recipients on the **To** line. The array is limited to a maximum of 100 entries.
          * 
          *        `ccRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
-         *        for each of the recipients on the Cc line. The array is limited to a maximum of 100 entries.
+         *        for each of the recipients on the **Cc** line. The array is limited to a maximum of 100 entries.
          * 
          *        `bccRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
-         *        for each of the recipients on the Bcc line. The array is limited to a maximum of 100 entries.
+         *        for each of the recipients on the **Bcc** line. The array is limited to a maximum of 100 entries.
          * 
          *        `subject`: A string containing the subject of the message. The string is limited to a maximum of 255 characters.
          * 
@@ -13283,14 +13294,10 @@ declare namespace Office {
      */
     interface MessageCompose extends Message, ItemCompose {
         /**
-         * Gets an object that provides methods to get or update the recipients on the Bcc (blind carbon copy) line of a message.
+         * Gets an object that provides methods to get or update the recipients on the **Bcc** (blind carbon copy) line of a message.
          *
-         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows, and Mac,
-         * the following limits apply.
-         *
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * Depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many recipients you can get or update.
+         * See the {@link Office.Recipients | Recipients} object for more details.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13328,16 +13335,12 @@ declare namespace Office {
          */
         categories: Categories;
         /**
-         * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
+         * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depend on the mode of the 
          * current item.
          *
-         * The `cc` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the
-         * **Cc** line of the message. By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows,
-         * and Mac, the following limits apply.
-         * 
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * The `cc` property returns a `Recipients` object that provides methods to get or update the recipients on the
+         * **Cc** line of the message. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many recipients
+         * you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
          *
          * @remarks
          *
@@ -13457,16 +13460,12 @@ declare namespace Office {
          */
         subject: Subject;
         /**
-         * Provides access to the recipients on the To line of a message. The type of object and level of access depends on the mode of the
+         * Provides access to the recipients on the **To** line of a message. The type of object and level of access depend on the mode of the
          * current item.
          *
-         * The `to` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the
-         * **To** line of the message. By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows,
-         * and Mac, the following limits apply.
-         * 
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * The `to` property returns a `Recipients` object that provides methods to get or update the recipients on the
+         * **To** line of the message. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many recipients
+         * you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
          *
          * @remarks
          *
@@ -14289,12 +14288,19 @@ declare namespace Office {
          */
         categories: Categories;
         /**
-         * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
+         * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depend on the mode of the 
          * current item.
          *
-         * The `cc` property returns an array that contains an `EmailAddressDetails` object for each recipient listed on the Cc line of the message. 
-         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, you can get 20 members maximum, while
-         * on Windows and Mac, you can get 500 members maximum.
+         * The `cc` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+         * each recipient listed on the **Cc** line of the message. Collection size limits:
+         *
+         * - Windows: 500 members
+         *
+         * - Mac: 100 members
+         *
+         * - Web browser: 20 members
+         *
+         * - Other: No limit
          *
          * @remarks
          *
@@ -14583,12 +14589,19 @@ declare namespace Office {
          */
         subject: string;
         /**
-         * Provides access to the recipients on the To line of a message. The type of object and level of access depends on the mode of the
+         * Provides access to the recipients on the **To** line of a message. The type of object and level of access depend on the mode of the
          * current item.
          *
-         * The `to` property returns an array that contains an `EmailAddressDetails` object for each recipient listed on the To line of the message.
-         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, you can get 20 members maximum, while
-         * on Windows and Mac, you can get 500 members maximum.
+         * The `to` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+         * each recipient listed on the **To** line of the message. Collection size limits:
+         *
+         * - Windows: 500 members
+         *
+         * - Mac: 100 members
+         *
+         * - Web browser: 20 members
+         *
+         * - Other: No limit
          *
          * @remarks
          *
@@ -15395,6 +15408,15 @@ declare namespace Office {
          *
          * - {@link Office.EmailAddressDetails | EmailAddressDetails} objects
          *
+         * Maximum number that can be added:
+         *
+         * - Windows: 100 recipients.
+         * **Note**: Can call API repeatedly but the maximum number of recipients in the target field on the item is 500 recipients.
+         *
+         * - Mac, web browser: 100 recipients
+         *
+         * - Other: No limit
+         *
          * [Api set: Mailbox 1.1]
          *
          * @remarks
@@ -15425,6 +15447,15 @@ declare namespace Office {
          *
          * - {@link Office.EmailAddressDetails | EmailAddressDetails} objects
          *
+         * Maximum number that can be added:
+         *
+         * - Windows: 100 recipients.
+         * **Note**: Can call API repeatedly but the maximum number of recipients in the target field on the item is 500 recipients.
+         *
+         * - Mac, web browser: 100 recipients
+         *
+         * - Other: No limit
+         *
          * [Api set: Mailbox 1.1]
          *
          * @remarks
@@ -15445,8 +15476,12 @@ declare namespace Office {
         /**
          * Gets a recipient list for an appointment or message.
          *
-         * When the call completes, the `asyncResult.value` property will contain
-         * an array of {@link Office.EmailAddressDetails | EmailAddressDetails} objects.
+         * When the call completes, the `asyncResult.value` property will contain an array of {@link Office.EmailAddressDetails | EmailAddressDetails}
+         * objects. Collection size limits:
+         *
+         * - Windows, Mac, web browser: 500 members
+         *
+         * - Other: No limit
          *
          * [Api set: Mailbox 1.1]
          *
@@ -15465,8 +15500,12 @@ declare namespace Office {
         /**
          * Gets a recipient list for an appointment or message.
          *
-         * When the call completes, the `asyncResult.value` property will contain
-         * an array of {@link Office.EmailAddressDetails | EmailAddressDetails} objects.
+         * When the call completes, the `asyncResult.value` property will contain an array of {@link Office.EmailAddressDetails | EmailAddressDetails}
+         * objects. Collection size limits:
+         *
+         * - Windows, Mac, web browser: 500 members
+         *
+         * - Other: No limit
          *
          * [Api set: Mailbox 1.1]
          *
@@ -15492,6 +15531,12 @@ declare namespace Office {
          * - {@link Office.EmailUser | EmailUser} objects
          *
          * - {@link Office.EmailAddressDetails | EmailAddressDetails} objects
+         *
+         * Maximum number that can be set:
+         *
+         * - Windows, Mac, web browser: 100 recipients
+         *
+         * - Other: No limit
          *
          * [Api set: Mailbox 1.1]
          *
@@ -15525,6 +15570,12 @@ declare namespace Office {
          * - {@link Office.EmailUser | EmailUser} objects
          *
          * - {@link Office.EmailAddressDetails | EmailAddressDetails} objects
+         *
+         * Maximum number that can be set:
+         *
+         * - Windows, Mac, web browser: 100 recipients
+         *
+         * - Other: No limit
          *
          * [Api set: Mailbox 1.1]
          *
