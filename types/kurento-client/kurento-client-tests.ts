@@ -8,10 +8,7 @@ async () => {
     const pipeline = await client.create('MediaPipeline');
     const endpoint = await pipeline.create('WebRtcEndpoint');
 
-    await Promise.all([
-        pipeline.addTag('roomId', 'abc123'),
-        pipeline.addTag('userId', '012345')
-    ]);
+    await Promise.all([pipeline.addTag('roomId', 'abc123'), pipeline.addTag('userId', '012345')]);
 
     const signaling = {
         emit: (...args: any[]): void => {},
@@ -51,7 +48,7 @@ async () => {
     const candidate = new RTCIceCandidate();
 
     const client = await kurento.getSingleton('//server', {});
-    const endpoint = await client.getMediaobjectById(endpointId) as any as WebRtcEndpoint;
+    const endpoint = ((await client.getMediaobjectById(endpointId)) as any) as WebRtcEndpoint;
     const server = await client.getServerManager();
 
     endpoint.addIceCandidate(candidate);
