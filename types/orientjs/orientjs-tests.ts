@@ -7,7 +7,7 @@ const dbserver = orientjs({
     password: 'root'
 });
 const db = dbserver.use({
-    name: 'mytestdb',
+    name: 'mytestdb1',
     username: 'root',
     password: 'root'
 });
