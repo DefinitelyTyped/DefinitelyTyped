@@ -7,7 +7,6 @@
 // Last Update  : 09-18-2020
 // Developed in www.nowcando.ir
 
-/// <reference types="node" />
 
 // tslint:disable:no-redundant-jsdoc-2
 import events = require('events');
@@ -1139,7 +1138,7 @@ declare namespace orientjs {
          * Commit the transaction.
          * @return The results of the transaction.
          */
-        commit(changes: any): Promise<any>;
+        commit(changes?: any): Promise<any>;
 
         /**
          * Rollbacks the transaction.
