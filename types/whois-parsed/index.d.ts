@@ -2,6 +2,7 @@
 // Project: https://github.com/moneals/whois-parsed#readme
 // Definitions by: Uche Chilaka <https://github.com/uchilaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2
 
 export interface WhoIsResult {
     domainName: string;
