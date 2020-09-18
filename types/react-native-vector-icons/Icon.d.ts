@@ -154,6 +154,11 @@ export class Icon extends React.Component<IconProps, any> {
     size?: number,
     color?: string,
   ): Promise<ImageSource>;
+  static getImageSourceSync(
+    name: string,
+    size?: number,
+    color?: string,
+  ): ImageSource;
   static getRawGlyphMap(): { [name: string]: number };
   static loadFont(
     file?: string

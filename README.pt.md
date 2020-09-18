@@ -413,9 +413,9 @@ e [`--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-not
 Não mude a definição de tipo se ela já está correta.
 Para um pacote NPM, `export =` é o certo, se `node -p 'require("foo")'` funciona para importar um módulo, e `export default` é o certo se `node -p 'require("foo").default'` funciona para importar um módulo.
 
-#### Eu quero usar features do TypeScript 3.1 ou superior.
+#### Eu quero usar features do TypeScript 3.3 ou superior.
 
-Então você vai precisar adicionar este comentário na última linha do seu cabeçalho de definição (depois de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
+Então você vai precisar adicionar este comentário na última linha do seu cabeçalho de definição (depois de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: 3.3`.
 
 Entretanto, se o seu projeto precisa manter tipos que são compatíveis com o 3.1 e superior *ao mesmo tempo que* tipos que são compatíveis com o 3.0 ou inferior, você vai precisar usar a feature `typesVersions`, que está disponível no TypeScript 3.1 e superior.
 Você pode achar uma explicação detalhada dessa feature na [documentação oficial do TypeScript](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).

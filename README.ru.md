@@ -323,9 +323,9 @@ f('one');
 Не меняйте определение типа, если оно точное.
 Для пакета NPM, `export =` является точным, если `node -p 'require("foo")'` является экспортом, а `export default` является точным, если `node -p 'require("foo").default'` является экспортом.
 
-#### Я хочу использовать функции из TypeScript 3.1 или выше.
+#### Я хочу использовать функции из TypeScript 3.3 или выше.
 
-В таком случае вам нужно будет добавить комментарий к последней строке заголовка вашего определения (после `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
+В таком случае вам нужно будет добавить комментарий к последней строке заголовка вашего определения (после `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: 3.3`.
 
 #### Я хочу добавить DOM API, отсутствующий в TypeScript по умолчанию.
 
