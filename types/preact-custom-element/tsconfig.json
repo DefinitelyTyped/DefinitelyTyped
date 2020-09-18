@@ -23,6 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "preact-create-custom-element-tests.tsx"
+        "preact-custom-element-tests.tsx"
     ]
 }
