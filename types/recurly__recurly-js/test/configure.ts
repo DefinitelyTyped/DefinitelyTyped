@@ -1,5 +1,5 @@
 export default function configure() {
-  window.recurly.configure('ewr1-BrfKUWEllwCxdpRZvZloaJ');
+  window.recurly.configure('my-public-key');
   window.recurly.configure({
     cors: true,
     currency: 'USD',

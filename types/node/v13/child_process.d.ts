@@ -425,6 +425,7 @@ declare module "child_process" {
         detached?: boolean;
         windowsVerbatimArguments?: boolean;
     }
+    function fork(modulePath: string, options?: ForkOptions): ChildProcess;
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     interface SpawnSyncOptions extends CommonSpawnOptions {

@@ -8,6 +8,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { AnnotatedCommit } from './annotated-commit';
+export { Apply } from './apply';
+export { ApplyOptions } from './apply-options';
 export { Attr } from './attr';
 export { BlameHunk } from './blame-hunk';
 export { BlameOptions } from './blame-options';

@@ -18,15 +18,18 @@
         "compile-scripts": "tsc -p scripts",
         "not-needed": "node scripts/not-needed.js",
         "update-codeowners": "node scripts/update-codeowners.js",
-        "test": "node node_modules/@definitelytyped/dtslint-runner/dist/index.js --path .",
+        "test-all": "node node_modules/@definitelytyped/dtslint-runner/dist/index.js --path .",
+        "test": "dtslint types",
         "lint": "dtslint types",
         "prettier": "prettier"
     },
     "devDependencies": {
+        "@definitelytyped/definitions-parser": "latest",
         "@definitelytyped/dtslint-runner": "latest",
+        "@definitelytyped/utils": "latest",
         "danger": "^10.1.1",
         "dtslint": "latest",
-        "prettier": "^2.0.2",
+        "prettier": "^2.1.1",
         "typescript": "next"
     },
     "husky": {

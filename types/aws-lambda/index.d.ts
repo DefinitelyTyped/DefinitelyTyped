@@ -36,6 +36,7 @@
 //                 Alessandro Palumbo <https://github.com/apalumbo>
 //                 Sachin Shekhar <https://github.com/SachinShekhar>
 //                 Ivan Martos <https://github.com/ivanmartos>
+//                 Zach Anthony <https://github.com/zach-anthony>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -60,7 +61,8 @@ export * from "./trigger/codepipeline-cloudwatch-action";
 export * from "./trigger/codepipeline-cloudwatch-pipeline";
 export * from "./trigger/codepipeline-cloudwatch-stage";
 // TODO: export * from "./trigger/cognito-sync";
-export * from "./trigger/cognito-user-pool-trigger";
+export * from "./trigger/cognito-user-pool-trigger/";
+export * from "./trigger/connect-contact-flow";
 // TODO: export * from "./trigger/config";
 export * from "./trigger/dynamodb-stream";
 export * from "./trigger/eventbridge";
@@ -73,7 +75,7 @@ export * from "./trigger/lex";
 // RDS events are delivered using SNS events...
 export * from "./trigger/s3";
 export * from "./trigger/s3-batch";
-// SES events are delivered using SNS events...
+export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
 

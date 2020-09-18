@@ -94,7 +94,13 @@ import {
 const Examplea = (props: any) => {
   return (
     <div>
-      <Alert color="success">
+      <Alert
+        color="success"
+        closeClassName="close"
+        closeAriaLabel="close"
+        fade={false}
+        innerRef={React.createRef()}
+      >
         <strong>Well done!</strong> You successfully read this important alert message.
       </Alert>
       <Alert color="info">
@@ -2123,7 +2129,7 @@ class ModalExample72 extends React.Component<any, any> {
     return (
       <div>
         <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} container="#test">
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
@@ -2144,6 +2150,7 @@ class ModalExample72 extends React.Component<any, any> {
 
 class ModalExample73 extends React.Component<any, any> {
   state: any;
+  element: HTMLElement;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -2184,7 +2191,7 @@ class ModalExample73 extends React.Component<any, any> {
           {' '}
           <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         </Form>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop} container={this.element}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
@@ -3016,13 +3023,13 @@ const Example92 = (props: any) => {
   return (
     <div>
       <div className="text-center">1 of 5</div>
-      <Progress value="1" max="5" />
+      <Progress value="1" min="1" max="5" />
       <div className="text-center">50 of 135</div>
       <Progress value={50} max="135" />
       <div className="text-center">75 of 111</div>
-      <Progress value={75} max={111} />
+      <Progress value={75} min={1} max={111} />
       <div className="text-center">463 of 500</div>
-      <Progress value="463" max={500} />
+      <Progress value="463" max={500} barAriaValueText="test" barAriaLabelledBy="test" />
 
       <div className="text-center">Various (40) of 55</div>
       <Progress multi>
@@ -4799,4 +4806,21 @@ const UtilTest = () => {
   Util.setGlobalCssModule({
     btn: 'btn2'
   });
+};
+
+const ScheduleUpdate = () => {
+  return (
+    <>
+      <UncontrolledPopover trigger="click" placement="top" target="ScheduleUpdateButton">
+        {({ scheduleUpdate }) => (
+          <div>test</div>
+        )}
+      </UncontrolledPopover>
+      <UncontrolledTooltip placement="top" target="ScheduleUpdateTooltip" trigger="click">
+        {({ scheduleUpdate }) => (
+          <div>test</div>
+        )}
+      </UncontrolledTooltip>
+    </>
+  );
 };

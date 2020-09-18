@@ -3,7 +3,7 @@
 // Definitions by: Bhargav Krishna <https://github.com/WrathOfZombies>
 //                 Jay Ongg <https://github.com/jayongg>
 //                 Yuri Dogandjiev <https://github.com/ydogandjiev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/microsoftteams
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 interface MessageEvent {

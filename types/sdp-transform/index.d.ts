@@ -39,6 +39,7 @@ export interface SessionDescription extends SharedDescriptionFields, SessionAttr
         sessionId: string | number;
         sessionVersion: number;
         netType: string;
+        ipVer: number;
         address: string;
     };
     // s=

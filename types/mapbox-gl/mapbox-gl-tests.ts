@@ -124,6 +124,7 @@ map.on('load', function () {
         clusterMinPoints: 8,
         clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
         clusterProperties: { sum: ['+', ['get', 'property']] },
+        filter: 'something',
     });
 
     map.addLayer({
@@ -133,6 +134,12 @@ map.on('load', function () {
         layout: {
             'icon-image': 'marker-15',
             'text-field': ['get', 'property'],
+            'text-max-width': {
+                stops: [
+                    [10, 2],
+                    [12, 5],
+                ],
+            },
         },
     });
 
@@ -262,6 +269,14 @@ map.flyTo({
 const features = map.queryRenderedFeatures([0, 0], { layers: ['custom'], validate: false });
 features; // $ExpectType MapboxGeoJSONFeature[]
 
+// querySourceFeatures
+const features2 = map.querySourceFeatures('some_source', {
+    sourceLayer: 'source_layer',
+    filter: ['all'],
+    validate: null,
+});
+features2; // $ExpectType MapboxGeoJSONFeature[]
+
 /**
  * GeoJSONSource
  */
@@ -329,6 +344,15 @@ var videoSourceObj = new mapboxgl.VideoSource({
 });
 map.addSource('some id', videoSourceObj); // add
 map.removeSource('some id'); // remove
+
+/**
+ * Vector Source
+ */
+const vectorSource = map.getSource('tile-source') as mapboxgl.VectorSourceImpl;
+// $ExpectType VectorSourceImpl
+vectorSource.setTiles(['a', 'b']);
+// $ExpectType VectorSourceImpl
+vectorSource.setUrl('https://github.com');
 
 /**
  * Add Raster Source /// made URL optional to allow only tiles.
@@ -599,11 +623,11 @@ let marker = new mapboxgl.Marker(undefined, {
     rotation: 15,
     rotationAlignment: 'map',
     pitchAlignment: 'viewport',
-    scale: 5.5
+    scale: 5.5,
 })
     .setLngLat([-50, 50])
-    .setPitchAlignment("map")
-    .setRotationAlignment("viewport")
+    .setPitchAlignment('map')
+    .setRotationAlignment('viewport')
     .addTo(map);
 
 // $ExpectType Alignment
@@ -816,6 +840,12 @@ map.showPadding = false;
 
 expectType<mapboxgl.Map>(map.setFilter('layerId', true));
 expectType<mapboxgl.Map>(map.setFilter('layerId', false));
+
+map.setFilter('layerId', true, { validate: true });
+map.setFilter('layerId', true, { validate: null });
+map.setFilter('layerId', true, {});
+// $ExpectError
+map.setFilter('layerId', true, { some_option: 'some_string' });
 
 // $ExpectType Map
 map.setMinZoom(5);
@@ -1411,7 +1441,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'text-field': eitherType('#000', styleFunction, expression),
     'text-font': eitherType('arial', ['arial'], expression),
     'text-size': eitherType(0, styleFunction, expression),
-    'text-max-width': eitherType(0, expression),
+    'text-max-width': eitherType(0, styleFunction, expression),
     'text-line-height': eitherType(0, expression),
     'text-letter-spacing': eitherType(0, expression),
     'text-justify': eitherType('left', 'center', 'right', expression),

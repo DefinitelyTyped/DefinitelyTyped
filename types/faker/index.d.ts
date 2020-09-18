@@ -1,4 +1,4 @@
-// Type definitions for faker 4.1
+// Type definitions for faker 5.1
 // Project: http://marak.com/faker.js/
 // Definitions by: Ben Swartz <https://github.com/bensw>,
 //                 Bas Pennings <https://github.com/basp>,
@@ -79,6 +79,7 @@ declare namespace Faker {
         finance: {
             account(length?: number): string;
             accountName(): string;
+            routingNumber(): string;
             mask(length?: number, parens?: boolean, elipsis?: boolean): string;
             amount(min?: number, max?: number, dec?: number, symbol?: string): string;
             transactionType(): string;
@@ -86,8 +87,13 @@ declare namespace Faker {
             currencyName(): string;
             currencySymbol(): string;
             bitcoinAddress(): string;
-            iban(formatted?: boolean): string
-            bic(): string
+            litecoinAddress(): string;
+            creditCardNumber(provider?: string): string;
+            creditCardCVV(): string;
+            ethereumAddress(): string;
+            iban(formatted?: boolean): string;
+            bic(): string;
+            transactionDescription(): string;
         };
 
         hacker: {

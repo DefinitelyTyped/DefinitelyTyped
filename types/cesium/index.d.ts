@@ -916,7 +916,7 @@ declare namespace Cesium {
         projectPointOntoPlane(cartesian: Cartesian3, result?: Cartesian2): Cartesian2;
         projectPointsOntoPlane(cartesians: Cartesian3[], result?: Cartesian2[]): Cartesian2[];
         projectPointsOntoEllipsoid(cartesians: Cartesian2[], result?: Cartesian3[]): Cartesian3[];
-        static fromPoints(ellipsoid: Ellipsoid, cartesians: Cartesian3): EllipsoidTangentPlane;
+        static fromPoints(cartesians: Cartesian3[], ellipsoid?: Ellipsoid): EllipsoidTangentPlane;
     }
 
     class EllipsoidTerrainProvider extends TerrainProvider {

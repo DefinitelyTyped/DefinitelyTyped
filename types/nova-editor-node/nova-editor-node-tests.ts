@@ -45,6 +45,11 @@ nova.config.get('test');
 // $ExpectType string[] | null
 nova.config.get('test', 'array');
 
+/// https://novadocs.panic.com/api-reference/charset/
+
+const charset1 = new Charset('abcd1234');
+const charset2 = charset1.intersect(Charset.letters);
+
 /// https://novadocs.panic.com/api-reference/emitter/
 
 const emitter = new Emitter();
@@ -95,6 +100,36 @@ nova.fs.moveAsync(
     thisValue,
 );
 
+/// https://novadocs.panic.com/api-reference/issue-parser/
+
+const p = new Process('/path', {
+    args: [],
+});
+
+const parser = new IssueParser('my-issue-matcher');
+
+p.onStdout(line => {
+    parser.pushLine(line);
+});
+
+p.onDidExit(code => {
+    const issues = parser.issues;
+});
+
+p.start();
+
+/// https://novadocs.panic.com/api-reference/issue/
+
+const issue = new Issue();
+
+issue.message = "Undefined name 'foobar'";
+issue.code = "E12";
+issue.severity = IssueSeverity.Error;
+issue.line = 10;
+issue.column = 12;
+
+(new IssueCollection()).set("fileURI", [issue]);
+
 /// https://novadocs.panic.com/api-reference/notification-request/
 
 const request = new NotificationRequest('foobar-not-found');
@@ -138,19 +173,37 @@ process.request('getNames', { sort: 'alpha' }).then(reply => {
 
 process.onNotify('didConnect', message => {});
 
-type ParamType = string & { __t: 'ParamType' };
-type ReplyType = string & { __t: 'ReplyType' };
-type ErrorType = string & { __t: 'ErrorType' };
 process.onRequest('getCount', request => {
     return new Promise((resolve, reject) => {
         resolve({ count: 10 });
     });
 });
 
+/// https://novadocs.panic.com/api-reference/scanner/
+
+const scanner = new Scanner('Foobar abc 12.0');
+
+scanner.scanString('Foo'); // => "Foo"
+scanner.scanString('Foo'); // => null
+scanner.scanString('bar'); // => "bar"
+
+scanner.scanChars(Charset.alphanumeric); // => "abc";
+
+scanner.scanFloat(); // => 12.0
+scanner.scanFloat(); // => null
+
+scanner.atEnd; // => true
+
+scanner.location = 42;
+
 /// https://novadocs.panic.com/api-reference/text-editor/
 
 // $ExpectError
 new TextEditor();
+
+declare const editor: TextEditor;
+
+editor.selectedRange = editor.getLineRangeForRange(new Range(4, 2));
 
 /// https://novadocs.panic.com/api-reference/tree-view/
 

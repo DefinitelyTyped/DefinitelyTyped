@@ -1,6 +1,7 @@
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import GeometryLayout from '../geom/GeometryLayout';
+import LineString from '../geom/LineString';
 import { ReadOptions, WriteOptions } from './Feature';
 import TextFeature from './TextFeature';
 
@@ -15,7 +16,7 @@ export default class Polyline extends TextFeature {
     protected readGeometryFromText(text: string, opt_options?: ReadOptions): Geometry;
     protected writeFeaturesText(features: Feature<Geometry>[], opt_options?: WriteOptions): string;
     protected writeFeatureText(feature: Feature<Geometry>, opt_options?: WriteOptions): string;
-    protected writeGeometryText(geometry: Geometry, opt_options?: WriteOptions): string;
+    protected writeGeometryText(geometry: LineString, opt_options?: WriteOptions): string;
 }
 export function decodeDeltas(encoded: string, stride: number, opt_factor?: number): number[];
 export function decodeFloats(encoded: string, opt_factor?: number): number[];

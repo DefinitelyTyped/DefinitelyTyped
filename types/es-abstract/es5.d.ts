@@ -1,7 +1,4 @@
-import toPrimitive = require('es-to-primitive/es5');
-import isCallable = require('is-callable');
-
-import {
+import type {
     GenericDescriptor as ESGenericDescriptor,
     AccessorDescriptor as ESAccessorDescriptor,
     DataDescriptor as ESDataDescriptor,
@@ -9,72 +6,48 @@ import {
 } from './index';
 
 interface ES5 {
-    readonly ToPrimitive: typeof toPrimitive;
-    ToBoolean(value: unknown): boolean;
-    ToNumber(value: unknown): number;
-    ToInteger(value: unknown): number;
-    ToInt32(value: unknown): number;
-    ToUint32(value: unknown): number;
-    ToUint16(value: unknown): number;
-    ToString(value: unknown): string;
-    // tslint:disable: ban-types
-    ToObject<T>(value: T): T extends object ? T
-        : T extends null | undefined ? never
-        : T extends string ? String
-        : T extends number ? Number
-        : T extends boolean ? Boolean
-        : T extends symbol ? Symbol
-        : T extends bigint ? BigInt
-        : object;
-    // tslint:enable: ban-types
-    CheckObjectCoercible<T>(value: T, errorMessage?: string): NonNullable<T>;
-
-    readonly IsCallable: typeof isCallable;
-    SameValue(x: unknown, y: unknown): boolean;
-
-    Type<T>(x: T): T extends string ? 'String'
-        : T extends number ? 'Number'
-        : T extends boolean ? 'Boolean'
-        : T extends null ? 'Null'
-        : T extends undefined ? 'Undefined'
-        : T extends object ? 'Object'
-        : 'String' | 'Number' | 'Boolean' | 'Null' | 'Undefined' | 'Object' | undefined;
-
-    IsPropertyDescriptor(Desc: unknown): Desc is ESPropertyDescriptor;
-    IsAccessorDescriptor<T = unknown>(Desc: ESPropertyDescriptor<T>): Desc is ESAccessorDescriptor<T>;
-    IsAccessorDescriptor(Desc: unknown): Desc is ESAccessorDescriptor;
-    IsDataDescriptor<T = unknown>(Desc: ESPropertyDescriptor<T>): Desc is ESDataDescriptor<T>;
-    IsDataDescriptor(Desc: unknown): Desc is ESDataDescriptor;
-    IsGenericDescriptor(Desc: unknown): Desc is ESGenericDescriptor;
-
-    FromPropertyDescriptor<T = unknown>(Desc: ESPropertyDescriptor<T>): TypedPropertyDescriptor<T>;
-    ToPropertyDescriptor<T = unknown>(Desc: TypedPropertyDescriptor<T>): ESPropertyDescriptor<T>;
-
-    'Abstract Equality Comparison'(x: unknown, y: unknown): boolean;
-    'Strict Equality Comparison'(x: unknown, y: unknown): boolean;
-    'Abstract Relational Comparison'(x: unknown, y: unknown, LeftFirst: boolean): boolean;
-
-    msFromTime(t: number): number;
-    SecFromTime(t: number): number;
-    MinFromTime(t: number): number;
-    HourFromTime(t: number): number;
-    Day(t: number): number;
-    TimeWithinDay(t: number): number;
-    DayFromYear(t: number): number;
-    TimeFromYear(t: number): number;
-    YearFromTime(t: number): number;
-    WeekDay(t: number): number;
-    DaysInYear(t: number): number;
-    InLeapYear(t: number): 0 | 1;
-    DayWithinYear(t: number): number;
-    MonthFromTime(t: number): number;
-    DateFromTime(t: number): number;
-    MakeDay(year: number, month: number, date: number): number;
-    MakeDate(day: number, time: number): number;
-    MakeTime(hour: number, min: number, sec: number, ms: number): number;
-    TimeClip(time: number): number;
-
-    modulo(x: number, y: number): number;
+    readonly 'Abstract Equality Comparison': typeof import('./5/AbstractEqualityComparison');
+    readonly 'Abstract Relational Comparison': typeof import('./5/AbstractRelationalComparison');
+    readonly 'Strict Equality Comparison': typeof import('./5/StrictEqualityComparison');
+    readonly CheckObjectCoercible: typeof import('./5/CheckObjectCoercible');
+    readonly DateFromTime: typeof import('./5/DateFromTime');
+    readonly Day: typeof import('./5/Day');
+    readonly DayFromYear: typeof import('./5/DayFromYear');
+    readonly DaysInYear: typeof import('./5/DaysInYear');
+    readonly DayWithinYear: typeof import('./5/DayWithinYear');
+    readonly FromPropertyDescriptor: typeof import('./5/FromPropertyDescriptor');
+    readonly HourFromTime: typeof import('./5/HourFromTime');
+    readonly InLeapYear: typeof import('./5/InLeapYear');
+    readonly IsAccessorDescriptor: typeof import('./5/IsAccessorDescriptor');
+    readonly IsCallable: typeof import('./5/IsCallable');
+    readonly IsDataDescriptor: typeof import('./5/IsDataDescriptor');
+    readonly IsGenericDescriptor: typeof import('./5/IsGenericDescriptor');
+    readonly IsPropertyDescriptor: typeof import('./5/IsPropertyDescriptor');
+    readonly MakeDate: typeof import('./5/MakeDate');
+    readonly MakeDay: typeof import('./5/MakeDay');
+    readonly MakeTime: typeof import('./5/MakeTime');
+    readonly MinFromTime: typeof import('./5/MinFromTime');
+    readonly modulo: typeof import('./5/modulo');
+    readonly MonthFromTime: typeof import('./5/MonthFromTime');
+    readonly msFromTime: typeof import('./5/msFromTime');
+    readonly SameValue: typeof import('./5/SameValue');
+    readonly SecFromTime: typeof import('./5/SecFromTime');
+    readonly TimeClip: typeof import('./5/TimeClip');
+    readonly TimeFromYear: typeof import('./5/TimeFromYear');
+    readonly TimeWithinDay: typeof import('./5/TimeWithinDay');
+    readonly ToBoolean: typeof import('./5/ToBoolean');
+    readonly ToInt32: typeof import('./5/ToInt32');
+    readonly ToInteger: typeof import('./5/ToInteger');
+    readonly ToNumber: typeof import('./5/ToNumber');
+    readonly ToObject: typeof import('./5/ToObject');
+    readonly ToPrimitive: typeof import('./5/ToPrimitive');
+    readonly ToPropertyDescriptor: typeof import('./5/ToPropertyDescriptor');
+    readonly ToString: typeof import('./5/ToString');
+    readonly ToUint16: typeof import('./5/ToUint16');
+    readonly ToUint32: typeof import('./5/ToUint32');
+    readonly Type: typeof import('./5/Type');
+    readonly WeekDay: typeof import('./5/WeekDay');
+    readonly YearFromTime: typeof import('./5/YearFromTime');
 }
 
 declare namespace ES5 {

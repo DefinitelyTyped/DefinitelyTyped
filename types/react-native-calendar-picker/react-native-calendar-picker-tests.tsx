@@ -1,12 +1,13 @@
 import * as React from 'react';
+import { View, TextInput } from 'react-native';
 
 import CalendarPicker, {
     DateChangedCallback,
-    SwipeCallback,
     CustomDateStyle,
     DisabledDatesFunc,
+    CustomDatesStylesFunc,
+    CustomDayHeaderStylesFunc,
 } from 'react-native-calendar-picker';
-import { View, TextInput } from 'react-native';
 
 const TestSimpleProps = () => (
     <CalendarPicker
@@ -46,14 +47,14 @@ const TestSimpleProps = () => (
         todayBackgroundColor="string"
         todayTextStyle={{ fontSize: 10 }}
         textStyle={{ fontSize: 10 }}
-        customDatesStylesPriority="dayOfWeek"
+        scrollable
+        horizontal={false}
         scaleFactor={3}
         minDate={new Date()}
         maxDate={new Date()}
         initialDate={new Date()}
         width={3}
         height={3}
-        enableSwipe
         enableDateChange
         restrictMonthNavigation
         dayShape="circle"
@@ -86,8 +87,6 @@ const TestDisabledDates = () => {
 };
 
 const TestCustomDateStyle = () => {
-    const onDateChange: DateChangedCallback = date => console.log(date.day());
-
     const customStyles: CustomDateStyle[] = [
         {
             date: new Date(),
@@ -101,7 +100,50 @@ const TestCustomDateStyle = () => {
         },
     ];
 
-    return <CalendarPicker customDatesStyles={customStyles} customDatesStylesPriority="customDates" />;
+    return <CalendarPicker customDatesStyles={customStyles} />;
+};
+
+const TestCustomDateFuncs = () => {
+    const customDatesStylesFn: CustomDatesStylesFunc = date => {
+        if (date.weekday() === 0) {
+            return {
+                containerStyle: {
+                    backgroundColor: 'red',
+                },
+                textStyle: {
+                    color: 'black',
+                },
+            };
+        } else {
+            return {
+                containerStyle: {
+                    backgroundColor: 'white',
+                },
+                style: {
+                    alignContent: 'center',
+                },
+                textStyle: {
+                    color: 'black',
+                },
+            };
+        }
+    };
+
+    const customDayHeaderStylesFn: CustomDayHeaderStylesFunc = (date: {
+        dayOfWeek: number;
+        year: number;
+        month: number;
+    }) => {
+        return {
+            textStyle: {
+                color: date.year === 2020 ? 'red' : 'blue',
+            },
+            style: {
+                backgroundColor: 'yellow',
+            },
+        };
+    };
+    return <CalendarPicker customDatesStyles={customDatesStylesFn} customDayHeaderStyles={customDayHeaderStylesFn} />;
 };
 
 const TestCallbacks = () => {
@@ -114,7 +156,11 @@ const TestRef = () => {
     const ref = React.useRef<CalendarPicker>();
     ref.current!.handleOnPressNext();
     ref.current!.handleOnPressPrevious();
-    ref.current!.handleOnPressDay(3);
+    ref.current!.handleOnPressDay({
+        day: 5,
+        month: 6,
+        year: 2020
+    });
     ref.current!.resetSelections();
 };
 
@@ -130,36 +176,10 @@ const TestDayOfWeekStyles = () => {
                 borderBottomWidth: 0,
                 borderTopWidth: 0,
             }}
-            dayOfWeekStyles={{
-                0: {
-                    color: '#00f',
-                    fontSize: 22,
-                    fontWeight: 'bold',
-                    backgroundColor: '#ff0',
-                },
-                5: {
-                    color: '#000',
-                    fontSize: 22,
-                },
-            }}
-        />
-    );
-};
-
-const TestSwipe = () => {
-    const onSwipe: SwipeCallback = direction => {
-        const b: boolean = direction === 'invalid'; // $ExpectError
-        if (direction === 'SWIPE_RIGHT') console.log('swiped right');
-    };
-    return (
-        <CalendarPicker
-            swipeConfig={{ directionalOffsetThreshold: 3, velocityThreshold: 4 }}
-            enableSwipe
-            onSwipe={onSwipe}
         />
     );
 };
 
 const TestCustomComponents = () => {
-    return (<CalendarPicker nextComponent={<View></View>} previousComponent={[<TextInput />]} />);
+    return <CalendarPicker nextComponent={<View></View>} previousComponent={[<TextInput />]} />;
 };

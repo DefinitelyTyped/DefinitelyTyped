@@ -8,3 +8,8 @@ import * as R from 'ramda';
   const obj = {};
   R.contains(obj)([{}, obj, {}]); // => true
 };
+
+() => {
+  R.contains(R.__, [1, 2, 3])(3); // true
+  R.contains<number>(R.__)([1, 2, 3], 3); // true
+};

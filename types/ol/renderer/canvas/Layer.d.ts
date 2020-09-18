@@ -1,5 +1,5 @@
 import { Coordinate } from '../../coordinate';
-import { EventsKey, ListenerFunction } from '../../events';
+import { EventsKey } from '../../events';
 import BaseEvent from '../../events/Event';
 import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
@@ -13,10 +13,10 @@ import LayerRenderer from '../Layer';
 export default abstract class CanvasLayerRenderer<LayerType extends Layer = Layer> extends LayerRenderer {
     constructor(layer: LayerType);
     protected container: HTMLElement;
-    protected context: CanvasRenderingContext2D;
     protected inversePixelTransform: Transform;
     protected pixelTransform: Transform;
     protected renderedResolution: number;
+    protected tempTransform: Transform;
     protected clip(context: CanvasRenderingContext2D, frameState: FrameState, extent: Extent): void;
     protected clipUnrotated(context: CanvasRenderingContext2D, frameState: FrameState, extent: Extent): void;
     protected getRenderTransform(
@@ -36,13 +36,13 @@ export default abstract class CanvasLayerRenderer<LayerType extends Layer = Laye
         hitTolerance: number,
         callback: (p0: FeatureLike, p1: Layer<Source>) => T,
         declutteredFeatures: FeatureLike[],
-    ): T | void;
+    ): T;
     getDataAtPixel(pixel: Pixel, frameState: FrameState, hitTolerance: number): Uint8ClampedArray | Uint8Array;
     abstract handleFontsChanged(): void;
     abstract prepareFrame(frameState: FrameState): boolean;
     abstract renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
     useContainer(target: HTMLElement, transform: string, opacity: number): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

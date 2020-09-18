@@ -35,63 +35,27 @@ declare module "perf_hooks" {
     interface PerformanceNodeTiming extends PerformanceEntry {
         /**
          * The high resolution millisecond timestamp at which the Node.js process completed bootstrap.
+         * If bootstrapping has not yet finished, the property has the value of -1.
          */
         readonly bootstrapComplete: number;
 
         /**
-         * The high resolution millisecond timestamp at which cluster processing ended.
-         */
-        readonly clusterSetupEnd: number;
-
-        /**
-         * The high resolution millisecond timestamp at which cluster processing started.
-         */
-        readonly clusterSetupStart: number;
-
-        /**
          * The high resolution millisecond timestamp at which the Node.js event loop exited.
+         * If the event loop has not yet exited, the property has the value of -1.
+         * It can only have a value of not -1 in a handler of the 'exit' event.
          */
         readonly loopExit: number;
 
         /**
          * The high resolution millisecond timestamp at which the Node.js event loop started.
+         * If the event loop has not yet started (e.g., in the first tick of the main script), the property has the value of -1.
          */
         readonly loopStart: number;
-
-        /**
-         * The high resolution millisecond timestamp at which main module load ended.
-         */
-        readonly moduleLoadEnd: number;
-
-        /**
-         * The high resolution millisecond timestamp at which main module load started.
-         */
-        readonly moduleLoadStart: number;
 
         /**
          * The high resolution millisecond timestamp at which the Node.js process was initialized.
          */
         readonly nodeStart: number;
-
-        /**
-         * The high resolution millisecond timestamp at which preload module load ended.
-         */
-        readonly preloadModuleLoadEnd: number;
-
-        /**
-         * The high resolution millisecond timestamp at which preload module load started.
-         */
-        readonly preloadModuleLoadStart: number;
-
-        /**
-         * The high resolution millisecond timestamp at which third_party_main processing ended.
-         */
-        readonly thirdPartyMainEnd: number;
-
-        /**
-         * The high resolution millisecond timestamp at which third_party_main processing started.
-         */
-        readonly thirdPartyMainStart: number;
 
         /**
          * The high resolution millisecond timestamp at which the V8 platform was initialized.
@@ -101,47 +65,11 @@ declare module "perf_hooks" {
 
     interface Performance {
         /**
-         * If name is not provided, removes all PerformanceFunction objects from the Performance Timeline.
-         * If name is provided, removes entries with name.
-         * @param name
-         */
-        clearFunctions(name?: string): void;
-
-        /**
          * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
          * If name is provided, removes only the named mark.
          * @param name
          */
         clearMarks(name?: string): void;
-
-        /**
-         * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
-         * If name is provided, removes only objects whose performanceEntry.name matches name.
-         */
-        clearMeasures(name?: string): void;
-
-        /**
-         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
-         * @return list of all PerformanceEntry objects
-         */
-        getEntries(): PerformanceEntry[];
-
-        /**
-         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
-         * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
-         * @param name
-         * @param type
-         * @return list of all PerformanceEntry objects
-         */
-        getEntriesByName(name: string, type?: string): PerformanceEntry[];
-
-        /**
-         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
-         * whose performanceEntry.entryType is equal to type.
-         * @param type
-         * @return list of all PerformanceEntry objects
-         */
-        getEntriesByType(type: string): PerformanceEntry[];
 
         /**
          * Creates a new PerformanceMark entry in the Performance Timeline.

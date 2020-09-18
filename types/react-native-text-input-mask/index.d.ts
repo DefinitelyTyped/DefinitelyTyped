@@ -10,6 +10,7 @@ import * as ReactNative from "react-native";
 export type onChangeTextCallback = (formatted: string, extracted?: string) => void;
 
 export interface TextInputMaskProps extends ReactNative.ViewProps, ReactNative.TextInputIOSProps, ReactNative.TextInputAndroidProps, ReactNative.AccessibilityProps {
+    refInput?: React.RefObject<ReactNative.TextInput>;
     maskDefaultValue?: boolean;
     mask?: string;
     onChangeText: onChangeTextCallback;

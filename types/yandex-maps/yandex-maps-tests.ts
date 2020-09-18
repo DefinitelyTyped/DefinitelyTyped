@@ -61,3 +61,9 @@ map.layers.each((layer) => {
 });
 
 map.setZoom(13);
+
+const shapeCircle = new ymaps.shape.Circle(
+    new ymaps.geometry.pixel.Circle([0, 0], 10)
+);
+
+shapeCircle.getGeometry();

@@ -1,5 +1,4 @@
 declare module "http" {
-    import * as events from "events";
     import * as stream from "stream";
     import { URL } from "url";
     import { Socket, Server as NetServer } from "net";
@@ -132,6 +131,12 @@ declare module "http" {
          */
         headersTimeout: number;
         keepAliveTimeout: number;
+        /**
+         * Sets the timeout value in milliseconds for receiving the entire request from the client.
+         * @default 0
+         * {@link https://nodejs.org/api/http.html#http_server_requesttimeout}
+         */
+        requestTimeout: number;
     }
 
     interface Server extends HttpBase {}
