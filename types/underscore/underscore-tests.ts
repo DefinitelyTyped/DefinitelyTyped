@@ -1,3 +1,5 @@
+import _ = require('underscore');
+
 /**************************************
  * Common Testing Types and Variables *
  **************************************/
@@ -152,187 +154,205 @@ declare const maybeFunction: (() => void) | undefined;
 /***************
  * Usage Tests *
  ***************/
+// checking the version of Underscore
 _.VERSION; // $ExpectType string
+
+// iterating through an array
 _.each([1, 2, 3], (num) => alert(num.toString()));
+
+// iterating through a dictionary
 _.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
 
+// mapping an array with an inferred result type
 _.map([1, 2, 3], (num) => num * 3);
-_.map({ one: 1, two: 2, three: 3 }, (value, key) => value * 3);
+
+// mapping a dictionary with an explicit result type
+_.map({ one: 1, two: 2, three: 3 }, (value, key): NumberRecord => ({ a: value }));
+
+// mapping a dictionary by retrieving the value of a specific property
 let plucked: string[] = _.map([{key: 'apples'}, {key: 'oranges'}], 'key');
 
-//var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);    // https://typescript.codeplex.com/workitem/1960
+// summing with a result of undefined when no values are provided
 _.reduce([1, 2, 3], (memo, num) => memo + num); // $ExpectType number | undefined
-_.reduce<_.Dictionary<string>, number>({ 'a': '1', 'b': '2', 'c': '3' }, (memo, numstr) => (+memo) + (+numstr)); // $ExpectType string | number | undefined
-_.reduce({ 'a': '1', 'b': '2', 'c': '3' }, (memo: string | number, numstr) => (+memo) + (+numstr)); // $ExpectType string | number | undefined
-_.reduce([1, 2, 3], (memo, num) => memo + num, 0); // $ExpectType number
-_([1, 2, 3]).reduce((memo, num) => memo + num, 0); // $ExpectType number
-_.chain([1, 2, 3]).reduce((memo, num) => memo + num, 0).value(); // $ExpectType number
 
+// summing numbers as strings in an object collection with a result of undefined when no values are provided
+// and a result of a string when only one value is provided
+_.reduce({ 'a': '1', 'b': '2', 'c': '3' }, (memo: string | number, numstr) => (+memo) + (+numstr)); // $ExpectType string | number | undefined
+
+// summing with a result of zero when no values are provided
+_.reduce([1, 2, 3], (memo, num) => memo + num, 0); // $ExpectType number
+
+// flattening an array in reverse order
 var list = [[0, 1], [2, 3], [4, 5]];
-//var flat = _.reduceRight(list, (a, b) => a.concat(b), []);    // https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight(list, (a, b) => a.concat(b), [] as number[]);
 
+// filtering to only evens
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
+// filtering to only uppercase letters
 var capitalLetters = _.filter({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
 
+// rejecting evens
+var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+
+// filtering to partial matches
 var listOfPlays = [{ title: "Cymbeline", author: "Shakespeare", year: 1611 }, { title: "The Tempest", author: "Shakespeare", year: 1611 }, { title: "Other", author: "Not Shakespeare", year: 2012 }];
 _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
-var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
-
-_.every([true, 1, null, 'yes'], x => !!_.identity(x));
+// determining whether every value is truthy
+_.every([true, 1, null, 'yes']);
 
 _.any([null, 0, 'yes', false]);
 
+// determining whether any number in a list is divisible by three
 _.some([1, 2, 3, 4], l => l % 3 === 0);
 
+// determining whether any value in a dictionary is uppercase
 _.some({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
 
+// checking whether an item is in an array
 _.contains([1, 2, 3], 3);
 
+// checking whether an item is in the portion of an array that starts with index 1
 _.contains([1, 2, 3], 3, 1);
 
-_.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
+// truncating a set of strings to 5 characters or less
+_.invoke(['zebra', 'giraffe', 'lion'], 'substring', 0, 5);
 
-// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33479
-var foo: any[] = [{'a': 1, 'b': 2}];
-_.pluck(foo, 'a');
-
+// retrieving a property value from all items in a collection
 var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
 _.pluck(stooges, 'name');
 
-_.max(stooges, (stooge) => stooge.age);
-_.min(stooges, (stooge) => stooge.age);
-_.max({ a: 1, b: 2 });
-_.max({ a: 'a', b: 'bb' }, (v, k) => v.length);
+// retrieving the minimum number in a dictionary
 _.min({ a: 1, b: 2 });
-_.min({ a: 'a', b: 'bb' }, (v, k) => v.length);
 
-var numbers = [10, 5, 100, 2, 1000];
-_.max(numbers);
-_.min(numbers);
+// retrieving the item with the maximum number in a property
+_.max(stooges, (stooge) => stooge.age);
 
+// sorting by a calculated value
 _.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
 
-_([1, 2, 3]).chain()
-    .sortBy(x => -x)
-    .sortBy(x => -x)
-    .value().length;
-
+// grouping numbers by their non-fractional parts
 _([1.3, 2.1, 2.4]).groupBy((e) => Math.floor(e));
-_.groupBy([1.3, 2.1, 2.4], (num) => Math.floor(num).toString());
+
+// grouping numbers by the value of a specified property
 _.groupBy(['one', 'two', 'three'], 'length');
 
-_.indexBy(stooges, 'age')['40'].age;
-_(stooges).indexBy('age')['40'].name;
-_(stooges)
-    .chain()
-    .indexBy('age')
-    .value()['40'].age;
+// indexing items in a dictionary by age
+_.indexBy(stooges, 'age');
 
-let pensioners: string[] = _.chain(stooges)
-    .filter(p => p.age >= 60)
-    .map(p => p.name)
-    .value();
-
-var usersData: _.Dictionary<{ age: number; name: string }> = {
-    'user id': { name: 'moe', age: 40 },
-    'other user Id': { name: 'larry', age: 50 },
-    'fake id': { name: 'curly', age: 60 },
-};
-
-let youngPeopleId: string[] = _.chain(usersData)
-    .map((p, k: string) => k)
-    .value();
-
-let usersTable: { age: number; name: string; id: string }[] = _.chain(usersData)
-    .map((p, k: string) => {
-        return { id: k, ...p };
-    })
-    .value();
-
-// Test map function with _ChainOfArrays<>
-let usersTable_2 /*: { age: number; name: string; id: string }[][]*/ = _.chain(usersData)
-    .map((p, k: string) => {
-        return [{ id: k, ...p }];
-    })
-    .value();
-
-let usersTable_3 /*: { score: number; fullName: string; login: string }[][]*/ = _.chain(usersTable)
-    .map(p => {
-        return [
-            {
-                login: p.id,
-                fullName: p.name,
-                score: p.age,
-            },
-        ];
-    })
-    .value();
-
+// counting numbers by their evenness
 _.countBy([1, 2, 3, 4, 5], (num) => (num % 2 == 0) ? 'even' : 'odd');
 
+// shuffling numbers
 _.shuffle([1, 2, 3, 4, 5, 6]);
 
+// converting an array-like structure to an array
 (function (a, b, c, d) { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
 
+// determining the number of items in a dictionary
 _.size({ one: 1, two: 2, three: 3 });
 
-_.partition<number[]>([0, 1, 2, 3, 4, 5], (num) => {return num % 2 == 0 });
+// splitting numbers into sets of even and odd values
+_.partition([0, 1, 2, 3, 4, 5], (num) => {return num % 2 === 0 });
 
 interface Family {
     name: string;
     relation: string;
 }
+
+// creating a function that can determine if one object's property values matches another's
 var isUncleMoe = _.matches<Family>({ name: 'moe', relation: 'uncle' });
-_.filter([{ name: 'larry', relation: 'father' }, { name: 'moe', relation: 'uncle' }], isUncleMoe);
 var uncleMoe: Family = { name: 'moe', relation: 'uncle' };
 isUncleMoe(uncleMoe);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
+// retrieving the first item in an array
 _.first([5, 4, 3, 2, 1]);
+
+// retrieving all but the last element in an array
 _.initial([5, 4, 3, 2, 1]);
-_.last([5, 4, 3, 2, 1]);
-_.rest([5, 4, 3, 2, 1]);
-_.compact([0, 1, false, 2, '', 3]);
 
-_.flatten([1, 2, 3, 4]);
-_.flatten([1, [2]]);
+// retrieving the last two elements in an array
+_.last([5, 4, 3, 2, 1], 2);
 
-// typescript doesn't like the elements being different
+// retrieving all but the first two elements in an array
+_.rest([5, 4, 3, 2, 1], 2);
+
+// removing falsy values
+_.compact([0, 1, false, 2, '', 3, undefined]);
+
+// deep flattening an array
 _.flatten([1, [2], [3, [[4]]]]);
+
+// shallow flattening an array
 _.flatten([1, [2], [3, [[4]]]], true);
+
+// excluding values from a list
 _.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
+
+// computing the union of several sets
 _.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+
+// computing the intersection of several sets
 _.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+
+// computing the difference one set and other sets
 _.difference([1, 2, 3, 4, 5], [5, 2, 10]);
+
+// determining the unique values in an array
 _.uniq([1, 2, 1, 3, 1, 4]);
+
+// merging together lists of values at a set of positions
 _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
+
+// creating an object from a set of keys and a set of values
 var r = _.object(['moe', 'larry', 'curly'], [30, 40, 50]);
+
+// creating an object from a set of key-value pairs
 _.object([['moe', 30], ['larry', 40], ['curly', 50]]);
+
+// finding the index of a value
 _.indexOf([1, 2, 3], 2);
+
+// finding the last index of a value
 _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
+
+// finding the index at which to insert a value to maintain sorting
 _.sortedIndex([10, 20, 30, 40, 50], 35);
+
+// finding the index of the first matching value
 _.findIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+
+// finding the index of the first matching value via a shallow object contents comparison
 _.findIndex([{a: 'a'}, {a: 'b'}], {a: 'b'});
+
+// finding the index of the last matching value
 _.findLastIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+
+// finding the index of the last matching value via a shallow object contents comparison
 _.findLastIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' });
+
+// creating an array of numbers from 0 to 10
 _.range(10);
+
+// creating an array of numbers from 1 to 11
 _.range(1, 11);
+
+// creating an array of numbers from 0 to 30 in increments of 5
 _.range(0, 30, 5);
-_.range(0, 30, 5);
-_.range(0);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
+// binding a context and arguments to a function
 var func = function (greeting) { return `${greeting}: ${this.name}` };
 // need a second var otherwise typescript thinks func signature is the above func type,
 // instead of the newly returned _bind => func type.
 var func2 = _.bind(func, { name: 'moe' }, 'hi');
 func2();
 
+// binding a context to all functions in an object
 var buttonView = {
     label: 'underscore',
     onClick() { alert('clicked: ' + this.label); },
@@ -341,98 +361,127 @@ var buttonView = {
 _.bindAll(buttonView);
 $('#underscore_button').bind('click', buttonView.onClick);
 
+// creating a function that will remember previously computed values for a set of arguments
 var fibonacci = _.memoize(function (n) {
     return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 });
 
+// creating a function that will cache instances of classes as singletons
+// (the second call will return the same object as the first)
 class MyClass {};
 
 var classMemoized = _.memoize<MyClass>(function (classInstance) {
     return new classInstance();
 });
 
+// delaying the execution of a function with arguments
 var log = _.bind(console.log, console);
 _.delay(log, 1000, 'logged later');
 
+// deferring the execution of a function
 _.defer(function () { alert('deferred'); });
 
+// rate-limiting a function
 var updatePosition = (param:string) => alert('updating position... Param: ' + param);
 var throttled = _.throttle(updatePosition, 100);
 $(window).scroll(throttled);
 throttled.cancel();
 
+// debouncing a function
 var calculateLayout = (param:string) => alert('calculating layout... Param: ' + param);
 var lazyLayout = _.debounce(calculateLayout, 300);
 $(window).resize(lazyLayout);
 lazyLayout.cancel();
 
+// creating a function that will only perform its action once (the second call will return the result of the first call)
 var createApplication = (param:string) => alert('creating application... Param: ' + param);
 var initialize = _.once(createApplication);
 initialize("me");
 initialize("me");
 
+// creating a wrapped function that will only be invoked after the wrapper is invoked a number of times
 var notes: any[] = [1,2,3];
 var render = () => alert("rendering...");
 var renderNotes = _.after(notes.length, render);
 _.each(notes, (note) => note.asyncSave({ success: renderNotes }));
 
+// wrapping a function in another function
 var hello = function (name) { return "hello: " + name; };
-// can't use the same "hello" var otherwise typescript fails
-var hello2 = _.wrap(hello, (func) => { return `before, ${func("moe")} + after`; });
-hello2();
+var wrappedHello = _.wrap(hello, (func) => { return `before, ${func("moe")} + after`; });
+wrappedHello();
 
+// composing a function as the result of multiple function calls
 var greet = function (name) { return "hi: " + name; };
 var exclaim = function (statement) { return statement + "!"; };
 var welcome = _.compose(exclaim, greet);
 welcome('moe');
 
 var partialApplicationTestFunction = (a: string, b: number, c: boolean, d: string, e: number, f: string) => {  }
+
+// providing a partial set of leading arguments
 var partialApplicationResult = _.partial(partialApplicationTestFunction, "", 1);
+
+// providing a partial set of arguments in the middle of a parameter set
 var parametersCanBeStubbed = _.partial(partialApplicationResult, _, _, _, "");
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
+// retrieving the keys of an object
 _.keys({ one: 1, two: 2, three: 3 });
+
+// retrieving the values of a dictionary
 _.values({ one: 1, two: 2, three: 3 });
+
+// retrieving an array of key-value pairs for an object
 _.pairs({ one: 1, two: 2, three: 3 });
+
+// making an object's keys its values and values its keys
 _.invert({ Moe: "Moses", Larry: "Louis", Curly: "Jerome" });
+
+// retrieving the names of all of the function-valued properties from an object
 _.functions(_);
+
+// shallow copying properties from the source objects to the destination object
 _.extend({ name: 'moe' }, { age: 50 });
+
+// shallow copying own properties from the source objects to the destination object
 _.extendOwn({ name: 'moe'}, { age: 50 });
 _.assign({ name: 'moe'}, { age: 50 });
 
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age').age = 5;
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']).age = 5;
+// making a copy of an object that includes a specific subset of properties selected by known names
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
+
+// making a copy of an object that includes a specific subset of properties selected by unknown names
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, stringArray);
+
+// making a copy of an object that includes a specific subset of properties selected by an iteratee
 _.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => {
     return key === 'name' || key === 'age';
-}).age = 5;
+});
 
-_({ name: 'moe', age: 50, userid: 'moe1' }).pick('name', 'age').age = 5;
-_({ name: 'moe', age: 50, userid: 'moe1' }).pick(['name', 'age']).age = 5;
-_({ name: 'moe', age: 50, userid: 'moe1' }).pick((value, key) => {
-    return key === 'name' || key === 'age';
-}).age = 5;
-
-_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick('name', 'age').value().age = 5;
-_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick(['name', 'age']).value().age = 5;
-_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick((value, key) => {
-    return key === 'name' || key === 'age';
-}).value().age = 5;
-
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
+// making a copy of an object that omits a specific subset of properties selected by known names
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
 
-_.mapObject({ a: 1, b: 2 }, val => val * 2) === _.mapObject({ a: 2, b: 4 }, _.identity);
-_.mapObject({ a: 1, b: 2 }, (val, key, o) => o[key] * 2) === _.mapObject({ a: 2, b: 4}, _.identity);
-_.mapObject({ x: "string 1", y: "string 2" }, 'length') === _.mapObject({ x: "string 1", y: "string 2"}, _.property('length'));
+// making a copy of an object that omits a specific subset of properties selected by unknown names
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, stringArray);
 
+// making a copy of an object that omits a specific subset of properties selected by an iteratee
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' || key === 'age');
+
+// converting the properties of an object from numbers to strings
+_.mapObject({ a: '1', b: '2' }, val => +val);
+
+// filling in properties missing on an object
 var iceCream = { flavor: "chocolate" };
 _.defaults(iceCream, { flavor: "vanilla", sprinkles: "lots" });
 
+// creating a shallow-copied clone of an object
 _.clone({ name: 'moe' });
 _.clone(['i', 'am', 'an', 'object!']);
 
+// move to chain tests
 _([1, 2, 3, 4])
     .chain()
     .filter((num) => { return num % 2 == 0; })
@@ -440,130 +489,121 @@ _([1, 2, 3, 4])
     .map((num) => { return num * num; })
     .value();
 
-_.chain([1, 2, 3, 200])
-    .filter((num) => { return num % 2 == 0; })
-    .tap(alert)
-    .map((num) => { return num * num; })
-    .value();
-
+// checking whether or not an object has a property
 _.has({ a: 1, b: 2, c: 3 }, "b");
 
+// retrieving shallow and deep property values from an object
 var moe = { name: 'moe', luckyNumbers: [13, 27, 34] };
-
 _.property('name')(moe);
-_.property(['name'])(moe);
 _.property(['luckyNumbers', 2])(moe)
 
+// creating a function that will always return a specific value
 var UncleMoe = { name: 'moe' };
 _.constant(UncleMoe)();
 
+// getting the current time as an integer timestamp
 typeof _.now() === "number";
 
+// giving control of the _ global variable back to its previous owner (returns a reference to value of _ that is in effect before the function is called)
 var underscore = _.noConflict();
 
+// calling a no-op function that returns the same value that is used as the argument
 var moe2 = { name: 'moe' };
 moe2 === _.identity(moe);
 
-var genie;
-var r2 = _.times(3, (n) => { return n * n });
-_(3).times(function (n) { genie.grantWishNumber(n); });
+// calling a function multiple times with the iteration as an argument and getting an array containing the result of each call
+// in this case, the result is the squares of the numbers 0 through 4
+_.times(5, n => n * n);
 
+// generating a random number between two bounds
 _.random(0, 100);
 
+// adding functions to Underscore by calling _.mixin and augmenting Underscore's
+// type definitions
 _.mixin({
-    capitalize(string) {
-        return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
-    }
+    capitalize: (string: string) => string.charAt(0).toUpperCase() + string.substring(1)
 });
-(<any>_("fabio")).capitalize();
 
+declare module 'underscore' {
+    interface UnderscoreStatic {
+        capitalize(string: string): string;
+    }
+
+    interface Underscore<T, V> {
+        capitalize(): string;
+    }
+
+    interface _Chain<T, V> {
+        capitalize(): _ChainSingle<string>;
+    }
+}
+
+_.capitalize("fabio"); // $ExpectType string
+_("fabio").capitalize(); // $ExpectType string
+_.chain("fabio").capitalize().value(); // $ExpectType string
+
+// generating an id that is unique only to this current usage of underscore
 _.uniqueId('contact_');
 
+// HTML-escaping a string
 _.escape('Curly, Larry & Moe');
 
-var object = { cheese: 'crumpets', stuff() { return 'nonsense'; } };
-_.result(object, 'cheese');
+// getting the result of a property by either:
+//   evaluating it (if it's a function),
+//   returning the value of the default parameter (if it's undefined)
+//   or returning its value
+// the example below will always return a string
+declare const objectWithFunctionOrValue: { functionOrValue: (() => string) | string | undefined; };
+_.result(objectWithFunctionOrValue, 'functionOrValue', 'someDefaultResult');
 
-_.result(object, 'stuff');
+// compiling and evaluating templates
+{
+    const template = _.template("<% _.each(people, function(name) { %> <li><%= name %></li> <% }); %>"); // $ExpectType CompiledTemplate
+    template({ people: ['moe', 'curly', 'larry'] }); // $ExpectType string
+}
 
-var compiled = _.template("hello: <%= name %>");
-compiled({ name: 'moe' });
-let source: string = compiled.source;
-var list2 = "<% _.each(people, function(name) { %> <li><%= name %></li> <% }); %>";
-_.template(list2)({ people: ['moe', 'curly', 'larry'] });
-var template = _.template("<b><%- value %></b>");
-template({ value: '<script>' });
-var compiled2 = _.template("<% print('Hello ' + epithet); %>");
-compiled2({ epithet: "stooge" });
-var oldTemplateSettings = _.templateSettings;
-_.templateSettings = {
-    interpolate: /\{\{(.+?)\}\}/g
-};
-var template2 = _.template("Hello {{ name }}!");
-template2({ name: "Mustache" });
-_.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
+// overriding template settings
+{
+    // $ExpectType CompiledTemplate
+    const template = _.template("<p>Hello {{: data.name }}!<p><p>The current timestamp is {{= _.now() }}</p>",
+        {
+            escape: /\{\{=(.+?)\}\}/g,
+            interpolate: /\{\{:(.+?)\}\}/g,
+            evaluate: /\{\{\}\}/g,
+            variable: 'data'
+        });
+    template({ name: "Mustache O'Grady" }); // $ExpectType string
+}
 
-_.template("Using 'with': <%= data.answer %>", { variable: 'data' })({ answer: 'no' });
-let template0 = _.template("I don't depend on any variables");
-template0();
+// setting different global settings for templates
+{
+    _.templateSettings = {
+        escape: /\{\{=(.+?)\}\}/g,
+        interpolate: /\{\{:(.+?)\}\}/g,
+        evaluate: /\{\{\}\}/g,
+        variable: 'data'
+    };
+    const template = _.template("<p>Hello {{: data.name }}!<p><p>The current timestamp is {{= _.now() }}</p>"); // $ExpectType CompiledTemplate
+    template({ name: "Mustache O'Grady" }); // $ExpectType string
+}
 
 //////////////// Chain Tests
 function chain_tests() {
-    // https://typescript.codeplex.com/workitem/1960
-    var numArray = _.chain([1, 2, 3, 4, 5, 6, 7, 8])
-        .filter(num => num % 2 == 0)
-        .map(num => num * num)
-        .value();
-
-    var strArray = _([1, 2, 3, 4])
-        .chain()
-        .filter(num => num % 2 == 0)
-        .tap(alert)
-        .map(num => "string" + num)
-        .value();
-
-    var n = _.chain([1, 2, 3, 200])
-        .filter(num => num % 2 == 0)
-        .tap(alert)
-        .map(num => num * num)
-        .max()
-        .value();
-
+    // move to chain tests
     var hoverOverValueShouldBeNumberNotAny = _([1, 2, 3]).chain()
         .map(num => [num, num + 1])
         .flatten()
         .find(num => num % 2 == 0)
         .value();
 
-    var firstVal: number | undefined = _.chain([1, 2, 3])
-        .first()
-        .value();
-
-    var firstVal2: number | undefined = _.chain([])
-        .first()
-        .value();
-
+    // move to chain tets
     let numberObjects = [{property: 'odd', value: 1}, {property: 'even', value: 2}, {property: 'even', value: 0}];
     let evenAndOddGroupedNumbers = _.chain(numberObjects)
         .groupBy('property')
         .mapObject((objects) => _.pluck(objects, 'value'))
         .value(); // { odd: [1], even: [0, 2] }
 
-  var matrixOfString : string[][] = _.chain({'foo' : '1', 'bar': '1'})
-      .keys()    // return ['foo', 'bar'] : string[]
-      .pairs()   // return [['foo', '0'], ['bar', '1']] : string[][]
-      .value();
-
-    interface IYears {
-        2016: number;
-        2017: number;
-    }
-
-    let yearObject: IYears = {2016: 1, 2017: 2};
-    let valuePerYear: number[] = _.chain(yearObject)
-        .values()
-        .value()
-
+    // move to chain tests
     const arr1: string[] = ['z', 'x', 'y'];
     const query = 'z';
     let arr2: string[] = ['a', 'b', 'c'];
@@ -573,19 +613,8 @@ function chain_tests() {
         .value();
 }
 
-var obj: { [k: string] : number } = {
-       'test' : 5,
-       'another' : 8,
-       'third' : 10
-    };
-let empty = {};
-
-_.chain(obj).map(function (value, key) {
-    empty[key] = value;
-    console.log("vk", value, key);
-});
-
 function strong_typed_values_tests() {
+    // move to chain tests
     var dictionaryLike: { [k: string] : {title: string, value: number} } = {
         'test' : { title: 'item1', value: 5 },
         'another' : { title: 'item2', value: 8 },
@@ -597,14 +626,6 @@ function strong_typed_values_tests() {
     }).map((r) => {
         return [r.title, true];
     }).object().value();
-
-    var x: number = _(dictionaryLike).chain().filter((x) => {
-        console.log(x.title);
-        console.log(x.value.toFixed());
-        return x.title == 'item1';
-    }).size().value();
-
-    _.values<{title: string, value: number}>(dictionaryLike);
 }
 
 // tests for #7931 - verify that the result of a function like reduce that returns a singleton can be chained further
@@ -777,6 +798,52 @@ _.chain([{ id: 1, name: 'a' }, { id: 2, name: 'b' }])
     .object()
     .value();
 
+// $ExpectType number
+_.chain([1, 2, 3])
+    .partition(n => n >= 2)
+    .first()
+    .size()
+    .value();
+
+// $ExpectType string[]
+_.chain([{ type: 'one' }, { type: 'two' }, { type: 'one' }])
+    .countBy('type')
+    .omit(count => count < 2)
+    .keys()
+    .value();
+
+// $ExpectType number
+_.chain(['rate', 'rest', 'fate', 'best'])
+    .rest(2)
+    .invoke('substring', 2)
+    .indexOf('te')
+    .value();
+
+// $ExpectType number | { food: string; }
+_.chain([{ food: 'apple' }, { food: 'banana' }, { food: 'carrot' }])
+    .initial()
+    .max(['food', 'length'])
+    .value();
+
+// $ExpectType number
+_.chain([{ score: 27 }, { score: 45 }, { score: 16 }])
+    .sortBy('score')
+    .sortedIndex({ score: 33 }, 'score')
+    .value();
+
+// $ExpectType boolean
+_.chain([1, 3, 5])
+    .sample(2)
+    .every(n => n > 2)
+    .value();
+
+// $ExpectType number
+_.chain(10)
+    .range()
+    .shuffle()
+    .findLastIndex(n => n > 3)
+    .value();
+
 /*******************************
  * Combinatorial Tests - Types *
  *******************************/
@@ -926,7 +993,7 @@ knownShallowPropertyResult; // $ExpectType string | StringRecord
 declare const unknownShallowPropertyResult: _.IterateeResult<typeof shallowProperty, NonIntersecting>;
 unknownShallowPropertyResult; // $ExpectType any
 
-declare const deepPropertyResult: _.IterateeResult<_.EnumerableKey[], StringRecord>;
+declare const deepPropertyResult: _.IterateeResult<(string | number)[], StringRecord>;
 deepPropertyResult; // $ExpectType any
 
 declare const nullResult: _.IterateeResult<null, StringRecord>;
@@ -1014,12 +1081,12 @@ undefinedResult; // $ExpectType StringRecord
     _(stringValue).collect(stringIterator, context); // $ExpectType number[]
     extractChainTypes(_.chain(stringValue).collect(stringIterator, context)); // $ExpectType ChainType<number[], number>
 
-    // function iteratee - any - map
+    // function iteratee - any (see #33479) - map
     _.map(anyValue, recordListSelector, context); // $ExpectType string[]
     _(anyValue).map(recordListSelector, context); // $ExpectType string[]
     extractChainTypes(_.chain(anyValue).map(recordListSelector, context)); // $ExpectType ChainType<string[], string>
 
-    // function iteratee - any - collect
+    // function iteratee - any (see #33479) - collect
     _.collect(anyValue, recordListSelector, context); // $ExpectType string[]
     _(anyValue).collect(recordListSelector, context); // $ExpectType string[]
     extractChainTypes(_.chain(anyValue).collect(recordListSelector, context)); // $ExpectType ChainType<string[], string>
@@ -1114,12 +1181,12 @@ undefinedResult; // $ExpectType StringRecord
     _(recordDictionary).collect(deepProperty); // $ExpectType any[]
     extractChainTypes(_.chain(recordDictionary).collect(deepProperty)); // $ExpectType ChainType<any[], any>
 
-    // deep property iteratee - any - map
+    // deep property iteratee - any (see #33479) - map
     _.map(anyValue, deepProperty); // $ExpectType any[]
     _(anyValue).map(deepProperty); // $ExpectType any[]
     extractChainTypes(_.chain(anyValue).map(deepProperty)); // $ExpectType ChainType<any[], any>
 
-    // deep property iteratee - any - collect
+    // deep property iteratee - any (see #33479) - collect
     _.collect(anyValue, deepProperty); // $ExpectType any[]
     _(anyValue).collect(deepProperty); // $ExpectType any[]
     extractChainTypes(_.chain(anyValue).collect(deepProperty)); // $ExpectType ChainType<any[], any>
