@@ -1,6 +1,7 @@
 // Type definitions for non-npm package frida-gum 16.2
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
+//                 Francesco Tamagni <https://github.com/mrmacete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
