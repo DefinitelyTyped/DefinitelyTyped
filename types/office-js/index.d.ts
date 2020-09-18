@@ -1405,21 +1405,17 @@ declare namespace Office {
          column?: number
     }
     /**
-     * Used to define the handler property of RemoveHandlerOptions.
-     */
-    type RemovalHandler = (eventArgs?: Office.BindingDataChangedEventArgs | Office.BindingSelectionChangedEventArgs) => any;
-    /**
      * Provides options to determine which event handler or handlers are removed.
      */
     interface RemoveHandlerOptions {
         /**
          * The handler to be removed. If not specified all handlers for the specified event type are removed.
          */
-        handler?: RemovalHandler;
+        handler?: string
         /**
          * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
-        asyncContext?: any;
+        asyncContext?: any
     }
     /**
      * Provides options for configuring the binding that is created.
