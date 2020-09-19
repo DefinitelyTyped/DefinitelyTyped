@@ -1,6 +1,5 @@
 // Type definitions for Dock Spawn
-// Project: http://dockspawn.com
-//          https://github.com/coderespawn/dock-spawn
+// Project: https://github.com/coderespawn/dock-spawn
 // Definitions by: Drew Noakes <https://drewnoakes.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
