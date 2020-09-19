@@ -100,6 +100,26 @@ nova.fs.moveAsync(
     thisValue,
 );
 
+/// https://novadocs.panic.com/api-reference/issue-collection/
+
+class MyLinterClass {
+    issueCollection = new IssueCollection();
+
+    deliverResults(fileURI: string, issues: Issue[]) {
+        this.issueCollection.set(fileURI, issues);
+    }
+
+    // $ExpectType (fileURI: string) => boolean
+    hasIssues(fileURI: string) {
+        return this.issueCollection.has(fileURI);
+    }
+
+    // $ExpectType (fileURI: string) => ReadonlyArray<Issue>
+    getIssues(fileURI: string) {
+        return this.issueCollection.get(fileURI);
+    }
+}
+
 /// https://novadocs.panic.com/api-reference/issue-parser/
 
 const p = new Process('/path', {
