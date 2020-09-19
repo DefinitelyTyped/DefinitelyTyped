@@ -14,7 +14,7 @@
         ],
         "paths": {
             "webpack-sources": [
-                "webpack-sources/v0"
+                "webpack-sources/v1"
             ]
         },
         "types": [],
