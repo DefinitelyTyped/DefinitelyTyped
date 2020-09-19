@@ -3,6 +3,11 @@ Frida.version; // $ExpectType string
 // $ExpectType NativePointer
 const p = ptr(1234);
 
+// $ExpectType number
+p.toInt32();
+// $ExpectType number
+p.toUInt32();
+
 // $ExpectType NativePointer
 p.sign();
 // $ExpectType NativePointer
@@ -72,6 +77,29 @@ Interceptor.attach(puts, {
     }
 });
 
+Interceptor.flush();
+
+const cm = new CModule(`
+#include <gum/gumstalker.h>
+
+void
+process (const GumEvent * event,
+         GumCpuContext * cpu_context,
+         gpointer user_data)
+{
+}
+`);
+
+Stalker.follow(Process.getCurrentThreadId(), {
+    events: {
+        compile: true,
+        call: true,
+        ret: true
+    },
+    onEvent: cm.process,
+    data: ptr(42)
+});
+
 const obj = new ObjC.Object(ptr("0x42"));
 
 // $ExpectType Object
@@ -134,5 +162,3 @@ Java.perform(() => {
         });
     });
 });
-
-Interceptor.flush();
