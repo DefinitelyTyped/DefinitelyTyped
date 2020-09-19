@@ -25,14 +25,14 @@ export class MyApp extends React.Component<{}, State> {
 
     onDocumentLoadSuccess = ({ numPages }: PDFDocumentProxy) => {
         this.setState({ numPages });
-    };
+    }
 
     onPageLoadSuccess = ({ originalHeight, originalWidth }: PDFPageProxy) => {
         this.setState({
             originalHeight,
             originalWidth,
         });
-    };
+    }
 
     render() {
         const { pageNumber, numPages, originalHeight, originalWidth } = this.state;
