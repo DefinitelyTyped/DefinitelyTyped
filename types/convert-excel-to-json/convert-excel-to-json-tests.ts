@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import excelToJson = require("convert-excel-to-json");
 import { readFileSync } from "fs";
 
