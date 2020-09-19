@@ -5,8 +5,9 @@
 // TypeScript Version: 2.2
 
 export * from "./PresenceClient";
-export * from "./UsersClient";
 export * from "./SymMessageParser";
+export * from "./StreamsClient";
+export * from "./UsersClient";
 
 export interface AuthInfo {
     sessionAuthToken: string;
@@ -66,10 +67,6 @@ export const sessionToken: string;
 
 export function acceptConnectionRequest(userId: any, sessionToken: string): void;
 
-export function activateRoom(streamId: any): void;
-
-export function addMemberToRoom(streamId: any, userId: any): any;
-
 export function adminListEnterpriseStreamsV2(
     streamTypes: any,
     scope: any,
@@ -88,26 +85,9 @@ export function authenticateExtApp(): Promise<AppInfo>;
 
 export function authenticateOboApp(): any;
 
-export function createRoom(
-    room: any,
-    description?: any,
-    keywords?: any,
-    membersCanInvite?: any,
-    discoverable?: any,
-    anyoneCanJoin?: any,
-    readOnly?: any,
-    copyProtected?: any,
-    crossPod?: any,
-    viewHistory?: any,
-): any;
-
 export function createSignal(name: any, query: any, visibleOnProfile: any, companyWide: any, sessionToken: string): any;
 
-export function deactivateRoom(streamId: any): void;
-
 export function deleteSignal(id: any, sessionToken: string): void;
-
-export function demoteUserFromOwner(streamId: any, userId: any): any;
 
 export function formBuilder(formId: any): any;
 
@@ -139,19 +119,11 @@ export function getPendingConnections(sessionToken: string): void;
 
 export function getRejectedConnections(sessionToken: string): void;
 
-export function getRoomInfo(streamId: any): void;
-
-export function getRoomMembers(streamId: any): void;
-
 export function getSignal(id: any, sessionToken: string): void;
 
 export function getSignalSubscribers(id: any, skip: any, limit: any, sessionToken: string): void;
 
 export function getUser(id: string): void;
-
-export function getUserIMStreamId(userIDs: any): void;
-
-export function getUserStreams(skip: any, limit: any, streamTypes: any, includeInactiveStreams: any): any;
 
 export function importMessages(messageList: any): any;
 
@@ -171,26 +143,9 @@ export function oboGetUserIMStreamId(userToken: any, userIds: any): void;
 
 export function oboSendMessage(userToken: any, conversationId: any, message: any, data: any, format: any): any;
 
-export function promoteUserToOwner(streamId: any, userId: any): any;
-
 export function rejectConnectionRequest(userId: any, sessionToken: string): void;
 
 export function removeConnection(userId: any, sessionToken: string): void;
-
-export function removeMemberFromRoom(streamId: any, userId: any): any;
-
-export function searchRooms(
-    skip?: any,
-    limit?: any,
-    query?: any,
-    labels?: any,
-    active?: any,
-    includePrivateRooms?: any,
-    creator?: any,
-    owner?: any,
-    member?: any,
-    sortOrder?: any,
-): any;
 
 export function sendConnectionRequest(userId: any, sessionToken: string): void;
 
