@@ -175,20 +175,6 @@ export function suppressMessage(id: any): void;
 
 export function unsubscribeSignal(id: any, userIds: any, sessionToken: string): void;
 
-export function updateRoom(
-    streamId: any,
-    room: any,
-    description?: any,
-    keywords?: any,
-    membersCanInvite?: any,
-    discoverable?: any,
-    anyoneCanJoin?: any,
-    readOnly?: any,
-    copyProtected?: any,
-    crossPod?: any,
-    viewHistory?: any,
-): any;
-
 export function updateSignal(
     id: any,
     name?: any,

@@ -112,6 +112,19 @@ export function createRoom(
     crossPod?: boolean,
     viewHistory?: boolean,
 ): Promise<RoomInfo>;
+export function updateRoom(
+    streamId: string,
+    room: string,
+    description?: string,
+    keywords?: Keyword[],
+    membersCanInvite?: boolean,
+    discoverable?: boolean,
+    anyoneCanJoin?: boolean,
+    readOnly?: boolean,
+    copyProtected?: boolean,
+    crossPod?: boolean,
+    viewHistory?: boolean,
+): Promise<RoomInfo>;
 export function activateRoom(streamId: string): Promise<ActivateRoomResponse>;
 export function deactivateRoom(streamId: string): Promise<ActivateRoomResponse>;
 export function getRoomInfo(streamId: string): Promise<RoomInfo>;
