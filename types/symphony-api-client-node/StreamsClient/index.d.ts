@@ -24,9 +24,7 @@ export interface BaseRoomAttributes {
     multiLateralRoom?: boolean;
 }
 
-export interface AllRoomAttributes extends BaseRoomAttributes, ImmutableRoomAttributes {
-
-}
+export interface AllRoomAttributes extends BaseRoomAttributes, ImmutableRoomAttributes { }
 
 export interface RoomSystemInfo {
     id: string;
@@ -61,7 +59,7 @@ export interface Query {
     query?: string;
     labels?: string[];
     active?: boolean;
-    creator?: UserId
+    creator?: UserId;
 }
 
 export interface FacetedMatch {
@@ -73,7 +71,7 @@ export interface SearchRoomResponse {
     count: number;
     skip: number;
     limit: number;
-    query: Query
+    query: Query;
     rooms: RoomInfo;
     facetedMatchCount: FacetedMatch[];
 }

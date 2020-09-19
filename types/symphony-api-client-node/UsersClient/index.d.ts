@@ -1,4 +1,3 @@
-
 export interface Avatar {
     size: string;
     url: string;
@@ -12,11 +11,11 @@ export interface User {
     displayName: string;
     company: string;
     username: string;
-    avatars: Array<Avatar>;
+    avatars: Avatar[];
 }
 
 export interface UsersList {
-    users: Array<User>
+    users: User[];
 }
 
 export interface UserFilter {
@@ -31,7 +30,7 @@ export interface SearchUserResponse extends UsersList {
     limit: number;
     query: string;
     filters: UserFilter;
-    users: Array<User>
+    users: User[];
 }
 
 export function getUserFromEmail(email: string, local?: boolean): Promise<User>;

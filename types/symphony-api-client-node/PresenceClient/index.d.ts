@@ -7,7 +7,7 @@ export const STATUS_IN_A_MEETING: string;
 export const STATUS_OUT_OF_OFFICE: string;
 export const STATUS_OFF_WORK: string;
 
-interface UserPresenceResponse {
+export interface UserPresenceResponse {
     category: string;
     userId: number;
     timestamp: number;
