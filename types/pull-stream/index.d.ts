@@ -44,7 +44,7 @@ declare namespace pull {
     type EndOrError = Abort;
     type SourceCallback<T> = (end: EndOrError, data?: T) => void;
 
-    type Source<T> = (endOrError: Abort, cb: SourceCallback<T>) => void;
+    type Source<T> = (endOrError: Abort, cb?: SourceCallback<T>) => void;
     type Sink<T> = (source: Source<T>) => void;
     type Through<T, U> = (source: Source<T>) => Source<U>;
 

@@ -4,6 +4,7 @@ import pull = require('pull-stream');
  * pull *
  ********/
 
+const sourceWithoutCb: pull.Source<string> = end => {};
 let source: pull.Source<string> = (end, cb) => {};
 let through: pull.Through<string, string> = source => source;
 let sink: pull.Sink<string> = source => {};
