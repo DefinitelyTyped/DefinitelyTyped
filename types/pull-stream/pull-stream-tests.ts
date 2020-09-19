@@ -245,6 +245,7 @@ nothing = pull(
 
 // drain
 nothing = pull(source, pull.drain(Number));
+nothing = pull(source, pull.drain(null));
 nothing = pull(
     source,
     pull.drain(Number, err => {
