@@ -66,7 +66,6 @@ export const PRESENTATIONML_FORMAT: string;
 
 export const sessionToken: string;
 
-
 export function adminListEnterpriseStreamsV2(
     streamTypes: any,
     scope: any,
