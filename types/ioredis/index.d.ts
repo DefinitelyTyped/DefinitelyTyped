@@ -276,6 +276,9 @@ declare namespace IORedis {
         getrange(key: KeyType, start: number, end: number, callback: Callback<string>): void;
         getrange(key: KeyType, start: number, end: number): Promise<string>;
 
+        getrangeBuffer(key: KeyType, start: number, end: number, callback: Callback<Buffer>): void;
+        getrangeBuffer(key: KeyType, start: number, end: number): Promise<Buffer>;
+
         substr(key: KeyType, start: number, end: number, callback: Callback<string>): void;
         substr(key: KeyType, start: number, end: number): Promise<string>;
 
@@ -995,6 +998,8 @@ declare namespace IORedis {
         setrange(key: KeyType, offset: number, value: ValueType, callback?: Callback<number>): Pipeline;
 
         getrange(key: KeyType, start: number, end: number, callback?: Callback<string>): Pipeline;
+
+        getrangeBuffer(key: KeyType, start: number, end: number, callback?: Callback<Buffer>): Pipeline;
 
         substr(key: KeyType, start: number, end: number, callback?: Callback<string>): Pipeline;
 

@@ -124,6 +124,10 @@ export interface DynamsoftViewer {
         className: string
     ): boolean;
     /**
+     * Return or set the margin between two images or the margin between one side of an image and the border of the viewer.
+     */
+    imageMargin: number;
+    /**
      * The mode of operation. Allowed values are 0(no selection, cursor is pointer), 1 (seleciton, cursor is crosshair)
      */
     operationMode: number;

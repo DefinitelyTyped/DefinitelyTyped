@@ -123,6 +123,11 @@ interface String {
     trimLeft(): string;
     /** Removes whitespace from the right end of a string. */
     trimRight(): string;
+
+    /** Returns a copy with leading whitespace removed. */
+    trimStart(): string;
+    /** Returns a copy with trailing whitespace removed. */
+    trimEnd(): string;
 }
 
 interface ImportMeta {
@@ -406,6 +411,17 @@ declare class Buffer extends Uint8Array {
     values(): IterableIterator<number>;
 }
 
+interface Buffer extends Uint8Array {
+    readBigUInt64BE(offset?: number): bigint;
+    readBigUInt64LE(offset?: number): bigint;
+    readBigInt64BE(offset?: number): bigint;
+    readBigInt64LE(offset?: number): bigint;
+    writeBigInt64BE(value: bigint, offset?: number): number;
+    writeBigInt64LE(value: bigint, offset?: number): number;
+    writeBigUInt64BE(value: bigint, offset?: number): number;
+    writeBigUInt64LE(value: bigint, offset?: number): number;
+}
+
 /*----------------------------------------------*
 *                                               *
 *               GLOBAL INTERFACES               *
@@ -680,6 +696,7 @@ declare namespace NodeJS {
 
     interface HRTime {
         (time?: [number, number]): [number, number];
+        bigint(): bigint;
     }
 
     interface ProcessReport {

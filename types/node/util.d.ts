@@ -125,6 +125,8 @@ declare module "util" {
         function isArrayBuffer(object: any): object is ArrayBuffer;
         function isArrayBufferView(object: any): object is ArrayBufferView;
         function isAsyncFunction(object: any): boolean;
+        function isBigInt64Array(value: any): value is BigInt64Array;
+        function isBigUint64Array(value: any): value is BigUint64Array;
         function isBooleanObject(object: any): object is Boolean;
         function isBoxedPrimitive(object: any): object is (Number | Boolean | String | Symbol /* | Object(BigInt) | Object(Symbol) */);
         function isDataView(object: any): object is DataView;

@@ -5,7 +5,6 @@
 //                 Kacper Polak <https://github.com/kacepe>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
-//                 aereal <https://github.com/aereal>
 //                 Jose Luis Leon <https://github.com/JoseLion>
 //                 David Stephens <https://github.com/dwrss>
 //                 Shin Ando <https://github.com/andoshin11>
@@ -47,17 +46,17 @@ export interface ParamsDictionary { [key: string]: string; }
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
-export interface RequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> {
+export interface RequestHandler<P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2
     (req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction): any;
 }
 
-export type ErrorRequestHandler<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> =
+export type ErrorRequestHandler<P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> =
     (err: any, req: Request<P, ResBody, ReqBody, ReqQuery>, res: Response<ResBody>, next: NextFunction) => any;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
-export type RequestHandlerParams<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>
+export type RequestHandlerParams<P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>
     = RequestHandler<P, ResBody, ReqBody, ReqQuery>
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery>
     | Array<RequestHandler<P>
@@ -65,9 +64,9 @@ export type RequestHandlerParams<P extends Params = ParamsDictionary, ResBody = 
 
 export interface IRouterMatcher<T, Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any> {
     // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(path: PathParams, ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery>>): T;
+    <P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(path: PathParams, ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery>>): T;
     // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-    <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(path: PathParams, ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery>>): T;
+    <P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs>(path: PathParams, ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery>>): T;
     (path: PathParams, subApplication: Application): T;
 }
 
@@ -217,7 +216,7 @@ export type Errback = (err: Error) => void;
  *     app.get<ParamsArray>(/user\/(.*)/, (req, res) => res.send(req.params[0]));
  *     app.get<ParamsArray>('/user/*', (req, res) => res.send(req.params[0]));
  */
-export interface Request<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> extends http.IncomingMessage, Express.Request {
+export interface Request<P = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ParsedQs> extends http.IncomingMessage, Express.Request {
     /**
      * Return request header.
      *
@@ -502,11 +501,11 @@ export interface MediaType {
 
 export type Send<ResBody = any, T = Response<ResBody>> = (body?: ResBody) => T;
 
-export interface Response<ResBody = any> extends http.ServerResponse, Express.Response {
+export interface Response<ResBody = any, StatusCode extends number = number> extends http.ServerResponse, Express.Response {
     /**
      * Set status `code`.
      */
-    status(code: number): this;
+    status(code: StatusCode): this;
 
     /**
      * Set the response HTTP status code to `statusCode` and send its string representation as the response body.
@@ -519,7 +518,7 @@ export interface Response<ResBody = any> extends http.ServerResponse, Express.Re
      *    res.sendStatus(404); // equivalent to res.status(404).send('Not Found')
      *    res.sendStatus(500); // equivalent to res.status(500).send('Internal Server Error')
      */
-    sendStatus(code: number): this;
+    sendStatus(code: StatusCode): this;
 
     /**
      * Set Link header field with the given `links`.
@@ -1029,11 +1028,11 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      *    http.createServer(app).listen(80);
      *    https.createServer({ ... }, app).listen(443);
      */
-    listen(port: number, hostname: string, backlog: number, callback?: (...args: any[]) => void): http.Server;
-    listen(port: number, hostname: string, callback?: (...args: any[]) => void): http.Server;
-    listen(port: number, callback?: (...args: any[]) => void): http.Server;
-    listen(callback?: (...args: any[]) => void): http.Server;
-    listen(path: string, callback?: (...args: any[]) => void): http.Server;
+    listen(port: number, hostname: string, backlog: number, callback?: () => void): http.Server;
+    listen(port: number, hostname: string, callback?: () => void): http.Server;
+    listen(port: number, callback?: () => void): http.Server;
+    listen(callback?: () => void): http.Server;
+    listen(path: string, callback?: () => void): http.Server;
     listen(handle: any, listeningListener?: () => void): http.Server;
 
     router: string;

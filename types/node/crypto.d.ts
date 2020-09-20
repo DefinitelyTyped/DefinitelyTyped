@@ -211,14 +211,14 @@ declare module "crypto" {
         final(output_encoding: BufferEncoding): string;
         setAutoPadding(auto_padding?: boolean): this;
         // getAuthTag(): Buffer;
-        // setAAD(buffer: Buffer): this; // docs only say buffer
+        // setAAD(buffer: NodeJS.ArrayBufferView): this;
     }
     interface CipherCCM extends Cipher {
-        setAAD(buffer: Buffer, options: { plaintextLength: number }): this;
+        setAAD(buffer: NodeJS.ArrayBufferView, options: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     interface CipherGCM extends Cipher {
-        setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
+        setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use `createDecipheriv()` */
@@ -282,15 +282,26 @@ declare module "crypto" {
 
     function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
 
+    type DSAEncoding = 'der' | 'ieee-p1363';
+
     interface SigningOptions {
         /**
          * @See crypto.constants.RSA_PKCS1_PADDING
          */
         padding?: number;
         saltLength?: number;
+        dsaEncoding?: DSAEncoding;
     }
 
     interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions {
+    }
+    interface SignKeyObjectInput extends SigningOptions {
+        key: KeyObject;
+    }
+    interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions {
+    }
+    interface VerifyKeyObjectInput extends SigningOptions {
+        key: KeyObject;
     }
 
     type KeyLike = string | Buffer | KeyObject;
@@ -300,8 +311,8 @@ declare module "crypto" {
 
         update(data: BinaryLike): Signer;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: SignPrivateKeyInput | KeyLike): Buffer;
-        sign(private_key: SignPrivateKeyInput | KeyLike, output_format: HexBase64Latin1Encoding): string;
+        sign(private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput): Buffer;
+        sign(private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput, output_format: HexBase64Latin1Encoding): string;
     }
 
     function createVerify(algorithm: string, options?: stream.WritableOptions): Verify;
@@ -310,8 +321,8 @@ declare module "crypto" {
 
         update(data: BinaryLike): Verify;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: object | KeyLike, signature: NodeJS.ArrayBufferView): boolean;
-        verify(object: object | KeyLike, signature: string, signature_format?: HexBase64Latin1Encoding): boolean;
+        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: NodeJS.ArrayBufferView): boolean;
+        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: string, signature_format?: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
@@ -358,6 +369,11 @@ declare module "crypto" {
     function pseudoRandomBytes(size: number): Buffer;
     function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
 
+    function randomInt(max: number): number;
+    function randomInt(min: number, max: number): number;
+    function randomInt(max: number, callback: (err: Error | null, value: number) => void): void;
+    function randomInt(min: number, max: number, callback: (err: Error | null, value: number) => void): void;
+
     function randomFillSync<T extends NodeJS.ArrayBufferView>(buffer: T, offset?: number, size?: number): T;
     function randomFill<T extends NodeJS.ArrayBufferView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
     function randomFill<T extends NodeJS.ArrayBufferView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
@@ -403,6 +419,7 @@ declare module "crypto" {
     function privateEncrypt(private_key: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
     function getCiphers(): string[];
     function getCurves(): string[];
+    function getFips(): 1 | 0;
     function getHashes(): string[];
     class ECDH {
         private constructor();
@@ -431,7 +448,7 @@ declare module "crypto" {
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: BufferEncoding;
 
-    type KeyType = 'rsa' | 'dsa' | 'ec' | 'ed25519';
+    type KeyType = 'rsa' | 'dsa' | 'ec' | 'ed25519' | 'x25519';
     type KeyFormat = 'pem' | 'der';
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
@@ -449,6 +466,12 @@ declare module "crypto" {
         /**
          * No options.
          */
+    }
+
+    interface X25519KeyPairKeyObjectOptions {
+       /**
+        * No options.
+        */
     }
 
     interface ECKeyPairKeyObjectOptions {
@@ -537,11 +560,21 @@ declare module "crypto" {
 
     interface ED25519KeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
         publicKeyEncoding: {
-            type: 'pkcs1' | 'spki';
+            type: 'spki';
             format: PubF;
         };
         privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
-            type: 'sec1' | 'pkcs8';
+            type: 'pkcs8';
+        };
+    }
+
+    interface X25519KeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
+        publicKeyEncoding: {
+            type: 'spki';
+            format: PubF;
+        };
+        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
+            type: 'pkcs8';
         };
     }
 
@@ -574,6 +607,12 @@ declare module "crypto" {
     function generateKeyPairSync(type: 'ed25519', options: ED25519KeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
     function generateKeyPairSync(type: 'ed25519', options: ED25519KeyPairKeyObjectOptions): KeyPairKeyObjectResult;
 
+    function generateKeyPairSync(type: 'x25519', options: X25519KeyPairOptions<'pem', 'pem'>): KeyPairSyncResult<string, string>;
+    function generateKeyPairSync(type: 'x25519', options: X25519KeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
+    function generateKeyPairSync(type: 'x25519', options: X25519KeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
+    function generateKeyPairSync(type: 'x25519', options: X25519KeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
+    function generateKeyPairSync(type: 'x25519', options: X25519KeyPairKeyObjectOptions): KeyPairKeyObjectResult;
+
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
@@ -597,6 +636,12 @@ declare module "crypto" {
     function generateKeyPair(type: 'ed25519', options: ED25519KeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
     function generateKeyPair(type: 'ed25519', options: ED25519KeyPairOptions<'der', 'der'>, callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void): void;
     function generateKeyPair(type: 'ed25519', options: ED25519KeyPairKeyObjectOptions, callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void): void;
+
+    function generateKeyPair(type: 'x25519', options: X25519KeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
+    function generateKeyPair(type: 'x25519', options: X25519KeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
+    function generateKeyPair(type: 'x25519', options: X25519KeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
+    function generateKeyPair(type: 'x25519', options: X25519KeyPairOptions<'der', 'der'>, callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void): void;
+    function generateKeyPair(type: 'x25519', options: X25519KeyPairKeyObjectOptions, callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void): void;
 
     namespace generateKeyPair {
         function __promisify__(type: "rsa", options: RSAKeyPairOptions<'pem', 'pem'>): Promise<{ publicKey: string, privateKey: string }>;
@@ -622,6 +667,12 @@ declare module "crypto" {
         function __promisify__(type: "ed25519", options: ED25519KeyPairOptions<'der', 'pem'>): Promise<{ publicKey: Buffer, privateKey: string }>;
         function __promisify__(type: "ed25519", options: ED25519KeyPairOptions<'der', 'der'>): Promise<{ publicKey: Buffer, privateKey: Buffer }>;
         function __promisify__(type: "ed25519", options: ED25519KeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
+
+        function __promisify__(type: "x25519", options: X25519KeyPairOptions<'pem', 'pem'>): Promise<{ publicKey: string, privateKey: string }>;
+        function __promisify__(type: "x25519", options: X25519KeyPairOptions<'pem', 'der'>): Promise<{ publicKey: string, privateKey: Buffer }>;
+        function __promisify__(type: "x25519", options: X25519KeyPairOptions<'der', 'pem'>): Promise<{ publicKey: Buffer, privateKey: string }>;
+        function __promisify__(type: "x25519", options: X25519KeyPairOptions<'der', 'der'>): Promise<{ publicKey: Buffer, privateKey: Buffer }>;
+        function __promisify__(type: "x25519", options: X25519KeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
     }
 
     /**
@@ -632,10 +683,7 @@ declare module "crypto" {
      * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
      * passed to [`crypto.createPrivateKey()`][].
      */
-    function sign(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | SignPrivateKeyInput): Buffer;
-
-    interface VerifyKeyWithOptions extends KeyObject, SigningOptions {
-    }
+    function sign(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput): Buffer;
 
     /**
      * Calculates and returns the signature for `data` using the given private key and
@@ -645,5 +693,15 @@ declare module "crypto" {
      * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
      * passed to [`crypto.createPublicKey()`][].
      */
-    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyWithOptions, signature: NodeJS.ArrayBufferView): boolean;
+    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: NodeJS.ArrayBufferView): boolean;
+
+    /**
+     * Computes the Diffie-Hellman secret based on a privateKey and a publicKey.
+     * Both keys must have the same asymmetricKeyType, which must be one of
+     * 'dh' (for Diffie-Hellman), 'ec' (for ECDH), 'x448', or 'x25519' (for ECDH-ES).
+     */
+    function diffieHellman(options: {
+        privateKey: KeyObject;
+        publicKey: KeyObject
+    }): Buffer;
 }

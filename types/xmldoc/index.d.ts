@@ -3,7 +3,8 @@
 // Definitions by:  Xavier Stouder <https://github.com/Xstoudi>
 //                  Andrew Sheehan <https://github.com/ajsheehan>
 //                  Jordi Bunster <https://github.com/notlaforge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped): // TypeScript Version: 2.1
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export class XmlDocument extends XmlElement {
     constructor(xml: string);

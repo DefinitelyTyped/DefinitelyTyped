@@ -260,6 +260,9 @@ declare namespace Waterline {
     }
 }
 declare interface WaterlineStatic {
+    Model: {
+        extend: (params: Waterline.CollectionDefinition) => Waterline.CollectionClass;
+    };
     Collection: {
         extend: (params: Waterline.CollectionDefinition) => Waterline.CollectionClass;
     };

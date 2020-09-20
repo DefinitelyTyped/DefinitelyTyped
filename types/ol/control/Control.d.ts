@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import MapEvent from '../MapEvent';
 import BaseObject, { ObjectEvent } from '../Object';
@@ -13,11 +13,12 @@ export default class Control extends BaseObject {
     constructor(options: Options);
     protected element: HTMLElement;
     protected listenerKeys: EventsKey[];
+    disposeInternal(): void;
     getMap(): PluggableMap;
     render(mapEvent: MapEvent): void;
     setMap(map: PluggableMap): void;
     setTarget(target: HTMLElement | string): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

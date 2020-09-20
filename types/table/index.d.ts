@@ -1,8 +1,9 @@
-// Type definitions for table 5.0
+// Type definitions for table 6.0
 // Project: https://github.com/gajus/table
 // Definitions by: Evan Shortiss <https://github.com/evanshortiss>
 //                 mrmlnc <https://github.com/mrmlnc>
 //                 Daniel Perez Alvarez <https://github.com/unindented>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type TableBorderTemplate = 'honeywell' | 'norc' | 'ramac' | 'void';

@@ -1,20 +1,15 @@
-const gDagre = new dagreD3.graphlib.Graph();
-const graph = gDagre.graph();
+import * as graphlib from "graphlib";
+import { render } from "dagre-d3";
+import * as d3 from "d3";
+
+const graph = new graphlib.Graph();
 
 // has graph methods from dagre.d.ts
 graph.setNode("a", {});
-const num: number = 251 + graph.height + graph.width;
-const predecessors: { [vertex: string]: string[] } = {};
-const successors: { [vertex: string]: string[] } = {};
 
-predecessors["a"] = graph.predecessors("a");
-successors["a"] = graph.successors("a");
-graph.transition = (selection: d3.Selection<any>) => {
-    return d3.transition();
-};
+const renderer = new render();
+renderer.arrows()["arrowType"] = (parent: d3.Selection<any, any, any, any>, id: string, edge: dagre.Edge, type: string) => { };
+renderer.shapes()["shapeName"] = (parent: d3.Selection<any, any, any, any>, bbox: any, node: dagre.Node) => { };
 
-const render = new dagreD3.render();
 const svg = d3.select("svg");
-render.arrows()["arrowType"] = (parent: d3.Selection<any>, id: string, edge: dagre.Edge, type: string) => {};
-render.shapes()["shapeName"] = (parent: d3.Selection<any>, bbox: any, node: dagre.Node) => {};
-render(svg, graph);
+renderer(svg, graph);
