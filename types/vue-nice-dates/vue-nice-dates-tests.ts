@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { DatePicker, DateRangePicker, START_DATE, END_DATE } from 'vue-nice-dates';
+import { DatePicker, DateRangePicker } from 'vue-nice-dates';
 import { enGB } from 'date-fns/locale';
 
 new Vue({
@@ -13,8 +13,6 @@ new Vue({
             date: '',
             startDate: '',
             endDate: '',
-            START_DATE,
-            END_DATE,
             locale: enGB,
         };
     },
@@ -39,12 +37,12 @@ new Vue({
                 <input
                 v-model.trim="startDate"
                 type="text"
-                :data-nice-dates="START_DATE"
+                data-nice-dates="startDate"
                 >
                 <input
                 v-model.trim="endDate"
                 type="text"
-                :data-nice-dates="END_DATE"
+                data-nice-dates="endDate"
                 >
             </div>
         </DateRangePicker>

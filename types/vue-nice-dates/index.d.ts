@@ -14,7 +14,4 @@ export { DateRangePicker } from './DateRangePicker';
 export { DateRangePickerCalendar } from './DateRangePickerCalendar';
 export { Popover } from './Popover';
 
-export const START_DATE = 'startDate';
-export const END_DATE = 'endDate';
-
 export as namespace vueNiceDates;
