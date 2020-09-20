@@ -7,6 +7,7 @@
 
 import express = require("express");
 import i18n = require("i18n");
+import { I18n } from "i18n";
 
 const app = express();
 declare const req: express.Request;
@@ -235,3 +236,10 @@ i18n.getCatalog(req, 'de'); // returns just 'de'
 
 req.getCatalog(); // returns all locales
 req.getCatalog('de'); // returns just 'de'
+
+const i18nInstance = new I18n(); // creates new instance of i18n
+
+i18nInstance.configure({
+    locales: ['en', 'de'],
+    directory: __dirname + '/locales'
+});

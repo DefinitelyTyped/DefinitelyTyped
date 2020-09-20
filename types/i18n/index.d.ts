@@ -328,6 +328,52 @@ declare namespace i18n {
      * Get current i18n-node version
      */
     const version: string;
+
+    class I18n {
+        configure(options: ConfigurationOptions): void;
+
+        init(request: Express.Request, response: Express.Response, next?: () => void): void;
+
+        __(phraseOrOptions: string | TranslateOptions, ...replace: string[]): string;
+
+        __(phraseOrOptions: string | TranslateOptions, replacements: Replacements): string;
+
+        __n(phrase: string, count: number): string;
+
+        __n(options: PluralOptions, count?: number): string;
+
+        __n(singular: string, plural: string, count: number | string): string;
+
+        __mf(phraseOrOptions: string | TranslateOptions, ...replace: any[]): string;
+
+        __mf(phraseOrOptions: string | TranslateOptions, replacements: Replacements): string;
+
+        __l(phrase: string): string[];
+
+        __h(phrase: string): HashedList[];
+
+        setLocale(locale: string): void;
+
+        // tslint:disable-next-line:unified-signatures
+        setLocale(requestOrResponse: Express.Request | Express.Response, locale: string, inheritance?: boolean): void;
+
+        // tslint:disable-next-line:unified-signatures
+        setLocale(objects: any | any[], locale: string, inheritance?: boolean): void;
+
+        getLocale(request?: Express.Request): string;
+
+        getLocales(): string[];
+
+        getCatalog(): GlobalCatalog;
+
+        getCatalog(locale: string): LocaleCatalog;
+
+        getCatalog(request: Express.Request, locale?: string): LocaleCatalog;
+
+        overrideLocaleFromQuery(request?: Express.Request): void;
+
+        version: string;
+    }
 }
 
 interface i18nAPI {
