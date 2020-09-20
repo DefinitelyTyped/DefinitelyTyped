@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+import { Token } from "./SymBotAuth";
+
 export * from "./ConnectionsClient";
 export * from "./OBOClient";
 export * from "./PresenceClient";
@@ -84,7 +86,7 @@ export function authenticateBot(SymConfig: SymphonyConfiguration): Promise<AuthI
 
 export function authenticateExtApp(): Promise<AppInfo>;
 
-export function authenticateOboApp(): any;
+export function authenticateOboApp(): Promise<Token>;
 
 export function formBuilder(formId: any): any;
 
@@ -129,5 +131,3 @@ export function stopFirehoseEventsService(): void;
 export function streamMembers(id: any, skip: any, limit: any): void;
 
 export function suppressMessage(id: any): void;
-
-export function verifyJwt(jwt: string): string;

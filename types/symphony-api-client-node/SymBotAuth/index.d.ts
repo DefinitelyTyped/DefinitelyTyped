@@ -11,3 +11,4 @@ export interface BotUser extends User {
 
 export function oboAuthenticateByUserId(userId: number): Promise<Token>;
 export function getBotUser(): void;
+export function verifyJwt(jwt: string): Promise<string>;
