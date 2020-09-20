@@ -609,7 +609,10 @@ export interface SearchResponse<T> {
     _scroll_id?: string;
     _shards: ShardsResponse;
     hits: {
-        total: number;
+        total: {
+          value: number;
+          relation: "eq" | "gte";
+        };
         max_score: number;
         hits: Array<{
             _index: string;
