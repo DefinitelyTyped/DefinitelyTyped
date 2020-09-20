@@ -1,6 +1,7 @@
-import { UserId, StreamType } from '../StreamsClient';
+import { Message } from '../MessagesClient';
+import { UserId } from '../StreamsClient';
 import { Connection } from "../ConnectionsClient";
-import { User } from '../UsersClient';
+
 export const MESSAGEML_FORMAT: string;
 export const PRESENTATIONML_FORMAT: string;
 
@@ -11,35 +12,6 @@ export interface OboUser {
     lastName: string;
     displayName: string;
     username: string;
-}
-
-export interface Image {
-    id: string;
-    dimension: string;
-}
-
-export interface Attachment {
-    id: string;
-    name: string;
-    size: number;
-    images: Image[];
-}
-
-export interface Message {
-    messageId: string;
-    timestamp: number;
-    message: string;
-    user: User;
-    stream: Stream;
-    originalFormat: string;
-    sid: string;
-    attachments?: Attachment[];
-    data?: string;
-}
-
-export interface Stream {
-    streamId: string;
-    streamType: StreamType;
 }
 
 export function oboGetAllConnections(status: string): Promise<Connection[]>;

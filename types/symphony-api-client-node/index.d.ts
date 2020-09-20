@@ -90,17 +90,9 @@ export function authenticateOboApp(): Promise<Token>;
 
 export function formBuilder(formId: any): any;
 
-export function forwardMessage(conversationId: any, message: any, data: any): any;
-
-export function getAttachment(streamId: any, attachmentId: any, messageId: any): any;
-
 export function getDatafeedEventsService(options: any): any;
 
 export function getFirehoseEventsService(subscriberCallback: any): void;
-
-export function getMessage(messageId: any): void;
-
-export function getMessages(streamId: any, since: any, skip: any, limit: any): void;
 
 export function getUser(id: string): void;
 
@@ -109,18 +101,6 @@ export function importMessages(messageList: any): any;
 export function initBot(pathToConfigFile: string, pathToLoadBalancerConfigFile?: string): Promise<AuthInfo>;
 
 export function listUsers(skip: any, limit: any): void;
-
-export function sendMessage(conversationId: any, message: any, data: any, format: any, sessionToken: string): any;
-
-export function sendMessageWithAttachment(
-    conversationId: any,
-    message: any,
-    data: any,
-    fileName: any,
-    fileType: any,
-    fileContent: any,
-    format: any,
-): any;
 
 export function setDebugMode(mode: string): void;
 
