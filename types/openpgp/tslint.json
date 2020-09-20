@@ -22,6 +22,7 @@
                 "mode": "code"
             }
         ],
+        "only-arrow-functions": false,
         "prefer-const": false,
         "semicolon": false
     }

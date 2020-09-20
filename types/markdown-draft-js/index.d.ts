@@ -29,6 +29,7 @@ export interface MarkdownToDraftOptions {
     };
     remarkablePlugins?: any[];
     remarkablePreset?: string;
+    preserveNewlines?: boolean;
 }
 
 export interface DraftToMarkdownOptions {
@@ -44,6 +45,7 @@ export interface DraftToMarkdownOptions {
             close: () => string;
         };
     };
+    preserveNewlines?: boolean;
 }
 
 export function markdownToDraft(markdown: string, options?: MarkdownToDraftOptions): RawDraftContentState;

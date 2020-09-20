@@ -1,6 +1,6 @@
 import Waterline = require('waterline');
 const waterline = new Waterline();
-const userCollection = Waterline.Collection.extend({
+const userCollection = Waterline.Model.extend({
     identity: 'user',
     connection: 'default',
     attributes: {
@@ -30,7 +30,7 @@ const petCollection = Waterline.Collection.extend({
     },
 });
 
-waterline.loadCollection(userCollection);
+waterline.registerModel(userCollection);
 waterline.loadCollection(petCollection);
 
 const config: Waterline.Config = {

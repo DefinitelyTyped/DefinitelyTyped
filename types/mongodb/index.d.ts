@@ -29,6 +29,7 @@
 //                 Igor Strebezhev <https://github.com/xamgore>
 //                 Valentin Agachi <https://github.com/avaly>
 //                 HitkoDev <https://github.com/HitkoDev>
+//                 TJT <https://github.com/Celend>
 //                 Julien TASSIN <https://github.com/jtassin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
@@ -1100,25 +1101,30 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     estimatedDocumentCount(query: FilterQuery<TSchema>, callback: MongoCallback<number>): void;
     estimatedDocumentCount(query?: FilterQuery<TSchema>, options?: MongoCountPreferences): Promise<number>;
     estimatedDocumentCount(query: FilterQuery<TSchema>, options: MongoCountPreferences, callback: MongoCallback<number>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#find */
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#find */
     find<T = TSchema>(query?: FilterQuery<TSchema>): Cursor<T>;
-    find<T = TSchema>(query: FilterQuery<TSchema>, options?: FindOneOptions): Cursor<T>;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne */
-    findOne<T = TSchema>(filter: FilterQuery<TSchema>, callback: MongoCallback<T | null>): void;
-    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options?: FindOneOptions): Promise<T | null>;
-    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options: FindOneOptions, callback: MongoCallback<T | null>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
+    find<T = TSchema>(query: FilterQuery<TSchema>, options?: FindOneOptions<T extends TSchema ? TSchema : T>): Cursor<T>;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, callback: MongoCallback<T extends TSchema ? TSchema : T | null>): void;
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options?: FindOneOptions<T extends TSchema ? TSchema : T>): Promise<T | null>;
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options: FindOneOptions<T extends TSchema ? TSchema : T>, callback: MongoCallback<T extends TSchema ? TSchema : T | null>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndDelete */
     findOneAndDelete(filter: FilterQuery<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndDelete(filter: FilterQuery<TSchema>, options?: FindOneAndDeleteOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndDelete(filter: FilterQuery<TSchema>, options: FindOneAndDeleteOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
+    findOneAndDelete(filter: FilterQuery<TSchema>, options?: FindOneAndDeleteOption<TSchema>): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndDelete(filter: FilterQuery<TSchema>, options: FindOneAndDeleteOption<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndReplace */
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, options?: FindOneAndReplaceOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, options: FindOneAndReplaceOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
+    findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, options?: FindOneAndReplaceOption<TSchema>): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, options: FindOneAndReplaceOption<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndUpdate */
     findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: FindOneAndUpdateOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: FindOneAndUpdateOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: FindOneAndUpdateOption<TSchema>): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndUpdate(
+      filter: FilterQuery<TSchema>,
+      update: UpdateQuery<TSchema> | TSchema,
+      options: FindOneAndUpdateOption<TSchema>,
+      callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>
+    ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#geoHaystackSearch */
     geoHaystackSearch(x: number, y: number, callback: MongoCallback<any>): void;
     geoHaystackSearch(x: number, y: number, options?: GeoHaystackSearchOptions): Promise<any>;
@@ -1343,6 +1349,19 @@ type Unpacked<Type> = Type extends Array<infer Element> ? Element : Type;
 type UpdateOptionalId<T> = T extends { _id?: any } ? OptionalId<T> : T;
 
 export type SortValues = -1 | 1;
+
+/** https://docs.mongodb.com/manual/reference/operator/aggregation/meta/#proj._S_meta */
+export type MetaSortOperators =  'textScore' | 'indexKey';
+
+export type MetaProjectionOperators = MetaSortOperators
+    /** Only for Atlas Search https://docs.atlas.mongodb.com/reference/atlas-search/scoring/ */
+    | 'searchScore'
+    /** Only for Atlas Search https://docs.atlas.mongodb.com/reference/atlas-search/highlighting/ */
+    | 'searchHighlights';
+
+export type SchemaMember<T, V> = {[P in keyof T]?: V} | {[key: string]: V};
+
+export type SortOptionObject<T> = SchemaMember<T, number | {$meta?: MetaSortOperators}>;
 
 export type AddToSetOperators<Type> = {
     $each: Type;
@@ -1952,25 +1971,35 @@ export interface FindAndModifyWriteOpResultObject<TSchema> {
     ok?: number;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
-export interface FindOneAndReplaceOption extends CommonOptions {
-    projection?: object;
-    sort?: object;
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndReplace */
+export interface FindOneAndReplaceOption<T> extends CommonOptions {
+    projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
+    sort?: SortOptionObject<T>;
     maxTimeMS?: number;
     upsert?: boolean;
     returnOriginal?: boolean;
     collation?: CollationDocument;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
-export interface FindOneAndUpdateOption extends FindOneAndReplaceOption {
+
+/** https://docs.mongodb.com/manual/reference/operator/projection/ */
+export interface ProjectionOperators {
+    /** https://docs.mongodb.com/manual/reference/operator/projection/elemMatch/#proj._S_elemMatch */
+    $elemMatch?: object;
+    /** https://docs.mongodb.com/manual/reference/operator/projection/slice/#proj._S_slice */
+    $slice?: number | [number, number];
+    $meta?: MetaProjectionOperators;
+}
+
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndUpdate */
+export interface FindOneAndUpdateOption<T> extends FindOneAndReplaceOption<T> {
     arrayFilters?: object[];
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
-export interface FindOneAndDeleteOption {
-    projection?: object;
-    sort?: object;
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndDelete */
+export interface FindOneAndDeleteOption<T> {
+    projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
+    sort?: SortOptionObject<T>;
     maxTimeMS?: number;
     session?: ClientSession;
     collation?: CollationDocument;
@@ -2139,15 +2168,15 @@ export interface FindOperatorsUnordered {
     upsert(): FindOperatorsUnordered;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne */
-export interface FindOneOptions {
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
+export interface FindOneOptions<T> {
     limit?: number;
-    sort?: any[] | object;
-    projection?: object;
+    sort?: Array<[string, number]> | SortOptionObject<T>;
+    projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
     /**
      * @deprecated Use options.projection instead
      */
-    fields?: object;
+    fields?: {[P in keyof T]: boolean | number};
     skip?: number;
     hint?: object;
     explain?: boolean;
@@ -2335,8 +2364,8 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#project */
-    project(value: object): Cursor<T>;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#project */
+    project(value: SchemaMember<T, ProjectionOperators | number | boolean | any>): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#read */
     read(size: number): string | Buffer | void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
@@ -2353,8 +2382,8 @@ export class Cursor<T = Default> extends Readable {
     skip(value: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#snapshot */
     snapshot(snapshot: object): Cursor<T>;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#sort */
-    sort(keyOrList: string | object[] | object, direction?: number): Cursor<T>;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#sort */
+    sort(keyOrList: string | Array<[string, number]> | SortOptionObject<T>, direction?: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#stream */
     stream(options?: { transform?: (document: T) => any }): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#toArray */

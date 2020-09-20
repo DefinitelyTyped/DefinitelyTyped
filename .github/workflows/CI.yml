@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: "12"
@@ -15,7 +15,7 @@ jobs:
       - run: npm install
 
       # Run tests
-      - run: npm run test
+      - run: npm run test-all
 
       - name: "Run Danger"
         env:

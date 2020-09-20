@@ -3,6 +3,8 @@ export interface NodeStackItem {
 }
 export type Parser = (p0: Element, p1: any[]) => void;
 export type Serializer = (p0: Element, p1: any, p2: any[]) => void;
+export const OBJECT_PROPERTY_NODE_FACTORY: () => void;
+export const XML_SCHEMA_INSTANCE_URI: string;
 export function createElementNS(namespaceURI: string, qualifiedName: string): Element;
 export function getAllTextContent(node: Node, normalizeWhitespace: boolean): string;
 export function getAttributeNS(node: Element, namespaceURI: string, name: string): string;

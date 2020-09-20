@@ -1,11 +1,10 @@
 import Papa = require('papaparse');
-import { ParseConfig, UnparseConfig, UnparseObject, ParseError, ParseMeta, ParseResult } from 'papaparse';
 import { Readable } from 'stream';
 
 /**
  * Parsing
  */
-var res = Papa.parse('3,3,3');
+const res = Papa.parse('3,3,3');
 
 res.errors[0].code;
 
@@ -13,7 +12,7 @@ Papa.parse('3,3,3', {
     delimiter: ';',
     comments: false,
     trimHeaders: false,
-    step: function (results, p) {
+    step(results, p) {
         p.abort();
         results.data.length;
     },
@@ -44,16 +43,19 @@ Papa.parse('4;4;4', {
     delimitersToGuess: ['\t', Papa.UNIT_SEP],
 });
 
-var file = new File(null, null, null);
+const file = new File(["foo"], "foo.txt", {
+    type: "text/plain",
+  });
 
 Papa.parse(file, {
-    transform: function (value, field) {},
-    transformHeader: function (header, index) {
+    transform(value, field) {},
+    transformHeader(header, index) {
         return header;
     },
-    complete: function (a, b) {
+    complete(a, b) {
+        // $ExpectType string[] | undefined
         a.meta.fields;
-        b.name;
+        if (b) b.name;
     },
 });
 
@@ -73,19 +75,19 @@ readable.pipe(papaStream);
 
 // generic
 Papa.parse<string>('a,b,c', {
-    step: function (a) {
+    step(a) {
         a.data[0];
     },
 });
 
 Papa.parse<string>('a,b,c', {
-    chunk: function (a) {
+    chunk(a) {
         a.data[0];
     },
 });
 
 Papa.parse<[string, string, string]>('a,b,c', {
-    complete: function (a) {
+    complete(a) {
         a.data[0][0];
         a.data[0][1];
         a.data[0][2];
@@ -121,6 +123,16 @@ Papa.unparse(
     },
     { newline: '\n' },
 );
+Papa.unparse(
+    {
+        fields: ['3'],
+        data: [],
+    },
+    {
+        downloadRequestBody: true,
+        quotes: value => typeof value === 'string',
+    },
+);
 
 /**
  * Properties
@@ -131,7 +143,7 @@ Papa.LocalChunkSize;
 /**
  * Parser
  */
-var parser = new Papa.Parser({});
+const parser = new Papa.Parser({});
 parser.getCharIndex();
 parser.abort();
 parser.parse('', 0, false);

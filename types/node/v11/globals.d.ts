@@ -152,6 +152,11 @@ interface String {
     trimLeft(): string;
     /** Removes whitespace from the right end of a string. */
     trimRight(): string;
+
+    /** Returns a copy with leading whitespace removed. */
+    trimStart(): string;
+    /** Returns a copy with trailing whitespace removed. */
+    trimEnd(): string;
 }
 
 /*-----------------------------------------------*
@@ -744,6 +749,7 @@ declare namespace NodeJS {
 
     interface HRTime {
         (time?: [number, number]): [number, number];
+        bigint(): bigint;
     }
 
     interface ProcessReport {
@@ -1136,11 +1142,4 @@ declare namespace NodeJS {
     }
 
     type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
-
-    // TODO: The value type here is a version of `unknown` with an acceptably lossy amount of accuracy.
-    // Now that TypeScript's DT support is  3.0+, we can look into replacing this with `unknown`.
-    type UnknownFacade = {} | null | undefined;
-
-    /** @deprecated - Use `UnknownFacade` instead. It is a better classifier for the type */
-    type PoorMansUnknown = UnknownFacade;
 }

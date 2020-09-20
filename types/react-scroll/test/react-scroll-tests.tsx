@@ -110,6 +110,17 @@ const linkTest5 = (
     </Link>
 );
 
+const linkTest6 = (
+    <Link
+        to="target"
+        saveHashHistory={true}
+        spy={true}
+        hashSpy={true}
+    >
+        Test 7 (hash history)
+    </Link>
+);
+
 const options = {} as any;
 animateScroll.scrollToTop(options);
 animateScroll.scrollToBottom(options);

@@ -902,3 +902,20 @@ function atackPower(creep: Creep) {
 {
     const ret: OK | ERR_NOT_ENOUGH_RESOURCES | ERR_FULL = Game.cpu.generatePixel();
 }
+
+// Game.map.visual
+{
+    const mapVis = Game.map.visual;
+    const point1 = new RoomPosition(1, 1, "E1N1");
+    const point2 = new RoomPosition(1, 1, "E1N8");
+    const point3 = new RoomPosition(1, 1, "E8N8");
+    const point4 = new RoomPosition(1, 1, "E1N8");
+
+    mapVis
+        .line(point1, point2)
+        .circle(point3, { fill: "#f2f2f2" })
+        .poly([point1, point2, point3, point4])
+        .rect(point3, 50, 50);
+
+    const size: number = mapVis.getSize();
+}

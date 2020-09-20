@@ -1,4 +1,4 @@
-// Type definitions for DevExpress ASP.NET 192.3
+// Type definitions for DevExpress ASP.NET 201.5
 // Project: https://devexpress.com/
 // Definitions by: DevExpress Inc. <https://devexpress.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,6 +28,30 @@ declare class ASPxClientDiagram extends ASPxClientControl {
      */
     CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientDiagram>>;
     /**
+     * Fires after a shape or connector is clicked.
+     */
+    ItemClick: ASPxClientEvent<ASPxClientDiagramItemClickEventHandler<ASPxClientDiagram>>;
+    /**
+     * Fires after a shape or connector is double-clicked.
+     */
+    ItemDblClick: ASPxClientEvent<ASPxClientDiagramItemClickEventHandler<ASPxClientDiagram>>;
+    /**
+     * Fires after the selection changes in the Diagram.
+     */
+    SelectionChanged: ASPxClientEvent<ASPxClientDiagramSelectionChangedEventHandler<ASPxClientDiagram>>;
+    /**
+     * Allows you to create a template for custom shapes.
+     */
+    CustomShapeCreateTemplate: ASPxClientEvent<ASPxClientDiagramCustomShapeCreateTemplateEventHandler<ASPxClientDiagram>>;
+    /**
+     * Fires after a diagram model's data (mapped to a data source) is changed and the client-server synchronization starts to apply the change on the server.
+     */
+    BeginSynchronization: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDiagram>>;
+    /**
+     * Fires after a diagram model's data change is applied to the server and server and client document models have been synchronized.
+     */
+    EndSynchronization: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDiagram>>;
+    /**
      * Imports the diagram data.
      * @param data The diagram data in JSON format.
      */
@@ -47,7 +71,179 @@ declare class ASPxClientDiagram extends ASPxClientControl {
      * @param fullscreen true to activate full-screen mode; false to deactivate full-screen mode.
      */
     SetFullscreenMode(fullscreen: boolean): void;
+    /**
+     * Allows you to enable/disable read-only mode.
+     * @param readOnly true to make the diagram read-only; otherwise, false.
+     */
+    SetReadOnly(readOnly: boolean): void;
 }
+/**
+ * A method that will handle the ItemClick and ItemDblClick events.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface ASPxClientDiagramItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientDiagramItemClickEventArgs): void; }
+/**
+ * Provides data for the ItemClick and ItemDblClick events.
+ */
+declare class ASPxClientDiagramItemClickEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramItemClickEventArgs class with specified settings.
+     * @param item An item object related to the event.
+     */
+    constructor(item: DiagramItem);
+    /**
+     * Gets an object that provides information about an item (shape or connector) related to the event.
+     */
+    item: DiagramItem;
+}
+/**
+ * A method that will handle the SelectionChanged event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface ASPxClientDiagramSelectionChangedEventHandler<Sender> { (source: Sender, e: ASPxClientDiagramSelectionChangedEventArgs): void; }
+/**
+ * Provides data for the SelectionChanged event.
+ */
+declare class ASPxClientDiagramSelectionChangedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramSelectionChangedEventArgs class with specified settings.
+     * @param items An array of item objects.
+     */
+    constructor(items: DiagramItem[]);
+    /**
+     * Gets an array of the selected items (shapes or connectors).
+     */
+    items: DiagramItem[];
+}
+/**
+ * A method that will handle the CustomShapeCreateTemplate event.
+ * @param source An object that contains event data.
+ * @param e An object that contains event data.
+ */
+interface ASPxClientDiagramCustomShapeCreateTemplateEventHandler<Sender> { (source: Sender, e: ASPxClientDiagramCustomShapeCreateTemplateEventArgs): void; }
+/**
+ * Provides data for the CustomShapeCreateTemplate event.
+ */
+declare class ASPxClientDiagramCustomShapeCreateTemplateEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientDiagramCustomShapeCreateTemplateEventArgs class with specified settings.
+     * @param container A container for the template.
+     * @param item The diagram shape object.
+     */
+    constructor(container: any, item: DiagramShape);
+    /**
+     * Returns a container for an instance of the template.
+     */
+    container: any;
+    /**
+     * Gets the currently processed diagram item.
+     */
+    item: DiagramShape;
+}
+/**
+ * Provides information about an item (shape or connector).
+ */
+declare class DiagramItem {
+    /**
+     * Initializes a new instance of the DiagramItem class.
+     */
+    constructor();
+    /**
+     * Gets the item's internal identifier.
+     */
+    id: string;
+    /**
+     * Gets the item's key from a data source.
+     */
+    key: any;
+}
+/**
+ * Provides information about a shape.
+ */
+declare class DiagramShape extends DiagramItem {
+    /**
+     * Gets the shape's text.
+     */
+    text: string;
+    /**
+     * Gets the shape type.
+     */
+    type: string;
+}
+/**
+ * Provides information about a connector.
+ */
+declare class DiagramConnector extends DiagramItem {
+    /**
+     * Gets the connector's texts.
+     */
+    texts: string[];
+    /**
+     * Gets the connector's start node key.
+     */
+    fromKey: any;
+    /**
+     * Gets the connector's end node key.
+     */
+    toKey: any;
+}
+/**
+ * Lists built-in shapes' types.
+ */
+declare enum DiagramShapeType {
+    /**
+     * Text
+     */
+    Text = 0,
+    Rectangle = 1,
+    Ellipse = 2,
+    Cross = 3,
+    Triangle = 4,
+    Diamond = 5,
+    Heart = 6,
+    Pentagon = 7,
+    Hexagon = 8,
+    Octagon = 9,
+    Star = 10,
+    ArrowLeft = 11,
+    ArrowTop = 12,
+    ArrowRight = 13,
+    ArrowBottom = 14,
+    ArrowNorthSouth = 15,
+    ArrowEastWest = 16,
+    Process = 17,
+    Decision = 18,
+    Terminator = 19,
+    PredefinedProcess = 20,
+    Document = 21,
+    MultipleDocuments = 22,
+    ManualInput = 23,
+    Preparation = 24,
+    Data = 25,
+    Database = 26,
+    HardDisk = 27,
+    InternalStorage = 28,
+    PaperTape = 29,
+    ManualOperation = 30,
+    Delay = 31,
+    StoredData = 32,
+    Display = 33,
+    Merge = 34,
+    /**
+     * The connector.
+     */
+    Connector = 35,
+    Or = 36,
+    SummingJunction = 37,
+    VerticalContainer = 38,
+    HorizontalContainer = 39,
+    CardWithImageOnLeft = 40,
+    CardWithImageOnTop = 41,
+    CardWithImageOnRight = 42,
+}
+
 /**
  * Represents the client ASPxGaugeControl.
  */
@@ -76,6 +272,7 @@ declare class ASPxClientGaugeControl extends ASPxClientControl {
      */
     static Cast(obj: any): ASPxClientGaugeControl;
 }
+
 /**
  * Contains style settings related to media elements in ASPxHtmlEditor.
  */
@@ -137,6 +334,11 @@ declare class ASPxClientHtmlEditorCommandStyleSettings {
  * The base class for parameters used in the ASPxHtmlEditor's client-side commands.
  */
 declare class ASPxClientHtmlEditorCommandArguments {
+    /**
+     * Initializes a new instance of the object.
+     * @param htmlEditor The Html Editor.
+     * @param selectedElement The selected element.
+     */
     constructor(htmlEditor: ASPxClientHtmlEditor, selectedElement?: any);
     /**
      * Gets the currently selected element in the ASPxHtmlEditor.
@@ -222,7 +424,7 @@ declare class ASPxClientHtmlEditorInsertLinkCommandArguments extends ASPxClientH
 declare class ASPxClientHtmlEditorChangeMediaElementCommandArguments extends ASPxClientHtmlEditorCommandArguments {
     protected constructor(htmlEditor: ASPxClientHtmlEditor, selectedElement: any);
     /**
-     * Defines the <a href="http://www.w3schools.com/tags/att_global_id.asp">HTML &quot;id&quot;</a> attribute of the target media element.
+     * Defines the <a href="http://www.w3schools.com/tags/att_global_id.asp">HTML "id"</a> attribute of the target media element.
      */
     id: string;
     /**
@@ -268,6 +470,11 @@ declare class ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments extend
  * Contains settings related to the ASPxClientCommandConsts.INSERTAUDIO_COMMAND command parameter.
  */
 declare class ASPxClientHtmlEditorInsertAudioCommandArguments extends ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments {
+    /**
+     * Initializes a new instance of the object.
+     * @param htmlEditor The Html Editor.
+     * @param elementToReplace The element that should be inserted.
+     */
     constructor(htmlEditor: ASPxClientHtmlEditor, elementToReplace?: any);
 }
 /**
@@ -280,6 +487,11 @@ declare class ASPxClientHtmlEditorChangeAudioCommandArguments extends ASPxClient
  * Contains settings related to the ASPxClientCommandConsts.INSERTVIDEO_COMMAND command parameter.
  */
 declare class ASPxClientHtmlEditorInsertVideoCommandArguments extends ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments {
+    /**
+     * Initializes a new instance of the object.
+     * @param htmlEditor The Html Editor.
+     * @param elementToReplace The element that should be inserted.
+     */
     constructor(htmlEditor: ASPxClientHtmlEditor, elementToReplace?: any);
     /**
      * Defines the URL of an image that is shown while the video file is downloading, or until an end-user clicks the play button.
@@ -296,6 +508,11 @@ declare class ASPxClientHtmlEditorChangeVideoCommandArguments extends ASPxClient
  * Contains settings related to the ASPxClientCommandConsts.INSERTFLASH_COMMAND command parameter.
  */
 declare class ASPxClientHtmlEditorInsertFlashCommandArguments extends ASPxClientHtmlEditorChangeMediaElementCommandArguments {
+    /**
+     * Initializes a new instance of the object.
+     * @param htmlEditor The Html Editor.
+     * @param elementToReplace The element that should be inserted.
+     */
     constructor(htmlEditor: ASPxClientHtmlEditor, elementToReplace?: any);
     /**
      * Determines if the target flash element will start playing automatically.
@@ -328,6 +545,11 @@ declare class ASPxClientHtmlEditorChangeFlashCommandArguments extends ASPxClient
  * Contains settings related to the ASPxClientCommandConsts.INSERTYOUTUBEVIDEO_COMMAND command parameter.
  */
 declare class ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments extends ASPxClientHtmlEditorChangeMediaElementCommandArguments {
+    /**
+     * Initializes a new instance of the object.
+     * @param htmlEditor The Html Editor.
+     * @param elementToReplace The element that should be inserted.
+     */
     constructor(htmlEditor: ASPxClientHtmlEditor, elementToReplace?: any);
     /**
      * Determines if suggested videos are shown after the target YouTube video finishes.
@@ -1569,7 +1791,7 @@ declare class ASPxClientHtmlEditorChangeElementPropertiesDialog extends ASPxClie
      */
     GetHeightValueSpinEdit(): ASPxClientSpinEdit;
     /**
-     * Provides access to the client ASPxComboBox object that allows to specify the element height measurement unit in the Html Editor's "Change Element Properties" dialog.
+     * Provides access to the client ASPxComboBox object that allows you to specify the element height measurement unit in the Html Editor's "Change Element Properties" dialog.
      */
     GetHeightValueTypeComboBox(): ASPxClientComboBox;
 }
@@ -1977,6 +2199,7 @@ declare class ASPxClientHtmlEditorSelection {
      */
     SetHtml(html: string, addToHistory: boolean): void;
 }
+
 declare class ASPxClientPivotGridControlCollection extends ASPxClientControlCollection {
     static GetPivotGridControlCollection(): ASPxClientPivotGridControlCollection;
 }
@@ -2011,9 +2234,17 @@ declare class ASPxClientPivotGrid extends ASPxClientControl {
      */
     IsDeferUpdatesChecked(): boolean;
     /**
+     * Indicates whether the Filter Editor is visible.
+     */
+    IsFilterEditorVisible(): boolean;
+    /**
      * Indicates whether the Filter Editor (Prefilter) is visible.
      */
     IsPrefilterVisible(): boolean;
+    /**
+     * Shows the Filter Editor.
+     */
+    ShowFilterEditor(): void;
     /**
      * Shows the Filter Editor.
      */
@@ -2021,11 +2252,23 @@ declare class ASPxClientPivotGrid extends ASPxClientControl {
     /**
      * Hides the Filter Editor.
      */
+    HideFilterEditor(): void;
+    /**
+     * Hides the Filter Editor.
+     */
     HidePrefilter(): void;
     /**
-     * Clears the filter expression applied using the Prefilter (Filter Editor).
+     * Clears the filter expression displayed in the Filter Panel.
+     */
+    ClearFilter(): void;
+    /**
+     * Clears the filter expression displayed in the Filter Panel.
      */
     ClearPrefilter(): void;
+    /**
+     * Enables or disables the current filter displayed in the Filter Panel.
+     */
+    ChangeFilterEnabled(): void;
     /**
      * Enables or disables the current filter applied by the Filter Editor (Prefilter).
      */
@@ -2200,6 +2443,7 @@ declare class ASPxClientPivotCustomization extends ASPxClientControl {
      */
     SetLayout(layout: string): void;
 }
+
 /**
  * Lists file document formats.
  */
@@ -2382,6 +2626,11 @@ declare class TableStyle extends StyleBase {
  */
 declare class RichEditDocument {
     /**
+     * Returns the sub-document with the specified identifier. A SubDocument value specifying the sub-document.
+     * @param subDocumentId An integer value specifying the required sub-document.
+     */
+    getSubDocumentById(subDocumentId: number): SubDocument;
+    /**
      * Provides the information about the active sub-document.
      */
     readonly activeSubDocument: SubDocument;
@@ -2417,11 +2666,6 @@ declare class RichEditDocument {
      * Provides information about spell checking in the current document.
      */
     readonly spellingInfo: SpellingInfo;
-    /**
-     * Returns the sub-document with the specified identifier. A SubDocument value specifying the sub-document.
-     * @param subDocumentId An integer value specifying the required sub-document.
-     */
-    getSubDocumentById(subDocumentId: number): SubDocument;
 }
 /**
  * An abstract numbering list definition that defines the appearance and behavior of numbered paragraphs in a document.
@@ -2721,6 +2965,35 @@ declare class TableCell {
  */
 declare class SubDocument {
     /**
+     * Return the document's textual representation contained in the specified interval. A string value specifying the text contained in the specified interval.
+     * @param interval A text buffer interval that contains the target text.
+     */
+    getTextByInterval(interval: Interval): string;
+    /**
+     * Returns information specific for floating text boxes about the sub-document.
+     */
+    getFloatingTextBoxInfo(): FloatingTextBoxInfo;
+    /**
+     * Returns an array of fields that match the search conditions. An array of the Field objects.
+     * @param arg A position or interval indicating where to search fields.
+     */
+    findFields(arg: number | Interval): Field[];
+    /**
+     * Returns an array of tables that match the search conditions. An array of the Table objects.
+     * @param arg Contains a position or interval indicating where to search tables.
+     */
+    findTables(arg: number | Interval): Table[];
+    /**
+     * Returns an array of paragraphs that match the search conditions. An array of the Paragraph objects.
+     * @param arg Contains a position or interval(s) where to search paragraphs.
+     */
+    findParagraphs(arg: number | Interval | Interval[]): Paragraph[];
+    /**
+     * Returns an array of bookmarks that match the search conditions. An array of the Bookmark objects.
+     * @param arg Contains a position or interval(s) where to search bookmarks, or a bookmark name, or a regular expression.
+     */
+    findBookmarks(arg: number | Interval | Interval[] | string | RegExp): Bookmark[];
+    /**
      * Gets the sub-document identifier.
      */
     readonly id: number;
@@ -2764,35 +3037,6 @@ declare class SubDocument {
      * Provides information about floating pictures in the sub-document.
      */
     readonly floatingPicturesInfo: FloatingPictureInfo[];
-    /**
-     * Return the document's textual representation contained in the specified interval. A string value specifying the text contained in the specified interval.
-     * @param interval A text buffer interval that contains the target text.
-     */
-    getTextByInterval(interval: Interval): string;
-    /**
-     * Returns information specific for floating text boxes about the sub-document.
-     */
-    getFloatingTextBoxInfo(): FloatingTextBoxInfo;
-    /**
-     * Returns an array of fields that match the search conditions. An array of the Field objects.
-     * @param arg A position or interval indicating where to search fields.
-     */
-    findFields(arg: number | Interval): Field[];
-    /**
-     * Returns an array of tables that match the search conditions. An array of the Table objects.
-     * @param arg Contains a position or interval indicating where to search tables.
-     */
-    findTables(arg: number | Interval): Table[];
-    /**
-     * Returns an array of paragraphs that match the search conditions. An array of the Paragraph objects.
-     * @param arg Contains a position or interval(s) where to search paragraphs.
-     */
-    findParagraphs(arg: number | Interval | Interval[]): Paragraph[];
-    /**
-     * Returns an array of bookmarks that match the search conditions. An array of the Bookmark objects.
-     * @param arg Contains a position or interval(s) where to search bookmarks, or a bookmark name, or a regular expression.
-     */
-    findBookmarks(arg: number | Interval | Interval[] | string | RegExp): Bookmark[];
 }
 /**
  * Lists values specifying the sub-document type.
@@ -2847,30 +3091,10 @@ declare class FloatingPictureInfo extends FloatingObjectInfo {
  */
 declare class RichEditSelection {
     /**
-     * Gets or sets an array of document intervals in the selection.
-     */
-    intervals: Interval[];
-    /**
      * Selects the specified interval(s).
      * @param arg The interval(s) or position to select.
      */
     setSelection(arg: number | Interval | Interval[]): void;
-    /**
-     * Gets whether a floating picture or text box is selected.
-     */
-    readonly isFloatingObjectSelected: boolean;
-    /**
-     * Gets whether only a text box is selected.
-     */
-    readonly isTextBoxSelected: boolean;
-    /**
-     * Gets whether only a picture is selected.
-     */
-    readonly isPictureSelected: boolean;
-    /**
-     * Gets or sets a value specifying whether the current selection is collapsed (and represents the cursor position).
-     */
-    collapsed: boolean;
     /**
      * Gets the maximum position of a document interval in the selection.
      */
@@ -2999,13 +3223,34 @@ declare class RichEditSelection {
     setHeaderSubDocumentAsActiveByPageIndex(pageIndex: number): void;
     /**
      * Makes the specified text box active.
+     * @param arg An integer value that identifies the target text box by its id, or an object that contains the text box settings.
      */
     setTextBoxSubDocumentAsActive(arg: number | FloatingTextBoxInfo): void;
     /**
-     * Makes the specified sub-document active.
+     * Makes the specified sub-document active. true if the sub-document is made active; false if the sub-document with the specified id is not found.
      * @param id An integer value identifying the target sub-document by its id.
      */
     setActiveSubDocumentById(id: number): boolean;
+    /**
+     * Gets or sets an array of document intervals in the selection.
+     */
+    intervals: Interval[];
+    /**
+     * Gets whether a floating picture or text box is selected.
+     */
+    readonly isFloatingObjectSelected: boolean;
+    /**
+     * Gets whether only a text box is selected.
+     */
+    readonly isTextBoxSelected: boolean;
+    /**
+     * Gets whether only a picture is selected.
+     */
+    readonly isPictureSelected: boolean;
+    /**
+     * Gets or sets a value specifying whether the current selection is collapsed (and represents the cursor position).
+     */
+    collapsed: boolean;
 }
 /**
  * Defines a document's interval.
@@ -3478,7 +3723,8 @@ declare class GoToLastDataRecordCommand extends CommandWithSimpleStateBase {
  */
 declare class ShowMergedDataCommand extends CommandWithBooleanStateBase {
     /**
-     * Executes the ShowMergedDataCommand command. true if the command has been successfully executed; false if the command execution has failed.
+     * Executes the ShowMergedDataCommand command. true if the command has been successfully executed; false, if the command execution has failed.
+     * @param showMergedData true, to show merged data (field results); false to show field codes.
      */
     execute(showMergedData?: boolean): boolean;
     /**
@@ -3682,7 +3928,8 @@ declare class FileSaveCommand extends CommandWithSimpleStateBase {
  */
 declare class FileSaveAsCommand {
     /**
-     * Executes the FileSaveAsCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
+     * Executes the FileSaveAsCommand command with the specified parameter. true, if the command has been successfully executed; false if the command execution has failed.
+     * @param path An object that contains the settings of the saved file.
      */
     execute(path: string | RichEditFileInfo): boolean;
     /**
@@ -3695,10 +3942,11 @@ declare class FileSaveAsCommand {
  */
 declare class FileDownloadCommand extends CommandWithSimpleStateBase {
     /**
-     * Executes the FileDownloadCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
+     * Executes the FileDownloadCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
      * @param fileExtension A string value specifying the extension of the downloading file.
+     * @param fileName The name of the downloaded document.
      */
-    execute(fileExtension: string | DocumentFormat): boolean;
+    execute(fileExtension: string | DocumentFormat, fileName?: string): boolean;
     /**
      * Gets information about the command's state.
      */
@@ -5655,10 +5903,11 @@ declare class OpenInsertPictureDialogCommand extends CommandWithSimpleStateBase 
  */
 declare class InsertPictureCommand extends CommandWithSimpleStateBase {
     /**
-     * Executes the InsertPictureCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
-     * @param imageUrl A string value specifying picture's Url.
+     * Executes the InsertPictureCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
+     * @param imageUrl A picture's URL.
+     * @param callback A function to be executed after a picture is inserted. The interval parameter returns an Interval object that stores the inserted picture's length and position.
      */
-    execute(imageUrl: string): boolean;
+    execute(imageUrl: string, callback?: (interval: Interval) => void): boolean;
     /**
      * Gets information about the command's state.
      */
@@ -5711,8 +5960,9 @@ declare class InsertParagraphCommand extends CommandWithSimpleStateBase {
 declare class InsertTextCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the InsertTextCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
-     * @param text A string value specifying a text to insert.
-     * @param subDocumentId An integer value specifying the sub-document.
+     * @param text A text to insert.
+     * @param interval A position or interval where the text is inserted.
+     * @param subDocumentId An integer value that specifies the sub-document.
      */
     execute(text: string, interval?: Interval | number, subDocumentId?: number): boolean;
     /**
@@ -5778,7 +6028,6 @@ declare class BackspaceCommand extends CommandWithSimpleStateBase {
 declare class ChangePictureScaleCommand extends CommandBase {
     /**
      * Executes the ChangePictureScaleCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
-     * @param scale The picture scale.
      * @param x The picture scale object or the x-scale factor as a percent.
      * @param y The y-scale factor as a percent.
      */
@@ -5931,7 +6180,6 @@ declare class SetPageSizeDialogCommand extends CommandWithSimpleStateBase {
 declare class ChangePageSizeCommand extends CommandBase {
     /**
      * Executes the ChangePageSizeCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
-     * @param size The page size.
      * @param width The page size object or the page width.
      * @param height The page height.
      */
@@ -6213,7 +6461,7 @@ declare class GetRtfCommand extends CommandWithSimpleStateBase {
      * Executes the GetRtfCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
      * @param interval An object specifying the required interval in the specified sub-document.
      * @param callback A function that passes the RTF formatted string as a parameter.
-     * @param subDocumentId A value identifying the target sub-document.
+     * @param subDocumentId A value identifying the target sub-document (the active sub-document by default).
      */
     execute(interval: Interval, callback: (rtf: string) => void, subDocumentId?: number): boolean;
     /**
@@ -8009,13 +8257,13 @@ declare class ChangeFontNameCommand extends CommandBase {
      */
     execute(fontName: string): boolean;
     /**
-     * Lists names of fonts available in the control.
-     */
-    readonly fontNames: string[];
-    /**
      * Gets information about the command's state.
      */
     getState(): CommandState<string>;
+    /**
+     * Lists names of fonts available in the control.
+     */
+    readonly fontNames: string[];
 }
 /**
  * A command to change the font size of characters in a selected range.
@@ -8451,11 +8699,12 @@ declare enum ViewType {
 declare class InsertContentFromServerCommand extends CommandBase {
     /**
      * Executes the InsertContentFromServerCommand command with the specified parameters. true if the command has been successfully executed; false if the command execution has failed.
-     * @param requestId An integer value identifying the request to the server.
+     * @param requestId An string value identifying the request to the server.
      * @param position An integer value specifying position where to insert content to the active sub-document.
      * @param subDocumentId An integer value identifying the target sub-document.
+     * @param callback A function to be executed after a content is inserted. The interval parameter returns an object that contains the inserted content's length and position.
      */
-    execute(requestId: string, position?: number, subDocumentId?: number): boolean;
+    execute(requestId: string, position?: number, subDocumentId?: number, callback?: (interval: Interval) => void): boolean;
     /**
      * Gets information about the command's state.
      */
@@ -8490,7 +8739,7 @@ declare class RichEditCommands {
      */
     readonly fileSave: FileSaveCommand;
     /**
-     * Gets a command to download the document specifying the file's extension.
+     * Gets a command to download the document specifying the file's extension and name.
      */
     readonly fileDownload: FileDownloadCommand;
     /**
@@ -9644,21 +9893,21 @@ declare class ASPxClientRichEditPointerUpEventArgs extends ASPxClientEventArgs {
  */
 declare class ASPxClientRichEditPopupMenuItem {
     /**
-     * Gets the immediate parent menu item to which the current menu item belongs.
-     */
-    parent: ASPxClientRichEditPopupMenuItem;
-    /**
-     * Gets or sets the unique identifier name for the current menu item.
+     * Specifies the unique identifier name for the current menu item.
      */
     name: string;
     /**
-     * Gets or sets the text content of the current menu item.
+     * Specifies the text content of the current menu item.
      */
     text: string;
     /**
-     * Gets or sets a value that indicates whether the menu item is enabled, allowing the item to respond to end-user interactions.
+     * Indicates whether the menu item is enabled.
      */
     enabled: boolean;
+    /**
+     * Gets the immediate parent menu item to which the current menu item belongs.
+     */
+    parent: ASPxClientRichEditPopupMenuItem;
     /**
      * Gets or sets the CSS class name defining the menu item's image.
      */
@@ -9759,6 +10008,35 @@ declare class ASPxClientRichEditPopupMenuShowingEventArgs extends ASPxClientCanc
      * @param menuItems Provides access to the context menu's item collection.
      */
     constructor(menuItems: ASPxClientRichEditPopupMenuItemCollection);
+}
+/**
+ * Provides data for the FloatingObjectMoved event.
+ */
+declare class ASPxClientRichEditFloatingObjectMovedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Returns the active sub-document's identifier.
+     */
+    readonly subDocumentId: number;
+    /**
+     * The floating object's new position.
+     */
+    newPosition: number;
+    /**
+     * Returns an array of intervals that are belongs to the current page (pageIndex).
+     */
+    readonly pageIntervals: Interval[];
+    /**
+     * Returns an index of a page where a floating object has been moved.
+     */
+    readonly pageIndex: number;
+    /**
+     * The x-coordinate (in pixels) of the upper-left corner of the floating object relative to the page.
+     */
+    objectX: number;
+    /**
+     * The y-coordinate (in pixels) of the upper-left corner of the floating object relative to the page.
+     */
+    objectY: number;
 }
 /**
  * A method that handles the ContentRemoved event.
@@ -9865,6 +10143,14 @@ interface ASPxClientRichEditDocumentFormattedEventHandler {
     (source: ASPxClientRichEdit, e: ASPxClientRichEditDocumentFormattedEventArgs): any;
 }
 /**
+ * A method that handles the FloatingObjectMoved event.
+ * @param source The event source.
+ * @param e An object that contains event data.
+ */
+interface ASPxClientRichEditFloatingObjectMovedEventHandler {
+    (source: ASPxClientRichEdit, e: ASPxClientRichEditFloatingObjectMovedEventArgs): any;
+}
+/**
  * Contains members related to the document's layout functionality.
  */
 declare class RichEditLayout {
@@ -9918,14 +10204,6 @@ interface ICustomLoadingPanel {
  */
 declare class LoadingPanel {
     /**
-     * Specifies whether the loading panel is enabled in the control.
-     */
-    enabled: boolean;
-    /**
-     * Allows you to provide a custom loading panel.
-     */
-    customPanel: undefined | ICustomLoadingPanel;
-    /**
      * Shows the loading panel.
      */
     show(): void;
@@ -9933,6 +10211,14 @@ declare class LoadingPanel {
      * Hides the loading panel.
      */
     hide(): void;
+    /**
+     * Specifies whether the loading panel is enabled in the control.
+     */
+    enabled: boolean;
+    /**
+     * Allows you to provide a custom loading panel.
+     */
+    customPanel: undefined | ICustomLoadingPanel;
 }
 /**
  * Contains control requests' settings.
@@ -9950,6 +10236,22 @@ declare class RequestSettings {
      * Specifies a period before a request is sent to the server.
      */
     pendingPeriod: number;
+}
+/**
+ * Contains members related to the document's scroll functionality.
+ */
+declare class RichEditScroll {
+    /**
+     * Scrolls the document to the specified position
+     * @param position The position in a document model.
+     * @param subDocumentId An identifier of a sub-document.
+     * @param pageIndex The page index.
+     */
+    setByDocumentPosition(position: number, subDocumentId?: number, pageIndex?: number): void;
+    /**
+     * Specifies the vertical scroll position.
+     */
+    verticalPosition: number;
 }
 /**
  * Contains the method to convert different units of measurement.
@@ -10007,7 +10309,7 @@ declare class RichEditUnitConverter {
     twipsToPoints(value: number): number;
 }
 /**
- * A client-side equivalent of the ASPxRichEdit object.
+ * A client-side equivalent of the ASPxRichEdit control.
  */
 declare class ASPxClientRichEdit extends ASPxClientControl {
     /**
@@ -10043,7 +10345,7 @@ declare class ASPxClientRichEdit extends ASPxClientControl {
      */
     DocumentFormatted: ASPxClientEvent<ASPxClientRichEditDocumentFormattedEventHandler>;
     /**
-     * Fires if any change is made to the RichEdit's document on the client.
+     * Fires if an end user makes any change in the RichEdit's document on the client.
      */
     DocumentChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientRichEdit>>;
     /**
@@ -10107,6 +10409,10 @@ declare class ASPxClientRichEdit extends ASPxClientControl {
      */
     AutoCorrect: ASPxClientEvent<ASPxClientRichEditAutoCorrectEventHandler>;
     /**
+     * Fires after a floating object has been moved and allows you to change the object's new position.
+     */
+    FloatingObjectMoved: ASPxClientEvent<ASPxClientRichEditFloatingObjectMovedEventHandler>;
+    /**
      * Provides access to document structural elements.
      */
     document: RichEditDocument;
@@ -10118,6 +10424,10 @@ declare class ASPxClientRichEdit extends ASPxClientControl {
      * Provides access to the client methods that change the selection.
      */
     selection: RichEditSelection;
+    /**
+     * Provides access to a document's scroll functionality.
+     */
+    scroll: RichEditScroll;
     /**
      * Provides access to a document's layout functionality.
      */
@@ -10134,6 +10444,23 @@ declare class ASPxClientRichEdit extends ASPxClientControl {
      * Provides access to settings related to a loading panel functionality.
      */
     loadingPanel: LoadingPanel;
+    /**
+     * Downloads the current document as a PDF file.
+     * @param fileName The name of the downloaded document.
+     * @param options A function that allows you to modify the PDF document before it is downloaded; or an object that contains modifyPdfDocument and modifyPdfPage functions.
+     */
+    DownloadPdf(fileName?: string, options?: ((pdfDocument: any) => void) | {
+        modifyPdfDocument?: (pdfDocument: any) => void;
+        modifyPdfPage?: (pdfDocument: any) => void;
+    }): void;
+    /**
+     * Exports the current document to PDF and invokes the PdfExported event.
+     * @param options A function that allows you to modify the PDF document before it is downloaded; or an object that contains modifyPdfDocument and modifyPdfPage functions.
+     */
+    ExportToPdf(options?: ((pdfDocument: any) => void) | {
+        modifyPdfDocument?: (pdfDocument: any) => void;
+        modifyPdfPage?: (pdfDocument: any) => void;
+    }): void;
     /**
      * Enables you to switch the full-screen mode of the Rich Text Editor.
      * @param fullscreen true to activate full-screen mode; false to deactivate full-screen mode.
@@ -10166,7 +10493,24 @@ declare class ASPxClientRichEdit extends ASPxClientControl {
      * @param obj The client object to be type cast.
      */
     static Cast(obj: any): ASPxClientRichEdit;
+    /**
+     * Specifies the name of the saved/downloaded file.
+     */
+    fileName: string;
+    /**
+     * Specifies the format in which the editor prepares the document for saving.
+     */
+    documentSaveFormat: DocumentFormat;
+    /**
+     * Specifies the name of the current document.
+     */
+    documentName: string;
+    /**
+     * Specifies the format in which the editor prepares the document for saving or export.
+     */
+    documentFormat: DocumentFormat;
 }
+
 /**
  * Holds the information that determines what action types can be performed for appointments.
  */
@@ -12219,6 +12563,7 @@ declare class ASPxClientSchedulerStorageControl extends ASPxClientControl {
      */
     Refresh(): void;
 }
+
 /**
  * Lists values that identify the context menu type.
  */
@@ -12338,14 +12683,15 @@ interface ASPxClientSpreadsheetCellBeginEditEventHandler<Sender> { (source: Send
  */
 declare class ASPxClientSpreadsheetCellBeginEditEventArgs extends ASPxClientCancelEventArgs {
     /**
-     * Initializes a new instance of the ASPxClientSpreadsheetCellBeginEditEventArgs object. For internal use only.
-     * @param columnIndex Gets the active cell's column index.
-     * @param rowIndex Gets the active cell's row index.
-     * @param formula Gets the active cell's formula.
-     * @param value Gets the active cell's current value.
-     * @param sheetName Gets the current worksheet's name.
+     * Initializes a new instance of the ASPxClientSpreadsheetCellBeginEditEventArgs class with specified settings.
+     * @param columnIndex The active cell's column index.
+     * @param rowIndex The active cell's row index.
+     * @param formula The active cell's formula.
+     * @param value The active cell's current value.
+     * @param displayText The text displayed in the active cell.
+     * @param sheetName The current worksheet's name.
      */
-    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, sheetName: string);
+    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, displayText: string, sheetName: string);
     /**
      * Gets the active cell's column index.
      */
@@ -12362,6 +12708,10 @@ declare class ASPxClientSpreadsheetCellBeginEditEventArgs extends ASPxClientCanc
      * Gets the active cell's current value.
      */
     value: string;
+    /**
+     * Specifies the text displayed in the processed cell.
+     */
+    displayText: string;
     /**
      * Gets the current worksheet's name.
      */
@@ -12378,15 +12728,16 @@ interface ASPxClientSpreadsheetCellEndEditEventHandler<Sender> { (source: Sender
  */
 declare class ASPxClientSpreadsheetCellEndEditEventArgs extends ASPxClientSpreadsheetCellBeginEditEventArgs {
     /**
-     * Initializes a new instance of the ASPxClientSpreadsheetCellEndEditEventArgs object. For internal use only.
-     * @param columnIndex Gets the active cell's column index.
-     * @param rowIndex Gets the active cell's row index.
-     * @param formula Gets the active cell's formula.
-     * @param value Gets the active cell's current value.
-     * @param sheetName Gets the current worksheet's name.
-     * @param editorText Gets or sets the text stored within an active cell's editor.
+     * Initializes a new instance of the ASPxClientSpreadsheetCellEndEditEventArgs class with specified settings.
+     * @param columnIndex The active cell's column index.
+     * @param rowIndex The active cell's row index.
+     * @param formula The active cell's formula.
+     * @param value The active cell's current value.
+     * @param displayText The text displayed in the active cell.
+     * @param sheetName The current worksheet's name.
+     * @param editorText The text stored in the active cell's editor.
      */
-    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, sheetName: string, editorText: string);
+    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, displayText: string, sheetName: string, editorText: string);
     /**
      * Gets or sets the text stored within the active cell's editor.
      */
@@ -12403,14 +12754,15 @@ interface ASPxClientSpreadsheetCellCancelEditEventHandler<Sender> { (source: Sen
  */
 declare class ASPxClientSpreadsheetCellCancelEditEventArgs extends ASPxClientEventArgs {
     /**
-     * Initializes a new instance of the ASPxClientSpreadsheetCellCancelEditEventArgs object. For internal use only.
-     * @param columnIndex Gets the active cell's column index.
-     * @param rowIndex Gets the active cell's row index.
-     * @param formula Gets the active cell's formula.
-     * @param value Gets the active cell's current value.
-     * @param sheetName Gets the current worksheet's name.
+     * Initializes a new instance of the ASPxClientSpreadsheetCellCancelEditEventArgs class with specified settings.
+     * @param columnIndex The active cell's column index.
+     * @param rowIndex The active cell's row index.
+     * @param formula The active cell's formula.
+     * @param value The active cell's current value.
+     * @param displayText The text displayed in the active cell.
+     * @param sheetName The current worksheet's name.
      */
-    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, sheetName: string);
+    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, displayText: string, sheetName: string);
     /**
      * Gets the active cell's column index.
      */
@@ -12427,6 +12779,10 @@ declare class ASPxClientSpreadsheetCellCancelEditEventArgs extends ASPxClientEve
      * Gets the active cell's current value.
      */
     value: string;
+    /**
+     * Specifies the text displayed in the processed cell.
+     */
+    displayText: string;
     /**
      * Gets the current worksheet's name.
      */
@@ -12892,6 +13248,7 @@ declare class ASPxClientSpreadsheetPopupMenuItemCollection {
      */
     Clear(): void;
 }
+
 /**
  * Represents the client ASPxTreeList.
  */
@@ -13488,7 +13845,7 @@ interface ASPxClientTreeListEndDragNodeEventHandler<Sender> { (source: Sender, e
 /**
  * Provides data for the ASPxClientTreeList.CustomButtonClick event.
  */
-declare class ASPxClientTreeListCustomButtonEventArgs extends ASPxClientEventArgs {
+declare class ASPxClientTreeListCustomButtonEventArgs extends ASPxClientProcessingModeEventArgs {
     /**
      * Gets the key value of the node whose custom button has been clicked.
      */
@@ -13574,6 +13931,10 @@ declare class ASPxClientTreeListToolbarItemClickEventArgs extends ASPxClientProc
      * Specifies whether a postback or a callback is used to finally process the event on the server side.
      */
     usePostBack: boolean;
+    /**
+     * Specifies whether the toolbar item click is handled manually, so no default processing is required.
+     */
+    handled: boolean;
 }
 /**
  * A method that will handle the ASPxClientTreeList.ToolbarItemClick event.
@@ -13995,6 +14356,7 @@ declare class ASPxClientTreeListCellInfo {
      */
     column: ASPxClientTreeListColumn;
 }
+
 /**
  * Represents a client-side equivalent of the ASPxCallback control.
  */
@@ -15609,6 +15971,12 @@ declare class ASPxClientComboBox extends ASPxClientDropDownEditBase {
      * @param tooltip A string value specifying the tooltip text.
      */
     SetItemTooltip(index: number, tooltip: string): void;
+    /**
+     * Adds a custom attribute to a combo box item.
+     * @param index The item index.
+     * @param attributeName The attribute name.
+     * @param attributeValue The attribute value.
+     */
     SetItemAttribute(index: number, attributeName: string, attributeValue: string): void;
     /**
      * Sets the CSS class for a combo box item specified by its index.
@@ -15636,6 +16004,13 @@ declare class ASPxClientComboBox extends ASPxClientDropDownEditBase {
      * @param tooltip A string value specifying the tooltip text.
      */
     SetItemTextCellTooltip(itemIndex: number, textCellIndex: number, tooltip: string): void;
+    /**
+     * Adds a custom attribute to a combo box item's text cell.
+     * @param itemIndex The item's index.
+     * @param textCellIndex The text cell's index.
+     * @param attributeName The attribute name.
+     * @param attributeValue The attribute value.
+     */
     SetItemTextCellAttribute(itemIndex: number, textCellIndex: number, attributeName: string, attributeValue: string): void;
     /**
      * Sets the CSS class for a combo box item's text cell specified by its index.
@@ -15763,27 +16138,27 @@ interface ASPxClientParseDateEventHandler<Sender> { (source: Sender, e: ASPxClie
  */
 declare class ASPxClientDropDownEditBase extends ASPxClientButtonEditBase {
     /**
-     * Occurs on the client-side when the <strong>drop down window</strong> is opened by the dropdown button click.
+     * Occurs on the client-side when the drop down window is opened by the dropdown button click.
      */
     DropDown: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDropDownEditBase>>;
     /**
-     * Occurs on the client side when the <strong>drop down window</strong> is closed.
+     * Occurs on the client side when the drop down window is closed.
      */
     CloseUp: ASPxClientEvent<ASPxClientEventHandler<ASPxClientDropDownEditBase>>;
     /**
-     * Occurs on the client side before the <strong>drop down window</strong> is closed and allows you to cancel the operation.
+     * Occurs on the client side before the drop down window is closed and allows you to cancel the operation.
      */
     QueryCloseUp: ASPxClientEvent<ASPxClientCancelEventHandler<ASPxClientDropDownEditBase>>;
     /**
-     * Modifies the size of the <strong>drop down window</strong> in accordance with its content.
+     * Modifies the size of the drop down window in accordance with its content.
      */
     AdjustDropDownWindow(): void;
     /**
-     * Invokes the editor's <strong>drop down window</strong>.
+     * Invokes the editor's drop down window.
      */
     ShowDropDown(): void;
     /**
-     * Closes the opened <strong>drop down window</strong> of the editor.
+     * Closes the opened drop down window of the editor.
      */
     HideDropDown(): void;
 }
@@ -15941,9 +16316,9 @@ declare class ASPxClientEdit extends ASPxClientEditBase {
      */
     static ClearGroup(validationGroup: string, clearInvisibleEditors?: boolean): void;
     /**
-     * Performs validation of all editors in a specified visibility state, which are located within a specified container and belong to a specific validation group. true if the specified editors pass validation; otherwise, false.
-     * @param container An HTML element specifying the container of editors to be validated.
-     * @param validationGroup A string value that specifies the validation group's name.
+     * Validates all editors in a specified visibility state, which are located within a specified container and belong to a specific validation group. true if the specified editors pass validation; otherwise, false.
+     * @param container An HTML element that contains editors.
+     * @param validationGroup The validation group's name.
      * @param validateInvisibleEditors true to validate both visible and invisible editors that belong to the specified container and group; false to validate only visible editors.
      */
     static ValidateEditorsInContainer(container: any, validationGroup?: string, validateInvisibleEditors?: boolean): boolean;
@@ -16333,6 +16708,12 @@ declare class ASPxClientListBox extends ASPxClientListEdit {
      * @param tooltip A string value specifying the tooltip text.
      */
     SetItemTooltip(index: number, tooltip: string): void;
+    /**
+     * Adds a custom attribute to a list box item.
+     * @param index The item index.
+     * @param attributeName The attribute name.
+     * @param attributeValue The attribute value.
+     */
     SetItemAttribute(index: number, attributeName: string, attributeValue: string): void;
     /**
      * Sets the CSS class for a list box item specified by its index.
@@ -16360,6 +16741,13 @@ declare class ASPxClientListBox extends ASPxClientListEdit {
      * @param tooltip A string value specifying the tooltip text.
      */
     SetItemTextCellTooltip(itemIndex: number, textCellIndex: number, tooltip: string): void;
+    /**
+     * Adds a custom attribute to a list box item's text cell.
+     * @param itemIndex The item's index.
+     * @param textCellIndex The text cell's index.
+     * @param attributeName The attribute name.
+     * @param attributeValue The attribute value.
+     */
     SetItemTextCellAttribute(itemIndex: number, textCellIndex: number, attributeName: string, attributeValue: string): void;
     /**
      * Sets the CSS class for a list box item's text cell specified by its index.
@@ -19080,7 +19468,7 @@ declare class ASPxClientCardView extends ASPxClientGridBase {
     GetEditFormLayout(): ASPxClientFormLayout;
     /**
      * Gets the edit form layout item. The form layout item.
-     * @param column The column, its index or field name.
+     * @param column The column, its index or name.
      */
     GetEditFormLayoutItemByColumn(column: ASPxClientCardViewColumn | number | string): ASPxClientLayoutItem;
     /**
@@ -19697,6 +20085,11 @@ declare class ASPxClientCardViewBatchEditApi {
      * @param summaryItemIndex The total summary's index or field name.
      */
     GetTotalSummaryValue(summaryItemIndex: number | string): number;
+    /**
+     * Returns the group summery value. The group summary value.
+     * @param groupRowVisibleIndex The group row's visible index.
+     * @param summaryItemIndex The summary's index or field name.
+     */
     GetGroupSummaryValue(groupRowVisibleIndex: number, summaryItemIndex: number | string): number;
 }
 /**
@@ -19771,7 +20164,7 @@ declare class ASPxClientGridBase extends ASPxClientControl {
     GetToolbar(index: number): ASPxClientMenu;
 }
 /**
- * Serves as a base object implementing the client column functionality.
+ * Serves as a base class for classes that implement the client column functionality.
  */
 declare class ASPxClientGridColumnBase {
 }
@@ -19899,6 +20292,9 @@ declare class ASPxClientGridViewCallbackCommand {
      * Default value: "UPDATEEDIT"
      */
     static readonly UpdateEdit: string;
+    /**
+     * Default value: "UPDATESUMMARIES"
+     */
     static readonly UpdateSummaries: string;
     /**
      * Default value: "ADDNEWROW"
@@ -20026,7 +20422,16 @@ declare class ASPxClientGridToolbarItemClickEventArgs extends ASPxClientProcessi
      * Specifies whether a postback or a callback is used to finally process the event on the server side.
      */
     usePostBack: boolean;
+    /**
+     * Specifies whether the toolbar item click is handled manually, so no default processing is required.
+     */
+    handled: boolean;
 }
+/**
+ * A method that will handle the BatchEditSummaryDisplayText event.
+ * @param source The event source. This parameter identifies the object which raised the event.
+ * @param e The event data.
+ */
 interface ASPxClientGridBatchEditSummaryDisplayTextEventHandler<Sender> { (source: Sender, e: ASPxClientGridBatchEditSummaryDisplayTextEventArgs): void; }
 /**
  * Provides data for the BatchEditSummaryDisplayText event.
@@ -20753,7 +21158,7 @@ declare class ASPxClientGridView extends ASPxClientGridBase {
     GetEditFormLayout(): ASPxClientFormLayout;
     /**
      * Returns the form layout item. The form layout item.
-     * @param column The column, its index or field name.
+     * @param column The column, its index or name.
      */
     GetEditFormLayoutItemByColumn(column: ASPxClientGridViewColumn | number | string): ASPxClientLayoutItem;
     /**
@@ -23975,7 +24380,23 @@ declare class ASPxClientFlashScriptCommandEventArgs extends ASPxClientEventArgs 
 /**
  * Lists the available link types within office documents.
  */
-declare class ASPxClientOfficeDocumentLinkType {
+declare enum ASPxClientOfficeDocumentLinkType {
+    /**
+     * The processed link is a hyperlink.
+     */
+    Hyperlink = 0,
+    /**
+     * The processed link is a bookmark.
+     */
+    Bookmark = 1,
+    /**
+     * The processed link is an email address.
+     */
+    EmailAddress = 2,
+    /**
+     * The processed link is a link to a document.
+     */
+    Document = 3
 }
 /**
  * Represents the client-side equivalent of the ASPxPager control.
@@ -24069,11 +24490,11 @@ declare class ASPxClientPopupControlBase extends ASPxClientControl {
      */
     GetContentHtml(): string;
     /**
-     * Returns an iframe object containing a web page specified via the control's ASPxPopupControlBase.ContentUrl property (or the ASPxClientPopupControlBase.SetContentUrl client method).
+     * Returns an iframe object containing a web page specified via the control's ASPxPopupControlBase.ContentUrl property (or the client ASPxClientPopupControlBase.SetContentUrl method).
      */
     GetContentIFrame(): any;
     /**
-     * Returns an iframe object containing a web page specified via the control's ASPxPopupControlBase.ContentUrl property (or the ASPxClientPopupControlBase.SetContentUrl client method).
+     * Returns an iframe object containing a web page specified via the control's ASPxPopupControlBase.ContentUrl property (or the client ASPxClientPopupControlBase.SetContentUrl method).
      */
     GetContentIFrameWindow(): any;
     /**
@@ -24081,27 +24502,27 @@ declare class ASPxClientPopupControlBase extends ASPxClientControl {
      */
     GetContentUrl(): string;
     /**
-     * Returns the URL pointing to the image displayed within the <strong>window footer</strong> by default.
+     * Returns the URL pointing to the image displayed within the window footer by default.
      */
     GetFooterImageUrl(): string;
     /**
-     * Returns the URL where the web browser will navigate when the text or image is clicked within a window's <strong>footer</strong>.
+     * Returns the URL where the web browser will navigate when the text or image is clicked within a window's footer.
      */
     GetFooterNavigateUrl(): string;
     /**
-     * Returns the text displayed within a window's <strong>footer</strong>.
+     * Returns the text displayed within a window's footer.
      */
     GetFooterText(): string;
     /**
-     * Returns the URL pointing to the image displayed within the <strong>window header</strong>.
+     * Returns the URL pointing to the image displayed within the window header.
      */
     GetHeaderImageUrl(): string;
     /**
-     * Returns the URL where the web browser will navigate when the text or image is clicked within a window's <strong>header</strong>.
+     * Returns the URL where the web browser will navigate when the text or image is clicked within a window's header.
      */
     GetHeaderNavigateUrl(): string;
     /**
-     * Returns the text displayed within a window's <strong>header</strong>.
+     * Returns the text displayed within a window's header.
      */
     GetHeaderText(): string;
     /**
@@ -24145,27 +24566,27 @@ declare class ASPxClientPopupControlBase extends ASPxClientControl {
      */
     SetContentUrl(url: string): void;
     /**
-     * Specifies the URL which points to the image displayed within the <strong>window footer</strong> by default.
+     * Specifies the URL which points to the image displayed within the window footer by default.
      * @param value A string value that is the URL for the image displayed within the window footer.
      */
     SetFooterImageUrl(value: string): void;
     /**
-     * Specifies the URL where the web browser will navigate when the text or image is clicked within a window's <strong>footer</strong>.
+     * Specifies the URL where the web browser will navigate when the text or image is clicked within a window's footer.
      * @param value A string value which specifies the required navigation location.
      */
     SetFooterNavigateUrl(value: string): void;
     /**
-     * Specifies the text displayed within a window's <strong>footer</strong>.
+     * Specifies the text displayed within a window's footer.
      * @param value A string value that specifies a window's footer text.
      */
     SetFooterText(value: string): void;
     /**
-     * Specifies the URL which points to the image displayed within the <strong>window header</strong>.
+     * Specifies the URL which points to the image displayed within the window header.
      * @param value A string value that is the URL to the image displayed within the header.
      */
     SetHeaderImageUrl(value: string): void;
     /**
-     * Specifies the URL where the web browser will navigate when the text or image is clicked within a window's <strong>header</strong>.
+     * Specifies the URL where the web browser will navigate when the text or image is clicked within a window's header.
      * @param value A string value which specifies the required navigation location.
      */
     SetHeaderNavigateUrl(value: string): void;
@@ -24283,7 +24704,7 @@ declare class ASPxClientPopupControl extends ASPxClientPopupControlBase {
      */
     PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string, onSuccess?: (arg: string) => void): void;
     /**
-     * Occurs when a popup window's <strong>close button</strong> is clicked.
+     * Occurs when a user clicks the popup window's close button.
      */
     CloseButtonClick: ASPxClientEvent<ASPxClientPopupWindowEventHandler<ASPxClientPopupControl>>;
     /**
@@ -24293,12 +24714,12 @@ declare class ASPxClientPopupControl extends ASPxClientPopupControlBase {
      */
     SetSize(width: number, height: number): void;
     /**
-     * Gets the width of the specified popup window's <strong>content region</strong>. An integer value representing the width of the content region.
+     * Gets the width of the specified popup window's content region. An integer value representing the width of the content region.
      * @param window An ASPxClientPopupWindow object that specifies the required popup window.
      */
     GetWindowContentWidth(window: ASPxClientPopupWindow): number;
     /**
-     * Gets the height of the specified popup window's <strong>content region</strong>. An integer value representing the height of the content region.
+     * Gets the height of the specified popup window's content region. An integer value representing the height of the content region.
      * @param window An ASPxClientPopupWindow object that specifies the required popup window.
      */
     GetWindowContentHeight(window: ASPxClientPopupWindow): number;
@@ -24478,7 +24899,7 @@ declare class ASPxClientPopupControl extends ASPxClientPopupControlBase {
      */
     SetWindowAdaptiveMaxHeight(window: ASPxClientPopupWindow, maxHeight: number | string): void;
     /**
-     * Returns an iframe object containing a web page specified via the specified popup window's PopupWindow.ContentUrl property (or the popup control's ASPxClientPopupControl.SetWindowContentUrl client method). The iframe object that contains a web page displayed within the specified popup window.
+     * Returns an iframe object containing a web page specified via the specified popup window's PopupWindow.ContentUrl property (or the popup control's client ASPxClientPopupControl.SetWindowContentUrl method). The iframe object that contains a web page displayed within the specified popup window.
      * @param window A ASPxClientPopupWindow object representing the required popup window.
      */
     GetWindowContentIFrame(window: ASPxClientPopupWindow): any;
@@ -24582,56 +25003,56 @@ declare class ASPxClientPopupWindow {
      */
     name: string;
     /**
-     * Returns the URL pointing to the image displayed within the <strong>window header</strong>.
+     * Returns the URL pointing to the image displayed within the window header.
      */
     GetHeaderImageUrl(): string;
     /**
-     * Specifies the URL which points to the image displayed within the <strong>window header</strong>.
+     * Specifies the URL which points to the image displayed within the window header.
      * @param value A string value that is the URL to the image displayed within the header.
      */
     SetHeaderImageUrl(value: string): void;
     /**
-     * Returns the URL pointing to the image displayed within the <strong>window footer</strong>.
+     * Returns the URL pointing to the image displayed within the window footer.
      */
     GetFooterImageUrl(): string;
     /**
-     * Specifies the URL which points to the image displayed within the <strong>window footer</strong>.
+     * Specifies the URL which points to the image displayed within the window footer.
      * @param value A string value that is the URL to the image displayed within the window footer.
      */
     SetFooterImageUrl(value: string): void;
     /**
-     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's <strong>header</strong>.
+     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's header.
      */
     GetHeaderNavigateUrl(): string;
     /**
-     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's <strong>header</strong>.
+     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's header.
      * @param value A string value which specifies the required navigation location.
      */
     SetHeaderNavigateUrl(value: string): void;
     /**
-     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's <strong>footer</strong>.
+     * Returns the URL where the web browser will navigate when the text or image is clicked within the popup window's footer.
      */
     GetFooterNavigateUrl(): string;
     /**
-     * Specifies the URL where the web browser will navigate when the text or image is clicked within the popup window's <strong>footer</strong>.
+     * Specifies the URL where the web browser will navigate when the text or image is clicked within the popup window's footer.
      * @param value A string value which specifies the required navigation location.
      */
     SetFooterNavigateUrl(value: string): void;
     /**
-     * Returns the text displayed within the window's <strong>header</strong>.
+     * Returns the text displayed within the window's header.
      */
     GetHeaderText(): string;
     /**
-     * Specifies the text displayed within the window's <strong>header</strong>.
+     * Specifies the text displayed within the window's header.
      * @param value A string value that specifies the window's header text.
      */
     SetHeaderText(value: string): void;
     /**
-     * Returns the text displayed within the popup window's <strong>footer</strong>.
+     * Returns the text displayed within the popup window's footer.
      */
     GetFooterText(): string;
     /**
-     * Specifies the text displayed within the window's <strong>footer</strong>.
+     * Specifies the text displayed within the window's footer.
      * @param value A string value that specifies the window's footer text.
      */
     SetFooterText(value: string): void;
@@ -24787,7 +25208,7 @@ declare class ASPxClientPopupControlCloseReason {
      */
     static readonly API: string;
     /**
-     * An end-user clicks the close <strong>header button</strong>.
+     * An end-user clicks the close header button.
      */
     static readonly CloseButton: string;
     /**
@@ -25048,108 +25469,6 @@ declare class ASPxClientRibbon extends ASPxClientControl {
     static Cast(obj: any): ASPxClientRibbon;
 }
 /**
- * A client-side equivalent of the ribbon's RibbonTab object.
- */
-declare class ASPxClientRibbonTab {
-    /**
-     * Gets the client ribbon object to which the current tab belongs.
-     */
-    ribbon: ASPxClientRibbon;
-    /**
-     * Gets or sets the tab's index within the collection.
-     */
-    index: number;
-    /**
-     * Gets the name of the current ribbon tab.
-     */
-    name: string;
-    /**
-     * Returns the text displayed in the tab.
-     */
-    GetText(): string;
-    /**
-     * Sets a value specifying whether the tab is enabled.
-     * @param enabled true to enable the tab; false to disable it.
-     */
-    SetEnabled(enabled: boolean): void;
-    /**
-     * Returns a value indicating whether a ribbon tab is enabled.
-     */
-    GetEnabled(): boolean;
-    /**
-     * Returns a value specifying whether a ribbon tab is displayed.
-     */
-    GetVisible(): boolean;
-}
-/**
- * A client-side equivalent of the ribbon's RibbonGroup object.
- */
-declare class ASPxClientRibbonGroup {
-    /**
-     * Gets the client ribbon object to which the current group belongs.
-     */
-    ribbon: ASPxClientRibbon;
-    /**
-     * Gets the client tab object to which the current group belongs.
-     */
-    tab: ASPxClientRibbonTab;
-    /**
-     * Gets or sets the group's index within the collection.
-     */
-    index: number;
-    /**
-     * Gets the name of the current ribbon group.
-     */
-    name: string;
-    /**
-     * Returns a value specifying whether a ribbon group is displayed.
-     */
-    GetVisible(): boolean;
-}
-/**
- * A client-side equivalent of the ribbon's RibbonItemBase object.
- */
-declare class ASPxClientRibbonItem {
-    /**
-     * Gets the client group object to which the current item belongs.
-     */
-    group: ASPxClientRibbonGroup;
-    /**
-     * Gets or sets the item's index within the collection.
-     */
-    index: number;
-    /**
-     * Gets the name of the current ribbon item.
-     */
-    name: string;
-    /**
-     * Gets the client ribbon object to which the current item belongs.
-     */
-    ribbon: ASPxClientRibbon;
-    /**
-     * Returns a value indicating whether a ribbon item is enabled.
-     */
-    GetEnabled(): boolean;
-    /**
-     * Sets a value specifying whether the item is enabled.
-     * @param enabled true to enable the item; false to disable it.
-     */
-    SetEnabled(enabled: boolean): void;
-    /**
-     * Returns the item value.
-     */
-    GetValue(): any;
-    /**
-     * Sets the item value.
-     * @param value An  that specifies the item value.
-     */
-    SetValue(value: any): void;
-    /**
-     * Returns a value specifying whether a ribbon item is displayed.
-     */
-    GetVisible(): boolean;
-}
-/**
  * A method that will handle the ASPxClientRibbon.CommandExecuted event.
  * @param source The event source. Identifies the ASPxRibbon control that raised the event.
  * @param e An ASPxClientRibbonCommandExecutedEventArgs object that contains event data.
@@ -25252,6 +25571,108 @@ declare class ASPxClientRibbonState {
      * A ribbon is temporarily shown. Returns 2
      */
     static readonly TemporaryShown: number;
+}
+/**
+ * A client-side equivalent of the ribbon's RibbonItemBase object.
+ */
+declare class ASPxClientRibbonItem {
+    /**
+     * Gets the client group object to which the current item belongs.
+     */
+    group: ASPxClientRibbonGroup;
+    /**
+     * Gets or sets the item's index within the collection.
+     */
+    index: number;
+    /**
+     * Gets the name of the current ribbon item.
+     */
+    name: string;
+    /**
+     * Gets the client ribbon object to which the current item belongs.
+     */
+    ribbon: ASPxClientRibbon;
+    /**
+     * Returns a value indicating whether a ribbon item is enabled.
+     */
+    GetEnabled(): boolean;
+    /**
+     * Sets a value specifying whether the item is enabled.
+     * @param enabled true to enable the item; false to disable it.
+     */
+    SetEnabled(enabled: boolean): void;
+    /**
+     * Returns the item value.
+     */
+    GetValue(): any;
+    /**
+     * Sets the item value.
+     * @param value An  that specifies the item value.
+     */
+    SetValue(value: any): void;
+    /**
+     * Returns a value specifying whether a ribbon item is displayed.
+     */
+    GetVisible(): boolean;
+}
+/**
+ * A client-side equivalent of the ribbon's RibbonGroup object.
+ */
+declare class ASPxClientRibbonGroup {
+    /**
+     * Gets the client ribbon object to which the current group belongs.
+     */
+    ribbon: ASPxClientRibbon;
+    /**
+     * Gets the client tab object to which the current group belongs.
+     */
+    tab: ASPxClientRibbonTab;
+    /**
+     * Gets or sets the group's index within the collection.
+     */
+    index: number;
+    /**
+     * Gets the name of the current ribbon group.
+     */
+    name: string;
+    /**
+     * Returns a value specifying whether a ribbon group is displayed.
+     */
+    GetVisible(): boolean;
+}
+/**
+ * A client-side equivalent of the ribbon's RibbonTab object.
+ */
+declare class ASPxClientRibbonTab {
+    /**
+     * Gets the client ribbon object to which the current tab belongs.
+     */
+    ribbon: ASPxClientRibbon;
+    /**
+     * Gets or sets the tab's index within the collection.
+     */
+    index: number;
+    /**
+     * Gets the name of the current ribbon tab.
+     */
+    name: string;
+    /**
+     * Returns the text displayed in the tab.
+     */
+    GetText(): string;
+    /**
+     * Sets a value specifying whether the tab is enabled.
+     * @param enabled true to enable the tab; false to disable it.
+     */
+    SetEnabled(enabled: boolean): void;
+    /**
+     * Returns a value indicating whether a ribbon tab is enabled.
+     */
+    GetEnabled(): boolean;
+    /**
+     * Returns a value specifying whether a ribbon tab is displayed.
+     */
+    GetVisible(): boolean;
 }
 /**
  * Represents a client-side equivalent of the ASPxRoundPanel control.
@@ -25474,7 +25895,7 @@ declare class ASPxClientSplitterPane {
      */
     RefreshContentUrl(): void;
     /**
-     * Returns an iframe object containing a web page specified via the pane's SplitterPane.ContentUrl property (or the ASPxClientSplitterPane.SetContentUrl client method).
+     * Returns an iframe object containing a web page specified via the pane's SplitterPane.ContentUrl property (or the client ASPxClientSplitterPane.SetContentUrl method).
      */
     GetContentIFrame(): any;
     /**
@@ -26196,11 +26617,11 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
      */
     TextChanged: ASPxClientEvent<ASPxClientUploadControlTextChangedEventHandler<ASPxClientUploadControl>>;
     /**
-     * Occurs on the client side when the <strong>progress bar indicator</strong> position is changed.
+     * Occurs on the client side when the progress bar indicator position is changed.
      */
     UploadingProgressChanged: ASPxClientEvent<ASPxClientUploadControlUploadingProgressChangedEventHandler<ASPxClientUploadControl>>;
     /**
-     * Occurs on the client side when the <strong>file input elements</strong> count is changed.
+     * Occurs on the client side when the file input elements count is changed.
      */
     FileInputCountChanged: ASPxClientEvent<ASPxClientEventHandler<ASPxClientUploadControl>>;
     /**
@@ -26208,11 +26629,11 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
      */
     ValidationErrorOccurred: ASPxClientEvent<ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientUploadControl>>;
     /**
-     * Fires when the mouse enters a <strong>drop zone</strong> or an external drop zone element while dragging a file.
+     * Fires when the mouse enters a drop zone or an external drop zone element while dragging a file.
      */
     DropZoneEnter: ASPxClientEvent<ASPxClientUploadControlDropZoneEnterEventHandler<ASPxClientUploadControl>>;
     /**
-     * Fires when the mouse leaves a <strong>drop zone</strong> or an external drop zone element while dragging a file.
+     * Fires when the mouse leaves a drop zone or an external drop zone element while dragging a file.
      */
     DropZoneLeave: ASPxClientEvent<ASPxClientUploadControlDropZoneLeaveEventHandler<ASPxClientUploadControl>>;
     /**
@@ -26225,11 +26646,11 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
      */
     UploadFile(): void;
     /**
-     * Adds a new <strong>file input</strong> element to the ASPxUploadControl.
+     * Adds a new file input element to the ASPxUploadControl.
      */
     AddFileInput(): void;
     /**
-     * Removes a <strong>file input</strong> element from the ASPxUploadControl.
+     * Removes a file input element from the ASPxUploadControl.
      * @param index An integer value that represents a file input element's index.
      */
     RemoveFileInput(index: number): void;
@@ -26239,21 +26660,21 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
      */
     RemoveFileFromSelection(fileIndex: number | ASPxClientUploadControlFile): void;
     /**
-     * Returns files selected for uploading within the specified <strong>file input</strong>. An array of ASPxClientUploadControlFile objects that are files selected for uploading.
-     * @param inputIndex An integer value that specifies the index of a <strong>file input</strong>. Default value is "0".
+     * Returns files selected for uploading within the specified file input. An array of files selected for uploading.
+     * @param inputIndex Specifies a file input's index. Default value is "0".
      */
-    GetSelectedFiles(inputIndex: number): ASPxClientUploadControlFile[];
+    GetSelectedFiles(inputIndex?: number): ASPxClientUploadControlFile[];
     /**
      * Gets the text displayed within the edit box of the specified file input element. A string value representing the displayed text.
      * @param index An integer value that specifies the required file input element's index.
      */
     GetText(index: number): string;
     /**
-     * Gets the number of <strong>file input elements</strong> contained within the ASPxUploadControl.
+     * Gets the number of file input elements contained within the ASPxUploadControl.
      */
     GetFileInputCount(): number;
     /**
-     * Specifies the count of the <strong>file input</strong> elements within the upload control.
+     * Specifies the count of the file input elements within the upload control.
      * @param count An integer value that specifies the file input elements count.
      */
     SetFileInputCount(count: number): void;
@@ -26279,21 +26700,21 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
      */
     ClearText(): void;
     /**
-     * Sets the text to be displayed within the <strong>add button</strong>.
+     * Sets the text to be displayed within the add button.
      * @param text A string value specifying the text to be displayed within the button.
      */
     SetAddButtonText(text: string): void;
     /**
-     * Sets the text to be displayed within the <strong>upload button</strong>.
+     * Sets the text to be displayed within the upload button.
      * @param text A string value specifying the text to be displayed within the button.
      */
     SetUploadButtonText(text: string): void;
     /**
-     * Returns the <strong>add button</strong>'s text.
+     * Returns the add button's text.
      */
     GetAddButtonText(): string;
     /**
-     * Returns the text displayed within the <strong>upload button</strong>.
+     * Returns the text displayed within the upload button.
      */
     GetUploadButtonText(): string;
     /**
@@ -26346,7 +26767,7 @@ declare class ASPxClientUploadControlFileUploadCompleteEventArgs extends ASPxCli
      */
     constructor(inputIndex: number, isValid: boolean, errorText: string, callbackData: string);
     /**
-     * Gets the index of a <strong>file input element</strong> within the ASPxUploadControl.
+     * Gets the index of a file input element within the ASPxUploadControl.
      */
     inputIndex: number;
     /**
@@ -26401,7 +26822,7 @@ declare class ASPxClientUploadControlTextChangedEventArgs extends ASPxClientEven
      */
     constructor(inputIndex: number);
     /**
-     * Gets the index of a <strong>file input element</strong> within the ASPxUploadControl.
+     * Gets the index of a file input element within the ASPxUploadControl.
      */
     inputIndex: number;
 }
@@ -26585,7 +27006,7 @@ declare class ASPxClientUploadControlDropZoneEnterEventArgs extends ASPxClientEv
      */
     constructor(dropZone: any);
     /**
-     * Gets a <strong>drop zone</strong> object related to the processed event.
+     * Gets a drop zone object related to the processed event.
      */
     dropZone: any;
 }
@@ -26605,7 +27026,7 @@ declare class ASPxClientUploadControlDropZoneLeaveEventArgs extends ASPxClientEv
      */
     constructor(dropZone: any);
     /**
-     * Gets a <strong>drop zone</strong> object related to the processed event.
+     * Gets a drop zone object related to the processed event.
      */
     dropZone: any;
 }
@@ -26856,6 +27277,12 @@ declare class ASPxClientUtils {
      * @param className A string value that specifies the class name.
      */
     static RemoveClassNameFromElement(element: any, className: string): void;
+    /**
+     * Adds or removes a class name to an element.
+     * @param element The element.
+     * @param className The class name.
+     * @param toggleState true, to add a class name; otherwise, false.
+     */
     static ToggleClassName(element: any, className: string, toggleState: boolean): void;
     /**
      * Gets a value indicating whether the object passed via the parentElement parameter is a parent of the object passed via the element parameter. true, if the parentElement is a parent for the element; otherwise, false.
@@ -26960,6 +27387,27 @@ declare class ASPxClientUtils {
      * @param message A String value that specifies a text.
      */
     static SendMessageToAssistiveTechnology(message: string): void;
+}
+
+/**
+ * The client-side equivalent of the BinaryImageEditExtension.
+ */
+declare class MVCxClientBinaryImage extends ASPxClientBinaryImage {
+    /**
+     * Occurs when you initiate a callback to the server.
+     */
+    BeginCallback: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientBinaryImage>>;
+    /**
+     * Sends a callback with parameters to update the Binary Image.
+     * @param data Information that is passed to the server.
+     * @param onSuccess A client action that is performed if a callback is completed successfully.
+     */
+    PerformCallback(data: any, onSuccess?: (arg: string) => void): void;
+    /**
+     * Converts the specified object to the MVCxClientBinaryImage type. The converted object.
+     * @param obj The object.
+     */
+    static Cast(obj: any): MVCxClientBinaryImage;
 }
 /**
  * A client-side counterpart of the Calendar and CalendarFor extensions.
@@ -27090,6 +27538,16 @@ declare class MVCxClientDateEdit extends ASPxClientDateEdit {
      * @param obj The client object to be type cast.
      */
     static Cast(obj: any): MVCxClientDateEdit;
+}
+/**
+ * A client-side counterpart of the Diagram extension.
+ */
+declare class MVCxClientDiagram extends ASPxClientDiagram {
+    /**
+     * Converts the specified object to the MVCxClientDiagram type. The converted client object.
+     * @param obj The client object to be type cast.
+     */
+    static Cast(obj: any): MVCxClientDiagram;
 }
 /**
  * A client-side counterpart of the DockManager extension.
@@ -27693,6 +28151,18 @@ declare class MVCxClientUtils {
      * @param processInvisibleEditors true to process both visible and invisible editors that belong to the specified container; false to process only visible editors.
      */
     static GetSerializedEditorValuesInContainer(containerOrId: any, processInvisibleEditors?: boolean): any;
+    /**
+     * Performs unobtrusive validation for editors in the specified container. true, if editors in the container pass the validation' otherwise, false.
+     * @param containerId The ID of an HTML element that contains editors.
+     * @param validateInvisibleEditors true, to validate visible and invisible DevExpress editors in the container; otherwise, to validate only visible editors.
+     */
+    static PerformValidationInContainerById(containerId: string, validateInvisibleEditors?: boolean): boolean;
+    /**
+     * Performs unobtrusive validation for editors in the specified container. true, if editors in the container pass the validation' otherwise, false.
+     * @param container An HTML element that contains editors.
+     * @param validateInvisibleEditors true, to validate visible and invisible DevExpress editors in the container; otherwise, to validate only visible editors.
+     */
+    static PerformValidationInContainer(container: any, validateInvisibleEditors?: boolean): boolean;
 }
 /**
  * A method that will handle client BeginCallback events.
@@ -27807,6 +28277,7 @@ declare class MVCxClientVerticalGrid extends ASPxClientVerticalGrid {
  */
 declare class MVCxClientWebDocumentViewer extends ASPxClientWebDocumentViewer {
 }
+
 declare class ASPxClientChartDesigner extends ASPxClientControl {
     BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientChartDesigner>>;
     EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientChartDesigner>>;
@@ -27821,6 +28292,9 @@ declare class ASPxClientChartDesigner extends ASPxClientControl {
 }
 interface ASPxClientChartDesignerSaveCommandExecuteEventHandler<Sender> { (source: Sender, e: ASPxClientChartDesignerSaveCommandExecuteEventArgs): void; }
 declare class ASPxClientChartDesignerSaveCommandExecuteEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientChartDesignerSaveCommandExecuteEventArgs class.
+     */
     constructor();
     handled: boolean;
 }
@@ -27836,6 +28310,9 @@ declare class ASPxClientChartDesignerMenuAction {
     container: string;
 }
 declare class ASPxClientChartDesignerCustomizeMenuActionsEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientChartDesignerCustomizeMenuActionsEventArgs class with specified settings.
+     */
     constructor(actions: ASPxClientChartDesignerMenuAction[]);
     actions: ASPxClientChartDesignerMenuAction[];
 }
@@ -28117,6 +28594,9 @@ interface ASPxClientWebChartControlHotTrackEventHandler<Sender> { (source: Sende
  * Provides data for a chart control's ASPxClientWebChartControl.ObjectHotTracked and ASPxClientWebChartControl.ObjectSelected events on the client side.
  */
 declare class ASPxClientWebChartControlHotTrackEventArgs extends ASPxClientProcessingModeEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientWebChartControlHotTrackEventArgs class with specified settings.
+     */
     constructor(processOnServer: boolean, hitObject: ASPxClientWebChartElement, additionalHitObject: ASPxClientWebChartElement, hitInfo: ASPxClientWebChartHitInfo, htmlElement: any, x: number, y: number, absoluteX?: number, absoluteY?: number);
     /**
      * Provides access on the client side to the chart element, for which the event was raised.
@@ -29677,6 +30157,7 @@ declare class ASPxClientCustomLegendItem extends ASPxClientWebChartElementNamed 
      */
     text: string;
 }
+
 /**
  * Represents the client-side equivalent of the ASPxSpellChecker class.
  */
@@ -29757,6 +30238,12 @@ interface ASPxClientAfterCheckEventHandler<Sender> { (source: Sender, e: ASPxCli
  * Provides data for the client event that occurs after a spelling check is complete.
  */
 declare class ASPxClientSpellCheckerAfterCheckEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the class.
+     * @param controlId The control ID.
+     * @param checkedText The checked text.
+     * @param reason Specifies whether spell checking is finished or stopped by the user.
+     */
     constructor(controlId: string, checkedText: string, reason?: string);
     /**
      * Gets the programmatic identifier assigned to the control which has been checked.
@@ -29790,10 +30277,52 @@ declare class ASPxClientSpellCheckerStopCheckingReason {
  * @param e An ASPxClientSpellCheckerAfterCheckEventArgs object which contains event data.
  */
 interface ASPxClientWordChangedEventHandler<Sender> { (source: Sender, e: ASPxClientSpellCheckerAfterCheckEventArgs): void; }
+
+/**
+ * A method that will handle the CustomCommand event.
+ * @param source The event source.
+ * @param e The event data.
+ */
+interface ASPxClientGanttCustomCommandEventHandler<Sender> { (source: Sender, e: ASPxClientGanttCustomCommandEventArgs): void; }
+/**
+ * Provides data for the CustomCommand event.
+ */
+declare class ASPxClientGanttCustomCommandEventArgs extends ASPxClientEventArgs {
+    /**
+     * Initializes a new instance of the ASPxClientGanttCustomCommandEventArgs class with specified settings.
+     * @param commandName The command name.
+     * @param parameter The parameter that complements the processed command.
+     */
+    constructor(commandName: string, parameter: any);
+    /**
+     * Specifies the command name for a custom toolbar item.
+     */
+    commandName: string;
+    /**
+     * Gets an optional parameter that complements the processed command.
+     */
+    parameter: any;
+}
 /**
  * A client-side equivalent of the DevExpress.Web.ASPxGantt control.
  */
 declare class ASPxClientGantt extends ASPxClientControl {
+    /**
+     * Occurs when a callback for server-side processing is initiated.
+     */
+    BeginCallback: ASPxClientEvent<ASPxClientBeginCallbackEventHandler<ASPxClientGantt>>;
+    /**
+     * Occurs on the client side after a callback's server-side processing has been completed.
+     */
+    EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientGantt>>;
+    /**
+     * Fires on the client if any server error occurs during server-side processing of a callback sent by the ASPxClientGantt.
+     */
+    CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientGantt>>;
+    /**
+     * Enables you to implement a custom command's logic.
+     */
+    CustomCommand: ASPxClientEvent<ASPxClientGanttCustomCommandEventHandler<ASPxClientGantt>>;
     /**
      * Specifies the view type.
      * @param viewType The control's view type.
@@ -29809,6 +30338,24 @@ declare class ASPxClientGantt extends ASPxClientControl {
      * @param value true, to show resources in the Gantt; otherwise, false.
      */
     ShowResources(value: boolean): void;
+    /**
+     * Expands all tasks.
+     */
+    ExpandAll(): void;
+    /**
+     * Collapses all tasks.
+     */
+    CollapseAll(): void;
+    /**
+     * Expands the specified task.
+     * @param key The task key.
+     */
+    ExpandTask(key: any): void;
+    /**
+     * Collapses the specified parent task.
+     * @param key The task key.
+     */
+    CollapseTask(key: any): void;
 }
 /**
  * Declare client constants that specify the Gantt's view type.
@@ -29848,6 +30395,7 @@ declare class ASPxClientGanttTaskTitlePosition {
      */
     None: number;
 }
+
 /**
  * Lists constants used to identify various types of data axes.
  */
@@ -30637,7 +31185,7 @@ declare class DashboardExportDocumentScaleMode {
     static readonly AutoFitToPagesWidth: string;
 }
 /**
- * Lists constants used to identify the filter state&amp;#39;s location on the exported document.
+ * Lists constants used to identify the filter state&#39;s location on the exported document.
  */
 declare class DashboardExportFilterState {
     /**
@@ -30697,7 +31245,7 @@ declare class DashboardExportImageFormat {
     static readonly Jpg: string;
 }
 /**
- * Lists values that specify the filter state&amp;#39;s location in the exported Excel file.
+ * Lists values that specify the filter state&#39;s location in the exported Excel file.
  */
 declare class ExcelExportFilterState {
     /**
@@ -31165,6 +31713,9 @@ declare class DashboardPdfExportOptions {
      * Gets or sets the export size mode for the Treemap dashboard item.
      */
     TreemapSizeMode: string;
+    /**
+     * Provides access to the font settings of the exported document.
+     */
     FontInfo: ExportFontInfo;
 }
 /**
@@ -31203,6 +31754,9 @@ declare class DashboardImageExportOptions {
      * Gets or sets the scale factor (in fractions of 1), by which a dashboard/dashboard item is scaled in the exported document.
      */
     ScaleFactor: number;
+    /**
+     * Provides access to the font settings of the exported document.
+     */
     FontInfo: ExportFontInfo;
 }
 /**
@@ -31234,9 +31788,21 @@ declare class DashboardExcelExportOptions {
      */
     DashboardStatePosition: string;
 }
+/**
+ * Lists values that specify the selection mode for the Master-Filtering feature.
+ */
 declare class DashboardSelectionMode {
+    /**
+     * The selection is disabled.
+     */
     static None: string;
+    /**
+     * Allows selecting a single element within the dashboard item and disallows clearing this selection.
+     */
     static Single: string;
+    /**
+     * Allows selecting multiple elements within the dashboard item.
+     */
     static Multiple: string;
 }
 /**
@@ -31357,6 +31923,9 @@ declare class ASPxClientDashboard extends ASPxClientControl {
      * Occurs when the selected tab page is changed.
      */
     SelectedTabPageChanged: ASPxClientEvent<ASPxClientSelectedTabPageChangedEventHandler<ASPxClientDashboard>>;
+    /**
+     * Allows you to customize the Dashboard Data Source Wizard.
+     */
     CustomizeDataSourceWizard: ASPxClientEvent<ASPxClientCustomizeDataSourceWizardEventHandler<ASPxClientDashboard>>;
     /**
      * Gets the DashboardControl object that is the client-side part of the Web Dashboard.
@@ -31367,13 +31936,16 @@ declare class ASPxClientDashboard extends ASPxClientControl {
      */
     SwitchToViewer(): void;
     /**
-     * Switches the ASPxClientDashboard to the designer mode.
+     * Switches the ASPxClientDashboard to Designer mode.
      */
     SwitchToDesigner(): void;
     /**
      * Gets the current working mode of the Web Dashboard.
      */
     GetWorkingMode(): string;
+    /**
+     * Gets a value that indicates whether the Web Dashboard works in the Designer mode.
+     */
     IsDesignMode(): boolean;
     /**
      * Expands the specified dashboard item to the entire dashboard size to examine data in greater detail.
@@ -31439,6 +32011,16 @@ declare class ASPxClientDashboard extends ASPxClientControl {
      * Closes the Dashboard Parameters dialog.
      */
     HideParametersDialog(): void;
+    /**
+     * Invokes the Data Inspector dialog with a defined data type for the specified dashboard item.
+     * @param itemName A string that specifies a component name of the dashboard item for which the Data Inspector displays data.
+     * @param inspectedType A InspectedType object that defines the displayed underlying data.
+     */
+    ShowDataInspector(itemName: string, inspectedType: string): void;
+    /**
+     * Hides the invoked Data Inspector dialog.
+     */
+    HideDataInspector(): void;
     /**
      * Returns dashboard parameter settings and metadata.
      */
@@ -31892,11 +32474,26 @@ declare class ASPxClientSelectedTabPageChangedEventArgs extends ASPxClientEventA
      */
     PreviousPage: string;
 }
+/**
+ * References a method that handles the ASPxClientDashboard.CustomizeDataSourceWizard event.
+ * @param source The event source.
+ * @param e A ASPxClientCustomizeDataSourceWizardEventArgs object that contains event data.
+ */
 interface ASPxClientCustomizeDataSourceWizardEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeDataSourceWizardEventArgs): void; }
+/**
+ * Provides data for the ASPxClientDashboard.CustomizeDataSourceWizard event.
+ */
 declare class ASPxClientCustomizeDataSourceWizardEventArgs extends ASPxClientEventArgs {
+    /**
+     * Specifies the wizard's type.
+     */
     Type: string;
+    /**
+     * Specifies the wizard.
+     */
     Wizard: any;
 }
+
 /**
  * Represents a client-side equivalent of the BootstrapAccordion control.
  */
@@ -32556,7 +33153,7 @@ declare class BootstrapUIWidgetBase extends ASPxClientControl {
     SetOptions(options: any): void;
     /**
      * Sets the client data source instance.
-     * @param dataSource A DevExtreme <a href="https://js.devexpress.com/DevExtreme/ApiReference/Data_Layer/DataSource/">DataSource</a> object.
+     * @param dataSource A DevExtreme DataSource object.
      */
     SetDataSource(dataSource: any): void;
     /**
@@ -32703,9 +33300,7 @@ declare class BootstrapClientFormLayout extends ASPxClientFormLayout {
  * Represents the client BootstrapGridView.
  */
 declare class BootstrapClientGridView extends ASPxClientGridView {
-    GetEditFormLayout(): ASPxClientFormLayout;
-    GetEditFormLayoutItemByColumn(column: ASPxClientGridViewColumn | number | string): ASPxClientLayoutItem;
-    GetEditFormLayoutItemOrGroup(name: string): ASPxClientLayoutItem;
+    GetEditFormLayout(): BootstrapClientFormLayout;
 }
 /**
  * Represents a client-side equivalent of the BootstrapHyperLink control.
@@ -33673,6 +34268,7 @@ declare class BootstrapClientUploadControl extends ASPxClientUploadControl {
 declare class BootstrapClientUtils {
     static UpdateDefaultStyles(): void;
 }
+
 /**
  * The client-side equivalent of the ASPxDocumentViewer control.
  */
@@ -35085,7 +35681,7 @@ declare class ASPxClientWebDocumentViewer extends ASPxClientControl {
      */
     CustomizeElements: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeElementsEventHandler<ASPxClientWebDocumentViewer>>;
     /**
-     * Enables you to customize the Web Document Viewer's menu actions.
+     * Enables you to customize Web Document Viewer menu actions.
      */
     CustomizeMenuActions: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<ASPxClientWebDocumentViewer>>;
     /**
@@ -35142,19 +35738,19 @@ declare class ASPxClientWebDocumentViewer extends ASPxClientControl {
      */
     DrillThrough(customData: string): JQueryPromise<any>;
     /**
-     * Opens the specified report on the Web Document Viewer's client side. A Deferred Promise object.
-     * @param url A string that specifies the URL of a report to be opened.
+     * Opens the specified report on the Web Document Viewer's client side. Allows you to refresh preview for the loaded report. A Deferred Promise object.
+     * @param url A string that specifies the report's URL.
      */
     OpenReport(url: string): JQueryPromise<any>;
     /**
-     * Prints the document's page with the specified index.
-     * @param pageIndex An index of the page to be printed.
+     * Prints the entire document or the specified page.
+     * @param pageIndex An index of the page to be printed. If the page index is not specified, the entire document is printed.
      */
     Print(pageIndex?: number): void;
     /**
-     * Exports the document to a specified file format.
-     * @param format A String value that specifies the export format. The following formats are currently supported: 'csv', 'html', 'image', 'mht', 'pdf', 'rtf', 'docx', 'txt', 'xls', and 'xlsx'.
-     * @param inlineResult true, to try opening the result file in a new browser tab without a download; otherwise, false.
+     * Exports the document to the  specified file format.
+     * @param format A string value that specifies the export format. The DevExpress.Reporting.Viewer.ExportFormatID enumeration lists supported formats.
+     * @param inlineResult true, to inform the browser to display a file instead of download; otherwise, false.
      */
     ExportTo(format?: string, inlineResult?: boolean): void;
     /**

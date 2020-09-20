@@ -18,6 +18,8 @@ import {
     EventWrapperProps,
     NavigateAction,
     Culture, DayLayoutAlgorithm, DayLayoutFunction,
+    stringOrDate,
+    ViewProps
 } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
@@ -104,10 +106,12 @@ class CalendarResource {
 
 // Drag and Drop Example Test
 {
+    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> {}
+
     interface Props {
         localizer: DateLocalizer;
     }
-    const DragAndDropCalendar = withDragAndDrop(Calendar);
+    const DragAndDropCalendar = withDragAndDrop<CalendarEvent, CalendarResource>(MyCalendar);
     const DnD = ({ localizer }: Props) => (
         <DragAndDropCalendar
             events={getEvents()}
@@ -141,12 +145,12 @@ class CalendarResource {
     ReactDOM.render(<DnD localizer={localizer} />, document.body);
 }
 
-// overriding 'views' props
+// overriding 'views' props, with custom day view
 {
-    interface DayProps {
-        random: string;
+    interface DayComponentProps {
+        date: stringOrDate;
     }
-    class DayComponent extends React.Component<DayProps> {
+    class DayComponent extends React.Component<DayComponentProps> {
         static title() {
             return 'title';
         }
@@ -166,7 +170,29 @@ class CalendarResource {
     />, document.body);
 }
 
-// optional 'views' prop
+// overriding 'views' props, with custom day view using ViewProps interface
+{
+    class DayComponent extends React.Component<ViewProps> {
+        static title() {
+            return 'title';
+        }
+
+        static navigate() {
+            return new Date();
+        }
+    }
+    // supplying object to 'views' prop with only some of the supported views.
+    // A view can be a boolean or implement title() and navigate()
+    ReactDOM.render(<Calendar
+                        localizer={momentLocalizer(moment)}
+                        views={{
+                            day: DayComponent,
+                            work_week: true
+                        }}
+    />, document.body);
+}
+
+// optional 'localizer' prop
 {
     ReactDOM.render(<Calendar localizer={momentLocalizer(moment)} />, document.body);
 }
@@ -299,7 +325,7 @@ function getResources(): CalendarResource[] {
     ];
 }
 
-class EventAgenda extends React.Component<any, any> {
+class EventAgenda extends React.Component<EventProps<CalendarEvent>> {
     render() {
         // const { label } = this.props;
         return (
@@ -365,7 +391,7 @@ function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
     );
 }
 
-class Toolbar extends React.Component<ToolbarProps> {
+class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResource>> {
     render() {
         const { date, label, view } = this.props;
         return (
