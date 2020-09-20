@@ -325,8 +325,6 @@ export interface SupportLanguage {
     vscodeLanguageIds?: string[];
 }
 
-export type SupportOptionValue = number | boolean | string;
-
 export interface SupportOptionRange {
     start: number;
     end: number;
@@ -378,17 +376,17 @@ export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
     oppositeDescription?: boolean;
 }
 
-// export interface BooleanArraySupportOption extends BaseSupportOption<'boolean'> {
-//     default: boolean[];
-//     array: true;
-// }
+export interface BooleanArraySupportOption extends BaseSupportOption<'boolean'> {
+    default: boolean[];
+    array: true;
+}
 
-export interface ChoiceSupportOption extends BaseSupportOption<'choice'> {
-    default: SupportOptionValue | Array<{ since: string; value: SupportOptionValue }>;
+export interface ChoiceSupportOption<Value = any> extends BaseSupportOption<'choice'> {
+    default: Value | Array<{ since: string; value: Value }>;
     description: string;
     choices: Array<{
         since?: string;
-        value: SupportOptionValue;
+        value: Value;
         description: string;
     }>;
 }
@@ -407,6 +405,7 @@ export type SupportOption =
     | IntSupportOption
     | IntArraySupportOption
     | BooleanSupportOption
+    | BooleanArraySupportOption
     | ChoiceSupportOption
     | PathSupportOption
     | PathArraySupportOption;
