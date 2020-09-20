@@ -6,6 +6,7 @@
 
 import { Token } from "./SymBotAuth";
 
+export * from "./AdminClient";
 export * from "./ConnectionsClient";
 export * from "./MessagesClient";
 export * from "./OBOClient";
@@ -71,18 +72,6 @@ export const PRESENTATIONML_FORMAT: string;
 
 export const sessionToken: string;
 
-export function adminListEnterpriseStreamsV2(
-    streamTypes: any,
-    scope: any,
-    origin: any,
-    privacy: any,
-    status: any,
-    startDate: any,
-    endDate: any,
-    skip: any,
-    limit: any,
-): any;
-
 export function authenticateBot(SymConfig: SymphonyConfiguration): Promise<AuthInfo>;
 
 export function authenticateExtApp(): Promise<AppInfo>;
@@ -97,8 +86,6 @@ export function getFirehoseEventsService(subscriberCallback: any): void;
 
 export function getUser(id: string): void;
 
-export function importMessages(messageList: any): any;
-
 export function initBot(pathToConfigFile: string, pathToLoadBalancerConfigFile?: string): Promise<AuthInfo>;
 
 export function listUsers(skip: any, limit: any): void;
@@ -108,7 +95,3 @@ export function setDebugMode(mode: string): void;
 export function stopDatafeedEventsService(): void;
 
 export function stopFirehoseEventsService(): void;
-
-export function streamMembers(id: any, skip: any, limit: any): void;
-
-export function suppressMessage(id: any): void;
