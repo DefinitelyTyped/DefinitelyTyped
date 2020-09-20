@@ -7,6 +7,7 @@
 import { Token } from "./SymBotAuth";
 
 export * from "./AdminClient";
+export * from "./AdminUserClient";
 export * from "./ConnectionsClient";
 export * from "./MessagesClient";
 export * from "./OBOClient";
@@ -84,11 +85,7 @@ export function getDatafeedEventsService(options: any): any;
 
 export function getFirehoseEventsService(subscriberCallback: any): void;
 
-export function getUser(id: string): void;
-
 export function initBot(pathToConfigFile: string, pathToLoadBalancerConfigFile?: string): Promise<AuthInfo>;
-
-export function listUsers(skip: any, limit: any): void;
 
 export function setDebugMode(mode: string): void;
 
