@@ -9,9 +9,13 @@ export interface User {
     firstName: string;
     lastName: string;
     displayName: string;
-    company: string;
-    username: string;
-    avatars: Avatar[];
+    title?: string;
+    company?: string;
+    department?: string;
+    accountType?: string;
+    location?: string;
+    username?: string;
+    avatars?: Avatar[];
 }
 
 export interface UsersList {

@@ -5,9 +5,11 @@
 // TypeScript Version: 2.2
 
 export * from "./ConnectionsClient";
+export * from "./OBOClient";
 export * from "./PresenceClient";
 export * from "./SignalsClient";
 export * from "./StreamsClient";
+export * from "./SymBotAuth";
 export * from "./SymMessageParser";
 export * from "./UsersClient";
 
@@ -62,7 +64,6 @@ export interface SymphonyConfiguration {
 }
 
 export const MESSAGEML_FORMAT: string;
-
 export const PRESENTATIONML_FORMAT: string;
 
 export const sessionToken: string;
@@ -91,8 +92,6 @@ export function forwardMessage(conversationId: any, message: any, data: any): an
 
 export function getAttachment(streamId: any, attachmentId: any, messageId: any): any;
 
-export function getBotUser(): void;
-
 export function getDatafeedEventsService(options: any): any;
 
 export function getFirehoseEventsService(subscriberCallback: any): void;
@@ -108,16 +107,6 @@ export function importMessages(messageList: any): any;
 export function initBot(pathToConfigFile: string, pathToLoadBalancerConfigFile?: string): Promise<AuthInfo>;
 
 export function listUsers(skip: any, limit: any): void;
-
-export function oboAuthenticateByUserId(userId: any): any;
-
-export function oboGetAllConnections(status: any): void;
-
-export function oboGetConnection(userId: any): void;
-
-export function oboGetUserIMStreamId(userToken: any, userIds: any): void;
-
-export function oboSendMessage(userToken: any, conversationId: any, message: any, data: any, format: any): any;
 
 export function sendMessage(conversationId: any, message: any, data: any, format: any, sessionToken: string): any;
 
