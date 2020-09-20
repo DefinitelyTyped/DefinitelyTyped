@@ -7,6 +7,7 @@
 import { Token } from "./SymBotAuth";
 
 export * from "./ConnectionsClient";
+export * from "./MessagesClient";
 export * from "./OBOClient";
 export * from "./PresenceClient";
 export * from "./SignalsClient";
