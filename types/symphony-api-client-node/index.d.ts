@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+export * from "./ConnectionsClient";
 export * from "./PresenceClient";
 export * from "./SymMessageParser";
 export * from "./StreamsClient";
@@ -65,7 +66,6 @@ export const PRESENTATIONML_FORMAT: string;
 
 export const sessionToken: string;
 
-export function acceptConnectionRequest(userId: any, sessionToken: string): void;
 
 export function adminListEnterpriseStreamsV2(
     streamTypes: any,
@@ -93,31 +93,17 @@ export function formBuilder(formId: any): any;
 
 export function forwardMessage(conversationId: any, message: any, data: any): any;
 
-export function getAcceptedConnections(sessionToken: string): void;
-
-export function getAllConnections(sessionToken: string): void;
-
 export function getAttachment(streamId: any, attachmentId: any, messageId: any): any;
 
 export function getBotUser(): void;
-
-export function getConnectionRequestStatus(userId: any, sessionToken: string): void;
-
-export function getConnections(status: any, userIds: any, sessionToken: string): void;
 
 export function getDatafeedEventsService(options: any): any;
 
 export function getFirehoseEventsService(subscriberCallback: any): void;
 
-export function getInboundPendingConnections(sessionToken: string): void;
-
 export function getMessage(messageId: any): void;
 
 export function getMessages(streamId: any, since: any, skip: any, limit: any): void;
-
-export function getPendingConnections(sessionToken: string): void;
-
-export function getRejectedConnections(sessionToken: string): void;
 
 export function getSignal(id: any, sessionToken: string): void;
 
@@ -142,12 +128,6 @@ export function oboGetConnection(userId: any): void;
 export function oboGetUserIMStreamId(userToken: any, userIds: any): void;
 
 export function oboSendMessage(userToken: any, conversationId: any, message: any, data: any, format: any): any;
-
-export function rejectConnectionRequest(userId: any, sessionToken: string): void;
-
-export function removeConnection(userId: any, sessionToken: string): void;
-
-export function sendConnectionRequest(userId: any, sessionToken: string): void;
 
 export function sendMessage(conversationId: any, message: any, data: any, format: any, sessionToken: string): any;
 
