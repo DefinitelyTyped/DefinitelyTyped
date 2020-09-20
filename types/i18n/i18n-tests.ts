@@ -224,6 +224,9 @@ req.getLocale(); // --> de
  */
 i18n.getLocales(); // --> ['en', 'de', 'en-GB']
 
+i18n.addLocale('de'); // adds locale
+i18n.removeLocale('de'); // removes locale
+
 /**
  * getCatalog()
  * https://github.com/mashpie/i18n-node#getcatalog

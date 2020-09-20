@@ -293,6 +293,10 @@ declare namespace i18n {
      */
     function getLocales(): string[];
 
+    function addLocale(locale: string): void;
+
+    function removeLocale(locale: string): void;
+
     //#endregion
 
     //#region Catalog
@@ -363,6 +367,10 @@ declare namespace i18n {
         getLocale(request?: Express.Request): string;
 
         getLocales(): string[];
+
+        addLocale(locale: string): void;
+
+        removeLocale(locale: string): void;
 
         getCatalog(): GlobalCatalog;
 
