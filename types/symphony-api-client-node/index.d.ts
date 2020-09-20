@@ -6,8 +6,9 @@
 
 export * from "./ConnectionsClient";
 export * from "./PresenceClient";
-export * from "./SymMessageParser";
+export * from "./SignalsClient";
 export * from "./StreamsClient";
+export * from "./SymMessageParser";
 export * from "./UsersClient";
 
 export interface AuthInfo {
@@ -84,10 +85,6 @@ export function authenticateExtApp(): Promise<AppInfo>;
 
 export function authenticateOboApp(): any;
 
-export function createSignal(name: any, query: any, visibleOnProfile: any, companyWide: any, sessionToken: string): any;
-
-export function deleteSignal(id: any, sessionToken: string): void;
-
 export function formBuilder(formId: any): any;
 
 export function forwardMessage(conversationId: any, message: any, data: any): any;
@@ -104,17 +101,11 @@ export function getMessage(messageId: any): void;
 
 export function getMessages(streamId: any, since: any, skip: any, limit: any): void;
 
-export function getSignal(id: any, sessionToken: string): void;
-
-export function getSignalSubscribers(id: any, skip: any, limit: any, sessionToken: string): void;
-
 export function getUser(id: string): void;
 
 export function importMessages(messageList: any): any;
 
 export function initBot(pathToConfigFile: string, pathToLoadBalancerConfigFile?: string): Promise<AuthInfo>;
-
-export function listSignals(skip: any, limit: any, sessionToken: string): void;
 
 export function listUsers(skip: any, limit: any): void;
 
@@ -148,19 +139,6 @@ export function stopFirehoseEventsService(): void;
 
 export function streamMembers(id: any, skip: any, limit: any): void;
 
-export function subscribeSignal(id: any, userIds: any, userCanUnsubscribe: any, sessionToken: string): void;
-
 export function suppressMessage(id: any): void;
-
-export function unsubscribeSignal(id: any, userIds: any, sessionToken: string): void;
-
-export function updateSignal(
-    id: any,
-    name?: any,
-    query?: any,
-    visibleOnProfile?: any,
-    companyWide?: any,
-    sessionToken?: any,
-): any;
 
 export function verifyJwt(jwt: string): string;
