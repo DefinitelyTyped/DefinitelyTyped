@@ -1096,6 +1096,7 @@ AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
 const ModalTest = () => <Modal hardwareAccelerated />;
+const ModalTest2 = () => <Modal hardwareAccelerated testID='modal-test-2' />;
 
 const TimePickerAndroidTest = () => {
     TimePickerAndroid.open({

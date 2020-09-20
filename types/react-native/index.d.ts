@@ -5055,7 +5055,7 @@ export interface ModalPropsAndroid {
     statusBarTranslucent?: boolean;
 }
 
-export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;
+export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid & ViewProps;
 
 export class Modal extends React.Component<ModalProps> {}
 
