@@ -1,24 +1,54 @@
-// Type definitions for joi-password-complexity 3.1
+// Type definitions for joi-password-complexity 4.2
 // Project: https://github.com/kamronbatman/joi-password-complexity
-// Definitions by: Nico Flaig <https://github.com/nflaig>
+// Definitions by: Kamron Batman <https://github.com/kamronbatman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 4.0
 
 // tslint:disable-next-line:no-unnecessary-class
-declare class PasswordComplexity {
-    constructor(options?: PasswordComplexity.ComplexityOptions);
-}
+declare module 'joi-password-complexity' {
+    import { ValidationOptions, Context } from 'joi';
 
-declare namespace PasswordComplexity {
-    interface ComplexityOptions {
-        min: number;
-        max: number;
-        lowerCase: number;
-        upperCase: number;
-        numeric: number;
-        symbol: number;
-        requirementCount: number;
+    export type ComplexityOptions = {
+        min?: number,
+        max?: number,
+        lowerCase?: number,
+        upperCase?: number,
+        numeric?: number,
+        symbol?: number,
+        requirementCount?: number,
+    };
+
+    interface ValidationErrorItem {
+        message: string;
+        type: string;
+        path: string[];
+        options?: ValidationOptions;
+        context?: Context;
     }
-}
 
-export = PasswordComplexity;
+    interface ValidationError extends Error {
+        details: ValidationErrorItem[];
+        annotate(): string;
+        _object: any;
+    }
+
+    export type ComplexityObject = {
+        type: string,
+        base: string,
+        messages: {
+            'passwordComplexity.tooShort': string,
+            'passwordComplexity.tooLong': string,
+            'passwordComplexity.lowercase': string,
+            'passwordComplexity.uppercase': string,
+            'passwordComplexity.numeric': string,
+            'passwordComplexity.symbol': string,
+            'passwordComplexity.requirementCount': string,
+        },
+        validate: (value: string) => {
+            value: string
+            error?: ValidationError,
+        };
+    };
+
+    export default function (options: ComplexityOptions, label?: string): ComplexityObject;
+}
