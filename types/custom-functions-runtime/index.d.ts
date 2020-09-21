@@ -105,13 +105,13 @@ declare namespace CustomFunctions {
     /**
      * Error codes for custom functions. The error codes will appear in the cell that invoked the function.
      *
-     * Custom error messages will appear in addition to these error codes. Custom messages will display in the error
-     * indicator menu, which is accessed by clicking the error flag on each cell with an error.
+     * Custom error messages appear in addition to these error codes. Custom messages display in the error
+     * indicator menu, which is accessed by hovering over the error flag on each cell with an error.
      */
     enum ErrorCode {
         /**
          *
-         * This error code indicates that a value used in the function is of the wrong data type.
+         * This error code indicates that a value in the function is of the wrong data type.
          * A custom error message can be used in addition to the error code, if desired.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
@@ -126,13 +126,14 @@ declare namespace CustomFunctions {
         /**
          *
          * This error code indicates that the function used is dividing by zero or empty cells.
+         * Be aware that JavaScript allows division by zero, so you need to write an error handler carefully to detect this condition.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         divisionByZero = "#DIV/0!",
         /**
          *
-         * This error code indicates that there is a problem with a number used in the function.
+         * This error code indicates that there is a problem with a number in the function.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
@@ -147,6 +148,7 @@ declare namespace CustomFunctions {
         /**
          *
          * This error code indicates that there is a typo in the function name.
+         * Note that this error code is supported as a custom function input error, but not as a custom function output error.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
@@ -154,6 +156,7 @@ declare namespace CustomFunctions {
         /**
          *
          * This error code indicates that the function refers to an invalid cell.
+         * Note that this error code is supported as a custom function input error, but not as a custom function output error.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
