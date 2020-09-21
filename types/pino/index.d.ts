@@ -46,7 +46,34 @@ declare namespace P {
      */
     const LOG_VERSION: number;
     const levels: LevelMapping;
-    const symbols: { [key: string]: symbol };
+    const symbols: {
+        setLevelSym: symbol,
+        getLevelSym: symbol,
+        levelValSym: symbol,
+        useLevelLabelsSym: symbol,
+        mixinSym: symbol,
+        lsCacheSym: symbol,
+        chindingsSym: symbol,
+        parsedChindingsSym: symbol,
+        asJsonSym: symbol,
+        writeSym: symbol,
+        serializersSym: symbol,
+        redactFmtSym: symbol,
+        timeSym: symbol,
+        timeSliceIndexSym: symbol,
+        streamSym: symbol,
+        stringifySym: symbol,
+        stringifiersSym: symbol,
+        endSym: symbol,
+        formatOptsSym: symbol,
+        messageKeySym: symbol,
+        nestedKeySym: symbol,
+        wildcardFirstSym: symbol,
+        needsMetadataGsym: symbol,
+        useOnlyCustomLevelsSym: symbol,
+        formattersSym: symbol,
+        hooksSym: symbol,
+    };
     /**
      * Exposes the Pino package version. Also available on the logger instance.
      */
