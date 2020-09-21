@@ -5055,7 +5055,7 @@ export interface ModalPropsAndroid {
     statusBarTranslucent?: boolean;
 }
 
-export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;
+export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid & ViewProps;
 
 export class Modal extends React.Component<ModalProps> {}
 
@@ -8585,7 +8585,7 @@ export class Switch extends SwitchBase {}
  * V(fixed) --wait(1s)--> V(fixed) --wait(2s)--> V(fixed) --wait(3s)--> V(fixed)
  */
 export interface VibrationStatic {
-    vibrate(pattern: number | number[], repeat?: boolean): void;
+    vibrate(pattern?: number | number[] | null, repeat?: boolean | null): void;
 
     /**
      * Stop vibration

@@ -34,6 +34,7 @@ import * as net from 'net';
     const timeout: number = server.timeout;
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
+    const requestTimeout: number = server.requestTimeout;
     server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
 }
 

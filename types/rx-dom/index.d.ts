@@ -2,6 +2,7 @@
 // Project: https://github.com/Reactive-Extensions/RxJS-DOM
 // Definitions by: oliver Weichhold <https://github.com/oliverw>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 import * as Rx from 'rx';
 
@@ -132,8 +133,8 @@ declare module 'rx' {
 
     // Geolocation
     namespace geolocation {
-      function getCurrentPosition(geolocationOptions?: GeolocationOptions): Rx.Observable<Position>;
-      function watchPosition(geolocationOptions?: GeolocationOptions): Rx.Observable<Position>;
+      function getCurrentPosition(geolocationOptions?: GeolocationOptions): Rx.Observable<GeolocationPosition>;
+      function watchPosition(geolocationOptions?: GeolocationOptions): Rx.Observable<GeolocationPosition>;
     }
   }
 }

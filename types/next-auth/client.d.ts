@@ -1,6 +1,8 @@
 import { FC } from 'react';
+import { IncomingMessage } from 'http';
+import { GenericObject } from './_utils';
 
-export interface Session {
+interface Session {
     user: {
         name: string;
         email: string;
@@ -14,7 +16,7 @@ interface GetProvidersResponse {
     [provider: string]: SessionProvider;
 }
 
-interface SessionProvider {
+interface SessionProvider extends GenericObject {
     id: string;
     name: string;
     type: string;
@@ -22,37 +24,35 @@ interface SessionProvider {
     callbackUrl: string;
 }
 
-interface GenericObject {
-    [key: string]: any;
-}
-
 interface ContextProviderProps {
     session: Session;
-    options?: ContextProviderOptions;
-}
-
-interface ContextProviderOptions {
-    site?: string;
-    basePath?: string;
-    clientMaxAge?: number;
-    keepAlive?: number;
+    options?: SetOptionsParams;
 }
 
 interface SetOptionsParams {
     baseUrl?: string;
     basePath?: string;
-    clientMaxAge?: string;
-    keepAlive?: boolean;
+    clientMaxAge?: number;
+    keepAlive?: number;
 }
 
 type ContextProvider = FC<ContextProviderProps>;
 
+interface NextContext {
+    req?: IncomingMessage;
+    ctx?: { req: IncomingMessage };
+}
+
 declare function useSession(): [Session, boolean];
-declare function providers(context?: NextPageContext): Promise<GetProvidersResponse | null>;
+declare function providers(): Promise<GetProvidersResponse | null>;
 declare const getProviders: typeof providers;
-declare function session(context?: NextPageContext): Promise<Session | null>;
+declare function session(
+    context?: NextContext & {
+        triggerEvent?: boolean;
+    },
+): Promise<Session | null>;
 declare const getSession: typeof session;
-declare function csrfToken(context?: NextPageContext): Promise<string | null>;
+declare function csrfToken(context?: NextContext): Promise<string | null>;
 declare const getCsrfToken: typeof csrfToken;
 declare function signin(
     provider?: string,
@@ -82,30 +82,6 @@ export {
     options,
     setOptions,
     Provider,
+    Session,
+    SessionProvider,
 };
-
-/**
- * TODO: `dtslint` throws when parsing Next types... the following types are copied directly from `next/types` ...
- * @see https://github.com/microsoft/dtslint/issues/297
- */
-
-interface NextApiRequest {
-    query: {
-        [key: string]: string | string[];
-    };
-    cookies: {
-        [key: string]: string;
-    };
-    body: any;
-    env: Env;
-}
-
-interface NextPageContext {
-    req?: NextApiRequest;
-    ctx?: NextPageContext;
-    triggerEvent?: boolean;
-}
-
-interface Env {
-    [key: string]: string;
-}

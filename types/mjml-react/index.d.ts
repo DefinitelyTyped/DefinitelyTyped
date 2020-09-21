@@ -380,7 +380,7 @@ export interface MjmlTextProps {
     containerBackgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlText extends React.Component<MjmlTextProps & RequiredChildrenProps & PaddingProps & ClassNameProps> { }
+export class MjmlText extends React.Component<MjmlTextProps & PaddingProps & ClassNameProps> { }
 
 // mj-wrapper
 export interface MjmlWrapperProps {

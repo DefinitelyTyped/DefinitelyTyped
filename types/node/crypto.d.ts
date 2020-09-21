@@ -211,14 +211,14 @@ declare module "crypto" {
         final(output_encoding: BufferEncoding): string;
         setAutoPadding(auto_padding?: boolean): this;
         // getAuthTag(): Buffer;
-        // setAAD(buffer: Buffer): this; // docs only say buffer
+        // setAAD(buffer: NodeJS.ArrayBufferView): this;
     }
     interface CipherCCM extends Cipher {
-        setAAD(buffer: Buffer, options: { plaintextLength: number }): this;
+        setAAD(buffer: NodeJS.ArrayBufferView, options: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     interface CipherGCM extends Cipher {
-        setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
+        setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use `createDecipheriv()` */
@@ -282,15 +282,26 @@ declare module "crypto" {
 
     function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
 
+    type DSAEncoding = 'der' | 'ieee-p1363';
+
     interface SigningOptions {
         /**
          * @See crypto.constants.RSA_PKCS1_PADDING
          */
         padding?: number;
         saltLength?: number;
+        dsaEncoding?: DSAEncoding;
     }
 
     interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions {
+    }
+    interface SignKeyObjectInput extends SigningOptions {
+        key: KeyObject;
+    }
+    interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions {
+    }
+    interface VerifyKeyObjectInput extends SigningOptions {
+        key: KeyObject;
     }
 
     type KeyLike = string | Buffer | KeyObject;
@@ -300,8 +311,8 @@ declare module "crypto" {
 
         update(data: BinaryLike): Signer;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: SignPrivateKeyInput | KeyLike): Buffer;
-        sign(private_key: SignPrivateKeyInput | KeyLike, output_format: HexBase64Latin1Encoding): string;
+        sign(private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput): Buffer;
+        sign(private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput, output_format: HexBase64Latin1Encoding): string;
     }
 
     function createVerify(algorithm: string, options?: stream.WritableOptions): Verify;
@@ -310,8 +321,8 @@ declare module "crypto" {
 
         update(data: BinaryLike): Verify;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: object | KeyLike, signature: NodeJS.ArrayBufferView): boolean;
-        verify(object: object | KeyLike, signature: string, signature_format?: HexBase64Latin1Encoding): boolean;
+        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: NodeJS.ArrayBufferView): boolean;
+        verify(object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: string, signature_format?: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
@@ -672,10 +683,7 @@ declare module "crypto" {
      * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
      * passed to [`crypto.createPrivateKey()`][].
      */
-    function sign(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | SignPrivateKeyInput): Buffer;
-
-    interface VerifyKeyWithOptions extends KeyObject, SigningOptions {
-    }
+    function sign(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput): Buffer;
 
     /**
      * Calculates and returns the signature for `data` using the given private key and
@@ -685,7 +693,7 @@ declare module "crypto" {
      * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
      * passed to [`crypto.createPublicKey()`][].
      */
-    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyWithOptions, signature: NodeJS.ArrayBufferView): boolean;
+    function verify(algorithm: string | null | undefined, data: NodeJS.ArrayBufferView, key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput, signature: NodeJS.ArrayBufferView): boolean;
 
     /**
      * Computes the Diffie-Hellman secret based on a privateKey and a publicKey.
