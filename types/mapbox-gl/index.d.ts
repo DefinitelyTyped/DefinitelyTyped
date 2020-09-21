@@ -421,7 +421,7 @@ declare namespace mapboxgl {
 
         resetNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-        resetNorthPitch(options?: AnimationOptions, eventData?: mapboxgl.EventData): this;
+        resetNorthPitch(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
         snapToNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
