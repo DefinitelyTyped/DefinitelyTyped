@@ -1,5 +1,3 @@
-/// <reference types="zedit__upf" />
-
 import { SortMode, GameMode } from 'xelib';
 
 // Check for UPF gloabls
