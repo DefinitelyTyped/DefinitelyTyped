@@ -247,6 +247,11 @@ declare namespace yargs {
         demandCommand(min: number, max?: number, minMsg?: string, maxMsg?: string): Argv<T>;
 
         /**
+         * Shows a [deprecated] notice in front of the option
+         */
+        deprecateOption(option: string, msg?: string): Argv<T>;
+
+        /**
          * Describe a `key` for the generated usage information.
          *
          * Optionally `.describe()` can take an object that maps keys to descriptions.
@@ -645,6 +650,10 @@ declare namespace yargs {
          *  Use 'demandOption' instead
          */
         demand?: boolean | string;
+        /** boolean or string, mark the argument as deprecated, see `deprecateOption()` */
+        deprecate?: boolean | string;
+        /** boolean or string, mark the argument as deprecated, see `deprecateOption()` */
+        deprecated?: boolean | string;
         /** boolean or string, demand the option be given, with optional error message, see `demandOption()` */
         demandOption?: boolean | string;
         /** string, the option description for help content, see `describe()` */
