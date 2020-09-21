@@ -125,8 +125,8 @@ declare namespace CustomFunctions {
         notAvailable = "#N/A",
         /**
          *
-         * This error code indicates that the function used is dividing by zero or empty cells. 
-         * Be aware that JavaScript allows division by zero, so you need to write an error handler carefully to detect this condition. 
+         * This error code indicates that the function used is dividing by zero or empty cells.
+         * Be aware that JavaScript allows division by zero, so you need to write an error handler carefully to detect this condition.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
@@ -147,7 +147,7 @@ declare namespace CustomFunctions {
         nullReference = "#NULL!",
         /**
          *
-         * This error code indicates that there is a typo in the function name. 
+         * This error code indicates that there is a typo in the function name.
          * Note that this error code is supported as a custom function input error, but not as a custom function output error.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
