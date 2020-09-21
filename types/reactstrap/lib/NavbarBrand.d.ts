@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface NavbarBrandProps extends React.HTMLProps<HTMLAnchorElement> {
+export interface NavbarBrandProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     [key: string]: any;
-    tag?: string | React.ReactType;
-    className?: string;
+    tag?: React.ElementType;
     cssModule?: CSSModule;
 }
 

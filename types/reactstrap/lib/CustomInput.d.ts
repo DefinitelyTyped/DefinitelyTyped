@@ -17,7 +17,6 @@ export interface CustomInputProps extends React.InputHTMLAttributes<HTMLInputEle
   bsSize?: 'lg' | 'sm';
   valid?: boolean;
   invalid?: boolean;
-  className?: string;
   cssModule?: CSSModule;
   htmlFor?: string;
 }

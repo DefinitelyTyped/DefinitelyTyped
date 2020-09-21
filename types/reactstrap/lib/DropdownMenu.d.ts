@@ -4,9 +4,8 @@ import { CSSModule } from '../index';
 
 export interface DropdownMenuProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     right?: boolean;
-    className?: string;
     cssModule?: CSSModule;
     flip?: boolean;
     modifiers?: Popper.Modifiers;

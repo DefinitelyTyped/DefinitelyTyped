@@ -9,9 +9,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
     fixed?: string;
     sticky?: string;
     color?: string;
-    role?: string;
-    tag?: string | React.ReactType;
-    className?: string;
+    tag?: React.ElementType;
     cssModule?: CSSModule;
     expand?: boolean | string;
 }

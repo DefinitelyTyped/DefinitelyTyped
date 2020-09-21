@@ -18,10 +18,8 @@ export interface DropdownProps extends React.HTMLAttributes<HTMLElement> {
   active?: boolean;
   addonType?: boolean | 'prepend' | 'append';
   size?: string;
-  tag?: string | React.ReactType;
+  tag?: React.ElementType;
   toggle?: React.KeyboardEventHandler<any> | React.MouseEventHandler<any>;
-  children?: React.ReactNode;
-  className?: string;
   cssModule?: CSSModule;
   inNavbar?: boolean;
   setActiveFromChild?: boolean;

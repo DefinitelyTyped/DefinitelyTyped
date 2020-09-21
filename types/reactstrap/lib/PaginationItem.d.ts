@@ -3,11 +3,10 @@ import { CSSModule } from '../index';
 
 export interface PaginationItemProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-    className?: string;
     cssModule?: CSSModule;
     active?: boolean;
     disabled?: boolean;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
 }
 
 declare class PaginationItem<T = {[key: string]: any}> extends React.Component<PaginationItemProps> {}

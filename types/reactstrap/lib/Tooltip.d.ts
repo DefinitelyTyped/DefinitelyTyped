@@ -14,7 +14,6 @@ export interface UncontrolledTooltipProps extends React.HTMLAttributes<HTMLEleme
   target: string | HTMLElement | React.RefObject<HTMLElement>;
   container?: string | HTMLElement | React.RefObject<HTMLElement>;
   delay?: number | {show: number, hide: number};
-  className?: string;
   popperClassName?: string;
   innerClassName?: string;
   autohide?: boolean;

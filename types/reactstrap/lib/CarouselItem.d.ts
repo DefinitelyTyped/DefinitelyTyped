@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface CarouselItemProps extends React.HTMLProps<HTMLElement> {
+export interface CarouselItemProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     in?: boolean;
     cssModule?: CSSModule;
     slide?: boolean;

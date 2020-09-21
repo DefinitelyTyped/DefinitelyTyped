@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface FormProps extends React.HTMLProps<HTMLFormElement> {
+export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
     [key: string]: any;
     inline?: boolean;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     innerRef?: React.Ref<HTMLFormElement>;
-    className?: string;
     cssModule?: CSSModule;
 }
 

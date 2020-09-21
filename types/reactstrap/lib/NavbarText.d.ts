@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface NavbarTextProps extends React.HTMLProps<HTMLElement> {
+export interface NavbarTextProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-    tag?: string | React.ReactType;
-    className?: string;
+    tag?: React.ElementType;
     cssModule?: CSSModule;
 }
 
