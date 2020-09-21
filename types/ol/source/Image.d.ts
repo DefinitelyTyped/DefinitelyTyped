@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import ImageWrapper from '../Image';
@@ -11,6 +11,7 @@ import State from './State';
 
 export interface Options {
     attributions?: AttributionLike;
+    imageSmoothing?: boolean;
     projection?: ProjectionLike;
     resolutions?: number[];
     state?: State;
@@ -30,9 +31,10 @@ export default abstract class ImageSource extends Source {
         projection: Projection,
     ): ImageBase;
     protected handleImageChange(event: BaseEvent): void;
+    getContextOptions(): any;
     getImage(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageBase;
     getResolutions(): number[];
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

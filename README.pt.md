@@ -65,11 +65,11 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (3.0 e anteriores)
+#### Versões antigas do TypeScript (3.1 e anteriores)
 
 O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 3.1 e acima são testadas.
-Se você está usando as versões 2.0 a 3.0 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
+Atualmente, as versões 3.2 e acima são testadas.
+Se você está usando as versões 2.0 a 3.1 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
 Mas não tem nenhuma garantia de que elas funcionarão.
 Esta é a tabela de duração de suporte das versões.
 
@@ -413,9 +413,9 @@ e [`--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-not
 Não mude a definição de tipo se ela já está correta.
 Para um pacote NPM, `export =` é o certo, se `node -p 'require("foo")'` funciona para importar um módulo, e `export default` é o certo se `node -p 'require("foo").default'` funciona para importar um módulo.
 
-#### Eu quero usar features do TypeScript 3.1 ou superior.
+#### Eu quero usar features do TypeScript 3.3 ou superior.
 
-Então você vai precisar adicionar este comentário na última linha do seu cabeçalho de definição (depois de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
+Então você vai precisar adicionar este comentário na última linha do seu cabeçalho de definição (depois de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: 3.3`.
 
 Entretanto, se o seu projeto precisa manter tipos que são compatíveis com o 3.1 e superior *ao mesmo tempo que* tipos que são compatíveis com o 3.0 ou inferior, você vai precisar usar a feature `typesVersions`, que está disponível no TypeScript 3.1 e superior.
 Você pode achar uma explicação detalhada dessa feature na [documentação oficial do TypeScript](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).

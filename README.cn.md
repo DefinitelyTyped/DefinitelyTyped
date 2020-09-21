@@ -59,9 +59,9 @@ npm install --save-dev @types/node
 这通常会在 `package.json` 文件中的 `"types"` 或 `"typings"` 字段中提供，
 或者可以只查找包中的任何 ".d.ts" 文件并手动将它们包含在 `/// <reference path="" />`.
 
-#### 旧版本的 TypeScript（3.0 和更早版本）
+#### 旧版本的 TypeScript（3.1 和更早版本）
 
-Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.1 及更高版本。如果您使用的是 TypeScript 2.0 到 3.0，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.2 及更高版本。如果您使用的是 TypeScript 2.0 到 3.1，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
 Version | Released | End of Support
 -- | -- | --
@@ -343,9 +343,9 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
 请不要更改准确的类型定义。
 对于一个 NPM 包，如果使用 `node -p 'require("foo")'` 去导入模块，那么 `export =` 是准确的。如果使用 `node -p 'require("foo").default'` 去导入模块，那么 `export default` 是准确的。
 
-#### 我想使用 TypeScript 3.1 或更高版本的功能。
+#### 我想使用 TypeScript 3.3 或更高版本的功能。
 
-那么你必须在你的定义头部的最后一行添加注释（在 `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped` 之后）：`// TypeScript Version: 3.1`.
+那么你必须在你的定义头部的最后一行添加注释（在 `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped` 之后）：`// Minimum TypeScript Version: 3.3`.
 但是，如果你的项目在维护类型时需要在兼容 3.1 版本及以上的同时还要兼容 3.0 及以下的版本，那么你需要使用一个只有在 TypeScript 3.1 及以上版本的新特性 `typesVersions`.
 你可以在 [官方 TypeScript 文档](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions) 中找到此功能的详细说明。
 

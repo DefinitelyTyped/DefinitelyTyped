@@ -5,7 +5,7 @@
 // TypeScript Version: 3.3
 
 // Twitch IRC docs: https://dev.twitch.tv/docs/irc/
-// Last updated: 2020/8/10
+// Last updated: 2020/8/12
 
 import { StrictEventEmitter } from "./strict-event-emitter-types";
 
@@ -112,6 +112,7 @@ export interface Badges {
     admin?: string;
     bits?: string;
     broadcaster?: string;
+    partner?: string;
     global_mod?: string;
     moderator?: string;
     vip?: string;
@@ -119,6 +120,7 @@ export interface Badges {
     staff?: string;
     turbo?: string;
     premium?: string;
+    founder?: string;
 }
 
 export interface SubMethods {
