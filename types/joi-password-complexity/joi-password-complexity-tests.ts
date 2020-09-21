@@ -1,6 +1,6 @@
-import ComplexityObject from 'joi-password-complexity';
+import ComplexityObject, { ComplexityOptions } from "joi-password-complexity";
 
-const complexityOptions = {
+const complexityOptions: ComplexityOptions = {
     min: 8,
     max: 30,
     lowerCase: 1,

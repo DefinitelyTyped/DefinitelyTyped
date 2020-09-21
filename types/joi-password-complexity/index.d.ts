@@ -6,17 +6,17 @@
 
 import { ValidationOptions, Context } from 'joi';
 
-interface ComplexityOptions = {
-    min?: number,
-    max?: number,
-    lowerCase?: number,
-    upperCase?: number,
-    numeric?: number,
-    symbol?: number,
-    requirementCount?: number,
-};
+export interface ComplexityOptions {
+    min?: number;
+    max?: number;
+    lowerCase?: number;
+    upperCase?: number;
+    numeric?: number;
+    symbol?: number;
+    requirementCount?: number;
+}
 
-interface ValidationErrorItem {
+export interface ValidationErrorItem {
     message: string;
     type: string;
     path: string[];
@@ -24,15 +24,15 @@ interface ValidationErrorItem {
     context?: Context;
 }
 
-interface ValidationError extends Error {
+export interface ValidationError extends Error {
     details: ValidationErrorItem[];
     annotate(): string;
     _object: any;
 }
 
-interface ComplexityObject = {
-    type: string,
-    base: string,
+export interface ComplexityObject {
+    type: string;
+    base: string;
     messages: {
         'passwordComplexity.tooShort': string,
         'passwordComplexity.tooLong': string,
@@ -41,11 +41,11 @@ interface ComplexityObject = {
         'passwordComplexity.numeric': string,
         'passwordComplexity.symbol': string,
         'passwordComplexity.requirementCount': string,
-    },
+    };
     validate: (value: string) => {
         value: string
         error?: ValidationError,
     };
-};
+}
 
 export default function(options: ComplexityOptions, label?: string): ComplexityObject;
