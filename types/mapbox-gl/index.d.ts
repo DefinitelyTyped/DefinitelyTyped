@@ -421,7 +421,7 @@ declare namespace mapboxgl {
 
         resetNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-        resetNorthPitch(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
+        resetNorthPitch(options?: mapboxgl.AnimationOptions | null, eventData?: mapboxgl.EventData | null): this;
 
         snapToNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
@@ -876,7 +876,7 @@ declare namespace mapboxgl {
     /**
      * Control
      */
-    export class Control extends Evented { }
+    export class Control extends Evented {}
 
     /**
      * Navigation
@@ -1862,15 +1862,15 @@ declare namespace mapboxgl {
     export interface Layer {
         id: string;
         type?:
-        | 'fill'
-        | 'line'
-        | 'symbol'
-        | 'circle'
-        | 'fill-extrusion'
-        | 'raster'
-        | 'background'
-        | 'heatmap'
-        | 'hillshade';
+            | 'fill'
+            | 'line'
+            | 'symbol'
+            | 'circle'
+            | 'fill-extrusion'
+            | 'raster'
+            | 'background'
+            | 'heatmap'
+            | 'hillshade';
 
         metadata?: any;
         ref?: string;
@@ -1975,7 +1975,7 @@ declare namespace mapboxgl {
         visibility?: Visibility;
     }
 
-    export interface BackgroundLayout extends Layout { }
+    export interface BackgroundLayout extends Layout {}
 
     export interface BackgroundPaint {
         'background-color'?: string | Expression;
@@ -2005,7 +2005,7 @@ declare namespace mapboxgl {
         'fill-pattern-transition'?: Transition;
     }
 
-    export interface FillExtrusionLayout extends Layout { }
+    export interface FillExtrusionLayout extends Layout {}
 
     export interface FillExtrusionPaint {
         'fill-extrusion-opacity'?: number | Expression;
@@ -2128,7 +2128,7 @@ declare namespace mapboxgl {
         'text-translate-anchor'?: 'map' | 'viewport';
     }
 
-    export interface RasterLayout extends Layout { }
+    export interface RasterLayout extends Layout {}
 
     export interface RasterPaint {
         'raster-opacity'?: number | Expression;
@@ -2148,7 +2148,7 @@ declare namespace mapboxgl {
         'circle-sort-key'?: number;
     }
 
-    export interface CircleLayout extends Layout { }
+    export interface CircleLayout extends Layout {}
 
     export interface CirclePaint {
         'circle-radius'?: number | StyleFunction | Expression;
@@ -2172,7 +2172,7 @@ declare namespace mapboxgl {
         'circle-stroke-opacity-transition'?: Transition;
     }
 
-    export interface HeatmapLayout extends Layout { }
+    export interface HeatmapLayout extends Layout {}
 
     export interface HeatmapPaint {
         'heatmap-radius'?: number | StyleFunction | Expression;
@@ -2185,7 +2185,7 @@ declare namespace mapboxgl {
         'heatmap-opacity-transition'?: Transition;
     }
 
-    export interface HillshadeLayout extends Layout { }
+    export interface HillshadeLayout extends Layout {}
 
     export interface HillshadePaint {
         'hillshade-illumination-direction'?: number | Expression;
