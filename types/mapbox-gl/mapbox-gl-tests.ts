@@ -25,7 +25,7 @@ mapboxgl.maxParallelImageRequests = 10;
 /**
  * Clears browser storage used by this library
  */
-mapboxgl.clearStorage(() => {});
+mapboxgl.clearStorage(() => { });
 
 /**
  * Get RTL Text Plugin Status
@@ -36,7 +36,7 @@ expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
  * Set RTL Text Plugin
  */
 // $ExpectType void
-mapboxgl.setRTLTextPlugin('http://github.com', e => {}, false);
+mapboxgl.setRTLTextPlugin('http://github.com', e => { }, false);
 
 // $ExpectType void
 mapboxgl.prewarm();
@@ -673,7 +673,7 @@ const geolocateControl = new mapboxgl.GeolocateControl({ showAccuracyCircle: tru
  * AttributionControl
  */
 let attributionControl = new mapboxgl.AttributionControl({ compact: false, customAttribution: '© YourCo' });
-attributionControl.on('click', () => {});
+attributionControl.on('click', () => { });
 
 /*
  * FullscreenControl
@@ -877,6 +877,8 @@ map.setMinPitch();
 map.setMaxPitch(null);
 // $ExpectType Map
 map.setMaxPitch();
+// $ExpectType Map
+map.resetNorthPitch(animOpts);
 
 // $ExpectType number
 map.getMinPitch();
