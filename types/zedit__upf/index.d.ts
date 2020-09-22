@@ -145,6 +145,9 @@ export interface XELibModule extends XELib {
     LoadPlugins: never;
 }
 
+/**
+ * [patchFile, helpers, settings, locals]
+ */
 export type ExectuteCTX<S, L> = [FileHandle, Helpers, S, L];
 
 export type ProcessBlock<S, L> = (
