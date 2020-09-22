@@ -1,4 +1,4 @@
-// Type definitions for http-auth 4.1.2
+// Type definitions for http-auth 4.1
 // Project: https://github.com/http-auth/http-auth
 // Definitions by: nokazn <https://github.com/nokazn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,8 +9,6 @@
 import * as http from 'http';
 import { EventEmitter } from 'events';
 
-type TODO = any;
-
 type Qop = 'auth' | 'none';
 type Algorithm = 'MD5' | 'MD5-sess';
 
@@ -18,13 +16,18 @@ type CheckedRequestListener = (req: http.IncomingMessage & { user?: string }, re
 type BasicChecker = (username: string, password: string, callback: (isAuthorized: boolean) => void) => void;
 type DigestChecker = (username: string, callback: (hash?: string) => void) => void;
 
-type BasicResult<T extends boolean = boolean> = { user?: string; pass?: T };
-type DigestResult<T extends boolean = boolean> = BasicResult<T> & { stale?: true };
+interface BasicResult<T extends boolean = boolean> {
+    user?: string;
+    pass?: T;
+}
+type DigestResult<T extends boolean = boolean> = BasicResult<T> & {
+    stale?: true;
+};
 type ResultEmitter = (result: BasicResult | DigestResult | Error) => void;
 
 type Nonce = [string, number, number];
 
-type ClientOptions = {
+interface ClientOptions {
     username: string;
     realm: string;
     nonce: string;
@@ -34,9 +37,9 @@ type ClientOptions = {
     qop?: 'auth';
     nc?: string;
     cnonce?: string;
-};
+}
 
-type BasicOptions = {
+interface BasicOptions {
     /**
      * Authentication realm, by default it is 'users'.
      * @default 'users'
@@ -78,7 +81,7 @@ type BasicOptions = {
      * Set this to true, if you don't want req.user to be filled with authentication info.
      */
     skipUser?: boolean;
-};
+}
 
 type DigestOptions = BasicOptions & {
     /**
