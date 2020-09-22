@@ -74,8 +74,8 @@ export interface OverflowProps {
     readonly overflow?: ResponsiveValue<CSS.Property.Overflow>;
 }
 
-export interface TransitionProps {
-    readonly transition?: ResponsiveValue<string>;
+export interface TransitionProps<TLength = StyledSystemLength> {
+    readonly transition?: ResponsiveValue<CSS.Property.Transition<TLength>>;
 }
 
 export interface BasicsProps extends OpacityProps, OverflowProps, TransitionProps {}
