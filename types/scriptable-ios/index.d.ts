@@ -39,7 +39,7 @@ declare class Alert {
     /**
      * _Adds a destructive action to the alert._
      *
-     * Destructive actions titles have a red text color, signaling that the action may modify or delete data.
+     * Destructive action titles have a red text color, signaling that the action may modify or delete data.
      * @param title - Title of the action.
      * @see https://docs.scriptable.app/alert/#-adddestructiveaction
      */
@@ -48,7 +48,7 @@ declare class Alert {
     /**
      * _Adds a cancel action to the alert._
      *
-     * Adds a cancel action to the alert. When a cancel action is selected the index provided by presentAlert() or presentSheet() will always be -1. Please note that when running on the
+     * Adds a cancel action to the alert. When a cancel action is selected, the index provided by presentAlert() or presentSheet() will always be -1. Please note that when running on the
      * iPad and presenting using presentSheet(), the action will not be shown in the list of actions. The operation is cancelled by tapping outside the sheet.
      * @param title - Title of the action.
      * @see https://docs.scriptable.app/alert/#-addcancelaction
@@ -126,7 +126,7 @@ declare var args: {
     plainTexts: string[];
 
     /**
-     * _URLs supplied by a share sheet or a shortcut action.._
+     * _URLs supplied by a share sheet or a shortcut action._
      *
      * All URLs passed to the script from a share sheet or a shortcut action.
      *
@@ -165,7 +165,7 @@ declare var args: {
     /**
      * _Query parameters from a URL scheme._
      *
-     * Query parameters are supplied to a script when running it from a URL scheme. See the documentation on Scriptables URL schems for more information.
+     * Query parameters are supplied to a script when running it from a URL scheme. See the documentation on Scriptables URL schemes for more information.
      * @see https://docs.scriptable.app/args/#queryparameters
      */
     queryParameters: { [key: string]: string };
@@ -520,7 +520,7 @@ declare class CalendarEvent {
     /**
      * _Adds a recurrence rule._
      *
-     * Recurrence rules specify when the reminder should be repeated. See the documentation of RecurrenceRule for more information on creating rules.
+     * Recurrence rules specify when the event or reminder should be repeated. See the documentation of RecurrenceRule for more information on creating rules.
      * @param recurrenceRule - Recurrence rule to add to the reminder.
      * @see https://docs.scriptable.app/calendarevent/#-addrecurrencerule
      */
@@ -976,7 +976,7 @@ declare class Contact {
      *       "country": "United States of America"
      *     }
      *
-     * The identifier uniquely identifies the phone number on this device. The label is a description of the phone number and the value holds the phone number itself.
+     * The identifier uniquely identifies the postal adress on this device. The label is a description of the postal address.
      *
      * When updating this property, you must set the entire array of postal addresses that you would like to store on the contact. The "identifier" key is optional.
      * @see https://docs.scriptable.app/contact/#postaladdresses
@@ -1009,7 +1009,7 @@ declare class Contact {
     /**
      * _Note for the contact._
      *
-     * For security reasons, a contact's notes cannot be accessed in Siri, the Shortcuts app and in a notification.
+     * For security reasons, a contacts notes cannot be accessed in Siri, the Shortcuts app and in a notification.
      * @see https://docs.scriptable.app/contact/#note
      */
     note: string;
@@ -1043,7 +1043,7 @@ declare class Contact {
     departmentName: string;
 
     /**
-     * _The contact's job title._
+     * _The contacts job title._
      * @see https://docs.scriptable.app/contact/#jobtitle
      */
     jobTitle: string;
@@ -1321,7 +1321,7 @@ declare class ContactsGroup {
     /**
      * _Group of contacts._
      *
-     * In order to add the group to your address book, you must queue it for insertion using `Contact.add()`. When you're done making changes to the address book you should call
+     * In order to add the group to your address book, you must queue it for insertion using `ContactsGroup.add()`. When you're done making changes to the address book you should call
      * `Contact.persistChanges()` to persist the changes.
      * @see https://docs.scriptable.app/contactsgroup/#-new-contactsgroup
      */
@@ -1419,10 +1419,10 @@ declare class Data {
     static fromFile(filePath: string): Data;
 
     /**
-     * _Creates data from base 64 encoded string._
+     * _Creates data from base64 encoded string._
      *
-     * The supplied string must be base 64 encoded otherwise the function will return null.
-     * @param base64String - Base 64 encoded string to create data from.
+     * The supplied string must be base64 encoded otherwise the function will return null.
+     * @param base64String - Base64 encoded string to create data from.
      * @see https://docs.scriptable.app/data/#frombase64string
      */
     static fromBase64String(base64String: string): Data;
@@ -1450,9 +1450,9 @@ declare class Data {
     toRawString(): string;
 
     /**
-     * _Creates a base 64 encoded string._
+     * _Creates a base64 encoded string._
      *
-     * Creates a base 64 encoded string from the data.
+     * Creates a base64 encoded string from the data.
      * @see https://docs.scriptable.app/data/#-tobase64string
      */
     toBase64String(): string;
@@ -1465,7 +1465,7 @@ declare class Data {
 }
 
 /**
- * _Converts between texts and strings._
+ * _Converts between dates and strings._
  *
  * To convert between dates and their textual representation, use the `string()` and `date()` functions.
  * @see https://docs.scriptable.app/dateformatter/#-new-dateformatter
@@ -1590,7 +1590,7 @@ declare class DateFormatter {
     /**
      * _Use a medium style for the date._
      *
-     * Dates with a medium style usually includes abbreviations, e.g. "Aug 23, 2019" or "7:16:42 PM".
+     * Dates with a medium style usually includes abbreviations, e.g. "Aug 23, 2019".
      * @see https://docs.scriptable.app/dateformatter/#-usemediumdatestyle
      */
     useMediumDateStyle(): void;
@@ -1702,7 +1702,7 @@ declare class DatePicker {
      * Use this property to specify the initially selected date and time when picking a date, a time or both using date picker. If no date is specified, the current date and time will be
      * selected initially.
      *
-     * Be aware that this property does not hold the selected date after the date picker have been dismissed. The promises returned by `pickTime()`, `pickDate()` and `PickDateAndTime()`
+     * Be aware that this property does not hold the selected date after the date picker has been dismissed. The promises returned by `pickTime()`, `pickDate()` and `PickDateAndTime()`
      * carries the selected date.
      * @see https://docs.scriptable.app/datepicker/#initialdate
      */
@@ -1731,7 +1731,7 @@ declare class DatePicker {
     /**
      * _Presents the date picker displaying day, month and year._
      *
-     * Use the method to pick a date. The date picker will display the a day, month and year. Use the `initialDate` property to set the initially selected date.
+     * Use the method to pick a date. The date picker will display the day, month and year. Use the `initialDate` property to set the initially selected date.
      * @see https://docs.scriptable.app/datepicker/#-pickdate
      */
     pickDate(): Promise<Date>;
@@ -1739,7 +1739,7 @@ declare class DatePicker {
     /**
      * _Presents the date picker displaying date and time._
      *
-     * Use the method to pick a date and a time. The date picker will day, month, year, hour, minutes and, depending on the locale of the device, an AM/PM designation. Use the
+     * Use the method to pick a date and a time. The date picker will display the day, month, year, hour, minutes and, depending on the locale of the device, an AM/PM designation. Use the
      * `initialDate` property to set the initially selected date.
      * @see https://docs.scriptable.app/datepicker/#-pickdateandtime
      */
@@ -2137,7 +2137,7 @@ declare class DrawContext {
     /**
      * _Fills a rectangle._
      *
-     * Fills the rectangle width the color set when calling setFillColor.
+     * Fills the rectangle with the color set when calling setFillColor.
      * @param rect - Rectangle to fill.
      * @see https://docs.scriptable.app/drawcontext/#-fill
      */
@@ -2146,7 +2146,7 @@ declare class DrawContext {
     /**
      * _Fills a rectangle._
      *
-     * Fills the rectangle width the color set when calling setFillColor.
+     * Fills the rectangle with the color set when calling setFillColor.
      * @param rect - Rectangle to fill.
      * @see https://docs.scriptable.app/drawcontext/#-fillrect
      */
@@ -2180,7 +2180,7 @@ declare class DrawContext {
     strokeRect(rect: Rect): void;
 
     /**
-     * _Strokes a rectangle._
+     * _Strokes an ellipse._
      *
      * Draws a line around the ellipse that fits within the supplied rectangle. The line will have the color set when calling setStrokeColor and the width set when calling setLineWidth.
      * @param rect - Rectangle incapsulating the ellipse to stroke.
@@ -2201,7 +2201,7 @@ declare class DrawContext {
     /**
      * _Strokes the path that was added the latest._
      *
-     * The path that was latest added to the context is stroked with the color set using setStrokeColor and the line widht set using setLineWidth.
+     * The path that was added the latest to the context is stroked with the color set using setStrokeColor and the line width set using setLineWidth.
      * @see https://docs.scriptable.app/drawcontext/#-strokepath
      */
     strokePath(): void;
@@ -2209,7 +2209,7 @@ declare class DrawContext {
     /**
      * _Fills the path that was added the latest._
      *
-     * The path that was latest added to the context is filles with the color set using setFillColor.
+     * The path that was latest added to the context is filled with the color set using setFillColor.
      * @see https://docs.scriptable.app/drawcontext/#-fillpath
      */
     fillPath(): void;
@@ -2219,7 +2219,7 @@ declare class DrawContext {
      *
      * Call this to draw a text string to the context. The top-left of the text will be drawn at the specified position.
      * @param text - Text to draw.
-     * @param pos - Position to draw the top-left of the text at.
+     * @param pos - Position to draw the top-left of the text.
      * @see https://docs.scriptable.app/drawcontext/#-drawtext
      */
     drawText(text: string, pos: Point): void;
@@ -2311,7 +2311,7 @@ declare class FileManager {
      *
      * Reads the contents of the file specified by the file path as raw data. To read the file as a string see `readString(filePath)` and to read it as an image see `readImage(filePath)`.
      *
-     * The function will error if the file does not exist or if it exists in iCloud but have not been download. Use `fileExists(filePath)` to check if a file exists and
+     * The function will error if the file does not exist or if it exists in iCloud but has not been download. Use `fileExists(filePath)` to check if a file exists and
      * `downloadFileFromiCloud(filePath)` to download the file. Note that it is always safe to call `downloadFileFromiCloud(filePath)`, even if the file is stored locally on the device.
      * @param filePath - Path of the file to read.
      * @see https://docs.scriptable.app/filemanager/#-read
@@ -2321,7 +2321,7 @@ declare class FileManager {
     /**
      * _Read contents of a file as string._
      *
-     * The function will error if the file does not exist or if it exists in iCloud but have not been download. Use `fileExists(filePath)` to check if a file exists and
+     * The function will error if the file does not exist or if it exists in iCloud but has not been download. Use `fileExists(filePath)` to check if a file exists and
      * `downloadFileFromiCloud(filePath)` to download the file. Note that it is always safe to call `downloadFileFromiCloud(filePath)`, even if the file is stored locally on the device.
      * @param filePath - Path of the file to read.
      * @see https://docs.scriptable.app/filemanager/#-readstring
@@ -2331,9 +2331,9 @@ declare class FileManager {
     /**
      * _Read contents of a file as an image._
      *
-     * Reads the contents of the file specified by the file path and convert it to an image.
+     * Reads the contents of the file specified by the file path and converts it to an image.
      *
-     * The function will error if the file does not exist or if it exists in iCloud but have not been download. Use `fileExists(filePath)` to check if a file exists and
+     * The function will error if the file does not exist or if it exists in iCloud but has not been download. Use `fileExists(filePath)` to check if a file exists and
      * `downloadFileFromiCloud(filePath)` to download the file. Note that it is always safe to call `downloadFileFromiCloud(filePath)`, even if the file is stored locally on the device.
      * @param filePath - Path of the file to read.
      * @see https://docs.scriptable.app/filemanager/#-readimage
@@ -2400,7 +2400,7 @@ declare class FileManager {
     copy(sourceFilePath: string, destinationFilePath: string): void;
 
     /**
-     * _Checks if a file exists._
+     * _Checks if the file exists._
      *
      * Checks if the file exists at the specified file path. Checking this before moving or copying to a destination can be a good idea as those operations will replace any existing file
      * at the destination file path.
@@ -2429,7 +2429,7 @@ declare class FileManager {
     /**
      * _Path of temporary directory._
      *
-     * Used to retrieve the path of a temporary directory on disk. The operating system may at anytime delete files stored in this directory and therefore you should not rely on it for
+     * Used to retrieve the path of a temporary directory on disk. The operating system may at any time delete files stored in this directory and therefore you should not rely on it for
      * long time storage. If you need long time storage, see documentsDirectory() or libraryDirectory(). This directory is not shared between the app, the action extension and Siri.
      * @see https://docs.scriptable.app/filemanager/#-temporarydirectory
      */
@@ -2448,7 +2448,7 @@ declare class FileManager {
     /**
      * _Path of library directory._
      *
-     * Used to retrieve the path to the documents directory. The directory can be used for long time storage. Documents stored in this directory cannot be accessed using the Files app.
+     * Used to retrieve the path to the library directory. The directory can be used for long time storage. Documents stored in this directory cannot be accessed using the Files app.
      * @see https://docs.scriptable.app/filemanager/#-librarydirectory
      */
     libraryDirectory(): string;
@@ -2467,9 +2467,9 @@ declare class FileManager {
     /**
      * _Reads all tags from a file._
      *
-     * The tags are written from the file at the specified path. Tags can either be read added and removed using the Files app or using the APIs provided by a FileManager.
+     * The tags are read from the file at the specified path. Tags can either be read, added and removed using the Files app by using the APIs provided by a FileManager.
      *
-     * The function will error if the file does not exist or if it exists in iCloud but have not been download. Use `fileExists(filePath)` to check if a file exists and
+     * The function will error if the file does not exist or if it exists in iCloud but has not been download. Use `fileExists(filePath)` to check if a file exists and
      * `downloadFileFromiCloud(filePath)` to download the file. Note that it is always safe to call `downloadFileFromiCloud(filePath)`, even if the file is stored locally on the device.
      * @param filePath - Path of file to read tags from.
      * @see https://docs.scriptable.app/filemanager/#-alltags
@@ -2479,10 +2479,10 @@ declare class FileManager {
     /**
      * _Adds a tag to a file._
      *
-     * A tag can only be added to a file once. It is not possible to specify a color for the tag. You can create the tags using the Files app to specify the color and the add them to
+     * A tag can only be added to a file once. It is not possible to specify a color for the tag. You can create the tags using the Files app to specify the color and then add them to
      * files afterwards using the FileManager API.
      *
-     * The function will error if the file does not exist or if it exists in iCloud but have not been download. Use `fileExists(filePath)` to check if a file exists and
+     * The function will error if the file does not exist or if it exists in iCloud but has not been download. Use `fileExists(filePath)` to check if a file exists and
      * `downloadFileFromiCloud(filePath)` to download the file. Note that it is always safe to call `downloadFileFromiCloud(filePath)`, even if the file is stored locally on the device.
      * @param filePath - Path of file to add the tag to.
      * @param tag - Tag to add. This can be an existing tag or a new tag.
@@ -2493,7 +2493,7 @@ declare class FileManager {
     /**
      * _Removes a tag from a file._
      *
-     * The function will error if the file does not exist or if it exists in iCloud but have not been download. Use `fileExists(filePath)` to check if a file exists and
+     * The function will error if the file does not exist or if it exists in iCloud but has not been download. Use `fileExists(filePath)` to check if a file exists and
      * `downloadFileFromiCloud(filePath)` to download the file. Note that it is always safe to call `downloadFileFromiCloud(filePath)`, even if the file is stored locally on the device.
      * @param filePath - Path of file to remove the tag from.
      * @param tag - Tag to remove.
@@ -2508,7 +2508,7 @@ declare class FileManager {
      *
      * The function will return `null` if the attribute does not exist.
      *
-     * The function will error if the file does not exist or if it exists in iCloud but have not been download. Use `fileExists(filePath)` to check if a file exists and
+     * The function will error if the file does not exist or if it exists in iCloud but has not been download. Use `fileExists(filePath)` to check if a file exists and
      * `downloadFileFromiCloud(filePath)` to download the file. Note that it is always safe to call `downloadFileFromiCloud(filePath)`, even if the file is stored locally on the device.
      * @param filePath - Path of file to read extended attribute from.
      * @param name - Name of the extended attribute to read.
@@ -2521,7 +2521,7 @@ declare class FileManager {
      *
      * Extended attributes are metadata that can be stored on a file. Note that extended attributes are not synced with iCloud.
      *
-     * The function will error if the file does not exist or if it exists in iCloud but have not been download. Use `fileExists(filePath)` to check if a file exists and
+     * The function will error if the file does not exist or if it exists in iCloud but has not been download. Use `fileExists(filePath)` to check if a file exists and
      * `downloadFileFromiCloud(filePath)` to download the file. Note that it is always safe to call `downloadFileFromiCloud(filePath)`, even if the file is stored locally on the device.
      * @param filePath - Path of file to add an extended attribute to.
      * @param value - Value of the extended attribute.
@@ -2535,7 +2535,7 @@ declare class FileManager {
      *
      * Extended attributes are metadata that can be stored on a file. Note that extended attributes are not synced with iCloud.
      *
-     * The function will error if the file does not exist or if it exists in iCloud but have not been download. Use `fileExists(filePath)` to check if a file exists and
+     * The function will error if the file does not exist or if it exists in iCloud but has not been download. Use `fileExists(filePath)` to check if a file exists and
      * `downloadFileFromiCloud(filePath)` to download the file. Note that it is always safe to call `downloadFileFromiCloud(filePath)`, even if the file is stored locally on the device.
      * @param filePath - Path of file to add an extended attribute to.
      * @param name - Name of the extended attribute to remove.
@@ -2622,7 +2622,7 @@ declare class FileManager {
     /**
      * _Download file from iCloud if necessary._
      *
-     * Downloads the file from iCloud if it have not already been downloaded. If you pass in a path to a file that is not stored in iCloud, the returned will be resolved immediately
+     * Downloads the file from iCloud if it has not already been downloaded. If you pass in a path to a file that is not stored in iCloud, the returned promise will be resolved immediately
      * making it safe to pass in any file path.
      * @param filePath - Path of file to download from iCloud.
      * @see https://docs.scriptable.app/filemanager/#-downloadfilefromicloud
@@ -2632,19 +2632,19 @@ declare class FileManager {
     /**
      * _Checks if a file is stored in iCloud._
      *
-     * Checks if a file is stored in iCloud or locally on the device. The function returns false if the file does not exist. Check if a file exists using `fileExists(filePath)`
+     * Checks if a file is stored in iCloud or locally on the device. The function returns false too if the file does not exist. Check if a file exists using `fileExists(filePath)`
      * @param filePath - Path of file.
      * @see https://docs.scriptable.app/filemanager/#-isfilestoredinicloud
      */
     isFileStoredIniCloud(filePath: string): boolean;
 
     /**
-     * _Checks if a file have been downloaded._
+     * _Checks if a file has been downloaded._
      *
-     * If a file is stored in iCloud and have not been downloaded, this function returns false. In that case, the file can be downloaded using `downloadFileFromiCloud(filePath`. If the
+     * If a file is stored in iCloud and it has not been downloaded, this function returns false. In that case, the file can be downloaded using `downloadFileFromiCloud(filePath`. If the
      * file is not stored in iCloud but rather locally on the device, this function returns true.
      *
-     * The function returns false if the file does not exist. Check if a file exists using `fileExists(filePath)`
+     * The function returns false too if the file does not exist. Check if a file exists using `fileExists(filePath)`
      * @param filePath - Path of file.
      * @see https://docs.scriptable.app/filemanager/#-isfiledownloaded
      */
@@ -2671,7 +2671,7 @@ declare class FileManager {
     /**
      * _Size of the file in kilobytes._
      *
-     * The returned value will be null if the file size cannot b read.
+     * The returned value will be null if the file size cannot be read.
      * @param filePath - Path of file.
      * @see https://docs.scriptable.app/filemanager/#-filesize
      */
@@ -2680,7 +2680,7 @@ declare class FileManager {
     /**
      * _Reads all file bookmarks created in settings._
      *
-     * File bookmarks are used to bookmark a file or a folder and read or write to it later. File bookmarks are created from Scriptables settings.
+     * File bookmarks are used to bookmark a file or a folder and read or written to it later. File bookmarks are created from Scriptables settings.
      *
      * This function returns all file bookmarks as an array of objects that take the following form.
      *
@@ -2701,7 +2701,6 @@ declare class FileManager {
  * Refer to [iosfonts.com](http://iosfonts.com) for a list of the fonts that are available in iOS and iPadOS.
  * @see https://docs.scriptable.app/font/#-new-font
  */
-// tslint:disable-next-line no-unnecessary-class
 declare class Font {
     /**
      * _Represents a font and text size._
@@ -2850,7 +2849,7 @@ declare class Font {
     static blackSystemFont(size: number): Font;
 
     /**
-     * C- Summary: reates an italic system font.
+     * _Creates an italic system font._
      * @param size - Size of the text.
      * @see https://docs.scriptable.app/font/#italicsystemfont
      */
@@ -2995,7 +2994,7 @@ declare class Image {
     size: Size;
 
     /**
-     * _Creates image from file._
+     * _Creates an image from file._
      *
      * Loads an image from the specified file path. If the image could not be read, the function will return null.
      * @param filePath - File path to read image from.
@@ -3004,7 +3003,7 @@ declare class Image {
     static fromFile(filePath: string): Image;
 
     /**
-     * _Creates image from raw data._
+     * _Creates an image from raw data._
      *
      * Loads an image from the raw data. If the image could not be read, the function will return null.
      * @param data - Data to read image from.
@@ -3030,7 +3029,7 @@ declare var Keychain: {
     /**
      * _Add value for a specified key to keychain._
      *
-     * Adds the the value to the keychain, assigning it to the specified key. If the key already exists in the keychain, the value is overwritten.
+     * Adds the value to the keychain, assigning it to the specified key. If the key already exists in the keychain, the value is overwritten.
      *
      * Values are securely stored in an encrypted database.
      * @param key - Key which the value should be assigned to.
@@ -3123,7 +3122,7 @@ declare class ListWidget {
      * _URL to open._
      *
      * The URL will be opened when the widget is tapped. This will override any behavior defined in the configuration of the widget. E.g. if the widget is configured to run the script
-     * when interacting with the widget but a URL is is set, the URL will take precedence.
+     * when interacting with the widget but a URL is set, the URL will take precedence.
      * @see https://docs.scriptable.app/listwidget/#url
      */
     url: string;
@@ -3273,7 +3272,7 @@ declare var Location: {
 /**
  * _Sends a mail._
  *
- * Constructs a mail to be sent either as a text message or an iMessage.
+ * Constructs a mail to be sent.
  * @see https://docs.scriptable.app/mail/#-new-mail
  */
 declare class Mail {
@@ -3336,7 +3335,7 @@ declare class Mail {
     /**
      * _Sends a mail._
      *
-     * Constructs a mail to be sent either as a text message or an iMessage.
+     * Constructs a mail to be sent.
      * @see https://docs.scriptable.app/mail/#-new-mail
      */
     constructor();
@@ -3458,7 +3457,7 @@ declare var module: {
     /**
      * _Exported functions and modules._
      *
-     * Values assigned to the `exports` are returned by the global `importModule` function when the module is imported.
+     * Values assigned to `exports` are returned by the global `importModule` function when the module is imported.
      *
      * `exports` can be of any type but by default it is an empty object. Consider the following example which exports the `area` and `circumference` functions.
      *
@@ -3550,7 +3549,7 @@ declare class Notification {
     /**
      * _Custom information._
      *
-     * Store any custom information for the information. This can be accessed from the `Notification.opened` property when a script is run from a notification.
+     * Store any custom information for the notification. This can be accessed from the `Notification.opened` property when a script is run from a notification.
      * @see https://docs.scriptable.app/notification/#userinfo
      */
     userInfo: { [key: string]: any };
@@ -3596,7 +3595,7 @@ declare class Notification {
     /**
      * _Delivery date of the notification._
      *
-     * If the notification have already been delivered, for example because it was fetched using `Notification.allDelivered()`, the deliveryDate will be populated. Otherwise it will be
+     * If the notification has already been delivered, for example because it was fetched using `Notification.allDelivered()`, the deliveryDate will be populated. Otherwise it will be
      * null.
      *
      * The property cannot be set. In order to specify a future delivery date for a notification, see the `setTriggerDate` function. For recurring notifications, see the `setDailyTrigger`
@@ -3703,7 +3702,7 @@ declare class Notification {
      *
      * Effectively sets `args.notification` to null.
      *
-     * When a notification scheduled from Scriptable have been tapped to open the app or while the app was open, `args.notification` will have a value until Scriptable is quit. You can
+     * When a notification scheduled from Scriptable has been tapped to open the app or while the app was open, `args.notification` will have a value until Scriptable is quit. You can
      * manually reset the value using `Notification.resetCurrent`.
      * @see https://docs.scriptable.app/notification/#resetcurrent
      */
@@ -3992,7 +3991,7 @@ declare var Photos: {
     /**
      * _Removes latest photos._
      *
-     * Before removing the photo, an alert is shown prompting you to confirm the removal.
+     * Before removing the photos, an alert is shown prompting you to confirm the removal.
      * @param count - Number of photos to remove.
      * @see https://docs.scriptable.app/photos/#removelatestphotos
      */
@@ -4009,7 +4008,7 @@ declare var Photos: {
     /**
      * _Removes latest screenshots._
      *
-     * Before removing the screenshot, an alert is shown prompting you to confirm the removal.
+     * Before removing the screenshots, an alert is shown prompting you to confirm the removal.
      * @param count - Number of screenshots to remove.
      * @see https://docs.scriptable.app/photos/#removelatestscreenshots
      */
@@ -4061,7 +4060,7 @@ declare var QuickLook: {
      *
      * Chooses the best suited presentation of the item and performs the presentation if possible.
      * @param item - Item to be present.
-     * @param fullscreen - Optional. Set to true to present the web view in fullscreen. This only has an effect when used within the app. Defaults to false.
+     * @param fullscreen - Optional. Set to true to present the item in fullscreen. This only has an effect when used within the app. Defaults to false.
      * @see https://docs.scriptable.app/quicklook/#present
      */
     present(item: any, fullscreen?: boolean): Promise<void>;
@@ -4141,7 +4140,7 @@ declare class Rect {
     /**
      * _Point that specifies the rectangles origin._
      *
-     * The x- and y-coordinate that specifies the rectangles origin as a Point structure.
+     * The x and y-coordinate that specifies the rectangles origin as a Point structure.
      * @see https://docs.scriptable.app/rect/#origin
      */
     origin: Point;
@@ -4939,7 +4938,7 @@ declare class Request {
     /**
      * _Response of the request._
      *
-     * The response is not populated until the request have been completed. The response is an object that looks like the following example.
+     * The response is not populated until the request has been completed. The response is an object that looks like the following example.
      *
      *     {
      *       "url": "https://example.com/",
@@ -5093,7 +5092,7 @@ declare var Safari: {
     /**
      * _Presents a website in-app._
      *
-     * Presents a website without leaving the app. To present a website and leave the app, take a look at the Application type.
+     * Presents a website without leaving the app. To present a website and leave the app, take a look at `open`.
      * @param url - URL of website to present.
      * @param fullscreen - Optional. Set to true to display the web view in fullsceen. This only has an effect when used within the app. Defaults to true.
      * @see https://docs.scriptable.app/safari/#openinapp
@@ -5124,9 +5123,9 @@ declare var Script: {
     /**
      * _Informs the system about script completion._
      *
-     * Call this function to inform the system that the script have completed running.
+     * Call this function to inform the system that the script has completed running.
      *
-     * When a script is run inside Siri and the Shortcuts app, Scriptable use heuristics to determine if the script have completed. If you find that a script takes too long to complete,
+     * When a script is run inside Siri and the Shortcuts app, Scriptable use heuristics to determine if the script has completed. If you find that a script takes too long to complete,
      * you can manually call the `complete` function to stop the execution. Note that this should be done as the very last action the script performs.
      *
      * When the script is run from a share sheet, the `complete` function will complete execution and dismiss the presented view.
@@ -5140,7 +5139,7 @@ declare var Script: {
      * Use this function to pass values to other actions in the Shortcuts app. The output can be a text, a number, a boolean, a dictionary or a file path pointing to a file stored in
      * iCloud.
      *
-     * You can also use JavaScript's `return` keyword to to output a value to a shortcut.
+     * You can also use JavaScripts `return` keyword to output a value to a shortcut.
      * @param value - Value to provide as output.
      * @see https://docs.scriptable.app/script/#setshortcutoutput
      */
@@ -5209,7 +5208,7 @@ declare var Speech: {
 };
 
 /**
- * _A timer that fires after a time interval have elapsed._
+ * _A timer that fires after a time interval has elapsed._
  *
  * Constructs a timer that fires after a specified time interval.
  * @see https://docs.scriptable.app/timer/#-new-timer
@@ -5232,7 +5231,7 @@ declare class Timer {
     repeats: boolean;
 
     /**
-     * _A timer that fires after a time interval have elapsed._
+     * _A timer that fires after a time interval has elapsed._
      *
      * Constructs a timer that fires after a specified time interval.
      * @see https://docs.scriptable.app/timer/#-new-timer
@@ -5245,7 +5244,7 @@ declare class Timer {
      * This is a convenience function for creating a new timer. The created timer is instantly scheduled and will fire after the specified time interval.
      * @param timeInterval - The time interval to fire the timer at.
      * @param repeats - Whether the timer should repeat or not.
-     * @param callback - The callback to called when the timer fires.
+     * @param callback - The callback to call when the timer fires.
      * @see https://docs.scriptable.app/timer/#schedule
      */
     static schedule(timeInterval: number, repeats: boolean, callback: () => void): Timer;
@@ -5254,7 +5253,7 @@ declare class Timer {
      * _Schedules the timer._
      *
      * Schedules the timer using its configuration. The supplied function is called when the timer fires. To stop the timer from firing, call the `invalidate()` function.
-     * @param callback - The callback to called when the timer fires.
+     * @param callback - The callback to call when the timer fires.
      * @see https://docs.scriptable.app/timer/#-schedule
      */
     schedule(callback: () => void): void;
@@ -5362,7 +5361,7 @@ declare class UITableCell {
     /**
      * _Color of the title._
      *
-     * This only have an effect on cells with a title. By default the color is null, in which case an appropriate color is automatically chosen based on the theme of the app and the
+     * This only has an effect on cells with a title. By default the color is null, in which case an appropriate color is automatically chosen based on the theme of the app and the
      * context the script is running in.
      * @see https://docs.scriptable.app/uitablecell/#titlecolor
      */
@@ -5371,7 +5370,7 @@ declare class UITableCell {
     /**
      * _Color of the subtitle._
      *
-     * This only have an effect on cells with a subtitle. By default the color is null, in which case an appropriate color is automatically chosen based on the theme of the app and the
+     * This only has an effect on cells with a subtitle. By default the color is null, in which case an appropriate color is automatically chosen based on the theme of the app and the
      * context the script is running in.
      * @see https://docs.scriptable.app/uitablecell/#subtitlecolor
      */
@@ -5392,7 +5391,7 @@ declare class UITableCell {
     /**
      * _Constructs a text cell._
      *
-     * Constructs a new cell containing a text.
+     * Constructs a new cell containing text.
      * @param title - Optional title to show in the cell.
      * @param subtitle - Optional subtitle shown below the title.
      * @see https://docs.scriptable.app/uitablecell/#text
@@ -5598,7 +5597,7 @@ declare var URLScheme: {
      *
      * Gets the URL for running the current script. When making a request to the returned URL from another app, e.g. Safari, the current script will run.
      *
-     * Any query parameter in the URL will be available using the URLScheme bridge. Get the query paramters using the `allParameters()` and `parameter(name)` functions.
+     * Any query parameter in the URL will be available using the args bridge. Get the query paramters using `args.queryParameters`.
      * @see https://docs.scriptable.app/urlscheme/#forrunningscript
      */
     forRunningScript(): string;
@@ -5610,9 +5609,9 @@ declare var URLScheme: {
  */
 declare var UUID: {
     /**
-     * _Get string value._
+     * _Generate a UUID._
      *
-     * Used for getting the string value of a UUID.
+     * Used for getting the string value of a newly generated UUID.
      * @see https://docs.scriptable.app/uuid/#string
      */
     string(): string;
@@ -5676,7 +5675,7 @@ declare class WebView {
     /**
      * _Loads URL in web view._
      *
-     * Loads the URL in the web view. The returned promise will complete once the web view have finished loading.
+     * Loads the URL in the web view. The returned promise will complete once the web view has finished loading.
      * @param url - URL to load into the web view.
      * @see https://docs.scriptable.app/webview/#-loadurl
      */
@@ -5694,7 +5693,7 @@ declare class WebView {
     /**
      * _Loads HTML in web view._
      *
-     * Loads the HTML into the web view. The returned promise will complete once the web view have finished loading.
+     * Loads the HTML into the web view. The returned promise will complete once the web view has finished loading.
      * @param html - HTML to load into the web view.
      * @param baseURL - Optional. Base URL used to resolve relative URLs in the HTML.
      * @see https://docs.scriptable.app/webview/#-loadhtml
@@ -5753,7 +5752,7 @@ declare class WebView {
      * about to load a page in cases where evaluating JavaScript in the web view causes a new page to load.
      *
      * Generally this should only be used when loading causing a new page to load from `evaluateJavaScript`. In other cases, e.g. when loading a URL using `loadURL`, the returned promise
-     * will be fulfilled when the page have been loaded.
+     * will be fulfilled when the page has been loaded.
      * @see https://docs.scriptable.app/webview/#-waitforload
      */
     waitForLoad(): Promise<any>;
@@ -5762,7 +5761,7 @@ declare class WebView {
      * _Function called upon load of a request._
      *
      * When the web view performs a request to load a resource, the function can determine whether or not to allow the request. Disallowing request can speed up the time it takes to load
-     * the website.
+     * the website. Requests made from JavaScript in the page are not passed to this function.
      *
      * By default all requests are allowed.
      * @see https://docs.scriptable.app/webview/#shouldallowrequest
@@ -5838,9 +5837,9 @@ declare class WidgetImage {
     leftAlignImage(): void;
 
     /**
-     * _Left aligns the image._
+     * _Center aligns the image._
      *
-     * Specifies that image should be left aligned.
+     * Specifies that image should be center aligned.
      * @see https://docs.scriptable.app/widgetimage/#-centeralignimage
      */
     centerAlignImage(): void;
@@ -5860,7 +5859,7 @@ declare class WidgetImage {
  */
 declare class WidgetSpacer {
     /**
-     * _Text to show in widget._
+     * _Amount of space this spacer consumes._
      * @see https://docs.scriptable.app/widgetspacer/#length
      */
     length: number;
@@ -5914,9 +5913,9 @@ declare class WidgetText {
     leftAlignText(): void;
 
     /**
-     * _Left aligns the text._
+     * _center aligns the text._
      *
-     * Specifies that text should be left aligned.
+     * Specifies that text should be center aligned.
      * @see https://docs.scriptable.app/widgettext/#-centeraligntext
      */
     centerAlignText(): void;
@@ -5933,7 +5932,7 @@ declare class WidgetText {
 /**
  * _Event driven XML parser._
  *
- * Constructs an event driven XML parser. It does not itself do any parsing therfore the callback functions must be set before starting to parse.
+ * Constructs an event driven XML parser. It does not do any parsing on its own therfore the callback functions must be set before starting to parse.
  * @see https://docs.scriptable.app/xmlparser/#-new-xmlparser
  */
 declare class XMLParser {
@@ -5946,7 +5945,7 @@ declare class XMLParser {
     /**
      * _Event driven XML parser._
      *
-     * Constructs an event driven XML parser. It does not itself do any parsing therfore the callback functions must be set before starting to parse.
+     * Constructs an event driven XML parser. It does not do any parsing on its own therfore the callback functions must be set before starting to parse.
      * @param string - XML string to be parsed.
      * @see https://docs.scriptable.app/xmlparser/#-new-xmlparser
      */
@@ -5969,7 +5968,7 @@ declare class XMLParser {
     /**
      * _Function called when the parser ends parsing a document._
      *
-     * The the parser calls the function, it has successfully completed parsing the document.
+     * When the parser calls the function, it has successfully completed parsing the document.
      * @see https://docs.scriptable.app/xmlparser/#didenddocument
      */
     didEndDocument: () => void;
@@ -6027,12 +6026,12 @@ declare function logWarning(message: any): void;
 declare function logError(message: any): void;
 
 /**
- * _Converts base6 4 string to ascii._
+ * _Converts base64 string to ascii._
  */
 declare function atob(str: string): string;
 
 /**
- * _Converts ascii string to base 64._
+ * _Converts ascii string to base64._
  */
 declare function btoa(str: string): string;
 
