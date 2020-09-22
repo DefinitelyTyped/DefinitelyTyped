@@ -95,7 +95,7 @@ declare namespace simpleDiff {
     }
 }
 
-declare function simpleDiff(oldObj: unknown, newObj: unknown, options?: diff.Options): diff.Event[];
+declare function simpleDiff(oldObj: unknown, newObj: unknown, options?: simpleDiff.Options): simpleDiff.Event[];
 
 export as namespace simpleDiff;
 export = simpleDiff;
