@@ -1201,6 +1201,7 @@ export interface PlotData {
     theta: Datum[];
     r: Datum[];
     customdata: Datum[];
+    selectedpoints: number[];
     domain: Partial<{
         rows: number;
         columns: number;
