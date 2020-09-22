@@ -471,7 +471,13 @@ export interface XELib
      * Plugin loading is performed in a background thread, use GetLoaderStatus to track the loader and determine when it is done.
      * @see GetLoaderStatus
      */
-    LoadPlugins(loadOrder: string, smartLoad: boolean): void;
+    LoadPlugins(
+        loadOrder: string,
+        /**
+         * @default true
+         */
+        smartLoad?: boolean,
+    ): void;
     /**
      * Loads the plugin file filename at the next available load order position after currently loaded plugins files.
      * Plugin loading is performed in a background thread, use GetLoaderStatus to track the loader and determine when it is done.
