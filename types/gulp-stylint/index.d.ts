@@ -14,9 +14,8 @@ interface GulpStylint {
 declare namespace GulpStylint {
     interface Options {
         config?: string;
-        rules?: {[ruleName: string]: any;}
-        reporter?: string | any;
-
+        rules?: { [ruleName: string]: any; };
+        reporter?: any;
     }
 
     interface ReporterOptions {
