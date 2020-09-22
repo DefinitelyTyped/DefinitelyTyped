@@ -1,39 +1,21 @@
 // Type definitions for es6template 1.0
 // Project: https://github.com/zalmoxisus/es6-template
-// Definitions by: Nathan Bierema <https://github.com/me>
+// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
+declare function render(str: string, locals: Record<string, unknown>): string;
 
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
+// This rule is disabled because the caller of `compile()` knows what the type of the `locals` parameter should be when
+// calling the `compile` function.
+// tslint:disable-next-line:no-unnecessary-generics
+declare function compile<Locals>(str: string): ((locals: Locals) => string);
 
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
+interface Default {
+    render: typeof render;
+    compile: typeof compile;
 }
-
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    function foo(): void;
+interface Default {
+    (str: string, locals: Record<string, unknown>): string;
 }
+declare const _default: Default;
+export = _default;
