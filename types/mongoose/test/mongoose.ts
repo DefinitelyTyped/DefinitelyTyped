@@ -4,7 +4,7 @@ import * as mongoose from 'mongoose';
 import { MyModel } from './definitions';
 
 // dummy variables
-var cb = function () {};
+var cb = function () { };
 
 /*
  * Most of these tests are taken directly from the examples
@@ -46,7 +46,7 @@ const connection3 = mongoose.connect(connectUri, function (error) {
  * https://docs.mongodb.com/drivers/use-cases/client-side-field-level-encryption-guide
  */
 
-const connection4:Promise<mongoose.Mongoose> = mongoose.connect(connectUri,{
+const connection4: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   autoEncryption: {
@@ -55,16 +55,16 @@ const connection4:Promise<mongoose.Mongoose> = mongoose.connect(connectUri,{
     schemaMap: {},
     extraOptions: {}
   }
-})
+});
 
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
-mongooseConnection.dropDatabase().then(()=>{});
-mongooseConnection.dropCollection('foo').then(()=>{});
-mongoose.createConnection(connectUri).then((conn)=> {
+mongooseConnection.dropDatabase().then(() => { });
+mongooseConnection.dropCollection('foo').then(() => { });
+mongoose.createConnection(connectUri).then((conn) => {
   return conn.collections;
 }, () => {
 
-var connections: mongoose.Connection[] = mongoose.connections;
+  var connections: mongoose.Connection[] = mongoose.connections;
 
 });
 mongoose.createConnection(connectUri).openUri('');
@@ -79,8 +79,8 @@ mongoose.get('test');
 mongoose.model('Actor', new mongoose.Schema({
   name: String
 }, {
-    autoCreate: true,
-    autoIndex: true,
+  autoCreate: true,
+  autoIndex: true,
 }), 'collectionName', true).find({});
 mongoose.model('Actor').find({});
 mongoose.modelNames()[0].toLowerCase();
@@ -89,7 +89,7 @@ mongoose.models.Actor.findOne({}).exec();
 new (new mongoose.Mongoose(9, 8, 7)).Mongoose(1, 2, 3).connect('');
 mongoose.plugin(cb, {}).connect('');
 mongoose.set('test', 'value');
-mongoose.set('debug', function(collectionName: any, methodName: any, arg1: any, arg2: any) {});
+mongoose.set('debug', function (collectionName: any, methodName: any, arg1: any, arg2: any) { });
 mongoose.STATES.hasOwnProperty('');
 mongoose.STATES.disconnected === 0;
 mongoose.STATES.connected === 1;
@@ -104,8 +104,8 @@ mongoose.Types.ObjectId;
 mongoose.Types.Decimal128;
 mongoose.version.toLowerCase();
 
-const sslConnections: {[key: string]: mongoose.Connection} = {
-  basic: mongoose.createConnection(connectUri, {ssl: true}),
+const sslConnections: { [key: string]: mongoose.Connection; } = {
+  basic: mongoose.createConnection(connectUri, { ssl: true }),
   customCA: mongoose.createConnection(
     connectUri,
     {
@@ -130,7 +130,7 @@ const sslConnections: {[key: string]: mongoose.Connection} = {
  * section drivers/node-mongodb-native/collection.js
  * http://mongoosejs.com/docs/api.html#drivers-node-mongodb-native-collection-js
  */
-var coll1 = <mongoose.Collection> {};
+var coll1 = <mongoose.Collection>{};
 coll1.$format(999).toLowerCase();
 coll1.$print('name', 'i', [1, 2, 3]);
 coll1.getIndexes();
@@ -157,10 +157,10 @@ coll2.indexExists;
  */
 var conn1: mongoose.Connection = mongoose.createConnection('mongodb://user:pass@localhost:port/database');
 conn1 = new mongoose.Connection(mongoose);
-conn1.close().then(function () {}).catch(function (err) {});
-conn1.close(true).then(function () {}).catch(function (err) {});
-conn1.close(function (err) {});
-conn1.close(true, function (err) {});
+conn1.close().then(function () { }).catch(function (err) { });
+conn1.close(true).then(function () { }).catch(function (err) { });
+conn1.close(function (err) { });
+conn1.close(true, function (err) { });
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
 conn1.deleteModel('myModel');
@@ -173,13 +173,13 @@ conn1.config.hasOwnProperty('');
 conn1.db.bufferMaxEntries;
 conn1.collections['coll'].$format(999);
 conn1.readyState.toFixed();
-conn1.name.toLowerCase()
-conn1.host.toLowerCase()
-conn1.port.toFixed()
+conn1.name.toLowerCase();
+conn1.host.toLowerCase();
+conn1.port.toFixed();
 conn1.useDb('myDb').useDb('');
 conn1.useDb('myDb').useDb('', {});
-conn1.useDb('myDb').useDb('', {useCache: false});
-conn1.useDb('myDb').useDb('', {useCache: true});
+conn1.useDb('myDb').useDb('', { useCache: false });
+conn1.useDb('myDb').useDb('', { useCache: true });
 mongoose.Connection.STATES.hasOwnProperty('');
 mongoose.Connection.STATES.disconnected === 0;
 mongoose.Connection.STATES.connected === 1;
@@ -190,7 +190,7 @@ conn1.addListener('close', cb);
 
 // The connection returned by useDb is *not* thenable.
 // From https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26057#issuecomment-396150819
-const getDB = async (tenant: string)=> {
+const getDB = async (tenant: string) => {
   return conn1.useDb(tenant);
 };
 
@@ -226,7 +226,7 @@ castError.stack;
  * section error/validator.js
  * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidatorError
  */
-var validatorError: mongoose.Error.ValidatorError = new mongoose.Error.ValidatorError({ message: 'bar' })
+var validatorError: mongoose.Error.ValidatorError = new mongoose.Error.ValidatorError({ message: 'bar' });
 validatorError.name;
 validatorError.properties;
 validatorError.kind;
@@ -234,7 +234,7 @@ validatorError.path;
 validatorError.value;
 validatorError.toString().toLowerCase();
 validatorError.formatMessage('foo', {});
-validatorError.formatMessage('foo', (bar: any)=>{ return bar; });
+validatorError.formatMessage('foo', (bar: any) => { return bar; });
 /* inherited properties */
 validatorError.message;
 validatorError.stack;
@@ -251,11 +251,11 @@ var doc = <mongoose.Document>{};
   validationError.toString().toLowerCase();
   validationError.inspect();
   validationError.toJSON().hasOwnProperty('');
-  validationError.addError('foo', validatorError)
+  validationError.addError('foo', validatorError);
   /* inherited properties */
   validationError.message;
   validationError.stack;
-})()
+})();
 
 /*
  * section error/parallelSave.js
@@ -291,7 +291,7 @@ missingSchemaError.stack;
  * section error/divergentArray.js
  * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.MissingSchemaError
  */
-var divergentArrayError: mongoose.Error.DivergentArrayError = new mongoose.Error.DivergentArrayError(['foo','bar']);
+var divergentArrayError: mongoose.Error.DivergentArrayError = new mongoose.Error.DivergentArrayError(['foo', 'bar']);
 missingSchemaError.name;
 /* inherited properties */
 missingSchemaError.message;
@@ -304,19 +304,19 @@ const plural: string = pluralize('foo');
  * section querycursor.js
  * http://mongoosejs.com/docs/api.html#querycursor-js
  */
-var querycursor = <mongoose.QueryCursor<any>> {};
+var querycursor = <mongoose.QueryCursor<any>>{};
 querycursor.close(function (error, result) {
   result.execPopulate();
 }).catch(cb);
 querycursor.eachAsync(function (doc) {
   doc.execPopulate();
-}, function (err) {}).catch(cb);
+}, function (err) { }).catch(cb);
 querycursor.next(cb).catch(cb);
 /* inherited properties */
 querycursor.pause();
 querycursor.pipe(process.stdout);
 /* practical example */
-var QCModel = mongoose.model('QC', new mongoose.Schema({name: String}));
+var QCModel = mongoose.model('QC', new mongoose.Schema({ name: String }));
 QCModel.find({}).cursor({}).on('data', function (doc: any) {
   doc.depopulate('name');
 }).on('error', function (error: any) {
@@ -340,9 +340,9 @@ QCModel.watch().once('change', (change: any) => {
 });
 
 QCModel.watch([{ $match: { author: 'dave' } }], {
-    maxAwaitTimeMS: 10,
+  maxAwaitTimeMS: 10,
 }).once('change', (change: any) => {
-    console.log(change);
+  console.log(change);
 });
 
 /*
@@ -411,14 +411,14 @@ schema.plugin(function (schema: mongoose.Schema, opts?: any) {
   if (opts) {
     opts.hasOwnProperty('');
   }
-}).plugin(cb, {opts: true});
+}).plugin(cb, { opts: true });
 
 /* `.pre` hook tests */
 
-interface PreHookTestDocumentInterface extends mongoose.Document {}
-interface PreHookTestQueryInterface<T> extends mongoose.Query<T> {}
-interface PreHookTestAggregateInterface<T> extends mongoose.Aggregate<T> {}
-interface PreHookTestModelInterface<T extends mongoose.Document> extends mongoose.Model<T> {}
+interface PreHookTestDocumentInterface extends mongoose.Document { }
+interface PreHookTestQueryInterface<T> extends mongoose.Query<T> { }
+interface PreHookTestAggregateInterface<T> extends mongoose.Aggregate<T> { }
+interface PreHookTestModelInterface<T extends mongoose.Document> extends mongoose.Model<T> { }
 
 // it is used to ensure that all testing cases return a value of mongoose.Schema type
 const preHookTestSchemaArr: mongoose.Schema[] = [];
@@ -433,133 +433,133 @@ const preHookTestSchemaArr: mongoose.Schema[] = [];
 preHookTestSchemaArr.push(
   schema.pre("init", function (next) {
     const isDefaultType: mongoose.Document = this;
-  }, err => {})
+  }, err => { })
 );
 preHookTestSchemaArr.push(
   schema.pre<PreHookTestDocumentInterface>("init", function (next) {
     const isSpecificType: PreHookTestDocumentInterface = this;
     return Promise.resolve("");
-  }, err => {})
+  }, err => { })
 );
 preHookTestSchemaArr.push(
   schema.pre("init", true, function (next, done) {
     const isDefaultType: mongoose.Document = this;
-  }, err => {})
+  }, err => { })
 );
 preHookTestSchemaArr.push(
   schema.pre<PreHookTestDocumentInterface>("init", true, function (next, done) {
     const isSpecificType: PreHookTestDocumentInterface = this;
     return Promise.resolve("");
-  }, err => {})
+  }, err => { })
 );
 
 // Query
 preHookTestSchemaArr.push(
   schema.pre("count", function (next) {
     const isDefaultType: mongoose.Query<any> = this;
-  }, err => {})
+  }, err => { })
 );
 preHookTestSchemaArr.push(
   schema.pre<PreHookTestQueryInterface<number>>("count", function (next) {
     const isSpecificType: PreHookTestQueryInterface<number> = this;
     return Promise.resolve("");
-  }, err => {})
+  }, err => { })
 );
 preHookTestSchemaArr.push(
   schema.pre("count", true, function (next, done) {
     const isDefaultType: mongoose.Query<any> = this;
-  }, err => {})
+  }, err => { })
 );
 preHookTestSchemaArr.push(
   schema.pre<PreHookTestQueryInterface<number>>("count", true, function (next, done) {
     const isSpecificType: PreHookTestQueryInterface<number> = this;
     return Promise.resolve("");
-  }, err => {})
+  }, err => { })
 );
 
 // Aggregate
 preHookTestSchemaArr.push(
-  schema.pre("aggregate", function(next) {
+  schema.pre("aggregate", function (next) {
     const isDefaultType: mongoose.Aggregate<any> = this;
-  }, err => {})
+  }, err => { })
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestAggregateInterface<number>>("aggregate", function(next) {
+  schema.pre<PreHookTestAggregateInterface<number>>("aggregate", function (next) {
     const isSpecificType: PreHookTestAggregateInterface<number> = this;
-    return Promise.resolve("")
-  }, err => {})
+    return Promise.resolve("");
+  }, err => { })
 );
 preHookTestSchemaArr.push(
-  schema.pre("aggregate", true, function(next, done) {
+  schema.pre("aggregate", true, function (next, done) {
     const isDefaultType: mongoose.Aggregate<any> = this;
-  }, err => {})
+  }, err => { })
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestAggregateInterface<number>>("aggregate", true, function(next, done) {
+  schema.pre<PreHookTestAggregateInterface<number>>("aggregate", true, function (next, done) {
     const isSpecificType: PreHookTestAggregateInterface<number> = this;
-    return Promise.resolve("")
-  }, err => {})
+    return Promise.resolve("");
+  }, err => { })
 );
 
 // Model<Document>
 preHookTestSchemaArr.push(
-  schema.pre("insertMany", function(next, docs) {
+  schema.pre("insertMany", function (next, docs) {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
-  }, err => {})
+  }, err => { })
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next, docs) {
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function (next, docs) {
     const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
-    return Promise.resolve("")
-  }, err => {})
+    return Promise.resolve("");
+  }, err => { })
 );
 preHookTestSchemaArr.push(
-  schema.pre("insertMany", true, function(next, done, docs) {
+  schema.pre("insertMany", true, function (next, done, docs) {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
-  }, err => {})
+  }, err => { })
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done, docs) {
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function (next, done, docs) {
     const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
-    return Promise.resolve("")
-  }, err => {})
+    return Promise.resolve("");
+  }, err => { })
 );
 
 schema
-.post('save', function (error: mongoose.Error, doc: mongoose.Document, next: (err?: mongoose.NativeError) => void) {
-  error.stack;
-  doc.model;
-  next.apply;
-})
-.post('save', function (doc: mongoose.Document, next: (err?: mongoose.NativeError) => void) {
-  doc.model;
-  next(new Error());
-})
-.post('save', function (doc: mongoose.Document) {
-  doc.model;
+  .post('save', function (error: mongoose.Error, doc: mongoose.Document, next: (err?: mongoose.NativeError) => void) {
+    error.stack;
+    doc.model;
+    next.apply;
+  })
+  .post('save', function (doc: mongoose.Document, next: (err?: mongoose.NativeError) => void) {
+    doc.model;
+    next(new Error());
+  })
+  .post('save', function (doc: mongoose.Document) {
+    doc.model;
+  });
+
+schema.post('insertMany', function (docs: mongoose.Document[], next: () => void) {
+  const isDefaultType: mongoose.Model<mongoose.Document> = this;
+  next();
 });
 
-schema.post('insertMany', function(docs: mongoose.Document[], next: () => void) {
-    const isDefaultType: mongoose.Model<mongoose.Document> = this;
-    next();
+schema.post('insertMany', function (error, docs: mongoose.Document[], next) {
+  const isDefaultType: mongoose.Model<mongoose.Document> = this;
+  next();
 });
 
-schema.post('insertMany', function(error, docs: mongoose.Document[], next) {
-    const isDefaultType: mongoose.Model<mongoose.Document> = this;
-    next();
+schema.post('insertMany', async function (docs: mongoose.Document[]): Promise<void> {
+  const isDefaultType: mongoose.Model<mongoose.Document> = this;
+  return;
 });
 
-schema.post('insertMany', async function(docs: mongoose.Document[]): Promise<void> {
-    const isDefaultType: mongoose.Model<mongoose.Document> = this;
-    return;
-});
-
-schema.post('find', function(docs: mongoose.Document[], next: (err?: mongoose.NativeError) => void): void {
+schema.post('find', function (docs: mongoose.Document[], next: (err?: mongoose.NativeError) => void): void {
   const isDefaultType: mongoose.Query<mongoose.Document> = this;
   return;
 });
 
-schema.post('find', async function(docs: mongoose.Document[], next: (err?: mongoose.NativeError) => void): Promise<void> {
+schema.post('find', async function (docs: mongoose.Document[], next: (err?: mongoose.NativeError) => void): Promise<void> {
   const isDefaultType: mongoose.Query<mongoose.Document> = this;
   return;
 });
@@ -582,9 +582,15 @@ mongoose.Schema.reserved.hasOwnProperty('');
 schema.addListener('e', cb);
 /* practical examples */
 interface Animal {
-  findSimilarTypes(cb: any): Promise<Animal>
+  name: string;
+  type: string;
 }
-var animalSchema = new mongoose.Schema<Animal>({
+
+interface AnimalDocument extends Animal, mongoose.Document {
+  findSimilarTypes(cb: any): Promise<Animal>;
+}
+
+var animalSchema = new mongoose.Schema<Animal, AnimalDocument>({
   name: String,
   type: String
 });
@@ -592,20 +598,20 @@ animalSchema.methods.findSimilarTypes = function (cb) {
   return this.model('Animal').find({ type: this.type }, cb);
 };
 var Animal: any = mongoose.model('Animal', animalSchema);
-var dog: any = new Animal({type: 'dog'});
+var dog: any = new Animal({ type: 'dog' });
 dog['findSimilarTypes'](function (err: any, dogs: any) {
   console.log(dogs);
 });
 new mongoose.Schema({
-  title:  String,
+  title: String,
   author: String,
-  body:   String,
+  body: String,
   comments: [{ body: String, date: Date }],
   date: { type: Date, default: Date.now },
   hidden: Boolean,
   meta: {
     votes: Number,
-    favs:  Number,
+    favs: Number,
     text: String
   },
   meta2: {
@@ -615,37 +621,57 @@ new mongoose.Schema({
     }
   }
 });
-new mongoose.Schema({ name: { type: String, index: true }});
-new mongoose.Schema({ loc: { type: [Number], index: 'hashed' }});
-new mongoose.Schema({ loc: { type: [Number], index: '2d', sparse: true }});
-new mongoose.Schema({ loc: { type: [Number], index: { type: '2dsphere', sparse: true }}});
-new mongoose.Schema({ date: { type: Date, index: { unique: true, expires: '1d' }}});
-new mongoose.Schema({ born: { type: Date, required: '{PATH} is required!' }});
-new mongoose.Schema({ born: { type: Date, required: function() {
-  return this.age >= 18;
-}}});
-new mongoose.Schema({ state: { type: String, enum: ['opening', 'open', 'closing', 'closed'] }});
-new mongoose.Schema({ state: { type: String, enum: {
-  values: ['opening', 'open', 'closing', 'closed'],
-  message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
-}}});
-new mongoose.Schema({ name: { type: String, match: /^a/ }});
-new mongoose.Schema({ name: { type: String, match: [
-  /\.html$/, "That file doesn't end in .html ({VALUE})"
-]}});
+new mongoose.Schema({ name: { type: String, index: true } });
+new mongoose.Schema({ loc: { type: [Number], index: 'hashed' } });
+new mongoose.Schema({ loc: { type: [Number], index: '2d', sparse: true } });
+new mongoose.Schema({ loc: { type: [Number], index: { type: '2dsphere', sparse: true } } });
+new mongoose.Schema({ date: { type: Date, index: { unique: true, expires: '1d' } } });
+new mongoose.Schema({ born: { type: Date, required: '{PATH} is required!' } });
 new mongoose.Schema({
-  createdAt: {type: Date, expires: 60 * 60 * 24}
+  born: {
+    type: Date, required: function () {
+      return this.age >= 18;
+    }
+  }
 });
-new mongoose.Schema({ createdAt: { type: Date, expires: '1.5h' }});
-new mongoose.Schema({ d: { type: Date, max: new Date('2014-01-01') }});
-new mongoose.Schema({ d: { type: Date, max: [
-  new Date('2014-01-01'),
-  'The value of path `{PATH}` ({VALUE}) exceeds the limit ({MAX}).'
-]}});
-new mongoose.Schema({d: {type: Date, min: [
-  new Date('1970-01-01'),
-  'The value of path `{PATH}` ({VALUE}) is beneath the limit ({MIN}).'
-]}});
+new mongoose.Schema({ state: { type: String, enum: ['opening', 'open', 'closing', 'closed'] } });
+new mongoose.Schema({
+  state: {
+    type: String, enum: {
+      values: ['opening', 'open', 'closing', 'closed'],
+      message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
+    }
+  }
+});
+new mongoose.Schema({ name: { type: String, match: /^a/ } });
+new mongoose.Schema({
+  name: {
+    type: String, match: [
+      /\.html$/, "That file doesn't end in .html ({VALUE})"
+    ]
+  }
+});
+new mongoose.Schema({
+  createdAt: { type: Date, expires: 60 * 60 * 24 }
+});
+new mongoose.Schema({ createdAt: { type: Date, expires: '1.5h' } });
+new mongoose.Schema({ d: { type: Date, max: new Date('2014-01-01') } });
+new mongoose.Schema({
+  d: {
+    type: Date, max: [
+      new Date('2014-01-01'),
+      'The value of path `{PATH}` ({VALUE}) exceeds the limit ({MAX}).'
+    ]
+  }
+});
+new mongoose.Schema({
+  d: {
+    type: Date, min: [
+      new Date('1970-01-01'),
+      'The value of path `{PATH}` ({VALUE}) is beneath the limit ({MIN}).'
+    ]
+  }
+});
 new mongoose.Schema({
   integerOnly: {
     type: Number,
@@ -662,10 +688,10 @@ new mongoose.Schema({
     type: Number,
     validate: {
       isAsync: true,
-      validator: (val: number, done): void => {
+      validator: (val: number, done: any): void => {
         setImmediate(done, true);
       },
-      message: (props) => `${props.value} is invalid`
+      message: (props: mongoose.SchemaTypeOpts.ValidatorProps) => `${props.value} is invalid`
     }
   },
   promiseValidated: {
@@ -686,14 +712,18 @@ new mongoose.Schema({
   promiseFnStringArray: { type: String, validate: [() => Promise.reject(), 'oops'] },
   promiseFnStringObject: { type: String, validate: { validator: () => Promise.reject(), message: 'oops' } },
 });
-new mongoose.Schema({ name: { type: String, validate: [
-  { validator: () => {return true}, msg: 'uh oh' },
-  { validator: () => {return true}, msg: 'failed' }
-]}});
-animalSchema.statics.findByName = function(name: any, cb: any) {
+new mongoose.Schema({
+  name: {
+    type: String, validate: [
+      { validator: () => { return true; }, msg: 'uh oh' },
+      { validator: () => { return true; }, msg: 'failed' }
+    ]
+  }
+});
+animalSchema.statics.findByName = function (name: any, cb: any) {
   return this.find({ name: new RegExp(name, 'i') }, cb);
 };
-Animal['findByName']('fido', function(err: any, animals: any) {
+Animal['findByName']('fido', function (err: any, animals: any) {
   console.log(animals);
 });
 animalSchema.virtual('name.full').get(function () {
@@ -725,30 +755,30 @@ new mongoose.Schema({
 });
 
 (new mongoose.Schema({})).plugin<any>(function (schema: mongoose.Schema, options: any) {
-  schema.add({ lastMod: Date })
+  schema.add({ lastMod: Date });
   schema.pre('save', function (next: Function) {
-    (this as any).lastMod = new Date
-    next()
-  })
+    (this as any).lastMod = new Date;
+    next();
+  });
   if (options && options['index']) {
-    schema.path('lastMod').index(options['index'])
+    schema.path('lastMod').index(options['index']);
   }
 }, { index: true }).plugin<any>(function (schema: mongoose.Schema, options: any) {
-  schema.add({ lastMod: Date })
+  schema.add({ lastMod: Date });
   schema.pre('save', function (next: Function) {
-    (this as any).lastMod = new Date
-    next()
-  })
+    (this as any).lastMod = new Date;
+    next();
+  });
   if (options && options['index']) {
-    schema.path('lastMod').index(options['index'])
+    schema.path('lastMod').index(options['index']);
   }
-}, {index: true});
+}, { index: true });
 
-new mongoose.Schema({foo: String}, {strict: 'throw', strictQuery: true});
+new mongoose.Schema({ foo: String }, { strict: 'throw', strictQuery: true });
 
-export default function(schema: mongoose.Schema) {
-  schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void): void {
-     console.log('success!');
+export default function (schema: mongoose.Schema) {
+  schema.pre('init', function (this: mongoose.Document, next: (err?: Error) => void): void {
+    console.log('success!');
   });
 }
 
@@ -756,29 +786,29 @@ export default function(schema: mongoose.Schema) {
 function MyPlugin(schema: mongoose.Schema, opts?: string) {
 }
 new mongoose.Schema({})
-    .plugin(MyPlugin)
+  .plugin(MyPlugin);
 
 interface PluginOption {
-    modelName: string;
-    timestamp: string;
+  modelName: string;
+  timestamp: string;
 }
 
 function logger(modelName: string, timestamp: string) {
-    // call special logger with options
+  // call special logger with options
 }
 
 function AwesomeLoggerPlugin(schema: mongoose.Schema, options: PluginOption) {
-    if (options) {
-        schema.pre('save', function (next: Function) {
-            logger(options.modelName, options.timestamp)
-        })
-    }
+  if (options) {
+    schema.pre('save', function (next: Function) {
+      logger(options.modelName, options.timestamp);
+    });
+  }
 }
 
 new mongoose.Schema({})
-    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+  .plugin<PluginOption>(AwesomeLoggerPlugin, { modelName: 'Executive', timestamp: 'yyyy/MM/dd' });
 
-mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, { modelName: 'Executive', timestamp: 'yyyy/MM/dd' });
 
 /*
  * section types/subdocument.js
@@ -802,7 +832,7 @@ mongooseArray.$shift().toLowerCase();
 mongooseArray.remove().$shift();
 mongooseArray.$pop().toLowerCase();
 mongooseArray.addToSet('hi', 9, 9, '4')[0].toLowerCase();
-mongooseArray.indexOf({name: 'obj'}).toFixed();
+mongooseArray.indexOf({ name: 'obj' }).toFixed();
 mongooseArray.inspect();
 mongooseArray.nonAtomicPush(9, 8, 'hi').toFixed();
 mongooseArray.pop().toLowerCase();
@@ -814,7 +844,7 @@ mongooseArray.sort(function (a, b) {
   return a.length - b.length;
 }).unshift();
 mongooseArray.splice(4, 1).unshift();
-mongooseArray.toObject({depopulate: true}).unshift();
+mongooseArray.toObject({ depopulate: true }).unshift();
 mongooseArray.unshift(2, 4, 'hi').toFixed();
 /* inherited properties */
 mongooseArray.concat();
@@ -825,9 +855,9 @@ interface MySubEntity extends mongoose.Types.Subdocument {
   property2: string;
 }
 interface MyEntity extends mongoose.Document {
-  sub: mongoose.Types.Array<MySubEntity>
+  sub: mongoose.Types.Array<MySubEntity>;
 }
-var myEntity = <MyEntity> {};
+var myEntity = <MyEntity>{};
 var subDocArray = myEntity.sub.filter(sd => {
   sd.property1;
   sd.property2.toLowerCase();
@@ -856,9 +886,9 @@ interface MySubEntity1 extends mongoose.Types.Subdocument {
   property2: string;
 }
 interface MyEntity1 extends mongoose.Document {
-  sub: mongoose.Types.DocumentArray<MySubEntity>
+  sub: mongoose.Types.DocumentArray<MySubEntity>;
 }
-var newEnt = <MyEntity1> {};
+var newEnt = <MyEntity1>{};
 var newSub: MySubEntity1 = newEnt.sub.create({ property1: "example", property2: "example" });
 
 /*
@@ -956,7 +986,7 @@ schemaArray.sparse(true);
  * section schema/string.js
  * http://mongoosejs.com/docs/api.html#schema-string-js
  */
-var MongoDocument = <mongoose.Document> {};
+var MongoDocument = <mongoose.Document>{};
 var schemastring: mongoose.Schema.Types.String = new mongoose.Schema.Types.String('hello');
 schemastring.checkRequired(234, MongoDocument).valueOf();
 schemastring.enum(['hi', 'a', 'b']).enum('hi').enum({});
@@ -1070,34 +1100,34 @@ schemaembedded.sparse(true);
  * http://mongoosejs.com/docs/api.html#aggregate-js
  */
 var aggregate: mongoose.Aggregate<Object[]>;
-aggregate = mongoose.model('ex').aggregate([{ $match: { age: { $gte: 21 }}}]);
+aggregate = mongoose.model('ex').aggregate([{ $match: { age: { $gte: 21 } } }]);
 aggregate = new mongoose.Aggregate<Object[]>();
 aggregate = new mongoose.Aggregate<Object[]>({ $project: { a: 1, b: 1 } });
 aggregate = new mongoose.Aggregate<Object[]>({ $project: { a: 1, b: 1 } }, { $skip: 5 });
 aggregate = new mongoose.Aggregate<Object[]>([{ $project: { a: 1, b: 1 } }, { $skip: 5 }]);
 aggregate.addCursorFlag('flag', true).addCursorFlag('', false);
 aggregate.allowDiskUse(true).allowDiskUse(false, []);
-aggregate.append({ $project: { field: 1 }}, { $limit: 2 });
-aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
+aggregate.append({ $project: { field: 1 } }, { $limit: 2 });
+aggregate.append([{ $match: { daw: 'Logic Audio X' } }]);
 aggregate.collation({ locale: 'en_US', strength: 1 });
 aggregate.count('countName');
 aggregate.facet({ fieldA: [{ a: 1 }], fieldB: [{ b: 1 }] });
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
-aggregate.option({foo: 'bar'}).exec();
+aggregate.option({ foo: 'bar' }).exec();
 const aggregateDotPipeline: any[] = aggregate.pipeline();
 aggregate.explain(cb).then(cb).catch(cb);
 aggregate.group({ _id: "$department" }).group({ _id: "$department" });
-aggregate.hint({ _id: 1 })
+aggregate.hint({ _id: 1 });
 aggregate.limit(10).limit(10);
 var lookupOpt = {
   from: 'users', localField:
-  'userId', foreignField: '_id',
+    'userId', foreignField: '_id',
   as: 'users'
 };
 aggregate.lookup(lookupOpt).lookup(lookupOpt);
 aggregate.match({
-  department: {$in: [ "sales", "engineering"]}
+  department: { $in: ["sales", "engineering"] }
 });
 aggregate.model(new (mongoose.model('xx'))()).model(null);
 aggregate.near({
@@ -1110,18 +1140,18 @@ aggregate.near({
   num: 5
 });
 aggregate.project("a b -_id");
-aggregate.project({a: 1, b: 1, _id: 0});
+aggregate.project({ a: 1, b: 1, _id: 0 });
 aggregate.project({
-    newField: '$b.nested'
-  , plusTen: { $add: ['$val', 10]}
+  newField: '$b.nested'
+  , plusTen: { $add: ['$val', 10] }
   , sub: {
     name: '$a'
   }
-})
-aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
+});
+aggregate.project({ salary_k: { $divide: ["$salary", 1000] } });
 aggregate.read('primaryPreferred').read('pp');
 aggregate.replaceRoot("user");
-aggregate.replaceRoot({x: {$concat: ['$this', '$that']}});
+aggregate.replaceRoot({ x: { $concat: ['$this', '$that'] } });
 aggregate.sample(3).sample(3);
 aggregate.skip(10).skip(10);
 aggregate.sort({ field: 'asc', test: -1 });
@@ -1146,14 +1176,14 @@ aggregate.unwind(
     includeArrayIndex: "idx",
     preserveNullAndEmptyArrays: true
   }, {
-    path: "b",
-    includeArrayIndex: "idx",
-    preserveNullAndEmptyArrays: true
-  }, {
-    path: "c",
-    includeArrayIndex: "idx",
-    preserveNullAndEmptyArrays: true
-  })
+  path: "b",
+  includeArrayIndex: "idx",
+  preserveNullAndEmptyArrays: true
+}, {
+  path: "c",
+  includeArrayIndex: "idx",
+  preserveNullAndEmptyArrays: true
+})
   .unwind({
     path: "tag1",
     includeArrayIndex: "idx",
@@ -1168,7 +1198,7 @@ aggregate.unwind(
  * section schematype.js
  * http://mongoosejs.com/docs/api.html#schematype-js
  */
-new mongoose.SchemaType('hello', 9, 'hello' );
+new mongoose.SchemaType('hello', 9, 'hello');
 var STSchema = new mongoose.Schema({
   mixed: mongoose.Schema.Types.Mixed
 });
@@ -1216,13 +1246,13 @@ mongopromise.addCallback(function (arg: any) {
 });
 mongopromise.addErrback(function (err: any) {
   err.stack;
-}).addErrback(function () {});
+}).addErrback(function () { });
 mongopromise.catch(function (err: any) {
   err.stack;
-}).catch(function () {});
+}).catch(function () { });
 mongopromise.end();
 mongopromise.error(999).error([]);
-mongopromise.on('init', function () {}).on('init', function () {});
+mongopromise.on('init', function () { }).on('init', function () { });
 mongopromise.reject({}).reject('').reject(new Error('hi'));
 mongopromise.resolve(new Error('hi'), {}).resolve();
 mongopromise.then(function (arg: any) {
@@ -1261,7 +1291,7 @@ mongoose.model('')
       resolve('string');
     });
   }).then(function (str) {
-    str.toLowerCase
+    str.toLowerCase;
     return (mongoose.model('')).findOne({}).exec();
   }).then(function (arg) {
     if (arg) {
@@ -1272,8 +1302,8 @@ mongoose.model('')
     return 1;
   }).then(function (arg) {
     arg.toFixed;
-    return new Promise<{a: string, b: number}>((resolve, reject) => {
-      resolve({a: 'hi', b: 29});
+    return new Promise<{ a: string, b: number; }>((resolve, reject) => {
+      resolve({ a: 'hi', b: 29 });
     });
   }).then(function (arg) {
     arg.a.toLowerCase;
@@ -1321,11 +1351,11 @@ function testPromise_all() {
     name: string;
   }
 
-  const User = mongoose.model<IUser>('User', new mongoose.Schema({name: String}))
+  const User = mongoose.model<IUser>('User', new mongoose.Schema({ name: String }));
 
-  const dc: mongoose.DocumentQuery<IUser|null, IUser> = User.findOne({});
-  const dc2: PromiseLike<IUser|null> = dc;
-  Promise.all([dc])
+  const dc: mongoose.DocumentQuery<IUser | null, IUser> = User.findOne({});
+  const dc2: PromiseLike<IUser | null> = dc;
+  Promise.all([dc]);
 }
 
 interface IStatics {
@@ -1344,7 +1374,7 @@ interface ModelStruct {
   model: MyModel;
   method1: (callback: (model: MyModel, doc: MyDocument) => void) => MyModel;
 }
-var modelStruct1 = <ModelStruct> {};
+var modelStruct1 = <ModelStruct>{};
 var myModel1: MyModel;
 var myDocument1: MyDocument;
 modelStruct1.method1(function (myModel1, myDocument1) {
@@ -1365,13 +1395,13 @@ Final2.staticMethod();
 Final2.staticProp;
 var final2 = new Final2();
 final2.prop;
-final2.method;interface ibase extends mongoose.Document {
+final2.method; interface ibase extends mongoose.Document {
   username: string;
 }
 interface extended extends ibase {
   email: string;
 }
-const base: mongoose.Model<ibase> = mongoose.model<ibase>('testfour')
+const base: mongoose.Model<ibase> = mongoose.model<ibase>('testfour');
 const extended: mongoose.Model<extended> = base.discriminator<extended>('extendedS', schema);
 const x = new extended({
   username: 'hi',     // required in baseSchema
@@ -1401,10 +1431,10 @@ new mongoose.Schema({}, {
   toJSON: {
     depopulate: true
   }
-})
+});
 
 const aggregatePrototypeGraphLookup: mongoose.Aggregate<any> = MyModel.aggregate([]).graphLookup({});
-const addFieldsAgg: mongoose.Aggregate<any> = aggregatePrototypeGraphLookup.addFields({})
+const addFieldsAgg: mongoose.Aggregate<any> = aggregatePrototypeGraphLookup.addFields({});
 
 MyModel.findById('foo').then((doc: mongoose.Document) => {
   const a: boolean = doc.isDirectSelected('bar');
@@ -1417,12 +1447,12 @@ MyModel.translateAliases({});
 const queryPrototypeError: Error | null = MyModel.findById({}).error();
 const queryProrotypeErrorSetUnset: mongoose.Query<any> = MyModel.findById({}).error(null).error(new Error('foo'));
 
-MyModel.createIndexes().then(() => {});
-MyModel.createIndexes((err: any): void => {}).then(() => {});
+MyModel.createIndexes().then(() => { });
+MyModel.createIndexes((err: any): void => { }).then(() => { });
 
-mongoose.connection.createCollection('foo').then(() => {});
-mongoose.connection.createCollection('foo', {wtimeout: 5}).then(() => {});
-mongoose.connection.createCollection('foo', {wtimeout: 5}, (err: Error, coll): void => {coll.collectionName}).then(() => {});
+mongoose.connection.createCollection('foo').then(() => { });
+mongoose.connection.createCollection('foo', { wtimeout: 5 }).then(() => { });
+mongoose.connection.createCollection('foo', { wtimeout: 5 }, (err: Error, coll): void => { coll.collectionName; }).then(() => { });
 
 const db = mongoose.connection;
 const User = mongoose.model('User', new mongoose.Schema({ name: String }));
@@ -1460,7 +1490,7 @@ db.createCollection('users').
   catch(() => {
     session.abortTransaction();
   });
-  db.createCollection('Event').
+db.createCollection('Event').
   then(() => db.startSession()).
   then(_session => {
     session = _session;
@@ -1512,7 +1542,7 @@ db.createCollection('customers').
   // Once the transaction is committed, the write operation becomes
   // visible outside of the transaction.
   then(() => session.commitTransaction()).
-  then(() => Customer.findOne({ name: 'Test' }).exec())
+  then(() => Customer.findOne({ name: 'Test' }).exec());
 
 /**
  * https://mongoosejs.com/docs/guide.html#writeConcern
@@ -1528,11 +1558,11 @@ new mongoose.Schema({ name: String }, {
 /**
  * https://mongoosejs.com/docs/guide.html#shardKey
  */
-new mongoose.Schema({name: String}, {
+new mongoose.Schema({ name: String }, {
   shardKey: {
     tag: 1, name: 1
   }
-})
+});
 
 /* Query helpers: https://mongoosejs.com/docs/guide.html#query-helpers */
 
@@ -1553,16 +1583,16 @@ let animal2QueryHelpers = {
 };
 animal2Schema.query = animal2QueryHelpers;
 var Animal2 = mongoose.model<Animal2, mongoose.Model<Animal2, typeof animal2QueryHelpers>>('Animal', animal2Schema);
-Animal2.find().byName('fido').exec(function(err, animals) {
+Animal2.find().byName('fido').exec(function (err, animals) {
   console.log(animals);
 });
-Animal2.findOne().byName('fido').exec(function(err, animal) {
+Animal2.findOne().byName('fido').exec(function (err, animal) {
   console.log(animal);
 });
-Animal2.find().distinct('_id').byName('fido').exec(function(err, animal) {
+Animal2.find().distinct('_id').byName('fido').exec(function (err, animal) {
   console.log(animal);
 });
-Animal2.findOne().where({ type: 'dog' }).byName('fido').exec(function(err, animal) {
+Animal2.findOne().where({ type: 'dog' }).byName('fido').exec(function (err, animal) {
   console.log(animal);
 });
 
@@ -1583,7 +1613,7 @@ var foobarSchema = new mongoose.Schema({
 });
 var Foobar = mongoose.model<Foobar, mongoose.Model<Foobar>>('AnimFoobarl', foobarSchema);
 Foobar.find({ _id: 123 });
-                                                     
+
 new mongoose.Schema({
   createdAt: Number,
   updatedAt: Number,

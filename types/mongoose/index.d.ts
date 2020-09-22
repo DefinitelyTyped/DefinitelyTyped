@@ -1,3 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-misused-new */
+/* eslint-disable @typescript-eslint/no-empty-interface */
+/* eslint-disable @typescript-eslint/ban-types */
 // Type definitions for Mongoose 5.7.13
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
@@ -41,13 +48,8 @@
 //                 Jeremy Bensimon <https://github.com/jeremyben>
 //                 Andrei Alecu <https://github.com/andreialecu>
 //                 The Half Blood Prince <https://github.com/tHBp>
-//                 Viktor Polyakov <https://github.com/UncleVic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
-
-/// <reference types="mongodb" />
-/// <reference types="node" />
-
 
 /*
  * Guidelines for maintaining these definitions:
@@ -219,24 +221,24 @@ declare module "mongoose" {
    * section index.js
    * http://mongoosejs.com/docs/api.html#index-js
    */
-  export var DocumentProvider: any;
+  export const DocumentProvider: any;
   // recursive constructor
-  export var Mongoose: new (...args: any[]) => typeof mongoose;
+  export const Mongoose: new (...args: any[]) => typeof mongoose;
   type Mongoose = typeof mongoose;
-  export var SchemaTypes: typeof Schema.Types;
+  export const SchemaTypes: typeof Schema.Types;
 
   /** Expose connection states for user-land */
-  export var STATES: typeof ConnectionStates;
+  export const STATES: typeof ConnectionStates;
   /** The default connection of the mongoose module. */
-  export var connection: Connection;
+  export const connection: Connection;
   /** An array containing all connections associated with this Mongoose instance. */
-  export var connections: Connection[];
+  export const connections: Connection[];
   /** Models registred on the default mongoose connection. */
-  export var models: { [index: string]: Model<any>; };
+  export const models: { [index: string]: Model<any>; };
   /** The node-mongodb-native driver Mongoose uses. */
-  export var mongo: typeof mongodb;
+  export const mongo: typeof mongodb;
   /** The Mongoose version */
-  export var version: string;
+  export const version: string;
 
   /**
    * Opens the default mongoose connection.
@@ -556,7 +558,7 @@ declare module "mongoose" {
    * section drivers/node-mongodb-native/collection.js
    * http://mongoosejs.com/docs/api.html#drivers-node-mongodb-native-collection-js
    */
-  var Collection: Collection;
+  const Collection: Collection;
   interface Collection extends CollectionBase {
     /**
      * Collection constructor
@@ -638,7 +640,7 @@ declare module "mongoose" {
 
   }
 
-  module Error {
+  namespace Error {
 
     /**
      * section error/notFound.js
@@ -880,17 +882,17 @@ declare module "mongoose" {
    * section schema.js
    * http://mongoosejs.com/docs/api.html#schema-js
    */
-  class Schema<T = any> extends events.EventEmitter {
+  class Schema<R = any, T extends Partial<R> = any> extends events.EventEmitter {
     /**
      * Schema constructor.
      * When nesting schemas, (children in the example above), always declare
      * the child schema first before passing it into its parent.
      * @event init Emitted after the schema is compiled into a Model.
      */
-    constructor(definition?: SchemaDefinition<T>, options?: SchemaOptions);
+    constructor(definition?: SchemaDefinition<R>, options?: SchemaOptions);
 
     /** Adds key path / schema type pairs to this schema. */
-    add(obj: SchemaDefinition<T>, prefix?: string): void;
+    add(obj: SchemaDefinition<R>, prefix?: string): void;
 
     /** Return a deep copy of this schema */
     clone(): Schema;
@@ -1798,7 +1800,7 @@ declare module "mongoose" {
        */
       // some lib.d.ts have return type "this" and others have return type "T[]"
       // which causes errors. Let the inherited array provide the sort() method.
-      //sort(compareFn?: (a: T, b: T) => number): T[];
+      // sort(compareFn?: (a: T, b: T) => number): T[];
 
       /**
        * Wraps Array#splice with proper change tracking and casting.
@@ -1879,7 +1881,7 @@ declare module "mongoose" {
       * section types/objectid.js
       * http://mongoosejs.com/docs/api.html#types-objectid-js
       */
-    var ObjectId: ObjectIdConstructor;
+    const ObjectId: ObjectIdConstructor;
 
     // mongodb.ObjectID does not allow mongoose.Types.ObjectId(id). This is
     //   commonly used in mongoose and is found in an example in the docs:
@@ -1889,9 +1891,9 @@ declare module "mongoose" {
       (s?: string | number): mongodb.ObjectID;
     };
 
-    // var objectId: mongoose.Types.ObjectId should reference mongodb.ObjectID not
+    // const objectId: mongoose.Types.ObjectId should reference mongodb.ObjectID not
     //   the ObjectIdConstructor, so we add the interface below
-    interface ObjectId extends mongodb.ObjectID { }
+    type ObjectId = mongodb.ObjectID;
 
     class Decimal128 extends mongodb.Decimal128 { }
 
@@ -3169,14 +3171,14 @@ declare module "mongoose" {
    *   mpromise implementation (which is deprecated), you can omit step 1 and
    *   run npm install @types/mongoose-promise
    */
-  export var Promise: any;
-  export var PromiseProvider: any;
+  export const Promise: any;
+  export const PromiseProvider: any;
 
   /*
    * section model.js
    * http://mongoosejs.com/docs/api.html#model-js
    */
-  export var Model: Model<any>;
+  export const Model: Model<any>;
   interface Model<T extends Document, QueryHelpers = {}> extends NodeJS.EventEmitter, ModelProperties {
     /** Base Mongoose instance the model uses. */
     base: typeof mongoose;
@@ -3851,14 +3853,14 @@ declare module "mongoose" {
       * mongodb.Collection interface so they've been commented out.
       */
     ensureIndex(...args: any[]): any;
-    //find(...args: any[]): any;
+    // find(...args: any[]): any;
     findAndModify(...args: any[]): any;
-    //findOne(...args: any[]): any;
+    // findOne(...args: any[]): any;
     getIndexes(...args: any[]): any;
-    //insert(...args: any[]): any;
-    //mapReduce(...args: any[]): any;
-    //save(...args: any[]): any;
-    //update(...args: any[]): any;
+    // insert(...args: any[]): any;
+    // mapReduce(...args: any[]): any;
+    // save(...args: any[]): any;
+    // update(...args: any[]): any;
 
     /** The collection name */
     collectionName: string;
