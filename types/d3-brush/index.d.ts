@@ -155,9 +155,9 @@ export interface BrushBehavior<Datum> {
      */
     touchable(): ValueFn<SVGGElement, Datum, boolean>;
     /**
-     * Sets the touch support detector to the specified boolean value and returns the drag behavior.
+     * Sets the touch support detector to the specified boolean value and returns the brush.
      *
-     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the drag behavior is applied.
+     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the brush is applied.
      * The default detector works well for most browsers that are capable of touch input, but not all; Chrome’s mobile device emulator, for example,
      * fails detection.
      *
@@ -167,12 +167,12 @@ export interface BrushBehavior<Datum> {
     /**
      * Sets the touch support detector to the specified function and returns the drag behavior.
      *
-     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the drag behavior is applied.
+     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the brush is applied.
      * The default detector works well for most browsers that are capable of touch input, but not all; Chrome’s mobile device emulator, for example,
      * fails detection.
      *
      * @param touchable A touch support detector function, which returns true when touch event listeners should be applied to the corresponding element.
-     * The function is evaluated for each selected element to which the drag behavior was applied, in order, being passed the current datum (d),
+     * The function is evaluated for each selected element to which the brush was applied, in order, being passed the current datum (d),
      * the current index (i), and the current group (nodes), with this as the current DOM element. The function returns a boolean value.
      */
     touchable(touchable: ValueFn<SVGGElement, Datum, boolean>): this;
