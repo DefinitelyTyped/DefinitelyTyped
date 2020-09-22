@@ -8,6 +8,8 @@ interface State {
   isDisabled: boolean;
   /** Whether the select is focused. */
   isFocused: boolean;
+  /** Whether the select is expanded. */
+  menuIsOpen: boolean;
 }
 
 export type ControlProps<OptionType extends OptionTypeBase> = CommonProps<OptionType> &

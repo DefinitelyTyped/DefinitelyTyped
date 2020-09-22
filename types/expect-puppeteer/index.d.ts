@@ -16,9 +16,9 @@ import { ElementHandle, Page, Dialog } from "puppeteer";
 type ExpectPolling = number | "mutation" | "raf";
 
 /**
- * Configures how to poll for an element.
+ * Default options that apply to all expectations and can be set globally
  */
-interface ExpectTimingActions {
+interface ExpectDefaultOptions {
     /**
      * An interval at which the pageFunction is executed. Defaults to "raf".
      */
@@ -28,7 +28,12 @@ interface ExpectTimingActions {
      * Maximum time to wait for in milliseconds. Defaults to 500.
      */
     timeout?: number;
+}
 
+/**
+ * Configures how to poll for an element.
+ */
+interface ExpectTimingActions extends ExpectDefaultOptions {
     /**
      * delay to pass to the puppeteer element.type API
      */
@@ -84,7 +89,7 @@ declare global {
             toDisplayDialog(block: () => Promise<void>): Promise<Dialog>;
             toFill(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
             toFillForm(selector: string, value: { [key: string]: any}, options?: ExpectTimingActions): Promise<void>;
-            toMatch(selector: string, options?: ExpectTimingActions): Promise<void>;
+            toMatch(matcher: string | RegExp, options?: ExpectTimingActions): Promise<void>;
             toMatchElement(selector: string, options?: ExpectToClickOptions): Promise<ElementHandle>;
             toSelect(selector: string, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
             toUploadFile(selector: string, filePath: string, options?: ExpectTimingActions): Promise<void>;
@@ -93,4 +98,10 @@ declare global {
 }
 
 declare function expectPuppeteer(instance: ElementHandle | Page): ExpectPuppeteer;
+
+declare namespace expectPuppeteer {
+    function setDefaultOptions(options: ExpectDefaultOptions): void;
+    function getDefaultOptions(): ExpectDefaultOptions;
+}
+
 export = expectPuppeteer;

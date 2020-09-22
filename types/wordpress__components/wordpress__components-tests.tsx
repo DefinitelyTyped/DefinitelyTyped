@@ -76,7 +76,7 @@ interface MyCompleteOption {
 <C.Button href="#foo" download="foo.txt" isSmall>
     Anchor Button
 </C.Button>;
-<C.Button autoFocus isDestructive isLarge>
+<C.Button autoFocus isDestructive isLarge isSecondary>
     Button Button
 </C.Button>;
 
@@ -255,6 +255,27 @@ interface MyCompleteOption {
 // external-link
 //
 <C.ExternalLink href="https://wordpress.org">WordPress.org</C.ExternalLink>;
+
+//
+// flex
+//
+<C.Flex
+    isReversed
+    gap={3}
+    align='bottom'
+    justify='left'
+    className="test-classname"
+>
+    <C.FlexBlock className="test-classname">Test Flex Block</C.FlexBlock>
+    <C.FlexItem className="test-classname">
+        Flex Item 1
+    </C.FlexItem>
+    <C.FlexItem>
+        Flex Item 2
+    </C.FlexItem>
+</C.Flex>;
+
+<C.Flex><div /></C.Flex>;
 
 //
 // focal-point-picker

@@ -31,6 +31,8 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   useNewUrlParser: true,
   useFindAndModify: true,
   useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000,
+  heartbeatFrequencyMS: 2000,
   useCreateIndex: true,
   autoIndex: true,
   autoCreate: true,
@@ -76,9 +78,13 @@ const dcPromise: Promise<void> = mongoose.disconnect();
 mongoose.get('test');
 mongoose.model('Actor', new mongoose.Schema({
   name: String
+}, {
+    autoCreate: true,
+    autoIndex: true,
 }), 'collectionName', true).find({});
 mongoose.model('Actor').find({});
 mongoose.modelNames()[0].toLowerCase();
+mongoose.deleteModel('Actor');
 mongoose.models.Actor.findOne({}).exec();
 new (new mongoose.Mongoose(9, 8, 7)).Mongoose(1, 2, 3).connect('');
 mongoose.plugin(cb, {}).connect('');
@@ -171,6 +177,9 @@ conn1.name.toLowerCase()
 conn1.host.toLowerCase()
 conn1.port.toFixed()
 conn1.useDb('myDb').useDb('');
+conn1.useDb('myDb').useDb('', {});
+conn1.useDb('myDb').useDb('', {useCache: false});
+conn1.useDb('myDb').useDb('', {useCache: true});
 mongoose.Connection.STATES.hasOwnProperty('');
 mongoose.Connection.STATES.disconnected === 0;
 mongoose.Connection.STATES.connected === 1;
@@ -545,6 +554,16 @@ schema.post('insertMany', async function(docs: mongoose.Document[]): Promise<voi
     return;
 });
 
+schema.post('find', function(docs: mongoose.Document[], next: (err?: mongoose.NativeError) => void): void {
+  const isDefaultType: mongoose.Query<mongoose.Document> = this;
+  return;
+});
+
+schema.post('find', async function(docs: mongoose.Document[], next: (err?: mongoose.NativeError) => void): Promise<void> {
+  const isDefaultType: mongoose.Query<mongoose.Document> = this;
+  return;
+});
+
 schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
 schema.remove(['path1', 'path2', 'path3']);
@@ -725,7 +744,7 @@ new mongoose.Schema({
   }
 }, {index: true});
 
-new mongoose.Schema({foo: String}, {strict: 'throw'});
+new mongoose.Schema({foo: String}, {strict: 'throw', strictQuery: true});
 
 export default function(schema: mongoose.Schema) {
   schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void): void {
@@ -1564,3 +1583,19 @@ var foobarSchema = new mongoose.Schema({
 });
 var Foobar = mongoose.model<Foobar, mongoose.Model<Foobar>>('AnimFoobarl', foobarSchema);
 Foobar.find({ _id: 123 });
+                                                     
+new mongoose.Schema({
+  createdAt: Number,
+  updatedAt: Number,
+  name: String
+}, {
+  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) }
+});
+
+new mongoose.Schema({
+  createdAt: Number,
+  updatedAt: Number,
+  name: String
+}, {
+  timestamps: { currentTime: () => new Date() }
+});

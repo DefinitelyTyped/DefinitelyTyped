@@ -210,3 +210,5 @@ assertType<UserSerializer>(store.serializerFor('user'));
 
 store.unloadAll();
 store.unloadAll('user');
+
+assertType<Ember.Service>(store);

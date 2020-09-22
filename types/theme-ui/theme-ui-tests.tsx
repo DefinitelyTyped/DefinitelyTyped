@@ -3,6 +3,7 @@ import { Flex, jsx, css, InitializeColorMode, ColorMode, Styled, SxStyleProp, Th
 
 export const Component = () => {
     const { theme, colorMode, setColorMode } = useThemeUI();
+
     return (
         <>
             <InitializeColorMode />
@@ -24,6 +25,9 @@ export const Component = () => {
                 </h1>
                 <Flex sx={{ backgroundColor: 'pink' }} />
                 <button onClick={() => setColorMode('another-theme')}>Change Mode</button>
+            </div>
+            <div sx={{ label: 'my-label', div: { label: 'blah' } }}>
+                <h1>Label test</h1>
             </div>
         </>
     );
@@ -115,6 +119,52 @@ const themeWithStyles: Theme = {
     },
 };
 
+const themeWithValidVariants: Theme = {
+    colors: {
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+    },
+    grids: { main: { color: 'primary' } },
+    buttons: { primary: { color: 'primary' } },
+    text: { heading: { color: 'primary' } },
+    links: { nav: { color: 'primary' } },
+    images: { avatar: { color: 'primary' } },
+    cards: { primary: { color: 'primary' } },
+    layout: { container: { color: 'primary' } },
+    forms: { label: { color: 'primary' } },
+    badges: { primary: { color: 'primary' } },
+    alerts: { primary: { color: 'primary' } },
+    messages: { primary: { color: 'primary' } },
+};
+
+// prettier-ignore
+const themeWithInvalidVariants: Theme = { layouts: { // $ExpectError
+        container: {
+            color: 'primary',
+        },
+    },
+    colors: {
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+    },
+};
+
+const themeWithValidOptions: Theme = {
+    useCustomProperties: true,
+    useBodyStyles: true,
+    initialColorModeName: 'default',
+    useColorSchemeMediaQuery: false,
+    useBorderBox: true,
+    useLocalStorage: true,
+    colors: {
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+    },
+};
+
 function SpreadingAndMergingInSxProp() {
     const buttonStyles: SxStyleProp = {
         font: 'inherit',
@@ -153,4 +203,24 @@ function cssUtility() {
     };
 
     css(styleObject)(theme);
+}
+
+{
+    const colorMode: ColorMode = {} as any;
+
+    // test: text and background are required
+
+    colorMode.text = '';
+    colorMode.background = '';
+
+    // test: arbitrary keys can hold colors or color scales
+
+    const seriousPink = colorMode.seriousPink;
+    if (typeof seriousPink !== 'string' && Array.isArray(seriousPink)) {
+        const [light, medium, dark]: string[] = seriousPink;
+    }
+
+    // test: interoperable base colors don't contain nested scales
+
+    const baseColors: Array<string | undefined> = [colorMode.primary, colorMode.secondary, colorMode.muted, colorMode.highlight, colorMode.accent];
 }

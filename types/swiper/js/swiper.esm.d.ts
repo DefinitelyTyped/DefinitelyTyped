@@ -250,7 +250,7 @@ export class Controller {
      * Pass here another Swiper instance or array with Swiper instances that should be controlled
      * by this Swiper
      */
-    control?: Swiper;
+    control?: Swiper | Swiper[];
 }
 
 /**

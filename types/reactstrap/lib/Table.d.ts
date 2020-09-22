@@ -12,7 +12,7 @@ export interface TableProps extends React.HTMLAttributes<HTMLElement> {
     inverse?: boolean;
     hover?: boolean;
     reflow?: boolean;
-    responsive?: boolean;
+    responsive?: boolean | string;
     tag?: string | React.ReactType;
     responsiveTag?: React.ReactType;
 }

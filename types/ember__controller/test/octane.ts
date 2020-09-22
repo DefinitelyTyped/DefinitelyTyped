@@ -6,6 +6,15 @@ class FirstController extends Controller {
     @inject() otherSecond: InstanceType<typeof SecondController>;
     @inject("second") moreSecond: InstanceType<typeof SecondController>;
 
+    queryParams = [
+        'category',
+        {
+            searchTerm: {
+                as: 'search'
+            }
+        }
+    ];
+
     first() {
         return "";
     }

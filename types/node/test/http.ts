@@ -34,6 +34,7 @@ import * as net from 'net';
     const timeout: number = server.timeout;
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
+    const requestTimeout: number = server.requestTimeout;
     server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
 }
 
@@ -138,11 +139,16 @@ import * as net from 'net';
         keepAlive: true,
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
+        maxTotalSockets: Infinity,
         maxFreeSockets: 256,
-        timeout: 15000
+        timeout: 15000,
+        scheduling: 'lifo',
     });
 
     agent = http.globalAgent;
+
+    let sockets: NodeJS.ReadOnlyDict<net.Socket[]> = agent.sockets;
+    sockets = agent.freeSockets;
 
     http.request({ agent: false });
     http.request({ agent });
@@ -203,6 +209,10 @@ import * as net from 'net';
         'content-type': 'application/json',
         'set-cookie': [ 'type=ninja', 'language=javascript' ]
     };
+
+    headers["access-control-request-headers"] = "content-type, x-custom-header";
+    headers["access-control-request-method"] = "PUT";
+    headers.origin = "https://example.com";
 }
 
 // statics

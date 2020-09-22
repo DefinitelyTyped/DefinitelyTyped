@@ -15,7 +15,6 @@
 //                 Geraldine Lemeur <https://github.com/geraldinelemeur>
 //                 Dominik Heigl <https://github.com/various89>
 //                 Angela-1 <https://github.com/angela-1>
-//                 Mikael Lirbank <https://github.com/lirbank>
 //                 Hector Ribes <https://github.com/hector7>
 //                 Florian Richter <https://github.com/floric>
 //                 Erik Christensen <https://github.com/erikc5000>
@@ -29,12 +28,16 @@
 //                 Richard Bateman <https://github.com/taxilian>
 //                 Igor Strebezhev <https://github.com/xamgore>
 //                 Valentin Agachi <https://github.com/avaly>
+//                 HitkoDev <https://github.com/HitkoDev>
+//                 TJT <https://github.com/Celend>
+//                 Julien TASSIN <https://github.com/jtassin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
 // Documentation: https://mongodb.github.io/node-mongodb-native/3.1/api/
 
 /// <reference types="node" />
+/// <reference lib="esnext.asynciterable" />
 
 import { Binary, ObjectId, Timestamp } from 'bson';
 import { EventEmitter } from 'events';
@@ -43,6 +46,8 @@ import { checkServerIdentity } from 'tls';
 
 // We can use TypeScript Omit once minimum required TypeScript Version is above 3.5
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
+type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
@@ -280,7 +285,6 @@ export class MongoParseError extends MongoError {
     constructor(message: string);
 }
 
-
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#.connect */
 export interface MongoClientOptions extends
     DbCreateOptions,
@@ -291,7 +295,8 @@ export interface MongoClientOptions extends
     SSLOptions,
     TLSOptions,
     HighAvailabilityOptions,
-    WriteConcern {
+    WriteConcern,
+    UnifiedTopologyOptions {
 
     /**
      * The logging level (error/warn/info/debug)
@@ -336,18 +341,6 @@ export interface MongoClientOptions extends
     useNewUrlParser?: boolean;
 
     /**
-     * Enables the new unified topology layer
-     */
-    useUnifiedTopology?: boolean;
-
-    /**
-     * With `useUnifiedTopology`, the MongoDB driver will try to find a server to send any given operation to
-     * and keep retrying for `serverSelectionTimeoutMS` milliseconds.
-     * Default: 30000
-     */
-    serverSelectionTimeoutMS?: number;
-
-    /**
      * number of retries for a tailable cursor
      * @default 5
      */
@@ -357,6 +350,12 @@ export interface MongoClientOptions extends
      * Mechanism for authentication: DEFAULT, GSSAPI, PLAIN, MONGODB-X509, 'MONGODB-CR', SCRAM-SHA-1 or SCRAM-SHA-256
      */
     authMechanism?: 'DEFAULT' | 'GSSAPI' | 'PLAIN' | 'MONGODB-X509' | 'MONGODB-CR' | 'SCRAM-SHA-1' | 'SCRAM-SHA-256' | string;
+
+    /** Type of compression to use */
+    compression?: {
+        /** The selected compressors in preference order */
+        compressors?: Array<('snappy' | 'zlib')>;
+    };
 }
 
 export interface SSLOptions {
@@ -554,37 +553,102 @@ export interface DbCreateOptions extends CommonOptions {
     bufferMaxEntries?: number;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Server.html */
+export interface UnifiedTopologyOptions {
+    /**
+     * Enables the new unified topology layer
+     */
+    useUnifiedTopology?: boolean;
+
+    /**
+     * **Only applies to the unified topology**
+     * The size of the latency window for selecting among multiple suitable servers
+     * @default 15
+     */
+    localThresholdMS?: number;
+
+    /**
+     * With `useUnifiedTopology`, the MongoDB driver will try to find a server to send any given operation to
+     * and keep retrying for `serverSelectionTimeoutMS` milliseconds.
+     * Default: 30000
+     */
+    serverSelectionTimeoutMS?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The frequency with which topology updates are scheduled
+     * @default 10000
+     */
+    heartbeatFrequencyMS?: number;
+
+    /**
+     *  **Only applies to the unified topology**
+     * The maximum number of connections that may be associated with a pool at a given time.
+     * This includes in use and available connections
+     * @default 10
+     */
+    maxPoolSize?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The minimum number of connections that MUST exist at any moment in a single connection pool.
+     * @default 0
+     */
+    minPoolSize?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The maximum amount of time a connection should remain idle in the connection pool before being marked idle.
+     * @default Infinity
+     */
+    maxIdleTimeMS?: number;
+
+    /**
+     * **Only applies to the unified topology**
+     * The maximum amount of time operation execution should wait for a connection to become available.
+     * The default is 0 which means there is no limit.
+     * @default 0
+     */
+    waitQueueTimeoutMS?: number;
+}
+
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Server.html */
 export interface SocketOptions {
     /**
-     * Reconnect on error. default:false
+     * Reconnect on error.
+     * @default true
      */
     autoReconnect?: boolean;
     /**
-     * TCP Socket NoDelay option. default:true
+     * TCP Socket NoDelay option.
+     * @default true
      */
     noDelay?: boolean;
     /**
-     * TCP KeepAlive enabled on the socket. default:true
+     * TCP KeepAlive enabled on the socket.
+     * @default true
      */
     keepAlive?: boolean;
     /**
-     * TCP KeepAlive initial delay before sending first keep-alive packet when idle. default:300000
+     * TCP KeepAlive initial delay before sending first keep-alive packet when idle.
+     * @default 30000
      */
     keepAliveInitialDelay?: number;
     /**
-     * TCP Connection timeout setting. default 0
+     * TCP Connection timeout setting.
+     * @default 10000
      */
     connectTimeoutMS?: number;
     /**
-     * Version of IP stack. Can be 4, 6 or null. default: null.
+     * Version of IP stack. Can be 4, 6 or null.
+     * @default null
      *
      * If null, will attempt to connect with IPv6, and will fall back to IPv4 on failure
-     * refer to http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html
+     * refer to http://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html
      */
     family?: 4 | 6 | null;
     /**
-     * TCP Socket timeout setting. default 0
+     * TCP Socket timeout setting.
+     * @default 360000
      */
     socketTimeoutMS?: number;
 }
@@ -1012,10 +1076,10 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     deleteOne(filter: FilterQuery<TSchema>, options?: CommonOptions & { bypassDocumentValidation?: boolean }): Promise<DeleteWriteOpResultObject>;
     deleteOne(filter: FilterQuery<TSchema>, options: CommonOptions & { bypassDocumentValidation?: boolean }, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#distinct */
-    distinct<Key extends keyof WithId<TSchema>>(key: Key, callback: MongoCallback<Array<WithId<TSchema>[Key]>>): void;
-    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, callback: MongoCallback<Array<WithId<TSchema>[Key]>>): void;
-    distinct<Key extends keyof WithId<TSchema>>(key: Key, query?: FilterQuery<TSchema>, options?: MongoDistinctPreferences): Promise<Array<WithId<TSchema>[Key]>>;
-    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, options: MongoDistinctPreferences, callback: MongoCallback<Array<WithId<TSchema>[Key]>>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>): void;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query?: FilterQuery<TSchema>, options?: MongoDistinctPreferences): Promise<Array<FlattenIfArray<WithId<TSchema>[Key]>>>;
+    distinct<Key extends keyof WithId<TSchema>>(key: Key, query: FilterQuery<TSchema>, options: MongoDistinctPreferences, callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>): void;
     distinct(key: string, callback: MongoCallback<any[]>): void;
     distinct(key: string, query: FilterQuery<TSchema>, callback: MongoCallback<any[]>): void;
     distinct(key: string, query?: FilterQuery<TSchema>, options?: MongoDistinctPreferences): Promise<any[]>;
@@ -1037,25 +1101,30 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     estimatedDocumentCount(query: FilterQuery<TSchema>, callback: MongoCallback<number>): void;
     estimatedDocumentCount(query?: FilterQuery<TSchema>, options?: MongoCountPreferences): Promise<number>;
     estimatedDocumentCount(query: FilterQuery<TSchema>, options: MongoCountPreferences, callback: MongoCallback<number>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#find */
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#find */
     find<T = TSchema>(query?: FilterQuery<TSchema>): Cursor<T>;
-    find<T = TSchema>(query: FilterQuery<TSchema>, options?: FindOneOptions): Cursor<T>;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne */
-    findOne<T = TSchema>(filter: FilterQuery<TSchema>, callback: MongoCallback<T | null>): void;
-    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options?: FindOneOptions): Promise<T | null>;
-    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options: FindOneOptions, callback: MongoCallback<T | null>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
+    find<T = TSchema>(query: FilterQuery<TSchema>, options?: FindOneOptions<T extends TSchema ? TSchema : T>): Cursor<T>;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, callback: MongoCallback<T extends TSchema ? TSchema : T | null>): void;
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options?: FindOneOptions<T extends TSchema ? TSchema : T>): Promise<T | null>;
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options: FindOneOptions<T extends TSchema ? TSchema : T>, callback: MongoCallback<T extends TSchema ? TSchema : T | null>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndDelete */
     findOneAndDelete(filter: FilterQuery<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndDelete(filter: FilterQuery<TSchema>, options?: FindOneAndDeleteOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndDelete(filter: FilterQuery<TSchema>, options: FindOneAndDeleteOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
+    findOneAndDelete(filter: FilterQuery<TSchema>, options?: FindOneAndDeleteOption<TSchema>): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndDelete(filter: FilterQuery<TSchema>, options: FindOneAndDeleteOption<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndReplace */
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, options?: FindOneAndReplaceOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, options: FindOneAndReplaceOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
+    findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, options?: FindOneAndReplaceOption<TSchema>): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, options: FindOneAndReplaceOption<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndUpdate */
     findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: FindOneAndUpdateOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: FindOneAndUpdateOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: FindOneAndUpdateOption<TSchema>): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndUpdate(
+      filter: FilterQuery<TSchema>,
+      update: UpdateQuery<TSchema> | TSchema,
+      options: FindOneAndUpdateOption<TSchema>,
+      callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>
+    ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#geoHaystackSearch */
     geoHaystackSearch(x: number, y: number, callback: MongoCallback<any>): void;
     geoHaystackSearch(x: number, y: number, options?: GeoHaystackSearchOptions): Promise<any>;
@@ -1220,10 +1289,25 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: UpdateOneOptions,
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch */
+    /**
+     * @param pipeline - an array of
+     * {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages}
+     * through which to pass change stream documents. This allows for filtering (using `$match`) and manipulating
+     * the change stream documents.
+     *
+     * @param options - optional settings
+     * @see http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#watch
+     */
     watch<T = TSchema>(
         pipeline?: object[],
         options?: ChangeStreamOptions & { session?: ClientSession },
+    ): ChangeStream<T>;
+    /**
+     * @param options - optional settings
+     * @see http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#watch
+     */
+    watch<T = TSchema>(
+      options?: ChangeStreamOptions & { session?: ClientSession },
     ): ChangeStream<T>;
 }
 
@@ -1265,6 +1349,19 @@ type Unpacked<Type> = Type extends Array<infer Element> ? Element : Type;
 type UpdateOptionalId<T> = T extends { _id?: any } ? OptionalId<T> : T;
 
 export type SortValues = -1 | 1;
+
+/** https://docs.mongodb.com/manual/reference/operator/aggregation/meta/#proj._S_meta */
+export type MetaSortOperators =  'textScore' | 'indexKey';
+
+export type MetaProjectionOperators = MetaSortOperators
+    /** Only for Atlas Search https://docs.atlas.mongodb.com/reference/atlas-search/scoring/ */
+    | 'searchScore'
+    /** Only for Atlas Search https://docs.atlas.mongodb.com/reference/atlas-search/highlighting/ */
+    | 'searchHighlights';
+
+export type SchemaMember<T, V> = {[P in keyof T]?: V} | {[key: string]: V};
+
+export type SortOptionObject<T> = SchemaMember<T, number | {$meta?: MetaSortOperators}>;
 
 export type AddToSetOperators<Type> = {
     $each: Type;
@@ -1459,59 +1556,59 @@ export type FilterQuery<T> = {
     RootQuerySelector<T>;
 
 /** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#insertone */
-export type BulkWriteInsertOneOperation<T> = {
+export type BulkWriteInsertOneOperation<TSchema> = {
     insertOne: {
-        document: T
+        document: OptionalId<TSchema>
     }
 };
 
 /** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#updateone-and-updatemany */
-export type BulkWriteUpdateOperation<T> = {
+export type BulkWriteUpdateOperation<TSchema> = {
     arrayFilters?: object[];
     collation?: object;
     hint?: string | object;
-    filter: FilterQuery<T>;
-    update: UpdateQuery<T>;
+    filter: FilterQuery<TSchema>;
+    update: UpdateQuery<TSchema>;
     upsert?: boolean;
 };
-export type BulkWriteUpdateOneOperation<T> = {
-    updateOne: BulkWriteUpdateOperation<T>;
+export type BulkWriteUpdateOneOperation<TSchema> = {
+    updateOne: BulkWriteUpdateOperation<TSchema>;
 };
-export type BulkWriteUpdateManyOperation<T> = {
-    updateMany: BulkWriteUpdateOperation<T>;
+export type BulkWriteUpdateManyOperation<TSchema> = {
+    updateMany: BulkWriteUpdateOperation<TSchema>;
 };
 
 /** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#replaceone */
-export type BulkWriteReplaceOneOperation<T> = {
+export type BulkWriteReplaceOneOperation<TSchema> = {
     replaceOne: {
         collation?: object;
         hint?: string | object;
-        filter: FilterQuery<T>;
-        replacement: T;
+        filter: FilterQuery<TSchema>;
+        replacement: TSchema;
         upsert?: boolean;
     }
 };
 
 /** https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#deleteone-and-deletemany */
-export type BulkWriteDeleteOperation<T> = {
+export type BulkWriteDeleteOperation<TSchema> = {
     collation?: object;
-    filter: FilterQuery<T>;
+    filter: FilterQuery<TSchema>;
 };
-export type BulkWriteDeleteOneOperation<T> = {
-    deleteOne: BulkWriteDeleteOperation<T>;
+export type BulkWriteDeleteOneOperation<TSchema> = {
+    deleteOne: BulkWriteDeleteOperation<TSchema>;
 };
-export type BulkWriteDeleteManyOperation<T> = {
-    deleteMany: BulkWriteDeleteOperation<T>;
+export type BulkWriteDeleteManyOperation<TSchema> = {
+    deleteMany: BulkWriteDeleteOperation<TSchema>;
 };
 
 /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
-export type BulkWriteOperation<T> =
-    BulkWriteInsertOneOperation<T> |
-    BulkWriteUpdateOneOperation<T> |
-    BulkWriteUpdateManyOperation<T> |
-    BulkWriteReplaceOneOperation<T> |
-    BulkWriteDeleteOneOperation<T> |
-    BulkWriteDeleteManyOperation<T>;
+export type BulkWriteOperation<TSchema> =
+    BulkWriteInsertOneOperation<TSchema> |
+    BulkWriteUpdateOneOperation<TSchema> |
+    BulkWriteUpdateManyOperation<TSchema> |
+    BulkWriteReplaceOneOperation<TSchema> |
+    BulkWriteDeleteOneOperation<TSchema> |
+    BulkWriteDeleteManyOperation<TSchema>;
 
 /** http://docs.mongodb.org/manual/reference/command/collStats/ */
 export interface CollStats {
@@ -1874,25 +1971,35 @@ export interface FindAndModifyWriteOpResultObject<TSchema> {
     ok?: number;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
-export interface FindOneAndReplaceOption extends CommonOptions {
-    projection?: object;
-    sort?: object;
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndReplace */
+export interface FindOneAndReplaceOption<T> extends CommonOptions {
+    projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
+    sort?: SortOptionObject<T>;
     maxTimeMS?: number;
     upsert?: boolean;
     returnOriginal?: boolean;
     collation?: CollationDocument;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
-export interface FindOneAndUpdateOption extends FindOneAndReplaceOption {
+
+/** https://docs.mongodb.com/manual/reference/operator/projection/ */
+export interface ProjectionOperators {
+    /** https://docs.mongodb.com/manual/reference/operator/projection/elemMatch/#proj._S_elemMatch */
+    $elemMatch?: object;
+    /** https://docs.mongodb.com/manual/reference/operator/projection/slice/#proj._S_slice */
+    $slice?: number | [number, number];
+    $meta?: MetaProjectionOperators;
+}
+
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndUpdate */
+export interface FindOneAndUpdateOption<T> extends FindOneAndReplaceOption<T> {
     arrayFilters?: object[];
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
-export interface FindOneAndDeleteOption {
-    projection?: object;
-    sort?: object;
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndDelete */
+export interface FindOneAndDeleteOption<T> {
+    projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
+    sort?: SortOptionObject<T>;
     maxTimeMS?: number;
     session?: ClientSession;
     collation?: CollationDocument;
@@ -2061,15 +2168,15 @@ export interface FindOperatorsUnordered {
     upsert(): FindOperatorsUnordered;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne */
-export interface FindOneOptions {
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
+export interface FindOneOptions<T> {
     limit?: number;
-    sort?: any[] | object;
-    projection?: object;
+    sort?: Array<[string, number]> | SortOptionObject<T>;
+    projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
     /**
      * @deprecated Use options.projection instead
      */
-    fields?: object;
+    fields?: {[P in keyof T]: boolean | number};
     skip?: number;
     hint?: object;
     explain?: boolean;
@@ -2257,8 +2364,8 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#project */
-    project(value: object): Cursor<T>;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#project */
+    project(value: SchemaMember<T, ProjectionOperators | number | boolean | any>): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#read */
     read(size: number): string | Buffer | void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
@@ -2275,8 +2382,8 @@ export class Cursor<T = Default> extends Readable {
     skip(value: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#snapshot */
     snapshot(snapshot: object): Cursor<T>;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#sort */
-    sort(keyOrList: string | object[] | object, direction?: number): Cursor<T>;
+    /** http://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#sort */
+    sort(keyOrList: string | Array<[string, number]> | SortOptionObject<T>, direction?: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#stream */
     stream(options?: { transform?: (document: T) => any }): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#toArray */
@@ -2430,10 +2537,8 @@ export interface GridFSBucketOptions {
     readPreference?: ReadPreferenceOrMode;
 }
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#~errorCallback */
-export interface GridFSBucketErrorCallback {
-    (err?: MongoError): void;
-}
+/** http://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#~errorCallback */
+export interface GridFSBucketErrorCallback extends MongoCallback<void> {}
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#find */
 export interface GridFSBucketFindOptions {
@@ -2471,6 +2576,14 @@ export interface GridFSBucketReadStreamOptions {
 export class GridFSBucketWriteStream extends Writable {
     id: GridFSBucketWriteStreamId;
     constructor(bucket: GridFSBucket, filename: string, options?: GridFSBucketWriteStreamOptions);
+
+    /**
+     * Places this write stream into an aborted state (all future writes fail)
+     * and deletes all chunks that have already been written.
+     * @param [callback] called when chunks are successfully removed or error occurred
+     * @see {@link https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketWriteStream.html#abort}
+     */
+    abort(callback?: GridFSBucketErrorCallback): void;
 }
 
 /** https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketWriteStream.html */
@@ -2529,6 +2642,7 @@ declare class TypedEventEmitter<Events> {
 
     emit<E extends keyof Events> (event: E, ...args: EventArguments<Events[E]>): boolean;
     eventNames (): Array<keyof Events>;
+    rawListeners<E extends keyof Events> (event: E): Function[];
     listeners<E extends keyof Events> (event: E): Function[];
     listenerCount<E extends keyof Events> (event: E): number;
 

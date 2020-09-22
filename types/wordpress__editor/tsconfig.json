@@ -45,9 +45,6 @@
             "@wordpress/editor": [
                 "wordpress__editor"
             ],
-            "@wordpress/element": [
-                "wordpress__element"
-            ],
             "@wordpress/keycodes": [
                 "wordpress__keycodes"
             ],

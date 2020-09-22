@@ -15,6 +15,8 @@ info({ obj: { aa: 'bbb' } }, 'another');
 setImmediate(info, 'after setImmediate');
 error(new Error('an error'));
 
+const writeSym = pino.symbols.writeSym;
+
 const log2: pino.Logger = pino({
     name: 'myapp',
     safe: true,
@@ -161,19 +163,20 @@ anotherRedacted.info({
 });
 
 const pretty = pino({
-	prettyPrint: {
-		colorize: true,
-		crlf: false,
-		errorLikeObjectKeys: ['err', 'error'],
-		errorProps: '',
-		messageFormat: false,
-		ignore: '',
-		levelFirst: false,
-		messageKey: 'msg',
-		timestampKey: 'timestamp',
-		translateTime: 'UTC:h:MM:ss TT Z',
-		search: 'foo == `bar`'
-	}
+    prettyPrint: {
+        colorize: true,
+        crlf: false,
+        errorLikeObjectKeys: ['err', 'error'],
+        errorProps: '',
+        messageFormat: false,
+        ignore: '',
+        levelFirst: false,
+        messageKey: 'msg',
+        timestampKey: 'timestamp',
+        translateTime: 'UTC:h:MM:ss TT Z',
+        search: 'foo == `bar`',
+        suppressFlushSyncWarning: true
+    }
 });
 
 const withTimeFn = pino({
@@ -182,6 +185,14 @@ const withTimeFn = pino({
 
 const withNestedKey = pino({
     nestedKey: 'payload',
+});
+
+const withHooks = pino({
+    hooks: {
+        logMethod(args, method) {
+            return method.apply(this, args);
+        }
+    }
 });
 
 // Properties/types imported from pino-std-serializers
@@ -205,3 +216,23 @@ const mappedHttpResponse: { res: pino.SerializedResponse } = pino.stdSerializers
 const serializedErr: pino.SerializedError = pino.stdSerializers.err(new Error());
 const serializedReq: pino.SerializedRequest = pino.stdSerializers.req(incomingMessage);
 const serializedRes: pino.SerializedResponse = pino.stdSerializers.res(serverResponse);
+
+/**
+ * Destination static method
+ */
+const destinationViaDefaultArgs = pino.destination();
+const destinationViaStrFileDescriptor = pino.destination('/log/path');
+const destinationViaNumFileDescriptor = pino.destination(2);
+const destinationViaStream = pino.destination(process.stdout);
+const destinationViaOptionsObject = pino.destination({ dest: '/log/path', sync: false });
+
+pino(destinationViaDefaultArgs);
+pino({ name: 'my-logger' }, destinationViaDefaultArgs);
+pino(destinationViaStrFileDescriptor);
+pino({ name: 'my-logger' }, destinationViaStrFileDescriptor);
+pino(destinationViaNumFileDescriptor);
+pino({ name: 'my-logger' }, destinationViaNumFileDescriptor);
+pino(destinationViaStream);
+pino({ name: 'my-logger' }, destinationViaStream);
+pino(destinationViaOptionsObject);
+pino({ name: 'my-logger' }, destinationViaOptionsObject);

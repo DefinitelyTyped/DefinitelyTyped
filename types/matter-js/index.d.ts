@@ -536,10 +536,10 @@ declare namespace Matter {
         strokeStyle?: string;
 
 
-		/*
-		 * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
-		 */
-		opacity?: number;
+        /*
+         * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
+         */
+        opacity?: number;
     }
 
     export interface IBodyRenderOptionsSprite {
@@ -2333,6 +2333,15 @@ declare namespace Matter {
     * @class Query
     */
     export class Query {
+         /**
+         * Finds a list of collisions between body and bodies.
+         * @method collides
+         * @param {body} body
+         * @param {body[]} bodies
+         * @return {object[]} Collisions
+         */
+        static collides(body: Body, bodies: Array<Body>): Array<any>;
+
         /**
          * Casts a ray segment against a set of bodies and returns all collisions, ray width is optional. Intersection points are not provided.
          * @method ray
@@ -2829,7 +2838,7 @@ declare namespace Matter {
          * @param {vector} vectorB
          * @return {number} The dot product of the two vectors
          */
-        static dot(vectorA: Vector, vectorB: Vector): Number;
+        static dot(vectorA: Vector, vectorB: Vector): number;
 
         /**
          * Returns the magnitude (length) of a vector.

@@ -37,7 +37,9 @@ import { createContext } from "vm";
         subChannel.port2.on('message', (value) => {
             console.log('received:', value);
         });
-        worker.moveMessagePortToContext(new workerThreads.MessagePort(), createContext());
+        const movedPort = workerThreads.moveMessagePortToContext(
+            new workerThreads.MessagePort(), createContext());
+        workerThreads.receiveMessageOnPort(movedPort);
     } else {
         workerThreads.parentPort!.once('message', (value) => {
             assert(value.hereIsYourPort instanceof workerThreads.MessagePort);

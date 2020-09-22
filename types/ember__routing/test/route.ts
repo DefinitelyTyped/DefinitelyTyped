@@ -16,7 +16,7 @@ Route.extend({
 
 Route.extend({
     afterModel(posts: Posts, transition: Transition) {
-        if (posts.length === 1) {
+        if (posts.firstObject) {
             this.transitionTo('post.show', posts.firstObject);
         }
     },
@@ -81,9 +81,10 @@ Route.extend({
 });
 
 Route.extend({
-    resetController(controller: Controller, isExiting: boolean, transition: boolean) {
+    resetController(controller: Controller, isExiting: boolean, transition: Transition) {
         if (isExiting) {
             //   controller.set('page', 1);
+            transition.abort();
         }
     },
 });
@@ -155,9 +156,10 @@ declare module '@ember/controller' {
 }
 
 Route.extend({
-    setupController(controller: Controller, model: {}) {
+    setupController(controller: Controller, model: {}, transition: Transition) {
         this._super(controller, model);
         this.controllerFor('application').set('model', model);
+        transition.abort();
     },
 });
 

@@ -507,6 +507,13 @@ function Argv$showHelp() {
     yargs1.showHelp();
 }
 
+function Argv$showHelpWithCallback() {
+    const yargs1 = yargs.option('test', {
+        describe: "it's a test"
+    });
+    yargs1.showHelp(s => console.log(`Help! ${s}`));
+}
+
 function Argv$version() {
     const argv1 = yargs
         .version();

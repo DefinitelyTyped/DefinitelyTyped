@@ -11,9 +11,9 @@ import { ComponentType } from 'react';
  *
  * ```jsx
  * function MyComponent( { isMobile } ) {
- * 	return (
- * 		<div>Currently: { isMobile ? 'Mobile' : 'Not Mobile' }</div>
- * 	);
+ *     return (
+ *         <div>Currently: { isMobile ? 'Mobile' : 'Not Mobile' }</div>
+ *     );
  * }
  *
  * MyComponent = withViewportMatch( { isMobile: '< small' } )( MyComponent );

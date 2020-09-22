@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "gmail", version: "v1"): PromiseLike<void>;
     function load(name: "gmail", version: "v1", callback: () => any): void;
 
-    const users: gmail.UsersResource;
-
     namespace gmail {
         interface AutoForwarding {
             /** The state that a message should be left in after it has been forwarded. */
@@ -2048,5 +2046,7 @@ declare namespace gapi.client {
             settings: SettingsResource;
             threads: ThreadsResource;
         }
+
+        const users: UsersResource;
     }
 }

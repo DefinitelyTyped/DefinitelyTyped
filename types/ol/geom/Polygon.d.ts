@@ -1,11 +1,9 @@
 import { Coordinate } from '../coordinate';
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import { ObjectEvent } from '../Object';
-import { TransformFunction } from '../proj';
 import Circle from './Circle';
-import Geometry from './Geometry';
 import GeometryLayout from './GeometryLayout';
 import GeometryType from './GeometryType';
 import LinearRing from './LinearRing';
@@ -14,9 +12,11 @@ import SimpleGeometry from './SimpleGeometry';
 
 export default class Polygon extends SimpleGeometry {
     constructor(coordinates: Coordinate[][] | number[], opt_layout?: GeometryLayout, opt_ends?: number[]);
+    protected getSimplifiedGeometryInternal(squaredTolerance: number): Polygon;
     appendLinearRing(linearRing: LinearRing): void;
     clone(): Polygon;
     closestPointXY(x: number, y: number, closestPoint: Coordinate, minSquaredDistance: number): number;
+    containsXY(x: number, y: number): boolean;
     getArea(): number;
     getCoordinates(opt_right?: boolean): Coordinate[][];
     getEnds(): number[];
@@ -29,8 +29,7 @@ export default class Polygon extends SimpleGeometry {
     getType(): GeometryType;
     intersectsExtent(extent: Extent): boolean;
     setCoordinates(coordinates: Coordinate[][], opt_layout?: GeometryLayout): void;
-    simplifyTransformed(squaredTolerance: number, opt_transform?: TransformFunction): Geometry;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

@@ -23,6 +23,11 @@ jsonStr === parsed; // true
 function loader(this: loader.LoaderContext) {
     getOptions(this);
 
+    // get options readonly
+    const options = getOptions(this);
+    // $ExpectError
+    options.prop = {};
+
     getRemainingRequest(this);
 
     getCurrentRequest(this);

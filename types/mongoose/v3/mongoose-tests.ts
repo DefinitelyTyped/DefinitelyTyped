@@ -155,7 +155,7 @@ Model.save((err: any, res: IActor, numberAffected: number) => {});
 Model.create({ type: 'jelly bean' }, { type: 'snickers' }, (err: any, res1: IActor, res2: IActor) => {});
 Model.create({ type: 'jawbreaker' });
 Model.create({ type: 'muffin' }).then(function (res) {
-	res.name;
+    res.name;
 });
 Model.distinct('url', { clicks: {$gt: 100}}, (err: any, result: IActor[]) => {});
 Model.distinct('url');

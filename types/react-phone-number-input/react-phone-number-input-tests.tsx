@@ -1,5 +1,7 @@
 import * as React from 'react';
-import PhoneInput from 'react-phone-number-input';
+import PhoneInput, { parsePhoneNumber, PhoneNumber } from 'react-phone-number-input';
+
+const phoneNumber: PhoneNumber | undefined = parsePhoneNumber('+12025550112');
 
 const test1 = (
     <PhoneInput
@@ -15,6 +17,7 @@ const test1 = (
         placeholder="Place holder"
         international={true}
         country={'US'}
+        countrySelectProps={{ tabIndex: '-1' }}
     >
         <div>panel 1</div>
         <div>panel 2</div>

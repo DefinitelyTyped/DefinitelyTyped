@@ -3,7 +3,7 @@
 // Definitions by: Wang KaiLing <https://github.com/wkl007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class Lyric {
+declare class Lyric {
     constructor(lrc: string, handler: (params: { lineNum: number; txt: string }) => void);
 
     lrc: string;
@@ -21,3 +21,5 @@ export default class Lyric {
 
     seek(offset: number): void;
 }
+
+export = Lyric;

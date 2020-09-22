@@ -42,7 +42,7 @@ declare namespace AMap {
         /**
          * 控件停靠位置
          */
-        position: Position;
+        position: Scale.Position;
         /**
          * 相对于地图容器左上角的偏移量
          */

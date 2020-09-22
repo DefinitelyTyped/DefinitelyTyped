@@ -3,11 +3,11 @@ import SCBroker = require('sc-broker/scbroker');
 import { Secret } from 'jsonwebtoken';
 import ConsumableStream = require('consumable-stream');
 
-import { MappingEngine, SCCBrokerClientOptions } from '.';
+import { MappingEngine, SCCBrokerClientOptions, Broker } from '.';
 import ClientPool = require('./client-pool');
 
 declare class ClusterBrokerClient extends AsyncStreamEmitter<any> {
-    broker: SCBroker;
+    broker: Broker;
     sccBrokerClientPools: ClientPool[];
     sccBrokerURIList: string[];
     authKey?: Secret;

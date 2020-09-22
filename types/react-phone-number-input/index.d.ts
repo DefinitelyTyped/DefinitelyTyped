@@ -4,6 +4,7 @@
 //                 Adrien Etienne <https://github.com/AdrienEtienne>
 //                 Jonathan Fleckenstein <https://github.com/fleck>
 //                 James Lismore <https://github.com/jlismore>
+//                 Dragoș Străinu <https://github.com/strdr4605>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -31,6 +32,20 @@ export function isPossiblePhoneNumber(value: string): boolean;
  * Validates a phone number value
  */
 export function isValidPhoneNumber(value?: string): boolean;
+
+export function parsePhoneNumber(input: string): PhoneNumber | undefined;
+
+/**
+ * @see https://github.com/catamphetamine/libphonenumber-js#phonenumber
+ */
+export interface PhoneNumber {
+    number: string;
+    countryCallingCode: string;
+    nationalNumber: string;
+    country?: string;
+    ext?: string;
+    carrierCode?: string;
+}
 
 /**
  * This is simply an alias for getCountryCallingCode() from libphonenumber-js
@@ -102,7 +117,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * Country <select/> component props. Along with the usual DOM properties such as aria-label
      * and tabIndex, some custom properties are supported, such as arrowComponent and unicodeFlags.
      */
-    countrySelectProps?: number;
+    countrySelectProps?: object;
     /**
      * A two-letter country code for formatting `value`
      * when a user inputs a national phone number (example: `(213) 373-4253`).

@@ -2537,6 +2537,22 @@ declare namespace AgoraRTC {
      */
     interface Client {
         /**
+         *  Occurs when the local user receives metadata.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.1.0*
+         *
+         * This callback reports the received metadata and the ID of the user who sends it.
+         * @example **Sample code**
+         * ``` javascript
+         * client.on("receive-metadata", function (evt) {
+         *   console.log("receive metadata from: ", evt.uid);
+         *   console.log("receive metadata: ", evt.metadata);
+         * })
+         * ```
+         */
+         on(event: "receive-metadata", callback: (evt: any) => void): void;
+        /**
          * Occurs when the first remote audio frame is decoded.
          *
          * The SDK triggers this callback when the local client successfully subscribes to a remote stream and decodes the first audio frame.
@@ -2576,6 +2592,18 @@ declare namespace AgoraRTC {
          * ```
          */
         on(event: "stream-published", callback: (evt: any) => void): void;
+        /**
+         * Occurs when the local stream is unpublished.
+         * @example **Sample code**
+         * ``` javascript
+         * client.on("stream-unpublished", function(evt) {
+         *     console.log("local stream unpublished");
+         *     //……
+         * })
+         *
+         * ```
+         */
+        on(event: "stream-unpublished", callback: (evt: any) => void): void;
         /**
          * Occurs when the local stream is unpublished.
          * @example **Sample code**
@@ -3050,6 +3078,30 @@ declare namespace AgoraRTC {
          * client.on("connected", function() {
          *   console.log("connected");
          * });
+         * ```
+         *
+         */
+        on(event: "connected", callback: () => void): void;
+        /**
+         * Occurs when the SDK starts reconnecting to the server automatically after the connection is lost.
+         *
+         * @example **Sample code**
+         * ``` javascript
+         * client.on("reconnect", function() {
+         *   console.log("reconnect");
+         * })
+         * ```
+         *
+         */
+        on(event: "reconnect", callback: () => void): void;
+        /**
+         * Occurs when the SDK is connected to the server.
+         *
+         * @example **Sample code**
+         * ``` javascript
+         * client.on("connected", function() {
+         *   console.log("connected");
+         * })
          * ```
          *
          */
@@ -3785,6 +3837,8 @@ declare namespace AgoraRTC {
          *
          * If this method is called successfully, the server pulls the voice or video stream and injects it into a live channel. This is applicable to scenarios where all of the audience members in the channel can watch a live show and interact with each other. See [Inject an Online Media Stream](https://docs.agora.io/en/Interactive%20Broadcast/inject_stream_web?platform=Web) for details.
          *
+         * If this method is called successfully, the server pulls the voice or video stream and injects it into a live channel. This is applicable to scenarios where all of the audience members in the channel can watch a live show and interact with each other. See [Inject an Online Media Stream](https://docs.agora.io/en/Interactive%20Broadcast/inject_stream_web?platform=Web) for details.
+         *
          * This method call triggers the following callbacks:
          * - On the local client:
          *   - `Client.on("streamInjectedStatus")`, with the state of injecting the online stream.
@@ -4315,6 +4369,23 @@ declare namespace AgoraRTC {
          * ```
          */
         stopChannelMediaRelay(callback: (err: null | ChannelMediaError) => void): void;
+
+        /**
+         * Sends metadata.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.1.0*
+         *
+         * This method adds metadata in a media stream, which allows you to diversify interactions in live broadcasts.
+         * Example metadata includes shopping links, digital coupons, and online quizzes.
+         *
+         * **Note**
+         * - This function supports the H.264 codec only. Ensure that you set `codec` as `"h264"` in `createClient`。
+         * - Ensure that you call this method after successfully publishing a stream.
+         * @param data String, the metadata to send. The maximum size is 1024 bytes.
+         * @param callback The result of sending metadata.
+         */
+        sendMetadata(data: string, callback: (err: null | string) => void): void;
     }
 
     /**

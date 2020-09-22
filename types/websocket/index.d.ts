@@ -24,10 +24,14 @@ export interface IConfig {
     /**
      * The maximum allowed received frame size in bytes.
      * Single frame messages will also be limited to this maximum.
+     * @default 1MiB
      */
     maxReceivedFrameSize?: number;
 
-    /** The maximum allowed aggregate message size (for fragmented messages) in bytes */
+    /**
+     * The maximum allowed aggregate message size (for fragmented messages) in bytes
+     * @default 8MiB
+     */
     maxReceivedMessageSize?: number;
 
     /**
@@ -595,50 +599,33 @@ export interface IClientConfig extends IConfig {
     webSocketVersion?: number;
 
     /**
-     * The maximum allowed received frame size in bytes.
-     * Single frame messages will also be limited to this maximum.
-     * @default 1MiB
-     */
-    maxReceivedFrameSize?: number;
-
-    /**
-     * The maximum allowed aggregate message size (for fragmented messages) in bytes.
-     * @default 8MiB
-     */
-    maxReceivedMessageSize?: number;
-
-    /**
-     * Options to pass to https.request if connecting via TLS.
-     * See Node's HTTPS documentation
+     * Options to pass to `https.request` if connecting via TLS.
      * @see https://nodejs.org/api/https.html#https_https_request_options_callback
      */
     tlsOptions?: https.RequestOptions;
 }
 
 export class client extends events.EventEmitter {
-    protocols: string[];
-    origin: string;
-    url: url.Url;
-    secure: boolean;
-    socket: net.Socket;
-    response: http.IncomingMessage;
-    firstDataChunk: Buffer | null;
-
     constructor(ClientConfig?: IClientConfig);
 
     /**
      * Establish a connection. The remote server will select the best subprotocol that
      * it supports and send that back when establishing the connection.
      *
-     * @param [origin] can be used in user-agent scenarios to identify the page containing
-     *                 any scripting content that caused the connection to be requested.
      * @param requestUrl should be a standard websocket url
+     * @param [requestedProtocols] list of subprotocols supported by the client.
+     *     The remote server will select the best subprotocol that it supports and send that back when establishing the connection.
+     * @param [origin] Used in user-agent scenarios to identify the page containing
+     *     any scripting content that caused the connection to be requested.
+     * @param [headers] additional arbitrary HTTP request headers to send along with the request.
+     *     This may be used to pass things like access tokens, etc. so that the server can verify authentication/authorization
+     *     before deciding to accept and open the full WebSocket connection.
+     * @param [extraRequestOptions] additional configuration options to be passed to `http.request` or `https.request`.
+     *     This can be used to pass a custom `agent` to enable `client` usage from behind an HTTP or HTTPS proxy server
+     *     using {@link https://github.com/koichik/node-tunnel|koichik/node-tunnel} or similar.
+     * @example client.connect('ws://www.mygreatapp.com:1234/websocketapp/')
      */
-    connect(requestUrl: url.Url | string, protocols?: string | string[], origin?: string, headers?: http.OutgoingHttpHeaders, extraRequestOptions?: http.RequestOptions): void;
-
-    validateHandshake(): void;
-    failHandshake(errorDescription: string): void;
-    succeedHandshake(): void;
+    connect(requestUrl: url.Url | string, requestedProtocols?: string | string[], origin?: string, headers?: http.OutgoingHttpHeaders, extraRequestOptions?: http.RequestOptions): void;
 
     /**
      * Will cancel an in-progress connection request before either the `connect` event or the `connectFailed` event has been emitted.

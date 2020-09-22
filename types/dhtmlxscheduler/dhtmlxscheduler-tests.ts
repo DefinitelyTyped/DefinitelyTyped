@@ -37,3 +37,8 @@ scheduler.filter_week = (id: string, e: Event) => true;
 //enterprise version
 var scheduler2 = Scheduler.getSchedulerInstance();
 scheduler2.addEvent({ some: 1 });
+
+//map function for prev/next arrows
+scheduler.date.add_map = function (date, inc) {
+    return scheduler.date.add(date, inc, "month");
+};
