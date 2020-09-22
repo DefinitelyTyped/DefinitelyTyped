@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace diff {
-    export type Path = Array<string | number>;
+    type Path = Array<string | number>;
 
-    export interface AddEvent {
+    interface AddEvent {
         oldPath: Path;
         newPath: Path;
         type: 'add';
@@ -14,7 +14,7 @@ declare namespace diff {
         newValue: unknown;
     }
 
-    export interface RemoveEvent {
+    interface RemoveEvent {
         oldPath: Path;
         newPath: Path;
         type: 'remove';
@@ -22,7 +22,7 @@ declare namespace diff {
         newValue: undefined;
     }
 
-    export interface ChangeEvent {
+    interface ChangeEvent {
         oldPath: Path;
         newPath: Path;
         type: 'change';
@@ -30,7 +30,7 @@ declare namespace diff {
         newValue: unknown;
     }
 
-    export interface AddItemEvent {
+    interface AddItemEvent {
         oldPath: Path;
         newPath: Path;
         type: 'add-item';
@@ -40,7 +40,7 @@ declare namespace diff {
         newValue: unknown;
     }
 
-    export interface RemoveItemEvent {
+    interface RemoveItemEvent {
         oldPath: Path;
         newPath: Path;
         type: 'remove-item';
@@ -50,7 +50,7 @@ declare namespace diff {
         oldValue: unknown;
     }
 
-    export interface MoveItemEvent {
+    interface MoveItemEvent {
         oldPath: Path;
         newPath: Path;
         type: 'move-item';
@@ -59,7 +59,7 @@ declare namespace diff {
         newIndex: number;
     }
 
-    export type Event =
+    type Event =
         | AddEvent
         | RemoveEvent
         | ChangeEvent
@@ -67,11 +67,11 @@ declare namespace diff {
         | RemoveItemEvent
         | MoveItemEvent;
 
-    export interface Options {
+    interface Options {
         idProp?: string;
         idProps?: {
             [path: string]: string;
-        }
+        };
         comparators?: Array<[
             unknown,
             (
