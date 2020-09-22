@@ -3,7 +3,7 @@
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace diff {
+declare namespace simpleDiff {
     type Path = Array<string | number>;
 
     interface AddEvent {
@@ -95,7 +95,7 @@ declare namespace diff {
     }
 }
 
-declare function diff(oldObj: unknown, newObj: unknown, options?: diff.Options): diff.Event[];
+declare function simpleDiff(oldObj: unknown, newObj: unknown, options?: diff.Options): diff.Event[];
 
-export as namespace diff;
-export = diff;
+export as namespace simpleDiff;
+export = simpleDiff;
