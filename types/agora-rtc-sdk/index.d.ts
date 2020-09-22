@@ -1,8 +1,7 @@
-// Type definitions for agora-rtc-sdk 3.1
+// Type definitions for agora-rtc-sdk 3.2
 // Project: https://github.com/AgoraIO/web-archive#readme
 // Definitions by: Yu SiCheng <https://github.com/ysclyy>
 //                 Wangjie <https://github.com/wangjie-agora>
-//                 Zhang Xianyang <https://github.com/disoul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -17,12 +16,52 @@
 // tslint:disable-next-line:export-just-namespace
 export = AgoraRTC;
 export as namespace AgoraRTC;
-
+/**
+ * AgoraRTC is the entry point for all the methods that can be called in Agora Web SDK.
+ *
+ * You can use the AgoraRTC methods to create {@link Client} and {@link Stream} objects.
+ *
+ * Other methods of the AgoraRTC object check for system requirements and set up error logging.
+ */
 declare namespace AgoraRTC {
+    /**
+     * Areas of connection.
+     */
+    enum AREAS {
+        /**
+         * China.
+         */
+        CHINA = "CHINA",
+        /**
+         * Asia, excluding Mainland China.
+         */
+        ASIA = "ASIA",
+        /**
+         * North America.
+         */
+        NORTH_AMERICA = "NORTH_AMERICA",
+        /**
+         * Europe.
+         */
+        EUROPE = "EUROPE",
+        /**
+         * Japan.
+         */
+        JAPAN = "JAPAN",
+        /**
+         * India.
+         */
+        INDIA = "INDIA",
+        /**
+         * Global.
+         */
+        GLOBAL = "GLOBAL",
+    }
+
     /**
      * Gets the Sources for Screen-sharing
      *
-     * To share the screen on Electron, call this method to get the screen sources. See [Share the Screen](../../screensharing_web?platform=Web#electron) for details.
+     * To share the screen in Electron, call this method to get the screen sources. See [Share the Screen](../../screensharing_web?platform=Web#electron) for details.
      *
      * If this method succeeds, the SDK returns a list of screen sources in an array of {@link DesktopCapturerSource} objects.
      * @example **Sample code**
@@ -58,10 +97,10 @@ declare namespace AgoraRTC {
      *
      * **Note**
      *
-     * Agora has yet to conduct comprehensive tests on Chromium kernel browsers, such as QQ and 360.
-     * Agora will gradually achieve compatibility on most mainstream browsers in subsequent versions of the Web SDK.
-     * @returns - true: The Web SDK is compatible with the current web browser.
-     * - false: The Web SDK is not compatible with the current web browser.
+     * - Both the type and version of the browser affect the return value.
+     * - Agora has not conducted comprehensive tests on some Chromium kernel browsers, such as QQ and 360. You can call this method to check if the SDK supports the browser.
+     * @returns - `true`: The Web SDK is compatible with the current web browser.
+     * - `false`: The Web SDK is not compatible with the current web browser.
      */
     function checkSystemRequirements(): boolean;
     /**
@@ -119,7 +158,7 @@ declare namespace AgoraRTC {
      *
      * **Note**
      *
-     * On Safari 12.1 or later, call this method after calling {@link createStream} successfully.
+     * On Chrome 81 or later, Safari, and Firefox, device IDs are only available after the user has granted permissions to use the media device. See [Why can't I get device ID on Chrome 81?](https://docs.agora.io/en/faq/empty_deviceId)
      * @example
      * **Sample code**
      *
@@ -275,18 +314,18 @@ declare namespace AgoraRTC {
             height: number,
         };
         /**
-         * The video frame rate (fps).
+         * The video encoding frame rate (fps). The value range is [1, 10000].
          *
-         * The value range is [1, 10000]. We recommend setting the frame rate between 5 fps and 30 fps.
+         * Set this parameter as a value range. The minimum is **the expected frame rate**, and the maximum is the upper limit of the adjusted frame rate when the browser does not support the expected frame rate.
          *
          * **Note**
-         * - This parameter sets the local capturing video frame rate. The actual encoding frame rate depends on the device, system, and browser.
+         * - The actual encoding frame rate depends on the device, system, and browser.
          * - When the network conditions change, the browser adjusts the encoding frame rate automatically.
          */
         frameRate?: {
-            /** The minimum frame rate. The SDK uses this value as the preferred frame rate. */
+            /** The default frame rate. The SDK uses this value as the expected frame rate. We recommend setting this value between 5 and 30. */
             min: number,
-            /** The maximum frame rate. */
+            /** The upper limit of the frame rate when the browser does not support the frame rate specified by `min`. */
             max: number,
         };
         /**
@@ -677,6 +716,28 @@ declare namespace AgoraRTC {
     }
 
     /**
+     * Configurations for a TURN server in {@link setTurnServer} or {@link createClient}.
+     */
+    interface TurnServer {
+        /** Your TURN Server URL address. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes. */
+        turnServerURL: string;
+        /** Your TURN Server username. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes. */
+        username: string;
+        /** Your TURN Server password. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes. */
+        password: string;
+        /** The UDP port(s) you want to add to TURN Server. Numeric characters only, and the string length must be greater than 0 and less than 256 bytes. */
+        udpport: string;
+        /** The TCP port(s) you want add to TURN Server. Numeric characters only, and the string length must be greater than 0 and less than 256 bytes. */
+        tcpport?: string;
+        /**
+         * Sets whether to force data transfer by TURN Server:
+         * - `true`: Force data transfer.
+         * - `false`: (default) Not to force data transfer.
+         */
+        forceturn?: boolean;
+    }
+
+    /**
      * Logger Settings
      *
      * Provides methods to enable/disable log upload and set output log level.
@@ -701,7 +762,7 @@ declare namespace AgoraRTC {
          * For example, if you set the log level as `AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.INFO);`, then you can see logs in levels INFO, ERROR, and WARNING.
          * @param level The output log level. The default value is {@link DEBUG}.
          */
-        function setLogLevel(level: DEBUG|INFO|WARNING|ERROR|NONE): void;
+        function setLogLevel(level: DEBUG | INFO | WARNING | ERROR | NONE): void;
         /**
          * Enables Log Upload
          *
@@ -750,7 +811,7 @@ declare namespace AgoraRTC {
      * }
      * var client = AgoraRTC.createClient(config);```
      */
-    interface ClientConfig  {
+    interface ClientConfig {
         /**
          * The channel profile.
          *
@@ -801,28 +862,35 @@ declare namespace AgoraRTC {
         /**
          * TURN server configurations.
          *
-         * An array of the `turnServer` objects. You can pass configurations of multiple TURN servers to this property.
+         * An array of the {@link TurnServer} objects. You can pass configurations of multiple TURN servers to this property.
          *
          * You can also use cloud proxy by {@link startProxyServer}. See [Use Cloud Proxy](https://docs.agora.io/en/Agora%20Platform/cloud_proxy_web?platform=Web) for details.
          */
-        turnServer?: {
-            /** Your TURN Server URL address. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes. */
-            turnServerURL: string;
-            /** Your TURN Server username. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes. */
-            username: string;
-            /** Your TURN Server password. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes. */
-            password: string;
-            /** The UDP port(s) you want to add to TURN Server. Numeric characters only, and the string length must be greater than 0 and less than 256 bytes. */
-            udpport: string;
-            /** The TCP port(s) you want add to TURN Server. Numeric characters only, and the string length must be greater than 0 and less than 256 bytes. */
-            tcpport?: string;
-            /**
-             * Sets whether to force data transfer by TURN Server:
-             * - `true`: Force data transfer.
-             * - `false`: (default) Not to force data transfer.
-             */
-            forceturn?: boolean;
-        }[];
+        turnServer?: TurnServer[];
+        /**
+         * The area of connection. This advanced feature applies to scenarios that have regional restrictions.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.1.2*
+         *
+         * By default, the SDK connects to nearby Agora servers. After specifying the area of connection, the SDK connects to the Agora servers within the specified area. For details, see {@link AREAS}.
+         *
+         * **Sample code**
+         * ```js
+         * var config = {
+         *     mode: "live",
+         *     codec: "vp8",
+         *     // Specify the area of connection to only North America.
+         *     areaCode: [AgoraRTC.AREAS.NORTH_AMERICA]
+         * }
+         * var client = AgoraRTC.createClient(config);
+         * ```
+         *
+         * **Note:**
+         *
+         * The regional restriction is a global configuration and applies to the whole web page. If one Client specifies the connection area, all the other Clients created on the same page follow the restriction.
+         */
+        areaCode?: AREAS[];
     }
 
     /**
@@ -952,7 +1020,7 @@ declare namespace AgoraRTC {
     }
 
     /**
-     * A class for configuring the imported live broadcast voice or video stream in {@link addInjectStreamUrl}.
+     * A class for configuring the imported voice or video stream in {@link addInjectStreamUrl}.
      *
      * @example **Sample code**
      * ```javascript
@@ -969,31 +1037,31 @@ declare namespace AgoraRTC {
      */
     interface InjectStreamConfig {
         /**
-         * Width of the added stream to the broadcast.
+         * Width of the added stream to the interactive streaming.
          *
          * Integer, the default value is 0, which is the same width as the original stream. The value range is [0, 10000].
          */
         width?: number;
         /**
-         * Height of the added stream to the broadcast.
+         * Height of the added stream to the interactive streaming.
          *
          * Integer, the default value is 0, which is the same height as the original stream. The value range is [0, 10000].
          */
         height?: number;
         /**
-         * Video GOP of the added stream to the broadcast.
+         * Video GOP of the added stream to the interactive streaming.
          *
          * Positive integer. The default value is 30 frames. The value range is [1, 10000].
          */
         videoGop?: number;
         /**
-         * Video frame rate of the added stream to the broadcast.
+         * Video frame rate of the added stream to the interactive streaming.
          *
          * Positive integer. The default value is 15 fps. The value range is [1, 10000].
          */
         videoFramerate?: number;
         /**
-         * Video bitrate of the added stream to the broadcast.
+         * Video bitrate of the added stream to the interactive streaming.
          *
          * Positive integer. The default value is 400 Kbps. The value range is [1, 10000].
          *
@@ -1003,7 +1071,7 @@ declare namespace AgoraRTC {
          */
         videoBitrate?: number;
         /**
-         * Audio sampling rate of the added stream to the broadcast.
+         * Audio sampling rate of the added stream to the interactive streaming.
          *
          * - 32000: 32 kHz
          * - 44100: (Default) 44.1 kHz
@@ -1015,7 +1083,7 @@ declare namespace AgoraRTC {
          */
         audioSampleRate?: number;
         /**
-         * Audio bitrate of the added stream to the broadcast.
+         * Audio bitrate of the added stream to the interactive streaming.
          *
          * Positive integer. The default value is 48. The value range is [1, 10000].
          *
@@ -1025,7 +1093,7 @@ declare namespace AgoraRTC {
          */
         audioBitrate?: number;
         /**
-         * Audio channels to add into the broadcast.
+         * Audio channels to add into the interactive streaming.
          *
          * Positive integer. The default value is 1. The value range is [1, 2].
          *
@@ -1040,7 +1108,7 @@ declare namespace AgoraRTC {
      * A class defining the `spec` paramter in the {@link createStream} method.
      * [[include:StreamSpec-example.md]]
      */
-    interface StreamSpec  {
+    interface StreamSpec {
         /**
          * The stream ID.
          *
@@ -1113,6 +1181,12 @@ declare namespace AgoraRTC {
         */
         facingMode?: string;
         /**
+         * Sets the video transmission optimization strategy:
+         * - `"motion"`: Prioritizes video smoothness. In most cases, the SDK does not reduce the frame rate, but may reduce the sending resolution.
+         * - `"detail"`: (Default) Prioritizes clarity. In most cases, the SDK does not reduce the sending resolution, but may reduce the frame rate.
+         */
+        optimizationMode?: string;
+        /**
          * Marks whether to mirror the local video image of the publisher in the local preview.
          *
          * This setting does not take effect in screen-sharing streams.
@@ -1120,7 +1194,7 @@ declare namespace AgoraRTC {
          * - `true`: (Default) Mirror the local video.
          * - `false`: Do not mirror the local video.
          *
-         *  Agora recommends enabling this function when using the front camera, and disabling it when using the rear camera.
+         * Agora recommends enabling this function when using the front camera, and disabling it when using the rear camera.
          */
         mirror?: boolean;
         /**
@@ -1638,9 +1712,7 @@ declare namespace AgoraRTC {
          *
          * @returns The audio level. The value range is [0,1].
          */
-
         getAudioLevel(): number | undefined;
-
         /**
          * Retrieves the Audio Track
          *
@@ -1695,8 +1767,8 @@ declare namespace AgoraRTC {
          * - `"NO_STREAM_FOUND"`: The local stream object is not found.
          */
         replaceTrack(MediaStreamTrack: MediaStreamTrack,
-                     onSuccess?: () => void,
-                     onFailure?: (err: string) => void): void;
+            onSuccess?: () => void,
+            onFailure?: (err: string) => void): void;
         /**
          * Adds the Audio or Video Track
          *
@@ -1772,7 +1844,7 @@ declare namespace AgoraRTC {
          *
          * It can be called either before or after the remote stream is played.
          *
-         * @param volume Ranges from 0 (muted) to 100 (loudest).
+         * @param volume Ranges from 0 (muted) to 100 (loudest). The default value is 100.
          */
         setAudioVolume(volume: number): void;
         /**
@@ -1788,8 +1860,8 @@ declare namespace AgoraRTC {
          * @param onFailure The callback when the method fails.
          */
         setAudioOutput(deviceId: string,
-                       onSuccess?: () => void,
-                       onFailure?: (err: string) => void): void;
+            onSuccess?: () => void,
+            onFailure?: (err: string) => void): void;
         /**
          * Switches the Media Input Device
          *
@@ -1941,8 +2013,7 @@ declare namespace AgoraRTC {
          *         return;
          *     }
          *     // Processes after stream playing
-         * })
-         *
+         * });
          * ```
          */
         startAudioMixing(
@@ -1994,8 +2065,6 @@ declare namespace AgoraRTC {
             callback?: (err: string | null) => void): void;
         /**
          * Stops Audio Mixing
-         *
-         * When the audio mixing file playback is stopped, the SDK triggers the `Stream.on("audioMixingFinished")` callback on the local client.
          */
         stopAudioMixing(callback?: (err: string | null) => void): void;
         /**
@@ -2328,6 +2397,11 @@ declare namespace AgoraRTC {
          * **Since**
          * <br>&emsp;&emsp;&emsp;*3.0.0*
          *
+         * This method is asynchronous, and must be called with `Promise` or `async`/`await` keywords.
+         *
+         * The image enhancement function involves real-time compute-intensive processing. Though it is based on hardware acceleration, the processing has high GPU and CPU overheads.
+         * For low-end devices, enabling image enhancement affects the system performance. When the video resolution is set as 360p, 720p or higher, and the frame rate is set as 30 fps or 15 fps, do not enable image enhancement.
+         *
          * This method supports the following browsers:
          *   * Safari 12 or later
          *   * Chrome 65 or later
@@ -2337,30 +2411,35 @@ declare namespace AgoraRTC {
          *
          * - This function does not support mobile devices.
          * - If the dual-stream mode is enabled ({@link enableDualStream}), the image enhancement options apply only to the high-quality video stream.
+         * - To enable image enhancement for video streams created by {@link replaceTrack} or {@link addTrack}, call `setBeautyEffectOptions` after the method call of `replaceTrack` or `addTrack` succeeds.
          * - If image enhancement is enabled, you must call this method to disable it before calling the following methods:
          *   - {@link leave}
          *   - {@link stop}
+         *   - {@link replaceTrack}
          *   - {@link removeTrack}
          *   - {@link unpublish}
-         * - The image enhancement function involves real-time compute-intensive processing. Though it is based on hardware acceleration, the processing has high GPU and CPU overheads.
-         * For low-end devices, enabling image enhancement affects the system performance. When the video resolution is set as 360p, 720p or higher, and the frame rate is set as 30 fps or 15 fps, do not enable image enhancement.
+         * - To enable image enhancement immediately after creating a video stream, call this method in the `Client.on("stream-published")` callback.
          *
-         * @param enabled Sets whether to enable image enhancement:
+         * @param enabled Whether to enable image enhancement:
          *
-         * - `true`: Enables image enhancement.
-         * - `false`: (Default) Disables image enhancement.
+         * - `true`: Enable image enhancement.
+         * - `false`: (Default) Disable image enhancement.
          * @param options The image enhancement options.
+         * @returns A promise object, which is resolved after the method call succeeds.
          *
          * @example **Sample code**
          *
          * ``` javascript
-         * stream.setBeautyEffectOptions(true, {
-         *     lighteningContrastLevel: 1,
-         *     lighteningLevel: 0.7,
-         *     smoothnessLevel: 0.5,
-         *     rednessLevel: 0.1
-         * });
-         *
+         * var streamPublishedHandler = async function() {
+         *     await localStream.setBeautyEffectOptions(true, {
+         *         lighteningContrastLevel: 1,
+         *         lighteningLevel: 0.7,
+         *         smoothnessLevel: 0.5,
+         *         rednessLevel: 0.1
+         *     });
+         *     client.off("stream-published", streamPublishedHandler);
+         * }
+         * client.on("stream-published", streamPublishedHandler);
          * ```
          */
         setBeautyEffectOptions(
@@ -2389,7 +2468,7 @@ declare namespace AgoraRTC {
                  */
                 rednessLevel?: number
             },
-        ): void;
+        ): Promise<void>;
         /**
          * Retrieves the Stream ID
          *
@@ -2458,22 +2537,6 @@ declare namespace AgoraRTC {
      */
     interface Client {
         /**
-         *  Occurs when the local user receives metadata.
-         *
-         * **Since**
-         * <br>&emsp;&emsp;&emsp;*3.1.0*
-         *
-         * This callback reports the received metadata and the ID of the user who sends it.
-         * @example **Sample code**
-         * ``` javascript
-         * client.on("receive-metadata", function (evt) {
-         *   console.log("receive metadata from: ", evt.uid);
-         *   console.log("receive metadata: ", evt.metadata);
-         * })
-         * ```
-         */
-         on(event: "receive-metadata", callback: (evt: any) => void): void;
-        /**
          * Occurs when the first remote audio frame is decoded.
          *
          * The SDK triggers this callback when the local client successfully subscribes to a remote stream and decodes the first audio frame.
@@ -2484,8 +2547,7 @@ declare namespace AgoraRTC {
          * client.on('first-audio-frame-decode', function (evt) {
          *   console.log('first-audio-frame-decode');
          *   console.log(evt.stream);
-         * })
-         *
+         * });
          * ```
          */
         on(event: "first-audio-frame-decode", callback: (evt: any) => void): void;
@@ -2499,8 +2561,7 @@ declare namespace AgoraRTC {
          * client.on('first-video-frame-decode', function (evt) {
          *   console.log('first-video-frame-decode');
          *   console.log(evt.stream);
-         * })
-         *
+         * });
          * ```
          */
         on(event: "first-video-frame-decode", callback: (evt: any) => void): void;
@@ -2511,8 +2572,7 @@ declare namespace AgoraRTC {
          * client.on("stream-published", function(evt) {
          *     console.log("local stream published");
          *     //……
-         * })
-         *
+         * });
          * ```
          */
         on(event: "stream-published", callback: (evt: any) => void): void;
@@ -2541,8 +2601,7 @@ declare namespace AgoraRTC {
          *     console.log("new stream added ", stream.getId());
          *     // Subscribe the stream.
          *     //……
-         * })
-         *
+         * });
          * ```
          *
          */
@@ -2569,8 +2628,7 @@ declare namespace AgoraRTC {
          *     console.log("new stream subscribed ", stream.getId());
          *     // Play the stream.
          *     //……
-         * })
-         *
+         * });
          * ```
          */
         on(event: "stream-subscribed", callback: (evt: any) => void): void;
@@ -2665,8 +2723,7 @@ declare namespace AgoraRTC {
          *   var uid = evt.uid;
          *   console.log("mute video" + uid);
          *   //alert("mute video:" + uid);
-         * })
-         *
+         * });
          * ```
          */
         on(event: "mute-video", callback: (evt: any) => void): void;
@@ -2677,8 +2734,7 @@ declare namespace AgoraRTC {
          * client.on("unmute-video", function (evt) {
          *   var uid = evt.uid;
          *   console.log("unmute video:" + uid);
-         * })
-         *
+         * });
          * ```
          */
         on(event: "unmute-video", callback: (evt: any) => void): void;
@@ -2909,7 +2965,7 @@ declare namespace AgoraRTC {
          * ``` javascript
          * client.on("connection-state-change", function(evt) {
          *   console.log(evt.prevState, evt.curState);
-         * })
+         * });
          * ```
          */
         on(event: "connection-state-change", callback: (evt: {
@@ -2926,7 +2982,7 @@ declare namespace AgoraRTC {
          * ``` javascript
          * client.on("stream-reconnect-start", function(evt) {
          *   console.log(evt.uid);
-         * })
+         * });
          * ```
          */
         on(event: "stream-reconnect-start", callback: (evt: {
@@ -2934,33 +2990,34 @@ declare namespace AgoraRTC {
             uid: number | string
         }) => void): void;
         /**
-         * Occurs when the SDK finishes republishing or re-subscribing to a stream.
+         * Occurs when the SDK finishes republishing or resubscribing to a stream.
          *
          * @example **Sample code**
          *
          * ``` javascript
          * client.on('stream-reconnect-end', function(evt) {
          *   console.log(evt.uid, evt.success, evt.reason);
-         * })
+         * });
          * ```
          */
         on(event: "stream-reconnect-end", callback: (evt: {
-            /** The corresponding uid of the stream being republished or re-subscribed to. */
+            /** The corresponding uid of the stream being republished or resubscribed to. */
             uid: number | string,
             /**
-             * The result of republishing or re-subscribing to the stream.
+             * The result of republishing or resubscribing to the stream.
              * - `true`: Success.
              * - `false`: Failure.
              */
             success: boolean,
             /**
              * - An empty string if `success` is `true`.
-             * - The failure reason if `success` is `false`.
+             * - The failure reason if `success` is `false`. Possible reasons:
+             *   - `REQUEST_ABORT`: The republishing or resubscribing is interrupted by server reconnection. After the SDK reconnects to the server, the republishing or resubscribing resumes. You can ignore this error.
              */
             reason: string,
         }) => void): void;
         /**
-         * Occurs when the user role switches in a live broadcast. For example, from a host to an audience or vice versa.
+         * Occurs when the user role switches in a live interactive streaming scenario. For example, from a host to an audience or vice versa.
          *
          * @example **Sample code**
          *
@@ -2971,8 +3028,8 @@ declare namespace AgoraRTC {
          * ```
          */
         on(event: "client-role-changed", callback: (evt:
-                                                        /** @param role Role that the user switches to. */
-                                                        { role: string }) => void): void;
+            /** @param role Role that the user switches to. */
+            { role: string }) => void): void;
         /**
          * Occurs when the SDK starts reconnecting to the server automatically after the connection is lost.
          *
@@ -2980,7 +3037,7 @@ declare namespace AgoraRTC {
          * ``` javascript
          * client.on("reconnect", function() {
          *   console.log("reconnect");
-         * })
+         * });
          * ```
          *
          */
@@ -2992,7 +3049,7 @@ declare namespace AgoraRTC {
          * ``` javascript
          * client.on("connected", function() {
          *   console.log("connected");
-         * })
+         * });
          * ```
          *
          */
@@ -3072,7 +3129,7 @@ declare namespace AgoraRTC {
          * ``` javascript
          * client.on("exception", function(evt) {
          *   console.log(evt.code, evt.msg, evt.uid);
-         * })
+         * });
          * ```
          */
         on(event: "exception", callback: (evt: {
@@ -3175,7 +3232,7 @@ declare namespace AgoraRTC {
          *   console.log("Stream Published");
          *   evt.stream.play("divId");
          *   client.off("stream-published", processStreamPublished);
-         * })
+         * });
          * ```
          */
         off(eventType: string, callback: any): void;
@@ -3236,6 +3293,7 @@ declare namespace AgoraRTC {
          * - Punctuation characters and other symbols, including: "!", "#", "$", "%", "&", "(", ")", "+", "-", ":", ";", "<", "=", ".", ">", "?", "@", "[", "]", "^", "_", " {", "}", "|", "~", ",".
          * @param uid The user ID, an integer or a string, ASCII characters only. Ensure this ID is unique.
          *            If you set the uid to `null` or `0`, the server assigns one and returns it in the `onSuccess` callback.
+         * @param optionalInfo (Optional) Additional information that you want to pass in. You can leave this parameter as empty or pass in channel-related information. Other users in the channel do not receive this information.
          *
          * **Note**
          *
@@ -3294,13 +3352,13 @@ declare namespace AgoraRTC {
          *
          * **Note**
          *
-         * In a live broadcast, whoever calls this API is the host.
+         * In a live interactive streaming channel, whoever calls this API is the host.
          * @example **Sample code**
          * ``` javascript
          * client.publish(stream, function(err) {
          *     console.log(err);
          *     //……
-         * })
+         * });
          * ```
          * @param stream Stream object, which represents the local stream.
          * @param onFailure The callback when the method fails. The following are common errors:
@@ -3316,19 +3374,18 @@ declare namespace AgoraRTC {
          *
          * This method unpublishes the local stream.
          *
-         * When the stream is unpublished, the `Client.on("stream-removed")` callback is triggered on the remote client.
+         * When the stream is unpublished, the `Client.on("stream-unpublished")` callback is triggered on the local client, and the `Client.on("stream-removed")` callback is triggered on the remote client.
          *
          * **Note**
          *
-         * In a live broadcast, the user role of a host switches to audience after unpublishing, and the `Client.on("peer-leave")` callback is triggered on the remote client.
+         * In a live interactive streaming scenario, the user role of a host switches to audience after unpublishing, and the `Client.on("peer-leave")` callback is triggered on the remote client.
          * @example
          * **Sample code**
          * ``` javascript
          * client.unpublish(stream, function(err) {
          *     console.log(err);
          *     //……
-         * })
-         *
+         * });
          * ```
          * @param stream Stream object, which represents the local stream.
          * @param onFailure The callback when the method fails. The following are common errors:
@@ -3407,8 +3464,7 @@ declare namespace AgoraRTC {
          * client.unsubscribe(stream, function(err) {
          *     console.log(err);
          *     //……
-         * })
-         *
+         * });
          * ```
          * @param stream Stream object, which represents the remote stream.
          * @param onFailure The callback when the method fails. The following are common errors:
@@ -3440,7 +3496,7 @@ declare namespace AgoraRTC {
          *
          * In communication mode ([[mode]] set as `rtc`), this method does not take effect. All users are `host` by default.
          *
-         * @param role User role in a live broadcast:
+         * @param role User role:
          *
          * - `"audience"`: Audience, the default role. An audience can only receive streams.
          * - `"host"`: Host. A host can both send and receive streams.
@@ -3462,7 +3518,7 @@ declare namespace AgoraRTC {
         /**
          * Enables Dual Stream
          *
-         * This method enables the dual-stream mode on the publisher side. We recommend calling this method after joining a channel({@link Client.join}).
+         * This method enables dual-stream mode on the publisher side. We recommend calling this method after joining a channel({@link Client.join}).
          *
          * Dual streams are a hybrid of a high-quality video stream and a low-quality video stream:
          *
@@ -3475,7 +3531,6 @@ declare namespace AgoraRTC {
          *
          * This method does not apply to the following scenarios:
          *
-         * -   The stream is created by defining the [[audioSource]] and [[videoSource]] properties.
          * -   Audio-only mode (audio: true, video: false)
          * -   Safari browser
          * -   Screen-sharing scenario
@@ -3485,7 +3540,7 @@ declare namespace AgoraRTC {
          *   console.log("Enable dual stream success!")
          * }, function(err) {
          *   console.log(err)
-         * })
+         * });
          * ```
          * @param onSuccess The callback when the method succeeds.
          * @param onFailure The callback when the method fails. The following are common errors:
@@ -3614,7 +3669,7 @@ declare namespace AgoraRTC {
          *   console.log("Disable dual stream success!")
          * }, function(err) {
          *   console.log(err)
-         * })
+         * });
          * ```
          * @param onSuccess The callback when the method succeeds.
          * @param onFailure The callback when the method fails. The following are common errors:
@@ -3726,7 +3781,7 @@ declare namespace AgoraRTC {
          */
         stopLiveStreaming(url: string): void;
         /**
-         * Injects an Online Media Stream to a Live Broadcast
+         * Injects an online media stream to a live interactive streaming channel.
          *
          * If this method is called successfully, the server pulls the voice or video stream and injects it into a live channel. This is applicable to scenarios where all of the audience members in the channel can watch a live show and interact with each other. See [Inject an Online Media Stream](https://docs.agora.io/en/Interactive%20Broadcast/inject_stream_web?platform=Web) for details.
          *
@@ -3750,8 +3805,8 @@ declare namespace AgoraRTC {
         /**
          * Removes the Injected Stream
          *
-         * This method removes the HTTP/HTTPS URL address (added by [[addInjectStreamUrl]]) from the live broadcast.
-         * @param url URL address of the live streaming. ASCII characters only, and the string length must be greater that 0 and less than 256 bytes.
+         * This method removes the HTTP/HTTPS URL address (added by [[addInjectStreamUrl]]) from the live interactive streaming.
+         * @param url URL address of the injected stream. ASCII characters only, and the string length must be greater that 0 and less than 256 bytes.
          */
         removeInjectStreamUrl(url: string): void;
         /**
@@ -3759,16 +3814,16 @@ declare namespace AgoraRTC {
          *
          * This method must be called before joining the channel or after leaving the channel.
          *
-         * To use the cloud proxy service, some extra settings are needed, see [Use Cloud Proxy](https://docs.agora.io/en/Interactive%20Broadcast/cloud_proxy_web?platform=Web) for details.
+         * To use the cloud proxy service, some extra configurations are needed, see [Use Cloud Proxy](https://docs.agora.io/en/Interactive%20Broadcast/cloud_proxy_web?platform=Web) for details.
          */
-        startProxyServer(): void;
+        startProxyServer(type?: number): void;
         /**
-         * Disables Cloud Proxy
-         *
-         * This method must be called before joining the channel or after leaving the channel.
-         *
-         * This method disables all proxy settings, including those set by [[setProxyServer]] and [[setTurnServer]].
-         */
+        * Disables Cloud Proxy
+        *
+        * This method must be called before joining the channel or after leaving the channel.
+        *
+        * This method disables all proxy settings, including those set by [[setProxyServer]] and [[setTurnServer]].
+        */
         stopProxyServer(): void;
         /**
          * Deploys a Proxy Server
@@ -3797,23 +3852,23 @@ declare namespace AgoraRTC {
          *
          * Ensure that you call this API before {@link Client.join}.
          * @example `client.setTurnServer(config);`
-         * @param turnServer The TURN server settings. See {@link ClientConfig.turnServer} for details.
+         * @param turnServer An array of the {@link TurnServer} objects. You can pass configurations of multiple TURN servers to this parameter.
          */
-        setTurnServer(turnServer: ClientConfig["turnServer"]): void;
+        setTurnServer(turnServer: TurnServer[]): void;
         /**
          * Enables Built-in Encryption
          *
          * Use this method with [[setEncryptionMode]] method to enable the built-in encryption before joining a channel.
          *
-         * All users in a channel must set the same encryption password.
+         * All users in a channel must set the same encryption secret.
          *
          * **Note**
          *
          * - Ensure you call [[setEncryptionSecret]] and [[setEncryptionMode]] before joining the channel, otherwise the encryption is disabled.
          * - Do not use this method for CDN live streaming.
-         * - If the encryption password is incorrect, the SDK triggers the `Client.on("crypt-error")` callback when publishing or subscribing to a stream.
+         * - If the encryption secret is incorrect, the SDK triggers the `Client.on("crypt-error")` callback when publishing or subscribing to a stream.
          * @example `client.setEncryptionSecret(password)`
-         * @param password The encryption password. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes.
+         * @param password The encryption secret. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes.
          */
         setEncryptionSecret(password: string): void;
         /**
@@ -3831,12 +3886,13 @@ declare namespace AgoraRTC {
          * @example `client.setEncryptionMode(encryptionMode);`
          * @param encryptionMode The encryption mode:
          *
-         * - aes-128-xts: Sets the encryption mode as AES128XTS.
-         * - aes-256-xts: Sets the encryption mode as AES256XTS.
-         * - aes-128-ecb: Sets the encryption mode as AES128ECB.
+         * - `"aes-128-xts"`: 128-bit AES encryption, XTS mode.
+         * - `"aes-256-xts"`: 128-bit AES encryption, ECB mode.
+         * - `"aes-128-ecb"`: 256-bit AES encryption, XTS mode.
+         * - `"none"`: No encryption.
          */
         setEncryptionMode(
-            encryptionMode: "aes-128-xts" | "aes-256-xts" | "aes-128-ecb"
+            encryptionMode: "aes-128-xts" | "aes-256-xts" | "aes-128-ecb" | "none"
         ): void;
         /**
          * Renews the Token
@@ -3951,7 +4007,7 @@ declare namespace AgoraRTC {
          *
          * **Note**
          *
-         * - The statistics are calculated after the `stream-subscribed` event, which may take at most 3 seconds.
+         * - The statistics are calculated after the `stream-subscribed` event, which may take at most 3 seconds. You can call this method periodically.
          * - This method supports the Chrome browser only.
          *
          * @param callback The callback contains the statistics of the remote audio stream.
@@ -3959,19 +4015,21 @@ declare namespace AgoraRTC {
          * @example **Sample code**
          *
          * ``` javascript
-         * client.getRemoteAudioStats((remoteAudioStatsMap) => {
+         * setInterval(() => {
+         *   client.getRemoteAudioStats((remoteAudioStatsMap) => {
          *     for(var uid in remoteAudioStatsMap){
-         *          console.log(`Audio CodecType from ${uid}: ${remoteAudioStatsMap[uid].CodecType}`);
-         *          console.log(`Audio End2EndDelay from ${uid}: ${remoteAudioStatsMap[uid].End2EndDelay}`);
-         *          console.log(`Audio MuteState from ${uid}: ${remoteAudioStatsMap[uid].MuteState}`);
-         *          console.log(`Audio PacketLossRate from ${uid}: ${remoteAudioStatsMap[uid].PacketLossRate}`);
-         *          console.log(`Audio RecvBitrate from ${uid}: ${remoteAudioStatsMap[uid].RecvBitrate}`);
-         *          console.log(`Audio RecvLevel from ${uid}: ${remoteAudioStatsMap[uid].RecvLevel}`);
-         *          console.log(`Audio TotalFreezeTime from ${uid}: ${remoteAudioStatsMap[uid].TotalFreezeTime}`);
-         *          console.log(`Audio TotalPlayDuration from ${uid}: ${remoteAudioStatsMap[uid].TotalPlayDuration}`);
-         *          console.log(`Audio TransportDelay from ${uid}: ${remoteAudioStatsMap[uid].TransportDelay}`);
+         *       console.log(`Audio CodecType from ${uid}: ${remoteAudioStatsMap[uid].CodecType}`);
+         *       console.log(`Audio End2EndDelay from ${uid}: ${remoteAudioStatsMap[uid].End2EndDelay}`);
+         *       console.log(`Audio MuteState from ${uid}: ${remoteAudioStatsMap[uid].MuteState}`);
+         *       console.log(`Audio PacketLossRate from ${uid}: ${remoteAudioStatsMap[uid].PacketLossRate}`);
+         *       console.log(`Audio RecvBitrate from ${uid}: ${remoteAudioStatsMap[uid].RecvBitrate}`);
+         *       console.log(`Audio RecvLevel from ${uid}: ${remoteAudioStatsMap[uid].RecvLevel}`);
+         *       console.log(`Audio TotalFreezeTime from ${uid}: ${remoteAudioStatsMap[uid].TotalFreezeTime}`);
+         *       console.log(`Audio TotalPlayDuration from ${uid}: ${remoteAudioStatsMap[uid].TotalPlayDuration}`);
+         *       console.log(`Audio TransportDelay from ${uid}: ${remoteAudioStatsMap[uid].TransportDelay}`);
          *     }
-         * });
+         *   });
+         * }, 1000)
          * ```
          */
         getRemoteAudioStats(callback: (stats: RemoteAudioStatsMap) => void): void;
@@ -3982,7 +4040,7 @@ declare namespace AgoraRTC {
          *
          * **Note**
          *
-         * - Some of the statistics are calculated after the `stream-published` event, which may take at most 3 seconds.
+         * - Some of the statistics are calculated after the `stream-published` event, which may take at most 3 seconds. You can call this method periodically.
          * - This method supports the Chrome browser only.
          *
          * @param callback The callback contains the statistics of the local audio stream.
@@ -3990,16 +4048,18 @@ declare namespace AgoraRTC {
          * @example **Sample code**
          *
          * ``` javascript
-         * client.getLocalAudioStats((localAudioStats) => {
+         * setInterval(() => {
+         *   client.getLocalAudioStats((localAudioStats) => {
          *     for(var uid in localAudioStats){
-         *          console.log(`Audio CodecType from ${uid}: ${localAudioStats[uid].CodecType}`);
-         *          console.log(`Audio MuteState from ${uid}: ${localAudioStats[uid].MuteState}`);
-         *          console.log(`Audio RecordingLevel from ${uid}: ${localAudioStats[uid].RecordingLevel}`);
-         *          console.log(`Audio SamplingRate from ${uid}: ${localAudioStats[uid].SamplingRate}`);
-         *          console.log(`Audio SendBitrate from ${uid}: ${localAudioStats[uid].SendBitrate}`);
-         *          console.log(`Audio SendLevel from ${uid}: ${localAudioStats[uid].SendLevel}`);
+         *       console.log(`Audio CodecType from ${uid}: ${localAudioStats[uid].CodecType}`);
+         *       console.log(`Audio MuteState from ${uid}: ${localAudioStats[uid].MuteState}`);
+         *       console.log(`Audio RecordingLevel from ${uid}: ${localAudioStats[uid].RecordingLevel}`);
+         *       console.log(`Audio SamplingRate from ${uid}: ${localAudioStats[uid].SamplingRate}`);
+         *       console.log(`Audio SendBitrate from ${uid}: ${localAudioStats[uid].SendBitrate}`);
+         *       console.log(`Audio SendLevel from ${uid}: ${localAudioStats[uid].SendLevel}`);
          *     }
-         * });
+         *   });
+         * }, 1000)
          * ```
          */
         getLocalAudioStats(callback: (stats: LocalAudioStatsMap) => void): void;
@@ -4010,7 +4070,7 @@ declare namespace AgoraRTC {
          *
          * **Note**
          *
-         * - The statistics are calculated after the `stream-subscribed` event, which may take at most 3 seconds.
+         * - The statistics are calculated after the `stream-subscribed` event, which may take at most 3 seconds. You can call this method periodically.
          * - This method supports the Chrome browser only.
          *
          * @param callback The callback contains the statistics of the remote video stream.
@@ -4018,22 +4078,24 @@ declare namespace AgoraRTC {
          * @example **Sample code**
          *
          * ``` javascript
-         * client.getRemoteVideoStats((remoteVideoStatsMap) => {
+         * setInterval(() => {
+         *   client.getRemoteVideoStats((remoteVideoStatsMap) => {
          *     for(var uid in remoteVideoStatsMap){
-         *          console.log(`Video End2EndDelay from ${uid}: ${remoteVideoStatsMap[uid].End2EndDelay}`);
-         *          console.log(`Video MuteState from ${uid}: ${remoteVideoStatsMap[uid].MuteState}`);
-         *          console.log(`Video PacketLossRate from ${uid}: ${remoteVideoStatsMap[uid].PacketLossRate}`);
-         *          console.log(`Video RecvBitrate from ${uid}: ${remoteVideoStatsMap[uid].RecvBitrate}`);
-         *          console.log(`Video RecvResolutionHeight from ${uid}: ${remoteVideoStatsMap[uid].RecvResolutionHeight}`);
-         *          console.log(`Video RecvResolutionWidth from ${uid}: ${remoteVideoStatsMap[uid].RecvResolutionWidth}`);
-         *          console.log(`Video RenderFrameRate from ${uid}: ${remoteVideoStatsMap[uid].RenderFrameRate}`);
-         *          console.log(`Video RenderResolutionHeight from ${uid}: ${remoteVideoStatsMap[uid].RenderResolutionHeight}`);
-         *          console.log(`Video RenderResolutionWidth from ${uid}: ${remoteVideoStatsMap[uid].RenderResolutionWidth}`);
-         *          console.log(`Video TotalFreezeTime from ${uid}: ${remoteVideoStatsMap[uid].TotalFreezeTime}`);
-         *          console.log(`Video TotalPlayDuration from ${uid}: ${remoteVideoStatsMap[uid].TotalPlayDuration}`);
-         *          console.log(`Video TransportDelay from ${uid}: ${remoteVideoStatsMap[uid].TransportDelay}`);
+         *       console.log(`Video End2EndDelay from ${uid}: ${remoteVideoStatsMap[uid].End2EndDelay}`);
+         *       console.log(`Video MuteState from ${uid}: ${remoteVideoStatsMap[uid].MuteState}`);
+         *       console.log(`Video PacketLossRate from ${uid}: ${remoteVideoStatsMap[uid].PacketLossRate}`);
+         *       console.log(`Video RecvBitrate from ${uid}: ${remoteVideoStatsMap[uid].RecvBitrate}`);
+         *       console.log(`Video RecvResolutionHeight from ${uid}: ${remoteVideoStatsMap[uid].RecvResolutionHeight}`);
+         *       console.log(`Video RecvResolutionWidth from ${uid}: ${remoteVideoStatsMap[uid].RecvResolutionWidth}`);
+         *       console.log(`Video RenderFrameRate from ${uid}: ${remoteVideoStatsMap[uid].RenderFrameRate}`);
+         *       console.log(`Video RenderResolutionHeight from ${uid}: ${remoteVideoStatsMap[uid].RenderResolutionHeight}`);
+         *       console.log(`Video RenderResolutionWidth from ${uid}: ${remoteVideoStatsMap[uid].RenderResolutionWidth}`);
+         *       console.log(`Video TotalFreezeTime from ${uid}: ${remoteVideoStatsMap[uid].TotalFreezeTime}`);
+         *       console.log(`Video TotalPlayDuration from ${uid}: ${remoteVideoStatsMap[uid].TotalPlayDuration}`);
+         *       console.log(`Video TransportDelay from ${uid}: ${remoteVideoStatsMap[uid].TransportDelay}`);
          *     }
-         * });
+         *   });
+         * }, 1000)
          * ```
          *
          */
@@ -4045,7 +4107,7 @@ declare namespace AgoraRTC {
          *
          * **Note**
          *
-         * - Some of the statistics are calculated after the `stream-published` event, which may take at most 3 seconds.
+         * - Some of the statistics are calculated after the `stream-published` event, which may take at most 3 seconds. You can call this method periodically.
          * - This method supports the Chrome browser only.
          *
          * @param callback The callback contains the statistics of the local video stream.
@@ -4053,22 +4115,24 @@ declare namespace AgoraRTC {
          * @example **Sample code**
          *
          * ``` javascript
-         * client.getLocalVideoStats((localVideoStats) => {
+         * setInterval(() => {
+         *   client.getLocalVideoStats((localVideoStats) => {
          *     for(var uid in localVideoStats){
-         *          console.log(`Video CaptureFrameRate from ${uid}: ${localVideoStats[uid].CaptureFrameRate}`);
-         *          console.log(`Video CaptureResolutionHeight from ${uid}: ${localVideoStats[uid].CaptureResolutionHeight}`);
-         *          console.log(`Video CaptureResolutionWidth from ${uid}: ${localVideoStats[uid].CaptureResolutionWidth}`);
-         *          console.log(`Video EncodeDelay from ${uid}: ${localVideoStats[uid].EncodeDelay}`);
-         *          console.log(`Video MuteState from ${uid}: ${localVideoStats[uid].MuteState}`);
-         *          console.log(`Video SendBitrate from ${uid}: ${localVideoStats[uid].SendBitrate}`);
-         *          console.log(`Video SendFrameRate from ${uid}: ${localVideoStats[uid].SendFrameRate}`);
-         *          console.log(`Video SendResolutionHeight from ${uid}: ${localVideoStats[uid].SendResolutionHeight}`);
-         *          console.log(`Video SendResolutionWidth from ${uid}: ${localVideoStats[uid].SendResolutionWidth}`);
-         *          console.log(`Video TargetSendBitrate from ${uid}: ${localVideoStats[uid].TargetSendBitrate}`);
-         *          console.log(`Video TotalDuration from ${uid}: ${localVideoStats[uid].TotalDuration}`);
-         *          console.log(`Video TotalFreezeTime from ${uid}: ${localVideoStats[uid].TotalFreezeTime}`);
+         *       console.log(`Video CaptureFrameRate from ${uid}: ${localVideoStats[uid].CaptureFrameRate}`);
+         *       console.log(`Video CaptureResolutionHeight from ${uid}: ${localVideoStats[uid].CaptureResolutionHeight}`);
+         *       console.log(`Video CaptureResolutionWidth from ${uid}: ${localVideoStats[uid].CaptureResolutionWidth}`);
+         *       console.log(`Video EncodeDelay from ${uid}: ${localVideoStats[uid].EncodeDelay}`);
+         *       console.log(`Video MuteState from ${uid}: ${localVideoStats[uid].MuteState}`);
+         *       console.log(`Video SendBitrate from ${uid}: ${localVideoStats[uid].SendBitrate}`);
+         *       console.log(`Video SendFrameRate from ${uid}: ${localVideoStats[uid].SendFrameRate}`);
+         *       console.log(`Video SendResolutionHeight from ${uid}: ${localVideoStats[uid].SendResolutionHeight}`);
+         *       console.log(`Video SendResolutionWidth from ${uid}: ${localVideoStats[uid].SendResolutionWidth}`);
+         *       console.log(`Video TargetSendBitrate from ${uid}: ${localVideoStats[uid].TargetSendBitrate}`);
+         *       console.log(`Video TotalDuration from ${uid}: ${localVideoStats[uid].TotalDuration}`);
+         *       console.log(`Video TotalFreezeTime from ${uid}: ${localVideoStats[uid].TotalFreezeTime}`);
          *     }
-         * });
+         *   });
+         * }, 1000)
          * ```
          */
         getLocalVideoStats(callback: (stats: LocalVideoStatsMap) => void): void;
@@ -4079,7 +4143,7 @@ declare namespace AgoraRTC {
          *
          * **Note**
          *
-         * - Calculation of the statistics may take at most 3 seconds.
+         * - Calculation of the statistics may take at most 3 seconds. You can call this method periodically.
          * - This method supports the Chrome browser only.
          *
          * @param callback The callback contains the statistics of the transmission quality.
@@ -4087,11 +4151,13 @@ declare namespace AgoraRTC {
          * @example **Sample code**
          *
          * ``` javascript
-         * client.getTransportStats((stats) => {
+         * setInterval(() => {
+         *   client.getTransportStats((stats) => {
          *     console.log(`Current Transport RTT: ${stats.RTT}`);
          *     console.log(`Current Network Type: ${stats.networkType}`);
          *     console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
-         * });
+         *   });
+         * }, 1000)
          * ```
          */
         getTransportStats(callback: (stats: TransportStats) => void): void;
@@ -4102,7 +4168,7 @@ declare namespace AgoraRTC {
          *
          * **Note**
          *
-         * - This method should be called after joining the channel, and it may take at most 3 seconds to retrieve the statistics.
+         * - This method should be called after joining the channel, and it may take at most 3 seconds to retrieve the statistics. You can call this method periodically.
          * - This method supports the Chrome browser only.
          *
          * @param callback The callback contains the statistics of the session connection.
@@ -4110,14 +4176,16 @@ declare namespace AgoraRTC {
          * @example **Sample code**
          *
          * ``` javascript
-         * client.getSessionStats((stats) => {
+         * setInterval(() => {
+         *   client.getSessionStats((stats) => {
          *     console.log(`Current Session Duration: ${stats.Duration}`);
          *     console.log(`Current Session UserCount: ${stats.UserCount}`);
          *     console.log(`Current Session SendBytes: ${stats.SendBytes}`);
          *     console.log(`Current Session RecvBytes: ${stats.RecvBytes}`);
          *     console.log(`Current Session SendBitrate: ${stats.SendBitrate}`);
          *     console.log(`Current Session RecvBitrate: ${stats.RecvBitrate}`);
-         * });
+         *   });
+         * }, 1000)
          * ```
          */
         getSessionStats(callback: (stats: SessionStats) => void): void;
@@ -4155,7 +4223,7 @@ declare namespace AgoraRTC {
          *
          * **Note**
          *
-         * - Contact sales-us@agora.io to enable this function.
+         * - Contact support@agora.io to enable this function.
          * - We do not support string user IDs in this API.
          * - Call this method only after joining a channel.
          * - In a live-broadcast channel, only a host can call this method.
@@ -4247,23 +4315,6 @@ declare namespace AgoraRTC {
          * ```
          */
         stopChannelMediaRelay(callback: (err: null | ChannelMediaError) => void): void;
-
-        /**
-         * Sends metadata.
-         *
-         * **Since**
-         * <br>&emsp;&emsp;&emsp;*3.1.0*
-         *
-         * This method adds metadata in a media stream, which allows you to diversify interactions in live broadcasts.
-         * Example metadata includes shopping links, digital coupons, and online quizzes.
-         *
-         * **Note**
-         * - This function supports the H.264 codec only. Ensure that you set `codec` as `"h264"` in `createClient`。
-         * - Ensure that you call this method after successfully publishing a stream.
-         * @param data String, the metadata to send. The maximum size is 1024 bytes.
-         * @param callback The result of sending metadata.
-         */
-        sendMetadata(data: string, callback: (err: null | string) => void): void;
     }
 
     /**
@@ -4291,7 +4342,7 @@ declare namespace AgoraRTC {
          *  channelName: "srcChannel",
          *  uid: 123,
          *  token: "yourSrcToken",
-         * })
+         * });
          * ```
          */
         setSrcChannelInfo(srcInfo: any): void;
@@ -4314,7 +4365,7 @@ declare namespace AgoraRTC {
          *  channelName: "destChannel",
          *  uid: 123,
          *  token: "yourDestToken",
-         * })
+         * });
          * ```
          */
         setDestChannelInfo(channelName: string, destInfo: any): void;
