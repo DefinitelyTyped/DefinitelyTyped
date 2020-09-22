@@ -426,7 +426,7 @@ declare global {
          *
          * @callback callback Callback to execute.
          */
-        begin(callback: (details: QUnit.BeginDetails) => void): void;
+        begin(callback: (details: QUnit.BeginDetails) => void | Promise<void>): void;
 
         /**
          * Configuration for QUnit
@@ -441,7 +441,7 @@ declare global {
          *
          * @param callback Callback to execute
          */
-        done(callback: (details: QUnit.DoneDetails) => void): void;
+        done(callback: (details: QUnit.DoneDetails) => void | Promise<void>): void;
 
         /**
          * Advanced and extensible data dumping for JavaScript.
@@ -532,14 +532,14 @@ declare global {
          *
          * @param callback Callback to execute
          */
-        moduleDone(callback: (details: QUnit.ModuleDoneDetails) => void): void;
+        moduleDone(callback: (details: QUnit.ModuleDoneDetails) => void | Promise<void>): void;
 
         /**
          * Register a callback to fire whenever a module begins.
          *
          * @param callback Callback to execute
          */
-        moduleStart(callback: (details: QUnit.ModuleStartDetails) => void): void;
+        moduleStart(callback: (details: QUnit.ModuleStartDetails) => void | Promise<void>): void;
 
         /**
          * Adds a test to exclusively run, preventing all other tests from running.
@@ -648,14 +648,14 @@ declare global {
             passed: number;
             total: number;
             runtime: number;
-        }) => void): void;
+        }) => void | Promise<void>): void;
 
         /**
          * Register a callback to fire whenever a test begins.
          *
          * @param callback Callback to execute
          */
-        testStart(callback: (details: QUnit.TestStartDetails) => void): void;
+        testStart(callback: (details: QUnit.TestStartDetails) => void | Promise<void>): void;
 
         /**
          * Adds a test which expects at least one failing assertion during its run.
