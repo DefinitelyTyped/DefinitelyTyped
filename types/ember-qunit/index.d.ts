@@ -173,7 +173,7 @@ declare module 'qunit' {
      * @param name Title of unit being tested
      * @param callback Function to close over assertions
      */
-    export function test(name: string, callback: (this: TestContext, assert: Assert) => void): void;
+    export function test(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
 
     /**
      * Adds a test to exclusively run, preventing all other tests from running.
@@ -191,7 +191,7 @@ declare module 'qunit' {
      * @param name Title of unit being tested
      * @param callback Function to close over assertions
      */
-    export function only(name: string, callback: (this: TestContext, assert: Assert) => void): void;
+    export function only(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
 
     /**
      * Use this method to test a unit of code which is still under development (in a “todo” state).
@@ -203,7 +203,7 @@ declare module 'qunit' {
      * @param name Title of unit being tested
      * @param callback Function to close over assertions
      */
-    export function todo(name: string, callback: (this: TestContext, assert: Assert) => void): void;
+    export function todo(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
 
     /**
      * Adds a test like object to be skipped.
@@ -218,7 +218,7 @@ declare module 'qunit' {
      * @param name Title of unit being tested
      * @param callback Function to close over assertions
      */
-    export function skip(name: string, callback?: (this: TestContext, assert: Assert) => void): void;
+    export function skip(name: string, callback?: (this: TestContext, assert: Assert) => void | Promise<void>): void;
 
     export default QUnit;
 }
