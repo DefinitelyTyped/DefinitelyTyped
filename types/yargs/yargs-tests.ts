@@ -310,6 +310,7 @@ function Argv$command() {
             // deprecated
             'use --newGet'
         )
+        .example([['get', 'get https://example.com']], '')
         .help()
         .argv;
 
