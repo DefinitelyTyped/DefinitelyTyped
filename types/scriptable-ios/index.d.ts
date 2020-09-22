@@ -2701,6 +2701,7 @@ declare class FileManager {
  * Refer to [iosfonts.com](http://iosfonts.com) for a list of the fonts that are available in iOS and iPadOS.
  * @see https://docs.scriptable.app/font/#-new-font
  */
+// tslint:disable-next-line no-unnecessary-class
 declare class Font {
     /**
      * _Represents a font and text size._
