@@ -1,7 +1,12 @@
 import * as mongodb from 'mongodb';
 import * as mongoose from 'mongoose';
 
-export const MyModel = mongoose.model('test', new mongoose.Schema({
+interface ITest {
+    name: string;
+    wheels?: number;
+}
+
+export const MyModel = mongoose.model('test', new mongoose.Schema<ITest>({
     name: {
         type: String,
         alias: 'foo',
