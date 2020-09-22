@@ -21,7 +21,7 @@ cheerio('li', 'ul', html);
 const $fromElement = cheerio.load($('ul').get(0));
 
 if ($fromElement('ul > li').length !== 3) {
-    throw new Error('Expecting 3 elements when passing `CheerioElement` to `load()`');
+    throw new Error('Expecting 3 elements when passing `cheerio.Element` to `load()`');
 }
 
 $ = cheerio.load(Buffer.from(html));

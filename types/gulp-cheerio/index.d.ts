@@ -17,13 +17,13 @@ declare namespace gulpCheerio {
     }
 
     interface Callback {
-        ($: cheerio.CheerioRoot, file: Vinyl, done?: Function): any;
+        ($: cheerio.Root, file: Vinyl, done?: Function): any;
     }
 
     interface Option {
         run?: Callback;
         parserOptions?: cheerio.CheerioParserOptions;
-        cheerio?: cheerio.CheerioRoot;
+        cheerio?: cheerio.Root;
     }
 }
 

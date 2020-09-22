@@ -10,7 +10,7 @@ import Vinyl = require('vinyl');
 gulp.task('sync', function () {
     return gulp
         .src(['src/*.html'])
-        .pipe(gulpCheerio(function ($: cheerio.CheerioRoot, file: Vinyl) {
+        .pipe(gulpCheerio(function ($: cheerio.Root, file: Vinyl) {
             // Each file will be run through cheerio and each corresponding `$` will be passed here.
             // `file` is the gulp file object
             // Make all h1 tags uppercase
@@ -24,7 +24,7 @@ gulp.task('sync', function () {
 gulp.task('async', function () {
     return gulp
         .src(['src/*.html'])
-        .pipe(gulpCheerio(function ($: cheerio.CheerioRoot, file: Vinyl, done: Function) {
+        .pipe(gulpCheerio(function ($: cheerio.Root, file: Vinyl, done: Function) {
             // The only difference here is the inclusion of a `done` parameter.
             // Call `done` when everything is finished. `done` accepts an error if applicable.
             done();
@@ -43,7 +43,7 @@ gulp.task('sync', function () {
     return gulp
         .src(['src/*.html'])
         .pipe(gulpCheerio({
-            run: function ($: cheerio.CheerioRoot, file: Vinyl) {
+            run: function ($: cheerio.Root, file: Vinyl) {
                 // Each file will be run through cheerio and each corresponding `$` will be passed here.
                 // `file` is the gulp file object
                 // Make all h1 tags uppercase
@@ -60,7 +60,7 @@ gulp.task('async', function () {
     return gulp
         .src(['src/*.html'])
         .pipe(gulpCheerio({
-            run: function ($: cheerio.CheerioRoot, file: Vinyl, done: Function) {
+            run: function ($: cheerio.Root, file: Vinyl, done: Function) {
                 // The only difference here is the inclusion of a `done` parameter.
                 // Call `done` when everything is finished. `done` accepts an error if applicable.
                 done();

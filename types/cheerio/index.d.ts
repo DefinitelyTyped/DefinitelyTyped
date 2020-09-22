@@ -16,36 +16,36 @@
 interface Document {}
 
 declare namespace cheerio {
-    interface CheerioElement {
+    interface Element {
         // Document References
         // Node Console
         tagName: string;
         type: string;
         name: string;
         attribs: { [attr: string]: string };
-        children: CheerioElement[];
-        childNodes: CheerioElement[];
-        lastChild: CheerioElement;
-        firstChild: CheerioElement;
-        next: CheerioElement;
-        nextSibling: CheerioElement;
-        prev: CheerioElement;
-        previousSibling: CheerioElement;
-        parent: CheerioElement;
-        parentNode: CheerioElement;
+        children: Element[];
+        childNodes: Element[];
+        lastChild: Element;
+        firstChild: Element;
+        next: Element;
+        nextSibling: Element;
+        prev: Element;
+        previousSibling: Element;
+        parent: Element;
+        parentNode: Element;
         nodeValue: string;
         data?: string;
         startIndex?: number;
     }
 
-    type AttrFunction = (el: CheerioElement, i: number, currentValue: string) => any;
+    type AttrFunction = (el: Element, i: number, currentValue: string) => any;
 
     interface Cheerio {
         // Document References
         // Cheerio https://github.com/cheeriojs/cheerio
         // JQuery http://api.jquery.com
 
-        [index: number]: CheerioElement;
+        [index: number]: Element;
         cheerio: string;
         length: number;
 
@@ -72,7 +72,7 @@ declare namespace cheerio {
         removeAttr(name: string): Cheerio;
 
         has(selector: string): Cheerio;
-        has(element: CheerioElement): Cheerio;
+        has(element: Element): Cheerio;
 
         hasClass(className: string): boolean;
         addClass(classNames: string): Cheerio;
@@ -90,10 +90,10 @@ declare namespace cheerio {
         ): Cheerio;
 
         is(selector: string): boolean;
-        is(element: CheerioElement): boolean;
-        is(element: CheerioElement[]): boolean;
+        is(element: Element): boolean;
+        is(element: Element[]): boolean;
         is(selection: Cheerio): boolean;
-        is(func: (index: number, element: CheerioElement) => boolean): boolean;
+        is(func: (index: number, element: Element) => boolean): boolean;
 
         // Form
         serialize(): string;
@@ -107,7 +107,7 @@ declare namespace cheerio {
         parent(selector?: string): Cheerio;
         parents(selector?: string): Cheerio;
         parentsUntil(selector?: string, filter?: string): Cheerio;
-        parentsUntil(element: CheerioElement, filter?: string): Cheerio;
+        parentsUntil(element: Element, filter?: string): Cheerio;
         parentsUntil(element: Cheerio, filter?: string): Cheerio;
 
         prop(name: string): any;
@@ -121,7 +121,7 @@ declare namespace cheerio {
         nextAll(selector: string): Cheerio;
 
         nextUntil(selector?: string, filter?: string): Cheerio;
-        nextUntil(element: CheerioElement, filter?: string): Cheerio;
+        nextUntil(element: Element, filter?: string): Cheerio;
         nextUntil(element: Cheerio, filter?: string): Cheerio;
 
         prev(selector?: string): Cheerio;
@@ -129,7 +129,7 @@ declare namespace cheerio {
         prevAll(selector: string): Cheerio;
 
         prevUntil(selector?: string, filter?: string): Cheerio;
-        prevUntil(element: CheerioElement, filter?: string): Cheerio;
+        prevUntil(element: Element, filter?: string): Cheerio;
         prevUntil(element: Cheerio, filter?: string): Cheerio;
 
         slice(start: number, end?: number): Cheerio;
@@ -140,19 +140,19 @@ declare namespace cheerio {
 
         contents(): Cheerio;
 
-        each(func: (index: number, element: CheerioElement) => any): Cheerio;
-        map(func: (index: number, element: CheerioElement) => any): Cheerio;
+        each(func: (index: number, element: Element) => any): Cheerio;
+        map(func: (index: number, element: Element) => any): Cheerio;
 
         filter(selector: string): Cheerio;
         filter(selection: Cheerio): Cheerio;
-        filter(element: CheerioElement): Cheerio;
-        filter(elements: CheerioElement[]): Cheerio;
-        filter(func: (index: number, element: CheerioElement) => boolean): Cheerio;
+        filter(element: Element): Cheerio;
+        filter(elements: Element[]): Cheerio;
+        filter(func: (index: number, element: Element) => boolean): Cheerio;
 
         not(selector: string): Cheerio;
         not(selection: Cheerio): Cheerio;
-        not(element: CheerioElement): Cheerio;
-        not(func: (index: number, element: CheerioElement) => boolean): Cheerio;
+        not(element: Element): Cheerio;
+        not(func: (index: number, element: Element) => boolean): Cheerio;
 
         first(): Cheerio;
         last(): Cheerio;
@@ -170,8 +170,8 @@ declare namespace cheerio {
 
         add(selectorOrHtml: string): Cheerio;
         add(selector: string, context: Document): Cheerio;
-        add(element: CheerioElement): Cheerio;
-        add(elements: CheerioElement[]): Cheerio;
+        add(element: Element): Cheerio;
+        add(elements: Element[]): Cheerio;
         add(selection: Cheerio): Cheerio;
 
         addBack(): Cheerio;
@@ -212,8 +212,8 @@ declare namespace cheerio {
         remove(selector?: string): Cheerio;
 
         replaceWith(content: string): Cheerio;
-        replaceWith(content: CheerioElement): Cheerio;
-        replaceWith(content: CheerioElement[]): Cheerio;
+        replaceWith(content: Element): Cheerio;
+        replaceWith(content: Element[]): Cheerio;
         replaceWith(content: Cheerio): Cheerio;
         replaceWith(content: () => Cheerio): Cheerio;
 
@@ -245,7 +245,7 @@ declare namespace cheerio {
 
         // Not Documented
 
-        toArray(): CheerioElement[];
+        toArray(): Element[];
     }
 
     interface CheerioParserOptions {
@@ -267,37 +267,37 @@ declare namespace cheerio {
         _useHtmlParser2?: boolean;
     }
 
-    interface CheerioSelector {
+    interface Selector {
         (selector: string): Cheerio;
         (selector: string, context: string): Cheerio;
-        (selector: string, context: CheerioElement): Cheerio;
-        (selector: string, context: CheerioElement[]): Cheerio;
+        (selector: string, context: Element): Cheerio;
+        (selector: string, context: Element[]): Cheerio;
         (selector: string, context: Cheerio): Cheerio;
         (selector: string, context: string, root: string): Cheerio;
-        (selector: string, context: CheerioElement, root: string): Cheerio;
-        (selector: string, context: CheerioElement[], root: string): Cheerio;
+        (selector: string, context: Element, root: string): Cheerio;
+        (selector: string, context: Element[], root: string): Cheerio;
         (selector: string, context: Cheerio, root: string): Cheerio;
         (selector: any): Cheerio;
     }
 
-    interface CheerioRoot extends CheerioSelector {
+    interface Root extends Selector {
         // Document References
         // Cheerio https://github.com/cheeriojs/cheerio
         // JQuery http://api.jquery.com
         root(): Cheerio;
-        contains(container: CheerioElement, contained: CheerioElement): boolean;
+        contains(container: Element, contained: Element): boolean;
         parseHTML(data: string, context?: Document, keepScripts?: boolean): Document[];
 
         html(options?: CheerioParserOptions): string;
-        html(dom: string | Cheerio | CheerioElement, options?: CheerioParserOptions): string;
+        html(dom: string | Cheerio | Element, options?: CheerioParserOptions): string;
 
-        xml(dom?: string | Cheerio | CheerioElement): string;
+        xml(dom?: string | Cheerio | Element): string;
     }
 
-    interface CheerioAPI extends CheerioRoot {
+    interface CheerioAPI extends Root {
         version: string;
-        load(html: string | Buffer, options?: CheerioParserOptions): CheerioRoot;
-        load(element: CheerioElement, options?: CheerioParserOptions): CheerioRoot;
+        load(html: string | Buffer, options?: CheerioParserOptions): Root;
+        load(element: Element, options?: CheerioParserOptions): Root;
     }
 }
 
