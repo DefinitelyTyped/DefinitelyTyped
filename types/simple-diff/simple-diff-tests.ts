@@ -1,4 +1,4 @@
-import diff from './index';
+import diff = require('simple-diff');
 
 declare const oldObject: unknown;
 declare const newObject: unknown;
@@ -11,7 +11,7 @@ const changes = diff(oldObject, newObject, {
     comparators: [
         [Date, (a, b, ops) => true]
     ],
-    ignore: function (a, b, ops) {
-        return ops.oldPath.join('.') === 'prop.test1';
+    ignore: (a, b, { oldPath }) => {
+        return oldPath.join('.') === 'prop.test1';
     }
 });
