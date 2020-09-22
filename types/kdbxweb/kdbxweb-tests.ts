@@ -35,3 +35,6 @@ newDb.cleanup({
 });
 
 newDb.upgrade();
+
+// check error types
+new kdbxweb.KdbxError(kdbxweb.Consts.ErrorCodes.NotImplemented, 'SHA256 not implemented');

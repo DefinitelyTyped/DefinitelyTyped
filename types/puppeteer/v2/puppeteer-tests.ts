@@ -1,6 +1,6 @@
-import * as puppeteer from "puppeteer/v2";
-import { TimeoutError } from "puppeteer/v2/Errors";
-import * as Devices from "puppeteer/v2/DeviceDescriptors";
+import * as puppeteer from "puppeteer";
+import { TimeoutError } from "puppeteer/Errors";
+import * as Devices from "puppeteer/DeviceDescriptors";
 
 // Accessibility
 
@@ -510,6 +510,13 @@ puppeteer.launch().then(async browser => {
   await frame.waitFor((stuff: string) => !!document.querySelector(stuff), {
     hidden: true,
   }, 'asd');
+})();
+
+// Test waitForTimeout
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.waitForTimeout(1000); // $ExpectType void
 })();
 
 // Permission tests

@@ -2,6 +2,7 @@
 // Project: https://github.com/PeculiarVentures/PKI.js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="asn1js" />
 /// <reference types="pvutils" />
@@ -662,8 +663,8 @@ declare module "pkijs/src/CryptoEngine" {
         verify(algorithm: string | RsaPssParams | EcdsaParams | AesCmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): Promise<boolean>;
         wrapKey(format: string, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier): Promise<ArrayBuffer>;
         decrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
-        deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
-        deriveKey(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfCtrParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        deriveBits(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
+        deriveKey(algorithm: string | EcdhKeyDeriveParams | DhKeyDeriveParams | ConcatParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, derivedKeyType: string | AesDerivedKeyParams | HmacImportParams | ConcatParams | HkdfParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
         digest(algorithm: AlgorithmIdentifier, data: BufferSource): Promise<ArrayBuffer>;
         encrypt(algorithm: string | RsaOaepParams | AesCtrParams | AesCbcParams | AesCmacParams | AesGcmParams | AesCfbParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
     }

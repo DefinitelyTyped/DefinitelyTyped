@@ -3,16 +3,18 @@ import MapEvent from './MapEvent';
 import { Pixel } from './pixel';
 import PluggableMap, { FrameState } from './PluggableMap';
 
-export default class MapBrowserEvent extends MapEvent {
+export default class MapBrowserEvent<EVENT extends UIEvent = UIEvent> extends MapEvent {
     constructor(
         type: string,
         map: PluggableMap,
-        browserEvent: Event,
+        originalEvent: EVENT,
         opt_dragging?: boolean,
         opt_frameState?: FrameState,
     );
     coordinate: Coordinate;
     dragging: boolean;
     pixel: Pixel;
-    originalEvent: Event;
+    preventDefault(): void;
+    stopPropagation(): void;
+    originalEvent: EVENT;
 }

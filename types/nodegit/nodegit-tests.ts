@@ -58,6 +58,11 @@ result = Git.Attr.value('attr');
 
 const blameOptions = new Git.BlameOptions();
 
+Git.Blame.file(repo, 'path').then(blame => {
+    const hunk = blame.getHunkByLine(0);
+    hunk.linesInHunk();
+});
+
 Git.Branch.lookup(repo, 'branch_name', Git.Branch.BRANCH.LOCAL).then(reference => {
     // Use reference
 });

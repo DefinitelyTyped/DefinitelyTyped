@@ -1021,7 +1021,7 @@ declare namespace braintree {
         billingDayOfMonth: number;
         billingFrequency: number;
         createdAt: Date;
-        currenyIsoCode: string;
+        currencyIsoCode: string;
         description?: string;
         discounts?: Discount[];
         id: string;

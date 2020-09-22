@@ -1,4 +1,5 @@
 import { EventEmitter } from "events";
+import newman = require('newman');
 import {
     run,
     NewmanRun,
@@ -46,3 +47,18 @@ run(
         summary.run.failures[0].source; // $ExpectType NewmanRunExecutionItem | undefined
     }
 );
+newman.run({
+    collection: 'collection.json',
+    environment: 'env.json',
+    iterationData: 'data.csv',
+    globals: 'globals.json',
+    iterationCount: 2,
+    exportGlobals: 'globalOut.json',
+    exportEnvironment: 'envOut.json',
+    delayRequest: 10,
+    bail: true,
+    timeoutRequest: 5000,
+    suppressExitCode: true,
+    ignoreRedirects: true
+}, () => console.log('done'));
+newman.run(() => console.log('done'));

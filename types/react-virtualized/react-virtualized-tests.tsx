@@ -537,7 +537,7 @@ export class InfiniteLoaderExample extends PureComponent<any, any> {
 
         let promiseResolver: () => void;
 
-        return new Promise(resolve => {
+        return new Promise<void>(resolve => {
             promiseResolver = resolve;
         });
     }

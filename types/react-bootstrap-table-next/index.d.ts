@@ -378,10 +378,15 @@ export interface SelectRowProps<T> {
     nonSelectable?: number[];
     nonSelectableStyle?: ((row: T, rowIndex: number) => CSSProperties | undefined) | CSSProperties;
     nonSelectableClasses?: ((row: T, rowIndex: number) => string | undefined) | string;
-    bgColor?: string;
+    bgColor?: (row: T, rowIndex: number) => string | string;
     hideSelectColumn?: boolean;
-    selectionRenderer?: (options: { checked: boolean; disabled: boolean, mode: string; rowIndex: number }) => JSX.Element;
-    selectionHeaderRenderer?: (options: { mode: string, checked: boolean, indeterminate: boolean }) => JSX.Element;
+    selectionRenderer?: (options: {
+        checked: boolean;
+        disabled: boolean;
+        mode: string;
+        rowIndex: number;
+    }) => JSX.Element;
+    selectionHeaderRenderer?: (options: { mode: string; checked: boolean; indeterminate: boolean }) => JSX.Element;
     headerColumnStyle?: ((status: TableCheckboxStatus) => CSSProperties | undefined) | CSSProperties;
     selectColumnStyle?:
         | ((props: {
@@ -437,7 +442,9 @@ export interface BootstrapTableProps<T extends object = any> {
     data: any[];
     columns: ColumnDescription[];
     bootstrap4?: boolean;
-    remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
+    remote?:
+        | boolean
+        | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
     noDataIndication?: () => JSX.Element | JSX.Element | string;
     striped?: boolean;
     bordered?: boolean;
@@ -516,13 +523,13 @@ export interface ExpandRowProps<T> {
     renderer: (row: T, rowIndex: number) => JSX.Element;
     expanded?: any[];
     onExpand?: (row: T, isExpand: boolean, rowIndex: number, e: SyntheticEvent) => void;
-    onExpandAll?: (isExpandAll: boolean, results: number[], e: SyntheticEvent) => void;
+    onExpandAll?: (isExpandAll: boolean, results: T[], e: SyntheticEvent) => void;
     nonExpandable?: number[];
     showExpandColumn?: boolean;
     onlyOneExpanding?: boolean;
     expandByColumnOnly?: boolean;
-    expandColumnRenderer?: ReactElement<ExpandColumnRendererProps>;
-    expandHeaderColumnRenderer?: ReactElement<ExpandHeaderColumnRenderer>;
+    expandColumnRenderer?: (props: ExpandColumnRendererProps) => JSX.Element;
+    expandHeaderColumnRenderer?: (props: ExpandHeaderColumnRenderer) => JSX.Element;
     expandColumnPosition?: 'left' | 'right';
     className?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
 }

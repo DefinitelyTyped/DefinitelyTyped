@@ -6,7 +6,9 @@
 //                 Michael Grinich <https://github.com/grinich>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2
 
+import boxen = require('boxen');
 import ConfigStore = require('configstore');
 
 export = UpdateNotifier;
@@ -45,14 +47,6 @@ declare namespace UpdateNotifier {
         shouldNotifyInNpmScript?: boolean;
     }
 
-    interface BoxenOptions {
-        padding?: number;
-        margin?: number;
-        align?: string;
-        borderColor?: string;
-        borderStyle?: string;
-    }
-
     interface NotifyOptions {
         /** Message that will be shown when an update is available */
         message?: string;
@@ -60,8 +54,11 @@ declare namespace UpdateNotifier {
         defer?: boolean;
         /** Include the -g argument in the default message's npm i recommendation */
         isGlobal?: boolean;
-        /** Options object that will be passed to `boxen` */
-        boxenOptions?: BoxenOptions;
+        /**
+         * Options object that will be passed to `boxen`
+         * See https://github.com/sindresorhus/boxen/blob/master/index.d.ts
+         */
+        boxenOptions?: boxen.Options;
     }
 
     interface Package {

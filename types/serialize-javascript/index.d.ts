@@ -1,7 +1,8 @@
-// Type definitions for serialize-javascript 1.5
+// Type definitions for serialize-javascript 4.0
 // Project: https://github.com/yahoo/serialize-javascript
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Pochodaydayup <https://github.com/Pochodaydayup>
+//                 Undefined <https://github.com/masnn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace serializeJavascript {
@@ -23,6 +24,11 @@ declare namespace serializeJavascript {
          * You will have to roll your own.
          */
         unsafe?: boolean;
+        /**
+         * This option is to signal serialize() that we do not want serialize JavaScript function.
+         * Just treat function like JSON.stringify do, but other features will work as expected.
+         */
+        ignoreFunction?: boolean;
     }
 }
 

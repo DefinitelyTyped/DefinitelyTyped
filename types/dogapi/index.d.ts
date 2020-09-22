@@ -33,6 +33,16 @@ interface metric {
             host?: string,
             tags?: ReadonlyArray<string>,
         }, callback: (err: Error | null, res: "ok") => void): void;
+    send_all(
+        metrics: Array<{
+            metric: string;
+            points: number | number[] | Array<[string, number]>;
+            tags?: string[];
+            type?: string;
+            metric_type?: string;
+        }>,
+        callback: (err: Error | null, res: 'ok') => void
+    ): void;
 }
 
 export const metric: metric;

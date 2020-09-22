@@ -125,20 +125,19 @@ export interface ReaderListValue {
 export interface ReaderLocalArgument {
     readonly kind: string; // 'LocalArgument';
     readonly name: string;
-    readonly type: string;
     readonly defaultValue: unknown;
 }
 
 export interface ReaderRootArgument {
     readonly kind: string; // 'RootArgument';
     readonly name: string;
-    readonly type: string | null | undefined;
 }
 
 export interface ReaderRefetchMetadata {
-    readonly connection: ReaderPaginationMetadata | null | undefined;
+    readonly connection?: ReaderPaginationMetadata | null;
     readonly operation: string | ConcreteRequest;
     readonly fragmentPathInResult: ReadonlyArray<string>;
+    readonly identifierField?: string | null;
 }
 
 export interface ReaderCondition {

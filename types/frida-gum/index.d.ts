@@ -1,6 +1,7 @@
-// Type definitions for non-npm package frida-gum 16.0
+// Type definitions for non-npm package frida-gum 16.2
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
+//                 Francesco Tamagni <https://github.com/mrmacete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -1465,6 +1466,11 @@ declare class NativePointer {
     toInt32(): number;
 
     /**
+     * Converts to an unsigned 32-bit integer.
+     */
+    toUInt32(): number;
+
+    /**
      * Converts to a “0x”-prefixed hexadecimal string, unless a `radix`
      * is specified.
      */
@@ -2381,6 +2387,11 @@ declare namespace Interceptor {
      * Reverts the previously replaced function at `target`.
      */
     function revert(target: NativePointerValue): void;
+
+    /**
+     * Ensure any pending changes have been committed to memory.
+     */
+    function flush(): void;
 }
 
 declare class InvocationListener {
@@ -2663,6 +2674,19 @@ interface StalkerOptions {
     onCallSummary?: (summary: StalkerCallSummary) => void;
 
     /**
+     * C callback that processes events as they occur, allowing synchronous
+     * processing of events in native code – typically implemented using
+     * CModule.
+     *
+     * This is useful when wanting to implement custom filtering and/or queuing
+     * logic to improve performance, or sacrifice performance in exchange for
+     * reliable event delivery.
+     *
+     * Note that this precludes usage of `onReceive()` and `onCallSummary()`.
+     */
+    onEvent?: StalkerNativeEventCallback;
+
+    /**
      * Callback that transforms each basic block compiled whenever Stalker
      * wants to recompile a basic block of the code that's about to be executed
      * by the stalked thread.
@@ -2670,7 +2694,7 @@ interface StalkerOptions {
     transform?: StalkerTransformCallback;
 
     /**
-     * User data to be passed to `StalkerNativeTransformCallback`.
+     * User data to be passed to `StalkerNativeEventCallback` and `StalkerNativeTransformCallback`.
      */
     data?: NativePointerValue;
 }
@@ -2736,6 +2760,11 @@ type StalkerBlockEventBare = [          NativePointer | string, NativePointer | 
 
 type StalkerCompileEventFull = [ "compile", NativePointer | string, NativePointer | string ];
 type StalkerCompileEventBare = [            NativePointer | string, NativePointer | string ];
+
+/**
+ * Signature: `void process (const GumEvent * event, GumCpuContext * cpu_context, gpointer user_data)`
+ */
+type StalkerNativeEventCallback = NativePointer;
 
 type StalkerTransformCallback =
     | StalkerX86TransformCallback

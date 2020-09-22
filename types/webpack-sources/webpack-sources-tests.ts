@@ -18,8 +18,10 @@ const tests = (source: Source, options: MapOptions, hash: Hash, sourceMap: RawSo
     cachedSource.size(); // $ExpectType number
     cachedSource.source(); // $ExpectType string | ArrayBuffer
     cachedSource.updateHash(hash); // $ExpectType void
+    cachedSource.map(); // $ExpectType RawSourceMap
     cachedSource.map(options); // $ExpectType RawSourceMap
     cachedSource.sourceAndMap(options); // $ExpectType SourceAndMapResult
+    cachedSource.sourceAndMap(); // $ExpectType SourceAndMapResult
 
     const concatSource = new ConcatSource(source);
     concatSource.add(source); // $ExpectType void
@@ -67,8 +69,10 @@ const tests = (source: Source, options: MapOptions, hash: Hash, sourceMap: RawSo
     rawSource.updateHash(hash); // $ExpectType void
 
     const replaceSource = new ReplaceSource(rawSource, 'replaceSource');
+    replaceSource.replace(0, 0, 'newValue');
+    replaceSource.insert(0, 'newValue');
     replaceSource.replace(0, 0, 'newValue', 'name');
-    replaceSource.insert(0, 'newValue', 'insert');
+    replaceSource.insert(0, 'newValue', 'name');
     replaceSource.source(); // $ExpectType string
     replaceSource.original(); // $ExpectType Source
     replaceSource.node(options); // $ExpectType SourceNode

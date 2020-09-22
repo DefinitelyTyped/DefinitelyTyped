@@ -3,7 +3,6 @@
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
 //                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 import bind = require('./implementation');
 export = bind;

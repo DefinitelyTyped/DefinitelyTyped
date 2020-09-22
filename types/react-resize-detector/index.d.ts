@@ -1,9 +1,10 @@
-// Type definitions for react-resize-detector 4.2
+// Type definitions for react-resize-detector 5.0
 // Project: https://github.com/maslianok/react-resize-detector
 // Definitions by: Matthew James <https://github.com/matthew-matvei>
 //                 James Greenleaf <https://github.com/aMoniker>
 //                 Remin <https://github.com/rdrgn>
 //                 Lee Taylor <https://github.com/leettaylor>
+//                 Madan Kumar <https://github.com/jmadankumar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -61,6 +62,8 @@ interface ReactResizeDetectorProps extends React.Props<ReactResizeDetector> {
      * You can use this property to attach resize-observer to any DOM element.
      * Please refer to the querySelector docs.
      * Default: undefined
+     * @deprecated since version 5.0.0. It will be removed in version 6.0.0.
+     * Use targetRef instead
      */
     querySelector?: string;
     /**
@@ -70,6 +73,8 @@ interface ReactResizeDetectorProps extends React.Props<ReactResizeDetector> {
      * You can pass any valid React node: string with node's name or element.
      * Can be useful when you need to handle table's or paragraph's resizes.
      * Default: "div"
+     * @deprecated since version 5.0.0. It will be removed in version 6.0.0.
+     * Use targetRef instead
      */
     nodeType?: keyof React.ReactHTML; // will be passed to React.createElement()
     /**
@@ -78,8 +83,17 @@ interface ReactResizeDetectorProps extends React.Props<ReactResizeDetector> {
      * But you can pass any DOM element to observe.
      * This property is omitted when you pass querySelector.
      * Default: undefined
+     * @deprecated since version 5.0.0. It will be removed in version 6.0.0.
+     * Use targetRef instead
      */
     targetDomEl?: HTMLElement;
+    /**
+     * A React reference of the element to observe.
+     * Pass a reference to the element you want to attach resize handlers to.
+     * It must be an instance of React.useRef or React.createRef functions
+     * Default: undefined
+     */
+    targetRef?: React.Ref<HTMLElement>;
 
     render?: (props: ReactResizeDetectorDimensions) => React.ReactNode;
 }

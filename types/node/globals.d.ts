@@ -19,6 +19,11 @@ interface String {
     trimLeft(): string;
     /** Removes whitespace from the right end of a string. */
     trimRight(): string;
+
+    /** Returns a copy with leading whitespace removed. */
+    trimStart(): string;
+    /** Returns a copy with trailing whitespace removed. */
+    trimEnd(): string;
 }
 
 interface ImportMeta {
@@ -35,6 +40,9 @@ interface ImportMeta {
 interface NodeRequire extends NodeJS.Require {}
 interface RequireResolve extends NodeJS.RequireResolve {}
 interface NodeModule extends NodeJS.Module {}
+
+declare var process: NodeJS.Process;
+declare var console: Console;
 
 declare var __filename: string;
 declare var __dirname: string;
@@ -248,10 +256,18 @@ declare class Buffer extends Uint8Array {
      * @param end Where the new `Buffer` will end (not inclusive). Default: `buf.length`.
      */
     subarray(begin?: number, end?: number): Buffer;
+    writeBigInt64BE(value: bigint, offset?: number): number;
+    writeBigInt64LE(value: bigint, offset?: number): number;
+    writeBigUInt64BE(value: bigint, offset?: number): number;
+    writeBigUInt64LE(value: bigint, offset?: number): number;
     writeUIntLE(value: number, offset: number, byteLength: number): number;
     writeUIntBE(value: number, offset: number, byteLength: number): number;
     writeIntLE(value: number, offset: number, byteLength: number): number;
     writeIntBE(value: number, offset: number, byteLength: number): number;
+    readBigUInt64BE(offset?: number): bigint;
+    readBigUInt64LE(offset?: number): bigint;
+    readBigInt64BE(offset?: number): bigint;
+    readBigInt64LE(offset?: number): bigint;
     readUIntLE(offset: number, byteLength: number): number;
     readUIntBE(offset: number, byteLength: number): number;
     readIntLE(offset: number, byteLength: number): number;
@@ -568,7 +584,8 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        parent: Module | null;
+        /** @deprecated since 14.6.0 Please use `require.main` and `module.children` instead. */
+        parent: Module | null | undefined;
         children: Module[];
         /**
          * @since 11.14.0

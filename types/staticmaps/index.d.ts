@@ -86,6 +86,11 @@ export interface AddMultiPolygonOptions {
 }
 
 export interface AddTextOptions {
+    /**
+     * Anchor of the text
+     * @default 'start'
+     */
+    anchor?: TextAnchor;
     coord: [number, number];
     text: string;
     font?: string;
@@ -94,5 +99,10 @@ export interface AddTextOptions {
     width?: number;
     fill?: string;
 }
+
+export type TextAnchor =
+    | 'start'
+    | 'middle'
+    | 'end';
 
 export default StaticMaps;

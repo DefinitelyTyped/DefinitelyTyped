@@ -48,6 +48,7 @@ import {
     SkPicture,
     SkFont,
     SkShapedText,
+    SkHtmlCanvas,
 } from "canvaskit-wasm";
 
 CanvasKitInit().ready().then((canvasKit: CanvasKit) => {
@@ -357,4 +358,9 @@ CanvasKitInit().ready().then((canvasKit: CanvasKit) => {
 
     const pixels: Uint8Array = canvas.readPixels(0, 0, 100, 100, alphaType, colorType, 4);
     canvas.writePixels(pixels, 100, 100, 0, 0, alphaType, colorType);
+
+    const htmlCanvas: SkHtmlCanvas = canvasKit.MakeCanvas(800, 600);
+    const dataUrl: string = htmlCanvas.toDataURL();
+    const context2d: CanvasRenderingContext2D = htmlCanvas.getContext("2d");
+    htmlCanvas.dispose();
 });

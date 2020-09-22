@@ -18,6 +18,11 @@ declare namespace Polyglot {
         suffix?: string;
     }
 
+    interface PluralRules {
+        pluralTypes: {[lang: string]: (n: number) => number};
+        pluralTypeToLanguages: {[lang: string]: string[]};
+    }
+
     interface PolyglotOptions {
         phrases?: any;
         locale?: string;
@@ -25,6 +30,7 @@ declare namespace Polyglot {
         onMissingKey?: (key: string, options: Polyglot.InterpolationOptions, locale: string) => string;
         warn?: (message: string) => void;
         interpolation?: InterpolationTokenOptions;
+        pluralRules?: PluralRules;
     }
 
     function transformPhrase(phrase: string, options?: number | Polyglot.InterpolationOptions, locale?: string): string;

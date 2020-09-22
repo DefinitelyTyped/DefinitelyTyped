@@ -6,7 +6,7 @@ const REQUIREASYNCEPROCESS = true;
 const DEMOASSET = {
   name: 'DEMO ASSET',
   async execute(message: string) {
-    return new Promise((res) => {
+    return new Promise<void>((res) => {
       setTimeout(() => {
         console.log(`Done with ${message}`);
         res();

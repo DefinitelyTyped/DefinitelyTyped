@@ -460,9 +460,6 @@ declare namespace CodeMirror {
         /** Tells you whether the editor's content can be edited by the user. */
         isReadOnly(): boolean;
 
-        /** Returns the preferred line separator string for this document, as per the option by the same name. When that option is null, the string "\n" is returned. */
-        lineSeparator(): string;
-
         /** Switches between overwrite and normal insert mode (when not given an argument),
         or sets the overwrite mode to a specific state (when given an argument). */
         toggleOverwrite(value?: boolean): void;
@@ -889,6 +886,9 @@ declare namespace CodeMirror {
         /** Gets the mode object for the editor. Note that this is distinct from getOption("mode"), which gives you the mode specification,
         rather than the resolved, instantiated mode object. */
         getMode(): any;
+
+        /** Returns the preferred line separator string for this document, as per the option by the same name. When that option is null, the string "\n" is returned. */
+        lineSeparator(): string;
 
         /** Calculates and returns a { line , ch } object for a zero-based index whose value is relative to the start of the editor's text.
         If the index is out of range of the text then the returned object is clipped to start or end of the text respectively. */

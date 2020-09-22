@@ -288,6 +288,13 @@ const linearScaleChart: Chart = new Chart(ctx, {
             },
             xAxes: [{
                 type: 'time',
+                time: {
+                    adapters: {
+                        date: {
+                            locale: 'de'
+                        }
+                    }
+                },
                 distribution: 'series',
                 ticks: {
                     source: 'data',
@@ -340,6 +347,18 @@ Chart.defaults.global.defaultFontFamily = 'Arial';
 Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
 Chart.defaults.global.tooltips.cornerRadius = 2;
 Chart.defaults.global.tooltips.displayColors = false;
+
+// Update Chart defaults using scaleService
+Chart.scaleService.updateScaleDefaults('time', {
+    gridLines: {
+        drawBorder: false,
+        drawOnChartArea: false,
+        drawTicks: false,
+    },
+    ticks: {
+        padding: 20,
+    },
+});
 
 const doughnutChart = new Chart(ctx, {
     type: 'doughnut',

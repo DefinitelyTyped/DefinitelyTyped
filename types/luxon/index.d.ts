@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.24
+// Type definitions for luxon 1.25
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -7,7 +7,6 @@
 //                 Pietro Vismara <https://github.com/pietrovismara>
 //                 Janeene Beeforth <https://github.com/dawnmist>
 //                 Jason Yu <https://github.com/ycmjason>
-//                 Miklos Danka <https://github.com/mdanka>
 //                 Aitor Pérez Rodal <https://github.com/Aitor1995>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -161,6 +160,8 @@ export class DateTime {
     static readonly DATE_FULL: DateTimeFormatOptions;
     static readonly DATE_HUGE: DateTimeFormatOptions;
     static readonly DATE_MED: DateTimeFormatOptions;
+    /** abbreviated date with weekday */
+    static readonly DATE_MED_WITH_WEEKDAY: DateTimeFormatOptions;
     static readonly DATE_SHORT: DateTimeFormatOptions;
     static readonly TIME_24_SIMPLE: DateTimeFormatOptions;
     static readonly TIME_24_WITH_LONG_OFFSET: DateTimeFormatOptions;

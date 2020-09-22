@@ -1,8 +1,7 @@
-// Type definitions for Chroma.js 2.0
+// Type definitions for Chroma.js 2.1
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
@@ -104,7 +103,7 @@ declare namespace chroma {
          * Similar to {@link mix}, but accepts more than two colors. Simple averaging of R,G,B components and the alpha
          * channel.
          */
-        average(colors: Array<string | Color>, colorSpace?: keyof ColorSpaces): Color;
+        average(colors: Array<string | Color>, colorSpace?: keyof ColorSpaces, weights?: number[]): Color;
 
         /**
          * Blends two colors using RGB channel-wise blend functions.
@@ -247,7 +246,7 @@ declare namespace chroma {
 
         /**
          * Returns a single channel value.
-         * @see set
+         * Also @see set
          */
         get(modechan: string): number;
 
@@ -412,7 +411,7 @@ declare namespace chroma {
     interface Scale<OutType = Color> {
         (c: string[]): Scale;
 
-        (value: number): OutType;
+        (value: number | null | undefined): OutType;
 
         domain(d?: number[], n?: number, mode?: string): this;
 

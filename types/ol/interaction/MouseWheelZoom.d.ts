@@ -1,15 +1,18 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import { Condition } from '../events/condition';
 import BaseEvent from '../events/Event';
+import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import Interaction from './Interaction';
 
 export interface Options {
     condition?: Condition;
+    onFocusOnly?: boolean;
     maxDelta?: number;
     duration?: number;
     timeout?: number;
     useAnchor?: boolean;
+    constrainResolution?: boolean;
 }
 export enum Mode {
     TRACKPAD = 'trackpad',
@@ -17,8 +20,9 @@ export enum Mode {
 }
 export default class MouseWheelZoom extends Interaction {
     constructor(opt_options?: Options);
+    handleEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
     setMouseAnchor(useAnchor: boolean): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

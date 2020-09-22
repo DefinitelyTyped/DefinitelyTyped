@@ -59,6 +59,20 @@ import { Writable, Readable, Pipe } from 'stream';
     ipc.ref();
 }
 
+{
+    const forked = childProcess.fork('./', {
+        windowsVerbatimArguments: true,
+        silent: false,
+        stdio: ["inherit"],
+        execPath: '',
+        execArgv: ['asda']
+    });
+}
+
+{
+    const forked = childProcess.fork('./');
+}
+
 async function testPromisify() {
     const execFile = promisify(childProcess.execFile);
     let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
@@ -80,6 +94,7 @@ async function testPromisify() {
     let _string: string;
     let _stringArray: string[];
     let _maybeNumber: number | null;
+    let _maybeSignal: NodeJS.Signals | null;
 
     _boolean = cp.send(1);
     _boolean = cp.send('one');
@@ -297,7 +312,7 @@ async function testPromisify() {
     _boolean = cp.kill("SIGTERM");
 
     _maybeNumber = cp.exitCode;
-    _maybeNumber = cp.signalCode;
+    _maybeSignal = cp.signalCode;
 
     _string = cp.spawnfile;
 

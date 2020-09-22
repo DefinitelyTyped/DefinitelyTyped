@@ -81,3 +81,12 @@ request<Item>('/item', {
 }).then(item => {
     console.log(item.identifier);
 });
+
+request<any>("/foo", { responseType: "" });
+request<any>("/foo", { responseType: "arraybuffer" });
+request<any>("/foo", { responseType: "blob" });
+request<any>("/foo", { responseType: "document" });
+request<any>("/foo", { responseType: "json" });
+request<any>("/foo", { responseType: "text" });
+// $ExpectError
+request<any>("/foo", { responseType: "other" });

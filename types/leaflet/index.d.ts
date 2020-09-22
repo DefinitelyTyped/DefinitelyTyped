@@ -1410,7 +1410,7 @@ export namespace Control {
 
     class Attribution extends Control {
         constructor(options?: AttributionOptions);
-        setPrefix(prefix: string): this;
+        setPrefix(prefix: string | false): this;
         addAttribution(text: string): this;
         removeAttribution(text: string): this;
         options: AttributionOptions;
