@@ -15,6 +15,8 @@ info({ obj: { aa: 'bbb' } }, 'another');
 setImmediate(info, 'after setImmediate');
 error(new Error('an error'));
 
+const writeSym = pino.symbols.writeSym;
+
 const log2: pino.Logger = pino({
     name: 'myapp',
     safe: true,

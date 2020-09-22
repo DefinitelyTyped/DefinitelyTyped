@@ -877,6 +877,8 @@ map.setMinPitch();
 map.setMaxPitch(null);
 // $ExpectType Map
 map.setMaxPitch();
+// $ExpectType Map
+map.resetNorthPitch(animOpts);
 
 // $ExpectType number
 map.getMinPitch();

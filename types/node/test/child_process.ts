@@ -94,6 +94,7 @@ async function testPromisify() {
     let _string: string;
     let _stringArray: string[];
     let _maybeNumber: number | null;
+    let _maybeSignal: NodeJS.Signals | null;
 
     _boolean = cp.send(1);
     _boolean = cp.send('one');
@@ -311,7 +312,7 @@ async function testPromisify() {
     _boolean = cp.kill("SIGTERM");
 
     _maybeNumber = cp.exitCode;
-    _maybeNumber = cp.signalCode;
+    _maybeSignal = cp.signalCode;
 
     _string = cp.spawnfile;
 

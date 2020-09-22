@@ -316,9 +316,9 @@ NPM 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간�
 자료형 정의(Type definition)가 맞는 경우에는 자료형 정의(Type definition)을 수정하지 마세요.
 NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `export =` 이 맞고, `node -p 'require("foo").default'` 이 원하는 값이라면 `export default` 이 맞습니다.
 
-#### 자료형 선언(Type declaration)에서 타입스크립트(TypeScript) 3.1 이상의 기능을 사용하고 싶습니다.
+#### 자료형 선언(Type declaration)에서 타입스크립트(TypeScript) 3.3 이상의 기능을 사용하고 싶습니다.
 
-정의(Definition) 머릿주석(`// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`) 뒤에 `// TypeScript Version: 3.1` 를 추가해주시면 됩니다.
+정의(Definition) 머릿주석(`// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`) 뒤에 `// Minimum TypeScript Version: 3.3` 를 추가해주시면 됩니다.
 
 #### 타입스크립트(TypeScript)에 기본으로 포함되지 않은 DOM API 를 추가하고 싶어요.
 
