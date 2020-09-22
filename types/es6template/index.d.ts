@@ -3,16 +3,13 @@
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function render(str: string, locals: Record<string, unknown>): string;
-
-// This rule is disabled because the caller of `compile()` knows what the type of the `locals` parameter should be when
-// calling the `compile` function.
-// tslint:disable-next-line:no-unnecessary-generics
-declare function compile<Locals>(str: string): ((locals: Locals) => string);
-
 interface Default {
-    render: typeof render;
-    compile: typeof compile;
+    render: (str: string, locals: Record<string, unknown>) => string;
+
+    // This rule is disabled because the caller of `compile()` knows what the type of the `locals` parameter should be when
+    // calling the `compile` function.
+    // tslint:disable-next-line:no-unnecessary-generics
+    compile: <Locals>(str: string) => ((locals: Locals) => string);
 }
 interface Default {
     (str: string, locals: Record<string, unknown>): string;
