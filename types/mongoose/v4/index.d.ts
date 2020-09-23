@@ -2402,7 +2402,7 @@ declare module "mongoose" {
     /** Array containing options for instantiated SchemaType */
     options: SchemaOptions;
     /** Default value */
-    defaultValue: any;  
+    defaultValue: any;
   }
 
   /*
