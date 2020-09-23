@@ -1665,6 +1665,13 @@ export interface ScaleSequential<Output> {
  * The domain defaults to [0, 1].
  * The interpolator defaults to the identity function.
  * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1], where 0 represents the minimum value and 1 represents the maximum value.
+ */
+export function scaleSequential(): ScaleSequential<number>;
+/**
+ * Constructs a new sequential scale.
+ * The domain defaults to [0, 1].
+ * The interpolator defaults to the identity function.
+ * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1], where 0 represents the minimum value and 1 represents the maximum value.
  *
  * The generic corresponds to the data type of the output of the interpolator underlying the scale.
  */
@@ -1693,6 +1700,11 @@ export function scaleSequential<Output>(
     interpolator: (t: number) => Output
 ): ScaleSequential<Output>;
 
+
+/**
+ * A sequential scale with a logarithmic transform, analogous to a log scale.
+ */
+export function scaleSequentialLog(): ScaleSequential<number>;
 /**
  * A sequential scale with a logarithmic transform, analogous to a log scale.
  *
@@ -1722,6 +1734,10 @@ export function scaleSequentialLog<Output>(
 
 /**
  * A sequential scale with a exponential transform, analogous to a power scale.
+ */
+export function scaleSequentialPow(): ScaleSequential<number>;
+/**
+ * A sequential scale with a exponential transform, analogous to a power scale.
  *
  * The generic corresponds to the data type of the output of the interpolator underlying the scale.
  */
@@ -1747,6 +1763,10 @@ export function scaleSequentialPow<Output>(
     interpolator: (t: number) => Output
 ): ScaleSequential<Output>;
 
+/**
+ * A sequential scale with a square-root transform, analogous to a d3.scaleSqrt.
+ */
+export function scaleSequentialSqrt(): ScaleSequential<number>;
 /**
  * A sequential scale with a square-root transform, analogous to a d3.scaleSqrt.
  *
@@ -1776,6 +1796,10 @@ export function scaleSequentialSqrt<Output>(
 
 /**
  * A sequential scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ */
+export function scaleSequentialSymlog(): ScaleSequential<number>;
+/**
+ * A sequential scale with a symmetric logarithmic transform, analogous to a symlog scale.
  *
  * The generic corresponds to the data type of the output of the interpolator underlying the scale.
  */
@@ -1801,6 +1825,10 @@ export function scaleSequentialSymlog<Output>(
     interpolator: (t: number) => Output
 ): ScaleSequential<Output>;
 
+/**
+ * A sequential scale using a p-quantile transform, analogous to a quantile scale.
+ */
+export function scaleSequentialQuantile(): ScaleSequential<number>;
 /**
  * A sequential scale using a p-quantile transform, analogous to a quantile scale.
  *
@@ -1901,6 +1929,14 @@ export interface ScaleDiverging<Output> {
  * The interpolator defaults to the identity function.
  * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1],
  * where 0 represents the extreme negative value, 0.5 represents the neutral value, and 1 represents the extreme positive value.
+ */
+export function scaleDiverging(): ScaleDiverging<number>;
+/**
+ * Constructs a new diverging scale.
+ * The domain defaults to [0, 1].
+ * The interpolator defaults to the identity function.
+ * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1],
+ * where 0 represents the extreme negative value, 0.5 represents the neutral value, and 1 represents the extreme positive value.
  *
  * The generic corresponds to the data type of the interpolator return type.
  */
@@ -1933,6 +1969,10 @@ export function scaleDiverging<Output>(
 
 /**
  * A diverging scale with a logarithmic transform, analogous to a log scale.
+ */
+export function scaleDivergingLog(): ScaleDiverging<number>;
+/**
+ * A diverging scale with a logarithmic transform, analogous to a log scale.
  *
  * The generic corresponds to the data type of the interpolator return type.
  */
@@ -1960,6 +2000,10 @@ export function scaleDivergingLog<Output>(
 
 /**
  * A diverging scale with a exponential transform, analogous to a power scale.
+ */
+export function scaleDivergingPow(): ScaleDiverging<number>;
+/**
+ * A diverging scale with a exponential transform, analogous to a power scale.
  *
  * The generic corresponds to the data type of the interpolator return type.
  */
@@ -1985,6 +2029,11 @@ export function scaleDivergingPow<Output>(
     interpolator: (t: number) => Output
 ): ScaleDiverging<Output>;
 
+
+/**
+ * A diverging scale with a square-root transform, analogous to a d3.scaleSqrt.
+ */
+export function scaleDivergingSqrt(): ScaleDiverging<number>;
 /**
  * A diverging scale with a square-root transform, analogous to a d3.scaleSqrt.
  *
@@ -2012,6 +2061,10 @@ export function scaleDivergingSqrt<Output>(
     interpolator: (t: number) => Output
 ): ScaleDiverging<Output>;
 
+/**
+ * A diverging scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ */
+export function scaleDivergingSymlog(): ScaleDiverging<number>;
 /**
  * A diverging scale with a symmetric logarithmic transform, analogous to a symlog scale.
  *
