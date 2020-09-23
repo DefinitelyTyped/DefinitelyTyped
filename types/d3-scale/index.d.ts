@@ -5,10 +5,11 @@
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
 //                 rulonder <https://github.com/rulonder>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.2.0
+// Last module patch version validated against: 2.2.2
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
 
