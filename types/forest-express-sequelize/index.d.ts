@@ -138,39 +138,45 @@ export interface SegmentAggregationCreator {
     (record: any): object;
 }
 
-export interface CollectionOptions {
+export interface SmartFieldOption {
+    field: string;
+    description?: string;
+    type: string | string[];
+    isReadOnly?: boolean;
+    reference?: string;
+    enums?: string[];
+    defaultValue?: any;
+    get?: SmartFieldValueGetter;
+    set?: SmartFieldValueSetter;
+    search?: SmartFieldSearcher;
+}
+
+export interface SmartActionOption {
+    name: string;
+    type?: string;
     fields?: Array<{
-        field: string,
-        description?: string,
-        type: string | string[],
-        isReadOnly?: boolean,
-        reference?: string,
-        enums?: string[],
-        defaultValue?: any,
-        get?: SmartFieldValueGetter,
-        set?: SmartFieldValueSetter,
-        search?: SmartFieldSearcher,
+        field: string;
+        type: string | string[];
+        reference?: string;
+        enums?: string[];
+        description?: string;
+        isRequired?: boolean;
     }>;
-    actions?: Array<{
-        name: string;
-        type?: string,
-        fields?: Array<{
-            field: string,
-            type: string | string[],
-            reference?: string,
-            enums?: string[],
-            description?: string,
-            isRequired?: boolean,
-        }>
-        download?: boolean,
-        endpoint?: string,
-        httpMethod?: string,
-        values?: SmartActionValuesInjector,
-    }>;
-    segments?: Array<{
-        name: string,
-        where: SegmentAggregationCreator;
-    }>;
+    download?: boolean;
+    endpoint?: string;
+    httpMethod?: string;
+    values?: SmartActionValuesInjector;
+}
+
+export interface SmartSegmentOption {
+    name: string;
+    where: SegmentAggregationCreator;
+}
+
+export interface CollectionOptions {
+    fields?: SmartFieldOption[];
+    actions?: SmartActionOption[];
+    segments?: SmartSegmentOption[];
 }
 
 export function collection(name: string, options: CollectionOptions): void;
