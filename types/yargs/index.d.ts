@@ -313,6 +313,7 @@ declare namespace yargs {
          * Examples will be printed out as part of the help message.
          */
         example(command: string, description: string): Argv<T>;
+        example(command: ReadonlyArray<[string, string?]>): Argv<T>;
 
         /** Manually indicate that the program should exit, and provide context about why we wanted to exit. Follows the behavior set by `.exitProcess().` */
         exit(code: number, err: Error): void;
