@@ -52,7 +52,7 @@ import * as R from 'ramda';
     }, testObject);
 
     // keys of testObject should be detected, and their values should be `number`.
-    const helloResult = mapped.hello.toFixed();    
+    const helloResult = mapped.hello.toFixed();
     console.log(mapped, helloResult);
 };
 
@@ -85,6 +85,6 @@ import * as R from 'ramda';
     }, testObject);
 
     // keys of testObject should be detected, and their values should be `number`.
-    const helloResult = mapped.hello?.toFixed();    
+    const helloResult = mapped.hello?.toFixed();
     console.log(mapped, helloResult);
 };
