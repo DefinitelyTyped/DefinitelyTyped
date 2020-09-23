@@ -31,9 +31,7 @@ It may be helpful for contributors experiencing any issues with their PRs and pa
 * [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * Current [infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
-If anything here seems wrong, or any of the above are failing, please raise an issue in [the Definitely Typed Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
-
-[![Join the chat at https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+If anything here seems wrong, or any of the above are failing, please let us know in [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript).
 
 ## What are declaration files?
 
@@ -360,7 +358,7 @@ PRs that have been approved by an author listed in the definition's header are u
 
 #### My PR is merged; when will the `@types` NPM package be updated?
 
-NPM packages should update within a few minutes. If it's been more than an hour, mention the PR number on [the Definitely Typed Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped) and the current maintainer will get the correct team member to investigate.
+NPM packages should update within a few minutes. If it's been more than an hour, mention the PR number on [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) and the current maintainer will get the correct team member to investigate.
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 

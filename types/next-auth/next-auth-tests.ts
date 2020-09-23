@@ -69,6 +69,7 @@ const allConfig = {
     jwt: {
         secret: 'secret-thing',
         maxAge: 365,
+        encryption: true,
         encode: () => Promise.resolve('foo'),
         decode: () => Promise.resolve('foo'),
     },
@@ -326,6 +327,13 @@ Providers.Slack({
 Providers.Google({
     clientId: 'foo123',
     clientSecret: 'bar123',
+});
+
+// $ExpectType GenericReturnConfig
+Providers.Google({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+    authorizationUrl: 'https://foo.google.com',
 });
 
 // $ExpectType GenericReturnConfig
