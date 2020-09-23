@@ -147,6 +147,48 @@ render(
 );
 
 /**
+ * Basic table with function returning string noDataIndication
+ */
+render(
+    <BootstrapTable
+        data={products}
+        bootstrap4
+        keyField="id"
+        noDataIndication={() => "No data available"}
+        columns={productColumns}
+    />,
+    document.getElementById('app'),
+);
+
+/**
+ * Basic table with string noDataIndication
+ */
+render(
+    <BootstrapTable
+        data={products}
+        bootstrap4
+        keyField="id"
+        noDataIndication="No data available"
+        columns={productColumns}
+    />,
+    document.getElementById('app'),
+);
+
+/**
+ * Basic table with JSX element noDataIndication
+ */
+render(
+    <BootstrapTable
+        data={products}
+        bootstrap4
+        keyField="id"
+        noDataIndication={<div>No data available</div>}
+        columns={productColumns}
+    />,
+    document.getElementById('app'),
+);
+
+/**
  * Basic table with custom data indicator and caption
  */
 render(
