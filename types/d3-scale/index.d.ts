@@ -1693,6 +1693,141 @@ export function scaleSequential<Output>(
     interpolator: (t: number) => Output
 ): ScaleSequential<Output>;
 
+/**
+ * A sequential scale with a logarithmic transform, analogous to a log scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ */
+export function scaleSequentialLog<Output>(): ScaleSequential<Output>;
+/**
+ * A sequential scale with a logarithmic transform, analogous to a log scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialLog<Output>(interpolator: (t: number) => Output): ScaleSequential<Output>;
+/**
+ * A sequential scale with a logarithmic transform, analogous to a log scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param domain A two-element array of numeric domain values.
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialLog<Output>(
+    domain: [number | { valueOf(): number }, number | { valueOf(): number }],
+    interpolator: (t: number) => Output
+): ScaleSequential<Output>;
+
+/**
+ * A sequential scale with a exponential transform, analogous to a power scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ */
+export function scaleSequentialPow<Output>(): ScaleSequential<Output>;
+/**
+ * A sequential scale with a exponential transform, analogous to a power scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialPow<Output>(interpolator: (t: number) => Output): ScaleSequential<Output>;
+/**
+ * A sequential scale with a exponential transform, analogous to a power scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param domain A two-element array of numeric domain values.
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialPow<Output>(
+    domain: [number | { valueOf(): number }, number | { valueOf(): number }],
+    interpolator: (t: number) => Output
+): ScaleSequential<Output>;
+
+/**
+ * A sequential scale with a square-root transform, analogous to a d3.scaleSqrt.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ */
+export function scaleSequentialSqrt<Output>(): ScaleSequential<Output>;
+/**
+ * A sequential scale with a square-root transform, analogous to a d3.scaleSqrt.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialSqrt<Output>(interpolator: (t: number) => Output): ScaleSequential<Output>;
+/**
+ * A sequential scale with a square-root transform, analogous to a d3.scaleSqrt.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param domain A two-element array of numeric domain values.
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialSqrt<Output>(
+    domain: [number | { valueOf(): number }, number | { valueOf(): number }],
+    interpolator: (t: number) => Output
+): ScaleSequential<Output>;
+
+/**
+ * A sequential scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ */
+export function scaleSequentialSymlog<Output>(): ScaleSequential<Output>;
+/**
+ * A sequential scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialSymlog<Output>(interpolator: (t: number) => Output): ScaleSequential<Output>;
+/**
+ * A sequential scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param domain A two-element array of numeric domain values.
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialSymlog<Output>(
+    domain: [number | { valueOf(): number }, number | { valueOf(): number }],
+    interpolator: (t: number) => Output
+): ScaleSequential<Output>;
+
+/**
+ * A sequential scale using a p-quantile transform, analogous to a quantile scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ */
+export function scaleSequentialQuantile<Output>(): ScaleSequential<Output>;
+/**
+ * A sequential scale using a p-quantile transform, analogous to a quantile scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialQuantile<Output>(interpolator: (t: number) => Output): ScaleSequential<Output>;
+/**
+ * A sequential scale using a p-quantile transform, analogous to a quantile scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param domain A two-element array of numeric domain values.
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialQuantile<Output>(
+    domain: [number | { valueOf(): number }, number | { valueOf(): number }],
+    interpolator: (t: number) => Output
+): ScaleSequential<Output>;
+
 // -------------------------------------------------------------------------------
 // Diverging Scale Factory
 // -------------------------------------------------------------------------------
@@ -1792,6 +1927,114 @@ export function scaleDiverging<Output>(interpolator: (t: number) => Output): Sca
  * @param interpolator The scale’s interpolator.
  */
 export function scaleDiverging<Output>(
+    domain: [number | { valueOf(): number }, number | { valueOf(): number }, number | { valueOf(): number }],
+    interpolator: (t: number) => Output
+): ScaleDiverging<Output>;
+
+/**
+ * A diverging scale with a logarithmic transform, analogous to a log scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ */
+export function scaleDivergingLog<Output>(): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a logarithmic transform, analogous to a log scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingLog<Output>(interpolator: (t: number) => Output): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a logarithmic transform, analogous to a log scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param domain Array of three numeric domain values.
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingLog<Output>(
+    domain: [number | { valueOf(): number }, number | { valueOf(): number }, number | { valueOf(): number }],
+    interpolator: (t: number) => Output
+): ScaleDiverging<Output>;
+
+/**
+ * A diverging scale with a exponential transform, analogous to a power scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ */
+export function scaleDivergingPow<Output>(): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a exponential transform, analogous to a power scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingPow<Output>(interpolator: (t: number) => Output): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a exponential transform, analogous to a power scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param domain Array of three numeric domain values.
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingPow<Output>(
+    domain: [number | { valueOf(): number }, number | { valueOf(): number }, number | { valueOf(): number }],
+    interpolator: (t: number) => Output
+): ScaleDiverging<Output>;
+
+/**
+ * A diverging scale with a square-root transform, analogous to a d3.scaleSqrt.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ */
+export function scaleDivergingSqrt<Output>(): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a square-root transform, analogous to a d3.scaleSqrt.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingSqrt<Output>(interpolator: (t: number) => Output): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a square-root transform, analogous to a d3.scaleSqrt.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param domain Array of three numeric domain values.
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingSqrt<Output>(
+    domain: [number | { valueOf(): number }, number | { valueOf(): number }, number | { valueOf(): number }],
+    interpolator: (t: number) => Output
+): ScaleDiverging<Output>;
+
+/**
+ * A diverging scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ */
+export function scaleDivergingSymlog<Output>(): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingSymlog<Output>(interpolator: (t: number) => Output): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param domain Array of three numeric domain values.
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingSymlog<Output>(
     domain: [number | { valueOf(): number }, number | { valueOf(): number }, number | { valueOf(): number }],
     interpolator: (t: number) => Output
 ): ScaleDiverging<Output>;
