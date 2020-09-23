@@ -34,6 +34,14 @@ draftToMarkdown(rawContent, {
     },
 });
 
+// Handle preserveNewlines
+draftToMarkdown(rawContent, {
+    preserveNewlines: true
+});
+markdownToDraft('# Test', {
+    preserveNewlines: true
+});
+
 // Handle markdown param
 const rawDraft = markdownToDraft('# Test');
 convertFromRaw(rawDraft);

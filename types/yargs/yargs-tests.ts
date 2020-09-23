@@ -269,6 +269,7 @@ function Argv$command() {
                     demand: false
                 }
             },
+            deprecated: false,
             handler: (args: any) => {
                 /* handle me mateys! */
             }
@@ -303,7 +304,11 @@ function Argv$command() {
             },
             (argv) => {
                 console.dir(argv.url);
-            }
+            },
+            // middlewares
+            [],
+            // deprecated
+            'use --newGet'
         )
         .help()
         .argv;
@@ -320,6 +325,33 @@ function Argv$command() {
         })
         .help()
         .argv;
+}
+
+function Argv$example() {
+    yargs
+        .command({
+            command: 'get',
+            handler: () => {
+                // command
+            },
+        })
+        .command({
+            command: 'post',
+            handler: () => {
+                // command
+            },
+        })
+        .command({
+            command: 'delete',
+            handler: () => {
+                // command
+            },
+        })
+        .example([
+            ['$0 get', 'get https://example.com/'],
+            ['$0 post', 'post https://example.com/'],
+        ])
+        .example('$0 delete', 'delete https://example.com').argv;
 }
 
 function Argv$positional() {
@@ -343,6 +375,7 @@ function Argv$commandModule() {
         handler(args: yargs.Arguments): void {
             console.log("one");
         }
+        deprecated: true;
     }
 
     const CommandTwo: yargs.CommandModule<{ a: string }, { b: number }> = {
