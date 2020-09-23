@@ -9,8 +9,17 @@
  */
 export const wrapper: XELib;
 
-// Distinguish handles from regular numbers
+/**
+ * Handles are distinguished from `number`.
+ *
+ * They are only meaninful to xelib and one should not pass arbitrary numbers.
+ */
 export type Handle = number & { __xelib_handle__: never };
+/**
+ * A type which can either be a `Handle` type or `0`.
+ *
+ * In most cases `0` means "all files", "not found", etc.
+ */
 export type Zeroable<H extends Handle> = H | 0;
 // Distinguish types of handles
 /**
@@ -593,26 +602,26 @@ export interface XELib
     /**
      * Returns true if an element exists at the given path.
      */
-    HasElement(id: Handle, path: string): boolean;
+    HasElement(id: Zeroable<Handle>, path: string): boolean;
     /**
      * Resolves the element at path and returns a handle to it.
      * Returns 0 if the element is not found.
      */
-    GetElement(id: Handle, path: string): Zeroable<ElementHandle>;
+    GetElement(id: Zeroable<Handle>, path: string): Zeroable<ElementHandle>;
     /**
      * Traverses path, creating any elements that are not found.
      * Returns a handle to the element at the end of the path.
      */
-    AddElement(id: Handle, path: string): ElementHandle;
+    AddElement(id: Zeroable<Handle>, path: string): ElementHandle;
     /**
      * Traverses path, creating any elements that are not found.
      * Sets the value of the element at the end of the path to value, and returns a handle to it.
      */
-    AddElementValue(id: Handle, path: string, value: string): ElementHandle;
+    AddElementValue(id: Zeroable<Handle>, path: string, value: string): ElementHandle;
     /**
      * Removes the element at path if it exists.
      */
-    RemoveElement(id: Handle, path: string): void;
+    RemoveElement(id: Zeroable<Handle>, path: string): void;
     /**
      * Removes the element id.
      * If the element cannot be removed it gets its parent container and attempts to remove it.
@@ -627,11 +636,11 @@ export interface XELib
     /**
      * Returns an array of handles for all of the elements found in the container at path.
      */
-    GetElements(id: ContainerHandle, path: string): ElementHandle[];
+    GetElements(id: Zeroable<ContainerHandle>, path: string): ElementHandle[];
     /**
      * Returns an array of the names of all elements that can exist at path.
      */
-    GetDefNames(id: Handle, path: string): string[];
+    GetDefNames(id: Zeroable<Handle>, path: string): string[];
     /**
      * Returns an array of the signatures that can be added to id.
      */
@@ -640,11 +649,11 @@ export interface XELib
      * Returns the record referenced by the element at path.
      * Note: this returns the master of the record, not the winning override.
      */
-    GetLinksTo(id: Handle, path: string): RecordHandle;
+    GetLinksTo(id: Zeroable<Handle>, path: string): RecordHandle;
     /**
      * Sets the record referenced by the element at path to id2.
      */
-    SetLinksTo(id: Handle, id2: RecordHandle, path: string): void;
+    SetLinksTo(id: Handle, id2: Zeroable<RecordHandle>, path: string): void;
     /**
      * Returns a handle to the container of id.
      * Returns 0 on failure.
@@ -667,25 +676,25 @@ export interface XELib
      * When the element at path contains a reference, value can be a Form ID, Editor ID, or FULL Name.
      * FULL Names passed to this function must be surrounded by double quotes.
      */
-    ElementMatches(id: Handle, path: string, value: string): boolean;
+    ElementMatches(id: Zeroable<Handle>, path: string, value: string): boolean;
     /**
      * Returns true if the array at path contains an item which matches value at subpath.
      */
-    HasArrayItem(id: Handle, path: string, subpath: string, value: string): boolean;
+    HasArrayItem(id: Zeroable<Handle>, path: string, subpath: string, value: string): boolean;
     /**
      * Returns the first item in the array at path which matches value at subpath.
      * Returns 0 if no matching element is found.
      */
-    GetArrayItem(id: Handle, path: string, subpath: string, value: string): Zeroable<ElementHandle>;
+    GetArrayItem(id: Zeroable<Handle>, path: string, subpath: string, value: string): Zeroable<ElementHandle>;
     /**
      * Adds an item to the array at path and sets value at subpath.
      * @returns Handle to the added array item.
      */
-    AddArrayItem(id: Handle, path: string, subpath: string, value: string): ElementHandle;
+    AddArrayItem(id: Zeroable<Handle>, path: string, subpath: string, value: string): ElementHandle;
     /**
      * Removes the first item in the array at path which matches value at subpath.
      */
-    RemoveArrayItem(id: Handle, path: string, subpath: string, value: string): void;
+    RemoveArrayItem(id: Zeroable<Handle>, path: string, subpath: string, value: string): void;
     /**
      * Moves the array item id to position index.
      */
@@ -793,66 +802,66 @@ export interface XELib
      * @returns the editor value at path.
      * @returns an empty string if path does not exist.
      */
-    GetValue(id: Handle, path: string): string;
+    GetValue(id: Zeroable<Handle>, path: string): string;
     /**
      * Sets the editor value at path to value.
      * This is the same value displayed in the record view.
      */
-    SetValue(id: Handle, path: string, value: string): void;
+    SetValue(id: Zeroable<Handle>, path: string, value: string): void;
     /**
      * @returns The native integer value at path.
      * @returns 0 if path does not exist.
      */
-    GetIntValye(id: Handle, path: string): number;
+    GetIntValye(id: Zeroable<Handle>, path: string): number;
     /**
      * Sets the native integer value at path to value.
      */
-    SetIntValue(id: Handle, path: string, value: number): void;
+    SetIntValue(id: Zeroable<Handle>, path: string, value: number): void;
     /**
      * @returns The native unsigned integer value at path.
      * @returns 0 if path does not exist.
      */
-    GetUIntValue(id: Handle, path: string): number;
+    GetUIntValue(id: Zeroable<Handle>, path: string): number;
     /**
      * Sets the native unsigned integer value at path to value.
      */
-    SetUIntValue(id: Handle, path: string, value: number): void;
+    SetUIntValue(id: Zeroable<Handle>, path: string, value: number): void;
     /**
      * @returns The native float value at path.
      * @returns 0.0 if path does not exist.
      */
-    GetFloatValue(id: Handle, path: string): number;
+    GetFloatValue(id: Zeroable<Handle>, path: string): number;
     /**
      * Sets the native float value at path to value.
      */
-    SetFloatValue(id: Handle, path: string, value: number): void;
+    SetFloatValue(id: Zeroable<Handle>, path: string, value: number): void;
     /**
      * Resolves the flags element at path, and sets flag name to state.
      */
-    SetFlag(id: Handle, path: string, name: string, state: boolean): void;
+    SetFlag(id: Zeroable<Handle>, path: string, name: string, state: boolean): void;
     /**
      * Resolves the flags element at path, and gets the state of flag name.
      */
-    GetFlag(id: Handle, path: string, name: string): boolean;
+    GetFlag(id: Zeroable<Handle>, path: string, name: string): boolean;
     /**
      * Resolves the flags element at path and returns an array of the names of the enabled flags on it.
      */
-    GetEnabledFlags(id: Handle, path: string): string[];
+    GetEnabledFlags(id: Zeroable<Handle>, path: string): string[];
     /**
      * Resolves the flags element at path and sets the enabled flags to flags.
      * Note: This disables any active flags that are not in flags.
      */
-    SetEnabledFlags(id: Handle, path: string, flags: readonly string[]): void;
+    SetEnabledFlags(id: Zeroable<Handle>, path: string, flags: readonly string[]): void;
     /**
      * Resolves the flags element at path and returns an array of the names of all of the flags it supports.
      * Flag positions in the array indicate the binary bits they corresponds to.
      */
-    GetAllFlags(id: Handle, path: string): string[];
+    GetAllFlags(id: Zeroable<Handle>, path: string): string[];
     /**
      * Resolves the enumeration element at path and returns an array of the options it supports.
      * Enumeration positions in the array indicate the binary bits they corresponds to.
      */
-    GetEnumOptions(id: Handle, path: string): string[];
+    GetEnumOptions(id: Zeroable<Handle>, path: string): string[];
 
     /**
      * File functions
@@ -1502,11 +1511,11 @@ export interface XELib
     /**
      * Creates elements by deserializing `json` in the context of `id` at `path`.
      */
-    ElementFromJSON(id: Handle, path: string, json: string): void;
+    ElementFromJSON(id: Zeroable<Handle>, path: string, json: string): void;
     /**
      * Creates elements from `obj` in the context of `id` at `path`.
      */
-    ElementFromObject(id: Handle, path: string, obj: object): void;
+    ElementFromObject(id: Zeroable<Handle>, path: string, obj: object): void;
 
     /**
      * Plugin Error functions
