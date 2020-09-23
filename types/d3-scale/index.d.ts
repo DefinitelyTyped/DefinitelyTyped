@@ -122,6 +122,17 @@ export interface ScaleContinuousNumeric<Range, Output> {
     clamp(clamp: boolean): this;
 
     /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
+
+    /**
      * Returns approximately count representative values from the scale’s domain.
      *
      * If count is not specified, it defaults to 10.
@@ -166,6 +177,24 @@ export interface ScaleContinuousNumeric<Range, Output> {
      */
     copy(): this;
 }
+
+
+/**
+ * Returns a number format function suitable for displaying a tick value, automatically computing the appropriate precision based on the fixed interval between tick values, as determined by d3.tickStep.
+ *
+ * @param start Start
+ * @param stop Stop
+ * @param count Approximate number of ticks to be used when calculating precision for the number format function.
+ * @param specifier An optional specifier allows a custom format where the precision of the format is automatically set by the scale as appropriate for the tick interval.
+ * If specifier uses the format type s, the scale will return a SI-prefix format based on the larger absolute value of start and stop.
+ * If the specifier already specifies a precision, this method is equivalent to locale.format.
+ */
+export function tickFormat(
+    start: number,
+    stop: number,
+    count: number,
+    specifier?: string
+): (d: number | { valueOf(): number }) => string;
 
 // -------------------------------------------------------------------------------
 // Linear Scale Factory
