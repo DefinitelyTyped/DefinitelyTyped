@@ -10,8 +10,6 @@ interface Default {
     // calling the `compile` function.
     // tslint:disable-next-line:no-unnecessary-generics
     compile: <Locals>(str: string) => ((locals: Locals) => string);
-}
-interface Default {
     (str: string, locals: Record<string, unknown>): string;
 }
 declare const _default: Default;
