@@ -3,7 +3,7 @@
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 //                 Ryan Jentzsch <https://github.com/RyanNerd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 4.0
 /// <reference types="node" />
 
 import { IncomingMessage as Request, ServerResponse as Response } from 'http';
