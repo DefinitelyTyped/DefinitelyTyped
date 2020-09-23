@@ -1111,6 +1111,12 @@
             "asOfVersion": "2.7.0"
         },
         {
+            "libraryName": "elasticsearch",
+            "typingsPackageName": "elasticsearch",
+            "sourceRepoURL": "https://github.com/elastic/elasticsearch-js",
+            "asOfVersion": "6.0"
+        },
+        {
             "libraryName": "electron",
             "typingsPackageName": "electron",
             "sourceRepoURL": "https://github.com/electron/electron",
