@@ -178,9 +178,9 @@ export interface ScaleContinuousNumeric<Range, Output> {
     copy(): this;
 }
 
-
 /**
- * Returns a number format function suitable for displaying a tick value, automatically computing the appropriate precision based on the fixed interval between tick values, as determined by d3.tickStep.
+ * Returns a number format function suitable for displaying a tick value,
+ * automatically computing the appropriate precision based on the fixed interval between tick values, as determined by d3.tickStep.
  *
  * @param start Start
  * @param stop Stop
@@ -1729,7 +1729,6 @@ export function scaleSequential<Output>(
     interpolator: (t: number) => Output
 ): ScaleSequential<Output>;
 
-
 /**
  * A sequential scale with a logarithmic transform, analogous to a log scale.
  */
@@ -2057,7 +2056,6 @@ export function scaleDivergingPow<Output>(
     domain: [number | { valueOf(): number }, number | { valueOf(): number }, number | { valueOf(): number }],
     interpolator: (t: number) => Output
 ): ScaleDiverging<Output>;
-
 
 /**
  * A diverging scale with a square-root transform, analogous to a d3.scaleSqrt.
