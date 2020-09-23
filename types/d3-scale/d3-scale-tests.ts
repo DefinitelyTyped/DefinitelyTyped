@@ -830,7 +830,7 @@ let thresholdScaleNumberString: d3Scale.ScaleThreshold<number, string>;
 
 thresholdScaleNumberNumber = d3Scale.scaleThreshold();
 thresholdScaleNumberString = d3Scale.scaleThreshold<number, string>();
-thresholdScaleNumberNumber = d3Scale.scaleThreshold([0, 5], [0, 5]);
+thresholdScaleNumberString = d3Scale.scaleThreshold([0, 5], ['test']);
 
 // ScaleThreshold Interface ========================================================
 
