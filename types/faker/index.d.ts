@@ -37,6 +37,7 @@ declare namespace Faker {
             cardinalDirection(useAbbr?: boolean): string;
             ordinalDirection(useAbbr?: boolean): string;
             nearbyGPSCoordinate(coordinate?: string, radius?: number, isMetric?: boolean): string;
+            timeZone(): string;
         };
 
         commerce: {
