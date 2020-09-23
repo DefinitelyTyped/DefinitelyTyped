@@ -73,8 +73,8 @@ export declare class Stats {
     /**
      * Add elements to back
      */
-    push(...args: number[]): void;
-    push(args: number[]): void;
+    push(...args: number[]): Stats;
+    push(args: number[]): Stats;
 
     /**
      * Remove element from back
@@ -89,7 +89,7 @@ export declare class Stats {
     /**
      * Add elements to front
      */
-    unshift(...args: number[]): void;
+    unshift(...args: number[]): Stats;
 
     /**
      * Number of elements

@@ -7,11 +7,10 @@ var n: number;
 var ns: number[];
 var buckets: faststats.Bucket[];
 
-var stats: Stats = new Stats({ bucket_precision: 10 });
-
-stats.push(1, 2, 3);
-stats.push([1, 2, 3]);
-stats.unshift(1, 2, 3);
+var stats: Stats = new Stats({ bucket_precision: 10 })
+  .push(1, 2, 3)
+  .push([1, 2, 3])
+  .unshift(1, 2, 3);
 
 n = stats.pop();
 n = stats.shift();
