@@ -3,6 +3,9 @@
 // Definitions by: James Bracy <https://github.com/waratuman>
 //                 Mike North <https://github.com/mike-north>
 //                 Stefan Sechelmann <https://github.com/sechel>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 Dan Freeman <https://github.com/dfreeman>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare global {
