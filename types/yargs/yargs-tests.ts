@@ -269,6 +269,7 @@ function Argv$command() {
                     demand: false
                 }
             },
+            deprecated: false,
             handler: (args: any) => {
                 /* handle me mateys! */
             }
@@ -303,7 +304,11 @@ function Argv$command() {
             },
             (argv) => {
                 console.dir(argv.url);
-            }
+            },
+            // middlewares
+            [],
+            // deprecated
+            'use --newGet'
         )
         .help()
         .argv;
@@ -343,6 +348,7 @@ function Argv$commandModule() {
         handler(args: yargs.Arguments): void {
             console.log("one");
         }
+        deprecated: true;
     }
 
     const CommandTwo: yargs.CommandModule<{ a: string }, { b: number }> = {
