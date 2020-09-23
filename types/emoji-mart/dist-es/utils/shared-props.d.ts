@@ -5,13 +5,12 @@ import { EmojiData, EmojiSkin, CustomEmoji } from './emoji-index/nimble-emoji-in
 export type BackgroundImageFn = (set: EmojiSet, sheetSize: EmojiSheetSize) => string;
 export type EmojiSet = 'apple' | 'google' | 'twitter' | 'emojione' | 'messenger' | 'facebook';
 export type EmojiSheetSize = 16 | 20 | 32 | 64;
-type Element = React.Component | JSX.Element;
 
 export interface EmojiProps {
     onOver?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
     onLeave?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
     onClick?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
-    fallback?(emoji: EmojiData, props: EmojiProps): Element;
+    fallback?(emoji: EmojiData, props: EmojiProps): React.Component | JSX.Element;
     /** defaults to returning a png from unpkg.com-hosted emoji-datasource-${set} */
     backgroundImageFn?: BackgroundImageFn;
     native?: boolean;
@@ -70,7 +69,7 @@ export interface PickerProps {
     i18n?: PartialI18n;
     style?: React.CSSProperties;
     title?: string;
-    theme?: "auto" | "light" | "dark";
+    theme?: 'auto' | 'light' | 'dark';
     emoji?: string;
     color?: string;
     set?: EmojiSet;
