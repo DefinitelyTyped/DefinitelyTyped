@@ -5,8 +5,8 @@ import _ = require('underscore');
  **************************************/
 declare const $: any;
 declare const window: any;
-declare const alert: (msg: string) => any;
-declare const console: {log: any};
+declare const alert: (msg: string) => void;
+declare const console: { log(...data: any[]): void; };
 
 declare const context: object;
 
@@ -92,13 +92,11 @@ interface NoParametersRecord {
 }
 
 declare const noParametersRecordList: _.List<NoParametersRecord>;
-declare const noParametersRecordDictionary: _.Dictionary<NoParametersRecord>;
 
 interface TwoParametersRecord {
     a: (arg0: number, arg1: string) => void;
 }
 
-declare const twoParametersRecordList: _.List<TwoParametersRecord>;
 declare const twoParametersRecordDictionary: _.Dictionary<TwoParametersRecord>;
 
 // string
@@ -117,6 +115,7 @@ declare const level2StringList: _.List<_.List<string>>;
 // number
 declare const numberValue: number;
 declare const numberList: _.List<number>;
+declare const numberArray: number[];
 declare const numberDictionary: _.Dictionary<number>;
 
 // boolean
@@ -125,6 +124,7 @@ declare const booleanDictionary: _.Dictionary<boolean>;
 
 // any
 declare const anyValue: any;
+declare const anyArray: any[];
 declare const anyCollectionIterator: (element: any, index: string | number, collection: any) => void;
 declare const anyCollectionTester: (element: any, index: string | number, collection: any) => boolean;
 
@@ -165,6 +165,11 @@ declare const level2UnionList: _.List<_.List<string | number>>;
 declare const tupleList: _.List<[string, number]>;
 declare const maybeFunction: (() => void) | undefined;
 
+// concrete example types
+declare const manyParameters: (a: string, b: number, c: boolean, d: string, e: number, f: string) => string;
+const stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
+declare const explicitNumberDictionary: { one: number; two: number; three: number; };
+
 /***************
  * Usage Tests *
  ***************/
@@ -172,365 +177,418 @@ declare const maybeFunction: (() => void) | undefined;
 _.VERSION; // $ExpectType string
 
 // iterating through an array
-_.each([1, 2, 3], (num) => alert(num.toString()));
+// $ExpectType number[]
+_.each(numberArray, (value, key, collection) => {
+    value; // $ExpectType number
+    key; // $ExpectType number
+    collection; // $ExpectType number[]
+});
 
 // iterating through a dictionary
-_.each({ one: 1, two: 2, three: 3 }, (value, key) => alert(value.toString()));
+// $ExpectType { one: number; two: number; three: number; }
+_(explicitNumberDictionary).each((value, key, collection) => {
+    value; // $ExpectType number
+    key; // $ExpectType string
+    collection; // $ExpectType { one: number; two: number; three: number; }
+});
 
 // mapping an array with an inferred result type
-_.map([1, 2, 3], (num) => num * 3);
+// $ExpectType number[]
+_(numberArray).map((value, key, collection) => {
+    value; // $ExpectType number
+    key; // $ExpectType number
+    collection; // $ExpectType number[]
+
+    return value;
+});
 
 // mapping a dictionary with an explicit result type
-_.map({ one: 1, two: 2, three: 3 }, (value, key): NumberRecord => ({ a: value }));
+// $ExpectType NumberRecord[]
+_.map(explicitNumberDictionary, (value, key, collection): NumberRecord => {
+    value; // $ExpectType number
+    key; // $ExpectType string
+    collection; // $ExpectType { one: number; two: number; three: number; }
+
+    return { a: value };
+});
 
 // mapping a dictionary by retrieving the value of a specific property
-let plucked: string[] = _.map([{key: 'apples'}, {key: 'oranges'}], 'key');
+_.map([{ key: 'apples' }, { key: 'oranges' }], 'key'); // $ExpectType string[]
 
 // summing with a result of undefined when no values are provided
-_.reduce([1, 2, 3], (memo, num) => memo + num); // $ExpectType number | undefined
+// $ExpectType number | undefined
+_.reduce(numberArray, (memo, num, key, collection) => {
+    memo; // $ExpectType number
+    num; // $ExpectType number
+    key; // $ExpectType number
+    collection; // $ExpectType number[]
+
+    return memo + num;
+});
 
 // summing numbers as strings in an object collection with a result of undefined when no values are provided
 // and a result of a string when only one value is provided
-_.reduce({ 'a': '1', 'b': '2', 'c': '3' }, (memo: string | number, numstr) => (+memo) + (+numstr)); // $ExpectType string | number | undefined
+// $ExpectType string | number | undefined
+_({ a: '1', b: '2', c: '3' }).reduce((memo: string | number, numstr, key, collection) => {
+    numstr; // $ExpectType string
+    key; // $ExpectType string
+    collection; // $ExpectType { a: string; b: string; c: string; }
+
+    return (+memo) + (+numstr);
+});
 
 // summing with a result of zero when no values are provided
-_.reduce([1, 2, 3], (memo, num) => memo + num, 0); // $ExpectType number
+_.reduce(numberArray, (memo, num) => memo + num, 0); // $ExpectType number
 
 // flattening an array in reverse order
-var list = [[0, 1], [2, 3], [4, 5]];
-var flat = _.reduceRight(list, (a, b) => a.concat(b), [] as number[]);
+_([[0, 1], [2, 3], [4, 5]]).reduceRight((a: number[], b) => a.concat(b), []); // $ExpectType number[]
 
 // filtering to only evens
-var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+_.filter(numberArray, num => num % 2 === 0); // $ExpectType number[]
 
 // filtering to only uppercase letters
-var capitalLetters = _.filter({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
+_({ a: 'a', b: 'B', c: 'C', d: 'd' }).filter(l => l === l.toUpperCase()); // $ExpectType string[]
 
 // rejecting evens
-var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+_.reject(numberArray, (num) => num % 2 === 0); // $ExpectType number[]
 
 // filtering to partial matches
-var listOfPlays = [{ title: "Cymbeline", author: "Shakespeare", year: 1611 }, { title: "The Tempest", author: "Shakespeare", year: 1611 }, { title: "Other", author: "Not Shakespeare", year: 2012 }];
-_.where(listOfPlays, { author: "Shakespeare", year: 1611 });
+// $ExpectType { title: string; author: string; year: number; }[]
+_.where([
+    { title: "Cymbeline", author: "Shakespeare", year: 1611 },
+    { title: "The Tempest", author: "Shakespeare", year: 1611 },
+    { title: "Other", author: "Not Shakespeare", year: 2012 }
+],
+    { author: "Shakespeare", year: 1611 }
+);
 
 // determining whether every value is truthy
-_.every([true, 1, null, 'yes']);
-
-_.any([null, 0, 'yes', false]);
+_.every([true, 1, null, 'yes']); // $ExpectType boolean
 
 // determining whether any number in a list is divisible by three
-_.some([1, 2, 3, 4], l => l % 3 === 0);
+_.some(numberArray, l => l % 3 === 0); // $ExpectType boolean
 
 // determining whether any value in a dictionary is uppercase
-_.some({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
+_.some({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase()); // $ExpectType boolean
 
 // checking whether an item is in an array
-_.contains([1, 2, 3], 3);
+_.contains(numberArray, 3); // $ExpectType boolean
 
 // checking whether an item is in the portion of an array that starts with index 1
-_.contains([1, 2, 3], 3, 1);
+_.contains(numberArray, 3, 1); // $ExpectType boolean
 
 // truncating a set of strings to 5 characters or less
-_.invoke(['zebra', 'giraffe', 'lion'], 'substring', 0, 5);
+_.invoke(['zebra', 'giraffe', 'lion'], 'substring', 0, 5); // $ExpectType any[]
 
 // retrieving a property value from all items in a collection
-var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
-_.pluck(stooges, 'name');
+_.pluck(stooges, 'name'); // $ExpectType string[]
 
 // retrieving the minimum number in a dictionary
-_.min({ a: 1, b: 2 });
+_.min(numberDictionary); // $ExpectType number
 
 // retrieving the item with the maximum number in a property
-_.max(stooges, (stooge) => stooge.age);
+_.max(stooges, (stooge) => stooge.age); // $ExpectType number | { name: string; age: number; }
 
 // sorting by a calculated value
-_.sortBy([1, 2, 3, 4, 5, 6], (num) => Math.sin(num));
+_.sortBy(numberArray, num => Math.sin(num)); // $ExpectType number[]
 
 // grouping numbers by their non-fractional parts
-_([1.3, 2.1, 2.4]).groupBy((e) => Math.floor(e));
+_([1.3, 2.1, 2.4]).groupBy((e) => Math.floor(e)); // $ExpectType Dictionary<number[]>
 
 // grouping numbers by the value of a specified property
-_.groupBy(['one', 'two', 'three'], 'length');
+_.groupBy(['one', 'two', 'three'], 'length'); // $ExpectType Dictionary<string[]>
 
 // indexing items in a dictionary by age
-_.indexBy(stooges, 'age');
+_.indexBy(stooges, 'age'); // $ExpectType Dictionary<{ name: string; age: number; }>
 
 // counting numbers by their evenness
-_.countBy([1, 2, 3, 4, 5], (num) => (num % 2 == 0) ? 'even' : 'odd');
+_.countBy(numberArray, num => (num % 2 === 0) ? 'even' : 'odd'); // $ExpectType Dictionary<number>
 
 // shuffling numbers
-_.shuffle([1, 2, 3, 4, 5, 6]);
+_.shuffle(numberArray); // $ExpectType number[]
 
 // converting an array-like structure to an array
-(function (a, b, c, d) { return _.toArray(arguments).slice(1); })(1, 2, 3, 4);
+(function (a, b, c, d) {
+    const args = _.toArray(arguments); // $ExpectType any[]
+    return args;
+})(1, 2, 3, 4);
+
+// converting a dictionary to an array
+_.toArray(explicitNumberDictionary); // $ExpectType number[]
 
 // determining the number of items in a dictionary
-_.size({ one: 1, two: 2, three: 3 });
+_.size(explicitNumberDictionary); // $ExpectType number
 
 // splitting numbers into sets of even and odd values
-_.partition([0, 1, 2, 3, 4, 5], (num) => {return num % 2 === 0 });
-
-interface Family {
-    name: string;
-    relation: string;
-}
+_.partition(numberArray, num => num % 2 === 0); // $ExpectType [number[], number[]]
 
 // creating a function that can determine if one object's property values matches another's
-var isUncleMoe = _.matches<Family>({ name: 'moe', relation: 'uncle' });
-var uncleMoe: Family = { name: 'moe', relation: 'uncle' };
-isUncleMoe(uncleMoe);
+{
+    const isUncleMoe = _.matches({ name: 'moe', relation: 'uncle' }); // $ExpectType Predicate<{ name: string; relation: string; }>
+    isUncleMoe({ name: 'moe', relation: 'uncle' }); // $ExpectType boolean
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
 // retrieving the first item in an array
-_.first([5, 4, 3, 2, 1]);
+_.first(numberArray); // $ExpectType number | undefined
 
 // retrieving all but the last element in an array
-_.initial([5, 4, 3, 2, 1]);
+_.initial(numberArray); // $ExpectType number[]
 
 // retrieving the last two elements in an array
-_.last([5, 4, 3, 2, 1], 2);
+_.last(numberArray, 2); // $ExpectType number[]
 
 // retrieving all but the first two elements in an array
-_.rest([5, 4, 3, 2, 1], 2);
+_.rest(numberArray, 2); // $ExpectType number[]
 
 // removing falsy values
-_.compact([0, 1, false, 2, '', 3, undefined]);
+_.compact([0, 1, false, 2, '', '3', undefined]); // $ExpectType (string | number | true)[]
 
 // deep flattening an array
-_.flatten([1, [2], [3, [[4]]]]);
+_.flatten([[[1, 2], [3]], [[4, 5]]]); // $ExpectType any[]
 
 // shallow flattening an array
-_.flatten([1, [2], [3, [[4]]]], true);
+_.flatten([[[1, 2], [3]], [[4, 5]]], true); // $ExpectType number[][]
 
 // excluding values from a list
-_.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
+_.without([1, 2, 1, 0, 3, 1, 4], 0, 1); // $ExpectType number[]
 
 // computing the union of several sets
-_.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+_.union([1, 2, 3], [101, 2, 1, 10], [2, 1]); // $ExpectType number[]
 
 // computing the intersection of several sets
-_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+_.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]); // $ExpectType number[]
 
 // computing the difference one set and other sets
-_.difference([1, 2, 3, 4, 5], [5, 2, 10]);
+_.difference([1, 2, 3, 4, 5], [5, 2, 10]); // $ExpectType number[]
 
 // determining the unique values in an array
-_.uniq([1, 2, 1, 3, 1, 4]);
+_.uniq([1, 2, 1, 3, 1, 4]); // $ExpectType number[]
 
 // merging together lists of values at a set of positions
-_.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
+_.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $ExpectType any[][]
 
 // creating an object from a set of keys and a set of values
-var r = _.object(['moe', 'larry', 'curly'], [30, 40, 50]);
+_.object(['moe', 'larry', 'curly'], [30, 40, 50]); // $ExpectType Dictionary<number | undefined>
 
 // creating an object from a set of key-value pairs
-_.object([['moe', 30], ['larry', 40], ['curly', 50]]);
+_.object([['moe', 30], ['larry', 40], ['curly', 50]] as [string, number][]); // $ExpectType Dictionary<number>
 
 // finding the index of a value
-_.indexOf([1, 2, 3], 2);
+_.indexOf(numberArray, 2); // $ExpectType number
 
 // finding the last index of a value
-_.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
+_.lastIndexOf(numberArray, 2); // $ExpectType number
 
 // finding the index at which to insert a value to maintain sorting
-_.sortedIndex([10, 20, 30, 40, 50], 35);
+_.sortedIndex(numberArray, 35); // $ExpectType number
 
 // finding the index of the first matching value
-_.findIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findIndex(numberArray, num => num % 2 === 0); // $ExpectType number
 
 // finding the index of the first matching value via a shallow object contents comparison
-_.findIndex([{a: 'a'}, {a: 'b'}], {a: 'b'});
+_.findIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' }); // $ExpectType number
 
 // finding the index of the last matching value
-_.findLastIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findLastIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0); // $ExpectType number
 
 // finding the index of the last matching value via a shallow object contents comparison
-_.findLastIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' });
+_.findLastIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' }); // $ExpectType number
 
 // creating an array of numbers from 0 to 10
-_.range(10);
+_.range(10); // $ExpectType number[]
 
 // creating an array of numbers from 1 to 11
-_.range(1, 11);
+_.range(1, 11); // $ExpectType number[]
 
 // creating an array of numbers from 0 to 30 in increments of 5
-_.range(0, 30, 5);
+_.range(0, 30, 5); // $ExpectType number[]
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
 // binding a context and arguments to a function
-var func = function (greeting) { return `${greeting}: ${this.name}` };
-// need a second var otherwise typescript thinks func signature is the above func type,
-// instead of the newly returned _bind => func type.
-var func2 = _.bind(func, { name: 'moe' }, 'hi');
-func2();
+{
+    const nameGreeting = function (this: { name: string }, greeting: string) { return `${greeting}: ${this.name}`; };
+    _.bind(nameGreeting, { name: 'moe' }, 'hi'); // $ExpectType () => any
+}
 
 // binding a context to all functions in an object
-var buttonView = {
-    label: 'underscore',
-    onClick() { alert('clicked: ' + this.label); },
-    onHover() { console.log('hovering: ' + this.label); }
-};
-_.bindAll(buttonView);
-$('#underscore_button').bind('click', buttonView.onClick);
+{
+    const buttonView = {
+        label: 'underscore',
+        onClick() { alert('clicked: ' + this.label); },
+        onHover() { console.log('hovering: ' + this.label); }
+    };
+    _.bindAll(buttonView); // $ExpectType any
+    $('#underscore_button').bind('click', buttonView.onClick);
+}
 
 // creating a function that will remember previously computed values for a set of arguments
-var fibonacci = _.memoize(function (n) {
-    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
-});
+{
+    // $ExpectType (n: number) => number
+    const fibonacci = _.memoize((n: number): number => {
+        return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
+    });
+    fibonacci(10); // $ExpectType number
+}
 
 // creating a function that will cache instances of classes as singletons
 // (the second call will return the same object as the first)
-class MyClass {};
-
-var classMemoized = _.memoize<MyClass>(function (classInstance) {
-    return new classInstance();
-});
+{
+    class MyClass { };
+    const singleton = _.memoize(<T>(classInstance: new () => T) => new classInstance()); // $ExpectType <T>(classInstance: new () => T) => T
+    singleton(MyClass); // $ExpectType MyClass
+    singleton(MyClass); // $ExpectType MyClass
+}
 
 // delaying the execution of a function with arguments
-var log = _.bind(console.log, console);
-_.delay(log, 1000, 'logged later');
+_.delay(alert, 1000, 'delayed'); // $ExpectType any
 
 // deferring the execution of a function
-_.defer(function () { alert('deferred'); });
+_.defer(() => alert('deferred')); // $ExpectType void
 
 // rate-limiting a function
-var updatePosition = (param:string) => alert('updating position... Param: ' + param);
-var throttled = _.throttle(updatePosition, 100);
-$(window).scroll(throttled);
-throttled.cancel();
+{
+    const updatePosition = (param: string) => alert('updating position... Param: ' + param);
+    const throttled = _.throttle(updatePosition, 100); // $ExpectType ((param: string) => void) & Cancelable
+    $(window).scroll(throttled);
+    throttled.cancel(); // $ExpectType void
+}
 
 // debouncing a function
-var calculateLayout = (param:string) => alert('calculating layout... Param: ' + param);
-var lazyLayout = _.debounce(calculateLayout, 300);
-$(window).resize(lazyLayout);
-lazyLayout.cancel();
+{
+    const calculateLayout = (param: string) => alert('calculating layout... Param: ' + param);
+    const lazyLayout = _.debounce(calculateLayout, 300); // $ExpectType ((param: string) => void) & Cancelable
+    $(window).resize(lazyLayout);
+    lazyLayout.cancel(); // $ExpectType void
+}
 
 // creating a function that will only perform its action once (the second call will return the result of the first call)
-var createApplication = (param:string) => alert('creating application... Param: ' + param);
-var initialize = _.once(createApplication);
-initialize("me");
-initialize("me");
+{
+    const createApplication = (param: string) => 'creating application... Param: ' + param;
+    const initialize = _.once(createApplication); // $ExpectType (param: string) => string
+    initialize("first"); // $ExpectType string
+    initialize("second"); // $ExpectType string
+}
 
 // creating a wrapped function that will only be invoked after the wrapper is invoked a number of times
-var notes: any[] = [1,2,3];
-var render = () => alert("rendering...");
-var renderNotes = _.after(notes.length, render);
-_.each(notes, (note) => note.asyncSave({ success: renderNotes }));
+{
+    const renderNotes = _.after(anyArray.length, () => alert("rendering...")); // $ExpectType Function
+    _.each(anyArray, note => note.asyncSave({ success: renderNotes })); // $ExpectType any[]
+}
 
 // wrapping a function in another function
-var hello = function (name) { return "hello: " + name; };
-var wrappedHello = _.wrap(hello, (func) => { return `before, ${func("moe")} + after`; });
-wrappedHello();
+{
+    const hello = (name: string) => "hello: " + name;
+    const hello2 = _.wrap(hello, func => `before, ${func("moe")} + after`); // $ExpectType Function
+    hello2(); // $ExpectType any
+}
 
 // composing a function as the result of multiple function calls
-var greet = function (name) { return "hi: " + name; };
-var exclaim = function (statement) { return statement + "!"; };
-var welcome = _.compose(exclaim, greet);
-welcome('moe');
-
-var partialApplicationTestFunction = (a: string, b: number, c: boolean, d: string, e: number, f: string) => {  }
+{
+    const greet = (name: string) => "hi: " + name;
+    const exclaim = (statement: string) => statement + "!";
+    const welcome = _.compose(exclaim, greet); // $ExpectType Function
+    welcome('moe'); // $ExpectType any
+}
 
 // providing a partial set of leading arguments
-var partialApplicationResult = _.partial(partialApplicationTestFunction, "", 1);
+_.partial(manyParameters, "", 1); // $ExpectType (p3: boolean, p4: string, p5: number, p6: string) => string
 
 // providing a partial set of arguments in the middle of a parameter set
-var parametersCanBeStubbed = _.partial(partialApplicationResult, _, _, _, "");
+_.partial(manyParameters, _, _, _, ""); // $ExpectType (p1: string, p2: number, p3: boolean, p5: number, p6: string) => string
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
 // retrieving the keys of an object
-_.keys({ one: 1, two: 2, three: 3 });
+_.keys(explicitNumberDictionary); // $ExpectType string[]
 
 // retrieving the values of a dictionary
-_.values({ one: 1, two: 2, three: 3 });
+_.values(explicitNumberDictionary); // $ExpectType number[]
 
 // retrieving an array of key-value pairs for an object
-_.pairs({ one: 1, two: 2, three: 3 });
+_.pairs(explicitNumberDictionary); // $ExpectType ["one" | "two" | "three", number][]
 
 // making an object's keys its values and values its keys
-_.invert({ Moe: "Moses", Larry: "Louis", Curly: "Jerome" });
+_.invert({ Moe: "Moses", Larry: "Louis", Curly: "Jerome" }); // $ExpectType any
 
 // retrieving the names of all of the function-valued properties from an object
-_.functions(_);
+_.functions(_); // $ExpectType string[]
 
 // shallow copying properties from the source objects to the destination object
-_.extend({ name: 'moe' }, { age: 50 });
+_.extend({ name: 'moe' }, { age: 50 }, { userid: 'moe1' }); // $ExpectType any
 
 // shallow copying own properties from the source objects to the destination object
-_.extendOwn({ name: 'moe'}, { age: 50 });
-_.assign({ name: 'moe'}, { age: 50 });
+_.extendOwn({ name: 'moe' }, { age: 50 }, { userid: 'moe1' }); // $ExpectType any
+_.assign({ name: 'moe' }, { age: 50 }, { userid: 'moe1' }); // $ExpectType any
 
 // making a copy of an object that includes a specific subset of properties selected by known names
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age'); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "name" | "age">
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "name" | "age">
 
 // making a copy of an object that includes a specific subset of properties selected by unknown names
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, stringArray);
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, stringArray); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
 
 // making a copy of an object that includes a specific subset of properties selected by an iteratee
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => {
-    return key === 'name' || key === 'age';
-});
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' || key === 'age'); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
 
 // making a copy of an object that omits a specific subset of properties selected by known names
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age'); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "userid">
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "userid">
 
 // making a copy of an object that omits a specific subset of properties selected by unknown names
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, stringArray);
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, stringArray); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
 
 // making a copy of an object that omits a specific subset of properties selected by an iteratee
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' || key === 'age');
+_.omit({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' || key === 'age'); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
 
 // converting the properties of an object from numbers to strings
-_.mapObject({ a: '1', b: '2' }, val => +val);
+_.mapObject({ a: '1', b: '2' }, val => +val); // $ExpectType { a: number; b: number; }
 
 // filling in properties missing on an object
-var iceCream = { flavor: "chocolate" };
-_.defaults(iceCream, { flavor: "vanilla", sprinkles: "lots" });
+_.defaults({ flavor: "chocolate" }, { flavor: "vanilla", sprinkles: "lots" }); // $ExpectType any
 
 // creating a shallow-copied clone of an object
-_.clone({ name: 'moe' });
-_.clone(['i', 'am', 'an', 'object!']);
+_.clone({ name: 'moe' }); // $ExpectType { name: string; }
+_.clone(['i', 'am', 'an', 'object!']); // $ExpectType string[]
 
 // move to chain tests
-_([1, 2, 3, 4])
-    .chain()
-    .filter((num) => { return num % 2 == 0; })
+// $ExpectType number[]
+_.chain(numberArray)
+    .filter(num => num % 2 === 0)
     .tap(alert)
-    .map((num) => { return num * num; })
+    .map(num => num * num)
     .value();
 
 // checking whether or not an object has a property
-_.has({ a: 1, b: 2, c: 3 }, "b");
+_.has({ a: 1, b: 2, c: 3 }, "b"); // $ExpectType boolean
 
 // retrieving shallow and deep property values from an object
-var moe = { name: 'moe', luckyNumbers: [13, 27, 34] };
-_.property('name')(moe);
-_.property(['luckyNumbers', 2])(moe)
+{
+    const luckyNumbersMoe = { name: 'moe', luckyNumbers: [13, 27, 34] };
+    _.property('name')(luckyNumbersMoe); // $ExpectType any
+    _.property(['luckyNumbers', 2])(luckyNumbersMoe); // $ExpectType any
+}
 
 // creating a function that will always return a specific value
-var UncleMoe = { name: 'moe' };
-_.constant(UncleMoe)();
+_.constant({ name: 'moe' }); // $ExpectType () => { name: string; }
 
 // getting the current time as an integer timestamp
-typeof _.now() === "number";
+_.now(); // $ExpectType number
 
 // giving control of the _ global variable back to its previous owner (returns a reference to value of _ that is in effect before the function is called)
-var underscore = _.noConflict();
+_.noConflict(); // $ExpectType any
 
 // calling a no-op function that returns the same value that is used as the argument
-var moe2 = { name: 'moe' };
-moe2 === _.identity(moe);
+_.identity({ name: 'moe' }); // $ExpectType { name: string; }
 
 // calling a function multiple times with the iteration as an argument and getting an array containing the result of each call
 // in this case, the result is the squares of the numbers 0 through 4
-_.times(5, n => n * n);
+_.times(5, n => n * n); // $ExpectType number[]
 
 // generating a random number between two bounds
-_.random(0, 100);
+_.random(0, 100); // $ExpectType number
 
 // adding functions to Underscore by calling _.mixin and augmenting Underscore's
 // type definitions
@@ -557,10 +615,10 @@ _("fabio").capitalize(); // $ExpectType string
 _.chain("fabio").capitalize().value(); // $ExpectType string
 
 // generating an id that is unique only to this current usage of underscore
-_.uniqueId('contact_');
+_.uniqueId('contact_'); // $ExpectType string
 
 // HTML-escaping a string
-_.escape('Curly, Larry & Moe');
+_.escape('Curly, Larry & Moe'); // $ExpectType string
 
 // getting the result of a property by either:
 //   evaluating it (if it's a function),
@@ -568,7 +626,7 @@ _.escape('Curly, Larry & Moe');
 //   or returning its value
 // the example below will always return a string
 declare const objectWithFunctionOrValue: { functionOrValue: (() => string) | string | undefined; };
-_.result(objectWithFunctionOrValue, 'functionOrValue', 'someDefaultResult');
+_.result(objectWithFunctionOrValue, 'functionOrValue', 'someDefaultResult'); // $ExpectType any
 
 // compiling and evaluating templates
 {
@@ -601,46 +659,40 @@ _.result(objectWithFunctionOrValue, 'functionOrValue', 'someDefaultResult');
     template({ name: "Mustache O'Grady" }); // $ExpectType string
 }
 
-//////////////// Chain Tests
-function chain_tests() {
-    // move to chain tests
-    var hoverOverValueShouldBeNumberNotAny = _([1, 2, 3]).chain()
-        .map(num => [num, num + 1])
-        .flatten()
-        .find(num => num % 2 == 0)
-        .value();
+/************
+ * Chaining *
+ ************/
 
-    // move to chain tets
-    let numberObjects = [{property: 'odd', value: 1}, {property: 'even', value: 2}, {property: 'even', value: 0}];
-    let evenAndOddGroupedNumbers = _.chain(numberObjects)
-        .groupBy('property')
-        .mapObject((objects) => _.pluck(objects, 'value'))
-        .value(); // { odd: [1], even: [0, 2] }
+// $ExpectType number | undefined
+_.chain([1, 2, 3])
+    .map(num => [num, num + 1])
+    .flatten()
+    .find(num => num % 2 === 0)
+    .value();
 
-    // move to chain tests
-    const arr1: string[] = ['z', 'x', 'y'];
-    const query = 'z';
-    let arr2: string[] = ['a', 'b', 'c'];
-    arr2 = _.chain(arr1)
-        .union(arr2)
-        .without(query)
-        .value();
-}
+// $ExpectType { [x: string]: number[]; }
+_.chain([{ property: 'odd', value: 1 }, { property: 'even', value: 2 }, { property: 'even', value: 0 }])
+    .groupBy('property')
+    .mapObject((objects) => _.pluck(objects, 'value'))
+    .value();
 
-function strong_typed_values_tests() {
-    // move to chain tests
-    var dictionaryLike: { [k: string] : {title: string, value: number} } = {
-        'test' : { title: 'item1', value: 5 },
-        'another' : { title: 'item2', value: 8 },
-        'third' : { title: 'item3', value: 10 }
-    };
+// $ExpectType string[]
+_.chain(['z', 'x', 'y'])
+    .union(['a', 'b', 'c'])
+    .without('z')
+    .value();
 
-    _.chain(dictionaryLike).values().filter((r) => {
-        return r.value >= 8;
-    }).map((r) => {
-        return [r.title, true];
-    }).object().value();
-}
+// $ExpectType Dictionary<boolean>
+_.chain({
+    'test': { title: 'item1', value: 5 },
+    'another': { title: 'item2', value: 8 },
+    'third': { title: 'item3', value: 10 }
+})
+    .values()
+    .filter(r => r.value >= 8)
+    .map(r => [r.title, true] as [string, boolean])
+    .object()
+    .value();
 
 // tests for #7931 - verify that the result of a function like reduce that returns a singleton can be chained further
 // $ExpectType number[]
