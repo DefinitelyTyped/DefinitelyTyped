@@ -1,4 +1,4 @@
-import SonicBoom = require('sonic-boom');
+import SonicBoom from 'sonic-boom';
 const sonic = new SonicBoom(1);
 
 sonic.write('hello sonic\n');

@@ -20,7 +20,7 @@
 import stream = require('stream');
 import http = require('http');
 import { EventEmitter } from 'events';
-import SonicBoom = require('sonic-boom');
+import SonicBoom from 'sonic-boom';
 import * as pinoStdSerializers from 'pino-std-serializers';
 
 export = P;
@@ -47,32 +47,32 @@ declare namespace P {
     const LOG_VERSION: number;
     const levels: LevelMapping;
     const symbols: {
-        setLevelSym: symbol,
-        getLevelSym: symbol,
-        levelValSym: symbol,
-        useLevelLabelsSym: symbol,
-        mixinSym: symbol,
-        lsCacheSym: symbol,
-        chindingsSym: symbol,
-        parsedChindingsSym: symbol,
-        asJsonSym: symbol,
-        writeSym: symbol,
-        serializersSym: symbol,
-        redactFmtSym: symbol,
-        timeSym: symbol,
-        timeSliceIndexSym: symbol,
-        streamSym: symbol,
-        stringifySym: symbol,
-        stringifiersSym: symbol,
-        endSym: symbol,
-        formatOptsSym: symbol,
-        messageKeySym: symbol,
-        nestedKeySym: symbol,
-        wildcardFirstSym: symbol,
-        needsMetadataGsym: symbol,
-        useOnlyCustomLevelsSym: symbol,
-        formattersSym: symbol,
-        hooksSym: symbol,
+        setLevelSym: symbol;
+        getLevelSym: symbol;
+        levelValSym: symbol;
+        useLevelLabelsSym: symbol;
+        mixinSym: symbol;
+        lsCacheSym: symbol;
+        chindingsSym: symbol;
+        parsedChindingsSym: symbol;
+        asJsonSym: symbol;
+        writeSym: symbol;
+        serializersSym: symbol;
+        redactFmtSym: symbol;
+        timeSym: symbol;
+        timeSliceIndexSym: symbol;
+        streamSym: symbol;
+        stringifySym: symbol;
+        stringifiersSym: symbol;
+        endSym: symbol;
+        formatOptsSym: symbol;
+        messageKeySym: symbol;
+        nestedKeySym: symbol;
+        wildcardFirstSym: symbol;
+        needsMetadataGsym: symbol;
+        useOnlyCustomLevelsSym: symbol;
+        formattersSym: symbol;
+        hooksSym: symbol;
     };
     /**
      * Exposes the Pino package version. Also available on the logger instance.
@@ -191,7 +191,9 @@ declare namespace P {
      *                writing performance it is strongly recommended to use `pino.destination` to create the destination stream.
      * @returns A Sonic-Boom  stream to be used as destination for the pino function
      */
-    function destination(dest?: string | number | DestinationObjectOptions | DestinationStream | NodeJS.WritableStream): SonicBoom;
+    function destination(
+        dest?: string | number | DestinationObjectOptions | DestinationStream | NodeJS.WritableStream,
+    ): SonicBoom;
 
     /**
      * Create an extreme mode destination. This yields an additional 60% performance boost.
@@ -502,26 +504,26 @@ declare namespace P {
          * For example, they can be used to change the level key name or to enrich the default metadata.
          */
         formatters?: {
-          /**
-           * Changes the shape of the log level.
-           * The default shape is { level: number }.
-           * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
-           */
-          level?: (level: string, number: number) => object;
-          /**
-           * Changes the shape of the bindings.
-           * The default shape is { pid, hostname }.
-           * The function takes a single argument, the bindings object.
-           * It will be called every time a child logger is created.
-           */
-          bindings?: (bindings: Bindings) => object;
-          /**
-           * Changes the shape of the log object.
-           * This function will be called every time one of the log methods (such as .info) is called.
-           * All arguments passed to the log method, except the message, will be pass to this function.
-           * By default it does not change the shape of the log object.
-           */
-          log?: (object: object) => object;
+            /**
+             * Changes the shape of the log level.
+             * The default shape is { level: number }.
+             * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
+             */
+            level?: (level: string, number: number) => object;
+            /**
+             * Changes the shape of the bindings.
+             * The default shape is { pid, hostname }.
+             * The function takes a single argument, the bindings object.
+             * It will be called every time a child logger is created.
+             */
+            bindings?: (bindings: Bindings) => object;
+            /**
+             * Changes the shape of the log object.
+             * This function will be called every time one of the log methods (such as .info) is called.
+             * All arguments passed to the log method, except the message, will be pass to this function.
+             * By default it does not change the shape of the log object.
+             */
+            log?: (object: object) => object;
         };
 
         /**
