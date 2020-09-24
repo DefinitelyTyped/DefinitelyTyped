@@ -116,6 +116,8 @@ const doc5 = (
           </svg>
         `}
             />
+            <svg content="..." width={10} height={10} />
+            <svg content="..." fit={[150, 150]} />
         </content>
     </document>
 );

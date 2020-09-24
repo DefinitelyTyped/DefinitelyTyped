@@ -42,7 +42,12 @@ declare global {
             column: Ele<{ width: number | string }>;
 
             image: EleNoChidlren<Omit<PDFMake.ContentImage, 'image'> & { src: string }>;
-            svg: EleNoChidlren<{ content: string }>;
+            svg: EleNoChidlren<{
+                content: string;
+                width?: number;
+                height?: number;
+                fit?: [number, number];
+            }>;
         }
     }
 }
