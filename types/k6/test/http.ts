@@ -299,6 +299,10 @@ responseText = response.submitForm({
 });
 response.submitForm({}, 5); // $ExpectError
 
+// CookieJar
+jar = new CookieJar();
+new CookieJar(5); // $ExpectError
+
 // cookieJar
 jar = cookieJar();
 cookieJar(5); // $ExpectError
