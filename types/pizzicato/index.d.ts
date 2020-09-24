@@ -5,6 +5,7 @@
 // Minimum TypeScript Version: 3.4
 
 export const context: AudioContext;
+export const masterGainNode: GainNode;
 
 export type UnknownFunction = (...args: unknown[]) => unknown;
 

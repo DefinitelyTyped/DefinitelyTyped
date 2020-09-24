@@ -1,5 +1,8 @@
 import Pizzicato from 'pizzicato';
 
+Pizzicato.context; // $ExpectType AudioContext
+Pizzicato.masterGainNode; // $ExpectType GainNode
+
 // Utils
 Pizzicato.Util.isString('Foobar');
 Pizzicato.Util.isObject('Foobar');
