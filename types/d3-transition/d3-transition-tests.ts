@@ -343,7 +343,6 @@ maybeG1 = selectAll<SVGSVGElement, any>('svg')
 // Tweening Function Use =====================================================
 
 enterTransition = enterTransition.attrTween('r', function(d, i, g) {
-    const that: SVGCircleElement = this;
     // const that2: HTMLElement  = this; // fails, type mismatch
     const datum: CircleDatum = d;
     const index: number = i;
@@ -365,16 +364,15 @@ updateTransition = updateTransition.tween('fillColor', null); // remove named tw
 
 // chainable
 updateTransition = updateTransition.tween('fillColor', function(d, i, g) {
-    const that: SVGCircleElement = this;
     // const that2: HTMLElement  = this; // fails, type mismatch
     const datum: CircleDatum = d;
     const index: number = i;
     const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
-    const c: string | null = that.getAttribute('fill');
+    const c: string | null = this.getAttribute('fill');
     const interpolator = interpolateRgb(c ? c : 'blue', d.color); // datum type CircleDatum
     console.log('Radius ', this.r.baseVal.value); // this type SVGCircleElement
     return t => {
-        that.setAttribute('fill', interpolator(t));
+        this.setAttribute('fill', interpolator(t));
     };
 });
 

@@ -1,13 +1,14 @@
-// Type definitions for D3JS d3-transition module 1.1
+// Type definitions for D3JS d3-transition module 1.2
 // Project: https://github.com/d3/d3-transition/, https://d3js.org/d3-transition
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Robert Moura <https://github.com/robertmoura>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.1
+// Last module patch version validated against: 1.2.1
 
 import { ArrayLike, BaseType, Selection, ValueFn } from 'd3-selection';
 
@@ -429,11 +430,12 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * If multiple typenames are specified, the first matching listener is returned.
      *
      * @param typenames The typenames is one of the following string event types: start (when the transition starts), end (when the transition ends),
-     * interrupt (when the transition is interrupted.) Note that these are not native DOM events. The type may be optionally followed by a period (.) and a name;
+     * interrupt (when the transition is interrupted), cancel(when the transition is cancelled).
+     * Note that these are not native DOM events. The type may be optionally followed by a period (.) and a name;
      * the optional name allows multiple callbacks to be registered to receive events of the same type, such as "start.foo"" and "start.bar".
      * To specify multiple typenames, separate typenames with spaces, such as "interrupt end"" or "start.foo start.bar".
      */
-    on(type: string): ValueFn<GElement, Datum, void> | undefined;
+    on(typenames: string): ValueFn<GElement, Datum, void> | undefined;
     /**
      * Remove all listeners for a given name.
      *
@@ -450,14 +452,15 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * to update the index, re-assign the listener.
      *
      * @param typenames The typenames is one of the following string event types: start (when the transition starts), end (when the transition ends),
-     * interrupt (when the transition is interrupted.) Note that these are not native DOM events. The type may be optionally followed by a period (.) and a name;
+     * interrupt (when the transition is interrupted), cancel(when the transition is cancelled).
+     * Note that these are not native DOM events. The type may be optionally followed by a period (.) and a name;
      * the optional name allows multiple callbacks to be registered to receive events of the same type, such as "start.foo"" and "start.bar".
      * To specify multiple typenames, separate typenames with spaces, such as "interrupt end"" or "start.foo start.bar".
      * @param listener A listener function which will be evaluated for each selected element, being passed the current datum (d), the current index (i),
      * and the current group (nodes), with this as the current DOM element (nodes[i]). Listeners always see the latest datum for their element,
      * but the index is a property of the selection and is fixed when the listener is assigned; to update the index, re-assign the listener.
      */
-    on(type: string, listener: ValueFn<GElement, Datum, void>): this;
+    on(typenames: string, listener: ValueFn<GElement, Datum, void>): this;
 
     /**
      * Returns a promise that resolves when every selected element finishes transitioning. If any element’s transition is cancelled or interrupted, the promise rejects.
