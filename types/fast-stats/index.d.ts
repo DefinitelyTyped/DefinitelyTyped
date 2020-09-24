@@ -97,6 +97,41 @@ export declare class Stats {
     length: number;
 
     /**
+     * Sum of all data points
+     */
+    sum: number;
+
+    /**
+     * Sum of the squares of all data points
+     */
+    sum_of_squares: number;
+
+    /**
+     * Sum of the log values of all data points
+     */
+    sum_of_logs: number;
+
+    /**
+     * Sum of the squares of the log values of all data points
+     */
+    sum_of_square_of_logs: number;
+
+    /**
+     * Count of all data points equal to zero
+     */
+    zeroes: number;
+
+    /**
+     * Maximum value of all data points
+     */
+    max: number | null;
+
+    /**
+     * Minimun value of all data points
+     */
+    min: number | null;
+
+    /**
      * Clear all data
      */
     reset(): void;

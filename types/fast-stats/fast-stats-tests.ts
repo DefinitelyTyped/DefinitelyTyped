@@ -4,6 +4,7 @@ import Stats = faststats.Stats;
 
 var s: Stats;
 var n: number;
+var nOrNull: number | null;
 var ns: number[];
 var buckets: faststats.Bucket[];
 
@@ -23,6 +24,13 @@ s = stats.band_pass(1, 2, true);
 s = stats.iqr();
 
 n = stats.length;
+n = stats.sum;
+n = stats.sum_of_squares;
+n = stats.sum_of_logs;
+n = stats.sum_of_square_of_logs;
+n = stats.zeroes;
+nOrNull = stats.max;
+nOrNull = stats.min;
 n = stats.amean();
 n = stats.gmean();
 n = stats.median();
