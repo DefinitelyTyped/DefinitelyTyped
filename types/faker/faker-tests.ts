@@ -43,6 +43,7 @@ resultStr = faker.address.ordinalDirection();
 resultStr = faker.address.ordinalDirection(true);
 resultStr = faker.address.nearbyGPSCoordinate();
 resultStr = faker.address.nearbyGPSCoordinate('foo', 0, true);
+resultStr = faker.address.timeZone();
 
 resultStr = faker.commerce.color();
 resultStr = faker.commerce.department();
