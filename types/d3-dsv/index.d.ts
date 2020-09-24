@@ -156,6 +156,16 @@ export function csvParseRows<ParsedRow extends object>(
  */
 export function csvFormat<T extends object>(rows: T[], columns?: Array<keyof T>): string;
 
+// csvFormatBody(...) ============================================================================
+
+/**
+ * Equivalent to dsvFormat(",").formatBody.
+ *
+ * @param rows Array of object rows.
+ * @param columns An array of strings representing the column names.
+ */
+export function csvFormatBody<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+
 // csvFormatRows(...) ========================================================================
 
 /**
@@ -267,6 +277,16 @@ export function tsvParseRows<ParsedRow extends object>(
  */
 export function tsvFormat<T extends object>(rows: T[], columns?: Array<keyof T>): string;
 
+// tsvFormatBody(...) ============================================================================
+
+/**
+ * Equivalent to dsvFormat("\t").formatBody.
+ *
+ * @param rows Array of object rows.
+ * @param columns An array of strings representing the column names.
+ */
+export function tsvFormatBody<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+
 // tsvFormatRows(...) ========================================================================
 
 /**
@@ -367,6 +387,15 @@ export interface DSV {
     format<T extends object>(rows: T[], columns?: Array<keyof T>): string;
 
     /**
+     * Equivalent to dsv.format, but omits the header row.
+     * This is useful, for example, when appending rows to an existing file.
+     *
+     * @param rows Array of object rows.
+     * @param columns An array of strings representing the column names.
+     */
+    formatBody<T extends object>(rows: T[], columns?: Array<keyof T>): string;
+
+    /**
      * Formats the specified array of array of string rows as delimiter-separated values, returning a string.
      * This operation is the reverse of dsv.parseRows. Each row will be separated by a newline (\n),
      * and each column within each row will be separated by the delimiter (such as a comma, ,).
@@ -387,3 +416,15 @@ export interface DSV {
  * so, ASCII delimiters are fine, but emoji delimiters are not.
  */
 export function dsvFormat(delimiter: string): DSV;
+
+/**
+ * Infers the types of values on the object and coerces them accordingly, returning the mutated object.
+ * This function is intended to be used as a row accessor function in conjunction with dsv.parse and dsv.parseRows.
+ *
+ * @param object An object (or array) representing a parsed row
+ */
+export function autoType<ParsedRow extends object | undefined | null, Columns extends string>(
+    // tslint:disable-next-line:no-unnecessary-generics
+    object: DSVRowString<Columns> | string[]
+// tslint:disable-next-line:no-unnecessary-generics
+): ParsedRow;
