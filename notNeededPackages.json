@@ -1411,6 +1411,12 @@
             "asOfVersion": "2.2.1"
         },
         {
+            "libraryName": "favicons-webpack-plugin",
+            "typingsPackageName": "favicons-webpack-plugin",
+            "sourceRepoURL": "https://github.com/jantimon/favicons-webpack-plugin",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "@types/facebook-js-sdk",
             "typingsPackageName": "fb",
             "sourceRepoURL": "https://github.com/DefinitelyTyped/DefinitelyTyped",
