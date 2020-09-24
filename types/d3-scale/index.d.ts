@@ -48,7 +48,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      *
      * @param value A numeric value from the domain.
      */
-    (value: NumberValue): Output;
+    (value: NumberValue): Output | undefined;
 
     /**
      * Given a value from the range, returns the corresponding value from the domain. Inversion is useful for interaction,
@@ -876,7 +876,7 @@ export interface ScaleIdentity {
      *
      * @param value A numeric value from the domain.
      */
-    (value: NumberValue): number;
+    (value: NumberValue): number | undefined;
 
     /**
      * Given a value from the range, returns the corresponding value from the domain. Inversion is useful for interaction,
@@ -1020,7 +1020,7 @@ export interface ScaleTime<Range, Output> {
      *
      * @param value A temporal value from the domain. If the value is not a Date, it will be coerced to Date.
      */
-    (value: Date | NumberValue): Output;
+    (value: Date | NumberValue): Output | undefined;
 
     /**
      * Given a value from the range, returns the corresponding value from the domain. Inversion is useful for interaction,
@@ -1414,7 +1414,7 @@ export interface ScaleSequential<Output> {
      *
      * @param value A numeric value from the domain.
      */
-    (value: NumberValue): Output;
+    (value: NumberValue): Output | undefined;
 
     /**
      * Returns a copy of the scale’s current domain.
@@ -1627,7 +1627,7 @@ export interface ScaleDiverging<Output> {
      *
      * @param value A numeric value from the domain.
      */
-    (value: NumberValue): Output;
+    (value: NumberValue): Output | undefined;
 
     /**
      * Returns a copy of the scale’s current domain.
@@ -1813,7 +1813,7 @@ export interface ScaleQuantize<Range> {
     /**
      * Given a value in the input domain, returns the corresponding value in the output range.
      */
-    (value: NumberValue): Range;
+    (value: NumberValue): Range | undefined;
     /**
      * Returns the extent of values in the domain [x0, x1] for the corresponding value in the range: the inverse of quantize.
      * This method is useful for interaction, say to determine the value in the domain that corresponds to the pixel location under the mouse.
@@ -1951,7 +1951,7 @@ export interface ScaleQuantile<Range> {
      *
      * @param value A numeric value in the input domain.
      */
-    (value: NumberValue): Range;
+    (value: NumberValue): Range | undefined;
 
     /**
      * Returns the extent of values in the domain [x0, x1] for the corresponding value in the range: the inverse of quantile.
@@ -2060,7 +2060,7 @@ export interface ScaleThreshold<Domain extends number | string | Date, Range> {
      *
      * @param value A domain value.
      */
-    (value: Domain): Range;
+    (value: Domain): Range | undefined;
 
     /**
      * Returns the extent of values in the domain [x0, x1] for the corresponding value in the range, representing the inverse mapping from range to domain.
@@ -2167,7 +2167,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
      *
      * @param x A value from the domain.
      */
-    (x: Domain): Range;
+    (x: Domain): Range | undefined;
 
     /**
      * Returns the scale's current domain.

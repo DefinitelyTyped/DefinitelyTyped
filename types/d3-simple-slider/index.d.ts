@@ -17,7 +17,7 @@ export type SliderDomain = number;
  * for slider to use the scale without error.
  */
 export interface SliderScale<Domain> {
-    (x: Domain): number;
+    (x: Domain): number | undefined;
     domain(): Domain[];
     range(): number[];
     copy(): this;
