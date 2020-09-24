@@ -245,6 +245,12 @@ function testResetLogout() {
   analytics.reset();
 }
 
+function testID() {
+  analytics.user().id();
+  analytics.user().id(null);
+  analytics.user().id("foo");
+}
+
 function testAnonId() {
   analytics.user().anonymousId();
   analytics.user().anonymousId('ABC-123-XYZ');
