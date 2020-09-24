@@ -1,13 +1,14 @@
-// Type definitions for d3JS d3-zoom module 1.7
+// Type definitions for d3JS d3-zoom module 1.8
 // Project: https://github.com/d3/d3-zoom/, https://d3js.org/d3-zoom
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.7.0
+// Last module patch version validated against: 1.8.3
 
 import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
 import { ZoomView, ZoomInterpolator } from 'd3-interpolate';
@@ -60,449 +61,104 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      */
     (selection: Selection<ZoomRefElement, Datum, any, any>, ...args: any[]): void;
     /**
-     * Sets the current zoom transform of the selected elements to the specified transform,
-     * instantaneously emitting start, zoom and end events.
+     * If selection is a selection, sets the current zoom transform of the selected elements to the specified transform, instantaneously emitting start, zoom and end events.
+     * If selection is a transition, defines a “zoom” tween to the specified transform using d3.interpolateZoom, emitting a start event when the transition starts, zoom events for each tick of the transition, and then an end event when the transition ends (or is interrupted).
+     * The transition will attempt to minimize the visual movement around the specified point; if the point is not specified, it defaults to the center of the viewport extent.
      *
-     * This method requires that you specify the new zoom transform completely,
-     * and does not enforce the defined scale extent and translate extent, if any.
-     * To derive a new transform from the existing transform, and to enforce the scale and translate extents,
-     * see the convenience methods zoom.translateBy, zoom.scaleBy and zoom.scaleTo.
+     * This function is typically not invoked directly, and is instead invoked via selection.call or transition.call.
      *
-     * This function is typically not invoked directly, and is instead invoked via selection.call.
-     *
-     * @param selection A D3 selection of elements.
-     * @param transform A zoom transform object.
+     * @param selection A selection or a transition.
+     * @param transform A zoom transform or a function that returns a zoom transform.
+     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
+     * @param point A two-element array [x, y] or a function that returns such an array.
+     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
      */
-    transform(selection: Selection<ZoomRefElement, Datum, any, any>, transform: ZoomTransform): void;
-    /**
-     * Sets the current zoom transform of the selected elements to the transform returned by the specified
-     * zoom transform factory function evaluated for each element, instantaneously emitting start, zoom and end events.
-     *
-     * This method requires that you specify the new zoom transform completely,
-     * and does not enforce the defined scale extent and translate extent, if any.
-     * To derive a new transform from the existing transform, and to enforce the scale and translate extents,
-     * see the convenience methods zoom.translateBy, zoom.scaleBy and zoom.scaleTo.
-     *
-     * This function is typically not invoked directly, and is instead invoked via selection.call.
-     *
-     * @param selection A D3 selection of elements.
-     * @param transform A zoom transform factory function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element. The function returns a zoom transform object.
-     */
-    transform(selection: Selection<ZoomRefElement, Datum, any, any>, transform: ValueFn<ZoomRefElement, Datum, ZoomTransform>): void;
-    /**
-     * Sets the current zoom transform of the transitioning elements to the specified transform.
-     * It defines a “zoom” tween to the specified transform using d3.interpolateZoom,
-     * emitting a start event when the transition starts, zoom events for each tick of the transition,
-     * and then an end event when the transition ends (or is interrupted).
-     *
-     * This method requires that you specify the new zoom transform completely,
-     * and does not enforce the defined scale extent and translate extent, if any.
-     * To derive a new transform from the existing transform, and to enforce the scale and translate extents,
-     * see the convenience methods zoom.translateBy, zoom.scaleBy and zoom.scaleTo.
-     *
-     * This function is typically not invoked directly, and is instead invoked via selection.call.
-     *
-     * @param transition A D3 transition on elements.
-     * @param transform A zoom transform object.
-     */
-    transform(transition: TransitionLike<ZoomRefElement, Datum>, transform: ZoomTransform): void;
-    /**
-     * Sets the current zoom transform of the transitioning elements to the transform returned by the specified
-     * zoom transform factory function evaluated for each element.
-     * It defines a “zoom” tween to the specified transform using d3.interpolateZoom,
-     * emitting a start event when the transition starts, zoom events for each tick of the transition,
-     * and then an end event when the transition ends (or is interrupted).
-     *
-     * This method requires that you specify the new zoom transform completely,
-     * and does not enforce the defined scale extent and translate extent, if any.
-     * To derive a new transform from the existing transform, and to enforce the scale and translate extents,
-     * see the convenience methods zoom.translateBy, zoom.scaleBy and zoom.scaleTo.
-     *
-     * This function is typically not invoked directly, and is instead invoked via selection.call.
-     *
-     * @param transition A D3 transition on elements.
-     * @param transform A zoom transform factory function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element. The function returns a zoom transform object.
-     */
-    transform(transition: TransitionLike<ZoomRefElement, Datum>, transform: ValueFn<ZoomRefElement, Datum, ZoomTransform>): void;
+    transform(
+        selection: Selection<ZoomRefElement, Datum, any, any> | TransitionLike<ZoomRefElement, Datum>,
+        transform: ZoomTransform | ValueFn<ZoomRefElement, Datum, ZoomTransform>,
+        point?: [number, number] | ValueFn<ZoomRefElement, Datum, [number, number]>
+    ): void;
 
     /**
-     * Translates the current zoom transform of the selected elements by x and y,
-     * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
-     *
-     * x is provided as a constant for all elements.
-     * y is provided as a constant for all elements.
-     *
-     * @param selection A D3 selection of elements.
-     * @param x Amount of translation in x-direction.
-     * @param y Amount of translation in y-direction.
-     */
-    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>, x: number, y: number): void;
-    /**
-     * Translates the current zoom transform of the selected elements by x and y,
-     * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
-     *
-     * x is provided by a value function evaluated for each element in the selection.
-     * y is provided as a constant for all elements.
-     *
+     * If selection is a selection, translates the current zoom transform of the selected elements by x and y, such that the new tx1 = tx0 + kx and ty1 = ty0 + ky.
+     * If selection is a transition, defines a “zoom” tween translating the current transform.
      * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
      *
-     * @param selection A D3 selection of elements.
-     * @param x A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the amount of translation in x-direction.
-     * @param y Amount of translation in y-direction.
+     * @param selection A selection or a transition.
+     * @param x A number or a function that returns a number.
+     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
+     * @param y A number or a function that returns a number.
+     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
      */
-    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>, x: ValueFn<ZoomRefElement, Datum, number>, y: number): void;
-    /**
-     * Translates the current zoom transform of the selected elements by x and y,
-     * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
-     *
-     * x is provided as a constant for all elements.
-     * y is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param selection A D3 selection of elements.
-     * @param x Amount of translation in x-direction.
-     * @param y A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the amount of translation in y-direction.
-     */
-    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>, x: number, y: ValueFn<ZoomRefElement, Datum, number>): void;
-    /**
-     * Translates the current zoom transform of the selected elements by x and y,
-     * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
-     *
-     * x is provided by a value function evaluated for each element in the selection.
-     * y is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param selection A D3 selection of elements.
-     * @param x A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the amount of translation in x-direction.
-     * @param y A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the amount of translation in y-direction.
-     */
-    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>, x: ValueFn<ZoomRefElement, Datum, number>, y: ValueFn<ZoomRefElement, Datum, number>): void;
-    /**
-     * Defines a “zoom” tween translating the current transform for the transitioning elements by x and y,
-     * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
-     *
-     * x is provided as a constant for all elements.
-     * y is provided as a constant for all elements.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param x Amount of translation in x-direction.
-     * @param y Amount of translation in y-direction.
-     */
-    translateBy(transition: TransitionLike<ZoomRefElement, Datum>, x: number, y: number): void;
-    /**
-     * Defines a “zoom” tween translating the current transform for the transitioning elements by x and y,
-     * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
-     *
-     * x is provided by a value function evaluated for each element in the selection.
-     * y is provided as a constant for all elements.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param x A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the amount of translation in x-direction.
-     * @param y Amount of translation in y-direction.
-     */
-    translateBy(transition: TransitionLike<ZoomRefElement, Datum>, x: ValueFn<ZoomRefElement, Datum, number>, y: number): void;
-    /**
-     * Defines a “zoom” tween translating the current transform for the transitioning elements by x and y,
-     * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
-     *
-     * x is provided as a constant for all elements.
-     * y is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param x Amount of translation in x-direction.
-     * @param y A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the amount of translation in y-direction.
-     */
-    translateBy(transition: TransitionLike<ZoomRefElement, Datum>, x: number, y: ValueFn<ZoomRefElement, Datum, number>): void;
-    /**
-     * Defines a “zoom” tween translating the current transform for the transitioning elements by x and y,
-     * such that the new t(x1) = t(x0) + kx and t(y1) = t(y0) + ky.
-     *
-     * x is provided by a value function evaluated for each element in the selection.
-     * y is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param x A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the amount of translation in x-direction.
-     * @param y A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the amount of translation in y-direction.
-     */
-    translateBy(transition: TransitionLike<ZoomRefElement, Datum>, x: ValueFn<ZoomRefElement, Datum, number>, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateBy(
+        selection: Selection<ZoomRefElement, Datum, any, any> | TransitionLike<ZoomRefElement, Datum>,
+        x: number | ValueFn<ZoomRefElement, Datum, number>,
+        y: number | ValueFn<ZoomRefElement, Datum, number>
+    ): void;
 
     /**
+     * If selection is a selection, translates the current zoom transform of the selected elements such that the given position ⟨x,y⟩ appears at given point p.
+     * The new tx = px - kx and ty = py - ky. If p is not specified, it defaults to the center of the viewport extent.
+     * If selection is a transition, defines a “zoom” tween translating the current transform. This method is a convenience method for zoom.transform.
+     *
      * Translates the current zoom transform of the selected elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
      * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
      *
      * x is provided as a constant for all elements.
      * y is provided as a constant for all elements.
      *
-     * @param selection A D3 selection of elements.
-     * @param x Target x-position of translation.
-     * @param y Target y-position of translation.
+     * @param selection A selection or a transition.
+     * @param x A number or a function that returns a number.
+     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
+     * @param y A number or a function that returns a number.
+     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
+     * @param p A two-element array [px,py] or a function
+     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
      */
-    translateTo(selection: Selection<ZoomRefElement, Datum, any, any>, x: number, y: number): void;
-    /**
-     * Translates the current zoom transform of the selected elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
-     * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
-     *
-     * x is provided by a value function evaluated for each element in the selection.
-     * y is provided as a constant for all elements.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param selection A D3 selection of elements.
-     * @param x A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the target x-position of translation.
-     * @param y Target y-position of translation.
-     */
-    translateTo(selection: Selection<ZoomRefElement, Datum, any, any>, x: ValueFn<ZoomRefElement, Datum, number>, y: number): void;
-    /**
-     * Translates the current zoom transform of the selected elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
-     * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
-     *
-     * x is provided as a constant for all elements.
-     * y is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param selection A D3 selection of elements.
-     * @param x Target x-position of translation.
-     * @param y A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the target y-position of translation.
-     */
-    translateTo(selection: Selection<ZoomRefElement, Datum, any, any>, x: number, y: ValueFn<ZoomRefElement, Datum, number>): void;
-    /**
-     * Translates the current zoom transform of the selected elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
-     * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
-     *
-     * x is provided by a value function evaluated for each element in the selection.
-     * y is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param selection A D3 selection of elements.
-     * @param x A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the target x-position of translation.
-     * @param y A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the target y-position of translation.
-     */
-    translateTo(selection: Selection<ZoomRefElement, Datum, any, any>, x: ValueFn<ZoomRefElement, Datum, number>, y: ValueFn<ZoomRefElement, Datum, number>): void;
-    /**
-     * Defines a “zoom” tween translating the current transform for the transitioning elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
-     * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
-     *
-     * x is provided as a constant for all elements.
-     * y is provided as a constant for all elements.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param x Target x-position of translation.
-     * @param y Target y-position of translation.
-     */
-    translateTo(transition: TransitionLike<ZoomRefElement, Datum>, x: number, y: number): void;
-    /**
-     * Defines a “zoom” tween translating the current transform for the transitioning elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
-     * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
-     *
-     * x is provided by a value function evaluated for each element in the selection.
-     * y is provided as a constant for all elements.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param x A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the target x-position of translation.
-     * @param y Target y-position of translation.
-     */
-    translateTo(transition: TransitionLike<ZoomRefElement, Datum>, x: ValueFn<ZoomRefElement, Datum, number>, y: number): void;
-    /**
-     * Defines a “zoom” tween translating the current transform for the transitioning elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
-     * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
-     *
-     * x is provided as a constant for all elements.
-     * y is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param x Target x-position of translation.
-     * @param y A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the target y-position of translation.
-     */
-    translateTo(transition: TransitionLike<ZoomRefElement, Datum>, x: number, y: ValueFn<ZoomRefElement, Datum, number>): void;
-    /**
-     * Defines a “zoom” tween translating the current transform for the transitioning elements such that the specified position ⟨x,y⟩ appears at the center of the viewport extent.
-     * The new tx = cx - kx and ty = cy - ky, where ⟨cx,cy⟩ is the center.
-     *
-     * x is provided by a value function evaluated for each element in the selection.
-     * y is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param x A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the target x-position of translation.
-     * @param y A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the target y-position of translation.
-     */
-    translateTo(transition: TransitionLike<ZoomRefElement, Datum>, x: ValueFn<ZoomRefElement, Datum, number>, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateTo(
+        selection: Selection<ZoomRefElement, Datum, any, any> | TransitionLike<ZoomRefElement, Datum>,
+        x: number | ValueFn<ZoomRefElement, Datum, number>,
+        y: number | ValueFn<ZoomRefElement, Datum, number>,
+        p?: [number, number] | ValueFn<ZoomRefElement, Datum, [number, number]>
+    ): void;
 
     /**
-     * Scales the current zoom transform of the selected elements by k, such that the new k(1) = k(0)k.
-     *
-     * k is provided as a constant for all elements.
-     *
+     * If selection is a selection, scales the current zoom transform of the selected elements by k, such that the new k₁ = k₀k.
+     * The reference point p does move.
+     * If p is not specified, it defaults to the center of the viewport extent.
+     * If selection is a transition, defines a “zoom” tween translating the current transform.
      * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
      *
-     * @param selection A D3 selection of elements.
-     * @param k Scale factor.
+     * @param selection A selection or a transition.
+     * @param k Scale factor. A number or a function that returns a number.
+     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
+     * @param p A two-element array [px,py] or a function.
+     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
      */
-    scaleBy(selection: Selection<ZoomRefElement, Datum, any, any>, k: number): void;
-    /**
-     * Scales the current zoom transform of the selected elements by k, such that the new k(1) = k(0)k.
-     *
-     * k is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param selection A D3 selection of elements.
-     * @param k A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the scale factor.
-     */
-    scaleBy(selection: Selection<ZoomRefElement, Datum, any, any>, k: ValueFn<ZoomRefElement, Datum, number>): void;
-    /**
-     * Defines a “zoom” tween translating scaling the current transform of the selected elements by k, such that the new k(1) = k(0)k.
-     *
-     * k is provided as a constant for all elements.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param k Scale factor.
-     */
-    scaleBy(transition: TransitionLike<ZoomRefElement, Datum>, k: number): void;
-    /**
-     * Defines a “zoom” tween translating scaling the current transform of the selected elements by k, such that the new k(1) = k(0)k.
-     *
-     * k is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param k A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the scale factor.
-     */
-    scaleBy(transition: TransitionLike<ZoomRefElement, Datum>, k: ValueFn<ZoomRefElement, Datum, number>): void;
+    scaleBy(
+        selection: Selection<ZoomRefElement, Datum, any, any> | TransitionLike<ZoomRefElement, Datum>,
+        k: number | ValueFn<ZoomRefElement, Datum, number>,
+        p?: [number, number] | ValueFn<ZoomRefElement, Datum, [number, number]>
+    ): void;
 
     /**
-     * Scales the current zoom transform of the selected elements to k, such that the new k(1) = k.
-     *
-     * k is provided as a constant for all elements.
-     *
+     * If selection is a selection, scales the current zoom transform of the selected elements to k, such that the new k₁ = k.
+     * The reference point p does move.
+     * If p is not specified, it defaults to the center of the viewport extent.
+     * If selection is a transition, defines a “zoom” tween translating the current transform.
      * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
      *
-     * @param selection A D3 selection of elements.
-     * @param k New scale.
-     * @param p The reference point p does move. If p is not specified, it defaults to the center of the viewport extent.
+     * @param selection: A selection or a transition.
+     * @param k Scale factor. A number or a function that returns a number.
+     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
+     * @param p A two-element array [px,py] or a function.
+     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
      */
-    scaleTo(selection: Selection<ZoomRefElement, Datum, any, any>, k: number, p?: number[]): void;
-    /**
-     * Scales the current zoom transform of the selected elements to k, such that the new k(1) = k.
-     *
-     * k is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param selection A D3 selection of elements.
-     * @param k A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the new scale.
-     */
-    scaleTo(selection: Selection<ZoomRefElement, Datum, any, any>, k: ValueFn<ZoomRefElement, Datum, number>): void;
-    /**
-     * Defines a “zoom” tween translating scaling the current transform of the selected elements to k, such that the new k(1) = k.
-     *
-     * k is provided as a constant for all elements.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param k New scale.
-     */
-    scaleTo(transition: TransitionLike<ZoomRefElement, Datum>, k: number): void;
-    /**
-     * Defines a “zoom” tween translating scaling the current transform of the selected elements to k, such that the new k(1) = k.
-     *
-     * k is provided by a value function evaluated for each element in the selection.
-     *
-     * This method is a convenience method for zoom.transform.
-     * In contrast to zoom.transform, however, it is subject to the constraints imposed by zoom.extent, zoom.scaleExtent, and zoom.translateExtent.
-     *
-     * @param transition A D3 transition on elements.
-     * @param k A value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the new scale.
-     */
-    scaleTo(transition: TransitionLike<ZoomRefElement, Datum>, k: ValueFn<ZoomRefElement, Datum, number>): void;
+    scaleTo(
+        selection: Selection<ZoomRefElement, Datum, any, any> | TransitionLike<ZoomRefElement, Datum>,
+        k: number | ValueFn<ZoomRefElement, Datum, number>,
+        p?: [number, number]
+    ): void;
 
     /**
      * Returns the current constraint function.
