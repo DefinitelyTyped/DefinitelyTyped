@@ -126,7 +126,6 @@ declare namespace CustomFunctions {
         /**
          *
          * This error code indicates that the function used is dividing by zero or empty cells.
-         * Be aware that JavaScript allows division by zero, so you need to write an error handler carefully to detect this condition.
          * A custom error message can't be used.
          * [Api set: CustomFunctionsRuntime 1.3]
          */

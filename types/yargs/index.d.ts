@@ -3,7 +3,6 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 //                 Emily Marigold Klassen <https://github.com/forivall>
@@ -313,6 +312,7 @@ declare namespace yargs {
          * Examples will be printed out as part of the help message.
          */
         example(command: string, description: string): Argv<T>;
+        example(command: ReadonlyArray<[string, string?]>): Argv<T>;
 
         /** Manually indicate that the program should exit, and provide context about why we wanted to exit. Follows the behavior set by `.exitProcess().` */
         exit(code: number, err: Error): void;

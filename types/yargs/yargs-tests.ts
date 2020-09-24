@@ -327,6 +327,33 @@ function Argv$command() {
         .argv;
 }
 
+function Argv$example() {
+    yargs
+        .command({
+            command: 'get',
+            handler: () => {
+                // command
+            },
+        })
+        .command({
+            command: 'post',
+            handler: () => {
+                // command
+            },
+        })
+        .command({
+            command: 'delete',
+            handler: () => {
+                // command
+            },
+        })
+        .example([
+            ['$0 get', 'get https://example.com/'],
+            ['$0 post', 'post https://example.com/'],
+        ])
+        .example('$0 delete', 'delete https://example.com').argv;
+}
+
 function Argv$positional() {
     const module: yargs.CommandModule<{}, { paths: string[] }> = {
         command: 'test <paths...>',

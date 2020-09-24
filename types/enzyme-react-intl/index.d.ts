@@ -30,7 +30,7 @@ export function mountWithIntl<P, S>(node: ReactElement<P>, options?: MountRender
 // render method
 
 // tslint:disable-next-line no-unnecessary-generics
-export function renderWithIntl<P, S>(node: ReactElement<P>, options?: any): Cheerio;
+export function renderWithIntl<P, S>(node: ReactElement<P>, options?: any): cheerio.Cheerio;
 
 // other methods
 

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "favicons-webpack-plugin-tests.ts"
+        "chai-snapshot-matcher-tests.ts"
     ]
 }
