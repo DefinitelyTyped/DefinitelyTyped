@@ -6,6 +6,7 @@
 //                 souppower <https://github.com/souppower>
 //                 Byron "Byrekt" Mitchell <https://github.com/byrekt>
 //                 Bohdan Yavorskyi <https://github.com/BohdanYavorskyi>
+//                 Patrick Erichsen <https://github.com/Patrick-Erichsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -47,7 +48,7 @@ export interface MUIDataTableState {
     data: any[];
     displayData: Array<{ dataIndex: number; data: any[] }>;
     expandedRows: MUIDataTableStateRows;
-    filterData: any[];
+    filterData: string[][];
     filterList: string[][];
     page: number;
     previousSelectedRow: null | { index: number; dataIndex: number };
@@ -138,7 +139,13 @@ export interface MUIDataTableFilterOptions {
      * `filterList` must be of the same type in the main column options, that is an array of arrays, where each array corresponds to the filter list for a given column.
      * {@link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js Example}
      */
-    display?: (filterList: string[], onChange: any, index: number, column: any) => void;
+    display?: (
+        filterList: MUIDataTableState['filterList'],
+        onChange: (val: string | string[], index: number, column: MUIDataTableColumn) => void,
+        index: number,
+        column: MUIDataTableColumn,
+        filterData: MUIDataTableState['filterData'],
+    ) => void;
     /**
      * custom filter logic.
      * {@link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js Example}
@@ -167,7 +174,7 @@ export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
 
 export interface MUIDataTableColumnOptions {
     customBodyRender?: (
-        value: any,
+        value: string,
         tableMeta: MUIDataTableMeta,
         updateValue: (value: string) => void,
     ) => string | React.ReactNode;
@@ -219,7 +226,10 @@ export type MUIDataTableOptions = Partial<{
     caseSensitive: boolean;
     confirmFilters: boolean;
     count: number;
-    customFilterDialogFooter: (filterList: any[], applyNewFilters?: (...args: any[]) => any) => React.ReactNode;
+    customFilterDialogFooter: (
+        filterList: MUIDataTableState['filterList'],
+        applyNewFilters?: (...args: any[]) => any,
+    ) => React.ReactNode;
     customFooter: (
         rowCount: number,
         page: number,
@@ -290,18 +300,22 @@ export type MUIDataTableOptions = Partial<{
         columns: any,
         data: any,
     ) => string | boolean;
-    onFilterChange: (changedColumn: string, filterList: any[], type: FilterType | 'chip' | 'reset') => void;
+    onFilterChange: (
+        changedColumn: string | MUIDataTableColumn | null,
+        filterList: MUIDataTableState['filterList'],
+        type: FilterType | 'chip' | 'reset',
+    ) => void;
     /**
      * Callback function that is triggered when a user clicks the "X" on a filter chip.
      * {@link https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js Example}
      */
-    onFilterChipClose: (index: number, removedFilter: string, filterList: any[]) => void;
+    onFilterChipClose: (index: number, removedFilter: string, filterList: MUIDataTableState['filterList']) => void;
     /**
      * Callback function that is triggered when a user presses the "confirm" button on the filter popover.
      * This occurs only if you've set `confirmFilters` option to `true`.
      * {@link https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js Example}
      */
-    onFilterConfirm: (filterList: any[]) => void;
+    onFilterConfirm: (filterList: MUIDataTableState['filterList']) => void;
     onFilterDialogClose: () => void;
     onFilterDialogOpen: () => void;
     onRowClick: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
@@ -311,7 +325,7 @@ export type MUIDataTableOptions = Partial<{
         data: Array<{ index: number; dataIndex: number }>;
     }) => void;
     onRowSelectionChange: (currentRowsSelected: any[], allRowsSelected: any[], rowsSelected?: any[]) => void;
-    onSearchChange: (searchText: string) => void;
+    onSearchChange: (searchText: string | null) => void;
     onSearchClose: () => void;
     onSearchOpen: () => void;
     onTableChange: (action: string, tableState: MUIDataTableState) => void;
@@ -390,7 +404,7 @@ export interface MUIDataTableBody {
     columns: MUIDataTableColumnDef[];
     count: number;
     data: Array<object | number[] | string[]>;
-    filterList?: string[][];
+    filterList?: MUIDataTableState['filterList'];
     onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
     options: MUIDataTableOptions;
     searchText?: string;
@@ -433,7 +447,7 @@ export interface MUIDataTableBodyRow {
 export interface MUIDataTableFilter {
     classes?: object;
     filterData: any[];
-    filterList?: string[][];
+    filterList?: MUIDataTableState['filterList'];
     onFilterRest?: (...args: any) => any;
     onFilterUpdate?: (...args: any) => any;
     options: MUIDataTableOptions;
@@ -443,7 +457,7 @@ export interface MUIDataTableFilterList {
     columnNames?: Array<{ name: string; filterType: FilterType }>;
     customFilterListUpdate?: any[];
     classes?: object;
-    filterList: string[][];
+    filterList: MUIDataTableState['filterList'];
     filterListRenderers?: (e: any) => any[];
     filterUpdate?: (...args: any) => any;
     options: MUIDataTableOptions;
@@ -551,7 +565,7 @@ export interface MUIDataTableToolbar {
     data?: MUIDataTableData[];
     displayData?: Array<{ data: any[]; dataIndex: number }>;
     filterData?: any[][];
-    filterList?: string[][];
+    filterList?: MUIDataTableState['filterList'];
     filterUpdate?: (...args: any) => any;
     updateFilterByType?: (...args: any) => any;
     options?: MUIDataTableOptions;
