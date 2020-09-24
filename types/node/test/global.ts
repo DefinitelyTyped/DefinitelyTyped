@@ -122,3 +122,19 @@ buff.writeDoubleLE(123.123);
 buff.writeDoubleLE(123.123, 0);
 buff.writeDoubleBE(123.123);
 buff.writeDoubleBE(123.123, 0);
+
+// timers
+{
+    // for code that can be executed in node and a browser
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    let intervalId: ReturnType<typeof setInterval> | undefined;
+    function tearDown() {
+        clearTimeout(timeoutId);
+        clearInterval(intervalId);
+    }
+
+    timeoutId = setTimeout(() => console.log('timer ran'), 100);
+    intervalId = setInterval(() => console.log('interval ran'), 100);
+
+    tearDown();
+}
