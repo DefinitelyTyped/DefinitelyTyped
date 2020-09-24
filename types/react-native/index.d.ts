@@ -6511,24 +6511,24 @@ export interface ScrollViewPropsIOS {
      * where new messages coming in might otherwise cause the scroll position to jump. A value
      * of 0 is common, but other values such as 1 can be used to skip loading spinners or other
      * content that should not maintain position.
-     * 
+     *
      * The optional autoscrollToTopThreshold can be used to make the content automatically scroll
      * to the top after making the adjustment if the user was within the threshold of the top
      * before the adjustment was made. This is also useful for chat-like applications where you
      * want to see new messages scroll into place, but not if the user has scrolled up a ways and
      * it would be disruptive to scroll a bunch.
-     * 
+     *
      * Caveat 1: Reordering elements in the scrollview with this enabled will probably cause
      * jumpiness and jank. It can be fixed, but there are currently no plans to do so. For now,
      * don't re-order the content of any ScrollViews or Lists that use this feature.
-     * 
+     *
      * Caveat 2: This uses contentOffset and frame.origin in native code to compute visibility.
      * Occlusion, transforms, and other complexity won't be taken into account as to whether
      * content is "visible" or not.
      */
-    maintainVisibleContentPosition?: {
-        autoscrollToTopThreshold?: number;
-        minIndexForVisible?: number;
+    maintainVisibleContentPosition?: null | {
+        autoscrollToTopThreshold?: number | null;
+        minIndexForVisible: number;
     };
     /**
      * The maximum allowed zoom scale. The default value is 1.0.
