@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-export type MessageProperties = unknown[];
+export type MessageProperties = unknown[] | { [key: string ]: string };
 
 export type MessageRoutingModes =
     'RoundRobinPartition' |
