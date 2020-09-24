@@ -25,7 +25,8 @@ export type CompressionType =
 export type SubscriptionType =
     'Exclusive' |
     'Shared' |
-    'Failover';
+    'Failover' |
+    'KeyShared';
 
 export class AuthenticationTls {
     constructor(authTlsOpts: { certificatePath: string; privateKeyPath: string });
