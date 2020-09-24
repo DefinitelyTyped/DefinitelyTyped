@@ -62,7 +62,8 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     (selection: Selection<ZoomRefElement, Datum, any, any>, ...args: any[]): void;
     /**
      * If selection is a selection, sets the current zoom transform of the selected elements to the specified transform, instantaneously emitting start, zoom and end events.
-     * If selection is a transition, defines a “zoom” tween to the specified transform using d3.interpolateZoom, emitting a start event when the transition starts, zoom events for each tick of the transition, and then an end event when the transition ends (or is interrupted).
+     * If selection is a transition, defines a “zoom” tween to the specified transform using d3.interpolateZoom, emitting a start event when the transition starts,
+     * zoom events for each tick of the transition, and then an end event when the transition ends (or is interrupted).
      * The transition will attempt to minimize the visual movement around the specified point; if the point is not specified, it defaults to the center of the viewport extent.
      *
      * This function is typically not invoked directly, and is instead invoked via selection.call or transition.call.
