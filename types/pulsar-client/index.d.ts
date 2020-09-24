@@ -1,4 +1,4 @@
-// Type definitions for pulsar-client 1.0
+// Type definitions for pulsar-client 1.2
 // Project: https://github.com/apache/pulsar-client-node
 // Definitions by: Brian Walendzinski <https://github.com/bwalendz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
