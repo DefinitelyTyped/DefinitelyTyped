@@ -13,7 +13,7 @@ import Pulsar = require('pulsar-client');
 
     await producer.send({
         data: Buffer.from('Hello, Typescript'),
-        properties: { 'a': '1', 'b': '2' },
+        properties: { a: '1', b: '2' },
     });
 
     await producer.send({
