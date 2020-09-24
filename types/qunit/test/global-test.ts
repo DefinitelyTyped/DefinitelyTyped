@@ -270,6 +270,37 @@ QUnit.testStart(function( details: QUnit.TestStartDetails ) {
   console.log( "Now running: ", details.name, ' from module ', details.module );
 });
 
+async function timeout() {
+  return new Promise(resolve => setTimeout(resolve, 1));
+}
+
+// These async tests are intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
+// However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
+// so we can't properly test it.
+QUnit.begin(async function() {
+  await timeout();
+});
+
+QUnit.done(async function() {
+  await timeout();
+});
+
+QUnit.moduleDone(async function() {
+  await timeout();
+});
+
+QUnit.moduleStart(async function() {
+  await timeout();
+});
+
+QUnit.testDone(async function() {
+  await timeout();
+});
+
+QUnit.testStart(async function() {
+  await timeout();
+});
+
 let Robot: any = () => {};
 
 QUnit.module( "robot", {
