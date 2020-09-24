@@ -128,7 +128,7 @@ declare class Pubnub {
 
     // files
 
-    listFiles(params: Pubnub.ListFilesParameters, callback: Callback<Pubnub.ListFilesResponse>):void;
+    listFiles(params: Pubnub.ListFilesParameters, callback: Callback<Pubnub.ListFilesResponse>): void;
 
     listFiles(params: Pubnub.ListFilesParameters): Promise<Pubnub.ListFilesResponse>;
 
@@ -1230,7 +1230,7 @@ declare namespace Pubnub {
     interface StreamFileInput {
         stream: any;
         name: string;
-        mimeType?: string
+        mimeType?: string;
     }
 
     interface BufferFileInput {
@@ -1281,8 +1281,8 @@ declare namespace Pubnub {
       }
 
     interface SendFileResponse {
-        name: string,
-        id: string
+        name: string;
+        id: string;
       }
     
     interface DeleteFileResponse {
@@ -1292,6 +1292,7 @@ declare namespace Pubnub {
     interface PublishFileResponse {
         timetoken: number;
     }
+    
     // Objects v2
 
     // Object
