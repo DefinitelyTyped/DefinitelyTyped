@@ -48,8 +48,8 @@ let date: Date;
 
 let clampFlag: boolean;
 
-let outputNumber: number;
-let outputString: string;
+let outputNumber: number | undefined;
+let outputString: string | undefined;
 
 let domainNumbers: number[] = [1, 100];
 const domainNumeric: NumCoercible[] = [new NumCoercible(0), new NumCoercible(100)];

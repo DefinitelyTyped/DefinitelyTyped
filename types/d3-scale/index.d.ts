@@ -973,13 +973,13 @@ export interface ScaleIdentity {
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Range | undefined;
+    unknown(): number | undefined;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
      * @param value The output value of the scale for undefined (or NaN) input values.
      */
-    unknown(value: Range | undefined): this;
+    unknown(value: number | undefined): this;
 }
 
 /**
@@ -1469,13 +1469,13 @@ export interface ScaleSequential<Output> {
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Range | undefined;
+    unknown(): number | undefined;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
      * @param value The output value of the scale for undefined (or NaN) input values.
      */
-    unknown(value: Range | undefined): this;
+    unknown(value: number | undefined): this;
 }
 
 /**
@@ -1677,13 +1677,13 @@ export interface ScaleDiverging<Output> {
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Range | undefined;
+    unknown(): number | undefined;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
      * @param value The output value of the scale for undefined (or NaN) input values.
      */
-    unknown(value: Range | undefined): this;
+    unknown(value: number | undefined): this;
 }
 
 /**
