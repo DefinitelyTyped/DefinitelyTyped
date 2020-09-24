@@ -1,13 +1,14 @@
-// Type definitions for D3JS d3-color module 1.2
+// Type definitions for D3JS d3-color module 1.3
 // Project: https://github.com/d3/d3-color/, https://d3js.org/d3-color
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>,
 //                 Alex Ford <https://github.com/gustavderdrache>,
 //                 Boris Yankov <https://github.com/borisyankov>,
 //                 denisname <https://github.com/denisname>,
 //                 Hugues Stefanski <https://github.com/ledragon>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 1.3.0
 
 // ---------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -146,6 +147,12 @@ export interface RGBColor extends Color {
      * Returns the RGB equivalent of this color.
      */
     rgb(): this;
+    /**
+     * Returns a copy of this color.
+     *
+     * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
+     */
+    copy(values?: { r?: number; g?: number; b?: number; opacity?: number }): this;
 }
 
 /**
@@ -220,6 +227,12 @@ export interface HSLColor extends Color {
      * Returns the RGB color equivalent of this color.
      */
     rgb(): RGBColor;
+    /**
+     * Returns a copy of this color.
+     *
+     * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
+     */
+    copy(values?: { h?: number; s?: number; l?: number; opacity?: number }): this;
 }
 
 /**
@@ -295,6 +308,12 @@ export interface LabColor extends Color {
      * Returns the RGB color equivalent of this color.
      */
     rgb(): RGBColor;
+    /**
+     * Returns a copy of this color.
+     *
+     * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
+     */
+    copy(values?: { l?: number; a?: number; b?: number; opacity?: number }): this;
 }
 
 /**
@@ -383,6 +402,12 @@ export interface HCLColor extends Color {
      * Returns the RGB color equivalent of this color.
      */
     rgb(): RGBColor;
+    /**
+     * Returns a copy of this color.
+     *
+     * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
+     */
+    copy(values?: { h?: number; c?: number; l?: number; opacity?: number }): this;
 }
 
 /**
@@ -490,6 +515,12 @@ export interface CubehelixColor extends Color {
      * Returns the RGB color equivalent of this color.
      */
     rgb(): RGBColor;
+    /**
+     * Returns a copy of this color.
+     *
+     * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
+     */
+    copy(values?: { h?: number; s?: number; l?: number; opacity?: number }): this;
 }
 
 /**
