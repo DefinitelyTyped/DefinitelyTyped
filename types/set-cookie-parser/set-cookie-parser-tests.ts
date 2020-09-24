@@ -108,3 +108,22 @@ var expectedCookiesMap: setCookie.CookieMap = {
 };
 var cookiesMap = setCookie.parse('foo=bar; Max-Age=1000; Domain=.example.com;', { map: true });
 assert.deepStrictEqual(cookiesMap, expectedCookiesMap);
+
+// Call parseString function
+var individualSetCookieHeader =
+    'user=%D0%98%D0%BB%D1%8C%D1%8F%20%D0%97%D0%B0%D0%B9%D1%86%D0%B5%D0%B2; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure; SameSite=Strict';
+var decodedValueCookie = setCookie.parseString(individualSetCookieHeader);
+var notDecodedValueCookie = setCookie.parseString(individualSetCookieHeader, { decodeValues: false });
+var expectedCookie: setCookie.Cookie = {
+    name: 'user',
+    value: 'Илья Зайцев',
+    maxAge: 1000,
+    domain: '.example.com',
+    path: '/',
+    expires: new Date('Tue, 01 Jul 2025 10:01:11 GMT'),
+    httpOnly: true,
+    secure: true,
+    sameSite: 'Strict',
+};
+assert.deepStrictEqual(decodedValueCookie, expectedCookie);
+assert.equal(notDecodedValueCookie.value, '%D0%98%D0%BB%D1%8C%D1%8F%20%D0%97%D0%B0%D0%B9%D1%86%D0%B5%D0%B2');

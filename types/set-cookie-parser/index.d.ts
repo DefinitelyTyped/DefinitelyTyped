@@ -2,6 +2,7 @@
 // Project: https://github.com/nfriedly/set-cookie-parser
 // Definitions by: Nick Paddock <https://github.com/nickp10>
 //                 Ilya Zaytsev <https://github.com/ilyaztsv>
+//                 Singlebyted <https://github.com/singlebyted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -19,6 +20,8 @@ declare module "set-cookie-parser" {
         function parse(input: string | ReadonlyArray<string> | http.IncomingMessage, options?: Options): Cookie[] | CookieMap;
 
         function splitCookiesString(input: string | ReadonlyArray<string> | void): string[];
+
+        function parseString(individualSetCookieHeader: string, options?: Options): Cookie;
 
         interface Cookie {
             name: string;
@@ -39,7 +42,8 @@ declare module "set-cookie-parser" {
         type Options = {
             decodeValues?: boolean;
             map?: boolean;
-        }
+            silent?: boolean;
+        };
     }
 
     export = SetCookieParser;
