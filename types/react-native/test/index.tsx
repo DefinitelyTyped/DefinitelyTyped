@@ -1179,6 +1179,11 @@ const NativeIDTest = () => (
     </ScrollView>
 );
 
+const ScrollViewMaintainVisibleContentPositionTest = () => (
+    <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}>
+    </ScrollView>
+);
+
 const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
 
 const ShareTest = () => {
