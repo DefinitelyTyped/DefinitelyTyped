@@ -1,28 +1,9 @@
 // Type definitions for @fingerprintjs/fingerprintjs 2.1
 // Project: https://github.com/fingerprintjs/fingerprintjs
-// Definitions by: Curt Mullin <https://github.com/curtstate>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Luke Bennett <https://github.com/LukeeeeBennett>
+// Definitions by: Luke Bennett <https://github.com/LukeeeeBennett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace Fingerprint2;
-export = Fingerprint2;
-
-declare var Fingerprint2: Fingerprint2.Static;
-
 declare namespace Fingerprint2 {
-    interface Static {
-        VERSION: string;
-
-        get(options: Options, callback: (components: Component[]) => void): void;
-        get(callback: (components: Component[]) => void): void;
-        getPromise(options?: Options): Promise<Component[]>;
-        getV18(options: Options, callback: (murmur: string, components: V18Component[]) => void): void;
-        getV18(callback: (murmur: string, components: V18Component[]) => void): void;
-
-        x64hash128(value: string, num: number): string;
-    }
-
     interface Component {
         key: string;
         value: any;
@@ -120,3 +101,22 @@ declare namespace Fingerprint2 {
         EXCLUDED?: string;
     }
 }
+
+interface Fingerprint2Static {
+    VERSION: string;
+
+    get(options: Fingerprint2.Options, callback: (components: Fingerprint2.Component[]) => void): void;
+    get(callback: (components: Fingerprint2.Component[]) => void): void;
+    getPromise(options?: Fingerprint2.Options): Promise<Fingerprint2.Component[]>;
+    getV18(
+        options: Fingerprint2.Options,
+        callback: (murmur: string, components: Fingerprint2.V18Component[]) => void,
+    ): void;
+    getV18(callback: (murmur: string, components: Fingerprint2.V18Component[]) => void): void;
+
+    x64hash128(value: string, num: number): string;
+}
+
+declare const Fingerprint2: Fingerprint2Static;
+
+export = Fingerprint2;
