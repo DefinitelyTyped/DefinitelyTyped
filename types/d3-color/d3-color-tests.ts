@@ -39,6 +39,9 @@ cRGB = cRGB.rgb();
 displayable = cRGB.displayable();
 cString = cRGB.toString();
 cString = cRGB.hex();
+cString = cRGB.formatHex();
+cString = cRGB.formatHsl();
+cString = cRGB.formatRgb();
 console.log('Channels = (r : %d, g: %d, b: %d)', cRGB.r, cRGB.g, cRGB.b);
 console.log('Opacity = %d', cRGB.opacity);
 
@@ -57,6 +60,9 @@ cRGB = cHSL.rgb();
 displayable = cHSL.displayable();
 cString = cHSL.toString();
 cString = cHSL.hex();
+cString = cHSL.formatHex();
+cString = cHSL.formatHsl();
+cString = cHSL.formatRgb();
 console.log('Channels = (h : %d, s: %d, l: %d)', cHSL.h, cHSL.s, cHSL.l);
 console.log('Opacity = %d', cHSL.opacity);
 
@@ -79,6 +85,9 @@ cRGB = cLab.rgb();
 displayable = cLab.displayable();
 cString = cLab.toString();
 cString = cLab.hex();
+cString = cLab.formatHex();
+cString = cLab.formatHsl();
+cString = cLab.formatRgb();
 console.log('Channels = (l : %d, a: %d, b: %d)', cLab.l, cLab.a, cLab.b);
 console.log('Opacity = %d', cLab.opacity);
 
@@ -105,6 +114,9 @@ cRGB = cHcl.rgb();
 displayable = cHcl.displayable();
 cString = cHcl.toString();
 cString = cHcl.hex();
+cString = cHcl.formatHex();
+cString = cHcl.formatHsl();
+cString = cHcl.formatRgb();
 console.log('Channels = (h : %d, c: %d, l: %d)', cHcl.h, cHcl.c, cHcl.l);
 console.log('Opacity = %d', cHcl.opacity);
 
@@ -133,6 +145,9 @@ cRGB = cCubehelix.rgb();
 displayable = cCubehelix.displayable();
 cString = cCubehelix.toString();
 cString = cCubehelix.hex();
+cString = cCubehelix.formatHex();
+cString = cCubehelix.formatHsl();
+cString = cCubehelix.formatRgb();
 console.log('Channels = (h : %d, s: %d, l: %d)', cCubehelix.h, cCubehelix.s, cCubehelix.l);
 console.log('Opacity = %d', cCubehelix.opacity);
 

@@ -80,8 +80,23 @@ export interface Color {
      */
     toString(): string; // Note: While this method is used in prototyping for colors of specific colorspaces, it should not be called directly, as 'this.rgb' would not be implemented on Color
     /**
-     * Returns a hexadecimal string representing this color.
-     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     * Returns a hexadecimal string representing this color in RGB space, such as #f7eaba.
+     * If this color is not displayable, a suitable displayable color is returned instead.
+     * For example, RGB channel values greater than 255 are clamped to 255.
+     */
+    formatHex(): string;
+    /**
+     * Returns a string representing this color according to the CSS Color Module Level 3 specification, such as hsl(257, 50%, 80%) or hsla(257, 50%, 80%, 0.2).
+     * If this color is not displayable, a suitable displayable color is returned instead by clamping S and L channel values to the interval [0, 100].
+     */
+    formatHsl(): string;
+    /**
+     * Returns a string representing this color according to the CSS Object Model specification, such as rgb(247, 234, 186) or rgba(247, 234, 186, 0.2).
+     * If this color is not displayable, a suitable displayable color is returned instead by clamping RGB channel values to the interval [0, 255].
+     */
+    formatRgb(): string;
+    /**
+     * @deprecated Use color.formatHex.
      */
     hex(): string;
 }
