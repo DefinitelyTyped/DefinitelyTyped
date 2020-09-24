@@ -13373,9 +13373,6 @@ declare namespace Office {
         /**
          * Gets the email address of the sender of a message.
          *
-         * The `from` and `sender` properties represent the same person unless the message is sent by a delegate.
-         * In that case, the `from` property represents the owner, and the `sender` property represents the delegate.
-         *
          * The `from` property returns a `From` object that provides a method to get the from value.
          * 
          * [Api set: Mailbox 1.7]
