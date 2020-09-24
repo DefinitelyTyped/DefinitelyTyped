@@ -147,7 +147,7 @@ declare class Pubnub {
     deleteFile(params: Pubnub.FileInputParameters): Promise<Pubnub.DeleteFileResponse>;
 
     publishFile(params: Pubnub.PublishFileParameters, callback: Callback<Pubnub.PublishFileResponse>): void;
-    
+
     publishFile(params: Pubnub.PublishFileParameters): Promise<Pubnub.PublishFileResponse>;
 
     // objects v1
@@ -1284,15 +1284,15 @@ declare namespace Pubnub {
         name: string;
         id: string;
       }
-    
+
     interface DeleteFileResponse {
         status: string;
-    }  
+    }
 
     interface PublishFileResponse {
         timetoken: number;
     }
-    
+
     // Objects v2
 
     // Object
