@@ -993,6 +993,17 @@ export interface ScaleIdentity {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): ScaleIdentity;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 }
 
 /**
@@ -1255,6 +1266,17 @@ export interface ScaleTime<Range, Output> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): this;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 }
 
 /**
@@ -1473,6 +1495,17 @@ export interface ScaleSequential<Output> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): ScaleSequential<Output>;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 }
 
 /**
@@ -1670,6 +1703,17 @@ export interface ScaleDiverging<Output> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): this;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 }
 
 /**
@@ -1876,6 +1920,17 @@ export interface ScaleQuantize<Range> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): this;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 }
 
 /**
@@ -1976,6 +2031,17 @@ export interface ScaleQuantile<Range> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): this;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 }
 
 /**
@@ -2066,6 +2132,17 @@ export interface ScaleThreshold<Domain extends number | string | Date, Range> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): this;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 }
 
 /**
