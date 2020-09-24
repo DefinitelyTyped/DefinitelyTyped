@@ -654,8 +654,8 @@ divergingScaleNumber = d3Scale.scaleDivergingLog();
 divergingScaleNumber = d3Scale.scaleDivergingPow();
 divergingScaleNumber = d3Scale.scaleDivergingSqrt();
 divergingScaleNumber = d3Scale.scaleDivergingSymlog();
-divergingScaleNumber = d3Scale.scaleDiverging<number>(interpolateRound(0, 1));
-divergingScaleNumber = d3Scale.scaleDiverging<number>(interpolateDouble);
+divergingScaleNumber = d3Scale.scaleDiverging(interpolateRound(0, 1));
+divergingScaleNumber = d3Scale.scaleDiverging(interpolateDouble);
 divergingScaleString = d3Scale.scaleDiverging<string>(interpolateSpectral);
 divergingScaleNumber = d3Scale.scaleDiverging<number>([0, 5, 10], interpolateRound(0, 1));
 
