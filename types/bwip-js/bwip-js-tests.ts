@@ -53,7 +53,7 @@ bwipjs(canvas, {
 
 // Browser canvas implementation using .toCanvas()
 // See: https://github.com/metafloor/bwip-js#browser-usage
-const canvasElement = document.createElement('div') as HTMLElement;
+const canvasElement = document.createElement('canvas') as HTMLCanvasElement;
 canvasElement.setAttribute("id", "canvas2");
 const toCanvas = bwipjs.toCanvas('canvas2', {
     bcid: 'code128',
