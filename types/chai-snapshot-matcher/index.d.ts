@@ -11,7 +11,13 @@ import { Context } from 'mocha';
 declare global {
   namespace Chai {
     interface Assertion {
-      matchSnapshot(that: Context): void;
+      matchSnapshot(that: Context, hint?: string): void;
+      matchSpecificSnapshot(that: Context, options?: {
+          hint?: string;
+          name?: string;
+          folder?: string;
+          snapshotPath?: string;
+      }): void;
     }
   }
 }
