@@ -354,22 +354,22 @@ declare global {
          * Runs after the last test. If additional tests are defined after the
          * module's queue has emptied, it will not run this hook again.
          */
-        after: (fn: (assert: Assert) => void) => void;
+        after: (fn: (assert: Assert) => void | Promise<void>) => void;
 
         /**
          * Runs after each test.
          */
-        afterEach: (fn: (assert: Assert) => void) => void;
+        afterEach: (fn: (assert: Assert) => void | Promise<void>) => void;
 
         /**
          * Runs before the first test.
          */
-        before: (fn: (assert: Assert) => void) => void;
+        before: (fn: (assert: Assert) => void | Promise<void>) => void;
 
         /**
          * Runs before each test.
          */
-        beforeEach: (fn: (assert: Assert) => void) => void;
+        beforeEach: (fn: (assert: Assert) => void | Promise<void>) => void;
 
     }
 
@@ -560,7 +560,7 @@ declare global {
          * @param {string} name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        only(name: string, callback: (assert: Assert) => void | Promise<any>): void;
+        only(name: string, callback: (assert: Assert) => void | Promise<void>): void;
 
         /**
          * DEPRECATED: Report the result of a custom assertion.
@@ -591,7 +591,7 @@ declare global {
          *
          * @param {string} Title of unit being tested
          */
-        skip(name: string, callback?: (assert: Assert) => void | Promise<any>): void;
+        skip(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
 
         /**
          * Returns a single line string representing the stacktrace (call stack).
@@ -637,7 +637,7 @@ declare global {
          * @param {string} Title of unit being tested
          * @param callback Function to close over assertions
          */
-        test(name: string, callback: (assert: Assert) => void | Promise<any>): void;
+        test(name: string, callback: (assert: Assert) => void | Promise<void>): void;
 
         /**
          * Register a callback to fire whenever a test ends.
@@ -673,7 +673,7 @@ declare global {
          * @param {string} Title of unit being tested
          * @param callback Function to close over assertions
          */
-        todo(name: string, callback?: (assert: Assert) => void): void;
+        todo(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
 
         /**
          * Compares two values. Returns true if they are equivalent.
