@@ -25,7 +25,7 @@ interface SessionProvider extends GenericObject {
 }
 
 interface ContextProviderProps {
-    session: Session;
+    session: Session | null | undefined;
     options?: SetOptionsParams;
 }
 
@@ -43,7 +43,7 @@ interface NextContext {
     ctx?: { req: IncomingMessage };
 }
 
-declare function useSession(): [Session, boolean];
+declare function useSession(): [Session | null | undefined, boolean];
 declare function providers(): Promise<GetProvidersResponse | null>;
 declare const getProviders: typeof providers;
 declare function session(

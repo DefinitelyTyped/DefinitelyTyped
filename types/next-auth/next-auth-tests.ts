@@ -190,7 +190,7 @@ const session = {
     expires: '1234',
 };
 
-// $ExpectType [Session, boolean]
+// $ExpectType [Session | null | undefined, boolean]
 client.useSession();
 
 // $ExpectType Promise<Session | null>
@@ -227,6 +227,28 @@ client.Provider({
         baseUrl: 'https://foo.com',
         basePath: '/',
         clientMaxAge: 1234,
+    },
+});
+
+// $ExpectType ReactElement<any, any> | null
+client.Provider({
+    session,
+});
+
+// $ExpectType ReactElement<any, any> | null
+client.Provider({
+    session: undefined,
+    options: {},
+});
+
+// $ExpectType ReactElement<any, any> | null
+client.Provider({
+    session: null,
+    options: {
+        baseUrl: 'https://foo.com',
+        basePath: '/',
+        clientMaxAge: 1234,
+        keepAlive: 4321,
     },
 });
 
