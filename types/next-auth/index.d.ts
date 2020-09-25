@@ -99,7 +99,7 @@ interface DefaultSessionPayload {
         email: string | null;
         image: string | null;
     };
-    expires: string
+    expires: string;
 }
 
 interface JWTOptions {
