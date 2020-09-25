@@ -16,14 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/errors": [
-                "feathersjs__errors"
-            ],
-            "@feathersjs/errors/handler": [
-                "feathersjs__errors/handler"
-            ],
-            "@feathersjs/errors/not-found": [
-                "feathersjs__errors/not-found"
+            "@feathersjs/*": [
+                "feathersjs__*"
             ]
         }
     },

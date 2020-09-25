@@ -335,7 +335,7 @@ Cuando `dts-gen` es utilizado como scaffold en un paquete scoped, las propiedade
 ```json
 {
     "paths":{
-      "@foo/bar": ["foo__bar"]
+      "@foo/*": ["foo__*"]
     }
 }
 ```

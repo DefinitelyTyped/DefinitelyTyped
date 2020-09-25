@@ -21,6 +21,6 @@
         "iopipe__iopipe-tests.ts"
     ],
     "paths": {
-        "@iopipe/iopipe": ["iopipe__iopipe"]
+        "@iopipe/*": ["iopipe__*"]
     }
 }

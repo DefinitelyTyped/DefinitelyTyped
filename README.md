@@ -560,7 +560,7 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 ```json
 {
     "paths":{
-      "@foo/bar": ["foo__bar"]
+      "@foo/*": ["foo__*"]
     }
 }
 ```
