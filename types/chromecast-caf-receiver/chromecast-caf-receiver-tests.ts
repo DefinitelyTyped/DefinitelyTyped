@@ -199,3 +199,8 @@ debugLogger.error(
     'Track could not be reported',
     cast.framework.CastReceiverContext.getInstance().getPlayerManager().getMediaInformation(),
 );
+
+const controls = cast.framework.ui.Controls.getInstance();
+
+controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_1, cast.framework.ui.ControlsButton.LIKE);
+controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_2, cast.framework.ui.ControlsButton.DISLIKE);

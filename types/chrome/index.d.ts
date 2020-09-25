@@ -5767,7 +5767,7 @@ declare namespace chrome.runtime {
      * @since Chrome 26.
      */
     export interface Port {
-        postMessage: (message: Object) => void;
+        postMessage: (message: any) => void;
         disconnect: () => void;
         /**
          * Optional.

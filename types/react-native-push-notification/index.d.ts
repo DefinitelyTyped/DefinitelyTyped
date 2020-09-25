@@ -21,6 +21,7 @@ export interface PushNotification {
     badge: number;
     alert: object;
     sound: string;
+    id: number;
     finish: (fetchResult: string) => void;
 }
 
@@ -77,7 +78,7 @@ export class PushNotificationObject {
     userInfo?: any;
     playSound?: boolean;
     soundName?: string;
-    number?: string;
+    number?: string | number;
     repeatType?: "week" | "day" | "hour" | "minute" | "time";
     repeatTime?: number;
 }
@@ -153,6 +154,7 @@ export interface PushNotification {
         callback: (channel_ids: string[]) => void
     ): void;
     channelExists(
+        channel_id: string,
         callback: (exists: boolean) => void
     ): void;
     createChannel(
@@ -160,6 +162,7 @@ export interface PushNotification {
         callback: (created: boolean) => void
     ): void;
     channelBlocked(
+        channel_id: string,
         callback: (blocked: boolean) => void
     ): void;
     deleteChannel(channel_id: string): void;

@@ -3389,16 +3389,16 @@ fp.now(); // $ExpectType number
         trailing: false,
     };
 
-    const result = _.debounce(func); // $ExpectType ((n: number, s: string) => boolean) & Cancelable
+    const result = _.debounce(func); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
     result.cancel(); // $ExpectType void
-    result.flush(); // $ExpectType void
-    _.debounce(func, 42); // $ExpectType ((n: number, s: string) => boolean) & Cancelable
-    _.debounce(func, 42, options); // $ExpectType ((n: number, s: string) => boolean) & Cancelable
+    result.flush(); // $ExpectType boolean | undefined
+    _.debounce(func, 42); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
+    _.debounce(func, 42, options); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
 
-    _(func).debounce(42, options); // $ExpectType Function<((n: number, s: string) => boolean) & Cancelable>
-    _.chain(func).debounce(42, options); // $ExpectType FunctionChain<((n: number, s: string) => boolean) & Cancelable>
-    fp.debounce(42, func); // $ExpectType ((n: number, s: string) => boolean) & Cancelable
-    fp.debounce(42)(func); // $ExpectType ((n: number, s: string) => boolean) & Cancelable
+    _(func).debounce(42, options); // $ExpectType Function<DebouncedFunc<(n: number, s: string) => boolean>>
+    _.chain(func).debounce(42, options); // $ExpectType FunctionChain<DebouncedFunc<(n: number, s: string) => boolean>>
+    fp.debounce(42, func); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
+    fp.debounce(42)(func); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
 }
 
 // _.defer
@@ -3636,18 +3636,18 @@ fp.now(); // $ExpectType number
 
     const func = (a: number, b: string): boolean => true;
 
-    _.throttle(func); // $ExpectType ((a: number, b: string) => boolean) & Cancelable
-    _.throttle(func, 42); // $ExpectType ((a: number, b: string) => boolean) & Cancelable
-    _.throttle(func, 42, options); // $ExpectType ((a: number, b: string) => boolean) & Cancelable
-    _(func).throttle(); // $ExpectType Function<((a: number, b: string) => boolean) & Cancelable>
-    _(func).throttle(42); // $ExpectType Function<((a: number, b: string) => boolean) & Cancelable>
-    _(func).throttle(42, options); // $ExpectType Function<((a: number, b: string) => boolean) & Cancelable>
-    _.chain(func).throttle(); // $ExpectType FunctionChain<((a: number, b: string) => boolean) & Cancelable>
-    _.chain(func).throttle(42); // $ExpectType FunctionChain<((a: number, b: string) => boolean) & Cancelable>
-    _.chain(func).throttle(42, options); // $ExpectType FunctionChain<((a: number, b: string) => boolean) & Cancelable>
+    _.throttle(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, options); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _(func).throttle(); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, options); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, options); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
 
-    fp.throttle(42, func); // $ExpectType ((a: number, b: string) => boolean) & Cancelable
-    fp.throttle(42)(func); // $ExpectType ((a: number, b: string) => boolean) & Cancelable
+    fp.throttle(42, func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    fp.throttle(42)(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
 }
 
 // _.unary

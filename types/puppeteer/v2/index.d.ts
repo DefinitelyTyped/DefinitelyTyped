@@ -338,7 +338,7 @@ export interface Tracing {
 }
 
 export interface TracingStartOptions {
-  path: string;
+  path?: string;
   screenshots?: boolean;
   categories?: string[];
 }
@@ -1275,6 +1275,12 @@ export interface FrameBase extends Evalable, JSEvalable {
     xpath: string,
     options?: WaitForSelectorOptions,
   ): Promise<ElementHandle>;
+
+  /**
+   * Waits for a certain amount of time before resolving.
+   * @param duration The time to wait for.
+   */
+  waitForTimeout(duration: number): Promise<void>;
 }
 
 export interface Frame extends FrameBase {

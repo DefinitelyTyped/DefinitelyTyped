@@ -116,6 +116,19 @@ declare module "async_hooks" {
         constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
 
         /**
+         * Binds the given function to the current execution context.
+         * @param fn The function to bind to the current execution context.
+         * @param type An optional name to associate with the underlying `AsyncResource`.
+         */
+        static bind<Func extends (...args: any[]) => any>(fn: Func, type?: string): Func & { asyncResource: AsyncResource };
+
+        /**
+         * Binds the given function to execute to this `AsyncResource`'s scope.
+         * @param fn The function to bind to the current `AsyncResource`.
+         */
+        bind<Func extends (...args: any[]) => any>(fn: Func): Func & { asyncResource: AsyncResource };
+
+        /**
          * Call the provided function with the provided arguments in the
          * execution context of the async resource. This will establish the
          * context, trigger the AsyncHooks before callbacks, call the function,

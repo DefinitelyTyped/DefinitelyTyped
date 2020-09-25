@@ -53,6 +53,7 @@ Papa.parse(file, {
         return header;
     },
     complete(a, b) {
+        // $ExpectType string[] | undefined
         a.meta.fields;
         if (b) b.name;
     },

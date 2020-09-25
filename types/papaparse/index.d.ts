@@ -6,7 +6,6 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Alberto Restifo <https://github.com/albertorestifo>
 //                 Behind The Math <https://github.com/BehindTheMath>
-//                 3af <https://github.com/3af>
 //                 Janne Liuhtonen <https://github.com/jliuhtonen>
 //                 Raphaël Barbazza <https://github.com/rbarbazz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -156,7 +155,7 @@ export interface ParseMeta {
     delimiter: string; // Delimiter used
     linebreak: string; // Line break sequence used
     aborted: boolean; // Whether process was aborted
-    fields: string[]; // Array of field names
+    fields?: string[]; // Array of field names
     truncated: boolean; // Whether preview consumed all input
     cursor: number;
 }

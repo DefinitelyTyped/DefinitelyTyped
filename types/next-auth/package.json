@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "jose": "^1.28.0",
+    "typeorm": "^0.2.24"
+  }
+}

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Titanium 9.0
+// Type definitions for non-npm package Titanium 9.1
 // Project: https://github.com/appcelerator/titanium_mobile
 // Definitions by: Axway Appcelerator <https://github.com/appcelerator>
 //                 Jan Vennemann <https://github.com/janvennemann>
@@ -6,6 +6,9 @@
 //                 Mathias Lorenzen <https://github.com/ffMathy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
+
+// Base definitions that can't be generated yet
+/// <reference path="base.d.ts" />
 
 type _Omit<T, K extends keyof any | undefined> = Pick<T, Exclude<keyof T, K>>;
 type FunctionPropertyNames<T> = {
@@ -124,7 +127,7 @@ interface Attribute {
     /**
      * Attribute value.
      */
-    value: number;
+    value: any;
 
 }
 /**
@@ -369,6 +372,11 @@ interface CameraOptionsType {
     allowEditing?: boolean;
 
     /**
+     * Function to call if the user presses the back button.
+     */
+    androidback?: (param0: FailureResponse) => void;
+
+    /**
      * Specifies if the dialog should be animated upon showing and hiding.
      */
     animated?: boolean;
@@ -475,6 +483,66 @@ interface ClipboardItemsType {
 
 }
 /**
+ * Immutable object used to perform language sensitive string comparisons.
+ */
+interface Collator {
+    /**
+     * Creates a new `Intl.Collator` object with the given locale and comparison options.
+     */
+    readonly constructor?: Collator;
+
+    /**
+     * Determines the sort order of the given strings or if they match.
+     */
+    compare(string1: string, string2: string): number;
+
+    /**
+     * Gets the object's collation options.
+     */
+    resolvedOptions(): any;
+
+    /**
+     * Static method indicating what locales are supported by collators from the given locale(s).
+     */
+    supportedLocalesOf(locales: string | string[]): string[];
+
+}
+/**
+ * Options to be passed into the <Collator.constructor> method.
+ */
+interface CollatorOptions {
+    /**
+     * Indicates if upper case or lower case characters should sort first.
+     */
+    caseFirst?: string;
+
+    /**
+     * Indicates if punctuation characters should be ignored during the compare.
+     */
+    ignorePunctuation?: boolean;
+
+    /**
+     * The locale matching algorithm to use.
+     */
+    localeMatcher?: string;
+
+    /**
+     * Indicates if numbers in string should be compared as integers.
+     */
+    numeric?: boolean;
+
+    /**
+     * Indicates how characters should be compared.
+     */
+    sensitivity?: string;
+
+    /**
+     * Indicates if the comparison is for sorting or searching when matching strings.
+     */
+    usage?: string;
+
+}
+/**
  * Argument object passed to the [connected](Titanium.Network.Socket.TCP.connected) callback when the socket connects.
  */
 interface ConnectedCallbackArgs {
@@ -482,51 +550,6 @@ interface ConnectedCallbackArgs {
      * Socket instance that has been connected.
      */
     socket?: Titanium.Network.Socket.TCP;
-
-}
-/**
- * Console logging facilities.
- */
-interface Console {
-    /**
-     * Log a message at the `debug` level.
-     */
-    debug(...message: any[]): void;
-
-    /**
-     * Log a message at the `error` level.
-     */
-    error(...message: any[]): void;
-
-    /**
-     * Log a message at the `info` level.
-     */
-    info(...message: any[]): void;
-
-    /**
-     * Log a message at the `info` level.
-     */
-    log(...message: any[]): void;
-
-    /**
-     * Start a timer to track duration of an operation.
-     */
-    time(label?: string): void;
-
-    /**
-     * Stop a timer that was previously started.
-     */
-    timeEnd(label?: string): void;
-
-    /**
-     * Log duration taken so far for an operation.
-     */
-    timeLog(label?: string, ...data: any[]): void;
-
-    /**
-     * Log a message at the `warn` level.
-     */
-    warn(...message: any[]): void;
 
 }
 /**
@@ -592,6 +615,131 @@ interface CreateStreamArgs {
      * Object that the stream will read from or write to.
      */
     source?: Titanium.Blob | Titanium.Buffer;
+
+}
+/**
+ * Immutable object used to generate localized date and time formatted strings.
+ */
+interface DateTimeFormat {
+    /**
+     * Creates a new `Intl.DateTimeFormat` object with the given locale and formatting options.
+     */
+    readonly constructor?: DateTimeFormat;
+
+    /**
+     * Formats the given date object to a localized date and/or time string.
+     */
+    format(date: Date): string;
+
+    /**
+     * Formats given date to an array of components describing what the formmated string would produce.
+     */
+    formatToParts(date: Date): any[];
+
+    /**
+     * Gets the object's formatting options.
+     */
+    resolvedOptions(): any;
+
+    /**
+     * Static method indicating what locales are supported by `DateTimeFormat` from the given locale(s).
+     */
+    supportedLocalesOf(locales: string | string[]): string[];
+
+}
+/**
+ * Options to be passed into the <DateTimeFormat.constructor> method.
+ */
+interface DateTimeFormatOptions {
+    /**
+     * Specifies the locale's built-in month, day, and year formatting styles.
+     */
+    dateStyle?: string;
+
+    /**
+     * Indicates how the numeric day should be formatted.
+     */
+    day?: string;
+
+    /**
+     * Indicates how the AM/PM time component should be shown.
+     */
+    dayPeriod?: string;
+
+    /**
+     * Indicates how the era name, such as AD or BC, should be shown.
+     */
+    era?: string;
+
+    /**
+     * The format matching algorithm to use.
+     */
+    formatMatcher?: string;
+
+    /**
+     * Number of millisecond digits to show. Valid values are 0-3.
+     */
+    fractionalSecondDigits?: number;
+
+    /**
+     * Indicates how the hour should be formatted.
+     */
+    hour?: string;
+
+    /**
+     * Indicates if formatter should output to either 12-hour or 24-hour time.
+     */
+    hour12?: boolean;
+
+    /**
+     * Indicates how the hour should be formatted.
+     */
+    hourCycle?: string;
+
+    /**
+     * The locale matching algorithm to use.
+     */
+    localeMatcher?: string;
+
+    /**
+     * Indicates how minutes should be formatted.
+     */
+    minute?: string;
+
+    /**
+     * Indicates how the month should be formatted.
+     */
+    month?: string;
+
+    /**
+     * Indicates how seconds should be formatted.
+     */
+    second?: string;
+
+    /**
+     * Specifies the locale's built-in hour, month, and second formatting styles.
+     */
+    timeStyle?: string;
+
+    /**
+     * The time zone the `Date` object's value should be converted to when formatted.
+     */
+    timeZone?: string;
+
+    /**
+     * Indicates how the time zone should be shown.
+     */
+    timeZoneName?: string;
+
+    /**
+     * Indicates how a weekday name should be shown.
+     */
+    weekday?: string;
+
+    /**
+     * Indicates how the year should be formatted.
+     */
+    year?: string;
 
 }
 /**
@@ -1111,93 +1259,6 @@ interface GetUserNotificationSettings {
 
 }
 /**
- * The APIs that reside in the global scope, which may be called without a namespace prefix.
- */
-/**
- * Console logging facilities.
- */
-declare var console: Console;
-
-/**
- * An alias for [Titanium.Locale.getString](Titanium.Locale.getString).
- */
-declare function L(key: string, hint?: string): string;
-
-/**
- * Displays a pop-up alert dialog with the passed in `message`.
- */
-declare function alert(message: string): void;
-
-/**
- * Cancels an interval timer.
- */
-declare function clearInterval(timerId?: number): void;
-
-/**
- * Cancels a one-time timer.
- */
-declare function clearTimeout(timerId?: number): void;
-
-/**
- * Replaces each escape sequence in the specified string, created using the `encodedURI`
- * method, with the character that it represents.
- */
-declare function decodeURIComponent(encodedURI: string): string;
-
-/**
- * Replaces each special character in the specified string with the equivalent URI escape
- * sequence. Useful for encoding URIs.
- */
-declare function encodeURIComponent(string: string): string;
-
-/**
- * Loads either a native Titanium module or a CommonJS module.
- */
-declare function require(moduleId: string): any;
-
-/**
- * Executes a function repeatedly with a fixed time delay between each call to that function.
- */
-declare function setInterval(func: (...args: any[]) => void, delay?: number): number;
-
-/**
- * Executes code or a function after a delay.
- */
-declare function setTimeout(func: (...args: any[]) => void, delay?: number): number;
-
-/**
- * The JavaScript built-in String type.
- */
-interface String {
-    /**
-     * Formats a string using `printf`-style substitution.
-     */
-    format(formatString: string, ...value: Array<string | number>): string;
-
-    /**
-     * Formats a number into the currency format, including currency symbol, of the locale
-     * configured for the system.
-     */
-    formatCurrency(value: number): string;
-
-    /**
-     * Formats a date into the date format of the locale configured for the system.
-     */
-    formatDate(date: Date, format?: string): string;
-
-    /**
-     * Formats a number into the decimal format, including decimal symbol, of the locale
-     * configured for the system.
-     */
-    formatDecimal(value: number, locale?: string, pattern?: string): string;
-
-    /**
-     * Formats a date into the time format of the locale configured for the system.
-     */
-    formatTime(date: Date, format?: string): string;
-
-}
-/**
  * A simple object defining a color gradient.
  */
 interface Gradient {
@@ -1249,7 +1310,7 @@ interface GradientColorRef {
     /**
      * Color value at this point in the gradient, as a color name or hex triplet.
      */
-    color?: string;
+    color?: string | Titanium.UI.Color;
 
     /**
      * The color's normalized position within the gradient, ranging from 0 (start) to 1 (end).
@@ -1335,6 +1396,16 @@ interface HorizontalInsets {
      * Right padding/inset
      */
     right?: number;
+
+}
+/**
+ * Namespace providing JavaScript's standard internationalization APIs.
+ */
+interface Intl {
+    /**
+     * Gets canonical locale identifiers matching given BCP 47 locale identifiers.
+     */
+    getCanonicalLocales(locales?: string | string[]): string[];
 
 }
 /**
@@ -2017,6 +2088,91 @@ interface NotificationParams {
 
 }
 /**
+ * Immutable object used to convert numbers to localized numeric strings.
+ */
+interface NumberFormat {
+    /**
+     * Creates a new `Intl.NumberFormat` object with the given locale and formatting options.
+     */
+    readonly constructor?: NumberFormat;
+
+    /**
+     * Formats the given number to a localized numeric string.
+     */
+    format(value: number): string;
+
+    /**
+     * Formats given number to an array of components describing what the formmated string would produce.
+     */
+    formatToParts(value: number): any[];
+
+    /**
+     * Gets the object's formatting options.
+     */
+    resolvedOptions(): any;
+
+    /**
+     * Static method indicating what locales are supported by `NumberFormat` from the given locale(s).
+     */
+    supportedLocalesOf(locales: string | string[]): string[];
+
+}
+/**
+ * Options to be passed into the <NumberFormat.constructor> method.
+ */
+interface NumberFormatOptions {
+    /**
+     * Set to the ISO 4217 currency code to use when formatting with the currency style.
+     */
+    currency?: string;
+
+    /**
+     * Indicates how the currency symbol or name should be shown.
+     */
+    currencyDisplay?: string;
+
+    /**
+     * The locale matching algorithm to use.
+     */
+    localeMatcher?: string;
+
+    /**
+     * Max number of fractional digits to be shown. Will round at this max digit.
+     */
+    maximumFractionDigits?: number;
+
+    /**
+     * Max number of significant digits to be shown. Will round at this max digit.
+     */
+    maximumSignificantDigits?: number;
+
+    /**
+     * Applies trailing zeros in fractional portion of the formatted number.
+     */
+    minimumFractionDigits?: number;
+
+    /**
+     * Applies leading zeros to the integer portion of the formatted number.
+     */
+    minimumIntegerDigits?: number;
+
+    /**
+     * Indicates if number should be formatted to scientific or engineering notation.
+     */
+    notation?: string;
+
+    /**
+     * Specifies the format style such as decimal, currency, or percentage.
+     */
+    style?: string;
+
+    /**
+     * Indicates if grouping separators should be displayed.
+     */
+    useGrouping?: boolean;
+
+}
+/**
  * An object returned when the <Titanium.UI.WebView.onlink> callback is fired.
  */
 interface OnLinkURLResponse {
@@ -2594,6 +2750,26 @@ interface ScreenshotResult {
 
 }
 /**
+ * The search bar token for the <Titanium.UI.SearchBar.insertTokenAtIndex> method.
+ */
+interface SearchBarToken {
+    /**
+     * The identifier of the search bar token.
+     */
+    identifier: string;
+
+    /**
+     * The image of the search bar token.
+     */
+    image?: string;
+
+    /**
+     * The text of the search bar token (displayed in the search bar).
+     */
+    text: string;
+
+}
+/**
  * The protocol that the <Titanium.Network.HTTPClient.securityManager> must implement.
  */
 interface SecurityManagerProtocol {
@@ -2951,11 +3127,6 @@ declare namespace Titanium {
      * Creates a new buffer based on the params.
      */
     function createBuffer(params: CreateBufferArgs): Titanium.Buffer;
-
-    /**
-     * Creates and returns an instance of <Titanium.Proxy>.
-     */
-    function createProxy(parameters?: Dictionary<Titanium.Proxy>): Titanium.Proxy;
 
     /**
      * Fires a synthesized event to any registered listeners.
@@ -5524,6 +5695,11 @@ declare namespace Titanium {
             category: string;
 
             /**
+             * The channel id specified for the notification.
+             */
+            channelId: string;
+
+            /**
              * Accent color used behind icon.
              */
             color: string;
@@ -5632,13 +5808,15 @@ declare namespace Titanium {
              * Will wake up the device for the given time (in milliseconds) when the notification is shown.
              * The application needs to also set the `android.permission.WAKE_LOCK` permission
              * in the Android manifest section of the `tiapp.xml` file.
-             *     <ti:app>
-             *         <android>
-             *             <manifest>
-             *                 <uses-permission android:name="android.permission.WAKE_LOCK" />
-             *             </manifest>
-             *         </android>
-             *     </ti:app>
+             * ``` xml
+             * <ti:app>
+             *     <android>
+             *         <manifest>
+             *             <uses-permission android:name="android.permission.WAKE_LOCK" />
+             *         </manifest>
+             *     </android>
+             * </ti:app>
+             * ```
              */
             wakeLock: wakeLockOptions;
 
@@ -5673,6 +5851,12 @@ declare namespace Titanium {
              * @deprecated Access <Titanium.Android.Notification.category> instead.
              */
             getCategory(): string;
+
+            /**
+             * Gets the value of the <Titanium.Android.Notification.channelId> property.
+             * @deprecated Access <Titanium.Android.Notification.channelId> instead.
+             */
+            getChannelId(): string;
 
             /**
              * Gets the value of the <Titanium.Android.Notification.color> property.
@@ -5822,6 +6006,12 @@ declare namespace Titanium {
              * @deprecated Set the value using <Titanium.Android.Notification.category> instead.
              */
             setCategory(category: string): void;
+
+            /**
+             * Sets the value of the <Titanium.Android.Notification.channelId> property.
+             * @deprecated Set the value using <Titanium.Android.Notification.channelId> instead.
+             */
+            setChannelId(channelId: string): void;
 
             /**
              * Sets the value of the <Titanium.Android.Notification.color> property.
@@ -7133,16 +7323,19 @@ declare namespace Titanium {
 
             /**
              * A dark interface style.
+             * @deprecated Use <Titanium.UI.USER_INTERFACE_STYLE_DARK> instead, which is supported cross-platform.
              */
             const USER_INTERFACE_STYLE_DARK: number;
 
             /**
              * A light interface style.
+             * @deprecated Use <Titanium.UI.USER_INTERFACE_STYLE_LIGHT> instead, which is supported cross-platform.
              */
             const USER_INTERFACE_STYLE_LIGHT: number;
 
             /**
              * An unspecified interface style.
+             * @deprecated Use <Titanium.UI.USER_INTERFACE_STYLE_UNSPECIFIED> instead, which is supported cross-platform.
              */
             const USER_INTERFACE_STYLE_UNSPECIFIED: number;
 
@@ -10719,11 +10912,14 @@ declare namespace Titanium {
 
             /**
              * A string containing the localized description of the error.
+             * This property does not exhist if errorCode is 0, which means there is no error.
              */
             message: string;
 
             /**
-             * The response text for upload tasks (since SDK 7.2.0).
+             * The response text for [task](Modules.URLSession.task) and [uploadTask](Modules.URLSession.uploadTask).
+             * This property does not exhist for download task. For download task response,
+             * use [downloadcompleted](Titanium.App.iOS.downloadcompleted) event.
              */
             responseText: string;
 
@@ -10734,7 +10930,7 @@ declare namespace Titanium {
             sessionIdentifier: string;
 
             /**
-             * The response status code for upload tasks (since SDK 7.2.0).
+             * The response status code for tasks.
              */
             statusCode: number;
 
@@ -10863,6 +11059,11 @@ declare namespace Titanium {
          */
         interface iOS_traitcollectionchange_Event extends iOSBaseEvent {
         }
+        /**
+         * Fired after the user takes a screenshot, e.g. by pressing both the home and lock screen buttons.
+         */
+        interface iOS_screenshotcaptured_Event extends iOSBaseEvent {
+        }
         interface iOSEventMap extends ProxyEventMap {
             backgroundfetch: iOS_backgroundfetch_Event;
 
@@ -10881,6 +11082,8 @@ declare namespace Titanium {
             notification: iOS_notification_Event;
 
             remotenotificationaction: iOS_remotenotificationaction_Event;
+
+            screenshotcaptured: iOS_screenshotcaptured_Event;
 
             sessioncompleted: iOS_sessioncompleted_Event;
 
@@ -10932,8 +11135,9 @@ declare namespace Titanium {
 
             /**
              * The style associated with the user interface.
+             * @deprecated Use <Titanium.UI.userInterfaceStyle> instead, which is supported cross-platform.
              */
-            static readonly userInterfaceStyle: string[];
+            static readonly userInterfaceStyle: number;
 
             /**
              * Adds the specified callback as an event listener for the named event.
@@ -11049,9 +11253,9 @@ declare namespace Titanium {
 
             /**
              * Gets the value of the <Titanium.App.iOS.userInterfaceStyle> property.
-             * @deprecated Access <Titanium.App.iOS.userInterfaceStyle> instead.
+             * @deprecated Use <Titanium.UI.userInterfaceStyle> instead, which is supported cross-platform.
              */
-            static getUserInterfaceStyle(): string[];
+            static getUserInterfaceStyle(): number;
 
             /**
              * Registers a service to run when the application is placed in the background.
@@ -20003,13 +20207,13 @@ declare namespace Titanium {
         const KEYBOARD_APPEARANCE_LIGHT: number;
 
         /**
-         * Use an ASCII keyboard, with the standard keyboard layout.
+         * Use a keyboard supporting all characters except emoji. Defaults to English letters layout on iOS.
          * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_ASCII](Titanium.UI.KEYBOARD_TYPE_ASCII) instead.
          */
         const KEYBOARD_ASCII: never;
 
         /**
-         * Use a keyboard with decimal numbers only, with the pad keyboard layout.
+         * Use a number pad keyboard layout showing only numbers, decimal separator, and sign character.
          * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD](Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD) instead.
          */
         const KEYBOARD_DECIMAL_PAD: never;
@@ -20033,13 +20237,13 @@ declare namespace Titanium {
         const KEYBOARD_NAMEPHONE_PAD: never;
 
         /**
-         * Use a keyboard with numbers and punctuation only, with the standard keyboard layout.
+         * Use a keyboard supporting all characters except emoji, defaulting to numbers layout on iOS.
          * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_NUMBERS_PUNCTUATION](Titanium.UI.KEYBOARD_TYPE_NUMBERS_PUNCTUATION) instead.
          */
         const KEYBOARD_NUMBERS_PUNCTUATION: never;
 
         /**
-         * Use a keyboard with a number pad only, with the pad keyboard layout.
+         * Use a number pad keyboard layout only showing numbers for entering positive integers.
          * @deprecated Use [Titanium.UI.KEYBOARD_TYPE_NUMBER_PAD](Titanium.UI.KEYBOARD_TYPE_NUMBER_PAD) instead.
          */
         const KEYBOARD_NUMBER_PAD: never;
@@ -20051,12 +20255,12 @@ declare namespace Titanium {
         const KEYBOARD_PHONE_PAD: never;
 
         /**
-         * Use an ASCII keyboard, with the standard keyboard layout.
+         * Use a keyboard supporting all characters except emoji. Defaults to English letters layout on iOS.
          */
         const KEYBOARD_TYPE_ASCII: number;
 
         /**
-         * Use a keyboard with decimal numbers only, with the pad keyboard layout.
+         * Use a number pad keyboard layout showing only numbers, decimal separator, and sign character.
          */
         const KEYBOARD_TYPE_DECIMAL_PAD: number;
 
@@ -20076,12 +20280,12 @@ declare namespace Titanium {
         const KEYBOARD_TYPE_NAMEPHONE_PAD: number;
 
         /**
-         * Use a keyboard with numbers and punctuation only, with the standard keyboard layout.
+         * Use a keyboard supporting all characters except emoji, defaulting to numbers layout on iOS.
          */
         const KEYBOARD_TYPE_NUMBERS_PUNCTUATION: number;
 
         /**
-         * Use a keyboard with a number pad only, with the pad keyboard layout.
+         * Use a number pad keyboard layout only showing numbers for entering positive integers.
          */
         const KEYBOARD_TYPE_NUMBER_PAD: number;
 
@@ -20265,12 +20469,14 @@ declare namespace Titanium {
         const RETURNKEY_YAHOO: number;
 
         /**
-         * Return the dark value from the applications colorset
+         * The value returned by <Titanium.UI.semanticColorType> when the device is in dark/night mode.
+         * @deprecated Use [USER_INTERFACE_STYLE_DARK](Titanium.UI.USER_INTERFACE_STYLE_DARK) instead.
          */
         const SEMANTIC_COLOR_TYPE_DARK: string;
 
         /**
-         * Return the light value from the applications colorset.
+         * The value returned by <Titanium.UI.semanticColorType> when the device is in light/normal mode.
+         * @deprecated Use [USER_INTERFACE_STYLE_LIGHT](Titanium.UI.USER_INTERFACE_STYLE_LIGHT) instead.
          */
         const SEMANTIC_COLOR_TYPE_LIGHT: string;
 
@@ -20528,6 +20734,21 @@ declare namespace Titanium {
          * Error code reported via <Titanium.UI.WebView.error> when a url contains an unsupported scheme.
          */
         const URL_ERROR_UNSUPPORTED_SCHEME: number;
+
+        /**
+         * A dark interface style.
+         */
+        const USER_INTERFACE_STYLE_DARK: number;
+
+        /**
+         * A light interface style.
+         */
+        const USER_INTERFACE_STYLE_LIGHT: number;
+
+        /**
+         * An unspecified interface style.
+         */
+        const USER_INTERFACE_STYLE_UNSPECIFIED: number;
 
         /**
          * The Android-specific UI capabilities. All properties, methods and events in this namespace will
@@ -26329,17 +26550,24 @@ declare namespace Titanium {
                 const ANIMATION_STYLE_SLIDE: number;
 
                 /**
+                 * Status bar style to use with light backgrounds.
+                 */
+                const DARK_CONTENT: number;
+
+                /**
                  * Default status bar style.
                  */
                 const DEFAULT: number;
 
                 /**
                  * Gray-colored status bar style.
+                 * @deprecated Use [Titanium.UI.iOS.StatusBar.DEFAULT](Titanium.UI.iOS.StatusBar.DEFAULT) instead.
                  */
                 const GRAY: number;
 
                 /**
                  * Gray-colored status bar style.
+                 * @deprecated Use [Titanium.UI.iOS.StatusBar.DEFAULT](Titanium.UI.iOS.StatusBar.DEFAULT) instead.
                  */
                 const GREY: number;
 
@@ -26369,7 +26597,7 @@ declare namespace Titanium {
              */
             namespace SystemButton {
                 /**
-                 * Use with [Button.systemButton](Titanium.UI.Button.systemButton) to specify an **Action** button. <img src="images/systembutton/system_icons.png"/>
+                 * Use with [Button.systemButton](Titanium.UI.Button.systemButton) to specify an **Action** button.
                  */
                 const ACTION: number;
 
@@ -27000,6 +27228,7 @@ declare namespace Titanium {
             /**
              * The Home screen quick actions API is for adding shortcuts to your app icon that anticipate and accelerate a
              * user's interaction with your app.
+             * @deprecated Use [Titanium.UI.Shortcut](Titanium.UI.Shortcut) instead.
              */
             class ApplicationShortcuts extends Titanium.Proxy {
                 /**
@@ -32255,7 +32484,7 @@ declare namespace Titanium {
                 /**
                  * Sets the color for the widget, any backgroundImages added will be set to the same color.
                  */
-                tintColor: string;
+                tintColor: string | Titanium.UI.Color;
 
                 /**
                  * The current value of the stepper.
@@ -32371,7 +32600,7 @@ declare namespace Titanium {
                  * Gets the value of the <Titanium.UI.iOS.Stepper.tintColor> property.
                  * @deprecated Access <Titanium.UI.iOS.Stepper.tintColor> instead.
                  */
-                getTintColor(): string;
+                getTintColor(): string | Titanium.UI.Color;
 
                 /**
                  * Gets the value of the <Titanium.UI.iOS.Stepper.value> property.
@@ -32480,7 +32709,7 @@ declare namespace Titanium {
                  * Sets the value of the <Titanium.UI.iOS.Stepper.tintColor> property.
                  * @deprecated Set the value using <Titanium.UI.iOS.Stepper.tintColor> instead.
                  */
-                setTintColor(tintColor: string): void;
+                setTintColor(tintColor: string | Titanium.UI.Color): void;
 
                 /**
                  * Sets the value of the <Titanium.UI.iOS.Stepper.value> property.
@@ -33596,7 +33825,7 @@ declare namespace Titanium {
                 /**
                  * Background color for the toolbar, as a color name or hex triplet.
                  */
-                barColor: string;
+                barColor: string | Titanium.UI.Color;
 
                 /**
                  * Array of this view's child views.
@@ -33677,7 +33906,7 @@ declare namespace Titanium {
                  * Gets the value of the <Titanium.UI.iOS.Toolbar.barColor> property.
                  * @deprecated Access <Titanium.UI.iOS.Toolbar.barColor> instead.
                  */
-                getBarColor(): string;
+                getBarColor(): string | Titanium.UI.Color;
 
                 /**
                  * Gets the value of the <Titanium.UI.iOS.Toolbar.children> property.
@@ -33762,7 +33991,7 @@ declare namespace Titanium {
                  * Sets the value of the <Titanium.UI.iOS.Toolbar.barColor> property.
                  * @deprecated Set the value using <Titanium.UI.iOS.Toolbar.barColor> instead.
                  */
-                setBarColor(barColor: string): void;
+                setBarColor(barColor: string | Titanium.UI.Color): void;
 
                 /**
                  * Sets the value of the <Titanium.UI.iOS.Toolbar.extendBackground> property.
@@ -34764,7 +34993,7 @@ declare namespace Titanium {
                 /**
                  * Sets the background color of the popover.
                  */
-                backgroundColor: string;
+                backgroundColor: string | Titanium.UI.Color;
 
                 /**
                  * A background gradient for the view.
@@ -35034,7 +35263,7 @@ declare namespace Titanium {
                  * Gets the value of the <Titanium.UI.iPad.Popover.backgroundColor> property.
                  * @deprecated Access <Titanium.UI.iPad.Popover.backgroundColor> instead.
                  */
-                getBackgroundColor(): string;
+                getBackgroundColor(): string | Titanium.UI.Color;
 
                 /**
                  * Gets the value of the <Titanium.UI.iPad.Popover.backgroundGradient> property.
@@ -35322,7 +35551,7 @@ declare namespace Titanium {
                  * Sets the value of the <Titanium.UI.iPad.Popover.backgroundColor> property.
                  * @deprecated Set the value using <Titanium.UI.iPad.Popover.backgroundColor> instead.
                  */
-                setBackgroundColor(backgroundColor: string): void;
+                setBackgroundColor(backgroundColor: string | Titanium.UI.Color): void;
 
                 /**
                  * Sets the value of the <Titanium.UI.iPad.Popover.backgroundGradient> property.
@@ -36156,7 +36385,7 @@ declare namespace Titanium {
             /**
              * Color of the message text, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Whether view should be focusable while navigating with the trackball.
@@ -36182,7 +36411,7 @@ declare namespace Titanium {
             /**
              * Color of the animated indicator.
              */
-            indicatorColor: string;
+            indicatorColor: string | Titanium.UI.Color;
 
             /**
              * Determines whether to keep the device screen on.
@@ -36491,7 +36720,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ActivityIndicator.color> property.
              * @deprecated Access <Titanium.UI.ActivityIndicator.color> instead.
              */
-            getColor(): string;
+            getColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ActivityIndicator.focusable> property.
@@ -36521,7 +36750,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ActivityIndicator.indicatorColor> property.
              * @deprecated Access <Titanium.UI.ActivityIndicator.indicatorColor> instead.
              */
-            getIndicatorColor(): string;
+            getIndicatorColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ActivityIndicator.keepScreenOn> property.
@@ -36833,7 +37062,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ActivityIndicator.color> property.
              * @deprecated Set the value using <Titanium.UI.ActivityIndicator.color> instead.
              */
-            setColor(color: string): void;
+            setColor(color: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ActivityIndicator.focusable> property.
@@ -36863,7 +37092,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ActivityIndicator.indicatorColor> property.
              * @deprecated Set the value using <Titanium.UI.ActivityIndicator.indicatorColor> instead.
              */
-            setIndicatorColor(indicatorColor: string): void;
+            setIndicatorColor(indicatorColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ActivityIndicator.keepScreenOn> property.
@@ -37964,7 +38193,7 @@ declare namespace Titanium {
             /**
              * The tint-color of the dialog.
              */
-            tintColor: string;
+            tintColor: string | Titanium.UI.Color;
 
             /**
              * Title of the dialog.
@@ -38473,7 +38702,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.AlertDialog.tintColor> property.
              * @deprecated Access <Titanium.UI.AlertDialog.tintColor> instead.
              */
-            getTintColor(): string;
+            getTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.AlertDialog.title> property.
@@ -38960,7 +39189,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.AlertDialog.tintColor> property.
              * @deprecated Set the value using <Titanium.UI.AlertDialog.tintColor> instead.
              */
-            setTintColor(tintColor: string): void;
+            setTintColor(tintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.AlertDialog.title> property.
@@ -39113,6 +39342,11 @@ declare namespace Titanium {
             static getBubbleParent(): boolean;
 
             /**
+             * Returns a <Ti.Color> instance for a color defined by the system or user resources (colors.xml)
+             */
+            static getColorResource(resourceIdOrColorName: number | string): Titanium.UI.Color;
+
+            /**
              * Gets the value of the <Titanium.UI.Android.lifecycleContainer> property.
              * @deprecated Access <Titanium.UI.Android.lifecycleContainer> instead.
              */
@@ -39191,7 +39425,7 @@ declare namespace Titanium {
              * Value of the `backgroundColor` property at the end of the animation, as a color name
              * or hex triplet.
              */
-            backgroundColor: string;
+            backgroundColor: string | Titanium.UI.Color;
 
             /**
              * Value of the `bottom` property at the end of the animation.
@@ -39206,7 +39440,7 @@ declare namespace Titanium {
             /**
              * Value of the `color` property at the end of the animation, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Animation curve or easing function to apply to the animation.
@@ -39227,6 +39461,11 @@ declare namespace Titanium {
              * Duration of the animation, in milliseconds.
              */
             duration: number;
+
+            /**
+             * Value of the `elevation` property at the end of the animation.
+             */
+            elevation: number;
 
             /**
              * Value of the `height` property at the end of the animation.
@@ -39334,7 +39573,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Animation.backgroundColor> property.
              * @deprecated Access <Titanium.UI.Animation.backgroundColor> instead.
              */
-            getBackgroundColor(): string;
+            getBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Animation.bottom> property.
@@ -39352,7 +39591,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Animation.color> property.
              * @deprecated Access <Titanium.UI.Animation.color> instead.
              */
-            getColor(): string;
+            getColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Animation.curve> property.
@@ -39377,6 +39616,12 @@ declare namespace Titanium {
              * @deprecated Access <Titanium.UI.Animation.duration> instead.
              */
             getDuration(): number;
+
+            /**
+             * Gets the value of the <Titanium.UI.Animation.elevation> property.
+             * @deprecated Access <Titanium.UI.Animation.elevation> instead.
+             */
+            getElevation(): number;
 
             /**
              * Gets the value of the <Titanium.UI.Animation.height> property.
@@ -39488,7 +39733,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Animation.backgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.Animation.backgroundColor> instead.
              */
-            setBackgroundColor(backgroundColor: string): void;
+            setBackgroundColor(backgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Animation.bottom> property.
@@ -39506,7 +39751,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Animation.color> property.
              * @deprecated Set the value using <Titanium.UI.Animation.color> instead.
              */
-            setColor(color: string): void;
+            setColor(color: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Animation.curve> property.
@@ -39531,6 +39776,12 @@ declare namespace Titanium {
              * @deprecated Set the value using <Titanium.UI.Animation.duration> instead.
              */
             setDuration(duration: number): void;
+
+            /**
+             * Sets the value of the <Titanium.UI.Animation.elevation> property.
+             * @deprecated Set the value using <Titanium.UI.Animation.elevation> instead.
+             */
+            setElevation(elevation: number): void;
 
             /**
              * Sets the value of the <Titanium.UI.Animation.height> property.
@@ -40190,7 +40441,7 @@ declare namespace Titanium {
             /**
              * Selected background color of the view, as a color name or hex triplet.
              */
-            backgroundSelectedColor: string;
+            backgroundSelectedColor: string | Titanium.UI.Color;
 
             /**
              * Background image for the button in its selected state, specified as a local file
@@ -40206,12 +40457,12 @@ declare namespace Titanium {
             /**
              * Default button text color, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Text color of the button in its disabled state, as a color name or hex triplet.
              */
-            disabledColor: string;
+            disabledColor: string | Titanium.UI.Color;
 
             /**
              * Set to `true` to enable the button, `false` to disable the button.
@@ -40231,12 +40482,12 @@ declare namespace Titanium {
             /**
              * Button text color used to indicate the selected state, as a color name or hex triplet.
              */
-            selectedColor: string;
+            selectedColor: string | Titanium.UI.Color;
 
             /**
              * Shadow color of the [title](Titanium.UI.Button.title), as a color name or hex triplet.
              */
-            shadowColor: string;
+            shadowColor: string | Titanium.UI.Color;
 
             /**
              * Shadow offset of the [title](Titanium.UI.Button.title), as a dictionary with the properties `x` and `y`.
@@ -40337,7 +40588,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Button.backgroundSelectedColor> property.
              * @deprecated Access <Titanium.UI.Button.backgroundSelectedColor> instead.
              */
-            getBackgroundSelectedColor(): string;
+            getBackgroundSelectedColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Button.backgroundSelectedImage> property.
@@ -40355,13 +40606,13 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Button.color> property.
              * @deprecated Access <Titanium.UI.Button.color> instead.
              */
-            getColor(): string;
+            getColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Button.disabledColor> property.
              * @deprecated Access <Titanium.UI.Button.disabledColor> instead.
              */
-            getDisabledColor(): string;
+            getDisabledColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Button.enabled> property.
@@ -40385,13 +40636,13 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Button.selectedColor> property.
              * @deprecated Access <Titanium.UI.Button.selectedColor> instead.
              */
-            getSelectedColor(): string;
+            getSelectedColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Button.shadowColor> property.
              * @deprecated Access <Titanium.UI.Button.shadowColor> instead.
              */
-            getShadowColor(): string;
+            getShadowColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Button.shadowOffset> property.
@@ -40500,7 +40751,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Button.backgroundSelectedColor> property.
              * @deprecated Set the value using <Titanium.UI.Button.backgroundSelectedColor> instead.
              */
-            setBackgroundSelectedColor(backgroundSelectedColor: string): void;
+            setBackgroundSelectedColor(backgroundSelectedColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Button.backgroundSelectedImage> property.
@@ -40512,13 +40763,13 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Button.color> property.
              * @deprecated Set the value using <Titanium.UI.Button.color> instead.
              */
-            setColor(color: string): void;
+            setColor(color: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Button.disabledColor> property.
              * @deprecated Set the value using <Titanium.UI.Button.disabledColor> instead.
              */
-            setDisabledColor(disabledColor: string): void;
+            setDisabledColor(disabledColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Button.enabled> property.
@@ -40542,13 +40793,13 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Button.selectedColor> property.
              * @deprecated Set the value using <Titanium.UI.Button.selectedColor> instead.
              */
-            setSelectedColor(selectedColor: string): void;
+            setSelectedColor(selectedColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Button.shadowColor> property.
              * @deprecated Set the value using <Titanium.UI.Button.shadowColor> instead.
              */
-            setShadowColor(shadowColor: string): void;
+            setShadowColor(shadowColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Button.shadowOffset> property.
@@ -41095,17 +41346,17 @@ declare namespace Titanium {
             /**
              * Color of selected button, as a color name or hex triplet.
              */
-            selectedButtonColor: string;
+            selectedButtonColor: string | Titanium.UI.Color;
 
             /**
              * Color of title of button when it is selected, as a color name or hex triplet.
              */
-            selectedTextColor: string;
+            selectedTextColor: string | Titanium.UI.Color;
 
             /**
              * Color of title of button, as a color name or hex triplet.
              */
-            textColor: string;
+            textColor: string | Titanium.UI.Color;
 
             /**
              * Adds a child to this view's hierarchy.
@@ -41156,19 +41407,19 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ButtonBar.selectedButtonColor> property.
              * @deprecated Access <Titanium.UI.ButtonBar.selectedButtonColor> instead.
              */
-            getSelectedButtonColor(): string;
+            getSelectedButtonColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ButtonBar.selectedTextColor> property.
              * @deprecated Access <Titanium.UI.ButtonBar.selectedTextColor> instead.
              */
-            getSelectedTextColor(): string;
+            getSelectedTextColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ButtonBar.textColor> property.
              * @deprecated Access <Titanium.UI.ButtonBar.textColor> instead.
              */
-            getTextColor(): string;
+            getTextColor(): string | Titanium.UI.Color;
 
             /**
              * Removes a child view from this view's hierarchy.
@@ -41213,19 +41464,19 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ButtonBar.selectedButtonColor> property.
              * @deprecated Set the value using <Titanium.UI.ButtonBar.selectedButtonColor> instead.
              */
-            setSelectedButtonColor(selectedButtonColor: string): void;
+            setSelectedButtonColor(selectedButtonColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ButtonBar.selectedTextColor> property.
              * @deprecated Set the value using <Titanium.UI.ButtonBar.selectedTextColor> instead.
              */
-            setSelectedTextColor(selectedTextColor: string): void;
+            setSelectedTextColor(selectedTextColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ButtonBar.textColor> property.
              * @deprecated Set the value using <Titanium.UI.ButtonBar.textColor> instead.
              */
-            setTextColor(textColor: string): void;
+            setTextColor(textColor: string | Titanium.UI.Color): void;
 
         }
         /**
@@ -41418,6 +41669,31 @@ declare namespace Titanium {
              * @deprecated Set the value using <Titanium.UI.Clipboard.unique> instead.
              */
             static setUnique(unique: boolean): void;
+
+        }
+        /**
+         * Represents a color used for UI components.
+         */
+        class Color extends Titanium.Proxy {
+            /**
+             * Adds the specified callback as an event listener for the named event.
+             */
+            addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+            /**
+             * Fires a synthesized event to any registered listeners.
+             */
+            fireEvent(name: string, event?: any): void;
+
+            /**
+             * Removes the specified callback as an event listener for the named event.
+             */
+            removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+            /**
+             * Returns a hex string representation of the color (in the RRGGBB or AARRGGBB formats)
+             */
+            toHex(): string;
 
         }
         /**
@@ -42923,7 +43199,7 @@ declare namespace Titanium {
             /**
              * Bar color of the email dialog window, as a color name or hex triplet.
              */
-            barColor: string;
+            barColor: string | Titanium.UI.Color;
 
             /**
              * Recipients of the email included via the `BCC` (Blind Carbon Copy) field.
@@ -43261,7 +43537,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.EmailDialog.barColor> property.
              * @deprecated Access <Titanium.UI.EmailDialog.barColor> instead.
              */
-            getBarColor(): string;
+            getBarColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.EmailDialog.bccRecipients> property.
@@ -43615,7 +43891,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.EmailDialog.barColor> property.
              * @deprecated Set the value using <Titanium.UI.EmailDialog.barColor> instead.
              */
-            setBarColor(barColor: string): void;
+            setBarColor(barColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.EmailDialog.bccRecipients> property.
@@ -44462,9 +44738,9 @@ declare namespace Titanium {
             reverse: boolean;
 
             /**
-             * The view's tintColor.
+             * The view's tintColor. Android does not support setting instances of <Titanium.UI.Color>
              */
-            tintColor: string;
+            tintColor: string | Titanium.UI.Color;
 
             /**
              * URL to the image to display.
@@ -44585,7 +44861,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ImageView.tintColor> property.
              * @deprecated Access <Titanium.UI.ImageView.tintColor> instead.
              */
-            getTintColor(): string;
+            getTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ImageView.url> property.
@@ -44698,7 +44974,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ImageView.tintColor> property.
              * @deprecated Set the value using <Titanium.UI.ImageView.tintColor> instead.
              */
-            setTintColor(tintColor: string): void;
+            setTintColor(tintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ImageView.url> property.
@@ -45270,7 +45546,7 @@ declare namespace Titanium {
             /**
              * Color of the label text, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Causes words in the text that are longer than the view is wide to be ellipsized instead of broken in the middle.
@@ -45285,7 +45561,7 @@ declare namespace Titanium {
             /**
              * Color of the label when in the highlighted state, as a color name or hex triplet.
              */
-            highlightedColor: string;
+            highlightedColor: string | Titanium.UI.Color;
 
             /**
              * Simple HTML formatting.
@@ -45320,7 +45596,7 @@ declare namespace Titanium {
             /**
              * Shadow color of the [text](Titanium.UI.Label.text), as a color name or hex triplet.
              */
-            shadowColor: string;
+            shadowColor: string | Titanium.UI.Color;
 
             /**
              * Shadow offset of the [text](Titanium.UI.Label.text), as a dictionary with the properties `x` and `y`.
@@ -45430,7 +45706,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Label.color> property.
              * @deprecated Access <Titanium.UI.Label.color> instead.
              */
-            getColor(): string;
+            getColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Label.ellipsize> property.
@@ -45448,7 +45724,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Label.highlightedColor> property.
              * @deprecated Access <Titanium.UI.Label.highlightedColor> instead.
              */
-            getHighlightedColor(): string;
+            getHighlightedColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Label.html> property.
@@ -45490,7 +45766,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Label.shadowColor> property.
              * @deprecated Access <Titanium.UI.Label.shadowColor> instead.
              */
-            getShadowColor(): string;
+            getShadowColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Label.shadowOffset> property.
@@ -45599,7 +45875,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Label.color> property.
              * @deprecated Set the value using <Titanium.UI.Label.color> instead.
              */
-            setColor(color: string): void;
+            setColor(color: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Label.ellipsize> property.
@@ -45617,7 +45893,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Label.highlightedColor> property.
              * @deprecated Set the value using <Titanium.UI.Label.highlightedColor> instead.
              */
-            setHighlightedColor(highlightedColor: string): void;
+            setHighlightedColor(highlightedColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Label.html> property.
@@ -45659,7 +45935,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Label.shadowColor> property.
              * @deprecated Set the value using <Titanium.UI.Label.shadowColor> instead.
              */
-            setShadowColor(shadowColor: string): void;
+            setShadowColor(shadowColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Label.shadowOffset> property.
@@ -45716,7 +45992,7 @@ declare namespace Titanium {
             /**
              * Background color of the view, as a color name or hex triplet.
              */
-            backgroundColor: string;
+            backgroundColor: string | Titanium.UI.Color;
 
             /**
              * Background gradient to render when the item is not selected.
@@ -45751,7 +46027,7 @@ declare namespace Titanium {
             /**
              * Default text color of the item when not selected, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Specifies custom action items to be shown when when a list item is edited.
@@ -45786,7 +46062,7 @@ declare namespace Titanium {
             /**
              * Background color of the view, as a color name or hex triplet when item is selected.
              */
-            selectedBackgroundColor: string;
+            selectedBackgroundColor: string | Titanium.UI.Color;
 
             /**
              * Background gradient to render when the item is selected.
@@ -45801,12 +46077,12 @@ declare namespace Titanium {
             /**
              * Color to use for the item title when the item is selected, as a color name or hex triplet.
              */
-            selectedColor: string;
+            selectedColor: string | Titanium.UI.Color;
 
             /**
              * Color to use for the item subtitle when the item is selected, as a color name or hex triplet.
              */
-            selectedSubtitleColor: string;
+            selectedSubtitleColor: string | Titanium.UI.Color;
 
             /**
              * Selection style constant to control the selection color.
@@ -45821,7 +46097,7 @@ declare namespace Titanium {
             /**
              * Default text color of the subtitle, as a color name or hex triplet.
              */
-            subtitleColor: string;
+            subtitleColor: string | Titanium.UI.Color;
 
             /**
              * Title to set in the text area of the item.
@@ -45859,13 +46135,13 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ListItem.selectedColor> property.
              * @deprecated Access <Titanium.UI.ListItem.selectedColor> instead.
              */
-            getSelectedColor(): string;
+            getSelectedColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ListItem.selectedSubtitleColor> property.
              * @deprecated Access <Titanium.UI.ListItem.selectedSubtitleColor> instead.
              */
-            getSelectedSubtitleColor(): string;
+            getSelectedSubtitleColor(): string | Titanium.UI.Color;
 
             /**
              * Removes the specified callback as an event listener for the named event.
@@ -45888,13 +46164,13 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ListItem.selectedColor> property.
              * @deprecated Set the value using <Titanium.UI.ListItem.selectedColor> instead.
              */
-            setSelectedColor(selectedColor: string): void;
+            setSelectedColor(selectedColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ListItem.selectedSubtitleColor> property.
              * @deprecated Set the value using <Titanium.UI.ListItem.selectedSubtitleColor> instead.
              */
-            setSelectedSubtitleColor(selectedSubtitleColor: string): void;
+            setSelectedSubtitleColor(selectedSubtitleColor: string | Titanium.UI.Color): void;
 
         }
         /**
@@ -47116,13 +47392,13 @@ declare namespace Titanium {
             /**
              * The background color of the search results (iOS-only).
              */
-            resultsBackgroundColor: string;
+            resultsBackgroundColor: string | Titanium.UI.Color;
 
             /**
              * Separator line color between rows inside search results,
              * as a color name or hex triplet (iOS-only).
              */
-            resultsSeparatorColor: string;
+            resultsSeparatorColor: string | Titanium.UI.Color;
 
             /**
              * The insets for search results separators (applies to all cells & iOS-only).
@@ -47177,7 +47453,7 @@ declare namespace Titanium {
             /**
              * Separator line color between items, as a color name or hex triplet.
              */
-            separatorColor: string;
+            separatorColor: string | Titanium.UI.Color;
 
             /**
              * height of the ListView separator.
@@ -47437,13 +47713,13 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ListView.resultsBackgroundColor> property.
              * @deprecated Access <Titanium.UI.ListView.resultsBackgroundColor> instead.
              */
-            getResultsBackgroundColor(): string;
+            getResultsBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ListView.resultsSeparatorColor> property.
              * @deprecated Access <Titanium.UI.ListView.resultsSeparatorColor> instead.
              */
-            getResultsSeparatorColor(): string;
+            getResultsSeparatorColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ListView.resultsSeparatorInsets> property.
@@ -47509,7 +47785,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ListView.separatorColor> property.
              * @deprecated Access <Titanium.UI.ListView.separatorColor> instead.
              */
-            getSeparatorColor(): string;
+            getSeparatorColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ListView.separatorHeight> property.
@@ -47785,13 +48061,13 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ListView.resultsBackgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.ListView.resultsBackgroundColor> instead.
              */
-            setResultsBackgroundColor(resultsBackgroundColor: string): void;
+            setResultsBackgroundColor(resultsBackgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ListView.resultsSeparatorColor> property.
              * @deprecated Set the value using <Titanium.UI.ListView.resultsSeparatorColor> instead.
              */
-            setResultsSeparatorColor(resultsSeparatorColor: string): void;
+            setResultsSeparatorColor(resultsSeparatorColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ListView.resultsSeparatorInsets> property.
@@ -47851,7 +48127,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ListView.separatorColor> property.
              * @deprecated Set the value using <Titanium.UI.ListView.separatorColor> instead.
              */
-            setSeparatorColor(separatorColor: string): void;
+            setSeparatorColor(separatorColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ListView.separatorHeight> property.
@@ -48419,7 +48695,7 @@ declare namespace Titanium {
             /**
              * Color to combine with the image, as a color name or hex triplet.
              */
-            tint: string;
+            tint: string | Titanium.UI.Color;
 
             /**
              * Adds a child to this view's hierarchy.
@@ -48474,7 +48750,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.MaskedImage.tint> property.
              * @deprecated Access <Titanium.UI.MaskedImage.tint> instead.
              */
-            getTint(): string;
+            getTint(): string | Titanium.UI.Color;
 
             /**
              * Removes a child view from this view's hierarchy.
@@ -48523,7 +48799,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.MaskedImage.tint> property.
              * @deprecated Set the value using <Titanium.UI.MaskedImage.tint> instead.
              */
-            setTint(tint: string): void;
+            setTint(tint: string | Titanium.UI.Color): void;
 
         }
         /**
@@ -52207,7 +52483,7 @@ declare namespace Titanium {
             /**
              * Background color of the picker, as a color name or hex triplet.
              */
-            backgroundColor: string;
+            backgroundColor: string | Titanium.UI.Color;
 
             /**
              * Disabled background color of the view, as a color name or hex triplet.
@@ -52292,7 +52568,7 @@ declare namespace Titanium {
             /**
              * Sets the text color of date- and time-pickers.
              */
-            dateTimeColor: string;
+            dateTimeColor: string | Titanium.UI.Color;
 
             /**
              * Font to use for text.
@@ -52414,7 +52690,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Picker.backgroundColor> property.
              * @deprecated Access <Titanium.UI.Picker.backgroundColor> instead.
              */
-            getBackgroundColor(): string;
+            getBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Picker.backgroundDisabledColor> property.
@@ -52516,7 +52792,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Picker.dateTimeColor> property.
              * @deprecated Access <Titanium.UI.Picker.dateTimeColor> instead.
              */
-            getDateTimeColor(): string;
+            getDateTimeColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Picker.font> property.
@@ -52659,7 +52935,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Picker.backgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.Picker.backgroundColor> instead.
              */
-            setBackgroundColor(backgroundColor: string): void;
+            setBackgroundColor(backgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Picker.backgroundDisabledColor> property.
@@ -52755,7 +53031,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Picker.dateTimeColor> property.
              * @deprecated Set the value using <Titanium.UI.Picker.dateTimeColor> instead.
              */
-            setDateTimeColor(dateTimeColor: string): void;
+            setDateTimeColor(dateTimeColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Picker.font> property.
@@ -55073,7 +55349,7 @@ declare namespace Titanium {
             /**
              * Color of the item text, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Font to use for the item text.
@@ -55114,7 +55390,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.PickerRow.color> property.
              * @deprecated Access <Titanium.UI.PickerRow.color> instead.
              */
-            getColor(): string;
+            getColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.PickerRow.font> property.
@@ -55142,7 +55418,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.PickerRow.color> property.
              * @deprecated Set the value using <Titanium.UI.PickerRow.color> instead.
              */
-            setColor(color: string): void;
+            setColor(color: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.PickerRow.font> property.
@@ -55653,7 +55929,7 @@ declare namespace Titanium {
             /**
              * Color of the progress bar message, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Font for the progress bar text.
@@ -55683,12 +55959,12 @@ declare namespace Titanium {
             /**
              * The color shown for the portion of the progress bar that is filled.
              */
-            tintColor: string;
+            tintColor: string | Titanium.UI.Color;
 
             /**
              * The color shown for the portion of the progress bar that is not filled.
              */
-            trackTintColor: string;
+            trackTintColor: string | Titanium.UI.Color;
 
             /**
              * Current value of the progress bar.
@@ -55730,7 +56006,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ProgressBar.color> property.
              * @deprecated Access <Titanium.UI.ProgressBar.color> instead.
              */
-            getColor(): string;
+            getColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ProgressBar.font> property.
@@ -55766,13 +56042,13 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ProgressBar.tintColor> property.
              * @deprecated Access <Titanium.UI.ProgressBar.tintColor> instead.
              */
-            getTintColor(): string;
+            getTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ProgressBar.trackTintColor> property.
              * @deprecated Access <Titanium.UI.ProgressBar.trackTintColor> instead.
              */
-            getTrackTintColor(): string;
+            getTrackTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ProgressBar.value> property.
@@ -55809,7 +56085,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ProgressBar.color> property.
              * @deprecated Set the value using <Titanium.UI.ProgressBar.color> instead.
              */
-            setColor(color: string): void;
+            setColor(color: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ProgressBar.font> property.
@@ -55845,13 +56121,13 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ProgressBar.tintColor> property.
              * @deprecated Set the value using <Titanium.UI.ProgressBar.tintColor> instead.
              */
-            setTintColor(tintColor: string): void;
+            setTintColor(tintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ProgressBar.trackTintColor> property.
              * @deprecated Set the value using <Titanium.UI.ProgressBar.trackTintColor> instead.
              */
-            setTrackTintColor(trackTintColor: string): void;
+            setTrackTintColor(trackTintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ProgressBar.value> property.
@@ -55907,7 +56183,7 @@ declare namespace Titanium {
             /**
              * The tint color for the refresh control, as a color name or hex triplet.
              */
-            tintColor: string;
+            tintColor: string | Titanium.UI.Color;
 
             /**
              * The attributed title of the control.
@@ -55948,7 +56224,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.RefreshControl.tintColor> property.
              * @deprecated Access <Titanium.UI.RefreshControl.tintColor> instead.
              */
-            getTintColor(): string;
+            getTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.RefreshControl.title> property.
@@ -55970,7 +56246,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.RefreshControl.tintColor> property.
              * @deprecated Set the value using <Titanium.UI.RefreshControl.tintColor> instead.
              */
-            setTintColor(tintColor: string): void;
+            setTintColor(tintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.RefreshControl.title> property.
@@ -57439,7 +57715,7 @@ declare namespace Titanium {
             /**
              * Color for the current page of the paging control, as a color name or hex triplet.
              */
-            currentPageIndicatorColor: string;
+            currentPageIndicatorColor: string | Titanium.UI.Color;
 
             /**
              * Determines whether page bouncing effect is disabled.
@@ -57469,7 +57745,7 @@ declare namespace Titanium {
             /**
              * Color of the paging control, as a color name or hex triplet.
              */
-            pageIndicatorColor: string;
+            pageIndicatorColor: string | Titanium.UI.Color;
 
             /**
              * Alpha value of the paging control.
@@ -57479,7 +57755,7 @@ declare namespace Titanium {
             /**
              * Color of the paging control, as a color name or hex triplet.
              */
-            pagingControlColor: string;
+            pagingControlColor: string | Titanium.UI.Color;
 
             /**
              * Height of the paging control, in pixels.
@@ -57569,7 +57845,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ScrollableView.currentPageIndicatorColor> property.
              * @deprecated Access <Titanium.UI.ScrollableView.currentPageIndicatorColor> instead.
              */
-            getCurrentPageIndicatorColor(): string;
+            getCurrentPageIndicatorColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ScrollableView.disableBounce> property.
@@ -57605,7 +57881,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ScrollableView.pageIndicatorColor> property.
              * @deprecated Access <Titanium.UI.ScrollableView.pageIndicatorColor> instead.
              */
-            getPageIndicatorColor(): string;
+            getPageIndicatorColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ScrollableView.pagingControlAlpha> property.
@@ -57617,7 +57893,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.ScrollableView.pagingControlColor> property.
              * @deprecated Access <Titanium.UI.ScrollableView.pagingControlColor> instead.
              */
-            getPagingControlColor(): string;
+            getPagingControlColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.ScrollableView.pagingControlHeight> property.
@@ -57727,7 +58003,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ScrollableView.currentPageIndicatorColor> property.
              * @deprecated Set the value using <Titanium.UI.ScrollableView.currentPageIndicatorColor> instead.
              */
-            setCurrentPageIndicatorColor(currentPageIndicatorColor: string): void;
+            setCurrentPageIndicatorColor(currentPageIndicatorColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ScrollableView.disableBounce> property.
@@ -57763,7 +58039,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ScrollableView.pageIndicatorColor> property.
              * @deprecated Set the value using <Titanium.UI.ScrollableView.pageIndicatorColor> instead.
              */
-            setPageIndicatorColor(pageIndicatorColor: string): void;
+            setPageIndicatorColor(pageIndicatorColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ScrollableView.pagingControlAlpha> property.
@@ -57775,7 +58051,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.ScrollableView.pagingControlColor> property.
              * @deprecated Set the value using <Titanium.UI.ScrollableView.pagingControlColor> instead.
              */
-            setPagingControlColor(pagingControlColor: string): void;
+            setPagingControlColor(pagingControlColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.ScrollableView.pagingControlHeight> property.
@@ -58380,7 +58656,7 @@ declare namespace Titanium {
             /**
              * Bar color of the search bar view, as a color name or hex triplet.
              */
-            barColor: string;
+            barColor: string | Titanium.UI.Color;
 
             /**
              * The title of the cancel button when the search bar field is focused.
@@ -58390,7 +58666,7 @@ declare namespace Titanium {
             /**
              * Color of the text in this text field, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Background image of the text field in disabled state, specified as a local file path or URL.
@@ -58403,6 +58679,11 @@ declare namespace Titanium {
             fieldBackgroundImage: string;
 
             /**
+             * Determines whether this SearchBar has focus.
+             */
+            readonly focused: boolean;
+
+            /**
              * Text to show when the search bar field is not focused.
              */
             hintText: string;
@@ -58410,7 +58691,7 @@ declare namespace Titanium {
             /**
              * Hint text color to display when the field is empty.
              */
-            hintTextColor: string;
+            hintTextColor: string | Titanium.UI.Color;
 
             /**
              * Key identifying a string from the locale file to use for the
@@ -58453,6 +58734,11 @@ declare namespace Titanium {
              * Determines the style of the search bar.
              */
             style: number;
+
+            /**
+             * The token of a search text field
+             */
+            tokens: string[];
 
             /**
              * Value of the search bar.
@@ -58510,7 +58796,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.SearchBar.barColor> property.
              * @deprecated Access <Titanium.UI.SearchBar.barColor> instead.
              */
-            getBarColor(): string;
+            getBarColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.SearchBar.cancelButtonTitle> property.
@@ -58522,7 +58808,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.SearchBar.color> property.
              * @deprecated Access <Titanium.UI.SearchBar.color> instead.
              */
-            getColor(): string;
+            getColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.SearchBar.fieldBackgroundDisabledImage> property.
@@ -58537,6 +58823,12 @@ declare namespace Titanium {
             getFieldBackgroundImage(): string;
 
             /**
+             * Gets the value of the <Titanium.UI.SearchBar.focused> property.
+             * @deprecated Access <Titanium.UI.SearchBar.focused> instead.
+             */
+            getFocused(): boolean;
+
+            /**
              * Gets the value of the <Titanium.UI.SearchBar.hintText> property.
              * @deprecated Access <Titanium.UI.SearchBar.hintText> instead.
              */
@@ -58546,7 +58838,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.SearchBar.hintTextColor> property.
              * @deprecated Access <Titanium.UI.SearchBar.hintTextColor> instead.
              */
-            getHintTextColor(): string;
+            getHintTextColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.SearchBar.hinttextid> property.
@@ -58597,10 +58889,21 @@ declare namespace Titanium {
             getStyle(): number;
 
             /**
+             * Gets the value of the <Titanium.UI.SearchBar.tokens> property.
+             * @deprecated Access <Titanium.UI.SearchBar.tokens> instead.
+             */
+            getTokens(): string[];
+
+            /**
              * Gets the value of the <Titanium.UI.SearchBar.value> property.
              * @deprecated Access <Titanium.UI.SearchBar.value> instead.
              */
             getValue(): string;
+
+            /**
+             * Inserts a new search token at the specified index.
+             */
+            insertTokenAtIndex(token: SearchBarToken, index: number): void;
 
             /**
              * Removes a child view from this view's hierarchy.
@@ -58623,6 +58926,11 @@ declare namespace Titanium {
             removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
 
             /**
+             * Removes an existing token at the specified index.
+             */
+            removeTokenAtIndex(index: number): void;
+
+            /**
              * Replaces a view at the specified position in the [children](Titanium.UI.View.children) array.
              */
             replaceAt: never;
@@ -58643,7 +58951,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.SearchBar.barColor> property.
              * @deprecated Set the value using <Titanium.UI.SearchBar.barColor> instead.
              */
-            setBarColor(barColor: string): void;
+            setBarColor(barColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.SearchBar.cancelButtonTitle> property.
@@ -58655,7 +58963,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.SearchBar.color> property.
              * @deprecated Set the value using <Titanium.UI.SearchBar.color> instead.
              */
-            setColor(color: string): void;
+            setColor(color: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.SearchBar.fieldBackgroundDisabledImage> property.
@@ -58679,7 +58987,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.SearchBar.hintTextColor> property.
              * @deprecated Set the value using <Titanium.UI.SearchBar.hintTextColor> instead.
              */
-            setHintTextColor(hintTextColor: string): void;
+            setHintTextColor(hintTextColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.SearchBar.hinttextid> property.
@@ -58729,6 +59037,12 @@ declare namespace Titanium {
             setStyle(style: number): void;
 
             /**
+             * Sets the value of the <Titanium.UI.SearchBar.tokens> property.
+             * @deprecated Set the value using <Titanium.UI.SearchBar.tokens> instead.
+             */
+            setTokens(tokens: ReadonlyArray<string>): void;
+
+            /**
              * Sets the value of the <Titanium.UI.SearchBar.value> property.
              * @deprecated Set the value using <Titanium.UI.SearchBar.value> instead.
              */
@@ -58736,9 +59050,115 @@ declare namespace Titanium {
 
         }
         /**
-         * An application shortcut.
+         * Base event for class Titanium.UI.Shortcut
+         */
+        interface ShortcutBaseEvent extends Ti.Event {
+            /**
+             * Source object that fired the event.
+             */
+            source: Titanium.UI.Shortcut;
+
+        }
+        /**
+         * Fired when a <Titanium.UI.ShortcutItem> was clicked on.
+         */
+        interface Shortcut_click_Event extends ShortcutBaseEvent {
+            /**
+             * The shortcut item clicked.
+             */
+            item: Titanium.UI.ShortcutItem;
+
+        }
+        interface ShortcutEventMap extends ProxyEventMap {
+            click: Shortcut_click_Event;
+
+        }
+        /**
+         * Manage application shortcuts.
+         */
+        class Shortcut extends Titanium.Proxy {
+            /**
+             * List dynamic shortcuts.
+             */
+            readonly items: Titanium.UI.ShortcutItem[];
+
+            /**
+             * List current pinned/static shortcuts.
+             */
+            readonly staticItems: Titanium.UI.ShortcutItem[];
+
+            /**
+             * Adds a shortcut item to the application.
+             */
+            add(item: Titanium.UI.ShortcutItem): void;
+
+            /**
+             * Adds the specified callback as an event listener for the named event.
+             */
+            addEventListener<K extends keyof ShortcutEventMap>(name: K, callback: (this: Titanium.UI.Shortcut, event: ShortcutEventMap[K]) => void): void;
+
+            /**
+             * Adds the specified callback as an event listener for the named event.
+             */
+            addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+            /**
+             * Fires a synthesized event to any registered listeners.
+             */
+            fireEvent<K extends keyof ShortcutEventMap>(name: K, event?: ShortcutEventMap[K]): void;
+
+            /**
+             * Fires a synthesized event to any registered listeners.
+             */
+            fireEvent(name: string, event?: any): void;
+
+            /**
+             * Fetches a shortcut item by its unique string identifier.
+             */
+            getById(id: string): Titanium.UI.ShortcutItem;
+
+            /**
+             * Gets the value of the <Titanium.UI.Shortcut.items> property.
+             * @deprecated Access <Titanium.UI.Shortcut.items> instead.
+             */
+            getItems(): Titanium.UI.ShortcutItem[];
+
+            /**
+             * Gets the value of the <Titanium.UI.Shortcut.staticItems> property.
+             * @deprecated Access <Titanium.UI.Shortcut.staticItems> instead.
+             */
+            getStaticItems(): Titanium.UI.ShortcutItem[];
+
+            /**
+             * Removes the given shortcut item from the application.
+             */
+            remove(item: Titanium.UI.ShortcutItem): void;
+
+            /**
+             * Removes all shortcut items from the application.
+             */
+            removeAll(): void;
+
+            /**
+             * Removes the specified callback as an event listener for the named event.
+             */
+            removeEventListener<K extends keyof ShortcutEventMap>(name: K, callback: (this: Titanium.UI.Shortcut, event: ShortcutEventMap[K]) => void): void;
+
+            /**
+             * Removes the specified callback as an event listener for the named event.
+             */
+            removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+        }
+        /**
+         * An application shortcut item.
          */
         class ShortcutItem extends Titanium.Proxy {
+            /**
+             * Shortcut data.
+             */
+            data: any;
+
             /**
              * Description of the shortcut.
              */
@@ -58760,6 +59180,12 @@ declare namespace Titanium {
             title: string;
 
             /**
+             * Shortcut visibility.
+             * @deprecated Use [Titanium.UI.Shortcut.items](Titanium.UI.Shortcut.items) to determine if shortcut is active.
+             */
+            visible: boolean;
+
+            /**
              * Adds the specified callback as an event listener for the named event.
              */
             addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
@@ -58768,6 +59194,12 @@ declare namespace Titanium {
              * Fires a synthesized event to any registered listeners.
              */
             fireEvent(name: string, event?: any): void;
+
+            /**
+             * Gets the value of the <Titanium.UI.ShortcutItem.data> property.
+             * @deprecated Access <Titanium.UI.ShortcutItem.data> instead.
+             */
+            getData(): any;
 
             /**
              * Gets the value of the <Titanium.UI.ShortcutItem.description> property.
@@ -58794,7 +59226,14 @@ declare namespace Titanium {
             getTitle(): string;
 
             /**
+             * Gets the value of the <Titanium.UI.ShortcutItem.visible> property.
+             * @deprecated Use [Titanium.UI.Shortcut.items](Titanium.UI.Shortcut.items) to determine if shortcut is active.
+             */
+            getVisible(): boolean;
+
+            /**
              * Hide the shortcut.
+             * @deprecated Use [Titanium.UI.Shortcut.remove](Titanium.UI.Shortcut.remove) instead.
              */
             hide(): void;
 
@@ -58807,6 +59246,12 @@ declare namespace Titanium {
              * Removes the specified callback as an event listener for the named event.
              */
             removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+            /**
+             * Sets the value of the <Titanium.UI.ShortcutItem.data> property.
+             * @deprecated Set the value using <Titanium.UI.ShortcutItem.data> instead.
+             */
+            setData(data: any): void;
 
             /**
              * Sets the value of the <Titanium.UI.ShortcutItem.description> property.
@@ -58833,7 +59278,14 @@ declare namespace Titanium {
             setTitle(title: string): void;
 
             /**
+             * Sets the value of the <Titanium.UI.ShortcutItem.visible> property.
+             * @deprecated Use [Titanium.UI.Shortcut.items](Titanium.UI.Shortcut.items) to determine if shortcut is active.
+             */
+            setVisible(visible: boolean): void;
+
+            /**
              * Allow the shortcut to show.
+             * @deprecated Use [Titanium.UI.Shortcut.add](Titanium.UI.Shortcut.add) instead.
              */
             show(): void;
 
@@ -59293,6 +59745,11 @@ declare namespace Titanium {
          */
         interface Slider_change_Event extends SliderBaseEvent {
             /**
+             * True if change was made by the user. False if change was made programmatically.
+             */
+            isTrusted: boolean;
+
+            /**
              * Dictionary with properties `x` and `y` of the thumb's left-top corner in
              * the control. Available with custom thumb image.
              */
@@ -59507,12 +59964,12 @@ declare namespace Titanium {
             /**
              * The color shown for the portion of the progress bar that is filled.
              */
-            tintColor: string;
+            tintColor: string | Titanium.UI.Color;
 
             /**
              * The color shown for the portion of the progress bar that is not filled.
              */
-            trackTintColor: string;
+            trackTintColor: string | Titanium.UI.Color;
 
             /**
              * Current value of the slider.
@@ -59692,13 +60149,13 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Slider.tintColor> property.
              * @deprecated Access <Titanium.UI.Slider.tintColor> instead.
              */
-            getTintColor(): string;
+            getTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Slider.trackTintColor> property.
              * @deprecated Access <Titanium.UI.Slider.trackTintColor> instead.
              */
-            getTrackTintColor(): string;
+            getTrackTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Slider.value> property.
@@ -59873,13 +60330,13 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Slider.tintColor> property.
              * @deprecated Set the value using <Titanium.UI.Slider.tintColor> instead.
              */
-            setTintColor(tintColor: string): void;
+            setTintColor(tintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Slider.trackTintColor> property.
              * @deprecated Set the value using <Titanium.UI.Slider.trackTintColor> instead.
              */
-            setTrackTintColor(trackTintColor: string): void;
+            setTrackTintColor(trackTintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the [value](Titanium.UI.Slider.value) property.
@@ -60400,7 +60857,7 @@ declare namespace Titanium {
             /**
              * Color to use for switch text, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Determines whether the switch is enabled.
@@ -60415,7 +60872,7 @@ declare namespace Titanium {
             /**
              * The color used to tint the appearance of the switch when it is turned on.
              */
-            onTintColor: string;
+            onTintColor: string | Titanium.UI.Color;
 
             /**
              * Style of the switch.
@@ -60430,12 +60887,12 @@ declare namespace Titanium {
             /**
              * The color used to tint the appearance of the thumb.
              */
-            thumbTintColor: string;
+            thumbTintColor: string | Titanium.UI.Color;
 
             /**
              * The color used to tint the outline of the switch when it is turned off.
              */
-            tintColor: string;
+            tintColor: string | Titanium.UI.Color;
 
             /**
              * Text to display next to the switch, when the checkbox style is in use.
@@ -60504,7 +60961,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Switch.color> property.
              * @deprecated Access <Titanium.UI.Switch.color> instead.
              */
-            getColor(): string;
+            getColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Switch.enabled> property.
@@ -60522,7 +60979,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Switch.onTintColor> property.
              * @deprecated Access <Titanium.UI.Switch.onTintColor> instead.
              */
-            getOnTintColor(): string;
+            getOnTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Switch.style> property.
@@ -60540,13 +60997,13 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Switch.thumbTintColor> property.
              * @deprecated Access <Titanium.UI.Switch.thumbTintColor> instead.
              */
-            getThumbTintColor(): string;
+            getThumbTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Switch.tintColor> property.
              * @deprecated Access <Titanium.UI.Switch.tintColor> instead.
              */
-            getTintColor(): string;
+            getTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Switch.title> property.
@@ -60613,7 +61070,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Switch.color> property.
              * @deprecated Set the value using <Titanium.UI.Switch.color> instead.
              */
-            setColor(color: string): void;
+            setColor(color: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Switch.enabled> property.
@@ -60631,7 +61088,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Switch.onTintColor> property.
              * @deprecated Set the value using <Titanium.UI.Switch.onTintColor> instead.
              */
-            setOnTintColor(onTintColor: string): void;
+            setOnTintColor(onTintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Switch.style> property.
@@ -60649,13 +61106,13 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Switch.thumbTintColor> property.
              * @deprecated Set the value using <Titanium.UI.Switch.thumbTintColor> instead.
              */
-            setThumbTintColor(thumbTintColor: string): void;
+            setThumbTintColor(thumbTintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Switch.tintColor> property.
              * @deprecated Set the value using <Titanium.UI.Switch.tintColor> instead.
              */
-            setTintColor(tintColor: string): void;
+            setTintColor(tintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Switch.title> property.
@@ -61259,9 +61716,14 @@ declare namespace Titanium {
             activeIconIsMask: boolean;
 
             /**
+             * Defines the color of the tab icon when it is active. Will fallback to activeTitleColor when not defined.
+             */
+            activeTintColor: string;
+
+            /**
              * Defines the color of the title of tab when it's active.
              */
-            activeTitleColor: string;
+            activeTitleColor: string | Titanium.UI.Color;
 
             /**
              * Coordinate of the view about which to pivot an animation.
@@ -61276,7 +61738,7 @@ declare namespace Titanium {
             /**
              * Sets the color of the tab when it is inactive.
              */
-            backgroundColor: string;
+            backgroundColor: string | Titanium.UI.Color;
 
             /**
              * Sets the color of the tab when it is focused.
@@ -61312,7 +61774,7 @@ declare namespace Titanium {
              * If this item displays a badge, this color will be used for the badge's background.
              * If set to null, the default background color will be used instead.
              */
-            badgeColor: string;
+            badgeColor: string | Titanium.UI.Color;
 
             /**
              * Border color of the view, as a color name or hex triplet.
@@ -61416,6 +61878,11 @@ declare namespace Titanium {
             softKeyboardOnFocus: never;
 
             /**
+             * Defines the color of the tab icon. Will fallback to titleColor when not defined.
+             */
+            tintColor: string;
+
+            /**
              * Title for this tab.
              */
             title: string;
@@ -61423,7 +61890,7 @@ declare namespace Titanium {
             /**
              * Defines the color of the title of tab when it's inactive.
              */
-            titleColor: string;
+            titleColor: string | Titanium.UI.Color;
 
             /**
              * Key identifying a string from the locale file to use for the tab title. Only one of `title` or `titleid` should be specified.
@@ -61538,10 +62005,16 @@ declare namespace Titanium {
             getActiveIconIsMask(): boolean;
 
             /**
+             * Gets the value of the <Titanium.UI.Tab.activeTintColor> property.
+             * @deprecated Access <Titanium.UI.Tab.activeTintColor> instead.
+             */
+            getActiveTintColor(): string;
+
+            /**
              * Gets the value of the <Titanium.UI.Tab.activeTitleColor> property.
              * @deprecated Access <Titanium.UI.Tab.activeTitleColor> instead.
              */
-            getActiveTitleColor(): string;
+            getActiveTitleColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Tab.anchorPoint> property.
@@ -61559,7 +62032,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Tab.backgroundColor> property.
              * @deprecated Access <Titanium.UI.Tab.backgroundColor> instead.
              */
-            getBackgroundColor(): string;
+            getBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Tab.backgroundFocusedColor> property.
@@ -61601,7 +62074,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Tab.badgeColor> property.
              * @deprecated Access <Titanium.UI.Tab.badgeColor> instead.
              */
-            getBadgeColor(): string;
+            getBadgeColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Tab.borderColor> property.
@@ -61724,6 +62197,12 @@ declare namespace Titanium {
             getSoftKeyboardOnFocus: never;
 
             /**
+             * Gets the value of the <Titanium.UI.Tab.tintColor> property.
+             * @deprecated Access <Titanium.UI.Tab.tintColor> instead.
+             */
+            getTintColor(): string;
+
+            /**
              * Gets the value of the <Titanium.UI.Tab.title> property.
              * @deprecated Access <Titanium.UI.Tab.title> instead.
              */
@@ -61733,7 +62212,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Tab.titleColor> property.
              * @deprecated Access <Titanium.UI.Tab.titleColor> instead.
              */
-            getTitleColor(): string;
+            getTitleColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Tab.titleid> property.
@@ -61860,10 +62339,16 @@ declare namespace Titanium {
             setActiveIconIsMask(activeIconIsMask: boolean): void;
 
             /**
+             * Sets the value of the <Titanium.UI.Tab.activeTintColor> property.
+             * @deprecated Set the value using <Titanium.UI.Tab.activeTintColor> instead.
+             */
+            setActiveTintColor(activeTintColor: string): void;
+
+            /**
              * Sets the value of the <Titanium.UI.Tab.activeTitleColor> property.
              * @deprecated Set the value using <Titanium.UI.Tab.activeTitleColor> instead.
              */
-            setActiveTitleColor(activeTitleColor: string): void;
+            setActiveTitleColor(activeTitleColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Tab.anchorPoint> property.
@@ -61875,7 +62360,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Tab.backgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.Tab.backgroundColor> instead.
              */
-            setBackgroundColor(backgroundColor: string): void;
+            setBackgroundColor(backgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Tab.backgroundFocusedColor> property.
@@ -61917,7 +62402,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Tab.badgeColor> property.
              * @deprecated Set the value using <Titanium.UI.Tab.badgeColor> instead.
              */
-            setBadgeColor(badgeColor: string): void;
+            setBadgeColor(badgeColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Tab.borderColor> property.
@@ -62022,6 +62507,12 @@ declare namespace Titanium {
             setSoftKeyboardOnFocus: never;
 
             /**
+             * Sets the value of the <Titanium.UI.Tab.tintColor> property.
+             * @deprecated Set the value using <Titanium.UI.Tab.tintColor> instead.
+             */
+            setTintColor(tintColor: string): void;
+
+            /**
              * Sets the value of the <Titanium.UI.Tab.title> property.
              * @deprecated Set the value using <Titanium.UI.Tab.title> instead.
              */
@@ -62031,7 +62522,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Tab.titleColor> property.
              * @deprecated Set the value using <Titanium.UI.Tab.titleColor> instead.
              */
-            setTitleColor(titleColor: string): void;
+            setTitleColor(titleColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Tab.titleid> property.
@@ -62708,8 +63199,19 @@ declare namespace Titanium {
 
             /**
              * Color applied to active tabs icons, as a color name or hex triplet, where the tab's activeIcon was not defined.
+             * @deprecated Deprecated in favor of [Titanium.UI.TabGroup.activeTintColor](Titanium.UI.TabGroup.activeTintColor) or alternatively [Titanium.UI.Tab.activeTintColor](Titanium.UI.Tab.activeTintColor).
              */
-            activeTabIconTint: string;
+            activeTabIconTint: string | Titanium.UI.Color;
+
+            /**
+             * The activeTintColor to apply to tabs.
+             */
+            activeTintColor: string;
+
+            /**
+             * Defines the color of the title of tab when it's active.
+             */
+            activeTitleColor: string | Titanium.UI.Color;
 
             /**
              * Reference to the Android Activity object associated with this tab group.
@@ -62790,7 +63292,7 @@ declare namespace Titanium {
             /**
              * Default navigation bar color (typically for the **More** tab), as a color name or hex triplet.
              */
-            barColor: string;
+            barColor: string | Titanium.UI.Color;
 
             /**
              * Border color of the view, as a color name or hex triplet.
@@ -62857,7 +63359,7 @@ declare namespace Titanium {
             /**
              * The tintColor to apply to the navigation bar (typically for the **More** tab).
              */
-            navTintColor: string;
+            navTintColor: string | Titanium.UI.Color;
 
             /**
              * The opacity from 0.0-1.0.
@@ -62907,7 +63409,7 @@ declare namespace Titanium {
             /**
              * Default background color for inactive tabs, as a color name or hex triplet.
              */
-            tabsBackgroundColor: string;
+            tabsBackgroundColor: string | Titanium.UI.Color;
 
             /**
              * Default background image for tabs.
@@ -62921,13 +63423,19 @@ declare namespace Titanium {
 
             /**
              * The tintColor to apply to the tabs.
+             * @deprecated Deprecated in favor of [Titanium.UI.TabGroup.tintColor](Titanium.UI.TabGroup.tintColor) or alternatively [Titanium.UI.Tab.tintColor](Titanium.UI.Tab.tintColor).
              */
-            tabsTintColor: string;
+            tabsTintColor: string | Titanium.UI.Color;
 
             /**
              * A Boolean value that indicates whether the tab bar is translucent.
              */
             tabsTranslucent: boolean;
+
+            /**
+             * The tintColor to apply to tabs.
+             */
+            tintColor: string;
 
             /**
              * Title for this tabGroup.
@@ -62938,6 +63446,11 @@ declare namespace Titanium {
              * Title text attributes of the window to be applied on the **More** tab.
              */
             titleAttributes: titleAttributesParams;
+
+            /**
+             * Defines the color of the title of tab when it's inactive.
+             */
+            titleColor: string | Titanium.UI.Color;
 
             /**
              * Window's top position, in platform-specific units.
@@ -62957,8 +63470,9 @@ declare namespace Titanium {
             /**
              * Unselected items in this tab group will be tinted with this color. Setting this value to null
              * indicates that the tab group should use its default value instead.
+             * @deprecated Deprecated in favor of [Titanium.UI.TabGroup.tintColor](Titanium.UI.TabGroup.tintColor) or alternatively [Titanium.UI.Tab.tintColor](Titanium.UI.Tab.tintColor).
              */
-            unselectedItemTintColor: string;
+            unselectedItemTintColor: string | Titanium.UI.Color;
 
             /**
              * View's width, in platform-specific units.
@@ -63054,9 +63568,21 @@ declare namespace Titanium {
 
             /**
              * Gets the value of the <Titanium.UI.TabGroup.activeTabIconTint> property.
-             * @deprecated Access <Titanium.UI.TabGroup.activeTabIconTint> instead.
+             * @deprecated Deprecated in favor of [Titanium.UI.TabGroup.activeTintColor](Titanium.UI.TabGroup.activeTintColor) or alternatively [Titanium.UI.Tab.activeTintColor](Titanium.UI.Tab.activeTintColor).
              */
-            getActiveTabIconTint(): string;
+            getActiveTabIconTint(): string | Titanium.UI.Color;
+
+            /**
+             * Gets the value of the <Titanium.UI.TabGroup.activeTintColor> property.
+             * @deprecated Access <Titanium.UI.TabGroup.activeTintColor> instead.
+             */
+            getActiveTintColor(): string;
+
+            /**
+             * Gets the value of the <Titanium.UI.TabGroup.activeTitleColor> property.
+             * @deprecated Access <Titanium.UI.TabGroup.activeTitleColor> instead.
+             */
+            getActiveTitleColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TabGroup.activity> property.
@@ -63152,7 +63678,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TabGroup.barColor> property.
              * @deprecated Access <Titanium.UI.TabGroup.barColor> instead.
              */
-            getBarColor(): string;
+            getBarColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TabGroup.borderColor> property.
@@ -63230,7 +63756,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TabGroup.navTintColor> property.
              * @deprecated Access <Titanium.UI.TabGroup.navTintColor> instead.
              */
-            getNavTintColor(): string;
+            getNavTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TabGroup.opacity> property.
@@ -63289,7 +63815,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TabGroup.tabsBackgroundColor> property.
              * @deprecated Access <Titanium.UI.TabGroup.tabsBackgroundColor> instead.
              */
-            getTabsBackgroundColor(): string;
+            getTabsBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TabGroup.tabsBackgroundImage> property.
@@ -63305,15 +63831,21 @@ declare namespace Titanium {
 
             /**
              * Gets the value of the <Titanium.UI.TabGroup.tabsTintColor> property.
-             * @deprecated Access <Titanium.UI.TabGroup.tabsTintColor> instead.
+             * @deprecated Deprecated in favor of [Titanium.UI.TabGroup.tintColor](Titanium.UI.TabGroup.tintColor) or alternatively [Titanium.UI.Tab.tintColor](Titanium.UI.Tab.tintColor).
              */
-            getTabsTintColor(): string;
+            getTabsTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TabGroup.tabsTranslucent> property.
              * @deprecated Access <Titanium.UI.TabGroup.tabsTranslucent> instead.
              */
             getTabsTranslucent(): boolean;
+
+            /**
+             * Gets the value of the <Titanium.UI.TabGroup.tintColor> property.
+             * @deprecated Access <Titanium.UI.TabGroup.tintColor> instead.
+             */
+            getTintColor(): string;
 
             /**
              * Gets the value of the <Titanium.UI.TabGroup.title> property.
@@ -63326,6 +63858,12 @@ declare namespace Titanium {
              * @deprecated Access <Titanium.UI.TabGroup.titleAttributes> instead.
              */
             getTitleAttributes(): titleAttributesParams;
+
+            /**
+             * Gets the value of the <Titanium.UI.TabGroup.titleColor> property.
+             * @deprecated Access <Titanium.UI.TabGroup.titleColor> instead.
+             */
+            getTitleColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TabGroup.top> property.
@@ -63347,9 +63885,9 @@ declare namespace Titanium {
 
             /**
              * Gets the value of the <Titanium.UI.TabGroup.unselectedItemTintColor> property.
-             * @deprecated Access <Titanium.UI.TabGroup.unselectedItemTintColor> instead.
+             * @deprecated Deprecated in favor of [Titanium.UI.TabGroup.tintColor](Titanium.UI.TabGroup.tintColor) or alternatively [Titanium.UI.Tab.tintColor](Titanium.UI.Tab.tintColor).
              */
-            getUnselectedItemTintColor(): string;
+            getUnselectedItemTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TabGroup.width> property.
@@ -63441,9 +63979,21 @@ declare namespace Titanium {
 
             /**
              * Sets the value of the <Titanium.UI.TabGroup.activeTabIconTint> property.
-             * @deprecated Set the value using <Titanium.UI.TabGroup.activeTabIconTint> instead.
+             * @deprecated Deprecated in favor of [Titanium.UI.TabGroup.activeTintColor](Titanium.UI.TabGroup.activeTintColor) or alternatively [Titanium.UI.Tab.activeTintColor](Titanium.UI.Tab.activeTintColor).
              */
-            setActiveTabIconTint(activeTabIconTint: string): void;
+            setActiveTabIconTint(activeTabIconTint: string | Titanium.UI.Color): void;
+
+            /**
+             * Sets the value of the <Titanium.UI.TabGroup.activeTintColor> property.
+             * @deprecated Set the value using <Titanium.UI.TabGroup.activeTintColor> instead.
+             */
+            setActiveTintColor(activeTintColor: string): void;
+
+            /**
+             * Sets the value of the <Titanium.UI.TabGroup.activeTitleColor> property.
+             * @deprecated Set the value using <Titanium.UI.TabGroup.activeTitleColor> instead.
+             */
+            setActiveTitleColor(activeTitleColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TabGroup.allowUserCustomization> property.
@@ -63527,7 +64077,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TabGroup.barColor> property.
              * @deprecated Set the value using <Titanium.UI.TabGroup.barColor> instead.
              */
-            setBarColor(barColor: string): void;
+            setBarColor(barColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TabGroup.borderColor> property.
@@ -63599,7 +64149,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TabGroup.navTintColor> property.
              * @deprecated Set the value using <Titanium.UI.TabGroup.navTintColor> instead.
              */
-            setNavTintColor(navTintColor: string): void;
+            setNavTintColor(navTintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TabGroup.opacity> property.
@@ -63659,7 +64209,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TabGroup.tabsBackgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.TabGroup.tabsBackgroundColor> instead.
              */
-            setTabsBackgroundColor(tabsBackgroundColor: string): void;
+            setTabsBackgroundColor(tabsBackgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TabGroup.tabsBackgroundImage> property.
@@ -63675,15 +64225,21 @@ declare namespace Titanium {
 
             /**
              * Sets the value of the <Titanium.UI.TabGroup.tabsTintColor> property.
-             * @deprecated Set the value using <Titanium.UI.TabGroup.tabsTintColor> instead.
+             * @deprecated Deprecated in favor of [Titanium.UI.TabGroup.tintColor](Titanium.UI.TabGroup.tintColor) or alternatively [Titanium.UI.Tab.tintColor](Titanium.UI.Tab.tintColor).
              */
-            setTabsTintColor(tabsTintColor: string): void;
+            setTabsTintColor(tabsTintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TabGroup.tabsTranslucent> property.
              * @deprecated Set the value using <Titanium.UI.TabGroup.tabsTranslucent> instead.
              */
             setTabsTranslucent(tabsTranslucent: boolean): void;
+
+            /**
+             * Sets the value of the <Titanium.UI.TabGroup.tintColor> property.
+             * @deprecated Set the value using <Titanium.UI.TabGroup.tintColor> instead.
+             */
+            setTintColor(tintColor: string): void;
 
             /**
              * Sets the value of the <Titanium.UI.TabGroup.title> property.
@@ -63696,6 +64252,12 @@ declare namespace Titanium {
              * @deprecated Set the value using <Titanium.UI.TabGroup.titleAttributes> instead.
              */
             setTitleAttributes(titleAttributes: titleAttributesParams): void;
+
+            /**
+             * Sets the value of the <Titanium.UI.TabGroup.titleColor> property.
+             * @deprecated Set the value using <Titanium.UI.TabGroup.titleColor> instead.
+             */
+            setTitleColor(titleColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TabGroup.top> property.
@@ -63717,9 +64279,9 @@ declare namespace Titanium {
 
             /**
              * Sets the value of the <Titanium.UI.TabGroup.unselectedItemTintColor> property.
-             * @deprecated Set the value using <Titanium.UI.TabGroup.unselectedItemTintColor> instead.
+             * @deprecated Deprecated in favor of [Titanium.UI.TabGroup.tintColor](Titanium.UI.TabGroup.tintColor) or alternatively [Titanium.UI.Tab.tintColor](Titanium.UI.Tab.tintColor).
              */
-            setUnselectedItemTintColor(unselectedItemTintColor: string): void;
+            setUnselectedItemTintColor(unselectedItemTintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TabGroup.width> property.
@@ -64371,8 +64933,10 @@ declare namespace Titanium {
              * When the row is created implicitly using a JavaScript dictionary object,
              * use this property rather than `row` to access any custom row properties.
              * Here's an example of creating a row implicitly, which is not the recommended way.
-             *     var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
-             *     var table = Ti.UI.createTableView({data: data});
+             * ``` js
+             * var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
+             * var table = Ti.UI.createTableView({data: data});
+             * ```
              */
             rowData: Dictionary<Titanium.UI.TableViewRow>;
 
@@ -64431,8 +64995,10 @@ declare namespace Titanium {
              * When the row is created implicitly using a JavaScript dictionary object,
              * use this property rather than `row` to access any custom row properties.
              * Here's an example of creating a row implicitly, which is not the recommended way.
-             *     var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
-             *     var table = Ti.UI.createTableView({data: data});
+             * ``` js
+             * var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
+             * var table = Ti.UI.createTableView({data: data});
+             * ```
              */
             rowData: Dictionary<Titanium.UI.TableViewRow>;
 
@@ -64486,8 +65052,10 @@ declare namespace Titanium {
              * When the row is created implicitly using a JavaScript dictionary object,
              * use this property rather than `row` to access any custom row properties.
              * Here's an example of creating a row implicitly, which is not the recommended way.
-             *     var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
-             *     var table = Ti.UI.createTableView({data: data});
+             * ``` js
+             * var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
+             * var table = Ti.UI.createTableView({data: data});
+             * ```
              */
             rowData: Dictionary<Titanium.UI.TableViewRow>;
 
@@ -64643,8 +65211,10 @@ declare namespace Titanium {
              * When the row is created implicitly using a JavaScript dictionary object,
              * use this property rather than `row` to access any custom row properties.
              * Here's an example of creating a row implicitly, which is not the recommended way.
-             *     var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
-             *     var table = Ti.UI.createTableView({data: data});
+             * ``` js
+             * var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
+             * var table = Ti.UI.createTableView({data: data});
+             * ```
              */
             rowData: Dictionary<Titanium.UI.TableViewRow>;
 
@@ -64737,8 +65307,10 @@ declare namespace Titanium {
              * When the row is created implicitly using a JavaScript dictionary object,
              * use this property rather than `row` to access any custom row properties.
              * Here's an example of creating a row implicitly, which is not the recommended way.
-             *     var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
-             *     var table = Ti.UI.createTableView({data: data});
+             * ``` js
+             * var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
+             * var table = Ti.UI.createTableView({data: data});
+             * ```
              */
             rowData: Dictionary<Titanium.UI.TableViewRow>;
 
@@ -64854,8 +65426,10 @@ declare namespace Titanium {
              * When the row is created implicitly using a JavaScript dictionary object,
              * use this property rather than `row` to access any custom row properties.
              * Here's an example of creating a row implicitly, which is not the recommended way.
-             *     var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
-             *     var table = Ti.UI.createTableView({data: data});
+             * ``` js
+             * var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];
+             * var table = Ti.UI.createTableView({data: data});
+             * ```
              */
             rowData: Dictionary<Titanium.UI.TableViewRow>;
 
@@ -65177,7 +65751,7 @@ declare namespace Titanium {
             /**
              * Background color of the view, as a color name or hex triplet.
              */
-            backgroundColor: string;
+            backgroundColor: string | Titanium.UI.Color;
 
             /**
              * Selected background color of the view, as a color name or hex triplet.
@@ -65315,13 +65889,13 @@ declare namespace Titanium {
             /**
              * The background color of the search results (iOS-only).
              */
-            resultsBackgroundColor: string;
+            resultsBackgroundColor: string | Titanium.UI.Color;
 
             /**
              * Separator line color between rows inside search results,
              * as a color name or hex triplet (iOS-only).
              */
-            resultsSeparatorColor: string;
+            resultsSeparatorColor: string | Titanium.UI.Color;
 
             /**
              * The insets for search results separators (applies to all cells & iOS-only).
@@ -65386,7 +65960,7 @@ declare namespace Titanium {
             /**
              * Separator line color between rows, as a color name or hex triplet.
              */
-            separatorColor: string;
+            separatorColor: string | Titanium.UI.Color;
 
             /**
              * The insets for table view separators (applies to all cells).
@@ -65498,7 +66072,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TableView.backgroundColor> property.
              * @deprecated Access <Titanium.UI.TableView.backgroundColor> instead.
              */
-            getBackgroundColor(): string;
+            getBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TableView.backgroundSelectedColor> property.
@@ -65660,13 +66234,13 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TableView.resultsBackgroundColor> property.
              * @deprecated Access <Titanium.UI.TableView.resultsBackgroundColor> instead.
              */
-            getResultsBackgroundColor(): string;
+            getResultsBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TableView.resultsSeparatorColor> property.
              * @deprecated Access <Titanium.UI.TableView.resultsSeparatorColor> instead.
              */
-            getResultsSeparatorColor(): string;
+            getResultsSeparatorColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TableView.resultsSeparatorInsets> property.
@@ -65744,7 +66318,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TableView.separatorColor> property.
              * @deprecated Access <Titanium.UI.TableView.separatorColor> instead.
              */
-            getSeparatorColor(): string;
+            getSeparatorColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TableView.separatorInsets> property.
@@ -65873,7 +66447,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TableView.backgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.TableView.backgroundColor> instead.
              */
-            setBackgroundColor(backgroundColor: string): void;
+            setBackgroundColor(backgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TableView.backgroundSelectedColor> property.
@@ -66037,13 +66611,13 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TableView.resultsBackgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.TableView.resultsBackgroundColor> instead.
              */
-            setResultsBackgroundColor(resultsBackgroundColor: string): void;
+            setResultsBackgroundColor(resultsBackgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TableView.resultsSeparatorColor> property.
              * @deprecated Set the value using <Titanium.UI.TableView.resultsSeparatorColor> instead.
              */
-            setResultsSeparatorColor(resultsSeparatorColor: string): void;
+            setResultsSeparatorColor(resultsSeparatorColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TableView.resultsSeparatorInsets> property.
@@ -66115,7 +66689,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TableView.separatorColor> property.
              * @deprecated Set the value using <Titanium.UI.TableView.separatorColor> instead.
              */
-            setSeparatorColor(separatorColor: string): void;
+            setSeparatorColor(separatorColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TableView.separatorInsets> property.
@@ -66528,7 +67102,7 @@ declare namespace Titanium {
             /**
              * Default text color of the row when not selected, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Text to display on the delete button when editable is enabled
@@ -66602,7 +67176,7 @@ declare namespace Titanium {
             /**
              * Background color to render when the row is selected, as a color name or hex triplet.
              */
-            selectedBackgroundColor: string;
+            selectedBackgroundColor: string | Titanium.UI.Color;
 
             /**
              * Background image to render when the row is selected.
@@ -66612,7 +67186,7 @@ declare namespace Titanium {
             /**
              * Color of the row text when the row is selected, as a color name or hex triplet.
              */
-            selectedColor: string;
+            selectedColor: string | Titanium.UI.Color;
 
             /**
              * Selection style constant to control the selection color.
@@ -66665,7 +67239,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TableViewRow.color> property.
              * @deprecated Access <Titanium.UI.TableViewRow.color> instead.
              */
-            getColor(): string;
+            getColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TableViewRow.deleteButtonTitle> property.
@@ -66749,7 +67323,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TableViewRow.selectedBackgroundColor> property.
              * @deprecated Access <Titanium.UI.TableViewRow.selectedBackgroundColor> instead.
              */
-            getSelectedBackgroundColor(): string;
+            getSelectedBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TableViewRow.selectedBackgroundImage> property.
@@ -66761,7 +67335,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TableViewRow.selectedColor> property.
              * @deprecated Access <Titanium.UI.TableViewRow.selectedColor> instead.
              */
-            getSelectedColor(): string;
+            getSelectedColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TableViewRow.selectionStyle> property.
@@ -66801,7 +67375,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TableViewRow.color> property.
              * @deprecated Set the value using <Titanium.UI.TableViewRow.color> instead.
              */
-            setColor(color: string): void;
+            setColor(color: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TableViewRow.deleteButtonTitle> property.
@@ -66885,7 +67459,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TableViewRow.selectedBackgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.TableViewRow.selectedBackgroundColor> instead.
              */
-            setSelectedBackgroundColor(selectedBackgroundColor: string): void;
+            setSelectedBackgroundColor(selectedBackgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TableViewRow.selectedBackgroundImage> property.
@@ -66897,7 +67471,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TableViewRow.selectedColor> property.
              * @deprecated Set the value using <Titanium.UI.TableViewRow.selectedColor> instead.
              */
-            setSelectedColor(selectedColor: string): void;
+            setSelectedColor(selectedColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TableViewRow.selectionStyle> property.
@@ -67649,7 +68223,7 @@ declare namespace Titanium {
             /**
              * Color of the text in this text area, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Determines whether this field can be edited.
@@ -67666,6 +68240,11 @@ declare namespace Titanium {
              * area.
              */
             enableReturnKey: boolean;
+
+            /**
+             * Determines whether this TextArea has focus.
+             */
+            readonly focused: boolean;
 
             /**
              * Font to use for text.
@@ -67711,7 +68290,7 @@ declare namespace Titanium {
             /**
              * Color of the keyboard toolbar if keyboardToolbar is an array, as a color name or hex triplet.
              */
-            keyboardToolbarColor: string;
+            keyboardToolbarColor: string | Titanium.UI.Color;
 
             /**
              * Height of the keyboard toolbar if keyboardToolbar is an array.
@@ -67882,7 +68461,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TextArea.color> property.
              * @deprecated Access <Titanium.UI.TextArea.color> instead.
              */
-            getColor(): string;
+            getColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TextArea.editable> property.
@@ -67901,6 +68480,12 @@ declare namespace Titanium {
              * @deprecated Access <Titanium.UI.TextArea.enableReturnKey> instead.
              */
             getEnableReturnKey(): boolean;
+
+            /**
+             * Gets the value of the <Titanium.UI.TextArea.focused> property.
+             * @deprecated Access <Titanium.UI.TextArea.focused> instead.
+             */
+            getFocused(): boolean;
 
             /**
              * Gets the value of the <Titanium.UI.TextArea.font> property.
@@ -67954,7 +68539,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TextArea.keyboardToolbarColor> property.
              * @deprecated Access <Titanium.UI.TextArea.keyboardToolbarColor> instead.
              */
-            getKeyboardToolbarColor(): string;
+            getKeyboardToolbarColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TextArea.keyboardToolbarHeight> property.
@@ -68128,7 +68713,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TextArea.color> property.
              * @deprecated Set the value using <Titanium.UI.TextArea.color> instead.
              */
-            setColor(color: string): void;
+            setColor(color: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TextArea.editable> property.
@@ -68200,7 +68785,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TextArea.keyboardToolbarColor> property.
              * @deprecated Set the value using <Titanium.UI.TextArea.keyboardToolbarColor> instead.
              */
-            setKeyboardToolbarColor(keyboardToolbarColor: string): void;
+            setKeyboardToolbarColor(keyboardToolbarColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TextArea.keyboardToolbarHeight> property.
@@ -68880,7 +69465,7 @@ declare namespace Titanium {
             /**
              * Color of the text in this text field, as a color name or hex triplet.
              */
-            color: string;
+            color: string | Titanium.UI.Color;
 
             /**
              * Determines whether this field can be edited.
@@ -68897,6 +69482,11 @@ declare namespace Titanium {
              * field.
              */
             enableReturnKey: boolean;
+
+            /**
+             * Determines whether this TextField has focus.
+             */
+            readonly focused: boolean;
 
             /**
              * Font to use for text.
@@ -68916,7 +69506,7 @@ declare namespace Titanium {
             /**
              * Hint text color to display when the field is empty.
              */
-            hintTextColor: string;
+            hintTextColor: string | Titanium.UI.Color;
 
             /**
              * Hint type to display on the text field.
@@ -68948,7 +69538,7 @@ declare namespace Titanium {
             /**
              * Color of the keyboard toolbar if keyboardToolbar is an array, as a color name or hex triplet.
              */
-            keyboardToolbarColor: string;
+            keyboardToolbarColor: string | Titanium.UI.Color;
 
             /**
              * Height of the keyboard toolbar if keyboardToolbar is an array.
@@ -69169,7 +69759,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TextField.color> property.
              * @deprecated Access <Titanium.UI.TextField.color> instead.
              */
-            getColor(): string;
+            getColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TextField.editable> property.
@@ -69188,6 +69778,12 @@ declare namespace Titanium {
              * @deprecated Access <Titanium.UI.TextField.enableReturnKey> instead.
              */
             getEnableReturnKey(): boolean;
+
+            /**
+             * Gets the value of the <Titanium.UI.TextField.focused> property.
+             * @deprecated Access <Titanium.UI.TextField.focused> instead.
+             */
+            getFocused(): boolean;
 
             /**
              * Gets the value of the <Titanium.UI.TextField.font> property.
@@ -69211,7 +69807,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TextField.hintTextColor> property.
              * @deprecated Access <Titanium.UI.TextField.hintTextColor> instead.
              */
-            getHintTextColor(): string;
+            getHintTextColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TextField.hintType> property.
@@ -69247,7 +69843,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.TextField.keyboardToolbarColor> property.
              * @deprecated Access <Titanium.UI.TextField.keyboardToolbarColor> instead.
              */
-            getKeyboardToolbarColor(): string;
+            getKeyboardToolbarColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.TextField.keyboardToolbarHeight> property.
@@ -69475,7 +70071,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TextField.color> property.
              * @deprecated Set the value using <Titanium.UI.TextField.color> instead.
              */
-            setColor(color: string): void;
+            setColor(color: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TextField.editable> property.
@@ -69517,7 +70113,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TextField.hintTextColor> property.
              * @deprecated Set the value using <Titanium.UI.TextField.hintTextColor> instead.
              */
-            setHintTextColor(hintTextColor: string): void;
+            setHintTextColor(hintTextColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TextField.hintType> property.
@@ -69553,7 +70149,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.TextField.keyboardToolbarColor> property.
              * @deprecated Set the value using <Titanium.UI.TextField.keyboardToolbarColor> instead.
              */
-            setKeyboardToolbarColor(keyboardToolbarColor: string): void;
+            setKeyboardToolbarColor(keyboardToolbarColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.TextField.keyboardToolbarHeight> property.
@@ -70228,7 +70824,7 @@ declare namespace Titanium {
             /**
              * Background color for the toolbar, as a color name or hex triplet.
              */
-            barColor: string;
+            barColor: string | Titanium.UI.Color;
 
             /**
              * Array of this view's child views.
@@ -70405,7 +71001,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Toolbar.barColor> property.
              * @deprecated Access <Titanium.UI.Toolbar.barColor> instead.
              */
-            getBarColor(): string;
+            getBarColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Toolbar.children> property.
@@ -70635,7 +71231,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Toolbar.barColor> property.
              * @deprecated Set the value using <Titanium.UI.Toolbar.barColor> instead.
              */
-            setBarColor(barColor: string): void;
+            setBarColor(barColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Toolbar.contentInsetEndWithActions> property.
@@ -71252,7 +71848,7 @@ declare namespace Titanium {
             /**
              * Background color of the view, as a color name or hex triplet.
              */
-            backgroundColor: string;
+            backgroundColor: string | Titanium.UI.Color;
 
             /**
              * Disabled background color of the view, as a color name or hex triplet.
@@ -71297,7 +71893,7 @@ declare namespace Titanium {
             /**
              * Selected background color of the view, as a color name or hex triplet.
              */
-            backgroundSelectedColor: string;
+            backgroundSelectedColor: string | Titanium.UI.Color;
 
             /**
              * Selected background image url for the view, specified as a local file path or URL.
@@ -71312,12 +71908,12 @@ declare namespace Titanium {
             /**
              * Border color of the view, as a color name or hex triplet.
              */
-            borderColor: string;
+            borderColor: string | Titanium.UI.Color;
 
             /**
              * Radius for the rounded corners of the view's border.
              */
-            borderRadius: number;
+            borderRadius: number | string | number[] | string[];
 
             /**
              * Border width of the view.
@@ -71414,7 +72010,7 @@ declare namespace Titanium {
              * Background color of the wrapper view when this view is used as either <Titanium.UI.ListView.pullView> or <Titanium.UI.TableView.headerPullView>.
              * Defaults to `undefined`. Results in a light grey background color on the wrapper view.
              */
-            pullBackgroundColor: string;
+            pullBackgroundColor: string | Titanium.UI.Color;
 
             /**
              * The bounding box of the view relative to its parent, in system units.
@@ -71464,7 +72060,7 @@ declare namespace Titanium {
             /**
              * The view's tintColor
              */
-            tintColor: string;
+            tintColor: string | Titanium.UI.Color;
 
             /**
              * The view's top position.
@@ -71519,7 +72115,7 @@ declare namespace Titanium {
             /**
              * Determines the color of the shadow.
              */
-            viewShadowColor: string;
+            viewShadowColor: string | Titanium.UI.Color;
 
             /**
              * Determines the offset for the shadow of the view.
@@ -71633,7 +72229,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.View.backgroundColor> property.
              * @deprecated Access <Titanium.UI.View.backgroundColor> instead.
              */
-            getBackgroundColor(): string;
+            getBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.View.backgroundDisabledColor> property.
@@ -71687,7 +72283,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.View.backgroundSelectedColor> property.
              * @deprecated Access <Titanium.UI.View.backgroundSelectedColor> instead.
              */
-            getBackgroundSelectedColor(): string;
+            getBackgroundSelectedColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.View.backgroundSelectedImage> property.
@@ -71705,13 +72301,13 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.View.borderColor> property.
              * @deprecated Access <Titanium.UI.View.borderColor> instead.
              */
-            getBorderColor(): string;
+            getBorderColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.View.borderRadius> property.
              * @deprecated Access <Titanium.UI.View.borderRadius> instead.
              */
-            getBorderRadius(): number;
+            getBorderRadius(): number | string | number[] | string[];
 
             /**
              * Gets the value of the <Titanium.UI.View.borderWidth> property.
@@ -71819,7 +72415,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.View.pullBackgroundColor> property.
              * @deprecated Access <Titanium.UI.View.pullBackgroundColor> instead.
              */
-            getPullBackgroundColor(): string;
+            getPullBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.View.rect> property.
@@ -71879,7 +72475,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.View.tintColor> property.
              * @deprecated Access <Titanium.UI.View.tintColor> instead.
              */
-            getTintColor(): string;
+            getTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.View.top> property.
@@ -71950,7 +72546,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.View.viewShadowColor> property.
              * @deprecated Access <Titanium.UI.View.viewShadowColor> instead.
              */
-            getViewShadowColor(): string;
+            getViewShadowColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.View.viewShadowOffset> property.
@@ -72051,7 +72647,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.View.backgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.View.backgroundColor> instead.
              */
-            setBackgroundColor(backgroundColor: string): void;
+            setBackgroundColor(backgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.View.backgroundDisabledColor> property.
@@ -72105,7 +72701,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.View.backgroundSelectedColor> property.
              * @deprecated Set the value using <Titanium.UI.View.backgroundSelectedColor> instead.
              */
-            setBackgroundSelectedColor(backgroundSelectedColor: string): void;
+            setBackgroundSelectedColor(backgroundSelectedColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.View.backgroundSelectedImage> property.
@@ -72123,13 +72719,13 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.View.borderColor> property.
              * @deprecated Set the value using <Titanium.UI.View.borderColor> instead.
              */
-            setBorderColor(borderColor: string): void;
+            setBorderColor(borderColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.View.borderRadius> property.
              * @deprecated Set the value using <Titanium.UI.View.borderRadius> instead.
              */
-            setBorderRadius(borderRadius: number): void;
+            setBorderRadius(borderRadius: number | string | number[] | string[]): void;
 
             /**
              * Sets the value of the <Titanium.UI.View.borderWidth> property.
@@ -72231,7 +72827,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.View.pullBackgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.View.pullBackgroundColor> instead.
              */
-            setPullBackgroundColor(pullBackgroundColor: string): void;
+            setPullBackgroundColor(pullBackgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.View.right> property.
@@ -72279,7 +72875,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.View.tintColor> property.
              * @deprecated Set the value using <Titanium.UI.View.tintColor> instead.
              */
-            setTintColor(tintColor: string): void;
+            setTintColor(tintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.View.top> property.
@@ -72345,7 +72941,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.View.viewShadowColor> property.
              * @deprecated Set the value using <Titanium.UI.View.viewShadowColor> instead.
              */
-            setViewShadowColor(viewShadowColor: string): void;
+            setViewShadowColor(viewShadowColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.View.viewShadowOffset> property.
@@ -73298,7 +73894,7 @@ declare namespace Titanium {
             /**
              * Adds a user script.
              */
-            addUserScript(source: string, injectionTime: number, mainFrameOnly: boolean): void;
+            addUserScript(params: UserScriptParams): void;
 
             /**
              * An object which maintains a list of visited pages used to go back and forward to the most recent page.
@@ -74473,12 +75069,12 @@ declare namespace Titanium {
             /**
              * Background color of the window, as a color name or hex triplet.
              */
-            backgroundColor: string;
+            backgroundColor: string | Titanium.UI.Color;
 
             /**
              * Background color for the nav bar, as a color name or hex triplet.
              */
-            barColor: string;
+            barColor: string | Titanium.UI.Color;
 
             /**
              * Background image for the nav bar, specified as a URL to a local image.
@@ -74489,6 +75085,11 @@ declare namespace Titanium {
              * Window's bottom position, in platform-specific units.
              */
             bottom: number | string;
+
+            /**
+             * Determines whether this Window is closed.
+             */
+            readonly closed: boolean;
 
             /**
              * Boolean value indicating if the application should exit when the Android
@@ -74511,6 +75112,11 @@ declare namespace Titanium {
              * Treat the content of the window as secure, preventing it from appearing in screenshots or from being viewed on non-secure displays.
              */
             flagSecure: boolean;
+
+            /**
+             * Determines whether this TextArea has focus.
+             */
+            readonly focused: boolean;
 
             /**
              * Boolean value indicating if the window is fullscreen.
@@ -74595,7 +75201,7 @@ declare namespace Titanium {
             /**
              * The tintColor to apply to the navigation bar.
              */
-            navTintColor: string;
+            navTintColor: string | Titanium.UI.Color;
 
             /**
              * The <Titanium.UI.NavigationWindow> instance hosting this window.
@@ -74865,13 +75471,13 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Window.backgroundColor> property.
              * @deprecated Access <Titanium.UI.Window.backgroundColor> instead.
              */
-            getBackgroundColor(): string;
+            getBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Window.barColor> property.
              * @deprecated Access <Titanium.UI.Window.barColor> instead.
              */
-            getBarColor(): string;
+            getBarColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Window.barImage> property.
@@ -74884,6 +75490,12 @@ declare namespace Titanium {
              * @deprecated Access <Titanium.UI.Window.bottom> instead.
              */
             getBottom(): number | string;
+
+            /**
+             * Gets the value of the <Titanium.UI.Window.closed> property.
+             * @deprecated Access <Titanium.UI.Window.closed> instead.
+             */
+            getClosed(): boolean;
 
             /**
              * Gets the value of the <Titanium.UI.Window.exitOnClose> property.
@@ -74908,6 +75520,12 @@ declare namespace Titanium {
              * @deprecated Access <Titanium.UI.Window.flagSecure> instead.
              */
             getFlagSecure(): boolean;
+
+            /**
+             * Gets the value of the <Titanium.UI.Window.focused> property.
+             * @deprecated Access <Titanium.UI.Window.focused> instead.
+             */
+            getFocused(): boolean;
 
             /**
              * Gets the value of the <Titanium.UI.Window.fullscreen> property.
@@ -75009,7 +75627,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.Window.navTintColor> property.
              * @deprecated Access <Titanium.UI.Window.navTintColor> instead.
              */
-            getNavTintColor(): string;
+            getNavTintColor(): string | Titanium.UI.Color;
 
             /**
              * Gets the value of the <Titanium.UI.Window.navigationWindow> property.
@@ -75307,13 +75925,13 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Window.backgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.Window.backgroundColor> instead.
              */
-            setBackgroundColor(backgroundColor: string): void;
+            setBackgroundColor(backgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Window.barColor> property.
              * @deprecated Set the value using <Titanium.UI.Window.barColor> instead.
              */
-            setBarColor(barColor: string): void;
+            setBarColor(barColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Window.barImage> property.
@@ -75451,7 +76069,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.Window.navTintColor> property.
              * @deprecated Set the value using <Titanium.UI.Window.navTintColor> instead.
              */
-            setNavTintColor(navTintColor: string): void;
+            setNavTintColor(navTintColor: string | Titanium.UI.Color): void;
 
             /**
              * Sets the value of the <Titanium.UI.Window.onBack> property.
@@ -75662,9 +76280,9 @@ declare namespace Titanium {
             static readonly forceTouchSupported: boolean;
 
             /**
-             * Sets the global status bar background color for the application.
+             * Sets the global status bar background color for the application. Android does not support setting instances of <Titanium.UI.Color>
              */
-            static statusBarBackgroundColor: string;
+            static statusBarBackgroundColor: string | Titanium.UI.Color;
 
             /**
              * Adds the specified callback as an event listener for the named event.
@@ -75694,6 +76312,7 @@ declare namespace Titanium {
 
             /**
              * Creates and returns an instance of <Titanium.UI.iOS.ApplicationShortcuts>.
+             * @deprecated Use [Titanium.UI.Shortcut](Titanium.UI.Shortcut) instead.
              */
             static createApplicationShortcuts(parameters?: Dictionary<Titanium.UI.iOS.ApplicationShortcuts>): Titanium.UI.iOS.ApplicationShortcuts;
 
@@ -75882,7 +76501,7 @@ declare namespace Titanium {
              * Gets the value of the <Titanium.UI.iOS.statusBarBackgroundColor> property.
              * @deprecated Access <Titanium.UI.iOS.statusBarBackgroundColor> instead.
              */
-            static getStatusBarBackgroundColor(): string;
+            static getStatusBarBackgroundColor(): string | Titanium.UI.Color;
 
             /**
              * Removes the specified callback as an event listener for the named event.
@@ -75929,7 +76548,7 @@ declare namespace Titanium {
              * Sets the value of the <Titanium.UI.iOS.statusBarBackgroundColor> property.
              * @deprecated Set the value using <Titanium.UI.iOS.statusBarBackgroundColor> instead.
              */
-            static setStatusBarBackgroundColor(statusBarBackgroundColor: string): void;
+            static setStatusBarBackgroundColor(statusBarBackgroundColor: string | Titanium.UI.Color): void;
 
             /**
              * Get image from SF Symbols provided by Apple.
@@ -80326,6 +80945,11 @@ declare namespace Titanium {
         static getString(key: string, hint?: string): string;
 
         /**
+         * Parses a number from the given string using the current or given locale.
+         */
+        static parseDecimal(text: string, locale?: string): number;
+
+        /**
          * Removes the specified callback as an event listener for the named event.
          */
         static removeEventListener<K extends keyof LocaleEventMap>(name: K, callback: (this: Titanium.Locale, event: LocaleEventMap[K]) => void): void;
@@ -81965,6 +82589,30 @@ declare namespace Titanium {
 
     }
     /**
+     * Base event for class Titanium.UI
+     */
+    interface UIBaseEvent extends Ti.Event {
+        /**
+         * Source object that fired the event.
+         */
+        source: Titanium.UI;
+
+    }
+    /**
+     * Fired when the `userInterfaceStyle` changes.
+     */
+    interface UI_userinterfacestyle_Event extends UIBaseEvent {
+        /**
+         * The new userInterfaceStyle value.
+         */
+        value: number;
+
+    }
+    interface UIEventMap extends ProxyEventMap {
+        userinterfacestyle: UI_userinterfacestyle_Event;
+
+    }
+    /**
      * The main <Titanium.UI> module.
      */
     class UI extends Titanium.Module {
@@ -81977,7 +82625,7 @@ declare namespace Titanium {
          * Sets the background color of the master view (when there are no windows or other top-level
          * controls displayed).
          */
-        static backgroundColor: string;
+        static backgroundColor: string | Titanium.UI.Color;
 
         /**
          * Local path or URL to an image file for setting a background for the master view (when there
@@ -82014,7 +82662,8 @@ declare namespace Titanium {
         static orientation: never;
 
         /**
-         * When running on Android, iOS 10 or lower, or Windows the value to return form the applications colorset.
+         * The current mode for the device (corresponding to night/dark or light/normal)
+         * @deprecated Use [userInterfaceStyle](Titanium.UI.userInterfaceStyle) instead.
          */
         static semanticColorType: string;
 
@@ -82022,7 +82671,17 @@ declare namespace Titanium {
          * Sets the global tint color of the application. It is inherited by the child views and can be
          * overwritten by them using the `tintColor` property.
          */
-        static tintColor: string;
+        static tintColor: string | Titanium.UI.Color;
+
+        /**
+         * The style associated with the user interface.
+         */
+        static readonly userInterfaceStyle: number;
+
+        /**
+         * Adds the specified callback as an event listener for the named event.
+         */
+        static addEventListener<K extends keyof UIEventMap>(name: K, callback: (this: Titanium.UI, event: UIEventMap[K]) => void): void;
 
         /**
          * Adds the specified callback as an event listener for the named event.
@@ -82080,6 +82739,11 @@ declare namespace Titanium {
          * Creates and returns an instance of <Titanium.UI.ButtonBar>.
          */
         static createButtonBar(parameters?: Dictionary<Titanium.UI.ButtonBar>): Titanium.UI.ButtonBar;
+
+        /**
+         * Creates and returns an instance of <Titanium.UI.Color>.
+         */
+        static createColor(parameters?: Dictionary<Titanium.UI.Color>): Titanium.UI.Color;
 
         /**
          * Creates and returns an instance of <Titanium.UI.CoverFlowView>.
@@ -82193,6 +82857,11 @@ declare namespace Titanium {
         static createSearchBar(parameters?: Dictionary<Titanium.UI.SearchBar>): Titanium.UI.SearchBar;
 
         /**
+         * Creates and returns an instance of <Titanium.UI.Shortcut>.
+         */
+        static createShortcut(parameters?: Dictionary<Titanium.UI.Shortcut>): Titanium.UI.Shortcut;
+
+        /**
          * Creates and returns an instance of <Titanium.UI.ShortcutItem>.
          */
         static createShortcutItem(parameters?: Dictionary<Titanium.UI.ShortcutItem>): Titanium.UI.ShortcutItem;
@@ -82269,8 +82938,14 @@ declare namespace Titanium {
 
         /**
          * Fetches the correct color to be used with a UI element dependent on the users current dark mode setting on iOS 13 and above, or the [Titanium.UI.semanticColorType](Titanium.UI.semanticColorType) setting in other instances.
+         * Will return a valid string value to be used for color properties on Android. This may be a hex string or an `rgba()` function.
          */
-        static fetchSemanticColor(colorName: string): string;
+        static fetchSemanticColor(colorName: string): Titanium.UI.Color | string;
+
+        /**
+         * Fires a synthesized event to any registered listeners.
+         */
+        static fireEvent<K extends keyof UIEventMap>(name: K, event?: UIEventMap[K]): void;
 
         /**
          * Fires a synthesized event to any registered listeners.
@@ -82287,7 +82962,7 @@ declare namespace Titanium {
          * Gets the value of the <Titanium.UI.backgroundColor> property.
          * @deprecated Access <Titanium.UI.backgroundColor> instead.
          */
-        static getBackgroundColor(): string;
+        static getBackgroundColor(): string | Titanium.UI.Color;
 
         /**
          * Gets the value of the <Titanium.UI.backgroundImage> property.
@@ -82327,7 +83002,7 @@ declare namespace Titanium {
 
         /**
          * Gets the value of the <Titanium.UI.semanticColorType> property.
-         * @deprecated Access <Titanium.UI.semanticColorType> instead.
+         * @deprecated Use [userInterfaceStyle](Titanium.UI.userInterfaceStyle) instead.
          */
         static getSemanticColorType(): string;
 
@@ -82335,7 +83010,18 @@ declare namespace Titanium {
          * Gets the value of the <Titanium.UI.tintColor> property.
          * @deprecated Access <Titanium.UI.tintColor> instead.
          */
-        static getTintColor(): string;
+        static getTintColor(): string | Titanium.UI.Color;
+
+        /**
+         * Gets the value of the <Titanium.UI.userInterfaceStyle> property.
+         * @deprecated Access <Titanium.UI.userInterfaceStyle> instead.
+         */
+        static getUserInterfaceStyle(): number;
+
+        /**
+         * Removes the specified callback as an event listener for the named event.
+         */
+        static removeEventListener<K extends keyof UIEventMap>(name: K, callback: (this: Titanium.UI, event: UIEventMap[K]) => void): void;
 
         /**
          * Removes the specified callback as an event listener for the named event.
@@ -82346,7 +83032,7 @@ declare namespace Titanium {
          * Sets the value of the <Titanium.UI.backgroundColor> property.
          * @deprecated Set the value using <Titanium.UI.backgroundColor> instead.
          */
-        static setBackgroundColor(backgroundColor: string): void;
+        static setBackgroundColor(backgroundColor: string | Titanium.UI.Color): void;
 
         /**
          * Sets the value of the <Titanium.UI.backgroundImage> property.
@@ -82380,7 +83066,7 @@ declare namespace Titanium {
 
         /**
          * Sets the value of the <Titanium.UI.semanticColorType> property.
-         * @deprecated Set the value using <Titanium.UI.semanticColorType> instead.
+         * @deprecated Use [userInterfaceStyle](Titanium.UI.userInterfaceStyle) instead.
          */
         static setSemanticColorType(semanticColorType: string): void;
 
@@ -82388,7 +83074,7 @@ declare namespace Titanium {
          * Sets the value of the <Titanium.UI.tintColor> property.
          * @deprecated Set the value using <Titanium.UI.tintColor> instead.
          */
-        static setTintColor(tintColor: string): void;
+        static setTintColor(tintColor: string | Titanium.UI.Color): void;
 
     }
     /**
@@ -83293,6 +83979,27 @@ interface UserNotificationSettings {
 
 }
 /**
+ * Dictionary of options for the <Titanium.UI.WebView.addUserScript> method.
+ */
+interface UserScriptParams {
+    /**
+     * The time when the script should be injected into the webpage.
+     */
+    injectionTime?: number;
+
+    /**
+     * A Boolean value indicating whether the script should be injected only into the
+     * main frame (true) or into all frames (false).
+     */
+    mainFrameOnly?: boolean;
+
+    /**
+     * A script that can be injected into a webpage.
+     */
+    source?: string;
+
+}
+/**
  * Pass an object with the following key-value pairs:
  *   * `view` (Titanium.UI.View): View to insert
  *   * `position` (Number): Position in the [children](Titanium.UI.View.children) array of
@@ -83658,7 +84365,7 @@ interface shadowDict {
     /**
      * Color name or hex triplet specifying the color of the shadow.
      */
-    color?: string;
+    color?: string | Titanium.UI.Color;
 
     /**
      * <Size> with the properties `width` and `height` used as the horizontal
@@ -83784,7 +84491,7 @@ interface titleAttributesParams {
     /**
      * Color of the window title, as a color name or hex triplet.
      */
-    color?: string;
+    color?: string | Titanium.UI.Color;
 
     /**
      * Font to use for the window title.
@@ -83824,12 +84531,12 @@ interface windowToolbarParam {
     /**
      * Background color for the toolbar, as a color name or hex triplet.
      */
-    barColor?: string;
+    barColor?: string | Titanium.UI.Color;
 
     /**
      * The tintColor to apply to the tool bar.
      */
-    tintColor?: string;
+    tintColor?: string | Titanium.UI.Color;
 
     /**
      * Defines if the toolbar is translucent.

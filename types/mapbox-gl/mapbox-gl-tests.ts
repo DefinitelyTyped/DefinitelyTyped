@@ -124,6 +124,7 @@ map.on('load', function () {
         clusterMinPoints: 8,
         clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
         clusterProperties: { sum: ['+', ['get', 'property']] },
+        filter: 'something',
     });
 
     map.addLayer({
@@ -343,6 +344,15 @@ var videoSourceObj = new mapboxgl.VideoSource({
 });
 map.addSource('some id', videoSourceObj); // add
 map.removeSource('some id'); // remove
+
+/**
+ * Vector Source
+ */
+const vectorSource = map.getSource('tile-source') as mapboxgl.VectorSourceImpl;
+// $ExpectType VectorSourceImpl
+vectorSource.setTiles(['a', 'b']);
+// $ExpectType VectorSourceImpl
+vectorSource.setUrl('https://github.com');
 
 /**
  * Add Raster Source /// made URL optional to allow only tiles.
@@ -867,6 +877,8 @@ map.setMinPitch();
 map.setMaxPitch(null);
 // $ExpectType Map
 map.setMaxPitch();
+// $ExpectType Map
+map.resetNorthPitch(animOpts);
 
 // $ExpectType number
 map.getMinPitch();

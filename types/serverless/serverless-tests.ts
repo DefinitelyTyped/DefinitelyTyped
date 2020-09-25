@@ -121,6 +121,7 @@ const awsServerless: Aws.Serverless = {
         awsKmsKeyArn: 'testAwsKmsKeyArn'
     },
     frameworkVersion: 'testFrameworkVersion',
+    configValidationMode: 'error',
     provider: {
         name: 'aws',
         runtime: 'testRuntime',
