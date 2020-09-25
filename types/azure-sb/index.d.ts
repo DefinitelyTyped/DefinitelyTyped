@@ -139,7 +139,7 @@ export namespace Azure.ServiceBus {
         ChannelUri?: string;
         DeviceToken?: string;
         Expiry?: Date;
-        gcmRegistrationId?: string;
+        GcmRegistrationId?: string;
         MpnsHeaders?: any;
         RegistrationId: string;
         Tags?: string;
