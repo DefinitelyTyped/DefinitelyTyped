@@ -897,13 +897,10 @@ expectType<mapboxgl.Map>(
         expectType<undefined>(ev.originalEvent);
     }),
 );
-expectType<mapboxgl.Map>(
-    map.on('idle', ev => {
-        expectType<mapboxgl.MapboxEvent>(ev);
-        expectType<mapboxgl.Map>(ev.target);
-        expectType<undefined>(ev.originalEvent);
-    }),
-);
+// $ExpectType Map
+map.on('idle', ev => {
+    ev; // $ExpectType MapboxEvent<undefined> & EventData
+});
 expectType<mapboxgl.Map>(
     map.on('remove', ev => {
         expectType<mapboxgl.MapboxEvent>(ev);
