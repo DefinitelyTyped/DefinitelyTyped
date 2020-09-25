@@ -193,11 +193,11 @@ declare module "mongoose" {
 
   // ensure that if an empty document type is passed, we allow any properties
   // for backwards compatibility
-  export type CreateQuery<D> = HasJustId<CreateDocumentDefinition<D>> extends true 
+  export type CreateQuery<D> = (HasJustId<CreateDocumentDefinition<D>> extends true 
     ? { _id?: any } & Record<string, any> 
     : D extends { _id: infer TId } 
       ? mongodb.OptionalId<CreateDocumentDefinition<D> & { _id: TId }>
-      : CreateDocumentDefinition<D>
+      : CreateDocumentDefinition<D>) & (D extends { id: infer TDid } ? & { id: TDid } : {})
 
   /**
    * Gets and optionally overwrites the function used to pluralize collection names
@@ -2246,7 +2246,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param {Boolean|Object} bool defaults to true
      */
-    lean<P = DocumentDefinition<DocType>>(bool?: boolean | object): Query<T extends Array<any> ? P[] : (P | null)> & QueryHelpers;
+    lean<P = DocumentDefinition<DocType>, ResultType = P & (DocType extends { id: infer TDid } ? & { id: TDid } : never)>(bool?: boolean | object): Query<T extends Array<any> ? ResultType[] : (ResultType | null)> & QueryHelpers;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;

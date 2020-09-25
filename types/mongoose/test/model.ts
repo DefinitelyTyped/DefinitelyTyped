@@ -814,3 +814,30 @@ ModelWithFunctionInSchema.create({ name: "test", jobs: [], date: [123] });
 
 // $ExpectError
 ModelWithFunctionInSchema.create({ name: "test", jobs: [], objectId: [123] });
+
+// Tests to ensure that the 'id' property is retained in schemas in which it is manually defined
+// we are only testing the types, not the functionality, so no mongoose.Schema needed
+interface ModelWithDeclaredId { 
+    id: string 
+}
+var ModelWithDeclaredIdInSchema = mongoose.model<ModelWithDeclaredId & mongoose.Document>("ModelWithDeclaredId", {} as any);
+ModelWithDeclaredIdInSchema.create({ id: 'a' }).then(created => { 
+    console.log(created.id); 
+});
+var withId: Promise<ModelWithDeclaredId | null> = ModelWithDeclaredIdInSchema.findOne().exec();
+var withIds: Promise<ModelWithDeclaredId[]> = ModelWithDeclaredIdInSchema.find({ id: 'a' }).exec();
+var leanWithId: Promise<ModelWithDeclaredId | null> = ModelWithDeclaredIdInSchema.findOne({ id: 'a' }).lean().exec();
+var leanWithIds: Promise<ModelWithDeclaredId[]> = ModelWithDeclaredIdInSchema.find().lean().exec();
+
+
+interface ModelWithOptionalDeclaredId { 
+    id?: string 
+}
+var ModelWithOptionalDeclaredIdInSchema = mongoose.model<ModelWithOptionalDeclaredId & mongoose.Document>("ModelWithOptionalDeclaredId", {} as any);
+ModelWithOptionalDeclaredIdInSchema.create({ id: 'a' }).then(created => { 
+    console.log(created.id); 
+});
+var optionalWithId: Promise<ModelWithOptionalDeclaredId | null> = ModelWithOptionalDeclaredIdInSchema.findOne().exec();
+var optionalWithIds: Promise<ModelWithOptionalDeclaredId[]> = ModelWithOptionalDeclaredIdInSchema.find({ id: 'a' }).exec();
+var leanOptionalWithId: Promise<ModelWithOptionalDeclaredId | null> = ModelWithOptionalDeclaredIdInSchema.findOne({ id: 'a' }).lean().exec();
+var leanOptionalWithIds: Promise<ModelWithOptionalDeclaredId[]> = ModelWithOptionalDeclaredIdInSchema.find().lean().exec();
