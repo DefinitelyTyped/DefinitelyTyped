@@ -1,9 +1,9 @@
-import { init, IOnfidoResponse } from 'onfido-sdk-ui';
+import { init, iOnfidoResponse } from 'onfido-sdk-ui';
 
 const fidoObj = init({
     token: 'someTokenHere',
     containerId: 'onfido-mount',
-    onComplete: (data: IOnfidoResponse) => {
+    onComplete: (data: iOnfidoResponse) => {
         // Some completion here..
     },
     steps: [

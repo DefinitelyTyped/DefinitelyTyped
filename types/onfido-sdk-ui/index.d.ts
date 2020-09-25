@@ -4,7 +4,7 @@
 //                 aktary <https://github.com/aktary>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface IOnfidoResponse {
+interface iOnfidoResponse {
     document_front: {
         id: string;
         type: string;
@@ -16,15 +16,15 @@ interface IOnfidoResponse {
     };
 }
 
-interface IOnfidoConfig {
+interface iOnfidoConfig {
     token?: string;
     containerId?: string;
-    onComplete?: (data: IOnfidoResponse) => null;
+    onComplete?: (data: iOnfidoResponse) => null;
     onModalRequestClose?: () => null;
     isModalOpen?: boolean;
     useModal?: boolean;
 
-    steps?: (
+    steps?: Array<(
         | string
         | {
               type: string;
@@ -50,13 +50,13 @@ interface IOnfidoConfig {
                   submessage?: string;
               };
           }
-    )[];
+    )>;
 }
 
-interface IOnfidoHandle {
+interface iOnfidoHandle {
     tearDown(): null;
 
-    setOptions(opts: IOnfidoConfig): null;
+    setOptions(opts: iOnfidoConfig): null;
 }
 
-export function init(e: any): IOnfidoHandle;
+export function init(e: any): iOnfidoHandle;
