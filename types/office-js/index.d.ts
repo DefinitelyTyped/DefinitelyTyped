@@ -330,7 +330,37 @@ declare namespace Office {
      * @param useShortNamespace True to use the shortcut alias; otherwise false to disable it. The default is true.
      */
     function useShortNamespace(useShortNamespace: boolean): void;
+    /**
+     * Represents the add-in.
+     */
+    const addin: Addin;
     // Enumerations
+    /**
+     * Provides options to determine the startup behavior of the add-in upon next start-up.
+     */
+    enum StartupBehavior {
+        /**
+         * The add-in does not load until opened by the user.
+         */
+        none = 'None',
+        /**
+         * Load the add-in but do not show UI.
+         */
+        load = 'Load',
+    }
+    /**
+     * Visibility mode of the add-in.
+     */
+    enum VisibilityMode {
+        /**
+         * UI is Hidden
+         */
+        hidden = 'Hidden',
+        /**
+         * Displayed as taskpane
+         */
+        taskpane = 'Taskpane',
+    }
     /**
      * Specifies the result of an asynchronous call.
      * 
@@ -481,7 +511,51 @@ declare namespace Office {
         */
         value: T;
     }
-	
+	/**
+     * Message used in the `onVisibilityModeChanged` invocation.
+     */
+    interface VisibilityModeChangedMessage {
+        /**
+         * Visibility changed state.
+         */
+        visibilityMode: Office.VisibilityMode;
+    }
+    /**
+     * Function type to turn off the event.
+     */
+    type RemoveEventListener = () => Promise<void>;
+    /**
+     * Represents add-in level functionality for operating or configuring various aspects of the add-in.
+     */
+    interface Addin {
+        /**
+         * Sets the startup behavior for the add-in for when the document is opened next time.
+         * @param behavior - Specifies startup behavior of the add-in.
+         */
+        setStartupBehavior(behavior: Office.StartupBehavior): Promise<void>;
+        /**
+         * Gets the current startup behavior for the add-in.
+         */
+        getStartupBehavior(): Promise<Office.StartupBehavior>;
+        /**
+         * Shows the task pane associated with the add-in.
+         * @returns A promise that is resolved when the UI is shown.
+         */
+        showAsTaskpane(): Promise<void>;
+        /**
+         * Hides the task pane.
+         * @returns A promise that is resolved when the UI is hidden.
+         */
+        hide(): Promise<void>;
+        /**
+         * Adds a listener for the `onVisbilityModeChanged` event.
+         * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
+         * @returns A promise that resolves when the listener is added.
+         */
+        onVisibilityModeChanged(
+            listener: (message: VisibilityModeChangedMessage) => void,
+        ): Promise<RemoveEventListener>;
+    }
     /**
      * An interface that contains all the functionality provided to manage the state of the Office ribbon.
 	 *
