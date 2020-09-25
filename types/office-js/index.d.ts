@@ -14034,7 +14034,7 @@ declare namespace Office {
          *
          * 1. The owner shares their **Drafts** folder with the delegate.
          *
-         * 2. The delegate saves a draft message then moves it from own **Drafts** folder to the shared **Drafts** folder.
+         * 2. The delegate saves a draft message then moves it from their own **Drafts** folder to the shared **Drafts** folder.
          *
          * 3. The delegate opens the draft from the shared **Drafts** folder.
          *
@@ -14064,7 +14064,7 @@ declare namespace Office {
          *
          * 1. The owner shares their **Drafts** folder with the delegate.
          *
-         * 2. The delegate saves a draft message then moves it from own **Drafts** folder to the shared **Drafts** folder.
+         * 2. The delegate saves a draft message then moves it from their own **Drafts** folder to the shared **Drafts** folder.
          *
          * 3. The delegate opens the draft from the shared **Drafts** folder.
          *
