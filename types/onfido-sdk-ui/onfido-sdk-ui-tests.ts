@@ -6,14 +6,16 @@ const fidoObj = init({
     onComplete: (data: IOnfidoResponse) => {
         // Some completion here..
     },
-    steps: [{
-        type: 'welcome',
-        options: {
-            title: 'Open your new bank account',
+    steps: [
+        {
+            type: 'welcome',
+            options: {
+                title: 'Open your new bank account',
+            },
         },
-    },
         'document',
-        'face'],
+        'face',
+    ],
     language: {
         locale: 'en',
         phrases: 'some phrase',
@@ -33,11 +35,7 @@ const fidoObj = init({
 });
 
 // Changing options at runtime..
-const AdditionalOptions: string [] = [
-    'document',
-    'face',
-    'complete'
-]
+const AdditionalOptions: string[] = ['document', 'face', 'complete'];
 
 fidoObj.setOptions({
     steps: [
@@ -45,7 +43,7 @@ fidoObj.setOptions({
             type: 'welcome',
             options: { title: 'New title!' },
         },
-        ...AdditionalOptions
+        ...AdditionalOptions,
     ],
 });
 
