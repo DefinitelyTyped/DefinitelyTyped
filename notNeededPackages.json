@@ -1114,7 +1114,7 @@
             "libraryName": "elasticsearch",
             "typingsPackageName": "elasticsearch",
             "sourceRepoURL": "https://github.com/elastic/elasticsearch-js",
-            "asOfVersion": "6.0"
+            "asOfVersion": "6.0.0"
         },
         {
             "libraryName": "electron",
