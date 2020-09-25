@@ -77,7 +77,7 @@ const allConfig = {
     callbacks: {
         signIgn: (user: GenericObject, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
-        session: (session: NextAuthTypes.Session, user: GenericObject) => Promise.resolve<any>(user),
+        session: (session: NextAuthTypes.DefaultSessionPayload, user: GenericObject) => Promise.resolve<any>(user),
         jwt: (
             token: GenericObject,
             user: GenericObject,

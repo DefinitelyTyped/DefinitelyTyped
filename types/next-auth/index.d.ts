@@ -126,4 +126,4 @@ interface Callbacks {
 
 declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
 export default NextAuth;
-export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, Callbacks };
+export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, DefaultSessionPayload, JWTOptions, Callbacks };
