@@ -1,10 +1,14 @@
-// Type definitions for D3JS d3-geo module 1.11
+// Type definitions for D3JS d3-geo module 1.12
 // Project: https://github.com/d3/d3-geo/, https://d3js.org/d3-geo
-// Definitions by: Hugues Stefanski <https://github.com/ledragon>, Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Hugues Stefanski <https://github.com/ledragon>
+//                 Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.11.3
+// Last module patch version validated against: 1.12.1
 
 import * as GeoJSON from 'geojson';
 
@@ -649,17 +653,12 @@ export interface GeoProjection extends GeoStreamWrapper {
     (point: [number, number]): [number, number] | null;
 
     /**
-     * Returns the current center of the projection, which defaults to ⟨0°,0°⟩.
-     */
-    center(): [number, number];
-    /**
-     * Sets the projection’s center to the specified center,
-     * a two-element array of longitude and latitude in degrees and returns the projection.
-     * The default is ⟨0°,0°⟩.
+     * Returns a new array [longitude, latitude] in degrees representing the unprojected point of the given projected point.
+     * May return null if the specified point has no defined projected position, such as when the point is outside the clipping bounds of the projection.
      *
-     * @param point A point specified as a two-dimensional array [longitude, latitude] in degrees.
+     * @param point The projected point, specified as a two-element array [x, y] (typically in pixels).
      */
-    center(point: [number, number]): this;
+    invert?(point: [number, number]): [number, number] | null;
 
     /**
      * Returns the current spherical clipping function.
@@ -738,6 +737,103 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param extent The extent bounds are specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left-side of the viewport, y₀ is the top, x₁ is the right and y₁ is the bottom.
      */
     clipExtent(extent: [[number, number], [number, number]]): this;
+
+    /**
+     * Returns the current scale factor; the default scale is projection-specific.
+     *
+     * The scale factor corresponds linearly to the distance between projected points; however, absolute scale factors are not equivalent across projections.
+     */
+    scale(): number;
+    /**
+     * Sets the projection’s scale factor to the specified value and returns the projection.
+     * The scale factor corresponds linearly to the distance between projected points; however, absolute scale factors are not equivalent across projections.
+     *
+     * @param scale Scale factor to be used for the projection; the default scale is projection-specific.
+     */
+    scale(scale: number): this;
+
+    /**
+     * Returns the current translation offset which defaults to [480, 250] and places ⟨0°,0°⟩ at the center of a 960×500 area.
+     * The translation offset determines the pixel coordinates of the projection’s center.
+     */
+    translate(): [number, number];
+    /**
+     * Sets the projection’s translation offset to the specified two-element array [tx, ty] and returns the projection.
+     * The translation offset determines the pixel coordinates of the projection’s center. The default translation offset places ⟨0°,0°⟩ at the center of a 960×500 area.
+     *
+     * @param point A two-element array [tx, ty] specifying the translation offset. The default translation offset of defaults to [480, 250] places ⟨0°,0°⟩ at the center of a 960×500 area.
+     */
+    translate(point: [number, number]): this;
+
+    /**
+     * Returns the current center of the projection, which defaults to ⟨0°,0°⟩.
+     */
+    center(): [number, number];
+    /**
+     * Sets the projection’s center to the specified center,
+     * a two-element array of longitude and latitude in degrees and returns the projection.
+     * The default is ⟨0°,0°⟩.
+     *
+     * @param point A point specified as a two-dimensional array [longitude, latitude] in degrees.
+     */
+    center(point: [number, number]): this;
+
+    /**
+     * Returns the projection’s current angle, which defaults to 0°.
+     */
+    angle(): number;
+    /**
+     * Sets the projection’s post-projection planar rotation angle to the specified angle in degrees and returns the projection.
+     * @param angle The new rotation angle of the projection.
+     */
+    angle(angle: number): this;
+
+    /**
+     * Returns true if x-reflection is enabled, which defaults to false.
+     */
+    reflectX(): boolean;
+    /**
+     * Sets whether or not the x-dimension is reflected (negated) in the output.
+     * @param reflect Whether or not the x-dimension is reflected (negated) in the output.
+     */
+    reflectX(reflect: boolean): this;
+
+    /**
+     * Returns true if y-reflection is enabled, which defaults to false.
+     */
+    reflectY(): boolean;
+    /**
+     * Sets whether or not the y-dimension is reflected (negated) in the output.
+     * @param reflect Whether or not the y-dimension is reflected (negated) in the output.
+     */
+    reflectY(reflect: boolean): this;
+
+    /**
+     * Returns the current rotation [lambda, phi, gamma] specifying the rotation angles in degrees about each spherical axis.
+     * (These correspond to yaw, pitch and roll.) which defaults [0, 0, 0].
+     */
+    rotate(): [number, number, number];
+
+    /**
+     * Sets the projection’s three-axis rotation to the specified angles, which must be a two- or three-element array of numbers.
+     *
+     * @param angles  A two- or three-element array of numbers [lambda, phi, gamma] specifying the rotation angles in degrees about each spherical axis.
+     * (These correspond to yaw, pitch and roll.) If the rotation angle gamma is omitted, it defaults to 0.
+     */
+    rotate(angles: [number, number] | [number, number, number]): this;
+
+    /**
+     * Returns the projection’s current resampling precision which defaults to square root of 0.5.
+     * This value corresponds to the Douglas–Peucker distance.
+     */
+    precision(): number;
+    /**
+     * Sets the threshold for the projection’s adaptive resampling to the specified value in pixels and returns the projection.
+     * This value corresponds to the Douglas–Peucker distance.
+     *
+     * @param precision A numeric value in pixels to use as the threshold for the projection’s adaptive resampling.
+     */
+    precision(precision: number): this;
 
     /**
      * Sets the projection’s scale and translate to fit the specified geographic feature in the center of the given extent.
@@ -878,75 +974,6 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
     fitHeight(height: number, object: ExtendedGeometryCollection): this;
-
-    /**
-     * Returns a new array [longitude, latitude] in degrees representing the unprojected point of the given projected point.
-     * May return null if the specified point has no defined projected position, such as when the point is outside the clipping bounds of the projection.
-     *
-     * @param point The projected point, specified as a two-element array [x, y] (typically in pixels).
-     */
-    invert?(point: [number, number]): [number, number] | null;
-
-    /**
-     * Returns the projection’s current resampling precision which defaults to square root of 0.5.
-     * This value corresponds to the Douglas–Peucker distance.
-     */
-    precision(): number;
-    /**
-     * Sets the threshold for the projection’s adaptive resampling to the specified value in pixels and returns the projection.
-     * This value corresponds to the Douglas–Peucker distance.
-     *
-     * @param precision A numeric value in pixels to use as the threshold for the projection’s adaptive resampling.
-     */
-    precision(precision: number): this;
-    /**
-     * Returns the projection’s current angle, which defaults to 0°.
-     */
-    angle(): number;
-    /**
-     * Sets the projection’s post-projection planar rotation angle to the specified angle in degrees and returns the projection.
-     * @param angle The new rotation angle of the projection.
-     */
-    angle(angle: number): this;
-    /**
-     * Returns the current rotation [lambda, phi, gamma] specifying the rotation angles in degrees about each spherical axis.
-     * (These correspond to yaw, pitch and roll.) which defaults [0, 0, 0].
-     */
-    rotate(): [number, number, number];
-    /**
-     * Sets the projection’s three-axis rotation to the specified angles, which must be a two- or three-element array of numbers.
-     *
-     * @param angles  A two- or three-element array of numbers [lambda, phi, gamma] specifying the rotation angles in degrees about each spherical axis.
-     * (These correspond to yaw, pitch and roll.) If the rotation angle gamma is omitted, it defaults to 0.
-     */
-    rotate(angles: [number, number] | [number, number, number]): this;
-
-    /**
-     * Returns the current scale factor; the default scale is projection-specific.
-     *
-     * The scale factor corresponds linearly to the distance between projected points; however, absolute scale factors are not equivalent across projections.
-     */
-    scale(): number;
-    /**
-     * Sets the projection’s scale factor to the specified value and returns the projection.
-     * The scale factor corresponds linearly to the distance between projected points; however, absolute scale factors are not equivalent across projections.
-     *
-     * @param scale Scale factor to be used for the projection; the default scale is projection-specific.
-     */
-    scale(scale: number): this;
-
-    /**
-     * Returns the current translation offset which defaults to [480, 250] and places ⟨0°,0°⟩ at the center of a 960×500 area.
-     * The translation offset determines the pixel coordinates of the projection’s center.
-     */
-    translate(): [number, number];
-    /**
-     * Sets the projection’s translation offset to the specified two-element array [tx, ty] and returns the projection.
-     * The translation offset determines the pixel coordinates of the projection’s center. The default translation offset places ⟨0°,0°⟩ at the center of a 960×500 area.
-     *
-     * @param point A two-element array [tx, ty] specifying the translation offset. The default translation offset of defaults to [480, 250] places ⟨0°,0°⟩ at the center of a 960×500 area.
-     */
-    translate(point: [number, number]): this;
 }
 
 /**

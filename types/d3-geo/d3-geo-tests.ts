@@ -449,6 +449,12 @@ constructedProjection = constructedProjection.center([0, 0]);
 const angle = constructedProjection.angle();
 constructedProjection = constructedProjection.angle(45);
 
+const reflectX: boolean = constructedProjection.reflectX();
+constructedProjection = constructedProjection.reflectX(true);
+
+const reflectY: boolean = constructedProjection.reflectY();
+constructedProjection = constructedProjection.reflectY(true);
+
 const rotate: [number, number, number] = constructedProjection.rotate();
 constructedProjection = constructedProjection.rotate([0, 0]);
 constructedProjection = constructedProjection.rotate([0, 0, 0]);
