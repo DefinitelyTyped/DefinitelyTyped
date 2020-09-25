@@ -83,8 +83,6 @@ declare module _ {
 
     type Collection<T> = List<T> | Dictionary<T>;
 
-    type EnumerableKey = string | number;
-
     type CollectionKey<V> =
         V extends never ? any
         : V extends List<any> ? number
@@ -106,8 +104,8 @@ declare module _ {
 
     type Iteratee<V, R, T extends TypeOfCollection<V, any> = TypeOfCollection<V>> =
         CollectionIterator<T, R, V> |
-        EnumerableKey |
-        EnumerableKey[] |
+        string | number |
+        (string | number)[] |
         Partial<T> |
         null |
         undefined;
@@ -115,7 +113,7 @@ declare module _ {
     type IterateeResult<I, T> =
         I extends (...args: any[]) => infer R ? R
         : I extends keyof T ? T[I]
-        : I extends EnumerableKey | EnumerableKey[] ? any
+        : I extends string | number | (string | number)[] ? any
         : I extends object ? boolean
         : I extends null | undefined ? T
         : never;
@@ -158,7 +156,7 @@ declare module _ {
     // if T is a list, assume that it contains pairs of some type, so any
     // if T isn't a list, there's no way that it can provide pairs, so never
     type PairValue<T> =
-        T extends Readonly<[EnumerableKey, infer TValue]> ? TValue
+        T extends Readonly<[string | number, infer TValue]> ? TValue
         : T extends List<infer TValue> ? TValue
         : never;
 
@@ -183,6 +181,10 @@ declare module _ {
     }
 
     interface UnderscoreStatic {
+        /*******
+         * OOP *
+         *******/
+
         /**
          * Underscore OOP Wrapper, all Underscore functions that take an object
          * as the first parameter can be invoked through this function.
@@ -488,7 +490,7 @@ declare module _ {
          * @returns The set of values for the specified `propertyName` for each
          * item in `collection`.
          **/
-        pluck<V extends Collection<any>, K extends EnumerableKey>(
+        pluck<V extends Collection<any>, K extends string | number>(
             collection: V,
             propertyName: K
         ): PropertyTypeOrAny<TypeOfCollection<V>, K>[];
@@ -558,7 +560,7 @@ declare module _ {
          **/
         groupBy<V extends Collection<any>>(
             collection: V,
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): Dictionary<TypeOfCollection<V>[]>;
 
@@ -576,7 +578,7 @@ declare module _ {
          **/
         indexBy<V extends Collection<any>>(
             collection: V,
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any): Dictionary<TypeOfCollection<V>>;
 
         /**
@@ -594,7 +596,7 @@ declare module _ {
          **/
         countBy<V extends Collection<any>>(
             collection: V,
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): Dictionary<number>;
 
@@ -873,7 +875,7 @@ declare module _ {
          * corresponding to those keys.
          * @returns An object comprised of the provided keys and values.
          **/
-        object<TList extends List<EnumerableKey>, TValue>(
+        object<TList extends List<string | number>, TValue>(
             list: TList,
             values: List<TValue>
         ): Dictionary<TValue | undefined>;
@@ -4258,7 +4260,7 @@ declare module _ {
          * @returns The set of values for the specified `propertyName` for each
          * item in the wrapped collection.
          **/
-        pluck<K extends EnumerableKey>(
+        pluck<K extends string | number>(
             propertyName: K
         ): PropertyTypeOrAny<T, K>[];
 
@@ -4314,7 +4316,7 @@ declare module _ {
          * the wrapped collection.
          **/
         groupBy(
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): Dictionary<T[]>;
 
@@ -4329,7 +4331,7 @@ declare module _ {
          * @returns A dictionary where each item in the wrapped collection is
          * assigned to the property designated by `iteratee`.
          **/
-        indexBy(iteratee?: Iteratee<V, EnumerableKey>, context?: any): Dictionary<T>;
+        indexBy(iteratee?: Iteratee<V, string | number>, context?: any): Dictionary<T>;
 
         /**
          * Sorts the wrapped collection into groups and returns a count for the
@@ -4344,7 +4346,7 @@ declare module _ {
          * elements from the wrapped collection.
          **/
         countBy(
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): Dictionary<number>;
 
@@ -5441,7 +5443,7 @@ declare module _ {
          * @returns A chain wrapper around The set of values for the specified
          * `propertyName` for each item in the wrapped collection.
          **/
-        pluck<K extends EnumerableKey>(
+        pluck<K extends string | number>(
             propertyName: K
         ): _Chain<PropertyTypeOrAny<T, K>>;
 
@@ -5506,7 +5508,7 @@ declare module _ {
          * the grouped elements from the wrapped collection.
          **/
         groupBy(
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): _Chain<T[], Dictionary<T[]>>;
 
@@ -5523,7 +5525,7 @@ declare module _ {
          * `iteratee`.
          **/
         indexBy(
-            iteratee?: Iteratee<V, EnumerableKey>,
+            iteratee?: Iteratee<V, string | number>,
             context?: any
         ): _Chain<T, Dictionary<T>>;
 
@@ -5540,7 +5542,7 @@ declare module _ {
          * the count of the grouped elements from the wrapped collection.
          **/
         countBy(
-            iterator?: Iteratee<V, EnumerableKey>,
+            iterator?: Iteratee<V, string | number>,
             context?: any
         ): _Chain<number, Dictionary<number>>;
 
