@@ -814,6 +814,7 @@ declare namespace P {
     interface LogFn {
         (msg: string, ...args: any[]): void;
         (obj: object, msg?: string, ...args: any[]): void;
+        <T extends object>(obj: T, msg?: string, ...args: any[]): void;
     }
 
     interface redactOptions {
