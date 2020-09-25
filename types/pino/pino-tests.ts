@@ -236,3 +236,14 @@ pino(destinationViaStream);
 pino({ name: 'my-logger' }, destinationViaStream);
 pino(destinationViaOptionsObject);
 pino({ name: 'my-logger' }, destinationViaOptionsObject);
+
+interface StrictShape {
+    activity: string;
+    err?: unknown;
+}
+
+info<StrictShape>({
+    activity: 'Required property',
+    // @ts-expect-error
+    reason: 'Not allowed',
+});
