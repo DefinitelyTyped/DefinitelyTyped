@@ -4,7 +4,7 @@
 //                 aktary <https://github.com/aktary>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export module 'onfido-sdk-ui' {
+declare module 'onfido-sdk-ui' {
     interface iOnfidoResponse {
         document_front: {
             id: string;
