@@ -1909,13 +1909,13 @@ declare module 'vscode' {
 
     /**
      * A file glob pattern to match file paths against. This can either be a glob pattern string
-     * (like `**​/*.{ts,js}` or `*.{ts,js}`) or a [relative pattern](#RelativePattern).
+     * (like `**/*.{ts,js}` or `*.{ts,js}`) or a [relative pattern](#RelativePattern).
      *
      * Glob patterns can have the following syntax:
      * * `*` to match one or more characters in a path segment
      * * `?` to match on one character in a path segment
      * * `**` to match any number of path segments, including none
-     * * `{}` to group conditions (e.g. `**​/*.{ts,js}` matches all TypeScript and JavaScript files)
+     * * `{}` to group conditions (e.g. `**/*.{ts,js}` matches all TypeScript and JavaScript files)
      * * `[]` to declare a range of characters to match in a path segment (e.g., `example.[0-9]` to match on `example.0`, `example.1`, …)
      * * `[!...]` to negate a range of characters to match in a path segment (e.g., `example.[!0-9]` to match on `example.a`, `example.b`, but not `example.0`)
      *
@@ -1932,7 +1932,7 @@ declare module 'vscode' {
      * its resource, or a glob-pattern that is applied to the [path](#TextDocument.fileName).
      *
      * @sample A language filter that applies to typescript files on disk: `{ language: 'typescript', scheme: 'file' }`
-     * @sample A language filter that applies to all package.json paths: `{ language: 'json', scheme: 'untitled', pattern: '**​/package.json' }`
+     * @sample A language filter that applies to all package.json paths: `{ language: 'json', scheme: 'untitled', pattern: '**/package.json' }`
      */
     export interface DocumentFilter {
 
@@ -9724,7 +9724,7 @@ declare module 'vscode' {
         /**
          * Find files across all [workspace folders](#workspace.workspaceFolders) in the workspace.
          *
-         * @sample `findFiles('**​/*.js', '**​/node_modules/**', 10)`
+         * @sample `findFiles('**/*.js', '**/node_modules/**', 10)`
          * @param include A [glob pattern](#GlobPattern) that defines the files to search for. The glob pattern
          * will be matched against the file paths of resulting matches relative to their workspace. Use a [relative pattern](#RelativePattern)
          * to restrict the search results to a [workspace folder](#WorkspaceFolder).
