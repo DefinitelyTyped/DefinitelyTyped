@@ -96,10 +96,14 @@ async function main() {
             }
         }
     }
+
+    // Check whether or not an interface is an overload or the main lodash function
+    const isExportedInterface = (interfaceDef: Interface) => !!interfaceGroups.find(g => g.interfaces[0].name === interfaceDef.name);
+
     const interfaces = _.uniqBy(_.flatMap(interfaceGroups, g => g.interfaces), i => i.name);
     const commonTypeSearch = new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g");
     const interfaceStrings = _(interfaces)
-        .map(i => tab(interfaceToString(i), 1))
+        .map(i => tab(interfaceToString(i, isExportedInterface(i)), 1))
         .join(lineBreak)
         .replace(commonTypeSearch, match => `lodash.${match}`);
     const fpFile = [
@@ -113,6 +117,10 @@ async function main() {
         "",
         "declare const _: _.LoDashFp;",
         "declare namespace _ {",
+        // Add LodashConvertible to allow `.convert` method on each lodash/fp function
+        "    interface LodashConvertible {",
+        "        convert(options: lodash.ConvertOptions): (...args: any[]) => any;",
+        "    }",
         interfaceStrings,
         "",
         "    interface LoDashFp {",
@@ -853,7 +861,12 @@ function getInterfaceName(baseName: string, overloadId: number, index: number, t
     return interfaceName;
 }
 
-function interfaceToString(interfaceDef: Interface): string {
+function interfaceToString(interfaceDef: Interface, exportedInterface: boolean): string {
+    // Exported interface extends LodashConvertible to allow
+    // calling `.convert({})` on each lodash/fp functions
+    const interfaceExtendsStatement = exportedInterface
+        ? " extends LodashConvertible"
+        : "";
     if (_.isEmpty(interfaceDef.overloads)) {
         // No point in creating an empty interface
         return "";
@@ -870,7 +883,7 @@ function interfaceToString(interfaceDef: Interface): string {
     } else {
         const overloadStrings = interfaceDef.overloads.map(o => lineBreak + tab(overloadToString(o), 1)).join("")
             + interfaceDef.constants.map(c => `${lineBreak}${tab(c, 1)};`).join("");
-        return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} {${overloadStrings}${lineBreak}}`;
+        return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)}${interfaceExtendsStatement} {${overloadStrings}${lineBreak}}`;
     }
 }
 
