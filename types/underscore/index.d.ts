@@ -181,6 +181,10 @@ declare module _ {
     }
 
     interface UnderscoreStatic {
+        /*******
+         * OOP *
+         *******/
+
         /**
          * Underscore OOP Wrapper, all Underscore functions that take an object
          * as the first parameter can be invoked through this function.
