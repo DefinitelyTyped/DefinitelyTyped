@@ -748,6 +748,8 @@ let identityTransform: d3Geo.GeoIdentityTransform;
 
 identityTransform = d3Geo.geoIdentity();
 
+const transformed: [number, number] | null = identityTransform([54, 2]);
+
 scale = identityTransform.scale();
 identityTransform = identityTransform.scale(2);
 
@@ -757,6 +759,9 @@ identityTransform = identityTransform.translate([10, 10]);
 clipExtent = identityTransform.clipExtent();
 identityTransform = identityTransform.clipExtent(null);
 identityTransform = identityTransform.clipExtent([[0, 0], [100, 100]]);
+
+const identityAngle = identityTransform.angle();
+identityTransform = identityTransform.angle(45);
 
 identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], samplePolygon);
 identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleSphere);

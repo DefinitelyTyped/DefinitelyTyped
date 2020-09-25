@@ -1549,27 +1549,71 @@ export type GeoIdentityTranform = GeoIdentityTransform;
  */
 export interface GeoIdentityTransform extends GeoStreamWrapper {
     /**
-     * Returns the current viewport clip extent which defaults to null.
+     * Returns a new array [x, y] (typically in pixels) representing the projected point of the given point.
+     * The point must be specified as a two-element array [longitude, latitude] in degrees.
+     * May return null if the specified point has no defined projected position, such as when the point is outside the clipping bounds of the projection.
+     *
+     * @param point A point specified as a two-dimensional array [longitude, latitude] in degrees.
      */
-    clipExtent(): [[number, number], [number, number]] | null;
+    (point: [number, number]): [number, number] | null;
+
     /**
-     * Sets the clip extent to null and returns the projection.
-     * With a clip extent of null, no viewport clipping is performed.
+     * Returns a new array [longitude, latitude] in degrees representing the unprojected point of the given projected point.
+     * May return null if the specified point has no defined projected position, such as when the point is outside the clipping bounds of the projection.
      *
-     * Viewport clipping is independent of small-circle clipping via projection.clipAngle.
-     *
-     * @param extent Set to null to disable viewport clipping.
+     * @param point The projected point, specified as a two-element array [x, y] (typically in pixels).
      */
-    clipExtent(extent: null): this;
+    invert(point: [number, number]): [number, number] | null;
+
     /**
-     * Sets the projection’s viewport clip extent to the specified bounds in pixels and returns the projection.
-     * The extent bounds are specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left-side of the viewport, y₀ is the top, x₁ is the right and y₁ is the bottom.
-     *
-     * Viewport clipping is independent of small-circle clipping via projection.clipAngle.
-     *
-     * @param extent The extent bounds are specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left-side of the viewport, y₀ is the top, x₁ is the right and y₁ is the bottom.
+     * Returns the current cartesian clipping function.
+     * Post-clipping occurs on the plane, when a projection is bounded to a certain extent such as a rectangle.
      */
-    clipExtent(extent: [[number, number], [number, number]]): this;
+    postclip(): (stream: GeoStream) => GeoStream;
+    /**
+     * Sets the projection’s cartesian clipping to the specified function and returns the projection.
+     *
+     * @param postclip A cartesian clipping function. Clipping functions are implemented as transformations of a projection stream.
+     * Post-clipping operates on planar coordinates, in pixels.
+     */
+    postclip(postclip: (stream: GeoStream) => GeoStream): this;
+
+    /**
+     * Returns the current scale factor.
+     *
+     * The scale factor corresponds linearly to the distance between projected points; however, absolute scale factors are not equivalent across projections.
+     */
+    scale(): number;
+    /**
+     * Sets the projection’s scale factor to the specified value and returns the projection.
+     * The scale factor corresponds linearly to the distance between projected points; however, absolute scale factors are not equivalent across projections.
+     *
+     * @param scale Scale factor to be used for the projection.
+     */
+    scale(scale: number): this;
+
+    /**
+     * Returns the current translation offset.
+     * The translation offset determines the pixel coordinates of the projection’s center.
+     */
+    translate(): [number, number];
+    /**
+     * Sets the projection’s translation offset to the specified two-element array [tx, ty] and returns the projection.
+     * The translation offset determines the pixel coordinates of the projection’s center.
+     *
+     * @param point A two-element array [tx, ty] specifying the translation offset.
+     */
+    translate(point: [number, number]): this;
+
+    /**
+     * Returns the projection’s current angle, which defaults to 0°.
+     */
+    angle(): number;
+    /**
+     * Sets the projection’s post-projection planar rotation angle to the specified angle in degrees and returns the projection.
+     * @param angle The new rotation angle of the projection.
+     */
+    angle(angle: number): this;
 
     /**
      * Sets the projection’s scale and translate to fit the specified geographic feature in the center of the given extent.
@@ -1654,6 +1698,29 @@ export interface GeoIdentityTransform extends GeoStreamWrapper {
     fitSize(size: [number, number], object: ExtendedGeometryCollection): this;
 
     /**
+     * Returns the current viewport clip extent which defaults to null.
+     */
+    clipExtent(): [[number, number], [number, number]] | null;
+    /**
+     * Sets the clip extent to null and returns the projection.
+     * With a clip extent of null, no viewport clipping is performed.
+     *
+     * Viewport clipping is independent of small-circle clipping via projection.clipAngle.
+     *
+     * @param extent Set to null to disable viewport clipping.
+     */
+    clipExtent(extent: null): this;
+    /**
+     * Sets the projection’s viewport clip extent to the specified bounds in pixels and returns the projection.
+     * The extent bounds are specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left-side of the viewport, y₀ is the top, x₁ is the right and y₁ is the bottom.
+     *
+     * Viewport clipping is independent of small-circle clipping via projection.clipAngle.
+     *
+     * @param extent The extent bounds are specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left-side of the viewport, y₀ is the top, x₁ is the right and y₁ is the bottom.
+     */
+    clipExtent(extent: [[number, number], [number, number]]): this;
+
+    /**
      * Returns true if x-reflection is enabled, which defaults to false.
      */
     reflectX(): boolean;
@@ -1678,33 +1745,6 @@ export interface GeoIdentityTransform extends GeoStreamWrapper {
      * @param reflect true = reflect y-dimension, false = do not reflect y-dimension.
      */
     reflectY(reflect: boolean): this;
-
-    /**
-     * Returns the current scale factor.
-     *
-     * The scale factor corresponds linearly to the distance between projected points; however, absolute scale factors are not equivalent across projections.
-     */
-    scale(): number;
-    /**
-     * Sets the projection’s scale factor to the specified value and returns the projection.
-     * The scale factor corresponds linearly to the distance between projected points; however, absolute scale factors are not equivalent across projections.
-     *
-     * @param scale Scale factor to be used for the projection.
-     */
-    scale(scale: number): this;
-
-    /**
-     * Returns the current translation offset.
-     * The translation offset determines the pixel coordinates of the projection’s center.
-     */
-    translate(): [number, number];
-    /**
-     * Sets the projection’s translation offset to the specified two-element array [tx, ty] and returns the projection.
-     * The translation offset determines the pixel coordinates of the projection’s center.
-     *
-     * @param point A two-element array [tx, ty] specifying the translation offset.
-     */
-    translate(point: [number, number]): this;
 }
 
 /**
