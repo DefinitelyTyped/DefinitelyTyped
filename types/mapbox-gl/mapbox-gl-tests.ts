@@ -898,6 +898,13 @@ expectType<mapboxgl.Map>(
     }),
 );
 expectType<mapboxgl.Map>(
+    map.on('idle', ev => {
+        expectType<mapboxgl.MapboxEvent>(ev);
+        expectType<mapboxgl.Map>(ev.target);
+        expectType<undefined>(ev.originalEvent);
+    }),
+);
+expectType<mapboxgl.Map>(
     map.on('remove', ev => {
         expectType<mapboxgl.MapboxEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
