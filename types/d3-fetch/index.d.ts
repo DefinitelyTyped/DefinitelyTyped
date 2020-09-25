@@ -180,12 +180,15 @@ export function image(url: string, init?: Partial<HTMLImageElement>): Promise<HT
  *
  * If init is specified, it is passed along to the underlying call to fetch.
  *
+ * If the server returns a status code of [204 No Content](https://developer.mozilla.org/docs/Web/HTTP/Status/204)
+ * or [205 Reset Content](https://developer.mozilla.org/docs/Web/HTTP/Status/205), the promise resolves to `undefined`.
+ *
  * The generic parameter describes the type of the object parsed from the returned JSON.
  *
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
-export function json<ParsedJSONObject extends any>(url: string, init?: RequestInit): Promise<ParsedJSONObject>;
+export function json<ParsedJSONObject extends any>(url: string, init?: RequestInit): Promise<ParsedJSONObject | undefined>;
 
 /**
  * Fetches the file at the specified input URL as text, parses it as SVG and returns a Promise of an SVG Document.
