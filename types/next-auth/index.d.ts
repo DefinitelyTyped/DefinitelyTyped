@@ -93,6 +93,15 @@ interface Session {
     updateAge?: number;
 }
 
+interface DefaultSessionPayload {
+    user: {
+        name: string | null;
+        email: string | null;
+        image: string | null;
+    };
+    expires: string
+}
+
 interface JWTOptions {
     secret?: string;
     maxAge?: number;
@@ -105,7 +114,7 @@ interface JWTOptions {
 interface Callbacks {
     signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean>;
     redirect?(url: string, baseUrl: string): Promise<string>;
-    session?(session: Session, user: GenericObject): Promise<GenericObject>;
+    session?(session: DefaultSessionPayload, user: GenericObject): Promise<GenericObject>;
     jwt?(
         token: GenericObject,
         user: GenericObject,
