@@ -24,7 +24,7 @@ interface iOnfidoConfig {
     isModalOpen?: boolean;
     useModal?: boolean;
 
-    steps?: Array<(
+    steps?: Array<
         | string
         | {
               type: string;
@@ -50,7 +50,7 @@ interface iOnfidoConfig {
                   submessage?: string;
               };
           }
-    )>;
+    >;
 }
 
 interface iOnfidoHandle {
