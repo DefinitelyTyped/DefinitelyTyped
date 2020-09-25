@@ -331,7 +331,7 @@ declare namespace Office {
      */
     function useShortNamespace(useShortNamespace: boolean): void;
     /**
-     * Represents the actions.
+     * Provides a method for associating action names with functions that carry out an action.
      */
     const actions: Actions;
     /**
@@ -526,11 +526,11 @@ declare namespace Office {
         value: T;
     }
     /**
-     * Used to associate an action.
+     * Used to associate an action name to a function.
      */
     interface Actions {
         /**
-         * Function to associate a action name with the action function.
+         * Function to associate a name with the action function.
          */
         associate: (actionName: string, action: (arg?: any) => void) => void;
     }
