@@ -135,6 +135,9 @@ export namespace Azure.ServiceBus {
     }
 
     export interface NotificationHubRegistration {
+        _: {
+            ContentRootElement: string;
+        };
         BodyTemplate?: any;
         ChannelUri?: string;
         DeviceToken?: string;
