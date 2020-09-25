@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "typescript": "^3.9.7"
+    }
+}
