@@ -10,6 +10,8 @@ trans.end(() => {}); // $ExpectType void
 const payload = trans.createDistributedTracePayload(); // $ExpectType DistributedTracePayload
 trans.acceptDistributedTracePayload(payload); // $ExpectType void
 trans.insertDistributedTraceHeaders({ test: "test" }); // $ExpectType void
+trans.acceptDistributedTraceHeaders("Test", { test: "test" }); // $ExpectType void
+trans.isSampled(); // $ExpectType boolean
 
 newrelic.setDispatcher('foo'); // $ExpectType void
 newrelic.setDispatcher('foo', '42'); // $ExpectType void
