@@ -59,4 +59,4 @@ interface iOnfidoHandle {
     setOptions(opts: iOnfidoConfig): null;
 }
 
-export function init(e: any): iOnfidoHandle;
+function init(e: any): iOnfidoHandle;
