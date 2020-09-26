@@ -1,6 +1,6 @@
 // Type definitions for ziggy-js 0.9
 // Project: https://github.com/tightenco/ziggy#readme
-// Definitions by: Ben Allfree <https://github.com/me>
+// Definitions by: Ben Allfree <https://github.com/benallfree>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
