@@ -1,16 +1,8 @@
 import { FC } from 'react';
 import { IncomingMessage } from 'http';
-import { GenericObject } from './_utils';
+import { GenericObject, SessionBase  } from './_utils';
 
-interface Session {
-    user: {
-        name: string;
-        email: string;
-        image: string;
-    };
-    accessToken?: string;
-    expires: string;
-}
+type Session = SessionBase & GenericObject
 
 interface GetProvidersResponse {
     [provider: string]: SessionProvider;

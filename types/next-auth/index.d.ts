@@ -11,7 +11,7 @@
 import { ConnectionOptions } from 'typeorm';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
-import { GenericObject, NextApiRequest, NextApiResponse } from './_utils';
+import { GenericObject, SessionBase, NextApiRequest, NextApiResponse } from './_utils';
 import { SessionProvider } from './client';
 import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
@@ -93,15 +93,6 @@ interface Session {
     updateAge?: number;
 }
 
-interface DefaultSessionPayload {
-    user: {
-        name: string | null;
-        email: string | null;
-        image: string | null;
-    };
-    expires: string;
-}
-
 interface JWTOptions {
     secret?: string;
     maxAge?: number;
@@ -114,7 +105,7 @@ interface JWTOptions {
 interface Callbacks {
     signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean>;
     redirect?(url: string, baseUrl: string): Promise<string>;
-    session?(session: DefaultSessionPayload, user: GenericObject): Promise<GenericObject>;
+    session?(session: SessionBase, user: GenericObject): Promise<GenericObject>;
     jwt?(
         token: GenericObject,
         user: GenericObject,
@@ -126,4 +117,4 @@ interface Callbacks {
 
 declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
 export default NextAuth;
-export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, DefaultSessionPayload, JWTOptions, Callbacks };
+export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, Callbacks };

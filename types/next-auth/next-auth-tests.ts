@@ -10,7 +10,7 @@ import Adapters from 'next-auth/adapters';
 import * as client from 'next-auth/client';
 import * as JWT from 'next-auth/jwt';
 import NextAuth, * as NextAuthTypes from 'next-auth';
-import { GenericObject, NextApiRequest, NextApiResponse } from 'next-auth/_utils';
+import { GenericObject, SessionBase, NextApiRequest, NextApiResponse } from 'next-auth/_utils';
 import { IncomingMessage, ServerResponse } from 'http';
 import { Socket } from 'net';
 
@@ -77,7 +77,7 @@ const allConfig = {
     callbacks: {
         signIgn: (user: GenericObject, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
-        session: (session: NextAuthTypes.DefaultSessionPayload, user: GenericObject) => Promise.resolve<any>(user),
+        session: (session: SessionBase, user: GenericObject) => Promise.resolve<any>(user),
         jwt: (
             token: GenericObject,
             user: GenericObject,
