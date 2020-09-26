@@ -16,6 +16,9 @@
         "paths": {
             "d3-array": [
                 "d3-array/v1"
+            ],
+            "d3-force": [
+                "d3-force/v1"
             ]
         },
         "types": [],
