@@ -158,7 +158,7 @@ hierarchyRootNode = hierarchyRootNode.each((node) => {
     console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
 });
 
-hierarchyRootNode = hierarchyRootNode.each(function (this, node, index, thisNode) {
+hierarchyRootNode = hierarchyRootNode.each(function(node, index, thisNode) {
     const testProperty: number = this.testThisProperty;
     console.log('Raw value of node:', node.data.val); // node type is HierarchyNode<HierarchyDatum>
     console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
@@ -169,7 +169,7 @@ hierarchyRootNode = hierarchyRootNode.eachAfter((node) => {
     console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
 });
 
-hierarchyRootNode = hierarchyRootNode.eachAfter(function (node, index, thisNode) {
+hierarchyRootNode = hierarchyRootNode.eachAfter(function(node, index, thisNode) {
     const testProperty: number = this.testThisProperty;
     console.log('Raw value of node:', node.data.val); // node type is HierarchyNode<HierarchyDatum>
     console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
@@ -180,7 +180,8 @@ hierarchyRootNode = hierarchyRootNode.eachBefore((node) => {
     console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
 });
 
-hierarchyRootNode = hierarchyRootNode.eachBefore(function (node, index, thisNode) {
+hierarchyRootNode = hierarchyRootNode.eachBefore(function(node, index, thisNode) {
+    const testProperty: number = this.testThisProperty;
     console.log('Raw value of node:', node.data.val); // node type is HierarchyNode<HierarchyDatum>
     console.log('Aggregated value of node:', node.value); // node type is HierarchyNode<HierarchyDatum>
 }, { testThisProperty: 5 });
