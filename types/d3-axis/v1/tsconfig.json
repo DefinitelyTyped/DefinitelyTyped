@@ -9,16 +9,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
-            "d3-array": [
-                "d3-array/v1"
-            ],
             "d3-axis": [
-                "d3-array/v1"
+                "d3-axis/v1"
             ]
         },
         "types": [],
@@ -27,6 +24,6 @@
     },
     "files": [
         "index.d.ts",
-        "d3-tests.ts"
+        "d3-axis-tests.ts"
     ]
 }

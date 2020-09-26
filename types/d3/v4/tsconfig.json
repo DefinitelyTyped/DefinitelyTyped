@@ -22,6 +22,9 @@
             ],
             "d3-array": [
                 "d3-array/v1"
+            ],
+            "d3-axis": [
+                "d3-array/v1"
             ]
         },
         "types": [],

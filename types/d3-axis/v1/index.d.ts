@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-axis module 2.0
+// Type definitions for D3JS d3-axis module 1.0
 // Project: https://github.com/d3/d3-axis/, https://d3js.org/d3-axis
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 1.0.8
 
 import { Selection, TransitionLike } from 'd3-selection';
 
