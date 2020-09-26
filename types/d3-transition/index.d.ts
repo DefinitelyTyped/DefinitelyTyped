@@ -209,7 +209,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      *
      * @param name Name of attribute.
      */
-    attrTween(name: string): ValueFn<GElement, Datum, (t: number) => string> | undefined;
+    attrTween(name: string): ValueFn<GElement, Datum, (this: GElement, t: number) => string> | undefined;
     /**
      * Remove the previously-assigned attribute tween of the specified name, if any.
      *
@@ -229,7 +229,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). The interpolator factory returns a string interpolator,
      * which takes as its argument eased time t, typically in the range [0, 1] and returns the interpolated string.
      */
-    attrTween(name: string, factory: ValueFn<GElement, Datum, (t: number) => string>): this;
+    attrTween(name: string, factory: ValueFn<GElement, Datum, (this: GElement, t: number) => string>): this;
 
     /**
      * For each selected element, the style with the specified name will be cleared at the start of the transition.
@@ -282,7 +282,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      *
      * @param name Name of style.
      */
-    styleTween(name: string): ValueFn<GElement, Datum, (t: number) => string> | undefined;
+    styleTween(name: string): ValueFn<GElement, Datum, (this: GElement, t: number) => string> | undefined;
     /**
      * Remove the previously-assigned style tween of the specified name, if any.
      *
@@ -303,7 +303,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * which takes as its argument eased time t, typically in the range [0, 1] and returns the interpolated string.
      * @param priority An optional priority flag, either null or the string important (without the exclamation point)
      */
-    styleTween(name: string, factory: ValueFn<GElement, Datum, (t: number) => string>, priority?: null | 'important'): this;
+    styleTween(name: string, factory: ValueFn<GElement, Datum, (this: GElement, t: number) => string>, priority?: null | 'important'): this;
 
     /**
      * For each selected element, the text content will be cleared, replacing any existing child elements.
@@ -337,7 +337,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      *
      * @param name Name of tween.
      */
-    tween(name: string): ValueFn<GElement, Datum, (t: number) => void> | undefined;
+    tween(name: string): ValueFn<GElement, Datum, (this: GElement, t: number) => void> | undefined;
     /**
      * Removes the tween with the specified name, if a tween was previously assigned to
      * that name.
@@ -358,7 +358,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). The tween function returns a function
      * which takes as its argument eased time t, typically in the range [0, 1] and performs the tweening activities for each transition frame.
      */
-    tween(name: string, tweenFn: ValueFn<GElement, Datum, (t: number) => void>): this;
+    tween(name: string, tweenFn: ValueFn<GElement, Datum, (this: GElement, t: number) => void>): this;
 
     /**
      * For each selected element, removes the element when the transition ends, as long as the element has no other active or pending transitions.
