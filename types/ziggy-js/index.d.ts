@@ -4,16 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
-export type Param = string | number | string[] | number[] | undefined;
+type EncodeURIParamType = string | number | boolean;
 
-export interface Params {
-    [key: string]: Param;
-}
+export type Params =
+    | {
+          [key: string]: EncodeURIParamType;
+      }
+    | EncodeURIParamType
+    | EncodeURIParamType[];
 
 export interface Route {
     uri: string;
-    methods: Array<'GET' | 'HEAD' | 'POST' | 'DELETE'>;
-    domain: null | string;
+    methods: Array<'GET' | 'HEAD' | 'POST' | 'PATCH' | 'PUT' | 'OPTIONS' | 'DELETE'>;
+    domain?: null | string;
+    middleware?: any[];
+    bindings?: any[];
 }
 
 export interface Config {
@@ -23,8 +28,10 @@ export interface Config {
     baseUrl: string;
     baseProtocol: 'http' | 'https';
     baseDomain: string;
-    basePort: boolean;
-    defaultParameters: string[];
+    basePort?: number | null;
+    defaultParameters: {
+        [_: string]: string;
+    };
 }
 
 export class Router extends String {
