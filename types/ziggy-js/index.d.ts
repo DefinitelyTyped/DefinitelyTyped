@@ -6,12 +6,13 @@
 
 export type EncodeURIParamType = string | number | boolean;
 
-export type Params =
+export type NormalizedParams =
     | {
           [key: string]: EncodeURIParamType;
       }
-    | EncodeURIParamType
     | EncodeURIParamType[];
+
+export type InputParams = NormalizedParams | EncodeURIParamType;
 
 export interface Route {
     uri: string;
@@ -35,16 +36,16 @@ export interface Config {
 }
 
 export class Router extends String {
-    normalizeParams(params: Params): Params;
-    with(params: Params): Router;
-    withQuery(params: Params): Router;
+    normalizeParams(params: InputParams): NormalizedParams;
+    with(params: InputParams): Router;
+    withQuery(params: InputParams): Router;
     hydrateUrl(): string;
     matchUrl(): boolean;
     constructQuery(): string;
     current(name?: string): Route;
     check(name: string): boolean;
-    extractParams(uri: string, template: string, delimiter: string): Params;
-    get params(): Params;
+    extractParams(uri: string, template: string, delimiter: string): NormalizedParams;
+    get params(): InputParams;
     parse(): void;
     url(): string;
     toString(): string;
@@ -52,4 +53,4 @@ export class Router extends String {
     valueOf(): string;
 }
 
-export default function route(name: string, params?: Params, absolute?: boolean, customZiggy?: Config): Router;
+export default function route(name: string, params?: InputParams, absolute?: boolean, customZiggy?: Config): Router;
