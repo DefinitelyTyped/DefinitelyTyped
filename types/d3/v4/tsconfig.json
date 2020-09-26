@@ -14,9 +14,6 @@
             "../../"
         ],
         "paths": {
-            "d3-scale": [
-                "d3-scale/v1"
-            ],
             "d3": [
                 "d3/v4"
             ],
@@ -25,6 +22,9 @@
             ],
             "d3-chord": [
                 "d3-chord/v1"
+            ],
+            "d3-scale": [
+                "d3-scale/v1"
             ]
         },
         "types": [],
