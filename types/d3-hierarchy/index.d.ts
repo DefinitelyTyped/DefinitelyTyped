@@ -77,6 +77,12 @@ export interface HierarchyNode<Datum> {
     leaves(): this[];
 
     /**
+     * Returns the first node in the hierarchy from this node for which the specified filter returns a truthy value. undefined if no such node is found.
+     * @param filter Filter.
+     */
+    find(filter: (node: this) => boolean): this | undefined;
+
+    /**
      * Returns the shortest path through the hierarchy from this node to the specified target node.
      * The path starts at this node, ascends to the least common ancestor of this node and the target node, and then descends to the target node.
      *
@@ -151,8 +157,10 @@ export interface HierarchyNode<Datum> {
  * Constructs a root node from the specified hierarchical data.
  *
  * @param data The root specified data.
- * @param children The specified children accessor function invoked for each datum, starting with the root data.
- * Must return an array of data representing the children, and return null or undefined if the current datum has no children.
+ * If *data* is a Map, it is implicitly converted to the entry [undefined, *data*],
+ * and the children accessor instead defaults to `(d) => Array.isArray(d) ? d[1] : null;`.
+ * @param children The specified children accessor function is invoked for each datum, starting with the root data,
+ * and must return an iterable of data representing the children, if any.
  * If children is not specified, it defaults to: `(d) => d.children`.
  */
 export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Datum[] | null | undefined)): HierarchyNode<Datum>;
