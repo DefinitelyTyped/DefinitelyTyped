@@ -20,6 +20,9 @@
             "d3-array": [
                 "d3-array/v1"
             ],
+            "d3-random": [
+                "d3-random/v1"
+            ],
             "d3-scale": [
                 "d3-scale/v1"
             ]

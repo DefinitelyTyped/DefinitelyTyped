@@ -2,21 +2,17 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
-            "d3-array": [
-                "d3-array/v1"
-            ],
             "d3-random": [
                 "d3-random/v1"
             ]
@@ -27,6 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "d3-tests.ts"
+        "d3-random-tests.ts"
     ]
 }
