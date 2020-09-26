@@ -7,8 +7,8 @@
 
 import { RequestHandler } from "express";
 import { ClientOpts } from "redis";
-import Bull from "bull";
-import Bee from "bee-queue";
+import Bull = require("bull");
+import Bee = require("bee-queue");
 
 declare function Arena(
     options: BullArena.MiddlewareOptions,
