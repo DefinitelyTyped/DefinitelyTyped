@@ -1764,6 +1764,7 @@ declare namespace mapboxgl {
         error: ErrorEvent;
 
         load: MapboxEvent;
+        idle: MapboxEvent;
         remove: MapboxEvent;
         render: MapboxEvent;
         resize: MapboxEvent;
