@@ -17,8 +17,8 @@ declare function Arena(
 
 declare namespace BullArena {
     interface MiddlewareOptions {
-        Bull?: Bull;
-        Bee?: Bee;
+        Bull?: typeof Bull;
+        Bee?: typeof Bee;
         queues: Array<QueueOptions & ConnectionOptions>;
     }
 
