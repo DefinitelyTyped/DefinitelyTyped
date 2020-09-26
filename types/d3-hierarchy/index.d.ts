@@ -122,29 +122,38 @@ export interface HierarchyNode<Datum> {
     sort(compare: (a: this, b: this) => number): this;
 
     /**
+     * Returns an iterator over the node’s descendants in breadth-first order.
+     */
+    [Symbol.iterator](): Iterator<this>;
+
+    /**
      * Invokes the specified function for node and each descendant in breadth-first order,
      * such that a given node is only visited if all nodes of lesser depth have already been visited,
      * as well as all preceding nodes of the same depth.
      *
-     * @param func The specified function is passed the current node.
+     * @param func The specified function is passed the current descendant, the zero-based traversal index, and this node.
+     * @param that If that is specified, it is the this context of the callback.
      */
-    each(func: (node: this) => void): this;
+    each<T = undefined>(func: (this: T, node: this, index: number, thisNode: this) => void, that?: T): this;
 
     /**
      * Invokes the specified function for node and each descendant in post-order traversal,
      * such that a given node is only visited after all of its descendants have already been visited.
      *
-     * @param func The specified function is passed the current node.
+     * @param func The specified function is passed the current descendant, the zero-based traversal index, and this node.
+     * @param that If that is specified, it is the this context of the callback.
+     *
      */
-    eachAfter(func: (node: this) => void): this;
+    eachAfter<T = undefined>(func: (this: T, node: this, index: number, thisNode: this) => void, that?: T): this;
 
     /**
      * Invokes the specified function for node and each descendant in pre-order traversal,
      * such that a given node is only visited after all of its ancestors have already been visited.
      *
-     * @param func The specified function is passed the current node.
+     * @param func The specified function is passed the current descendant, the zero-based traversal index, and this node.
+     * @param that If that is specified, it is the this context of the callback.
      */
-    eachBefore(func: (node: this) => void): this;
+    eachBefore<T = undefined>(func: (this: T, node: this, index: number, thisNode: this) => void, that?: T): this;
 
     /**
      * Return a deep copy of the subtree starting at this node. The returned deep copy shares the same data, however.
@@ -163,7 +172,7 @@ export interface HierarchyNode<Datum> {
  * and must return an iterable of data representing the children, if any.
  * If children is not specified, it defaults to: `(d) => d.children`.
  */
-export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Datum[] | null | undefined)): HierarchyNode<Datum>;
+export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Iterable<Datum> | null | undefined)): HierarchyNode<Datum>;
 
 // -----------------------------------------------------------------------
 // Stratify
