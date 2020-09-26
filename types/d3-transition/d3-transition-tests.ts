@@ -371,9 +371,9 @@ updateTransition = updateTransition.tween('fillColor', function(d, i, g) {
     const c: string | null = this.getAttribute('fill');
     const interpolator = interpolateRgb(c ? c : 'blue', d.color); // datum type CircleDatum
     console.log('Radius ', this.r.baseVal.value); // this type SVGCircleElement
-    return function (this, t) {
+    return function(this, t) {
         this.setAttribute('fill', interpolator(t));
-    }
+    };
 });
 
 tweenFnAccessor = updateTransition.tween('fillColor');
