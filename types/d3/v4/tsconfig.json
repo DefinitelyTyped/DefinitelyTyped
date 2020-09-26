@@ -20,9 +20,6 @@
             "d3-array": [
                 "d3-array/v1"
             ],
-            "d3-contour": [
-                "d3-contour/v1"
-            ],
             "d3-scale": [
                 "d3-scale/v1"
             ]
