@@ -5,7 +5,7 @@
 
 /// <reference types="jquery" />
 
-export type Options = Partial<{
+type Options = Partial<{
     afterInit: (...args: any[]) => void;
     afterSelect: (...args: any[]) => void;
     afterDeselect: (...args: any[]) => void;
@@ -20,19 +20,17 @@ export type Options = Partial<{
     cssClass: string;
 }>;
 
-export interface AddOption {
+interface AddOption {
     value: string;
     text: string;
     index?: number;
     nested?: string;
 }
 
-export type Method = 'select_all' | 'deselect_all' | 'refresh';
+type Method = 'select_all' | 'deselect_all' | 'refresh';
 
-declare global {
-    interface JQuery {
-        multiSelect(methodOrOptions?: Method | Options): JQuery;
-        multiSelect(method: 'addOption', addOption: AddOption): JQuery;
-        multiSelect(method: 'select' | 'deselect', options?: string | any[]): JQuery;
-    }
+interface JQuery {
+    multiSelect(methodOrOptions?: Method | Options): JQuery;
+    multiSelect(method: 'addOption', addOption: AddOption): JQuery;
+    multiSelect(method: 'select' | 'deselect', options?: string | any[]): JQuery;
 }
