@@ -45,7 +45,7 @@ export class Router extends String {
     current(name?: string): Route;
     check(name: string): boolean;
     extractParams(uri: string, template: string, delimiter: string): NormalizedParams;
-    get params(): InputParams;
+    get params(): NormalizedParams;
     parse(): void;
     url(): string;
     toString(): string;
