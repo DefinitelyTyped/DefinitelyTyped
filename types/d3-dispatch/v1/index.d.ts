@@ -7,7 +7,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.3
+// Last module patch version validated against: 1.0.6
 
 export interface Dispatch<T extends object> {
     /**
