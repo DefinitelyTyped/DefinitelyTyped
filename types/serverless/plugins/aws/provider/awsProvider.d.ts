@@ -386,6 +386,14 @@ declare namespace Aws {
         enabled?: boolean;
     }
 
+    interface Msk {
+        arn: string;
+        topic: string;
+        batchSize?: number;
+        enabled?: boolean;
+        startingPosition?: 'LATEST' | 'TRIM_HORIZON';
+    }
+
     interface AlexaSkill {
         appId: string;
         enabled?: boolean;
@@ -487,6 +495,7 @@ declare namespace Aws {
         sns?: Sns;
         sqs?: Sqs;
         stream?: Stream;
+        msk?: Msk;
         alexaSkill?: AlexaSkill;
         alexaSmartHome?: AlexaSmartHome;
         iot?: Iot;
