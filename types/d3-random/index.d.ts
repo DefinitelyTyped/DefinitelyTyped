@@ -40,6 +40,7 @@ export interface RandomUniform extends RandomNumberGenerationSource {
      * @param min The minimum allowed value of a returned number.
      * @param max The maximum allowed value of a returned number.
      */
+    // tslint:disable-next-line:unified-signatures
     (min: number, max: number): () => number;
 }
 
@@ -64,6 +65,7 @@ export interface RandomInt extends RandomNumberGenerationSource {
      * @param min The minimum allowed value of a returned number.
      * @param max The maximum allowed value of a returned number.
      */
+    // tslint:disable-next-line:unified-signatures
     (min: number, max: number): () => number;
 }
 
