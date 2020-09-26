@@ -491,7 +491,7 @@ const awsServerless: Aws.Serverless = {
                         startingPosition: 'LATEST',
                         enabled: true
                     }
-                },{
+                }, {
                     alexaSkill: {
                         appId: 'testappId',
                         enabled: true
