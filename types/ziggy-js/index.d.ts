@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
-type EncodeURIParamType = string | number | boolean;
+export type EncodeURIParamType = string | number | boolean;
 
 export type Params =
     | {
