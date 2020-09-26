@@ -1390,7 +1390,7 @@ export class Schema<N extends string = any, M extends string = any> {
 }
 export interface DOMOutputSpecArray {
   0: string;
-  1?: DOMOutputSpec | 0 | { [attr: string]: string };
+  1?: DOMOutputSpec | 0 | { [attr: string]: string | null | undefined };
   2?: DOMOutputSpec | 0;
   3?: DOMOutputSpec | 0;
   4?: DOMOutputSpec | 0;
