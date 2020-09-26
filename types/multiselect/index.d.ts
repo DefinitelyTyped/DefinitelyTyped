@@ -1,6 +1,6 @@
 // Type definitions for multiselect 0.9
 // Project: https://github.com/lou/multi-select
-// Definitions by: nagamejun <https://github.com/me>
+// Definitions by: nagamejun <https://github.com/nagamejun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
