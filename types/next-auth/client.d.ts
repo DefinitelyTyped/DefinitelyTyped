@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { IncomingMessage } from 'http';
 import { GenericObject, SessionBase  } from './_utils';
 
-type Session = SessionBase & GenericObject
+type Session = SessionBase & GenericObject;
 
 interface GetProvidersResponse {
     [provider: string]: SessionProvider;
