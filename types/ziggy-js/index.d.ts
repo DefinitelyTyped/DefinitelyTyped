@@ -2,6 +2,7 @@
 // Project: https://github.com/tightenco/ziggy#readme
 // Definitions by: Ben Allfree <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.6
 
 export type Param = string | number | string[] | number[] | undefined;
 
@@ -11,7 +12,7 @@ export interface Params {
 
 export interface Route {
     uri: string;
-    methods: ('GET' | 'HEAD' | 'POST' | 'DELETE')[];
+    methods: Array<'GET' | 'HEAD' | 'POST' | 'DELETE'>;
     domain: null | string;
 }
 
