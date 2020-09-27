@@ -492,3 +492,9 @@ function Example() {
         </CustomSelect>
     );
 }
+
+function ExampleWithDefaultPropsWithChildren(props: React.PropsWithChildren) {
+    return (
+        <div>{props.children}</div>
+    )
+}
