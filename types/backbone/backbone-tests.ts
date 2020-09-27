@@ -1,3 +1,6 @@
+import _ = require('underscore');
+import Backbone = require('backbone');
+
 function test_events() {
 
     var object = Backbone.Events;
@@ -177,22 +180,23 @@ function test_models() {
     note.set("title", "A Scandal in Bohemia");
 
     let strings: string[]
-    let value: any;
+    let partial: _.Dictionary<any>;
     let values: any[];
+    let pairs: [string, any][];
     let bool: boolean;
 
     // underscore methods
     strings = note.keys();
     values  = note.values();
-    values  = note.pairs();
-    values  = note.invert();
-    value   = note.pick("foo");
-    value   = note.pick("foo", "bar");
-    value   = note.pick((value: any, key: any, object: any) => true);
-    value   = note.omit("foo");
-    value   = note.omit("foo", "bar");
-    value   = note.omit((value: any, key: any, object: any) => true);
-    value   = note.chain().pick().omit().value();
+    pairs   = note.pairs();
+    partial = note.invert();
+    partial = note.pick("foo");
+    partial = note.pick("foo", "bar");
+    partial = note.pick((value: any, key: any, object: any) => true);
+    partial = note.omit("foo");
+    partial = note.omit("foo", "bar");
+    partial = note.omit((value: any, key: any, object: any) => true);
+    partial = note.chain().pick().omit().value();
     bool    = note.isEmpty();
 }
 
@@ -278,12 +282,15 @@ function test_collection() {
     var copy = books.clone();
 
     let one: Book;
+    let maybeOne: Book | undefined;
+    let minMax: Book | number;
     let models: Book[];
     let bool: boolean;
     let numDict: _.Dictionary<number>;
     let modelDict: _.Dictionary<Book>;
     let modelsDict: _.Dictionary<Book[]>;
     let num: number;
+    let array: any[];
 
     models = books.slice();
     models = books.slice(1);
@@ -303,48 +310,48 @@ function test_collection() {
     bool       = books.chain().any((value: Book, index: number, list: Book[]) => true).value();
     models     = books.collect((value: Book, index: number, list: Book[]) => value);
     bool       = books.contains(book1);
-    numDict    = books.countBy((value: Book, index: number, list: Book[]) => true);
-    numDict    = books.countBy("foo");
-    one        = books.detect((value: Book, index: number, list: Book[]) => true);
+    numDict    = books.countBy((value: Book, index: number, list: Book[]) => value.author);
+    numDict    = books.countBy("author");
+    maybeOne   = books.detect((value: Book, index: number, list: Book[]) => true);
     models     = books.difference([book1]);
     models     = books.drop();
     models     = books.each((value: Book, index: number, list: Book[]) => true);
     bool       = books.every((value: Book, index: number, list: Book[]) => true);
     models     = books.filter((value: Book, index: number, list: Book[]) => true);
-    one        = books.find((value: Book, index: number, list: Book[]) => true);
+    maybeOne   = books.find((value: Book, index: number, list: Book[]) => true);
     num        = books.findIndex((value: Book, index: number, list: Book[]) => true);
     num        = books.findLastIndex((value: Book, index: number, list: Book[]) => true);
-    one        = books.first();
+    maybeOne   = books.first();
     models     = books.first(3);
     models     = books.foldl((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
     models     = books.foldr((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
     models     = books.forEach((value: Book, index: number, list: Book[]) => true);
-    modelsDict = books.groupBy((value: Book, index: number, list: Book[]) => true);
-    modelsDict = books.groupBy("foo");
-    one        = books.head();
+    modelsDict = books.groupBy((value: Book, index: number, list: Book[]) => value.author);
+    modelsDict = books.groupBy("author");
+    maybeOne   = books.head();
     models     = books.head(3);
     bool       = books.include(book1);
     bool       = books.includes(book1);
-    modelDict  = books.indexBy((value: Book, index: number, list: Book[]) => true);
-    modelDict  = books.indexBy("foo");
+    modelDict  = books.indexBy((value: Book, index: number, list: Book[]) => value.title);
+    modelDict  = books.indexBy("title");
     num        = books.indexOf(book1, true);
-    one        = books.initial();
+    models     = books.initial();
     models     = books.initial(3);
     models     = books.inject((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
-    one        = books.invoke("at", 3);
+    array      = books.invoke("at", 3);
     bool       = books.isEmpty();
-    one        = books.last();
+    maybeOne   = books.last();
     models     = books.last(3);
     num        = books.lastIndexOf(book1, 3);
     models     = books.map((value: Book, index: number, list: Book[]) => value);
-    one        = books.max((value: Book, index: number, list: Book[]) => value);
-    one        = books.min((value: Book, index: number, list: Book[]) => value);
+    minMax     = books.max((value: Book, index: number, list: Book[]) => value);
+    minMax     = books.min((value: Book, index: number, list: Book[]) => value);
     [models]   = books.partition((value: Book, index: number, list: Book[]) => true);
     models     = books.reduce((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
     models     = books.reduceRight((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
     models     = books.reject((value: Book, index: number, list: Book[]) => true);
     models     = books.rest(3);
-    one        = books.sample();
+    maybeOne   = books.sample();
     models     = books.sample(3);
     models     = books.select((value: Book, index: number, list: Book[]) => true);
     models     = books.shuffle();
@@ -353,7 +360,7 @@ function test_collection() {
     models     = books.sortBy((value: Book, index: number, list: Book[]) => value);
     models     = books.sortBy("foo");
     models     = books.tail(3);
-    one        = books.take();
+    maybeOne   = books.take();
     models     = books.take(3);
     models     = books.toArray();
     models     = books.without(book1, book1);

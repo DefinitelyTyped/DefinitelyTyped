@@ -311,21 +311,18 @@ declare namespace Backbone {
 
         private _validate(attributes: any, options: any): boolean;
 
+        matches(attrs: any): boolean;
+
         // mixins from underscore
 
-        keys(): string[];
-        values(): any[];
-        pairs(): any[];
-        invert(): any;
-        pick(keys: string[]): any;
-        pick(...keys: string[]): any;
-        pick(fn: (value: any, key: any, object: any) => any): any;
-        omit(keys: string[]): any;
-        omit(...keys: string[]): any;
-        omit(fn: (value: any, key: any, object: any) => any): any;
-        chain(): any;
-        isEmpty(): boolean;
-        matches(attrs: any): boolean;
+        keys: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['keys'];
+        values: _.Underscore<any, any>['values'];
+        pairs: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['pairs'];
+        invert: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['invert'];
+        pick: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['pick'];
+        omit: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['omit'];
+        chain: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['chain'];
+        isEmpty: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['isEmpty']
     }
 
     class Collection<TModel extends Model = Model> extends ModelBase implements Events {
@@ -410,64 +407,55 @@ declare namespace Backbone {
 
         // mixins from underscore
 
-        all(iterator?: _.ListIterator<TModel, boolean>, context?: any): boolean;
-        any(iterator?: _.ListIterator<TModel, boolean>, context?: any): boolean;
-        chain(): any;
-        collect<TResult>(iterator: _.ListIterator<TModel, TResult>, context?: any): TResult[];
-        contains(value: TModel): boolean;
-        countBy(iterator?: _.ListIterator<TModel, any>): _.Dictionary<number>;
-        countBy(iterator: string): _.Dictionary<number>;
-        detect(iterator: _.ListIterator<TModel, boolean>, context?: any): TModel;
-        difference(others: TModel[]): TModel[];
-        drop(n?: number): TModel[];
-        each(iterator: _.ListIterator<TModel, void>, context?: any): TModel[];
-        every(iterator: _.ListIterator<TModel, boolean>, context?: any): boolean;
-        filter(iterator: _.ListIterator<TModel, boolean>, context?: any): TModel[];
-        find(iterator: _.ListIterator<TModel, boolean>, context?: any): TModel;
-        findIndex(predicate: _.ListIterator<TModel, boolean>, context?: any): number;
-        findLastIndex(predicate: _.ListIterator<TModel, boolean>, context?: any): number;
-        first(): TModel;
-        first(n: number): TModel[];
-        foldl<TResult>(iterator: _.MemoIterator<TModel, TResult>, memo?: TResult, context?: any): TResult;
-        foldr<TResult>(iterator: _.MemoIterator<TModel, TResult>, memo?: TResult, context?: any): TResult;
-        forEach(iterator: _.ListIterator<TModel, void>, context?: any): TModel[];
-        groupBy(iterator: _.ListIterator<TModel, any>, context?: any): _.Dictionary<TModel[]>;
-        groupBy(iterator: string, context?: any): _.Dictionary<TModel[]>;
-        head(): TModel;
-        head(n: number): TModel[];
-        include(value: TModel): boolean;
-        includes(value: TModel): boolean;
-        indexBy(iterator: _.ListIterator<TModel, any>, context?: any): _.Dictionary<TModel>;
-        indexBy(iterator: string, context?: any): _.Dictionary<TModel>;
-        indexOf(value: TModel, isSorted?: boolean): number;
-        initial(): TModel;
-        initial(n: number): TModel[];
-        inject<TResult>(iterator: _.MemoIterator<TModel, TResult>, memo?: TResult, context?: any): TResult;
-        invoke(methodName: string, ...args: any[]): any;
-        isEmpty(): boolean;
-        last(): TModel;
-        last(n: number): TModel[];
-        lastIndexOf(value: TModel, from?: number): number;
-        map<TResult>(iterator: _.ListIterator<TModel, TResult>, context?: any): TResult[];
-        max(iterator?: _.ListIterator<TModel, any>, context?: any): TModel;
-        min(iterator?: _.ListIterator<TModel, any>, context?: any): TModel;
-        partition(iterator: _.ListIterator<TModel, boolean>): TModel[][];
-        reduce<TResult>(iterator: _.MemoIterator<TModel, TResult>, memo?: TResult, context?: any): TResult;
-        reduceRight<TResult>(iterator: _.MemoIterator<TModel, TResult>, memo?: TResult, context?: any): TResult;
-        reject(iterator: _.ListIterator<TModel, boolean>, context?: any): TModel[];
-        rest(n?: number): TModel[];
-        sample(): TModel;
-        sample(n: number): TModel[];
-        select(iterator: _.ListIterator<TModel, boolean>, context?: any): TModel[];
-        shuffle(): TModel[];
-        size(): number;
-        some(iterator?: _.ListIterator<TModel, boolean>, context?: any): boolean;
-        sortBy<TSort>(iterator?: _.ListIterator<TModel, TSort>, context?: any): TModel[];
-        sortBy(iterator: string, context?: any): TModel[];
-        tail(n?: number): TModel[];
-        take(): TModel;
-        take(n: number): TModel[];
-        toArray(): TModel[];
+        all: _.Underscore<TModel>['all'];
+        any: _.Underscore<TModel>['any'];
+        chain: _.Underscore<TModel>['chain'];
+        collect: _.Underscore<TModel>['collect'];
+        contains: _.Underscore<TModel>['contains'];
+        countBy: _.Underscore<TModel>['countBy'];
+        detect: _.Underscore<TModel>['detect'];
+        difference: _.Underscore<TModel>['difference'];
+        drop: _.Underscore<TModel>['drop'];
+        each: _.Underscore<TModel>['each'];
+        every: _.Underscore<TModel>['every']
+        filter: _.Underscore<TModel>['filter'];
+        find: _.Underscore<TModel>['find'];
+        findIndex: _.Underscore<TModel>['findIndex'];
+        findLastIndex: _.Underscore<TModel>['findLastIndex'];
+        first: _.Underscore<TModel>['first'];
+        foldl: _.Underscore<TModel>['foldl'];
+        foldr: _.Underscore<TModel>['foldr'];
+        forEach: _.Underscore<TModel>['forEach'];
+        groupBy: _.Underscore<TModel>['groupBy'];
+        head: _.Underscore<TModel>['head'];
+        include: _.Underscore<TModel>['include'];
+        includes: _.Underscore<TModel>['includes'];
+        indexBy: _.Underscore<TModel>['indexBy'];
+        indexOf: _.Underscore<TModel>['indexOf'];
+        initial: _.Underscore<TModel>['initial'];
+        inject: _.Underscore<TModel>['inject'];
+        invoke: _.Underscore<TModel>['invoke'];
+        isEmpty: _.Underscore<TModel>['isEmpty'];
+        last: _.Underscore<TModel>['last'];
+        lastIndexOf: _.Underscore<TModel>['lastIndexOf'];
+        map: _.Underscore<TModel>['map'];
+        max: _.Underscore<TModel>['max'];
+        min: _.Underscore<TModel>['min'];
+        partition: _.Underscore<TModel>['partition'];
+        reduce: _.Underscore<TModel>['reduce'];
+        reduceRight: _.Underscore<TModel>['reduceRight'];
+        reject: _.Underscore<TModel>['reject'];
+        rest: _.Underscore<TModel>['rest'];
+        sample: _.Underscore<TModel>['sample'];
+        select: _.Underscore<TModel>['select'];
+        shuffle: _.Underscore<TModel>['shuffle'];
+        size: _.Underscore<TModel>['size'];
+        some: _.Underscore<TModel>['some'];
+        sortBy: _.Underscore<TModel>['sortBy'];
+        tail: _.Underscore<TModel>['tail'];
+        take: _.Underscore<TModel>['take'];
+        toArray: _.Underscore<TModel>['toArray'];
+        without: _.Underscore<TModel>['without'];
 
         /**
          * Sets the url property (or function) on a collection to reference its location on the server.
@@ -475,8 +463,6 @@ declare namespace Backbone {
          * @memberof Collection
          */
         url: string | (() => string);
-
-        without(...values: TModel[]): TModel[];
     }
 
     class Router extends EventsMixin implements Events {
