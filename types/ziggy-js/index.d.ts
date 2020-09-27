@@ -35,7 +35,7 @@ export interface Config {
     baseDomain: string;
     basePort?: number | null;
     defaultParameters: {
-        [_: string]: string;
+        [_: string]: string | number;
     };
 }
 
