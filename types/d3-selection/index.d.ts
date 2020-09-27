@@ -246,7 +246,6 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * @param selector CSS selector string
      */
     selectAll<DescElement extends BaseType, OldDatum>(selector: string): Selection<DescElement, OldDatum, GElement, Datum>;
-
     /**
      * For each selected element, selects the descendant elements returned by the selector function. The elements in the returned
      * selection are grouped by their corresponding parent node in this selection. If no element matches the specified selector
@@ -260,9 +259,76 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param selector A selector function which is evaluated for each selected element, in order, being passed the current datum (d),
      * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). It must return an array of elements
-     * (or a pseudo-array, such as a NodeList), or the empty array if there are no matching elements.
+     * (or an iterable, or a pseudo-array, such as a NodeList), or the empty array if there are no matching elements.
      */
     selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, DescElement[] | ArrayLike<DescElement>>): Selection<DescElement, OldDatum, GElement, Datum>;
+
+    /**
+     * Filters the selection, returning a new selection that contains only the elements for
+     * which the specified filter is true.
+     *
+     * The returned filtered selection preserves the parents of this selection, but like array.filter,
+     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
+     *
+     * @param selector A CSS selector string to match when filtering.
+     */
+    filter(selector: string): Selection<GElement, Datum, PElement, PDatum>;
+    /**
+     * Filters the selection, returning a new selection that contains only the elements for
+     * which the specified filter is true.
+     *
+     * The returned filtered selection preserves the parents of this selection, but like array.filter,
+     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
+     *
+     * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
+     * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
+     *
+     * @param selector A CSS selector string to match when filtering.
+     */
+    filter<FilteredElement extends BaseType>(selector: string): Selection<FilteredElement, Datum, PElement, PDatum>;
+    /**
+     * Filter the selection, returning a new selection that contains only the elements for
+     * which the specified filter is true.
+     *
+     * The returned filtered selection preserves the parents of this selection, but like array.filter,
+     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
+     *
+     * @param selector  A value function which is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). This function should return true
+     * for an element to be included, and false otherwise.
+     */
+    filter(selector: ValueFn<GElement, Datum, boolean>): Selection<GElement, Datum, PElement, PDatum>;
+    /**
+     * Filter the selection, returning a new selection that contains only the elements for
+     * which the specified filter is true.
+     *
+     * The returned filtered selection preserves the parents of this selection, but like array.filter,
+     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
+     *
+     * @param selector  A value function which is evaluated for each selected element, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). This function should return true
+     * for an element to be included, and false otherwise.
+     */
+    filter<FilteredElement extends BaseType>(selector: ValueFn<GElement, Datum, boolean>): Selection<FilteredElement, Datum, PElement, PDatum>;
+
+    /**
+     * Returns a new selection merging this selection with the specified other selection.
+     * The returned selection has the same number of groups and the same parents as this selection.
+     * Any missing (null) elements in this selection are filled with the corresponding element,
+     * if present (not null), from the specified selection. (If the other selection has additional groups or parents,
+     * they are ignored.)
+     *
+     * This method is commonly used to merge the enter and update selections after a data-join.
+     * After modifying the entering and updating elements separately, you can merge the two selections and
+     * perform operations on both without duplicate code.
+     *
+     * This method is not intended for concatenating arbitrary selections, however: if both this selection
+     * and the specified other selection have (non-null) elements at the same index, this selection’s element
+     * is returned in the merge and the other selection’s element is ignored.
+     *
+     * @param other Selection to be merged.
+     */
+    merge(other: Selection<GElement, Datum, PElement, PDatum>): Selection<GElement, Datum, PElement, PDatum>;
 
     // Modifying -------------------------------
 
@@ -502,7 +568,6 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * (for example, svg implies svg:svg)
      */
     append<ChildElement extends BaseType>(type: string): Selection<ChildElement, Datum, PElement, PDatum>;
-
     /**
      * Appends a new element of the type provided by the element creator function as the last child of each selected element,
      * or before the next following sibling in the update selection if this is an enter selection.
@@ -587,73 +652,6 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
     clone(deep?: boolean): Selection<GElement, Datum, PElement, PDatum>;
 
     /**
-     * Returns a new selection merging this selection with the specified other selection.
-     * The returned selection has the same number of groups and the same parents as this selection.
-     * Any missing (null) elements in this selection are filled with the corresponding element,
-     * if present (not null), from the specified selection. (If the other selection has additional groups or parents,
-     * they are ignored.)
-     *
-     * This method is commonly used to merge the enter and update selections after a data-join.
-     * After modifying the entering and updating elements separately, you can merge the two selections and
-     * perform operations on both without duplicate code.
-     *
-     * This method is not intended for concatenating arbitrary selections, however: if both this selection
-     * and the specified other selection have (non-null) elements at the same index, this selection’s element
-     * is returned in the merge and the other selection’s element is ignored.
-     *
-     * @param other Selection to be merged.
-     */
-    merge(other: Selection<GElement, Datum, PElement, PDatum>): Selection<GElement, Datum, PElement, PDatum>;
-
-    /**
-     * Filters the selection, returning a new selection that contains only the elements for
-     * which the specified filter is true.
-     *
-     * The returned filtered selection preserves the parents of this selection, but like array.filter,
-     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
-     *
-     * @param selector A CSS selector string to match when filtering.
-     */
-    filter(selector: string): Selection<GElement, Datum, PElement, PDatum>;
-    /**
-     * Filters the selection, returning a new selection that contains only the elements for
-     * which the specified filter is true.
-     *
-     * The returned filtered selection preserves the parents of this selection, but like array.filter,
-     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
-     *
-     * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
-     * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
-     *
-     * @param selector A CSS selector string to match when filtering.
-     */
-    filter<FilteredElement extends BaseType>(selector: string): Selection<FilteredElement, Datum, PElement, PDatum>;
-    /**
-     * Filter the selection, returning a new selection that contains only the elements for
-     * which the specified filter is true.
-     *
-     * The returned filtered selection preserves the parents of this selection, but like array.filter,
-     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
-     *
-     * @param selector  A value function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). This function should return true
-     * for an element to be included, and false otherwise.
-     */
-    filter(selector: ValueFn<GElement, Datum, boolean>): Selection<GElement, Datum, PElement, PDatum>;
-    /**
-     * Filter the selection, returning a new selection that contains only the elements for
-     * which the specified filter is true.
-     *
-     * The returned filtered selection preserves the parents of this selection, but like array.filter,
-     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
-     *
-     * @param selector  A value function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). This function should return true
-     * for an element to be included, and false otherwise.
-     */
-    filter<FilteredElement extends BaseType>(selector: ValueFn<GElement, Datum, boolean>): Selection<FilteredElement, Datum, PElement, PDatum>;
-
-    /**
      * Return a new selection that contains a copy of each group in this selection sorted according
      * to the compare function. After sorting, re-inserts elements to match the resulting order (per selection.order).
      *
@@ -684,39 +682,6 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
     lower(): this;
 
     // Data Join ---------------------------------
-
-    /**
-     * Returns the bound datum for the first (non-null) element in the selection.
-     * This is generally useful only if you know the selection contains exactly one element.
-     */
-    datum(): Datum;
-    /**
-     * Delete the bound data for each element in the selection.
-     */
-    datum(value: null): Selection<GElement, undefined, PElement, PDatum>;
-    /**
-     * Sets the element’s bound data using the specified value function on all selected elements.
-     * Unlike selection.data, this method does not compute a join and does not affect
-     * indexes or the enter and exit selections.
-     *
-     * The generic refers to the type of the new datum to be used for the selected elements.
-     *
-     * @param value A value function which is evaluated for each selected element, in order,
-     * being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element (nodes[i]). The function is then used to set each element’s new data.
-     * A null value will delete the bound data.
-     */
-    datum<NewDatum>(value: ValueFn<GElement, Datum, NewDatum>): Selection<GElement, NewDatum, PElement, PDatum>;
-    /**
-     * Sets the element’s bound data to the specified value on all selected elements.
-     * Unlike selection.data, this method does not compute a join and does not affect
-     * indexes or the enter and exit selections.
-     *
-     * The generic refers to the type of the new datum to be used for the selected elements.
-     *
-     * @param value A value object to be used as the datum for each element.
-     */
-    datum<NewDatum>(value: NewDatum): Selection<GElement, NewDatum, PElement, PDatum>;
 
     /**
      * Returns the array of data for the selected elements.
@@ -837,6 +802,39 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * follow-up steps, e.g. to set styles as part of an exit transition before removing them.
      */
     exit<OldDatum>(): Selection<GElement, OldDatum, PElement, PDatum>;
+
+    /**
+     * Returns the bound datum for the first (non-null) element in the selection.
+     * This is generally useful only if you know the selection contains exactly one element.
+     */
+    datum(): Datum;
+    /**
+     * Delete the bound data for each element in the selection.
+     */
+    datum(value: null): Selection<GElement, undefined, PElement, PDatum>;
+    /**
+     * Sets the element’s bound data using the specified value function on all selected elements.
+     * Unlike selection.data, this method does not compute a join and does not affect
+     * indexes or the enter and exit selections.
+     *
+     * The generic refers to the type of the new datum to be used for the selected elements.
+     *
+     * @param value A value function which is evaluated for each selected element, in order,
+     * being passed the current datum (d), the current index (i), and the current group (nodes),
+     * with this as the current DOM element (nodes[i]). The function is then used to set each element’s new data.
+     * A null value will delete the bound data.
+     */
+    datum<NewDatum>(value: ValueFn<GElement, Datum, NewDatum>): Selection<GElement, NewDatum, PElement, PDatum>;
+    /**
+     * Sets the element’s bound data to the specified value on all selected elements.
+     * Unlike selection.data, this method does not compute a join and does not affect
+     * indexes or the enter and exit selections.
+     *
+     * The generic refers to the type of the new datum to be used for the selected elements.
+     *
+     * @param value A value object to be used as the datum for each element.
+     */
+    datum<NewDatum>(value: NewDatum): Selection<GElement, NewDatum, PElement, PDatum>;
 
     // Event Handling -------------------
 
