@@ -24,8 +24,6 @@ export interface Route {
     uri: string;
     methods: Array<'GET' | 'HEAD' | 'POST' | 'PATCH' | 'PUT' | 'OPTIONS' | 'DELETE'>;
     domain?: null | string;
-    middleware?: any[];
-    bindings?: any[];
 }
 
 export interface Config {
