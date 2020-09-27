@@ -10,6 +10,7 @@
 //                 kylesferrazza <https://github.com/kylesferrazza>
 //                 fityocsaba96 <https://github.com/fityocsaba96>
 //                 koddsson <https://github.com/koddsson>
+//                 ficristo <https://github.com/ficristo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -113,8 +114,16 @@ declare namespace CodeMirror {
     function off(doc: Doc, eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void): void;
 
     /** Equivalent to the event by the same name as fired on editor instances. */
-    function on(doc: Doc, eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
-    function off(doc: Doc, eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
+    function on(
+        doc: Doc,
+        eventName: 'beforeSelectionChange',
+        handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
+    ): void;
+    function off(
+        doc: Doc,
+        eventName: 'beforeSelectionChange',
+        handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
+    ): void;
 
     /** Will be fired when the line object is deleted. A line object is associated with the start of the line.
     Mostly useful when you need to find out when your gutter markers on a given line are removed. */
@@ -543,8 +552,14 @@ declare namespace CodeMirror {
 
         /** This event is fired before the selection is moved. Its handler may modify the resulting selection head and anchor.
         Handlers for this event have the same restriction as "beforeChange" handlers they should not do anything to directly update the state of the editor. */
-        on(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
-        off(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
+        on(
+            eventName: 'beforeSelectionChange',
+            handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
+        ): void;
+        off(
+            eventName: 'beforeSelectionChange',
+            handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
+        ): void;
 
         /** Fires whenever the view port of the editor changes (due to scrolling, editing, or any other factor).
         The from and to arguments give the new start and end of the viewport. */
@@ -687,7 +702,12 @@ declare namespace CodeMirror {
 
         /** Replace the part of the document between from and to with the given string.
         from and to must be {line, ch} objects. to can be left off to simply insert the string at position from. */
-        replaceRange(replacement: string | string[], from: CodeMirror.Position, to?: CodeMirror.Position, origin?: string): void;
+        replaceRange(
+            replacement: string | string[],
+            from: CodeMirror.Position,
+            to?: CodeMirror.Position,
+            origin?: string,
+        ): void;
 
         /** Get the content of line n. */
         getLine(n: number): string;
@@ -1240,15 +1260,21 @@ declare namespace CodeMirror {
         /** Determines whether text inserted on the left of the marker will end up inside or outside of it. */
         inclusiveLeft?: boolean;
 
-        /** Like inclusiveLeft , but for the right side. */
+        /** Like inclusiveLeft, but for the right side. */
         inclusiveRight?: boolean;
 
+        /** For atomic ranges, determines whether the cursor is allowed to be placed directly to the left of the range. Has no effect on non-atomic ranges. */
+        selectLeft?: boolean;
+
+        /** Like selectLeft, but for the right side. */
+        selectRight?: boolean;
+
         /** Atomic ranges act as a single unit when cursor movement is concerned — i.e. it is impossible to place the cursor inside of them.
-        In atomic ranges, inclusiveLeft and inclusiveRight have a different meaning — they will prevent the cursor from being placed
-        respectively directly before and directly after the range. */
+        You can control whether the cursor is allowed to be placed directly before or after them using selectLeft or selectRight.
+        If selectLeft (or right) is not provided, then inclusiveLeft (or right) will control this behavior. */
         atomic?: boolean;
 
-        /** Collapsed ranges do not show up in the display.Setting a range to be collapsed will automatically make it atomic. */
+        /** Collapsed ranges do not show up in the display. Setting a range to be collapsed will automatically make it atomic. */
         collapsed?: boolean;
 
         /** When enabled, will cause the mark to clear itself whenever the cursor enters its range.
@@ -1259,8 +1285,8 @@ declare namespace CodeMirror {
         /** Determines whether the mark is automatically cleared when it becomes empty. Default is true. */
         clearWhenEmpty?: boolean;
 
-        /** Use a given node to display this range.Implies both collapsed and atomic.
-        The given DOM node must be an inline element(as opposed to a block element). */
+        /** Use a given node to display this range. Implies both collapsed and atomic.
+        The given DOM node must be an inline element (as opposed to a block element). */
         replacedWith?: HTMLElement;
 
         /** When replacedWith is given, this determines whether the editor will
@@ -1274,7 +1300,7 @@ declare namespace CodeMirror {
         because existing undo events being partially nullified by read - only spans would corrupt the history (in the current implementation). */
         readOnly?: boolean;
 
-        /** When set to true (default is false), adding this marker will create an event in the undo history that can be individually undone(clearing the marker). */
+        /** When set to true (default is false), adding this marker will create an event in the undo history that can be individually undone (clearing the marker). */
         addToHistory?: boolean;
 
         /** Can be used to specify an extra CSS class to be applied to the leftmost span that is part of the marker. */
@@ -1288,6 +1314,9 @@ declare namespace CodeMirror {
 
         /** When given, will give the nodes created for this span a HTML title attribute with the given value. */
         title?: string;
+
+        /** When given, add the attributes in the given object to the elements created for the marked text. Adding class or style attributes this way is not supported. */
+        attributes?: { [name: string]: string };
 
         /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
         By default, a marker appears only in its target document. */
@@ -1677,12 +1706,12 @@ declare namespace CodeMirror {
         delay?: number;
 
         /** callback to modify an annotation before display */
-        formatAnnotation?: (annotation: Annotation) => Annotation
+        formatAnnotation?: (annotation: Annotation) => Annotation;
 
         /** custom linting function provided by the user */
         getAnnotations?: Linter | AsyncLinter;
 
-        /** 
+        /**
          * specifies that lint errors should be displayed in the CodeMirror
          * gutter, note that you must use this in conjunction with [ "CodeMirror-lint-markers" ] as an element in the gutters argument on
          * initialization of the CodeMirror instance. */
@@ -1701,14 +1730,16 @@ declare namespace CodeMirror {
         options?: any;
 
         /** controls display of lint tooltips */
-        tooltips?: boolean | 'gutter'
+        tooltips?: boolean | 'gutter';
     }
 
     /**
      * A function that return errors found during the linting process.
      */
     interface Linter {
-        (content: string, options: LintStateOptions | any, codeMirror: Editor): Annotation[] | PromiseLike<Annotation[]>;
+        (content: string, options: LintStateOptions | any, codeMirror: Editor):
+            | Annotation[]
+            | PromiseLike<Annotation[]>;
     }
 
     /**
