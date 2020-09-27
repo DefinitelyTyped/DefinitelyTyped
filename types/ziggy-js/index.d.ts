@@ -6,13 +6,19 @@
 
 export type EncodeURIParamType = string | number | boolean;
 
+export type InputValue =
+    | {
+          id: number;
+      }
+    | EncodeURIParamType;
+
 export type NormalizedParams =
     | {
-          [key: string]: EncodeURIParamType;
+          [key: string]: InputValue;
       }
-    | EncodeURIParamType[];
+    | InputValue[];
 
-export type InputParams = NormalizedParams | EncodeURIParamType;
+export type InputParams = NormalizedParams | InputValue;
 
 export interface Route {
     uri: string;
