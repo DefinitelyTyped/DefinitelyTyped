@@ -1,5 +1,5 @@
 import { Coordinate } from '../coordinate';
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import { ObjectEvent } from '../Object';
@@ -13,10 +13,12 @@ export default class GeometryCollection extends Geometry {
     applyTransform(transformFn: TransformFunction): void;
     clone(): GeometryCollection;
     closestPointXY(x: number, y: number, closestPoint: Coordinate, minSquaredDistance: number): number;
+    containsXY(x: number, y: number): boolean;
+    disposeInternal(): void;
     getGeometries(): Geometry[];
     getGeometriesArray(): Geometry[];
     getGeometriesArrayRecursive(): Geometry[];
-    getSimplifiedGeometry(squaredTolerance: number): Geometry;
+    getSimplifiedGeometry(squaredTolerance: number): GeometryCollection;
     getType(): GeometryType;
     intersectsExtent(extent: Extent): boolean;
     isEmpty(): boolean;
@@ -26,7 +28,7 @@ export default class GeometryCollection extends Geometry {
     setGeometriesArray(geometries: Geometry[]): void;
     simplifyTransformed(squaredTolerance: number, opt_transform?: TransformFunction): Geometry;
     translate(deltaX: number, deltaY: number): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

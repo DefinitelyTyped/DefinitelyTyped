@@ -153,6 +153,7 @@ type Google = (options: ProviderGoogleOptions) => GenericReturnConfig;
 interface ProviderGoogleOptions {
     clientId: string;
     clientSecret: string;
+    authorizationUrl?: string;
 }
 
 /**

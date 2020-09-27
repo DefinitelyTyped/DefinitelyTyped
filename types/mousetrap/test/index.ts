@@ -64,10 +64,3 @@ const unionTypeKeys: string | string[] = ['a', 'b', 'c'];
 Mousetrap(element).bind(unionTypeKeys, function() { console.log('Union type test') });
 
 Mousetrap(element).handleKey = (character: string, modifiers: string[], e: KeyboardEvent) => { console.log('Override handleKey test') };
-
-// Test that Mousetrap can be loaded as an external module.
-// Assume that if the externally-loaded module can be assigned to a variable with the type of global Mousetrap,
-// then everything is working correctly.
-
-import importedMousetrap = require('mousetrap');
-var mousetrapModuleReference: typeof Mousetrap = importedMousetrap;

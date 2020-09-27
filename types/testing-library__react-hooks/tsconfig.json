@@ -13,7 +13,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@testing-library/react-hooks": ["testing-library__react-hooks"]
+            "@testing-library/*": ["testing-library__*"]
         },
         "jsx": "react"
     },

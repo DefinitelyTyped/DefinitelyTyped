@@ -251,4 +251,10 @@ declare var $: (arg?: any) => JQuery;
     u.search(qs => qs);
     u.query(() => undefined);
     u.search(() => undefined);
+    u.query(() => {
+        // Return nothing
+    });
+    u.search(() => {
+        // Return nothing
+    });
 }

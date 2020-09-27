@@ -14,101 +14,102 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+    AccessibilityInfo,
     Alert,
     AppState,
+    AppStateStatus,
+    Appearance,
     BackHandler,
     Button,
     CheckBox,
     ColorPropType,
+    ColorValue,
     DataSourceAssetCallback,
+    DatePickerAndroid,
+    DevSettings,
     DeviceEventEmitter,
     DeviceEventEmitterStatic,
-    NativeEventEmitter,
     Dimensions,
-    Image,
-    ImageStyle,
-    ImageResizeMode,
-    ImageLoadEventData,
-    ImageErrorEventData,
-    ImageResolvedAssetSource,
-    ImageBackground,
-    InteractionManager,
-    Linking,
-    ListView,
-    ListViewDataSource,
-    StyleSheet,
-    StyleProp,
-    Systrace,
-    Text,
-    TextStyle,
-    TextProps,
-    View,
-    ViewStyle,
-    ViewPagerAndroid,
+    DrawerLayoutAndroid,
+    DrawerSlideEvent,
+    DynamicColorIOS,
     FlatList,
     FlatListProps,
+    GestureResponderEvent,
+    HostComponent,
+    Image,
+    ImageBackground,
+    ImageErrorEventData,
+    ImageLoadEventData,
+    ImageResizeMode,
+    ImageResolvedAssetSource,
+    ImageStyle,
+    InputAccessoryView,
+    InteractionManager,
+    Keyboard,
+    KeyboardAvoidingView,
+    LayoutChangeEvent,
+    Linking,
+    ListRenderItemInfo,
+    ListView,
+    ListViewDataSource,
+    LogBox,
+    MaskedViewIOS,
+    Modal,
+    NativeEventEmitter,
+    NativeModules,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    PermissionsAndroid,
+    Picker,
+    Platform,
+    PlatformColor,
+    Pressable,
+    ProgressBarAndroid,
+    PushNotificationIOS,
+    RefreshControl,
+    RegisteredStyle,
     ScaledSize,
-    SectionList,
-    SectionListProps,
-    findNodeHandle,
     ScrollView,
     ScrollViewProps,
+    SectionList,
+    SectionListProps,
     SectionListRenderItemInfo,
     Share,
     ShareDismissedAction,
     ShareSharedAction,
-    Switch,
-    RefreshControl,
-    RegisteredStyle,
-    TabBarIOS,
-    NativeModules,
-    MaskedViewIOS,
-    TextInput,
-    TouchableNativeFeedback,
-    TextInputFocusEventData,
-    InputAccessoryView,
     StatusBar,
-    NativeSyntheticEvent,
-    NativeScrollEvent,
-    GestureResponderEvent,
-    TextInputScrollEventData,
-    TextInputSelectionChangeEventData,
-    TextInputKeyPressEventData,
+    StyleProp,
+    StyleSheet,
+    Switch,
+    Systrace,
+    TabBarIOS,
+    Text,
+    TextInput,
     TextInputChangeEventData,
     TextInputContentSizeChangeEventData,
     TextInputEndEditingEventData,
+    TextInputFocusEventData,
+    TextInputKeyPressEventData,
+    TextInputScrollEventData,
+    TextInputSelectionChangeEventData,
     TextInputSubmitEditingEventData,
-    KeyboardAvoidingView,
-    Modal,
-    TimePickerAndroid,
-    DatePickerAndroid,
-    Picker,
-    ViewPropTypes,
-    requireNativeComponent,
-    Keyboard,
-    PermissionsAndroid,
-    Platform,
-    PlatformColor,
-    DynamicColorIOS,
-    ProgressBarAndroid,
-    PushNotificationIOS,
-    AccessibilityInfo,
-    YellowBox,
-    useWindowDimensions,
-    HostComponent,
-    Appearance,
-    useColorScheme,
-    DevSettings,
-    Pressable,
-    VirtualizedList,
-    ListRenderItemInfo,
-    LogBox,
-    ColorValue,
     TextLayoutEventData,
-    LayoutChangeEvent,
-    AppStateStatus,
-    DrawerLayoutAndroid,
-    DrawerSlideEvent,
+    TextProps,
+    TextStyle,
+    TimePickerAndroid,
+    TouchableNativeFeedback,
+    UIManager,
+    View,
+    ViewPagerAndroid,
+    ViewPropTypes,
+    ViewStyle,
+    VirtualizedList,
+    YellowBox,
+    findNodeHandle,
+    requireNativeComponent,
+    useColorScheme,
+    useWindowDimensions,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -243,11 +244,17 @@ const combinedStyle: StyleProp<TextStyle> = StyleSheet.compose(composeTextStyle,
 
 const combinedStyle1: StyleProp<ImageStyle> = StyleSheet.compose(composeImageStyle, composeImageStyle);
 
-const combinedStyle2: StyleProp<TextStyle> = StyleSheet.compose([composeTextStyle], [composeTextStyle]);
+const combinedStyle2: StyleProp<TextStyle | ConcatArray<TextStyle>> = StyleSheet.compose(
+    [composeTextStyle],
+    [composeTextStyle],
+);
 
-const combinedStyle3: StyleProp<TextStyle> = StyleSheet.compose(composeTextStyle, null);
+const combinedStyle3: StyleProp<TextStyle | null> = StyleSheet.compose(composeTextStyle, null);
 
-const combinedStyle4: StyleProp<TextStyle> = StyleSheet.compose([composeTextStyle], null);
+const combinedStyle4: StyleProp<TextStyle | ConcatArray<TextStyle> | null> = StyleSheet.compose(
+    [composeTextStyle],
+    null,
+);
 
 const combinedStyle5: StyleProp<TextStyle> = StyleSheet.compose(
     composeTextStyle,
@@ -601,7 +608,18 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
     scrollView: ScrollView | null = null;
 
     testNativeMethods() {
-        this.scrollView && this.scrollView.setNativeProps({ scrollEnabled: false });
+        if (this.scrollView) {
+            this.scrollView.setNativeProps({ scrollEnabled: false });
+
+            // Dummy values for scroll dimensions changes
+            this.scrollView.getScrollResponder().scrollResponderZoomTo({
+                x: 0,
+                y: 0,
+                width: 300,
+                height: 500,
+                animated: true,
+            });
+        }
     }
 
     render() {
@@ -949,9 +967,18 @@ export class ImageTest extends React.Component {
             });
 
         Image.getSize(uri, (width, height) => console.log(width, height));
-        Image.getSize(uri, (width, height) => console.log(width, height), (error) => console.error(error));
+        Image.getSize(
+            uri,
+            (width, height) => console.log(width, height),
+            error => console.error(error),
+        );
         Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height));
-        Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height), (error) => console.error(error));
+        Image.getSizeWithHeaders(
+            uri,
+            headers,
+            (width, height) => console.log(width, height),
+            error => console.error(error),
+        );
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -1017,7 +1044,7 @@ class AccessibilityTest extends React.Component {
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityState={{ checked: true }}
-                accessibilityHint="Very importent header"
+                accessibilityHint="Very important header"
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
@@ -1079,6 +1106,7 @@ AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
 const ModalTest = () => <Modal hardwareAccelerated />;
+const ModalTest2 = () => <Modal hardwareAccelerated testID="modal-test-2" />;
 
 const TimePickerAndroidTest = () => {
     TimePickerAndroid.open({
@@ -1121,6 +1149,10 @@ class BridgedComponentTest extends React.Component {
 
     nativeComponentRef: React.ElementRef<typeof NativeBridgedComponent> | null;
 
+    callNativeMethod = () => {
+        UIManager.dispatchViewManagerCommand(findNodeHandle(this.nativeComponentRef), 'someNativeMethod', []);
+    };
+
     measureNativeComponent() {
         if (this.nativeComponentRef) {
             this.nativeComponentRef.measure(
@@ -1144,6 +1176,11 @@ const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
         <View nativeID={'nativeID'} />
         <Text nativeID={'nativeID'}>Text</Text>
+    </ScrollView>
+);
+
+const ScrollViewMaintainVisibleContentPositionTest = () => (
+    <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}>
     </ScrollView>
 );
 
@@ -1269,7 +1306,7 @@ const OpaqueTest2 = () => (
     />
 );
 
-// Test you cannot ammend opaque type
+// Test you cannot amend opaque type
 PlatformColor('?attr/colorControlNormal').resource_paths.push('foo'); // $ExpectError
 
 const someColorProp: ColorValue = PlatformColor('test');
@@ -1429,18 +1466,18 @@ export class DrawerLayoutAndroidTest extends React.Component {
     readonly styles = StyleSheet.create({
         container: {
             flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
+            alignItems: 'center',
+            justifyContent: 'center',
             paddingTop: 50,
-            backgroundColor: "#ecf0f1",
-            padding: 8
+            backgroundColor: '#ecf0f1',
+            padding: 8,
         },
         navigationContainer: {
             flex: 1,
             paddingTop: 50,
-            backgroundColor: "#fff",
-            padding: 8
-        }
+            backgroundColor: '#fff',
+            padding: 8,
+        },
     });
 
     readonly navigationView = (
@@ -1450,20 +1487,20 @@ export class DrawerLayoutAndroidTest extends React.Component {
     );
 
     handleDrawerClose = () => {
-        console.log("handleDrawerClose");
-    }
+        console.log('handleDrawerClose');
+    };
 
     handleDrawerOpen = () => {
-        console.log("handleDrawerOpen");
-    }
+        console.log('handleDrawerOpen');
+    };
 
     handleDrawerSlide = (event: DrawerSlideEvent) => {
-        console.log("handleDrawerSlide", event);
-    }
+        console.log('handleDrawerSlide', event);
+    };
 
-    handleDrawerStateChanged = (event: "Idle" | "Dragging" | "Settling") => {
-        console.log("handleDrawerStateChanged", event);
-    }
+    handleDrawerStateChanged = (event: 'Idle' | 'Dragging' | 'Settling') => {
+        console.log('handleDrawerStateChanged', event);
+    };
 
     render() {
         return (
@@ -1482,9 +1519,7 @@ export class DrawerLayoutAndroidTest extends React.Component {
                 statusBarBackgroundColor="yellow"
             >
                 <View style={this.styles.container}>
-                    <Text style={{ margin: 10, fontSize: 15 }}>
-                        DrawerLayoutAndroid example
-                    </Text>
+                    <Text style={{ margin: 10, fontSize: 15 }}>DrawerLayoutAndroid example</Text>
                 </View>
             </DrawerLayoutAndroid>
         );

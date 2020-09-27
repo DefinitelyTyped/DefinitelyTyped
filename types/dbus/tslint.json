@@ -4,12 +4,6 @@
         "npm-naming": [
             true,
             {
-                "errors": [
-                    [
-                        "NeedsExportEquals",
-                        false
-                    ]
-                ],
                 "mode": "code"
             }
         ]

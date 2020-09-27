@@ -388,8 +388,8 @@ declare class IssueCollection {
     append(uri: string, issues: Issue[]): void;
     dispose(): void;
     clear(): void;
-    has(uri: string): void;
-    get(uri: string): void;
+    has(uri: string): boolean;
+    get(uri: string): ReadonlyArray<Issue>;
     set(uri: string, issues: Issue[]): void;
     remove(uri: string): void;
 }

@@ -5,7 +5,8 @@ import {
     CartesianGrid, Line, LineChart, PieChart, Pie,
     Sector, XAxis, YAxis, Tooltip, ReferenceLine,
     ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
-    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized
+    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized,
+    RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar
 } from 'recharts';
 
 interface ComponentState {
@@ -154,7 +155,7 @@ class Component extends React.Component<{}, ComponentState> {
                 <ResponsiveContainer height={300}>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name" label={{ value: "X axis - name" }} />
-                        <YAxis label={{ value: "Y axis" }} />
+                        <YAxis label={{ value: "Y axis" }} allowDuplicatedCategory={false} />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
@@ -242,6 +243,12 @@ class Component extends React.Component<{}, ComponentState> {
                         <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
                     </AreaChart>
                 </ResponsiveContainer>
+                <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={data}>
+                    <PolarGrid />
+                    <PolarAngleAxis dataKey="subject" allowDuplicatedCategory={false} />
+                    <PolarRadiusAxis allowDuplicatedCategory={true} />
+                    <Radar name="Mike" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                </RadarChart>
             </div>
         );
     }

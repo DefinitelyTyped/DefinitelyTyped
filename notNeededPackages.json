@@ -1411,6 +1411,12 @@
             "asOfVersion": "2.2.1"
         },
         {
+            "libraryName": "favicons-webpack-plugin",
+            "typingsPackageName": "favicons-webpack-plugin",
+            "sourceRepoURL": "https://github.com/jantimon/favicons-webpack-plugin",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "@types/facebook-js-sdk",
             "typingsPackageName": "fb",
             "sourceRepoURL": "https://github.com/DefinitelyTyped/DefinitelyTyped",
@@ -1997,6 +2003,12 @@
             "typingsPackageName": "image-type",
             "sourceRepoURL": "https://github.com/sindresorhus/image-type",
             "asOfVersion": "4.0.1"
+        },
+        {
+            "libraryName": "imagemin-pngquant",
+            "typingsPackageName": "imagemin-pngquant",
+            "sourceRepoURL": "https://github.com/imagemin/imagemin-pngquant.git",
+            "asOfVersion": "8.0.0"
         },
         {
             "libraryName": "immutability-helper",
@@ -4201,6 +4213,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "react-filepond",
+            "typingsPackageName": "react-filepond",
+            "sourceRepoURL": "https://github.com/pqina/react-filepond",
+            "asOfVersion": "7.1.0"
+        },
+        {
             "libraryName": "react-flip-move",
             "typingsPackageName": "react-flip-move",
             "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
@@ -5593,6 +5611,12 @@
             "asOfVersion": "2.3.1"
         },
         {
+            "libraryName": "username",
+            "typingsPackageName": "username",
+            "sourceRepoURL": "https://github.com/sindresorhus/username",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "UUID.js",
             "typingsPackageName": "uuidjs",
             "sourceRepoURL": "https://github.com/LiosK/UUID.js",
@@ -5791,6 +5815,12 @@
             "asOfVersion": "2.4.4"
         },
         {
+            "libraryName": "wix-style-react",
+            "typingsPackageName": "wix-style-react",
+            "sourceRepoURL": "https://github.com/wix/wix-style-react",
+            "asOfVersion": "7.47.1"
+        },
+        {
             "libraryName": "wolfy87-eventemitter",
             "typingsPackageName": "wolfy87-eventemitter",
             "sourceRepoURL": "https://github.com/Wolfy87/EventEmitter",
@@ -5969,6 +5999,12 @@
             "typingsPackageName": "xterm",
             "sourceRepoURL": "https://github.com/sourcelair/xterm.js/",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "xumm-sdk",
+            "typingsPackageName": "xumm-api",
+            "sourceRepoURL": "https://github.com/XRPL-Labs/XUMM-SDK",
+            "asOfVersion": "0.1.4"
         },
         {
             "libraryName": "yaml",

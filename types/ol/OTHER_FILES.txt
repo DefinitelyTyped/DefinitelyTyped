@@ -46,7 +46,6 @@ has.d.ts
 interaction/Property.d.ts
 layer/Property.d.ts
 layer/TileProperty.d.ts
-layer/WebGLPoints.d.ts
 loadingstrategy.d.ts
 MapBrowserEventType.d.ts
 MapEventType.d.ts
@@ -80,8 +79,6 @@ renderer/canvas/VectorLayer.d.ts
 renderer/canvas/VectorTileLayer.d.ts
 renderer/Composite.d.ts
 renderer/vector.d.ts
-renderer/webgl/Layer.d.ts
-renderer/webgl/PointsLayer.d.ts
 reproj.d.ts
 reproj/common.d.ts
 reproj/Image.d.ts
@@ -94,9 +91,7 @@ sphere.d.ts
 string.d.ts
 structs/LinkedList.d.ts
 structs/RBush.d.ts
-style/expressions.d.ts
 style/IconImageCache.d.ts
-style/LiteralStyle.d.ts
 tilegrid.d.ts
 tilegrid/common.d.ts
 tileurlfunction.d.ts
@@ -104,9 +99,7 @@ uri.d.ts
 vec/mat4.d.ts
 ViewProperty.d.ts
 webgl.d.ts
-webgl/Buffer.d.ts
 webgl/ContextEventType.d.ts
-webgl/Helper.d.ts
 webgl/PostProcessingPass.d.ts
-webgl/RenderTarget.d.ts
 webgl/ShaderBuilder.d.ts
+xml.d.ts

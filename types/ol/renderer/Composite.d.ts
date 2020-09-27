@@ -8,11 +8,12 @@ import MapRenderer from './Map';
 export default class CompositeMapRenderer extends MapRenderer {
     constructor(map: PluggableMap);
     dispatchRenderEvent(type: EventType, frameState: FrameState): void;
-    forEachLayerAtPixel<S, T, U>(
+    forEachLayerAtPixel<T>(
         pixel: Pixel,
         frameState: FrameState,
         hitTolerance: number,
-        callback: (this: S, p0: Layer<Source>, p1: Uint8ClampedArray | Uint8Array) => T,
-        layerFilter: (this: U, p0: Layer<Source>) => boolean,
+        callback: (p0: Layer<Source>, p1: Uint8ClampedArray | Uint8Array) => T,
+        layerFilter: (p0: Layer<Source>) => boolean,
     ): T;
+    renderFrame(frameState: FrameState): void;
 }

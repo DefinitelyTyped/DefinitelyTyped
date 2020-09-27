@@ -29,6 +29,7 @@
 //                 Saul Mirone <https://github.com/Saul-Mirone>
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
 //                 Mike Deverell <https://github.com/devrelm>
+//                 Jorge Santana <https://github.com/LORDBABUINO>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -58,6 +59,7 @@ import {
     Reduced,
     SafePred,
     ValueOfRecord,
+    ValueOfUnion
 } from "./tools";
 
 export * from './tools';
@@ -360,11 +362,11 @@ export function composeWith<V0, T>(composer: (a: any) => any, fns: ComposeWithFn
 export function composeWith(composer: (a: any) => any): <V0, T>(fns: ComposeWithFns<V0, T>) => (x: V0) => T;
 
 /**
- * Returns a new list consisting of the elements of the first list followed by the elements
- * of the second.
+ * Returns the result of concatenating the given lists or strings.
  */
-export function concat<T>(placeholder: Placeholder): (list2: readonly T[], list1: readonly T[]) => T[];
+export function concat<T extends string | readonly any[]>(placeholder: Placeholder): (list2: T, list1: T) => T;
 export function concat<T>(placeholder: Placeholder, list2: readonly T[]): (list1: readonly T[]) => T[];
+export function concat(placeholder: Placeholder, list2: string): (list1: string) => string;
 export function concat<T>(list1: readonly T[], list2: readonly T[]): T[];
 export function concat<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
 export function concat(list1: string, list2: string): string;
@@ -761,8 +763,10 @@ export function includes<T>(target: T): (list: readonly T[]) => boolean;
  * Given a function that generates a key, turns a list of objects into an object indexing the objects
  * by the given key.
  */
-export function indexBy<T>(fn: (a: T) => string, list: readonly T[]): { [key: string]: T };
-export function indexBy<T>(fn: (a: T) => string): (list: readonly T[]) => { [key: string]: T };
+export function indexBy<T, K extends string | number = string>(fn: (a: T) => K, list: readonly T[]): { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(fn: (a: T) => K, list: readonly T[]): { [key in NonNullable<K>]?: T };
+export function indexBy<T, K extends string | number = string>(fn: (a: T) => K): (list: readonly T[]) => { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(fn: (a: T) => K | undefined): (list: readonly T[]) => { [key in NonNullable<K>]?: T };
 
 /**
  * Returns the position of the first occurrence of an item in an array
@@ -975,8 +979,8 @@ export function lte(a: number): (b: number) => boolean;
  */
 export function map<T, U>(fn: (x: T) => U, list: readonly T[]): U[];
 export function map<T, U>(fn: (x: T) => U): (list: readonly T[]) => U[];
-export function map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U], list: T): U;
-export function map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
+export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U], list: T): U;
+export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U]): (list: T) => U;
 export function map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
 export function map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
 
@@ -1963,7 +1967,7 @@ export function unapply<T>(fn: (args: readonly any[]) => T): (...args: readonly 
  * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
  * Any extraneous parameters will not be passed to the supplied function.
  */
-export function unary<T>(fn: (a: T, ...args: readonly any[]) => any): (a: T) => any;
+export function unary<T, R>(fn: (a: T, ...args: readonly any[]) => R): (a: T) => R;
 
 /**
  * Returns a function of arity n from a (manually) curried function.
@@ -2058,7 +2062,7 @@ export function useWith(fn: ((...a: readonly any[]) => any), transformers: Array
  * Note that the order of the output array is not guaranteed across
  * different JS platforms.
  */
-export function values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
+export function values<T extends object, K extends keyof T>(obj: T): Array<T[K] | ValueOfUnion<T>>;
 
 /**
  * Returns a list of all the properties, including prototype properties, of the supplied
@@ -2078,8 +2082,8 @@ export function view<T, U>(lens: Lens, obj: T): U;
  * will return the result of calling the whenTrueFn function with the same argument. If the predicate is not satisfied,
  * the argument is returned as is.
  */
-export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, obj: T): U;
-export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (obj: T) => U;
+export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, obj: T): T | U;
+export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (obj: T) => T | U;
 
 /**
  * Takes a spec object and a test object and returns true if the test satisfies the spec.

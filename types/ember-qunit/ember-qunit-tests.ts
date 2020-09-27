@@ -5,6 +5,8 @@ import {
     start,
     test,
     skip,
+    only,
+    todo,
     moduleFor,
     moduleForModel,
     moduleForComponent,
@@ -113,9 +115,53 @@ test('It can calculate the result', function(assert) {
     assert.equal(subject.get('result'), 'bar');
 });
 
+// This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
+// However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
+// so we can't properly test it.
+test('it can be async', async function(assert) {
+    assert.expect(1);
+
+    await this.render();
+
+    assert.ok(true, 'rendered');
+});
+
 skip('disabled test');
 
 skip('disabled test', function(assert) { });
+
+// This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
+// However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
+// so we can't properly test it.
+skip('it can skip async', async function(assert) {
+    assert.expect(1);
+
+    await this.render();
+
+    assert.ok(true, 'rendered');
+});
+
+// This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
+// However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
+// so we can't properly test it.
+only('it can only run async', async function(assert) {
+    assert.expect(1);
+
+    await this.render();
+
+    assert.ok(true, 'rendered');
+});
+
+// This test is intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
+// However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
+// so we can't properly test it.
+todo('it can have an async todo', async function(assert) {
+    assert.expect(1);
+
+    await this.render();
+
+    assert.ok(true, 'rendered');
+});
 
 // https://github.com/emberjs/rfcs/blob/master/text/0232-simplify-qunit-testing-api.md#qunit-nested-modules-api
 QUnit.module('some description', function(hooks) {

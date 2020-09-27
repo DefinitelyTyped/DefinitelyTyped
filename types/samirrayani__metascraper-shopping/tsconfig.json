@@ -14,8 +14,8 @@
         ],
         "types": [],
         "paths": {
-            "@samirrayani/metascraper-shopping": [
-                "samirrayani__metascraper-shopping"
+            "@samirrayani/*": [
+                "samirrayani__*"
             ]
         },
         "noEmit": true,
