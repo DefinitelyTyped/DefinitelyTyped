@@ -622,3 +622,38 @@ export function parseFragment<T extends DocumentFragment = DocumentFragment>(
  * ```
  */
 export function serialize(node: Node, options?: SerializerOptions): string;
+
+declare module "parse5/lib/tree-adapters/default" {
+    export const adoptAttributes: TreeAdapter['adoptAttributes'];
+    export const appendChild: TreeAdapter['appendChild'];
+    export const createCommentNode: TreeAdapter['createCommentNode'];
+    export const createDocument: TreeAdapter['createDocument'];
+    export const createDocumentFragment: TreeAdapter['createDocumentFragment'];
+    export const createElement: TreeAdapter['createElement'];
+    export const detachNode: TreeAdapter['detachNode'];
+    export const getAttrList: TreeAdapter['getAttrList'];
+    export const getChildNodes: TreeAdapter['getChildNodes'];
+    export const getCommentNodeContent: TreeAdapter['getCommentNodeContent'];
+    export const getDocumentMode: TreeAdapter['getDocumentMode'];
+    export const getDocumentTypeNodeName: TreeAdapter['getDocumentTypeNodeName'];
+    export const getDocumentTypeNodePublicId: TreeAdapter['getDocumentTypeNodePublicId'];
+    export const getDocumentTypeNodeSystemId: TreeAdapter['getDocumentTypeNodeSystemId'];
+    export const getFirstChild: TreeAdapter['getFirstChild'];
+    export const getNamespaceURI: TreeAdapter['getNamespaceURI'];
+    export const getNodeSourceCodeLocation: TreeAdapter['getNodeSourceCodeLocation'];
+    export const getParentNode: TreeAdapter['getParentNode'];
+    export const getTagName: TreeAdapter['getTagName'];
+    export const getTextNodeContent: TreeAdapter['getTextNodeContent'];
+    export const getTemplateContent: TreeAdapter['getTemplateContent'];
+    export const insertBefore: TreeAdapter['insertBefore'];
+    export const insertText: TreeAdapter['insertText'];
+    export const insertTextBefore: TreeAdapter['insertTextBefore'];
+    export const isCommentNode: TreeAdapter['isCommentNode'];
+    export const isDocumentTypeNode: TreeAdapter['isDocumentTypeNode'];
+    export const isElementNode: TreeAdapter['isElementNode'];
+    export const isTextNode: TreeAdapter['isTextNode'];
+    export const setDocumentMode: TreeAdapter['setDocumentMode'];
+    export const setDocumentType: TreeAdapter['setDocumentType'];
+    export const setNodeSourceCodeLocation: TreeAdapter['setNodeSourceCodeLocation'];
+    export const setTemplateContent: TreeAdapter['setTemplateContent'];
+}
