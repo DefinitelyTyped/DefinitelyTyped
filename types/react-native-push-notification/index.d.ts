@@ -21,6 +21,7 @@ export interface PushNotification {
     badge: number;
     alert: object;
     sound: string;
+    id: number;
     finish: (fetchResult: string) => void;
 }
 

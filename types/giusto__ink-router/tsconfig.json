@@ -17,7 +17,7 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "paths": {
-            "@giusto/ink-router": ["giusto__ink-router"]
+            "@giusto/*": ["giusto__*"]
         }
     },
     "files": [

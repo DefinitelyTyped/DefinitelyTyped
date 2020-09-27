@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 14.10
+// Type definitions for non-npm package Node.js 14.11
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -43,6 +43,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Jason Kwok <https://github.com/JasonHK>
+//                 Victor Perin <https://github.com/victorperin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.7.

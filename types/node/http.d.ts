@@ -131,6 +131,12 @@ declare module "http" {
          */
         headersTimeout: number;
         keepAliveTimeout: number;
+        /**
+         * Sets the timeout value in milliseconds for receiving the entire request from the client.
+         * @default 0
+         * {@link https://nodejs.org/api/http.html#http_server_requesttimeout}
+         */
+        requestTimeout: number;
     }
 
     interface Server extends HttpBase {}
@@ -346,6 +352,10 @@ declare module "http" {
          */
         maxSockets?: number;
         /**
+         * Maximum number of sockets allowed for all hosts in total. Each request will use a new socket until the maximum is reached. Default: Infinity.
+         */
+        maxTotalSockets?: number;
+        /**
          * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
          */
         maxFreeSockets?: number;
@@ -353,6 +363,10 @@ declare module "http" {
          * Socket timeout in milliseconds. This will set the timeout after the socket is connected.
          */
         timeout?: number;
+        /**
+         * Scheduling strategy to apply when picking the next free socket to use. Default: 'fifo'.
+         */
+        scheduling?: 'fifo' | 'lifo';
     }
 
     class Agent {

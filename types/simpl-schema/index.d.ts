@@ -58,7 +58,7 @@ interface CustomValidationContext {
     addValidationErrors(errors: SimpleSchemaValidationError): any;
 }
 
-interface SchemaDefinition {
+export interface SchemaDefinition {
     type: any;
     label?: string | (() => string);
     optional?: boolean | (() => boolean);

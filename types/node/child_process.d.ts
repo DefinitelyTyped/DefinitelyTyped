@@ -23,7 +23,7 @@ declare module "child_process" {
         readonly pid: number;
         readonly connected: boolean;
         readonly exitCode: number | null;
-        readonly signalCode: number | null;
+        readonly signalCode: NodeJS.Signals | null;
         readonly spawnargs: string[];
         readonly spawnfile: string;
         kill(signal?: NodeJS.Signals | number): boolean;

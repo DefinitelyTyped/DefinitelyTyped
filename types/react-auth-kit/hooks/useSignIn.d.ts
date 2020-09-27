@@ -4,5 +4,5 @@ import { signInFunctionParams } from "../types";
  *
  * @returns - Sign In function
  */
-declare function useSignIn(): ({ token, authState, expiresIn, tokenType }: signInFunctionParams) => boolean;
+declare function useSignIn(): (signInConfig: signInFunctionParams) => boolean;
 export default useSignIn;
