@@ -1,7 +1,8 @@
-// Type definitions for parse5 5.0
+// Type definitions for parse5 6.0
 // Project: https://github.com/inikulin/parse5
 // Definitions by: Ivan Nikulin <https://github.com/inikulin>
 //                 ExE Boss <https://github.com/ExE-Boss>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Location {
@@ -132,7 +133,7 @@ export interface Attribute {
 /**
  * Default tree adapter Node interface.
  */
-export interface DefaultTreeNode {
+export interface Node {
     /**
      * The name of the node. E.g. {@link Document} will have `nodeName` equal to '#document'`.
      */
@@ -142,27 +143,27 @@ export interface DefaultTreeNode {
 /**
  * Default tree adapter ParentNode interface.
  */
-export interface DefaultTreeParentNode extends DefaultTreeNode {
+export interface ParentNode extends Node {
     /**
      * Child nodes.
      */
-    childNodes: DefaultTreeNode[];
+    childNodes: ChildNode[];
 }
 
 /**
  * Default tree adapter ChildNode interface.
  */
-export interface DefaultTreeChildNode extends DefaultTreeNode {
+export interface ChildNode extends Node {
     /**
      * Parent node.
      */
-    parentNode: DefaultTreeParentNode;
+    parentNode: ParentNode;
 }
 
 /**
  * Default tree adapter DocumentType interface.
  */
-export interface DefaultTreeDocumentType extends DefaultTreeNode {
+export interface DocumentType extends Node {
     /**
      * The name of the node.
      */
@@ -187,7 +188,7 @@ export interface DefaultTreeDocumentType extends DefaultTreeNode {
 /**
  * Default tree adapter Document interface.
  */
-export interface DefaultTreeDocument extends DefaultTreeParentNode {
+export interface Document extends ParentNode {
     /**
      * The name of the node.
      */
@@ -202,7 +203,7 @@ export interface DefaultTreeDocument extends DefaultTreeParentNode {
 /**
  * Default tree adapter DocumentFragment interface.
  */
-export interface DefaultTreeDocumentFragment extends DefaultTreeParentNode {
+export interface DocumentFragment extends ParentNode {
     /**
      * The name of the node.
      */
@@ -212,7 +213,7 @@ export interface DefaultTreeDocumentFragment extends DefaultTreeParentNode {
 /**
  * Default tree adapter Element interface.
  */
-export interface DefaultTreeElement extends DefaultTreeChildNode, DefaultTreeParentNode {
+export interface Element extends ChildNode, ParentNode {
     /**
      * The name of the node. Equals to element {@link tagName}.
      */
@@ -242,7 +243,7 @@ export interface DefaultTreeElement extends DefaultTreeChildNode, DefaultTreePar
 /**
  * Default tree adapter CommentNode interface.
  */
-export interface DefaultTreeCommentNode extends DefaultTreeChildNode {
+export interface CommentNode extends ChildNode {
     /**
      * The name of the node.
      */
@@ -262,7 +263,7 @@ export interface DefaultTreeCommentNode extends DefaultTreeChildNode {
 /**
  * Default tree adapter TextNode interface.
  */
-export interface DefaultTreeTextNode extends DefaultTreeChildNode {
+export interface TextNode extends ChildNode {
     /**
      * The name of the node.
      */
@@ -278,61 +279,6 @@ export interface DefaultTreeTextNode extends DefaultTreeChildNode {
      */
     sourceCodeLocation?: Location;
 }
-
-// Generic node interfaces
-/**
- * Generic Node interface.
- * Cast to the actual AST interface (e.g. {@link parse5.DefaultTreeNode}) to get access to the properties.
- */
-export type Node = DefaultTreeNode | object;
-
-/**
- * Generic ChildNode interface.
- * Cast to the actual AST interface (e.g. {@link parse5.DefaultTreeChildNode}) to get access to the properties.
- */
-export type ChildNode = DefaultTreeChildNode | object;
-
-/**
- * Generic ParentNode interface.
- * Cast to the actual AST interface (e.g. {@link parse5.DefaultTreeParentNode}) to get access to the properties.
- */
-export type ParentNode = DefaultTreeParentNode | object;
-
-/**
- * Generic DocumentType interface.
- * Cast to the actual AST interface (e.g. {@link parse5.DefaultTreeDocumentType}) to get access to the properties.
- */
-export type DocumentType = DefaultTreeDocumentType | object;
-
-/**
- * Generic Document interface.
- * Cast to the actual AST interface (e.g. {@link parse5.DefaultTreeDocument}) to get access to the properties.
- */
-export type Document = DefaultTreeDocument | object;
-
-/**
- * Generic DocumentFragment interface.
- * Cast to the actual AST interface (e.g. {@link parse5.DefaultTreeDocumentFragment}) to get access to the properties.
- */
-export type DocumentFragment = DefaultTreeDocumentFragment | object;
-
-/**
- * Generic Element interface.
- * Cast to the actual AST interface (e.g. {@link parse5.DefaultTreeElement}) to get access to the properties.
- */
-export type Element = DefaultTreeElement | object;
-
-/**
- * Generic TextNode interface.
- * Cast to the actual AST interface (e.g. {@link parse5.DefaultTreeTextNode}) to get access to the properties.
- */
-export type TextNode = DefaultTreeTextNode | object;
-
-/**
- * Generic CommentNode interface.
- * Cast to the actual AST interface (e.g. {@link parse5.Default.CommentNode}) to get access to the properties.
- */
-export type CommentNode = DefaultTreeCommentNode | object;
 
 /**
  * Tree adapter is a set of utility functions that provides minimal required abstraction layer beetween parser and a specific AST format.
@@ -408,7 +354,7 @@ export interface TreeAdapter {
      *
      * @param node - Node.
      */
-    getChildNodes(node: ParentNode): Node[];
+    getChildNodes(node: ParentNode): ChildNode[];
 
     /**
      * Returns the given comment node's content.
@@ -450,7 +396,7 @@ export interface TreeAdapter {
      *
      * @param node - Node.
      */
-    getFirstChild(node: ParentNode): Node;
+    getFirstChild(node: ParentNode): ChildNode;
 
     /**
      * Returns the given element's namespace.
@@ -504,7 +450,7 @@ export interface TreeAdapter {
     insertBefore(
         parentNode: ParentNode,
         newNode: Node,
-        referenceNode: Node
+        referenceNode: ChildNode
     ): void;
 
     /**
@@ -536,28 +482,28 @@ export interface TreeAdapter {
      *
      * @param node - Node.
      */
-    isCommentNode(node: Node): boolean;
+    isCommentNode(node: Node): node is CommentNode;
 
     /**
      * Determines if the given node is a document type node.
      *
      * @param node - Node.
      */
-    isDocumentTypeNode(node: Node): boolean;
+    isDocumentTypeNode(node: Node): node is Document;
 
     /**
      * Determines if the given node is an element.
      *
      * @param node - Node.
      */
-    isElementNode(node: Node): boolean;
+    isElementNode(node: Node): node is Element;
 
     /**
      * Determines if the given node is a text node.
      *
      * @param node - Node.
      */
-    isTextNode(node: Node): boolean;
+    isTextNode(node: Node): node is TextNode;
 
     /**
      * Sets the [document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
@@ -619,7 +565,7 @@ export interface TreeAdapter {
  * console.log(document.childNodes[1].tagName); //> 'html'
  * ```
  */
-export function parse(html: string, options?: ParserOptions): Document;
+export function parse<T extends Document = Document>(html: string, options?: ParserOptions): T;
 
 /**
  * Parses an HTML fragment.
@@ -643,15 +589,15 @@ export function parse(html: string, options?: ParserOptions): Document;
  * console.log(trFragment.childNodes[0].childNodes[0].tagName); //> 'td'
  * ```
  */
-export function parseFragment(
+export function parseFragment<T extends DocumentFragment = DocumentFragment>(
     fragmentContext: Element,
     html: string,
     options?: ParserOptions
-): DocumentFragment;
-export function parseFragment(
+): T;
+export function parseFragment<T extends DocumentFragment = DocumentFragment>(
     html: string,
     options?: ParserOptions
-): DocumentFragment;
+): T;
 
 /**
  * Serializes an AST node to an HTML string.
