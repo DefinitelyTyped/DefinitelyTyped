@@ -496,5 +496,5 @@ function Example() {
 function ExampleWithDefaultPropsWithChildren(props: React.PropsWithChildren) {
     return (
         <div>{props.children}</div>
-    )
+    );
 }
