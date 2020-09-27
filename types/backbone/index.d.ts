@@ -322,7 +322,7 @@ declare namespace Backbone {
         pick: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['pick'];
         omit: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['omit'];
         chain: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['chain'];
-        isEmpty: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['isEmpty']
+        isEmpty: _.Underscore<_.Dictionary<any>, _.Dictionary<any>>['isEmpty'];
     }
 
     class Collection<TModel extends Model = Model> extends ModelBase implements Events {
