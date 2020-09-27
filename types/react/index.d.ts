@@ -822,7 +822,7 @@ declare namespace React {
                 : P
             : P;
 
-    type PropsWithChildren<P> = P & { children?: ReactNode };
+    type PropsWithChildren<P = {}> = P & { children?: ReactNode };
 
     /**
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
