@@ -1,4 +1,4 @@
-// Type definitions for Hasura GraphQL Engine API types 1.3.2
+// Type definitions for Hasura GraphQL Engine API types 1.3
 // Project: https://github.com/hasura/graphql-engine
 // Definitions by: Toan Nguyen <https://github.com/hgiasac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
