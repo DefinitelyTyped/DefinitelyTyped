@@ -22,4 +22,14 @@ interface NextApiResponse<T = any> extends ServerResponse, GenericObject {
 
 type Send<T> = (body: T) => void;
 
-export { GenericObject, NextApiRequest, NextApiResponse };
+interface SessionBase {
+    user: {
+        name: string;
+        email: string;
+        image: string;
+    };
+    accessToken?: string;
+    expires: string;
+}
+
+export { GenericObject, SessionBase, NextApiRequest, NextApiResponse };
