@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
-export = parameter;
+export = Parameter;
 
-declare class parameter {
-    constructor(options?: parameter.ParameterOptions);
+declare class Parameter {
+    constructor(options?: Parameter.ParameterOptions);
 
     /**
      * Add custom rules
@@ -15,21 +15,21 @@ declare class parameter {
      * @param check
      * @param override Override exist rules. Default: `true`
      */
-    addRule: typeof parameter.addRule;
+    addRule: typeof Parameter.addRule;
 
     /**
      * Translate function
      */
-    t: parameter.ParameterTranslateFunction;
+    t: Parameter.ParameterTranslateFunction;
 
     /**
      * Validate the value conforms to rule. return an array of errors if break rule.
      * @param rule
      * @param value
      */
-    validate(rule: parameter.ParameterRules, value: unknown): parameter.ValidateError[] | void;
+    validate(rule: Parameter.ParameterRules, value: unknown): Parameter.ValidateError[] | void;
 
-    static CONVERT_MAP: Record<string, parameter.ParameterConvertType | undefined>;
+    static CONVERT_MAP: Record<string, Parameter.ParameterConvertType | undefined>;
 
     /**
      * Add custom rules
@@ -39,14 +39,14 @@ declare class parameter {
      */
     static addRule<T extends string>(
         type: T,
-        check: parameter.ParameterCheckFunction<T> | RegExp,
+        check: Parameter.ParameterCheckFunction<T> | RegExp,
         override?: boolean,
-        convertType?: parameter.ParameterConvertType,
+        convertType?: Parameter.ParameterConvertType,
     ): void;
 }
 
-declare namespace parameter {
-    type ParameterTranslateFunction = (this: parameter, message: string, ...args: any[]) => string;
+declare namespace Parameter {
+    type ParameterTranslateFunction = (this: Parameter, message: string, ...args: any[]) => string;
 
     interface ParameterOptions {
         /**
