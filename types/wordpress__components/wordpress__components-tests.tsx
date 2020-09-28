@@ -33,7 +33,6 @@ let record: Value = {
     onReplace={(value) => (record = value)}
     onChange={(value) => (record = value)}
     record={record}
-    instanceId="test-instance-id"
     isSelected={false}
     completers={[
         {

@@ -115,7 +115,6 @@ declare namespace Autocomplete {
         onChange?(value: Value): void;
         onReplace?(value: Value): void;
         record?: Value;
-        instanceId?: string;
         isSelected?: boolean;
     }
 }
