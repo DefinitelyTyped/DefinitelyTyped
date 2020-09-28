@@ -2257,7 +2257,8 @@ declare namespace _ {
         (paths: lodash.Many<lodash.PropertyName>): LodashOmit3x1;
         <T extends object>(paths: lodash.Many<lodash.PropertyName>, object: T | null | undefined): lodash.PartialObject<T>;
     }
-    type LodashOmit1x1<K> = <T extends object>(object: T | null | undefined) => Pick<T, Exclude<keyof T, K[number]>>;
+    type LodashOmit1x1<K> =
+        <T extends object, K extends lodash.PropertyName[]>(object: T | null | undefined) => Pick<T, Exclude<keyof T, K[number]>>;
     interface LodashOmit1x2<T> {
         <K extends lodash.PropertyName[]>(paths: K): Pick<T, Exclude<keyof T, K[number]>>;
         <K extends keyof T>(paths: lodash.Many<K>): lodash.Omit<T, K>;
