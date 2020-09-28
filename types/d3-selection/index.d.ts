@@ -331,7 +331,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * The generic represents the type of the descendant element to be selected.
      */
-    selectChild<DescElement extends BaseType>(): Selection<DescElement, Datum, PElement, PDatum> | undefined;
+    selectChild<DescElement extends BaseType>(): Selection<DescElement, Datum, PElement, PDatum>;
     /**
      * Returns a new selection with the (first) child of each element of the current selection matching the selector.
      * Selects the first child that matches (if any).
@@ -340,9 +340,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param selector CSS selector string
      */
-    selectChild<DescElement extends BaseType>(
-        selector: string
-    ): Selection<DescElement, Datum, PElement, PDatum> | undefined;
+    selectChild<DescElement extends BaseType>(selector: string): Selection<DescElement, Datum, PElement, PDatum>;
     /**
      * Returns a new selection with the (first) child of each element of the current selection matching the selector.
      *
@@ -354,36 +352,41 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     selectChild<ResultElement extends BaseType, ChildElement extends BaseType>(
         selector: (child: ChildElement, i: number, children: ChildElement[]) => boolean
-    ): Selection<ResultElement, Datum, PElement, PDatum> | undefined;
+    ): Selection<ResultElement, Datum, PElement, PDatum>;
 
     /**
      * Returns a new selection with the children of each element of the current selection matching the selector.
      * Selects all the children
      *
-     * The generic represents the type of the descendant element to be selected.
+     * The first generic represents the type of the descendant element to be selected.
+     * The second generic refers to the type of the datum of the element to be selected.
      */
-    selectChildren<DescElement extends BaseType>(): Selection<DescElement, Datum, PElement, PDatum>;
+    selectChildren<DescElement extends BaseType, OldDatum>(): Selection<DescElement, OldDatum, GElement, Datum>;
     /**
      * Returns a new selection with the children of each element of the current selection matching the selector.
      * Selects the children that match (if any)
      *
-     * The generic represents the type of the descendant element to be selected.
+     * The first generic represents the type of the descendant element to be selected.
+     * The second generic refers to the type of the datum of the element to be selected.
      *
      * @param selector CSS selector string
      */
-    selectChildren<DescElement extends BaseType>(selector: string): Selection<DescElement, Datum, PElement, PDatum>;
+    selectChildren<DescElement extends BaseType, OldDatum>(
+        selector: string
+    ): Selection<DescElement, OldDatum, GElement, Datum>;
     /**
      * Returns a new selection with the children of each element of the current selection matching the selector.
      *
      * The first generic represents the type of the descendant element to be selected.
-     * The second generic represents the type of any of the child elements.
+     * The second generic refers to the type of the datum of the element to be selected.
+     * The third generic represents the type of any of the child elements.
      *
      * @param selector A selector function, which is evaluated for each of the children nodes, in order, being passed the child (child), the child’s index (i), and the list of children (children);
      * the method selects the first child for which the selector return truthy, if any.
      */
-    selectChildren<ResultElement extends BaseType, ChildElement extends BaseType>(
+    selectChildren<ResultElement extends BaseType, ResultDatum, ChildElement extends BaseType>(
         selector: (child: ChildElement, i: number, children: ChildElement[]) => boolean
-    ): Selection<ResultElement, Datum, PElement, PDatum>;
+    ): Selection<ResultElement, ResultDatum, GElement, Datum>;
 
     /**
      * Returns the selection (for symmetry with transition.selection).
@@ -428,7 +431,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * Returns true if and only if the first (non-null) selected element has the specified classes.
      * This is generally useful only if you know the selection contains exactly one element.
      *
-     * @param name A string of space-separated class names.
+     * @param names A string of space-separated class names.
      */
     classed(names: string): boolean;
     /**

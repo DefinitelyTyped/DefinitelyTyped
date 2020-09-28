@@ -357,6 +357,22 @@ filteredGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').fil
 
 filteredGElements = gElementsOldData.filter(d3Selection.matcher('.top-level'));
 
+// selectChild() -------------------------------------------------------------------------
+
+firstG = svgEl.selectChild<SVGGElement>();
+firstG = svgEl.selectChild<SVGGElement>('.test');
+firstG = svgEl.selectChild<SVGGElement, SVGGElement>((child, i, children) => true);
+
+// selectChild() -------------------------------------------------------------------------
+
+gElementsOldData = svgEl.selectChildren<SVGGElement, CircleDatum>();
+gElementsOldData = svgEl.selectChildren<SVGGElement, CircleDatum>('.test');
+gElementsOldData = svgEl.selectChildren<SVGGElement, CircleDatum, SVGGElement>((child, i, children) => true);
+
+// selection() ---------------------------------------------------------------------------
+
+firstG = firstG.selection();
+
 // ---------------------------------------------------------------------------------------
 // Tests of Modification
 // ---------------------------------------------------------------------------------------
