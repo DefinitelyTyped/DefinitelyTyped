@@ -58,7 +58,7 @@ export interface Element extends Parent {
  * Information associated with an element.
  */
 export interface Attributes {
-    [name: string]: string;
+    [name: string]: string | null | undefined;
 }
 
 /**
