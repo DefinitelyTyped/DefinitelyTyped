@@ -741,7 +741,7 @@ declare const BOOSTS: {
     };
 };
 
-declare const INTERSHARD_RESOURCES: [SUBSCRIPTION_TOKEN, CPU_UNLOCK, PIXEL, ACCESS_KEY];
+declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
 
 declare const COMMODITIES: Record<
     CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY,
@@ -2430,7 +2430,8 @@ type CommodityConstant =
     | RESOURCE_EMANATION
     | RESOURCE_ESSENCE;
 
-type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
+type InterShardResourceConstant = SUBSCRIPTION_TOKEN | CPU_UNLOCK | PIXEL | ACCESS_KEY;
+type MarketResourceConstant = ResourceConstant | InterShardResourceConstant;
 
 type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
