@@ -1,5 +1,6 @@
 import * as C from '@wordpress/components';
 import { Component } from '@wordpress/element';
+import { Value } from '@wordpress/rich-text';
 import { MouseEvent as ReactMouseEvent } from 'react';
 
 //
@@ -23,7 +24,16 @@ interface MyCompleteOption {
     name: string;
     id: number;
 }
+let record: Value = {
+    formats: [],
+    replacements: [],
+    text: '',
+};
 <C.Autocomplete<MyCompleteOption>
+    onReplace={(value) => (record = value)}
+    onChange={(value) => (record = value)}
+    record={record}
+    isSelected={false}
     completers={[
         {
             name: 'fruit',
@@ -51,7 +61,7 @@ interface MyCompleteOption {
         },
     ]}
 >
-    {({ isExpanded, listBoxId, activeId }) => (
+    {({ isExpanded, listBoxId, activeId, onKeyDown }) => (
         <div
             contentEditable
             suppressContentEditableWarning
@@ -59,6 +69,7 @@ interface MyCompleteOption {
             aria-expanded={isExpanded}
             aria-owns={listBoxId}
             aria-activedescendant={activeId}
+            onKeyDown={onKeyDown}
         ></div>
     )}
 </C.Autocomplete>;
