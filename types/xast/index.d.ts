@@ -16,7 +16,7 @@ export { UnistNode as Node };
  * Its content is limited to only other xast content.
  */
 export interface Parent extends UnistParent {
-    children: Array<Element | Text | Comment | DocType | Instruction | Cdata>;
+    children: Array<Element | Text | Comment | Doctype | Instruction | Cdata>;
 }
 
 /**
