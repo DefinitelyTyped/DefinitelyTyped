@@ -61,7 +61,7 @@ export class PushNotificationObject {
     shortcutId?: string;
     channelId?: string;
     onlyAlertOnce?: boolean;
-    allowWhileIdle?: boolean
+    allowWhileIdle?: boolean;
 
     messageId?: string;
 
