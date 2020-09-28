@@ -228,6 +228,7 @@ import { URL } from 'url';
     const http2SecureServer: Http2SecureServer = createSecureServer();
     const s1: Server = http2Server;
     const s2: Server = http2SecureServer;
+    const settings = getDefaultSettings();
     [http2Server, http2SecureServer].forEach((server) => {
         server.on('sessionError', (err: Error) => {});
         server.on('session', (session: ServerHttp2Session) => {});
@@ -236,6 +237,7 @@ import { URL } from 'url';
         server.on('request', (request: Http2ServerRequest, response: Http2ServerResponse) => {});
         server.on('timeout', () => {});
         server.setTimeout().setTimeout(5).setTimeout(5, () => {});
+        server.updateSettings(settings);
     });
 
     http2SecureServer.on('unknownProtocol', (socket: TLSSocket) => {});
