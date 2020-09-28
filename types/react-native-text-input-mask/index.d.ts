@@ -1,6 +1,7 @@
 // Type definitions for react-native-text-input-mask 0.7
 // Project: https://github.com/react-native-community/react-native-text-input-mask
 // Definitions by: Rodrigo Weber <https://github.com/RodrigoAWeber>
+// Definitions by: hengkx <https://github.com/hengkx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -10,7 +11,7 @@ import * as ReactNative from "react-native";
 export type onChangeTextCallback = (formatted: string, extracted?: string) => void;
 
 export interface TextInputMaskProps extends ReactNative.ViewProps, ReactNative.TextInputIOSProps, ReactNative.TextInputAndroidProps, ReactNative.AccessibilityProps {
-    refInput?: React.RefObject<ReactNative.TextInput>;
+    refInput?: (ref: any) => void;
     maskDefaultValue?: boolean;
     mask?: string;
     onChangeText: onChangeTextCallback;
