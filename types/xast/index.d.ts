@@ -78,7 +78,7 @@ export interface Comment extends Literal {
 /**
  * XML doctype.
  */
-export interface DocType extends UnistNode {
+export interface Doctype extends UnistNode {
     type: 'doctype';
     name: string;
     /**
