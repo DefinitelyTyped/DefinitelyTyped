@@ -1,5 +1,5 @@
 import { Data, Point, Position } from 'unist';
-import { Parent, Attributes, Literal, Root, Element, DocType, Comment, Text, Instruction, Cdata } from 'xast';
+import { Parent, Attributes, Literal, Root, Element, Doctype, Comment, Text, Instruction, Cdata } from 'xast';
 
 const data: Data = {
     string: 'string',
@@ -45,7 +45,7 @@ const text: Text = {
     value: 'value',
 };
 
-const docType: DocType = {
+const docType: Doctype = {
     type: 'doctype',
     data,
     point,
