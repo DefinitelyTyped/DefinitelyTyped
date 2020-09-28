@@ -935,6 +935,7 @@ export interface Delta {
 export interface DataTitle {
     text: string;
     font: Partial<Font>;
+    standoff: number;
     position:
         | 'top left'
         | 'top center'
