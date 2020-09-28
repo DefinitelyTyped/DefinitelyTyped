@@ -23,8 +23,8 @@ interface Document {} // tslint:disable-line no-empty-interface
 declare namespace Sinon {
     type MatchArguments<T> = {
         [K in keyof T]: SinonMatcher
-        | (T[K] extends object ? MatchArguments<T[K]> : never)
-        | T[K];
+            | (T[K] extends object ? MatchArguments<T[K]> : never)
+            | T[K];
     };
 
     interface SinonSpyCallApi<TArgs extends any[] = any[], TReturnValue = any> {
@@ -172,9 +172,9 @@ declare namespace Sinon {
 
     interface SinonSpy<TArgs extends any[] = any[], TReturnValue = any>
         extends Pick<
-        SinonSpyCallApi<TArgs, TReturnValue>,
-        Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, 'args'>
-        > {
+                SinonSpyCallApi<TArgs, TReturnValue>,
+                Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, 'args'>
+            > {
         // Properties
         /**
          * The number of recorded calls.
@@ -909,10 +909,10 @@ declare namespace Sinon {
          */
         addFilter(
             filter: (
-                method: string, 
-                url: string, 
-                async: boolean, 
-                username: string, 
+                method: string,
+                url: string,
+                async: boolean,
+                username: string,
                 password: string
             ) => boolean
         ): void;
@@ -982,7 +982,7 @@ declare namespace Sinon {
          * Responds to all requests to given URL, e.g. /posts/1.
          */
         respondWith(
-            url: string, 
+            url: string,
             fn: (xhr: SinonFakeXMLHttpRequest) => void
         ): void;
         /**
@@ -1000,8 +1000,8 @@ declare namespace Sinon {
          * method is an HTTP verb.
          */
         respondWith(
-            method: string, 
-            url: string, 
+            method: string,
+            url: string,
             fn: (xhr: SinonFakeXMLHttpRequest) => void
         ): void;
         /**
@@ -1019,7 +1019,7 @@ declare namespace Sinon {
          * If the response is a Function, it will be passed any capture groups from the regular expression along with the XMLHttpRequest object:
          */
         respondWith(
-            url: RegExp, 
+            url: RegExp,
             fn: (xhr: SinonFakeXMLHttpRequest) => void
         ): void;
         /**
@@ -1034,8 +1034,8 @@ declare namespace Sinon {
          * Responds to all method requests to URLs matching the regular expression.
          */
         respondWith(
-            method: string, 
-            url: RegExp, 
+            method: string,
+            url: RegExp,
             fn: (xhr: SinonFakeXMLHttpRequest) => void
         ): void;
         /**
@@ -1191,7 +1191,7 @@ declare namespace Sinon {
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithMatch(spy.secondCall, arg1, arg2, ...);.
          */
         calledWithMatch<TArgs extends any[]>(
-            spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>, 
+            spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
             ...args: TArgs
         ): void;
         /**
@@ -1637,8 +1637,8 @@ declare namespace Sinon {
          * This method only works on non-accessor properties, for replacing accessors, use sandbox.replaceGetter() and sandbox.replaceSetter().
          */
         replace<T, TKey extends keyof T>(
-            obj: T, 
-            prop: TKey, 
+            obj: T,
+            prop: TKey,
             replacement: T[TKey]
         ): T[TKey];
         /**
@@ -1649,10 +1649,10 @@ declare namespace Sinon {
          * @param replacement
          */
         replaceGetter<T, TKey extends keyof T>(
-            obj: T, 
-            prop: TKey, 
+            obj: T,
+            prop: TKey,
             replacement: () => T[TKey]
-            ): () => T[TKey];
+        ): () => T[TKey];
         /**
          * Replaces setter for property on object with replacement argument. Attempts to replace an already replaced setter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
