@@ -77,7 +77,7 @@ for (const p of defaultDelaunayFromArray.trianglePolygon(0)) {
     const y = p[1];
 }
 
-defaultDelaunayFromArray.update();
+const updatedDelaunay: d3.Delaunay<[number, number]> = defaultDelaunayFromArray.update();
 
 // Test Voronoi class
 
@@ -112,3 +112,5 @@ for (const p of v.cellPolygon(0)) {
     const x = p[0];
     const y = p[1];
 }
+
+const updatedVoronoi: d3.Voronoi<[number, number]> = v.update();
