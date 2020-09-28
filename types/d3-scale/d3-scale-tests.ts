@@ -557,7 +557,6 @@ localTimeScaleNumString = localTimeScaleNumString.interpolate((a, b) => {
 localTimeScaleNumber = localTimeScaleNumber.nice();
 localTimeScaleNumber = localTimeScaleNumber.nice(5);
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour);
-localTimeScaleNumber = localTimeScaleNumber.nice(timeHour, 5);
 
 // $ExpectError
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour.every(5)); // fails, requires CountableTimeInterval
@@ -674,19 +673,9 @@ divergingScaleNumber = divergingScaleNumber.domain([0, 0.5, 1]);
 divergingScaleNumber = divergingScaleNumber.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
 domainDivergingScale = divergingScaleNumber.domain();
 
-// $ExpectError
-divergingScaleNumber.domain([0, 1]);
-// $ExpectError
-divergingScaleNumber.domain([new NumCoercible(0), new NumCoercible(0.5)]);
-
 divergingScaleString = divergingScaleString.domain([0, 0.5, 1]);
 divergingScaleString = divergingScaleString.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
 domainDivergingScale = divergingScaleString.domain();
-
-// $ExpectError
-divergingScaleString.domain([0, 1]);
-// $ExpectError
-divergingScaleString.domain([new NumCoercible(0), new NumCoercible(0.5)]);
 
 // clamp(...) -----------------------------------------------------------------
 
