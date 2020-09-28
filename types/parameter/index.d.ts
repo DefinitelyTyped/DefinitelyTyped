@@ -11,9 +11,6 @@ declare class Parameter {
 
     /**
      * Add custom rules
-     * @param type
-     * @param check
-     * @param override Override exist rules. Default: `true`
      */
     addRule: typeof Parameter.addRule;
 
@@ -36,7 +33,13 @@ declare class Parameter {
      * @param type
      * @param check
      * @param override Override exist rules. Default: `true`
+     * @param convertType Make parameter convert the input param to the specific type
      */
+    static addRule<T extends string>(
+        type: T,
+        check: Parameter.ParameterCheckFunction<T> | RegExp,
+        convertType: Parameter.ParameterConvertType,
+    ): void;
     static addRule<T extends string>(
         type: T,
         check: Parameter.ParameterCheckFunction<T> | RegExp,

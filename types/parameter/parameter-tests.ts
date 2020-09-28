@@ -50,6 +50,10 @@ parameter.addRule('typeD', /test/, true, 'boolean');
 parameter.addRule('typeD', /test/, true, value => value);
 Parameter.addRule('typeE', /test/);
 
+// #addRule(type, check, convertType)
+parameter.addRule('typeF', /test/, 'boolean');
+Parameter.addRule('typeG', /test/, 'boolean');
+
 // #validate
 parameter.validate({}, null);
 parameter.validate(
