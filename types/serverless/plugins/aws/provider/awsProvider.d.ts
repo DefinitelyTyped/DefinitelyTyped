@@ -498,6 +498,11 @@ declare namespace Aws {
         cloudFront?: CloudFront;
     }
 
+    interface FileSystemConfig {
+        arn: string;
+        localMountPath: string;
+    }
+
     interface AwsFunction {
         handler: string;
         name?: string;
@@ -520,6 +525,7 @@ declare namespace Aws {
         dependsOn?: string[];
         destinations?: Destinations;
         events?: Event[];
+        fileSystemConfig?: FileSystemConfig;
     }
 
     interface Functions {

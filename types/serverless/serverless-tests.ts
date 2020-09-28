@@ -370,6 +370,10 @@ const awsServerless: Aws.Serverless = {
                 onSuccess: 'testonSuccess',
                 onFailure: 'testonFailure',
             },
+            fileSystemConfig: {
+                arn: 'arn:aws:elasticfilesystem:us-east-1:111111111111:access-point/fsap-a1a1a1a1a1a1a1a1a',
+                localMountPath: '/mnt/path',
+            },
             events: [
                 {
                     http: {
