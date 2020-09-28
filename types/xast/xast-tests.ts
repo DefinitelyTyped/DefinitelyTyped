@@ -86,7 +86,9 @@ const root: Root = {
 };
 
 const attributes: Attributes = {
-    attributeName: 'attributeValue',
+    attributeName1: 'attributeValue',
+    attributeName2: null,
+    attributeName3: undefined,
 };
 
 function getElement(): Element {
