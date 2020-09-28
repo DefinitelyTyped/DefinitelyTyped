@@ -2119,7 +2119,7 @@ declare namespace _ {
         <T extends object>(callbackOrIterateeOrIteratee: lodash.__, obj: T | null | undefined): LodashMapValues1x2<T>;
         <T extends object, TResult>(callback: (value: T[keyof T]) => TResult, obj: T | null | undefined): { [P in keyof T]: TResult };
         (iteratee: object): LodashMapValues2x1;
-        <T>(iteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues2x2;
+        <T>(iteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues2x2<T>;
         <T>(iteratee: object, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(iteratee: object, obj: T | null | undefined): { [P in keyof T]: boolean };
         <T, TKey extends keyof T>(iteratee: TKey): LodashMapValues4x1<T, TKey>;
@@ -2138,7 +2138,7 @@ declare namespace _ {
         <T>(obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(obj: T | null | undefined): { [P in keyof T]: boolean };
     }
-    interface LodashMapValues2x2 {
+    interface LodashMapValues2x2<T> {
         (iteratee: object): lodash.Dictionary<boolean>;
         <TKey extends keyof T>(iteratee: TKey): lodash.Dictionary<T[TKey]>;
         (iteratee: string): lodash.Dictionary<any>;
