@@ -5,10 +5,11 @@
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
 //                 rulonder <https://github.com/rulonder>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.2.0
+// Last module patch version validated against: 2.2.2
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
 
@@ -32,6 +33,8 @@ export interface InterpolatorFactory<T, U> {
     (a: T, b: T): (t: number) => U;
 }
 
+export type NumberValue = number | { valueOf(): number };
+
 /**
  * A helper interface for a continuous scale defined over a numeric domain.
  */
@@ -45,7 +48,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      *
      * @param value A numeric value from the domain.
      */
-    (value: number | { valueOf(): number }): Output;
+    (value: NumberValue): Output | undefined;
 
     /**
      * Given a value from the range, returns the corresponding value from the domain. Inversion is useful for interaction,
@@ -61,7 +64,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      *
      * @param value A numeric value from the range.
      */
-    invert(value: number | { valueOf(): number }): number;
+    invert(value: NumberValue): number;
 
     /**
      * Returns a copy of the scale’s current domain.
@@ -78,7 +81,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      *
      * @param domain Array of numeric domain values.
      */
-    domain(domain: Array<number | { valueOf(): number }>): this;
+    domain(domain: NumberValue[]): this;
 
     /**
      * Returns a copy of the scale’s current range.
@@ -105,7 +108,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      *
      * @param range Array of range values.
      */
-    rangeRound(range: Array<number | { valueOf(): number }>): this;
+    rangeRound(range: NumberValue[]): this;
 
     /**
      * Returns whether or not the scale currently clamps values to within the range.
@@ -120,6 +123,17 @@ export interface ScaleContinuousNumeric<Range, Output> {
      * @param clamp A flag to enable (true) or disable (false) clamping.
      */
     clamp(clamp: boolean): this;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 
     /**
      * Returns approximately count representative values from the scale’s domain.
@@ -143,7 +157,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      * If specifier uses the format type "s", the scale will return a SI-prefix format based on the largest value in the domain.
      * If the specifier already specifies a precision, this method is equivalent to locale.format.
      */
-    tickFormat(count?: number, specifier?: string): (d: number | { valueOf(): number }) => string;
+    tickFormat(count?: number, specifier?: string): (d: NumberValue) => string;
 
     /**
      * Extends the domain so that it starts and ends on nice round values.
@@ -166,6 +180,19 @@ export interface ScaleContinuousNumeric<Range, Output> {
      */
     copy(): this;
 }
+
+/**
+ * Returns a number format function suitable for displaying a tick value,
+ * automatically computing the appropriate precision based on the fixed interval between tick values, as determined by d3.tickStep.
+ *
+ * @param start Start
+ * @param stop Stop
+ * @param count Approximate number of ticks to be used when calculating precision for the number format function.
+ * @param specifier An optional specifier allows a custom format where the precision of the format is automatically set by the scale as appropriate for the tick interval.
+ * If specifier uses the format type s, the scale will return a SI-prefix format based on the larger absolute value of start and stop.
+ * If the specifier already specifies a precision, this method is equivalent to locale.format.
+ */
+export function tickFormat(start: number, stop: number, count: number, specifier?: string): (d: NumberValue) => string;
 
 // -------------------------------------------------------------------------------
 // Linear Scale Factory
@@ -225,24 +252,9 @@ export interface ScaleLinear<Range, Output> extends ScaleContinuousNumeric<Range
 }
 
 /**
- * Constructs a new continuous linear scale with the unit domain [0, 1], the unit range [0, 1], the default interpolator and clamping disabled.
- *
- * The scale will have range and output of data type number.
- */
-export function scaleLinear(): ScaleLinear<number, number>;
-/**
- * Constructs a new continuous linear scale with the unit domain [0, 1], the default interpolator and clamping disabled.
- *
- * The generic corresponds to the data type of the range and output elements to be used.
- *
- * As range type and output type are the same, the interpolator factory used with the scale must match this behavior.
- * The range must be set in accordance with the range element type.
- *
- * The interpolator factory may be set using the interpolate(...) method of the scale.
- */
-export function scaleLinear<Output>(): ScaleLinear<Output, Output>;
-/**
- * Constructs a new continuous linear scale with the unit domain [0, 1], the default interpolator and clamping disabled.
+ * Constructs a new continuous scale with the specified range, the default interpolator and clamping disabled.
+ * The domain defaults to [0, 1].
+ * If range is not specified, it defaults to [0, 1].
  *
  * The first generic corresponds to the data type of the range elements.
  * The second generic corresponds to the data type of the output elements generated by the scale.
@@ -253,8 +265,30 @@ export function scaleLinear<Output>(): ScaleLinear<Output, Output>;
  * The range must be set in accordance with the range element type.
  *
  * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param range Array of range values.
  */
-export function scaleLinear<Range, Output>(): ScaleLinear<Range, Output>;
+export function scaleLinear<Range = number, Output = Range>(range?: ReadonlyArray<Range>): ScaleLinear<Range, Output>;
+/**
+ * Constructs a new continuous scale with the specified domain and range, the default interpolator and clamping disabled.
+ *
+ * The first generic corresponds to the data type of the range elements.
+ * The second generic corresponds to the data type of the output elements generated by the scale.
+ *
+ * If range element and output element type differ, the interpolator factory used with the scale must match this behavior and
+ * convert the interpolated range element to a corresponding output element.
+ *
+ * The range must be set in accordance with the range element type.
+ *
+ * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param domain Array of numeric domain values.
+ * @param range Array of range values.
+ */
+export function scaleLinear<Range, Output = Range>(
+    domain: NumberValue[],
+    range: ReadonlyArray<Range>
+): ScaleLinear<Range, Output>;
 
 // -------------------------------------------------------------------------------
 // Power Scale Factories
@@ -327,27 +361,9 @@ export interface ScalePower<Range, Output> extends ScaleContinuousNumeric<Range,
 }
 
 /**
- * Constructs a new continuous power scale with the unit domain [0, 1], the unit range [0, 1], the exponent 1, the default interpolator and clamping disabled.
- * (Note that this is effectively a linear scale until you set a different exponent.)
- *
- * The scale will have range and output of data type number.
- */
-export function scalePow(): ScalePower<number, number>;
-/**
- * Constructs a new continuous power scale with the unit domain [0, 1], the exponent 1, the default interpolator and clamping disabled.
- * (Note that this is effectively a linear scale until you set a different exponent.)
- *
- * The generic corresponds to the data type of the range and output elements to be used.
- *
- * As range type and output type are the same, the interpolator factory used with the scale must match this behavior.
- *
- * The range must be set in accordance with the range element type.
- *
- * The interpolator factory may be set using the interpolate(...) method of the scale.
- */
-export function scalePow<Output>(): ScalePower<Output, Output>;
-/**
- * Constructs a new continuous power scale with the unit domain [0, 1], the exponent 1, the default interpolator and clamping disabled.
+ * Constructs a new continuous scale with the specified range, the exponent 1, the default interpolator and clamping disabled.
+ * The domain defaults to [0, 1].
+ * If range is not specified, it defaults to [0, 1].
  * (Note that this is effectively a linear scale until you set a different exponent.)
  *
  * The first generic corresponds to the data type of the range elements.
@@ -359,31 +375,36 @@ export function scalePow<Output>(): ScalePower<Output, Output>;
  * The range must be set in accordance with the range element type.
  *
  * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param range Array of range values.
  */
-export function scalePow<Range, Output>(): ScalePower<Range, Output>;
+export function scalePow<Range = number, Output = Range>(range?: ReadonlyArray<Range>): ScalePower<Range, Output>;
+/**
+ * Constructs a new continuous scale with the specified domain and range, the exponent 1, the default interpolator and clamping disabled.
+ * (Note that this is effectively a linear scale until you set a different exponent.)
+ *
+ * The first generic corresponds to the data type of the range elements.
+ * The second generic corresponds to the data type of the output elements generated by the scale.
+ *
+ * If range element and output element type differ, the interpolator factory used with the scale must match this behavior and
+ * convert the interpolated range element to a corresponding output element.
+ *
+ * The range must be set in accordance with the range element type.
+ *
+ * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param domain Array of numeric domain values.
+ * @param range Array of range values.
+ */
+export function scalePow<Range, Output = Range>(
+    domain: NumberValue[],
+    range: ReadonlyArray<Range>
+): ScalePower<Range, Output>;
 
 /**
- * Constructs a new continuous power scale with the unit domain [0, 1], the unit range [0, 1], the exponent 0.5, the default interpolator and clamping disabled.
- * This is a convenience method equivalent to d3.scalePow().exponent(0.5).
- *
- * The scale will have range and output of data type number.
- */
-export function scaleSqrt(): ScalePower<number, number>;
-/**
- * Constructs a new continuous power scale with the unit domain [0, 1], the exponent 0.5, the default interpolator and clamping disabled.
- * This is a convenience method equivalent to d3.scalePow().exponent(0.5).
- *
- * The generic corresponds to the data type of the range and output elements to be used.
- *
- * As range type and output type are the same, the interpolator factory used with the scale must match this behavior.
- *
- * The range must be set in accordance with the range element type.
- *
- * The interpolator factory may be set using the interpolate(...) method of the scale.
- */
-export function scaleSqrt<Output>(): ScalePower<Output, Output>;
-/**
- * Constructs a new continuous power scale with the unit domain [0, 1], the exponent 0.5, the default interpolator and clamping disabled.
+ * Constructs a new continuous power scale with the specified range, the exponent 0.5, the default interpolator and clamping disabled.
+ * The domain defaults to [0, 1].
+ * If range is not specified, it defaults to [0, 1].
  * This is a convenience method equivalent to d3.scalePow().exponent(0.5).
  *
  * The first generic corresponds to the data type of the range elements.
@@ -395,8 +416,31 @@ export function scaleSqrt<Output>(): ScalePower<Output, Output>;
  * The range must be set in accordance with the range element type.
  *
  * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param range Array of range values.
  */
-export function scaleSqrt<Range, Output>(): ScalePower<Range, Output>;
+export function scaleSqrt<Range = number, Output = Range>(range?: ReadonlyArray<Range>): ScalePower<Range, Output>;
+/**
+ * Constructs a new continuous power scale with the specified domain and range, the exponent 0.5, the default interpolator and clamping disabled.
+ * This is a convenience method equivalent to d3.scalePow().exponent(0.5).
+ *
+ * The first generic corresponds to the data type of the range elements.
+ * The second generic corresponds to the data type of the output elements generated by the scale.
+ *
+ * If range element and output element type differ, the interpolator factory used with the scale must match this behavior and
+ * convert the interpolated range element to a corresponding output element.
+ *
+ * The range must be set in accordance with the range element type.
+ *
+ * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param domain Array of numeric domain values.
+ * @param range Array of range values.
+ */
+export function scaleSqrt<Range, Output = Range>(
+    domain: NumberValue[],
+    range: ReadonlyArray<Range>
+): ScalePower<Range, Output>;
 
 // -------------------------------------------------------------------------------
 // Logarithmic Scale Factory
@@ -446,7 +490,7 @@ export interface ScaleLogarithmic<Range, Output> extends ScaleContinuousNumeric<
      *
      * @param domain Array of numeric domain values.
      */
-    domain(domain: Array<number | { valueOf(): number }>): this;
+    domain(domain: NumberValue[]): this;
 
     /**
      * Returns the scale’s current interpolator factory, which defaults to interpolate.
@@ -512,7 +556,7 @@ export interface ScaleLogarithmic<Range, Output> extends ScaleContinuousNumeric<
      * If the specifier does not have a defined precision, the precision will be set automatically by the scale, returning the appropriate format.
      * This provides a convenient way of specifying a format whose precision will be automatically set by the scale.
      */
-    tickFormat(count?: number, specifier?: string): (d: number | { valueOf(): number }) => string;
+    tickFormat(count?: number, specifier?: string): (d: NumberValue) => string;
 
     /**
      * Extends the domain to integer powers of base. For example, for a domain of [0.201479…, 0.996679…], and base 10, the nice domain is [0.1, 1].
@@ -534,25 +578,9 @@ export interface ScaleLogarithmic<Range, Output> extends ScaleContinuousNumeric<
 }
 
 /**
- * Constructs a new continuous logarithmic scale with the domain [1, 10], the unit range [0, 1], the base 10, the default interpolator and clamping disabled.
- *
- * The scale will have range and output of data type number.
- */
-export function scaleLog(): ScaleLogarithmic<number, number>;
-/**
- * Constructs a new continuous logarithmic scale with the domain [1, 10], the base 10, the default interpolator and clamping disabled.
- *
- * The generic corresponds to the data type of the range and output elements to be used.
- *
- * As range type and output type are the same, the interpolator factory used with the scale must match this behavior.
- *
- * The range must be set in accordance with the range element type.
- *
- * The interpolator factory may be set using the interpolate(...) method of the scale.
- */
-export function scaleLog<Output>(): ScaleLogarithmic<Output, Output>;
-/**
- * Constructs a new continuous logarithmic scale with the domain [1, 10], the base 10, the default interpolator and clamping disabled.
+ * Constructs a new continuous scale with the specified range, the base 10, the default interpolator and clamping disabled.
+ * The domain defaults to [1, 10].
+ * If range is not specified, it defaults to [0, 1].
  *
  * The first generic corresponds to the data type of the range elements.
  * The second generic corresponds to the data type of the output elements generated by the scale.
@@ -563,8 +591,30 @@ export function scaleLog<Output>(): ScaleLogarithmic<Output, Output>;
  * The range must be set in accordance with the range element type.
  *
  * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param range Array of range values.
  */
-export function scaleLog<Range, Output>(): ScaleLogarithmic<Range, Output>;
+export function scaleLog<Range = number, Output = Range>(range?: ReadonlyArray<Range>): ScaleLogarithmic<Range, Output>;
+/**
+ * Constructs a new continuous scale with the specified domain and range, the base 10, the default interpolator and clamping disabled.
+ *
+ * The first generic corresponds to the data type of the range elements.
+ * The second generic corresponds to the data type of the output elements generated by the scale.
+ *
+ * If range element and output element type differ, the interpolator factory used with the scale must match this behavior and
+ * convert the interpolated range element to a corresponding output element.
+ *
+ * The range must be set in accordance with the range element type.
+ *
+ * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param domain Array of numeric domain values.
+ * @param range Array of range values.
+ */
+export function scaleLog<Range, Output = Range>(
+    domain: NumberValue[],
+    range: ReadonlyArray<Range>
+): ScaleLogarithmic<Range, Output>;
 
 // -------------------------------------------------------------------------------
 // Symlog Scale Factory
@@ -606,7 +656,7 @@ export interface ScaleSymLog<Range, Output> extends ScaleContinuousNumeric<Range
      * If the specifier does not have a defined precision, the precision will be set automatically by the scale, returning the appropriate format.
      * This provides a convenient way of specifying a format whose precision will be automatically set by the scale.
      */
-    tickFormat(count?: number, specifier?: string): (d: number | { valueOf(): number }) => string;
+    tickFormat(count?: number, specifier?: string): (d: NumberValue) => string;
     /**
      * Returns the current constant, which defaults to 1.
      */
@@ -619,25 +669,9 @@ export interface ScaleSymLog<Range, Output> extends ScaleContinuousNumeric<Range
 }
 
 /**
- * Constructs a new continuous bi-symmetric logarithmic scale with the specified domain, the specified range, the constant 1, the default interpolator and clamping disabled.
- *
- * The scale will have range and output of data type number.
- */
-export function scaleSymlog(): ScaleSymLog<number, number>;
-/**
- * Constructs a new continuous bi-symmetric logarithmic scale with the specified domain, the constant 1, the default interpolator and clamping disabled.
- *
- * The generic corresponds to the data type of the range and output elements to be used.
- *
- * As range type and output type are the same, the interpolator factory used with the scale must match this behavior.
- *
- * The range must be set in accordance with the range element type.
- *
- * The interpolator factory may be set using the interpolate(...) method of the scale.
- */
-export function scaleSymlog<Output>(): ScaleSymLog<Output, Output>;
-/**
- * Constructs a new continuous bi-symmetric logarithmic scale with the specified domain, the constant 1, the default interpolator and clamping disabled.
+ * Constructs a new continuous scale with the specified range, the constant 1, the default interpolator and clamping disabled.
+ * The domain defaults to [0, 1].
+ * If range is not specified, it defaults to [0, 1].
  *
  * The first generic corresponds to the data type of the range elements.
  * The second generic corresponds to the data type of the output elements generated by the scale.
@@ -648,8 +682,30 @@ export function scaleSymlog<Output>(): ScaleSymLog<Output, Output>;
  * The range must be set in accordance with the range element type.
  *
  * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param range Array of range values.
  */
-export function scaleSymlog<Range, Output>(): ScaleSymLog<Range, Output>;
+export function scaleSymlog<Range = number, Output = Range>(range?: ReadonlyArray<Range>): ScaleSymLog<Range, Output>;
+/**
+ * Constructs a new continuous scale with the specified domain and range, the constant 1, the default interpolator and clamping disabled.
+ *
+ * The first generic corresponds to the data type of the range elements.
+ * The second generic corresponds to the data type of the output elements generated by the scale.
+ *
+ * If range element and output element type differ, the interpolator factory used with the scale must match this behavior and
+ * convert the interpolated range element to a corresponding output element.
+ *
+ * The range must be set in accordance with the range element type.
+ *
+ * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param domain Array of numeric domain values.
+ * @param range Array of range values.
+ */
+export function scaleSymlog<Range, Output = Range>(
+    domain: NumberValue[],
+    range: ReadonlyArray<Range>
+): ScaleSymLog<Range, Output>;
 
 // -------------------------------------------------------------------------------
 // Identity Scale Factory
@@ -669,7 +725,7 @@ export interface ScaleIdentity {
      *
      * @param value A numeric value from the domain.
      */
-    (value: number | { valueOf(): number }): number;
+    (value: NumberValue): number | undefined;
 
     /**
      * Given a value from the range, returns the corresponding value from the domain. Inversion is useful for interaction,
@@ -685,7 +741,7 @@ export interface ScaleIdentity {
      *
      * @param value A numeric value from the range.
      */
-    invert(value: number | { valueOf(): number }): number;
+    invert(value: NumberValue): number;
 
     /**
      * Returns a copy of the scale’s current domain.
@@ -702,7 +758,7 @@ export interface ScaleIdentity {
      *
      * @param domain Array of numeric domain values.
      */
-    domain(domain: Array<number | { valueOf(): number }>): this;
+    domain(domain: NumberValue[]): this;
 
     /**
      * Returns a copy of the scale’s current range.
@@ -716,7 +772,7 @@ export interface ScaleIdentity {
      *
      * @param range Array of range values.
      */
-    range(range: Array<number | { valueOf(): number }>): this;
+    range(range: NumberValue[]): this;
 
     /**
      * Returns approximately count representative values from the scale’s domain.
@@ -740,7 +796,7 @@ export interface ScaleIdentity {
      * If specifier uses the format type "s", the scale will return a SI-prefix format based on the largest value in the domain.
      * If the specifier already specifies a precision, this method is equivalent to locale.format.
      */
-    tickFormat(count?: number, specifier?: string): (d: number | { valueOf(): number }) => string;
+    tickFormat(count?: number, specifier?: string): (d: NumberValue) => string;
 
     /**
      * Extends the domain so that it starts and ends on nice round values.
@@ -762,12 +818,26 @@ export interface ScaleIdentity {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): ScaleIdentity;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): number | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: number | undefined): this;
 }
 
 /**
- * Constructs a new identity scale with the unit domain [0, 1] and the unit range [0, 1].
+ * Constructs a new identity scale with the specified domain and range.
+ * If range is not specified, it defaults to [0, 1].
+ *
+ * @param range Array of range values.
  */
-export function scaleIdentity(): ScaleIdentity;
+export function scaleIdentity(range?: NumberValue[]): ScaleIdentity;
 
 // -------------------------------------------------------------------------------
 // Time Scale Factories
@@ -799,7 +869,7 @@ export interface ScaleTime<Range, Output> {
      *
      * @param value A temporal value from the domain. If the value is not a Date, it will be coerced to Date.
      */
-    (value: Date | number | { valueOf(): number }): Output;
+    (value: Date | NumberValue): Output | undefined;
 
     /**
      * Given a value from the range, returns the corresponding value from the domain. Inversion is useful for interaction,
@@ -814,7 +884,7 @@ export interface ScaleTime<Range, Output> {
      *
      * @param value A numeric value from the range.
      */
-    invert(value: number | { valueOf(): number }): Date;
+    invert(value: NumberValue): Date;
 
     /**
      * Returns a copy of the scale’s current domain.
@@ -832,7 +902,7 @@ export interface ScaleTime<Range, Output> {
      *
      * @param domain Array of temporal domain values. Numeric values will be coerced to dates.
      */
-    domain(domain: Array<Date | number | { valueOf(): number }>): this;
+    domain(domain: Array<Date | NumberValue>): this;
 
     /**
      * Returns a copy of the scale’s current range.
@@ -859,7 +929,7 @@ export interface ScaleTime<Range, Output> {
      *
      * @param range Array of range values.
      */
-    rangeRound(range: Array<number | { valueOf(): number }>): this;
+    rangeRound(range: NumberValue[]): this;
 
     /**
      * Returns whether or not the scale currently clamps values to within the range.
@@ -1021,28 +1091,23 @@ export interface ScaleTime<Range, Output> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): this;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 }
 
 /**
- * Constructs a new time scale using local time with the domain [2000-01-01, 2000-01-02], the unit range [0, 1], the default interpolator and clamping disabled.
- *
- * The scale will have range and output of data type number.
- */
-export function scaleTime(): ScaleTime<number, number>;
-/**
- * Constructs a new time scale using local time with the domain [2000-01-01, 2000-01-02], the default interpolator and clamping disabled.
- *
- * The generic corresponds to the data type of the range and output elements to be used.
- *
- * As range type and output type are the same, the interpolator factory used with the scale must match this behavior.
- *
- * The range must be set in accordance with the range element type.
- *
- * The interpolator factory may be set using the interpolate(...) method of the scale.
- */
-export function scaleTime<Output>(): ScaleTime<Output, Output>;
-/**
- * Constructs a new time scale using local time with the domain [2000-01-01, 2000-01-02], the default interpolator and clamping disabled.
+ * Constructs a new time scale with the specified range, the default interpolator and clamping disabled.
+ * The domain defaults to [2000-01-01, 2000-01-02].
+ * If range is not specified, it defaults to [0, 1].
  *
  * The first generic corresponds to the data type of the range elements.
  * The second generic corresponds to the data type of the output elements generated by the scale.
@@ -1053,29 +1118,35 @@ export function scaleTime<Output>(): ScaleTime<Output, Output>;
  * The range must be set in accordance with the range element type.
  *
  * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param range Array of range values.
  */
-export function scaleTime<Range, Output>(): ScaleTime<Range, Output>;
+export function scaleTime<Range = number, Output = Range>(range?: ReadonlyArray<Range>): ScaleTime<Range, Output>;
+/**
+ * Constructs a new time scale with the specified domain and range, the default interpolator and clamping disabled.
+ *
+ * The first generic corresponds to the data type of the range elements.
+ * The second generic corresponds to the data type of the output elements generated by the scale.
+ *
+ * If range element and output element type differ, the interpolator factory used with the scale must match this behavior and
+ * convert the interpolated range element to a corresponding output element.
+ *
+ * The range must be set in accordance with the range element type.
+ *
+ * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param domain Array of temporal domain values. Numeric values will be coerced to dates.
+ * @param range Array of range values.
+ */
+export function scaleTime<Range, Output = Range>(
+    domain: Array<Date | NumberValue>,
+    range: ReadonlyArray<Range>
+): ScaleTime<Range, Output>;
 
 /**
- * Constructs a new time scale using Coordinated Universal Time (UTC) with the domain [2000-01-01, 2000-01-02], the unit range [0, 1], the default interpolator and clamping disabled.
- *
- * The scale will have range and output of data type number.
- */
-export function scaleUtc(): ScaleTime<number, number>;
-/**
- * Constructs a new time scale using Coordinated Universal Time (UTC) with the domain [2000-01-01, 2000-01-02], the default interpolator and clamping disabled.
- *
- * The generic corresponds to the data type of the range and output elements to be used.
- *
- * As range type and output type are the same, the interpolator factory used with the scale must match this behavior.
- *
- * The range must be set in accordance with the range element type.
- *
- * The interpolator factory may be set using the interpolate(...) method of the scale.
- */
-export function scaleUtc<Output>(): ScaleTime<Output, Output>;
-/**
- * Constructs a new time scale using Coordinated Universal Time (UTC) with the domain [2000-01-01, 2000-01-02], the default interpolator and clamping disabled.
+ * Constructs a new time scale using Coordinated Universal Time (UTC) with the specified range, the default interpolator and clamping disabled.
+ * The domain defaults to [2000-01-01, 2000-01-02].
+ * If range is not specified, it defaults to [0, 1].
  *
  * The first generic corresponds to the data type of the range elements.
  * The second generic corresponds to the data type of the output elements generated by the scale.
@@ -1086,8 +1157,30 @@ export function scaleUtc<Output>(): ScaleTime<Output, Output>;
  * The range must be set in accordance with the range element type.
  *
  * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param range Array of range values.
  */
-export function scaleUtc<Range, Output>(): ScaleTime<Range, Output>;
+export function scaleUtc<Range = number, Output = Range>(range?: ReadonlyArray<Range>): ScaleTime<Range, Output>;
+/**
+ * Constructs a new time scale using Coordinated Universal Time (UTC) with the specified domain and range, the default interpolator and clamping disabled.
+ *
+ * The first generic corresponds to the data type of the range elements.
+ * The second generic corresponds to the data type of the output elements generated by the scale.
+ *
+ * If range element and output element type differ, the interpolator factory used with the scale must match this behavior and
+ * convert the interpolated range element to a corresponding output element.
+ *
+ * The range must be set in accordance with the range element type.
+ *
+ * The interpolator factory may be set using the interpolate(...) method of the scale.
+ *
+ * @param domain Array of temporal domain values. Numeric values will be coerced to dates.
+ * @param range Array of range values.
+ */
+export function scaleUtc<Range, Output = Range>(
+    domain: NumberValue[],
+    range: ReadonlyArray<Range>
+): ScaleTime<Range, Output>;
 
 // -------------------------------------------------------------------------------
 // Sequential Scale Factory
@@ -1108,7 +1201,7 @@ export interface ScaleSequential<Output> {
      *
      * @param value A numeric value from the domain.
      */
-    (value: number | { valueOf(): number }): Output;
+    (value: NumberValue): Output | undefined;
 
     /**
      * Returns a copy of the scale’s current domain.
@@ -1120,7 +1213,7 @@ export interface ScaleSequential<Output> {
      *
      * @param domain A two-element array of numeric domain values.
      */
-    domain(domain: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
+    domain(domain: [NumberValue, NumberValue]): this;
 
     /**
      * Returns whether or not the scale currently clamps values to within the range.
@@ -1159,17 +1252,148 @@ export interface ScaleSequential<Output> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): ScaleSequential<Output>;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): number | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: number | undefined): this;
 }
 
 /**
- * Constructs a new sequential scale with the given interpolator function. When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1],
- * where 0 represents the start of the domain, and 1 represents the end of the domain.
+ * Constructs a new sequential scale with the specified interpolator function.
+ * The domain defaults to [0, 1].
+ * If interpolator is not specified, it defaults to the identity function.
+ * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1], where 0 represents the minimum value and 1 represents the maximum value.
  *
  * The generic corresponds to the data type of the output of the interpolator underlying the scale.
  *
  * @param interpolator The interpolator function to be used with the scale.
  */
-export function scaleSequential<Output>(interpolator: (t: number) => Output): ScaleSequential<Output>;
+export function scaleSequential<Output = number>(interpolator?: (t: number) => Output): ScaleSequential<Output>;
+/**
+ * Constructs a new sequential scale with the specified domain and interpolator function.
+ * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1], where 0 represents the minimum value and 1 represents the maximum value.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param domain A two-element array of numeric domain values.
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequential<Output>(
+    domain: [NumberValue, NumberValue],
+    interpolator: (t: number) => Output
+): ScaleSequential<Output>;
+
+/**
+ * A sequential scale with a logarithmic transform, analogous to a log scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialLog<Output = number>(interpolator?: (t: number) => Output): ScaleSequential<Output>;
+/**
+ * A sequential scale with a logarithmic transform, analogous to a log scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param domain A two-element array of numeric domain values.
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialLog<Output>(
+    domain: [NumberValue, NumberValue],
+    interpolator: (t: number) => Output
+): ScaleSequential<Output>;
+
+/**
+ * A sequential scale with a exponential transform, analogous to a power scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialPow<Output = number>(interpolator?: (t: number) => Output): ScaleSequential<Output>;
+/**
+ * A sequential scale with a exponential transform, analogous to a power scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param domain A two-element array of numeric domain values.
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialPow<Output>(
+    domain: [NumberValue, NumberValue],
+    interpolator: (t: number) => Output
+): ScaleSequential<Output>;
+
+/**
+ * A sequential scale with a square-root transform, analogous to a d3.scaleSqrt.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialSqrt<Output = number>(interpolator?: (t: number) => Output): ScaleSequential<Output>;
+/**
+ * A sequential scale with a square-root transform, analogous to a d3.scaleSqrt.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param domain A two-element array of numeric domain values.
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialSqrt<Output>(
+    domain: [NumberValue, NumberValue],
+    interpolator: (t: number) => Output
+): ScaleSequential<Output>;
+
+/**
+ * A sequential scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialSymlog<Output = number>(interpolator?: (t: number) => Output): ScaleSequential<Output>;
+/**
+ * A sequential scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param domain A two-element array of numeric domain values.
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialSymlog<Output>(
+    domain: [NumberValue, NumberValue],
+    interpolator: (t: number) => Output
+): ScaleSequential<Output>;
+
+/**
+ * A sequential scale using a p-quantile transform, analogous to a quantile scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialQuantile<Output = number>(interpolator?: (t: number) => Output): ScaleSequential<Output>;
+/**
+ * A sequential scale using a p-quantile transform, analogous to a quantile scale.
+ *
+ * The generic corresponds to the data type of the output of the interpolator underlying the scale.
+ *
+ * @param domain A two-element array of numeric domain values.
+ * @param interpolator The interpolator function to be used with the scale.
+ */
+export function scaleSequentialQuantile<Output>(
+    domain: [NumberValue, NumberValue],
+    interpolator: (t: number) => Output
+): ScaleSequential<Output>;
 
 // -------------------------------------------------------------------------------
 // Diverging Scale Factory
@@ -1190,7 +1414,7 @@ export interface ScaleDiverging<Output> {
      *
      * @param value A numeric value from the domain.
      */
-    (value: number | { valueOf(): number }): Output;
+    (value: NumberValue): Output | undefined;
 
     /**
      * Returns a copy of the scale’s current domain.
@@ -1204,7 +1428,7 @@ export interface ScaleDiverging<Output> {
      * @param domain Array of three numeric domain values.
      */
     domain(
-        domain: [number | { valueOf(): number }, number | { valueOf(): number }, number | { valueOf(): number }],
+        domain: [NumberValue, NumberValue, NumberValue],
     ): this;
 
     /**
@@ -1236,10 +1460,23 @@ export interface ScaleDiverging<Output> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): this;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): number | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: number | undefined): this;
 }
 
 /**
- * Constructs a new diverging scale with the given interpolator function.
+ * Constructs a new diverging scale with the specified interpolator function.
+ * The domain defaults to [0, 1].
+ * If interpolator is not specified, it defaults to the identity function.
  * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1],
  * where 0 represents the extreme negative value, 0.5 represents the neutral value, and 1 represents the extreme positive value.
  *
@@ -1247,7 +1484,105 @@ export interface ScaleDiverging<Output> {
  *
  * @param interpolator The scale’s interpolator.
  */
-export function scaleDiverging<T>(interpolator: (t: number) => T): ScaleDiverging<T>;
+export function scaleDiverging<Output = number>(interpolator?: (t: number) => Output): ScaleDiverging<Output>;
+/**
+ * Constructs a new diverging scale with the specified domain and interpolator function.
+ * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1],
+ * where 0 represents the extreme negative value, 0.5 represents the neutral value, and 1 represents the extreme positive value.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param domain Array of three numeric domain values.
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDiverging<Output>(
+    domain: [NumberValue, NumberValue, NumberValue],
+    interpolator: (t: number) => Output
+): ScaleDiverging<Output>;
+
+/**
+ * A diverging scale with a logarithmic transform, analogous to a log scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingLog<Output = number>(interpolator?: (t: number) => Output): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a logarithmic transform, analogous to a log scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param domain Array of three numeric domain values.
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingLog<Output>(
+    domain: [NumberValue, NumberValue, NumberValue],
+    interpolator: (t: number) => Output
+): ScaleDiverging<Output>;
+
+/**
+ * A diverging scale with a exponential transform, analogous to a power scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingPow<Output = number>(interpolator?: (t: number) => Output): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a exponential transform, analogous to a power scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param domain Array of three numeric domain values.
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingPow<Output>(
+    domain: [NumberValue, NumberValue, NumberValue],
+    interpolator: (t: number) => Output
+): ScaleDiverging<Output>;
+
+/**
+ * A diverging scale with a square-root transform, analogous to a d3.scaleSqrt.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingSqrt<Output = number>(interpolator?: (t: number) => Output): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a square-root transform, analogous to a d3.scaleSqrt.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param domain Array of three numeric domain values.
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingSqrt<Output>(
+    domain: [NumberValue, NumberValue, NumberValue],
+    interpolator: (t: number) => Output
+): ScaleDiverging<Output>;
+
+/**
+ * A diverging scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingSymlog<Output = number>(interpolator?: (t: number) => Output): ScaleDiverging<Output>;
+/**
+ * A diverging scale with a symmetric logarithmic transform, analogous to a symlog scale.
+ *
+ * The generic corresponds to the data type of the interpolator return type.
+ *
+ * @param domain Array of three numeric domain values.
+ * @param interpolator The scale’s interpolator.
+ */
+export function scaleDivergingSymlog<Output>(
+    domain: [NumberValue, NumberValue, NumberValue],
+    interpolator: (t: number) => Output
+): ScaleDiverging<Output>;
 
 // -------------------------------------------------------------------------------
 // Quantize Scale Factory
@@ -1265,7 +1600,7 @@ export interface ScaleQuantize<Range> {
     /**
      * Given a value in the input domain, returns the corresponding value in the output range.
      */
-    (value: number | { valueOf(): number }): Range;
+    (value: NumberValue): Range | undefined;
     /**
      * Returns the extent of values in the domain [x0, x1] for the corresponding value in the range: the inverse of quantize.
      * This method is useful for interaction, say to determine the value in the domain that corresponds to the pixel location under the mouse.
@@ -1287,7 +1622,7 @@ export interface ScaleQuantize<Range> {
      *
      * @param domain A two-element array of numeric values defining the domain.
      */
-    domain(domain: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
+    domain(domain: [NumberValue, NumberValue]): this;
 
     /**
      * Returns the scale’s current range.
@@ -1322,7 +1657,7 @@ export interface ScaleQuantize<Range> {
      * If specifier uses the format type "s", the scale will return a SI-prefix format based on the largest value in the domain.
      * If the specifier already specifies a precision, this method is equivalent to locale.format.
      */
-    tickFormat(count?: number, specifier?: string): (d: number | { valueOf(): number }) => string;
+    tickFormat(count?: number, specifier?: string): (d: NumberValue) => string;
 
     /**
      * Extends the domain so that it starts and ends on nice round values.
@@ -1342,22 +1677,47 @@ export interface ScaleQuantize<Range> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): this;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 }
 
 /**
- * Constructs a new quantize scale with the unit domain [0, 1] and the unit range [0, 1].
+ * Constructs a new quantize scale with the specified range.
+ * The domain defaults to [0, 1].
+ * If range is not specified, it defaults to [0, 1].
  * Thus, the default quantize scale is equivalent to the Math.round function.
- */
-export function scaleQuantize(): ScaleQuantize<number>;
-
-/**
- * Constructs a new quantize scale with the unit domain [0, 1].
  *
  * The range must be set corresponding to the type of the range elements.
  *
  * The generic corresponds to the data type of the range elements.
+ *
+ * @param range Array of range values.
  */
-export function scaleQuantize<Range>(): ScaleQuantize<Range>;
+export function scaleQuantize<Range = number>(range?: ReadonlyArray<Range>): ScaleQuantize<Range>;
+/**
+ * Constructs a new quantize scale with the specified domain and range.
+ * Thus, the default quantize scale is equivalent to the Math.round function.
+ *
+ * The range must be set corresponding to the type of the range elements.
+ *
+ * The generic corresponds to the data type of the range elements.
+ *
+ * @param domain A two-element array of numeric values defining the domain.
+ * @param range Array of range values.
+ */
+export function scaleQuantize<Range>(
+    domain: [NumberValue, NumberValue],
+    range: ReadonlyArray<Range>
+): ScaleQuantize<Range>;
 
 // -------------------------------------------------------------------------------
 // Quantile Scale Factory
@@ -1378,7 +1738,7 @@ export interface ScaleQuantile<Range> {
      *
      * @param value A numeric value in the input domain.
      */
-    (value: number | { valueOf(): number }): Range;
+    (value: NumberValue): Range | undefined;
 
     /**
      * Returns the extent of values in the domain [x0, x1] for the corresponding value in the range: the inverse of quantile.
@@ -1400,7 +1760,7 @@ export interface ScaleQuantile<Range> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Array<number | { valueOf(): number } | null | undefined>): this;
+    domain(domain: Array<NumberValue | null | undefined>): this;
 
     /**
      * Returns the current range.
@@ -1428,21 +1788,43 @@ export interface ScaleQuantile<Range> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): this;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 }
 
 /**
- * Constructs a new quantile scale with an empty domain and an empty range.
- * The quantile scale is invalid until both a domain and range are specified.
- */
-export function scaleQuantile(): ScaleQuantile<number>;
-
-/**
- * Constructs a new quantile scale with an empty domain and an empty range.
+ * Constructs a new quantile scale with the specified range.
+ * The domain defaults to the empty array.
+ * If range is not specified, it defaults to the empty array.
  * The quantile scale is invalid until both a domain and range are specified.
  *
  * The generic corresponds to the data type of range elements.
+ *
+ * @param range Array of range values.
  */
-export function scaleQuantile<Range>(): ScaleQuantile<Range>;
+export function scaleQuantile<Range = number>(range?: ReadonlyArray<Range>): ScaleQuantile<Range>;
+/**
+ * Constructs a new quantile scale with the specified domain and range.
+ * The quantile scale is invalid until both a domain and range are specified.
+ *
+ * The generic corresponds to the data type of range elements.
+ *
+ * @param domain Array of domain values.
+ * @param range Array of range values.
+ */
+export function scaleQuantile<Range>(
+    domain: Array<NumberValue | null | undefined>,
+    range: ReadonlyArray<Range>
+): ScaleQuantile<Range>;
 
 // -------------------------------------------------------------------------------
 // Threshold Scale Factory
@@ -1465,7 +1847,7 @@ export interface ScaleThreshold<Domain extends number | string | Date, Range> {
      *
      * @param value A domain value.
      */
-    (value: Domain): Range;
+    (value: Domain): Range | undefined;
 
     /**
      * Returns the extent of values in the domain [x0, x1] for the corresponding value in the range, representing the inverse mapping from range to domain.
@@ -1507,20 +1889,47 @@ export interface ScaleThreshold<Domain extends number | string | Date, Range> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): this;
+
+    /**
+     * Returns the current unknown value, which defaults to undefined.
+     */
+    unknown(): Range | undefined;
+    /**
+     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
+     *
+     * @param value The output value of the scale for undefined (or NaN) input values.
+     */
+    unknown(value: Range | undefined): this;
 }
 
 /**
- * Constructs a new threshold scale with the default domain [0.5] and the default range [0, 1].
+ * Constructs a new threshold scale with the specified range.
+ * The domain defaults to [0.5].
+ * If range is not specified, it defaults to [0, 1].
  * Thus, the default threshold scale is equivalent to the Math.round function for numbers; for example threshold(0.49) returns 0, and threshold(0.51) returns 1.
- */
-export function scaleThreshold(): ScaleThreshold<number, number>;
-/**
- * Constructs a new threshold scale. The domain and range must be set corresponding to the type of the corresponding generic.
  *
  * The first generic corresponds to the data type of domain values.
  * The second generic corresponds to the data type of range values.
+ *
+ * @param range Array of range values.
  */
-export function scaleThreshold<Domain extends number | string | Date, Range>(): ScaleThreshold<Domain, Range>;
+export function scaleThreshold<Domain extends number | string | Date = number, Range = number>(
+    range?: ReadonlyArray<Range>,
+): ScaleThreshold<Domain, Range>;
+/**
+ * Constructs a new threshold scale with the specified domain and range.
+ * Thus, the default threshold scale is equivalent to the Math.round function for numbers; for example threshold(0.49) returns 0, and threshold(0.51) returns 1.
+ *
+ * The first generic corresponds to the data type of domain values.
+ * The second generic corresponds to the data type of range values.
+ *
+ * @param domain Array of domain values.
+ * @param range Array of range values.
+ */
+export function scaleThreshold<Domain extends number | string | Date, Range>(
+    domain: ReadonlyArray<Domain>,
+    range: ReadonlyArray<Range>,
+): ScaleThreshold<Domain, Range>;
 
 // -------------------------------------------------------------------------------
 // Ordinal Scale Factory
@@ -1545,7 +1954,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
      *
      * @param x A value from the domain.
      */
-    (x: Domain): Range;
+    (x: Domain): Range | undefined;
 
     /**
      * Returns the scale's current domain.
@@ -1602,31 +2011,40 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
 }
 
 /**
- * Constructs a new ordinal scale with an empty domain and the specified range.
- * If a range is not specified, it defaults to the empty array; an ordinal scale always returns undefined until a non-empty range is defined.
- *
- * By default, the domain is configured to generate implicitly, if the scale is invoked with an unknown value.
- * See the "unknown(...)" method of the scale to change this behavior.
+ * Constructs a new ordinal scale with the specified range.
+ * The domain defaults to the empty array.
+ * If range is not specified, it defaults to the empty array; an ordinal scale always returns undefined until a non-empty range is defined.
  *
  * The generic corresponds to the data type of range elements.
  *
- * @parm range An optional array of range values to initialize the scale with.
+ * @param range An optional array of range values to initialize the scale with.
  */
 export function scaleOrdinal<Range>(range?: ReadonlyArray<Range>): ScaleOrdinal<string, Range>;
 /**
- * Constructs a new ordinal scale with an empty domain and the specified range.
- * If a range is not specified, it defaults to the empty array; an ordinal scale always returns undefined until a non-empty range is defined.
- *
- * By default, the domain is configured to generate implicitly, if the scale is invoked with an unknown value.
- * See the "unknown(...)" method of the scale to change this behavior.
+ * Constructs a new ordinal scale with the specified range.
+ * The domain defaults to the empty array.
+ * If range is not specified, it defaults to the empty array; an ordinal scale always returns undefined until a non-empty range is defined.
  *
  * The first generic corresponds to the data type of domain elements.
  * The second generic corresponds to the data type of range elements.
  *
- * @parm range An optional array of range values to initialize the scale with.
+ * @param range An optional array of range values to initialize the scale with.
  */
 export function scaleOrdinal<Domain extends { toString(): string }, Range>(
     range?: ReadonlyArray<Range>,
+): ScaleOrdinal<Domain, Range>;
+/**
+ * Constructs a new ordinal scale with the specified domain and range.
+ *
+ * The first generic corresponds to the data type of domain elements.
+ * The second generic corresponds to the data type of range elements.
+ *
+ * @param domain Array of domain values.
+ * @param range An optional array of range values to initialize the scale with.
+ */
+export function scaleOrdinal<Domain extends { toString(): string }, Range>(
+    domain: ReadonlyArray<Domain>,
+    range: ReadonlyArray<Range>,
 ): ScaleOrdinal<Domain, Range>;
 
 /**
@@ -1678,7 +2096,7 @@ export interface ScaleBand<Domain extends { toString(): string }> {
      *
      * @param range A two-element array of numeric values.
      */
-    range(range: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
+    range(range: [NumberValue, NumberValue]): this;
 
     /**
      * Sets the scale’s range to the specified two-element array of numbers while also enabling rounding.
@@ -1688,7 +2106,7 @@ export interface ScaleBand<Domain extends { toString(): string }> {
      *
      * @param range A two-element array of numeric values.
      */
-    rangeRound(range: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
+    rangeRound(range: [NumberValue, NumberValue]): this;
 
     /**
      * Returns the current rounding status for the scale: enabled (= true) or disabled (= false).
@@ -1777,15 +2195,29 @@ export interface ScaleBand<Domain extends { toString(): string }> {
 }
 
 /**
- * Constructs a new band scale with the empty domain, the unit range [0, 1], no padding, no rounding and center alignment.
- */
-export function scaleBand(): ScaleBand<string>;
-/**
- * Constructs a new band scale with the empty domain, the unit range [0, 1], no padding, no rounding and center alignment.
+ * Constructs a new band scale with the specified range, no padding, no rounding and center alignment.
+ * The domain defaults to the empty domain.
+ * If range is not specified, it defaults to the unit range [0, 1].
  *
  * The generic corresponds to the data type of domain elements.
+ *
+ * @param range A two-element array of numeric values.
  */
-export function scaleBand<Domain extends { toString(): string }>(): ScaleBand<Domain>;
+export function scaleBand<Domain extends { toString(): string } = string>(
+    range?: [NumberValue, NumberValue]
+): ScaleBand<Domain>;
+/**
+ * Constructs a new band scale with the specified domain and range, no padding, no rounding and center alignment.
+ *
+ * The generic corresponds to the data type of domain elements.
+ *
+ * @param domain Array of domain values.
+ * @param range A two-element array of numeric values.
+ */
+export function scaleBand<Domain extends { toString(): string }>(
+    domain: ReadonlyArray<Domain>,
+    range: [NumberValue, NumberValue]
+): ScaleBand<Domain>;
 
 // -------------------------------------------------------------------------------
 // Point Scale Factory
@@ -1831,7 +2263,7 @@ export interface ScalePoint<Domain extends { toString(): string }> {
      *
      * @param range A two-element array of numeric values.
      */
-    range(range: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
+    range(range: [NumberValue, NumberValue]): this;
 
     /**
      * Sets the scale’s range to the specified two-element array of numbers while also enabling rounding.
@@ -1841,7 +2273,7 @@ export interface ScalePoint<Domain extends { toString(): string }> {
      *
      * @param range A two-element array of numeric values.
      */
-    rangeRound(range: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
+    rangeRound(range: [NumberValue, NumberValue]): this;
 
     /**
      * Returns the current rounding status for the scale: enabled (= true) or disabled (= false).
@@ -1909,12 +2341,27 @@ export interface ScalePoint<Domain extends { toString(): string }> {
 }
 
 /**
- * Constructs a new point scale with the empty domain, the unit range [0, 1], no padding, no rounding and center alignment.
- */
-export function scalePoint(): ScalePoint<string>;
-/**
- * Constructs a new point scale with the empty domain, the unit range [0, 1], no padding, no rounding and center alignment.
+ * Constructs a new point scale with the specified range, no padding, no rounding and center alignment.
+ * The domain defaults to the empty domain.
+ * If range is not specified, it defaults to the unit range [0, 1].
  *
  * The generic corresponds to the data type of domain elements.
+ *
+ * @param range A two-element array of numeric values.
  */
-export function scalePoint<Domain extends { toString(): string }>(): ScalePoint<Domain>;
+export function scalePoint<Domain extends { toString(): string } = string>(
+    range?: [NumberValue, NumberValue]
+): ScalePoint<Domain>;
+/**
+ * Constructs a new point scale with the specified domain and range, no padding, no rounding and center alignment.
+ * The domain defaults to the empty domain.
+ *
+ * The generic corresponds to the data type of domain elements.
+ *
+ * @param domain Array of domain values.
+ * @param range A two-element array of numeric values.
+ */
+export function scalePoint<Domain extends { toString(): string }>(
+    domain: ReadonlyArray<Domain>,
+    range: [NumberValue, NumberValue]
+): ScalePoint<Domain>;

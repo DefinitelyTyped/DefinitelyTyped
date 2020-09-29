@@ -22,6 +22,9 @@
             ],
             "d3-scale": [
                 "d3-scale/v1"
+            ],
+            "d3-timer": [
+                "d3-timer/v1"
             ]
         },
         "types": [],
