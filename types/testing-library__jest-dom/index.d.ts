@@ -266,7 +266,7 @@ declare namespace jest {
          * [testing-library/jest-dom#tohaveclass](https:github.com/testing-library/jest-dom#tohaveclass)
          */
         toHaveClass(...classNames: string[]): R;
-        toHaveClass(classNames: string,  options?: {exact: boolean}): R;
+        toHaveClass(classNames: string, options?: { exact: boolean }): R;
         /**
          * @description
          * This allows you to check whether the given form element has the specified displayed value (the one the
