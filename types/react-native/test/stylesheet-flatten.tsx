@@ -6,7 +6,7 @@ interface Props {
 }
 
 export function App(props: Props) {
-    const backgroundColor = StyleSheet.flatten([styles.container, props.style]).backgroundColor;
+    const backgroundColor = (StyleSheet.flatten([styles.container, props.style]) as ViewStyle).backgroundColor;
 
     return (
         <View style={[styles.container, props.style]}>

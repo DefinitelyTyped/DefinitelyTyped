@@ -38,6 +38,7 @@ function test_chroma() {
     chroma.blend('4CBBFC', 'EEEE22', 'multiply');
     chroma.blend('4CBBFC', 'EEEE22', 'darken');
     chroma.blend('4CBBFC', 'EEEE22', 'lighten');
+    chroma.average(['4CBBFC', 'yellow'], 'lch', [1, 1, 2, 1]);
     chroma.random();
     chroma.contrast('pink', 'hotpink');
     chroma.contrast('pink', 'purple');

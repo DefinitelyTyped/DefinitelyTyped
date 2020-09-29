@@ -14,8 +14,8 @@
             "../"
         ],
         "paths": {
-            "@expo/status-bar-height": [
-                "expo__status-bar-height"
+            "@expo/*": [
+                "expo__*"
             ]
         },
         "types": [],

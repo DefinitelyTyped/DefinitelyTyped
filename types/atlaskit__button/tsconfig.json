@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "paths": {
-            "@atlaskit/button": ["atlaskit__button"]
+            "@atlaskit/*": ["atlaskit__*"]
         }
     },
     "files": ["index.d.ts", "atlaskit__button-tests.tsx"]

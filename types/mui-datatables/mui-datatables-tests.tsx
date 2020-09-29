@@ -1,7 +1,6 @@
 import MUIDataTable, {
     MUIDataTableColumn,
     MUIDataTableOptions,
-    MUIDataTableTextLabels,
     MUIDataTableProps,
 } from 'mui-datatables';
 import * as React from 'react';

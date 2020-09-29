@@ -15,8 +15,8 @@
             "../"
         ],
         "paths": {
-            "@theme-ui/components": ["theme-ui__components"],
-            "@styled-system/css": ["styled-system__css"]
+            "@theme-ui/*": ["theme-ui__*"],
+            "@styled-system/*": ["styled-system__*"]
         },
         "types": [],
         "noEmit": true,

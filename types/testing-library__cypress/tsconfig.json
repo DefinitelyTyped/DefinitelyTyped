@@ -17,14 +17,11 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@testing-library/cypress": [
-                "testing-library__cypress"
+            "@testing-library/*": [
+                "testing-library__*"
             ],
-            "@testing-library/dom": [
-                "testing-library__dom"
-            ],
-            "@sinonjs/fake-timers": [
-                "sinonjs__fake-timers"
+            "@sinonjs/*": [
+                "sinonjs__*"
             ]
         }
     },
