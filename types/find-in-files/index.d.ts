@@ -3,13 +3,13 @@
 // Definitions by: goooseman <https://github.com/goooseman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type FindResult = {
+export interface FindResult {
     [filePath: string]: {
         matches: string[];
         count: number;
         line: string | null;
     };
-};
+}
 
 export function find(pattern: string | RegExp, directory: string, fileFilter?: string | RegExp): Promise<FindResult>;
 export function findSync(pattern: string | RegExp, directory: string, fileFilter?: string | RegExp): FindResult;

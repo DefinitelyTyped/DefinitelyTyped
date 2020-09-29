@@ -1,4 +1,4 @@
-import { find, findSync, FindResult } from './';
+import { find, findSync, FindResult } from 'find-in-files';
 
 const main = async () => {
     // FindResult interface should be exported
