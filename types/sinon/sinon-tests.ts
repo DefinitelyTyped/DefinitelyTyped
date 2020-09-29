@@ -443,10 +443,6 @@ function testSpy() {
     arr = spy.exceptions;
     arr = spy.returnValues;
 
-    let arg: sinon.SinonSpyCall;
-    arg = spy.firstCall;
-    arg = spy.lastCall;
-
     const fnSpy = sinon.spy(fn); // $ExpectType SinonSpy<[string, number], boolean> || SinonSpy<[arg: string, arg2: number], boolean>
     fn = fnSpy; // Should be assignable to original function
     fnSpy('a', 1); // $ExpectType boolean
@@ -505,6 +501,10 @@ function testSpy() {
     call = spy.lastCall;
     call = spy.getCall(1);
     call = spy.getCalls()[0];
+
+    let arg: any;
+    arg = call.firstArg;
+    arg = call.lastArg;
 
     call.calledBefore(call);
     call.calledAfter(call);
