@@ -24,6 +24,8 @@ export interface PropTypes {
     direction?: "row" | "column";
     panelWidths?: Array<PanelWidth | null>;
     onUpdate?: (data: PanelWidth) => void;
+    onResizeStart?: (data: PanelWidth[]) => void;
+    onResizeEnd?: (data: PanelWidth[]) => void;
 }
 
 /**
