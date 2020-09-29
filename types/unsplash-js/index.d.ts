@@ -90,11 +90,11 @@ export namespace UnsplashApi {
             page?: number,
             perPage?: number,
             filters?: {
-                orientation?: string; // TODO: 'portrait' vs 'landscape' vs 'squareish'
-                contentFilter?: string; // TODO: 'high' vs 'low'
-                color?: string; // TODO: list colors
-                orderBy?: string; // TODO: list searchOrderBy
-                lang?: string; // TODO: list lang
+                orientation?: string;
+                contentFilter?: string;
+                color?: string;
+                orderBy?: string;
+                lang?: string;
                 collections?: ReadonlyArray<string>
             }
         ): Promise<Response>;
