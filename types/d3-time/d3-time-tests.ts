@@ -58,6 +58,7 @@ countableI = d3Time.timeInterval(
 
 countableI = d3Time.timeMonday;
 
+resultDate = countableI();
 resultDate = countableI(inBetween);
 resultDate = countableI.floor(inBetween);
 resultDate = countableI.round(inBetween);
