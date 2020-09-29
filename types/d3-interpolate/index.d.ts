@@ -1,13 +1,14 @@
-// Type definitions for D3JS d3-interpolate module 1.3
+// Type definitions for D3JS d3-interpolate module 1.4
 // Project: https://github.com/d3/d3-interpolate/, https://d3js.org/d3-interpolate
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.3.2
+// Last module patch version validated against: 1.4.0
 
 import { ColorCommonInstance } from 'd3-color';
 
@@ -42,6 +43,19 @@ export interface ColorGammaInterpolationFactory extends Function {
  */
 export type ZoomView = [number, number, number];
 
+export type TypedArray =
+    | Int8Array
+    | Uint8Array
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Uint8ClampedArray
+    | Float32Array
+    | Float64Array;
+
+export type NumberArray = TypedArray | DataView;
+
 // ---------------------------------------------------------------------------
 // Interpolation Function Factories
 // ---------------------------------------------------------------------------
@@ -50,42 +64,38 @@ export type ZoomView = [number, number, number];
  * Returns an `null` constant interpolator.
  */
 export function interpolate(a: any, b: null): ((t: number) => null);
-
 /**
  * Returns an boolean constant interpolator of value `b`.
  */
 export function interpolate(a: any, b: boolean): ((t: number) => boolean);
-
 /**
  * Returns a `interpolateNumber` interpolator.
  */
 export function interpolate(a: number | { valueOf(): number }, b: number): ((t: number) => number);
-
 /**
  * Returns a `interpolateRgb` interpolator.
  */
 export function interpolate(a: string | ColorCommonInstance, b: ColorCommonInstance): ((t: number) => string);
-
 /**
  * Returns a `interpolateDate` interpolator.
  */
 export function interpolate(a: Date, b: Date): ((t: number) => Date);
-
+/**
+ * Returns a `interpolateNumberArray` interpolator.
+ */
+export function interpolate<T extends NumberArray>(a: NumberArray | number[], b: T): ((t: number) => T);
 /**
  * Returns a `interpolateString` interpolator. If `b` is a string coercible to a color use use `interpolateRgb`.
  */
 export function interpolate(a: string | { toString(): string }, b: string): ((t: number) => string);
-
 /**
  * Returns a `interpolateArray` interpolator.
  */
 export function interpolate<U extends any[]>(a: any[], b: U): ((t: number) => U);
-
 /**
  * Returns a `interpolateNumber` interpolator.
  */
 export function interpolate(a: number | { valueOf(): number }, b: { valueOf(): number }): ((t: number) => number);
-
 /**
  * Returns a `interpolateObject` interpolator.
  */
@@ -140,6 +150,21 @@ export type ArrayInterpolator<A extends any[]> = ((t: number) => A);
  * No copy is made for performance reasons; interpolators are often part of the inner loop of animated transitions.
  */
 export function interpolateArray<A extends any[]>(a: any[], b: A): ArrayInterpolator<A>;
+/**
+ * interpolateNumberArray is called
+ */
+export function interpolateArray<T extends NumberArray>(a: NumberArray | number[], b: T): ((t: number) => T);
+
+/**
+ * Returns an interpolator between the two arrays of numbers a and b.
+ * Internally, an array template is created that is the same type and length as b.
+ * For each element in b, if there exists a corresponding element in a, the values are directly interpolated in the array template.
+ * If there is no such element, the static value from b is copied.
+ * The updated array template is then returned.
+ *
+ * Note: For performance reasons, no defensive copy is made of the template array and the arguments a and b; modifications of these arrays may affect subsequent evaluation of the interpolator.
+ */
+export function interpolateNumberArray<T extends NumberArray | number[]>(a: NumberArray | number[], b: T): ((t: number) => T);
 
 /**
  * Returns an interpolator between the two objects `a` and `b`. Internally, an object template is created that has the same properties as `b`.
