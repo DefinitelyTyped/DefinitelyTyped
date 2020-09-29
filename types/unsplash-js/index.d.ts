@@ -89,7 +89,14 @@ export namespace UnsplashApi {
             keyword: string,
             page?: number,
             perPage?: number,
-            filters?: { orientation?: string; collections?: ReadonlyArray<string> },
+            filters?: {
+                orientation?: string; // TODO: 'portrait' vs 'landscape' vs 'squareish'
+                contentFilter?: string; // TODO: 'high' vs 'low'
+                color?: string; // TODO: list colors
+                orderBy?: string; // TODO: list searchOrderBy
+                lang?: string; // TODO: list lang
+                collections?: ReadonlyArray<string>
+            }
         ): Promise<Response>;
 
         users(keyword: string, page?: number, perPage?: number): Promise<Response>;

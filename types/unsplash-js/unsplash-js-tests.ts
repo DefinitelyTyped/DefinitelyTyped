@@ -81,7 +81,14 @@ unsplash.collections.removePhotoFromCollection(88, 'abc1234');
 
 unsplash.collections.listRelatedCollections(88);
 
-unsplash.search.photos('dogs', 1);
+unsplash.search.photos('dogs', 1, 0, {
+    orientation: 'foo',
+    contentFilter: 'foo',
+    color: 'foo',
+    orderBy: 'foo',
+    lang: 'foo',
+    collections: ['foo'],
+});
 
 unsplash.search.users('steve', 1);
 
