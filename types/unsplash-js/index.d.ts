@@ -58,6 +58,10 @@ export namespace UnsplashApi {
         unlikePhoto(id: string): Promise<Response>;
 
         downloadPhoto(photo: { links: { download_location: string } }): Promise<Response>;
+
+        trackDownload(photo: {
+            links: { download_location: string };
+        }): Promise<Response>;
     }
 
     interface Collections {

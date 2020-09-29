@@ -60,6 +60,7 @@ unsplash.photos
     .then(toJson)
     .then(json => {
         unsplash.photos.downloadPhoto(json);
+        unsplash.photos.trackDownload(json);
     });
 
 unsplash.collections.listCollections(1, 10, 'popular');
