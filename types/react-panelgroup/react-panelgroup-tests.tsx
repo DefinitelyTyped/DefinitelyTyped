@@ -35,7 +35,7 @@ const test3 = (
 const test4 = (
     <PanelGroup
         panelWidths={[
-            { size: 100, minSize: 50, resize: "dynamic" },
+            { size: 100, minSize: 50, maxSize: 150, resize: "dynamic" },
             { minSize: 100, resize: "stretch" },
             { size: 100, minSize: 50, resize: "dynamic" }
         ]}

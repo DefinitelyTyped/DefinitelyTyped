@@ -12,6 +12,7 @@ import * as React from "react";
 export interface PanelWidth {
     size?: number;
     minSize?: number;
+    maxSize?: number;
     resize?: "fixed" | "dynamic" | "stretch";
     snap?: number[];
 }
