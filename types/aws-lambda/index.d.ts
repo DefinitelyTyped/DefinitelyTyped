@@ -78,5 +78,6 @@ export * from "./trigger/s3-batch";
 export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
+export * from './trigger/msk';
 
 export as namespace AWSLambda;

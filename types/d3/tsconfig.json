@@ -19,6 +19,9 @@
             ],
             "d3-hierarchy": [
                 "d3-hierarchy/v1"
+            ],
+            "d3-timer": [
+                "d3-timer/v1"
             ]
         },
         "types": [],
