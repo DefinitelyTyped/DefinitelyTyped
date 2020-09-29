@@ -502,6 +502,10 @@ function testSpy() {
     call = spy.getCall(1);
     call = spy.getCalls()[0];
 
+    let arg: any;
+    arg = call.firstArg;
+    arg = call.lastArg;
+
     call.calledBefore(call);
     call.calledAfter(call);
     call.calledWithNew();

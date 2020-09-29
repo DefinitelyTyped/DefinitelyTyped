@@ -50,6 +50,17 @@ nova.config.get('test', 'array');
 const charset1 = new Charset('abcd1234');
 const charset2 = charset1.intersect(Charset.letters);
 
+/// https://docs.nova.app/api-reference/clipboard/
+
+// $ExpectType Promise<string>
+nova.clipboard.readText();
+
+/// https://novadocs.panic.com/api-reference/completion-item/
+
+const completionItem = new CompletionItem("label", CompletionItemKind.Struct);
+completionItem.insertTextFormat = InsertTextFormat.Snippet;
+completionItem.insertText = "text to insert";
+
 /// https://novadocs.panic.com/api-reference/emitter/
 
 const emitter = new Emitter();
