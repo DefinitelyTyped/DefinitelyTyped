@@ -146,6 +146,12 @@ declare namespace Sinon {
          * When the last argument in a call is a Function, then callback will reference that. Otherwise it will be undefined.
          */
         callback: Function | undefined;
+
+        /**
+         * This property is a convenience for the first argument of the call.
+         */
+        firstArg: any;
+
         /**
          * This property is a convenience for the last argument of the call.
          */
