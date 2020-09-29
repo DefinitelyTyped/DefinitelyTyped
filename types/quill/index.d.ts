@@ -102,7 +102,7 @@ export interface EventEmitter {
 
 export class Quill implements EventEmitter {
     /**
-     * @private Internal API
+     * Internal API
      */
     root: HTMLDivElement;
     clipboard: ClipboardStatic;
