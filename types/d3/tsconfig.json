@@ -19,6 +19,9 @@
             ],
             "d3-ease": [
                 "d3-ease/v1"
+            ],
+            "d3-timer": [
+                "d3-timer/v1"
             ]
         },
         "types": [],
