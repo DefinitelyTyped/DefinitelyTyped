@@ -3,7 +3,7 @@
 // Definitions by: Levi Bostian <https://github.com/levibostian>
 //                 Gaurav Sharma <https://github.com/gtpan77>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// TypeScript Version: 2.8
 
 import { RequestHandler } from "express";
 import { ClientOpts } from "redis";
