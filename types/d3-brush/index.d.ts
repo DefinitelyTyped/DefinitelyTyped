@@ -1,12 +1,15 @@
 // Type definitions for D3JS d3-brush module 1.1
 // Project: https://github.com/d3/d3-brush/, https://d3js.org/d3-brush
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.1.5
+// Last module patch version validated against: 1.1.6
 
-import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
+import { Selection, TransitionLike, ValueFn } from 'd3-selection';
 
 /**
  * Type alias for a BrushSelection. For a two-dimensional brush, it must be defined as [[x0, y0], [x1, y1]],
@@ -93,6 +96,14 @@ export interface BrushBehavior<Datum> {
      * for a y-brush, it must be defined as [y0, y1].
      */
     move(group: TransitionLike<SVGGElement, Datum>, selection: ValueFn<SVGGElement, Datum, BrushSelection>): void;
+
+    /**
+     * Clear the active selection of the brush on the specified SVG G element(s) selection.
+     *
+     * @param group A D3 selection of SVG G elements.
+     */
+    clear(group: Selection<SVGGElement, Datum, any, any>): void;
+
     /**
      * Returns the current extent accessor.
      */
@@ -139,6 +150,34 @@ export interface BrushBehavior<Datum> {
     filter(filterFn: ValueFn<SVGGElement, Datum, boolean>): this;
 
     /**
+     * Returns the current touch support detector, which defaults to a function returning true,
+     * if the "ontouchstart" event is supported on the current element.
+     */
+    touchable(): ValueFn<SVGGElement, Datum, boolean>;
+    /**
+     * Sets the touch support detector to the specified boolean value and returns the brush.
+     *
+     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the brush is applied.
+     * The default detector works well for most browsers that are capable of touch input, but not all; Chrome’s mobile device emulator, for example,
+     * fails detection.
+     *
+     * @param touchable A boolean value. true when touch event listeners should be applied to the corresponding element, otherwise false.
+     */
+    touchable(touchable: boolean): this;
+    /**
+     * Sets the touch support detector to the specified function and returns the drag behavior.
+     *
+     * Touch event listeners are only registered if the detector returns truthy for the corresponding element when the brush is applied.
+     * The default detector works well for most browsers that are capable of touch input, but not all; Chrome’s mobile device emulator, for example,
+     * fails detection.
+     *
+     * @param touchable A touch support detector function, which returns true when touch event listeners should be applied to the corresponding element.
+     * The function is evaluated for each selected element to which the brush was applied, in order, being passed the current datum (d),
+     * the current index (i), and the current group (nodes), with this as the current DOM element. The function returns a boolean value.
+     */
+    touchable(touchable: ValueFn<SVGGElement, Datum, boolean>): this;
+
+    /**
      * Returns the current key modifiers flag.
      */
     keyModifiers(): boolean;
@@ -148,7 +187,7 @@ export interface BrushBehavior<Datum> {
      * The key modifiers flag determines whether the brush listens to key events during brushing.
      * The default value is true.
      *
-     * @param keyModifiers New value for key modifiers flag.
+     * @param modifiers New value for key modifiers flag.
      */
     keyModifiers(modifiers: boolean): this;
 

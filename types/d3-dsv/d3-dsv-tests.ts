@@ -155,6 +155,10 @@ str = d3Dsv.csvFormat(parseRowsMappedArray);
 str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "length"]);
 str = d3Dsv.csvFormat(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
 
+// csvFormatBody(...) ========================================================================
+
+str = d3Dsv.csvFormatBody(parseRowsMappedArray);
+
 // csvFormatRows(...) ========================================================================
 
 str = d3Dsv.csvFormatRows(parseRowsMappedArray.map((d) => [
@@ -237,6 +241,10 @@ parseRowsMappedArray = d3Dsv.tsvParseRows(tsvTestString, (rawRow, index) => {
 str = d3Dsv.tsvFormat(parseRowsMappedArray);
 str = d3Dsv.tsvFormat(parseRowsMappedArray, ["year", "length"]);
 str = d3Dsv.tsvFormat(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
+
+// tsvFormat(...) ============================================================================
+
+str = d3Dsv.tsvFormatBody(parseRowsMappedArray);
 
 // tsvFormatRows(...) ========================================================================
 
@@ -326,6 +334,10 @@ str = dsv.format(parseRowsMappedArray);
 str = dsv.format(parseRowsMappedArray, ["year", "length"]);
 str = dsv.format(parseRowsMappedArray, ["year", "unknown"]); // $ExpectError
 
+// formatBody(...) ========================================================================
+
+str = dsv.formatBody(parseRowsMappedArray);
+
 // formatRows(...) ========================================================================
 
 str = dsv.formatRows(parseRowsMappedArray.map((d) => [
@@ -334,3 +346,8 @@ str = dsv.formatRows(parseRowsMappedArray.map((d) => [
     d.model,
     d.length.toString()
 ]));
+
+// autoType(...) ==========================================================================
+
+parseMappedArray = d3Dsv.csvParse<ParsedTestObject, Headers>(csvTestStringWithHeader, d3Dsv.autoType);
+parseRowsMappedArray = d3Dsv.csvParseRows<ParsedTestObject>(csvTestString, d3Dsv.autoType);
