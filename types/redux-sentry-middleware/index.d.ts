@@ -10,6 +10,7 @@ import * as Sentry from "@sentry/browser";
 declare namespace createSentryMiddleware {
     interface Options<T> {
         breadcrumbDataFromAction?: (action: Action) => any;
+        breadcrumbMessageFromAction?: (action: Action) => any;
         actionTransformer?: (action: Action) => any;
         stateTransformer?: (state: T) => any;
         breadcrumbCategory?: string;

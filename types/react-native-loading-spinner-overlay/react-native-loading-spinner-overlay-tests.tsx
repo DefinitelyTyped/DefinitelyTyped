@@ -15,5 +15,6 @@ import Spinner from "react-native-loading-spinner-overlay";
         textContent="text"
         textStyle={{ fontSize: 14 }}
         visible={true}
+        customIndicator={<></>}
     />;
 };

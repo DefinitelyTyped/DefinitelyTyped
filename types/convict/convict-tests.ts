@@ -164,4 +164,27 @@ conf.getProperties();
 conf.getSchemaString();
 conf.toString();
 
+const conf2 = convict(
+    {
+        port: {
+            doc: 'The port to bind.',
+            format: 'port',
+            default: 0,
+            env: 'PORT',
+            arg: 'port',
+        }
+    },
+    {
+        env: {
+            PORT: '12345'
+        },
+        args: []
+    }
+);
+
+const port2 = conf2.get('port');
+if (port2 !== 12345) {
+    throw new Error(`Test failed. Expected injected environment variable to be reflected in config.`);
+}
+
 // vim:et:sw=2:ts=2

@@ -19,7 +19,7 @@ export class AsyncCreatable<OptionType extends OptionTypeBase> extends Component
     blur(): void;
     loadOptions(inputValue: string, callback: (options: OptionsType<OptionType>) => void): void;
     handleInputChange: (newValue: string, actionMeta: InputActionMeta) => string;
-    onChange: (newValue: ValueType<OptionType>, actionMeta: ActionMeta) => void;
+    onChange: (newValue: ValueType<OptionType>, actionMeta: ActionMeta<OptionType>) => void;
 }
 
 export default AsyncCreatable;

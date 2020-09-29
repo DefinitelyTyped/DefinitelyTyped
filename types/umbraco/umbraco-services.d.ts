@@ -460,14 +460,14 @@ declare namespace umbraco.services {
     interface ICropperHelper {
 
         /**
-		* @ngdoc method
-		* @name umbraco.services.cropperHelper#configuration
-		* @methodOf umbraco.services.cropperHelper
-		*
-		* @description
-		* Returns a collection of plugins available to the tinyMCE editor
-		*
-		*/
+        * @ngdoc method
+        * @name umbraco.services.cropperHelper#configuration
+        * @methodOf umbraco.services.cropperHelper
+        *
+        * @description
+        * Returns a collection of plugins available to the tinyMCE editor
+        *
+        */
         configuration(mediaTypeAlias: string): any;
     }
 
@@ -497,7 +497,7 @@ declare namespace umbraco.services {
         /** 
          * It will set this value as a property on the dialog controller's scope as $scope.dialogData
          */
-	dialogData?: any;
+    dialogData?: any;
     }
 
     /**
@@ -993,31 +993,31 @@ declare namespace umbraco.services {
     interface IHistoryService {
 
         /**
-		* @ngdoc method
-		* @name umbraco.services.historyService#add
-		* @methodOf umbraco.services.historyService
-		*
-		* @description
-		* Adds a given history item to the users history collection.
-		*
-		* @param {Object} item the history item
-		* @param {String} item.icon icon css class for the list, ex: "icon-image", "icon-doc"
-		* @param {String} item.link route to the editor, ex: "/content/edit/1234"
-		* @param {String} item.name friendly name for the history listing
-		* @returns {Object} history item object
-		*/
+        * @ngdoc method
+        * @name umbraco.services.historyService#add
+        * @methodOf umbraco.services.historyService
+        *
+        * @description
+        * Adds a given history item to the users history collection.
+        *
+        * @param {Object} item the history item
+        * @param {String} item.icon icon css class for the list, ex: "icon-image", "icon-doc"
+        * @param {String} item.link route to the editor, ex: "/content/edit/1234"
+        * @param {String} item.name friendly name for the history listing
+        * @returns {Object} history item object
+        */
         add(item: IHistoryItem): IHistoryItem;
 
         /**
-		 * @ngdoc method
-		 * @name umbraco.services.historyService#remove
-		 * @methodOf umbraco.services.historyService
-		 *
-		 * @description
-		 * Removes a history item from the users history collection, given an index to remove from.
-		 *
-		 * @param {Int} index index to remove item from
-		 */
+         * @ngdoc method
+         * @name umbraco.services.historyService#remove
+         * @methodOf umbraco.services.historyService
+         *
+         * @description
+         * Removes a history item from the users history collection, given an index to remove from.
+         *
+         * @param {Int} index index to remove item from
+         */
         remove(index: number): void;
 
         /**
@@ -1120,8 +1120,8 @@ declare namespace umbraco.services {
     * @description A helper object used for dealing with media items
     */
     interface IMediaHelper {
-	    
-	/**
+        
+    /**
         * @ngdoc function
         * @name umbraco.services.mediaHelper#formatFileTypes
         * @methodOf umbraco.services.mediaHelper

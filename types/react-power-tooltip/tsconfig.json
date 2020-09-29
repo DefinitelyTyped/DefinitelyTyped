@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "esModuleInterop": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "jsx": "react",
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": ["index.d.ts", "react-power-tooltip-tests.tsx" ]
+}

@@ -15,6 +15,9 @@
         "paths": {
             "faker": [
                 "faker/v3"
+            ],
+            "faker/*": [
+                "faker/v3/*"
             ]
         },
         "types": [],

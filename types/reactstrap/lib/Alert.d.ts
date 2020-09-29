@@ -5,10 +5,14 @@ import { FadeProps } from './Fade';
 export interface UncontrolledAlertProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
     className?: string;
+    closeClassName?: string;
+    closeAriaLabel?: string;
     cssModule?: CSSModule;
     color?: string;
+    fade?: boolean;
     tag?: string | React.ReactType;
     transition?: FadeProps;
+    innerRef?: React.Ref<HTMLElement>;
 }
 export interface AlertProps extends UncontrolledAlertProps {
     isOpen?: boolean;

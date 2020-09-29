@@ -15,6 +15,7 @@ declare global {
         interface Assertion {
             afterDate(date: Date): Assertion;
             beforeDate(date: Date): Assertion;
+            closeToTime(date: Date, deltaInSeconds: number): Assertion;
             equalDate(date: Date): Assertion;
             withinDate(dateFrom: Date, dateTo: Date): Assertion;
             afterTime(date: Date): Assertion;
@@ -27,6 +28,7 @@ declare global {
             equalTime(val: Date, exp: Date, msg?: string): void;
             notEqualTime(val: Date, exp: Date, msg?: string): void;
             beforeTime(val: Date, exp: Date, msg?: string): void;
+            closeToTime(val: Date, exp: Date, deltaInSeconds: number, msg?: string): void;
             notBeforeTime(val: Date, exp: Date, msg?: string): void;
             afterTime(val: Date, exp: Date, msg?: string): void;
             notAfterTime(val: Date, exp: Date, msg?: string): void;

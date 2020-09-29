@@ -1,10 +1,9 @@
 // Type definitions for standard-engine 12.0
 // Project: https://github.com/flet/standard-engine
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import eslint = require('eslint');
-import { type } from 'os';
 
 declare namespace standardEngine {
     class Linter {

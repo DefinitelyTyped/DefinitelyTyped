@@ -84,3 +84,9 @@ yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserN
 prettier.format('hello world', {
     plugins: [typescriptParser, graphqlParser, babelParser, htmlParser, markdownParser, postcssParser, yamlParser],
 });
+
+prettier.doc.builders.trim;
+prettier.doc.builders.trim.type;
+prettier.doc.builders.cursor;
+prettier.doc.builders.cursor.type;
+prettier.doc.builders.cursor.placeholder;

@@ -3,12 +3,12 @@
 
 // tslint:disable-next-line: no-declare-current-package no-single-declare-module
 declare module 'jsdom' {
-	interface DOMWindow {
-		Atomics: typeof Atomics;
-		BigInt: typeof BigInt;
-		BigInt64Array: typeof BigInt64Array;
-		BigUint64Array: typeof BigUint64Array;
-		SharedArrayBuffer: typeof SharedArrayBuffer;
-		WebAssembly: typeof WebAssembly;
-	}
+    interface DOMWindow {
+        Atomics: typeof Atomics;
+        BigInt: typeof BigInt;
+        BigInt64Array: typeof BigInt64Array;
+        BigUint64Array: typeof BigUint64Array;
+        SharedArrayBuffer: typeof SharedArrayBuffer;
+        WebAssembly: typeof WebAssembly;
+    }
 }

@@ -62,6 +62,7 @@ export interface CalendarTheme {
     "stylesheet.day.single"?: CalendarThemeIdStyle;
     "stylesheet.day.multiDot"?: CalendarThemeIdStyle;
     "stylesheet.day.period"?: CalendarThemeIdStyle;
+    "stylesheet.dot"?: CalendarThemeIdStyle;
 }
 
 export type DateCallbackHandler = (date: DateObject) => void;
@@ -195,6 +196,16 @@ export interface CalendarBaseProps {
     disabledByDefault?: boolean;
 
     /**
+     *  Disable left arrow. Default = false
+     */
+    disableArrowLeft?: boolean;
+
+    /**
+     *  Disable right arrow. Default = false
+     */
+    disableArrowRight?: boolean;
+
+    /**
      *  If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
      *  day from another month that is visible in calendar page. Default = false
      */
@@ -209,6 +220,11 @@ export interface CalendarBaseProps {
      *  If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
      */
     firstDay?: number;
+
+    /**
+     *  Style passed to the header
+     */
+    headerStyle?: StyleProp<ViewStyle>;
 
     /**
      *  Hide month navigation arrows. Default = false
@@ -289,9 +305,22 @@ export interface CalendarBaseProps {
      *  Specify theme properties to override specific styles for calendar parts. Default = {}
      */
     theme?: CalendarTheme;
+
+    /**
+     *  Provide aria-level for calendar heading for proper accessibility when used with web (react-native-web)
+     */
+    webAriaLevel?: number;
 }
 
-export class Calendar extends React.Component<CalendarMarkingProps & CalendarBaseProps> { }
+export type CalendarProps = CalendarMarkingProps &
+    CalendarBaseProps & {
+        /**
+         * Enable the option to swipe between months. Default = false
+         */
+        enableSwipeMonths?: boolean;
+    };
+
+export class Calendar extends React.Component<CalendarProps> {}
 
 export interface CalendarListBaseProps extends CalendarBaseProps {
     /**

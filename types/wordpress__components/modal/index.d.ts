@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, ReactNode } from '@wordpress/element';
+import { ComponentType, HTMLProps, ReactNode } from 'react';
 
 declare namespace Modal {
     interface Props extends HTMLProps<HTMLDivElement> {

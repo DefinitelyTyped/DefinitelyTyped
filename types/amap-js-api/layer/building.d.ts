@@ -14,7 +14,7 @@ declare namespace AMap {
              */
             heightFactor?: number;
             /**
-             * 	是否可见
+             *     是否可见
              */
             visible?: boolean;
             /**

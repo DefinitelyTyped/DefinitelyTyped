@@ -14,7 +14,7 @@
             "../"
         ],
         "paths": {
-            "@reach/utils": ["reach__utils"]
+            "@reach/*": ["reach__*"]
         },
         "types": [],
         "noEmit": true,

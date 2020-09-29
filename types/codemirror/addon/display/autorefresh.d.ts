@@ -5,9 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_autorefresh
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
+declare module 'codemirror' {
     interface EditorConfiguration {
         // if true, it will be refreshed the first time the editor becomes visible.
         // you can pass delay (msec) time as polling duration

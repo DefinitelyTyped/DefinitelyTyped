@@ -18,63 +18,61 @@ export function start(opts: StartOpts, cb: (error: Error | null, selenium: Child
 export function start(optsCb: StartOpts | ((error: Error | null, selenium: ChildProcess) => void), cb?: (error: Error | null, selenium: ChildProcess) => void): void;
 
 export interface InstallOpts {
-	baseURL?: string;
-	basePath?: string;
-	version?: string;
-	drivers?: {
-		[browser: string]: {
-			version?: string;
-			arch: string | "ia32" | "x64";
-			baseURL: string;
-		}
-	};
-	progressCb?: (totalLength: number, progressLength: number, chunkLength: number) => void;
-	logger?: (message: string) => void;
-	requestOpts?: http.RequestOptions | string | URL;
-	cb?: (error: Error) => void;
+    baseURL?: string;
+    basePath?: string;
+    version?: string;
+    drivers?: {
+        [browser: string]: DriverOptions
+    };
+    progressCb?: (totalLength: number, progressLength: number, chunkLength: number) => void;
+    logger?: (message: string) => void;
+    requestOpts?: http.RequestOptions | string | URL;
+    cb?: (error: Error) => void;
 }
 
 export interface StartOpts {
-	basePath?: string;
-	version?: string;
-	drivers?: {
-		[browser: string]: {
-			version?: string;
-			arch: string | "ia32" | "x64";
-			baseURL: string;
-		}
-	};
-	seleniumArgs?: string[];
-	javaArgs?: string[];
-	spawnOptions?: SpawnOptions;
-	spawnCb?: (selenium?: ChildProcess) => void;
-	javaPath?: string;
-	requestOpts?: http.RequestOptions | string | URL;
-	cb?: (error: Error, child: ChildProcess) => void;
+    basePath?: string;
+    version?: string;
+    drivers?: {
+        [browser: string]: DriverOptions
+    };
+    seleniumArgs?: string[];
+    javaArgs?: string[];
+    spawnOptions?: SpawnOptions;
+    spawnCb?: (selenium?: ChildProcess) => void;
+    javaPath?: string;
+    requestOpts?: http.RequestOptions | string | URL;
+    cb?: (error: Error, child: ChildProcess) => void;
+}
+
+export interface DriverOptions {
+    version?: string;
+    arch?: string | "ia32" | "x64";
+    baseURL?: string;
 }
 
 export interface FsPaths {
-	[x: string]: any;
-	chrome?: {
-		[x: string]: any;
-		installPath: string;
-	};
-	ie?: {
-		[x: string]: any;
-		installPath: string;
-	};
-	edge?: {
-		[x: string]: any;
-		installPath: string;
-	};
-	firefox?: {
-		[x: string]: any;
-		installPath: string;
-	};
-	selenium?: {
-		[x: string]: any;
-		installPath: string;
-	};
+    [x: string]: any;
+    chrome?: {
+        [x: string]: any;
+        installPath: string;
+    };
+    ie?: {
+        [x: string]: any;
+        installPath: string;
+    };
+    edge?: {
+        [x: string]: any;
+        installPath: string;
+    };
+    firefox?: {
+        [x: string]: any;
+        installPath: string;
+    };
+    selenium?: {
+        [x: string]: any;
+        installPath: string;
+    };
 }
 
 export { ChildProcess, SpawnOptions } from "child_process";

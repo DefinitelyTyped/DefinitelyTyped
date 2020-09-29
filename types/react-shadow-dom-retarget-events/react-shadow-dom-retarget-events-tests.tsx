@@ -4,7 +4,7 @@ import retargetEvents from 'react-shadow-dom-retarget-events';
 
 class App extends React.Component {
     render() {
-  	    return <div onClick={() => alert('I have been clicked')}>Click me</div>;
+          return <div onClick={() => alert('I have been clicked')}>Click me</div>;
     }
 }
 
@@ -19,4 +19,5 @@ class MyCustomElement extends HTMLElement {
     }
 }
 
+const name = "name";
 customElements.define(name, MyCustomElement);

@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 import { default as DatePicker } from './date';
 

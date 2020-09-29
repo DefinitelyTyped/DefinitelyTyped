@@ -25,12 +25,17 @@ interface IStrategyOptionBase {
     consumerSecret: string;
     callbackURL: string;
 
-    includeEmail?: true;
+    includeEmail?: boolean;
+    includeStatus?: boolean;
+    includeEntities?: boolean;
 
-    reguestTokenURL?: string;
+    requestTokenURL?: string;
     accessTokenURL?: string;
     userAuthorizationURL?: string;
     sessionKey?: string;
+
+    forceLogin?: boolean;
+    screenName?: string;
 
     userProfileURL?: string;
     skipExtendedUserProfile?: boolean;

@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "rrule": ">=2.3.0"
+        "rrule": "2.6.4"
     }
 }

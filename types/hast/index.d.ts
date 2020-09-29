@@ -2,6 +2,7 @@
 // Project: https://github.com/syntax-tree/hast
 // Definitions by: lukeggchapman <https://github.com/lukeggchapman>
 //                 Junyoung Choi <https://github.com/rokt33r>
+//                 Christian Murphy <https://github.com/ChristianMurphy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -72,7 +73,7 @@ export interface Element extends Parent {
  * Represents information associated with an element.
  */
 export interface Properties {
-    [PropertyName: string]: any;
+    [PropertyName: string]: boolean | number | string | null | undefined | Array<string | number>;
 }
 
 /**

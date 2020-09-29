@@ -122,4 +122,6 @@ newrelic.getLinkingMetadata();
 newrelic.getLinkingMetadata(true);
 newrelic.getTraceMetadata();
 
-newrelic.setLambdaHandler(() => void 0); // $ExpectType undefined
+newrelic.setLambdaHandler(() => void 0); // $ExpectType () => undefined
+newrelic.setLambdaHandler((event: unknown, context: unknown) => ({ statusCode: 200, body: "Hello!" })); // $ExpectType (event: unknown, context: unknown) => { statusCode: number; body: string; }
+newrelic.setLambdaHandler({some: "object"}); // $ExpectError

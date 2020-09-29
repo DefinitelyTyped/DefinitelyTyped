@@ -1,4 +1,4 @@
-// Type definitions for @hapi/joi 16.0
+// Type definitions for @hapi/joi 17.1
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Laurence Dougal Myers <https://github.com/laurence-myers>
@@ -23,6 +23,7 @@
 //                 Frederic Reisenhauer <https://github.com/freisenhauer>
 //                 Stefan-Gabriel Muscalu <https://github.com/legraphista>
 //                 Simcha Wood <https://github.com/SimchaWood>
+//                 Steven Barnett <https://github.com/stevendesu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -42,6 +43,8 @@ declare namespace Joi {
         | 'object'
         | 'string'
         | 'symbol';
+
+    type BasicType = boolean|number|string|any[]|object|null;
 
     type LanguageMessages = Record<string, string>;
 
@@ -81,11 +84,25 @@ declare namespace Joi {
          */
         stack?: boolean;
         /**
-         * if true, array values in error messages are wrapped in [].
-         *
-         * @default true
+         * overrides the way values are wrapped (e.g. `[]` arround arrays, `""` around labels).
+         * Each key can be set to a string with one (same character before and after the value) or two characters (first character
+         * before and second character after), or `false` to disable wrapping.
          */
-        wrapArrays?: boolean;
+        wrap?: {
+            /**
+             * the characters used around `{#label}` references. Defaults to `'"'`.
+             *
+             * @default '"'
+             */
+            label?: string|false,
+
+            /**
+             * the characters used around array avlues. Defaults to `'[]'`
+             *
+             * @default '[]'
+             */
+            array?: string|false
+        };
     }
 
     interface BaseValidationOptions {
@@ -619,6 +636,9 @@ declare namespace Joi {
 
         /**
          * function that returns a string with an annotated version of the object pointing at the places where errors occurred.
+         *
+         * NOTE: This method does not exist in browser builds of Joi
+         *
          * @param stripColors - if truthy, will strip the colors out of the output.
          */
         annotate(stripColors?: boolean): string;
@@ -706,6 +726,13 @@ declare namespace Joi {
         };
     }
 
+    interface GetRuleOptions {
+        args?: Record<string, any>;
+        method?: string;
+        name: string;
+        operator?: string;
+    }
+
     interface SchemaInternals {
         /**
          * Parent schema object.
@@ -747,7 +774,7 @@ declare namespace Joi {
         /**
          * Retrieve some rule configuration.
          */
-        $_getRule(name: string): ExtensionRule;
+        $_getRule(name: string): GetRuleOptions | undefined;
 
         $_mapLabels(path: string | string[]): string;
 
@@ -850,24 +877,22 @@ declare namespace Joi {
         custom(fn: CustomValidator, description?: string): this;
 
         /**
-         * Sets a default value if the original value is undefined.
-         * @param value - the value.
-         *   value supports references.
-         *   value may also be a function which returns the default value.
-         *   If value is specified as a function that accepts a single parameter, that parameter will be a context
-         *    object that can be used to derive the resulting value. This clones the object however, which incurs some
-         *    overhead so if you don't need access to the context define your method so that it does not accept any
-         *    parameters.
-         *   Without any value, default has no effect, except for object that will then create nested defaults
-         *    (applying inner defaults of that object).
+         * Sets a default value if the original value is `undefined` where:
+         * @param value - the default value. One of:
+         *    - a literal value (string, number, object, etc.)
+         *    - a [references](#refkey-options)
+         *    - a function which returns the default value using the signature `function(parent, helpers)` where:
+         *        - `parent` - a clone of the object containing the value being validated. Note that since specifying a
+         *          `parent` ragument performs cloning, do not declare format arguments if you are not using them.
+         *        - `helpers` - same as thsoe described in [`any.custom()`](anycustomermethod_description)
+         *
+         * When called without any `value` on an object schema type, a default value will be automatically generated
+         * based on the default values of the object keys.
          *
          * Note that if value is an object, any changes to the object after `default()` is called will change the
          *  reference and any future assignment.
-         *
-         * Additionally, when specifying a method you must either have a description property on your method or the
-         *  second parameter is required.
          */
-        default(value?: any): this;
+        default(value?: BasicType|Reference|((parent: any, helpers: CustomHelpers) => BasicType|Reference)): this;
 
         /**
          * Returns a plain object representing the schema's rules and properties
@@ -1104,7 +1129,7 @@ declare namespace Joi {
         tailor(targets: string | string[]): Schema;
 
         /**
-         * Annotates the key with an unit name.
+         * Annotates the key with a unit name.
          */
         unit(name: string): this;
 
@@ -1618,9 +1643,14 @@ declare namespace Joi {
         ref(): this;
 
         /**
+         * Requires the object to be a `RegExp` object.
+         */
+        regex(): this;
+
+        /**
          * Renames a key to another name (deletes the renamed key).
          */
-        rename(from: string, to: string, options?: RenameOptions): this;
+        rename(from: string | RegExp, to: string, options?: RenameOptions): this;
 
         /**
          * Requires the object to be a Joi schema instance.
@@ -1903,7 +1933,7 @@ declare namespace Joi {
          */
         version: string;
 
-        ValidationError: ValidationError;
+        ValidationError: new (message: string, details: any, original: any) => ValidationError;
 
         /**
          * Generates a schema object that matches any data type.
@@ -2053,6 +2083,11 @@ declare namespace Joi {
          * Creates a reference that when resolved, is used as an array of values to match against the rule.
          */
         in(ref: string, options?: ReferenceOptions): Reference;
+
+        /**
+         * Checks whether or not the provided argument is an instance of ValidationError
+         */
+        isError(error: any): error is ValidationError;
 
         /**
          * Checks whether or not the provided argument is an expression.

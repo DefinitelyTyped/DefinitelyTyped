@@ -7,6 +7,7 @@ function test_graph() {
     directed: true,
     multigraph: true
   });
+  g.setGraph({});
   g.setEdge('a', 'b');
   g.setEdge('a', 'b', 1.023, 'test');
   g.setEdge({ v: 'a', w: 'b', name: 'test' }, 1.023);

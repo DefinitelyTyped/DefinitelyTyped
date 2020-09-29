@@ -140,8 +140,10 @@ const basicsTest = () => (
         <Basics opacity={{ sm: 0.3, md: 'inherit' }} />
         <Basics overflow="hidden" />
         <Basics overflow={{ sm: 'hidden', md: 'visible' }} />
+        <Basics transition={2} />
+        <Basics transition="sm" />
         <Basics transition="opacity 1s" />
-        <Basics transition={{ sm: 'opacity 1s', md: 'opacity 2s' }} />
+        <Basics transition={{ sm: 'opacity 1s', md: 'sm' }} />
     </div>
 );
 
@@ -299,6 +301,9 @@ const typographyTest = () => (
         <Typography fontWeight="sm" />
         <Typography fontWeight="bold" />
         <Typography fontWeight={{ sm: 1, md: 'sm', lg: 'bold' }} />
+        <Typography fontStyle="normal" />
+        <Typography fontStyle="italic" />
+        <Typography fontStyle="oblique" />
         <Typography textAlign="start" />
         <Typography textAlign={{ sm: 'start', md: 'end' }} />
         <Typography letterSpacing={2} />
@@ -327,6 +332,10 @@ const flexboxesTest = () => (
         <Flexboxes justifyItems={{ sm: 'flex-start', md: 'flex-end' }} />
         <Flexboxes flexWrap="wrap" />
         <Flexboxes flexWrap={{ sm: 'wrap', md: 'nowrap' }} />
+        <Flexboxes flexGrow={2} />
+        <Flexboxes flexGrow={{ sm: 2, md: 3 }} />
+        <Flexboxes flexShrink={2} />
+        <Flexboxes flexShrink={{ sm: 2, md: 3 }} />
         <Flexboxes flexBasis={2} />
         <Flexboxes flexBasis="sm" />
         <Flexboxes flexBasis={{ sm: 2, md: 'sm' }} />
@@ -400,6 +409,9 @@ const backgroundsTest = () => (
     <div>
         <Backgrounds background="green" />
         <Backgrounds background={{ sm: 'content-box red', md: 'green' }} />
+        <Backgrounds bg={2} />
+        <Backgrounds bg="sm" />
+        <Backgrounds bg={{ sm: 2, md: 'sm' }} />
         <Backgrounds backgroundColor={2} />
         <Backgrounds backgroundColor="sm" />
         <Backgrounds backgroundColor={{ sm: 2, md: 'sm' }} />

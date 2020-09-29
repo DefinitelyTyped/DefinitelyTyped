@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "lib": [
+            "es6"
+        ],
+        "strict": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "jsx": "react",
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@nulogy/*": [
+                "nulogy__*"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "nulogy__components-tests.tsx"
+    ]
+}

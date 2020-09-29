@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps extends Omit<ReactAttr, "role"> { }
+interface InheritedProps extends ReactAttr { }
 
 export interface HeaderProps extends InheritedProps { }
 

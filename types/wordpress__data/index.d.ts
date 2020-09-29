@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { ComponentType, Consumer, Provider, useContext } from '@wordpress/element';
+import { ComponentType, Consumer, Provider } from 'react';
 import { AnyAction as Action, combineReducers, Reducer } from 'redux';
 
 /**
@@ -96,7 +96,7 @@ export interface Store<S, A extends Action = Action> {
 }
 
 export function registerGenericStore(key: string, config: GenericStoreConfig): void;
-export function registerStore<T = {}>(key: string, config: StoreConfig<T>): void;
+export function registerStore<T = {}>(key: string, config: StoreConfig<T>): Store<T>;
 
 //
 // Registry

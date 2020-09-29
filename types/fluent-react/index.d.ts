@@ -57,11 +57,11 @@ export class Localized extends React.Component<LocalizedProps> {
  *   DecorationTargetProps[P] definition, its definition will be that of InjectedProps[P]
  */
 export type Matching<InjectedProps, DecorationTargetProps> = {
-	[P in keyof DecorationTargetProps]: P extends keyof InjectedProps
-		? InjectedProps[P] extends DecorationTargetProps[P]
-			? DecorationTargetProps[P]
-			: InjectedProps[P]
-		: DecorationTargetProps[P];
+    [P in keyof DecorationTargetProps]: P extends keyof InjectedProps
+        ? InjectedProps[P] extends DecorationTargetProps[P]
+            ? DecorationTargetProps[P]
+            : InjectedProps[P]
+        : DecorationTargetProps[P];
 };
 
 /**

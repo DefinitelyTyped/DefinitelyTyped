@@ -86,8 +86,22 @@ interface NonDeepMutableExtendedUser {
         firstName: 'Angry',
         lastName: 'Monkey'
     });
+    const users: Immutable.Immutable<string[]> = Immutable.from(['Angry']);
+
     const replacedUser01 = Immutable.replace(user1, { firstName: 'Super', lastName: 'Monkey' });
     const replacedUser02 = Immutable.replace(user1, { firstName: 'Super', lastName: 'Monkey' }, { deep: true });
+
+    // $ExpectError
+    user1.firstName = 'Untouchable';
+    // asMutable on object
+    const mutableObject = Immutable.asMutable(user1);
+    mutableObject.firstName = 'Sedated';
+
+    // $ExpectError
+    users.push('Super');
+    // asMutable on array
+    const mutableArray = Immutable.asMutable(users);
+    mutableArray.push('Super');
 }
 
 //

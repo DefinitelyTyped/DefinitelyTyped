@@ -1,5 +1,4 @@
-import * as React from "react";
-import { ReactAttr, RequiresChildrenProps } from "../../../typings/shared";
+import { ReactAttr, RequiresChildrenProps, ForwardRefReturn } from "../../../typings/shared";
 
 interface InheritedProps extends RequiresChildrenProps {
     "aria-label"?: ReactAttr["aria-label"],
@@ -9,6 +8,6 @@ interface InheritedProps extends RequiresChildrenProps {
 
 export interface SwitcherProps extends InheritedProps { }
 
-declare const Switcher: React.RefForwardingComponent<HTMLUListElement, SwitcherProps>;
+declare const Switcher: ForwardRefReturn<HTMLUListElement, SwitcherProps>;
 
 export default Switcher;
