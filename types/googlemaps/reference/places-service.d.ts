@@ -100,6 +100,12 @@ declare namespace google.maps.places {
         ZERO_RESULTS = 'ZERO_RESULTS',
     }
 
+    enum BusinessStatus {
+        OPERATIONAL = 'OPERATIONAL',
+        CLOSED_TEMPORARILY = 'CLOSED_TEMPORARILY',
+        CLOSED_PERMANENTLY = 'CLOSED_PERMANENTLY',
+    }
+
     interface PlaceSearchPagination {
         nextPage(): void;
         hasNextPage: boolean;
@@ -109,6 +115,7 @@ declare namespace google.maps.places {
         address_components?: GeocoderAddressComponent[];
         adr_address?: string;
         aspects?: PlaceAspectRating[];
+        business_status?: BusinessStatus;
         formatted_address?: string;
         formatted_phone_number?: string;
         geometry?: PlaceGeometry;
