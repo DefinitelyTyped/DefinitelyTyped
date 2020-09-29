@@ -158,3 +158,17 @@ export type EntryPoint<TEntryPointParams, TEntryPointComponent> = InternalEntryP
 export interface IEnvironmentProvider<TOptions> {
     getEnvironment(options: TOptions | null): IEnvironment;
 }
+
+export type PreloadedQueryInner<TQuery extends OperationType, TEnvironmentProviderOptions extends EnvironmentProviderOptions = {}> = Readonly<{
+    dispose: () => void;
+    environment: IEnvironment;
+    environmentProviderOptions?: TEnvironmentProviderOptions | null;
+    fetchPolicy: PreloadFetchPolicy;
+    id?: string | null;
+    isDisposed: boolean;
+    name: string;
+    networkCacheConfig?: CacheConfig | null;
+    source?: Observable<GraphQLResponse> | null;
+    kind: 'PreloadedQuery';
+    variables: TQuery['variables']
+}>;
