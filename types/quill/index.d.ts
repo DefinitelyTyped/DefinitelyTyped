@@ -44,9 +44,13 @@ export interface KeyboardStatic {
     addBinding(key: Key, context: any, callback: (range: RangeStatic, context: any) => void): void;
 }
 
+export type ClipboardMatcherCallback = (node: any, delta: Delta) => Delta;
+export type ClipboardMatcherNode = string | number;
+
 export interface ClipboardStatic {
-    convert(html?: string): Delta;
-    addMatcher(selectorOrNodeType: string|number, callback: (node: any, delta: Delta) => Delta): void;
+    matchers: Array<[ClipboardMatcherNode, ClipboardMatcherCallback]>;
+    convert(content?: { html?: string; text?: string }, formats?: StringMap): Delta;
+    addMatcher(selectorOrNodeType: ClipboardMatcherNode, callback: ClipboardMatcherCallback): void;
     dangerouslyPasteHTML(html: string, source?: Sources): void;
     dangerouslyPasteHTML(index: number, html: string, source?: Sources): void;
 }
