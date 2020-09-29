@@ -174,12 +174,14 @@ interface NumberAggregateResult<T, Keys extends keyof T> extends BaseAggregateRe
     };
 }
 
-export type HasuraDataRow<T extends Record<string, any>> = T & {
+export type HasuraDataItem<T extends Record<string, any>> = T & {
     [key: string]: any;
 };
+export type HasuraDataResult<T extends Record<string, any>> = Array<HasuraDataItem<T>>;
+
 export interface HasuraQueryResponse<K extends string, T extends Record<string, any>> {
     data: {
-        [key in K]: Array<HasuraDataRow<T>>;
+        [key in K]: Array<HasuraDataItem<T>>;
     };
 }
 
@@ -189,7 +191,7 @@ type AggregateResult<T> = NumberScalarKeys<T> extends never
 
 export interface HasuraAggregateResult<T extends Record<string, any>> {
     aggregate?: AggregateResult<T>;
-    nodes?: Array<Partial<HasuraDataRow<T>>>;
+    nodes?: Array<HasuraDataItem<T>>;
 }
 export interface HasuraAggregateQueryResponse<K extends string, T extends Record<string, any>> {
     data: {
@@ -260,7 +262,7 @@ export type HasuraDeleteInput<T extends Record<string, any>, WhereKey extends st
 };
 export interface HasuraMutationResponse<T extends Record<string, any> = never> {
     affected_rows?: number;
-    returning: T extends never ? never : Array<HasuraDataRow<T>>;
+    returning: T extends never ? never : Array<HasuraDataItem<T>>;
 }
 
 export {};
