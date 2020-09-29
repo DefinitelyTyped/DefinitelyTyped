@@ -77,7 +77,7 @@ for (const p of defaultDelaunayFromArray.trianglePolygon(0)) {
     const y = p[1];
 }
 
-defaultDelaunayFromArray.update();
+const updatedDelaunay: d3.Delaunay<[number, number]> = defaultDelaunayFromArray.update();
 
 // Test Voronoi class
 
@@ -99,6 +99,7 @@ const ymin: number = v.ymin;
 const xmax: number = v.xmax;
 const ymax: number = v.ymax;
 const contains: boolean = v.contains(0, 0.5, 0.5);
+const neighbors: Iterable<number> = v.neighbors(2);
 const vrender: string = v.render();
 const vrenderBounds: string = v.renderBounds();
 const renderCell: string = v.renderCell(0);
@@ -112,3 +113,5 @@ for (const p of v.cellPolygon(0)) {
     const x = p[0];
     const y = p[1];
 }
+
+const updatedVoronoi: d3.Voronoi<[number, number]> = v.update();

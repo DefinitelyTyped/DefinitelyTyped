@@ -13,15 +13,15 @@ import * as d3Format from 'd3-format';
 // ----------------------------------------------------------------------
 
 class NumCoercible {
-  a: number;
+    a: number;
 
-  constructor(a: number) {
-    this.a = a;
-  }
+    constructor(a: number) {
+        this.a = a;
+    }
 
-  valueOf() {
-    return this.a;
-  }
+    valueOf() {
+        return this.a;
+    }
 }
 
 const numeric: NumCoercible = new NumCoercible(10);
@@ -55,6 +55,7 @@ d3Format.formatPrefix(',.0', 1e-6)(numeric);
 // ----------------------------------------------------------------------
 
 specifier = d3Format.formatSpecifier('.0%');
+specifier = new d3Format.FormatSpecifier({});
 
 const fill: string = specifier.fill;
 const align: '>' | '<' | '^' | '=' = specifier.align;
@@ -84,26 +85,28 @@ num = d3Format.precisionRound(0.0005, 3000);
 // ----------------------------------------------------------------------
 
 localeDef = {
-  decimal: ',',
-  thousands: '.',
-  grouping: [3],
-  currency: ['EUR', '']
+    decimal: ',',
+    thousands: '.',
+    grouping: [3],
+    currency: ['EUR', '']
 };
 
 localeDef = {
-  decimal: "\u066b",
-  thousands: "\u066c",
-  grouping: [3],
-  currency: ["", ""],
-  numerals : ["\u0660", "\u0661", "\u0662", "\u0663", "\u0664", "\u0665", "\u0666", "\u0667", "\u0668", "\u0669"]
+    decimal: "\u066b",
+    thousands: "\u066c",
+    grouping: [3],
+    currency: ["", ""],
+    numerals : ["\u0660", "\u0661", "\u0662", "\u0663", "\u0664", "\u0665", "\u0666", "\u0667", "\u0668", "\u0669"]
 };
 
 localeDef = {
-  decimal: "\u066b",
-  thousands: "\u066c",
-  grouping: [3],
-  currency: ["", ""],
-  percent : "\u202f%"
+    decimal: "\u066b",
+    thousands: "\u066c",
+    grouping: [3],
+    currency: ["", ""],
+    percent : "\u202f%",
+    minus: "-",
+    nan: "NaN",
 };
 
 const decimal: string = localeDef.decimal;

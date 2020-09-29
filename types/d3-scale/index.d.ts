@@ -1950,7 +1950,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
      *
      * @param x A value from the domain.
      */
-    (x: Domain): Range | undefined;
+    (x: Domain): Range;
 
     /**
      * Returns the scale's current domain.

@@ -1,4 +1,4 @@
-// Type definitions for d3-delaunay 5.0
+// Type definitions for d3-delaunay 5.2
 // Project: https://github.com/d3/d3-delaunay
 // Definitions by: Bradley Odell <https://github.com/BTOdell>
 //                 Nathan Bierema <https://github.com/Methuselah96>
@@ -132,9 +132,9 @@ export class Delaunay<P> {
     trianglePolygons(): IterableIterator<Delaunay.Triangle>;
 
     /**
-     * Updates the triangulation after the points have been modified in-place — useful for Lloyd’s relaxation.
+     * Updates the triangulation after the points have been modified in-place.
      */
-    update(): void;
+    update(): this;
 
     /**
      * Returns the Voronoi diagram for the associated points.
@@ -262,6 +262,12 @@ export class Voronoi<P> {
     contains(i: number, x: number, y: number): boolean;
 
     /**
+     * Returns an iterable over the indexes of the cells that share a common edge with the specified cell i.
+     * Voronoi neighbors are always neighbors on the Delaunay graph, but the converse is false when the common edge has been clipped out by the Voronoi diagram’s viewport.
+     */
+    neighbors(i: number): Iterable<number>;
+
+    /**
      * Renders the mesh of Voronoi cells to an SVG path string.
      */
     render(): string;
@@ -301,4 +307,9 @@ export class Voronoi<P> {
      * Returns the convex, closed polygon [[x0, y0], [x1, y1], ..., [x0, y0]] representing the cell for the specified point i.
      */
     cellPolygon(i: number): Delaunay.Polygon;
+
+    /**
+     * Updates the Voronoi diagram and underlying triangulation after the points have been modified in-place — useful for Lloyd’s relaxation.
+     */
+    update(): this;
 }

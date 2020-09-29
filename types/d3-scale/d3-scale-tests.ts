@@ -905,9 +905,9 @@ if (typeof unknownValue === 'string') {
 
 // (...) value mapping from domain to output -----------------------------------
 
-outputString = ordinalScaleStringString('neutral');
+const ordinalOutputString: string = ordinalScaleStringString('neutral');
 
-outputNumber = ordinalScaleStringNumber('negative');
+const ordinalOutputNumber: number = ordinalScaleStringNumber('negative');
 
 // copy(...) -----------------------------------------------------------------
 

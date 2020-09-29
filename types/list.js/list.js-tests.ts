@@ -2,7 +2,10 @@ import List from "list.js";
 
 const list = new List(new HTMLElement(), {
     page: 3,
-    searchClass: "class"
+    searchClass: "class",
+    fuzzySearch: {
+        distance: 200
+    }
 });
 
 list.list; // $ExpectType HTMLElement
