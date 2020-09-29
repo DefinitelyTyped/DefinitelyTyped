@@ -7,6 +7,8 @@ let domOutputSpec: model.DOMOutputSpec;
 domOutputSpec = ['div'];
 domOutputSpec = ['div', { class: 'foo' }];
 domOutputSpec = ['div', { class: 'foo' }, 0];
+domOutputSpec = ['div', { class: null }];
+domOutputSpec = ['div', { class: undefined }];
 domOutputSpec = ['div', 0];
 domOutputSpec = ['div', ['div', 0]];
 domOutputSpec = ['div', ['div', { class: 'foo' }]];
