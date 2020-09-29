@@ -8,6 +8,7 @@
 
 export { default as ActionBar } from "./lib/ActionBar/ActionBar";
 export { default as Breadcrumb } from "./lib/Breadcrumb/Breadcrumb";
+export { default as BusyIndicator } from "./lib/BusyIndicator/BusyIndicator";
 export { default as Button } from "./lib/Button/Button";
 export { default as ButtonGroup } from "./lib/Button/ButtonGroup";
 export { default as Calendar } from "./lib/Calendar/Calendar";
@@ -57,5 +58,6 @@ export { default as Table } from "./lib/Table/Table";
 export { default as Tile } from "./lib/Tile/Tile";
 export { default as Time } from "./lib/Time/Time";
 export { default as TimePicker } from "./lib/TimePicker/TimePicker";
+export { default as Title } from "./lib/Title/Title";
 export { default as Token } from "./lib/Token/Token";
 export { default as TreeView } from "./lib/TreeView/TreeView";

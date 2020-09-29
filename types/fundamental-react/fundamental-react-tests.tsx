@@ -1,6 +1,7 @@
 import {
     ActionBar,
     Breadcrumb,
+    BusyIndicator,
     Button,
     ButtonGroup,
     Calendar,
@@ -106,6 +107,10 @@ const breadcrumb = (
         <Breadcrumb.Item name="Link Text" url="#" />
         <Breadcrumb.Item name="Link Text" url="#" />
     </Breadcrumb>
+);
+
+const busyIndicator = (
+    <BusyIndicator show/>
 );
 
 const buttons = (
