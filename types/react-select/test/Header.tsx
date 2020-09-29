@@ -1,6 +1,6 @@
-import * as React from "react";
-import Select from "react-select";
-import { ControlProps } from "react-select/src/components/Control";
+import * as React from 'react';
+import Select from 'react-select';
+import { ControlProps } from 'react-select/src/components/Control';
 
 const headerSelectStyles = {
     control: (base: React.CSSProperties, { isFocused }: ControlProps<{}>) => ({
