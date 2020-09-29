@@ -57,6 +57,24 @@ brush = brush.filter(function(d, i, group) {
 let filterFn: (this: SVGGElement, d: BrushDatum, index: number, group: SVGGElement[]) => boolean;
 filterFn = brush.filter();
 
+// set and get touchable ---------------------------------------------------------
+
+let touchableFn: (this: SVGGElement, datum: BrushDatum, index: number, group: SVGGElement[] | NodeListOf<SVGGElement>) => boolean;
+
+// chainable
+
+brush = brush.touchable(true);
+
+brush = brush.touchable(function(d, i, group) {
+    const that: SVGGElement = this;
+    const datum: BrushDatum = d;
+    const g: SVGGElement[] | ArrayLike<SVGGElement> = group;
+    return "ontouchstart" in this && datum.filterZoomEvent;
+});
+
+// getter
+touchableFn = brush.touchable();
+
 // keyModifiers() ----------------------------------------------------------------
 
 // chainable
@@ -174,6 +192,9 @@ brush.move(gXTransition, function(d, i, group) {
     selection[1] = d.extent[0][0] + 40;
     return selection;
 });
+
+// clear()
+brush.clear(g);
 
 // -----------------------------------------------------------------------------
 // Test Brush Event Interface
