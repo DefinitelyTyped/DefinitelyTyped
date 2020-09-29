@@ -1,4 +1,4 @@
-// Type definitions for unsplash-js 6.0
+// Type definitions for unsplash-js 6.3
 // Project: https://github.com/unsplash/unsplash-js#readme
 // Definitions by: Oliver Joseph Ash <https://github.com/oliverjash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
