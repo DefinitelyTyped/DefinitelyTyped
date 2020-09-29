@@ -19,6 +19,9 @@
             ],
             "d3-random": [
                 "d3-random/v1"
+            ],
+            "d3-timer": [
+                "d3-timer/v1"
             ]
         },
         "types": [],

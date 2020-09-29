@@ -53,6 +53,15 @@ declare namespace List {
         page?: number;
         i?: number;
         pagination?: boolean;
+        fuzzySearch?: FuzzySearchOptions;
+    }
+
+    interface FuzzySearchOptions {
+        searchClass?: string;
+        location?: number;
+        distance?: number;
+        threshold?: number;
+        multiSearch?: boolean;
     }
 
     interface SortOptions {
