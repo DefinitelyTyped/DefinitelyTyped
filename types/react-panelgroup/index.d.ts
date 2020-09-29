@@ -1,6 +1,6 @@
-// Type definitions for react-panelgroup 1.0
+// Type definitions for react-panelgroup 1.0.12
 // Project: https://github.com/DanFessler/react-panelgroup, http://www.danfessler.com
-// Definitions by: Quentin Golsteyn <https://github.com/qgolsteyn>
+// Definitions by: Quentin Golsteyn <https://github.com/qgolsteyn>, (updated by Walter Bormans <https://github.com/Bronzdragon/>)
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
