@@ -23,6 +23,9 @@
             "d3-force": [
                 "d3-force/v1"
             ],
+            "d3-polygon": [
+                "d3-polygon/v1"
+            ],
             "d3-scale": [
                 "d3-scale/v1"
             ],
