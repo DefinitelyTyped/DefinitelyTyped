@@ -1,5 +1,5 @@
-// Type definitions for non-npm package nova-editor 1.2
-// Project: https://docs.nova.app/api-reference/
+// Type definitions for non-npm package nova-editor 1.0
+// Project: https://novadocs.panic.com
 // Definitions by: Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.3
