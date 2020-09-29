@@ -17,6 +17,9 @@
             "d3-array": [
                 "d3-array/v1"
             ],
+            "d3-chord": [
+                "d3-chord/v1"
+            ],
             "d3-dispatch": [
                 "d3-dispatch/v1"
             ],
