@@ -99,6 +99,7 @@ const ymin: number = v.ymin;
 const xmax: number = v.xmax;
 const ymax: number = v.ymax;
 const contains: boolean = v.contains(0, 0.5, 0.5);
+const neighbors: Iterable<number> = v.neighbors(2);
 const vrender: string = v.render();
 const vrenderBounds: string = v.renderBounds();
 const renderCell: string = v.renderCell(0);

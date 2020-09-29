@@ -1,4 +1,4 @@
-// Type definitions for d3-delaunay 5.1
+// Type definitions for d3-delaunay 5.2
 // Project: https://github.com/d3/d3-delaunay
 // Definitions by: Bradley Odell <https://github.com/BTOdell>
 //                 Nathan Bierema <https://github.com/Methuselah96>
@@ -260,6 +260,12 @@ export class Voronoi<P> {
      * (This method is not affected by the associated Voronoi diagram’s viewport bounds.)
      */
     contains(i: number, x: number, y: number): boolean;
+
+    /**
+     * Returns an iterable over the indexes of the cells that share a common edge with the specified cell i.
+     * Voronoi neighbors are always neighbors on the Delaunay graph, but the converse is false when the common edge has been clipped out by the Voronoi diagram’s viewport.
+     */
+    neighbors(i: number): Iterable<number>;
 
     /**
      * Renders the mesh of Voronoi cells to an SVG path string.
