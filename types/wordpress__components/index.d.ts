@@ -12,6 +12,7 @@ export * from './primitives';
 //
 // Components
 //
+export { default as AnglePickerControl } from './angle-picker-control';
 export { default as Animate } from './animate';
 export { default as Autocomplete } from './autocomplete';
 export { default as BaseControl } from './base-control';

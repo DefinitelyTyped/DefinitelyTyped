@@ -19,6 +19,9 @@
             ],
             "d3-chord": [
                 "d3-chord/v1"
+            ],
+            "d3-timer": [
+                "d3-timer/v1"
             ]
         },
         "types": [],
