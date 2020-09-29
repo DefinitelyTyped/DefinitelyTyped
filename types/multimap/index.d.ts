@@ -40,7 +40,7 @@ declare class Multimap<K = any, V = any> {
     /**
      * @param key
      */
-    get(key: K): V;
+    get(key: K): V[];
 
     /**
      * @param key

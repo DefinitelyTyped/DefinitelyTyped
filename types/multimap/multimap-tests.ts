@@ -1,7 +1,7 @@
 import Multimap = require('multimap');
 
 const genericMap = new Multimap<string, number>();
-genericMap.get("a"); // $ExpectType number
+genericMap.get("a"); // $ExpectType number[]
 genericMap.set("a", 1); // $ExpectType Multimap<string, number>
 genericMap.set("a", 2, 3, 4); // $ExpectType Multimap<string, number>
 genericMap.delete("a"); // $ExpectType boolean
