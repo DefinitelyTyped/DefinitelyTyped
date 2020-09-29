@@ -1,9 +1,12 @@
-// Type definitions for d3JS d3-time-format module 2.1
+// Type definitions for d3JS d3-time-format module 2.2
 // Project: https://github.com/d3/d3-time-format/, https://d3js.org/d3-time-format
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.1.0
+// Last module patch version validated against: 2.2.3
 
 /**
  * Specification of time locale to use when creating a new TimeLocaleObject
@@ -65,6 +68,7 @@ export interface TimeLocaleObject {
      * - %M - minute as a decimal number [00,59].
      * - %L - milliseconds as a decimal number [000, 999].
      * - %p - either AM or PM.*
+     * - %q - quarter of the year as a decimal number [1,4].
      * - %Q - milliseconds since UNIX epoch.
      * - %s - seconds since UNIX epoch.
      * - %S - second as a decimal number [00,61].
@@ -139,18 +143,18 @@ export interface TimeLocaleObject {
  * Create a new time-locale-based object which exposes time-formatting
  * methods for the specified locale definition.
  *
- * @param timeLocale A time locale definition.
+ * @param definition A time locale definition.
  */
-export function timeFormatLocale(timeLocale: TimeLocaleDefinition): TimeLocaleObject;
+export function timeFormatLocale(definition: TimeLocaleDefinition): TimeLocaleObject;
 
 /**
  * Create a new time-locale-based object which exposes time-formatting
  * methods for the specified locale definition. The new time locale definition
  * will be set as the new default time locale.
  *
- * @param timeLocale A time locale definition.
+ * @param definition A time locale definition.
  */
-export function timeFormatDefaultLocale(defaultTimeLocale: TimeLocaleDefinition): TimeLocaleObject;
+export function timeFormatDefaultLocale(definition: TimeLocaleDefinition): TimeLocaleObject;
 
 /**
  * Returns a new formatter for the given string specifier. The returned function formats a specified date, returning the corresponding string.
