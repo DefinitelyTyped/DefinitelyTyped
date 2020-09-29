@@ -3,6 +3,8 @@ import convert = require('convert-units');
 const convertedMass = convert(25).from('mcg').to('t');
 const convertedMassBack = convert(convertedMass).from('t').to('mcg');
 
+const convertPower = convert(30).from('kW').to('MW');
+
 const unit = convert(66).getUnit<'mcg'>('mcg');
 
 // Using `convert` without a value.
