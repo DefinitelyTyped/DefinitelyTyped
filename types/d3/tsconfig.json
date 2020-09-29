@@ -17,11 +17,20 @@
             "d3-array": [
                 "d3-array/v1"
             ],
+            "d3-chord": [
+                "d3-chord/v1"
+            ],
+            "d3-path": [
+                "d3-path/v1"
+            ],
             "d3-polygon": [
                 "d3-polygon/v1"
             ],
             "d3-random": [
                 "d3-random/v1"
+            ],
+            "d3-selection": [
+                "d3-selection/v1"
             ],
             "d3-timer": [
                 "d3-timer/v1"
