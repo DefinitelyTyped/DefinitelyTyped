@@ -19,7 +19,7 @@ let arrayPromise: Promise<ArrayBuffer>;
 let blobPromise: Promise<Blob>;
 let docPromise: Promise<Document>;
 let imagePromise: Promise<HTMLImageElement>;
-let carPromise: Promise<Car>;
+let carPromise: Promise<Car | undefined>;
 let stringPromise: Promise<string>;
 let xmlDocPromise: Promise<XMLDocument>;
 
