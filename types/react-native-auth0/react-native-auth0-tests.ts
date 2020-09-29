@@ -44,10 +44,12 @@ auth0.auth
         return res.accessToken;
     });
 
-auth0.auth.refreshToken({
-    refreshToken: 'refresh-token',
-    scope: 'openid',
-});
+auth0.auth
+    .refreshToken({
+        refreshToken: 'refresh-token',
+        scope: 'openid',
+    })
+    .then(res => res);
 
 auth0.auth.resetPassword({
     email: 'me@example.com',
@@ -98,21 +100,25 @@ auth0.webAuth.authorize(
     },
 );
 
-auth0.webAuth.authorize({
-    state: 'state',
-    nonce: 'nonce',
-    scope: 'openid',
-    language: 'en',
-    prompt: 'login',
-}).then(credentials => credentials.accessToken);
+auth0.webAuth
+    .authorize({
+        state: 'state',
+        nonce: 'nonce',
+        scope: 'openid',
+        language: 'en',
+        prompt: 'login',
+    })
+    .then(credentials => credentials.accessToken);
 
-auth0.webAuth.authorize({
-    state: 'state',
-    nonce: 'nonce',
-    scope: 'openid',
-    language: 'en',
-    prompt: 'login',
-}).then(credentials => credentials.doesNotExist); // $ExpectError
+auth0.webAuth
+    .authorize({
+        state: 'state',
+        nonce: 'nonce',
+        scope: 'openid',
+        language: 'en',
+        prompt: 'login',
+    })
+    .then(credentials => credentials.doesNotExist); // $ExpectError
 
 auth0.webAuth.clearSession({ federated: false });
 auth0.webAuth.clearSession();
@@ -127,6 +133,18 @@ auth0.users('token').patchUser<{ firstName: string; lastName: string }>({
 auth0.auth.passwordlessWithEmail({
     email: 'info@auth0.com',
     send: 'link',
+});
+
+auth0.auth.passwordlessWithEmail({
+    email: 'info@auth0.com',
+    send: 'link',
+    authParams: {
+        code_challenge: '12525653653653',
+        code_challenge_method: 'S256',
+        scope: 'openid email profile offline_access',
+        response_type: 'code',
+        redirect_uri: 'AUTH0_REDIRECT_URI',
+    },
 });
 
 auth0.auth.passwordlessWithSMS({

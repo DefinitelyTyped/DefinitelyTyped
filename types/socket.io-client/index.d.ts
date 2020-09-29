@@ -201,6 +201,12 @@ declare namespace SocketIOClient {
         disconnected: boolean;
 
         /**
+         * The type of binary data being transmitted by the connection.
+         * https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/binaryType
+         */
+        binaryType: "blob" | "arraybuffer";
+
+        /**
          * Opens our socket so that it connects. If the 'autoConnect' option for io is
          * true (default), then this is called automatically when the Socket is created
          */
