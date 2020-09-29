@@ -4,7 +4,7 @@
 //                 aktary <https://github.com/aktary>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface iOnfidoResponse {
+export interface OnfidoResponse {
     document_front: {
         id: string;
         type: string;
@@ -16,10 +16,10 @@ export interface iOnfidoResponse {
     };
 }
 
-export interface iOnfidoConfig {
+export interface OnfidoConfig {
     token?: string;
     containerId?: string;
-    onComplete?: (data: iOnfidoResponse) => null;
+    onComplete?: (data: OnfidoResponse) => null;
     onModalRequestClose?: () => null;
     isModalOpen?: boolean;
     useModal?: boolean;
@@ -30,7 +30,7 @@ export interface iOnfidoConfig {
               type: string;
               options: {
                   title?: string;
-                  descriptions?: [string];
+                  descriptions?: string[];
                   nextButton?: string;
                   country?: string;
                   documentTypes?: {
@@ -53,10 +53,10 @@ export interface iOnfidoConfig {
     >;
 }
 
-export interface iOnfidoHandle {
+export interface OnfidoHandle {
     tearDown(): null;
 
-    setOptions(opts: iOnfidoConfig): null;
+    setOptions(opts: OnfidoConfig): null;
 }
 
-export function init(e: any): iOnfidoHandle;
+export function init(e: any): OnfidoHandle;
