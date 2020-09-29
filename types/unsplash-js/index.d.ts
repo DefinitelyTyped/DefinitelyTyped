@@ -1,6 +1,6 @@
 // Type definitions for unsplash-js 6.3
 // Project: https://github.com/unsplash/unsplash-js#readme
-// Definitions by: Oliver Joseph Ash <https://github.com/oliverjash>
+// Definitions by: Oliver Joseph Ash <https://github.com/oliverjash>, Sami Jaber <https://github.com/samijaber>, Thomas Lefebvre <https://github.com/Magellol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
