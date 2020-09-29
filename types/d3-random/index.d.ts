@@ -28,7 +28,7 @@ export interface RandomUniform extends RandomNumberGenerationSource {
     /**
      * Returns a function for generating random numbers with a uniform distribution.
      * The minimum allowed value of a returned number is min (inclusive), and the maximum is max (exclusive).
-     * Max defaults to 0; if max is not specified, it defaults to 1.
+     * Min defaults to 0; if max is not specified, it defaults to 1.
      *
      * @param max The maximum allowed value of a returned number, defaults to 1.
      */
