@@ -23,6 +23,9 @@
             "d3-chord": [
                 "d3-chord/v1"
             ],
+            "d3-path": [
+                "d3-path/v1"
+            ],
             "d3-polygon": [
                 "d3-polygon/v1"
             ],
