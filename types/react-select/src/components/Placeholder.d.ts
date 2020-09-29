@@ -5,7 +5,7 @@ import { CommonProps, OptionTypeBase } from '../types';
 export interface PlaceholderProps<OptionType extends OptionTypeBase> extends CommonProps<OptionType> {
     className?: string;
     /** The children to be rendered. */
-    children: ReactNode,
+    children: ReactNode;
     isDisabled: boolean;
     isFocused: boolean;
     innerProps: { style: CSSProperties };
