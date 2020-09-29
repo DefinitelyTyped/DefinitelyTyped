@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -14,23 +13,8 @@
             "../../"
         ],
         "paths": {
-            "d3": [
-                "d3/v4"
-            ],
-            "d3-array": [
-                "d3-array/v1"
-            ],
-            "d3-random": [
-                "d3-random/v1"
-            ],
             "d3-polygon": [
                 "d3-polygon/v1"
-            ],
-            "d3-scale": [
-                "d3-scale/v1"
-            ],
-            "d3-timer": [
-                "d3-timer/v1"
             ]
         },
         "types": [],
@@ -39,6 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "d3-tests.ts"
+        "d3-polygon-tests.ts"
     ]
 }
