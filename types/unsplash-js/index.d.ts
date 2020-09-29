@@ -1,6 +1,9 @@
-// Type definitions for unsplash-js 6.0
+// Type definitions for unsplash-js 6.3
 // Project: https://github.com/unsplash/unsplash-js#readme
 // Definitions by: Oliver Joseph Ash <https://github.com/oliverjash>
+//                 Sami Jaber <https://github.com/samijaber>
+//                 Thomas Lefebvre <https://github.com/Magellol>
+//                 Luke Chesser <https://github.com/lukechesser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -58,6 +61,10 @@ export namespace UnsplashApi {
         unlikePhoto(id: string): Promise<Response>;
 
         downloadPhoto(photo: { links: { download_location: string } }): Promise<Response>;
+
+        trackDownload(photo: {
+            links: { download_location: string };
+        }): Promise<Response>;
     }
 
     interface Collections {
@@ -85,7 +92,14 @@ export namespace UnsplashApi {
             keyword: string,
             page?: number,
             perPage?: number,
-            filters?: { orientation?: string; collections?: ReadonlyArray<string> },
+            filters?: {
+                orientation?: string;
+                contentFilter?: string;
+                color?: string;
+                orderBy?: string;
+                lang?: string;
+                collections?: ReadonlyArray<string>
+            }
         ): Promise<Response>;
 
         users(keyword: string, page?: number, perPage?: number): Promise<Response>;

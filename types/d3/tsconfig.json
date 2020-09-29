@@ -19,6 +19,9 @@
             ],
             "d3-force": [
                 "d3-force/v1"
+            ],
+            "d3-timer": [
+                "d3-timer/v1"
             ]
         },
         "types": [],
