@@ -589,6 +589,7 @@ const awsServerless: Aws.Serverless = {
         }
     },
     resources: {
+        Description: 'testStackDescription',
         Resources: {
             testcloudformationresource: {
                 Type: 'testType',

@@ -565,6 +565,7 @@ declare namespace Aws {
     }
 
     interface Resources {
+        Description?: string;
         Resources: CloudFormationResources;
         extensions?: CloudFormationResources;
         Outputs?: Outputs;
