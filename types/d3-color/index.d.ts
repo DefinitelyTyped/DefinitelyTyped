@@ -1,13 +1,14 @@
-// Type definitions for D3JS d3-color module 1.2
+// Type definitions for D3JS d3-color module 1.3
 // Project: https://github.com/d3/d3-color/, https://d3js.org/d3-color
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>,
 //                 Alex Ford <https://github.com/gustavderdrache>,
 //                 Boris Yankov <https://github.com/borisyankov>,
 //                 denisname <https://github.com/denisname>,
 //                 Hugues Stefanski <https://github.com/ledragon>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 1.3.0
 
 // ---------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -79,8 +80,23 @@ export interface Color {
      */
     toString(): string; // Note: While this method is used in prototyping for colors of specific colorspaces, it should not be called directly, as 'this.rgb' would not be implemented on Color
     /**
-     * Returns a hexadecimal string representing this color.
-     * If this color is not displayable, a suitable displayable color is returned instead. For example, RGB channel values greater than 255 are clamped to 255.
+     * Returns a hexadecimal string representing this color in RGB space, such as #f7eaba.
+     * If this color is not displayable, a suitable displayable color is returned instead.
+     * For example, RGB channel values greater than 255 are clamped to 255.
+     */
+    formatHex(): string;
+    /**
+     * Returns a string representing this color according to the CSS Color Module Level 3 specification, such as hsl(257, 50%, 80%) or hsla(257, 50%, 80%, 0.2).
+     * If this color is not displayable, a suitable displayable color is returned instead by clamping S and L channel values to the interval [0, 100].
+     */
+    formatHsl(): string;
+    /**
+     * Returns a string representing this color according to the CSS Object Model specification, such as rgb(247, 234, 186) or rgba(247, 234, 186, 0.2).
+     * If this color is not displayable, a suitable displayable color is returned instead by clamping RGB channel values to the interval [0, 255].
+     */
+    formatRgb(): string;
+    /**
+     * @deprecated Use color.formatHex.
      */
     hex(): string;
 }
@@ -146,6 +162,12 @@ export interface RGBColor extends Color {
      * Returns the RGB equivalent of this color.
      */
     rgb(): this;
+    /**
+     * Returns a copy of this color.
+     *
+     * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
+     */
+    copy(values?: { r?: number; g?: number; b?: number; opacity?: number }): this;
 }
 
 /**
@@ -220,6 +242,12 @@ export interface HSLColor extends Color {
      * Returns the RGB color equivalent of this color.
      */
     rgb(): RGBColor;
+    /**
+     * Returns a copy of this color.
+     *
+     * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
+     */
+    copy(values?: { h?: number; s?: number; l?: number; opacity?: number }): this;
 }
 
 /**
@@ -295,6 +323,12 @@ export interface LabColor extends Color {
      * Returns the RGB color equivalent of this color.
      */
     rgb(): RGBColor;
+    /**
+     * Returns a copy of this color.
+     *
+     * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
+     */
+    copy(values?: { l?: number; a?: number; b?: number; opacity?: number }): this;
 }
 
 /**
@@ -383,6 +417,12 @@ export interface HCLColor extends Color {
      * Returns the RGB color equivalent of this color.
      */
     rgb(): RGBColor;
+    /**
+     * Returns a copy of this color.
+     *
+     * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
+     */
+    copy(values?: { h?: number; c?: number; l?: number; opacity?: number }): this;
 }
 
 /**
@@ -490,6 +530,12 @@ export interface CubehelixColor extends Color {
      * Returns the RGB color equivalent of this color.
      */
     rgb(): RGBColor;
+    /**
+     * Returns a copy of this color.
+     *
+     * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
+     */
+    copy(values?: { h?: number; s?: number; l?: number; opacity?: number }): this;
 }
 
 /**
