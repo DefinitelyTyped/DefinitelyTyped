@@ -20,11 +20,17 @@
             "d3-array": [
                 "d3-array/v1"
             ],
+            "d3-brush": [
+                "d3-brush/v1"
+            ],
             "d3-chord": [
                 "d3-chord/v1"
             ],
             "d3-dispatch": [
                 "d3-dispatch/v1"
+            ],
+            "d3-ease": [
+                "d3-ease/v1"
             ],
             "d3-hierarchy": [
                 "d3-hierarchy/v1"
@@ -34,6 +40,9 @@
             ],
             "d3-polygon": [
                 "d3-polygon/v1"
+            ],
+            "d3-random": [
+                "d3-random/v1"
             ],
             "d3-scale": [
                 "d3-scale/v1"

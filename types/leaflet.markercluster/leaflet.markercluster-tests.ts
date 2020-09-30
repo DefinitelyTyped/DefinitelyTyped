@@ -66,6 +66,7 @@ markerClusterGroup = markerClusterGroup
     .removeLayer(layer)
     .addLayers(layers)
     .removeLayers(layers)
+    .addLayers(layers, true)
     .clearLayers()
     // RefreshClusters
     .refreshClusters()
