@@ -604,7 +604,7 @@ declare namespace P {
         pid: number;
         hostname: string;
         level: number;
-        time: string;
+        time: number;
         msg: string;
         v: number;
         [key: string]: any;
