@@ -97,6 +97,7 @@ interface JWTOptions {
     secret?: string;
     maxAge?: number;
     encryption?: boolean;
+    signingKey?: string;
     encode?(options: JWTEncodeParams): Promise<string>;
     decode?(options: JWTDecodeParams): Promise<string>;
 }
