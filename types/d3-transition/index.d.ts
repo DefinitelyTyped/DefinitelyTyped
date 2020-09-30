@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-transition module 1.2
+// Type definitions for D3JS d3-transition module 1.3
 // Project: https://github.com/d3/d3-transition/, https://d3js.org/d3-transition
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.2.1
+// Last module patch version validated against: 1.3.2
 
 import { ArrayLike, BaseType, Selection, ValueFn } from 'd3-selection';
 
@@ -313,8 +313,9 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
     text(value: null): this;
     /**
      * For each selected element, sets the text content to the specified target value when the transition starts.
-     * To interpolate text rather than to set it on start, use transition.tween (for example) or
-     * append a replacement element and cross-fade opacity (for example). Text is not interpolated by default because it is usually undesirable.
+     *
+     * To interpolate text rather than to set it on start, use transition.textTween (for example) or append a replacement element and cross-fade opacity (for example).
+     * Text is not interpolated by default because it is usually undesirable.
      *
      * @param value Value used for text content
      */
@@ -322,8 +323,8 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
     /**
      * For each selected element, sets the text content returned by the value function for each selected element when the transition starts.
      *
-     * To interpolate text rather than to set it on start, use transition.tween (for example) or
-     * append a replacement element and cross-fade opacity (for example). Text is not interpolated by default because it is usually undesirable.
+     * To interpolate text rather than to set it on start, use transition.textTween (for example) or append a replacement element and cross-fade opacity (for example).
+     * Text is not interpolated by default because it is usually undesirable.
      *
      * @param value A value function which is evaluated for each selected element, in order, being passed the current datum (d),
      * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
