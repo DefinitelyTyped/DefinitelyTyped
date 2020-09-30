@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-dsv module 1.1
+// Type definitions for D3JS d3-dsv module 1.2
 // Project: https://github.com/d3/d3-dsv/, https://d3js.org/d3-dsv
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.1.2
+// Last module patch version validated against: 1.2.0
 
 // ------------------------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -183,6 +183,24 @@ export function csvFormatBody<T extends object>(rows: T[], columns?: Array<keyof
  */
 export function csvFormatRows(rows: string[][]): string;
 
+// csvFormatRow(...) ========================================================================
+
+/**
+ * Equivalent to dsvFormat(",").formatRow.
+ *
+ * @param row An array of strings representing a row.
+ */
+export function csvFormatRow(row: string[]): string;
+
+// csvFormatValue(...) ========================================================================
+
+/**
+ * Equivalent to dsvFormat(",").formatValue.
+ *
+ * @param value A value.
+ */
+export function csvFormatValue(value: string): string;
+
 // ------------------------------------------------------------------------------------------
 // TSV Parsers and Formatters
 // ------------------------------------------------------------------------------------------
@@ -304,6 +322,24 @@ export function tsvFormatBody<T extends object>(rows: T[], columns?: Array<keyof
  */
 export function tsvFormatRows(rows: string[][]): string;
 
+// tsvFormatRow(...) ========================================================================
+
+/**
+ * Equivalent to dsvFormat("\t").formatRow.
+ *
+ * @param row An array of strings representing a row.
+ */
+export function tsvFormatRow(row: string[]): string;
+
+// tsvFormatValue(...) ========================================================================
+
+/**
+ * Equivalent to dsvFormat("\t").formatValue.
+ *
+ * @param value A value.
+ */
+export function tsvFormatValue(value: string): string;
+
 // ------------------------------------------------------------------------------------------
 // DSV Generalized Parsers and Formatters
 // ------------------------------------------------------------------------------------------
@@ -407,6 +443,23 @@ export interface DSV {
      * @param rows An array of array of string rows.
      */
     formatRows(rows: string[][]): string;
+
+    /**
+     * Formats a single array row of strings as delimiter-separated values, returning a string.
+     * Each column within the row will be separated by the delimiter (such as a comma, ,).
+     * Values that contain either the delimiter, a double-quote (") or a newline will be escaped using double-quotes.
+     *
+     * @param row An array of strings representing a row.
+     */
+    formatRow(row: string[]): string;
+
+    /**
+     * Format a single value or string as a delimiter-separated value, returning a string.
+     * A value that contains either the delimiter, a double-quote (") or a newline will be escaped using double-quotes.
+     *
+     * @param value A value.
+     */
+    formatValue(value: string): string;
 }
 
 /**
