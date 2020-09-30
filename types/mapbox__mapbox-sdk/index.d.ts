@@ -1027,7 +1027,7 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
     export default function MapMatching(config: SdkConfig | MapiClient): MapMatchingService;
 
     interface MapMatchingService {
-        getMatching(request: MapMatchingRequest): MapiRequest;
+        getMatch(request: MapMatchingRequest): MapiRequest;
     }
 
     interface MapMatchingRequest {

@@ -37,13 +37,23 @@ nova.commands.register(
 
 nova.commands.invoke('apexskier.bar', 'foo');
 
-new CompletionItem('label', CompletionItemKind.Argument);
-
 // after 3.4: $ExpectType unknown
 nova.config.get('test');
 
 // $ExpectType string[] | null
 nova.config.get('test', 'array');
+
+/// https://novadocs.panic.com/api-reference/assistants-registry/
+
+nova.assistants.registerCompletionAssistant("foo", {
+    async provideCompletionItems(editor, context) {
+        // $ExpectType TextEditor
+        editor;
+        // $ExpectType CompletionContext
+        context;
+        return [completionItem];
+    }
+});
 
 /// https://novadocs.panic.com/api-reference/charset/
 

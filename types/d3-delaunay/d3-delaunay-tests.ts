@@ -104,6 +104,7 @@ const vrender: string = v.render();
 const vrenderBounds: string = v.renderBounds();
 const renderCell: string = v.renderCell(0);
 for (const poly of v.cellPolygons()) {
+    const index: number = poly.index;
     for (const p of poly) {
         const x = p[0];
         const y = p[1];
