@@ -20,6 +20,12 @@
             "d3-chord": [
                 "d3-chord/v1"
             ],
+            "d3-contour": [
+                "d3-contour/v1"
+            ],
+            "d3-hierarchy": [
+                "d3-hierarchy/v1"
+            ],
             "d3-path": [
                 "d3-path/v1"
             ],
@@ -28,6 +34,9 @@
             ],
             "d3-random": [
                 "d3-random/v1"
+            ],
+            "d3-scale-chromatic": [
+                "d3-scale-chromatic/v1"
             ],
             "d3-selection": [
                 "d3-selection/v1"
