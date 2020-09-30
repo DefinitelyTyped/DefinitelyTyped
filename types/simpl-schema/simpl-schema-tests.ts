@@ -17,7 +17,7 @@ const schema: SimpleSchemaDefinition = {
         autoValue() {
             this.closestSubschemaFieldName;
             this.field('basicString');
-            const isModifier: boolean = this.isModifier;
+            this.isModifier;
             this.isUpsert;
             this.unset();
             return new Date();
@@ -27,7 +27,7 @@ const schema: SimpleSchemaDefinition = {
         type: String,
         label: "Title",
         /* Can't use arrow function here, else the context won't be available */
-        custom: function() {
+        custom() {
           const text = this.value;
 
           if (text.length > 100) return { type: SimpleSchema.ErrorTypes.MAX_STRING, max: 100 };
@@ -90,8 +90,5 @@ new SimpleSchema({
     shortArray: Array,
     subSchema: StringSchemaWithOptions
 });
-
-SimpleSchema.extend(schema);
-SimpleSchema.extend(StringSchema);
 
 SimpleSchema.extendOptions(['autoform']);

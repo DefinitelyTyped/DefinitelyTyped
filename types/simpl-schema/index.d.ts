@@ -24,6 +24,12 @@ interface CustomValidationContext {
     /** The generic name of the schema key (e.g., "addresses.$.street") */
     genericKey: string;
 
+    isInArrayItemObject: boolean;
+
+    isInSubObject: boolean;
+
+    isModifier: boolean;
+
     /** The schema definition object. */
     definition: SchemaDefinition;
 
@@ -34,7 +40,7 @@ interface CustomValidationContext {
     value: any;
 
     /** The Mongo operator for which we're doing validation. Might be null. */
-    operator: any;
+    operator?: string | null;
     validationContext: ValidationContext;
 
     /**
@@ -62,8 +68,7 @@ interface CustomValidationContext {
 interface FieldInfo {
     isSet: boolean;
     value?: any;
-    // TODO: more precise
-    operator: any;
+    operator: string | null;
 }
 
 export interface AutoValueContext {
@@ -71,16 +76,16 @@ export interface AutoValueContext {
     field: (fieldName: string) => FieldInfo;
     isModifier: boolean;
     isUpsert: boolean;
-    isSet: boolean;
+    isSet: FieldInfo['isSet'];
     key: string;
-    // TODO: figure out
-    operator: any;
-    // TODO: check
+    operator: FieldInfo['operator'];
     parentField: () => FieldInfo;
     siblingField: (fieldName: string) => FieldInfo;
     unset: () => void;
-    value?: any;
+    value?: FieldInfo['value'];
 }
+
+type Validator = (this: CustomValidationContext) => undefined | string | SimpleSchemaValidationError;
 
 export interface SchemaDefinition {
     type: any;
@@ -100,7 +105,7 @@ export interface SchemaDefinition {
      * for "this" will not be available. Use "custom: function() { return
      * something(this.value); }" instead.
      */
-    custom?: (this: CustomValidationContext) => undefined | string | SimpleSchemaValidationError;
+    custom?: Validator;
     blackbox?: boolean;
     autoValue?: (this: AutoValueContext) => any;
     defaultValue?: any;
@@ -140,65 +145,66 @@ export type SimpleSchemaDefinition = {
       | SimpleSchema
   } | any[];
 
-interface SimpleSchemaStatic {
-  new(
-    schema: SimpleSchemaDefinition,
-    options?: SimpleSchemaOptions
-  ): SimpleSchema;
-  namedContext(name?: string): SimpleSchemaValidationContextStatic;
-  addValidator(validator: () => boolean): any;
-  pick(...fields: string[]): SimpleSchemaStatic;
-  omit(...fields: string[]): SimpleSchemaStatic;
-  oneOf(...types: Array<(SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor)>): SimpleSchemaStatic;
-  clean(doc: any, options?: CleanOption): any;
-  schema(key: string): SchemaDefinition;
-  schema(): SchemaDefinition[];
-  getDefinition(key: string, propList?: any, functionContext?: any): any;
-  keyIsInBlackBox(key: string): boolean;
-  labels(labels: {[key: string]: string}): void;
-  label(key: any): any;
-  Integer: RegExp;
-  messages(messages: any): any;
-  messageForError(type: any, key: any, def: any, value: any): string;
-  allowsKey(key: any): string;
-  newContext(): ValidationContext;
-  objectKeys(keyPrefix: any): any[];
-  validate(obj: any, options?: ValidationOption): void;
-  validator(options?: ValidationOption): (obj: any) => boolean;
-  extend(otherSchema: SimpleSchemaStatic | SimpleSchemaDefinition): SimpleSchemaStatic;
-  extendOptions(options: string[]): void;
-  RegEx: {
-      Email: RegExp;
-      EmailWithTLD: RegExp;
-      Domain: RegExp;
-      WeakDomain: RegExp;
-      IP: RegExp;
-      IPv4: RegExp;
-      IPv6: RegExp;
-      Url: RegExp;
-      Id: RegExp;
-      ZipCode: RegExp;
-      Phone: RegExp;
-  };
-  ErrorTypes: {
-      REQUIRED: string,
-      MIN_STRING: string,
-      MAX_STRING: string,
-      MIN_NUMBER: string,
-      MAX_NUMBER: string,
-      MIN_NUMBER_EXCLUSIVE: string,
-      MAX_NUMBER_EXCLUSIVE: string,
-      MIN_DATE: string,
-      MAX_DATE: string,
-      BAD_DATE: string,
-      MIN_COUNT: string,
-      MAX_COUNT: string,
-      MUST_BE_INTEGER: string,
-      VALUE_NOT_ALLOWED: string,
-      EXPECTED_TYPE: string,
-      FAILED_REGULAR_EXPRESSION: string,
-      KEY_NOT_IN_SCHEMA: string
-  };
+declare class SimpleSchema {
+    constructor(
+        schema: SimpleSchemaDefinition,
+        options?: SimpleSchemaOptions
+    );
+    static addValidator(validator: Validator): void;
+    addValidator(validator: Validator): void;
+    namedContext(name?: string): SimpleSchemaValidationContextStatic;
+    pick(...fields: string[]): SimpleSchema;
+    omit(...fields: string[]): SimpleSchema;
+    oneOf(...types: Array<(SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor)>): SimpleSchema;
+    clean(doc: any, options?: CleanOption): any;
+    schema(key: string): SchemaDefinition;
+    schema(): SchemaDefinition[];
+    getDefinition(key: string, propList?: any, functionContext?: any): any;
+    keyIsInBlackBox(key: string): boolean;
+    labels(labels: {[key: string]: string}): void;
+    label(key: any): any;
+    static Integer: RegExp;
+    messages(messages: any): any;
+    messageForError(type: any, key: any, def: any, value: any): string;
+    allowsKey(key: any): string;
+    newContext(): ValidationContext;
+    objectKeys(keyPrefix: any): any[];
+    validate(obj: any, options?: ValidationOption): void;
+    validator(options?: ValidationOption): (obj: any) => boolean;
+    extend(otherSchema: SimpleSchema | SimpleSchemaDefinition): SimpleSchema;
+    static extendOptions(options: string[]): void;
+    static RegEx: {
+        Email: RegExp;
+        EmailWithTLD: RegExp;
+        Domain: RegExp;
+        WeakDomain: RegExp;
+        IP: RegExp;
+        IPv4: RegExp;
+        IPv6: RegExp;
+        Url: RegExp;
+        Id: RegExp;
+        ZipCode: RegExp;
+        Phone: RegExp;
+    };
+    static ErrorTypes: {
+        REQUIRED: string,
+        MIN_STRING: string,
+        MAX_STRING: string,
+        MIN_NUMBER: string,
+        MAX_NUMBER: string,
+        MIN_NUMBER_EXCLUSIVE: string,
+        MAX_NUMBER_EXCLUSIVE: string,
+        MIN_DATE: string,
+        MAX_DATE: string,
+        BAD_DATE: string,
+        MIN_COUNT: string,
+        MAX_COUNT: string,
+        MUST_BE_INTEGER: string,
+        VALUE_NOT_ALLOWED: string,
+        EXPECTED_TYPE: string,
+        FAILED_REGULAR_EXPRESSION: string,
+        KEY_NOT_IN_SCHEMA: string
+    };
 }
 
 interface ValidationOption {
@@ -259,17 +265,8 @@ interface MongoObjectStatic {
     affectsGenericKeyImplicit(key: string): any;
 }
 
-export const SimpleSchema: SimpleSchemaStatic;
 export const SimpleSchemaValidationContext: SimpleSchemaValidationContextStatic;
 export const MongoObject: MongoObjectStatic;
-
-export interface SimpleSchema extends SimpleSchemaStatic {
-    debug: boolean;
-    /** Validate a data object. Options: {keys: []} to limit */
-    validate(obj: any, options?: ValidationOption): void;
-    addValidator(validator: () => boolean): any;
-    messages(messages: any): void;
-}
 
 export interface MongoObject {
   expandKey(val: any, key: string, obj: any): void;
