@@ -29,6 +29,18 @@ randomNumberGenerator = prngUniform(0.2);
 randomNumberGenerator = prngUniform(0.2, 5);
 
 // ------------------------------------------------------------
+// randomInt
+// ------------------------------------------------------------
+
+let prngInt: d3Random.RandomInt;
+
+prngInt = d3Random.randomInt;
+prngInt = d3Random.randomInt.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngInt(6);
+randomNumberGenerator = prngInt(1, 5);
+
+// ------------------------------------------------------------
 // randomNormal
 // ------------------------------------------------------------
 
@@ -86,3 +98,47 @@ prngExponential = d3Random.randomExponential;
 prngExponential = d3Random.randomExponential.source(seedrandom("Schroedinger's flea."));
 
 randomNumberGenerator = prngExponential(1 / 40);
+
+// ------------------------------------------------------------
+// randomPareto
+// ------------------------------------------------------------
+
+let prngPareto: d3Random.RandomPareto;
+
+prngPareto = d3Random.randomPareto;
+prngPareto = d3Random.randomPareto.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngPareto(5);
+
+// ------------------------------------------------------------
+// randomBernoulli
+// ------------------------------------------------------------
+
+let prngBernoulli: d3Random.RandomBernoulli;
+
+prngBernoulli = d3Random.randomBernoulli;
+prngBernoulli = d3Random.randomBernoulli.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngBernoulli(0.5);
+
+// ------------------------------------------------------------
+// randomGeometric
+// ------------------------------------------------------------
+
+let prngGeometric: d3Random.RandomGeometric;
+
+prngGeometric = d3Random.randomGeometric;
+prngGeometric = d3Random.randomGeometric.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngGeometric(0.5);
+
+// ------------------------------------------------------------
+// randomBinomial
+// ------------------------------------------------------------
+
+let prngBinomial: d3Random.RandomBinomial;
+
+prngBinomial = d3Random.randomBinomial;
+prngBinomial = d3Random.randomBinomial.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngBinomial(0.5);

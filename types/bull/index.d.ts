@@ -4,7 +4,6 @@
 //                 Cameron Crothers <https://github.com/JProgrammer>
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
-//                 Gabriel Terwesten <https://github.com/blaugold>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 David Koblas <https://github.com/koblas>
 //                 Bond Akinmade <https://github.com/bondz>
