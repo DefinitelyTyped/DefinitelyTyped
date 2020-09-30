@@ -14030,6 +14030,14 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
+         * **Important**: In Message Compose mode, this API is not supported in Outlook on the web or Windows unless the following conditions are met.
+         *
+         * 1. The owner shares at least one mailbox folder with the delegate.
+         *
+         * 2. The delegate drafts a message in the shared folder.
+         *
+         * After the message has been sent, it's usually found in the delegate's **Sent Items** folder.
+         *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
          *
@@ -14051,6 +14059,14 @@ declare namespace Office {
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * **Important**: In Message Compose mode, this API is not supported in Outlook on the web or Windows unless the following conditions are met.
+         *
+         * 1. The owner shares at least one mailbox folder with the delegate.
+         *
+         * 2. The delegate drafts a message in the shared folder.
+         *
+         * After the message has been sent, it's usually found in the delegate's **Sent Items** folder.
          *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
@@ -16349,14 +16365,17 @@ declare namespace Office {
         owner: string;
         /**
          * The REST API's base URL (currently https://outlook.office.com/api).
-         * Use with `targetMailbox` to construct REST operation's URL.
-         * 
+         *
+         * Use with `targetMailbox` to construct the REST operation's URL.
+         *
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
          */
         targetRestUrl: string;
         /**
-         * The target/owner's mailbox. Use with `targetRestUrl` to construct REST operation's URL.
-         * 
+         * The location of the owner's mailbox for the delegate's access. This location may differ based on the Outlook client.
+         *
+         * Use with `targetRestUrl` to construct the REST operation's URL.
+         *
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
          */
         targetMailbox: string;
