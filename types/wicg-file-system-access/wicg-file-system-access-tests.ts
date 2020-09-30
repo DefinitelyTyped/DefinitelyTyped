@@ -4,7 +4,7 @@
     const fileHandles: FileSystemFileHandle[] = await showOpenFilePicker({
         excludeAcceptAllOption: true,
         multiple: true,
-        types: [{ accept: { 'image/*': ['png', 'gif', 'jpeg', 'jpg'] } }],
+        types: [{ accept: { 'image/*': ['.png', '.jpg'], 'text/plain': '.txt' } }],
     });
     let w: FileSystemWritableFileStream = await fileHandle.createWritable();
     w = await fileHandle.createWritable({ keepExistingData: true });
@@ -34,8 +34,10 @@
     dirHandle = await showDirectoryPicker({});
 
     (async function* recursivelyWalkDir(dirHandle: FileSystemDirectoryHandle): AsyncIterable<File> {
-        for await (const handle of dirHandle.getEntries()) {
-            if (handle.isFile) {
+        // Disable due to a bug in TSLint https://github.com/palantir/tslint/issues/3997:
+        // tslint:disable-next-line await-promise
+        for await (const [name, handle] of dirHandle) {
+            if (handle.kind === 'file') {
                 yield handle.getFile();
             } else {
                 yield* recursivelyWalkDir(handle);
@@ -48,15 +50,15 @@
         const pathItems: string[] = maybePath;
     }
 
-    fileHandle = await dirHandle.getFile('temp.txt');
-    fileHandle = await dirHandle.getFile('temp.txt', { create: true });
+    fileHandle = await dirHandle.getFileHandle('temp.txt');
+    fileHandle = await dirHandle.getFileHandle('temp.txt', { create: true });
 
-    dirHandle = await dirHandle.getDirectory('subdir', { create: false });
+    dirHandle = await dirHandle.getDirectoryHandle('subdir', { create: false });
 
     await dirHandle.removeEntry('temp.txt');
     await dirHandle.removeEntry('nested-dir', { recursive: true });
 
-    dirHandle = await getOriginPrivateDirectory();
+    dirHandle = await navigator.storage.getDirectory();
 
     // Testing old / stable Chrome methods, remove when they're removed.
 
@@ -70,4 +72,19 @@
     fileHandle = await chooseFileSystemEntries({ type: 'save-file' });
     dirHandle = await chooseFileSystemEntries({ type: 'open-directory' });
     dirHandle = await FileSystemDirectoryHandle.getSystemDirectory({ type: 'sandbox' });
+    dirHandle = await dirHandle.getDirectory('subdir', { create: true });
+    fileHandle = await dirHandle.getFile('file.txt');
+
+    permissionState = await fileHandle.requestPermission({ mode: 'readwrite' });
+    permissionState = await fileHandle.requestPermission({ mode: 'read' });
+
+    (async function* recursivelyWalkDir(dirHandle: FileSystemDirectoryHandle): AsyncIterable<File> {
+        for await (const handle of dirHandle.getEntries()) {
+            if (handle.isFile) {
+                yield handle.getFile();
+            } else {
+                yield* recursivelyWalkDir(handle);
+            }
+        }
+    })(dirHandle);
 })();

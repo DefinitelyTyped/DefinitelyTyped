@@ -21,6 +21,6 @@
     },
     "files": [
         "index.d.ts",
-        "wicg-native-file-system-tests.ts"
+        "wicg-file-system-access-tests.ts"
     ]
 }
