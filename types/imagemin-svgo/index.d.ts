@@ -9,7 +9,6 @@ import { Options as SvgoOptions } from 'svgo';
 
 /**
  * SVGO imagemin plugin
- * @async
  */
 declare function imageminSvgo(options?: imageminSvgo.Options): Plugin;
 
