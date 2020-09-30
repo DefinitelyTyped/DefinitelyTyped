@@ -50,7 +50,12 @@ declare module "assert" {
         function match(value: string, regExp: RegExp, message?: string | Error): void;
         function doesNotMatch(value: string, regExp: RegExp, message?: string | Error): void;
 
-        const strict: typeof assert;
+        const strict: typeof assert & {
+            deepEqual: typeof deepStrictEqual;
+            notDeepEqual: typeof notDeepStrictEqual;
+            equal: typeof strictEqual;
+            notEqual: typeof notStrictEqual;
+        };
     }
 
     export = assert;

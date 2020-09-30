@@ -45,7 +45,12 @@ declare module "assert" {
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, error: RegExp | Function, message?: string | Error): Promise<void>;
 
-        const strict: typeof assert;
+        const strict: typeof assert & {
+            deepEqual: typeof deepStrictEqual;
+            notDeepEqual: typeof notDeepStrictEqual;
+            equal: typeof strictEqual;
+            notEqual: typeof notStrictEqual;
+        };
     }
 
     export = assert;
