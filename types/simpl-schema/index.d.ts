@@ -157,7 +157,7 @@ export type SimpleSchemaDefinition =
       }
     | any[];
 
-declare class SimpleSchema {
+export class SimpleSchema {
     constructor(schema: SimpleSchemaDefinition, options?: SimpleSchemaOptions);
     static isSimpleSchema(obj: any): boolean;
     static addValidator(validator: Validator): void;
