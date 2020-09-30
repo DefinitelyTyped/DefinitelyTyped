@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-time module 1.1
+// Type definitions for D3JS d3-time module 2.0
 // Project: https://github.com/d3/d3-time/, https://d3js.org/d3-time
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -7,7 +7,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 2.0.0
 
 // ---------------------------------------------------------------
 // Interfaces

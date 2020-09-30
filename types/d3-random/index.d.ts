@@ -1,9 +1,12 @@
-// Type definitions for D3JS d3-random module 1.1
+// Type definitions for D3JS d3-random module 2.0
 // Project: https://github.com/d3/d3-random/, https://d3js.org/d3-random
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 2.0.1
 
 export interface RandomNumberGenerationSource {
     /**
@@ -23,17 +26,50 @@ export interface RandomNumberGenerationSource {
  */
 export interface RandomUniform extends RandomNumberGenerationSource {
     /**
-     * Returns a function for generating random numbers with a uniform distribution).
-     * The minimum allowed value of a returned number is min, and the maximum is max.
-     * If min is not specified, it defaults to 0; if max is not specified, it defaults to 1.
+     * Returns a function for generating random numbers with a uniform distribution.
+     * The minimum allowed value of a returned number is min (inclusive), and the maximum is max (exclusive).
+     * Min defaults to 0; if max is not specified, it defaults to 1.
      *
-     * @param min The minimum allowed value of a returned number, defaults to 0.
      * @param max The maximum allowed value of a returned number, defaults to 1.
      */
-    (min?: number, max?: number): () => number;
+    (max?: number): () => number;
+    /**
+     * Returns a function for generating random numbers with a uniform distribution.
+     * The minimum allowed value of a returned number is min (inclusive), and the maximum is max (exclusive).
+     *
+     * @param min The minimum allowed value of a returned number.
+     * @param max The maximum allowed value of a returned number.
+     */
+    // tslint:disable-next-line:unified-signatures
+    (min: number, max: number): () => number;
 }
 
 export const randomUniform: RandomUniform;
+
+/**
+ * A configurable random integer generator for the uniform distribution.
+ */
+export interface RandomInt extends RandomNumberGenerationSource {
+    /**
+     * Returns a function for generating random integers with a uniform distribution.
+     * The minimum allowed value of a returned number is ⌊min⌋ (inclusive), and the maximum is ⌊max - 1⌋ (inclusive)
+     * Min defaults to 0.
+     *
+     * @param max The maximum allowed value of a returned number.
+     */
+    (max: number): () => number;
+    /**
+     * Returns a function for generating random integers with a uniform distribution.
+     * The minimum allowed value of a returned number is ⌊min⌋ (inclusive), and the maximum is ⌊max - 1⌋ (inclusive)
+     *
+     * @param min The minimum allowed value of a returned number.
+     * @param max The maximum allowed value of a returned number.
+     */
+    // tslint:disable-next-line:unified-signatures
+    (min: number, max: number): () => number;
+}
+
+export const randomInt: RandomInt;
 
 /**
  * A configurable random number generator for the normal (Gaussian) distribution.
@@ -110,3 +146,63 @@ export interface RandomExponential extends RandomNumberGenerationSource {
 }
 
 export const randomExponential: RandomExponential;
+
+/**
+ * A configurable random number generator with an Pareto distribution.
+ */
+export interface RandomPareto extends RandomNumberGenerationSource {
+    /**
+     * Returns a function for generating random numbers with an Pareto distribution with the shape alpha.
+     * The value alpha must be a positive value.
+     *
+     * @param alpha alpha
+     */
+    (alpha: number): () => number;
+}
+
+export const randomPareto: RandomPareto;
+
+/**
+ * A configurable random 0 or 1 generator according to a Bernoulli distribution.
+ */
+export interface RandomBernoulli extends RandomNumberGenerationSource {
+    /**
+     * Returns a function for generating either 1 or 0 according to a Bernoulli distribution with 1 being returned with success probability p and 0 with failure probability q = 1 - p.
+     * The value p is in the range [0, 1].
+     *
+     * @param p p
+     */
+    (p: number): () => number;
+}
+
+export const randomBernoulli: RandomBernoulli;
+
+/**
+ * A configurable random number generator with a geometric distribution.
+ */
+export interface RandomGeometric extends RandomNumberGenerationSource {
+    /**
+     * Returns a function for generating numbers with a geometric distribution with success probability p.
+     * The value p is in the range (0, 1].
+     *
+     * @param p Success probability
+     */
+    (p: number): () => number;
+}
+
+export const randomGeometric: RandomGeometric;
+
+/**
+ * A configurable random number generator with a binomial distribution.
+ */
+export interface RandomBinomial extends RandomNumberGenerationSource {
+    /**
+     * Returns a function for generating numbers with a geometric distribution with success probability p.
+     * The value p is in the range (0, 1].
+     *
+     * @param p Success probability
+     */
+    (p: number): () => number;
+}
+
+export const randomBinomial: RandomBinomial;
