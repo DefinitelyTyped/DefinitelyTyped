@@ -89,8 +89,8 @@ const handleSize: number = brush.handleSize();
 
 // on() ------------------------------------------------------------------------
 
-let brushed: ((this: SVGGElement, datum: BrushDatum, index: number, group: SVGGElement[] | ArrayLike<SVGGElement>) => void) | undefined;
-brushed = (d, i, group) => {
+let brushed: ((this: SVGGElement, event: any, datum: BrushDatum) => void) | undefined;
+brushed = (event, datum) => {
     // do anything
 };
 
@@ -108,10 +108,9 @@ brushed = brush.on('end');
 brush = brush.on('end', null);
 
 // re-apply
-brush.on('end', function(d, i, g) {
+brush.on('end', function(e, d) {
+    const event: any = e;
     const datum: BrushDatum = d;
-    const index: number = i;
-    const group: SVGGElement[] | ArrayLike<SVGGElement> = g;
     console.log('Owner SVG Element of svg group: ', this.ownerSVGElement); // this is of type SVGGElement
     console.log('Extent as per data: ', d.extent); // datum of type BrushDatum
     // do anything

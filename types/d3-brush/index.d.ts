@@ -215,7 +215,7 @@ export interface BrushBehavior<Datum> {
      * start (at the start of a brush gesture, such as on mousedown), brush (when the brush moves, such as on mousemove), or
      * end (at the end of a brush gesture, such as on mouseup.)
      */
-    on(typenames: string): ValueFn<SVGGElement, Datum, void> | undefined;
+    on(typenames: string): ((this: SVGGElement, event: any, d: Datum) => void) | undefined;
     /**
      * Removes the current event listeners for the specified typenames, if any.
      *
@@ -239,10 +239,9 @@ export interface BrushBehavior<Datum> {
      * start (at the start of a brush gesture, such as on mousedown), brush (when the brush moves, such as on mousemove), or
      * end (at the end of a brush gesture, such as on mouseup.)
      * @param listener An event listener function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.
+     * in order, being passed the current event `event` and datum `d`, with the `this` context as the current DOM element.
      */
-    on(typenames: string, listener: ValueFn<SVGGElement, Datum, void>): this;
+    on(typenames: string, listener: (this: SVGGElement, event: any, d: Datum) => void): this;
 }
 
 /**
