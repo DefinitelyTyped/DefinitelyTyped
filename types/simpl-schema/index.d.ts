@@ -10,8 +10,8 @@
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
     addValidationErrors(errors: any): void;
-    clean(...args: ReadonlyArray<any>): any;
-    getErrorForKey(key: any, ...args: ReadonlyArray<any>): any;
+    clean(...args: any[]): any;
+    getErrorForKey(key: any, ...args: any[]): any;
     reset(): void;
     setValidationErrors(errors: any): void;
     validationErrors(): any;
@@ -163,8 +163,8 @@ declare class SimpleSchema {
     static addValidator(validator: Validator): void;
     addValidator(validator: Validator): void;
     namedContext(name?: string): SimpleSchemaValidationContextStatic;
-    pick(...fields: ReadonlyArray<string>): SimpleSchema;
-    omit(...fields: ReadonlyArray<string>): SimpleSchema;
+    pick(...fields: string[]): SimpleSchema;
+    omit(...fields: string[]): SimpleSchema;
     oneOf(
         ...types: Array<
             | SchemaDefinition
