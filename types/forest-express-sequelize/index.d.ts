@@ -138,7 +138,7 @@ export interface SegmentAggregationCreator {
     (record: any): object;
 }
 
-export interface SmartFieldOption {
+export interface SmartFieldOptions {
     field: string;
     description?: string;
     type: string | string[];
@@ -151,7 +151,7 @@ export interface SmartFieldOption {
     search?: SmartFieldSearcher;
 }
 
-export interface SmartActionOption {
+export interface SmartActionOptions {
     name: string;
     type?: string;
     fields?: Array<{
@@ -168,15 +168,15 @@ export interface SmartActionOption {
     values?: SmartActionValuesInjector;
 }
 
-export interface SmartSegmentOption {
+export interface SmartSegmentOptions {
     name: string;
     where: SegmentAggregationCreator;
 }
 
 export interface CollectionOptions {
-    fields?: SmartFieldOption[];
-    actions?: SmartActionOption[];
-    segments?: SmartSegmentOption[];
+    fields?: SmartFieldOptions[];
+    actions?: SmartActionOptions[];
+    segments?: SmartSegmentOptions[];
 }
 
 export function collection(name: string, options: CollectionOptions): void;

@@ -5,7 +5,7 @@ import {
     PUBLIC_ROUTES, RecordCreator,
     RecordGetter, RecordRemover, RecordsCounter, RecordSerializer,
     RecordsGetter, RecordsRemover, RecordUpdater, StatSerialized, StatSerializer,
-    SmartActionOption, SmartFieldOption, SmartSegmentOption,
+    SmartActionOptions, SmartFieldOptions, SmartSegmentOptions,
     collection, CollectionOptions
 } from 'forest-express-sequelize';
 import { RequestHandler } from 'express';
@@ -82,14 +82,14 @@ statSerialized = statSerializer.perform();
 
 collection('simpleCollection', { });
 
-const fields: SmartFieldOption[] = [{
+const fields: SmartFieldOptions[] = [{
     field: 'simple-field',
     type: 'boolean',
 }];
-const actions: SmartActionOption[] = [{
+const actions: SmartActionOptions[] = [{
     name: 'simple-action',
 }];
-const segments: SmartSegmentOption[] = [{
+const segments: SmartSegmentOptions[] = [{
     name: 'simple-segment',
     where: () => ({ }),
 }];
