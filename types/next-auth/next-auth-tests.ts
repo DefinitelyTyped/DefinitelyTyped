@@ -70,6 +70,7 @@ const allConfig = {
         secret: 'secret-thing',
         maxAge: 365,
         encryption: true,
+        signingKey: '{signing-key}',
         encode: () => Promise.resolve('foo'),
         decode: () => Promise.resolve('foo'),
     },
