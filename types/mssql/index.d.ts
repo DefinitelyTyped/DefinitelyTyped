@@ -243,7 +243,7 @@ export interface IColumnOptions {
     nullable?: boolean;
     primary?: boolean;
     identity?: boolean;
-    readonly?: boolean;
+    readOnly?: boolean;
     length?: number
 }
 

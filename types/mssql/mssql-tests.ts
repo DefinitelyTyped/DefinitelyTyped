@@ -145,7 +145,7 @@ function test_table2() {
 
     table.columns.add('col1', sql.VarChar, { length: sql.MAX, nullable: false });
     table.columns.add('col2', sql.Int, { nullable: false, identity: true });
-    table.columns.add('col3', sql.VarChar, { nullable: false, readonly: true });
+    table.columns.add('col3', sql.VarChar, { nullable: false, readOnly: true });
     table.columns.add('col4', sql.VarChar, { nullable: false, length: 20 });
     table.columns.add('col5', sql.Decimal(7, 2), { nullable: false});
 
