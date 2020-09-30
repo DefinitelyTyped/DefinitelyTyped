@@ -661,7 +661,7 @@ export interface Line<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Datum[]): string | null;
+    (data: Iterable<Datum> | Datum[]): string | null;
     /**
      * Generates a line for the given array of data. Depending on this line generator’s associated curve,
      * the given input data may need to be sorted by x-value before being passed to the line generator.
@@ -671,7 +671,7 @@ export interface Line<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Datum[]): void;
+    (data: Iterable<Datum> | Datum[]): void;
 
     /**
      * Returns the current x-coordinate accessor function, which defaults to a function returning first element of a two-element array of numbers.
@@ -834,7 +834,7 @@ export interface LineRadial<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Datum[]): string | null;
+    (data: Iterable<Datum> | Datum[]): string | null;
     /**
      * Generates a radial line for the given array of data. Depending on this radial line generator’s associated curve,
      * the given input data may need to be sorted by x-value before being passed to the radial line generator.
@@ -844,7 +844,7 @@ export interface LineRadial<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Datum[]): void;
+    (data: Iterable<Datum> | Datum[]): void;
 
     /**
      * Returns the current angle accessor function, which defaults to a function returning first element of a two-element array of numbers.
@@ -1029,7 +1029,7 @@ export interface Area<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Datum[]): string | null;
+    (data: Iterable<Datum> | Datum[]): string | null;
     /**
      * Generates an area for the given array of data. Depending on this area generator’s associated curve,
      * the given input data may need to be sorted by x-value before being passed to the area generator.
@@ -1039,7 +1039,7 @@ export interface Area<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Datum[]): void;
+    (data: Iterable<Datum> | Datum[]): void;
 
     /**
      * Returns the current x0 accessor. The default x0 accessor is a function returning the first element of a
@@ -1329,7 +1329,7 @@ export interface AreaRadial<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Datum[]): string | null;
+    (data: Iterable<Datum> | Datum[]): string | null;
     /**
      * Generates a radial area for the given array of data.
      *
@@ -1338,7 +1338,7 @@ export interface AreaRadial<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Datum[]): void;
+    (data: Iterable<Datum> | Datum[]): void;
 
     /**
      * Returns the current startAngle accessor. The default startAngle accessor is a function returning the first element of a
@@ -2402,7 +2402,22 @@ export interface Symbol<This, Datum> {
  * @param type The specified type.
  * @param size The specified size.
  */
-export function symbol<This = any, Datum = any>(
+export function symbol<Datum = any>(
+    type?: SymbolType | ((this: any, d: Datum, ...args: any[]) => SymbolType),
+    size?: number | ((this: any, d: Datum, ...args: any[]) => number)
+): Symbol<any, Datum>; // tslint:disable-line ban-types
+
+/**
+ * Constructs a new symbol generator of the specified type and size.
+ * If not specified, type defaults to a circle, and size defaults to 64.
+ *
+ * The first generic corresponds to the "this" context within which the symbol generator is invoked.
+ * The second generic corresponds to the data type of the datum underlying the symbol.
+ *
+ * @param type The specified type.
+ * @param size The specified size.
+ */
+export function symbol<This, Datum>(
     type?: SymbolType | ((this: This, d: Datum, ...args: any[]) => SymbolType),
     size?: number | ((this: This, d: Datum, ...args: any[]) => number)
 ): Symbol<This, Datum>; // tslint:disable-line ban-types
@@ -2531,7 +2546,7 @@ export interface Stack<This, Datum, Key> {
      *
      * @param data Array of data elements.
      */
-    (data: Datum[], ...args: any[]): Array<Series<Datum, Key>>;
+    (data: Iterable<Datum>, ...args: any[]): Array<Series<Datum, Key>>;
 
     /**
      * Returns the current keys accessor, which defaults to the empty array.
@@ -2545,7 +2560,7 @@ export interface Stack<This, Datum, Key> {
      *
      * @param keys An array of keys.
      */
-    keys(keys: Key[]): this;
+    keys(keys: Iterable<Key>): this;
     /**
      * Sets the keys accessor to the specified function or array and returns this stack generator.
      *
@@ -2580,7 +2595,7 @@ export interface Stack<This, Datum, Key> {
     /**
      * Returns the current order accessor, which defaults to stackOrderNone; this uses the order given by the key accessor.
      */
-    order(): (series: Series<Datum, Key>) => number[];
+    order(): (series: Series<Datum, Key>) => Iterable<number>;
     /**
      * Reset the order to use stackOrderNone; this uses the order given by the key accessor.
      *
@@ -2595,7 +2610,7 @@ export interface Stack<This, Datum, Key> {
      *
      * @param order An array of numeric indexes representing the stack order.
      */
-    order(order: number[]): this;
+    order(order: Iterable<number>): this;
     /**
      * Sets the order accessor to the specified function and returns this stack generator.
      *
@@ -2606,7 +2621,7 @@ export interface Stack<This, Datum, Key> {
      *
      * @param order A function returning a sort order array. It is passed the generated series array and must return an array of numeric indexes representing the stack order.
      */
-    order(order: (series: Series<Datum, Key>) => number[]): this;
+    order(order: (series: Series<Datum, Key>) => Iterable<number>): this;
 
     /**
      * Returns the current offset accessor, which defaults to stackOffsetNone; this uses a zero baseline.
@@ -2713,7 +2728,7 @@ export function stackOrderReverse(series: Series<any, any>): number[];
  * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
-export function stackOffsetExpand(series: Series<any, any>, order: number[]): void;
+export function stackOffsetExpand(series: Series<any, any>, order: Iterable<number>): void;
 
 /**
  * Positive values are stacked above zero, while negative values are stacked below zero.
@@ -2721,7 +2736,7 @@ export function stackOffsetExpand(series: Series<any, any>, order: number[]): vo
  * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
-export function stackOffsetDiverging(series: Series<any, any>, order: number[]): void;
+export function stackOffsetDiverging(series: Series<any, any>, order: Iterable<number>): void;
 
 /**
  * Applies a zero baseline.
@@ -2729,7 +2744,7 @@ export function stackOffsetDiverging(series: Series<any, any>, order: number[]):
  * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
-export function stackOffsetNone(series: Series<any, any>, order: number[]): void;
+export function stackOffsetNone(series: Series<any, any>, order: Iterable<number>): void;
 
 /**
  * Shifts the baseline down such that the center of the streamgraph is always at zero.
@@ -2737,7 +2752,7 @@ export function stackOffsetNone(series: Series<any, any>, order: number[]): void
  * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
-export function stackOffsetSilhouette(series: Series<any, any>, order: number[]): void;
+export function stackOffsetSilhouette(series: Series<any, any>, order: Iterable<number>): void;
 
 /**
  * Shifts the baseline so as to minimize the weighted wiggle of layers. This offset is recommended for streamgraphs in conjunction with the inside-out order.
@@ -2746,4 +2761,4 @@ export function stackOffsetSilhouette(series: Series<any, any>, order: number[])
  * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
-export function stackOffsetWiggle(series: Series<any, any>, order: number[]): void;
+export function stackOffsetWiggle(series: Series<any, any>, order: Iterable<number>): void;
