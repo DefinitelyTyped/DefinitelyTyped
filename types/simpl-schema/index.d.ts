@@ -24,10 +24,13 @@ interface CustomValidationContext {
     /** The generic name of the schema key (e.g., "addresses.$.street") */
     genericKey: string;
 
+    /** True if we're traversing an object that's in an array */
     isInArrayItemObject: boolean;
 
+    /** True if we're traversing an object that's somewhere within another object */
     isInSubObject: boolean;
 
+    /** True if this is running on a MongoDB modifier object */
     isModifier: boolean;
 
     /** The schema definition object. */
@@ -41,6 +44,8 @@ interface CustomValidationContext {
 
     /** The Mongo operator for which we're doing validation. Might be null. */
     operator?: string | null;
+
+    /** The current validation context */
     validationContext: ValidationContext;
 
     /**
