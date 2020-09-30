@@ -606,7 +606,6 @@ declare namespace P {
         level: number;
         time: number;
         msg: string;
-        v: number;
         [key: string]: any;
     }
 
