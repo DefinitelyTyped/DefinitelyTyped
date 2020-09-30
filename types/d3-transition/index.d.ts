@@ -333,6 +333,12 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
     text(value: ValueFn<GElement, Datum, string | number | boolean>): this;
 
     /**
+     * For each selected element, removes the element when the transition ends, as long as the element has no other active or pending transitions.
+     * If the element has other active or pending transitions, does nothing.
+     */
+    remove(): this;
+
+    /**
      * Returns the tween with the specified name, or undefined, if no tween was previously assigned to
      * that name.
      *
@@ -360,12 +366,6 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * which takes as its argument eased time t, typically in the range [0, 1] and performs the tweening activities for each transition frame.
      */
     tween(name: string, tweenFn: ValueFn<GElement, Datum, (this: GElement, t: number) => void>): this;
-
-    /**
-     * For each selected element, removes the element when the transition ends, as long as the element has no other active or pending transitions.
-     * If the element has other active or pending transitions, does nothing.
-     */
-    remove(): this;
 
     /**
      * Returns a new transition merging this transition with the specified other transition,
