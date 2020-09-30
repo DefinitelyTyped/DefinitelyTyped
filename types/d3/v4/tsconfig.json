@@ -38,6 +38,9 @@
             "d3-selection": [
                 "d3-selection/v1"
             ],
+            "d3-shape": [
+                "d3-shape/v1"
+            ],
             "d3-timer": [
                 "d3-timer/v1"
             ]
