@@ -17,6 +17,9 @@
             "d3-array": [
                 "d3-array/v1"
             ],
+            "d3-axis": [
+                "d3-axis/v1"
+            ],
             "d3-chord": [
                 "d3-chord/v1"
             ],
