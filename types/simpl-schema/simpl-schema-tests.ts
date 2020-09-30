@@ -14,12 +14,40 @@ const schema: SimpleSchemaDefinition = {
     },
     createdAt: {
         type: Date,
+        custom() {
+            this.key;
+            this.genericKey;
+            this.isInArrayItemObject;
+            this.isInSubObject;
+            this.isModifier;
+            this.definition;
+            this.isSet;
+            this.value;
+            this.operator;
+            this.validationContext;
+            this.field();
+            this.siblingField('field');
+            this.addValidationErrors([
+                {
+                    type: 'validation-error',
+                    name: 'Error',
+                }
+            ]);
+            return undefined;
+        },
         autoValue() {
             this.closestSubschemaFieldName;
             this.field('basicString');
             this.isModifier;
             this.isUpsert;
+            this.isSet;
+            this.key;
+            this.operator;
+            this.parentField();
+            this.siblingField('field')
             this.unset();
+            this.value;
+
             return new Date();
         }
     },

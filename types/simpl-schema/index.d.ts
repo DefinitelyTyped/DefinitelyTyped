@@ -53,13 +53,13 @@ interface CustomValidationContext {
      * (non-generic schema key) as the only argument. The return object will
      * have isSet, value, and operator properties for that field.
      */
-    field(): any;
+    field(): FieldInfo;
     /**
      * Use this method to get information about other fields that have the same
      * parent object. Works the same way as field(). This is helpful when you use
      * sub-schemas or when you're dealing with arrays of objects.
      */
-    siblingField(): any;
+    siblingField(fieldName: string): FieldInfo;
 
     /**
      * Call this to add validation errors for any key. In general, you should use
@@ -67,7 +67,7 @@ interface CustomValidationContext {
      * return the error type string. If you do use this to add an error for the
      * current key, return false from your custom validation function.
      */
-    addValidationErrors(errors: SimpleSchemaValidationError): any;
+    addValidationErrors(errors: SimpleSchemaValidationError[]): any;
 }
 
 interface FieldInfo {
