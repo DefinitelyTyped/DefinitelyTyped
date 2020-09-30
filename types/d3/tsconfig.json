@@ -44,6 +44,9 @@
             "d3-polygon": [
                 "d3-polygon/v1"
             ],
+            "d3-quadtree": [
+                "d3-quadtree/v1"
+            ],
             "d3-random": [
                 "d3-random/v1"
             ],
