@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-brush module 2.0
+// Type definitions for D3JS d3-brush module 1.1
 // Project: https://github.com/d3/d3-brush/, https://d3js.org/d3-brush
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.1
+// Last module patch version validated against: 1.1.6
 
 import { Selection, TransitionLike, ValueFn } from 'd3-selection';
 
@@ -135,7 +135,7 @@ export interface BrushBehavior<Datum> {
     /**
      * Returns the current filter function.
      */
-    filter(): (this: SVGGElement, event: any, d: Datum) => boolean;
+    filter(): ValueFn<SVGGElement, Datum, boolean>;
     /**
      * Sets the filter to the specified filter function and returns the brush.
      *
@@ -144,10 +144,10 @@ export interface BrushBehavior<Datum> {
      * since those buttons are typically intended for other purposes, such as the context menu.
      *
      * @param filterFn A filter function which is evaluated for each selected element,
-     * in order, being passed the current event `event` and datum `d`, with the `this` context as the current DOM element.
-     * The function returns a boolean value.
+     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
+     * with this as the current DOM element. The function returns a boolean value.
      */
-    filter(filterFn: (this: SVGGElement, event: any, d: Datum) => boolean): this;
+    filter(filterFn: ValueFn<SVGGElement, Datum, boolean>): this;
 
     /**
      * Returns the current touch support detector, which defaults to a function returning true,
@@ -215,7 +215,7 @@ export interface BrushBehavior<Datum> {
      * start (at the start of a brush gesture, such as on mousedown), brush (when the brush moves, such as on mousemove), or
      * end (at the end of a brush gesture, such as on mouseup.)
      */
-    on(typenames: string): ((this: SVGGElement, event: any, d: Datum) => void) | undefined;
+    on(typenames: string): ValueFn<SVGGElement, Datum, void> | undefined;
     /**
      * Removes the current event listeners for the specified typenames, if any.
      *
@@ -239,9 +239,10 @@ export interface BrushBehavior<Datum> {
      * start (at the start of a brush gesture, such as on mousedown), brush (when the brush moves, such as on mousemove), or
      * end (at the end of a brush gesture, such as on mouseup.)
      * @param listener An event listener function which is evaluated for each selected element,
-     * in order, being passed the current event `event` and datum `d`, with the `this` context as the current DOM element.
+     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
+     * with this as the current DOM element.
      */
-    on(typenames: string, listener: (this: SVGGElement, event: any, d: Datum) => void): this;
+    on(typenames: string, listener: ValueFn<SVGGElement, Datum, void>): this;
 }
 
 /**

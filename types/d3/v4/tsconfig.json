@@ -20,6 +20,9 @@
             "d3-array": [
                 "d3-array/v1"
             ],
+            "d3-brush": [
+                "d3-brush/v1"
+            ],
             "d3-chord": [
                 "d3-chord/v1"
             ],
