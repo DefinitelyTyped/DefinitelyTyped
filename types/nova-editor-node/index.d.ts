@@ -33,11 +33,11 @@ interface ColorAssistant {
 }
 
 interface CompletionAssistant {
-    provideCompletionItems(editor: TextEditor, context: CompletionContext): void | CompletionItem[];
+    provideCompletionItems(editor: TextEditor, context: CompletionContext): CompletionItem[] | Promise<CompletionItem[]>;
 }
 
 interface IssueAssistant {
-    provideIssues(editor: TextEditor): Issue[];
+    provideIssues(editor: TextEditor): Issue[] | Promise<Issue[]>;
 }
 
 /// https://novadocs.panic.com/api-reference/charset/
