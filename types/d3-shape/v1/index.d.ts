@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-shape module 2.0
+// Type definitions for D3JS d3-shape module 1.3
 // Project: https://github.com/d3/d3-shape/, https://d3js.org/d3-shape
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 1.3.7
 
 import { Path } from 'd3-path';
 
@@ -661,7 +661,7 @@ export interface Line<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Iterable<Datum> | Datum[]): string | null;
+    (data: Datum[]): string | null;
     /**
      * Generates a line for the given array of data. Depending on this line generator’s associated curve,
      * the given input data may need to be sorted by x-value before being passed to the line generator.
@@ -671,7 +671,7 @@ export interface Line<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Iterable<Datum> | Datum[]): void;
+    (data: Datum[]): void;
 
     /**
      * Returns the current x-coordinate accessor function, which defaults to a function returning first element of a two-element array of numbers.
@@ -803,17 +803,19 @@ export interface Line<Datum> {
 /**
  * Constructs a new line generator with the default settings.
  *
- * If x or y are specified, sets the corresponding accessors to the specified function or number and returns this line generator.
+ * Ensure that the accessors used with the line generator correspond to the arguments passed into them,
+ * or set them to constants as appropriate.
+ */
+export function line(): Line<[number, number]>;
+/**
+ * Constructs a new line generator with the default settings.
+ *
+ * Ensure that the accessors used with the line generator correspond to the arguments passed into them,
+ * or set them to constants as appropriate.
  *
  * The generic refers to the data type of an element in the input array passed into the line generator.
- *
- * @param x Sets the x accessor
- * @param y Sets the y accessor
  */
-export function line<Datum = [number, number]>(
-    x?: number | ((d: Datum, index: number, data: Datum[]) => number),
-    y?: number | ((d: Datum, index: number, data: Datum[]) => number)
-): Line<Datum>;
+export function line<Datum>(): Line<Datum>;
 
 /**
  * The radial line generator produces a spline or polyline, as in a line chart.
@@ -834,7 +836,7 @@ export interface LineRadial<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Iterable<Datum> | Datum[]): string | null;
+    (data: Datum[]): string | null;
     /**
      * Generates a radial line for the given array of data. Depending on this radial line generator’s associated curve,
      * the given input data may need to be sorted by x-value before being passed to the radial line generator.
@@ -844,7 +846,7 @@ export interface LineRadial<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Iterable<Datum> | Datum[]): void;
+    (data: Datum[]): void;
 
     /**
      * Returns the current angle accessor function, which defaults to a function returning first element of a two-element array of numbers.
@@ -1029,7 +1031,7 @@ export interface Area<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Iterable<Datum> | Datum[]): string | null;
+    (data: Datum[]): string | null;
     /**
      * Generates an area for the given array of data. Depending on this area generator’s associated curve,
      * the given input data may need to be sorted by x-value before being passed to the area generator.
@@ -1039,7 +1041,7 @@ export interface Area<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Iterable<Datum> | Datum[]): void;
+    (data: Datum[]): void;
 
     /**
      * Returns the current x0 accessor. The default x0 accessor is a function returning the first element of a
@@ -1297,19 +1299,19 @@ export interface Area<Datum> {
 /**
  * Constructs a new area generator with the default settings.
  *
- * If x, y0 or y1 are specified, sets the corresponding accessors to the specified function or number and returns this area generator.
+ * Ensure that the accessors used with the area generator correspond to the arguments passed into them,
+ * or set them to constants as appropriate.
+ */
+export function area(): Area<[number, number]>;
+/**
+ * Constructs a new area generator with the default settings.
+ *
+ * Ensure that the accessors used with the area generator correspond to the arguments passed into them,
+ * or set them to constants as appropriate.
  *
  * The generic refers to the data type of an element in the input array passed into the area generator.
- *
- * @param x Sets the x accessor.
- * @param y0 Sets the y0 accessor.
- * @param y1 Sets the y1 accessor.
  */
-export function area<Datum = [number, number]>(
-    x?: number | ((d: Datum, index: number, data: Datum[]) => number),
-    y0?: number | ((d: Datum, index: number, data: Datum[]) => number),
-    y1?: number | ((d: Datum, index: number, data: Datum[]) => number)
-): Area<Datum>;
+export function area<Datum>(): Area<Datum>;
 
 /**
  * A radial area generator.
@@ -1329,7 +1331,7 @@ export interface AreaRadial<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Iterable<Datum> | Datum[]): string | null;
+    (data: Datum[]): string | null;
     /**
      * Generates a radial area for the given array of data.
      *
@@ -1338,7 +1340,7 @@ export interface AreaRadial<Datum> {
      *
      * @param data Array of data elements.
      */
-    (data: Iterable<Datum> | Datum[]): void;
+    (data: Datum[]): void;
 
     /**
      * Returns the current startAngle accessor. The default startAngle accessor is a function returning the first element of a
@@ -2393,34 +2395,24 @@ export interface Symbol<This, Datum> {
 }
 
 /**
- * Constructs a new symbol generator of the specified type and size.
- * If not specified, type defaults to a circle, and size defaults to 64.
- *
- * The first generic corresponds to the "this" context within which the symbol generator is invoked.
- * The second generic corresponds to the data type of the datum underlying the symbol.
- *
- * @param type The specified type.
- * @param size The specified size.
+ * Constructs a new symbol generator with the default settings.
  */
-export function symbol<Datum = any>(
-    type?: SymbolType | ((this: any, d: Datum, ...args: any[]) => SymbolType),
-    size?: number | ((this: any, d: Datum, ...args: any[]) => number)
-): Symbol<any, Datum>;
+export function symbol(): Symbol<any, any>; // tslint:disable-line ban-types
 
 /**
- * Constructs a new symbol generator of the specified type and size.
- * If not specified, type defaults to a circle, and size defaults to 64.
+ * Constructs a new symbol generator with the default settings.
+ *
+ * The generic corresponds to the data type of the datum underlying the symbol.
+ */
+export function symbol<Datum>(): Symbol<any, Datum>; // tslint:disable-line ban-types
+
+/**
+ * Constructs a new symbol generator with the default settings.
  *
  * The first generic corresponds to the "this" context within which the symbol generator is invoked.
  * The second generic corresponds to the data type of the datum underlying the symbol.
- *
- * @param type The specified type.
- * @param size The specified size.
  */
-export function symbol<This, Datum>(
-    type?: SymbolType | ((this: This, d: Datum, ...args: any[]) => SymbolType),
-    size?: number | ((this: This, d: Datum, ...args: any[]) => number)
-): Symbol<This, Datum>;
+export function symbol<This, Datum>(): Symbol<This, Datum>; // tslint:disable-line ban-types
 
 /**
  * An array containing the set of all built-in symbol types: circle, cross, diamond, square, star, triangle, and wye.
@@ -2546,7 +2538,7 @@ export interface Stack<This, Datum, Key> {
      *
      * @param data Array of data elements.
      */
-    (data: Iterable<Datum>, ...args: any[]): Array<Series<Datum, Key>>;
+    (data: Datum[], ...args: any[]): Array<Series<Datum, Key>>;
 
     /**
      * Returns the current keys accessor, which defaults to the empty array.
@@ -2560,7 +2552,7 @@ export interface Stack<This, Datum, Key> {
      *
      * @param keys An array of keys.
      */
-    keys(keys: Iterable<Key>): this;
+    keys(keys: Key[]): this;
     /**
      * Sets the keys accessor to the specified function or array and returns this stack generator.
      *
@@ -2595,7 +2587,7 @@ export interface Stack<This, Datum, Key> {
     /**
      * Returns the current order accessor, which defaults to stackOrderNone; this uses the order given by the key accessor.
      */
-    order(): (series: Series<Datum, Key>) => Iterable<number>;
+    order(): (series: Series<Datum, Key>) => number[];
     /**
      * Reset the order to use stackOrderNone; this uses the order given by the key accessor.
      *
@@ -2610,7 +2602,7 @@ export interface Stack<This, Datum, Key> {
      *
      * @param order An array of numeric indexes representing the stack order.
      */
-    order(order: Iterable<number>): this;
+    order(order: number[]): this;
     /**
      * Sets the order accessor to the specified function and returns this stack generator.
      *
@@ -2621,7 +2613,7 @@ export interface Stack<This, Datum, Key> {
      *
      * @param order A function returning a sort order array. It is passed the generated series array and must return an array of numeric indexes representing the stack order.
      */
-    order(order: (series: Series<Datum, Key>) => Iterable<number>): this;
+    order(order: (series: Series<Datum, Key>) => number[]): this;
 
     /**
      * Returns the current offset accessor, which defaults to stackOffsetNone; this uses a zero baseline.
@@ -2636,8 +2628,8 @@ export interface Stack<This, Datum, Key> {
     /**
      * Sets the offset accessor to the specified function and returns this stack generator.
      *
-     * @param offset A function which is passed the generated series array and the order index array;
-     *               it is then responsible for updating the lower and upper values in the series array.
+     * @param offset A function which is passed the generated series array and the order index array.
+     *               The offset function is then responsible for updating the lower and upper values in the series array to layout the stack.
      */
     offset(offset: (series: Series<Datum, Key>, order: number[]) => void): this;
 }
@@ -2728,7 +2720,7 @@ export function stackOrderReverse(series: Series<any, any>): number[];
  * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
-export function stackOffsetExpand(series: Series<any, any>, order: Iterable<number>): void;
+export function stackOffsetExpand(series: Series<any, any>, order: number[]): void;
 
 /**
  * Positive values are stacked above zero, while negative values are stacked below zero.
@@ -2736,7 +2728,7 @@ export function stackOffsetExpand(series: Series<any, any>, order: Iterable<numb
  * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
-export function stackOffsetDiverging(series: Series<any, any>, order: Iterable<number>): void;
+export function stackOffsetDiverging(series: Series<any, any>, order: number[]): void;
 
 /**
  * Applies a zero baseline.
@@ -2744,7 +2736,7 @@ export function stackOffsetDiverging(series: Series<any, any>, order: Iterable<n
  * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
-export function stackOffsetNone(series: Series<any, any>, order: Iterable<number>): void;
+export function stackOffsetNone(series: Series<any, any>, order: number[]): void;
 
 /**
  * Shifts the baseline down such that the center of the streamgraph is always at zero.
@@ -2752,7 +2744,7 @@ export function stackOffsetNone(series: Series<any, any>, order: Iterable<number
  * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
-export function stackOffsetSilhouette(series: Series<any, any>, order: Iterable<number>): void;
+export function stackOffsetSilhouette(series: Series<any, any>, order: number[]): void;
 
 /**
  * Shifts the baseline so as to minimize the weighted wiggle of layers. This offset is recommended for streamgraphs in conjunction with the inside-out order.
@@ -2761,4 +2753,4 @@ export function stackOffsetSilhouette(series: Series<any, any>, order: Iterable<
  * @param series A series generated by a stack generator.
  * @param order An array of numeric indexes representing the stack order.
  */
-export function stackOffsetWiggle(series: Series<any, any>, order: Iterable<number>): void;
+export function stackOffsetWiggle(series: Series<any, any>, order: number[]): void;

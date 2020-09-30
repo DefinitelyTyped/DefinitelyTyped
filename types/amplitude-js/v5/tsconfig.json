@@ -2,21 +2,18 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "strictNullChecks": true,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
-            "d3-shape": [
-                "d3-shape/v1"
-            ]
+            "amplitude-js": [ "amplitude-js/v5" ]
         },
         "types": [],
         "noEmit": true,
@@ -24,6 +21,6 @@
     },
     "files": [
         "index.d.ts",
-        "d3-sankey-tests.ts"
+        "amplitude-js-tests.ts"
     ]
 }

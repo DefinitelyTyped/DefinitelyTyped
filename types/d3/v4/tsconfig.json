@@ -20,6 +20,9 @@
             "d3-array": [
                 "d3-array/v1"
             ],
+            "d3-axis": [
+                "d3-axis/v1"
+            ],
             "d3-brush": [
                 "d3-brush/v1"
             ],
@@ -29,11 +32,20 @@
             "d3-color": [
                 "d3-color/v1"
             ],
+            "d3-drag": [
+                "d3-drag/v1"
+            ],
             "d3-ease": [
                 "d3-ease/v1"
             ],
+            "d3-force": [
+                "d3-force/v1"
+            ],
             "d3-format": [
                 "d3-format/v1"
+            ],
+            "d3-geo": [
+                "d3-geo/v1"
             ],
             "d3-hierarchy": [
                 "d3-hierarchy/v1"
@@ -44,6 +56,9 @@
             "d3-polygon": [
                 "d3-polygon/v1"
             ],
+            "d3-quadtree": [
+                "d3-quadtree/v1"
+            ],
             "d3-random": [
                 "d3-random/v1"
             ],
@@ -52,6 +67,9 @@
             ],
             "d3-selection": [
                 "d3-selection/v1"
+            ],
+            "d3-shape": [
+                "d3-shape/v1"
             ],
             "d3-time": [
                 "d3-time/v1"
