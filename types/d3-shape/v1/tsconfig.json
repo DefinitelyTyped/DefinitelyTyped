@@ -2,25 +2,31 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "ES5",
-            "ES2015.Promise",
-            "ESNext.AsyncIterable",
-            "DOM"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "d3-path": [
+                "d3-path/v1"
+            ],
+            "d3-shape": [
+                "d3-shape/v1"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "wicg-native-file-system-tests.ts"
+        "d3-shape-tests.ts"
     ]
 }

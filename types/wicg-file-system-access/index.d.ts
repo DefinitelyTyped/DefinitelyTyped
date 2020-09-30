@@ -1,12 +1,12 @@
-// Type definitions for non-npm package Native File System API 2020.06
-// Project: https://github.com/WICG/native-file-system
+// Type definitions for non-npm package File System Access API 2020.09
+// Project: https://github.com/WICG/file-system-access
 // Definitions by: Ingvar Stepanyan <https://github.com/RReverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
 interface FilePickerAcceptType {
     description?: string;
-    accept: Record<string, string[]>;
+    accept: Record<string, string | string[]>;
 }
 
 interface FilePickerOptions {
@@ -24,9 +24,18 @@ interface SaveFilePickerOptions extends FilePickerOptions {}
 // tslint:disable-next-line:no-empty-interface
 interface DirectoryPickerOptions {}
 
-interface FileSystemHandlePermissionDescriptor {
-    writable?: boolean;
+type FileSystemPermissionMode = 'read' | 'readwrite';
+
+interface FileSystemPermissionDescriptor extends PermissionDescriptor {
+    handle: FileSystemHandle;
+    mode?: FileSystemPermissionMode;
 }
+
+interface FileSystemHandlePermissionDescriptor {
+    mode?: FileSystemPermissionMode;
+}
+
+type FileSystemHandleKind = 'file' | 'directory';
 
 interface FileSystemCreateWritableOptions {
     keepExistingData?: boolean;
@@ -57,15 +66,16 @@ interface WritableStream {
     close(): Promise<void>;
 }
 
-interface FileSystemWritableFileStream extends WritableStream {
+declare class FileSystemWritableFileStream extends WritableStream {
     write(data: FileSystemWriteChunkType): Promise<void>;
     seek(position: number): Promise<void>;
     truncate(size: number): Promise<void>;
 }
 
-interface BaseFileSystemHandle {
-    readonly isFile: boolean;
-    readonly isDirectory: boolean;
+declare class BaseFileSystemHandle {
+    protected constructor();
+
+    readonly kind: FileSystemHandleKind;
     readonly name: string;
 
     isSameEntry(other: FileSystemHandle): Promise<boolean>;
@@ -73,31 +83,36 @@ interface BaseFileSystemHandle {
     requestPermission(descriptor?: FileSystemHandlePermissionDescriptor): Promise<PermissionState>;
 }
 
-interface FileSystemFileHandle extends BaseFileSystemHandle {
-    readonly isFile: true;
-    readonly isDirectory: false;
-    isSameEntry(other: FileSystemDirectoryHandle): Promise<false>;
+declare class FileSystemFileHandle extends BaseFileSystemHandle {
+    readonly kind: 'file';
 
     getFile(): Promise<File>;
     createWritable(options?: FileSystemCreateWritableOptions): Promise<FileSystemWritableFileStream>;
 }
 
-interface FileSystemDirectoryHandle extends BaseFileSystemHandle {
-    readonly isFile: false;
-    readonly isDirectory: true;
-    isSameEntry(other: FileSystemFileHandle): Promise<false>;
+declare class FileSystemDirectoryHandle extends BaseFileSystemHandle {
+    readonly kind: 'directory';
 
-    getFile(name: string, options?: FileSystemGetFileOptions): Promise<FileSystemFileHandle>;
-    getDirectory(name: string, options?: FileSystemGetDirectoryOptions): Promise<FileSystemDirectoryHandle>;
+    getFileHandle(name: string, options?: FileSystemGetFileOptions): Promise<FileSystemFileHandle>;
+    getDirectoryHandle(name: string, options?: FileSystemGetDirectoryOptions): Promise<FileSystemDirectoryHandle>;
     removeEntry(name: string, options?: FileSystemRemoveOptions): Promise<void>;
     resolve(possibleDescendant: FileSystemHandle): Promise<string[] | null>;
 
-    // Note: iterables below are not yet implemented in Chrome, use getEntries instead.
+    keys(): AsyncIterableIterator<string>;
+    values(): AsyncIterableIterator<FileSystemHandle>;
+    entries(): AsyncIterableIterator<[string, FileSystemHandle]>;
+    [Symbol.asyncIterator]: FileSystemDirectoryHandle['entries'];
 
-    [Symbol.asyncIterator](): AsyncIterable<FileSystemHandle>;
-    keys(): AsyncIterable<string>;
-    values(): AsyncIterable<FileSystemHandle>;
-    entries(): AsyncIterable<[string, FileSystemHandle]>;
+    // Old method available on stable Chrome instead of `navigator.storage.getDirectory`.
+    static getSystemDirectory(options: GetSystemDirectoryOptions): Promise<FileSystemDirectoryHandle>;
+}
+
+interface DataTransferItem {
+    getAsFileSystemHandle(): Promise<FileSystemHandle | null>;
+}
+
+interface StorageManager {
+    getDirectory(): Promise<FileSystemDirectoryHandle>;
 }
 
 type FileSystemHandle = FileSystemFileHandle | FileSystemDirectoryHandle;
@@ -108,7 +123,6 @@ declare function showOpenFilePicker(
 declare function showOpenFilePicker(options?: OpenFilePickerOptions): Promise<FileSystemFileHandle[]>;
 declare function showSaveFilePicker(options?: SaveFilePickerOptions): Promise<FileSystemFileHandle>;
 declare function showDirectoryPicker(options?: DirectoryPickerOptions): Promise<FileSystemDirectoryHandle>;
-declare function getOriginPrivateDirectory(): Promise<FileSystemDirectoryHandle>;
 
 // Old methods available on stable Chrome instead of the ones above.
 
@@ -146,10 +160,17 @@ interface GetSystemDirectoryOptions {
     type: 'sandbox';
 }
 
-declare const FileSystemDirectoryHandle: {
-    getSystemDirectory(options: GetSystemDirectoryOptions): Promise<FileSystemDirectoryHandle>;
-};
+interface BaseFileSystemHandle {
+    readonly isFile: this['kind'] extends 'file' ? true : false;
+    readonly isDirectory: this['kind'] extends 'directory' ? true : false;
+}
 
 interface FileSystemDirectoryHandle {
-    getEntries(): AsyncIterable<FileSystemHandle>;
+    getFile: FileSystemDirectoryHandle['getFileHandle'];
+    getDirectory: FileSystemDirectoryHandle['getDirectoryHandle'];
+    getEntries: FileSystemDirectoryHandle['values'];
+}
+
+interface FileSystemHandlePermissionDescriptor {
+    writable?: boolean;
 }
