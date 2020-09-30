@@ -168,6 +168,19 @@ str = d3Dsv.csvFormatRows(parseRowsMappedArray.map((d) => [
     d.length.toString()
 ]));
 
+// csvFormatRow(...) ========================================================================
+
+str = d3Dsv.csvFormatRow([
+    parseRowsMappedArray[0].year ? parseRowsMappedArray[0].year.getFullYear().toString() : '',
+    parseRowsMappedArray[0].make,
+    parseRowsMappedArray[0].model,
+    parseRowsMappedArray[0].length.toString()
+]);
+
+// csvFormatValue(...) ========================================================================
+
+str = d3Dsv.csvFormatValue(parseRowsMappedArray[0].make);
+
 // ------------------------------------------------------------------------------------------
 // Test TSV
 // ------------------------------------------------------------------------------------------
@@ -254,6 +267,19 @@ str = d3Dsv.tsvFormatRows(parseRowsMappedArray.map((d) => [
     d.model,
     d.length.toString()
 ]));
+
+// tsvFormatRow(...) ========================================================================
+
+str = d3Dsv.tsvFormatRow([
+    parseRowsMappedArray[0].year ? parseRowsMappedArray[0].year.getFullYear().toString() : '',
+    parseRowsMappedArray[0].make,
+    parseRowsMappedArray[0].model,
+    parseRowsMappedArray[0].length.toString()
+]);
+
+// tsvFormatValue(...) ========================================================================
+
+str = d3Dsv.tsvFormatValue(parseRowsMappedArray[0].make);
 
 // ------------------------------------------------------------------------------------------
 // Test DSV Generalized Parsers and Formatters
@@ -346,6 +372,19 @@ str = dsv.formatRows(parseRowsMappedArray.map((d) => [
     d.model,
     d.length.toString()
 ]));
+
+// formatRow(...) ========================================================================
+
+str = dsv.formatRow([
+    parseRowsMappedArray[0].year ? parseRowsMappedArray[0].year.getFullYear().toString() : '',
+    parseRowsMappedArray[0].make,
+    parseRowsMappedArray[0].model,
+    parseRowsMappedArray[0].length.toString()
+]);
+
+// formatValue(...) ========================================================================
+
+str = dsv.formatValue(parseRowsMappedArray[0].make);
 
 // autoType(...) ==========================================================================
 
