@@ -298,4 +298,8 @@ export interface D3BrushEvent<Datum> {
      * The underlying input event, such as mousemove or touchmove.
      */
     sourceEvent: any;
+    /**
+     * The mode of the brush.
+     */
+    mode: 'drag' | 'space' | 'handle' | 'center';
 }
