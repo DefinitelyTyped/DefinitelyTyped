@@ -142,6 +142,10 @@ jwt.verify(token, cert, { ignoreExpiration: true }, (err, decoded) => {
     // if ignoreExpration == false and token is expired, err == expired token
 });
 
+// verify a non-signed token
+const unsigned = jwt.sign({ aud: 'foo', sub: 'bar' }, null, { algorithm: 'none' });
+jwt.verify(unsigned, null, { algorithms: ['none' ]});
+
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
