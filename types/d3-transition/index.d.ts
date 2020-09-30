@@ -333,6 +333,32 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
     text(value: ValueFn<GElement, Datum, string | number | boolean>): this;
 
     /**
+     * Returns the current interpolator factory for text, or undefined if no such tween exists.
+     */
+    textTween(): ValueFn<GElement, Datum, (this: GElement, t: number) => string> | undefined;
+    /**
+     * Removes the previously-assigned text tween, if any
+     *
+     * @param factory Use null to remove previously-assigned text tween.
+     */
+    textTween(factory: null): this;
+    /**
+     * Assigns the text tween to the specified interpolator factory.
+     * An interpolator factory is a function that returns an interpolator; when the transition starts, the factory is evaluated for each selected element,
+     * in order, being passed the current datum d and index i, with the this context as the current DOM element.
+     * The returned interpolator will then be invoked for each frame of the transition, in order, being passed the eased time t, typically in the range [0, 1].
+     * Lastly, the return value of the interpolator will be used to set the text.
+     * The interpolator must return a string.
+     *
+     * @param factory An interpolator factory is a function that returns an interpolator; when the transition starts, the factory is evaluated for each selected element,
+     * in order, being passed the current datum d and index i, with the this context as the current DOM element.
+     * The returned interpolator will then be invoked for each frame of the transition, in order, being passed the eased time t, typically in the range [0, 1].
+     * Lastly, the return value of the interpolator will be used to set the text.
+     * The interpolator must return a string.
+     */
+    textTween(factory: ValueFn<GElement, Datum, (this: GElement, t: number) => string>): this;
+
+    /**
      * For each selected element, removes the element when the transition ends, as long as the element has no other active or pending transitions.
      * If the element has other active or pending transitions, does nothing.
      */

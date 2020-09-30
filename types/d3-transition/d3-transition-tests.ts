@@ -359,6 +359,16 @@ exitTransition = exitTransition.styleTween('fill', function(d, i, group) {
 
 let tweenFnAccessor: undefined | ((this: SVGCircleElement, datum?: CircleDatum, i?: number, group?: SVGCircleElement[] | ArrayLike<SVGCircleElement>) => ((t: number) => void));
 
+tweenFnAccessor = updateTransition.textTween();
+
+updateTransition = updateTransition.textTween(null);
+
+exitTransition = exitTransition.textTween(function(d, i, group) {
+    console.log(this.r.baseVal.value); // this type is SVGCircleElement
+    const c: string = select(this).style('fill');
+    return interpolateRgb(c, d.color); // datum type is CircleDatum
+});
+
 // chainable
 updateTransition = updateTransition.tween('fillColor', null); // remove named tween
 
