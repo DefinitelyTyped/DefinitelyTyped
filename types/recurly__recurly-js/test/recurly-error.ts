@@ -1,4 +1,4 @@
-import { RecurlyError } from 'recurly__recurly-js';
+import { RecurlyError } from '@recurly/recurly-js';
 
 const recurlyError: RecurlyError = {
   code: 'code',

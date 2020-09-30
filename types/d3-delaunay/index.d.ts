@@ -1,4 +1,4 @@
-// Type definitions for d3-delaunay 5.2
+// Type definitions for d3-delaunay 5.3
 // Project: https://github.com/d3/d3-delaunay
 // Definitions by: Bradley Odell <https://github.com/BTOdell>
 //                 Nathan Bierema <https://github.com/Methuselah96>
@@ -299,9 +299,9 @@ export class Voronoi<P> {
     renderCell(i: number, context: Delaunay.MoveContext & Delaunay.LineContext & Delaunay.ClosableContext): void;
 
     /**
-     * Returns an iterable over the polygons for each cell, in order.
+     * Returns an iterable over the non-empty polygons for each cell, with the cell index as property.
      */
-    cellPolygons(): IterableIterator<Delaunay.Polygon>;
+    cellPolygons(): IterableIterator<Delaunay.Polygon & { index: number }>;
 
     /**
      * Returns the convex, closed polygon [[x0, y0], [x1, y1], ..., [x0, y0]] representing the cell for the specified point i.
