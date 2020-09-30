@@ -601,8 +601,6 @@ declare namespace P {
     type WriteFn = (o: object) => void;
 
     interface LogDescriptor {
-        pid: number;
-        hostname: string;
         level: number;
         time: number;
         msg: string;
