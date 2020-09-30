@@ -14940,11 +14940,11 @@ declare namespace Office {
          *
          * **Important**: In Message Compose mode, this API is not supported in Outlook on the web or Windows unless the following conditions are met.
          *
-         * 1. The owner shares their **Drafts** folder with the delegate.
+         * 1. The owner shares at least one mailbox folder with the delegate.
          *
-         * 2. The delegate saves a draft message then moves it from their own **Drafts** folder to the shared **Drafts** folder.
+         * 2. The delegate drafts a message in the shared folder.
          *
-         * 3. The delegate opens the draft from the shared **Drafts** folder.
+         * After the message has been sent, it's usually found in the delegate's **Sent Items** folder.
          *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
@@ -14970,11 +14970,11 @@ declare namespace Office {
          *
          * **Important**: In Message Compose mode, this API is not supported in Outlook on the web or Windows unless the following conditions are met.
          *
-         * 1. The owner shares their **Drafts** folder with the delegate.
+         * 1. The owner shares at least one mailbox folder with the delegate.
          *
-         * 2. The delegate saves a draft message then moves it from their own **Drafts** folder to the shared **Drafts** folder.
+         * 2. The delegate drafts a message in the shared folder.
          *
-         * 3. The delegate opens the draft from the shared **Drafts** folder.
+         * After the message has been sent, it's usually found in the delegate's **Sent Items** folder.
          *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
