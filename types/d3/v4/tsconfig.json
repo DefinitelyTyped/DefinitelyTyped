@@ -29,6 +29,9 @@
             "d3-chord": [
                 "d3-chord/v1"
             ],
+            "d3-color": [
+                "d3-color/v1"
+            ],
             "d3-dispatch": [
                 "d3-dispatch/v1"
             ],
