@@ -23,6 +23,9 @@
             "d3-chord": [
                 "d3-chord/v1"
             ],
+            "d3-geo": [
+                "d3-geo/v1"
+            ],
             "d3-hierarchy": [
                 "d3-hierarchy/v1"
             ],
