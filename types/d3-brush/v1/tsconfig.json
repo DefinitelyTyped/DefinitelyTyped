@@ -9,11 +9,14 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
+            "d3-brush": [
+                "d3-brush/v1"
+            ],
             "d3-selection": [
                 "d3-selection/v1"
             ]
