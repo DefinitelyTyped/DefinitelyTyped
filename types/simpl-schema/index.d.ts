@@ -10,8 +10,8 @@
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
     addValidationErrors(errors: any): void;
-    clean(...args: any[]): any;
-    getErrorForKey(key: any, ...args: any[]): any;
+    clean(...args: ReadonlyArray<any>): any;
+    getErrorForKey(key: any, ...args: ReadonlyArray<any>): any;
     reset(): void;
     setValidationErrors(errors: any): void;
     validationErrors(): any;
@@ -67,7 +67,7 @@ interface CustomValidationContext {
      * return the error type string. If you do use this to add an error for the
      * current key, return false from your custom validation function.
      */
-    addValidationErrors(errors: SimpleSchemaValidationError[]): any;
+    addValidationErrors(errors: ReadonlyArray<SimpleSchemaValidationError>): any;
 }
 
 interface FieldInfo {
@@ -163,8 +163,8 @@ declare class SimpleSchema {
     static addValidator(validator: Validator): void;
     addValidator(validator: Validator): void;
     namedContext(name?: string): SimpleSchemaValidationContextStatic;
-    pick(...fields: string[]): SimpleSchema;
-    omit(...fields: string[]): SimpleSchema;
+    pick(...fields: ReadonlyArray<string>): SimpleSchema;
+    omit(...fields: ReadonlyArray<string>): SimpleSchema;
     oneOf(
         ...types: Array<
             | SchemaDefinition
@@ -191,7 +191,7 @@ declare class SimpleSchema {
     validate(obj: any, options?: ValidationOption): void;
     validator(options?: ValidationOption): (obj: any) => boolean;
     extend(otherSchema: SimpleSchema | SimpleSchemaDefinition): SimpleSchema;
-    static extendOptions(options: string[]): void;
+    static extendOptions(options: ReadonlyArray<string>): void;
     static RegEx: {
         Email: RegExp;
         EmailWithTLD: RegExp;
@@ -252,7 +252,7 @@ interface SimpleSchemaValidationContextStatic {
     resetValidation(): void;
     isValid(): boolean;
     invalidKeys(): SimpleSchemaValidationContextStaticKeys[];
-    addInvalidKeys(errors: SimpleSchemaError[]): void;
+    addInvalidKeys(errors: ReadonlyArray<SimpleSchemaError>): void;
     keyIsInvalid(name: any): boolean;
     keyErrorMessage(name: any): string;
     getErrorObject(): any;
@@ -270,10 +270,10 @@ interface MongoObjectStatic {
     getPositionsForGenericKey(key: string): string[];
     getValueForKey(key: string): any;
     addKey(key: string, val: any, op: string): any;
-    removeGenericKeys(keys: string[]): void;
+    removeGenericKeys(keys: ReadonlyArray<string>): void;
     removeGenericKey(key: string): void;
     removeKey(key: string): void;
-    removeKeys(keys: string[]): void;
+    removeKeys(keys: ReadonlyArray<string>): void;
     filterGenericKeys(test: () => boolean): void;
     setValueForKey(key: string, val: any): void;
     setValueForGenericKey(key: string, val: any): void;
