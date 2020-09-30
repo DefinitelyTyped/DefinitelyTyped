@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-shape module 1.3
+// Type definitions for D3JS d3-shape module 2.0
 // Project: https://github.com/d3/d3-shape/, https://d3js.org/d3-shape
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.3.7
+// Last module patch version validated against: 2.0.0
 
 import { Path } from 'd3-path';
 
@@ -803,19 +803,17 @@ export interface Line<Datum> {
 /**
  * Constructs a new line generator with the default settings.
  *
- * Ensure that the accessors used with the line generator correspond to the arguments passed into them,
- * or set them to constants as appropriate.
- */
-export function line(): Line<[number, number]>;
-/**
- * Constructs a new line generator with the default settings.
- *
- * Ensure that the accessors used with the line generator correspond to the arguments passed into them,
- * or set them to constants as appropriate.
+ * If x or y are specified, sets the corresponding accessors to the specified function or number and returns this line generator.
  *
  * The generic refers to the data type of an element in the input array passed into the line generator.
+ *
+ * @param x Sets the x accessor
+ * @param y Sets the y accessor
  */
-export function line<Datum>(): Line<Datum>;
+export function line<Datum = [number, number]>(
+    x?: number | ((d: Datum, index: number, data: Datum[]) => number),
+    y?: number | ((d: Datum, index: number, data: Datum[]) => number)
+): Line<Datum>;
 
 /**
  * The radial line generator produces a spline or polyline, as in a line chart.
@@ -1299,19 +1297,19 @@ export interface Area<Datum> {
 /**
  * Constructs a new area generator with the default settings.
  *
- * Ensure that the accessors used with the area generator correspond to the arguments passed into them,
- * or set them to constants as appropriate.
- */
-export function area(): Area<[number, number]>;
-/**
- * Constructs a new area generator with the default settings.
- *
- * Ensure that the accessors used with the area generator correspond to the arguments passed into them,
- * or set them to constants as appropriate.
+ * If x, y0 or y1 are specified, sets the corresponding accessors to the specified function or number and returns this area generator.
  *
  * The generic refers to the data type of an element in the input array passed into the area generator.
+ *
+ * @param x Sets the x accessor.
+ * @param y0 Sets the y0 accessor.
+ * @param y1 Sets the y1 accessor.
  */
-export function area<Datum>(): Area<Datum>;
+export function area<Datum = [number, number]>(
+    x?: number | ((d: Datum, index: number, data: Datum[]) => number),
+    y0?: number | ((d: Datum, index: number, data: Datum[]) => number),
+    y1?: number | ((d: Datum, index: number, data: Datum[]) => number)
+): Area<Datum>;
 
 /**
  * A radial area generator.
@@ -2395,24 +2393,19 @@ export interface Symbol<This, Datum> {
 }
 
 /**
- * Constructs a new symbol generator with the default settings.
- */
-export function symbol(): Symbol<any, any>; // tslint:disable-line ban-types
-
-/**
- * Constructs a new symbol generator with the default settings.
- *
- * The generic corresponds to the data type of the datum underlying the symbol.
- */
-export function symbol<Datum>(): Symbol<any, Datum>; // tslint:disable-line ban-types
-
-/**
- * Constructs a new symbol generator with the default settings.
+ * Constructs a new symbol generator of the specified type and size.
+ * If not specified, type defaults to a circle, and size defaults to 64.
  *
  * The first generic corresponds to the "this" context within which the symbol generator is invoked.
  * The second generic corresponds to the data type of the datum underlying the symbol.
+ *
+ * @param type The specified type.
+ * @param size The specified size.
  */
-export function symbol<This, Datum>(): Symbol<This, Datum>; // tslint:disable-line ban-types
+export function symbol<This = any, Datum = any>(
+    type?: SymbolType | ((this: This, d: Datum, ...args: any[]) => SymbolType),
+    size?: number | ((this: This, d: Datum, ...args: any[]) => number)
+): Symbol<This, Datum>; // tslint:disable-line ban-types
 
 /**
  * An array containing the set of all built-in symbol types: circle, cross, diamond, square, star, triangle, and wye.
@@ -2628,8 +2621,8 @@ export interface Stack<This, Datum, Key> {
     /**
      * Sets the offset accessor to the specified function and returns this stack generator.
      *
-     * @param offset A function which is passed the generated series array and the order index array.
-     *               The offset function is then responsible for updating the lower and upper values in the series array to layout the stack.
+     * @param offset A function which is passed the generated series array and the order index array;
+     *               it is then responsible for updating the lower and upper values in the series array.
      */
     offset(offset: (series: Series<Datum, Key>, order: number[]) => void): this;
 }
