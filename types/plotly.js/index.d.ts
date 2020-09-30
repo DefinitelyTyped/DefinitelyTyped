@@ -764,6 +764,7 @@ export interface LayoutAxis extends Axis {
     automargin: boolean;
     autotick: boolean;
     angle: any;
+    showarrow: boolean;
 }
 
 export interface SceneAxis extends Axis {
