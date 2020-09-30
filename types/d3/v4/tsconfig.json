@@ -26,6 +26,9 @@
             "d3-chord": [
                 "d3-chord/v1"
             ],
+            "d3-drag": [
+                "d3-drag/v1"
+            ],
             "d3-ease": [
                 "d3-ease/v1"
             ],

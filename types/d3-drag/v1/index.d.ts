@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-drag module 2.0
+// Type definitions for D3JS d3-drag module 1.2
 // Project: https://github.com/d3/d3-drag/, https://d3js.org/d3-drag
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 1.2.5
 
 import { Selection, ValueFn } from 'd3-selection';
 
@@ -81,8 +81,9 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
     /**
      * Sets the container accessor to the specified function and returns the drag behavior.
      *
-     * The container of a drag gesture determines the coordinate system of subsequent drag events, affecting event.x and event.y.
-     * The element returned by the container accessor is subsequently passed to d3.pointer to determine the local coordinates of the pointer.
+     * The container of a drag gesture determines the coordinate system of subsequent drag events,
+     * affecting event.x and event.y. The element returned by the container accessor is subsequently
+     * passed to d3.mouse or d3.touch, as appropriate, to determine the local coordinates of the pointer.
      *
      * The default container accessor returns the parent node of the element in the originating selection (see drag)
      * that received the initiating input event. This is often appropriate when dragging SVG or HTML elements,
@@ -98,8 +99,9 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
     /**
      * Sets the container accessor to the specified object and returns the drag behavior.
      *
-     * The container of a drag gesture determines the coordinate system of subsequent drag events, affecting event.x and event.y.
-     * The element returned by the container accessor is subsequently passed to d3.pointer to determine the local coordinates of the pointer.
+     * The container of a drag gesture determines the coordinate system of subsequent drag events,
+     * affecting event.x and event.y. The element returned by the container accessor is subsequently
+     * passed to d3.mouse or d3.touch, as appropriate, to determine the local coordinates of the pointer.
      *
      * The default container accessor returns the parent node of the element in the originating selection (see drag)
      * that received the initiating input event. This is often appropriate when dragging SVG or HTML elements,
@@ -113,19 +115,20 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
     /**
      * Returns the current filter function.
      */
-    filter(): (this: GElement, event: any, d: Datum) => boolean;
+    filter(): ValueFn<GElement, Datum, boolean>;
+
     /**
-     * Sets the event filter to the specified filter function and returns the drag behavior.
+     * Sets the filter to the specified filter function and returns the drag behavior.
      *
      * If the filter returns falsey, the initiating event is ignored and no drag gesture is started.
      * Thus, the filter determines which input events are ignored. The default filter ignores mousedown events on secondary buttons,
      * since those buttons are typically intended for other purposes, such as the context menu.
      *
      * @param filterFn A filter function which is evaluated for each selected element,
-     * in order, being passed the current event (event) and datum d, with the this context as the current DOM element.
-     * The function returns a boolean value.
+     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
+     * with this as the current DOM element. The function returns a boolean value.
      */
-    filter(filterFn: (this: GElement, event: any, d: Datum) => boolean): this;
+    filter(filterFn: ValueFn<GElement, Datum, boolean>): this;
 
     /**
      * Returns the current touch support detector, which defaults to a function returning true,
@@ -158,7 +161,7 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
     /**
      *  Returns the current subject accessor functions.
      */
-    subject(): (this: GElement, event: any, d: Datum) => Subject;
+    subject(): ValueFn<GElement, Datum, Subject>;
     /**
      * Sets the subject accessor to the specified function and returns the drag behavior.
      *
@@ -175,20 +178,23 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
      * In this case, a custom subject accessor would be more appropriate,
      * such as one that picks the closest circle to the mouse within a given search radius.
      *
+     *
+     *
      * The subject of a drag gesture may not be changed after the gesture starts.
      *
-     * During the evaluation of the subject accessor, event is a beforestart drag event.
-     * Use event.sourceEvent to access the initiating input event and event.identifier to access the touch identifier.
-     * The event.x and event.y are relative to the container, and are computed using d3.pointer.
+     * During the evaluation of the subject accessor, d3.event is a beforestart drag event.
+     * Use event.sourceEvent to access the initiating input event and event.identifier to
+     * access the touch identifier. The event.x and event.y are relative to the container,
+     * and are computed using d3.mouse or d3.touch as appropriate.
      *
      * @param accessor An extent accessor function which is evaluated for each selected element,
-     * in order, being passed the current event (`event`) and datum `d`, with the `this` context as the current DOM element.
-     * The returned subject should be an object that exposes x and y properties,
+     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
+     * with this as the current DOM element.The returned subject should be an object that exposes x and y properties,
      * so that the relative position of the subject and the pointer can be preserved during the drag gesture.
      * If the subject is null or undefined, no drag gesture is started for this pointer;
      * however, other starting touches may yet start drag gestures.
      */
-    subject(accessor: (this: GElement, event: any, d: Datum) => Subject): this;
+    subject(accessor: ValueFn<GElement, Datum, Subject>): this;
 
     /**
      * Return the current click distance threshold, which defaults to zero.
@@ -213,7 +219,7 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
      * start (after a new pointer becomes active [on mousedown or touchstart]), drag (after an active pointer moves [on mousemove or touchmove], or
      * end (after an active pointer becomes inactive [on mouseup, touchend or touchcancel].)
      */
-    on(typenames: string): ((this: GElement, event: any, d: Datum) => void) | undefined;
+    on(typenames: string): ValueFn<GElement, Datum, void> | undefined;
     /**
      * Remove the current event listeners for the specified typenames, if any, return the drag behavior.
      *
@@ -243,9 +249,10 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
      * start (after a new pointer becomes active [on mousedown or touchstart]), drag (after an active pointer moves [on mousemove or touchmove], or
      * end (after an active pointer becomes inactive [on mouseup, touchend or touchcancel].)
      * @param listener An event listener function which is evaluated for each selected element,
-     * in order, being passed the current event (event) and datum d, with the this context as the current DOM element.
+     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
+     * with this as the current DOM element.
      */
-    on(typenames: string, listener: (this: GElement, event: any, d: Datum) => void): this;
+    on(typenames: string, listener: ValueFn<GElement, Datum, void>): this;
 }
 
 /**
@@ -335,7 +342,7 @@ export interface D3DragEvent<GElement extends DraggedElementBaseType, Datum, Sub
      * start (after a new pointer becomes active [on mousedown or touchstart]), drag (after an active pointer moves [on mousemove or touchmove], or
      * end (after an active pointer becomes inactive [on mouseup, touchend or touchcancel].)
      */
-    on(typenames: string): ((this: GElement, event: any, d: Datum) => void) | undefined;
+    on(typenames: string): ValueFn<GElement, Datum, void> | undefined;
     /**
      * Remove the current event listeners for the specified typenames, if any, return the drag behavior.
      *
@@ -367,9 +374,10 @@ export interface D3DragEvent<GElement extends DraggedElementBaseType, Datum, Sub
      * start (after a new pointer becomes active [on mousedown or touchstart]), drag (after an active pointer moves [on mousemove or touchmove], or
      * end (after an active pointer becomes inactive [on mouseup, touchend or touchcancel].)
      * @param listener An event listener function which is evaluated for each selected element,
-     * in order, being passed the current event (event) and datum d, with the this context as the current DOM element.
+     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
+     * with this as the current DOM element.
      */
-    on(typenames: string, listener: (this: GElement, event: any, d: Datum) => void): this;
+    on(typenames: string, listener: ValueFn<GElement, Datum, void>): this;
 }
 
 /**
