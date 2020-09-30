@@ -278,11 +278,11 @@ export interface RandomCauchy extends RandomNumberGenerationSource {
 export const randomCauchy: RandomCauchy;
 
 /**
- * A configurable random number generator with a Cauchy distribution.
+ * A configurable random number generator with a logistic distribution.
  */
-export interface RandomCauchy extends RandomNumberGenerationSource {
+export interface RandomLogistic extends RandomNumberGenerationSource {
     /**
-     * Returns a function for generating random numbers with a Cauchy distribution.
+     * Returns a function for generating random numbers with a logistic distribution.
      * a and b have the same meanings and default values as in d3.randomWeibull.
      *
      * @param a Location parameter
@@ -291,4 +291,18 @@ export interface RandomCauchy extends RandomNumberGenerationSource {
     (a?: number, b?: number): () => number;
 }
 
-export const randomCauchy: RandomCauchy;
+export const randomLogistic: RandomLogistic;
+
+/**
+ * A configurable random number generator with a Poisson distribution.
+ */
+export interface RandomPoisson extends RandomNumberGenerationSource {
+    /**
+     * Returns a function for generating random numbers with a Poisson distribution with mean lambda.
+     *
+     * @param lambda Mean
+     */
+    (lambda: number): () => number;
+}
+
+export const randomPoisson: RandomPoisson;
