@@ -2405,7 +2405,7 @@ export interface Symbol<This, Datum> {
 export function symbol<Datum = any>(
     type?: SymbolType | ((this: any, d: Datum, ...args: any[]) => SymbolType),
     size?: number | ((this: any, d: Datum, ...args: any[]) => number)
-): Symbol<any, Datum>; // tslint:disable-line ban-types
+): Symbol<any, Datum>;
 
 /**
  * Constructs a new symbol generator of the specified type and size.
@@ -2420,7 +2420,7 @@ export function symbol<Datum = any>(
 export function symbol<This, Datum>(
     type?: SymbolType | ((this: This, d: Datum, ...args: any[]) => SymbolType),
     size?: number | ((this: This, d: Datum, ...args: any[]) => number)
-): Symbol<This, Datum>; // tslint:disable-line ban-types
+): Symbol<This, Datum>;
 
 /**
  * An array containing the set of all built-in symbol types: circle, cross, diamond, square, star, triangle, and wye.
