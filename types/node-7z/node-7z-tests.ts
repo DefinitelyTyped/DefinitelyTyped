@@ -1,5 +1,5 @@
 import * as Seven from 'node-7z'; // Name the class as you want!
-var stream = Seven.extractFull('myArchive.7z', 'destination', { password: 'myPassword' });
+const stream = Seven.extractFull('myArchive.7z', 'destination', { password: 'myPassword' });
 stream.on('progress', progress => {
     /** Do something with progress data */
 });
