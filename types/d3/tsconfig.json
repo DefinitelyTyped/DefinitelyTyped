@@ -29,6 +29,9 @@
             "d3-ease": [
                 "d3-ease/v1"
             ],
+            "d3-force": [
+                "d3-force/v1"
+            ],
             "d3-format": [
                 "d3-format/v1"
             ],
