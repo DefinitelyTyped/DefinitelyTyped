@@ -135,7 +135,7 @@ export interface BrushBehavior<Datum> {
     /**
      * Returns the current filter function.
      */
-    filter(): ValueFn<SVGGElement, Datum, boolean>;
+    filter(): (this: SVGGElement, event: any, d: Datum) => boolean;
     /**
      * Sets the filter to the specified filter function and returns the brush.
      *
@@ -144,10 +144,10 @@ export interface BrushBehavior<Datum> {
      * since those buttons are typically intended for other purposes, such as the context menu.
      *
      * @param filterFn A filter function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element. The function returns a boolean value.
+     * in order, being passed the current event `event` and datum `d`, with the `this` context as the current DOM element.
+     * The function returns a boolean value.
      */
-    filter(filterFn: ValueFn<SVGGElement, Datum, boolean>): this;
+    filter(filterFn: (this: SVGGElement, event: any, d: Datum) => boolean): this;
 
     /**
      * Returns the current touch support detector, which defaults to a function returning true,

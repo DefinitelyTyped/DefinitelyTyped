@@ -7,7 +7,7 @@
  */
 
 import * as d3Brush from 'd3-brush';
-import { ArrayLike, event, select, Selection } from 'd3-selection';
+import { ArrayLike, select, Selection } from 'd3-selection';
 import { Transition } from 'd3-transition';
 
 // -----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ brush = brush.extent(function(d, i, group) {
 // filter() ----------------------------------------------------------------
 
 // chainable
-brush = brush.filter(function(d, i, group) {
+brush = brush.filter(function(event, d) {
     // Cast d3 event to D3ZoomEvent to be used in filter logic
     const e = event as d3Brush.D3BrushEvent<BrushDatum>;
 
@@ -54,7 +54,7 @@ brush = brush.filter(function(d, i, group) {
     return e.sourceEvent.type !== 'zoom' || !d.filterZoomEvent; // datum type is BrushDatum (as propagated to SVGGElement with brush event attached)
 });
 
-let filterFn: (this: SVGGElement, d: BrushDatum, index: number, group: SVGGElement[]) => boolean;
+let filterFn: (this: SVGGElement, event: any, d: BrushDatum) => boolean;
 filterFn = brush.filter();
 
 // set and get touchable ---------------------------------------------------------
@@ -199,7 +199,7 @@ brush.clear(g);
 // Test Brush Event Interface
 // -----------------------------------------------------------------------------
 
-const e: d3Brush.D3BrushEvent<BrushDatum> = event;
+declare const e: d3Brush.D3BrushEvent<BrushDatum>;
 
 const target: d3Brush.BrushBehavior<BrushDatum> = e.target;
 const type: 'start' | 'brush' | 'end' | string = e.type;
