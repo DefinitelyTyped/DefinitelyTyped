@@ -84,3 +84,7 @@ const res4_2: model.Node = res4_1.createAndFill()!;
 
 const res5_1 = new model.MarkType();
 const res5_2: model.Mark = res5_1.isInSet([])!;
+
+// Slice
+const slice = new model.Slice(model.Fragment.empty, 0, 0);
+slice.insertAt(0, model.Fragment.empty);

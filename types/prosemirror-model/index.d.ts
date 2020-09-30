@@ -767,6 +767,10 @@ export class Slice<S extends Schema = any> {
    */
   eq(other: Slice<S>): boolean;
   /**
+   * Returns a new Slice with the fragment inserted.
+   */
+  insertAt(pos: number, fragment: Fragment<S>): Slice<S> | undefined;
+  /**
    * Convert a slice to a JSON-serializable representation.
    */
   toJSON(): { [key: string]: any } | null | undefined;
