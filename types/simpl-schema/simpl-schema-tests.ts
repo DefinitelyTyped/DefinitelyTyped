@@ -124,4 +124,13 @@ new SimpleSchema({
     subSchema: StringSchemaWithOptions,
 });
 
+StringSchema.extend(
+    new SimpleSchema({
+        name: { type: String },
+    }),
+);
+StringSchema.extend({
+    name: { type: String },
+});
+
 SimpleSchema.extendOptions(['autoform']);
