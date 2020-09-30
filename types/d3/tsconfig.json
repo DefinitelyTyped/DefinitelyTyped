@@ -65,6 +65,9 @@
             "d3-selection": [
                 "d3-selection/v1"
             ],
+            "d3-shape": [
+                "d3-shape/v1"
+            ],
             "d3-time": [
                 "d3-time/v1"
             ],
