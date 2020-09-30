@@ -17,6 +17,9 @@
             "d3-array": [
                 "d3-array/v1"
             ],
+            "d3-brush": [
+                "d3-brush/v1"
+            ],
             "d3-chord": [
                 "d3-chord/v1"
             ],
@@ -28,6 +31,9 @@
             ],
             "d3-force": [
                 "d3-force/v1"
+            ],
+            "d3-format": [
+                "d3-format/v1"
             ],
             "d3-hierarchy": [
                 "d3-hierarchy/v1"
@@ -46,6 +52,9 @@
             ],
             "d3-selection": [
                 "d3-selection/v1"
+            ],
+            "d3-time": [
+                "d3-time/v1"
             ],
             "d3-timer": [
                 "d3-timer/v1"
