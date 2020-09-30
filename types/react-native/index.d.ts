@@ -3611,24 +3611,10 @@ export interface SwitchIOSProps extends ViewProps {
     disabled?: boolean;
 
     /**
-     * Background color when the switch is turned on.
-     */
-    onTintColor?: ColorValue;
-
-    /**
      * Callback that is called when the user toggles the switch.
      */
     onValueChange?: (value: boolean) => void;
 
-    /**
-     * Background color for the switch round button.
-     */
-    thumbTintColor?: ColorValue;
-
-    /**
-     * Background color when the switch is turned off.
-     */
-    tintColor?: ColorValue;
 
     /**
      * The value of the switch, if true the switch will be turned on. Default value is false.
@@ -6671,7 +6657,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      *  - `'normal'`: 0.998 on iOS, 0.985 on Android (the default)
      *  - `'fast'`: 0.99 on iOS, 0.9 on Android
      */
-    decelerationRate?: 'fast' | 'normal' | number,
+    decelerationRate?: 'fast' | 'normal' | number;
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
