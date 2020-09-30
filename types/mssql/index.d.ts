@@ -242,6 +242,9 @@ export declare class ConnectionError implements Error {
 export interface IColumnOptions {
     nullable?: boolean;
     primary?: boolean;
+    identity?: boolean;
+    readOnly?: boolean;
+    length?: number
 }
 
 export interface IColumn extends ISqlType {
