@@ -14,7 +14,14 @@ const schema: SimpleSchemaDefinition = {
     },
     createdAt: {
         type: Date,
-        autoValue: () => new Date()
+        autoValue() {
+            this.closestSubschemaFieldName;
+            this.field('basicString');
+            const isModifier: boolean = this.isModifier;
+            this.isUpsert;
+            this.unset();
+            return new Date();
+        }
     },
     title: {
         type: String,

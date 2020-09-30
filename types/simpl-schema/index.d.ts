@@ -5,6 +5,7 @@
 //                 Deskoh <https://github.com/deskoh>
 //                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 //                 Rafa Horo <https://github.com/rafahoro>
+//                 Stepan Yurtsiv <https://github.com/yurtsiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
@@ -58,6 +59,29 @@ interface CustomValidationContext {
     addValidationErrors(errors: SimpleSchemaValidationError): any;
 }
 
+interface FieldInfo {
+    isSet: boolean;
+    value?: any;
+    // TODO: more precise
+    operator: any;
+}
+
+export interface AutoValueContext {
+    closestSubschemaFieldName: string | null;
+    field: (fieldName: string) => FieldInfo;
+    isModifier: boolean;
+    isUpsert: boolean;
+    isSet: boolean;
+    key: string;
+    // TODO: figure out
+    operator: any;
+    // TODO: check
+    parentField: () => FieldInfo;
+    siblingField: (fieldName: string) => FieldInfo;
+    unset: () => void;
+    value?: any;
+}
+
 export interface SchemaDefinition {
     type: any;
     label?: string | (() => string);
@@ -78,7 +102,7 @@ export interface SchemaDefinition {
      */
     custom?: (this: CustomValidationContext) => undefined | string | SimpleSchemaValidationError;
     blackbox?: boolean;
-    autoValue?: () => any;
+    autoValue?: (this: AutoValueContext) => any;
     defaultValue?: any;
     trim?: boolean;
 }
