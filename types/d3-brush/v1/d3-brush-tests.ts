@@ -7,7 +7,7 @@
  */
 
 import * as d3Brush from 'd3-brush';
-import { ArrayLike, select, Selection } from 'd3-selection';
+import { ArrayLike, event, select, Selection } from 'd3-selection';
 import { Transition } from 'd3-transition';
 
 // -----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ brush = brush.extent(function(d, i, group) {
 // filter() ----------------------------------------------------------------
 
 // chainable
-brush = brush.filter(function(event, d) {
+brush = brush.filter(function(d, i, group) {
     // Cast d3 event to D3ZoomEvent to be used in filter logic
     const e = event as d3Brush.D3BrushEvent<BrushDatum>;
 
@@ -54,7 +54,7 @@ brush = brush.filter(function(event, d) {
     return e.sourceEvent.type !== 'zoom' || !d.filterZoomEvent; // datum type is BrushDatum (as propagated to SVGGElement with brush event attached)
 });
 
-let filterFn: (this: SVGGElement, event: any, d: BrushDatum) => boolean;
+let filterFn: (this: SVGGElement, d: BrushDatum, index: number, group: SVGGElement[]) => boolean;
 filterFn = brush.filter();
 
 // set and get touchable ---------------------------------------------------------
@@ -89,8 +89,8 @@ const handleSize: number = brush.handleSize();
 
 // on() ------------------------------------------------------------------------
 
-let brushed: ((this: SVGGElement, event: any, datum: BrushDatum) => void) | undefined;
-brushed = (event, datum) => {
+let brushed: ((this: SVGGElement, datum: BrushDatum, index: number, group: SVGGElement[] | ArrayLike<SVGGElement>) => void) | undefined;
+brushed = (d, i, group) => {
     // do anything
 };
 
@@ -108,9 +108,10 @@ brushed = brush.on('end');
 brush = brush.on('end', null);
 
 // re-apply
-brush.on('end', function(e, d) {
-    const event: any = e;
+brush.on('end', function(d, i, g) {
     const datum: BrushDatum = d;
+    const index: number = i;
+    const group: SVGGElement[] | ArrayLike<SVGGElement> = g;
     console.log('Owner SVG Element of svg group: ', this.ownerSVGElement); // this is of type SVGGElement
     console.log('Extent as per data: ', d.extent); // datum of type BrushDatum
     // do anything
@@ -199,7 +200,7 @@ brush.clear(g);
 // Test Brush Event Interface
 // -----------------------------------------------------------------------------
 
-declare const e: d3Brush.D3BrushEvent<BrushDatum>;
+const e: d3Brush.D3BrushEvent<BrushDatum> = event;
 
 const target: d3Brush.BrushBehavior<BrushDatum> = e.target;
 const type: 'start' | 'brush' | 'end' | string = e.type;
