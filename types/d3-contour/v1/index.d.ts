@@ -1,4 +1,4 @@
-// Type definitions for d3-contour 2.0
+// Type definitions for d3-contour 1.3
 // Project: https://d3js.org/d3-contour/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Hugues Stefanski <https://github.com/Ledragon>
@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 1.3.2
 
 import { MultiPolygon } from 'geojson';
 import { ThresholdNumberArrayGenerator, ThresholdCountGenerator } from 'd3-array';
