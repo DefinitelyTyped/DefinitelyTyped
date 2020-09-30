@@ -3601,37 +3601,7 @@ declare const SliderBase: Constructor<NativeMethodsMixinType> & typeof SliderCom
 export class Slider extends SliderBase {}
 export type SliderIOS = Slider;
 
-/**
- * https://facebook.github.io/react-native/docs/switchios.html#props
- */
-export interface SwitchIOSProps extends ViewProps {
-    /**
-     * If true the user won't be able to toggle the switch. Default value is false.
-     */
-    disabled?: boolean;
 
-    /**
-     * Callback that is called when the user toggles the switch.
-     */
-    onValueChange?: (value: boolean) => void;
-
-
-    /**
-     * The value of the switch, if true the switch will be turned on. Default value is false.
-     */
-    value?: boolean;
-}
-
-/**
- *
- * Use SwitchIOS to render a boolean input on iOS.
- *
- * This is a controlled component, so you must hook in to the onValueChange callback and update the value prop in order for the component to update,
- * otherwise the user's change will be reverted immediately to reflect props.value as the source of truth.
- *
- * @see https://facebook.github.io/react-native/docs/switchios.html
- */
-export class SwitchIOS extends React.Component<SwitchIOSProps> {}
 
 export type ImageResizeMode = 'cover' | 'contain' | 'stretch' | 'repeat' | 'center';
 
@@ -6657,7 +6627,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      *  - `'normal'`: 0.998 on iOS, 0.985 on Android (the default)
      *  - `'fast'`: 0.99 on iOS, 0.9 on Android
      */
-    decelerationRate?: 'fast' | 'normal' | number;
+    decelerationRate?: 'fast' | 'normal' | number,
 
     /**
      * When true the scroll view's children are arranged horizontally in a row

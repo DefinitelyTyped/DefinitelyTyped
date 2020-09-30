@@ -82,6 +82,7 @@ import {
     StyleProp,
     StyleSheet,
     Switch,
+    SwitchIOS, // $ExpectError This component was removed in 2016
     Systrace,
     TabBarIOS,
     Text,
