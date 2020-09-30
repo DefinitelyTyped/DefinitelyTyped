@@ -155,6 +155,7 @@ declare class SimpleSchema {
         schema: SimpleSchemaDefinition,
         options?: SimpleSchemaOptions
     );
+    static isSimpleSchema(obj: any): boolean;
     static addValidator(validator: Validator): void;
     addValidator(validator: Validator): void;
     namedContext(name?: string): SimpleSchemaValidationContextStatic;
