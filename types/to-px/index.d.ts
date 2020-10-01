@@ -5,8 +5,4 @@
 
 declare function toPX(str: string): number;
 
-declare namespace toPX {
-    function toPX(str: string): number;
-}
-
 export = toPX;
