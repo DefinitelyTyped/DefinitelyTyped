@@ -7,7 +7,7 @@ declare namespace Aws {
     interface Serverless {
         service: Service | string;
         frameworkVersion: string;
-        configValidationMode: string;
+        configValidationMode?: string;
         provider: Provider;
         package?: Package;
         functions?: Functions;
