@@ -1,17 +1,19 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "checkJs": true,
     "module": "commonjs",
     "target": "ES6",
     "lib": [
-      "es6"
-  ],
-    "strict": true,
+        "es6"
+    ],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
     "baseUrl": "../",
     "typeRoots": [
         "../"
     ],
+    "noEmit": true,
     "types": [],
     "forceConsistentCasingInFileNames": true,
     "paths": {
@@ -19,7 +21,6 @@
   }
   },
   "files": [
-    "index.d.ts",
-    "mplavin-tools__pub-demo-ts-tests.ts"
+    "index.d.ts"
   ]
 }
