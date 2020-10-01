@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-random module 2.1
+// Type definitions for D3JS d3-random module 2.2
 // Project: https://github.com/d3/d3-random/, https://d3js.org/d3-random
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,7 +6,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.1.0
+// Last module patch version validated against: 2.2.2
 
 export interface RandomNumberGenerationSource {
     /**
@@ -306,3 +306,14 @@ export interface RandomPoisson extends RandomNumberGenerationSource {
 }
 
 export const randomPoisson: RandomPoisson;
+
+/**
+ * Returns a linear congruential generator; this function can be called repeatedly to obtain pseudorandom values well-distributed on the interval [0,1) and with a long period (up to 1 billion numbers), similar to Math.random.
+ * A seed can be specified as a real number in the interval [0,1) or as any integer.
+ * In the latter case, only the lower 32 bits are considered.
+ * Two generators instanced with the same seed generate the same sequence, allowing to create reproducible pseudo-random experiments.
+ * If the seed is not specified, one is chosen using Math.random.
+ *
+ * @param seed A seed that is either a real number in the interval [0,1) or any integer.
+ */
+export function randomLcg(seed?: number): () => number;
