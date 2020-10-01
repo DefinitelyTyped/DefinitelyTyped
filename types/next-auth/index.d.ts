@@ -103,7 +103,7 @@ interface JWTOptions {
 
 // TODO: Improve callback typings
 interface Callbacks {
-    signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean | GenericObject>;
+    signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean | never | string>;
     redirect?(url: string, baseUrl: string): Promise<string>;
     session?(session: SessionBase, user: GenericObject): Promise<GenericObject>;
     jwt?(
