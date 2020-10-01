@@ -94,6 +94,12 @@ declare namespace IORedis {
         (arg1: T, arg2: T, cb: Callback<U>): void;
         (arg1: T | T[], cb: Callback<U>): void;
         (cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
+        (arg1: T, arg2: T, arg3: T): Promise<U>;
+        (arg1: T, arg2: T): Promise<U>;
+        (arg1: T | T[]): Promise<U>;
         (...args: T[]): Promise<U>;
         (arg1: T[]): Promise<U>;
     }
@@ -105,6 +111,12 @@ declare namespace IORedis {
         (arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, cb: Callback<U>): void;
         (arg1: T | T[], cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
+        (arg1: T, arg2: T, arg3: T): Promise<U>;
+        (arg1: T, arg2: T): Promise<U>;
+        (arg1: T | T[]): Promise<U>;
         (...args: T[]): Promise<U>;
         (arg1: T[]): Promise<U>;
     }
@@ -117,6 +129,13 @@ declare namespace IORedis {
         (arg1: T, arg2: T, timeout: number, cb: Callback<U>): void;
         (arg1: T, timeout: number, cb: Callback<U>): void;
         (arg1: Array<T | number>, cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, timeout: number): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, timeout: number): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, arg4: T, timeout: number): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, timeout: number): Promise<U>;
+        (arg1: T, arg2: T, timeout: number): Promise<U>;
+        (arg1: T, timeout: number): Promise<U>;
+        (arg1: Array<T | number>): Promise<U>;
         (...args: Array<T | number>): Promise<U>;
         (arg1: Array<T | number>): Promise<U>;
     }
@@ -128,6 +147,12 @@ declare namespace IORedis {
         (arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (arg1: T, arg2: T | T[], cb: Callback<U>): void;
         (arg1: T | T[], cb: Callback<U>): void;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
+        (arg1: T, arg2: T, arg3: T): Promise<U>;
+        (arg1: T, arg2: T | T[]): Promise<U>;
+        (arg1: T | T[]): Promise<U>;
         (...args: T[]): Promise<U>;
         (arg1: T[]): Promise<U>;
     }
@@ -139,6 +164,12 @@ declare namespace IORedis {
         (key: KeyType, arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T | T[], cb: Callback<U>): void;
+        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
+        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
+        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
+        (key: KeyType, arg1: T, arg2: T, arg3: T): Promise<U>;
+        (key: KeyType, arg1: T, arg2: T): Promise<U>;
+        (key: KeyType, arg1: T | T[]): Promise<U>;
         (key: KeyType, ...args: T[]): Promise<U>;
         (key: KeyType, arg1: T[]): Promise<U>;
     }
@@ -168,12 +199,19 @@ declare namespace IORedis {
         (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (script: string, numKeys: number, arg1: T, arg2: T, cb: Callback<U>): void;
         (script: string, numKeys: number, arg1: T | T[], cb: Callback<U>): void;
+        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
+        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
+        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
+        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T): Promise<U>;
+        (script: string, numKeys: number, arg1: T, arg2: T): Promise<U>;
+        (script: string, numKeys: number, arg1: T | T[]): Promise<U>;
         (script: string, numKeys: number, ...args: T[]): Promise<U>;
         (script: string, numKeys: number, arg1: T[]): Promise<U>;
         // This overload exists specifically to retain compatibility to `redlock`
         // All arguments are by default flattened, declaring all possible permuatations
         // would be unreasonable (and probably impossible)
         (args: ValueType[], callback?: Callback<any>): any;
+        (args: ValueType[]): Promise<any>;
     }
 
     interface OverloadedScanCommand<T, U> {
@@ -184,6 +222,13 @@ declare namespace IORedis {
         (key: string, cursor: number, arg1: T, arg2: T, cb: Callback<U>): void;
         (key: string, cursor: number, arg1: T | T[], cb: Callback<U>): void;
         (key: string, cursor: number, cb: Callback<U>): void;
+        (key: string, cursor: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
+        (key: string, cursor: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
+        (key: string, cursor: number, arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
+        (key: string, cursor: number, arg1: T, arg2: T, arg3: T): Promise<U>;
+        (key: string, cursor: number, arg1: T, arg2: T): Promise<U>;
+        (key: string, cursor: number, arg1: T | T[]): Promise<U>;
+        (key: string, cursor: number): Promise<U>;
         (key: string, cursor: number, ...args: T[]): Promise<U>;
         (key: string, cursor: number, arg1: T[]): Promise<U>;
     }
@@ -405,6 +450,10 @@ declare namespace IORedis {
         zpopmax(key: KeyType, callback: Callback<string[]>): void;
         zpopmax(key: KeyType, count: number, callback: Callback<string[]>): void;
         zpopmax(key: KeyType, count?: number): Promise<string[]>;
+
+        bzpopmin: OverloadedBlockingListCommand<KeyType, [string, string, string]>;
+
+        bzpopmax: OverloadedBlockingListCommand<KeyType, [string, string, string]>;
 
         zrem: OverloadedKeyCommand<ValueType, number>;
 
@@ -635,6 +684,9 @@ declare namespace IORedis {
         hmset: OverloadedKeyedHashCommand<ValueType, Ok>;
 
         hmget: OverloadedKeyCommand<KeyType, Array<string | null>>;
+
+        hstrlen(key: KeyType, field: string, callback: Callback<number>): void;
+        hstrlen(key: KeyType, field: string): Promise<number>;
 
         hincrby(key: KeyType, field: string, increment: number, callback: Callback<number>): void;
         hincrby(key: KeyType, field: string, increment: number): Promise<number>;
@@ -1089,6 +1141,14 @@ declare namespace IORedis {
 
         zincrby(key: KeyType, increment: number, member: string, callback?: Callback<string>): Pipeline;
 
+        zpopmin(key: KeyType, count: number, callback?: Callback<string[]>): Pipeline;
+
+        zpopmax(key: KeyType, count: number, callback?: Callback<string[]>): Pipeline;
+
+        bzpopmin(...args: Array<string | number | Callback<[string, string, string]>>): Pipeline;
+
+        bzpopmax(...args: Array<string | number | Callback<[string, string, string]>>): Pipeline;
+
         zrem(key: KeyType, ...members: ValueType[]): Pipeline;
 
         zremrangebyscore(
@@ -1186,6 +1246,8 @@ declare namespace IORedis {
         hmset(key: KeyType, data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;
 
         hmget(key: KeyType, ...fields: string[]): Pipeline;
+
+        hstrlen(key: KeyType, field: string, callback?: Callback<number>): Pipeline;
 
         hincrby(key: KeyType, field: string, increment: number, callback?: Callback<number>): Pipeline;
 
