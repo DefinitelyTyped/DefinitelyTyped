@@ -186,7 +186,7 @@ declare module "mongoose" {
    */
   export type MongooseUpdateQuery<S> = mongodb.UpdateQuery<S> & mongodb.MatchKeysAndValues<S>;
 
-  export type UpdateQuery<D> = MongooseUpdateQuery<DocumentDefinition<D>>;
+  export type UpdateQuery<D> = MongooseUpdateQuery<DocumentDefinition<D>> | object;
 
   // check whether a type consists just of {_id: T} and no other properties
   type HasJustId<T> = keyof Omit<T, "_id"> extends never ? true : false;
