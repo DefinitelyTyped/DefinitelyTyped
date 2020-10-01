@@ -6,6 +6,10 @@
 // TypeScript Version: 2.3
 
 declare namespace i18n {
+    interface Response extends i18nAPI {
+        locals: Partial<i18nAPI>;
+    }
+
     interface ConfigurationOptions {
         /**
          * Setup some locales - other locales default to en silently
@@ -112,6 +116,12 @@ declare namespace i18n {
         logErrorFn?: (msg: string) => void;
 
         /**
+         * Function to provide missing translations.
+         * @since 0.10.0
+         */
+        missingKeyFn?: (locale: string, value: string) => string;
+
+        /**
          * object or [obj1, obj2] to bind the i18n api and current locale to
          * @default null
          */
@@ -132,6 +142,14 @@ declare namespace i18n {
          * @default true
          */
         preserveLegacyCase?: boolean;
+
+        /**
+         * Static translation catalog. Setting this option overrides `locales`.
+         *
+         * **NOTE**: Enabling `staticCatalog` disables all other fs realated options such as `updateFiles`, `autoReload` and `syncFiles`.
+         * @since 0.10.0
+         */
+        staticCatalog?: GlobalCatalog;
     }
     interface TranslateOptions {
         phrase: string;
@@ -503,14 +521,11 @@ declare module "i18n" {
 }
 
 declare namespace Express {
+    // tslint:disable-next-line:no-empty-interface
     interface Request extends i18nAPI {
-        languages: string[];
-        regions: string[];
-        language: string;
-        region: string;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface Response extends i18nAPI {
-        locals: Partial<i18nAPI>;
     }
 }
