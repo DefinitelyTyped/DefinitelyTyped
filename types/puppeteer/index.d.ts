@@ -1236,10 +1236,14 @@ export interface FrameBase extends Evalable, JSEvalable {
   /**
    * Shortcut for waitForSelector and waitForXPath
    */
+  /**
+   * @deprecated use waitForTimeout
+   */
   waitFor(selector: string, options: WaitForSelectorOptionsHidden): Promise<ElementHandle | null>;
   waitFor(selector: string, options?: WaitForSelectorOptions): Promise<ElementHandle>;
 
   /**
+   * @deprecated use waitForTimeout
    * Shortcut for waitForFunction.
    */
   waitFor(

@@ -489,27 +489,27 @@ puppeteer.launch().then(async browser => {
   browser.close();
 })();
 
-// Test waitFor
+// Test waitForTimeout
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.waitFor(1000); // $ExpectType void
+  await page.waitForTimeout(1000); // $ExpectType void
   const el: puppeteer.ElementHandle = await page.waitFor('selector');
-  const nullableEl: puppeteer.ElementHandle | null = await page.waitFor('selector', {
+  const nullableEl: puppeteer.ElementHandle | null = await page.waitForTimeout('selector', {
     hidden: true,
   });
   const el2: puppeteer.ElementHandle = await page.waitFor('selector', {
       timeout: 123,
   });
-  await page.waitFor(() => !!document.querySelector('.foo'), {
+  await page.waitForTimeout(() => !!document.querySelector('.foo'), {
     hidden: true,
   });
-  await page.waitFor((stuff: string) => !!document.querySelector(stuff), {
+  await page.waitForTimeout((stuff: string) => !!document.querySelector(stuff), {
     hidden: true,
   }, 'asd');
 
   const frame: puppeteer.Frame = page.frames()[0];
-  await frame.waitFor((stuff: string) => !!document.querySelector(stuff), {
+  await frame.waitForTimeout((stuff: string) => !!document.querySelector(stuff), {
     hidden: true,
   }, 'asd');
 })();
