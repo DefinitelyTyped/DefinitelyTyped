@@ -66,6 +66,8 @@ export interface SignOptions {
     encoding?: string;
 }
 
+export type SignOptionsForNoneAlgorithm = SignOptions & { algorithm: 'none' };
+
 export interface VerifyOptions {
     algorithms?: Algorithm[];
     audience?: string | RegExp | Array<string | RegExp>;
@@ -89,6 +91,8 @@ export interface VerifyOptions {
      */
     maxAge?: string;
 }
+
+export type VerifyOptionsForNoneAlgorithm = VerifyOptions & { algorithms: ['none'] };
 
 export interface DecodeOptions {
     complete?: boolean;
@@ -139,8 +143,7 @@ export type GetPublicKeyOrSecret = (
 export type Secret =
     | string
     | Buffer
-    | { key: string | Buffer; passphrase: string }
-    | null;
+    | { key: string | Buffer; passphrase: string };
 
 /**
  * Synchronously sign the given payload into a JSON Web Token string
@@ -153,6 +156,11 @@ export function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
     options?: SignOptions,
+): string;
+export function sign(
+    payload: string | Buffer | object,
+    secretOrPrivateKey: null,
+    options?: SignOptionsForNoneAlgorithm,
 ): string;
 
 /**
@@ -182,6 +190,7 @@ export function sign(
  * returns - The decoded token.
  */
 export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): object | string;
+export function verify(token: string, secretOrPublicKey: null, options?: VerifyOptionsForNoneAlgorithm): object | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
