@@ -21,5 +21,3 @@ export function deflate(data: Uint8Array, compression?: number): Uint8Array;
  * @return Uint8Array the deflated bytes
  */
 export function inflate(data: Uint8Array): Uint8Array;
-
-export as namespace deflatejs;
