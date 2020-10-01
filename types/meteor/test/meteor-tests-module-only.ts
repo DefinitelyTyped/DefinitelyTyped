@@ -9,13 +9,13 @@ function foo(x: number) {
     return `${x}`;
 }
 
-// $ExpectType MeteorPromise<string>
+// $ExpectType Promise<string>
 MeteorPromise.async(foo, null)(1);
 
 // $ExpectType string
 MeteorPromise.async(foo, null)(1).await();
 
-// $ExpectType MeteorPromise<string>
+// $ExpectType Promise<string>
 MeteorPromise.asyncApply(foo, null, [1]);
 
 // $ExpectType string
@@ -28,5 +28,5 @@ async function bar() {
 // $ExpectType number
 MeteorPromise.await(bar());
 
-// $ExpectType [number]
+// $ExpectType number[]
 MeteorPromise.awaitAll([bar()]);
