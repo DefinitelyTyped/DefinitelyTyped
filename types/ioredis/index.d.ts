@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.18
+// Type definitions for ioredis 4.17
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -94,12 +94,8 @@ declare namespace IORedis {
         (arg1: T, arg2: T, cb: Callback<U>): void;
         (arg1: T | T[], cb: Callback<U>): void;
         (cb: Callback<U>): void;
-        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
-        (arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-        (arg1: T, arg2: T, arg3: T): Promise<U>;
-        (arg1: T, arg2: T): Promise<U>;
-        (arg1: T | T[]): Promise<U>;
+        (...args: T[]): Promise<U>;
+        (arg1: T[]): Promise<U>;
     }
 
     interface OverloadedListCommand<T, U> {
@@ -109,12 +105,8 @@ declare namespace IORedis {
         (arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, cb: Callback<U>): void;
         (arg1: T | T[], cb: Callback<U>): void;
-        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
-        (arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-        (arg1: T, arg2: T, arg3: T): Promise<U>;
-        (arg1: T, arg2: T): Promise<U>;
-        (arg1: T | T[]): Promise<U>;
+        (...args: T[]): Promise<U>;
+        (arg1: T[]): Promise<U>;
     }
 
     interface OverloadedBlockingListCommand<T, U> {
@@ -132,6 +124,7 @@ declare namespace IORedis {
         (arg1: T, arg2: T, timeout: number): Promise<U>;
         (arg1: T, timeout: number): Promise<U>;
         (arg1: Array<T | number>): Promise<U>;
+        (...args: Array<T | number>): Promise<U>;
     }
 
     interface OverloadedSubCommand<T, U> {
@@ -141,12 +134,8 @@ declare namespace IORedis {
         (arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (arg1: T, arg2: T | T[], cb: Callback<U>): void;
         (arg1: T | T[], cb: Callback<U>): void;
-        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
-        (arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-        (arg1: T, arg2: T, arg3: T): Promise<U>;
-        (arg1: T, arg2: T | T[]): Promise<U>;
-        (arg1: T | T[]): Promise<U>;
+        (...args: T[]): Promise<U>;
+        (arg1: T[]): Promise<U>;
     }
 
     interface OverloadedKeyCommand<T, U> {
@@ -156,12 +145,8 @@ declare namespace IORedis {
         (key: KeyType, arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T | T[], cb: Callback<U>): void;
-        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
-        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-        (key: KeyType, arg1: T, arg2: T, arg3: T): Promise<U>;
-        (key: KeyType, arg1: T, arg2: T): Promise<U>;
-        (key: KeyType, arg1: T | T[]): Promise<U>;
+        (key: KeyType, ...args: T[]): Promise<U>;
+        (key: KeyType, arg1: T[]): Promise<U>;
     }
 
     interface OverloadedHashCommand<T, U> {
@@ -169,10 +154,8 @@ declare namespace IORedis {
         (arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (arg1: T, arg2: T, cb: Callback<U>): void;
         (data: T[] | { [key: string]: T } | Map<string, T>, cb: Callback<U>): void;
-        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-        (arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-        (arg1: T, arg2: T): Promise<U>;
         (data: T[] | { [key: string]: T } | Map<string, T>): Promise<U>;
+        (...args: T[]): Promise<U>;
     }
 
     interface OverloadedKeyedHashCommand<T, U> {
@@ -180,10 +163,8 @@ declare namespace IORedis {
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, cb: Callback<U>): void;
         (key: KeyType, data: T[] | { [key: string]: T } | Map<string, ValueType>, cb: Callback<U>): void;
-        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-        (key: KeyType, arg1: T, arg2: T): Promise<U>;
         (key: KeyType, data: T[] | { [key: string]: T } | Map<string, ValueType>): Promise<U>;
+        (key: KeyType, ...args: T[]): Promise<U>;
     }
 
     interface OverloadedEvalCommand<T, U> {
@@ -193,17 +174,12 @@ declare namespace IORedis {
         (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, cb: Callback<U>): void;
         (script: string, numKeys: number, arg1: T, arg2: T, cb: Callback<U>): void;
         (script: string, numKeys: number, arg1: T | T[], cb: Callback<U>): void;
-        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
-        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-        (script: string, numKeys: number, arg1: T, arg2: T, arg3: T): Promise<U>;
-        (script: string, numKeys: number, arg1: T, arg2: T): Promise<U>;
-        (script: string, numKeys: number, arg1: T | T[]): Promise<U>;
+        (script: string, numKeys: number, ...args: T[]): Promise<U>;
+        (script: string, numKeys: number, arg1: T[]): Promise<U>;
         // This overload exists specifically to retain compatibility to `redlock`
         // All arguments are by default flattened, declaring all possible permuatations
         // would be unreasonable (and probably impossible)
         (args: ValueType[], callback?: Callback<any>): any;
-        (args: ValueType[]): Promise<any>;
     }
 
     interface OverloadedScanCommand<T, U> {
@@ -214,13 +190,8 @@ declare namespace IORedis {
         (key: string, cursor: number, arg1: T, arg2: T, cb: Callback<U>): void;
         (key: string, cursor: number, arg1: T | T[], cb: Callback<U>): void;
         (key: string, cursor: number, cb: Callback<U>): void;
-        (key: string, cursor: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-        (key: string, cursor: number, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
-        (key: string, cursor: number, arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-        (key: string, cursor: number, arg1: T, arg2: T, arg3: T): Promise<U>;
-        (key: string, cursor: number, arg1: T, arg2: T): Promise<U>;
-        (key: string, cursor: number, arg1: T | T[]): Promise<U>;
-        (key: string, cursor: number): Promise<U>;
+        (key: string, cursor: number, ...args: T[]): Promise<U>;
+        (key: string, cursor: number, arg1: T[]): Promise<U>;
     }
 
     type Command = _Command;
