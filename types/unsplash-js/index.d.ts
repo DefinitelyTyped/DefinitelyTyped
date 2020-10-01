@@ -7,14 +7,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-type PhotoOrderBy = 'latest' | 'oldest'
-type Orientation = 'portrait' | 'landscape' | 'squareish'
-type ContentSafety = 'high' | 'low'
-type CollectionIds = ReadonlyArray<number> | ReadonlyArray<string>
-type Scopes = 'public' | 'read_user' | 'write_user' | 'read_photos' | 'write_photos' | 'write_likes' | 'write_followers' | 'read_collections' | 'write_collections'
+export type PhotoOrderBy = 'latest' | 'oldest';
+export type Orientation = 'portrait' | 'landscape' | 'squareish';
+export type ContentSafety = 'high' | 'low';
+export type CollectionIds = ReadonlyArray<number> | ReadonlyArray<string>;
+export type Scopes = 'public' | 'read_user' | 'write_user' | 'read_photos' | 'write_photos' | 'write_likes' | 'write_followers' | 'read_collections' | 'write_collections';
 
 // Supported ISO-639-1 languages
-type Languages = 'af' | 'am' | 'ar' | 'az' | 'be' | 'bg' | 'bn' | 'bs' | 'ca' | 'ceb' | 'co' | 'cs' | 'cy' | 'da' | 'de' | 'el' | 'en' | 'eo' | 'es' | 'et' | 'eu' | 'fa' | 'fi' | 'fr' | 'fy' | 'ga' | 'gd' | 'gl' | 'gu' | 'ha' | 'haw' | 'hi' | 'hmn' | 'hr' | 'ht' | 'hu' | 'hy' | 'id' | 'ig' | 'is' | 'it' | 'iw' | 'ja' | 'jw' | 'ka' | 'kk' | 'km' | 'kn' | 'ko' | 'ku' | 'ky' | 'la' | 'lb' | 'lo' | 'lt' | 'lv' | 'mg' | 'mi' | 'mk' | 'ml' | 'mn' | 'mr' | 'ms' | 'mt' | 'my' | 'ne' | 'nl' | 'no' | 'ny' | 'or' | 'pa' | 'pl' | 'ps' | 'pt' | 'ro' | 'ru' | 'rw' | 'sd' | 'si' | 'sk' | 'sl' | 'sm' | 'sn' | 'so' | 'sq' | 'sr' | 'st' | 'su' | 'sv' | 'sw' | 'ta' | 'te' | 'tg' | 'th' | 'tk' | 'tl' | 'tr' | 'tt' | 'ug' | 'uk' | 'ur' | 'uz' | 'vi' | 'xh' | 'yi' | 'yo' | 'zh' | 'zh-TW' | 'zu'
+export type Languages = 'af' | 'am' | 'ar' | 'az' | 'be' | 'bg' | 'bn' | 'bs' | 'ca' | 'ceb' | 'co' | 'cs' | 'cy' | 'da' | 'de' | 'el' | 'en' | 'eo' | 'es' | 'et' | 'eu' | 'fa' | 'fi' | 'fr' | 'fy'
+    | 'ga' | 'gd' | 'gl' | 'gu' | 'ha' | 'haw' | 'hi' | 'hmn' | 'hr' | 'ht' | 'hu' | 'hy' | 'id' | 'ig' | 'is' | 'it' | 'iw' | 'ja' | 'jw' | 'ka' | 'kk' | 'km' | 'kn' | 'ko' | 'ku' | 'ky' | 'la'
+    | 'lb' | 'lo' | 'lt' | 'lv' | 'mg' | 'mi' | 'mk' | 'ml' | 'mn' | 'mr' | 'ms' | 'mt' | 'my' | 'ne' | 'nl' | 'no' | 'ny' | 'or' | 'pa' | 'pl' | 'ps' | 'pt' | 'ro' | 'ru' | 'rw' | 'sd' | 'si'
+    | 'sk' | 'sl' | 'sm' | 'sn' | 'so' | 'sq' | 'sr' | 'st' | 'su' | 'sv' | 'sw' | 'ta' | 'te' | 'tg' | 'th' | 'tk' | 'tl' | 'tr' | 'tt' | 'ug' | 'uk' | 'ur' | 'uz' | 'vi' | 'xh' | 'yi' | 'yo'
+    | 'zh' | 'zh-TW' | 'zu';
 
 export default class Unsplash {
     auth: UnsplashApi.Auth;
