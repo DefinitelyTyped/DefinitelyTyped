@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-force module 2.0
+// Type definitions for D3JS d3-force module 2.1
 // Project: https://github.com/d3/d3-force/, https://d3js.org/d3-force
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -7,7 +7,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.0.1
+// Last module patch version validated against: 2.1.1
 
 // -----------------------------------------------------------------------
 // Force Simulation
@@ -140,7 +140,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      *
      * The position [x,y] and velocity [vx,vy] may be subsequently modified by forces and by the simulation.
      * If either vx or vy is NaN, the velocity is initialized to [0,0]. If either x or y is NaN, the position is initialized in a phyllotaxis arrangement,
-     * so chosen to ensure a deterministic, uniform distribution around the origin.
+     * so chosen to ensure a deterministic, uniform distribution.
      *
      * To fix a node in a given position, you may specify two additional properties:
      * - fx (the node’s fixed x-position)
@@ -158,11 +158,17 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
 
     /**
      * Return the current alpha of the simulation, which defaults to 1.
+     *
+     * alpha is roughly analogous to temperature in simulated annealing.
+     * It decreases over time as the simulation “cools down”. When alpha reaches alphaMin, the simulation stops; see simulation.restart.
      */
     alpha(): number;
     /**
      * Set the current alpha to the specified number in the range [0,1] and return this simulation.
      * The default is 1.
+     *
+     * alpha is roughly analogous to temperature in simulated annealing.
+     * It decreases over time as the simulation “cools down”. When alpha reaches alphaMin, the simulation stops; see simulation.restart.
      *
      * @param alpha Current alpha of simulation.
      */
@@ -475,7 +481,7 @@ export interface ForceCollide<NodeDatum extends SimulationNodeDatum> extends For
     radius(radius: (node: NodeDatum, i: number, nodes: NodeDatum[]) => number): this;
 
     /**
-     * Return the current strength, which defaults to 0.7.
+     * Return the current strength, which defaults to 1.
      */
     strength(): number;
     /**
