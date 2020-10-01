@@ -17,8 +17,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@loadable/component": [
-                "loadable__component"
+            "@loadable/*": [
+                "loadable__*"
             ]
         }
     },

@@ -1,9 +1,8 @@
-// Type definitions for terser-webpack-plugin 3.0
+// Type definitions for terser-webpack-plugin 4.2
 // Project: https://github.com/webpack-contrib/terser-webpack-plugin
 // Definitions by: Daniel Schopf <https://github.com/Danscho>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 import { Plugin } from 'webpack';
 import { MinifyOptions } from 'terser';
@@ -13,10 +12,8 @@ import { MinifyOptions } from 'terser';
  */
 declare namespace TerserPlugin {
     interface MinifyResult {
-        error: any;
         map: any;
         code: any;
-        warnings: any;
         extractedComments: any;
     }
 
@@ -91,7 +88,7 @@ declare namespace TerserPlugin {
          * By default plugin uses terser package. Useful for using and testing unpublished versions or forks
          * @default undefined
          */
-        minify?: (file: any, sourceMap: any) => MinifyResult;
+        minify?: (file: any, sourceMap: any, minimizerOptions?: MinifyOptions) => MinifyResult;
 
         /**
          * Terser minify {@link https://github.com/terser/terser#minify-options|options}.
@@ -107,13 +104,6 @@ declare namespace TerserPlugin {
          * @default true
          */
         extractComments?: boolean | string | RegExp | ExtractCommentFn | ExtractCommentOptions;
-
-        /**
-         * Allow to filter terser warnings.
-         * ⚠️ The source argument will contain undefined if you don't use source maps.
-         * @default () => true
-         */
-        warningsFilter?: (warning: string, file: string, source?: string) => boolean | null | undefined;
     }
 }
 

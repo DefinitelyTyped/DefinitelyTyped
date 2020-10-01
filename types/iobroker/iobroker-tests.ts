@@ -53,7 +53,10 @@ function objectChangeHandler(id: string, object: ioBroker.Object | null | undefi
     // Test properties of all objects
     if (object) {
         object._id.toLowerCase();
-        object.common.name.toLowerCase();
+        const name = object.common.name;
+        if (typeof name !== "string") {
+            name.de; // $ExpectType string | undefined
+        }
         object.common.role && object.common.role.toLowerCase();
         object.common.icon && object.common.icon.toLowerCase();
         object.native.toString();
@@ -221,6 +224,7 @@ adapter.setObject('id', {
     protectedNative: ['none'],
     encryptedNative: ['none'],
     from: 'me',
+    user: 'also me',
     ts: Date.now(),
 });
 
@@ -273,16 +277,27 @@ adapter.setObject(
     },
 );
 
-adapter.setObject('id', {
-    type: 'device',
+// TODO: Cannot enforce this without making it impossible to use interfaces to describe the shape of `native`
+// adapter.setObject('id', {
+//     type: 'device',
+//     common: {
+//         name: 'foo',
+//     },
+//     native: {
+//         // Date is not allowed here
+//         // $ExpectError
+//         date: new Date(),
+//     },
+// });
+
+// Check that name as object is okay:
+adapter.extendForeignObject("id", {
     common: {
-        name: 'foo',
-    },
-    native: {
-        // Date is not allowed here
-        // $ExpectError
-        date: new Date(),
-    },
+        name: {
+            en: "foobar",
+            fr: "le foo de bar",
+        }
+    }
 });
 
 adapter.getObjectView('system', 'admin', { startkey: 'foo', endkey: 'bar' }, (err, docs) => {
@@ -451,6 +466,9 @@ function repro3() {
             channelList; // $ExpectType ChannelObject[]
         }
     });
+    adapter.getChannelsAsync().then(list => {
+        list; // $ExpectType ChannelObject[]
+    });
     adapter.getChannelsOfAsync().then(list => {
         list; // $ExpectType ChannelObject[]
     });
@@ -497,3 +515,67 @@ adapter.getObjectAsync('id').then(obj => {
     obj && obj.common && obj.common.alias && obj.common.alias.id;
     obj && obj.common && obj.common.unit && obj.common.workingID;
 });
+
+declare let state: ioBroker.StateObject;
+if (typeof state.common.smartName === "object") {
+    state.common.smartName.de && state.common.smartName.de.toUpperCase();
+    state.common.smartName.byOn && state.common.smartName.byOn.toUpperCase();
+}
+
+declare let enumObj: ioBroker.EnumObject;
+enumObj.common.members && enumObj.common.members.map(() => 1);
+
+// Adapter.clearTimeout and clearInterval are not compatible with the builtins
+adapter.clearTimeout(adapter.setTimeout(() => {}, 10));
+adapter.clearInterval(adapter.setInterval(() => {}, 10));
+// $ExpectError
+clearTimeout(adapter.setTimeout(() => {}, 10));
+// $ExpectError
+clearInterval(adapter.setInterval(() => {}, 10));
+// $ExpectError
+adapter.clearTimeout(setTimeout(() => {}, 10));
+// $ExpectError
+adapter.clearInterval(setInterval(() => {}, 10));
+// And they must not be switched
+// $ExpectError
+adapter.clearInterval(adapter.setTimeout(() => {}, 10));
+// $ExpectError
+adapter.clearTimeout(adapter.setInterval(() => {}, 10));
+
+// Error callbacks were changed to Error objects
+adapter.delFile(null, "foo", (err) => {
+    if (err) {
+        // And the fs-specific ones now contain the code
+        err.code;
+        err.message;
+        err.syscall;
+    }
+});
+
+// Repro from ioBroker.i2c
+{
+    interface PCF8574Config {
+        pollingInterval: number;
+        interrupt?: string;
+        pins: PinConfig[];
+    }
+
+    interface PinConfig {
+        dir: 'in' | 'out';
+        inv?: boolean;
+    }
+
+    const config: PCF8574Config = undefined as any;
+
+    adapter.extendObject(`some state`, {
+        type: 'state',
+        common: {
+            name: `some name`,
+            read: true,
+            write: false,
+            type: 'boolean',
+            role: 'indicator',
+        },
+        native: config,
+    });
+}

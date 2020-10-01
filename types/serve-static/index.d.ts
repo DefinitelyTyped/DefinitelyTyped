@@ -58,7 +58,7 @@ declare namespace serveStatic {
 
         /**
          * Let client errors fall-through as unhandled requests, otherwise forward a client error.
-         * The default value is false.
+         * The default value is true.
          */
         fallthrough?: boolean;
 

@@ -5,9 +5,32 @@ const options: Glider.Options = {
     dots: '.dots',
     arrows: {
         prev: '.glider-prev',
+        next: document.querySelector('.glider-next'),
+    },
+    eventPropagate: true,
+};
+
+// Options.dots
+new Glider(new HTMLDivElement(), {
+    dots: '.dots',
+});
+new Glider(new HTMLDivElement(), {
+    dots: document.querySelector('.dots'),
+});
+
+// Options.arrows
+new Glider(new HTMLDivElement(), {
+    arrows: {
+        prev: '.glider-prev',
         next: '.glider-next',
     },
-};
+});
+new Glider(new HTMLDivElement(), {
+    arrows: {
+        prev: document.querySelector('.glider-prev'),
+        next: document.querySelector('.glider-next'),
+    },
+});
 
 // $ExpectType Static<HTMLDivElement>
 const glider = new Glider(new HTMLDivElement(), options);
@@ -37,10 +60,10 @@ glider.setOption(options, true);
 glider.updateControls();
 
 // $ExpectType HTMLDivElement
-glider.ref;
+glider.ele;
 
 // $ExpectType Options
-glider.options;
+glider.opt;
 
 document.querySelector('.glider')?.addEventListener('glider-add', event => {
     // $ExpectType GliderEvent<{ scroll: () => void; }>

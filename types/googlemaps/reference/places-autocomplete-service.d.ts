@@ -52,7 +52,7 @@ declare namespace google.maps.places {
          */
         distance_meters?: number;
 
-        id: string;
+        id?: string;
         matched_substrings: PredictionSubstring[];
         place_id: string;
         reference: string;

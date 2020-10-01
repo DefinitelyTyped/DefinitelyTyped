@@ -422,6 +422,8 @@ declare module "fs" {
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
+    function stat(path: PathLike, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    function stat(path: PathLike, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     function stat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
@@ -430,6 +432,8 @@ declare module "fs" {
          * Asynchronous stat(2) - Get file status.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
+        function __promisify__(path: PathLike, options: BigIntOptions): Promise<BigIntStats>;
+        function __promisify__(path: PathLike, options: StatOptions): Promise<Stats | BigIntStats>;
         function __promisify__(path: PathLike): Promise<Stats>;
     }
 
@@ -437,6 +441,8 @@ declare module "fs" {
      * Synchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
+    function statSync(path: PathLike, options: BigIntOptions): BigIntStats;
+    function statSync(path: PathLike, options: StatOptions): Stats | BigIntStats;
     function statSync(path: PathLike): Stats;
 
     /**
@@ -2448,5 +2454,23 @@ declare module "fs" {
         function readFile(path: PathLike | FileHandle, options?: { encoding?: string | null, flag?: string | number } | string | null): Promise<string | Buffer>;
 
         function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
+    }
+
+    interface BigIntStats extends StatsBase<bigint> {
+    }
+
+    class BigIntStats {
+        atimeNs: bigint;
+        mtimeNs: bigint;
+        ctimeNs: bigint;
+        birthtimeNs: bigint;
+    }
+
+    interface BigIntOptions {
+        bigint: true;
+    }
+
+    interface StatOptions {
+        bigint: boolean;
     }
 }

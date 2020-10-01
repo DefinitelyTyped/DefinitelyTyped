@@ -3,8 +3,6 @@
 // Definitions by: Mikhus <ttps://github.com/Mikhus>
 // Definitions: https://github.com/Mikhus/DefinitelyTyped
 
-// <reference types="node" />
-
 declare namespace domurl {
     type QueryString<T> = T;
 }

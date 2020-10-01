@@ -6,9 +6,6 @@ wp.pool({minWorkers: 'max'});
 wp.pool({minWorkers: 'max', maxWorkers: 1});
 wp.pool({minWorkers: 1, maxWorkers: 1});
 wp.pool({maxWorkers: 1});
-wp.pool({nodeWorker: 'process'});
-wp.pool({nodeWorker: 'thread'});
-wp.pool({nodeWorker: 'auto'});
 wp.pool({workerType: 'process'});
 wp.pool({workerType: 'thread'});
 wp.pool({workerType: 'web'});
@@ -16,11 +13,11 @@ wp.pool({workerType: 'auto'});
 wp.pool({forkArgs: ['foo', 'bar']});
 wp.pool({forkOpts: {cwd: '/tmp'}});
 const pool = wp.pool();
-pool.clear()
+pool.terminate()
     .then(() => pool.terminate())
-    .then(() => pool.clear())
-    .then(() => pool.clear(true))
-    .then(() => pool.clear(false))
+    .then(() => pool.terminate())
+    .then(() => pool.terminate(true))
+    .then(() => pool.terminate(false))
     .then(() => pool.terminate(true))
     .then(() => pool.terminate(false))
     .then(() => pool.terminate(false, 1000));
@@ -73,3 +70,5 @@ let promises: wp.Promise<any[]> = wp.Promise.all([
     pool.exec('foo', null)
 ]);
 promises = wp.Promise.all([]);
+
+const promiseLike: PromiseLike<any[]> = promises;

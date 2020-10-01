@@ -29,9 +29,9 @@ declare namespace PubSubJS {
     }
 
     interface Publish {
-        publish(message: string, data: any): boolean;
+        publish(message: string, data?: any): boolean;
 
-        publishSync(message: string, data: any): boolean;
+        publishSync(message: string, data?: any): boolean;
     }
 
     interface Subscribe {

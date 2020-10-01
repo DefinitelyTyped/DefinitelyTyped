@@ -1,5 +1,5 @@
 import Collection from '../Collection';
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import { Condition } from '../events/condition';
 import BaseEvent from '../events/Event';
 import Feature, { FeatureLike } from '../Feature';
@@ -8,8 +8,9 @@ import Layer from '../layer/Layer';
 import VectorLayer from '../layer/Vector';
 import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
+import PluggableMap from '../PluggableMap';
 import Source from '../source/Source';
-import Style, { StyleFunction, StyleLike } from '../style/Style';
+import { StyleFunction, StyleLike } from '../style/Style';
 import Interaction from './Interaction';
 
 export type FilterFunction = (p0: FeatureLike, p1: Layer<Source>) => boolean;
@@ -25,7 +26,7 @@ export interface Options {
     filter?: FilterFunction;
     hitTolerance?: number;
 }
-export enum SelectEventType {
+declare enum SelectEventType {
     SELECT = 'select',
 }
 export default class Select extends Interaction {
@@ -33,9 +34,11 @@ export default class Select extends Interaction {
     getFeatures(): Collection<Feature<Geometry>>;
     getHitTolerance(): number;
     getLayer(feature: FeatureLike): VectorLayer;
-    getStyle(): Style | Style[] | StyleFunction;
+    getStyle(): StyleLike;
+    handleEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
     setHitTolerance(hitTolerance: number): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    setMap(map: PluggableMap): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
@@ -54,14 +57,14 @@ export default class Select extends Interaction {
     once(type: 'select', listener: (evt: SelectEvent) => void): EventsKey;
     un(type: 'select', listener: (evt: SelectEvent) => void): void;
 }
-export class SelectEvent extends BaseEvent {
+declare class SelectEvent extends BaseEvent {
     constructor(
         type: SelectEventType,
         selected: Feature<Geometry>[],
         deselected: Feature<Geometry>[],
-        mapBrowserEvent: MapBrowserEvent,
+        mapBrowserEvent: MapBrowserEvent<UIEvent>,
     );
     deselected: Feature<Geometry>[];
-    mapBrowserEvent: MapBrowserEvent;
+    mapBrowserEvent: MapBrowserEvent<UIEvent>;
     selected: Feature<Geometry>[];
 }

@@ -391,6 +391,13 @@ declare namespace webpack {
          * This addresses a performance regression.
          */
         cacheWithContext?: boolean;
+
+        /**
+         * A list of directories where requests of server-relative URLs
+         * (starting with '/') are resolved, defaults to context configuration option.
+         * On non-Windows systems these requests are resolved as an absolute path first.
+         */
+        roots?: string[];
     }
 
     interface ResolveLoader extends Resolve {
@@ -1305,6 +1312,14 @@ declare namespace webpack {
         interface MultiStats {
             stats: Stats[];
             hash: string;
+            /** Returns true if there were errors while compiling. */
+            hasErrors(): boolean;
+            /** Returns true if there were warnings while compiling. */
+            hasWarnings(): boolean;
+            /** Returns compilation information as a JSON object. */
+            toJson(options?: Stats.ToJsonOptions): Stats.ToJsonOutput;
+            /** Returns a formatted string of the compilation information (similar to CLI output). */
+            toString(options?: Stats.ToStringOptions): string;
         }
 
         interface MultiCompilerHooks {

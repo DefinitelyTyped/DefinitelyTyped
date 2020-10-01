@@ -654,7 +654,7 @@ export abstract class FileData {
  * Object for storing cookies.
  * https://docs.k6.io/docs/cookiejar-k6http
  */
-export abstract class CookieJar {
+export class CookieJar {
     protected __brand: never;
 
     /**

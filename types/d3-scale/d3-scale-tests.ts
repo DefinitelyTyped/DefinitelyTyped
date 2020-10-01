@@ -48,8 +48,8 @@ let date: Date;
 
 let clampFlag: boolean;
 
-let outputNumber: number;
-let outputString: string;
+let outputNumber: number | undefined;
+let outputString: string | undefined;
 
 let domainNumbers: number[] = [1, 100];
 const domainNumeric: NumCoercible[] = [new NumCoercible(0), new NumCoercible(100)];
@@ -70,6 +70,8 @@ let numOrUndefinedExtent: [number | undefined, number | undefined];
 
 let outputNumberMaybe: number | undefined;
 
+tickFormatNumberFn = d3Scale.tickFormat(0, 10, 5, '+%');
+
 // -------------------------------------------------------------------------------
 // Linear Scale Factory
 // -------------------------------------------------------------------------------
@@ -83,6 +85,7 @@ let linearScaleNumString: d3Scale.ScaleLinear<number, string>;
 linearScaleNumber = d3Scale.scaleLinear();
 linearScaleString = d3Scale.scaleLinear<string>();
 linearScaleNumString = d3Scale.scaleLinear<number, string>();
+linearScaleNumber = d3Scale.scaleLinear([0, 5], [0, 5]);
 
 // ScaleLinear Interface ========================================================
 
@@ -127,6 +130,11 @@ linearScaleNumber = linearScaleNumber.rangeRound(rangeNumbers);
 
 linearScaleNumber = linearScaleNumber.clamp(true);
 clampFlag = linearScaleNumber.clamp();
+
+// unknown(...) -----------------------------------------------------------------
+
+linearScaleNumber = linearScaleNumber.unknown(5);
+const linearScaleNumberUnknownValue = linearScaleNumber.unknown();
 
 // interpolate(...) -----------------------------------------------------------------
 
@@ -185,6 +193,7 @@ let powerScaleNumString: d3Scale.ScalePower<number, string>;
 powerScaleNumber = d3Scale.scalePow();
 powerScaleString = d3Scale.scalePow<string>();
 powerScaleNumString = d3Scale.scalePow<number, string>();
+powerScaleNumber = d3Scale.scalePow([0, 5], [0, 5]);
 
 let squarerootScaleNumber: d3Scale.ScalePower<number, number>;
 let squarerootScaleString: d3Scale.ScalePower<string, string>;
@@ -193,6 +202,7 @@ let squarerootScaleNumString: d3Scale.ScalePower<number, string>;
 squarerootScaleNumber = d3Scale.scaleSqrt();
 squarerootScaleString = d3Scale.scaleSqrt<string>();
 squarerootScaleNumString = d3Scale.scaleSqrt<number, string>();
+squarerootScaleNumber = d3Scale.scaleSqrt([0, 5], [0, 5]);
 
 // ScalePower Interface ========================================================
 
@@ -295,6 +305,7 @@ let logScaleNumString: d3Scale.ScaleLogarithmic<number, string>;
 logScaleNumber = d3Scale.scaleLog();
 logScaleString = d3Scale.scaleLog<string>();
 logScaleNumString = d3Scale.scaleLog<number, string>();
+logScaleNumber = d3Scale.scaleLog([0, 5], [0, 5]);
 
 // ScaleLogarithmic Interface ========================================================
 
@@ -398,6 +409,7 @@ let symLogScaleNumString: d3Scale.ScaleSymLog<number, string>;
 symLogScaleNumber = d3Scale.scaleSymlog();
 symLogScaleString = d3Scale.scaleSymlog<string>();
 symLogScaleNumString = d3Scale.scaleSymlog<number, string>();
+symLogScaleNumber = d3Scale.scaleSymlog([0, 5], [0, 5]);
 // ScaleSymLog Interface ========================================================
 
 // constant --------------------------------------------------------------------
@@ -421,6 +433,7 @@ tickFormatNumberFn = symLogScaleNumber.tickFormat(5, '+%');
 let identityScale: d3Scale.ScaleIdentity;
 
 identityScale = d3Scale.scaleIdentity();
+identityScale = d3Scale.scaleIdentity([0, 5]);
 
 // ScaleIdentity Interface ========================================================
 
@@ -478,6 +491,7 @@ let localTimeScaleNumString: d3Scale.ScaleTime<number, string>;
 localTimeScaleNumber = d3Scale.scaleTime();
 localTimeScaleString = d3Scale.scaleTime<string>();
 localTimeScaleNumString = d3Scale.scaleTime<number, string>();
+localTimeScaleNumber = d3Scale.scaleTime([0, 5], [0, 5]);
 
 let utcScaleNumber: d3Scale.ScaleTime<number, number>;
 let utcScaleString: d3Scale.ScaleTime<string, string>;
@@ -486,6 +500,7 @@ let utcScaleNumString: d3Scale.ScaleTime<number, string>;
 utcScaleNumber = d3Scale.scaleUtc();
 utcScaleString = d3Scale.scaleUtc<string>();
 utcScaleNumString = d3Scale.scaleUtc<number, string>();
+utcScaleNumber = d3Scale.scaleUtc([0, 5], [0, 5]);
 
 // domain(...) -----------------------------------------------------------------
 
@@ -586,8 +601,15 @@ const copiedTimeScale: d3Scale.ScaleTime<number, string> = localTimeScaleNumStri
 
 let sequentialScaleColorString: d3Scale.ScaleSequential<string>;
 
+sequentialScaleColorString = d3Scale.scaleSequential<string>();
+sequentialScaleColorString = d3Scale.scaleSequentialLog<string>();
+sequentialScaleColorString = d3Scale.scaleSequentialPow<string>();
+sequentialScaleColorString = d3Scale.scaleSequentialSqrt<string>();
+sequentialScaleColorString = d3Scale.scaleSequentialSymlog<string>();
+sequentialScaleColorString = d3Scale.scaleSequentialQuantile<string>();
 sequentialScaleColorString = d3Scale.scaleSequential<string>(interpolateRainbow);
 sequentialScaleColorString = d3Scale.scaleSequential(interpolateCool); // inferred Output type string
+sequentialScaleColorString = d3Scale.scaleSequential([0, 5], interpolateRainbow);
 
 // ScaleSequential Interface ========================================================
 
@@ -627,12 +649,15 @@ const interpolateDouble = (t: number) => t * 2;
 let divergingScaleNumber: d3Scale.ScaleDiverging<number>;
 let divergingScaleString: d3Scale.ScaleDiverging<string>;
 
-// $ExpectError
-d3Scale.scaleDiverging(); // fails, Expected 1 arguments, but got 0.
-
-divergingScaleNumber = d3Scale.scaleDiverging<number>(interpolateRound(0, 1));
-divergingScaleNumber = d3Scale.scaleDiverging<number>(interpolateDouble);
+divergingScaleNumber = d3Scale.scaleDiverging();
+divergingScaleNumber = d3Scale.scaleDivergingLog();
+divergingScaleNumber = d3Scale.scaleDivergingPow();
+divergingScaleNumber = d3Scale.scaleDivergingSqrt();
+divergingScaleNumber = d3Scale.scaleDivergingSymlog();
+divergingScaleNumber = d3Scale.scaleDiverging(interpolateRound(0, 1));
+divergingScaleNumber = d3Scale.scaleDiverging(interpolateDouble);
 divergingScaleString = d3Scale.scaleDiverging<string>(interpolateSpectral);
+divergingScaleNumber = d3Scale.scaleDiverging<number>([0, 5, 10], interpolateRound(0, 1));
 
 // ScaleDiverging Interface =======================================================
 
@@ -696,6 +721,7 @@ let quantizeScaleString: d3Scale.ScaleQuantize<string>;
 
 quantizeScaleNumber = d3Scale.scaleQuantize();
 quantizeScaleString = d3Scale.scaleQuantize<string>();
+quantizeScaleNumber = d3Scale.scaleQuantize([0, 5], [0, 5]);
 
 // ScaleQuantize Interface ========================================================
 
@@ -755,6 +781,7 @@ let quantileScaleString: d3Scale.ScaleQuantile<string>;
 
 quantileScaleNumber = d3Scale.scaleQuantile();
 quantileScaleString = d3Scale.scaleQuantile<string>();
+quantileScaleNumber = d3Scale.scaleQuantile([0, 5], [0, 5]);
 
 // ScaleQuantile Interface ========================================================
 
@@ -803,6 +830,7 @@ let thresholdScaleNumberString: d3Scale.ScaleThreshold<number, string>;
 
 thresholdScaleNumberNumber = d3Scale.scaleThreshold();
 thresholdScaleNumberString = d3Scale.scaleThreshold<number, string>();
+thresholdScaleNumberString = d3Scale.scaleThreshold<number, string>([0, 5], ['test']);
 
 // ScaleThreshold Interface ========================================================
 
@@ -850,6 +878,7 @@ ordinalScaleStringString = d3Scale.scaleOrdinal<string>();
 ordinalScaleStringString = d3Scale.scaleOrdinal<string>(schemePuRd[3]);
 ordinalScaleStringNumber = d3Scale.scaleOrdinal<string, number>();
 ordinalScaleStringString = d3Scale.scaleOrdinal<string, string>(schemePuRd[3]);
+ordinalScaleStringString = d3Scale.scaleOrdinal(schemePuRd[3], schemePuRd[3]);
 
 // ScaleOrdinal Interface ========================================================
 
@@ -887,9 +916,9 @@ if (typeof unknownValue === 'string') {
 
 // (...) value mapping from domain to output -----------------------------------
 
-outputString = ordinalScaleStringString('neutral');
+const ordinalOutputString: string = ordinalScaleStringString('neutral');
 
-outputNumber = ordinalScaleStringNumber('negative');
+const ordinalOutputNumber: number = ordinalScaleStringNumber('negative');
 
 // copy(...) -----------------------------------------------------------------
 
@@ -906,6 +935,7 @@ let bandScaleCoercible: d3Scale.ScaleBand<StringCoercible>;
 
 bandScaleString = d3Scale.scaleBand();
 bandScaleCoercible = d3Scale.scaleBand<StringCoercible>();
+bandScaleString = d3Scale.scaleBand(['test'], [0, 5]);
 
 // ScaleBand Interface ========================================================
 
@@ -982,6 +1012,7 @@ let pointScaleCoercible: d3Scale.ScalePoint<StringCoercible>;
 
 pointScaleString = d3Scale.scalePoint();
 pointScaleCoercible = d3Scale.scalePoint<StringCoercible>();
+pointScaleString = d3Scale.scalePoint(['test'], [0, 5]);
 
 // ScalePoint Interface ========================================================
 

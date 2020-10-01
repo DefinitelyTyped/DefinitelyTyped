@@ -1,4 +1,3 @@
-/// <reference types="qunit" />
 import * as ShareDB from 'sharedb';
 import * as http from 'http';
 import * as WebSocket from 'ws';
@@ -44,6 +43,7 @@ console.log(backend.db);
 // getOps allows for `from` and `to` to both be `null`:
 // https://github.com/share/sharedb/blob/960f5d152f6a8051ed2dcb00a57681a3ebbd7dc2/README.md#getops
 backend.db.getOps('someCollection', 'someId', null, null, {}, () => {});
+backend.db.getSnapshotBulk('someCollection', ['id1', 'id2'], null, null, () => {});
 
 console.log(backend.pubsub);
 console.log(backend.extraDbs);
@@ -78,6 +78,9 @@ for (const action of submitRelatedActions) {
             request.snapshot,
             request.ops,
             request.channels,
+            request.op.op,
+            request.op.create,
+            request.op.del,
         );
         callback();
     });

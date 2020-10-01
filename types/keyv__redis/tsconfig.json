@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@keyv/redis": [
-                "keyv__redis"
+            "@keyv/*": [
+                "keyv__*"
             ]
         },
         "types": [],

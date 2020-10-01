@@ -22,6 +22,7 @@
         "test/index.ts",
         "test/addon/comment/comment.ts",
         "test/addon/display/autorefresh.ts",
+        "test/addon/display/fullscreen.ts",
         "test/addon/display/panel.ts",
         "test/addon/display/placeholder.ts",
         "test/addon/edit/closebrackets.ts",

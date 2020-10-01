@@ -6,7 +6,8 @@
 //                 Jason Kwok <https://github.com/JasonHK>
 //                 Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+
+/// <reference path="helpers.d.ts" />
 
 import { JSONSchema4 } from 'json-schema';
 import * as ESTree from 'estree';
@@ -244,7 +245,76 @@ export namespace Rule {
     }
 
     type NodeTypes = ESTree.Node['type'];
-    type NodeListener = { [T in NodeTypes]?: (node: ESTree.Node) => void };
+    interface NodeListener {
+        ArrayExpression?: (node: ESTree.ArrayExpression) => void;
+        ArrayPattern?: (node: ESTree.ArrayPattern) => void;
+        ArrowFunctionExpression?: (node: ESTree.ArrowFunctionExpression) => void;
+        AssignmentExpression?: (node: ESTree.AssignmentExpression) => void;
+        AssignmentPattern?: (node: ESTree.AssignmentPattern) => void;
+        AwaitExpression?: (node: ESTree.AwaitExpression) => void;
+        BinaryExpression?: (node: ESTree.BinaryExpression) => void;
+        BlockStatement?: (node: ESTree.BlockStatement) => void;
+        BreakStatement?: (node: ESTree.BreakStatement) => void;
+        CallExpression?: (node: ESTree.CallExpression) => void;
+        CatchClause?: (node: ESTree.CatchClause) => void;
+        ChainExpression?: (node: ESTree.ChainExpression) => void;
+        ClassBody?: (node: ESTree.ClassBody) => void;
+        ClassDeclaration?: (node: ESTree.ClassDeclaration) => void;
+        ClassExpression?: (node: ESTree.ClassExpression) => void;
+        ConditionalExpression?: (node: ESTree.ConditionalExpression) => void;
+        ContinueStatement?: (node: ESTree.ContinueStatement) => void;
+        DebuggerStatement?: (node: ESTree.DebuggerStatement) => void;
+        DoWhileStatement?: (node: ESTree.DoWhileStatement) => void;
+        EmptyStatement?: (node: ESTree.EmptyStatement) => void;
+        ExportAllDeclaration?: (node: ESTree.ExportAllDeclaration) => void;
+        ExportDefaultDeclaration?: (node: ESTree.ExportDefaultDeclaration) => void;
+        ExportNamedDeclaration?: (node: ESTree.ExportNamedDeclaration) => void;
+        ExportSpecifier?: (node: ESTree.ExportSpecifier) => void;
+        ExpressionStatement?: (node: ESTree.ExpressionStatement) => void;
+        ForInStatement?: (node: ESTree.ForInStatement) => void;
+        ForOfStatement?: (node: ESTree.ForOfStatement) => void;
+        ForStatement?: (node: ESTree.ForStatement) => void;
+        FunctionDeclaration?: (node: ESTree.FunctionDeclaration) => void;
+        FunctionExpression?: (node: ESTree.FunctionExpression) => void;
+        Identifier?: (node: ESTree.Identifier) => void;
+        IfStatement?: (node: ESTree.IfStatement) => void;
+        ImportDeclaration?: (node: ESTree.ImportDeclaration) => void;
+        ImportDefaultSpecifier?: (node: ESTree.ImportDefaultSpecifier) => void;
+        ImportExpression?: (node: ESTree.ImportExpression) => void;
+        ImportNamespaceSpecifier?: (node: ESTree.ImportNamespaceSpecifier) => void;
+        ImportSpecifier?: (node: ESTree.ImportSpecifier) => void;
+        LabeledStatement?: (node: ESTree.LabeledStatement) => void;
+        Literal?: (node: ESTree.Literal) => void;
+        LogicalExpression?: (node: ESTree.LogicalExpression) => void;
+        MemberExpression?: (node: ESTree.MemberExpression) => void;
+        MetaProperty?: (node: ESTree.MetaProperty) => void;
+        MethodDefinition?: (node: ESTree.MethodDefinition) => void;
+        NewExpression?: (node: ESTree.NewExpression) => void;
+        ObjectExpression?: (node: ESTree.ObjectExpression) => void;
+        ObjectPattern?: (node: ESTree.ObjectPattern) => void;
+        Program?: (node: ESTree.Program) => void;
+        Property?: (node: ESTree.Property) => void;
+        RestElement?: (node: ESTree.RestElement) => void;
+        ReturnStatement?: (node: ESTree.ReturnStatement) => void;
+        SequenceExpression?: (node: ESTree.SequenceExpression) => void;
+        SpreadElement?: (node: ESTree.SpreadElement) => void;
+        Super?: (node: ESTree.Super) => void;
+        SwitchCase?: (node: ESTree.SwitchCase) => void;
+        SwitchStatement?: (node: ESTree.SwitchStatement) => void;
+        TaggedTemplateExpression?: (node: ESTree.TaggedTemplateExpression) => void;
+        TemplateElement?: (node: ESTree.TemplateElement) => void;
+        TemplateLiteral?: (node: ESTree.TemplateLiteral) => void;
+        ThisExpression?: (node: ESTree.ThisExpression) => void;
+        ThrowStatement?: (node: ESTree.ThrowStatement) => void;
+        TryStatement?: (node: ESTree.TryStatement) => void;
+        UnaryExpression?: (node: ESTree.UnaryExpression) => void;
+        UpdateExpression?: (node: ESTree.UpdateExpression) => void;
+        VariableDeclaration?: (node: ESTree.VariableDeclaration) => void;
+        VariableDeclarator?: (node: ESTree.VariableDeclarator) => void;
+        WhileStatement?: (node: ESTree.WhileStatement) => void;
+        WithStatement?: (node: ESTree.WithStatement) => void;
+        YieldExpression?: (node: ESTree.YieldExpression) => void;
+    }
 
     interface RuleListener extends NodeListener {
         onCodePathStart?(codePath: CodePath, node: ESTree.Node): void;
@@ -262,6 +332,7 @@ export namespace Rule {
             | ((segment: CodePathSegment, node: ESTree.Node) => void)
             | ((fromSegment: CodePathSegment, toSegment: CodePathSegment, node: ESTree.Node) => void)
             | ((node: ESTree.Node) => void)
+            | NodeListener[keyof NodeListener]
             | undefined;
     }
 
@@ -285,10 +356,16 @@ export namespace Rule {
 
     interface RuleMetaData {
         docs?: {
+            /** provides the short description of the rule in the [rules index](https://eslint.org/docs/rules/) */
             description?: string;
+            /** specifies the heading under which the rule is listed in the [rules index](https://eslint.org/docs/rules/) */
             category?: string;
+            /** is whether the `"extends": "eslint:recommended"` property in a [configuration file](https://eslint.org/docs/user-guide/configuring#extending-configuration-files) enables the rule */
             recommended?: boolean;
+            /** specifies the URL at which the full documentation can be accessed */
             url?: string;
+            /** specifies whether rules can return suggestions (defaults to false if omitted) */
+            suggestion?: boolean
         };
         messages?: { [messageId: string]: string };
         fixable?: 'code' | 'whitespace';
@@ -393,21 +470,19 @@ export namespace Linter {
     type Severity = 0 | 1 | 2;
 
     type RuleLevel = Severity | 'off' | 'warn' | 'error';
-    interface RuleLevelAndOptions extends Array<any> {
-        0: RuleLevel;
-    }
+    type RuleLevelAndOptions<Options extends any[] = any[]> = Prepend<Partial<Options>, RuleLevel>;
 
-    type RuleEntry = RuleLevel | RuleLevelAndOptions;
+    type RuleEntry<Options extends any[] = any[]> = RuleLevel | RuleLevelAndOptions<Options>;
 
     interface RulesRecord {
         [rule: string]: RuleEntry;
     }
 
-    interface HasRules {
-        rules?: Partial<RulesRecord>;
+    interface HasRules<Rules extends RulesRecord = RulesRecord> {
+        rules?: Partial<Rules>;
     }
 
-    interface BaseConfig extends HasRules {
+    interface BaseConfig<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
         $schema?: string;
         env?: { [name: string]: boolean };
         extends?: string | string[];
@@ -422,13 +497,13 @@ export namespace Linter {
         settings?: { [name: string]: any };
     }
 
-    interface ConfigOverride extends BaseConfig {
+    interface ConfigOverride<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
         excludedFiles?: string | string[];
         files: string | string[];
     }
 
     // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
-    interface Config extends BaseConfig {
+    interface Config<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
         ignorePatterns?: string | string[];
         root?: boolean;
     }
@@ -702,7 +777,7 @@ export namespace RuleTester {
     interface SuggestionOutput {
         messageId?: string;
         desc?: string;
-        data?: Record<string, any>;
+        data?: Record<string, unknown>;
         output: string;
     }
 

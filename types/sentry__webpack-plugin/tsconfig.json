@@ -16,7 +16,7 @@
         "types": [],
         "esModuleInterop": true,
         "paths": {
-            "@sentry/webpack-plugin": ["sentry__webpack-plugin"]
+            "@sentry/*": ["sentry__*"]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

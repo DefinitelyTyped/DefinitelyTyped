@@ -13,6 +13,7 @@ export interface CanvasKit {
     Color(r: number, g: number, b: number, a: number): SkColor;
     MakeAnimation(lottieJson: any): SkAnimation;
     MakeAnimatedImageFromEncoded(buffer: ArrayBuffer): SkAnimatedImage;
+    MakeCanvas(width: number, height: number): SkHtmlCanvas;
     MakeCanvasSurface(canvas: HTMLCanvasElement): SkSurface;
     MakeLinearGradientShader(start: SkPoint, end: SkPoint, colors: SkColor[], positions: number[], mode: number, localMatrix: SkMatrix | null, flags: number): SkShader;
     MakeRadialGradientShader(center: SkPoint, radius: number, colors: SkColor[], positions: number[], mode: number, localMatrix: SkMatrix | null, flags: number): SkShader;
@@ -272,6 +273,12 @@ export interface SkObject<T extends SkObject<T>> {
     deleteAfter(): void;
     isAliasOf(other: any): boolean;
     isDeleted(): boolean;
+}
+
+export interface SkHtmlCanvas {
+    dispose(): void;
+    getContext(type: "2d"): CanvasRenderingContext2D;
+    toDataURL(): string;
 }
 
 export interface SkShader extends SkObject<SkShader> {}

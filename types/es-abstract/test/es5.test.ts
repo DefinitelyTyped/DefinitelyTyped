@@ -28,7 +28,7 @@ ES5.Type([]); // $ExpectType "Object"
 expectType<'String' | 'Number' | 'Boolean' | 'Null' | 'Undefined' | 'Object' | undefined>(ES5.Type(any));
 expectType<'String' | 'Number' | 'Boolean' | 'Null' | 'Undefined' | 'Object' | undefined>(ES5.Type<any>(any));
 
-ES5.ToPrimitive(any); // $ExpectType string | number | boolean | symbol | null | undefined
+ES5.ToPrimitive(any); // $ExpectType string | number | bigint | boolean | symbol | null | undefined
 ES5.ToBoolean(any); // $ExpectType boolean
 ES5.ToNumber(any); // $ExpectType number
 ES5.ToInteger(any); // $ExpectType number
@@ -49,8 +49,8 @@ ES5.ToObject(Promise.resolve()); // $ExpectType Promise<void>
 ES5.ToObject(nullableObject); // $ExpectType object | String
 ES5.ToObject(nullableMaybePromise); // $ExpectType String | Promise<string>
 
-ES5.CheckObjectCoercible(nullableObject); // $ExpectType string | object
-ES5.CheckObjectCoercible(any); // $ExpectType unknown
+ES5.CheckObjectCoercible(nullableObject!); // $ExpectType string | object
+ES5.CheckObjectCoercible(any); // $ExpectError
 
 ES5.ToPropertyDescriptor({ value: 123 }); // $ExpectType PropertyDescriptor<number>
 ES5.FromPropertyDescriptor({ "[[Value]]": '456' }); // $ExpectType TypedPropertyDescriptor<string>

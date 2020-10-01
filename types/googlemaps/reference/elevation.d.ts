@@ -11,11 +11,11 @@ declare namespace google.maps {
     }
 
     interface LocationElevationRequest {
-        locations: LatLng[];
+        locations: Array<LatLngLiteral | LatLng>;
     }
 
     interface PathElevationRequest {
-        path?: LatLng[];
+        path?: Array<LatLngLiteral | LatLng>;
         samples?: number;
     }
 

@@ -1,4 +1,4 @@
-// Type definitions for Visual Studio Code 1.46
+// Type definitions for Visual Studio Code 1.49
 // Project: https://github.com/microsoft/vscode
 // Definitions by: Visual Studio Code Team, Microsoft <https://github.com/Microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.46 Extension API
+ * Type Definition for Visual Studio Code 1.49 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -1123,7 +1123,7 @@ declare module 'vscode' {
          * isn't one of the main editors, e.g. an embedded editor, or when the editor
          * column is larger than three.
          */
-        viewColumn?: ViewColumn;
+        readonly viewColumn?: ViewColumn;
 
         /**
          * Perform an edit on the document associated with this text editor.
@@ -1741,6 +1741,14 @@ declare module 'vscode' {
          * ```
          */
         filters?: { [name: string]: string[] };
+
+        /**
+         * Dialog title.
+         *
+         * This parameter might be ignored, as not all operating systems display a title on open dialogs
+         * (for example, macOS).
+         */
+        title?: string;
     }
 
     /**
@@ -1768,6 +1776,14 @@ declare module 'vscode' {
          * ```
          */
         filters?: { [name: string]: string[] };
+
+        /**
+         * Dialog title.
+         *
+         * This parameter might be ignored, as not all operating systems display a title on save dialogs
+         * (for example, macOS).
+         */
+        title?: string;
     }
 
     /**
@@ -2239,6 +2255,40 @@ declare module 'vscode' {
          * such as `[CodeActionKind.Refactor.Extract.append('function'), CodeActionKind.Refactor.Extract.append('constant'), ...]`.
          */
         readonly providedCodeActionKinds?: ReadonlyArray<CodeActionKind>;
+
+        /**
+         * Static documentation for a class of code actions.
+         *
+         * Documentation from the provider is shown in the code actions menu if either:
+         *
+         * - Code actions of `kind` are requested by VS Code. In this case, VS Code will show the documentation that
+         *   most closely matches the requested code action kind. For example, if a provider has documentation for
+         *   both `Refactor` and `RefactorExtract`, when the user requests code actions for `RefactorExtract`,
+         *   VS Code will use the documentation for `RefactorExtract` instead of the documentation for `Refactor`.
+         *
+         * - Any code actions of `kind` are returned by the provider.
+         *
+         * At most one documentation entry will be shown per provider.
+         */
+        readonly documentation?: ReadonlyArray<{
+            /**
+             * The kind of the code action being documented.
+             *
+             * If the kind is generic, such as `CodeActionKind.Refactor`, the documentation will be shown whenever any
+             * refactorings are returned. If the kind if more specific, such as `CodeActionKind.RefactorExtract`, the
+             * documentation will only be shown when extract refactoring code actions are returned.
+             */
+            readonly kind: CodeActionKind;
+
+            /**
+             * Command that displays the documentation to the user.
+             *
+             * This can display the documentation directly in VS Code or open a website using [`env.openExternal`](#env.openExternal);
+             *
+             * The title of this documentation code action is taken from [`Command.title`](#Command.title)
+             */
+            readonly command: Command;
+        }>;
     }
 
     /**
@@ -2281,7 +2331,7 @@ declare module 'vscode' {
      * A code lens provider adds [commands](#Command) to source text. The commands will be shown
      * as dedicated horizontal lines in between the source text.
      */
-    export interface CodeLensProvider<T = CodeLens> {
+    export interface CodeLensProvider<T extends CodeLens = CodeLens> {
 
         /**
          * An optional event to signal that the code lenses from this provider have changed.
@@ -2424,6 +2474,11 @@ declare module 'vscode' {
          * markdown supports links that execute commands, e.g. `[Run it](command:myCommandId)`.
          */
         isTrusted?: boolean;
+
+        /**
+         * Indicates that this markdown string can contain [ThemeIcons](#ThemeIcon), e.g. `$(zap)`.
+         */
+        readonly supportThemeIcons?: boolean;
 
         /**
          * Creates a new markdown string with the given value.
@@ -2808,7 +2863,7 @@ declare module 'vscode' {
      * The workspace symbol provider interface defines the contract between extensions and
      * the [symbol search](https://code.visualstudio.com/docs/editor/editingevolved#_open-symbol-by-name)-feature.
      */
-    export interface WorkspaceSymbolProvider<T = SymbolInformation> {
+    export interface WorkspaceSymbolProvider<T extends SymbolInformation = SymbolInformation> {
 
         /**
          * Project-wide search for a symbol matching the given query string.
@@ -3042,6 +3097,8 @@ declare module 'vscode' {
          * @param uri Uri of the new file..
          * @param options Defines if an existing file should be overwritten or be
          * ignored. When overwrite and ignoreIfExists are both set overwrite wins.
+         * When both are unset and when the file already exists then the edit cannot
+         * be applied successfully.
          * @param metadata Optional metadata for the entry.
          */
         createFile(uri: Uri, options?: { overwrite?: boolean, ignoreIfExists?: boolean }, metadata?: WorkspaceEditEntryMetadata): void;
@@ -3867,7 +3924,7 @@ declare module 'vscode' {
      * Represents a collection of [completion items](#CompletionItem) to be presented
      * in the editor.
      */
-    export class CompletionList<T = CompletionItem> {
+    export class CompletionList<T extends CompletionItem = CompletionItem> {
 
         /**
          * This list is not complete. Further typing should result in recomputing
@@ -3940,7 +3997,7 @@ declare module 'vscode' {
      * Providers are asked for completions either explicitly by a user gesture or -depending on the configuration-
      * implicitly when typing words or trigger characters.
      */
-    export interface CompletionItemProvider<T = CompletionItem> {
+    export interface CompletionItemProvider<T extends CompletionItem = CompletionItem> {
 
         /**
          * Provide completion items for the given position and document.
@@ -4015,7 +4072,7 @@ declare module 'vscode' {
      * The document link provider defines the contract between extensions and feature of showing
      * links in the editor.
      */
-    export interface DocumentLinkProvider<T = DocumentLink> {
+    export interface DocumentLinkProvider<T extends DocumentLink = DocumentLink> {
 
         /**
          * Provide links for the given document. Note that the editor ships with a default provider that detects
@@ -5195,6 +5252,24 @@ declare module 'vscode' {
     }
 
     /**
+     * Accessibility information which controls screen reader behavior.
+     */
+    export interface AccessibilityInformation {
+        /**
+         * Label to be read out by a screen reader once the item has focus.
+         */
+        label: string;
+
+        /**
+         * Role of the widget which defines how a screen reader interacts with it.
+         * The role should be set in special cases when for example a tree-like element behaves like a checkbox.
+         * If role is not specified VS Code will pick the appropriate role automatically.
+         * More about aria roles can be found here https://w3c.github.io/aria/#widget_roles
+         */
+        role?: string;
+    }
+
+    /**
      * Represents the alignment of status bar items.
      */
     export enum StatusBarAlignment {
@@ -5256,6 +5331,11 @@ declare module 'vscode' {
          * are used by VS Code.
          */
         command: string | Command | undefined;
+
+        /**
+         * Accessibility information used when screen reader interacts with this StatusBar item
+         */
+        accessibilityInformation?: AccessibilityInformation;
 
         /**
          * Shows the entry in the status bar.
@@ -5354,6 +5434,66 @@ declare module 'vscode' {
     }
 
     /**
+     * Provides information on a line in a terminal in order to provide links for it.
+     */
+    export interface TerminalLinkContext {
+        /**
+         * This is the text from the unwrapped line in the terminal.
+         */
+        line: string;
+
+        /**
+         * The terminal the link belongs to.
+         */
+        terminal: Terminal;
+    }
+
+    /**
+     * A provider that enables detection and handling of links within terminals.
+     */
+    export interface TerminalLinkProvider<T extends TerminalLink = TerminalLink> {
+        /**
+         * Provide terminal links for the given context. Note that this can be called multiple times
+         * even before previous calls resolve, make sure to not share global objects (eg. `RegExp`)
+         * that could have problems when asynchronous usage may overlap.
+         * @param context Information about what links are being provided for.
+         * @param token A cancellation token.
+         * @return A list of terminal links for the given line.
+         */
+        provideTerminalLinks(context: TerminalLinkContext, token: CancellationToken): ProviderResult<T[]>;
+
+        /**
+         * Handle an activated terminal link.
+         * @param link The link to handle.
+         */
+        handleTerminalLink(link: T): ProviderResult<void>;
+    }
+
+    /**
+     * A link on a terminal line.
+     */
+    export interface TerminalLink {
+        /**
+         * The start index of the link on [TerminalLinkContext.line](#TerminalLinkContext.line].
+         */
+        startIndex: number;
+
+        /**
+         * The length of the link on [TerminalLinkContext.line](#TerminalLinkContext.line]
+         */
+        length: number;
+
+        /**
+         * The tooltip text when you hover over this link.
+         *
+         * If a tooltip is provided, is will be displayed in a string that includes instructions on
+         * how to trigger the link, such as `{0} (ctrl + click)`. The specific instructions vary
+         * depending on OS, user settings, and localization.
+         */
+        tooltip?: string;
+    }
+
+    /**
      * In a remote window the extension kind describes if an extension
      * runs where the UI (window) runs or if an extension runs remotely.
      */
@@ -5427,6 +5567,30 @@ declare module 'vscode' {
     }
 
     /**
+     * The ExtensionMode is provided on the `ExtensionContext` and indicates the
+     * mode the specific extension is running in.
+     */
+    export enum ExtensionMode {
+        /**
+         * The extension is installed normally (for example, from the marketplace
+         * or VSIX) in VS Code.
+         */
+        Production = 1,
+
+        /**
+         * The extension is running from an `--extensionDevelopmentPath` provided
+         * when launching VS Code.
+         */
+        Development = 2,
+
+        /**
+         * The extension is running from an `--extensionTestsPath` and
+         * the extension host is running unit tests.
+         */
+        Test = 3,
+    }
+
+    /**
      * An extension context is a collection of utilities private to an
      * extension.
      *
@@ -5473,10 +5637,27 @@ declare module 'vscode' {
         /**
          * Get the absolute path of a resource contained in the extension.
          *
+         * *Note* that an absolute uri can be constructed via [`Uri.joinPath`](#Uri.joinPath) and
+         * [`extensionUri`](#ExtensionContent.extensionUri), e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
+         *
          * @param relativePath A relative path to a resource contained in the extension.
          * @return The absolute path of the resource.
          */
         asAbsolutePath(relativePath: string): string;
+
+        /**
+         * The uri of a workspace specific directory in which the extension
+         * can store private state. The directory might not exist and creation is
+         * up to the extension. However, the parent directory is guaranteed to be existent.
+         * The value is `undefined` when no workspace nor folder has been opened.
+         *
+         * Use [`workspaceState`](#ExtensionContext.workspaceState) or
+         * [`globalState`](#ExtensionContext.globalState) to store key value data.
+         *
+         * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+         *  an uri.
+         */
+        readonly storageUri: Uri | undefined;
 
         /**
          * An absolute file path of a workspace specific directory in which the extension
@@ -5485,8 +5666,22 @@ declare module 'vscode' {
          *
          * Use [`workspaceState`](#ExtensionContext.workspaceState) or
          * [`globalState`](#ExtensionContext.globalState) to store key value data.
+         *
+         * @deprecated Use [storagePath](#ExtensionContent.storageUri) instead.
          */
         readonly storagePath: string | undefined;
+
+        /**
+         * The uri of a directory in which the extension can store global state.
+         * The directory might not exist on disk and creation is
+         * up to the extension. However, the parent directory is guaranteed to be existent.
+         *
+         * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
+         *
+         * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+         *  an uri.
+         */
+        readonly globalStorageUri: Uri;
 
         /**
          * An absolute file path in which the extension can store global state.
@@ -5494,15 +5689,36 @@ declare module 'vscode' {
          * up to the extension. However, the parent directory is guaranteed to be existent.
          *
          * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
+         *
+         * @deprecated Use [globalStoragePath](#ExtensionContent.globalStorageUri) instead.
          */
         readonly globalStoragePath: string;
+
+        /**
+         * The uri of a directory in which the extension can create log files.
+         * The directory might not exist on disk and creation is up to the extension. However,
+         * the parent directory is guaranteed to be existent.
+         *
+         * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+         *  an uri.
+         */
+        readonly logUri: Uri;
 
         /**
          * An absolute file path of a directory in which the extension can create log files.
          * The directory might not exist on disk and creation is up to the extension. However,
          * the parent directory is guaranteed to be existent.
+         *
+         * @deprecated Use [logUri](#ExtensionContext.logUri) instead.
          */
         readonly logPath: string;
+
+        /**
+         * The mode the extension is running in. This is specific to the current
+         * extension. One extension may be in `ExtensionMode.Development` while
+         * other extensions in the host run in `ExtensionMode.Release`.
+         */
+        readonly extensionMode: ExtensionMode;
     }
 
     /**
@@ -5923,9 +6139,10 @@ declare module 'vscode' {
          * [Pseudoterminal.close](#Pseudoterminal.close). When the task is complete fire
          * [Pseudoterminal.onDidClose](#Pseudoterminal.onDidClose).
          * @param process The [Pseudoterminal](#Pseudoterminal) to be used by the task to display output.
-         * @param callback The callback that will be called when the task is started by a user.
+         * @param callback The callback that will be called when the task is started by a user. Any ${} style variables that
+         * were in the task definition will be resolved and passed into the callback.
          */
-        constructor(callback: () => Thenable<Pseudoterminal>);
+        constructor(callback: (resolvedDefinition: TaskDefinition) => Thenable<Pseudoterminal>);
     }
 
     /**
@@ -6003,6 +6220,13 @@ declare module 'vscode' {
         name: string;
 
         /**
+         * A human-readable string which is rendered less prominently on a separate line in places
+         * where the task's name is displayed. Supports rendering of [theme icons](#ThemeIcon)
+         * via the `$(<name>)`-syntax.
+         */
+        detail?: string;
+
+        /**
          * The task's execution engine
          */
         execution?: ProcessExecution | ShellExecution | CustomExecution;
@@ -6047,7 +6271,7 @@ declare module 'vscode' {
      * A task provider allows to add tasks to the task service.
      * A task provider is registered via #tasks.registerTaskProvider.
      */
-    export interface TaskProvider<T = Task> {
+    export interface TaskProvider<T extends Task = Task> {
         /**
          * Provides tasks.
          * @param token A cancellation token.
@@ -6186,6 +6410,10 @@ declare module 'vscode' {
         /**
          * Executes a task that is managed by VS Code. The returned
          * task execution can be used to terminate the task.
+         *
+         * @throws When running a ShellExecution or a ProcessExecution
+         * task in an environment where a new process cannot be started.
+         * In such an environment, only CustomExecution tasks can be run.
          *
          * @param task the task to execute
          */
@@ -7248,6 +7476,9 @@ declare module 'vscode' {
 
         /**
          * The application root folder from which the editor is running.
+         *
+         * *Note* that the value is the empty string when running in an
+         * environment that has no representation of an application root folder.
          */
         export const appRoot: string;
 
@@ -7290,7 +7521,8 @@ declare module 'vscode' {
 
         /**
          * The detected default shell for the extension host, this is overridden by the
-         * `terminal.integrated.shell` setting for the extension host's platform.
+         * `terminal.integrated.shell` setting for the extension host's platform. Note that in
+         * environments that do not support a shell the value is the empty string.
          */
         export const shell: string;
 
@@ -7814,7 +8046,7 @@ declare module 'vscode' {
          * @param options Options that control the dialog.
          * @returns A promise that resolves to the selected resources or `undefined`.
          */
-        export function showOpenDialog(options: OpenDialogOptions): Thenable<Uri[] | undefined>;
+        export function showOpenDialog(options?: OpenDialogOptions): Thenable<Uri[] | undefined>;
 
         /**
          * Shows a file save dialog to the user which allows to select a file
@@ -7823,7 +8055,7 @@ declare module 'vscode' {
          * @param options Options that control the dialog.
          * @returns A promise that resolves to the selected resource or `undefined`.
          */
-        export function showSaveDialog(options: SaveDialogOptions): Thenable<Uri | undefined>;
+        export function showSaveDialog(options?: SaveDialogOptions): Thenable<Uri | undefined>;
 
         /**
          * Opens an input box to ask the user for input.
@@ -7964,6 +8196,7 @@ declare module 'vscode' {
          * allows specifying shell args in
          * [command-line format](https://msdn.microsoft.com/en-au/08dfcab2-eb6e-49a4-80eb-87d4076c98c6).
          * @return A new Terminal.
+         * @throws When running in an environment where a new process cannot be started.
          */
         export function createTerminal(name?: string, shellPath?: string, shellArgs?: string[] | string): Terminal;
 
@@ -7972,6 +8205,7 @@ declare module 'vscode' {
          *
          * @param options A TerminalOptions object describing the characteristics of the new terminal.
          * @return A new Terminal.
+         * @throws When running in an environment where a new process cannot be started.
          */
         export function createTerminal(options: TerminalOptions): Terminal;
 
@@ -8075,6 +8309,13 @@ declare module 'vscode' {
              */
             readonly supportsMultipleEditorsPerDocument?: boolean;
         }): Disposable;
+
+        /**
+         * Register provider that enables the detection and handling of links within the terminal.
+         * @param provider The provider that provides the terminal links.
+         * @return Disposable that unregisters the provider.
+         */
+        export function registerTerminalLinkProvider(provider: TerminalLinkProvider): Disposable;
 
         /**
          * The currently active color theme as configured in the settings. The active
@@ -8318,6 +8559,13 @@ declare module 'vscode' {
         contextValue?: string;
 
         /**
+         * Accessibility information used when screen reader interacts with this tree item.
+         * Generally, a TreeItem has no need to set the `role` of the accessibilityInformation;
+         * however, there are cases where a TreeItem is not displayed in a tree-like way where setting the `role` may make sense.
+         */
+        accessibilityInformation?: AccessibilityInformation;
+
+        /**
          * @param label A human-readable string describing this item
          * @param collapsibleState [TreeItemCollapsibleState](#TreeItemCollapsibleState) of the tree item. Default is [TreeItemCollapsibleState.None](#TreeItemCollapsibleState.None)
          */
@@ -8419,8 +8667,9 @@ declare module 'vscode' {
     interface Pseudoterminal {
         /**
          * An event that when fired will write data to the terminal. Unlike
-         * [Terminal.sendText](#Terminal.sendText) which sends text to the underlying _process_
-         * (the pty "slave"), this will write the text to the terminal itself (the pty "master").
+         * [Terminal.sendText](#Terminal.sendText) which sends text to the underlying child
+         * pseudo-device (the child), this will write the text to parent pseudo-device (the
+         * _terminal_ itself).
          *
          * Note writing `\n` will just move the cursor down 1 row, you need to write `\r` as well
          * to move the cursor to the left-most cell.
@@ -9289,7 +9538,7 @@ declare module 'vscode' {
 
     /**
      * A workspace folder is one of potentially many roots opened by the editor. All workspace folders
-     * are equal which means there is no notion of an active or master workspace folder.
+     * are equal which means there is no notion of an active or primary workspace folder.
      */
     export interface WorkspaceFolder {
 
@@ -9752,11 +10001,12 @@ declare module 'vscode' {
     export interface ConfigurationChangeEvent {
 
         /**
-         * Returns `true` if the given section is affected in the provided scope.
+         * Checks if the given section has changed.
+         * If scope is provided, checks if the section has changed for resources under the given scope.
          *
          * @param section Configuration name, supports _dotted_ names.
          * @param scope A scope in which to check.
-         * @return `true` if the given section is affected in the provided scope.
+         * @return `true` if the given section has changed.
          */
         affectsConfiguration(section: string, scope?: ConfigurationScope): boolean;
     }
@@ -10471,6 +10721,27 @@ declare module 'vscode' {
     }
 
     /**
+     * A DebugProtocolMessage is an opaque stand-in type for the [ProtocolMessage](https://microsoft.github.io/debug-adapter-protocol/specification#Base_Protocol_ProtocolMessage) type defined in the Debug Adapter Protocol.
+     */
+    export interface DebugProtocolMessage {
+        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Base_Protocol_ProtocolMessage).
+    }
+
+    /**
+     * A DebugProtocolSource is an opaque stand-in type for the [Source](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source) type defined in the Debug Adapter Protocol.
+     */
+    export interface DebugProtocolSource {
+        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source).
+    }
+
+    /**
+     * A DebugProtocolBreakpoint is an opaque stand-in type for the [Breakpoint](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Breakpoint) type defined in the Debug Adapter Protocol.
+     */
+    export interface DebugProtocolBreakpoint {
+        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Breakpoint).
+    }
+
+    /**
      * Configuration for a debug session.
      */
     export interface DebugConfiguration {
@@ -10533,6 +10804,15 @@ declare module 'vscode' {
          * Send a custom request to the debug adapter.
          */
         customRequest(command: string, args?: any): Thenable<any>;
+
+        /**
+         * Maps a VS Code breakpoint to the corresponding Debug Adapter Protocol (DAP) breakpoint that is managed by the debug adapter of the debug session.
+         * If no DAP breakpoint exists (either because the VS Code breakpoint was not yet registered or because the debug adapter is not interested in the breakpoint), the value `undefined` is returned.
+         *
+         * @param breakpoint A VS Code [breakpoint](#Breakpoint).
+         * @return A promise that resolves to the Debug Adapter Protocol breakpoint or `undefined`.
+         */
+        getDebugProtocolBreakpoint(breakpoint: Breakpoint): Thenable<DebugProtocolBreakpoint | undefined>;
     }
 
     /**
@@ -10674,6 +10954,21 @@ declare module 'vscode' {
     }
 
     /**
+     * Represents a debug adapter running as a Named Pipe (on Windows)/UNIX Domain Socket (on non-Windows) based server.
+     */
+    export class DebugAdapterNamedPipeServer {
+        /**
+         * The path to the NamedPipe/UNIX Domain Socket.
+         */
+        readonly path: string;
+
+        /**
+         * Create a description for a debug adapter running as a socket based server.
+         */
+        constructor(path: string);
+    }
+
+    /**
      * A debug adapter that implements the Debug Adapter Protocol can be registered with VS Code if it implements the DebugAdapter interface.
      */
     export interface DebugAdapter extends Disposable {
@@ -10694,13 +10989,6 @@ declare module 'vscode' {
     }
 
     /**
-     * A DebugProtocolMessage is an opaque stand-in type for the [ProtocolMessage](https://microsoft.github.io/debug-adapter-protocol/specification#Base_Protocol_ProtocolMessage) type defined in the Debug Adapter Protocol.
-     */
-    export interface DebugProtocolMessage {
-        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Base_Protocol_ProtocolMessage).
-    }
-
-    /**
      * A debug adapter descriptor for an inline implementation.
      */
     export class DebugAdapterInlineImplementation {
@@ -10711,7 +10999,7 @@ declare module 'vscode' {
         constructor(implementation: DebugAdapter);
     }
 
-    export type DebugAdapterDescriptor = DebugAdapterExecutable | DebugAdapterServer | DebugAdapterInlineImplementation;
+    export type DebugAdapterDescriptor = DebugAdapterExecutable | DebugAdapterServer | DebugAdapterNamedPipeServer | DebugAdapterInlineImplementation;
 
     export interface DebugAdapterDescriptorFactory {
         /**
@@ -10906,13 +11194,19 @@ declare module 'vscode' {
          * Defaults to Separate.
          */
         consoleMode?: DebugConsoleMode;
-    }
 
-    /**
-     * A DebugProtocolSource is an opaque stand-in type for the [Source](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source) type defined in the Debug Adapter Protocol.
-     */
-    export interface DebugProtocolSource {
-        // Properties: see details [here](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source).
+        /**
+         * Controls whether this session should run without debugging, thus ignoring breakpoints.
+         * When this property is not specified, the value from the parent session (if there is one) is used.
+         */
+        noDebug?: boolean;
+
+        /**
+         * Controls if the debug session's parent session is shown in the CALL STACK view even if it has only a single child.
+         * By default, the debug session will never hide its parent.
+         * If compact is true, debug sessions with a single child are hidden in the CALL STACK view to make the tree more compact.
+         */
+        compact?: boolean;
     }
 
     /**
@@ -10923,7 +11217,7 @@ declare module 'vscode' {
      */
     export enum DebugConfigurationProviderTriggerKind {
         /**
-         * `DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
+         *    `DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
          */
         Initial = 1,
         /**
@@ -11030,6 +11324,12 @@ declare module 'vscode' {
          * @return A thenable that resolves when debugging could be successfully started.
          */
         export function startDebugging(folder: WorkspaceFolder | undefined, nameOrConfiguration: string | DebugConfiguration, parentSessionOrOptions?: DebugSession | DebugSessionOptions): Thenable<boolean>;
+
+        /**
+         * Stop the given debug session or stop all debug sessions if session is omitted.
+         * @param session The [debug session](#DebugSession) to stop; if omitted all sessions are stopped.
+         */
+        export function stopDebugging(session?: DebugSession): Thenable<void>;
 
         /**
          * Add breakpoints.
@@ -11404,6 +11704,141 @@ declare module 'vscode' {
     }
 
     //#endregion
+
+    /**
+     * Represents a session of a currently logged in user.
+     */
+    export interface AuthenticationSession {
+        /**
+         * The identifier of the authentication session.
+         */
+        readonly id: string;
+
+        /**
+         * The access token.
+         */
+        readonly accessToken: string;
+
+        /**
+         * The account associated with the session.
+         */
+        readonly account: AuthenticationSessionAccountInformation;
+
+        /**
+         * The permissions granted by the session's access token. Available scopes
+         * are defined by the [AuthenticationProvider](#AuthenticationProvider).
+         */
+        readonly scopes: ReadonlyArray<string>;
+    }
+
+    /**
+     * The information of an account associated with an [AuthenticationSession](#AuthenticationSession).
+     */
+    export interface AuthenticationSessionAccountInformation {
+        /**
+         * The unique identifier of the account.
+         */
+        readonly id: string;
+
+        /**
+         * The human-readable name of the account.
+         */
+        readonly label: string;
+    }
+
+
+    /**
+     * Options to be used when getting an [AuthenticationSession](#AuthenticationSession) from an [AuthenticationProvider](#AuthenticationProvider).
+     */
+    export interface AuthenticationGetSessionOptions {
+        /**
+         * Whether login should be performed if there is no matching session.
+         *
+         * If true, a modal dialog will be shown asking the user to sign in. If false, a numbered badge will be shown
+         * on the accounts activity bar icon. An entry for the extension will be added under the menu to sign in. This
+         * allows quietly prompting the user to sign in.
+         *
+         * Defaults to false.
+         */
+        createIfNone?: boolean;
+
+        /**
+         * Whether the existing user session preference should be cleared.
+         *
+         * For authentication providers that support being signed into multiple accounts at once, the user will be
+         * prompted to select an account to use when [getSession](#authentication.getSession) is called. This preference
+         * is remembered until [getSession](#authentication.getSession) is called with this flag.
+         *
+         * Defaults to false.
+         */
+        clearSessionPreference?: boolean;
+    }
+
+    /**
+     * Basic information about an [authenticationProvider](#AuthenticationProvider)
+     */
+    export interface AuthenticationProviderInformation {
+        /**
+         * The unique identifier of the authentication provider.
+         */
+        readonly id: string;
+
+        /**
+         * The human-readable name of the authentication provider.
+         */
+        readonly label: string;
+    }
+
+    /**
+     * An [event](#Event) which fires when an [AuthenticationSession](#AuthenticationSession) is added, removed, or changed.
+     */
+    export interface AuthenticationSessionsChangeEvent {
+        /**
+         * The [authenticationProvider](#AuthenticationProvider) that has had its sessions change.
+         */
+        readonly provider: AuthenticationProviderInformation;
+    }
+
+    /**
+     * Namespace for authentication.
+     */
+    export namespace authentication {
+        /**
+         * Get an authentication session matching the desired scopes. Rejects if a provider with providerId is not
+         * registered, or if the user does not consent to sharing authentication information with
+         * the extension. If there are multiple sessions with the same scopes, the user will be shown a
+         * quickpick to select which account they would like to use.
+         *
+         * Currently, there are only two authentication providers that are contributed from built in extensions
+         * to VS Code that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+         * @param providerId The id of the provider to use
+         * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
+         * @param options The [getSessionOptions](#GetSessionOptions) to use
+         * @returns A thenable that resolves to an authentication session
+         */
+        export function getSession(providerId: string, scopes: string[], options: AuthenticationGetSessionOptions & { createIfNone: true }): Thenable<AuthenticationSession>;
+
+        /**
+         * Get an authentication session matching the desired scopes. Rejects if a provider with providerId is not
+         * registered, or if the user does not consent to sharing authentication information with
+         * the extension. If there are multiple sessions with the same scopes, the user will be shown a
+         * quickpick to select which account they would like to use.
+         *
+         * Currently, there are only two authentication providers that are contributed from built in extensions
+         * to VS Code that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+         * @param providerId The id of the provider to use
+         * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
+         * @param options The [getSessionOptions](#GetSessionOptions) to use
+         * @returns A thenable that resolves to an authentication session if available, or undefined if there are no sessions
+         */
+        export function getSession(providerId: string, scopes: string[], options?: AuthenticationGetSessionOptions): Thenable<AuthenticationSession | undefined>;
+
+        /**
+         * An [event](#Event) which fires when the authentication sessions of an authentication provider have
+         * been added, removed, or changed.
+         */
+        export const onDidChangeSessions: Event<AuthenticationSessionsChangeEvent>;
+    }
 }
 
 /**

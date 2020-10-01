@@ -28,4 +28,5 @@ export default class VectorRenderTile extends Tile {
     getReplayState(layer: Layer<Source>): ReplayState;
     hasContext(layer: Layer<Source>): boolean;
     load(): void;
+    release(): void;
 }

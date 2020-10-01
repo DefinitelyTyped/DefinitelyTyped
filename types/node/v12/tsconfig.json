@@ -12,6 +12,7 @@
         "test/events.ts",
         "test/fs.ts",
         "test/global.ts",
+        "test/globals.ts",
         "test/http.ts",
         "test/http2.ts",
         "test/net.ts",
