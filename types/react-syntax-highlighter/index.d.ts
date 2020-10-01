@@ -1,9 +1,9 @@
 // Type definitions for react-syntax-highlighter 11.0
 // Project: https://github.com/conorhastings/react-syntax-highlighter
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
-//                 Aimee Gamble-Milner <https://github.com/ajgamble-milner>
 //                 Guo Yunhe <https://github.com/guoyunhe>
 //                 Anirban Sengupta <https://github.com/anirban09>
+//                 Michael Yuen <https://github.com/michaelyuen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -108,8 +108,17 @@ declare module "react-syntax-highlighter/dist/esm/prism" {
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs" {
     export {
+        default as a11yDark
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
+    export {
+        default as a11yLight
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-light";
+    export {
         default as agate
     } from "react-syntax-highlighter/dist/esm/styles/hljs/agate";
+    export {
+        default as anOldHope
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/an-old-hope";
     export {
         default as androidstudio
     } from "react-syntax-highlighter/dist/esm/styles/hljs/androidstudio";
@@ -183,6 +192,9 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs" {
         default as atelierSulphurpoolLight
     } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-sulphurpool-light";
     export {
+        default as atomOneDarkReasonable
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark-reasonable";
+    export {
         default as atomOneDark
     } from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark";
     export {
@@ -203,9 +215,6 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs" {
     export {
         default as dark
     } from "react-syntax-highlighter/dist/esm/styles/hljs/dark";
-    export {
-        default as darkula
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/darkula";
     export {
         default as defaultStyle
     } from "react-syntax-highlighter/dist/esm/styles/hljs/default-style";
@@ -228,8 +237,14 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs" {
         default as github
     } from "react-syntax-highlighter/dist/esm/styles/hljs/github";
     export {
+        default as gml
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/gml";
+    export {
         default as googlecode
     } from "react-syntax-highlighter/dist/esm/styles/hljs/googlecode";
+    export {
+        default as gradientDark
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/gradient-dark";
     export {
         default as grayscale
     } from "react-syntax-highlighter/dist/esm/styles/hljs/grayscale";
@@ -252,11 +267,23 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs" {
         default as irBlack
     } from "react-syntax-highlighter/dist/esm/styles/hljs/ir-black";
     export {
+        default as isblEditorDark
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/isbl-editor-dark";
+    export {
+        default as isblEditorLight
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/isbl-editor-light";
+    export {
         default as kimbieDark
     } from "react-syntax-highlighter/dist/esm/styles/hljs/kimbie.dark";
     export {
         default as kimbieLight
     } from "react-syntax-highlighter/dist/esm/styles/hljs/kimbie.light";
+    export {
+        default as lightfair
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/lightfair";
+    export {
+        default as lioshi
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/lioshi";
     export {
         default as magula
     } from "react-syntax-highlighter/dist/esm/styles/hljs/magula";
@@ -269,6 +296,18 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs" {
     export {
         default as monokai
     } from "react-syntax-highlighter/dist/esm/styles/hljs/monokai";
+    export {
+        default as nightOwl
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/night-owl";
+    export {
+        default as nnfxDark
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/nnfx-dark";
+    export {
+        default as nnfx
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/nnfx";
+    export {
+        default as nord
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/nord";
     export {
         default as obsidian
     } from "react-syntax-highlighter/dist/esm/styles/hljs/obsidian";
@@ -306,11 +345,17 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs" {
         default as schoolBook
     } from "react-syntax-highlighter/dist/esm/styles/hljs/school-book";
     export {
+        default as shadesOfPurple
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/shades-of-purple";
+    export {
         default as solarizedDark
     } from "react-syntax-highlighter/dist/esm/styles/hljs/solarized-dark";
     export {
         default as solarizedLight
     } from "react-syntax-highlighter/dist/esm/styles/hljs/solarized-light";
+    export {
+        default as srcery
+    } from "react-syntax-highlighter/dist/esm/styles/hljs/srcery";
     export {
         default as sunburst
     } from "react-syntax-highlighter/dist/esm/styles/hljs/sunburst";
@@ -346,7 +391,22 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs" {
     } from "react-syntax-highlighter/dist/esm/styles/hljs/zenburn";
 }
 
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/a11y-light" {
+    const style: any;
+    export default style;
+}
+
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/agate" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/an-old-hope" {
     const style: any;
     export default style;
 }
@@ -471,6 +531,11 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-sulphurpoo
     export default style;
 }
 
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark-reasonable" {
+    const style: any;
+    export default style;
+}
+
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark" {
     const style: any;
     export default style;
@@ -546,7 +611,17 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs/github" {
     export default style;
 }
 
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/gml" {
+    const style: any;
+    export default style;
+}
+
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/googlecode" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/gradient-dark" {
     const style: any;
     export default style;
 }
@@ -586,12 +661,32 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs/ir-black" {
     export default style;
 }
 
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/isbl-editor-dark" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/isbl-editor-light" {
+    const style: any;
+    export default style;
+}
+
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/kimbie.dark" {
     const style: any;
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/kimbie.light" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/lightfair" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/lioshi" {
     const style: any;
     export default style;
 }
@@ -612,6 +707,26 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/monokai" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/night-owl" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/nnfx-dark" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/nnfx" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/nord" {
     const style: any;
     export default style;
 }
@@ -676,12 +791,22 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs/school-book" {
     export default style;
 }
 
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/shades-of-purple" {
+    const style: any;
+    export default style;
+}
+
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/solarized-dark" {
     const style: any;
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/solarized-light" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/srcery" {
     const style: any;
     export default style;
 }
@@ -743,6 +868,9 @@ declare module "react-syntax-highlighter/dist/esm/styles/hljs/zenburn" {
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism" {
     export {
+        default as a11yDark
+    } from "react-syntax-highlighter/dist/esm/styles/prism/a11y-dark";
+    export {
         default as atomDark
     } from "react-syntax-highlighter/dist/esm/styles/prism/atom-dark";
     export {
@@ -760,6 +888,9 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism" {
     export {
         default as dark
     } from "react-syntax-highlighter/dist/esm/styles/prism/dark";
+    export {
+        default as dracula
+    } from "react-syntax-highlighter/dist/esm/styles/prism/dracula";
     export {
         default as duotoneDark
     } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-dark";
@@ -788,6 +919,18 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism" {
         default as hopscotch
     } from "react-syntax-highlighter/dist/esm/styles/prism/hopscotch";
     export {
+        default as materialDark
+    } from "react-syntax-highlighter/dist/esm/styles/prism/material-dark";
+    export {
+        default as materialLight
+    } from "react-syntax-highlighter/dist/esm/styles/prism/material-light";
+    export {
+        default as materialOceanic
+    } from "react-syntax-highlighter/dist/esm/styles/prism/material-oceanic";
+    export {
+        default as nord
+    } from "react-syntax-highlighter/dist/esm/styles/prism/nord";
+    export {
         default as okaidia
     } from "react-syntax-highlighter/dist/esm/styles/prism/okaidia";
     export {
@@ -797,8 +940,14 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism" {
         default as prism
     } from "react-syntax-highlighter/dist/esm/styles/prism/prism";
     export {
+        default as shadesOfPurple
+    } from "react-syntax-highlighter/dist/esm/styles/prism/shades-of-purple";
+    export {
         default as solarizedlight
     } from "react-syntax-highlighter/dist/esm/styles/prism/solarizedlight";
+    export {
+        default as synthwave84
+    } from "react-syntax-highlighter/dist/esm/styles/prism/synthwave84";
     export {
         default as tomorrow
     } from "react-syntax-highlighter/dist/esm/styles/prism/tomorrow";
@@ -814,6 +963,11 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism" {
     export {
         default as xonokai
     } from "react-syntax-highlighter/dist/esm/styles/prism/xonokai";
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/a11y-dark" {
+    const style: any;
+    export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/atom-dark" {
@@ -842,6 +996,11 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism/darcula" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/dark" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/dracula" {
     const style: any;
     export default style;
 }
@@ -891,6 +1050,26 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism/hopscotch" {
     export default style;
 }
 
+declare module "react-syntax-highlighter/dist/esm/styles/prism/material-dark" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/material-light" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/material-oceanic" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/nord" {
+    const style: any;
+    export default style;
+}
+
 declare module "react-syntax-highlighter/dist/esm/styles/prism/okaidia" {
     const style: any;
     export default style;
@@ -906,7 +1085,17 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism/prism" {
     export default style;
 }
 
+declare module "react-syntax-highlighter/dist/esm/styles/prism/shades-of-purple" {
+    const style: any;
+    export default style;
+}
+
 declare module "react-syntax-highlighter/dist/esm/styles/prism/solarizedlight" {
+    const style: any;
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/synthwave84" {
     const style: any;
     export default style;
 }
