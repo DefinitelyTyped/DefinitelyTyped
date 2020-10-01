@@ -142,3 +142,69 @@ prngBinomial = d3Random.randomBinomial;
 prngBinomial = d3Random.randomBinomial.source(seedrandom("Schroedinger's flea."));
 
 randomNumberGenerator = prngBinomial(0.5);
+
+// ------------------------------------------------------------
+// randomGamma
+// ------------------------------------------------------------
+
+let prngGamma: d3Random.RandomGamma;
+
+prngGamma = d3Random.randomGamma;
+prngGamma = d3Random.randomGamma.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngGamma(0.5, 1);
+
+// ------------------------------------------------------------
+// randomBeta
+// ------------------------------------------------------------
+
+let prngBeta: d3Random.RandomBeta;
+
+prngBeta = d3Random.randomBeta;
+prngBeta = d3Random.randomBeta.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngBeta(0.5, 1);
+
+// ------------------------------------------------------------
+// randomWeibull
+// ------------------------------------------------------------
+
+let prngWeibull: d3Random.RandomWeibull;
+
+prngWeibull = d3Random.randomWeibull;
+prngWeibull = d3Random.randomWeibull.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngWeibull(0.5, 1, 2);
+
+// ------------------------------------------------------------
+// randomCauchy
+// ------------------------------------------------------------
+
+let prngCauchy: d3Random.RandomCauchy;
+
+prngCauchy = d3Random.randomCauchy;
+prngCauchy = d3Random.randomCauchy.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngCauchy(1, 2);
+
+// ------------------------------------------------------------
+// randomLogistic
+// ------------------------------------------------------------
+
+let prngLogistic: d3Random.RandomLogistic;
+
+prngLogistic = d3Random.randomLogistic;
+prngLogistic = d3Random.randomLogistic.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngLogistic(1, 2);
+
+// ------------------------------------------------------------
+// randomPoisson
+// ------------------------------------------------------------
+
+let prngPoisson: d3Random.RandomPoisson;
+
+prngPoisson = d3Random.randomPoisson;
+prngPoisson = d3Random.randomPoisson.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngPoisson(1);
