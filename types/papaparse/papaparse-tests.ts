@@ -139,6 +139,7 @@ Papa.unparse(
  */
 Papa.SCRIPT_PATH;
 Papa.LocalChunkSize;
+Papa.BAD_DELIMITERS;
 
 /**
  * Parser
