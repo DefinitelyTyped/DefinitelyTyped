@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "google-one-tap-tests.ts"
+        "google-one-tap-tests.ts",
+        "test/google-one-tap-global.test.ts"
     ]
 }
