@@ -118,6 +118,14 @@ declare module "meteor/meteor" {
         function wrapAsync(func: Function, context?: Object): any;
 
         function bindEnvironment<TFunc extends Function>(func: TFunc): TFunc;
+
+        class EnvironmentVariable<T> {
+            readonly slot: number;
+            constructor();
+            get(): T;
+            getOrNullIfOutsideFiber(): T | null;
+            withValue<U>(value: T, fn: () => U): U;
+        }
         /** utils **/
 
         /** Pub/Sub **/
