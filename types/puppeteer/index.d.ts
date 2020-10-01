@@ -1228,6 +1228,7 @@ export interface FrameBase extends Evalable, JSEvalable {
   url(): string;
 
   /**
+   * @deprecated use waitForTimeout
    * Waits for a certain amount of time before resolving.
    * @param duration The time to wait for.
    */
@@ -1242,6 +1243,26 @@ export interface FrameBase extends Evalable, JSEvalable {
    * Shortcut for waitForFunction.
    */
   waitFor(
+    selector: EvaluateFn,
+    options?: WaitForSelectorOptions,
+    ...args: SerializableOrJSHandle[]
+  ): Promise<JSHandle>;
+
+  /**
+   * Waits for a certain amount of time before resolving.
+   * @param duration The time to wait for.
+   */
+  waitForTimeout(duration: number): Promise<void>;
+  /**
+   * Shortcut for waitForSelector and waitForXPath
+   */
+  waitForTimeout(selector: string, options: WaitForSelectorOptionsHidden): Promise<ElementHandle | null>;
+  waitForTimeout(selector: string, options?: WaitForSelectorOptions): Promise<ElementHandle>;
+
+  /**
+   * Shortcut for waitForTimeoutFunction.
+   */
+  waitForTimeout(
     selector: EvaluateFn,
     options?: WaitForSelectorOptions,
     ...args: SerializableOrJSHandle[]
