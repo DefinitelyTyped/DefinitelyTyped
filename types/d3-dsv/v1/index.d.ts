@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-dsv module 2.0
+// Type definitions for D3JS d3-dsv module 1.2
 // Project: https://github.com/d3/d3-dsv/, https://d3js.org/d3-dsv
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 1.2.0
 
 // ------------------------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -77,7 +77,6 @@ export interface DSVParsedArray<T> extends Array<T> {
  * The returned array also exposes a columns property containing the column names in input order (in contrast to Object.keys, whose iteration order is arbitrary).
  *
  * Equivalent to `dsvFormat(",").parse`.
- * Note: requires unsafe-eval content security policy.
  *
  * @param csvString A string, which must be in the comma-separated values format.
  */
@@ -92,7 +91,6 @@ export function csvParse<Columns extends string>(csvString: string): DSVRowArray
  * The returned array also exposes a columns property containing the column names in input order (in contrast to Object.keys, whose iteration order is arbitrary).
  *
  * Equivalent to `dsvFormat(",").parse`.
- * Note: requires unsafe-eval content security policy.
  *
  * @param csvString A string, which must be in the comma-separated values format.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
@@ -218,7 +216,6 @@ export function csvFormatValue(value: string): string;
  * The returned array also exposes a columns property containing the column names in input order (in contrast to Object.keys, whose iteration order is arbitrary).
  *
  * Equivalent to `dsvFormat("\t").parse`.
- * Note: requires unsafe-eval content security policy.
  *
  * @param tsvString A string, which must be in the tab-separated values format.
  */
@@ -233,7 +230,6 @@ export function tsvParse<Columns extends string>(tsvString: string): DSVRowArray
  * The returned array also exposes a columns property containing the column names in input order (in contrast to Object.keys, whose iteration order is arbitrary).
  *
  * Equivalent to `dsvFormat("\t").parse`.
- * Note: requires unsafe-eval content security policy.
  *
  * @param tsvString A string, which must be in the tab-separated values format.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
@@ -360,10 +356,6 @@ export interface DSV {
      *
      * The returned array also exposes a columns property containing the column names in input order (in contrast to Object.keys, whose iteration order is arbitrary).
      *
-     * If the column names are not unique, only the last value is returned for each name; to access all values, use dsv.parseRows instead.
-     *
-     * Note: requires unsafe-eval content security policy.
-     *
      * @param dsvString A string, which must be in the delimiter-separated values format with the appropriate delimiter.
      */
     // tslint:disable-next-line:no-unnecessary-generics
@@ -375,10 +367,6 @@ export interface DSV {
      * these column names become the attributes on the returned objects.
      *
      * The returned array also exposes a columns property containing the column names in input order (in contrast to Object.keys, whose iteration order is arbitrary).
-     *
-     * If the column names are not unique, only the last value is returned for each name; to access all values, use dsv.parseRows instead.
-     *
-     * Note: requires unsafe-eval content security policy.
      *
      * @param dsvString A string, which must be in the delimiter-separated values format with the appropriate delimiter.
      * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
