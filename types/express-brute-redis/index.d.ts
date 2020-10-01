@@ -19,7 +19,7 @@ declare class RedisStore {
             client?: RedisClient;
             prefix?: string;
             host?: string;
-            port?: string;
+            port?: number | string;
         },
         ...args: any[]
     );
