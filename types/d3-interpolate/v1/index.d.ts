@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-interpolate module 2.0
+// Type definitions for D3JS d3-interpolate module 1.4
 // Project: https://github.com/d3/d3-interpolate/, https://d3js.org/d3-interpolate
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.1
+// Last module patch version validated against: 1.4.0
 
 import { ColorCommonInstance } from 'd3-color';
 
