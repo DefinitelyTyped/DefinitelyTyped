@@ -160,7 +160,8 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      * Return the current alpha of the simulation, which defaults to 1.
      *
      * alpha is roughly analogous to temperature in simulated annealing.
-     * It decreases over time as the simulation “cools down”. When alpha reaches alphaMin, the simulation stops; see simulation.restart.
+     * It decreases over time as the simulation “cools down”.
+     * When alpha reaches alphaMin, the simulation stops; see simulation.restart.
      */
     alpha(): number;
     /**
@@ -168,7 +169,8 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      * The default is 1.
      *
      * alpha is roughly analogous to temperature in simulated annealing.
-     * It decreases over time as the simulation “cools down”. When alpha reaches alphaMin, the simulation stops; see simulation.restart.
+     * It decreases over time as the simulation “cools down”.
+     * When alpha reaches alphaMin, the simulation stops; see simulation.restart.
      *
      * @param alpha Current alpha of simulation.
      */
