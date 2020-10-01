@@ -966,7 +966,7 @@ Meteor.absoluteUrl.defaultOptions = {
 
 // EnvironmentVariable
 const scopedCounter = new Meteor.EnvironmentVariable<number>();
-// $ExpectType number | null
+// $ExpectType number
 scopedCounter.getOrNullIfOutsideFiber();
 // $ExpectType string
 scopedCounter.withValue(42, () => {
