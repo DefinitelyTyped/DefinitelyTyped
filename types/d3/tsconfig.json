@@ -77,9 +77,6 @@
             "d3-time": [
                 "d3-time/v1"
             ],
-            "d3-time-format": [
-                "d3-time-format/v2"
-            ],
             "d3-timer": [
                 "d3-timer/v1"
             ]
