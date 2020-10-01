@@ -3,4 +3,5 @@
 // Definitions by: Shirsh Zibbu <https://github.com/zhirzh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function nameInitials(name: string): string;
+function nameInitials(name: string): string;
+export = nameInitials;
