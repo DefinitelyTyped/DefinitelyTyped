@@ -2035,14 +2035,18 @@ declare namespace React {
         allow?: string;
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
+        /** @deprecated */
         frameBorder?: number | string;
         height?: number | string;
         loading?: "eager" | "lazy";
+        /** @deprecated */
         marginHeight?: number;
+        /** @deprecated */
         marginWidth?: number;
         name?: string;
         referrerPolicy?: string;
         sandbox?: string;
+        /** @deprecated */
         scrolling?: string;
         seamless?: boolean;
         src?: string;
