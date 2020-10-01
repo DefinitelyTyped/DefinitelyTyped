@@ -598,6 +598,15 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * A good easing function should return 0 if t = 0 and 1 if t = 1.
      */
     ease(easingFn: (normalizedTime: number) => number): this;
+
+    /**
+     * Specifies a factory for the transition easing function.
+     *
+     * @param factory The factory must be a function.
+     * It is invoked for each node of the selection, being passed the current datum (d), the current index (i), and the current group (nodes), with this as the current DOM element.
+     * It must return an easing function.
+     */
+    easeVarying(factory: ValueFn<GElement, Datum, (normalizedTime: number) => number>): this;
 }
 
 /**
