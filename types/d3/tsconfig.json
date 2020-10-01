@@ -82,6 +82,9 @@
             ],
             "d3-timer": [
                 "d3-timer/v1"
+            ],
+            "d3-transition": [
+                "d3-transition/v1"
             ]
         },
         "types": [],
