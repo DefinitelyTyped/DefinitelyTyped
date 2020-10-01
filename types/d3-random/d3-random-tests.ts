@@ -208,3 +208,12 @@ prngPoisson = d3Random.randomPoisson;
 prngPoisson = d3Random.randomPoisson.source(seedrandom("Schroedinger's flea."));
 
 randomNumberGenerator = prngPoisson(1);
+
+// ------------------------------------------------------------
+// randomLcg
+// ------------------------------------------------------------
+
+const seed = 0.4212687683098432008;
+
+let array = Array.from({length: 3}, d3Random.randomLcg(seed));
+array = Array.from({length: 3}, d3Random.randomNormal.source(d3Random.randomLcg(seed))(0, 1));
