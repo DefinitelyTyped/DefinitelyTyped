@@ -272,6 +272,18 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
     find(x: number, y: number, radius?: number): NodeDatum | undefined;
 
     /**
+     * Returns this simulation’s current random source which defaults to a fixed-seed linear congruential generator.
+     * See also random.source.
+     */
+    randomSource(): () => number;
+    /**
+     * Sets the function used to generate random numbers; this should be a function that returns a number between 0 (inclusive) and 1 (exclusive).
+     *
+     * @param source The function used to generate random numbers.
+     */
+    randomSource(source: () => number): this;
+
+    /**
      * Return the first currently-assigned listener matching the specified typenames, if any.
      *
      * @param typenames The typenames is a string containing one or more typename separated by whitespace. Each typename is a type,
@@ -364,12 +376,12 @@ export interface Force<NodeDatum extends SimulationNodeDatum, LinkDatum extends 
      */
     (alpha: number): void;
     /**
-     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * Supplies the array of nodes and random source to this force. This method is called when a force is bound to a simulation via simulation.force
      * and when the simulation’s nodes change via simulation.nodes.
      *
      * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
      */
-    initialize?(nodes: NodeDatum[]): void;
+    initialize?(nodes: NodeDatum[], random: () => number): void;
 }
 
 // Centering ------------------------------------------------------------
@@ -391,7 +403,7 @@ export interface ForceCenter<NodeDatum extends SimulationNodeDatum> extends Forc
      *
      * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
      */
-    initialize(nodes: NodeDatum[]): void;
+    initialize(nodes: NodeDatum[], random: () => number): void;
 
     /**
      * Return the current x-coordinate of the centering position, which defaults to zero.
@@ -414,6 +426,18 @@ export interface ForceCenter<NodeDatum extends SimulationNodeDatum> extends Forc
      * @param y y-coordinate.
      */
     y(y: number): this;
+
+    /**
+     * Returns the force’s current strength, which defaults to 1.
+     */
+    strength(): number;
+
+    /**
+     * Sets the centering force’s strength.
+     * A reduced strength of e.g. 0.05 softens the movements on interactive graphs in which new nodes enter or exit the graph.
+     * @param strength The centering force's strength.
+     */
+    strength(strength: number): this;
 }
 
 /**
@@ -445,12 +469,12 @@ export function forceCenter<NodeDatum extends SimulationNodeDatum>(x?: number, y
  */
 export interface ForceCollide<NodeDatum extends SimulationNodeDatum> extends Force<NodeDatum, any> {
     /**
-     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * Supplies the array of nodes and random source to this force. This method is called when a force is bound to a simulation via simulation.force
      * and when the simulation’s nodes change via simulation.nodes.
      *
      * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
      */
-    initialize(nodes: NodeDatum[]): void;
+    initialize(nodes: NodeDatum[], random: () => number): void;
 
     /**
      * Returns the current radius accessor function.
@@ -561,12 +585,12 @@ export function forceCollide<NodeDatum extends SimulationNodeDatum>(radius: (nod
  */
 export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum>> extends Force<NodeDatum, LinkDatum> {
     /**
-     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * Supplies the array of nodes and random source to this force. This method is called when a force is bound to a simulation via simulation.force
      * and when the simulation’s nodes change via simulation.nodes.
      *
      * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
      */
-    initialize(nodes: NodeDatum[]): void;
+    initialize(nodes: NodeDatum[], random: () => number): void;
 
     /**
      * Return the current array of links, which defaults to the empty array.
@@ -723,12 +747,12 @@ export function forceLink<NodeDatum extends SimulationNodeDatum, LinksDatum exte
  */
 export interface ForceManyBody<NodeDatum extends SimulationNodeDatum> extends Force<NodeDatum, any> {
     /**
-     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * Supplies the array of nodes and random source to this force. This method is called when a force is bound to a simulation via simulation.force
      * and when the simulation’s nodes change via simulation.nodes.
      *
      * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
      */
-    initialize(nodes: NodeDatum[]): void;
+    initialize(nodes: NodeDatum[], random: () => number): void;
 
     /**
      * Return the current strength accessor.
@@ -849,12 +873,12 @@ export function forceManyBody<NodeDatum extends SimulationNodeDatum>(): ForceMan
  */
 export interface ForceX<NodeDatum extends SimulationNodeDatum> extends Force<NodeDatum, any> {
     /**
-     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * Supplies the array of nodes and random source to this force. This method is called when a force is bound to a simulation via simulation.force
      * and when the simulation’s nodes change via simulation.nodes.
      *
      * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
      */
-    initialize(nodes: NodeDatum[]): void;
+    initialize(nodes: NodeDatum[], random: () => number): void;
 
     /**
      *  Returns the current strength accessor, which defaults to a constant strength for all nodes of 0.1.
@@ -975,12 +999,12 @@ export function forceX<NodeDatum extends SimulationNodeDatum>(x: (d: NodeDatum, 
  */
 export interface ForceY<NodeDatum extends SimulationNodeDatum> extends Force<NodeDatum, any> {
     /**
-     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * Supplies the array of nodes and random source to this force. This method is called when a force is bound to a simulation via simulation.force
      * and when the simulation’s nodes change via simulation.nodes.
      *
      * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
      */
-    initialize(nodes: NodeDatum[]): void;
+    initialize(nodes: NodeDatum[], random: () => number): void;
 
     /**
      *  Returns the current strength accessor, which defaults to a constant strength for all nodes of 0.1.
@@ -1102,12 +1126,12 @@ export function forceY<NodeDatum extends SimulationNodeDatum>(y: (d: NodeDatum, 
  */
 export interface ForceRadial<NodeDatum extends SimulationNodeDatum> extends Force<NodeDatum, any> {
     /**
-     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * Assigns the array of nodes and random source to this force. This method is called when a force is bound to a simulation via simulation.force
      * and when the simulation’s nodes change via simulation.nodes.
      *
      * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
      */
-    initialize(nodes: NodeDatum[]): void;
+    initialize(nodes: NodeDatum[], random: () => number): void;
 
     /**
      *  Returns the current strength accessor, which defaults to a constant strength for all nodes of 0.1.
