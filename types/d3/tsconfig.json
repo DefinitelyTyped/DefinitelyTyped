@@ -44,6 +44,9 @@
             "d3-ease": [
                 "d3-ease/v1"
             ],
+            "d3-fetch": [
+                "d3-fetch/v1"
+            ],
             "d3-force": [
                 "d3-force/v1"
             ],
