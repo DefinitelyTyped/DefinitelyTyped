@@ -1043,28 +1043,28 @@ declare namespace echarts {
          * @default 0
          */
         zlevel?: number;
-        
+
         /**
          * Font size.
          * @default 12
          * @since 4.8.0
          */
         fontSize?: number;
-        
+
         /**
          * Show an animated "spinner" or not.
          * @default true
          * @since 4.8.0
          */
         showSpinner?: boolean;
-        
+
         /**
          * Radius of the "spinner".
          * @default 10
          * @since 4.8.0
          */
         spinnerRadius?: number;
-        
+
         /**
          * Line width of the "spinner".
          * @default 5
