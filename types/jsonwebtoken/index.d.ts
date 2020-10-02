@@ -137,9 +137,6 @@ export type GetPublicKeyOrSecret = (
     callback: SigningKeyCallback
 ) => void;
 
-/**
- * 'null' secret is only valid when algorithm is 'none'
- */
 export type Secret =
     | string
     | Buffer
