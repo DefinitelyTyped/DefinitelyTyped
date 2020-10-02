@@ -39,5 +39,8 @@ describe("Test", () => {
             .toBeVisible()
             .whileElement(by.id("ScrollView630"))
             .scroll(50, "down");
+
+        await expect(element(by.id("element"))).not.toBeVisible();
+        await expect(element(by.id("element"))).not.toExist();
     });
 });
