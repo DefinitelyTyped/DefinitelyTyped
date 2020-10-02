@@ -25,3 +25,10 @@ properties = properties.each(function(key, value) {
     this.x = 5;
 }, { x: 3 });
 const value = properties.getAllProperties()["myKey"];
+
+// Short options as from readme
+const shortOptions = PropertiesReader('/path/to/properties.file', 'utf-8', { allowDuplicateSections: true });
+// It actually allows longer variants as well
+const writerProps = PropertiesReader('/path/to/properties.file', undefined, { writer: {saveSections: true}});
+const appenderProps = PropertiesReader('/path/to/properties.file', 'utf-8', { appender: {allowDuplicateSections: false}});
+const allOptions = PropertiesReader('/path/to/properties.file', 'utf-8', { appender: {allowDuplicateSections: false}, writer: {saveSections: true}});
