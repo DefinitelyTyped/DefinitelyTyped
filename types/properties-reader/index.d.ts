@@ -1,4 +1,4 @@
-// Type definitions for properties-reader 0.0
+// Type definitions for properties-reader 2.1.1
 // Project: https://github.com/steveukx/properties
 // Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,8 +22,24 @@ declare namespace PropertiesReader {
         getByRoot(root: any): { [key: string]: Value; };
         bindToExpress(app: object, basePath?: string, makePaths?: boolean): Reader;
     }
+
+    interface AppenderOptions {
+        allowDuplicateSections: boolean;
+    }
+    interface WriterOptions {
+        saveSections: boolean;
+    }
+
+    interface FullOptions {
+        appender?: AppenderOptions;
+        writer?: WriterOptions;
+    }
 }
 
-declare function PropertiesReader(path: string): PropertiesReader.Reader;
+declare function PropertiesReader(
+    path: string,
+    encoding?: string,
+    options?: PropertiesReader.AppenderOptions | PropertiesReader.WriterOptions | PropertiesReader.FullOptions,
+): PropertiesReader.Reader;
 
 export = PropertiesReader;
