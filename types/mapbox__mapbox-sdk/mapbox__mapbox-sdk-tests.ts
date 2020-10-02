@@ -74,3 +74,30 @@ staticMapService.getStaticImage({
         }
     ]
 });
+
+staticMapService.getStaticImage({
+    ownerId: 'owner-id',
+    styleId: 'some-style',
+    width: 16,
+    height: 16,
+    position: 'auto',
+    overlays: [
+        {
+            marker: {
+                coordinates: [0, 1],
+                color: 'yellow',
+                size: 'large',
+            }
+        },
+        {
+            marker: {
+                coordinates: [0, 1],
+                url: 'http://example.net'
+            }
+        },
+        {
+            geoJson: geoOverlay
+        }
+    ]
+});
+
