@@ -10,7 +10,7 @@
 export type PhotoOrderBy = 'latest' | 'oldest';
 export type Orientation = 'portrait' | 'landscape' | 'squareish';
 export type ContentSafety = 'high' | 'low';
-export type CollectionIds = ReadonlyArray<number> | ReadonlyArray<string>;
+export type CollectionIds = ReadonlyArray<number | string>;
 export type Scopes = 'public' | 'read_user' | 'write_user' | 'read_photos' | 'write_photos' | 'write_likes' | 'write_followers' | 'read_collections' | 'write_collections';
 
 // Supported ISO-639-1 languages
