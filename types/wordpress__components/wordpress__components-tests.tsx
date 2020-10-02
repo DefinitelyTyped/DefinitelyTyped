@@ -180,6 +180,19 @@ let record: Value = {
 <C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} />;
 
 //
+// combobox-control
+//
+<C.ComboboxControl
+    options={[
+        { value: 'apple', label: 'Apple' },
+        { value: 'banana', label: 'Banana' },
+    ]}
+    value="App"
+    label="Fruit"
+    onChange={v => console.log(v)}
+/>;
+
+//
 // dashicon
 //
 <C.Dashicon icon="editor-code" size={50} />;
