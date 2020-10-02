@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // soundex-code/index.d.ts
-export function soundex(
+declare function soundex(
     value: string,
     maxLength?: number
 ): string;
+
+export = soundex;
