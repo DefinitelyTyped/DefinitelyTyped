@@ -6,6 +6,7 @@ declare module "worker_threads" {
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
+    const resourceLimits: ResourceLimits;
     const SHARE_ENV: unique symbol;
     const threadId: number;
     const workerData: any;
@@ -80,6 +81,21 @@ declare module "worker_threads" {
     interface ResourceLimits {
         maxYoungGenerationSizeMb?: number;
         maxOldGenerationSizeMb?: number;
+        codeRangeSizeMb?: number;
+    }
+
+    interface ResourceLimits {
+        /**
+         * The maximum size of a heap space for recently created objects.
+         */
+        maxYoungGenerationSizeMb?: number;
+        /**
+         * The maximum size of the main heap in MB.
+         */
+        maxOldGenerationSizeMb?: number;
+        /**
+         * The size of a pre-allocated memory range used for generated code.
+         */
         codeRangeSizeMb?: number;
     }
 

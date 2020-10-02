@@ -5,6 +5,7 @@ declare module "worker_threads" {
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
+    const resourceLimits: ResourceLimits;
     const SHARE_ENV: unique symbol;
     const threadId: number;
     const workerData: any;
@@ -62,6 +63,26 @@ declare module "worker_threads" {
         stdout?: boolean;
         stderr?: boolean;
         execArgv?: string[];
+        resourceLimits?: ResourceLimits;
+        /**
+         * Additional data to send in the first worker message.
+         */
+        transferList?: Array<ArrayBuffer | MessagePort>;
+    }
+
+    interface ResourceLimits {
+        /**
+         * The maximum size of a heap space for recently created objects.
+         */
+        maxYoungGenerationSizeMb?: number;
+        /**
+         * The maximum size of the main heap in MB.
+         */
+        maxOldGenerationSizeMb?: number;
+        /**
+         * The size of a pre-allocated memory range used for generated code.
+         */
+        codeRangeSizeMb?: number;
     }
 
     class Worker extends EventEmitter {
