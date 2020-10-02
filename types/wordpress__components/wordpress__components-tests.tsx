@@ -25,6 +25,14 @@ import { MouseEvent as ReactMouseEvent } from 'react';
     {({ className }) => <h1 className={className}>Hello World</h1>}
 </C.Animate>;
 
+<C.Animate type="loading">
+    <div>I am being loaded</div>
+</C.Animate>;
+
+<C.Animate type="slide-in" options={{ origin: 'left' }}>
+    <div>Sliding in from the left</div>
+</C.Animate>;
+
 //
 // autocomplete
 //
