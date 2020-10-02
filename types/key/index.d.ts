@@ -1,22 +1,24 @@
-// Type definitions for key 0.1.11
+// Type definitions for key 0.1
 // Project: https://github.com/adlawson/key
 // Definitions by: hayke102 <https://github.com/hayke102>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare interface Code {
+interface Code {
     special: Special;
     arrow: Arrow;
     punctuation: Punctuation;
     alnum: Alnum;
 }
-export default class key {
-    static code: Code;
+
+declare const key: {
+    code: Code,
     // brand: Brand;
 
-    static get(keyCode: number): Reference
+    get(keyCode: number): Reference,
 
-    static is(ref: Reference, keyCode: number): boolean;
+    is(ref: Reference, keyCode: number): boolean;
 }
+export default key;
 
 interface Reference {
     name: string;
@@ -85,7 +87,6 @@ interface Punctuation {
         forward: Reference,
         backward: Reference
     }
-
 
     brace: {
         square: {
