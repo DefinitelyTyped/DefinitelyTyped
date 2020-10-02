@@ -2125,6 +2125,12 @@
             "asOfVersion": "3.19.0"
         },
         {
+            "libraryName": "ip-address",
+            "typingsPackageName": "ip-address",
+            "sourceRepoURL": "https://github.com/beaugunderson/ip-address",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "ip-regex",
             "typingsPackageName": "ip-regex",
             "sourceRepoURL": "https://github.com/sindresorhus/ip-regex",
