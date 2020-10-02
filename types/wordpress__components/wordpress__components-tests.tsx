@@ -1,7 +1,7 @@
 import * as C from '@wordpress/components';
 import { Component } from '@wordpress/element';
 import { Value } from '@wordpress/rich-text';
-import { MouseEvent as ReactMouseEvent } from 'react';
+import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 
 //
 // primitives
@@ -108,7 +108,8 @@ let record: Value = {
 //
 // button-group
 //
-<C.ButtonGroup>
+const buttonGroupRef = createRef<HTMLDivElement>();
+<C.ButtonGroup ref={buttonGroupRef}>
     <button>Hello</button>
     <button>World</button>
 </C.ButtonGroup>;
