@@ -26,13 +26,13 @@ declare namespace google.maps {
          * The click event is not fired if a marker or infowindow was clicked.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.click Maps JavaScript API}
          */
-        click: (event: MouseEvent | IconMouseEvent) => void;
+        click: (this: T, event: MouseEvent | IconMouseEvent) => void;
 
         /**
          * This event is fired when the user double-clicks on the map. Note that the click event will also fire, right before this one.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.dblclick Maps JavaScript API}
          */
-        dblclick: (event: MouseEvent) => void;
+        dblclick: (this: T, event: MouseEvent) => void;
 
         /**
          * This event is repeatedly fired while the user drags the map.
@@ -80,19 +80,19 @@ declare namespace google.maps {
          * This event is fired whenever the user's mouse moves over the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mousemove Maps JavaScript API}
          */
-        mousemove: (event: MouseEvent) => void;
+        mousemove: (this: T, event: MouseEvent) => void;
 
         /**
          * This event is fired when the user's mouse exits the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mouseout Maps JavaScript API}
          */
-        mouseout: (event: MouseEvent) => void;
+        mouseout: (this: T, event: MouseEvent) => void;
 
         /**
          * This event is fired when the user's mouse enters the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mouseover Maps JavaScript API}
          */
-        mouseover: (event: MouseEvent) => void;
+        mouseover: (this: T, event: MouseEvent) => void;
 
         /**
          * This event is fired when the projection has changed.
@@ -105,7 +105,7 @@ declare namespace google.maps {
          * This event is fired when the DOM contextmenu event is fired on the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.rightclick Maps JavaScript API}
          */
-        rightclick: (event: MouseEvent) => void;
+        rightclick: (this: T, event: MouseEvent) => void;
 
         /**
          * This event is fired when the visible tiles have finished loading.
