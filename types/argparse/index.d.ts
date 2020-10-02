@@ -107,10 +107,9 @@ export interface ArgumentOptions {
     metavar?: string | string[];
 }
 
-export namespace Const {
-    const SUPPRESS: string;
-    const OPTIONAL: string;
-    const ZERO_OR_MORE: string;
-    const ONE_OR_MORE: string;
-    const REMAINDER: string;
-}
+export const SUPPRESS: string;
+export const OPTIONAL: string;
+export const ZERO_OR_MORE: string;
+export const ONE_OR_MORE: string;
+export const REMAINDER: string;
+export const PARSER: string;
