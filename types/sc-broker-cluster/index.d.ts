@@ -1,18 +1,16 @@
-// Type definitions for sc-broker-cluster 6.1
+// Type definitions for sc-broker-cluster 9.0
 // Project: https://github.com/SocketCluster/sc-broker-cluster
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
 
-import { SCServerSocket, SCServer } from "socketcluster-server";
-import { BrokerStartInfo, BrokerExitInfo } from "socketcluster";
-import { SpliceOptions, QueryOptions } from "sc-broker";
-import { SCChannel } from "sc-channel";
-import { EventEmitter } from "events";
-import { AsyncResultArrayCallback } from "async";
-import { KeyChain, FlexiMap } from "fleximap";
-import { Keys } from "expirymanager";
-import { ClientCluster } from "./clientcluster";
+import { CodecEngine, AGServerOptions } from 'socketcluster-server/server';
+import { SpliceOptions, QueryOptions } from 'sc-broker';
+import { SCChannel } from 'sc-channel';
+import { EventEmitter } from 'events';
+import { AsyncResultArrayCallback } from 'async';
+import { KeyChain, FlexiMap } from 'fleximap';
+import { Keys } from 'expirymanager';
+import { ClientCluster } from './clientcluster';
 
 export class AbstractDataClient extends EventEmitter {
     constructor(dataClient: ClientCluster);
@@ -69,9 +67,9 @@ export type mapperFunction = (keyChain: KeyChain, method: string, clientIds: num
 export class SCExchange extends AbstractDataClient {
     constructor(privateClientCluster: ClientCluster, publicClientCluster: ClientCluster, ioClusterClient: Client);
 
-    send(data: any, mapIndex: number | string | string[] | null, callback?: (err?: Error) => void): void;
+    send(data: any, mapIndex: number | string | string[] | null, callback?: AsyncResultArrayCallback<any>): void;
 
-    publish(channelName: string, data: any, callback: (err?: Error) => void): void;
+    publish(channelName: string, data: any, callback?: (err?: Error) => void): void;
 
     subscribe(channelName: string): SCChannel;
     unsubscribe(channelName: string): void;
@@ -105,22 +103,41 @@ export interface SCBrokerClusterServerOptions {
     appBrokerControllerPath?: string;
     processTermTimeout?: number;
     ipcAckTimeout?: number;
-    brokerOptions?: SCServer.SCServerOptions;
+    brokerOptions?: AGServerOptions;
 }
 
 export class Server extends EventEmitter {
     constructor(options: SCBrokerClusterServerOptions);
 
-    on(event: "brokerStart", listener: (brokerInfo: BrokerStartInfo) => void): this;
-    on(event: "brokerExit", listener: (brokerInfo: BrokerExitInfo) => void): this;
-    on(event: "brokerMessage", listener: (brokerId: string, data: any, callback: (err: Error | null, data: any) => void) => void): this;
-    on(event: "ready", listener: () => void): this;
-    on(event: "error", listener: (err?: Error) => void): this;
+    on(event: 'brokerStart', listener: (brokerInfo: BrokerStartInfo) => void): this;
+    on(event: 'brokerExit', listener: (brokerInfo: BrokerExitInfo) => void): this;
+    on(event: 'brokerMessage', listener: BrokerMessageListener): this;
+    on(event: 'ready', listener: () => void): this;
+    on(event: 'error', listener: (err?: Error) => void): this;
 
     sendToBroker(brokerId: string, data: any, callback?: (err: Error | null, data: any) => void): void;
     killBrokers(): void;
     destroy(): void;
 }
+
+export interface BrokerStartInfo {
+    id: number;
+    pid: number;
+    respawn: boolean;
+}
+
+export interface BrokerExitInfo {
+    id: number;
+    pid: number;
+    code: number;
+    signal: string;
+}
+
+export type BrokerMessageListener = (
+    brokerId: string,
+    data: any,
+    callback: (err: Error | null, data: any) => void,
+) => void;
 
 export interface SCBrokerClusterClientOptions {
     brokers: string[];
@@ -141,20 +158,29 @@ export class Client extends EventEmitter {
 
     options: SCBrokerClusterClientOptions;
 
-    on(event: "error", listener: (err?: Error) => void): this;
-    on(event: "warning", listener: (warning?: Error) => void): this;
-    on(event: "ready", listener: () => void): this;
-    on(event: "message", listener: (packet: MessagePacket) => void): this;
+    on(event: 'error', listener: (err?: Error) => void): this;
+    on(event: 'warning', listener: (warning?: Error) => void): this;
+    on(event: 'ready', listener: () => void): this;
+    on(event: 'message', listener: (packet: MessagePacket) => void): this;
 
-    destroy(callback: AsyncResultArrayCallback<SCExchange>): void;
+    destroy(callback?: AsyncResultArrayCallback<SCExchange>): void;
 
-    subscribe(channel: string, callback: (err?: Error) => void): void;
-    unsubscribe(channel: string, callback: () => void): void;
-    unsubscribeAll(callback: () => void): void;
-    isSubscribed(channel: string, includePending: boolean): boolean;
+    subscribe(channel: string, callback?: (err?: Error) => void): void;
+    unsubscribe(channel: string, callback?: () => void): void;
+    unsubscribeAll(callback?: AsyncResultArrayCallback<any>): void;
+    isSubscribed(channel: string, includePending?: boolean): boolean;
 
-    subscribeSocket(socket: SCServerSocket, channel: string, callback?: (err?: Error) => void): void;
-    unsubscribeSocket(socket: SCServerSocket, channel: string, callback?: () => void): void;
+    subscribeSocket(socket: ServerSocket, channel: string, callback?: (err?: Error) => void): void;
+    unsubscribeSocket(socket: ServerSocket, channel: string, callback?: () => void): void;
 
     setSCServer(scServer: SCServer): void;
+}
+
+export interface ServerSocket {
+    id: string;
+    emit(eventName: string, ...args: any[]): void;
+}
+
+export interface SCServer {
+    codec: CodecEngine;
 }

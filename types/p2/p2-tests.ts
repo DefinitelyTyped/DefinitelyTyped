@@ -44,7 +44,7 @@ const convex = new p2.Convex({
         new Int32Array([0, -1]),
         [1, 1]
     ]
-})
+});
 
 // To get the trajectories of the bodies,
 // we must step the world forward in time.

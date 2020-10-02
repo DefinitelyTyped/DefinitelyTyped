@@ -10,14 +10,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "experimentalDecorators": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "paths": {
-            "@ember/object": ["ember__object"],
-            "@ember/object/*": ["ember__object/*"],
-            "@ember/service": ["ember__service"]
+            "@ember/*": ["ember__*"]
         },
         "types": [],
         "noEmit": true,
@@ -25,6 +24,7 @@
     },
     "files": [
         "index.d.ts",
-        "ember__service-tests.ts"
+        "test/main.ts",
+        "test/octane.ts"
     ]
 }

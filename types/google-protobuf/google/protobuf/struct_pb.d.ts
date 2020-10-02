@@ -1,8 +1,11 @@
+// package: google.protobuf
+// file: struct.proto
+
 import * as jspb from "../../index";
 
 export class Struct extends jspb.Message {
   getFieldsMap(): jspb.Map<string, Value>;
-  clearFieldsMap(): void;
+  clearFieldsMap(): Struct;
 
   toJavaScript(): {[key: string]: JavaScriptValue};
   static fromJavaScript(value: {[key: string]: JavaScriptValue}): Struct;
@@ -25,34 +28,34 @@ export namespace Struct {
 
 export class Value extends jspb.Message {
   hasNullValue(): boolean;
-  clearNullValue(): void;
+  clearNullValue(): Value;
   getNullValue(): NullValue;
-  setNullValue(value: NullValue): void;
+  setNullValue(value: NullValue): Value;
 
   hasNumberValue(): boolean;
-  clearNumberValue(): void;
+  clearNumberValue(): Value;
   getNumberValue(): number;
-  setNumberValue(value: number): void;
+  setNumberValue(value: number): Value;
 
   hasStringValue(): boolean;
-  clearStringValue(): void;
+  clearStringValue(): Value;
   getStringValue(): string;
-  setStringValue(value: string): void;
+  setStringValue(value: string): Value;
 
   hasBoolValue(): boolean;
-  clearBoolValue(): void;
+  clearBoolValue(): Value;
   getBoolValue(): boolean;
-  setBoolValue(value: boolean): void;
+  setBoolValue(value: boolean): Value;
 
   hasStructValue(): boolean;
-  clearStructValue(): void;
+  clearStructValue(): Value;
   getStructValue(): Struct | undefined;
-  setStructValue(value?: Struct): void;
+  setStructValue(value?: Struct): Value;
 
   hasListValue(): boolean;
-  clearListValue(): void;
+  clearListValue(): Value;
   getListValue(): ListValue | undefined;
-  setListValue(value?: ListValue): void;
+  setListValue(value?: ListValue): Value;
 
   getKindCase(): Value.KindCase;
 
@@ -91,10 +94,10 @@ export namespace Value {
 }
 
 export class ListValue extends jspb.Message {
-  clearValuesList(): void;
+  clearValuesList(): ListValue;
   getValuesList(): Array<Value>;
-  setValuesList(value: Array<Value>): void;
-  addValues(value?: Value, index?: number): void;
+  setValuesList(value: Array<Value>): ListValue;
+  addValues(value?: Value, index?: number): Value;
 
   toJavaScript(): Array<JavaScriptValue>;
   static fromJavaScript(value: Array<JavaScriptValue>): ListValue;

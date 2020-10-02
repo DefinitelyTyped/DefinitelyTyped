@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/blob.ts",
+        "test/data.ts",
+        "test/face.ts",
+        "test/interest.ts",
+        "test/key-chain.ts",
+        "test/memory-content-cache.ts",
+        "test/name.ts",
+        "test/network-nack.ts",
+        "test/signature.ts",
+        "test/transport.ts"
+    ]
+}

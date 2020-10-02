@@ -12,10 +12,19 @@
  * @param options - an options object
  * @returns the resultant SHA1 hash of the given message
  */
+declare function main(message: string | Buffer, options?: Sha1AsStringOptions): string;
+declare function main(message: string | Buffer, options?: Sha1AsBytesOptions): Uint8Array;
 declare function main(message: string | Buffer, options?: Sha1Options): string | Uint8Array;
 export = main;
 
-interface Sha1Options {
-    asBytes?: boolean;
+interface Sha1AsStringOptions {
+    asBytes?: false;
     asString?: boolean;
 }
+
+interface Sha1AsBytesOptions {
+    asBytes: true;
+    asString?: false;
+}
+
+type Sha1Options = Sha1AsStringOptions | Sha1AsBytesOptions;

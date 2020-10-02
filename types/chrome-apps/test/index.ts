@@ -813,9 +813,9 @@ chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((loc) => loc.charA
 
 // ENTERPRISE - PLATFORM KEYS
 
-if (chrome.enterprise.platformKeys.getTokens) {
-    if (chrome.enterprise.platformKeys.importCertificate) {
-        if (chrome.enterprise.platformKeys.removeCertificate) {
+if (chrome.enterprise.platformKeys.getTokens as any) {
+    if (chrome.enterprise.platformKeys.importCertificate as any) {
+        if (chrome.enterprise.platformKeys.removeCertificate as any) {
             console.log('API Present');
         }
     }

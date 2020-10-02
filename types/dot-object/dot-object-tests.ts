@@ -47,20 +47,35 @@ var newObj = {
     nested: {
       value: 'Hi there!'
     }
+  },
+  breath: {
+    value: 'Hello'
   }
 };
 
 var val = dot.pick('some.nested.value', newObj);
 console.log(val);
 
+// Set a new value
+val = dot.str('breath.value', 'World', newObj);
+
+// Replacing with a new object
+val = dot.set('breath', { value: 'Goodbye' }, newObj);
+
 // Pick & Remove the value
 val = dot.pick('some.nested.value', newObj, true);
 
 // shorthand
 val = dot.remove('some.nested.value', newObj);
+val = dot.remove(['some.nested.value'], newObj)
 
 // or use the alias `del`
 val = dot.del('some.nested.value', newObj);
+val = dot.del(['some.nested.value'], newObj);
+
+// delete and get value of the deleted attribute
+val = dot.delete('some.nested.value', newObj)
+val = dot.delete(['some.nested.value'], newObj)
 
 // convert object to dot object
 var result = {};
@@ -68,3 +83,21 @@ dot.dot({ test: 'something' }, result);
 result = dot.dot({ test: 'something' });
 
 var dotWithArrow = new dot('=>');
+
+var dotWithAnotherSeparator = new dot('->', true, false)
+
+var objWithArray = {
+  author: 'John Doe',
+  books: ['A', 'B', 'C'],
+  about: {
+    hometown: 'Sampang, Jawa Timur',
+    skils: ['HTML', 'CSS', 'JS', 'TS']
+  }
+}
+
+var defaultResult = dot.dot(objWithArray)
+// set keepArray property
+dot.keepArray = true
+var keepArrayResult = dot.dot(objWithArray)
+console.log('Default:', defaultResult)
+console.log('KeepArray:', keepArrayResult)

@@ -9,7 +9,7 @@ interface PersonProps {
 }
 
 class Person extends React.Component<PersonProps> {
-    render(): React.ReactElement<any> { return null; }
+    render(): React.ReactElement { return null; }
 }
 
 const PersonTag = React.createFactory(Person);

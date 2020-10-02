@@ -1,8 +1,12 @@
 // Type definitions for node-cron 2.0
-// Project: https://github.com/node-cron/node-cron
+// Project: https://github.com/node-cron/node-cron, https://github.com/merencia/node-cron
 // Definitions by: morsic <https://github.com/maximelkin>,
-//                 burtek <https://github.com/burtek>
+//                 burtek <https://github.com/burtek>,
+//                 Richard Honor <https://github.com/RMHonor>
+//                 Ata Berk YILMAZ <https://github.com/ataberkylmz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { Timezone } from 'tz-offset';
 
 export function schedule(cronExpression: string, func: () => void, options?: ScheduleOptions): ScheduledTask;
 
@@ -12,6 +16,7 @@ export interface ScheduledTask {
     start: () => this;
     stop: () => this;
     destroy: () => void;
+    getStatus: () => string;
 }
 
 export interface ScheduleOptions {
@@ -24,5 +29,5 @@ export interface ScheduleOptions {
     /**
      * The timezone that is used for job scheduling
      */
-    timezone?: string;
+    timezone?: Timezone;
 }

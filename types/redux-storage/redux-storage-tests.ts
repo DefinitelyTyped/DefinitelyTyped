@@ -23,7 +23,7 @@ const initialStateLoader = createLoader(storageEngine);
 
 const storageMiddleware = createMiddleware(storageEngine, [], []);
 
-const store = applyMiddleware(storageMiddleware)<TestState>(createStore)(enhancedReducer);
+const store = applyMiddleware(storageMiddleware)(createStore)(enhancedReducer);
 
 initialStateLoader(store).then(() => {
     // render app
@@ -33,7 +33,7 @@ initialStateLoader(store).then(() => {
 // Test for React Native Async Storage engine
 const storageEngineReactNative = createReactNativeAsyncStorageEngine("test");
 const storageMiddlewareReactNative = createMiddleware(storageEngine);
-const storeReactNative = applyMiddleware(storageMiddlewareReactNative)<TestState>(createStore)(enhancedReducer);
+const storeReactNative = applyMiddleware(storageMiddlewareReactNative)(createStore)(enhancedReducer);
 initialStateLoader(storeReactNative).then(() => {
     // render app
 })

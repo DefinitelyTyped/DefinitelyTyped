@@ -1,19 +1,26 @@
-// Type definitions for webpack (module API) 1.13
+// Type definitions for webpack (module API) 1.15
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
 //                 rhonsby <https://github.com/rhonsby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
  * Webpack module API - variables and global functions available inside modules
  */
 
 declare namespace __WebpackModuleApi {
+    interface RequireResolve {
+        (id: string): string | number;
+    }
+
     interface RequireContext {
         keys(): string[];
         (id: string): any;
         <T>(id: string): T;
         resolve(id: string): string;
+        /** The module id of the context module. This may be useful for module.hot.accept. */
+        id: string;
     }
 
     interface RequireFunction {
@@ -31,14 +38,15 @@ declare namespace __WebpackModuleApi {
          *
          * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
          */
+        ensure(paths: string[], callback: (require: NodeRequire) => void, chunkName?: string): void;
         ensure(paths: string[], callback: (require: NodeRequire) => void, errorCallback?: (error: any) => void, chunkName?: string): void;
-        context(path: string, deep?: boolean, filter?: RegExp): RequireContext;
+        context(path: string, deep?: boolean, filter?: RegExp, mode?: "sync" | "eager" | "weak" | "lazy" | "lazy-once"): RequireContext;
         /**
          * Returns the module id of a dependency. The call is sync. No request to the server is fired. The compiler ensures that the dependency is available.
          *
          * The module id is a number in webpack (in contrast to node.js where it is a string, the filename).
          */
-        resolve(path: string): number | string;
+        resolve: NodeJS.RequireResolve;
         /**
          * Like require.resolve, but doesn’t include the module into the bundle. It’s a weak dependency.
          */
@@ -51,22 +59,67 @@ declare namespace __WebpackModuleApi {
          * Multiple requires to the same module result in only one module execution and only one export. Therefore a cache in the runtime exists. Removing values from this cache cause new module execution and a new export. This is only needed in rare cases (for compatibility!).
          */
         cache: {
-            [id: string]: any;
+            [id: string]: NodeModule | undefined;
         }
     }
 
     interface Module {
         exports: any;
-        require(id: string): any;
-        require<T>(id: string): T;
         id: string;
         filename: string;
         loaded: boolean;
-        parent: any;
-        children: any[];
+        parent: NodeModule | null | undefined;
+        children: NodeModule[];
         hot?: Hot;
     }
     type ModuleId = string|number;
+
+    interface HotNotifierInfo {
+        type:
+          | 'self-declined'
+          | 'declined'
+          | 'unaccepted'
+          | 'accepted'
+          | 'disposed'
+          | 'accept-errored'
+          | 'self-accept-errored'
+          | 'self-accept-error-handler-errored';
+        /**
+         * The module in question.
+         */
+        moduleId: number;
+        /**
+         * For errors: the module id owning the accept handler.
+         */
+        dependencyId?: number;
+        /**
+         * For declined/accepted/unaccepted: the chain from where the update was propagated.
+         */
+        chain?: number[];
+        /**
+         * For declined: the module id of the declining parent
+         */
+        parentId?: number;
+        /**
+         * For accepted: the modules that are outdated and will be disposed
+         */
+        outdatedModules?: number[];
+        /**
+         * For accepted: The location of accept handlers that will handle the update
+         */
+        outdatedDependencies?: {
+          [dependencyId: number]: number[];
+        };
+        /**
+         * For errors: the thrown error
+         */
+        error?: Error;
+        /**
+         * For self-accept-error-handler-errored: the error thrown by the module
+         * before the error handler tried to handle it.
+         */
+        originalError?: Error;
+      }
 
     interface Hot {
         /**
@@ -74,13 +127,13 @@ declare namespace __WebpackModuleApi {
          * @param dependencies
          * @param callback
          */
-        accept(dependencies: string[], callback: (updatedDependencies: ModuleId[]) => void): void;
+        accept(dependencies: string[], callback?: (updatedDependencies: ModuleId[]) => void): void;
         /**
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependency
          * @param callback
          */
-        accept(dependency: string, callback: () => void): void;
+        accept(dependency: string, callback?: () => void): void;
         /**
          * Accept code updates for this module without notification of parents.
          * This should only be used if the module doesn’t export anything.
@@ -181,6 +234,34 @@ declare namespace __WebpackModuleApi {
          */
         ignoreUnaccepted?: boolean;
         /**
+         * Ignore changes made to declined modules.
+         */
+        ignoreDeclined?: boolean;
+        /**
+         *  Ignore errors throw in accept handlers, error handlers and while reevaluating module.
+         */
+        ignoreErrored?: boolean;
+        /**
+         * Notifier for declined modules.
+         */
+        onDeclined?: (info: HotNotifierInfo) => void;
+        /**
+         * Notifier for unaccepted modules.
+         */
+        onUnaccepted?: (info: HotNotifierInfo) => void;
+        /**
+         * Notifier for accepted modules.
+         */
+        onAccepted?: (info: HotNotifierInfo) => void;
+        /**
+         * Notifier for disposed modules.
+         */
+        onDisposed?: (info: HotNotifierInfo) => void;
+        /**
+         * Notifier for errors.
+         */
+        onErrored?: (info: HotNotifierInfo) => void;
+        /**
          * Indicates that apply() is automatically called by check function
          */
         autoApply?: boolean;
@@ -197,8 +278,7 @@ declare namespace __WebpackModuleApi {
     type RequireLambda = __Require1 & __Require2;
 }
 
-interface NodeRequire extends __WebpackModuleApi.RequireFunction {
-}
+interface NodeRequire extends NodeJS.Require {}
 
 declare var require: NodeRequire;
 
@@ -245,11 +325,18 @@ declare var __webpack_hash__: any;
 declare var __non_webpack_require__: any;
 
 /**
+ * Adds nonce to all scripts that webpack loads.
+ *
+ * To activate the feature a __webpack_nonce__ variable needs to be set in your entry script.
+ */
+declare var __webpack_nonce__: string;
+
+/**
  * Equals the config option debug
  */
 declare var DEBUG: boolean;
 
-interface NodeModule extends __WebpackModuleApi.Module {}
+interface NodeModule extends NodeJS.Module {}
 
 declare var module: NodeModule;
 
@@ -258,5 +345,8 @@ declare var module: NodeModule;
 */
 declare namespace NodeJS {
     interface Process extends __WebpackModuleApi.NodeProcess {}
+    interface RequireResolve extends __WebpackModuleApi.RequireResolve {}
+    interface Module extends __WebpackModuleApi.Module {}
+    interface Require extends __WebpackModuleApi.RequireFunction {}
 }
 declare var process: NodeJS.Process;

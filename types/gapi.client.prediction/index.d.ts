@@ -1,4 +1,4 @@
-// Type definitions for Google Prediction API v1.6 1.6
+// Type definitions for non-npm package Google Prediction API v1.6 1.6
 // Project: https://developers.google.com/prediction/docs/developer-guide
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

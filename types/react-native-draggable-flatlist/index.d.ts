@@ -49,7 +49,7 @@ interface DraggableFlatListProps<Item> extends VirtualizedListWithoutRenderItemP
   /**
    * Function that calls move when the row should become active (in an onPress, onLongPress, etc). Calls moveEnd when the gesture is complete (in onPressOut).
    */
-  renderItem: (info: RenderItemInfo<Item>) => React.ReactElement<any> | null;
+  renderItem: (info: RenderItemInfo<Item>) => React.ReactElement | null;
 }
 
 declare class DraggableFlatList<Item> extends Component<DraggableFlatListProps<Item>> {

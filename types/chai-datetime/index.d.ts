@@ -3,10 +3,11 @@
 // Definitions by: Cliff Burger <https://github.com/cliffburger>,
 //                 Matt Bishop <https://github.com/mattbishop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
-declare function chaiDateTime(chai: any, utils: any): void;
+declare const chaiDateTime: Chai.ChaiPlugin;
 export = chaiDateTime;
 
 declare global {
@@ -14,6 +15,7 @@ declare global {
         interface Assertion {
             afterDate(date: Date): Assertion;
             beforeDate(date: Date): Assertion;
+            closeToTime(date: Date, deltaInSeconds: number): Assertion;
             equalDate(date: Date): Assertion;
             withinDate(dateFrom: Date, dateTo: Date): Assertion;
             afterTime(date: Date): Assertion;
@@ -26,6 +28,7 @@ declare global {
             equalTime(val: Date, exp: Date, msg?: string): void;
             notEqualTime(val: Date, exp: Date, msg?: string): void;
             beforeTime(val: Date, exp: Date, msg?: string): void;
+            closeToTime(val: Date, exp: Date, deltaInSeconds: number, msg?: string): void;
             notBeforeTime(val: Date, exp: Date, msg?: string): void;
             afterTime(val: Date, exp: Date, msg?: string): void;
             notAfterTime(val: Date, exp: Date, msg?: string): void;

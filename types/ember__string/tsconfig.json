@@ -15,7 +15,7 @@
             "../"
         ],
         "paths": {
-            "@ember/string": ["ember__string"]
+            "@ember/*": ["ember__*"]
         },
         "types": [],
         "noEmit": true,

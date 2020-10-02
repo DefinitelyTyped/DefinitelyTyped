@@ -15,10 +15,9 @@
             "../"
         ],
         "paths": {
-            "@ember/object": ["ember__object"],
-            "@ember/object/*": ["ember__object/*"],
-            "@ember/array": ["ember__array"],
-            "@ember/array/*": ["ember__array/*"]
+            "@ember/*": [
+                "ember__*"
+            ]
         },
         "types": [],
         "noEmit": true,
@@ -26,12 +25,6 @@
     },
     "files": [
         "index.d.ts",
-        "mutable.d.ts",
-        "proxy.d.ts",
-        "-private/native-array.d.ts",
-        "-private/enumerable.d.ts",
-        "-private/mutable-enumerable.d.ts",
-        "types/prototype-extensions.d.ts",
         "test/lib/assert.ts",
         "test/array.ts",
         "test/array-ext.ts",

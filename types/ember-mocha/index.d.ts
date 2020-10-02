@@ -3,12 +3,15 @@
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Simon Ihmig <https://github.com/simonihmig>
 //                 Mike North <https://github.com/mike-north>
+//                 Dan Freeman <https://github.com/dfreeman>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import { TestContext, ModuleCallbacks } from "ember-test-helpers";
 import Ember from 'ember';
-import { it as mochaIt, ISuiteCallbackContext } from 'mocha';
+import { it as mochaIt, Suite } from 'mocha';
 
 // these globals are re-exported as named exports by ember-mocha
 type mochaBefore = typeof before;
@@ -22,10 +25,10 @@ type mochaSuiteTeardown = typeof suiteTeardown;
 
 declare module 'ember-mocha' {
     interface ContextDefinitionFunction {
-        (name: string, description: string, callbacks: ModuleCallbacks, tests: (this: ISuiteCallbackContext) => void): void;
-        (name: string, description: string, tests: (this: ISuiteCallbackContext) => void): void;
-        (name: string, callbacks: ModuleCallbacks, tests: (this: ISuiteCallbackContext) => void): void;
-        (name: string, tests: (this: ISuiteCallbackContext) => void): void;
+        (name: string, description: string, callbacks: ModuleCallbacks, tests: (this: Suite) => void): void;
+        (name: string, description: string, tests: (this: Suite) => void): void;
+        (name: string, callbacks: ModuleCallbacks, tests: (this: Suite) => void): void;
+        (name: string, tests: (this: Suite) => void): void;
     }
 
     interface ContextDefinition extends ContextDefinitionFunction {

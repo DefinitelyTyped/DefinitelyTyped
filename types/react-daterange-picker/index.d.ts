@@ -4,19 +4,24 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Donald Ford <https://github.com/donaldtf>
 //                 Vlad Florescu <https://github.com/vladflorescu94>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import * as moment from "moment";
-import * as momentRange from "moment-range";
+import * as React from 'react';
+import * as moment from 'moment';
+import * as momentRange from 'moment-range';
 
-export default class DateRangePicker extends React.Component<Props> { }
+export default class DateRangePicker extends React.Component<Props> {}
 export as namespace ReactDateRangePicker;
 
-export interface Props<T = DateRangePicker> extends React.Props<T> {
+/**
+ * see {@link https://github.com/onefinestay/react-daterange-picker#available-props}
+ */
+export interface BaseProps<T = DateRangePicker> extends React.Props<T> {
     bemBlock?: string;
     bemNamespace?: string;
+    className?: string;
     dateStates?: DateState[];
     defaultState?: string;
     disableNavigation?: boolean;
@@ -28,21 +33,35 @@ export interface Props<T = DateRangePicker> extends React.Props<T> {
     initialMonth?: number;
     initialYear?: number;
     initialRange?: {};
+    /**
+     * @default moment().locale()
+     */
+    locale?: string;
     maximumDate?: Date;
     minimumDate?: Date;
     numberOfCalendars?: number;
     onHighlightDate?(date: Date): void;
     onHighlightRange?(date: Date): void;
-    onSelect?(value: OnSelectCallbackParam): void;
-    onSelectStart?(value: momentRange.MomentRangeExtends): void;
+    onSelectStart?(value: momentRange.MomentRange & typeof moment): void;
     paginationArrowComponent?: React.ComponentClass<PaginationArrowProps> | React.SFC<PaginationArrowProps>;
     selectedLabel?: string;
-    selectionType?: 'single' | 'range';
     singleDateRange?: boolean;
     showLegend?: boolean;
     stateDefinitions?: StateDefinitions;
-    value?: momentRange.MomentRangeExtends | momentRange.DateRange | moment.Moment;
+    value?: (momentRange.MomentRange & typeof moment) | momentRange.DateRange | moment.Moment;
 }
+
+export interface RangeProps<T = DateRangePicker> extends BaseProps<T> {
+    onSelect?(value: OnSelectCallbackParam): void;
+    selectionType?: 'range';
+}
+
+export interface SingleProps<T = DateRangePicker> extends BaseProps<T> {
+    onSelect?(value: moment.Moment): void;
+    selectionType?: 'single';
+}
+
+export type Props<T = DateRangePicker> = RangeProps<T> | SingleProps<T>;
 
 export interface DateState {
     state: string;

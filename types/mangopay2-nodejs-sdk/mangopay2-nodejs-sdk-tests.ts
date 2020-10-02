@@ -11,9 +11,9 @@ const validConfig: Mangopay.Config = {
   baseUrl: "https://api.mangopay.com"
 };
 
-const api = new Mangopay(validConfig); // IGNORE-TEST $ExpectType MangoPay
-const payIn: Mangopay.models.PayIn = new api.models.PayIn({}); // IGNORE-TEST $ExpectType PayIn
-const address: Mangopay.models.Address = new api.models.Address({}); // IGNORE-TEST $ExpectType Address
+const api = new Mangopay(validConfig); // $ExpectType MangoPay
+const payIn: Mangopay.models.PayIn = new api.models.PayIn({}); // $ExpectType PayIn
+const address: Mangopay.models.Address = new api.models.Address({}); // $ExpectType Address
 
 const addressData: Mangopay.address.AddressData = {
   AddressLine1: "20 T Street",
@@ -48,15 +48,15 @@ const legalUser = new api.models.UserLegal({
 });
 
 api.Users.create(legalUser).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType UserLegalData
-  const value = data.PersonType; // IGNORE-TEST $ExpectType "LEGAL"
+  const d = data; // $ExpectType UserLegalData
+  const value = data.PersonType; // $ExpectType "LEGAL"
 
   console.log(`${legalUser.Name} user created at ${legalUser.CreationDate}`);
 });
 
-api.Users.create(legalUser, { readResponseHeaders: true }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType WithResponse<UserLegalData>
-  const value = data.body; // IGNORE-TEST $ExpectType UserLegalData
+api.Users.create(legalUser, { resolveWithFullResponse: true }).then(data => {
+  const d = data; // $ExpectType WithResponse<UserLegalData>
+  const value = data.body; // $ExpectType UserLegalData
 });
 
 api.Users.create(
@@ -83,7 +83,7 @@ api.Users.create(
   },
   { headers: {} }
 ).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType UserLegalData
+  const d = data; // $ExpectType UserLegalData
 });
 
 const naturalUser = new api.models.UserNatural({
@@ -96,8 +96,8 @@ const naturalUser = new api.models.UserNatural({
 });
 
 api.Users.create(naturalUser, {}).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType UserNaturalData
-  const value = data.PersonType; // IGNORE-TEST $ExpectType "NATURAL"
+  const d = data; // $ExpectType UserNaturalData
+  const value = data.PersonType; // $ExpectType "NATURAL"
   return;
 });
 
@@ -109,30 +109,31 @@ api.Users.create(
     FirstName: "Sara",
     LastName: "McNick",
     CountryOfResidence: "GB",
-    Nationality: "US"
+    Nationality: "US",
+    Tag: "tagged-user"
   },
   data => {
-    const d = data; // IGNORE-TEST $ExpectType UserNaturalData
+    const d = data; // $ExpectType UserNaturalData
     console.log("create", data);
   }
 );
 
 api.Users.get("1234").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType UserLegalData | UserNaturalData
+  const d = data; // $ExpectType UserLegalData | UserNaturalData
   if (data.PersonType === "LEGAL") {
-    const legalData = data; // IGNORE-TEST $ExpectType UserLegalData
+    const legalData = data; // $ExpectType UserLegalData
   } else {
-    const naturalData = data; // IGNORE-TEST $ExpectType UserNaturalData
+    const naturalData = data; // $ExpectType UserNaturalData
   }
 });
 
 api.Users.getAll().then(users => {
   users.forEach(user => {
-    const d = user; // IGNORE-TEST $ExpectType UserLegalData | UserNaturalData
+    const d = user; // $ExpectType UserLegalData | UserNaturalData
     if (user.PersonType === "LEGAL") {
-      const legalData = user; // IGNORE-TEST $ExpectType UserLegalData
+      const legalData = user; // $ExpectType UserLegalData
     } else {
-      const naturalData = user; // IGNORE-TEST $ExpectType UserNaturalData
+      const naturalData = user; // $ExpectType UserNaturalData
     }
   });
 });
@@ -147,7 +148,7 @@ api.Users.update({
   CountryOfResidence: "GB",
   Nationality: "US"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType UserNaturalData
+  const d = data; // $ExpectType UserNaturalData
 });
 
 api.Users.createBankAccount("user-id", {
@@ -157,55 +158,55 @@ api.Users.createBankAccount("user-id", {
   OwnerAddress: "",
   OwnerName: ""
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType GBData
+  const d = data; // $ExpectType GBData
 });
 
 api.Users.getBankAccount("user-id", "bankAccount-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType Data
+  const d = data; // $ExpectType Data
 });
 
 api.Users.getBankAccounts("user-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType Data[]
+  const d = data; // $ExpectType Data[]
 });
 
 api.Users.deactivateBankAccount("user-id", "bankAccount-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType void
+  const d = data; // $ExpectType void
 });
 
 api.Users.getTransactions("user-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType TransactionData[]
+  const d = data; // $ExpectType TransactionData[]
 });
 
 api.Users.getWallets("user-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType WalletData[]
+  const d = data; // $ExpectType WalletData[]
 });
 
 api.Users.getCards("user-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardData[]
+  const d = data; // $ExpectType CardData[]
 });
 
 api.Users.createKycDocument("user-id", { Type: "ADDRESS_PROOF" }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType KycDocumentData
+  const d = data; // $ExpectType KycDocumentData
 });
 
 api.Users.getKycDocuments("user-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType KycDocumentData[]
+  const d = data; // $ExpectType KycDocumentData[]
 });
 
 api.Users.getKycDocument("user-id", "kycDocument-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType KycDocumentData
+  const d = data; // $ExpectType KycDocumentData
 });
 
-api.Users.updateKycDocument("user-id", { Status: "VALIDATION_ASKED" }).then(
+api.Users.updateKycDocument("user-id", { Status: "VALIDATION_ASKED", Id: "kycDocument-id" }).then(
   data => {
-    const d = data; // IGNORE-TEST $ExpectType KycDocumentData
+    const d = data; // $ExpectType KycDocumentData
   }
 );
 
 api.Users.createKycPage("user-id", "kycDocument-id", {
   File: "...base64data..."
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType KycDocumentData
+  const d = data; // $ExpectType KycDocumentData
 });
 
 api.Users.createKycPageFromFile(
@@ -213,33 +214,33 @@ api.Users.createKycPageFromFile(
   "kyc-document-id",
   "path/to/file"
 ).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType KycDocumentData
+  const d = data; // $ExpectType KycDocumentData
 });
 
 // MangoPay.
 
 api.Users.getEMoney("user-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType EMoneyData
+  const d = data; // $ExpectType EMoneyData
 });
 
 api.Users.createUboDeclaration("user-id", { DeclaredUBOs: ["user1"] }).then(
   data => {
-    const d = data; // IGNORE-TEST $ExpectType UboDeclarationData
+    const d = data; // $ExpectType UboDeclarationData
   }
 );
 
 api.Users.getPreAuthorizations("user-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardPreAuthorizationData[]
+  const d = data; // $ExpectType CardPreAuthorizationData[]
 });
 
 /* KycDocuments */
 
 api.KycDocuments.getAll().then(data => {
-  const d = data; // IGNORE-TEST $ExpectType KycDocumentData[]
+  const d = data; // $ExpectType KycDocumentData[]
 });
 
 api.KycDocuments.get("kyc-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType KycDocumentData
+  const d = data; // $ExpectType KycDocumentData
 });
 
 api.KycDocuments.createKycDocumentConsult("kyc-id").then(data => {
@@ -249,20 +250,20 @@ api.KycDocuments.createKycDocumentConsult("kyc-id").then(data => {
 /* UboDeclarations */
 
 api.UboDeclarations.get("ubo-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType UboDeclarationData
+  const d = data; // $ExpectType UboDeclarationData
 });
 
 api.UboDeclarations.update({
   Id: "ubo-id",
   DeclaredUBOs: ["user1", "user2"]
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType UboDeclarationData
+  const d = data; // $ExpectType UboDeclarationData
 });
 
 /* BankAccounts */
 
 api.BankAccounts.getTransactions("account-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType TransactionData[]
+  const d = data; // $ExpectType TransactionData[]
 });
 
 /* Wallets */
@@ -272,49 +273,49 @@ api.Wallets.create({
   Description: "A description",
   Owners: ["user-id"]
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType WalletData
+  const d = data; // $ExpectType WalletData
 });
 
 const wallet = new api.models.Wallet({
-  Currency: "GB",
+  Currency: "GBP",
   Description: "A description",
   Owners: ["user-id"]
 });
 
 api.Wallets.create(wallet).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType WalletData
+  const d = data; // $ExpectType WalletData
 });
 
 api.Wallets.update({
   Description: "A description"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType WalletData
+  const d = data; // $ExpectType WalletData
 });
 
 api.Wallets.get("wallet-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType WalletData
+  const d = data; // $ExpectType WalletData
 });
 
 api.Wallets.getTransactions("wallet-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType TransactionData[]
+  const d = data; // $ExpectType TransactionData[]
 });
 
 /* Cards */
 
 api.Cards.get("card-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardData
+  const d = data; // $ExpectType CardData
 });
 
 api.Cards.getByFingerprint("fingerprinthash").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardData[]
+  const d = data; // $ExpectType CardData[]
 });
 
 api.Cards.update({ Active: false, Id: "card-id" }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardData
+  const d = data; // $ExpectType CardData
 });
 
 api.Cards.getTransactions("card-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType TransactionData[]
+  const d = data; // $ExpectType TransactionData[]
 });
 
 /* CardRegistrations */
@@ -324,15 +325,15 @@ api.CardRegistrations.create({
   Currency: "GBP",
   UserId: "user-id"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardRegistrationData
+  const d = data; // $ExpectType CardRegistrationData
 });
 
 api.CardRegistrations.get("reg-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardRegistrationData
+  const d = data; // $ExpectType CardRegistrationData
 });
 
 api.CardRegistrations.update({ RegistrationData: "hmmm" }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardRegistrationData
+  const d = data; // $ExpectType CardRegistrationData
 });
 
 /* CardPreAuthorizations */
@@ -343,24 +344,24 @@ api.CardPreAuthorizations.create({
   DebitedFunds: { Currency: "AUD", Amount: 4000 },
   SecureModeReturnURL: "https://secureurl.com"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardPreAuthorizationData
+  const d = data; // $ExpectType CardPreAuthorizationData
 });
 
 api.CardPreAuthorizations.get("auth-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardPreAuthorizationData
+  const d = data; // $ExpectType CardPreAuthorizationData
 });
 
 api.CardPreAuthorizations.update({
   Id: "auth-id",
   PaymentStatus: "CANCELED"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardPreAuthorizationData
+  const d = data; // $ExpectType CardPreAuthorizationData
 });
 
 /* Refunds */
 
 api.Refunds.get("refund-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType RefundData
+  const d = data; // $ExpectType RefundData
 });
 
 /* PayIns */
@@ -375,7 +376,7 @@ api.PayIns.create({
   DebitedFunds: { Amount: 2000, Currency: "GBP" },
   SecureModeReturnURL: "https://secure-return.co"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardDirectPayInData
+  const d = data; // $ExpectType CardDirectPayInData
 });
 
 api.PayIns.create({
@@ -389,7 +390,7 @@ api.PayIns.create({
   Culture: "AD",
   CardType: "MAESTRO"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType CardWebPayInData
+  const d = data; // $ExpectType CardWebPayInData
 });
 
 api.PayIns.create({
@@ -401,52 +402,52 @@ api.PayIns.create({
   DeclaredDebitedFunds: { Amount: 10000, Currency: "GBP" },
   DeclaredFees: { Amount: 500, Currency: "GBP" }
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType BankWireDirectPayInData
+  const d = data; // $ExpectType BankWireDirectPayInData
 });
 
 api.PayIns.get("payin-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType PayInData
+  const d = data; // $ExpectType PayInData
 });
 
 api.PayIns.createRefund("payin-id", { AuthorId: "user-id" }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType RefundData
+  const d = data; // $ExpectType RefundData
 });
 
 api.PayIns.getRefunds("payin-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType RefundData[]
+  const d = data; // $ExpectType RefundData[]
 });
 
 /* Clients */
 api.Clients.get().then(data => {
-  const d = data; // IGNORE-TEST $ExpectType ClientData
+  const d = data; // $ExpectType ClientData
 });
 
 api.Clients.update({ PlatformType: "CROWDFUNDING_DONATION" }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType ClientData
+  const d = data; // $ExpectType ClientData
 });
 
 api.Clients.uploadLogo("...logobase64...").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType ClientData
+  const d = data; // $ExpectType ClientData
 });
 
 api.Clients.uploadLogoFromFile("path/to/file").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType ClientData
+  const d = data; // $ExpectType ClientData
 });
 
 api.Clients.getClientWallets().then(data => {
-  const d = data; // IGNORE-TEST $ExpectType ClientWalletData[]
+  const d = data; // $ExpectType ClientWalletData[]
 });
 
 api.Clients.getClientWallet("CREDIT", "GBP").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType ClientWalletData
+  const d = data; // $ExpectType ClientWalletData
 });
 
 api.Clients.getClientWalletsByFundsType("FEES").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType ClientWalletData[]
+  const d = data; // $ExpectType ClientWalletData[]
 });
 
 api.Clients.getClientWalletTransactions("CREDIT", "GBP").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType TransactionData[]
+  const d = data; // $ExpectType TransactionData[]
 });
 
 /* PayOuts */
@@ -458,15 +459,15 @@ api.PayOuts.create({
   BankAccountId: "bank-id",
   DebitedWalletId: "wallet-id"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType PayOutData
+  const d = data; // $ExpectType PayOutData
 });
 
 api.PayOuts.get("payout-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType PayOutData
+  const d = data; // $ExpectType PayOutData
 });
 
 api.PayOuts.getRefunds("payout-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType RefundData[]
+  const d = data; // $ExpectType RefundData[]
 });
 
 /* Transfers */
@@ -478,21 +479,21 @@ api.Transfers.create({
   DebitedWalletId: "debit-wallet-id",
   CreditedWalletId: "credit-wallet-id"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType TransferData
+  const d = data; // $ExpectType TransferData
 });
 
 api.Transfers.get("transfer-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType TransferData
+  const d = data; // $ExpectType TransferData
 });
 
 api.Transfers.createRefund("transfer-id", { AuthorId: "user-id" }).then(
   data => {
-    const d = data; // IGNORE-TEST $ExpectType RefundData
+    const d = data; // $ExpectType RefundData
   }
 );
 
 api.Transfers.getRefunds("transfer-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType RefundData[]
+  const d = data; // $ExpectType RefundData[]
 });
 
 /* BankingAliases */
@@ -502,32 +503,32 @@ api.BankingAliases.create({
   CreditedUserId: "user-id",
   OwnerName: "owner-id"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType IBANBankingAliasData
+  const d = data; // $ExpectType IBANBankingAliasData
 });
 api.BankingAliases.get("alias-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType IBANBankingAliasData
+  const d = data; // $ExpectType IBANBankingAliasData
 });
 api.BankingAliases.getAll().then(data => {
-  const d = data; // IGNORE-TEST $ExpectType IBANBankingAliasData[]
+  const d = data; // $ExpectType IBANBankingAliasData[]
 });
 api.BankingAliases.update({ OwnerName: "some-name" }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType IBANBankingAliasData
+  const d = data; // $ExpectType IBANBankingAliasData
 });
 api.BankingAliases.deactivate("alias-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType IBANBankingAliasData
+  const d = data; // $ExpectType IBANBankingAliasData
 });
 api.BankingAliases.activate("alias-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType IBANBankingAliasData
+  const d = data; // $ExpectType IBANBankingAliasData
 });
 
 /* DisputeDocuments */
 
 api.DisputeDocuments.getAll().then(data => {
-  const d = data; // IGNORE-TEST $ExpectType DisputeDocumentData[]
+  const d = data; // $ExpectType DisputeDocumentData[]
 });
 
 api.DisputeDocuments.get("dispute-doc-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType DisputeDocumentData
+  const d = data; // $ExpectType DisputeDocumentData
 });
 
 api.DisputeDocuments.createDisputeDocumentConsult("dispute-doc-id").then(
@@ -645,7 +646,7 @@ api.Events.getAll().then(data => {
 /* Responses */
 
 api.Responses.get().then(data => {
-  const d = data; // IGNORE-TEST $ExpectType any[]
+  const d = data; // $ExpectType any[]
 });
 
 /* Mandates */
@@ -655,32 +656,32 @@ api.Mandates.create({
   ReturnURL: "https://return-url.com",
   Culture: "EN"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType MandateData
+  const d = data; // $ExpectType MandateData
 });
 
 api.Mandates.getAll().then(data => {
-  const d = data; // IGNORE-TEST $ExpectType MandateData[]
+  const d = data; // $ExpectType MandateData[]
 });
 
 api.Mandates.get("mandate-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType MandateData
+  const d = data; // $ExpectType MandateData
 });
 
 api.Mandates.cancel("mandate-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType MandateData
+  const d = data; // $ExpectType MandateData
 });
 
 api.Mandates.getMandatesForUser("user-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType MandateData[]
+  const d = data; // $ExpectType MandateData[]
 });
 
 api.Mandates.getMandatesForBankAccount("user-id", "bank-account-id").then(
   data => {
-    const d = data; // IGNORE-TEST $ExpectType MandateData[]
+    const d = data; // $ExpectType MandateData[]
   }
 );
 api.Mandates.getTransactions("mandate-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType TransactionData[]
+  const d = data; // $ExpectType TransactionData[]
 });
 
 /* Hooks */
@@ -689,33 +690,33 @@ api.Hooks.create({
   Url: "https://hook-url.com",
   EventType: "DISPUTE_ACTION_REQUIRED"
 }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType HookData
+  const d = data; // $ExpectType HookData
 });
 
 api.Hooks.get("hook-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType HookData
+  const d = data; // $ExpectType HookData
 });
 
 api.Hooks.update({ Id: "hook-id", Url: "https://new-hook.com/hooks" }).then(
   data => {
-    const d = data; // IGNORE-TEST $ExpectType HookData
+    const d = data; // $ExpectType HookData
   }
 );
 
 api.Hooks.getAll().then(data => {
-  const d = data; // IGNORE-TEST $ExpectType HookData[]
+  const d = data; // $ExpectType HookData[]
 });
 
 /* Reports */
 
 api.Reports.create({ Columns: ["Alias", "AuthorId"] }).then(data => {
-  const d = data; // IGNORE-TEST $ExpectType ReportData
+  const d = data; // $ExpectType ReportData
 });
 
 api.Reports.get("report-id").then(data => {
-  const d = data; // IGNORE-TEST $ExpectType ReportData
+  const d = data; // $ExpectType ReportData
 });
 
 api.Reports.getAll().then(data => {
-  const d = data; // IGNORE-TEST $ExpectType ReportData[]
+  const d = data; // $ExpectType ReportData[]
 });

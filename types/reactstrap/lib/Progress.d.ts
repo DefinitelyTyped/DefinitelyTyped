@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type ProgressProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export interface ProgressProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   bar?: boolean;
   multi?: boolean;
   tag?: string;
   value?: string | number;
+  min?: string | number;
   max?: string | number;
   animated?: boolean;
   striped?: boolean;
@@ -13,7 +15,9 @@ export type ProgressProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
   barClassName?: string;
-} & T;
+  barAriaValueText?: string;
+  barAriaLabelledBy?: string;
+}
 
-declare class Progress<T = {[key: string]: any}> extends React.Component<ProgressProps<T>> {}
+declare class Progress<T = {[key: string]: any}> extends React.Component<ProgressProps> {}
 export default Progress;

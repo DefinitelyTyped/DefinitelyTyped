@@ -1,9 +1,13 @@
 // Type definitions for pigpio 1.2
 // Project: https://github.com/fivdi/pigpio
-// Definitions by: ManerFan <https://github.com/manerfan>, erikma <https://github.com/erikma>
+// Definitions by: ManerFan <https://github.com/manerfan>
+//                 erikma <https://github.com/erikma>
+//                 park012241 <https://github.com/park012241>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
+import { EventEmitter } from 'events';
 
 /************************************
  * Gpio
@@ -12,7 +16,7 @@
 /**
  * General Purpose Input Output
  */
-export class Gpio extends NodeJS.EventEmitter {
+export class Gpio extends EventEmitter {
     /**
      * Returns a new Gpio object for accessing a GPIO
      * @param gpio      an unsigned integer specifying the GPIO number
@@ -72,9 +76,9 @@ export class Gpio extends NodeJS.EventEmitter {
 
     /**
      * Sets the GPIO level to 0 or 1. If PWM or servo pulses are active on the GPIO they are switched off.
-     * @param levle     0 or 1
+     * @param level     0 or 1
      */
-    digitalWrite(levle: number): Gpio;
+    digitalWrite(level: number): Gpio;
 
     /**
      * Sends a trigger pulse to the GPIO. The GPIO is set to level for pulseLen microseconds and then reset to not level.

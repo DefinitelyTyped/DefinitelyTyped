@@ -15,12 +15,22 @@ export function clear(target: string | any[]): any;
 /** used to create a new ApiCache instance with the same options as the current one */
 export function clone(): any;
 
-export function getDuration(duration: string): any;
+export function getDuration(duration: string | number): any;
 
 /**
  * returns current cache index [of keys]
  */
 export function getIndex(): any;
+
+/**
+ * Return cache performance statistics (hit rate).  Suitable for putting into a route:
+ * <code>
+ * app.get('/api/cache/performance', (req, res) => {
+ *    res.json(apicache.getPerformance())
+ * })
+ * </code>
+ */
+export function getPerformance(): any;
 
 /**
  * the actual middleware that will be used in your routes. duration is in the following format
@@ -29,7 +39,7 @@ export function getIndex(): any;
  * Third param is the options that will override global ones and affect this middleware only.
  */
 export function middleware(
-  duration?: string,
+  duration?: string | number,
   toggleMiddleware?: any,
   localOptions?: Options
 ): any;
@@ -74,4 +84,8 @@ export interface Options {
   headers?: {
     [key: string]: string;
   };
+  /**
+   * enable/disable performance tracking... WARNING: super cool feature, but may cause memory overhead issues
+   */
+  trackPerformance?: boolean;
 }

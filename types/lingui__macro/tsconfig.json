@@ -18,8 +18,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@lingui/macro": [
-                "lingui__macro"
+            "@lingui/*": [
+                "lingui__*"
             ]
         }
     },

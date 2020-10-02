@@ -6,18 +6,22 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "lru-cache": ["lru-cache/v4"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "ejs-tests.ts"
+        "test/ejs.cjs.test.ts",
+        "test/ejs.umd.test.ts"
     ]
 }

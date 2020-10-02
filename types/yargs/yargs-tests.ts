@@ -1,9 +1,11 @@
 /// <reference types="node" />
 
 import yargs = require('yargs');
+import yargsSingleton = require('yargs/yargs');
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { Arguments } from 'yargs';
 
 const stringVal = 'string';
 
@@ -222,17 +224,17 @@ function Argv$choices() {
 function Argv$usage_as_default_command() {
     const argv = yargs
         .usage(
-        "$0 get",
-        'make a get HTTP request',
-        (yargs) => {
-            return yargs.option('u', {
-                alias: 'url',
-                describe: 'the URL to make an HTTP request to'
-            });
-        },
-        (argv) => {
-            console.dir(argv.url);
-        }
+            "$0 get",
+            'make a get HTTP request',
+            (yargs) => {
+                return yargs.option('u', {
+                    alias: 'url',
+                    describe: 'the URL to make an HTTP request to'
+                });
+            },
+            (argv) => {
+                console.dir(argv.url);
+            }
         )
         .argv;
 }
@@ -267,6 +269,7 @@ function Argv$command() {
                     demand: false
                 }
             },
+            deprecated: false,
             handler: (args: any) => {
                 /* handle me mateys! */
             }
@@ -291,20 +294,188 @@ function Argv$command() {
 
     yargs
         .command(
-        'get',
-        'make a get HTTP request',
-        (yargs) => {
-            return yargs.option('u', {
-                alias: 'url',
-                describe: 'the URL to make an HTTP request to'
-            });
-        },
-        (argv) => {
-            console.dir(argv.url);
-        }
+            'get',
+            'make a get HTTP request',
+            (yargs) => {
+                return yargs.option('u', {
+                    alias: 'url',
+                    describe: 'the URL to make an HTTP request to'
+                });
+            },
+            (argv) => {
+                console.dir(argv.url);
+            },
+            // middlewares
+            [],
+            // deprecated
+            'use --newGet'
         )
         .help()
         .argv;
+
+    yargs
+        .command('get <source> [proxy]', 'make a get HTTP request', yargs => {
+            yargs.positional('source', {
+                describe: 'URL to fetch content from',
+                type: 'string',
+                default: 'http://www.google.com'
+            }).positional('proxy', {
+                describe: 'optional proxy URL'
+            });
+        })
+        .help()
+        .argv;
+}
+
+function Argv$example() {
+    yargs
+        .command({
+            command: 'get',
+            handler: () => {
+                // command
+            },
+        })
+        .command({
+            command: 'post',
+            handler: () => {
+                // command
+            },
+        })
+        .command({
+            command: 'delete',
+            handler: () => {
+                // command
+            },
+        })
+        .example([
+            ['$0 get', 'get https://example.com/'],
+            ['$0 post', 'post https://example.com/'],
+        ])
+        .example('$0 delete', 'delete https://example.com').argv;
+}
+
+function Argv$positional() {
+    const module: yargs.CommandModule<{}, { paths: string[] }> = {
+        command: 'test <paths...>',
+        builder(yargs) {
+            return yargs.positional('paths', {
+                type: 'string',
+                array: true,
+                demandOption: true
+            });
+        },
+        handler(argv) {
+            argv.paths.map((path) => path);
+        }
+    };
+}
+
+function Argv$commandModule() {
+    class CommandOne implements yargs.CommandModule {
+        handler(args: yargs.Arguments): void {
+            console.log("one");
+        }
+        deprecated: true;
+    }
+
+    const CommandTwo: yargs.CommandModule<{ a: string }, { b: number }> = {
+        builder: yargs => {
+            // $ExpectType: string
+            yargs.argv.a;
+            return yargs.number("b").default("b", parseInt(yargs.argv.a, 10));
+        },
+
+        handler: argv => {
+            // $ExpectType: number
+            argv.b;
+        }
+    };
+
+    class Configure implements yargs.CommandModule<{ verbose: boolean }, { verbose: boolean, key: string, value: boolean }> {
+        command = 'configure <key> [value]';
+        aliases = ['config', 'cfg'];
+        describe = 'Set a config variable';
+
+        builder(yargs: yargs.Argv<{ verbose: boolean }>) {
+            return yargs.positional('key', { default: '' }).positional('value', { default: true });
+        }
+
+        handler(argv: yargs.Arguments<{ verbose: boolean, key: string, value: string | boolean }>) {
+            if (argv.verbose) {
+                console.log(`setting ${argv.key} to ${argv.value}`);
+            }
+        }
+    }
+
+    const Configure2: yargs.CommandModule<{ verbose: boolean }, { verbose: boolean, key: string, value: boolean }> = {
+        command: 'configure <key> [value]',
+        aliases: ['config', 'cfg'],
+        describe: 'Set a config variable',
+
+        builder: yargs => {
+            return yargs.positional('key', { default: '' }).positional('value', { default: true });
+        },
+
+        handler: argv => {
+            if (argv.verbose) {
+                console.log(`setting ${argv.key} to ${argv.value}`);
+            }
+        }
+    };
+
+    const command = 'import-file <file>';
+    const describe = 'run the importer on a single file';
+    const builder = (yargs: yargs.Argv) => {
+        return yargs
+            .positional('file', {
+                describe: 'path to file to import'
+            })
+            .options({
+                cleanDestination: {
+                    boolean: true,
+                    describe: 'Clean the destination folder from previously generated files before proceeding.'
+                }
+            });
+    };
+
+    const commandArgs = builder(yargs).argv;
+
+    // $ExpectType: { [x: string]: unknown; file: unknown; cleanDestination: boolean | undefined; _: string[]; $0: string; }
+    commandArgs;
+
+    // Backwards compatibility with older types
+    const builder2: yargs.CommandBuilder = builder;
+    const commandArgs2: yargs.Arguments = builder(yargs).argv;
+    const commandArgs3: yargs.Arguments = builder2(yargs).argv;
+}
+
+function Argv$completion_hide() {
+    // no func
+    yargs.completion('completion', false).argv;
+
+    // sync func
+    yargs.completion('complation', false, (current, argv) => {
+        // 'current' is the current command being completed.
+        // 'argv' is the parsed arguments so far.
+        // simply return an array of completions.
+        return ['foo', 'bar'];
+    }).argv;
+
+    // async func
+    yargs.completion('complation', false, (current: string, argv: any, done: (completion: string[]) => void) => {
+        setTimeout(() => {
+            done(['apple', 'banana']);
+        }, 500);
+    }).argv;
+
+    // promise func
+    yargs.completion('complation', false, (current: string, argv: any) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(['apple', 'banana']);
+            }, 10);
+        });
+    }).argv;
 }
 
 function Argv$completion_sync() {
@@ -334,6 +505,18 @@ function Argv$completion_async() {
         .argv;
 }
 
+function Argv$completion_promise() {
+    const argv = yargs
+        .completion('completion', (current: string, argv: any) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(['apple', 'banana']);
+                }, 10);
+            });
+        })
+        .argv;
+}
+
 function Argv$help() {
     const argv = yargs
         .usage("$0 -operand1 number -operand2 number -operation [add|subtract]")
@@ -355,6 +538,13 @@ function Argv$showHelp() {
     const yargs1 = yargs
         .usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
     yargs1.showHelp();
+}
+
+function Argv$showHelpWithCallback() {
+    const yargs1 = yargs.option('test', {
+        describe: "it's a test"
+    });
+    yargs1.showHelp(s => console.log(`Help! ${s}`));
 }
 
 function Argv$version() {
@@ -395,6 +585,18 @@ function Argv$locale() {
         .help('help')
         .wrap(70)
         .locale('pirate')
+        .argv;
+}
+
+function Argv$middleware() {
+    const mwFunc1 = (argv: Arguments) => console.log(`I'm a middleware function`, argv);
+    const mwFunc2 = (argv: Arguments) => console.log(`I'm another middleware function`, argv);
+
+    const argv = yargs
+        .middleware([mwFunc1, mwFunc2])
+        .middleware((argv) => {
+            if (process.env.HOME) argv.home = process.env.HOME;
+        }, true)
         .argv;
 }
 
@@ -485,10 +687,11 @@ function Argv$coerceWithKeys() {
 // From http://yargs.js.org/docs/#methods-failfn
 function Argv$fail() {
     const ya = yargs
-        .fail((msg, err) => {
+        .fail((msg, err, { help }) => {
             if (err) throw err; // preserve stack
             console.error('You broke it!');
             console.error(msg);
+            console.error(help());
             process.exit(1);
         })
         .argv;
@@ -572,6 +775,28 @@ function Argv$getCompletion() {
             console.log(completions);
         })
         .argv;
+}
+
+function Argv$parserConfiguration() {
+    const argv1 = yargs.parserConfiguration({
+        'boolean-negation': false,
+        'camel-case-expansion': false,
+        'combine-arrays': false,
+        'dot-notation': false,
+        'duplicate-arguments-array': false,
+        'flatten-duplicate-arrays': false,
+        'halt-at-non-option': true,
+        'negation-prefix': 'non-',
+        'parse-numbers': false,
+        'populate--': false,
+        'set-placeholder-key': false,
+        'short-option-groups': false,
+        'sort-commands': true,
+    }).parse();
+
+    const argv2 = yargs.parserConfiguration({
+        'negation-prefix': 'nope-',
+    }).parse();
 }
 
 function Argv$pkgConf() {
@@ -692,6 +917,9 @@ function Argv$scriptName() {
 type Color = "red" | "blue" | "green";
 const colors: ReadonlyArray<Color> = ["red", "blue", "green"];
 
+type Stage = 1 | 2 | 3 | 4;
+const stages: ReadonlyArray<Stage> = [1, 2, 3, 4];
+
 function Argv$inferOptionTypes() {
     // $ExpectType { [x: string]: unknown; a: (string | number)[] | undefined; b: boolean | undefined; c: number; n: number | undefined; s: string | undefined; _: string[]; $0: string; }
     yargs
@@ -717,9 +945,10 @@ function Argv$inferOptionTypes() {
         .option("s", { string: true })
         .argv;
 
-    // $ExpectType { [x: string]: unknown; choices: Color; coerce: Date | undefined; count: number; normalize: string | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; choices: Color; numberChoices: Stage; coerce: Date | undefined; count: number; normalize: string | undefined; _: string[]; $0: string; }
     yargs
         .option("choices", { choices: colors, required: true })
+        .option("numberChoices", { choices: stages, demandOption: true })
         .option("coerce", { coerce: () => new Date() })
         .option("count", { count: true })
         .option("normalize", { normalize: true })
@@ -733,6 +962,9 @@ function Argv$inferOptionTypes() {
 
     // $ExpectType "red" | "blue" | "green" | undefined
     yargs.choices("x", colors).argv.x;
+
+    // $ExpectType number | undefined
+    yargs.choices('x', [1, 2, 3, 4]).argv.x;
 
     // $ExpectType number | undefined
     yargs.coerce("x", Date.parse).argv.x;
@@ -895,10 +1127,10 @@ function Argv$inferArrayOptionTypes() {
     // $ExpectType string[] | undefined
     yargs.option("a", { normalize: true, type: "array" }).argv.a;
 
-    // $ExpectType string[] | undefined
+    // $ExpectType string[] | undefined || ToArray<string | undefined>
     yargs.string("a").array("a").argv.a;
 
-    // $ExpectType string[] | undefined
+    // $ExpectType string[] | undefined || ToString<(string | number)[] | undefined>
     yargs.array("a").string("a").argv.a;
 
     // $ExpectType string[]
@@ -961,7 +1193,7 @@ function Argv$fallbackToUnknownForUnknownOptions() {
 
     // $ExpectType unknown
     yargs
-        .option({a: { type: "string" }, b: { type: "boolean" } })
+        .option({ a: { type: "string" }, b: { type: "boolean" } })
         .argv
         .bogus;
 
@@ -976,4 +1208,62 @@ function Argv$fallbackToUnknownForUnknownOptions() {
     // $ExpectError
     const x: string = yargs.argv.x;
     return x;
+}
+
+function Argv$exit() {
+    yargs.exit(1, new Error("oh no"));
+}
+
+function Argv$parsed() {
+    const parsedArgs = yargs.parsed;
+}
+
+function Argv$defaultCommandWithPositional(): string {
+    const argv = yargs.command(
+        "$0 <arg>",
+        "default command",
+        (yargs) =>
+            yargs.positional("arg", {
+                demandOption: true,
+                describe: "argument",
+                type: "string",
+            }),
+        () => { }).argv;
+
+    return argv.arg;
+}
+
+function Argv$commandsWithAsynchronousBuilders() {
+    const argv1 = yargs.command(
+        "command <arg>",
+        "some command",
+        (yargs) =>
+            Promise.resolve(
+                yargs.positional("arg", {
+                    demandOption: true,
+                    describe: "argument",
+                    type: "string",
+                })),
+        () => { }).argv;
+
+    const arg1: string = argv1.arg;
+
+    const argv2 = yargs.command({
+        command: "command <arg>",
+        describe: "some command",
+        builder: (yargs) =>
+            Promise.resolve(
+                yargs.positional("arg", {
+                    demandOption: true,
+                    describe: "argument",
+                    type: "string",
+                })),
+        handler: () => {}
+    }).argv;
+
+    const arg2: string = argv2.arg;
+}
+
+function makeSingleton() {
+    yargsSingleton(process.argv.slice(2));
 }

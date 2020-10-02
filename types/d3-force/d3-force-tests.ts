@@ -85,9 +85,12 @@ num = forceCenter.x();
 forceCenter = forceCenter.y(150);
 num = forceCenter.y();
 
+forceCenter = forceCenter.strength(0.05);
+num = forceCenter.strength();
+
 // Use Centering force -----------------------------------------------------------------
 
-forceCenter.initialize(graph.nodes);
+forceCenter.initialize(graph.nodes, () => 1);
 forceCenter(0.1); // alpha
 
 // Collision ===========================================================================
@@ -138,7 +141,7 @@ num = forceCollide.iterations();
 
 // Use Collision force -----------------------------------------------------------------
 
-forceCollide.initialize(graph.nodes);
+forceCollide.initialize(graph.nodes, () => 1);
 forceCollide(0.1); // alpha
 
 // Link ================================================================================
@@ -216,7 +219,7 @@ num = forceLink.iterations();
 
 // Use Link force -----------------------------------------------------------------
 
-forceLink.initialize(graph.nodes);
+forceLink.initialize(graph.nodes, () => 1);
 forceLink(0.1); // alpha
 
 // ManyBody ============================================================================
@@ -259,7 +262,7 @@ num = forceCharge.distanceMax();
 
 // Use ManyBody force -----------------------------------------------------------------
 
-forceCharge.initialize(graph.nodes);
+forceCharge.initialize(graph.nodes, () => 1);
 forceCharge(0.1); // alpha
 
 // ForceX ==============================================================================
@@ -313,7 +316,7 @@ simNodeNumberAccessor = forcePosX.x();
 
 // Use ForceX force -----------------------------------------------------------------
 
-forcePosX.initialize(graph.nodes);
+forcePosX.initialize(graph.nodes, () => 1);
 forcePosX(0.1); // alpha
 
 // ForceY ==============================================================================
@@ -367,7 +370,7 @@ simNodeNumberAccessor = forcePosY.y();
 
 // Use ForceY force -----------------------------------------------------------------
 
-forcePosY.initialize(graph.nodes);
+forcePosY.initialize(graph.nodes, () => 1);
 forcePosY(0.1); // alpha
 
 // ForceRadial ==============================================================================
@@ -529,7 +532,7 @@ simNodeNumberAccessor = forceRadial.y();
 
 // Use ForceRadial force -----------------------------------------------------------------
 
-forceRadial.initialize(graph.nodes);
+forceRadial.initialize(graph.nodes, () => 1);
 forceRadial(0.1); // alpha
 
 // -------------------------------------------------------------------------------------
@@ -685,8 +688,14 @@ nodeLinkSimulation = nodeLinkSimulation.stop();
 // tick() -----------------------------------------------------------------------------
 
 nodeLinkSimulation.tick();
+nodeLinkSimulation.tick(10);
 
 // find() -----------------------------------------------------------------------------
 
 simNode = nodeLinkSimulation.find(100, 100);
 simNode = nodeLinkSimulation.find(100, 100, 20);
+
+// randomSource() -----------------------------------------------------------------------------
+
+const randomSource: () => number = nodeLinkSimulation.randomSource();
+nodeLinkSimulation = nodeLinkSimulation.randomSource(randomSource);

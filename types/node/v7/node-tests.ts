@@ -1,3 +1,25 @@
+// NOTE: Disabled to preserve existing tests file
+// tslint:disable:array-type
+// tslint:disable:comment-format
+// tslint:disable:import-spacing
+// tslint:disable:interface-over-type-literal
+// tslint:disable:jsdoc-format
+// tslint:disable:max-line-length
+// tslint:disable:no-consecutive-blank-lines
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-duplicate-variable
+// tslint:disable:no-inferrable-types
+// tslint:disable:no-namespace
+// tslint:disable:no-padding
+// tslint:disable:no-string-throw
+// tslint:disable:no-var-keyword
+// tslint:disable:object-literal-shorthand
+// tslint:disable:one-line
+// tslint:disable:only-arrow-functions
+// tslint:disable:prefer-const
+// tslint:disable:semicolon
+// tslint:disable:typedef-whitespace
+// tslint:disable:whitespace
 import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
@@ -28,7 +50,7 @@ import * as v8 from "v8";
 import * as dns from "dns";
 
 // Specifically test buffer module regression.
-import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, TranscodeEncoding } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -447,6 +469,15 @@ function bufferTests() {
     {
       let buffer = new Buffer('123');
       let octets = new Uint8Array(buffer.buffer);
+    }
+
+    // Buffer module, transcode function
+    {
+        transcode(Buffer.from('€'), 'utf8', 'ascii'); // $ExpectType Buffer
+
+        const source: TranscodeEncoding = 'utf8';
+        const target: TranscodeEncoding = 'ascii';
+        transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
     }
 }
 

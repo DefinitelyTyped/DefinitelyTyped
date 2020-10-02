@@ -30,6 +30,7 @@ export interface TypographyOptions {
     scaleRatio?: number;
     googleFonts?: GoogleFont[];
     headerFontFamily?: string[];
+    headerLineHeight?: number;
     bodyFontFamily?: string[];
     headerColor?: string;
     bodyColor?: string;

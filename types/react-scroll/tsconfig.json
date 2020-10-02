@@ -20,15 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "modules/index.d.ts",
-        "modules/components/Button.d.ts",
-        "modules/components/Element.d.ts",
-        "modules/components/Link.d.ts",
-        "modules/mixins/animate-scroll.d.ts",
-        "modules/mixins/Helpers.d.ts",
-        "modules/mixins/scroll-events.d.ts",
-        "modules/mixins/scroll-spy.d.ts",
-        "modules/mixins/scroller.d.ts",
         "test/react-scroll-tests.tsx"
     ]
 }

@@ -22,18 +22,18 @@ declare namespace through2 {
     }
 
     type TransformCallback = (err?: any, data?: any) => void;
-    type TransformFunction = (this: stream.Transform, chunk: any, enc: string, callback: TransformCallback) => void;
+    type TransformFunction = (this: stream.Transform, chunk: any, enc: BufferEncoding, callback: TransformCallback) => void;
     type FlushCallback = (this: stream.Transform, flushCallback: () => void) => void;
 
-	/**
-	 * Convenvience method for creating object streams
-	 */
+    /**
+     * Convenvience method for creating object streams
+     */
     function obj(transform?: TransformFunction, flush?: FlushCallback): stream.Transform;
 
-	/**
-	 * Creates a constructor for a custom Transform. This is useful when you
-	 * want to use the same transform logic in multiple instances.
-	 */
+    /**
+     * Creates a constructor for a custom Transform. This is useful when you
+     * want to use the same transform logic in multiple instances.
+     */
     function ctor(transform?: TransformFunction, flush?: FlushCallback): Through2Constructor;
     function ctor(opts?: stream.DuplexOptions, transform?: TransformFunction, flush?: FlushCallback): Through2Constructor;
 }

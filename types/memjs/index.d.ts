@@ -1,6 +1,7 @@
 // Type definitions for memjs 1.2
 // Project: http://github.com/memcachier/memjs
 // Definitions by: Zongmin Lei <https://github.com/leizongmin>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -8,27 +9,29 @@
 
 export interface ClientOptions {
     /**
-     * `failoverTime` - how much to wait until retring a failed server. Default
-     * is 60 seconds.
+     * How many seconds to wait until retrying a failed server.
+     * @default 60
      */
     failoverTime?: number;
     /**
-     * `retries` - the number of times to retry an operation in lieu of failures
-     * (default 2)
+     * The number of times to retry an operation in lieu of failures.
+     * @default 2
      */
     retries?: number;
     /**
-     * `retry_delay` - default is 0.2
+     * @default 0.2
      */
     retry_delay?: number;
     /**
-     * `expires` - the default expiration in seconds to use (default 0 - never
-     * expire). If `expires` is greater than 30 days (60 x 60 x 24 x 30), it is
+     * The default expiration in seconds to use. A `0` means never expire,
+     * if it is greater than 30 days (60 x 60 x 24 x 30), it is
      * treated as a UNIX time (number of seconds since January 1, 1970).
+     * @default 0
      */
     expires?: number;
     /**
-     * `logger` - a logger object that responds to `log(string)` method calls.
+     * A logger object that responds to `log(string)` method calls.
+     * @default console
      */
     logger?: {
         log(...args: any[]): void;
@@ -103,9 +106,10 @@ export class Client {
      * @param key
      * @param callback
      */
+    get(key: string): Promise<{ value: Buffer; flags: Buffer }>;
     get(
         key: string,
-        callback: (err?: Error | null, value?: Buffer, flags?: Buffer) => void
+        callback: (err: Error | null, value: Buffer | null, flags: Buffer | null) => void
     ): void;
 
     /**
@@ -125,11 +129,12 @@ export class Client {
      * @param options
      * @param callback
      */
+    set(key: string, value: string | Buffer, options: { expires?: number }): Promise<boolean>;
     set(
         key: string,
         value: string | Buffer,
         options: { expires?: number },
-        callback: (err?: Error | null, success?: boolean) => void
+        callback: (err: Error | null, success: boolean | null) => void
     ): void;
 
     /**
@@ -150,11 +155,12 @@ export class Client {
      * @param options
      * @param callback
      */
+    add(key: string, value: string | Buffer, options: { expires?: number }): Promise<boolean>;
     add(
         key: string,
         value: string | Buffer,
         options: { expires?: number },
-        callback: (err?: Error | null, success?: boolean) => void
+        callback: (err: Error | null, success: boolean | null) => void
     ): void;
 
     /**
@@ -175,11 +181,12 @@ export class Client {
      * @param options
      * @param callback
      */
+    replace(key: string, value: string | Buffer, options: { expires?: number }): Promise<boolean>;
     replace(
         key: string,
         value: string | Buffer,
         options: { expires?: number },
-        callback: (err?: Error | null, success?: boolean) => void
+        callback: (err: Error | null, success: boolean | null) => void
     ): void;
 
     /**
@@ -194,10 +201,8 @@ export class Client {
      * @param key
      * @param callback
      */
-    delete(
-        key: string,
-        callback: (err?: Error | null, success?: boolean) => void
-    ): void;
+    delete(key: string): Promise<boolean>;
+    delete(key: string, callback: (err: Error | null, success: boolean | null) => void): void;
 
     /**
      * INCREMENT
@@ -220,12 +225,13 @@ export class Client {
     increment(
         key: string,
         amount: number,
+        options: { initial?: number; expires?: number }
+    ): Promise<{ success: boolean; value?: number | null }>;
+    increment(
+        key: string,
+        amount: number,
         options: { initial?: number; expires?: number },
-        callback: (
-            err?: Error | null,
-            success?: boolean,
-            value?: number
-        ) => void
+        callback: (err: Error | null, success: boolean | null, value?: number | null) => void
     ): void;
 
     /**
@@ -249,12 +255,13 @@ export class Client {
     decrement(
         key: string,
         amount: number,
+        options: { initial?: number; expires?: number }
+    ): Promise<{ success: boolean; value?: number | null }>;
+    decrement(
+        key: string,
+        amount: number,
         options: { initial?: number; expires?: number },
-        callback: (
-            err?: Error | null,
-            success?: boolean,
-            value?: number
-        ) => void
+        callback: (err: Error | null, success: boolean | null, value?: number | null) => void
     ): void;
 
     /**
@@ -269,10 +276,11 @@ export class Client {
      * @param value
      * @param callback
      */
+    append(key: string, value: string | Buffer): Promise<boolean>;
     append(
         key: string,
         value: string | Buffer,
-        callback: (err?: Error | null, success?: boolean) => void
+        callback: (err: Error | null, success: boolean | null) => void
     ): void;
 
     /**
@@ -287,10 +295,11 @@ export class Client {
      * @param value
      * @param callback
      */
+    prepend(key: string, value: string | Buffer): Promise<boolean>;
     prepend(
         key: string,
         value: string | Buffer,
-        callback: (err?: Error | null, success?: boolean) => void
+        callback: (err: Error | null, success: boolean | null) => void
     ): void;
 
     /**
@@ -305,10 +314,11 @@ export class Client {
      * @param expires
      * @param callback
      */
+    touch(key: string, expires: number): Promise<boolean>;
     touch(
         key: string,
         expires: number,
-        callback: (err?: Error | null, success?: boolean) => void
+        callback: (err: Error | null, success: boolean | null) => void
     ): void;
 
     /**
@@ -323,12 +333,8 @@ export class Client {
      * `true` (if the operation was successful), or an error.
      * @param callback
      */
-    flush(
-        callback: (
-            err?: Error | null,
-            results?: Record<string, boolean>
-        ) => void
-    ): void;
+    flush(): Promise<Record<string, boolean>>;
+    flush(callback: (err: Error | null, results: Record<string, boolean>) => void): void;
 
     /**
      * STATS_WITH_KEY
@@ -345,11 +351,23 @@ export class Client {
      */
     statsWithKey(
         key: string,
-        callback: (
-            err?: Error | null,
-            server?: string,
-            stats?: Record<string, string>
-        ) => void
+        callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void
+    ): void;
+
+    /**
+     * STATS
+     *
+     * Fetches memcache stats from each connected server. The callback is invoked
+     * **ONCE PER SERVER** and has the signature:
+     *
+     *     callback(err, server, stats)
+     *
+     * _server_ is the `"hostname:port"` of the server, and _stats_ is a
+     * dictionary mapping the stat name to the value of the statistic as a string.
+     * @param callback
+     */
+    stats(
+        callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void
     ): void;
 
     /**
@@ -366,7 +384,9 @@ export class Client {
      * _server_ is the `"hostname:port"` of the server.
      * @param callback
      */
-    resetStats(callback: (err?: Error | null, server?: string) => void): void;
+    resetStats(
+        callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void
+    ): void;
 
     /**
      * QUIT
@@ -404,7 +424,7 @@ export class Client {
         key: string,
         request: Buffer,
         seq: number,
-        callback: () => void,
-        retries: number
+        callback?: (err: Error | null, ...args: any[]) => void,
+        retries?: number
     ): void;
 }

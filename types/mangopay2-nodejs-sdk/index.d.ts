@@ -266,7 +266,7 @@ declare namespace MangoPay {
 
   // Determines the shape of the response
   interface ReadResponseHeaders {
-    readResponseHeaders: true;
+    resolveWithFullResponse: true;
   }
 
   interface PaginationOptions {
@@ -306,11 +306,11 @@ declare namespace MangoPay {
   }
 
   interface MethodOptionWithResponse extends MethodOptions {
-    readResponseHeaders: true;
+    resolveWithFullResponse: true;
   }
 
   interface MethodOptionWithoutResponse extends MethodOptions {
-    readResponseHeaders?: false;
+    resolveWithFullResponse?: false;
   }
 
   interface DependsObject {
@@ -1158,7 +1158,7 @@ declare namespace MangoPay {
     type OtherData = BaseData & OtherDetails;
 
     type Data = OtherData | CAData | GBData | IBANData | USData;
-    type DataIntersection = OtherData & CAData & GBData & IBANData & USData;
+    type DataIntersection = OtherData & CAData & GBData & IBANData & USData & { Type: never };
     type CreationDetails =
       | OtherDetails
       | CADetails
@@ -1480,6 +1480,7 @@ declare namespace MangoPay {
        * The status of this KYC/Dispute document
        */
       Status: "VALIDATION_ASKED";
+      Id: string;
       Tag?: string;
     }
 
@@ -1774,7 +1775,7 @@ declare namespace MangoPay {
       /**
        * This is the URL where to redirect users to proceed to 3D secure validation
        */
-      SecureModeRedirectUrl: string;
+      SecureModeRedirectURL: string;
 
       /**
        * This is the URL where users are automatically redirected after 3D secure validation (if activated)
@@ -2339,7 +2340,11 @@ declare namespace MangoPay {
     interface BaseUserNaturalData
       extends PickPartial<
         UserNaturalData,
-        RequiredUserNaturalData | "Address" | "Occupation" | "IncomeRange"
+        | RequiredUserNaturalData
+        | "Address"
+        | "Occupation"
+        | "IncomeRange"
+        | "Tag"
       > {
       PersonType: "NATURAL";
     }
@@ -2592,7 +2597,7 @@ declare namespace MangoPay {
       /**
        * This is the URL where to redirect users to proceed to 3D secure validation
        */
-      SecureModeRedirectUrl: string;
+      SecureModeRedirectURL: string;
     }
 
     interface CreateCardDirectPayIn {

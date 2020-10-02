@@ -4,6 +4,7 @@ import cors = require('cors');
 
 const app = express();
 app.use(cors());
+app.use(cors({}));
 app.use(cors({
     maxAge: 100,
     credentials: true,
@@ -40,7 +41,7 @@ app.use(cors({
 app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
-            const allow = requestOrigin.indexOf('.edu') !== -1;
+            const allow = !requestOrigin || requestOrigin.indexOf('.edu') !== -1;
             cb(null, allow);
         } catch (err) {
             cb(err);
@@ -53,5 +54,8 @@ app.use(cors((req, cb) => {
     } else {
         cb(new Error('Not trusted'));
     }
-}))
+}));
+app.use(cors({
+    preflightContinue: true,
+}));
 

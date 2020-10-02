@@ -1,5 +1,5 @@
 // Type definitions for color-name 1.1
-// Project: https://www.npmjs.com/package/color-name
+// Project: https://github.com/colorjs/color-name
 // Definitions by: Junyoung Clare Jang <https://github.com/Ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

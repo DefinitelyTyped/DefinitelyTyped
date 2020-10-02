@@ -1,10 +1,12 @@
-// Type definitions for ember-data 3.1
+// Type definitions for ember-data 3.16
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
+//                 James C. Davis <https://github.com/jamescdavis>
+//                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import Ember from 'ember';
 import Evented from '@ember/object/evented';
@@ -16,8 +18,14 @@ import ModelRegistry from 'ember-data/types/registries/model';
 import SerializerRegistry from 'ember-data/types/registries/serializer';
 import AdapterRegistry from 'ember-data/types/registries/adapter';
 
-type AttributesFor<Model> = keyof Model; // TODO: filter to attr properties only (TS 2.8)
-type RelationshipsFor<Model> = keyof Model; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
+/**
+  The keys from the actual Model class, removing all the keys which come from
+  the base class.
+ */
+type ModelKeys<Model extends DS.Model> = Exclude<keyof Model, keyof DS.Model>;
+
+type AttributesFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to attr properties only (TS 2.8)
+type RelationshipsFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
 
 export interface ChangedAttributes {
     [key: string]: [any, any] | undefined;
@@ -29,11 +37,18 @@ interface AttributeMeta<Model extends DS.Model> {
     parentType: Model;
     isAttribute: true;
 }
+
+interface RelationshipMetaOptions {
+    async?: boolean;
+    inverse?: string;
+    polymorphic?: boolean;
+    [k: string]: any;
+}
 interface RelationshipMeta<Model extends DS.Model> {
     key: RelationshipsFor<Model>;
     kind: 'belongsTo' | 'hasMany';
     type: keyof ModelRegistry;
-    options: object;
+    options: RelationshipMetaOptions;
     name: string;
     parentType: Model;
     isRelationship: true;
@@ -49,9 +64,9 @@ export namespace DS {
      */
     function errorsArrayToHash(errors: any[]): {};
 
-    interface RelationshipOptions<Model> {
+    interface RelationshipOptions<M extends Model> {
         async?: boolean;
-        inverse?: RelationshipsFor<Model> | null;
+        inverse?: RelationshipsFor<M> | null;
         polymorphic?: boolean;
     }
 
@@ -442,6 +457,10 @@ export namespace DS {
          */
         id: string;
         /**
+         * A reference to DS.Store service instance.
+         */
+        store: Store;
+        /**
          * When the record is in the `invalid` state this object will contain
          * any errors returned by the adapter. When present the errors hash
          * contains keys corresponding to the invalid property names
@@ -457,12 +476,12 @@ export namespace DS {
          * Create a JSON representation of the record, using the serialization
          * strategy of the store's adapter.
          */
-        serialize(options?: { includeId?: boolean }): {};
+        serialize(options?: { includeId?: boolean }): object;
         /**
          * Use [DS.JSONSerializer](DS.JSONSerializer.html) to
          * get the JSON representation of a record.
          */
-        toJSON(options: {}): {};
+        toJSON(options?: { includeId?: boolean }): object;
         /**
          * Fired when the record is ready to be interacted with,
          * that is either loaded from the server or created locally.
@@ -502,15 +521,15 @@ export namespace DS {
          * method if you want to allow the user to still `rollbackAttributes()`
          * after a delete was made.
          */
-        deleteRecord(): any;
+        deleteRecord(): void;
         /**
          * Same as `deleteRecord`, but saves the record immediately.
          */
-        destroyRecord(options?: {}): RSVP.Promise<any>;
+        destroyRecord(options?: { adapterOptions?: object }): RSVP.Promise<this>;
         /**
          * Unloads the record from the store. This will cause the record to be destroyed and freed up for garbage collection.
          */
-        unloadRecord(): any;
+        unloadRecord(): void;
         /**
          * Returns an object, whose keys are changed properties, and value is
          * an [oldProp, newProp] array.
@@ -520,16 +539,16 @@ export namespace DS {
          * If the model `hasDirtyAttributes` this function will discard any unsaved
          * changes. If the model `isNew` it will be removed from the store.
          */
-        rollbackAttributes(): any;
+        rollbackAttributes(): void;
         /**
          * Save the record and persist any changes to the record to an
          * external source via the adapter.
          */
-        save(options?: {}): RSVP.Promise<this>;
+        save(options?: { adapterOptions?: object }): RSVP.Promise<this>;
         /**
          * Reload the record from the adapter.
          */
-        reload(): RSVP.Promise<any>;
+        reload(options?: { adapterOptions?: object }): RSVP.Promise<this>;
         /**
          * Get the reference for the specified belongsTo relationship.
          */
@@ -543,10 +562,11 @@ export namespace DS {
          * invoking the callback with the name of each relationship and its relationship
          * descriptor.
          */
-        eachRelationship(
-            callback: (name: string, details: RelationshipMeta<this>) => void,
+        eachRelationship<T extends Model>(
+            this: T,
+            callback: (name: string, details: RelationshipMeta<T>) => void,
             binding?: any
-        ): any;
+        ): void;
         /**
          * Represents the model's class name as a string. This can be used to look up the model's class name through
          * `DS.Store`'s modelFor method.
@@ -604,14 +624,14 @@ export namespace DS {
         static eachRelationship<M extends Model = Model>(
             callback: (name: string, details: RelationshipMeta<M>) => void,
             binding?: any
-        ): any;
+        ): void;
         /**
          * Given a callback, iterates over each of the types related to a model,
          * invoking the callback with the related type's class. Each type will be
          * returned just once, regardless of how many different relationships it has
          * with a model.
          */
-        static eachRelatedType(callback: Function, binding: any): any;
+        static eachRelatedType(callback: (name: string) => void, binding?: any): void;
         /**
          * A map whose keys are the attributes of the model (properties
          * described by DS.attr) and whose values are the meta object for the
@@ -629,26 +649,27 @@ export namespace DS {
          * Iterates through the attributes of the model, calling the passed function on each
          * attribute.
          */
-        static eachAttribute(callback: Function, binding: {}): any;
+        static eachAttribute<Class extends typeof Model, M extends InstanceType<Class>>(
+            this: Class,
+            callback: (
+                name: ModelKeys<M>,
+                meta: AttributeMeta<M>
+            ) => void,
+            binding?: any
+        ): void;
         /**
          * Iterates through the transformedAttributes of the model, calling
          * the passed function on each attribute. Note the callback will not be
          * called for any attributes that do not have an transformation type.
          */
-        static eachTransformedAttribute(callback: Function, binding: {}): any;
-        /**
-         * Discards any unsaved changes to the given attribute. This feature is not enabled by default. You must enable `ds-rollback-attribute` and be running a canary build.
-         */
-        rollbackAttribute(): any;
-        /**
-         * This Ember.js hook allows an object to be notified when a property
-         * is defined.
-         */
-        didDefineProperty(
-            proto: {},
-            key: string,
-            value: Ember.ComputedProperty<any>
-        ): any;
+        static eachTransformedAttribute<Class extends typeof Model>(
+            this: Class,
+            callback: (
+                name: ModelKeys<InstanceType<Class>>,
+                type: keyof TransformRegistry
+            ) => void,
+            binding?: any
+        ): void;
     }
     /**
      * ### State
@@ -699,7 +720,7 @@ export namespace DS {
          * Used to get the latest version of all of the records in this array
          * from the adapter.
          */
-        update(): any;
+        update(): PromiseArray<T>;
         /**
          * Saves all of the records in the `RecordArray`.
          */
@@ -781,7 +802,7 @@ export namespace DS {
         /**
          * `ids()` returns an array of the record ids in this relationship.
          */
-        ids(): any[];
+        ids(): string[];
         /**
          * The meta data for the has-many relationship.
          */
@@ -901,8 +922,8 @@ export namespace DS {
      * it easy to create data bindings with the `PromiseObject` that will
      * be updated when the promise resolves.
      */
-    interface PromiseObject<T>
-        extends ObjectProxy,
+    interface PromiseObject<T extends object>
+        extends ObjectProxy<T>,
             PromiseProxyMixin<T & ObjectProxy> {}
     class PromiseObject<T> {}
     /**
@@ -947,9 +968,9 @@ export namespace DS {
         /**
          * Get snapshots of the underlying record array
          */
-        snapshots(): any[];
+        snapshots(): Snapshot[];
     }
-    class Snapshot<K extends keyof ModelRegistry = any> {
+    class Snapshot<K extends keyof ModelRegistry = keyof ModelRegistry> {
         /**
          * The underlying record for this snapshot. Can be used to access methods and
          * properties defined on the record.
@@ -993,14 +1014,19 @@ export namespace DS {
         belongsTo<L extends RelationshipsFor<ModelRegistry[K]>>(
             keyName: L,
             options?: {}
-        ): Snapshot<K>['record'][L] | string | null | undefined;
+        ): Snapshot | null | undefined;
+        belongsTo<L extends RelationshipsFor<ModelRegistry[K]>>(
+            keyName: L,
+            options: { id: true }
+        ): string | null | undefined;
+
         /**
          * Returns the current value of a hasMany relationship.
          */
         hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(
             keyName: L,
             options?: { ids: false }
-        ): Array<Snapshot<K>['record'][L]> | undefined;
+        ): Snapshot[] | undefined;
         hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(
             keyName: L,
             options: { ids: true }
@@ -1010,21 +1036,21 @@ export namespace DS {
          * function on each attribute.
          */
         eachAttribute<M extends ModelRegistry[K]>(
-            callback: (key: keyof M, meta: AttributeMeta<M>) => void,
+            callback: (key: ModelKeys<M>, meta: AttributeMeta<M>) => void,
             binding?: {}
-        ): any;
+        ): void;
         /**
          * Iterates through all the relationships of the model, calling the passed
          * function on each relationship.
          */
         eachRelationship<M extends ModelRegistry[K]>(
-            callback: (key: keyof M, meta: RelationshipMeta<M>) => void,
+            callback: (key: ModelKeys<M>, meta: RelationshipMeta<M>) => void,
             binding?: {}
-        ): any;
+        ): void;
         /**
          * Serializes the snapshot using the serializer for the model.
          */
-        serialize(options: {}): {};
+        serialize<O extends object>(options: O): object;
     }
 
     /**
@@ -1033,7 +1059,7 @@ export namespace DS {
      * the individual data for a record, so that they can be bound to in your
      * Handlebars templates.
      */
-    class Store {
+    class Store extends Ember.Service {
         /**
          * The default adapter to use to communicate to a backend server or
          * other persistence layer. This will be overridden by an application
@@ -1094,7 +1120,8 @@ export namespace DS {
          */
         query<K extends keyof ModelRegistry>(
             modelName: K,
-            query: any
+            query: object,
+            options?: { adapterOptions?: object }
         ): AdapterPopulatedRecordArray<ModelRegistry[K]> &
             PromiseArray<ModelRegistry[K]>;
         /**
@@ -1104,7 +1131,8 @@ export namespace DS {
          */
         queryRecord<K extends keyof ModelRegistry>(
             modelName: K,
-            query: any
+            query: object,
+            options?: { adapterOptions?: object }
         ): RSVP.Promise<ModelRegistry[K]>;
         /**
          * `findAll` asks the adapter's `findAll` method to find the records for the
@@ -1186,15 +1214,7 @@ export namespace DS {
      * requests that follow the [JSON API](http://jsonapi.org/format/)
      * format.
      */
-    class JSONAPIAdapter extends RESTAdapter {
-        /**
-         * By default the JSONAPIAdapter will send each find request coming from a `store.find`
-         * or from accessing a relationship separately to the server. If your server supports passing
-         * ids as a query string, you can set coalesceFindRequests to true to coalesce all find requests
-         * within a single runloop.
-         */
-        coalesceFindRequests: boolean;
-    }
+    class JSONAPIAdapter extends RESTAdapter {}
     /**
      * The REST adapter allows your store to communicate with an HTTP server by
      * transmitting JSON via XHR. Most Ember.js apps that consume a JSON API
@@ -1214,30 +1234,6 @@ export namespace DS {
          * server.
          */
         sortQueryParams(obj: {}): {};
-        /**
-         * By default the RESTAdapter will send each find request coming from a `store.find`
-         * or from accessing a relationship separately to the server. If your server supports passing
-         * ids as a query string, you can set coalesceFindRequests to true to coalesce all find requests
-         * within a single runloop.
-         */
-        coalesceFindRequests: boolean;
-        /**
-         * Endpoint paths can be prefixed with a `namespace` by setting the namespace
-         * property on the adapter:
-         */
-        namespace: string;
-        /**
-         * An adapter can target other hosts by setting the `host` property.
-         */
-        host: string;
-        /**
-         * Some APIs require HTTP headers, e.g. to provide an API
-         * key. Arbitrary headers can be set as key/value pairs on the
-         * `RESTAdapter`'s `headers` object and Ember Data will send them
-         * along with each ajax request. For dynamic headers see [headers
-         * customization](/api/data/classes/DS.RESTAdapter.html#toc_headers-customization).
-         */
-        headers: {};
         /**
          * Called by the store in order to fetch the JSON for a given
          * type and ID.
@@ -1467,6 +1463,29 @@ export namespace DS {
          * Determines the pathname for a given type.
          */
         pathForType<K extends keyof ModelRegistry>(modelName: K): string;
+    }
+
+    // Instead of declaring `namespace`, `host`, and `headers` as a property we now declare it in an
+    // interface. This works around the issue noted here with TypeScript 4:
+    // https://github.com/microsoft/TypeScript/issues/40220
+    interface RESTAdapter {
+        /**
+         * Endpoint paths can be prefixed with a `namespace` by setting the namespace
+         * property on the adapter:
+         */
+        namespace: string;
+        /**
+         * An adapter can target other hosts by setting the `host` property.
+         */
+        host: string;
+        /**
+         * Some APIs require HTTP headers, e.g. to provide an API
+         * key. Arbitrary headers can be set as key/value pairs on the
+         * `RESTAdapter`'s `headers` object and Ember Data will send them
+         * along with each ajax request. For dynamic headers see [headers
+         * customization](/api/data/classes/DS.RESTAdapter.html#toc_headers-customization).
+         */
+        headers: {};
     }
     /**
      * ## Using Embedded Records
@@ -2069,13 +2088,6 @@ export namespace DS {
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
-         * By default the store will try to coalesce all `fetchRecord` calls within the same runloop
-         * into as few requests as possible by calling groupRecordsForFindMany and passing it into a findMany call.
-         * You can opt out of this behaviour by either not implementing the findMany hook or by setting
-         * coalesceFindRequests to false.
-         */
-        coalesceFindRequests: boolean;
-        /**
          * The store will call `findMany` instead of multiple `findRecord`
          * requests to find multiple records at once if coalesceFindRequests
          * is true.
@@ -2127,6 +2139,18 @@ export namespace DS {
             store: Store,
             snapshotRecordArray: SnapshotRecordArray<K>
         ): boolean;
+    }
+    // Instead of declaring `coalesceFindRequests` as a property we now declare it in an
+    // interface. This works around the issue noted here with TypeScript 4:
+    // https://github.com/microsoft/TypeScript/issues/40220
+    interface Adapter {
+        /**
+         * By default the store will try to coalesce all `fetchRecord` calls within the same runloop
+         * into as few requests as possible by calling groupRecordsForFindMany and passing it into a findMany call.
+         * You can opt out of this behaviour by either not implementing the findMany hook or by setting
+         * coalesceFindRequests to false.
+         */
+        coalesceFindRequests: boolean;
     }
     /**
      * `DS.Serializer` is an abstract base class that you should override in your

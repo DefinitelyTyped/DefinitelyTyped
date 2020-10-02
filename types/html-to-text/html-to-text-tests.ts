@@ -1,29 +1,74 @@
+import { fromString, HtmlToTextOptions } from 'html-to-text';
+import * as formatters from 'html-to-text/lib/formatter';
 
-
-import * as htmlToText from 'html-to-text';
-
-let htmlOptions: HtmlToTextOptions = {
+const htmlOptions: HtmlToTextOptions = {
     wordwrap: null,
     tables: true,
     hideLinkHrefIfSameAsText: true,
-    ignoreImage: true
+    ignoreImage: true,
+    format: {
+        text: (el, options) => {
+            return formatters.text(el, options);
+        },
+        table: (el, walk, options) => {
+            return formatters.table(el, walk, options);
+        },
+    },
 };
 
+const htmlString = '<p><b>bold</b></p><p><i>italic</i></p>';
+console.log('Processing string with default options');
+console.log(fromString(htmlString));
 
-function callback(err: string, result: string) {
-    console.log(`callback called with result ${result}`);
-}
+console.log('Processing string with custom options');
+console.log(fromString(htmlString, htmlOptions));
 
-console.log("Processing file with default options");
-htmlToText.fromFile("h2t-test.html", callback);
+const allElements = '<a>a</a>\
+<blockquote>b</blockquote>\
+<h1>h</h1>\
+<hr />\
+<img />\
+<br />\
+<ol></old>\
+<p>p</p>\
+<table></table>\
+<ul></ul>';
 
-console.log("Processing file with custom options");
-htmlToText.fromFile("h2t-test.html", htmlOptions, callback);
-
-let htmlString = "<p><b>bold</b></p><p><i>italic</i></p>";
-console.log("Processing string with default options");
-console.log(htmlToText.fromString(htmlString));
-
-console.log("Processing string with custom options");
-console.log(htmlToText.fromString(htmlString, htmlOptions));
-
+const fmtOptions: HtmlToTextOptions = {
+    format: {
+        anchor: (_el, _walk, _options) => {
+            return "--anchor--\n";
+        },
+        blockquote: (_el, _walk, _options) => {
+            return "--blockquote--\n";
+        },
+        heading: (_el, _walk, _options) => {
+            return "--heading--\n";
+        },
+        horizontalLine: (_el, _walk, _options) => {
+            return "--horizontalLine--\n";
+        },
+        image: (_el, _options) => {
+            return "--image--\n";
+        },
+        lineBreak: (_el, _walk, _options) => {
+            return "--lineBreak--\n";
+        },
+        orderedList: (_el, _walk, _options) => {
+            return "--orderedList--\n";
+        },
+        paragraph: (_el, _walk, _options) => {
+            return "--paragraph--\n";
+        },
+        table: (_el, _walk, _options) => {
+            return "--table--\n";
+        },
+        text: (_el, _options) => {
+            return "--text--\n";
+        },
+        unorderedList: (_el, _walk, _options) => {
+            return "--unorderedList--\n";
+        },
+    },
+};
+console.log(fromString(allElements, fmtOptions));

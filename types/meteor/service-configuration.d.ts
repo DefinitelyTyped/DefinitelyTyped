@@ -1,3 +1,4 @@
+import { Mongo } from 'meteor/mongo';
 declare module "meteor/service-configuration" {
     interface Configuration {
         appId: string;

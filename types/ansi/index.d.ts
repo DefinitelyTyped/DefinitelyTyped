@@ -1,5 +1,5 @@
 // Type definitions for ansi 0.3
-// Project: https://www.npmjs.com/package/ansi
+// Project: https://github.com/tootallnate/ansi.js
 // Definitions by: Gustavo6046 <https://github.com/Gustavo6046>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1

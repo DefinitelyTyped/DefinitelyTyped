@@ -22,7 +22,7 @@ window.plugins.OneSignal.addPermissionObserver((state) => {
 });
 
 window.plugins.OneSignal.addSubscriptionObserver((state) => {
-    if (!state.subscribed) {
+    if (!state.to.subscribed) {
         console.log("Subscribed for OneSignal push notifications!");
     }
     console.log("Push Subscription state changed: " + JSON.stringify(state));

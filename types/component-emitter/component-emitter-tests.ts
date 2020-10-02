@@ -48,3 +48,32 @@ emitter.emit('some-recurring-event', event_data)
 emitter.listeners('some-recurring-event')
 
 emitter.hasListeners('some-recurring-event')
+
+emitter.emit('some-event').emit("I can use chaining!")
+
+let recurlyEmitter: Emitter<'change' | 'field:submit'> = new Emitter();
+
+recurlyEmitter.on('change', handleSomeRecurringEvent);
+// $ExpectError
+recurlyEmitter.on('some-recurring-event', handleSomeRecurringEvent);
+
+recurlyEmitter.once('field:submit', (event_data: any) => {console.log('handle some-single-shot-event')})
+// $ExpectError
+recurlyEmitter.once('some-single-shot-event', (event_data: any) => {console.log('handle some-single-shot-event')})
+
+recurlyEmitter.off()
+recurlyEmitter.off('change')
+// $ExpectError
+recurlyEmitter.off('some-recurring-event')
+
+recurlyEmitter.emit('field:submit', event_data)
+// $ExpectError
+recurlyEmitter.emit('some-recurring-event', event_data)
+
+recurlyEmitter.listeners('change')
+// $ExpectError
+recurlyEmitter.listeners('some-recurring-event')
+
+recurlyEmitter.hasListeners("field:submit");
+// $ExpectError
+recurlyEmitter.hasListeners('some-recurring-event')

@@ -2,6 +2,7 @@
 // Project: https://github.com/Polymer/polymer
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 import { CustomElementConstructor } from "webcomponents.js";
 
@@ -193,11 +194,9 @@ declare global {
 
       createdCallback?():void;
 
-      attachedCallback?():void;
-
       detachedCallback?():void;
 
-      attributeChangedCallback?(name: string):void;
+      attributeChangedCallback?(attributeName: string, oldValue: string|null, newValue: string|null, namespace: string|null): void;
 
       extend?(prototype: Object, api: Object):Object;
 
@@ -218,6 +217,10 @@ declare global {
       detached?(): void;
 
       attributeChanged?(name: string, oldValue: any, newValue: any): void;
+        
+      getEffectiveChildren?(): Node[];
+
+      getEffectiveChildNodes?(): Node[];
     }
 
     // This is the type of a Polymer element after it has gone through the
@@ -277,6 +280,8 @@ declare global {
       observeNodes(callback: (info: ObservedNodeInfo) => void): {};
 
       unobserveNodes(observer: {}): void;
+
+      getEffectiveChildNodes(): Node[];
 
       childNodes:Node[];
 

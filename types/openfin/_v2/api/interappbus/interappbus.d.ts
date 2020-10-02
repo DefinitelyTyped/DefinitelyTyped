@@ -1,13 +1,13 @@
 /// <reference types="node" />
+import { EventEmitter } from 'events';
 import { Base } from '../base';
 import { Identity } from '../../identity';
 import Transport, { Message } from '../../transport/transport';
-import { EventEmitter } from 'events';
 import { Channel } from './channel/index';
 /**
  * A messaging bus that allows for pub/sub messaging between different applications.
  * @namespace
-*/
+ */
 export default class InterApplicationBus extends Base {
     Channel: Channel;
     events: {
@@ -28,18 +28,18 @@ export default class InterApplicationBus extends Base {
      * that is composed of other primitive or composite data types
      * @return {Promise.<void>}
      * @tutorial InterApplicationBus.publish
-    */
+     */
     publish(topic: string, message: any): Promise<void>;
     /**
      * Sends a message to a specific application on a specific topic.
-     * @param { object } destination The uuid of the application to which the message is sent
+     * @param { Identity } destination The identity of the application to which the message is sent
      * @param { string } topic The topic on which the message is sent
      * @param { any } message The message to be sent. Can be either a primitive data
      * type (string, number, or boolean) or composite data type (object, array) that
      * is composed of other primitive or composite data types
      * @return {Promise.<void>}
      * @tutorial InterApplicationBus.send
-    */
+     */
     send(destination: Identity, topic: string, message: any): Promise<void>;
     /**
      * Subscribes to messages from the specified application on the specified topic.
@@ -54,7 +54,7 @@ export default class InterApplicationBus extends Base {
      * composite data type (object, array) that is composed of other primitive or composite
      * data types
      * @return {Promise.<void>}
-     * @tutorial InterApplicationBus.subcribe
+     * @tutorial InterApplicationBus.subscribe
      */
     subscribe(source: Identity, topic: string, listener: any): Promise<void>;
     /**

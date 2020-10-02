@@ -1,0 +1,43 @@
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import BaseEvent from '../events/Event';
+import { Extent } from '../extent';
+import { ObjectEvent } from '../Object';
+import { TransformFunction } from '../proj';
+import Geometry from './Geometry';
+import GeometryType from './GeometryType';
+
+export default class GeometryCollection extends Geometry {
+    constructor(opt_geometries?: Geometry[]);
+    protected computeExtent(extent: Extent): Extent;
+    applyTransform(transformFn: TransformFunction): void;
+    clone(): GeometryCollection;
+    closestPointXY(x: number, y: number, closestPoint: Coordinate, minSquaredDistance: number): number;
+    containsXY(x: number, y: number): boolean;
+    disposeInternal(): void;
+    getGeometries(): Geometry[];
+    getGeometriesArray(): Geometry[];
+    getGeometriesArrayRecursive(): Geometry[];
+    getSimplifiedGeometry(squaredTolerance: number): GeometryCollection;
+    getType(): GeometryType;
+    intersectsExtent(extent: Extent): boolean;
+    isEmpty(): boolean;
+    rotate(angle: number, anchor: Coordinate): void;
+    scale(sx: number, opt_sy?: number, opt_anchor?: Coordinate): void;
+    setGeometries(geometries: Geometry[]): void;
+    setGeometriesArray(geometries: Geometry[]): void;
+    simplifyTransformed(squaredTolerance: number, opt_transform?: TransformFunction): Geometry;
+    translate(deltaX: number, deltaY: number): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
+    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'change', listener: (evt: BaseEvent) => void): void;
+    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'error', listener: (evt: BaseEvent) => void): void;
+    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
+    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
+    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+}

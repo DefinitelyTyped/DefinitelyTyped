@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "global.d.ts",
         "semantic-ui-rating-tests.ts"
     ]
 }

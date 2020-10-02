@@ -64,7 +64,7 @@ client.sms.messages.post({
 
 // Delete a TwiML application
 // DELETE /2010-04-01/Accounts/ACCOUNT_SID/Applications/APP...
-client.applications('APP...').delete(function(err, response, nodeResponse) {
+client.applications('APP...').delete(function(err, response) {
     //DELETE requests do not return data - if there was no error, it worked.
     err ? console.log('There was an error') : console.log('it worked!');
 });

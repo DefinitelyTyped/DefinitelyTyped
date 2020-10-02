@@ -1,8 +1,8 @@
-// Type definitions for serve-favicon 2.2.0
+// Type definitions for serve-favicon 2.5.0
 // Project: https://github.com/expressjs/serve-favicon
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -19,7 +19,7 @@ import express = require('express');
 /**
  * Node.js middleware for serving a favicon.
  */
-declare function serveFavicon(path: string, options?: {
+declare function serveFavicon(path: string | Buffer, options?: {
     /**
     * The cache-control max-age directive in ms, defaulting to 1 day. This can also be a string accepted by the ms module.
     */

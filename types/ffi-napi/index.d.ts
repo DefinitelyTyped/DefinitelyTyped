@@ -1,5 +1,5 @@
 // Type definitions for node-ffi-napi 2.4
-// Project: https://github.com/node-ffi/node-ffi
+// Project: http://github.com/node-ffi-napi/node-ffi-napi
 // Definitions by: Keerthi Niranjan <https://github.com/keerthi16>, Kiran Niranjan <https://github.com/KiranNiranjan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -20,14 +20,14 @@ export interface Library {
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    new (libFile: string, funcs?: {[key: string]: any[]}, lib?: object): any;
+    new (libFile: string | null, funcs?: {[key: string]: any[]}, lib?: object): any;
 
     /**
      * @param libFile name of library
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    (libFile: string, funcs?: {[key: string]: any[]}, lib?: object): any;
+    (libFile: string | null, funcs?: {[key: string]: any[]}, lib?: object): any;
 }
 export const Library: Library;
 

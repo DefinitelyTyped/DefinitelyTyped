@@ -50,6 +50,14 @@ function testDeprecateFunc() {
     assertType<string>(oldMethod('first', 123));
 }
 
+function testDeprecate() {
+  Ember.deprecate('This has been deprecated', false, {
+    id: 'some.id',
+    until: '1.0.0',
+    url: 'http://www.emberjs.com'
+  });
+}
+
 function testDefineProperty() {
     const contact = {};
 

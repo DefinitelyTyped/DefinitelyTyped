@@ -43,11 +43,8 @@ figlet.text('Annyeong', {
   // $ExpectType string | undefined
   str;
 });
-figlet.text('Oreehe', {
-  font: 'Fun Face',
-  // $ExpectError
-  value: 'abc',
-}, undefined as any);
+// $ExpectError
+figlet.text('Oreehe', { font: 'Fun Face', value: 'abc', }, undefined as any);
 // $ExpectError
 figlet.text('It cannot make sense');
 

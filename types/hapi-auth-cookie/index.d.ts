@@ -1,4 +1,4 @@
-// Type definitions for hapi-auth-cookie 9.1
+// Type definitions for hapi-auth-cookie 10.0
 // Project: https://github.com/hapijs/hapi-auth-cookie
 // Definitions by: Silas Rech <https://github.com/lenovouser>
 //                 Simon Schick <https://github.com/SimonSchick>
@@ -32,51 +32,18 @@ declare module 'hapi' {
 declare namespace hapiAuthCookie {
     interface ValidateResponse { valid: boolean; credentials?: AuthCredentials; }
     type ValidateFunction = (request?: Request, session?: object) => Promise<ValidateResponse>;
-    type RedirectToFunction = (request?: Request) => void;
+    type RedirectToFunction = (request?: Request) => string;
 
     /**
      * Options passed to 'hapi.auth.strategy' when this plugin is used
      */
     interface Options {
         /**
-         * The cookie name.
+         * Cookie options.
          *
-         * @default 'sid'
+         * @default { name: 'sid', clearInvalid: false, isSameSite: 'Strict', isSecure: true, isHttpOnly: true }
          */
-        cookie?: string;
-
-        /**
-         * Used for Iron cookie encoding.
-         * Should be at least 32 characters long.
-         */
-        password: string;
-
-        /**
-         * Sets the cookie expires time in milliseconds.
-         * Required when 'keepAlive' is true.
-         * Defaults to single browser session (ends when browser closes).
-         */
-        ttl?: number;
-
-        /**
-         * Sets the cookie Domain value.
-         * Defaults to none.
-         */
-        domain?: string;
-
-        /**
-         * Sets the cookie path value.
-         *
-         * @default '/'
-         */
-        path?: string;
-
-        /**
-         * Any authentication cookie that fails validation will be marked as expired in the response and cleared.
-         *
-         * @default false
-         */
-        clearInvalid?: boolean;
+        cookie?: ServerStateCookieOptions & { name: string };
 
         /**
          * Automatically sets the session cookie after validation to extend the current session for a new TTL duration.
@@ -84,28 +51,6 @@ declare namespace hapiAuthCookie {
          * @default false
          */
         keepAlive?: boolean;
-
-        /**
-         * If false omitted.
-         * Other options Strict or Lax.
-         *
-         * @default 'Strict'
-         */
-        isSameSite?: ServerStateCookieOptions['isSameSite'];
-
-        /**
-         * If false, the cookie is allowed to be transmitted over insecure connections which exposes it to attacks.
-         *
-         * @default true
-         */
-        isSecure?: boolean;
-
-        /**
-         * If false, the cookie will not include the 'HttpOnly' flag.
-         *
-         * @default true
-         */
-        isHttpOnly?: boolean;
 
         /**
          * Login URI or function that returns a URI to redirect unauthenticated requests to.

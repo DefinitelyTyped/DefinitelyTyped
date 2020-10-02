@@ -2,11 +2,10 @@
 // Project: https://github.com/developit/task-worklet
 // Definitions by: Karol Majewski <https://github.com/karol-majewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
-declare class TaskQueue {
+declare class TaskQueue<T extends TaskQueue.TaskDescriptor = any> {
     constructor(options?: Options);
-    postTask(taskName: string, ...args: any[]): Task;
+    postTask<U extends T = any>(taskName: U['name'], ...args: Parameters<U>): TaskQueue.Task<ReturnType<U>>;
     addModule(moduleURL: string): Promise<void>;
 }
 
@@ -14,18 +13,25 @@ interface Options {
     size?: number;
 }
 
-export interface Task<T = any> {
-    id: number;
-    state: State;
-    result: Promise<T>;
+declare namespace TaskQueue {
+    interface TaskDescriptor {
+        name: string;
+        (...args: any): any;
+    }
+
+    interface Task<T = unknown> {
+        id: number;
+        state: State;
+        result: Promise<T extends PromiseLike<infer U> ? U : T>;
+    }
+
+    type State =
+        | 'cancelled'
+        | 'completed'
+        | 'fulfilled'
+        | 'pending'
+        | 'scheduled';
 }
 
-export type State =
-    | 'cancelled'
-    | 'completed'
-    | 'fulfilled'
-    | 'pending'
-    | 'scheduled';
-
-export default TaskQueue;
+export = TaskQueue;
 export as namespace TaskQueue;

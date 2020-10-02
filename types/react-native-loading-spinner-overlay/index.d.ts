@@ -16,6 +16,7 @@ export interface SpinnerProps {
     textContent?: string;
     textStyle?: ReactNative.StyleProp<ReactNative.TextStyle>;
     visible?: boolean;
+    customIndicator?: React.ReactElement;
 }
 
 export default class Spinner extends React.Component<SpinnerProps> {}

@@ -342,6 +342,66 @@ const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: "off" })``;
 <AttrsInputExtra />;
 
 /**
+ * withConfig
+ */
+
+/**
+ * shouldForwardProp
+ */
+
+// $ExpectError
+const WithConfig = styled("div").withConfig()`
+    color: red;
+`;
+
+styled("div").withConfig({})`
+    color: red;
+`;
+
+styled("div").withConfig<{ myProp: boolean }>({
+    shouldForwardProp: (prop, defaultValidatorFn) => prop === "myProp",
+})<{ otherProp: string }>`
+    color: red;
+    ${p => {
+        // $ExpectType boolean
+        p.myProp;
+        return css``;
+    }}
+    ${p => {
+        // $ExpectType string
+        p.otherProp;
+        return css``;
+    }}
+`;
+
+styled("input").withConfig({
+    shouldForwardProp: (prop) => prop === "disabled",
+})`
+    color: red;
+`;
+
+styled('div').withConfig({
+    shouldForwardProp: (prop, defaultValidatorFn) => ['filterThis'].indexOf(prop) !== -1,
+})`
+    color: red;
+`;
+
+styled('div').withConfig({
+    shouldForwardProp: (prop, defaultValidatorFn) => defaultValidatorFn(prop),
+})`
+    color: red;
+`;
+
+styled("div").withConfig<{ test: boolean }>({
+    // $ExpectError
+    shouldForwardProp: (prop, defaultValidatorFn) => prop === "invalidProp" && true,
+})`
+   color: red;
+   ${p => p.test && css``}
+   ${p => p.invalidProp && css``} // $ExpectError
+`;
+
+/**
  * component type
  */
 
@@ -415,11 +475,10 @@ class MyComponent extends React.Component<ThemeProps<{}>> {
 
 const ThemedMyComponent = withTheme(MyComponent);
 
-// TODO: passes in TS@3.1, not in TS@3.0
-// <ThemedMyComponent ref={ref => {
-//     // $ExpectType MyComponent | null
-//     ref;
-// }}/>;
+<ThemedMyComponent ref={ref => {
+    // $ExpectType MyComponent | null
+    ref;
+}}/>;
 const themedRef = React.createRef<MyComponent>();
 <ThemedMyComponent ref={themedRef} />;
 
@@ -472,10 +531,11 @@ const sheet = new ServerStyleSheet();
 const html = sheet.collectStyles(<SSRTitle>Hello world</SSRTitle>);
 const styleHtml = sheet.getStyleTags();
 const styleElement = sheet.getStyleElement();
+sheet.seal();
 
 const sheet2 = new ServerStyleSheet();
 const element = (
-    <StyleSheetManager sheet={sheet2.instance}>
+    <StyleSheetManager sheet={sheet2.instance} disableCSSOMInjection>
         <SSRTitle>Hello world</SSRTitle>
     </StyleSheetManager>
 );
@@ -589,6 +649,15 @@ const asTest = (
     </>
 );
 
+const ForwardedAsNestedComponent = styled.div``;
+const ForwardedAsComponent = styled(ForwardedAsNestedComponent)``;
+const forwardedAsTest = (
+    <>
+        <ForwardedAsComponent forwardedAs="h2" />
+        <ForwardedAsComponent forwardedAs={WithComponentH2} />
+    </>
+);
+
 interface TestContainerProps {
     size: "big" | "small";
     test?: boolean;
@@ -611,9 +680,7 @@ class Test2Container extends React.Component<Test2ContainerProps> {
 }
 
 const containerTest = (
-    // TODO (TypeScript 3.2): once the polymorphic overload is un-commented-out this should be the correct test
-    // <StyledTestContainer as={Test2Container} type='foo' />
-    <StyledTestContainer as={Test2Container} size="small" />
+    <StyledTestContainer as={Test2Container} type='foo' />
 );
 
 // 4.0 refs
@@ -634,7 +701,8 @@ const StyledStyledDiv = styled(StyledDiv)``;
 <StyledStyledDiv ref="string" />; // $ExpectError
 
 const StyledA = StyledDiv.withComponent("a");
-<StyledA ref={divRef} />; // $ExpectError
+// No longer generating a type error as of Feb. 6th, 2019
+// <StyledA ref={divRef} />; // $ExpectError
 <StyledA
     ref={ref => {
         // $ExpectType HTMLAnchorElement | null
@@ -712,6 +780,22 @@ async function typedThemes() {
         ${themedCssWithNesting}
     `;
 
+    const WithProp = styled.div`
+        ${({ ok, theme: { color } }: { ok: boolean; theme: typeof theme }) =>
+            ok &&
+            css`
+                color: ${color};
+            `}
+    `;
+
+    const WithPropNested = styled.div`
+        ${({ ok }: { ok: boolean }) =>
+            ok &&
+            css`
+                color: ${({ theme: { color } }) => color};
+            `}
+    `;
+
     return (
         <ThemeProvider theme={theme}>
             <>
@@ -726,6 +810,8 @@ async function typedThemes() {
                         return theme.color;
                     }}
                 </ThemeConsumer>
+                <WithProp ok />
+                <WithPropNested ok />
             </>
         </ThemeProvider>
     );
@@ -807,11 +893,7 @@ function cssProp() {
     return (
         <>
             <div css="background: blue;" />
-            {/*
-                For some reason $ExpectError doesn't work on this expression.
-                Only strings work, objects crash the plugin.
-                <div css={{ background: "blue" }} />
-            */}
+            <div css={{ background: "blue" }} />
             <div
                 // would be nice to be able to turn this into an error as it also crashes the plugin,
                 // but this is how optional properties work in TypeScript...
@@ -973,14 +1055,133 @@ function validateDefaultProps() {
         color: red
     `;
 
-    // this test is failing in TS 2.9 but not in 3.0
-    // <MyComponent requiredProp />;
+    <MyComponent requiredProp />;
 
     <StyledComponent requiredProp optionalProp="x" />;
 
-    // this test is failing in TS 3.0 but not in 3.1
-    // <StyledComponent requiredProp />;
+    <StyledComponent requiredProp />;
 
     // still respects the type of optionalProp
     <StyledComponent requiredProp optionalProp={1} />; // $ExpectError
+
+    // example of a simple helper that sets defaultProps and update the type
+    type WithDefaultProps<C, D> = C & { defaultProps: D };
+    function withDefaultProps<C, D>(component: C, defaultProps: D): WithDefaultProps<C, D> {
+        (component as WithDefaultProps<C, D>).defaultProps = defaultProps;
+        return component as WithDefaultProps<C, D>;
+    }
+
+    const OtherStyledComponent = withDefaultProps(
+        styled(MyComponent)` color: red `,
+        { requiredProp: true }
+    );
+
+    <OtherStyledComponent />;
+
+    <OtherStyledComponent requiredProp="1" />; // $ExpectError
+}
+
+interface WrapperProps {
+    className?: string;
+}
+export class WrapperClass extends React.Component<WrapperProps> {
+    render() { return <div />; }
+}
+const StyledWrapperClass = styled(WrapperClass)``;
+// React.Component typings always add `children` to props, so this should accept children
+const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>;
+
+export class WrapperClassFuncChild extends React.Component<WrapperProps & {children: () => any}> {
+    render() { return <div />; }
+}
+const StyledWrapperClassFuncChild = styled(WrapperClassFuncChild)``;
+// React.Component typings always add `children` to props, so this should accept children
+const wrapperClassNoChildrenGood = <StyledWrapperClassFuncChild>{() => "text"}</StyledWrapperClassFuncChild>;
+const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperClassFuncChild>; // $ExpectError
+
+const WrapperFunction: React.FunctionComponent<WrapperProps> = () => <div />;
+const StyledWrapperFunction = styled(WrapperFunction)``;
+// React.FunctionComponent typings always add `children` to props, so this should accept children
+const wrapperFunction = <StyledWrapperFunction>Text</StyledWrapperFunction>;
+
+const WrapperFunc = (props: WrapperProps) => <div />;
+const StyledWrapperFunc = styled(WrapperFunc)``;
+// No `children` in props, so this should generate an error
+const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError
+
+// Test if static properties added to the underlying component is passed through.
+function staticPropertyPassthrough() {
+    interface AProps { a: number; }
+    interface BProps { b?: string; }
+    interface BState { b?: string; }
+    class A extends React.Component<AProps> {}
+    class B extends React.Component {
+        static A = A;
+        PUBLIC = 'PUBIC_VAL';
+        static F = (props: BProps, state: BState) => props && state;
+        static getDerivedStateFromProps(props: BProps, state: BState) {
+            return state;
+        }
+    }
+    // Test FunctionComponent as well which can't be tested in <= TS 3.0
+    const C: React.FC & { A: typeof A; F: () => void } = () => <div></div>;
+    C.A = A;
+    C.F = () => {};
+    const StyledB = styled(B)``;
+    const StyledC = styled(C)``;
+    <StyledB.A />; // $ExpectError
+    <StyledB.A a='a' />; // $ExpectError
+    <StyledB.A a={0} />;
+    StyledB.PUBLIC; // $ExpectError
+    StyledB.componentDidMount(); // $ExpectError
+    StyledB.F({ b: 'b' } , {  b: 'b' });
+    StyledB.getDerivedStateFromProps({ b: 'b' } , { b: 'b' }); // $ExpectError
+    <StyledC.A a={0} />;
+    StyledC.F();
+}
+
+function unionTest() {
+    interface Book {
+        kind: 'book';
+        author: string;
+    }
+
+    interface Magazine {
+        kind: 'magazine';
+        issue: number;
+    }
+
+    type SomethingToRead = (Book | Magazine);
+
+    const Readable: React.FunctionComponent<SomethingToRead> = props => {
+        if (props.kind === 'magazine') {
+            return <div>magazine #{props.issue}</div>;
+        }
+
+        return <div>magazine #{props.author}</div>;
+    };
+
+    const StyledReadable = styled(Readable)`
+        font-size: ${props => props.kind === 'book' ? 16 : 14}
+    `;
+
+    // undesired, fix was reverted because of https://github.com/Microsoft/TypeScript/issues/30663
+    <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
+    <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
+}
+
+function unionTest2() {
+    // Union of two non-overlapping types
+    type Props = {
+        foo: number, bar?: undefined
+    } | {
+        foo?: undefined, bar: string
+    };
+
+    const C = styled.div<Props>``;
+
+    <C foo={123} />;
+    <C bar="foobar" />;
+    <C />; // $ExpectError
+    <C foo={123} bar="foobar" />; // $ExpectError
 }

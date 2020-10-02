@@ -1,4 +1,4 @@
-import { default as route } from 'riot-route';
+import route = require('riot-route');
 import routeFromTag from 'riot-route/lib/tag';
 
 /* () */

@@ -1,5 +1,5 @@
 // Type definitions for valerie
-// Project: https://github.com/davewatts/valerie
+// Project: https://github.com/developerdizzle/valerie
 // Definitions by: Howard Richards <https://github.com/conficient>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -613,10 +613,10 @@ declare namespace Valerie {
 
     interface ValidationResult {
         state: any; // the result state
-        failed: boolean;	//true if the activity failed validation
-        passed: boolean;	//true if the activity passed validation
-        pending: boolean;	//true if the activity hasn't yet completed
-        message: string;	//a message from the activity
+        failed: boolean;    //true if the activity failed validation
+        passed: boolean;    //true if the activity passed validation
+        pending: boolean;    //true if the activity hasn't yet completed
+        message: string;    //a message from the activity
         new: (state: any, message?: string) => ValidationResult;
     }
 

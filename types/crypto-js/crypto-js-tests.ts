@@ -15,8 +15,13 @@ wordArray = CryptoJS.format.OpenSSL('some message', 'some key');
 
 var FR = new FileReader();
 FR.onloadend = () => {
-	var hash = CryptoJS.SHA1(CryptoJS.lib.WordArray.create(FR.result)).toString()
+    var hash = CryptoJS.SHA1(CryptoJS.lib.WordArray.create(FR.result)).toString()
 }
+
+var randomWordArrayEncoded = CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
+
+const libWordArray: CryptoJS.LibWordArray = CryptoJS.lib.WordArray.create("Message");
+const encKey = CryptoJS.AES.encrypt(libWordArray, "Key");
 
 // Ciphers
 var encrypted: CryptoJS.WordArray;
@@ -47,8 +52,8 @@ var iv = CryptoJS.enc.Hex.parse('101112131415161718191a1b1c1d1e1f');
 encrypted = CryptoJS.AES.encrypt("Message", key, { iv: iv });
 
 encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase", {
-	mode: CryptoJS.mode.CFB,
-	padding: CryptoJS.pad.AnsiX923
+    mode: CryptoJS.mode.CFB,
+    padding: CryptoJS.pad.AnsiX923
 });
 
 
@@ -66,44 +71,44 @@ alert(encrypted);
 // U2FsdGVkX1+iX5Ey7GqLND5UFUoV0b7rUJ2eEvHkYqA=
 
 var JsonFormatter = {
-	stringify: function(cipherParams: any) {
-		// create json object with ciphertext
-		var jsonObj: any = {
-			ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
-		};
-		// optionally add iv and salt
-		if (cipherParams.iv) {
-			jsonObj.iv = cipherParams.iv.toString();
-		}
-		if (cipherParams.salt) {
-			jsonObj.s = cipherParams.salt.toString();
-		}
-		// stringify json object
-		return JSON.stringify(jsonObj);
-	},
-	parse: function (jsonStr: any) {
-		// parse json string
-		var jsonObj = JSON.parse(jsonStr);
-		// extract ciphertext from json object, and create cipher params object
-		var cipherParams = (<any>CryptoJS).lib.CipherParams.create({
-			ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct)
-		});
-		// optionally extract iv and salt
-		if (jsonObj.iv) {
-			cipherParams.iv = CryptoJS.enc.Hex.parse(jsonObj.iv);
-		}
-		if (jsonObj.s) {
-			cipherParams.salt = CryptoJS.enc.Hex.parse(jsonObj.s);
-		} return cipherParams;
-	}
+    stringify: function(cipherParams: any) {
+        // create json object with ciphertext
+        var jsonObj: any = {
+            ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
+        };
+        // optionally add iv and salt
+        if (cipherParams.iv) {
+            jsonObj.iv = cipherParams.iv.toString();
+        }
+        if (cipherParams.salt) {
+            jsonObj.s = cipherParams.salt.toString();
+        }
+        // stringify json object
+        return JSON.stringify(jsonObj);
+    },
+    parse: function (jsonStr: any) {
+        // parse json string
+        var jsonObj = JSON.parse(jsonStr);
+        // extract ciphertext from json object, and create cipher params object
+        var cipherParams = (<any>CryptoJS).lib.CipherParams.create({
+            ciphertext: CryptoJS.enc.Base64.parse(jsonObj.ct)
+        });
+        // optionally extract iv and salt
+        if (jsonObj.iv) {
+            cipherParams.iv = CryptoJS.enc.Hex.parse(jsonObj.iv);
+        }
+        if (jsonObj.s) {
+            cipherParams.salt = CryptoJS.enc.Hex.parse(jsonObj.s);
+        } return cipherParams;
+    }
 };
 encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase", {
-	format: JsonFormatter
+    format: JsonFormatter
 });
 alert(encrypted);
 // {"ct":"tZ4MsEnfbcDOwqau68aOrQ==","iv":"8a8c8fd8fe33743d3638737ea4a00698","s":"ba06373c8f57179c"}
 decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase", {
-	format: JsonFormatter
+    format: JsonFormatter
 });
 alert(decrypted.toString(CryptoJS.enc.Utf8)); // Message
 

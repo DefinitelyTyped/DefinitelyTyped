@@ -139,3 +139,16 @@ let myTest = function (grunt: IGrunt) {
         cwd: '.'
     }, '*.ts');
 }
+// test to check process function assignment.
+let mytest = function(grunt: IGrunt) {
+    const opt:grunt.file.IFileWriteStringOption = {
+        encoding: grunt.file.defaultEncoding,
+        process: (contents: string, srcPath: string, destPath: string): string | boolean => {
+            grunt.log.writeln('"file source path"' + srcPath);
+            grunt.log.writeln('"file destination path"' + destPath);
+            // return false so no actual copying takes place
+            return false;
+        }
+    }
+    grunt.file.copy('./test.file',"./testcopy.file", opt);
+}

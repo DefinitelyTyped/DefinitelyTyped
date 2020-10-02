@@ -1,4 +1,4 @@
-// Type definitions for Google PageSpeed Insights API v2 2.0
+// Type definitions for non-npm package Google PageSpeed Insights API v2 2.0
 // Project: https://developers.google.com/speed/docs/insights/v2/getting-started
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

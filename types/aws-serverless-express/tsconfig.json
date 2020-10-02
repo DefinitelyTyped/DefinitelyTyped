@@ -7,7 +7,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "middleware.d.ts",
         "aws-serverless-express-tests.ts"
     ]
 }

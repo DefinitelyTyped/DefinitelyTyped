@@ -1,10 +1,11 @@
-// Type definitions for express-slow-down 1.1
+// Type definitions for express-slow-down 1.3
 // Project: https://github.com/nfriedly/express-slow-down
 // Definitions by: Jeremy Forsythe <https://github.com/jdforsythe>
+//                 Josh Henderson <https://github.com/joshhendo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-import express = require("express");
+import express = require('express');
 
 declare namespace SlowDown {
     type StoreIncrementCallback = (err?: {}, hits?: number) => void;
@@ -71,6 +72,13 @@ declare namespace SlowDown {
          * Defaults to `1000` (1 second). Set to `0` to disable delaying.
          */
         delayMs?: number;
+
+        /**
+         * Maximum value for `delayMs` after many consecutive attempts, that is, after the n-th request,
+         * the delay will be always `maxDelayMs`. Important when your application is running behind a
+         * load balancer or reverse proxy that has a request timeout. Defaults to Infinity.
+         */
+        maxDelayMs?: number;
 
         /**
          * When `true` failed requests (response status >= 400) won't be counted. Defaults to `false`.

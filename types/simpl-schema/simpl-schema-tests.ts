@@ -1,6 +1,6 @@
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema, { SimpleSchemaDefinition, SchemaDefinition } from 'simpl-schema';
 
-const StringSchema = new SimpleSchema({
+const schema: SimpleSchemaDefinition = {
     basicString: {
         type: String
     },
@@ -27,13 +27,21 @@ const StringSchema = new SimpleSchema({
           else if (text.length < 10) return SimpleSchema.ErrorTypes.MIN_STRING;
         }
     }
-});
+};
+
+const StringSchema = new SimpleSchema(schema);
 
 StringSchema.validate({
     basicString: "Test",
     limitedString: "pro",
     regExpString: "id"
 }, {keys: ['basicString']});
+
+StringSchema.validator();
+
+StringSchema.validator({
+    clean: true
+});
 
 const StringSchemaWithOptions = new SimpleSchema({
     basicString: {
@@ -75,5 +83,8 @@ new SimpleSchema({
     shortArray: Array,
     subSchema: StringSchemaWithOptions
 });
+
+SimpleSchema.extend(schema);
+SimpleSchema.extend(StringSchema);
 
 SimpleSchema.extendOptions(['autoform']);

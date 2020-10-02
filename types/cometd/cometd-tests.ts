@@ -1,6 +1,40 @@
-import { CometD, Listener, Message, SubscriptionHandle } from "cometd";
+import {
+    BaseMessage,
+    ConnectionType,
+    CometD,
+    HandshakeListener,
+    HandshakeMessage,
+    Listener,
+    Message,
+    ReconnectAdvice,
+    Status,
+    SubscribeListener,
+    SubscribeMessage,
+    SuccessfulHandshakeMessage,
+    SubscriptionHandle,
+    UnsuccessfulHandshakeMessage,
+} from "cometd";
+import TimeSyncExtension from 'cometd/TimeSyncExtension';
+import AckExtension from 'cometd/AckExtension';
+import BinaryExtension from 'cometd/BinaryExtension';
 
 const cometd = new CometD();
+
+function assertNever(value: never): never {
+    throw new Error(`Unexpected value: ${value}`);
+}
+function validateStatus(status: Status) {
+    switch (status) {
+        case 'connected': return true;
+        case 'connecting': return true;
+        case 'disconnected': return true;
+        case 'disconnecting': return true;
+        case 'handshaking': return true;
+        default: return assertNever(status);
+    }
+}
+
+validateStatus(cometd.getStatus());
 
 // Configuring
 // ===========
@@ -11,9 +45,27 @@ cometd.configure({
     url: "http://localhost:8080/cometd"
 });
 
-cometd.registerExtension("ack", { incoming: () => {}, outgoing: () => {} });
+cometd.registerExtension("ack", new AckExtension());
+cometd.registerExtension("binary", new BinaryExtension());
+
+const timesync = new TimeSyncExtension();
+cometd.registerExtension("timesync", timesync);
+
+const timeSyncSubscription = cometd.addListener("/foo/bar", () => {
+    if (timesync.getNetworkLag() > 1000) {
+        cometd.publish("/mychannel", { timesyncStats: {
+                lag: timesync.getNetworkLag(),
+                serverTime: timesync.getServerTime(),
+                serverDate: timesync.getServerDate(),
+                timeOffset: timesync.getTimeOffset(),
+                timeOffsetSamples: timesync.getTimeOffsetSamples()
+            }
+        });
+    }
+});
 
 cometd.unregisterTransport("websocket");
+const transportTypes = cometd.getTransportTypes();
 
 // Handshaking
 // ===========
@@ -21,6 +73,26 @@ cometd.unregisterTransport("websocket");
 cometd.handshake(handshakeReply => {
     if (handshakeReply.successful) {
         // Successfully connected to the server.
+
+        if (handshakeReply.reestablish) {
+            // Restablished a connection to the server.
+        }
+
+        const { advice, supportedConnectionTypes } = handshakeReply;
+
+        const callbackPollingType: ConnectionType = 'callback-polling';
+
+        if (supportedConnectionTypes.indexOf(callbackPollingType) > -1) {
+            // Callback polling is supported by the server.
+        }
+
+        if (advice && advice.reconnect === 'none') {
+            // Server advises not to reconnect, CometD will stop attempting to connect or handshake.
+        }
+    }
+
+    if (!handshakeReply.successful) {
+        const { error } = handshakeReply;
     }
 });
 
@@ -33,6 +105,7 @@ const additionalInfoHandshake = {
 cometd.handshake(additionalInfoHandshake, handshakeReply => {
     if (handshakeReply.successful) {
         // Successfully connected to the server.
+        validateStatus(cometd.getStatus());
     }
 });
 
@@ -72,7 +145,7 @@ const additionalInfoUnsubscribe = {
     "com.acme.discard": true
 };
 cometd.unsubscribe(subscription3, additionalInfoUnsubscribe, unsubscribeReply => {
-    // Your logic here.
+    const { subscription } = unsubscribeReply;
 });
 
 // Subscribers versus Listeners
@@ -86,10 +159,14 @@ cometd.addListener("/meta/handshake", message => {
         // Batch all subscriptions together
         cometd.batch(() => {
             // Correct to subscribe to broadcast channels
-            cometd.subscribe("/members", m => {});
+            cometd.subscribe("/members", m => {
+                const { subscription } = m;
+            });
 
             // Correct to subscribe to service channels
-            cometd.subscribe("/service/status", m => {});
+            cometd.subscribe("/service/status", m => {
+                const { subscription } = m;
+            });
 
             // Messy to add listeners after removal, prefer using cometd.subscribe(...)
             if (_reportListener) {
@@ -160,6 +237,8 @@ cometd.onListenerException = function(exception, subscriptionHandle, isListener,
 let _connected = false;
 
 cometd.addListener("/meta/connect", message => {
+    validateStatus(cometd.getStatus());
+
     if (cometd.isDisconnected()) {
         return;
     }
@@ -174,6 +253,8 @@ cometd.addListener("/meta/connect", message => {
 });
 
 cometd.addListener("/meta/disconnect", message => {
+    validateStatus(cometd.getStatus());
+
     if (message.successful) {
         _connected = false;
     }
@@ -210,8 +291,14 @@ cometd.publishBinary("/binary", view, true, { prolog: "java" });
 // =============
 
 cometd.disconnect(disconnectReply => {
+    validateStatus(cometd.getStatus());
+
     if (disconnectReply.successful) {
         // Server truly received the disconnect request
+    }
+
+    if (disconnectReply.successful) {
+        const { error } = disconnectReply;
     }
 });
 

@@ -313,7 +313,6 @@ b = Reflect.defineProperty(a, sym, pd);
 b = Reflect.deleteProperty(a, s);
 b = Reflect.deleteProperty(a, i);
 b = Reflect.deleteProperty(a, sym);
-iterableIteratorOfAny = Reflect.enumerate(a);
 a = Reflect.get(a, s, a);
 a = Reflect.get(a, i, a);
 a = Reflect.get(a, sym, a);
@@ -334,7 +333,7 @@ b = Reflect.setPrototypeOf(a, a);
 
 // #############################################################################################
 // ECMAScript 7
-// Modules: es7.array.includes, es7.string.at, ees7.string.pad-start, es7.string.pad-end,
+// Modules: es7.array.includes, es7.string.at, es7.string.pad-start, es7.string.pad-end,
 //          es7.object.to-array, es7.object.get-own-property-descriptors, es7.regexp.escape,
 //          es7.map.to-json, and es7.set.to-json
 // #############################################################################################
@@ -349,6 +348,15 @@ pdm = Object.getOwnPropertyDescriptors(a);
 s = RegExp.escape(s);
 a = map.toJSON();
 a = set.toJSON();
+
+// #############################################################################################
+// ECMAScript Proposal
+// Modules: esnext.array.last-item, and esnext.array.last-index
+// #############################################################################################
+
+point = arrayOfPoint.lastItem;
+arrayOfPoint.lastItem = point;
+i = arrayOfPoint.lastIndex;
 
 // #############################################################################################
 // Mozilla JavaScript: Array generics
@@ -398,17 +406,6 @@ b = Object.isObject(a);
 s = Object.classof(a);
 point = Object.define(point, a);
 point = Object.make(point, a);
-
-// #############################################################################################
-// Console - https://github.com/zloirock/core-js/#console
-// Modules: core.log
-// #############################################################################################
-
-// Non-standard
-log(a, a, a);
-log.log(a, a, a);
-log.enable();
-log.disable();
 
 // #############################################################################################
 // Dict - https://github.com/zloirock/core-js/#dict

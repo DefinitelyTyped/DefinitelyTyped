@@ -18,4 +18,9 @@ describe('Test Suite 1', () => {
             .expect('status', 418)
             .done(done);
     });
+
+    it('should handle jest matchers', () => {
+      const str = 'bar';
+      expect(str).toHaveLength(3);
+    });
 });

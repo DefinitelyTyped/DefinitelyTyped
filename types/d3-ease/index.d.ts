@@ -1,9 +1,12 @@
-// Type definitions for D3JS d3-ease module 1.0
-// Project: https://github.com/d3/d3-ease/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Type definitions for D3JS d3-ease module 2.0
+// Project: https://github.com/d3/d3-ease/, https://d3js.org/d3-ease
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Nathan Bierema <https://github.com/Methuselah06>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.1
+// Last module patch version validated against: 2.0.0
 
 // --------------------------------------------------------------------------
 // Easing Functions
@@ -250,7 +253,7 @@ export interface BackEasingFactory {
 export const easeBack: BackEasingFactory;
 
 /**
- * Anticipatory easing, like a dancer bending his knees before jumping off the floor.
+ * Anticipatory easing, like a dancer bending their knees before jumping off the floor.
  * The degree of overshoot is configurable; it not specified, it defaults to 1.70158.
  */
 export const easeBackIn: BackEasingFactory;

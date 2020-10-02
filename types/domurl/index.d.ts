@@ -3,14 +3,13 @@
 // Definitions by: Mikhus <ttps://github.com/Mikhus>
 // Definitions: https://github.com/Mikhus/DefinitelyTyped
 
-declare class QueryString {
-    constructor(qs?: string);
-    toString: () => string;
+declare namespace domurl {
+    type QueryString<T> = T;
 }
 
 declare class Url<T> {
     constructor(url?: string);
-    query: T;
+    query: domurl.QueryString<T>;
     protocol: string;
     user: string;
     pass: string;
@@ -26,5 +25,7 @@ declare class Url<T> {
     paths: (paths?: [string]) => [string];
     isEmptyQuery: () => boolean;
     queryLength: () => number;
-    clearQuery: () => Url<T>;
+    clearQuery: () => Url<{}>;
 }
+
+export = Url;

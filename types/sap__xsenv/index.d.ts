@@ -1,4 +1,4 @@
-// Type definitions for @sap/xsenv 1.2
+// Type definitions for @sap/xsenv 2.0
 // Project: https://help.sap.com/hana_platform
 // Definitions by: [Michael Müller] <https://github.com/mad-mike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -45,10 +45,5 @@ export function filterCFServices(filter: ServiceFilter): any;
  * @throws Error, if for some of the requested services no or multiple instances are found; Error, if query parameter is not provided
  */
 export function getServices(query: any, servicesFile?: string): any;
-
-/**
- * @deprecated use loadCertificates instead
- */
-export function loadCaCert(): void;
 
 export function loadCertificates(certPath?: string): any;

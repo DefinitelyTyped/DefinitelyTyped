@@ -1,6 +1,7 @@
-// Type definitions for sass 1.15
+// Type definitions for sass 1.16
 // Project: https://github.com/sass/dart-sass
 // Definitions by: Silas Rech <https://github.com/lenovouser>
+//                 Justin Leider <https://github.com/jleider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -41,7 +42,7 @@ export interface Options {
      *
      * @default undefined
      */
-    functions?: { [key: string]: () => void };
+    functions?: { [key: string]: (...args: types.SassType[]) => types.SassType | void };
 
     /**
      * An array of paths that should be looked in to attempt to resolve your @import declarations.
@@ -206,3 +207,64 @@ export interface Result {
 
 export function render(options: Options, callback: (exception: SassException, result: Result) => void): void;
 export function renderSync(options: Options): Result;
+
+export namespace types {
+    abstract class SassType {}
+
+    interface Null extends SassType {
+        NULL: Null;
+    }
+
+    const Null: Null;
+
+    class Number implements SassType {
+        constructor(value: number, unit?: string);
+        getValue(): number;
+        setValue(value: number): void;
+        getUnit(): string;
+        setUnit(unit: string): void;
+    }
+
+    class String implements SassType {
+        constructor(value: string);
+        getValue(): string;
+        setValue(value: string): void;
+    }
+
+    class Boolean<T extends boolean = boolean> implements SassType {
+        constructor(value: T);
+        getValue(): T;
+        static readonly TRUE: Boolean<true>;
+        static readonly FALSE: Boolean<false>;
+    }
+
+    class Color implements SassType {
+        constructor(r: number, g: number, b: number, a?: number);
+        getR(): number;
+        setR(value: number): void;
+        getG(): number;
+        setG(value: number): void;
+        getB(): number;
+        setB(value: number): void;
+        getA(): number;
+        setA(value: number): void;
+    }
+
+    class List<T extends SassType = SassType> implements SassType {
+        constructor(length: number, commaSeparator?: boolean);
+        getValue(index: number): T | undefined;
+        setValue(index: number, value: T): void;
+        getSeparator(): boolean;
+        setSeparator(isComma: boolean): void;
+        getLength(): number;
+    }
+
+    class Map<K extends SassType = SassType, V extends SassType = SassType> implements SassType {
+        constructor(length: number);
+        getValue(index: number): V;
+        setValue(index: number, value: V): void;
+        getKey(index: number): K;
+        setKey(index: number, key: K): void;
+        getLength(): number;
+    }
+}

@@ -2,11 +2,12 @@
 // Project: https://github.com/chadxz/imap-simple
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 //                 Ilari Aarnio <https://github.com/iaarnio>
-// Definitions: https://github.com/psnider/DefinitelyTyped/imap-simple
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import Imap = require("imap");
+import { EventEmitter } from 'events';
 
 export interface ImapSimpleOptions {
     /** Options to pass to node-imap constructor. */
@@ -36,7 +37,7 @@ export interface Message {
     seqno: number;
 }
 
-export class ImapSimple extends NodeJS.EventEmitter {
+export class ImapSimple extends EventEmitter {
     constructor(imap: Imap);
 
     /** Open a mailbox, calling the provided callback with signature (err, boxName), or resolves the returned promise with boxName. */
@@ -55,7 +56,7 @@ export class ImapSimple extends NodeJS.EventEmitter {
     getBoxes(callback: (err: Error, boxes: Imap.MailBoxes) => void): void;
     getBoxes(): Promise<Imap.MailBoxes>;
 
-    /** Search for and retrieve mail in the previously opened mailbox. */
+    /** Search for and retrieve mail in the currently open mailbox. */
     search(searchCriteria: any[], fetchOptions: Imap.FetchOptions, callback: (err: Error, messages: Message[]) => void): void;
     search(searchCriteria: any[], fetchOptions: Imap.FetchOptions): Promise<Message[]>;
 

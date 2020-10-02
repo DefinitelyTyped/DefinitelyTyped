@@ -1,4 +1,4 @@
-// Type definitions for Google YouTube Analytics API v1 1.0
+// Type definitions for non-npm package Google YouTube Analytics API v1 1.0
 // Project: http://developers.google.com/youtube/analytics/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -12,7 +12,7 @@ import express = require("express");
 
 export interface BasicStrategyOptions<req extends boolean = boolean> {
     realm?: string;
-    passReqToCallback?: boolean;
+    passReqToCallback?: req;
 }
 
 export interface DigestStrategyOptions {

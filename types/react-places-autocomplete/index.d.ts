@@ -1,11 +1,12 @@
 // Type definitions for react-places-autocomplete 7.2
-// Project: https://github.com/hibiken/react-places-autocomplete/
+// Project: https://github.com/hibiken/react-places-autocomplete/, https://github.com/kenny-hibino/react-places-autocomplete
 // Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Nokky Goren <https://github.com/ApeNox>
 //                 Aziz Khambati <https://github.com/azizhk>
+//                 Mark Nelissen <https://github.com/marknelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 //
 /// <reference types="googlemaps" />
 import * as React from 'react';
@@ -38,6 +39,7 @@ export interface PropTypes {
         location?: google.maps.LatLng | google.maps.LatLngLiteral;
         offset?: number | string;
         radius?: number | string;
+        sessionToken?: any;
         types?: string[];
     };
     debounce?: number;
@@ -53,24 +55,24 @@ export interface PropTypes {
             role: 'combobox';
             'aria-autocomplete': 'list';
             'aria-expanded': boolean;
-            'aria-activedescendant': string | null;
+            'aria-activedescendant': string | undefined;
             disabled: boolean;
             onKeyDown: React.KeyboardEventHandler;
-            onBlur: () => void;
+            onBlur: React.FocusEventHandler;
             value: string | undefined;
             onChange: (ev: { target: { value: string }}) => void;
         } & InputProps;
         getSuggestionItemProps: <SuggestionProps extends {}>(suggestion: Suggestion, options?: SuggestionProps) => {
             key: number;
-            id: string | null;
+            id: string | undefined;
             role: 'option';
-            onMouseEnter: () => void;
-            onMouseLeave: () => void;
+            onMouseEnter: React.MouseEventHandler;
+            onMouseLeave: React.MouseEventHandler;
             onMouseDown: React.MouseEventHandler;
-            onMouseUp: () => void;
-            onTouchStart: () => void;
-            onTouchEnd: () => void;
-            onClick: (event?: Event) => void;
+            onMouseUp: React.MouseEventHandler;
+            onTouchStart: React.TouchEventHandler;
+            onTouchEnd: React.TouchEventHandler;
+            onClick: React.MouseEventHandler;
         } & SuggestionProps;
     }>) => React.ReactNode;
 }

@@ -1,9 +1,9 @@
 // Type definitions for i18n-node 0.8
-// Project: https://github.com/mashpie/i18n-node
+// Project: http://github.com/mashpie/i18n-node
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 FindQ <https://github.com/FindQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 declare namespace i18n {
     interface ConfigurationOptions {
@@ -194,6 +194,14 @@ declare namespace i18n {
 
     /**
      * Translate with plural condition the given phrase and count using locale configuration
+     * @param phrase - Short phrase to be translated. All plural options ("one", "few", other", ...) have to be provided by your translation file
+     * @param count - The number which allow to select from plural to singular
+     * @returns The translated phrase
+     */
+    function __n(phrase: string, count: number): string;
+
+    /**
+     * Translate with plural condition the given phrase and count using locale configuration
      * @param options - Options for plural translate
      * @param [count] - The number which allow to select from plural to singular
      * @returns The translated phrase
@@ -348,6 +356,14 @@ interface i18nAPI {
 
     /**
      * Translate with plural condition the given phrase and count using locale configuration
+     * @param phrase - Short phrase to be translated. All plural options ("one", "few", other", ...) have to be provided by your translation file
+     * @param count - The number which allow to select from plural to singular
+     * @returns The translated phrase
+     */
+    __n(phrase: string, count: number): string;
+
+    /**
+     * Translate with plural condition the given phrase and count using locale configuration
      * @param options - Options for plural translate
      * @param [count] - The number which allow to select from plural to singular
      * @returns The translated phrase
@@ -442,6 +458,6 @@ declare namespace Express {
     }
 
     interface Response extends i18nAPI {
-        locals: i18nAPI;
+        locals: Partial<i18nAPI>;
     }
 }

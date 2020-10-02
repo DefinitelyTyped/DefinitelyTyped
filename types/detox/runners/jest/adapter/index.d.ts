@@ -1,4 +1,4 @@
-interface DetoxJestAdapter {
+interface DetoxJestAdapter extends Detox.CircusTestEventListenerBase {
     detox: Detox.Detox;
     beforeEach: () => Promise<void>;
     afterAll: () => Promise<void>;
@@ -9,4 +9,4 @@ interface DetoxJestAdapter {
 
 declare const adapter: DetoxJestAdapter;
 
-export default adapter;
+export = adapter;

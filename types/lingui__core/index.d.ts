@@ -1,5 +1,5 @@
-// Type definitions for @lingui/core 2.2
-// Project: https://lingui.github.io/js-lingui/
+// Type definitions for @lingui/core 2.7
+// Project: https://lingui.github.io/js-lingui/, https://github.com/lingui/js-lingui
 // Definitions by: Jeow Li Huan <https://github.com/huan086>
 // Definitions: https://github.com/huan086/lingui-typings
 // TypeScript Version: 2.2
@@ -9,6 +9,7 @@ export {
     setupI18n,
     Catalog,
     Catalogs,
+    MessageDescriptor,
     MessageOptions,
     LanguageData,
     I18n

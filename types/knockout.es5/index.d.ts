@@ -23,16 +23,16 @@ interface KnockoutEs5 {
 }
 
 interface KnockoutDefinePropertyOptions {
-	get(): any;
-	set?(value: any): void;
+    get(): any;
+    set?(value: any): void;
 }
 
 interface Array<T> {
-	remove(item: T): T[];
-	removeAll(items: T[]): T[];
-	removeAll(): T[];
+    remove(item: T): T[];
+    removeAll(items: T[]): T[];
+    removeAll(): T[];
 
-	destroy(item: T): void;
-	destroyAll(items: T[]): void;
-	destroyAll(): void;
+    destroy(item: T): void;
+    destroyAll(items: T[]): void;
+    destroyAll(): void;
 }

@@ -1,31 +1,22 @@
-import webpack = require("webpack");
+import webpack = require('webpack');
 
-declare namespace LoadableExport {
-  interface Options {
-    filename: string;
-  }
-
-  class ReactLoadablePlugin extends webpack.Plugin {
-    constructor(opts?: Options);
-  }
-
-  interface Bundle {
-    id: number;
-    name: string;
+export interface Bundle {
+    id: string;
+    name: string | null;
     file: string;
     publicPath: string;
-  }
-
-  interface Manifest {
-    [moduleId: string]: Bundle[];
-  }
-
-  function getBundles(manifest: Manifest, moduleIds: string[]): Bundle[];
 }
 
-declare const exports: {
-  getBundles: typeof LoadableExport.getBundles;
-  ReactLoadablePlugin: typeof LoadableExport.ReactLoadablePlugin;
-};
+export interface Manifest {
+    [moduleId: string]: Bundle[];
+}
 
-export = exports;
+export interface ReactLoadablePluginOptions {
+    filename: string;
+}
+
+export class ReactLoadablePlugin extends webpack.Plugin {
+    constructor(opts?: ReactLoadablePluginOptions);
+}
+
+export function getBundles(manifest: Manifest, moduleIds: string[]): Bundle[];

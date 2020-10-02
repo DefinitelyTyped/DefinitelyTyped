@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface String {
-	toTitleCase(): string;
+    toTitleCase(): string;
 }

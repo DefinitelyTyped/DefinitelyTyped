@@ -105,7 +105,6 @@ function test_sidebar() {
             method: 'method',
             pusher: 'pusher',
             movedSidebar: 'movedSidebar',
-            animation: 'animation',
             overlay: 'overlay',
             notFound: 'notFound'
         }

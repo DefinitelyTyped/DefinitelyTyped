@@ -1,0 +1,10 @@
+lib/isBase32.d.ts
+lib/isIPRange.d.ts
+lib/isIdentityCard.d.ts
+lib/isMagnetURI.d.ts
+lib/isRFC3339.d.ts
+es/lib/isBase32.d.ts
+es/lib/isIPRange.d.ts
+es/lib/isIdentityCard.d.ts
+es/lib/isMagnetURI.d.ts
+es/lib/isRFC3339.d.ts

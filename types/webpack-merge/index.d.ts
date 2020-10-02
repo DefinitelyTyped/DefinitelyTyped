@@ -18,7 +18,11 @@ declare namespace webpackMerge {
         customizeArray?: CustomizeArrayFunction | UniqueFunction;
         customizeObject?: CustomizeObjectFunction;
     }
+    interface MultipleConfiguration {
+        [name: string]: Configuration;
+    }
     type ConfigurationMergeFunction = (...configs: Configuration[]) => Configuration;
+    type MultipleConfigurationMergeFunction = (...configs: MultipleConfiguration[]) => Configuration[];
     type ConfigurationMergeConfigFunction = (customizeOptions: CustomizeOptions) => ConfigurationMergeFunction;
     type MergeFunction = ConfigurationMergeFunction | ConfigurationMergeConfigFunction;
     type MergeStrategy = 'prepend' | 'append' | 'replace';
@@ -28,7 +32,7 @@ declare namespace webpackMerge {
         (customizeOptions: CustomizeOptions): ConfigurationMergeFunction;
         unique: UniqueFunction;
         smart: ConfigurationMergeFunction;
-        multiple: ConfigurationMergeFunction;
+        multiple: MultipleConfigurationMergeFunction;
         strategy(options: { [field: string]: MergeStrategy }): ConfigurationMergeFunction;
         smartStrategy(options: { [key: string]: MergeStrategy }): ConfigurationMergeFunction;
     }

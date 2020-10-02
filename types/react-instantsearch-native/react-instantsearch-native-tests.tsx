@@ -1,12 +1,13 @@
 import * as React from "react";
 
-import { SearchBox, Hits, Highlight, Menu } from "react-instantsearch-dom";
+import { SearchBox, Hits } from "react-instantsearch-dom";
 import { InstantSearch, Index, connectStateResults } from 'react-instantsearch-native';
 import { values } from 'lodash';
 
 // https://community.algolia.com/react-instantsearch/guide/Conditional_display.html
-const App = () => (
-  <InstantSearch appId="" apiKey="" indexName="first">
+
+const App2 = () => (
+  <InstantSearch searchClient={{}} indexName="first">
     <SearchBox />
     <AllResults>
       <div>
@@ -42,7 +43,7 @@ const App = () => (
 const IndexResults = connectStateResults(
   ({ searchState, searchResults, children }) =>
     searchResults && searchResults.nbHits !== 0 ? (
-      children as React.ReactElement<any>
+      children as React.ReactElement
     ) : (
       <div>
         No results has been found for {searchState.query} and index{' '}
@@ -64,6 +65,6 @@ const AllResults = connectStateResults(({ allSearchResults, children }) => {
       <Index indexName="third" />
     </div>
   ) : (
-    children as React.ReactElement<any>
+    children as React.ReactElement
   );
 });

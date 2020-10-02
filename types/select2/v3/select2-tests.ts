@@ -1,3 +1,8 @@
+$.extend($.fn.select2.defaults, {
+  width: 'copy',
+  minimumInputLength: 12
+});
+
 $("#e9").select2();
 $("#e2").select2({
     placeholder: "Select a State",
@@ -9,9 +14,9 @@ $("#e2_2").select2({
 $("#e3").select2({
     minimumInputLength: 2
 });
-function format(state) {
+function format(state: any) {
     if (!state.id) return state.text;
-    return "<img class='flag' src='images/flags/" + state.id.toLowerCase() + ".png'/>" + state.text;
+    return `<img class='flag' src='images/flags/${state.id.toLowerCase()}.png'/>${state.text}`;
 }
 $("#e4").select2({
     formatResult: format,
@@ -20,10 +25,11 @@ $("#e4").select2({
 $("#e5").select2({
     minimumInputLength: 1,
     query: function (query) {
-        var data = { results: [] }, i, j, s;
-        for (i = 1; i < 5; i++) {
-            s = "";
-            for (j = 0; j < i; j++) { s = s + query.term; }
+        console.info('current element value:', query.element.val());
+        const data = { results: [] as IdTextPair[] };
+        for (let i = 1; i < 5; i++) {
+            let s = "";
+            for (let j = 0; j < i; j++) { s = s + query.term; }
             data.results.push({ id: query.term + i, text: s });
         }
     }
@@ -34,7 +40,7 @@ $("#e10").select2({
     data: [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }]
 });
 
-var data = [{ id: 0, tag: 'enhancement' }, { id: 1, tag: 'bug' }, { id: 2, tag: 'duplicate' }, { id: 3, tag: 'invalid' }, { id: 4, tag: 'wontfix' }];
+const data = [{ id: 0, tag: 'enhancement' }, { id: 1, tag: 'bug' }, { id: 2, tag: 'duplicate' }, { id: 3, tag: 'invalid' }, { id: 4, tag: 'wontfix' }];
 
 $("#e10_2").select2({
     data: { results: data, text: 'tag' },
@@ -43,11 +49,20 @@ $("#e10_2").select2({
 });
 
 $("#e10_3").select2({
-    data: { results: data, text: function (item) { console.log('called with', item); return item.tag; } },
+    data: {
+        results: data,
+        text: (item: {tag: string}) => {
+            console.log('called with', item);
+            return item.tag;
+        }
+    },
     formatSelection: format,
     formatResult: format
 });
-var movieFormatResult, movieFormatSelection;
+
+let movieFormatResult;
+let movieFormatSelection;
+
 $("#e6").select2({
     placeholder: "Search for a movie",
     minimumInputLength: 1,
@@ -74,7 +89,7 @@ $("#e6").select2({
     placeholder: "Search for a movie",
     minimumInputLength: 1,
     ajax: {
-        url: () => { return "http://api.rottentomatoes.com/api/public/v1.0/movies.json"; },
+        url: () => "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
         data: function (term, page) {
             return {
@@ -130,7 +145,7 @@ $("#e7").select2({
             };
         },
         results: function (data, page) {
-            var more = (page * 10) < data.total;
+            const more = (page * 10) < data.total;
             return { results: data.movies, more: more };
         }
     },
@@ -139,7 +154,7 @@ $("#e7").select2({
     dropdownCssClass: "bigdrop"
 });
 
-function sort(elements) {
+function sort(elements: any) {
     return elements.sort();
 }
 
@@ -169,13 +184,12 @@ $("#e11_2").select2({
     multiple: true,
     data: [{ id: 0, text: 'story' }, { id: 1, text: 'bug' }, { id: 2, text: 'task' }]
 });
-function log(e) {
-    var item = $("<li>" + e + "</li>");
+function log(e: string) {
+    const item = $(`<li>${e}</li>`);
     $("#events_11").append(item);
     item.animate({ opacity: 1 }, 10000, 'linear', function () { item.animate({ opacity: 0 }, 2000, 'linear', function () { item.remove(); }); });
 }
 $("#e11")
-    // TS 0.9.5: correct overload not resolved https://typescript.codeplex.com/discussions/472172
     .on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
     .on("open", function () { log("open"); });
 $("#e11_2")
@@ -200,7 +214,7 @@ $("#e16_2").select2();
 $("#e16_enable").click(function () { $("#e16,#e16_2").select2("enable"); });
 $("#e16_disable").click(function () { $("#e16,#e16_2").select2("enable", false); });
 $("#e17").select2({
-    matcher: function (term, text) { return text.toUpperCase().indexOf(term.toUpperCase()) == 0; }
+    matcher: function (term, text) { return text.toUpperCase().indexOf(term.toUpperCase()) === 0; }
 });
 $("#e17_2").select2({
     matcher: function (term, text, opt) {
@@ -209,10 +223,27 @@ $("#e17_2").select2({
     }
 });
 $("#e18,#e18_2").select2();
-alert("Selected value is: " + $("#e8").select2("val")); $("#e8").select2("val", { id: "CA", text: "Califoria" });
-$("#e19").select2({nextSearchTerm: function(selectedObject: object, currentSearchTerm: string) {
-    return currentSearchTerm;
-}});
+alert("Selected value is: " + $("#e8").select2("val"));
+$("#e8").select2("val", {id: "CA", text: "Califoria"});
+
+$("#e1").select2({
+    nextSearchTerm: (selectedObject: object, currentSearchTerm: string) => {
+        return currentSearchTerm;
+    }
+});
+
+$("#id").select2({
+    tokenizer: (textInput, selection, selectCallback, options) => {
+        if (options.dropdownAutoWidth) {
+            selectCallback();
+            return null;
+        } else if (options.allowClear) {
+            selectCallback(textInput + '_');
+            return textInput + '_';
+        }
+        selection.push('extra');
+    }
+});
 
 $("#e8").select2("val");
 $("#e8").select2("val", "CA");

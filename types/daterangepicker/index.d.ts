@@ -1,5 +1,5 @@
-// Type definitions for Date Range Picker 3.0
-// Project: http://www.daterangepicker.com/
+// Type definitions for Date Range Picker 3.1
+// Project: http://www.daterangepicker.com/, https://github.com/dangrossman/daterangepicker
 // Definitions by: SirMartin <https://github.com/SirMartin>
 //                 Steven Masala <https://github.com/smasala>
 //                 Grant Hutchins <https://github.com/nertzy>
@@ -127,7 +127,7 @@ declare namespace daterangepicker {
         /**
          * Whether the picker appears below (default) or above the HTML element it's attached to
          */
-        drops?: 'down' | 'up';
+        drops?: 'down' | 'up' | 'auto';
         /**
          * CSS class names that will be added to all buttons in the picker
          */
@@ -174,7 +174,7 @@ declare namespace daterangepicker {
         /**
          * jQuery selector of the parent element that the date range picker will be added to, if not provided this will be 'body'
          */
-        parentEl?: string;
+        parentEl?: Element | string;
     }
 
     interface Locale {

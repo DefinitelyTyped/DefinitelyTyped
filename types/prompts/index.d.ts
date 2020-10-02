@@ -1,12 +1,19 @@
-// Type definitions for prompts 1.2
+// Type definitions for prompts 2.0
 // Project: https://github.com/terkelg/prompts
 // Definitions by: Berkay GURSOY <https://github.com/Berkays>
-//                 Daniel Perez Alvarez <https://github.com/danielpa9708>
+//                 Daniel Perez Alvarez <https://github.com/unindented>
 //                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
+//                 theweirdone <https://github.com/theweirdone>
+//                 whoaa512 <https://github.com/whoaa512>
+//                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
+
+/// <reference types="node" />
 
 export = prompts;
+
+import { Readable, Writable } from 'stream';
 
 declare function prompts<T extends string = string>(
     questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
@@ -17,9 +24,15 @@ declare namespace prompts {
     // Circular reference from prompts
     const prompt: any;
 
-    function inject(obj: any): void;
+    function inject(arr: ReadonlyArray<any>): void;
 
     namespace inject {
+        const prototype: {};
+    }
+
+    function override(obj: { [key: string]: any }): void;
+
+    namespace override {
         const prototype: {};
     }
 
@@ -27,6 +40,8 @@ declare namespace prompts {
         function autocomplete(args: PromptObject): any;
 
         function confirm(args: PromptObject): void;
+
+        function date(args: PromptObject): any;
 
         function invisible(args: PromptObject): any;
 
@@ -45,10 +60,13 @@ declare namespace prompts {
         function toggle(args: PromptObject): void;
     }
 
+    // Based upon: https://github.com/terkelg/prompts/blob/d7d2c37a0009e3235b2e88a7d5cdbb114ac271b2/lib/elements/select.js#L29
     interface Choice {
         title: string;
-        value: string;
-        disable?: boolean;
+        value: any;
+        disabled?: boolean;
+        selected?: boolean;
+        description?: string;
     }
 
     interface Options {
@@ -57,26 +75,30 @@ declare namespace prompts {
     }
 
     interface PromptObject<T extends string = string> {
-        type: ValueOrFunc<PromptType> | Falsy;
+        type: PromptType | Falsy | PrevCaller<T, PromptType | Falsy>;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
-        initial?: string | number | boolean;
+        initial?: string | number | boolean | Date;
         style?: string;
         format?: PrevCaller<T, void>;
-        validate?: PrevCaller<T, void>;
+        validate?: PrevCaller<T, boolean | string | Promise<boolean | string>>;
         onState?: PrevCaller<T, void>;
         min?: number;
         max?: number;
         float?: boolean;
         round?: number;
+        instructions?: string | boolean;
         increment?: number;
-        seperator?: string;
+        separator?: string;
         active?: string;
         inactive?: string;
         choices?: Choice[];
         hint?: string;
-        suggest?: ((prev: any, values: any, prompt: PromptObject) => void);
+        suggest?: ((input: any, choices: Choice[]) => Promise<any>);
         limit?: number;
+        mask?: string;
+        stdout?: Writable;
+        stdin?: Readable;
     }
 
     type Answers<T extends string> = { [id in T]: any };
@@ -89,7 +111,7 @@ declare namespace prompts {
 
     type Falsy = false | null | undefined;
 
-    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete";
+    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | "date" | "autocompleteMultiselect";
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 }

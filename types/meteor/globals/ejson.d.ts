@@ -4,8 +4,9 @@ declare interface EJSONableCustomType {
     toJSONValue(): JSONable;
     typeName(): string;
 }
+declare type EJSONableProperty = number | string | boolean | Object | number[] | string[] | Object[] | Date | Uint8Array | EJSONableCustomType | undefined | null;
 declare interface EJSONable {
-    [key: string]: number | string | boolean | Object | number[] | string[] | Object[] | Date | Uint8Array | EJSONableCustomType | undefined | null;
+    [key: string]: EJSONableProperty;
 }
 declare interface JSONable {
     [key: string]: number | string | boolean | Object | number[] | string[] | Object[] | undefined | null;

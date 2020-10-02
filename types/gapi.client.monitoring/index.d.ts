@@ -1,4 +1,4 @@
-// Type definitions for Google Stackdriver Monitoring API v3 3.0
+// Type definitions for non-npm package Google Stackdriver Monitoring API v3 3.0
 // Project: https://cloud.google.com/monitoring/api/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

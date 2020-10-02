@@ -1,5 +1,5 @@
 // Type definitions for sshpk 1.10
-// Project: github.com/arekinath/node-sshpk
+// Project: https://github.com/arekinath/node-sshpk
 // Definitions by: Meno Abels <https://github.com/mabels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -268,8 +268,11 @@ declare namespace SshPK {
   }
 
   class PrivateKey {
+    comment?: string;
     constructor(opts: any);
+
     static formats: Formats;
+
     toBuffer(format: string, options: any): Buffer;
     hash(algo: string): Buffer;
     toPublic(): Key;

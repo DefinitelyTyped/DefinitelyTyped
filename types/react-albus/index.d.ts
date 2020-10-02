@@ -41,15 +41,19 @@ export interface WizardProps {
 
 export const Wizard: React.ComponentType<WizardProps>;
 
+export type WizardContextRenderProps =
+    | { render?: (wizard: WizardContext) => React.ReactNode }
+    | { children: (wizard: WizardContext) => React.ReactNode };
+
+export const WithWizard: React.ComponentType<WizardContextRenderProps>;
+
 export interface StepsProps {
     step?: StepObject;
 }
 
 export const Steps: React.ComponentType<StepsProps>;
 
-export type StepProps = StepObject & (
-    | { render?: (wizard: WizardContext) => React.ReactNode }
-    | { children: (wizard: WizardContext) => React.ReactNode });
+export type StepProps = StepObject & WizardContextRenderProps;
 
 /**
  * In addition to id, any additional props added to <Step> will be available on each step object.

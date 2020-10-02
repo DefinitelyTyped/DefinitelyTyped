@@ -51,6 +51,7 @@ $("#carousel").carousel({
     keyboard: true,
     slide: false,
     pause: "hover",
+    ride: 'carousel',
     wrap: true,
     touch: false,
 });
@@ -169,6 +170,10 @@ $("#modal").modal({
     backdrop: "static",
 });
 
+$("#modal").on('hidePrevented.bs.modal', e => {
+    const {data, target: modal} = e;
+});
+
 // --------------------------------------------------------------------------------------
 // Popover
 // --------------------------------------------------------------------------------------
@@ -196,6 +201,12 @@ $("#popover").popover({
     offset: 10,
     fallbackPlacement: ["flip", "clockwise"],
     boundary: "scrollParent",
+    sanitize: false,
+    whiteList: {
+        h1: [],
+        img: ['src', 'alt', 'title', 'width', 'height'],
+    },
+    sanitizeFn: (x: string) => x.replace("<", ""),
 });
 
 $("#popover").popover({
@@ -205,6 +216,10 @@ $("#popover").popover({
         console.log(this.config.content);
         return "left";
     },
+});
+
+$("#popover").popover({
+    sanitizeFn: null,
 });
 
 // --------------------------------------------------------------------------------------
@@ -227,6 +242,10 @@ $("#scrollspy").scrollspy({
 
 $("#scrollspy").scrollspy({
     target: document.getElementById("navbar-example2") as HTMLElement
+});
+
+$("#scrollspy").scrollspy({
+    target: $("#navbar-example2"),
 });
 
 $("#scrollspy").scrollspy({
@@ -280,10 +299,26 @@ $("#tooltip").on("hide.bs.tooltip", () => {});
 
 $("#tooltip").tooltip({
     animation: false,
-});
-
-$("#tooltip").tooltip({
     container: "#container",
+    delay: {show: 500, hide: 100},
+    html: true,
+    placement: "auto",
+    selector: "[rel=\"tooltip\"]",
+    template: '<div class="tooltip empty" role="tooltip"></div>',
+    title: "Hello world",
+    trigger: "hover focus",
+    offset: 10,
+    fallbackPlacement: ["flip", "clockwise"],
+    boundary: "scrollParent",
+    sanitize: false,
+    whiteList: {
+        h1: [],
+        img: ['src', 'alt', 'title', 'width', 'height'],
+    },
+    sanitizeFn: (x: string) => x.replace("<", ""),
+    popperConfig: {
+        placement: 'bottom',
+    },
 });
 
 $("#tooltip").tooltip({
@@ -296,18 +331,6 @@ $("#tooltip").tooltip({
 
 $("#tooltip").tooltip({
     delay: 250,
-});
-
-$("#tooltip").tooltip({
-    delay: {show: 500, hide: 100},
-});
-
-$("#tooltip").tooltip({
-    html: true,
-});
-
-$("#tooltip").tooltip({
-    placement: "auto",
 });
 
 $("#tooltip").tooltip({
@@ -328,19 +351,7 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    selector: "[rel=\"tooltip\"]",
-});
-
-$("#tooltip").tooltip({
     selector: false,
-});
-
-$("#tooltip").tooltip({
-    template: '<div class="tooltip empty" role="tooltip"></div>',
-});
-
-$("#tooltip").tooltip({
-    title: "Hello world",
 });
 
 $("#tooltip").tooltip({
@@ -354,14 +365,6 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    trigger: "hover focus",
-});
-
-$("#tooltip").tooltip({
-    offset: 10,
-});
-
-$("#tooltip").tooltip({
     offset: "10px",
 });
 
@@ -370,13 +373,9 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    fallbackPlacement: ["flip", "clockwise"],
-});
-
-$("#tooltip").tooltip({
-    boundary: "scrollParent",
-});
-
-$("#tooltip").tooltip({
     boundary: aHtmlElement,
+});
+
+$("#tooltip").tooltip({
+    sanitizeFn: null,
 });

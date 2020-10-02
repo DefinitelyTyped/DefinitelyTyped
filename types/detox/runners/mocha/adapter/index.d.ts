@@ -6,4 +6,4 @@ interface DetoxMochaAdapter {
 
 declare const adapter: DetoxMochaAdapter;
 
-export default adapter;
+export = adapter;

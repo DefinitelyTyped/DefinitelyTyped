@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths":{
-            "@zeit/next-typescript": ["zeit__next-typescript"]
+            "@zeit/*": ["zeit__*"]
         }
     },
     "files": [

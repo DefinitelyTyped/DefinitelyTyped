@@ -14,7 +14,7 @@ interface JQuery {
 
 declare namespace JQueryDotDotDot {
     interface IDotDotDotOptions {
-        /**	The text to add as ellipsis.
+        /**    The text to add as ellipsis.
           * Default: '... '
           */
         ellipsis?: string;

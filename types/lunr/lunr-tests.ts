@@ -22,9 +22,20 @@ function basic_test() {
             title: "Bar",
             body: "Bar bar bar!"
         });
+        this.use((builder: lunr.Builder) => builder.field("text"));
     });
 
     index.search("foo");
+
+    index.query(q => {
+        q.term(
+            lunr.tokenizer('search terms'),
+            {
+                wildcard: lunr.Query.wildcard.TRAILING,
+                presence: lunr.Query.presence.REQUIRED
+            }
+        );
+    });
 }
 
 function pipeline_test() {

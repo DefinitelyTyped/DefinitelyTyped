@@ -1,4 +1,4 @@
-// Type definitions for Google Google Service User API v1 1.0
+// Type definitions for non-npm package Google Google Service User API v1 1.0
 // Project: https://cloud.google.com/service-management/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -993,7 +993,7 @@ declare namespace gapi.client {
             /**
              * Default number of tokens that can be consumed during the specified
              * duration. This is the number of tokens assigned when a client
-             * application developer activates the service for his/her project.
+             * application developer activates the service for their project.
              *
              * Specifying a value of 0 will block all requests. This can be used if you
              * are provisioning quota to selected consumers and blocking others.

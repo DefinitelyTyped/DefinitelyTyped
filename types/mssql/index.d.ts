@@ -1,19 +1,22 @@
-// Type definitions for mssql 4.0.5
+// Type definitions for mssql 6.0.0
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
-//                 Ben Farr <https://github.com/jaminfarr>
 //                 Vitor Buzinaro <https://github.com/buzinas>
 //                 Matt Richardson <https://github.com/mrrichar>
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 David Gasperoni <https://github.com/mcdado>
+//                 Jeff Wooden <https://github.com/woodenconsulting>
+//                 Cahil Foley <https://github.com/cahilfoley>
+//                 Rifa Achrinza <https://github.com/achrinza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.9
 
 /// <reference types="node" />
 
 
 import events = require('events');
+import tds = require('tedious');
 export interface ISqlType {
     type: ISqlTypeFactory;
 }
@@ -29,7 +32,7 @@ export interface ISqlTypeFactoryWithNoParams extends ISqlTypeFactory { (): ISqlT
 export interface ISqlTypeFactoryWithLength extends ISqlTypeFactory { (length?: number): ISqlTypeWithLength }
 export interface ISqlTypeFactoryWithScale extends ISqlTypeFactory { (scale?: number): ISqlTypeWithScale }
 export interface ISqlTypeFactoryWithPrecisionScale extends ISqlTypeFactory { (precision?: number, scale?: number): ISqlTypeWithPrecisionScale; }
-export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory { (tvpType: any): ISqlTypeWithTvpType }
+export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory { (tvpType?: any): ISqlTypeWithTvpType }
 
 
 export declare var VarChar: ISqlTypeFactoryWithLength;
@@ -120,6 +123,12 @@ export interface IColumnMetadata {
         length: number;
         type: (() => ISqlType) | ISqlType;
         udt?: any;
+        scale?: number;
+        precision?: number;
+        nullable: boolean;
+        caseSensitive: boolean;
+        identity: boolean;
+        readOnly: boolean;
     }
 }
 export interface IResult<T> {
@@ -128,12 +137,17 @@ export interface IResult<T> {
     rowsAffected: number[],
     output: { [key: string]: any };
 }
+
+export interface IBulkResult {
+    rowsAffected: number;
+}
+
 export interface IProcedureResult<T> extends IResult<T> {
     returnValue: any;
 }
 export interface IRecordSet<T> extends Array<T> {
     columns: IColumnMetadata;
-    toTable(): Table;
+    toTable(name?: string): Table;
 }
 
 type IIsolationLevel = number;
@@ -146,14 +160,13 @@ export declare var ISOLATION_LEVEL: {
     SNAPSHOT: IIsolationLevel
 }
 
-export interface IOptions {
-    encrypt?: boolean;
+export interface IOptions extends tds.ConnectionOptions {
+    beforeConnect?: void;
+    connectionString?: string;
+    enableArithAbort?: boolean;
     instanceName?: string;
-    useUTC?: boolean;
-    tdsVersion?: string;
-    appName?: string;
-    abortTransactionOnError?: boolean;
     trustedConnection?: boolean;
+    useUTC?: boolean;
 }
 
 export interface IPool {
@@ -188,6 +201,11 @@ export interface config {
     parseJSON?: boolean;
     options?: IOptions;
     pool?: IPool;
+    /**
+     * Invoked before opening the connection. The parameter conn is the configured
+     * tedious Connection. It can be used for attaching event handlers.
+     */
+    beforeConnect?: (conn: tds.Connection) => void
 }
 
 export declare class ConnectionPool extends events.EventEmitter {
@@ -196,7 +214,16 @@ export declare class ConnectionPool extends events.EventEmitter {
     public driver: string;
     public constructor(config: config, callback?: (err?: any) => void);
     public constructor(connectionString: string, callback?: (err?: any) => void);
+    public query(command: string): Promise<IResult<any>>;
     public query(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+    public query<Entity>(command: string): Promise<IResult<Entity>>;
+    public query<Entity>(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
+    public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
+    public batch(batch: string): Promise<IResult<any>>;
+    public batch(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+    public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;
+    public batch<Entity>(batch: string): Promise<IResult<Entity>>;
+    public batch<Entity>(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
     public connect(): Promise<ConnectionPool>;
     public connect(callback: (err: any) => void): void;
     public close(): Promise<void>;
@@ -215,6 +242,9 @@ export declare class ConnectionError implements Error {
 export interface IColumnOptions {
     nullable?: boolean;
     primary?: boolean;
+    identity?: boolean;
+    readOnly?: boolean;
+    length?: number
 }
 
 export interface IColumn extends ISqlType {
@@ -223,13 +253,13 @@ export interface IColumn extends ISqlType {
     primary: boolean;
 }
 
-declare class columns extends Array {
+declare class columns extends Array<IColumn> {
     public add(name: string, type: (() => ISqlType) | ISqlType, options?: IColumnOptions): number;
 }
 
 type IRow = (string | number | boolean | Date | Buffer | undefined)[];
 
-declare class rows extends Array {
+declare class rows extends Array<IRow> {
     public add(...row: IRow): number;
 }
 
@@ -238,6 +268,11 @@ export declare class Table {
     public columns: columns;
     public rows: rows;
     public constructor(tableName?: string);
+    public schema?: string;
+    public database?: string;
+    public name?: string;
+    public path?: string;
+    public temporary?: boolean;
 }
 
 interface IRequestParameters {
@@ -251,6 +286,20 @@ interface IRequestParameters {
         precision: number;
         tvpType: any;
     }
+}
+
+/**
+ * Options object to be passed through to driver (currently tedious only)
+ */
+export interface IBulkOptions {
+    /** Honors constraints during bulk load, using T-SQL CHECK_CONSTRAINTS. (default: false) */
+    checkConstraints?: boolean;
+    /** Honors insert triggers during bulk load, using the T-SQL FIRE_TRIGGERS. (default: false) */
+    fireTriggers?: boolean;
+    /** Honors null value passed, ignores the default values set on table, using T-SQL KEEP_NULLS. (default: false) */
+    keepNulls?: boolean;
+    /** Places a bulk update(BU) lock on table while performing bulk load, using T-SQL TABLOCK. (default: false) */
+    tableLock?: boolean;
 }
 
 export declare class Request extends events.EventEmitter {
@@ -272,15 +321,23 @@ export declare class Request extends events.EventEmitter {
     public output(name: string, type: (() => ISqlType) | ISqlType, value?: any): Request;
     public pipe(stream: NodeJS.WritableStream): NodeJS.WritableStream;
     public query(command: string): Promise<IResult<any>>;
+    public query(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
     public query<Entity>(command: string): Promise<IResult<Entity>>;
+    public query<Entity>(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
     public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
     public batch(batch: string): Promise<IResult<any>>;
-    public batch<Entity>(batch: string): Promise<IResult<Entity>>;
+    public batch(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
     public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;
+    public batch<Entity>(batch: string): Promise<IResult<Entity>>;
+    public batch<Entity>(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
     public batch<Entity>(batch: string, callback: (err?: any, recordset?: IResult<Entity>) => void): void;
-    public bulk(table: Table): Promise<number>;
-    public bulk(table: Table, callback: (err: Error, rowCount: any) => void): void;
+    public bulk(table: Table): Promise<IBulkResult>;
+    public bulk(table: Table, options: IBulkOptions): Promise<IBulkResult>;
+    public bulk(table: Table, callback: (err: Error, result: IBulkResult) => void): void;
+    public bulk(table: Table, options: IBulkOptions, callback: (err: Error, result: IBulkResult) => void): void;
     public cancel(): void;
+    public pause(): boolean;
+    public resume(): boolean;
 }
 
 export declare class RequestError implements Error {
@@ -288,13 +345,24 @@ export declare class RequestError implements Error {
     public name: string;
     public message: string;
     public code: string;
+    public number?: number;
+    public state?: number;
+    public class?: number;
+    public lineNumber?: number;
+    public serverName?: string;
+    public procName?: string;
 }
 
 export declare class Transaction extends events.EventEmitter {
     public isolationLevel: IIsolationLevel;
     public constructor(connection?: ConnectionPool);
-    public begin(isolationLevel?: IIsolationLevel): Promise<void>;
-    public begin(isolationLevel?: IIsolationLevel, callback?: (err?: any) => void): void;
+    /**
+     * Begin a transaction.
+     * @param [isolationLevel] - Controls the locking and row versioning behavior of TSQL statements issued by a connection.
+     * @param [callback] A callback which is called after transaction has began, or an error has occurred. If omited, method returns Promise.
+     */
+    public begin(isolationLevel?: IIsolationLevel): Promise<Transaction>;
+    public begin(isolationLevel?: IIsolationLevel, callback?: (err?: ConnectionError | TransactionError) => void): Transaction;
     public commit(): Promise<void>;
     public commit(callback: (err?: any) => void): void;
     public rollback(): Promise<void>;

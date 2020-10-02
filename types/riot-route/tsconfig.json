@@ -20,8 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/index.d.ts",
-        "lib/tag.d.ts",
         "riot-route-tests.ts"
     ]
 }

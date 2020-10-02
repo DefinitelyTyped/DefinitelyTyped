@@ -20,4 +20,7 @@ gulp.src("test.css")
     .pipe(ghPages({push: false}));
 
 gulp.src("test.css")
+    .pipe(ghPages({ force: true }));
+
+gulp.src("test.css")
     .pipe(ghPages({message: "master"}));

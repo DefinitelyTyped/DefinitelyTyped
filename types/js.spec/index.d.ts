@@ -1,5 +1,5 @@
 // Type definitions for js.spec 1.0
-// Project: http://js-spec.online
+// Project: https://github.com/prayerslayer/js.spec
 // Definitions by: Matt Bishop <https://github.com/mattbishop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -61,7 +61,7 @@ export interface Problem {
     readonly path: string[];
 
     /**
-     * Pth to he Spec that applies.
+     * Path to the Spec that applies.
      */
     readonly via: string[];
 

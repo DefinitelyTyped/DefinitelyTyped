@@ -1,14 +1,61 @@
-// Type definitions for OpenFin API 37.0
+// Type definitions for non-npm package OpenFin API 51.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
 //                 Roma <https://github.com/whyn07m3>
 //                 Li Cui <https://github.com/licui3936>
+//                 Tomer Sharon <https://github.com/tomer-openfin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.6
 
-// based on v9.61.37.14
+// based on v16.83.51.26
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
+
+declare const fdc3: typeof import('./_v2/fdc3/main');
+
+/**
+ * When running within the OpenFin Runtime, and the `fdc3Api` flag in your manifest is set, your web applications will
+ * have access to the "fdc3" namespace without the need to include additional source files. You can treat the "fdc3"
+ * namespace as you would the "window", "navigator" or "document" objects.
+ */
+
+declare namespace fdc3 {
+    type AppChannel = import('./_v2/fdc3/main').AppChannel;
+    type AppDirIntent = import('./_v2/fdc3/main').AppDirIntent;
+    type AppId = import('./_v2/fdc3/main').AppId;
+    type AppImage = import('./_v2/fdc3/main').AppImage;
+    type AppIntent = import('./_v2/fdc3/main').AppIntent;
+    type AppName = import('./_v2/fdc3/main').AppName;
+    type Application = import('./_v2/fdc3/main').Application;
+    type ApplicationError = import('./_v2/fdc3/main').ApplicationError;
+    type Channel = import('./_v2/fdc3/contextChannels').Channel;
+    type ChannelBase = import('./_v2/fdc3/contextChannels').ChannelBase;
+    type ChannelChangedEvent = import('./_v2/fdc3/contextChannels').ChannelChangedEvent;
+    type ChannelContextListener = import('./_v2/fdc3/contextChannels').ChannelContextListener;
+    type ChannelError = import('./_v2/fdc3/main').ChannelError;
+    type ChannelId = import('./_v2/fdc3/contextChannels').ChannelId;
+    type ChannelWindowAddedEvent = import('./_v2/fdc3/contextChannels').ChannelWindowAddedEvent;
+    type ChannelWindowRemovedEvent = import('./_v2/fdc3/contextChannels').ChannelWindowRemovedEvent;
+    type ConnectionError = import('./_v2/fdc3/main').ConnectionError;
+    type ContactContext = import('./_v2/fdc3/main').ContactContext;
+    type Context = import('./_v2/fdc3/main').Context;
+    type ContextListener = import('./_v2/fdc3/main').ContextListener;
+    type DefaultChannel = import('./_v2/fdc3/main').DefaultChannel;
+    type DisplayMetadata = import('./_v2/fdc3/main').DisplayMetadata;
+    type FDC3Error = import('./_v2/fdc3/main').FDC3Error;
+    type Icon = import('./_v2/fdc3/main').Icon;
+    type InstrumentContext = import('./_v2/fdc3/main').InstrumentContext;
+    type IntentListener = import('./_v2/fdc3/main').IntentListener;
+    type IntentMetadata = import('./_v2/fdc3/main').IntentMetadata;
+    type IntentResolution = import('./_v2/fdc3/main').IntentResolution;
+    type Intents = import('./_v2/fdc3/main').Intents;
+    type Listener = import('./_v2/fdc3/main').Listener;
+    type NameValuePair = import('./_v2/fdc3/main').NameValuePair;
+    type OrganizationContext = import('./_v2/fdc3/main').OrganizationContext;
+    type ResolveError = import('./_v2/fdc3/main').ResolveError;
+    type SendContextError = import('./_v2/fdc3/main').SendContextError;
+    type SystemChannel = import('./_v2/fdc3/contextChannels').SystemChannel;
+}
 
 /**
  * JavaScript API
@@ -22,61 +69,100 @@
  *
  * Overview
  * When running within the OpenFin Runtime your web applications have access to the "fin" namespace and all the modules within the API
- * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "documennt" objects.
+ * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "document" objects.
  */
 declare namespace fin {
     var Application: import('./_v2/api/application/application').default;
     var Clipboard: import('./_v2/api/clipboard/clipboard').default;
     var ExternalApplication: import('./_v2/api/external-application/external-application').default
+    var ExternalWindow: import('./_v2/api/external-window/external-window').default;
     var Frame: import('./_v2/api/frame/frame').default;
     var GlobalHotkey: import('./_v2/api/global-hotkey/index').default;
     var InterApplicationBus: import('./_v2/api/interappbus/interappbus').default;
+    var Platform: import('./_v2/api/platform/platform').default;
+    var Layout: import('./_v2/api/platform/layout').default;
     var Notification: import('./_v2/api/notification/notification').default;
     var System: import('./_v2/api/system/system').default;
+    var View: import('./_v2/api/view/view').default;
     var Window: import('./_v2/api/window/window').default;
-
+    var me: import('./_v2/api/fin').default['me'];
     // v2 shapes
-    type Identity = import('./_v2/identity').Identity;
-    type LaunchInfo = import('./_v2/api/application/application').ApplicationInfo;
-    type ShortCutConfig = import('./_v2/api/application/application').ShortCutConfig;
-    type TrayInfo = import('./_v2/api/application/application').TrayInfo;
+    type applicationLogInfo = import('./_v2/api/application/application').LogInfo;
     type ApplicationOption = import('./_v2/api/application/applicationOption').ApplicationOption;
-    type ExternalApplicationInfo = import('./_v2/api/external-application/external-application').ExternalApplicationInfo;
     type ApplicationInfo = import('./_v2/api/system/application').ApplicationInfo;
+    type AppAssetInfo = import('./_v2/api/system/download-asset').AppAssetInfo;
+    type AppAssetRequest = import('./_v2/api/system/download-asset').AppAssetRequest;
+    type ApplySnapshotOptions = import('./_v2/shapes/Platform').ApplySnapshotOptions;
+    type AnchorType = import('./_v2/shapes/shapes').AnchorType
+    type Bounds = import('./_v2/shapes/shapes').Bounds;
+    type Channel = import('./_v2/api/interappbus/channel/index').Channel;
+    type ChannelClient = import('./_v2/api/interappbus/channel/client').ChannelClient;
     type ClearCacheOption = import('./_v2/api/system/clearCacheOption').ClearCacheOption;
     type CookieInfo = import('./_v2/api/system/cookie').CookieInfo;
     type CookieOption = import('./_v2/api/system/cookie').CookieOption;
-    type AppAssetInfo = import('./_v2/api/system/download-asset').AppAssetInfo;
-    type AppAssetRequest = import('./_v2/api/system/download-asset').AppAssetRequest;
-    type RuntimeDownloadOptions = import('./_v2/api/system/download-asset').RuntimeDownloadOptions;
-    type RuntimeDownloadProgress = import('./_v2/api/system/download-asset').RuntimeDownloadProgress;
+    type CrashReporterOption = import('./_v2/api/system/crashReporterOption').CrashReporterOption;
+    type ContextMenuSettings = import('./_v2/shapes/shapes').ContextMenuSettings;
     type DownloadPreloadInfo = import('./_v2/api/system/download-preload').DownloadPreloadInfo;
     type DownloadPreloadOption = import('./_v2/api/system/download-preload').DownloadPreloadOption;
+    type Entity = import('./_v2/api/system/entity').Entity;
     type EntityInfo = import('./_v2/api/system/entity').EntityInfo;
+    type ExternalApplicationInfo = import('./_v2/api/external-application/external-application').ExternalApplicationInfo;
+    type ExternalConnection = import('./_v2/api/system/external-process').ExternalConnection;
     type ExternalProcessRequestType = import('./_v2/api/system/external-process').ExternalProcessRequestType;
     type ExternalProcessInfo = import('./_v2/api/system/external-process').ExternalProcessInfo;
+    type FrameInfo = import('./_v2/api/window/window').FrameInfo;
+    type GetLogRequestType = import('./_v2/api/system/log').GetLogRequestType;
     type HostSpecs = import('./_v2/api/system/host-specs').HostSpecs;
+    type Identity = import('./_v2/identity').Identity;
+    type InstalledApps = import('./_v2/api/system/installedApps').InstalledApps;
+    type LaunchInfo = import('./_v2/api/application/application').ApplicationInfo;
     type LogInfo = import('./_v2/api/system/log').LogInfo;
     type MonitorInfo = import('./_v2/api/system/monitor').MonitorInfo;
+    type Opacity = import('./_v2/shapes/shapes').Opacity;
     type PointTopLeft = import('./_v2/api/system/point').PointTopLeft;
+    type Position = import('./_v2/shapes/shapes').Position;
+    type Platform = import('./_v2/api/platform/platform').Platform;
+    type ProxyConfig = import('./_v2/api/system/proxy').ProxyConfig;
+    type InitPlatformOptions = import('./_v2/shapes/Platform').InitPlatformOptions;
+    type Layout = import('./_v2/api/platform/layout').Layout;
+    type LogLevel = import('./_v2/api/system/log').LogLevel;
+    type PlatformOptions = import('./_v2/shapes/Platform').PlatformOptions;
     type ProcessInfo = import('./_v2/api/system/process').ProcessInfo;
     type ProxyInfo = import('./_v2/api/system/proxy').ProxyInfo;
     type RegistryInfo = import('./_v2/api/system/registry-info').RegistryInfo;
+    type RuntimeInfo = import('./_v2/api/system/runtime-info').RuntimeInfo;
     type RVMInfo = import('./_v2/api/system/rvm').RVMInfo;
+    type RvmLaunchOptions = import('./_v2/api/application/application').RvmLaunchOptions;
+    type RGB = import('./_v2/shapes/shapes').RGB;
+    type RuntimeDownloadOptions = import('./_v2/api/system/download-asset').RuntimeDownloadOptions;
+    type RuntimeDownloadProgress = import('./_v2/api/system/download-asset').RuntimeDownloadProgress;
+    type ServiceConfiguration = import('./_v2/api/system/external-process').ServiceConfiguration;
+    type ServiceIdentifier = import('./_v2/api/system/system').ServiceIdentifier;
+    type ShortCutConfig = import('./_v2/api/application/application').ShortCutConfig;
+    type Snapshot = import('./_v2/shapes/Platform').Snapshot;
+    type SystemWindowInfo = import('./_v2/api/system/window').WindowInfo;
+    type Size = import('./_v2/shapes/shapes').Size;
+    type TerminateExternalRequestType = import('./_v2/api/system/external-process').TerminateExternalRequestType;
+    type TrayInfo = import('./_v2/api/application/application').TrayInfo;
+    type Transition = import('./_v2/shapes/shapes').Transition;
+    type TransitionOptions = import('./_v2/shapes/shapes').TransitionOptions;
+    type TransitionBase = import('./_v2/shapes/shapes').TransitionBase;
+    type ViewCreationOptions = import('./_v2/api/view/view').ViewCreationOptions;
+    type View = import('./_v2/api/view/view').View;
+    type ViewOptions = import('./_v2/api/view/view').ViewOptions;
     type WindowDetail = import('./_v2/api/system/window').WindowDetail;
-    type WindowInfo = import('./_v2/api/system/window').WindowInfo;
-    type AnchorType = import('./_v2/api/window/anchor-type').AnchorType;
-    type Bounds = import('./_v2/api/window/bounds').default;
-    type Transition = import('./_v2/api/window/transition').Transition;
-    type TransitionOptions = import('./_v2/api/window/transition').TransitionOptions;
     type WindowOption = import('./_v2/api/window/windowOption').WindowOption;
-
+    type WindowInfo = import('./_v2/api/window/window').WindowInfo;
+    type _Window = import('./_v2/api/window/window')._Window;
+    type InitLayoutOptions = import('./_v2/api/platform/layout').InitLayoutOptions;
+    type PresetLayoutOptions = import('./_v2/api/platform/layout').PresetLayoutOptions;
     const desktop: OpenFinDesktop;
 
     interface OpenFinDesktop {
         main(f: () => any): void;
         Application: OpenFinApplicationStatic;
-        ExternalApp: OpenFinExternalApplicationStatic;
+        ExternalApplication: OpenFinExternalApplicationStatic;
+        GlobalHotkey: OpenFinGlobalHotkey;
         InterApplicationBus: OpenFinInterApplicationBus;
         Notification: OpenFinNotificationStatic;
         System: OpenFinSystem;
@@ -109,7 +195,7 @@ declare namespace fin {
 
     /**
      * Application
-     * An object representing an application.Allows the developer to create, execute, show / close an application as well as listen to application events.
+     * An object representing an application. Allows the developer to create, execute, show / close an application as well as listen to application events.
      */
     interface OpenFinApplication {
         /**
@@ -143,6 +229,10 @@ declare namespace fin {
          */
         getGroups(callback?: (groups: OpenFinWindow[][]) => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Retrieves information about the application.
+         */
+        getInfo(callback?: (info: LaunchInfo) => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Retrieves the JSON manifest that was used to create the application. Invokes the error callback if the application was not created from a manifest.
          */
         getManifest(callback?: (manifest: any) => void, errorCallback?: (reason: string) => void): void;
@@ -155,13 +245,13 @@ declare namespace fin {
          */
         getShortcuts(callback?: (config: ShortCutConfig) => void, errorCallback?: (reason: string) => void): void;
         /**
-         * Retrieves information about the application.
-         */
-        getInfo(callback?: (info: LaunchInfo) => void, errorCallback?: (reason: string) => void): void;
-        /**
          * Retrieves information about the system tray.
          */
         getTrayIconInfo(callback?: (trayInfo: TrayInfo) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Returns the current zoom level of the application.
+         */
+        getZoomLevel(callback?: (level: number) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Determines if the application is currently running.
          */
@@ -201,6 +291,14 @@ declare namespace fin {
          */
         scheduleRestart(callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Sends a message to the RVM to upload the application's logs. On success, an object containing logId is returned.
+         */
+        sendApplicationLog(callback?: (logInfo: applicationLogInfo) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Sets an associated username with that app for Application Log Management use
+         */
+        setAppLogUsername(username: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Sets new shortcut configuration for current application.
          * Application has to be launched with a manifest and has to have shortcut configuration (icon url, name, etc.) in its manifest to
          * be able to change shortcut states.
@@ -210,6 +308,11 @@ declare namespace fin {
          * Adds a customizable icon in the system tray and notifies the application when clicked.
          */
         setTrayIcon(iconUrl: string, listener: (clickInfo: TrayIconClickedEvent) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Sets the zoom level of the application. The original size is 0 and each increment above or below represents zooming 20%
+         * larger or smaller to default limits of 300% and 50% of original size, respectively.
+         */
+        setZoomLevel(level: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Closes the application by terminating its process.
          */
@@ -311,6 +414,45 @@ declare namespace fin {
             errorCallback?: (reason: string, error: ErrorInfo) => void): void;
     }
 
+   /**
+     * GlobalHotkey
+     * The Global Hotkey allows the registration and unregistration of given hotkeys at the OS level, meaning a Window/Application will receive the events regardless of focused state.
+     */
+    interface OpenFinGlobalHotkey {
+        /**
+         * Registers an event listener on the specified event.
+         */
+        addEventListener(
+            type: OpenFinGlobalHotkeyEventType,
+            listener: (event: GlobalHotkeyEvent) => void,
+            callback?: () => void,
+            errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+        /**
+         * Checks if a given hotkey has been registered
+         */
+        isRegistered(hotkey: string, callback?: (registered: boolean) => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+        /**
+         * Registers a global hotkey with the operating system.
+         */
+        register(hotkey: string, listener: () => void, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+        /**
+         * Removes a previously registered event listener from the specified event.
+         */
+        removeEventListener(
+            type: OpenFinGlobalHotkeyEventType,
+            listener: (event: GlobalHotkeyEvent) => void,
+            callback?: () => void,
+            errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+        /**
+         * Unregisters a global hotkey with the operating system.
+         */
+        unregister(hotkey: string, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+        /**
+         * Unregisters all global hotkeys for the current application.
+         */
+        unregisterAll(callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+    }
+
     /**
      * InterApplicationBus
      * A messaging bus that allows for pub/sub messaging between different applications.
@@ -390,7 +532,7 @@ declare namespace fin {
     /**
      * Notification
      * Notification represents a window on OpenFin Runtime which is shown briefly to the user on the bottom-right corner of the primary monitor.
-     * A notification is typically used to alert the user of some important event which requires his or her attention.
+     * A notification is typically used to alert the user of some important event which requires their attention.
      * Notifications are a child or your application that are controlled by the runtime.
      */
     interface OpenFinNotification {
@@ -515,19 +657,23 @@ declare namespace fin {
         /**
          * Retrieves an array of data (name, ids, bounds) for all application windows.
          */
-        getAllWindows(callback?: (windowInfoList: WindowInfo[]) => void, errorCallback?: (reason: string) => void): void;
+        getAllWindows(callback?: (windowInfoList: SystemWindowInfo[]) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Returns information about the app asset.
          */
         getAppAssetInfo(options: AppAssetRequest, callback?: (appAssetInfo: AppAssetInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Retrieves the command line argument string that started OpenFin Runtime.
+         */
+        getCommandLineArguments(callback?: (args: string) => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Get additional info of cookies.
          */
         getCookies(option: CookieOption, callback?: (info: CookieInfo[]) => void, errorCallback?: (reason: string) => void): void;
         /**
-         * Retrieves the command line argument string that started OpenFin Runtime.
+         * Get the current state of the crash reporter.
          */
-        getCommandLineArguments(callback?: (args: string) => void, errorCallback?: (reason: string) => void): void;
+        getCrashReporterState(callback?: (state: CrashReporterOption) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves the configuration object that started the OpenFin Runtime.
          */
@@ -553,6 +699,11 @@ declare namespace fin {
          */
         getHostSpecs(callback?: (info: HostSpecs) => void, errorCallback?: (reason: string) => void): void;
         /**
+         *
+         * Returns an array of version numbers of the runtimes installed. Requires RVM 5.2+
+         */
+        getInstalledRuntimes(): Promise<string[]>;
+        /**
          * Retrieves the contents of the log with the specified filename.
          */
         getLog(logFileName: string, callback?: (variable: string) => void, errorCallback?: (reason: string) => void): void;
@@ -560,6 +711,10 @@ declare namespace fin {
          * Retrieves an array containing information for each log file.
          */
         getLogList(callback?: (logInfoList: LogInfo[]) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Returns a unique identifier (UUID) provided by the machine.
+         */
+        getMachineId(callback?: (uuid: string) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves the minimum (inclusive) logging level that is currently being written to the logs.
          */
@@ -581,6 +736,10 @@ declare namespace fin {
          * Retrieves the Proxy settings.
          */
         getProxySettings(callback?: (proxy: ProxyInfo) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Returns information about the running Runtime in an object.
+         */
+        getRuntimeInfo(callback?: (rvmInfo: RuntimeInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Returns information about the running RVM in an object.
          */
@@ -646,17 +805,18 @@ declare namespace fin {
          */
         showDeveloperTools(uuid: string, name: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Start the crash reporter for the browser process if not already running.
+         * You can optionally specify `diagnosticMode` to have the logs sent to
+         * OpenFin on runtime close
+         */
+        startCrashReporter(options: CrashReporterOption, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Attempt to close an external process. The process will be terminated if it has not closed after the elapsed timeout in milliseconds.
          */
         terminateExternalProcess(
             processUuid: string,
             timeout: number,
             killTree: boolean,
-            callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
-            errorCallback?: (reason: string) => void): void;
-        terminateExternalProcess(
-            processUuid: string,
-            timeout: number,
             callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
             errorCallback?: (reason: string) => void): void;
         /**
@@ -733,13 +893,13 @@ declare namespace fin {
         addEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-					   | WindowAuthRequestedEvent
-					   | WindowBoundsEvent
-					   | WindowExternalProcessStartedEvent
-					   | WindowExternalProcessExited
-					   | WindowGroupChangedEvent
-					   | WindowHiddenEvent
-					   | Window_NavigationRejectedEvent) => void,
+                       | WindowAuthRequestedEvent
+                       | WindowBoundsEvent
+                       | WindowExternalProcessStartedEvent
+                       | WindowExternalProcessExited
+                       | WindowGroupChangedEvent
+                       | WindowHiddenEvent
+                       | Window_NavigationRejectedEvent) => void,
             callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Performs the specified window transitions
@@ -762,6 +922,11 @@ declare namespace fin {
          * @param Close will be prevented from closing when force is false and 'close-requested' has been subscribed to for application's main window.
          */
         close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Executes Javascript on the window, restricted to windows you own or windows owned by applications you have created.
+         * @param code JavaScript code to be executed on the window.
+         */
+        executeJavaScript(code: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Prevents a user from changing a window's size/position when using the window's frame.
          * 'disabled-frame-bounds-changing' is generated at the start of and during a user move/size operation.
@@ -787,6 +952,11 @@ declare namespace fin {
          */
         focus(callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Retrieves an array of frame info objects representing the main frame and any
+         * iframes that are currently on the page.
+         */
+        getAllFrames(callback?: (frames: FrameInfo[]) => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Gets the current bounds (top, left, width, height) of the window.
          */
         getBounds(callback?: (bounds: Bounds) => void, errorCallback?: (reason: string) => void): void;
@@ -795,6 +965,10 @@ declare namespace fin {
          * Please note that calling window is included in the result array.
          */
         getGroup(callback?: (group: OpenFinWindow[]) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Gets an information object for the window.
+         */
+        getInfo(callback?: (info: WindowInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Gets the current settings of the window.
          */
@@ -848,18 +1022,34 @@ declare namespace fin {
          */
         moveTo(left: number, top: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Navigates the window to a specified URL.
+         */
+        navigate(url: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Navigates the window back one page.
+         */
+        navigateBack(callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Navigates the window forward one page.
+         */
+        navigateForward(callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Reloads the window current page.
+         */
+        reload(ignoreCacheopt?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Removes a previously registered event listener from the specified event.
          */
         removeEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-					   | WindowAuthRequestedEvent
-					   | WindowBoundsEvent
-					   | WindowExternalProcessStartedEvent
-					   | WindowExternalProcessExited
-					   | WindowGroupChangedEvent
-					   | WindowHiddenEvent
-					   | Window_NavigationRejectedEvent) => void,
+                       | WindowAuthRequestedEvent
+                       | WindowBoundsEvent
+                       | WindowExternalProcessStartedEvent
+                       | WindowExternalProcessExited
+                       | WindowGroupChangedEvent
+                       | WindowHiddenEvent
+                       | Window_NavigationRejectedEvent) => void,
             callback?: () => void,
             errorCallback?: (reason: string) => void): void;
         /**
@@ -900,6 +1090,10 @@ declare namespace fin {
          */
         stopFlashing(callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Stops any current navigation the window is performing.
+         */
+        stopNavigation(callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Updates the window using the passed options
          */
         updateOptions(options: WindowOption, callback?: () => void, errorCallback?: (reason: string) => void): void;
@@ -923,7 +1117,6 @@ declare namespace fin {
 
         removeEventListener(type: string, listener: () => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
     }
-
     interface ApplicationBaseEvent {
         topic: string;
         type: OpenFinApplicationEventType;
@@ -975,6 +1168,21 @@ declare namespace fin {
         topic: string;
         type: OpenFinSystemEventType;
         uuid: string;
+    }
+
+    interface GlobalHotkeyEvent {
+        topic: string;
+        type: OpenFinGlobalHotkeyEventType;
+        /**
+         * The Identity that has just registered the hotkey
+         */
+        identity: {
+            name: string;
+            uuid: string;
+            parentFrame: string;
+            entityType: string;
+        },
+        hotkey: string;
     }
 
     interface DesktopIconClickedEvent {
@@ -1205,6 +1413,9 @@ declare namespace fin {
 
     type OpenFinExternalApplicationEventType = "connected"
         | "disconnected";
+
+    type OpenFinGlobalHotkeyEventType = "registered"
+        | "unregistered";
 
     type OpenFinSystemEventType = "application-closed"
         | "application-crashed"

@@ -23,7 +23,7 @@ declare namespace gsap {
         overwrite?: string | number;
 
         /**  A () => void that should be called when the animation has completed. */
-        onComplete?: () => void;
+        onComplete?: (...args: any[]) => void;
 
         /** An Array of parameters to pass the onComplete () => void */
         onCompleteParams?: any[];
@@ -39,7 +39,7 @@ declare namespace gsap {
         immediateRender?: boolean;
 
         /** A () => void that should be called when the tween has reached its beginning again from the reverse direction. */
-        onReverseComplete?: () => void;
+        onReverseComplete?: (...args: any[]) => void;
 
         /** An Array of parameters to pass the onReverseComplete () => void. */
         onReverseCompleteParams?: any[];
@@ -48,7 +48,7 @@ declare namespace gsap {
         onReverseCompleteScope?: {};
 
         /** A () => void that should be called when the tween begins (when its time changes from 0 to some other value which can happen more than once if the tween is restarted multiple times). */
-        onStart?: () => void;
+        onStart?: (...args: any[]) => void;
 
         /** An Array of parameters to pass the onStart () => void. */
         onStartParams?: any[];
@@ -57,7 +57,7 @@ declare namespace gsap {
         onStartScope?: {};
 
         /** A () => void that should be called every time the animation updates (on every frame while the animation is active). */
-        onUpdate?: () => void;
+        onUpdate?: (...args: any[]) => void;
 
         /** An Array of parameters to pass the onUpdate () => void. */
         onUpdateParams?: any[];
@@ -81,7 +81,7 @@ declare namespace gsap {
         lazy?: boolean;
 
         /** A () => void that should be called when the tween gets overwritten by another tween. */
-        onOverwrite?: () => void;
+        onOverwrite?: (...args: any[]) => void;
 
         /** If true atuomatically populates the css property for tween on DOM elements */
         autoCSS?: boolean;
@@ -95,7 +95,7 @@ declare namespace gsap {
 
         repeatDelay?: number;
 
-        onRepeat?: () => void;
+        onRepeat?: (...args: any[]) => void;
 
         onRepeatScope?: {};
     }

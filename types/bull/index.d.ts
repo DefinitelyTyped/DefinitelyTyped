@@ -1,10 +1,9 @@
-// Type definitions for bull 3.5
+// Type definitions for bull 3.14
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
-//                 Gabriel Terwesten <https://github.com/blaugold>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 David Koblas <https://github.com/koblas>
 //                 Bond Akinmade <https://github.com/bondz>
@@ -13,10 +12,17 @@
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Kjell-Morten Bratsberg Thorsen <https://github.com/kjellmorten>
 //                 Christian D. <https://github.com/pc-jedi>
+//                 Silas Rech <https://github.com/lenovouser>
+//                 DoYoung Ha <https://github.com/hados99>
+//                 Borys Kupar <https://github.com/borys-kupar>
+//                 Remko Klein <https://github.com/remko79>
+//                 Levi Bostian <https://github.com/levibostian>
+//                 Todd Dukart <https://github.com/tdukart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as Redis from "ioredis";
+import { EventEmitter } from "events";
 
 /**
  * This is the Queue constructor.
@@ -24,10 +30,12 @@ import * as Redis from "ioredis";
  * Everytime the same queue is instantiated it tries to process all the old jobs that may exist from a previous unfinished session.
  */
 declare const Bull: {
-  (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
-  new (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  new (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
+  /* tslint:disable:no-unnecessary-generics unified-signatures */
+  <T = any>(queueName: string, opts?: Bull.QueueOptions): Bull.Queue<T>;
+  <T = any>(queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue<T>;
+  new <T = any>(queueName: string, opts?: Bull.QueueOptions): Bull.Queue<T>;
+  new <T = any>(queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue<T>;
+  /* tslint:enable:no-unnecessary-generics unified-signatures */
 };
 
 declare namespace Bull {
@@ -36,19 +44,23 @@ declare namespace Bull {
     max: number;
     /** Per duration in milliseconds */
     duration: number;
+    /** When jobs get rate limited, they stay in the waiting queue and are not moved to the delayed queue */
+    bounceBack?: boolean;
+    /** Groups jobs with the specified key from the data object passed to the Queue#add ex. "network.handle" */
+    groupKey?: string;
   }
 
   interface QueueOptions {
     /**
      * Options passed directly to the `ioredis` constructor
      */
-    redis?: Redis.RedisOptions;
+    redis?: Redis.RedisOptions | string;
 
     /**
      * When specified, the `Queue` will use this function to create new `ioredis` client connections.
-     * This is useful if you want to re-use connections.
+     * This is useful if you want to re-use connections or connect to a Redis cluster.
      */
-    createClient?(type: 'client' | 'subscriber' | 'bclient', redisOpts?: Redis.RedisOptions): Redis.Redis;
+    createClient?(type: 'client' | 'subscriber' | 'bclient', redisOpts?: Redis.RedisOptions): Redis.Redis | Redis.Cluster;
 
     /**
      * Prefix to use for all redis keys
@@ -67,6 +79,11 @@ declare namespace Bull {
      * Key expiration time for job locks
      */
     lockDuration?: number;
+
+    /**
+     * Interval in milliseconds on which to acquire the job lock.
+     */
+    lockRenewTime?: number;
 
     /**
      * How often check for stalled jobs (use 0 for never checking)
@@ -106,6 +123,9 @@ declare namespace Bull {
 
   type JobId = number | string;
 
+  type ProcessCallbackFunction<T> = (job: Job<T>, done: DoneCallback) => void;
+  type ProcessPromiseFunction<T> = (job: Job<T>) => Promise<void>;
+
   interface Job<T = any> {
     id: JobId;
 
@@ -113,6 +133,11 @@ declare namespace Bull {
      * The custom data passed when the job was created
      */
     data: T;
+
+    /**
+     * Options of the job
+     */
+    opts: JobOptions;
 
     /**
      * How many attempts where made to run this job
@@ -130,9 +155,77 @@ declare namespace Bull {
     finishedOn?: number;
 
     /**
+     * Which queue this job was part of
+     */
+    queue: Queue<T>;
+
+    timestamp: number;
+
+    /**
+     * The named processor name
+     */
+    name: string;
+
+    /**
+     * The stacktrace for any errors
+     */
+    stacktrace: string[];
+
+    returnvalue: any;
+
+    failedReason?: string;
+
+    /**
+     * Get progress on a job
+     */
+    progress(): any;
+
+    /**
      * Report progress on a job
      */
     progress(value: any): Promise<void>;
+
+    /**
+     * Logs one row of log data.
+     *
+     * @param row String with log data to be logged.
+     */
+    log(row: string): Promise<any>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is completed
+     */
+    isCompleted(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is failed
+     */
+    isFailed(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is delayed
+     */
+    isDelayed(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is active
+     */
+    isActive(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is wait
+     */
+    isWaiting(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is paused
+     */
+    isPaused(): Promise<boolean>;
+
+    /**
+     * Returns a promise resolving to a boolean which, if true, current job's state is stuck
+     */
+    isStuck(): Promise<boolean>;
 
     /**
      * Returns a promise resolving to the current job's status.
@@ -145,7 +238,7 @@ declare namespace Bull {
     /**
      * Update a specific job's data. Promise resolves when the job has been updated.
      */
-    update(data: any): Promise<void>;
+    update(data: T): Promise<void>;
 
     /**
      * Removes a job from the queue and from any lists it may be included in.
@@ -175,7 +268,7 @@ declare namespace Bull {
      * Moves a job to the `completed` queue. Pulls a job from 'waiting' to 'active'
      * and returns a tuple containing the next jobs data and id. If no job is in the `waiting` queue, returns null.
      */
-    moveToCompleted(returnValue?: string, ignoreLock?: boolean): Promise<[any, JobId] | null>;
+    moveToCompleted(returnValue?: string, ignoreLock?: boolean, notFetch?: boolean): Promise<[any, JobId] | null>;
 
     /**
      * Moves a job to the `failed` queue. Pulls a job from 'waiting' to 'active'
@@ -202,10 +295,29 @@ declare namespace Bull {
      * Takes a lock for this job so that no other queue worker can process it at the same time.
      */
     takeLock(): Promise<number | false>;
+
+    /**
+     * Get job properties as Json Object
+     */
+    toJSON(): {
+      id: JobId,
+      name: string,
+      data: T,
+      opts: JobOptions,
+      progress: number,
+      delay: number,
+      timestamp: number,
+      attemptsMade: number,
+      failedReason: any,
+      stacktrace: string[] | null,
+      returnvalue: any,
+      finishedOn: number | null,
+      processedOn: number | null
+    };
   }
 
-  type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
-  type JobStatusClean = 'completed' | 'wait' | 'active' | 'delayed' | 'failed';
+    type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed' | 'paused';
+    type JobStatusClean = 'completed' | 'wait' | 'active' | 'delayed' | 'failed' | 'paused';
 
   interface BackoffOptions {
     /**
@@ -305,20 +417,27 @@ declare namespace Bull {
 
     /**
      * A boolean which, if true, removes the job when it successfully completes.
-     * Default behavior is to keep the job in the completed set.
+     * When a number, it specifies the amount of jobs to keep.
+     * Default behavior is to keep the job in the failed set.
      */
-    removeOnComplete?: boolean;
+    removeOnComplete?: boolean | number;
 
     /**
-     * A boolean which, if true, removes the job when it fails after all attempts
+     * A boolean which, if true, removes the job when it fails after all attempts.
+     * When a number, it specifies the amount of jobs to keep.
      * Default behavior is to keep the job in the completed set.
      */
-    removeOnFail?: boolean;
+    removeOnFail?: boolean | number;
 
     /**
      * Limits the amount of stack trace lines that will be recorded in the stacktrace.
      */
     stackTraceLimit?: number;
+
+    /**
+     * Prevents JSON data from being parsed.
+     */
+    preventParsingData?: boolean;
   }
 
   interface JobCounts {
@@ -336,16 +455,29 @@ declare namespace Bull {
     endDate?: number;
     tz?: string;
     cron: string;
+    every: number;
     next: number;
   }
 
-  interface Queue<T = any> {
+  interface Queue<T = any> extends EventEmitter {
+    /**
+     * The name of the queue
+     */
+    name: string;
+
+    /**
+     * Queue client (used to add jobs, pause queues, etc);
+     */
+    client: Redis.Redis;
+
     /**
      * Returns a promise that resolves when Redis is connected and the queue is ready to accept jobs.
      * This replaces the `ready` event emitted on Queue in previous verisons.
      */
     isReady(): Promise<this>;
 
+    /* tslint:disable:unified-signatures */
+
     /**
      * Defines a processing function for the jobs placed into a given Queue.
      *
@@ -363,7 +495,9 @@ declare namespace Bull {
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
      * If it is resolved, its value will be the "completed" event's second argument.
      */
-    process(callback: ((job: Job<T>, done: DoneCallback) => void) | ((job: Job<T>) => Promise<any>) | string): void;
+    process(callback: ProcessCallbackFunction<T>): Promise<void>;
+    process(callback: ProcessPromiseFunction<T>): Promise<void>;
+    process(callback: string): Promise<void>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -384,7 +518,9 @@ declare namespace Bull {
      *
      * @param concurrency Bull will then call your handler in parallel respecting this maximum value.
      */
-    process(concurrency: number, callback: ((job: Job<T>, done: DoneCallback) => void) | ((job: Job<T>) => Promise<any>) | string): void;
+    process(concurrency: number, callback: ProcessCallbackFunction<T>): Promise<void>;
+    process(concurrency: number, callback: ProcessPromiseFunction<T>): Promise<void>;
+    process(concurrency: number, callback: string): Promise<void>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -405,8 +541,9 @@ declare namespace Bull {
      *
      * @param name Bull will only call the handler if the job name matches
      */
-    // tslint:disable-next-line:unified-signatures
-    process(name: string, callback: ((job: Job<T>, done: DoneCallback) => void) | ((job: Job<T>) => Promise<any>) | string): void;
+    process(name: string, callback: ProcessCallbackFunction<T>): Promise<void>;
+    process(name: string, callback: ProcessPromiseFunction<T>): Promise<void>;
+    process(name: string, callback: string): Promise<void>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -428,7 +565,11 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      * @param concurrency Bull will then call your handler in parallel respecting this maximum value.
      */
-    process(name: string, concurrency: number, callback: ((job: Job<T>, done: DoneCallback) => void) | ((job: Job<T>) => Promise<any>) | string): void;
+    process(name: string, concurrency: number, callback: ProcessCallbackFunction<T>): Promise<void>;
+    process(name: string, concurrency: number, callback: ProcessPromiseFunction<T>): Promise<void>;
+    process(name: string, concurrency: number, callback: string): Promise<void>;
+
+    /* tslint:enable:unified-signatures */
 
     /**
      * Creates a new job and adds it to the queue.
@@ -445,6 +586,13 @@ declare namespace Bull {
     add(name: string, data: T, opts?: JobOptions): Promise<Job<T>>;
 
     /**
+     * Adds an array of jobs to the queue.
+     * If the queue is empty the jobs will be executed directly,
+     * otherwise they will be placed in the queue and executed as soon as possible.
+     */
+    addBulk(jobs: Array<{name?: string, data: T, opts?: JobOptions}>): Promise<Array<Job<T>>>;
+
+    /**
      * Returns a promise that resolves when the queue is paused.
      *
      * A paused queue will not process new jobs until resumed, but current jobs being processed will continue until
@@ -452,9 +600,12 @@ declare namespace Bull {
      * for a given queue will be paused. If local, just this worker will stop processing new jobs after the current
      * lock expires. This can be useful to stop a worker from taking new jobs prior to shutting down.
      *
+     * If doNotWaitActive is true, pause will not wait for any active jobs to finish before resolving. Otherwise, pause
+     * will wait for active jobs to finish. See Queue#whenCurrentJobsFinished for more information.
+     *
      * Pausing a queue that is already paused does nothing.
      */
-    pause(isLocal?: boolean): Promise<void>;
+    pause(isLocal?: boolean, doNotWaitActive?: boolean): Promise<void>;
 
     /**
      * Returns a promise that resolves when the queue is resumed after being paused.
@@ -485,7 +636,7 @@ declare namespace Bull {
      * `close` can be called from anywhere, with one caveat:
      * if called from within a job handler the queue won't close until after the job has been processed
      */
-    close(): Promise<void>;
+    close(doNotWaitJobs?: boolean): Promise<void>;
 
     /**
      * Returns a promise that will return the job instance associated with the jobId parameter.
@@ -544,15 +695,31 @@ declare namespace Bull {
     removeRepeatable(name: string, repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
 
     /**
-     * Returns a promise that will return an array of job instances of the given types.
+     * Removes a given repeatable job by key.
+     */
+    removeRepeatableByKey(key: string): Promise<void>;
+
+    /**
+     * Returns a promise that will return an array of job instances of the given job statuses.
      * Optional parameters for range and ordering are provided.
      */
-    getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Job[]>;
+    getJobs(types: JobStatus[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
+
+    /**
+     * Returns a object with the logs according to the start and end arguments. The returned count
+     * value is the total amount of logs, useful for implementing pagination.
+     */
+    getJobLogs(jobId: string, start?: number, end?: number): Promise<{ logs: string[], count: number }>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.
      */
     getJobCounts(): Promise<JobCounts>;
+
+    /**
+     * Returns a promise that resolves with the job counts for the given queue of the given job statuses.
+     */
+    getJobCountByTypes(types: JobStatus[] | JobStatus): Promise<JobCounts>;
 
     /**
      * Returns a promise that resolves with the quantity of completed jobs.
@@ -597,6 +764,16 @@ declare namespace Bull {
      * @param limit Maximum amount of jobs to clean per call. If not provided will clean all matching jobs.
      */
     clean(grace: number, status?: JobStatusClean, limit?: number): Promise<Array<Job<T>>>;
+
+    /**
+     * Returns a promise that marks the start of a transaction block.
+     */
+    multi(): Redis.Pipeline;
+
+    /**
+     * Returns the queue specific key.
+     */
+    toKey(queueType: string): string;
 
     /**
      * Listens to queue events
@@ -667,6 +844,49 @@ declare namespace Bull {
      * (even if there can be some delayed jobs not yet processed)
      */
     on(event: 'drained', callback: EventCallback): this; // tslint:disable-line unified-signatures
+
+    /**
+     * Array of Redis clients the queue uses
+     */
+    clients: Redis.Redis[];
+
+    /**
+     * Set clientName to Redis.client
+     */
+    setWorkerName(): Promise<any>;
+
+    /**
+     * Returns Redis clients array which belongs to current Queue
+     */
+    getWorkers(): Promise<Redis.Redis[]>;
+
+    /**
+     * Returns Queue name in base64 encoded format
+     */
+    base64Name(): string;
+
+    /**
+     * Returns Queue name with keyPrefix (default: 'bull')
+     */
+    clientName(): string;
+
+    /**
+     * Returns Redis clients array which belongs to current Queue from string with all redis clients
+     *
+     * @param list String with all redis clients
+     */
+    parseClientList(list: string): Redis.Redis[];
+
+    /**
+     * Returns a promise that resolves when active jobs are finished
+     */
+    whenCurrentJobsFinished(): Promise<void>;
+
+    /**
+     * Removes all the jobs which jobId matches the given pattern. The pattern must follow redis glob-style pattern
+     * (syntax)[redis.io/commands/keys]
+     */
+    removeJobs(pattern: string): Promise<void>;
   }
 
   type EventCallback = () => void;

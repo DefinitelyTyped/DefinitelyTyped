@@ -149,7 +149,7 @@ declare namespace request {
         maxRedirects?: number;
         removeRefererHeader?: boolean;
         encoding?: string | null;
-        pool?: any;
+        pool?: PoolOptions;
         timeout?: number;
         localAddress?: string;
         proxy?: any;
@@ -183,6 +183,8 @@ declare namespace request {
     type OptionsWithUrl = UrlOptions & CoreOptions;
     type Options = OptionsWithUri | OptionsWithUrl;
 
+    type MultipartBody = string | Buffer | ArrayBuffer | Uint8Array;
+
     type RequestCallback = (error: any, response: Response, body: any) => void;
 
     interface HttpArchiveRequest {
@@ -195,6 +197,12 @@ declare namespace request {
         };
     }
 
+    interface ExtraPoolOptions {
+        maxSockets?: number;
+    }
+
+    type PoolOptions = false | { [key: string]: http.Agent | https.Agent } & ExtraPoolOptions | ExtraPoolOptions;
+
     interface NameValuePair {
         name: string;
         value: string;
@@ -204,7 +212,7 @@ declare namespace request {
         chunked?: boolean;
         data?: Array<{
             'content-type'?: string,
-            body: string
+            body: MultipartBody
         }>;
     }
 
@@ -278,7 +286,7 @@ declare namespace request {
         // set in `Request.prototype.init`
         headers: Headers;
         method: string;
-        pool: false | { [key: string]: http.Agent | https.Agent };
+        pool: PoolOptions;
         dests: stream.Readable[];
         callback?: RequestCallback;
         uri: Url & { href: string, pathname: string };

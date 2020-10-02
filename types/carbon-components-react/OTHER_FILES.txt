@@ -1,0 +1,2 @@
+lib/components/AccordionItem/AccordionItem.d.ts
+lib/components/Notification/a11yIconWarningSolid.d.ts

@@ -292,7 +292,7 @@ declare module "hapi" {
         proxy(/**  an object including the same keys and restrictions defined by the route proxy handler options. */
             options: IProxyHandlerConfig): void;
         /** Redirects the client to the specified uri. Same as calling reply().redirect(uri).
-        he response flow control rules apply. */
+        The response flow control rules apply. */
         redirect(uri: string): ResponseRedirect;
     }
 

@@ -1,8 +1,9 @@
 // Type definitions for Giraffe
 // Project: https://github.com/barc/backbone.giraffe
 // Definitions by: Matt McCray <https://github.com/darthapo>
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="backbone" />
 /// <reference types="jquery" />
@@ -145,18 +146,12 @@ declare namespace Giraffe {
 
   namespace Contrib {
 
-    class Controller implements GiraffeObject, Backbone.Events {
-      on(eventName: string, callback?: (...args: any[]) => void, context?: any);
-      on(eventMap: Backbone.EventsHash);
+    class Controller extends Backbone.EventsMixin implements GiraffeObject, Backbone.Events {
+      /**
+       * Faulty overgeneralization of Backbone.Events.on, for historical
+       * reasons.
+       */
       on(eventName: any, callback?: any, context?: any)
-      off(eventName?: string, callback?: (...args: any[]) => void, context?: any)
-      trigger(eventName: string, ...args: any[])
-      bind(eventName: string, callback: (...args: any[]) => void, context?: any)
-      unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any)
-      once(events: string, callback: (...args: any[]) => void, context?: any): any;
-      listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
-      listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
-      stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
 
       app: App;
     }

@@ -7,7 +7,7 @@
 import { Middleware, Context } from 'koa';
 
 declare namespace KoaBouncer {
-    export class ValidatorError extends Error {
+    export class ValidationError extends Error {
         name: string;
         message: string;
         bouncer: {
@@ -30,10 +30,10 @@ declare namespace KoaBouncer {
         isNotIn(arr: any[], tip?: string): Validator
         isArray(tip?: string): Validator
         eq(otherVal: string, tip?: string): Validator
-        gt(otherVal: string, tip?: string): Validator
-        gte(otherVal: string, tip?: string): Validator
-        lt(otherVal: string, tip?: string): Validator
-        lte(otherVal: string, tip?: string): Validator
+        gt(otherVal: number, tip?: string): Validator
+        gte(otherVal: number, tip?: string): Validator
+        lt(otherVal: number, tip?: string): Validator
+        lte(otherVal: number, tip?: string): Validator
         isLength(min: number, max: number, tip?: string): Validator
         defaultTo(valueOrFunction: any): Validator
         isString(tip?: string): Validator

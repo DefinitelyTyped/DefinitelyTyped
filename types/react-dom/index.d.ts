@@ -1,12 +1,17 @@
-// Type definitions for React (react-dom) 16.0
-// Project: http://facebook.github.io/react/
+// Type definitions for React (react-dom) 16.9
+// Project: https://reactjs.org
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
 //                 Microsoft <https://microsoft.com>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Josh Rutherford <https://github.com/theruther4d>
+//                 Jessica Franco <https://github.com/Jessidhia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+// NOTE: Users of the `experimental` builds of React should add a reference
+// to 'react-dom/experimental' in their project. See experimental.d.ts's top comment
+// for reference and documentation on how exactly to do it.
 
 export as namespace ReactDOM;
 
@@ -16,8 +21,8 @@ import {
     DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
 
-export function findDOMNode(instance: ReactInstance): Element | null | Text;
-export function unmountComponentAtNode(container: Element): boolean;
+export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
+export function unmountComponentAtNode(container: Element | DocumentFragment): boolean;
 
 export function createPortal(children: ReactNode, container: Element, key?: null | string): ReactPortal;
 
@@ -51,50 +56,43 @@ export interface Renderer {
 
     <T extends Element>(
         element: DOMElement<DOMAttributes<T>, T>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): T;
 
     (
         element: Array<DOMElement<DOMAttributes<any>, any>>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): Element;
 
     (
         element: SFCElement<any> | Array<SFCElement<any>>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): void;
 
     <P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): T;
 
     (
         element: Array<CElement<any, Component<any, ComponentState>>>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): Component<any, ComponentState>;
 
     <P>(
         element: ReactElement<P>,
-        container: Element | null,
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): Component<P, ComponentState> | Element | void;
 
     (
-        element: Array<ReactElement<any>>,
-        container: Element | null,
+        element: ReactElement[],
+        container: Element | DocumentFragment | null,
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;
-
-    (
-        parentComponent: Component<any> | Array<Component<any>>,
-        element: SFCElement<any>,
-        container: Element,
-        callback?: () => void
-    ): void;
 }

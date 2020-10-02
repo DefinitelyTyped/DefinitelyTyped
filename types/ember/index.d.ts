@@ -1,5 +1,5 @@
-// Type definitions for Ember.js 3.0
-// Project: http://emberjs.com/
+// Type definitions for Ember.js 3.16
+// Project: https://emberjs.com/, https://github.com/emberjs/ember
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 bttf <https://github.com/bttf>
 //                 Derek Wickern <https://github.com/dwickern>
@@ -9,8 +9,10 @@
 //                 Alex LaFroscia <https://github.com/alexlafroscia>
 //                 Mike North <https://github.com/mike-north>
 //                 Bryan Crotaz <https://github.com/BryanCrotaz>
+//                 James C. Davis <https://github.com/jamescdavis>
+//                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 /// <reference types="jquery" />
 /// <reference types="ember__string" />
@@ -28,6 +30,7 @@
 /// <reference types="ember__application" />
 /// <reference types="ember__test" />
 /// <reference types="ember__service" />
+/// <reference types="ember__template" />
 
 import {
     Objectify, Fix, UnwrapComputedPropertySetters,
@@ -38,15 +41,17 @@ import {
     ComputedPropertyCallback,
     ObserverMethod
 } from '@ember/object/-private/types';
-import * as HandlebarsNamespace from 'handlebars';
+
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
 // the Ember namespace.
 import Rsvp from 'rsvp';
+
 import { TemplateFactory } from 'htmlbars-inline-precompile';
 
 import { Registry as ServiceRegistry } from '@ember/service';
 import { Registry as ControllerRegistry } from '@ember/controller';
 import * as EmberStringNs from '@ember/string';
+import * as EmberTemplateHandlebarsNs from '@ember/template/-private/handlebars';
 // tslint:disable-next-line:no-duplicate-imports
 import * as EmberServiceNs from '@ember/service';
 import * as EmberPolyfillsNs from '@ember/polyfills';
@@ -424,11 +429,12 @@ export namespace Ember {
         function K(): any;
         function createFrame(objec: any): any;
         function Exception(message: string): void;
-        const SafeString: typeof HandlebarsNamespace.SafeString;
+        class SafeString extends EmberTemplateHandlebarsNs.SafeString {}
         function parse(string: string): any;
         function print(ast: any): void;
         const logger: typeof Logger;
         function log(level: string, str: string): void;
+        function registerHelper(name: string, helper: any): void;
     }
     namespace String {
         const camelize: typeof EmberStringNs.camelize;
@@ -495,7 +501,6 @@ export namespace Ember {
     // TODO: replace with an es6 reexport when declare module 'ember' is removed
     /**
      * Copy properties from a source object to a target object.
-     * @deprecated Use Object.assign
      */
     const assign: typeof EmberPolyfillsNs.assign;
     /**

@@ -747,7 +747,7 @@ export namespace promise {
    *     generator's final result.
    * @throws {TypeError} If the given function is not a generator.
    */
-  function consume<T>(generatorFn: Function, opt_self?: any, ...var_args: any[]): Promise<T>;
+  function consume<T>(generatorFn: (...args: any[]) => T, opt_self?: any, ...var_args: any[]): Promise<T>;
 
   /**
    * Registers an observer on a promised {@code value}, returning a new promise
@@ -802,7 +802,7 @@ export namespace promise {
     constructor(opt_msg?: string);
   }
 
-  interface IThenable<T> {
+  interface IThenable<T> extends PromiseLike<T> {
     /**
      * Cancels the computation of this promise's value, rejecting the promise in
      * the process. This method is a no-op if the promise has already been
@@ -829,7 +829,7 @@ export namespace promise {
      *     resolved with the result of the invoked callback.
      * @template R
      */
-    then<R>(opt_callback?: (value: T) => R | IThenable<R>, opt_errback?: (error: any) => any): Promise<R>;
+    then<R>(opt_callback?: ((value: T) => R | PromiseLike<R>) | null, opt_errback?: (error: any) => any): Promise<R>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
@@ -1035,7 +1035,7 @@ export namespace promise {
      * @return A new promise which will be resolved
      *     with the result of the invoked callback.
      */
-    then<R>(opt_callback?: (value: T) => IThenable<R> | R, opt_errback?: (error: any) => any): Promise<R>;
+    then<R>(opt_callback?: ((value: T) => IThenable<R> | R) | null, opt_errback?: (error: any) => any): Promise<R>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
@@ -2119,7 +2119,7 @@ export class AlertPromise extends Alert implements promise.IThenable<Alert> {
    * @return A new promise which will be resolved
    *     with the result of the invoked callback.
    */
-  then(opt_callback?: Function, opt_errback?: Function): promise.Promise<any>;
+  then(opt_callback?: Function | null, opt_errback?: Function): promise.Promise<any>;
 
   /**
    * Registers a listener for when this promise is rejected. This is synonymous

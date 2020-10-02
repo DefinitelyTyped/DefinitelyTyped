@@ -1,4 +1,4 @@
-// Type definitions for joi 14.0
+// Type definitions for joi 14.3
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Laurence Dougal Myers <https://github.com/laurence-myers>
@@ -13,8 +13,8 @@
 //                 Rafael Kallis <https://github.com/rafaelkallis>
 //                 Conan Lai <https://github.com/aconanlai>
 //                 Peter Thorson <https://github.com/zaphoyd>
-//                 Will Garcia <https://github.com/thewillg>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Alejandro Fernandez Haro <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -110,9 +110,10 @@ export interface EmailOptions {
 
 export interface HexOptions {
     /**
-     * hex decoded representation must be byte aligned
+     * hex decoded representation must be byte aligned.
+     * @default false
      */
-    byteAligned: boolean;
+    byteAligned?: boolean;
 }
 
 export interface IpOptions {
@@ -207,8 +208,22 @@ export interface StringRegexOptions {
     invert?: boolean;
 }
 
+export interface ArrayUniqueOptions {
+    ignoreUndefined?: boolean;
+}
+
 export interface JoiObject {
     isJoi: boolean;
+}
+
+export interface ErrorOptions {
+    /**
+     * Boolean value indicating whether the error handler should be used for all errors or only for errors occurring
+     * on this property (`true` value).
+     * This concept only makes sense for `array` or `object` schemas as other values don't have children.
+     * @default false
+     */
+    self?: boolean;
 }
 
 export interface ValidationError extends Error, JoiObject {
@@ -265,6 +280,14 @@ export interface AnySchema extends JoiObject {
      */
     allow(...values: any[]): this;
     allow(values: any[]): this;
+
+    /**
+     * By default, some Joi methods to function properly need to rely on the Joi instance they are attached to because
+     * they use `this` internally.
+     * So `Joi.string()` works but if you extract the function from it and call `string()` it won't.
+     * `bind()` creates a new Joi instance where all the functions relying on `this` are bound to the Joi instance.
+     */
+    bind(): this;
 
     /**
      * Adds the provided values into the allowed whitelist and marks them as the only valid values allowed.
@@ -412,7 +435,7 @@ export interface AnySchema extends JoiObject {
      * override, that error will be returned and the override will be ignored (unless the `abortEarly`
      * option has been set to `false`).
      */
-    error(err: Error | ValidationErrorFunction): this;
+    error(err: Error | ValidationErrorFunction, options?: ErrorOptions): this;
 
     /**
      * Returns a plain object representing the schema's rules and properties
@@ -469,7 +492,6 @@ export interface BooleanSchema extends AnySchema {
     /**
      * Allows the values provided to truthy and falsy as well as the "true" and "false" default conversion
      * (when not in strict() mode) to be matched in a case insensitive manner.
-     * @param enabled
      */
     insensitive(enabled?: boolean): this;
 }
@@ -682,6 +704,12 @@ export interface SymbolSchema extends AnySchema {
 
 export interface ArraySchema extends AnySchema {
     /**
+     * Verifies that an assertion passes for at least one item in the array, where:
+     * `schema` - the validation rules required to satisfy the assertion. If the `schema` includes references, they are resolved against
+     * the array item being tested, not the value of the `ref` target.
+     */
+    has(schema: SchemaLike): this;
+    /**
      * Allow this array to be sparse.
      * enabled can be used with a falsy value to go back to the default behavior.
      */
@@ -737,7 +765,7 @@ export interface ArraySchema extends AnySchema {
      * Be aware that a deep equality is performed on elements of the array having a type of object,
      * a performance penalty is to be expected for this kind of operation.
      */
-    unique(comparator?: string): this;
+    unique(comparator?: string, options?: ArrayUniqueOptions): this;
     unique<T = any>(comparator?: (a: T, b: T) => boolean): this;
 }
 
@@ -768,6 +796,11 @@ export interface ObjectSchema extends AnySchema {
     length(limit: number): this;
 
     /**
+     * Requires the object to be a Joi schema instance.
+     */
+    schema(): this;
+
+    /**
      * Specify validation rules for unknown keys matching a pattern.
      *
      * @param pattern - a pattern that can be either a regular expression or a joi schema that will be tested against the unknown key names
@@ -796,6 +829,13 @@ export interface ObjectSchema extends AnySchema {
      */
     or(...peers: string[]): this;
     or(peers: string[]): this;
+
+    /**
+     * Defines an exclusive relationship between a set of keys where only one is allowed but none are required where:
+     * `peers` - the exclusive key names that must not appear together but where none are required.
+     */
+    oxor(...peers: string[]): this;
+    oxor(peers: string[]): this;
 
     /**
      * Defines an exclusive relationship between a set of keys. one of them is required but not at the same time where:

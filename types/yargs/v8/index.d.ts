@@ -3,7 +3,6 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jeff Kenney <https://github.com/jeffkenney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -14,7 +13,9 @@ declare namespace yargs {
     interface Argv {
         argv: Arguments;
         (args?: string[], cwd?: string): Arguments;
-        parse(args: string | string[], context?: object, parseCallback?: ParseCallback): Arguments;
+        parse(arg: string | ReadonlyArray<string>): Arguments;
+        parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback): Arguments;
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback): Arguments;
 
         reset(): Argv;
 
@@ -170,7 +171,7 @@ declare namespace yargs {
         count(key: string): Argv;
         count(keys: string[]): Argv;
 
-        fail(func: (msg: string, err: Error) => any): Argv;
+        fail(func: (msg: string, err: Error, yargs: Argv) => any): Argv;
 
         coerce<T, U>(key: string | string[], func: (arg: T) => U): Argv;
         coerce<T, U>(opts: { [key: string]: (arg: T) => U; }): Argv;

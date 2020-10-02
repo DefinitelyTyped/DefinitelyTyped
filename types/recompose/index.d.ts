@@ -46,7 +46,7 @@ declare module 'recompose' {
     export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
         <P extends TInjectedProps>(
             component: Component<P>
-        ): React.ComponentType<Omit<P, keyof TInjectedProps> & TNeedsProps>
+        ): React.ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps>
     }
 
     // Injects props and removes them from the prop requirements.
@@ -251,12 +251,16 @@ declare module 'recompose' {
     // lifecycle: https://github.com/acdlite/recompose/blob/master/docs/API.md#lifecycle
     interface ReactLifeCycleFunctions<TProps, TState, TInstance = {}> {
         componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        UNSAFE_componentWillMount?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>): void;
         componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
         componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps) => void;
+        UNSAFE_componentWillReceiveProps?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps): void;
         shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => boolean;
         componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => void;
+        UNSAFE_componentWillUpdate?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState): void;
         componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, prevProps: TProps, prevState: TState) => void;
         componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        componentDidCatch?:(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, error: Error, info: React.ErrorInfo) => void;
     }
 
     export function lifecycle<TProps, TState, TInstance = {}>(
@@ -269,7 +273,7 @@ declare module 'recompose' {
     // toRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
     export function toRenderProps<TInner, TOutter>(
         hoc: InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>
-    ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement<any> }>;
+    ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement }>;
 
     // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
     export function fromRenderProps<TInner, TOutter, TRenderProps = {}>(
@@ -283,7 +287,7 @@ declare module 'recompose' {
     // setStatic: https://github.com/acdlite/recompose/blob/master/docs/API.md#setStatic
     export function setStatic(
         key: string, value: any
-    ): <T extends Component>(component: T) => T;
+    ): <T extends Component<any>>(component: T) => T;
 
     // setPropTypes: https://github.com/acdlite/recompose/blob/master/docs/API.md#setPropTypes
     export function setPropTypes<P>(
@@ -293,7 +297,7 @@ declare module 'recompose' {
     // setDisplayName: https://github.com/acdlite/recompose/blob/master/docs/API.md#setDisplayName
     export function setDisplayName(
         displayName: string
-    ): <T extends Component>(component: T) => T;
+    ): <T extends Component<any>>(component: T) => T;
 
 
     // Utilities: https://github.com/acdlite/recompose/blob/master/docs/API.md#utilities
@@ -335,10 +339,10 @@ declare module 'recompose' {
         type: Component<any> | string,
         props?: Object,
         children?: React.ReactNode
-    ): React.ReactElement<any>;
+    ): React.ReactElement;
 
     // createEagerFactory: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEagerFactory
-    type componentFactory = (props?: Object, children?: React.ReactNode) => React.ReactElement<any>;
+    type componentFactory = (props?: Object, children?: React.ReactNode) => React.ReactElement;
     export function createEagerFactory(
         type: Component<any> | string
     ): componentFactory;
@@ -360,7 +364,8 @@ declare module 'recompose' {
 
     // hoistStatics: https://github.com/acdlite/recompose/blob/master/docs/API.md#hoistStatics
     export function hoistStatics<TProps>(
-        hoc: InferableComponentEnhancer<TProps>
+        hoc: InferableComponentEnhancer<TProps>,
+        blacklist?: {[key: string]: boolean}
     ): InferableComponentEnhancer<TProps>;
 
 

@@ -1,12 +1,12 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "max-line-length": false,
-        "no-empty-interface": false,
         "array-type": false,
-        "unified-signatures": false,
         "ban-types": false,
+        "max-line-length": false,
         "no-redundant-undefined": false,
-        "no-unnecessary-generics": false
+        "no-unnecessary-generics": false,
+        "npm-naming": false,
+        "unified-signatures": false
     }
 }

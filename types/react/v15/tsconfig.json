@@ -13,7 +13,8 @@
         ],
         "paths": {
             "react": ["react/v15"],
-            "react-dom": ["react-dom/v15"]
+            "react-dom": ["react-dom/v15"],
+            "react-dom/*": ["react-dom/v15/*"]
         },
         "noImplicitAny": true,
         "noImplicitThis": false,

@@ -1,5 +1,36 @@
 import * as Hls from 'hls.js';
 
+// How to write DTS tests: https://github.com/Microsoft/dtslint#write-tests
+const mockHTMLVideoElement: HTMLVideoElement = {}; // $ExpectError
+const mockHTMLAudioElement: HTMLAudioElement = {}; // $ExpectError
+const emptyObj = {};
+
+const hls = new Hls();
+hls.attachMedia(mockHTMLVideoElement);
+hls.attachMedia(mockHTMLAudioElement);
+hls.attachMedia(emptyObj); // $ExpectError
+
+hls.on(Hls.Events.MEDIA_ATTACHING, (event: typeof Hls.Events.MEDIA_ATTACHING, data: Hls.mediaAttachingData) => {
+    const mediaElement: HTMLMediaElement = data.media;
+    // HTMLAudioElement matches HTMLMediaElement
+    const audioElement: HTMLAudioElement = data.media;
+
+    let videoElement: HTMLVideoElement = data.media; // $ExpectError
+    if (data instanceof HTMLVideoElement) {
+        videoElement = data.media as HTMLVideoElement;
+    }
+});
+hls.on(Hls.Events.MEDIA_ATTACHED, (event: typeof Hls.Events.MEDIA_ATTACHED, data: Hls.mediaAttachedData) => {
+    const mediaElement: HTMLMediaElement = data.media;
+    // HTMLAudioElement matches HTMLMediaElement
+    const audioElement: HTMLAudioElement = data.media;
+
+    let videoElement: HTMLVideoElement = data.media; // $ExpectError
+    if (data instanceof HTMLVideoElement) {
+        videoElement = data.media as HTMLVideoElement;
+    }
+});
+
 function process(playlist: string) {
     return playlist;
 }
@@ -33,7 +64,11 @@ if (Hls.isSupported()) {
 
     const version: string = Hls.version;
     hls.loadSource('http://www.streambox.fr/playlists/test_001/stream.m3u8');
-    hls.attachMedia(video);
+    if (hls.media === undefined || hls.media === null) {
+        hls.attachMedia(video);
+    } else {
+        console.log('src: ', hls.media.src);
+    }
 
     hls.once(Hls.Events.MANIFEST_PARSED, (event: "hlsManifestParsed", data: Hls.manifestParsedData) => {
         video.play();

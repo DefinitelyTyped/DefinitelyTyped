@@ -18,6 +18,16 @@ function helmetTest() {
         action: 'deny'
       }
     }));
+    app.use(helmet({
+      featurePolicy: {
+        features: {
+          fullscreen: ["'self'"],
+          vibrate: ["'none'"],
+          payment: ['example.com'],
+          syncXhr: ["'none'"]
+        }
+      }
+    }))
 }
 
 /**
@@ -25,7 +35,7 @@ function helmetTest() {
  */
 function contentSecurityPolicyTest() {
     const emptyArray: string[] =  [];
-    const config: helmet.IHelmetContentSecurityPolicyConfiguration = {
+    const camelCasedConfig: helmet.IHelmetContentSecurityPolicyConfiguration = {
         directives: {
             baseUri: ['base.example.com'],
             blockAllMixedContent: true,
@@ -57,13 +67,45 @@ function contentSecurityPolicyTest() {
         setAllHeaders: false,
         disableAndroid: false
     };
+    const kebabCasedConfig: helmet.IHelmetContentSecurityPolicyConfiguration = {
+        directives: {
+            "base-uri": camelCasedConfig.directives.baseUri,
+            "block-all-mixed-content": camelCasedConfig.directives.blockAllMixedContent,
+            "child-src": camelCasedConfig.directives.childSrc,
+            "connect-src": camelCasedConfig.directives.connectSrc,
+            "default-src": camelCasedConfig.directives.defaultSrc,
+            "font-src": camelCasedConfig.directives.fontSrc,
+            "form-action": camelCasedConfig.directives.formAction,
+            "frame-ancestors": camelCasedConfig.directives.frameAncestors,
+            "frame-src": camelCasedConfig.directives.frameSrc,
+            "img-src": camelCasedConfig.directives.imgSrc,
+            "media-src": camelCasedConfig.directives.mediaSrc,
+            "manifest-src": camelCasedConfig.directives.manifestSrc,
+            "object-src": camelCasedConfig.directives.objectSrc,
+            "plugin-types": camelCasedConfig.directives.pluginTypes,
+            "prefetch-src": camelCasedConfig.directives.prefetchSrc,
+            "report-uri": camelCasedConfig.directives.reportUri,
+            "report-to": camelCasedConfig.directives.reportTo,
+            "require-sri-for": camelCasedConfig.directives.requireSriFor,
+            sandbox: camelCasedConfig.directives.sandbox, // quoting sandbox results in an unnecessary quoting error
+            "script-src": camelCasedConfig.directives.scriptSrc,
+            "style-src": camelCasedConfig.directives.styleSrc,
+            "upgrade-insecure-requests": camelCasedConfig.directives.upgradeInsecureRequests,
+            "worker-src": camelCasedConfig.directives.workerSrc
+        },
+        reportOnly: camelCasedConfig.reportOnly,
+        setAllHeaders: camelCasedConfig.setAllHeaders,
+        disableAndroid: camelCasedConfig.disableAndroid
+    };
 
     function reportUriCb(req: express.Request, res: express.Response) { return '/some-uri'; }
     function reportOnlyCb(req: express.Request, res: express.Response) { return false; }
-
-    app.use(helmet.contentSecurityPolicy());
-    app.use(helmet.contentSecurityPolicy({}));
-    app.use(helmet.contentSecurityPolicy(config));
+    app.use(helmet.contentSecurityPolicy({})); // $ExpectError
+    app.use(helmet.contentSecurityPolicy({ directives: {
+        imgSrc: ['self']
+    } }));
+    app.use(helmet.contentSecurityPolicy(camelCasedConfig));
+    app.use(helmet.contentSecurityPolicy(kebabCasedConfig));
     app.use(helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ["'self'"],
@@ -122,13 +164,20 @@ function hpkpTest() {
     app.use(helmet.hpkp({
         maxAge: 7776000000,
         sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+        includeSubDomains: false
+    }));
+
+    // Deprecated: Use includeSubDomains instead. (Uppercase "D")
+    app.use(helmet.hpkp({
+        maxAge: 7776000000,
+        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
         includeSubdomains: false
     }));
 
     app.use(helmet.hpkp({
         maxAge: 7776000000,
         sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        includeSubdomains: true
+        includeSubDomains: true
     }));
 
     app.use(helmet.hpkp({
@@ -162,6 +211,12 @@ function hstsTest() {
       maxAge: 7776000000,
     }));
 
+    app.use(helmet.hsts({
+      maxAge: 7776000000,
+      includeSubDomains: true
+    }));
+
+    // Deprecated: Use includeSubDomains instead. (Uppercase "D")
     app.use(helmet.hsts({
       maxAge: 7776000000,
       includeSubdomains: true
@@ -210,7 +265,8 @@ function noSniffTest() {
  * @summary Test for {@see helmet#referrerPolicy} function.
  */
 function referrerPolicyTest() {
-    app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
+    app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
+    app.use(helmet.referrerPolicy({ policy: ['no-referrer', 'origin', 'strict-origin', 'strict-origin-when-cross-origin'] }));
 }
 
 /**
@@ -231,3 +287,18 @@ function permittedCrossDomainPoliciesTest() {
     app.use(helmet.permittedCrossDomainPolicies({}));
     app.use(helmet.permittedCrossDomainPolicies({ permittedPolicies: 'none' }));
 }
+
+/**
+ * @summary Test for {@see helmet#featurePolicy} function.
+ */
+function featurePolicyTest() {
+  app.use(helmet.featurePolicy({
+    features: {
+      fullscreen: ["'self'"],
+      vibrate: ["'none'"],
+      payment: ['example.com'],
+      syncXhr: ["'none'"]
+    }
+  }));
+}
+

@@ -1,24 +1,25 @@
-// Type definitions for i18next-sprintf-postProcessor
+// Type definitions for i18next-sprintf-postprocessor 0.2
 // Project: https://github.com/i18next/i18next-sprintf-postProcessor
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 declare module "i18next-sprintf-postprocessor" {
-    import i18next = require("i18next");
+    import * as i18next from "i18next";
 
     module "i18next" {
-        interface I18n {
-          t(key: string, ...args: any[]): string;
+        interface TFunction {
+            (key: string, ...args: any[]): string;
         }
     }
-  
-    interface I18nextSprintfPostProcessor {
+
+    interface I18nextSprintfPostProcessor extends i18next.PostProcessorModule {
         name: string;
-        type: string;
+        type: "postProcessor";
         process(value: any, key: string, options: any): any;
         overloadTranslationOptionHandler(args: string[]): {
-          postProcess: "sprintf",
-          sprintf: string[]
+            postProcess: "sprintf",
+            sprintf: string[]
         };
     }
 

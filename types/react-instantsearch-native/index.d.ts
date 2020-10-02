@@ -1,7 +1,9 @@
-// Type definitions for react-instantsearch-native 5.3
-// Project: https://community.algolia.com/react-instantsearch
+// Type definitions for react-instantsearch-native 6.3
+// Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react, https://community.algolia.com/react-instantsearch
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
+//                 Haroen Viaene <https://github.com/haroenv>
+//                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -14,6 +16,9 @@ export { translatable } from 'react-instantsearch-core';
 
 // Widget
 export { Configure } from 'react-instantsearch-core';
+export { InstantSearch } from 'react-instantsearch-core';
+export { InstantSearchProps } from 'react-instantsearch-core';
+export { Index } from 'react-instantsearch-core';
 
 // Connectors
 export { connectAutoComplete } from 'react-instantsearch-core';
@@ -38,31 +43,3 @@ export { connectSortBy } from 'react-instantsearch-core';
 export { connectStateResults } from 'react-instantsearch-core';
 export { connectStats } from 'react-instantsearch-core';
 export { connectToggleRefinement } from 'react-instantsearch-core';
-
-// Native
-export interface InstantSearchProps {
-    apiKey: string;
-    appId: string;
-    indexName: string;
-
-    algoliaClient?: any;
-    searchClient?: any;
-    createURL?: (...args: any[]) => any;
-    searchState?: any;
-    refresh?: boolean;
-    onSearchStateChange?: (...args: any[]) => any;
-    onSearchParameters?: (...args: any[]) => any;
-    resultsState?: any;
-    root?: {
-        Root: string | ((...args: any[]) => any);
-        props: any;
-    };
-}
-/**
- * <InstantSearch> is the root component of all React InstantSearch implementations. It provides all the connected components (aka widgets) a means to interact with the searchState.
- *
- * https://community.algolia.com/react-instantsearch/widgets/%3CInstantSearch%3E.html
- */
-export class InstantSearch extends React.Component<InstantSearchProps> {}
-
-export class Index extends React.Component<any> {}

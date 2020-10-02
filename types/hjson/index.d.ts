@@ -1,6 +1,7 @@
 // Type definitions for hjson 2.4
-// Project: https://github.com/hjson/hjson-js
+// Project: https://github.com/hjson/hjson-js, http://hjson.org
 // Definitions by: Mark van Straten <https://github.com/crunchie84>
+//                 Ashik Meerankutty <https://github.com/ashikmeerankutty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface DeserializeOptions {
@@ -9,6 +10,10 @@ export interface DeserializeOptions {
    * you want to edit an hjson file and save it while preserving comments (default false)
    */
   keepWsc?: boolean;
+  /**
+   * Turn off legacy support for omitting root braces (defaults true)
+   */
+  legacyRoot?: boolean;
 }
 
 export interface SerializeOptions {

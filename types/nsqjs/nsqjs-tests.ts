@@ -11,6 +11,8 @@ reader.unpause();
 reader.isPaused();
 reader.close();
 
+reader.on('ready', () => {});
+reader.on('not_ready', () => {});
 reader.on('nsqd_connected', (host, port) => {});
 reader.on('nsqd_closed', (host, port) => {});
 reader.on('error', error => {});
@@ -44,6 +46,13 @@ writer.on('ready', () => {
     writer.publish('sample_topic', 'message');
     writer.publish('sample_topic', ['message 1', 'message 2']);
     writer.publish('sample_topic', 'message', error => {
+        if (error) { return; }
+        writer.close();
+    });
+
+    writer.deferPublish('sample_topic', 'message', 100);
+    writer.deferPublish('sample_topic', ['message 1', 'message 2'], 100);
+    writer.deferPublish('sample_topic', 'message', 1000, error => {
         if (error) { return; }
         writer.close();
     });
