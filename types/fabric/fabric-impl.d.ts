@@ -6400,7 +6400,7 @@ interface IUtilMisc {
         skewY: number;
         translateX: number;
         translateY: number;
-    }): Array<number>;
+    }): number[];
 
     /**
      * Returns string representation of function body
