@@ -5,14 +5,14 @@ export interface OptionTypeBase {
   [key: string]: any;
 }
 
-export type OptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<OptionType>;
+export type OptionsType<OptionType extends OptionTypeBase> = OptionType[];
 
 export interface GroupType<OptionType extends OptionTypeBase> {
   options: OptionsType<OptionType>;
   [key: string]: any;
 }
 
-export type GroupedOptionsType<OptionType extends OptionTypeBase> = ReadonlyArray<GroupType<OptionType>>;
+export type GroupedOptionsType<OptionType extends OptionTypeBase> = Array<GroupType<OptionType>>;
 
 export type ValueType<OptionType extends OptionTypeBase> = OptionType | OptionsType<OptionType> | null | undefined;
 
