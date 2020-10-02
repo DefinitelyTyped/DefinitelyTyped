@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "koa-session-tests.ts"
+        "koa-session-tests.ts",
+        "test/router-integration.ts"
     ]
 }
