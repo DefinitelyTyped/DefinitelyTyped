@@ -1,13 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "no-duplicate-imports": false,
-        "no-redundant-jsdoc": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false,
         "whitespace": false
     }

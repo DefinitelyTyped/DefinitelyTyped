@@ -1,14 +1,11 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
         "jsdoc-format": false,
-        "no-redundant-jsdoc": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
-        "prefer-method-signature": false,
         "space-before-function-paren": false,
         "triple-equals": false,
         "typedef-whitespace": false,
