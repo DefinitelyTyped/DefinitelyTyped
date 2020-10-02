@@ -1301,7 +1301,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
             pitch?: number;
         }
         | 'auto';
-        overlays?: CustomMarkerOverlay[] | PathOverlay[] | GeoJsonOverlay[];
+        overlays?: (CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay)[];
         highRes?: boolean;
         insertOverlayBeforeLayer?: string;
         attribution?: boolean;
@@ -1312,9 +1312,22 @@ declare module '@mapbox/mapbox-sdk/services/static' {
         marker: CustomMarker;
     }
 
+
     interface CustomMarker {
         coordinates: LngLatLike;
         url: string;
+    }
+
+    interface SimpleMarkerOverlay {
+        marker: SimpleMarker
+    }
+
+
+    interface SimpleMarker {
+        coordinates: LngLatLike;
+        label?: string;
+        color?: string;
+        size?: 'large' | 'small';
     }
 
     interface PathOverlay {
