@@ -1301,7 +1301,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
             pitch?: number;
         }
         | 'auto';
-        overlays?: (CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay)[];
+        overlays?: Array<CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay>;
         highRes?: boolean;
         insertOverlayBeforeLayer?: string;
         attribution?: boolean;
