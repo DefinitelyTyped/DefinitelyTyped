@@ -7,16 +7,15 @@ declare namespace google.maps {
     }
 
     interface DistanceMatrixRequest {
+        destinations?: Array<string | LatLng | LatLngLiteral | Place>;
+        origins?: Array<string | LatLng | LatLngLiteral | Place>;
+        travelMode?: TravelMode;
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destinations?: Array<string | LatLng | LatLngLiteral | Place>;
         drivingOptions?: DrivingOptions;
-        durationInTraffic?: boolean;
-        origins?: Array<string | LatLng | LatLngLiteral | Place>;
         region?: string;
         transitOptions?: TransitOptions;
-        travelMode?: TravelMode;
         unitSystem?: UnitSystem;
     }
 
