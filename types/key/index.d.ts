@@ -18,7 +18,7 @@ declare const key: {
 
     is(ref: Reference, keyCode: number): boolean;
 }
-export default key;
+export = key;
 
 interface Reference {
     name: string;
