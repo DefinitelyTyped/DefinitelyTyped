@@ -18,7 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "apple-mapkit-js-tests.ts",
+        "apple-mapkit-js-browser-tests.ts",
         "index.d.ts"
     ]
 }
