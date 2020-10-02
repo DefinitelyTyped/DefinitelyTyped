@@ -1497,7 +1497,7 @@ declare namespace Office {
      */
     interface RemoveHandlerOptions {
         /**
-         * The handler to be removed. If not specified all handlers for the specified event type are removed. The `BindingEventHandler` type is defined with `type BindingEventHandler = (eventArgs?: Office.BindingDataChangedEventArgs | Office.BindingSelectionChangedEventArgs) => any`.
+         * The handler to be removed. If a particular handler is not specified, then all handlers for the specified event type are removed. The `BindingEventHandler` type is defined with `type BindingEventHandler = (eventArgs?: Office.BindingDataChangedEventArgs | Office.BindingSelectionChangedEventArgs) => any`.
          */
         handler?: BindingEventHandler
         /**
