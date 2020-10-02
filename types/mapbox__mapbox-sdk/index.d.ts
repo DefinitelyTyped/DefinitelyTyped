@@ -1312,16 +1312,14 @@ declare module '@mapbox/mapbox-sdk/services/static' {
         marker: CustomMarker;
     }
 
-
     interface CustomMarker {
         coordinates: LngLatLike;
         url: string;
     }
 
     interface SimpleMarkerOverlay {
-        marker: SimpleMarker
+        marker: SimpleMarker;
     }
-
 
     interface SimpleMarker {
         coordinates: LngLatLike;

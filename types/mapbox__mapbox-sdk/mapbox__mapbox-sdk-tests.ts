@@ -100,4 +100,3 @@ staticMapService.getStaticImage({
         }
     ]
 });
-
