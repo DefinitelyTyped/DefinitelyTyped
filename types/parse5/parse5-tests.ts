@@ -1,4 +1,7 @@
 import * as parse5 from "parse5";
+import * as defaultTreeAdapter from "./lib/tree-adapters/default";
+
+const adapter: parse5.TreeAdapter = defaultTreeAdapter;
 
 // Shorthands
 // parse

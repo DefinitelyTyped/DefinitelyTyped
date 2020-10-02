@@ -6,7 +6,7 @@
 
 import * as parse5 from "parse5";
 
-export interface Node extends parse5.Node {
+export interface Node {
     /**
      * The type of the node. E.g. {@link Document} will have `type` equal to 'root'`.
      */
@@ -48,7 +48,7 @@ export interface ChildNode extends Node {
     parentNode: ParentNode;
 }
 
-export interface ParentNode extends parse5.ParentNode {
+export interface ParentNode extends Node {
     /**
      * Child nodes.
      */
@@ -67,7 +67,7 @@ export interface ParentNode extends parse5.ParentNode {
     lastChild: ChildNode;
 }
 
-export interface DocumentType extends parse5.DocumentType {
+export interface DocumentType extends Node {
     /**
      * The type of the node.
      */
@@ -94,7 +94,7 @@ export interface DocumentType extends parse5.DocumentType {
     "x-systemId": string;
 }
 
-export interface Document extends parse5.Document {
+export interface Document extends ParentNode {
     /**
      * The type of the node.
      */
@@ -109,7 +109,7 @@ export interface Document extends parse5.Document {
     "x-mode": parse5.DocumentMode;
 }
 
-export interface DocumentFragment extends parse5.DocumentFragment {
+export interface DocumentFragment extends ParentNode {
     /**
      * The type of the node.
      */
@@ -120,7 +120,7 @@ export interface DocumentFragment extends parse5.DocumentFragment {
     name: "root";
 }
 
-export interface Element extends parse5.Element {
+export interface Element extends ChildNode, ParentNode {
     /**
      * The name of the node. Equals to element {@link tagName}.
      */
@@ -151,7 +151,7 @@ export interface Element extends parse5.Element {
     sourceCodeLocation?: parse5.ElementLocation;
 }
 
-export interface CommentNode extends parse5.CommentNode {
+export interface CommentNode extends ChildNode {
     /**
      * The name of the node.
      */
@@ -170,7 +170,7 @@ export interface CommentNode extends parse5.CommentNode {
     sourceCodeLocation?: parse5.Location;
 }
 
-export interface TextNode extends parse5.TextNode {
+export interface TextNode extends ChildNode {
     /**
      * The name of the node.
      */

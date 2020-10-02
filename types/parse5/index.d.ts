@@ -565,7 +565,7 @@ export interface TreeAdapter {
  * console.log(document.childNodes[1].tagName); //> 'html'
  * ```
  */
-export function parse<T extends Document = Document>(html: string, options?: ParserOptions): T;
+export function parse(html: string, options?: ParserOptions): Document;
 
 /**
  * Parses an HTML fragment.
@@ -589,15 +589,15 @@ export function parse<T extends Document = Document>(html: string, options?: Par
  * console.log(trFragment.childNodes[0].childNodes[0].tagName); //> 'td'
  * ```
  */
-export function parseFragment<T extends DocumentFragment = DocumentFragment>(
+export function parseFragment(
     fragmentContext: Element,
     html: string,
     options?: ParserOptions
-): T;
-export function parseFragment<T extends DocumentFragment = DocumentFragment>(
+): DocumentFragment;
+export function parseFragment(
     html: string,
     options?: ParserOptions
-): T;
+): DocumentFragment;
 
 /**
  * Serializes an AST node to an HTML string.
