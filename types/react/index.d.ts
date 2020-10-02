@@ -2136,8 +2136,8 @@ declare namespace React {
         sizes?: string;
         type?: string;
         charSet?: string;
-        imagesrcset?: string;
-        imagesizes?: string;
+        imageSrcset?: string;
+        imageSizes?: string;
     }
 
     interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
