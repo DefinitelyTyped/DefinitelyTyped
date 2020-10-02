@@ -96,8 +96,13 @@ let record: Value = {
 <C.Button href="#foo" download="foo.txt" isSmall>
     Anchor Button
 </C.Button>;
+
 <C.Button autoFocus isDestructive isLarge isSecondary>
     Button Button
+</C.Button>;
+
+<C.Button showTooltip tooltipPosition="top center" label="A test label">
+    Tooltipped button
 </C.Button>;
 
 //
