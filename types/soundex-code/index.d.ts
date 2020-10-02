@@ -3,10 +3,9 @@
 // Definitions by: Darshan Sen <https://github.com/RaisinTen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'soundex-code' {
-    export = soundex;
-    function soundex(
-        value: string,
-        maxLength?: number | undefined
-    ): string;
-}
+// soundex-code/index.d.ts
+export = soundex;
+function soundex(
+    value: string,
+    maxLength?: number
+): string;
