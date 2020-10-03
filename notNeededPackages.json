@@ -3013,6 +3013,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "matrix-appservice-bridge",
+            "typingsPackageName": "matrix-appservice-bridge",
+            "sourceRepoURL": "https://github.com/matrix-org/matrix-appservice-bridge",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "maxmind",
             "typingsPackageName": "maxmind",
             "sourceRepoURL": "https://github.com/runk/node-maxmind",
