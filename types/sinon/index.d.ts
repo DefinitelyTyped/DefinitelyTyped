@@ -1188,9 +1188,18 @@ declare namespace Sinon {
         /**
          * Passes if spy was called with matching arguments.
          * This behaves the same way as sinon.assert.calledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
-         * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithMatch(spy.secondCall, arg1, arg2, ...);.
+         * It's possible to assert on a dedicated spy call: sinon.assert.calledWithMatch(spy.secondCall, arg1, arg2, ...);.
          */
         calledWithMatch<TArgs extends any[]>(
+            spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
+            ...args: TArgs
+        ): void;
+        /**
+         * Passes if spy was called once with matching arguments.
+         * This behaves the same way as calling both sinon.assert.calledOnce(spy) and
+         * sinon.assert.calledWithMatch(spy, ...).
+         */
+        calledOnceWithMatch<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
             ...args: TArgs
         ): void;
