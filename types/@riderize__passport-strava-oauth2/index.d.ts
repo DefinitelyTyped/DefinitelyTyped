@@ -1,4 +1,4 @@
-// Type definitions for @riderize__passport-strava-oauth2 1.1.1
+// Type definitions for @riderize__passport-strava-oauth2 1.1
 // Project: https://github.com/Riderize/passport-strava-oauth2
 // Definitions by: SEdilson <https://github.com/SEdilson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,10 +12,10 @@ export interface Profile extends passport.Profile {
     name: {
         familyName: string;
         givenName: string;
-    }
+    };
     photos?: Array<{
         value: string;
-    }>
+    }>;
     token?: string;
 
     _raw: string;
