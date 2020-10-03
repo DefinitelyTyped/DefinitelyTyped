@@ -19,6 +19,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@material/*": [
+                "material__*"
+            ]
+        }
     }
 }
