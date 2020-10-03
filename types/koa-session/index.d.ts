@@ -219,7 +219,7 @@ declare function session(CONFIG: Partial<session.opts>, app: Koa): Koa.Middlewar
 declare function session(app: Koa): Koa.Middleware;
 
 declare module "koa" {
-    interface Context {
+    interface BaseContext {
         session: session.Session | null;
         readonly sessionOptions: session.opts | undefined;
     }
