@@ -54,13 +54,17 @@ validOpts = { context: obj };
 validOpts = { noDefaults: bool };
 validOpts = {
     abortEarly: true,
-    errors: { wrapArrays: bool },
     messages: {
         'any.ref': str,
         'string.email': str
     },
     dateFormat: 'iso'
 };
+// Test various permutations of string, `false`, or `undefined` for both parameters:
+validOpts = { errors: { wrap: { label: str, array: str }}};
+validOpts = { errors: { wrap: { label: false, array: false }}};
+validOpts = { errors: { wrap: { label: str }}};
+validOpts = { errors: { wrap: { array: str }}};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -162,7 +166,7 @@ stringRegexOpts = { invert: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-declare const validErr: Joi.ValidationError;
+const validErr = new Joi.ValidationError("message", "details", "original");
 let validErrItem: Joi.ValidationErrorItem;
 let validErrFunc: Joi.ValidationErrorFunction;
 
@@ -204,6 +208,14 @@ validErrFunc = errors => {
 };
 
 Joi.any().error(validErrFunc);
+
+Joi.isError(validErr);
+
+const maybeValidErr = <any> new Joi.ValidationError("message", "details", "original");
+if (Joi.isError(maybeValidErr)) {
+    // isError is a type guard that allows accessing these properties:
+    maybeValidErr.isJoi;
+}
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -291,6 +303,13 @@ anySchema = Joi.any();
 
     anySchema = anySchema.default();
     anySchema = anySchema.default(x);
+    anySchema = anySchema.default("string");
+    anySchema = anySchema.default(3.14);
+    anySchema = anySchema.default(true);
+    anySchema = anySchema.default({ foo: "bar" });
+    anySchema = anySchema.default((parent, helpers) => {
+        return helpers.state;
+    });
 
     anySchema = anySchema.required();
     anySchema = anySchema.optional();
@@ -728,6 +747,7 @@ objSchema = objSchema.without(str, str);
 objSchema = objSchema.without(str, strArr);
 
 objSchema = objSchema.rename(str, str);
+objSchema = objSchema.rename(exp, str);
 objSchema = objSchema.rename(str, str, renOpts);
 
 objSchema = objSchema.assert(str, schema);
@@ -742,6 +762,8 @@ objSchema = objSchema.instance(func);
 objSchema = objSchema.instance(func, str);
 
 objSchema = objSchema.ref();
+
+objSchema = objSchema.regex();
 
 { // common
     objSchema = objSchema.allow(x);
@@ -1134,6 +1156,13 @@ schema = Joi.symbol().map(new Map<string, symbol>());
 schema = Joi.symbol().map({
     key: Symbol('asd'),
 });
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+const rule = Joi.string().case('upper').$_getRule('case');
+if (rule && rule.args) {
+    const direction = rule.args.direction;
+}
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

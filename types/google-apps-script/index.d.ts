@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/apps-script/
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
+//                 pierluigi-montagna <https://github.com/pierluigi-montagna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

@@ -121,6 +121,7 @@ declare namespace m {
         colorspace(space: ColorSpace | string): State;
         command(customCommand: string): State;
         compose(operator: ComposeOperator | string): State;
+        composite(changeImagePath: string, maskImagePath?: string): State;
         compress(type: CompressionType | string): State;
         contrast(multiplier: number): State;
         convolve(kernel: string): State;
@@ -233,6 +234,8 @@ declare namespace m {
         scale(width: number, height: number): State;
         screen(): State;
         segment(clustherThreshold: number, smoothingThreshold: number): State;
+        /** change the specified frame. */
+        selectFrame(frame: number): State;
         sepia(): State;
         set(attribute: string, value: string): State;
         setFormat(format: string): State;

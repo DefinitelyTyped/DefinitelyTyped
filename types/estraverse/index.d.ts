@@ -1,20 +1,171 @@
-// Type definitions for estraverse
+// Type definitions for estraverse 5.1
 // Project: https://github.com/estools/estraverse
 // Definitions by: Sanex3339 <https://github.com/sanex3339>
+//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as ESTree from 'estree';
 
-export interface Visitor {
-    enter?: (node: ESTree.Node, parentNode: ESTree.Node | null) => VisitorOption | ESTree.Node | void;
-    leave?: (node: ESTree.Node, parentNode: ESTree.Node | null) => VisitorOption | ESTree.Node | void;
+declare namespace ESTraverse {
+    const Syntax: Syntax;
 
-    fallback?: 'iteration'|((node: ESTree.Node) => string[]);
+    const VisitorKeys: VisitorKeys;
 
-    keys?: {[nodeType: string]: string[];};
+    enum VisitorOption {
+        Break,
+        Skip,
+        Remove,
+    }
+
+    class Controller {
+        /**
+         * Traverse the AST.
+         */
+        traverse(root: ESTree.Node, visitor: Visitor): void;
+
+        /**
+         * Traverse and replace the AST.
+         */
+        replace(root: ESTree.Node, visitor: Visitor): ESTree.Node;
+
+        /**
+         * The current node.
+         */
+        current(): ESTree.Node;
+
+        /**
+         * The type of current node.
+         */
+        type(): string;
+
+        /**
+         * Obtain the property paths array from root to the current node.
+         */
+        path(): Array<string | number> | null;
+
+        /**
+         * An array of parent elements.
+         */
+        parents(): ESTree.Node[];
+
+        /**
+         * Notify the controller to break the traversals, skip the child nodes of current node or remove the
+         * current node.
+         */
+        notify(flag: VisitorOption): void;
+
+        /**
+         * Break the traversals.
+         */
+        break(): void;
+
+        /**
+         * Skip the child nodes of current node.
+         */
+        skip(): void;
+
+        /**
+         * Remove the current node.
+         */
+        remove(): void;
+    }
+
+    function traverse(root: ESTree.Node, visitor: Visitor): void;
+
+    function replace(root: ESTree.Node, visitor: Visitor): ESTree.Node;
+
+    function attachComments(tree: ESTree.Node, providedComments: ESTree.Comment[], tokens: ESTree.Node[]): ESTree.Node;
+
+    function cloneEnvironment(): typeof ESTraverse;
+
+    type NodeType =
+        | "AssignmentExpression"
+        | "AssignmentPattern"
+        | "ArrayExpression"
+        | "ArrayPattern"
+        | "ArrowFunctionExpression"
+        | "AwaitExpression"
+        | "BlockStatement"
+        | "BinaryExpression"
+        | "BreakStatement"
+        | "CallExpression"
+        | "CatchClause"
+        | "ClassBody"
+        | "ClassDeclaration"
+        | "ClassExpression"
+        | "ComprehensionBlock"
+        | "ComprehensionExpression"
+        | "ConditionalExpression"
+        | "ContinueStatement"
+        | "DebuggerStatement"
+        | "DirectiveStatement"
+        | "DoWhileStatement"
+        | "EmptyStatement"
+        | "ExportAllDeclaration"
+        | "ExportDefaultDeclaration"
+        | "ExportNamedDeclaration"
+        | "ExportSpecifier"
+        | "ExpressionStatement"
+        | "ForStatement"
+        | "ForInStatement"
+        | "ForOfStatement"
+        | "FunctionDeclaration"
+        | "FunctionExpression"
+        | "GeneratorExpression"
+        | "Identifier"
+        | "IfStatement"
+        | "ImportExpression"
+        | "ImportDeclaration"
+        | "ImportDefaultSpecifier"
+        | "ImportNamespaceSpecifier"
+        | "ImportSpecifier"
+        | "Literal"
+        | "LabeledStatement"
+        | "LogicalExpression"
+        | "MemberExpression"
+        | "MetaProperty"
+        | "MethodDefinition"
+        | "ModuleSpecifier"
+        | "NewExpression"
+        | "ObjectExpression"
+        | "ObjectPattern"
+        | "Program"
+        | "Property"
+        | "RestElement"
+        | "ReturnStatement"
+        | "SequenceExpression"
+        | "SpreadElement"
+        | "Super"
+        | "SwitchStatement"
+        | "SwitchCase"
+        | "TaggedTemplateExpression"
+        | "TemplateElement"
+        | "TemplateLiteral"
+        | "ThisExpression"
+        | "ThrowStatement"
+        | "TryStatement"
+        | "UnaryExpression"
+        | "UpdateExpression"
+        | "VariableDeclaration"
+        | "VariableDeclarator"
+        | "WhileStatement"
+        | "WithStatement"
+        | "YieldExpression";
+
+    interface Syntax extends Record<NodeType, NodeType> {}
+
+    interface VisitorKeys extends Record<NodeType, string[]> {}
+
+    interface Visitor {
+        enter?: (this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void;
+
+        leave?: (this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void;
+
+        fallback?: 'iteration' | ((this: Controller, node: ESTree.Node) => string[]);
+
+        keys?: Record<string, string[]>;
+    }
 }
 
-export enum VisitorOption {Skip, Break, Remove}
-
-export function traverse(ast: ESTree.Node, visitor: Visitor): void;
-export function replace(ast: ESTree.Node, visitor: Visitor): ESTree.Node;
+// tslint:disable-next-line export-just-namespace
+export = ESTraverse;

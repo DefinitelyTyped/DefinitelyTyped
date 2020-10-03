@@ -1,3 +1,8 @@
+Is something wrong with CI or publishing infrastructure?
+
+- Check the [Infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317) thread for known issues.
+- Leave a message on the [DefinitelyTyped Gitter](http://gitter.im/DefinitelyTyped/DefinitelyTyped).
+
 If you know how to fix the issue, make a pull request instead.
 
 - [ ] I tried using the `@types/xxxx` package and had problems.

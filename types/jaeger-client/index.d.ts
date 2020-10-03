@@ -1,6 +1,8 @@
 // Type definitions for jaeger-client 3.15
 // Project: https://github.com/jaegertracing/jaeger-client-node#readme
-// Definitions by: jgeth <https://github.com/jgeth>, tsachis <https://github.com/tsachis>
+// Definitions by: jgeth <https://github.com/jgeth>
+//                 tsachis <https://github.com/tsachi>
+//                 MiLk <https://github.com/MiLk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -90,6 +92,7 @@ export interface Extractor {
 export class JaegerTracer extends opentracing.Tracer {
     registerInjector(format: string, injector: Injector): void;
     registerExtractor(format: string, extractor: Extractor): void;
+    close(callback?: () => void): void;
 }
 
 export function initTracer(

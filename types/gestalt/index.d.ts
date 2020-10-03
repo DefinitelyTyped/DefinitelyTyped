@@ -1,25 +1,33 @@
-// Type definitions for gestalt 1.15
+// Type definitions for gestalt 12.13
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
 //                 Calvin Chhour <https://github.com/calvinchhour>
 //                 Muhammed Hafiz <https://github.com/zifahm>
 //                 Kyle Hensel <https://github.com/k-yle>
+//                 Francisco Jimenez <https://github.com/jimenezff>
+//                 Charlie Gu <https://github.com/czgu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
 
+export type AbstractEventHandler<T extends React.SyntheticEvent<HTMLElement> | Event, U = {}> = (
+    arg: U & {
+        readonly event: T;
+    },
+) => void;
+
 /*
 Avatar Props Interface
-https://pinterest.github.io/gestalt/#/Avatar
+https://gestalt.netlify.app/Avatar
 */
 
 export interface AvatarProps {
     name: string;
-    icon?: 'check-circle' | 'pintrest';
+    accessibilityLabel?: string;
     outline?: boolean;
-    size?: 'sm' | 'md' | 'lg';
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fit';
     src?: string;
     verified?: boolean;
 }
@@ -28,8 +36,21 @@ export type UnsignedUpTo12 = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 1
 export type SignedUpTo12 = -12 | -11 | -10 | -9 | -8 | -7 | -6 | -5 | -4 | -3 | -2 | -1 | UnsignedUpTo12;
 
 /*
+AvatarPair Props Interface
+https://gestalt.netlify.app/AvatarPair
+*/
+
+export interface AvatarPairProps {
+    collaborators: ReadonlyArray<{
+        name: string;
+        src?: string;
+    }>;
+    size?: 'md' | 'lg' | 'fit';
+}
+
+/*
 Badge Props Interface
-https://pinterest.github.io/gestalt/#/Badge
+https://gestalt.netlify.app/Badge
 */
 
 export interface BadgeProps {
@@ -39,7 +60,7 @@ export interface BadgeProps {
 
 /*
 Box Props Interface
-https://pinterest.github.io/gestalt/#/Box
+https://gestalt.netlify.app/Box
 */
 
 export interface BoxProps {
@@ -140,36 +161,87 @@ export interface BoxProps {
     mdPaddingY?: UnsignedUpTo12;
     lgPaddingY?: UnsignedUpTo12;
     position?: 'static' | 'absolute' | 'relative' | 'fixed';
+    ref?: React.Ref<'div'>;
     right?: boolean;
+    role?: string;
     rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
     top?: boolean;
+    userSelect?: 'auto' | 'none';
     width?: number | string;
     wrap?: boolean;
+    zIndex?: {
+        index(): number;
+    };
 }
 
 /*
 Button Props Interface
-https://pinterest.github.io/gestalt/#/Button
+https://gestalt.netlify.app/Button
 */
 
 export interface ButtonProps {
     text: string;
+    accessibilityControls?: string;
     accessibilityExpanded?: boolean;
     accessibilityHaspopup?: boolean;
     accessibilityLabel?: string;
-    color?: 'blue' | 'gray' | 'red' | 'transparent' | 'white';
+    color?: 'gray' | 'red' | 'blue' | 'transparent' | 'transparentWhiteText' | 'white';
     disabled?: boolean;
+    href?: string;
+    iconEnd?: Icons;
     inline?: boolean;
     name?: string;
-    onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
+    onClick?: AbstractEventHandler<
+        | React.MouseEvent<HTMLButtonElement>
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    >;
+    ref?: React.Ref<'button'> | React.Ref<'a'>;
+    rel?: 'none' | 'nofollow';
+    role?: 'button' | 'link';
+    selected?: boolean;
     size?: 'sm' | 'md' | 'lg';
-    textColor?: 'blue' | 'red' | 'darkGray' | 'white';
+    target?: null | 'self' | 'blank';
     type?: 'submit' | 'button';
 }
 
 /*
+ButtonGroup Props Interface
+https://gestalt.netlify.app/ButtonGroup
+*/
+
+export interface ButtonGroupProps {
+    children?: React.ReactNode;
+}
+
+/*
+Callout Props Interface
+https://gestalt.netlify.app/Callout
+*/
+
+export interface LinkData {
+    href: string;
+    label: string;
+    onClick?: AbstractEventHandler<React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>>;
+}
+
+export interface CalloutProps {
+    iconAccessibilityLabel: string;
+    message: string;
+    type: 'error' | 'info' | 'warning';
+    dismissButton?: {
+        accessibilityLabel: string;
+        onDismiss: () => void;
+    };
+    primaryLink?: LinkData;
+    secondaryLink?: LinkData;
+    title?: string;
+}
+
+/*
 Card Props Interface
-https://pinterest.github.io/gestalt/#/Card
+https://gestalt.netlify.app/Card
 */
 
 export interface CardProps {
@@ -182,23 +254,27 @@ export interface CardProps {
 
 /*
 Checkbox Props Interface
-https://pinterest.github.io/gestalt/#/Checkbox
+https://gestalt.netlify.app/Checkbox
 */
 
 export interface CheckboxProps {
     id: string;
-    onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; checked: boolean }) => void;
+    onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
     checked?: boolean;
     disabled?: boolean;
+    errorMessage?: string;
     hasError?: boolean;
     indeterminate?: boolean;
+    label?: string;
     name?: string;
-    onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent<HTMLInputElement>>; checked: boolean }) => void;
+
+    onClick?: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
+    ref?: React.Ref<'input'>;
     size?: 'sm' | 'md';
 }
 /*
 Collage Props Interface
-https://pinterest.github.io/gestalt/#/Column
+https://gestalt.netlify.app/Column
 */
 
 export interface CollageProps {
@@ -213,7 +289,7 @@ export interface CollageProps {
 
 /*
 Column Props Interface
-https://pinterest.github.io/gestalt/#/Column
+https://gestalt.netlify.app/Column
 */
 
 export interface ColumnProps {
@@ -226,7 +302,7 @@ export interface ColumnProps {
 
 /*
 Container Props Interface
-https://pinterest.github.io/gestalt/#/Container
+https://gestalt.netlify.app/Container
 */
 
 export interface ContainerProps {
@@ -235,11 +311,11 @@ export interface ContainerProps {
 
 /*
 Flyout Props Interface
-https://pinterest.github.io/gestalt/#/Flyout
+https://gestalt.netlify.app/Flyout
 */
 
 export interface FlyoutProps {
-    anchor: any; // ideally a HTMLAnchorElement
+    anchor: HTMLElement; // ideally a HTMLAnchorElement
     onDismiss: () => void;
     children?: React.ReactNode;
     color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray';
@@ -247,27 +323,28 @@ export interface FlyoutProps {
     positionRelativeToAnchor?: boolean;
     shouldFocus?: boolean;
     showCaret?: boolean;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number;
 }
 
 /*
 GroupAvatar Props Interface
-https://pinterest.github.io/gestalt/#/GroupAvatar
+https://gestalt.netlify.app/GroupAvatar
 */
 
 export interface GroupAvatarProps {
     collaborators: ReadonlyArray<{ name: string; src?: string }>;
     outline?: boolean;
-    size?: 'sm' | 'md' | 'lg';
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fit';
 }
 
 /*
 Heading Props Interface
-https://pinterest.github.io/gestalt/#/Heading
+https://gestalt.netlify.app/Heading
 */
 
 export interface HeaderProps {
     accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+    align?: 'left' | 'right' | 'center' | 'justify';
     children?: React.ReactNode;
     color?:
         | 'blue'
@@ -295,7 +372,7 @@ export interface HeaderProps {
 
 /*
 Icon Props Interface
-https://pinterest.github.io/gestalt/#/Icon
+https://gestalt.netlify.app/Icon
 */
 
 export type Icons =
@@ -317,6 +394,7 @@ export type Icons =
     | 'align-top-left'
     | 'align-top-right'
     | 'align-top'
+    | 'android-share'
     | 'angled-pin'
     | 'apps'
     | 'arrow-back'
@@ -341,14 +419,18 @@ export type Icons =
     | 'circle-outline'
     | 'clear'
     | 'clock'
+    | 'code'
     | 'cog'
     | 'compass'
     | 'compose'
     | 'crop'
     | 'dash'
+    | 'conversion-tag'
+    | 'credit-card'
     | 'directional-arrow-left'
     | 'directional-arrow-right'
     | 'download'
+    | 'drag-drop'
     | 'duplicate'
     | 'edit'
     | 'ellipsis'
@@ -406,10 +488,12 @@ export type Icons =
     | 'people'
     | 'person'
     | 'person-add'
+    | 'phone'
     | 'pin'
     | 'pin-hide'
     | 'pinterest'
     | 'play'
+    | 'protect'
     | 'refresh'
     | 'question-mark'
     | 'remove'
@@ -428,9 +512,12 @@ export type Icons =
     | 'sound'
     | 'sort-ascending'
     | 'sort-descending'
+    | 'sparkle'
     | 'speech'
     | 'speech-ellipsis'
     | 'star'
+    | 'star-half'
+    | 'story-pin'
     | 'switch-account'
     | 'tag'
     | 'terms'
@@ -462,7 +549,7 @@ export type Icons =
 
 export interface IconProps {
     accessibilityLabel: string;
-    icon?: Icons;
+
     color?:
         | 'blue'
         | 'darkGray'
@@ -482,32 +569,37 @@ export interface IconProps {
         | 'watermelon'
         | 'white';
     dangerouslySetSvgPath?: { __path: string };
+    icon?: Icons;
     inline?: boolean;
     size?: number | string;
 }
 
 /*
 IconButton Props Interface
-https://pinterest.github.io/gestalt/#/IconButton
+https://gestalt.netlify.app/IconButton
 */
 
 export interface IconButtonProps {
-    accessibilityLabel: string;
+    bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red';
+    accessibilityControls?: string;
     accessibilityExpanded?: boolean;
     accessibilityHaspopup?: boolean;
-    bgColor?: 'transparent' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'blue';
+    accessibilityLabel: string;
+
     dangerouslySetSvgPath?: { __path: string };
     disabled?: boolean;
     icon?: Icons;
-    iconColor?: 'blue' | 'darkGray' | 'gray' | 'red' | 'white' | 'orange';
-    onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
+    iconColor?: 'gray' | 'darkGray' | 'red' | 'white';
+    onClick?: AbstractEventHandler<React.MouseEvent<HTMLButtonElement>>;
+    padding?: 1 | 2 | 3 | 4 | 5;
+    ref?: React.Ref<'button'>;
     selected?: boolean;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 /*
 Image Props Interface
-https://pinterest.github.io/gestalt/#/Image
+https://gestalt.netlify.app/Image
 */
 
 export interface ImageProps {
@@ -528,7 +620,7 @@ export interface ImageProps {
 
 /*
 Label Props Interface
-https://pinterest.github.io/gestalt/#/Label
+https://gestalt.netlify.app/Label
 */
 
 export interface LabelProps {
@@ -537,7 +629,7 @@ export interface LabelProps {
 }
 /*
 Layer Interface
-https://pinterest.github.io/gestalt/#/Layer
+https://gestalt.netlify.app/Layer
 */
 
 export interface LayerProps {
@@ -546,7 +638,7 @@ export interface LayerProps {
 
 /*
 Letterbox Props Interface
-https://pinterest.github.io/gestalt/#/Letterbox
+https://gestalt.netlify.app/Letterbox
 */
 
 export interface LetterboxProps {
@@ -558,20 +650,30 @@ export interface LetterboxProps {
 
 /*
 Link Props Interface
-https://pinterest.github.io/gestalt/#/Link
+https://gestalt.netlify.app/Link
 */
 
 export interface LinkProps {
     href: string;
+    accessibilityLabel?: string;
+    accessibilitySelected?: boolean;
     children?: React.ReactNode;
+    hoverStyle?: 'none' | 'underline';
+    id?: string;
     inline?: boolean;
-    onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
-    target?: 'null' | 'self' | 'blank';
+    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>>;
+    onClick?: AbstractEventHandler<React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>>;
+    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>>;
+    rel?: 'none' | 'nofollow';
+    role?: 'tab';
+    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    tapStyle?: 'none' | 'compress';
+    target?: null | 'self' | 'blank';
 }
 
 /*
 Mask Props Interface
-https://pinterest.github.io/gestalt/#/Mask
+https://gestalt.netlify.app/Mask
 */
 
 export interface MaskProps {
@@ -585,12 +687,12 @@ export interface MaskProps {
 
 /*
 Masonry Props Interface
-https://pinterest.github.io/gestalt/#/Masonry
+https://gestalt.netlify.app/Masonry
 */
 
-export interface MasonryProps {
-    comp: React.ComponentType<{ data: any; itemIdx?: number; isMeasuring?: boolean }>;
-    items: any[];
+export interface MasonryProps<T = any> {
+    comp: React.ComponentType<{ data: T; itemIdx?: number; isMeasuring?: boolean }>;
+    items: T[];
     columnWidth?: number;
     flexible?: boolean;
     gutterWidth?: number;
@@ -606,7 +708,7 @@ export interface MasonryProps {
 
 /*
 Modal Props Interface
-https://pinterest.github.io/gestalt/#/Modal
+https://gestalt.netlify.app/Modal
 */
 
 export interface ModalProps {
@@ -616,30 +718,43 @@ export interface ModalProps {
     closeOnOutsideClick?: boolean;
     footer?: React.ReactNode;
     heading?: string | React.ReactNode;
+    ref?: React.Ref<'div'>;
     role?: 'alertdialog' | 'dialog';
     size?: 'sm' | 'md' | 'lg' | number;
 }
 
 /*
-Props Props Interface
-https://pinterest.github.io/gestalt/#/Pog
+Pog Props Interface
+https://gestalt.netlify.app/Pog
 */
 
 export interface PogProps {
+    accessibilityLabel?: string;
     active?: boolean;
-    bgColor?: 'transparent' | 'lightGray' | 'white' | 'gray' | 'blue' | 'transparentDarkGray';
-    dangerouslySetSvgPath?: { _path: string };
+    bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red';
+    dangerouslySetSvgPath?: { __path: string };
     focused?: boolean;
     hovered?: boolean;
     icon?: Icons;
-    iconColor?: 'blue' | 'darkGray' | 'gray' | 'red' | 'white' | 'orange';
+    iconColor?: 'gray' | 'darkGray' | 'red' | 'white';
+    padding?: 1 | 2 | 3 | 4 | 5;
     selected?: boolean;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 /*
+Provider Props Interface
+https://gestalt.netlify.app/ProviderProps
+*/
+
+export interface ProviderProps {
+    colorScheme?: 'light' | 'dark' | 'userPreference';
+    id?: string;
+}
+
+/*
 Pulsar Props Interface
-https://pinterest.github.io/gestalt/#/Pulsar
+https://gestalt.netlify.app/Pulsar
 */
 
 export interface PulsarProps {
@@ -649,22 +764,46 @@ export interface PulsarProps {
 
 /*
 RadioButton Props Interface
-https://pinterest.github.io/gestalt/#/RadioButton
+https://gestalt.netlify.app/RadioButton
 */
 
 export interface RadioButtonProps {
     id: string;
-    onChange: (args: { event: React.SyntheticEvent<HTMLElement>; checked: boolean }) => void;
+    onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
     checked?: boolean;
     disabled?: boolean;
+    label?: string;
     name?: string;
-    size?: 'sm' | 'md';
     value?: string;
+    size?: 'sm' | 'md';
+}
+
+/*
+Row Props Interface
+https://gestalt.netlify.app/Row
+*/
+
+export interface RowProps {
+    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
+    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    children?: React.ReactNode;
+    fit?: boolean;
+    flex?: 'grow' | 'shrink' | 'none';
+    gap?: UnsignedUpTo12;
+    height?: number | string;
+    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+    maxHeight?: number | string;
+    maxWidth?: number | string;
+    minHeight?: number | string;
+    minWidth?: number | string;
+    width?: number | string;
+    wrap?: boolean;
 }
 
 /*
 SearchField Props Interface
-https://pinterest.github.io/gestalt/#/SearchField
+https://gestalt.netlify.app/SearchField
 */
 
 export interface SearchFieldProps {
@@ -672,16 +811,18 @@ export interface SearchFieldProps {
     id: string;
     onChange: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     autoComplete?: 'on' | 'off' | 'username' | 'name';
+    errorMessage?: string;
     onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement> }) => void;
     onFocus?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     placeholder?: string;
+    ref?: React.Ref<'input'>;
     size?: 'md' | 'lg';
     value?: string;
 }
 
 /*
 SegmentedControl Props Interface
-https://pinterest.github.io/gestalt/#/SegmentedControl
+https://gestalt.netlify.app/SegmentedControl
 */
 
 export interface SegmentedControlProps {
@@ -694,7 +835,7 @@ export interface SegmentedControlProps {
 
 /*
 SelectList Props Interface
-https://pinterest.github.io/gestalt/#/SelectList
+https://gestalt.netlify.app/SelectList
 */
 
 export interface SelectListProps {
@@ -713,7 +854,7 @@ export interface SelectListProps {
 
 /*
 Spinner Props Interface
-https://pinterest.github.io/gestalt/#/Spinner
+https://gestalt.netlify.app/Spinner
 */
 
 export interface SpinnerProps {
@@ -724,22 +865,46 @@ export interface SpinnerProps {
 }
 
 /*
+Stack Props Interface
+https://gestalt.netlify.app/Stack
+*/
+
+export interface StackProps {
+    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
+    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    children?: React.ReactNode;
+    fit?: boolean;
+    flex?: 'grow' | 'shrink' | 'none';
+    gap?: UnsignedUpTo12;
+    height?: number | string;
+    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+    maxHeight?: number | string;
+    maxWidth?: number | string;
+    minHeight?: number | string;
+    minWidth?: number | string;
+    width?: number | string;
+    wrap?: boolean;
+}
+
+/*
 Sticky Props Interface
-https://pinterest.github.io/gestalt/#/Sticky
+https://gestalt.netlify.app/Sticky
 */
 
 export interface StickyProps {
     bottom?: number | string;
     children?: React.ReactNode;
-    dangerouslySetZIndex?: { __zIndex: string };
+    height?: number;
     left?: number | string;
     right?: number | string;
     top?: number | string;
+    zIndex?: { index(): number };
 }
 
 /*
 Switch Props Interface
-https://pinterest.github.io/gestalt/#/Switch
+https://gestalt.netlify.app/Switch
 */
 
 export interface SwitchProps {
@@ -751,8 +916,54 @@ export interface SwitchProps {
 }
 
 /*
+Table Props Interface
+https://gestalt.netlify.app/Table
+*/
+
+export interface TableProps {
+    borderSize?: 'sm' | 'none';
+    children?: React.ReactNode;
+    maxHeight?: 'number' | 'string';
+}
+
+export interface TableBodyProps {
+    children?: React.ReactNode;
+}
+
+export interface TableCellProps {
+    children?: React.ReactNode;
+    colSpan?: number;
+    rowSpan?: number;
+}
+
+export interface TableFooterProps {
+    children?: React.ReactNode;
+}
+
+export interface TableHeaderProps {
+    children?: React.ReactNode;
+    sticky?: boolean;
+}
+
+export interface TableHeaderCellProps extends TableCellProps {
+    scope?: 'col' | 'row' | 'colgroup' | 'rowgroup';
+}
+
+export interface TableRowProps {
+    children?: React.ReactNode;
+}
+
+export interface TableSortableHeaderCellProps extends TableHeaderCellProps {
+    onSortChange: AbstractEventHandler<
+        React.MouseEvent<HTMLTableCellElement> | React.KeyboardEvent<HTMLTableCellElement>
+    >;
+    sortOrder: 'asc' | 'desc';
+    status: 'active' | 'inactive';
+}
+
+/*
 Tabs Props Interface
-https://pinterest.github.io/gestalt/#/Tabs
+https://gestalt.netlify.app/Tabs
 */
 
 export interface TabsProps {
@@ -764,8 +975,33 @@ export interface TabsProps {
 }
 
 /*
+TabArea Props Interface
+https://gestalt.netlify.app/TapArea
+*/
+
+export interface TapAreaProps {
+    accessibilityControls?: string;
+    accessibilityExpanded?: boolean;
+    accessibilityHaspopup?: boolean;
+    accessibilityLabel?: string;
+    children?: React.ReactNode;
+    disabled?: boolean;
+    fullHeight?: boolean;
+    fullWidth?: boolean;
+    mouseCursor?: 'copy' | 'grab' | 'grabbing' | 'move' | 'noDrop' | 'pointer' | 'zoomIn' | 'zoomOut';
+    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLDivElement>>;
+    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLDivElement>>;
+    onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
+    onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
+    onTap?: AbstractEventHandler<React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>>;
+    ref?: React.Ref<'div'>;
+    tapStyle?: 'none' | 'compress';
+    rounding?: 'pill' | 'circule' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+}
+
+/*
 Text Props Interface
-https://pinterest.github.io/gestalt/#/Text
+https://gestalt.netlify.app/Text
 */
 
 export interface TextProps {
@@ -791,7 +1027,6 @@ export interface TextProps {
         | 'white';
     inline?: boolean;
     italic?: boolean;
-    leading?: 'short' | 'tall';
     overflow?: 'normal' | 'breakWord';
     size?: 'sm' | 'md' | 'lg';
     truncate?: boolean;
@@ -800,7 +1035,7 @@ export interface TextProps {
 
 /*
 TextArea Interface Props
-https://pinterest.github.io/gestalt/#/TextArea
+https://gestalt.netlify.app/TextArea
 */
 
 export interface TextAreaProps {
@@ -821,7 +1056,7 @@ export interface TextAreaProps {
 
 /*
 TextField Interface Props
-https://pinterest.github.io/gestalt/#/TextField
+https://gestalt.netlify.app/TextField
 */
 
 export interface TextFieldProps {
@@ -837,6 +1072,7 @@ export interface TextFieldProps {
     onFocus?: (args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void;
     onKeyDown?: (args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: string }) => void;
     placeholder?: string;
+    ref?: React.Ref<'input'>;
     size?: 'md' | 'lg';
     type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url';
     value?: string;
@@ -844,19 +1080,20 @@ export interface TextFieldProps {
 
 /*
 Toast Interface Props
-https://pinterest.github.io/gestalt/#/Toast
+https://gestalt.netlify.app/Toast
 */
 
 export interface ToastProps {
-    color?: 'darkGray' | 'orange' | 'red';
-    icon?: 'arrow-circle-forward';
-    text?: string | string[];
-    thumbnail?: React.ReactElement;
+    button?: React.ReactNode;
+    color?: 'darkGray' | 'red';
+    text?: string | React.ReactElement;
+    thumbnail?: React.ReactNode;
+    thumbnailShape?: 'circle' | 'rectangle' | 'square';
 }
 
 /*
 Tooltip Interface Props
-https://pinterest.github.io/gestalt/#/Tooltip
+https://gestalt.netlify.app/Tooltip
 */
 
 export interface TooltipProps {
@@ -868,70 +1105,87 @@ export interface TooltipProps {
 }
 
 /*
-Touchable Interface Props
-https://pinterest.github.io/gestalt/#/Touchable
+Typeahead Interface Props
+https://gestalt.netlify.app/Typeahead
 */
 
-export interface TouchableProps {
-    onTouch: (args: {
-        event:
-            | React.SyntheticEvent<React.MouseEvent<HTMLDivElement>>
-            | React.SyntheticEvent<React.KeyboardEvent<HTMLDivElement>>;
+export interface TypeaheadProps {
+    id: string;
+    noResultText: string;
+    options: ReadonlyArray<{
+        label: string;
+        value: string;
+    }>;
+    label?: string;
+    onBlur?: (args: {
+        event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>;
+        value: string;
     }) => void;
-    children?: React.ReactNode;
-    fullHeight?: boolean;
-    fullWidth?: boolean;
-    mouseCursor?: 'copy' | 'grab' | 'grabbing' | 'move' | 'noDrop' | 'pointer' | 'zoomIn' | 'zoomOut';
-    onMouseEnter?: (args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }) => void;
-    onMouseLeave?: (args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }) => void;
-    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    onChange?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    onFocus?: (args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void;
+    onSelect?: (args: {
+        event: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
+        item:
+            | {
+                  label: string;
+                  value: string;
+              }
+            | null
+            | undefined;
+    }) => void;
+    placeholder?: string;
+    ref?: React.Ref<'input'>;
+    size?: 'md' | 'lg';
+    value?: string;
 }
 
 /*
 Video Props Interface
-https://pinterest.github.io/gestalt/#/Video
+https://gestalt.netlify.app/Video
 */
 
 export interface VideoProps {
-    aspectRatio: number;
-    captions: string;
-    src:
-        | string
-        | ReadonlyArray<{
-              type: 'video/m3u8' | 'video/mp4' | 'video/ogg';
-              src: string;
-          }>;
     accessibilityMaximizeLabel?: string;
     accessibilityMinimizeLabel?: string;
     accessibilityMuteLabel?: string;
     accessibilityPauseLabel?: string;
     accessibilityPlayLabel?: string;
     accessibilityUnmuteLabel?: string;
-    children?: React.ReactNode;
-    controls?: boolean;
-    loop?: boolean;
-    onDurationChange?: (args: { event: React.SyntheticEvent<HTMLVideoElement>; duration: number }) => void;
-    onEnded?: (args: { event: React.SyntheticEvent<HTMLVideoElement> }) => void;
-    onFullscreenChange?: (args: { event: React.SyntheticEvent<HTMLDivElement>; fullscreen: boolean }) => void;
-    onLoadedChange?: (args: { event: React.SyntheticEvent<HTMLVideoElement>; loaded: number }) => void;
-    onPause?: (args: { event: React.SyntheticEvent<HTMLDivElement> }) => void;
-    onPlay?: (args: { event: React.SyntheticEvent<HTMLDivElement> }) => void;
-    onReady?: (args: { event: React.SyntheticEvent<HTMLVideoElement> }) => void;
-    onSeek?: (args: { event: React.SyntheticEvent<HTMLVideoElement> }) => void;
-    onTimeChange?: (args: { event: React.SyntheticEvent<HTMLVideoElement>; time: number }) => void;
-    onVolumeChange?: (args: { event: React.SyntheticEvent<HTMLDivElement>; volume: number }) => void;
+    aspectRatio: number;
+    captions: string;
     playbackRate?: number;
     playing?: boolean;
+    preload?: 'auto' | 'metadata' | 'none';
+    src: string | ReadonlyArray<{ type: 'video/m3u8' | 'video/mp4' | 'video/ogg'; src: string }>;
+    volume?: number;
+    children?: Node;
+    controls?: boolean;
+    crossOrigin?: 'anonymous' | 'use-credentials';
+    loop?: boolean;
+    onDurationChange?: (args: { event: React.SyntheticEvent<HTMLVideoElement>; duration: number }) => void;
+    onEnded?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+    onFullscreenChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { fullscreen: boolean }>;
+    onLoadedChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { loaded: number }>;
+    onPlay?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>>;
+    onPlayheadDown?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
+    onPlayheadUp?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
+    onPause?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>>;
+    onReady?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+    onSeek?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+    onTimeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { time: number }>;
+    onVolumeChange?: AbstractEventHandler<React.SyntheticEvent<HTMLDivElement>, { volume: number }>;
+
     playsInline?: boolean;
     poster?: string;
-    preload?: 'auto' | 'metadata' | 'none';
-    volume?: number;
 }
 
 export class Avatar extends React.Component<AvatarProps, any> {}
+export class AvatarPair extends React.Component<AvatarPairProps, any> {}
 export class Badge extends React.Component<BadgeProps, any> {}
 export class Box extends React.Component<BoxProps, any> {}
 export class Button extends React.Component<ButtonProps, any> {}
+export class ButtonGroup extends React.Component<ButtonGroupProps, any> {}
+export class Callout extends React.Component<CalloutProps, any> {}
 export class Card extends React.Component<CardProps, any> {}
 export class Checkbox extends React.Component<CheckboxProps, any> {}
 export class Collage extends React.Component<CollageProps, any> {}
@@ -952,19 +1206,32 @@ export class Mask extends React.Component<MaskProps, any> {}
 export class Masonry extends React.Component<MasonryProps, any> {}
 export class Modal extends React.Component<ModalProps, any> {}
 export class Pog extends React.Component<PogProps, any> {}
+export class Provider extends React.Component<ProviderProps, any> {}
 export class Pulsar extends React.Component<PulsarProps, any> {}
 export class RadioButton extends React.Component<RadioButtonProps, any> {}
+export class Row extends React.Component<RowProps, any> {}
 export class SearchField extends React.Component<SearchFieldProps, any> {}
 export class SegmentedControl extends React.Component<SegmentedControlProps, any> {}
 export class SelectList extends React.Component<SelectListProps, any> {}
 export class Spinner extends React.Component<SpinnerProps, any> {}
+export class Stack extends React.Component<StackProps, any> {}
 export class Sticky extends React.Component<StickyProps, any> {}
 export class Switch extends React.Component<SwitchProps, any> {}
+export class Table extends React.Component<TableProps, any> {
+    static Body: React.FC<TableBodyProps>;
+    static Cell: React.FC<TableCellProps>;
+    static Footer: React.FC<TableFooterProps>;
+    static Header: React.FC<TableHeaderProps>;
+    static HeaderCell: React.FC<TableHeaderCellProps>;
+    static Row: React.FC<TableRowProps>;
+    static SortableHeaderCell: React.FC<TableSortableHeaderCellProps>;
+}
 export class Tabs extends React.Component<TabsProps, any> {}
+export class TapArea extends React.Component<TapAreaProps, any> {}
 export class Text extends React.Component<TextProps, any> {}
 export class TextArea extends React.Component<TextAreaProps, any> {}
 export class TextField extends React.Component<TextFieldProps, any> {}
 export class Toast extends React.Component<ToastProps, any> {}
 export class Tooltip extends React.Component<TooltipProps, any> {}
-export class Touchable extends React.Component<TouchableProps, any> {}
+export class Typeahead extends React.Component<TypeaheadProps, any> {}
 export class Video extends React.Component<VideoProps, any> {}

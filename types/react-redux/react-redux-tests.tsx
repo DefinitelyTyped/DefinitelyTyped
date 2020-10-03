@@ -1473,3 +1473,38 @@ function testConnectReturnType() {
     const myHoc2 = <P, >(C: React.FC<P>): React.ComponentType<P> => C;
     myHoc2(Test);
 }
+
+function testRef() {
+    const FunctionalComponent: React.FC = () => null;
+    const ForwardedFunctionalComponent = React.forwardRef<string>(() => null);
+    class ClassComponent extends React.Component {}
+
+    const ConnectedFunctionalComponent = connect()(FunctionalComponent);
+    const ConnectedForwardedFunctionalComponent = connect()(ForwardedFunctionalComponent);
+    const ConnectedClassComponent = connect()(ClassComponent);
+
+    // Should not be able to pass any type of ref to a FunctionalComponent
+    // ref is not a valid property
+    <ConnectedFunctionalComponent ref={React.createRef<any>()}></ConnectedFunctionalComponent>; // $ExpectError
+    <ConnectedFunctionalComponent ref={(ref: any) => {}}></ConnectedFunctionalComponent>; // $ExpectError
+    <ConnectedFunctionalComponent ref={''}></ConnectedFunctionalComponent>; // $ExpectError
+
+    // Should be able to pass modern refs to a ForwardRefExoticComponent
+    const modernRef: React.Ref<string> | undefined = undefined;
+    <ConnectedForwardedFunctionalComponent ref={modernRef}></ConnectedForwardedFunctionalComponent>;
+    // Should not be able to use legacy string refs
+    <ConnectedForwardedFunctionalComponent ref={''}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+    // ref type should agree with type of the fowarded ref
+    <ConnectedForwardedFunctionalComponent ref={React.createRef<number>()}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+    <ConnectedForwardedFunctionalComponent ref={(ref: number) => {}}></ConnectedForwardedFunctionalComponent>; // $ExpectError
+
+    // Should be able to use all refs including legacy string
+    const classLegacyRef: React.LegacyRef<ClassComponent> | undefined = undefined;
+    <ConnectedClassComponent ref={classLegacyRef}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={React.createRef<ClassComponent>()}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={(ref: ClassComponent) => {}}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={''}></ConnectedClassComponent>;
+    // ref type should be the typeof the wrapped component
+    <ConnectedClassComponent ref={React.createRef<string>()}></ConnectedClassComponent>; // $ExpectError
+    <ConnectedClassComponent ref={(ref: string) => {}}></ConnectedClassComponent>; // $ExpectError
+}

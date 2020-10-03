@@ -114,7 +114,7 @@ export interface ControllerInfo {
 export type InfoOption = 'size' | 'vertical' | 'scrollPos' | 'scrollDirection' | 'container' | 'isDocument';
 
 export interface ControllerConstructorOptions {
-    container?: string;
+    container?: string | Element;
     vertical?: boolean;
     globalSceneOptions?: SceneConstructorOptions;
     loglevel?: number;

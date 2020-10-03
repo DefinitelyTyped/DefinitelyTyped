@@ -53,8 +53,11 @@ function test_geoChart() {
         colorAxis: {colors: ['#e7711c', '#4374e0']} // orange to blue
     };
 
-    var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.GeoChart(container);
+        chart.draw(data, options);
+    }
 }
 
 function test_scatterChart() {
@@ -75,8 +78,11 @@ function test_scatterChart() {
         legend: 'none'
     };
 
-    var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.ScatterChart(container);
+        chart.draw(data, options);
+    }
 }
 
 function test_barChart() {
@@ -103,8 +109,11 @@ function test_barChart() {
         bar: {groupWidth: "95%"},
         legend: { position: "none" }
     };
-    var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-    chart.draw(view, options);
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.BarChart(container);
+        chart.draw(data, options);
+    }
 }
 
 function test_histogram() {
@@ -144,8 +153,11 @@ function test_histogram() {
         legend: { position: 'none' }
     };
 
-    var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.Histogram(container);
+        chart.draw(data, options);
+    }
 }
 
 function test_areaChart() {
@@ -170,8 +182,11 @@ function test_areaChart() {
         }
     };
 
-    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.AreaChart(container);
+        chart.draw(data, options);
+    }
 }
 
 function test_steppedAreaChart() {
@@ -189,8 +204,11 @@ function test_steppedAreaChart() {
         isStacked: true
     };
 
-    var chart = new google.visualization.SteppedAreaChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.SteppedAreaChart(container);
+        chart.draw(data, options);
+    }
 }
 
 function test_lineChart() {
@@ -206,8 +224,11 @@ function test_lineChart() {
         title: 'Company Performance'
     };
 
-    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.LineChart(container);
+        chart.draw(data, options);
+    }
 }
 
 function test_pieChart() {
@@ -224,8 +245,11 @@ function test_pieChart() {
         title: 'My Daily Activities'
     };
 
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    chart.draw(data, options);
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.PieChart(container);
+        chart.draw(data, options);
+    }
 }
 
 function test_bubbleChart() {
@@ -250,8 +274,11 @@ function test_bubbleChart() {
         bubble: {textStyle: {fontSize: 11}}
     };
 
-    var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.BubbleChart(container);
+        chart.draw(data, options);
+    }
 }
 
 function test_treemap() {
@@ -289,14 +316,17 @@ function test_treemap() {
     ]);
 
     // Create and draw the visualization.
-    var tree = new google.visualization.TreeMap(document.getElementById('chart_div'));
-    tree.draw(data, {
-        minColor: '#f00',
-        midColor: '#ddd',
-        maxColor: '#0d0',
-        headerHeight: 15,
-        fontColor: 'black',
-        showScale: true});
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var tree = new google.visualization.TreeMap(container);
+        tree.draw(data, {
+            minColor: '#f00',
+            midColor: '#ddd',
+            maxColor: '#0d0',
+            headerHeight: 15,
+            fontColor: 'black',
+            showScale: true});
+    }
 }
 
 function test_table() {
@@ -311,27 +341,32 @@ function test_table() {
         ['Bob',   {v: 7000,  f: '$7,000'},  true]
     ]);
 
-    var table = new google.visualization.Table(document.getElementById('table_div'));
-    table.draw(data, {showRowNumber: true});
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var table = new google.visualization.Table(container);
+        table.draw(data, {showRowNumber: true});
+    }
 }
 
 function test_timeline() {
     var container = document.getElementById('example1');
 
-    var chart = new google.visualization.Timeline(container);
+    if (container) {
+        var chart = new google.visualization.Timeline(container);
 
-    var dataTable = new google.visualization.DataTable();
+        var dataTable = new google.visualization.DataTable();
 
-    dataTable.addColumn({ type: 'string', id: 'President' });
-    dataTable.addColumn({ type: 'date', id: 'Start' });
-    dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTable.addColumn({ type: 'string', id: 'President' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
 
-    dataTable.addRows([
-        [ 'Washington', new Date(1789, 3, 29), new Date(1797, 2, 3) ],
-        [ 'Adams',      new Date(1797, 2, 3),  new Date(1801, 2, 3) ],
-        [ 'Jefferson',  new Date(1801, 2, 3),  new Date(1809, 2, 3) ]]);
+        dataTable.addRows([
+            [ 'Washington', new Date(1789, 3, 29), new Date(1797, 2, 3) ],
+            [ 'Adams',      new Date(1797, 2, 3),  new Date(1801, 2, 3) ],
+            [ 'Jefferson',  new Date(1801, 2, 3),  new Date(1809, 2, 3) ]]);
 
-    chart.draw(dataTable);
+        chart.draw(dataTable);
+    }
 }
 
 function test_candlestickChart() {
@@ -348,8 +383,11 @@ function test_candlestickChart() {
         legend:'none'
     };
 
-    var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.CandlestickChart(container);
+        chart.draw(data, options);
+    }
 }
 
 function test_formatter_ArrowFormat() {
@@ -365,12 +403,15 @@ function test_formatter_ArrowFormat() {
     ]);
     data.setFormattedValue(2, 1, null);
 
-    var table = new google.visualization.Table(document.getElementById('arrowformat_div'));
+    var container = document.getElementById('arrowformat_div');
+    if (container) {
+        var table = new google.visualization.Table(container);
 
-    var formatter = new google.visualization.ArrowFormat();
-    formatter.format(data, 1); // Apply formatter to second column
+        var formatter = new google.visualization.ArrowFormat();
+        formatter.format(data, 1); // Apply formatter to second column
 
-    table.draw(data, { allowHtml: true, showRowNumber: true });
+        table.draw(data, { allowHtml: true, showRowNumber: true });
+    }
 }
 
 function test_formatter_BarFormat() {
@@ -386,12 +427,15 @@ function test_formatter_BarFormat() {
         ['Art', 1100]
     ]);
 
-    var table = new google.visualization.Table(document.getElementById('barformat_div'));
+    var container = document.getElementById('barformat_div');
+    if (container) {
+        var table = new google.visualization.Table(container);
 
-    var formatter = new google.visualization.BarFormat({ width: 120 });
-    formatter.format(data, 1); // Apply formatter to second column
+        var formatter = new google.visualization.BarFormat({ width: 120 });
+        formatter.format(data, 1); // Apply formatter to second column
 
-    table.draw(data, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+        table.draw(data, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+    }
 }
 
 function test_formatter_ColorFormat() {
@@ -407,14 +451,17 @@ function test_formatter_ColorFormat() {
         ['Art', 1100]
     ]);
 
-    var table = new google.visualization.Table(document.getElementById('colorformat_div'));
+    var container = document.getElementById('colorformat_div');
+    if (container) {
+        var table = new google.visualization.Table(container);
 
-    var formatter = new google.visualization.ColorFormat();
-    formatter.addRange(-20000, 0, 'white', 'orange');
-    formatter.addRange(20000, null, 'red', '#33ff33');
-    formatter.format(data, 1); // Apply formatter to second column
+        var formatter = new google.visualization.ColorFormat();
+        formatter.addRange(-20000, 0, 'white', 'orange');
+        formatter.addRange(20000, null, 'red', '#33ff33');
+        formatter.format(data, 1); // Apply formatter to second column
 
-    table.draw(data, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+        table.draw(data, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+    }
 }
 
 function test_formatter_DateFormat() {
@@ -447,8 +494,11 @@ function test_formatter_DateFormat() {
         formatter_short.format(data, 3);
 
         // Draw our data
-        var table = new google.visualization.Table(document.getElementById('dateformat_div'));
-        table.draw(data, { showRowNumber: true, width: '100%', height: '100%' });
+        var container = document.getElementById('dateformat_div');
+        if (container) {
+            var table = new google.visualization.Table(container);
+            table.draw(data, { showRowNumber: true, width: '100%', height: '100%' });
+        }
     }
 }
 
@@ -465,13 +515,16 @@ function test_formatter_NumberFormat() {
         ['Art', 1100]
     ]);
 
-    var table = new google.visualization.Table(document.getElementById('numberformat_div'));
+    var container = document.getElementById('numberformat_div');
+    if (container) {
+        var table = new google.visualization.Table(container);
 
-    var formatter = new google.visualization.NumberFormat(
-        { prefix: '$', negativeColor: 'red', negativeParens: true });
-    formatter.format(data, 1); // Apply formatter to second column
+        var formatter = new google.visualization.NumberFormat(
+            { prefix: '$', negativeColor: 'red', negativeParens: true });
+        formatter.format(data, 1); // Apply formatter to second column
 
-    table.draw(data, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+        table.draw(data, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+    }
 }
 
 function test_formatter_PatternFormat() {
@@ -485,17 +538,20 @@ function test_formatter_PatternFormat() {
         ['Ringo Starr', 'ringo@beatles.co.uk']
     ]);
 
-    var table = new google.visualization.Table(document.getElementById('patternformat_div'));
+    var container = document.getElementById('patternformat_div');
+    if (container) {
+        var table = new google.visualization.Table(container);
 
-    var formatter = new google.visualization.PatternFormat(
-        '<a href="mailto:{1}">{0}</a>');
-    // Apply formatter and set the formatted value of the first column.
-    formatter.format(data, [0, 1]);
+        var formatter = new google.visualization.PatternFormat(
+            '<a href="mailto:{1}">{0}</a>');
+        // Apply formatter and set the formatted value of the first column.
+        formatter.format(data, [0, 1]);
 
-    var view = new google.visualization.DataView(data);
-    view.setColumns([0]); // Create a view with the first column only.
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0]); // Create a view with the first column only.
 
-    table.draw(view, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+        table.draw(view, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+    }
 }
 
 function test_ChartsLoad() {
@@ -513,8 +569,11 @@ function test_ChartsLoad() {
         ]);
 
         // Instantiate and draw the chart.
-        var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
-        chart.draw(data, null);
+        var container = document.getElementById('myPieChart');
+        if (container) {
+            var chart = new google.visualization.PieChart(container);
+            chart.draw(data, {});
+        }
     }
 
     google.charts.setOnLoadCallback(drawChart);
@@ -610,18 +669,20 @@ function test_OrgChart() {
         ['Carol', 'Bob', '']
     ]);
 
-    var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
-    chart.draw(data, {
-        allowCollapse: true,
-        allowHtml: true,
-        nodeClass: 'node',
-        selectedNodeClass: 'selected',
-        size: 'small'
-    });
-    chart.collapse(1, true);
-    var children = chart.getChildrenIndexes(0);
-    var collapsed = chart.getCollapsedNodes();
-
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.OrgChart(container);
+        chart.draw(data, {
+            allowCollapse: true,
+            allowHtml: true,
+            nodeClass: 'node',
+            selectedNodeClass: 'selected',
+            size: 'small'
+        });
+        chart.collapse(1, true);
+        var children = chart.getChildrenIndexes(0);
+        var collapsed = chart.getCollapsedNodes();
+    }
 }
 
 function test_addListeners() {
@@ -633,12 +694,50 @@ function test_addListeners() {
             ['Banana', 105],
             ['Kiwi', 42]
         ]);
-    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-    google.visualization.events.addOneTimeListener(chart, 'ready', () => {
-        console.log('Fruit chart ready');
-    });
-    google.visualization.events.addListener(chart, 'error', (err: any) => {
-        console.log('Fruit chart ' + err.id + ' error: ' + err.message);
-    });
-    chart.draw(data, {});
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.LineChart(container);
+        google.visualization.events.addOneTimeListener(chart, 'ready', () => {
+            console.log('Fruit chart ready');
+        });
+        google.visualization.events.addListener(chart, 'error', (err: any) => {
+            console.log('Fruit chart ' + err.id + ' error: ' + err.message);
+        });
+        chart.draw(data, {});
+    }
+}
+
+function test_chartChart() {
+    var data = google.visualization.arrayToDataTable([
+        ['Year', 'Sales', 'Expenses'],
+        ['2004', 1000, 400],
+        ['2005', 1170, 460],
+        ['2006', 660, 1120],
+        ['2007', 1030, 540]
+    ]);
+
+    var options = {
+        title: 'Company Performance'
+    };
+
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chartWrapper = new google.visualization.ChartWrapper({
+            chartType: 'LineChart',
+            container,
+            options
+        });
+
+        var chart = chartWrapper.getChart();
+
+        function isClearable(baseChart: google.visualization.ChartBase): baseChart is google.visualization.ChartBaseClearable {
+            return 'clearChart' in baseChart;
+        }
+
+        if (chart) {
+            if (isClearable(chart)) {
+                chart.clearChart()
+            }
+        }
+    }
 }

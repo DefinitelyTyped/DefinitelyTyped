@@ -3,6 +3,7 @@ const ClientConfig: AppleSignInAPI.ClientConfigI = {
     redirectURI: '',
     scope: '',
     state: '',
+    nonce: '',
     usePopup: false,
 };
 
@@ -27,16 +28,20 @@ const signInError: AppleSignInAPI.SignInErrorI = {
 
 const AuthGood: AppleSignInAPI.AppleID = {
     auth: {
-        init: () => new Promise(() => {}),
-        signIn: () => new Promise(() => signInResponse),
+        init: () => undefined,
+        signIn: () => Promise.resolve(signInResponse),
         renderButton: () => {},
     },
 };
 
 const AuthBad: AppleSignInAPI.AppleID = {
     auth: {
-        init: () => new Promise(() => {}),
-        signIn: () => new Promise(() => signInError),
+        init: () => undefined,
+        signIn: () => Promise.reject(signInError),
         renderButton: () => {},
     },
 };
+
+AppleID.auth.init({
+    clientId: '',
+});

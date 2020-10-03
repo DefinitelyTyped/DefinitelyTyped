@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/custom-templated-path-webpack-plugin": ["wordpress__custom-templated-path-webpack-plugin"]
+            "@wordpress/*": ["wordpress__*"]
         }
     },
     "files": ["index.d.ts", "wordpress__custom-templated-path-webpack-plugin-tests.ts"]

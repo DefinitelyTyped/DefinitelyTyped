@@ -1,6 +1,7 @@
 import {
     ActionBar,
     Breadcrumb,
+    BusyIndicator,
     Button,
     ButtonGroup,
     Calendar,
@@ -48,6 +49,7 @@ import {
     Tile,
     Time,
     TimePicker,
+    Title,
     Token,
     TreeView,
 } from "fundamental-react";
@@ -106,6 +108,10 @@ const breadcrumb = (
         <Breadcrumb.Item name="Link Text" url="#" />
         <Breadcrumb.Item name="Link Text" url="#" />
     </Breadcrumb>
+);
+
+const busyIndicator = (
+    <BusyIndicator show/>
 );
 
 const buttons = (
@@ -2697,6 +2703,17 @@ const timePickers = (
         <TimePicker format12Hours />
         <TimePicker showSecond={false} />
         <TimePicker disabled />
+    </div>
+);
+
+const title = (
+    <div>
+        <Title level={1}>Fundamental React Title 1</Title>
+        <Title level={2}>Fundamental React Title 2</Title>
+        <Title level={3}>Fundamental React Title 3</Title>
+        <Title level={4}>Fundamental React Title 4</Title>
+        <Title level={5}>Fundamental React Title 5</Title>
+        <Title level={6}>Fundamental React Title 6</Title>
     </div>
 );
 

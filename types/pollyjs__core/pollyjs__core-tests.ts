@@ -4,6 +4,7 @@ import { EXPIRY_STRATEGIES, MODES } from '@pollyjs/utils';
 const polly = new Polly('test recording', {
     mode: MODES.PASSTHROUGH,
     recordFailedRequests: true,
+    flushRequestsOnStop: true,
     adapters: ['xhr', 'fetch'],
     persister: 'rest',
     expiryStrategy: EXPIRY_STRATEGIES.ERROR,
@@ -50,6 +51,7 @@ new Polly('test recording', {
     persister: 'rest',
     persisterOptions: {
         keepUnusedRequests: false,
+        disableSortingHarEntries: true,
         rest: {
             apiNamespace: '/api/v2',
         },
@@ -169,6 +171,10 @@ async function test() {
             req.query.email = 'test@app.com';
         })
         .once('beforeResponse', (req, res) => {
+            if (res.isBinary) {
+                return;
+            }
+
             const data = res.jsonBody();
 
             data._sessionKey = 'foo';
@@ -177,6 +183,10 @@ async function test() {
         .once('request', (req, event) => {
             /* Do something else */
             event.stopPropagation();
+        })
+        .once('abort', (req, event) => {
+            log(req.url);
+            log(event.type);
         });
 
     server
@@ -199,10 +209,7 @@ async function test() {
     });
 
     /* Pass-through all GET requests to /coverage */
-    server
-        .get('/coverage')
-        .configure({ expiresIn: '5d' })
-        .passthrough();
+    server.get('/coverage').configure({ expiresIn: '5d' }).passthrough();
 
     server.any().on('error', (req, error) => {
         req.setHeader('Content-Length', '2344')

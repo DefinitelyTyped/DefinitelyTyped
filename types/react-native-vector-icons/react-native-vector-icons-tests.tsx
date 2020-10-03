@@ -20,6 +20,7 @@ const CustomIconTabBarItem     = CustomIcon.TabBarItem;
 const CustomIconTabBarItemIOS  = CustomIcon.TabBarItemIOS;
 const CustomIconToolbarAndroid = CustomIcon.ToolbarAndroid;
 const CustomIcongetImageSource = CustomIcon.getImageSource;
+const CustomIcongetImageSourceSync = CustomIcon.getImageSourceSync;
 
 class Example extends React.Component {
   handleButton() {

@@ -631,10 +631,10 @@ declare class ProsemirrorNode<S extends Schema = any> {
    */
   resolve(pos: number): ResolvedPos<S>;
   /**
-   * Test whether a mark of the given type occurs in this document
+   * Test whether a given mark or mark type occurs in this document
    * between the two given positions.
    */
-  rangeHasMark(from: number, to: number, type: MarkType<S>): boolean;
+  rangeHasMark(from: number, to: number, type: Mark<S> | MarkType<S>): boolean;
   /**
    * True when this is a block (non-inline node)
    */
@@ -1390,7 +1390,7 @@ export class Schema<N extends string = any, M extends string = any> {
 }
 export interface DOMOutputSpecArray {
   0: string;
-  1?: DOMOutputSpec | 0 | { [attr: string]: string };
+  1?: DOMOutputSpec | 0 | { [attr: string]: string | null | undefined };
   2?: DOMOutputSpec | 0;
   3?: DOMOutputSpec | 0;
   4?: DOMOutputSpec | 0;

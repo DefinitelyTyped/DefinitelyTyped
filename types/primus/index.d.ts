@@ -1,6 +1,7 @@
 // Type definitions for primus 7.3
 // Project: https://github.com/primus/primus#readme
 // Definitions by: Christian Vaagland Tellnes <https://github.com/tellnes>
+//                 Alaa Zorkane <https://github.com/alaazorkane>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
@@ -192,5 +193,6 @@ declare namespace Primus {
         on(event: 'reconnect timeout' | 'reconnect failed', handler: (err: Error, opts: ReconnectEventOpts) => void): this;
         on(event: 'data', handler: (message: any) => void): this;
         on(event: 'error', handler: (err: Error) => void): this;
+        open(): this;
     }
 }

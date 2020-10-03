@@ -1,16 +1,18 @@
-// Type definitions for non-npm package @ember/debug 3.0
-// Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Fdebug
+// Type definitions for non-npm package @ember/debug 3.16
+// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fdebug
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 /**
  * Define an assertion that will throw an exception if the condition is not met.
  */
-export function assert(desc: string, test?: any): void | never;
+export function assert(desc: string): never;
+export function assert(desc: string, test: unknown): asserts test;
+
 /**
  * Display a debug notice.
  */
@@ -34,7 +36,7 @@ export function registerDeprecationHandler(handler: (message: string, options: {
  * The following example demonstrates its usage by registering a handler that does nothing overriding Ember's
  * default warning behavior.
  */
-export function registerWarnHandler(handler: (message: string, options: { id: string }, next: () => void) => void): void;
+export function registerWarnHandler(handler: (message: string, options: { id: string }, next: (message?: string, options?: { id: string }) => void) => void): void;
 
 /**
  * Run a function meant for debugging.

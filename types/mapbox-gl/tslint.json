@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "export-just-namespace": false,
         "interface-name": false,
         "interface-over-type-literal": false,
@@ -11,23 +10,15 @@
         "max-line-length": false,
         "no-any-union": false,
         "no-empty-interface": false,
-        "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
-        "no-void-expression": false,
-        "object-literal-key-quotes": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
-        "semicolon": false,
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
-        "triple-equals": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "triple-equals": false
     }
 }

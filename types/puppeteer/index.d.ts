@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 2.0
+// Type definitions for puppeteer 3.0
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -8,6 +8,7 @@
 //                 Jason Kaczmarsky <https://github.com/JasonKaz>
 //                 Dave Cardwell <https://github.com/davecardwell>
 //                 Andrés Ortiz <https://github.com/angrykoala>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -41,6 +42,8 @@ export interface JSONObject {
 export type SerializableOrJSHandle = Serializable | JSHandle;
 
 export type Platform = "mac" | "win32" | "win64" | "linux";
+
+export type Product = "chrome" | "firefox";
 
 /** Defines `$eval` and `$$eval` for Page, Frame and ElementHandle. */
 export interface Evalable {
@@ -335,7 +338,7 @@ export interface Tracing {
 }
 
 export interface TracingStartOptions {
-  path: string;
+  path?: string;
   screenshots?: boolean;
   categories?: string[];
 }
@@ -860,7 +863,7 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle<E>,
 
 /** The class represents a context for JavaScript execution. */
 export interface ExecutionContext extends JSEvalable {
-  queryObjects(prototypeHandle: JSHandle): JSHandle;
+  queryObjects(prototypeHandle: JSHandle): Promise<JSHandle>;
 }
 
 /** JSHandle represents an in-page JavaScript object. */
@@ -1277,7 +1280,7 @@ export interface FrameBase extends Evalable, JSEvalable {
 export interface Frame extends FrameBase {
   childFrames(): Frame[];
   /** Execution context associated with this frame. */
-  executionContext(): ExecutionContext;
+  executionContext(): Promise<ExecutionContext>;
   /** Returns `true` if the frame has been detached, or `false` otherwise. */
   isDetached(): boolean;
   /** Returns frame's name attribute as specified in the tag. */
@@ -2030,6 +2033,12 @@ export interface Target {
 
 export interface LaunchOptions extends ChromeArgOptions, BrowserOptions, Timeoutable {
   /**
+   * Which browser to launch.
+   * At this time, this is either `chrome` or `firefox`. See also `PUPPETEER_PRODUCT`.
+   * @default 'chrome'
+   */
+  product?: Product;
+  /**
    * Path to a Chromium executable to run instead of bundled Chromium. If
    * executablePath is a relative path, then it is resolved relative to current
    * working directory.
@@ -2213,6 +2222,7 @@ export interface BrowserFetcher {
   download(revision: string, progressCallback?: (downloadBytes: number, totalBytes: number) => void): Promise<RevisionInfo>;
   localRevisions(): Promise<string[]>;
   platform(): Platform;
+  product(): Product;
   remove(revision: string): Promise<void>;
   revisionInfo(revision: string): RevisionInfo;
 }
@@ -2228,6 +2238,7 @@ export interface RevisionInfo {
   url: string;
   /** whether the revision is locally available on disk */
   local: boolean;
+  product: Product;
 }
 
 export interface FetcherOptions {
@@ -2237,6 +2248,10 @@ export interface FetcherOptions {
   path?: string;
   /** Possible values are: `mac`, `win32`, `win64`, `linux`. Defaults to the current platform. */
   platform?: Platform;
+  /**
+   * @default 'chrome'
+   */
+  product?: Product;
 }
 
 /** Attaches Puppeteer to an existing Chromium instance */

@@ -43,3 +43,7 @@ const scheduledHandler: ScheduledHandler = async (event, context, callback) => {
     callback();
     callback(new Error());
 };
+
+const scheduledHandlerWithDetails: ScheduledHandler<{ status: string }> = async (event, context, callback) => {
+    const eventDetail: { status: string } = event.detail;
+};

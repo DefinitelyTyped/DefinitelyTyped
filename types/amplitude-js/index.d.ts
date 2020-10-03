@@ -1,4 +1,4 @@
-// Type definitions for Amplitude SDK 5.8
+// Type definitions for Amplitude SDK 6.0
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Arvydas Sidorenko <https://github.com/Asido>
 //                 Dan Manastireanu <https://github.com/danmana>
@@ -14,10 +14,13 @@ export interface Config {
     apiEndpoint?: string;
     batchEvents?: boolean;
     cookieExpiration?: number;
+    cookieForceUpgrade?: boolean;
     cookieName?: string;
     userId?: string;
+    deferInitialization?: boolean;
     deviceId?: string;
     deviceIdFromUrlParam?: boolean;
+    disableCookies?: boolean;
     domain?: string;
     eventUploadPeriodMillis?: number;
     eventUploadThreshold?: number;
@@ -30,12 +33,12 @@ export interface Config {
     optOut?: boolean;
     onError?: () => void;
     platform?: string;
+    sameSiteCookie?: 'Lax' | 'Strict' | 'None';
     saveEvents?: boolean;
     savedMaxCount?: number;
     saveParamsReferrerOncePerSession?: boolean;
     secureCookie?: boolean;
     sessionTimeout?: number;
-    useNativeDeviceInfo?: boolean;
     trackingOptions?: {
         city?: boolean;
         country?: boolean;
@@ -55,6 +58,7 @@ export interface Config {
     unsentKey?: string;
     unsentIdentifyKey?: string;
     uploadBatchSize?: number;
+    useNativeDeviceInfo?: boolean;
 }
 
 export class Identify {

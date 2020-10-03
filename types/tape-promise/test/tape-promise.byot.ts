@@ -16,7 +16,7 @@ tape(opts, cb);
 tape(name, opts, cb);
 
 tape(name, async (test: tapePromise.Test) => {
-	t = test;
+    t = test;
 });
 
 tape.skip(cb);
@@ -30,11 +30,11 @@ tape.only(opts, cb);
 tape.only(name, opts, cb);
 
 tape(name, async (test: tapePromise.Test) => {
-	test.test(name, async st => {
-		t = st;
-	});
+    test.test(name, async st => {
+        t = st;
+    });
 
-	test.test(name, opts, async st => {
-		t = st;
-	});
+    test.test(name, opts, async st => {
+        t = st;
+    });
 });

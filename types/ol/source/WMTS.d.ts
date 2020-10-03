@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import ImageTile from '../ImageTile';
 import { ObjectEvent } from '../Object';
@@ -14,6 +14,7 @@ export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
     crossOrigin?: string;
+    imageSmoothing?: boolean;
     tileGrid: WMTSTileGrid;
     projection?: ProjectionLike;
     reprojectionErrorThreshold?: number;
@@ -34,6 +35,7 @@ export interface Options {
 }
 export default class WMTS extends TileImage {
     constructor(options: Options);
+    createFromWMTSTemplate(template: string): UrlFunction;
     getDimensions(): any;
     getFormat(): string;
     getLayer(): string;
@@ -41,8 +43,9 @@ export default class WMTS extends TileImage {
     getRequestEncoding(): WMTSRequestEncoding;
     getStyle(): string;
     getVersion(): string;
+    setUrls(urls: string[]): void;
     updateDimensions(dimensions: any): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

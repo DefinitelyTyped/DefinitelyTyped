@@ -565,6 +565,10 @@ function hashNavigation() {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        on: {
+            hashChange: () => null,
+            hashSet: () => null
+        }
     });
 }
 
@@ -809,5 +813,30 @@ function updateOnWindowResize() {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+    });
+}
+
+/**
+ * Thumbs
+ */
+function thumbs() {
+    const thumbsSwiper = new Swiper('.swiper-container-thumbs', {
+        slidesPerView: 5,
+    });
+    const swiper = new Swiper(containerSelector, {
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        thumbs: {
+          swiper: thumbsSwiper,
+          slideThumbActiveClass: 'swiper-slide-thumb-active',
+          thumbsContainerClass: 'swiper-container-thumbs',
+          multipleActiveThumbs: true,
+          autoScrollOffset: 0
+        }
     });
 }

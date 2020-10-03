@@ -94,9 +94,11 @@ export namespace JWE {
     function createEncrypt(keys: JWK.Key | JWK.Key[]): Encryptor;
     function createEncrypt(
         options: {
-            format?: 'compact' | 'flattened';
-            zip?: boolean;
+            format?: 'general' | 'compact' | 'flattened';
+            zip?: boolean | 'DEF';
             fields?: object;
+            contentAlg?: string;
+            protect?: string | string[];
         },
         key: JWK.Key
     ): Encryptor;
@@ -351,7 +353,7 @@ export namespace util {
     function randomBytes(len: number): Buffer;
 
     namespace base64url {
-        function decode(base64url: string): string;
+        function decode(base64url: string): Buffer;
 
         function encode(buffer: string | Buffer, encoding?: string): string;
     }

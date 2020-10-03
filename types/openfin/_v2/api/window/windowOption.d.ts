@@ -1,6 +1,5 @@
 import { DownloadPreloadOption } from '../system/download-preload';
-import { RGB, ContextMenuSettings } from '../../shapes';
-
+import { RGB, ContextMenuSettings, Hotkey } from '../../shapes/shapes';
 export interface WindowOption {
     accelerator?: Accelerator;
     alphaMask?: RGB;
@@ -11,6 +10,7 @@ export interface WindowOption {
     autoShow?: boolean;
     backgroundColor?: string;
     contentNavigation?: ContentNavigation;
+    contentRedirect?: ContentRedirect;
     contextMenu?: boolean;
     contextMenuSettings?: ContextMenuSettings;
     cornerRounding?: CornerRounding;
@@ -24,7 +24,9 @@ export interface WindowOption {
     defaultWidth?: number;
     frame?: boolean;
     hideOnClose?: boolean;
+    hotkeys?: Hotkey[];
     icon?: string;
+    layout?: GoldenLayout.Config;
     maxHeight?: number;
     maximizable?: boolean;
     maxWidth?: number;
@@ -39,6 +41,7 @@ export interface WindowOption {
     saveWindowState?: boolean;
     shadow?: boolean;
     showTaskbarIcon?: boolean;
+    showBackgroundImages?: boolean;
     smallWindow?: boolean;
     state?: string;
     taskbarIconGroup?: string;
@@ -79,6 +82,10 @@ export interface Api {
     };
 }
 export interface ContentNavigation {
+    whitelist?: string[];
+    blacklist?: string[];
+}
+export interface ContentRedirect {
     whitelist?: string[];
     blacklist?: string[];
 }

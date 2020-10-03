@@ -3,7 +3,6 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 //                 Emily Marigold Klassen <https://github.com/forivall>
@@ -415,8 +414,9 @@ declare namespace yargs {
          * Note: Providing a callback to parse() disables the `exitProcess` setting until after the callback is invoked.
          * @param [context]  Provides a useful mechanism for passing state information to commands
          */
-        parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg?: string | ReadonlyArray<string>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
         /**
          * If the arguments have not been parsed, this property is `false`.

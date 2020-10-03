@@ -1,18 +1,30 @@
 import * as React from 'react';
 
-import { Environment, RecordSource, Store, Network, commitMutation, FragmentRefs } from 'relay-runtime';
+import {
+    Environment,
+    RecordSource,
+    Store,
+    Network,
+    commitMutation,
+    FragmentRefs,
+    GraphQLSubscriptionConfig,
+} from 'relay-runtime';
 import {
     fetchQuery,
     graphql,
     RelayEnvironmentProvider,
     useRelayEnvironment,
     preloadQuery,
+    PreloadedQuery,
     usePreloadedQuery,
     useLazyLoadQuery,
     useFragment,
     useRefetchableFragment,
     usePaginationFragment,
     useBlockingPaginationFragment,
+    useMutation,
+    useSubscription,
+    useQueryLoader,
 } from 'react-relay/hooks';
 
 const source = new RecordSource();
@@ -339,8 +351,8 @@ function ArrayOfNullableFragment() {
  */
 function RefetchableFragment() {
     interface CommentBodyRefetchQueryVariables {
-        lang?: string | null;
-        id?: string | null;
+        lang: string;
+        id: string;
     }
     interface CommentBodyRefetchQueryResponse {
         readonly node: {
@@ -367,6 +379,7 @@ function RefetchableFragment() {
 
     interface Props {
         comment: CommentBody_comment$key;
+        commentNullable: CommentBody_comment$key | null;
     }
 
     return function CommentBody(props: Props) {
@@ -380,10 +393,21 @@ function RefetchableFragment() {
             `,
             props.comment,
         );
+        const [dataNullable] = useRefetchableFragment<CommentBodyRefetchQuery, CommentBody_comment$key>(
+            graphql`
+                fragment CommentBody_comment on Comment @refetchable(queryName: "CommentBodyRefetchQuery") {
+                    body(lang: $lang) {
+                        text
+                    }
+                }
+            `,
+            props.commentNullable,
+        );
 
         return (
             <>
-                <p>{data!.body!.text}</p>
+                <p>{data.body!.text}</p>
+                <p>{dataNullable!.body!.text}</p>
                 <button onClick={() => refetch({ lang: 'SPANISH' }, { fetchPolicy: 'store-or-network' })}>
                     Translate Comment
                 </button>
@@ -722,4 +746,184 @@ function BlockingPaginationFragment_WithNonNullUserProp() {
             </>
         );
     };
+}
+
+/**
+ * Tests for useMutation
+ * see https://relay.dev/docs/en/experimental/api-reference#usemutation
+ */
+function Mutation() {
+    interface FeedbackLikeMutationRawResponse {
+        readonly feedback_like: {
+            readonly feedback: {
+                readonly id: string;
+                readonly viewer_does_like?: boolean | null;
+                readonly like_count?: number | null;
+            };
+        } | null;
+    }
+
+    interface FeedbackLikeMutationResponse {
+        readonly feedback_like: {
+            readonly feedback: {
+                readonly id: string;
+                readonly viewer_does_like?: boolean | null;
+                readonly like_count?: number | null;
+            };
+        } | null;
+    }
+
+    interface FeedbackLikeMutationVariables {
+        input: {
+            id: string;
+            text: string;
+        };
+    }
+
+    interface FeedbackLikeMutation {
+        readonly rawResponse: FeedbackLikeMutationRawResponse;
+        readonly response: FeedbackLikeMutationResponse;
+        readonly variables: FeedbackLikeMutationVariables;
+    }
+
+    return function LikeButton() {
+        const [commit, isInFlight] = useMutation<FeedbackLikeMutation>(graphql`
+            mutation FeedbackLikeMutation($input: FeedbackLikeData!) @raw_response_type {
+                feedback_like(data: $input) {
+                    feedback {
+                        id
+                        viewer_does_like
+                        like_count
+                    }
+                }
+            }
+        `);
+        if (isInFlight) {
+            return <div>loading</div>;
+        }
+        return (
+            <button
+                onClick={() => {
+                    commit({
+                        variables: {
+                            input: {
+                                id: '123',
+                                text: 'text',
+                            },
+                        },
+                        onCompleted(data) {
+                            console.log(data);
+
+                            if (data.feedback_like == null) {
+                                return;
+                            }
+
+                            console.log(data.feedback_like.feedback.id);
+                            console.log(data.feedback_like.feedback.like_count);
+                            console.log(data.feedback_like.feedback.viewer_does_like);
+                        },
+                        optimisticResponse: {
+                            feedback_like: {
+                                feedback: {
+                                    id: '1',
+                                },
+                            },
+                        },
+                    });
+                }}
+            />
+        );
+    };
+}
+
+/**
+ * Tests for useSubscription
+ * see https://relay.dev/docs/en/experimental/api-reference#usesubscription
+ */
+function Subscription() {
+    interface SubscriptionVariables {
+        id: string;
+    }
+    interface SubscriptionResponse {
+        readonly store: {
+            readonly id: string;
+            readonly value1: number;
+            readonly value2: number;
+        };
+    }
+    interface Subscription {
+        readonly response: SubscriptionResponse;
+        readonly variables: SubscriptionVariables;
+    }
+
+    interface Props {
+        id: string;
+    }
+
+    return function SubscriptionComponent({ id }: Props) {
+        const subscriptionConfig: GraphQLSubscriptionConfig<Subscription> = React.useMemo(
+            () => ({
+                subscription: graphql`
+                    subscription subscriptionComponentSubscription($id: ID!) {
+                        store(id: $id) {
+                            id
+                            value1
+                            value2
+                        }
+                    }
+                `,
+                variables: { id },
+            }),
+            [id],
+        );
+
+        useSubscription(subscriptionConfig);
+
+        return <p>The subscription has been started in the background.</p>;
+    };
+}
+
+/**
+ * Tests for useQueryLoader
+ * see https://relay.dev/docs/en/experimental/api-reference#usequeryloader
+ */
+function QueryLoader() {
+    const query = graphql`
+        query AppQuery($id: ID!) {
+            user(id: $id) {
+                name
+            }
+        }
+    `;
+
+    const [queryReference, loadQuery, disposeQuery] = useQueryLoader<AppQuery>(query);
+
+    function QueryFetcherExample(): React.ReactElement {
+        React.useEffect(() => {
+            loadQuery({ id: 'EXAMPLE' });
+            return disposeQuery;
+        });
+
+        return (
+            <>
+                {queryReference != null && (
+                    <>
+                        <React.Suspense fallback="Loading">
+                            <NameDisplay queryReference={queryReference} />
+                        </React.Suspense>
+                    </>
+                )}
+            </>
+        );
+    }
+
+    function NameDisplay({ queryReference }: { queryReference: PreloadedQuery<AppQuery> }) {
+        const data = usePreloadedQuery(query, queryReference);
+
+        if (data.user) {
+            return <h1>{data.user.name}</h1>;
+        } else {
+            return null;
+        }
+    }
 }

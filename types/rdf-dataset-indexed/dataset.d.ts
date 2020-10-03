@@ -21,6 +21,7 @@ declare namespace DatasetIndexed {
         some(predicate: (quad: Q) => boolean): boolean;
         toArray(): Q[];
         toStream(): Stream<Q> & Readable;
+        match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): DatasetIndexed<Q, InQuad>;
     }
 }
 

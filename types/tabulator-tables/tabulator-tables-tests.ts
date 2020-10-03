@@ -175,7 +175,7 @@ function moment(a: any, b: any) {
     return '';
 }
 
-colDef.cellClick = (_e, cell) => {
+colDef.cellClick = (_e: UIEvent, cell) => {
     console.log(cell.checkHeight);
 };
 
@@ -250,8 +250,9 @@ let autoComplete: Tabulator.AutoCompleteParams = {
         return 'Mr ' + title;
     },
     values: true, // create list of values from all values contained in this column,
-    sortValuesList:'asc', // sort the values by ascending order,
+    sortValuesList: 'asc', // sort the values by ascending order,
 };
+
 colDef.editorParams = autoComplete;
 
 colDef.editorParams = {
@@ -353,11 +354,6 @@ let options = <Tabulator.Options>{};
 options.keybindings = {
     navPrev: 'ctrl + 1',
     navNext: false,
-};
-
-options.downloadDataFormatter = data => {
-    //  data.forEach(function(row){
-    //    row.age = row.age >= 18 ? "adult" : "child";
 };
 
 options.downloadConfig = {
@@ -598,7 +594,7 @@ table = new Tabulator('#test', {});
 table.blockRedraw();
 table.restoreRedraw();
 
-table = Tabulator.prototype.findTable('#example-table');
+table = Tabulator.prototype.findTable('#example-table')[0];
 
 table.getRows('visible');
 table.deleteRow([15, 7, 9]);
@@ -633,13 +629,32 @@ table = new Tabulator('#example-table', {
 });
 
 // 4.6 updates
-const menuOptions: Tabulator.MenuObject[] | Tabulator.MenuSeparator[] = [
+const rowContextMenu: Array<Tabulator.MenuObject<Tabulator.RowComponent> | Tabulator.MenuSeparator> = [
     {
-        label: 'Hide Column',
-        action: (e, column) => {
-            (column as Tabulator.ColumnComponent).hide();
+        label: 'Remove row',
+        action: (e, row) => {
+            row.delete();
         },
-    } as Tabulator.MenuObject,
+    },
+    { separator: true },
+    {
+        disabled: true,
+        label: component => {
+            return 'Move Row';
+        },
+        action: (e, row) => {
+            row.move(1, true);
+        },
+    },
+];
+
+const headerMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabulator.MenuSeparator> = [
+    {
+        label: 'Remove Column',
+        action: (e, column) => {
+            column.delete();
+        },
+    },
     { separator: true },
     {
         disabled: true,
@@ -647,15 +662,33 @@ const menuOptions: Tabulator.MenuObject[] | Tabulator.MenuSeparator[] = [
             return 'Move Column';
         },
         action: (e, column) => {
-            (column as Tabulator.ColumnComponent).move('col', true);
+            column.move('col', true);
         },
-    } as Tabulator.MenuObject,
+    },
+];
+
+const headerContextMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabulator.MenuSeparator> = [
+    {
+        label: 'Hide Column',
+        action: (e, column) => {
+            column.hide();
+        },
+    },
+];
+
+const contextMenu: Array<Tabulator.MenuObject<Tabulator.CellComponent> | Tabulator.MenuSeparator> = [
+    {
+        label: 'Restore previous value',
+        action: (e, cell) => {
+            cell.restoreOldValue();
+        },
+    },
 ];
 
 table = new Tabulator('#example-table', {
     maxHeight: '100%',
     minHeight: 300,
-    rowContextMenu: menuOptions,
+    rowContextMenu,
     cellVertAlign: 'middle',
     cellHozAlign: 'center',
     clipboardCopyConfig: {
@@ -681,9 +714,9 @@ table = new Tabulator('#example-table', {
             title: 'Name',
             field: 'name',
             width: 200,
-            headerMenu: menuOptions,
-            headerContextMenu: menuOptions,
-            contextMenu: menuOptions,
+            headerMenu,
+            headerContextMenu,
+            contextMenu,
             vertAlign: 'bottom',
             hozAlign: 'right',
             editorParams: {
@@ -714,3 +747,182 @@ table = new Tabulator('#example-table', {
 });
 const filterVal = table.getHeaderFilterValue('name');
 table.recalc();
+const columns = table.getColumns(true);
+columns.forEach(col => col.getDefinition());
+
+// 4.7 updates
+
+table = new Tabulator('#example-table', {
+    movableRowsElementDrop: (e, element, row) => {},
+    downloadRowRange: 'selected',
+    layout: 'fitDataTable',
+    validationMode: 'highlight',
+    paginationSizeSelector: [10, 25, 50, 100, true],
+    groupHeader: (value, count, data, group) => {
+        return '';
+    },
+    groupHeaderPrint: (value, count, data, group) => {
+        return '';
+    },
+    groupHeaderClipboard: (value, count, data, group) => {
+        return '';
+    },
+    groupHeaderHtmlOutput: (value, count, data, group) => {
+        return '';
+    },
+    langs: {
+        en: {
+            pagination: {
+                all: 'All',
+                page_title: 'Show Page',
+            },
+        },
+    },
+    groupContextMenu: [
+        {
+            label: 'Hide Group',
+            action: (e, group) => {
+                group.hide();
+            },
+        },
+    ],
+});
+table.clearCellEdited();
+cell.clearEdited();
+table.getEditedCells();
+table.setFilter('colors', 'keywords', 'red green blue', { matchAll: true });
+row.addTreeChild({ name: 'Billy Bob', age: '12', gender: 'male', height: 1 }, true);
+column.isVisible();
+column.setWidth(true);
+table.getInvalidCells();
+cell.isValid();
+cell.clearValidation();
+table.clearCellValidation();
+table.validate();
+row.validate();
+column.validate();
+cell.validate();
+table.addColumn({
+    title: 'Example',
+    field: 'example',
+    validator: 'starts:bob',
+    titlePrint: 'Example',
+    titleHtmlOutput: 'User Age',
+});
+table.addColumn({
+    title: 'Example',
+    field: 'example',
+    formatter: 'datetime',
+    formatterParams: {
+        outputFormat: 'DD/MM/YY HH:ii',
+        timezone: 'America/Los_Angeles',
+    },
+});
+row.isFrozen();
+
+let autoComplete2: Tabulator.AutoCompleteParams = {
+    values: [
+        {
+            label: 'Steve Boberson',
+            value: 'steve',
+        },
+        {
+            label: 'Bob Jimmerson',
+            value: 'bob',
+        },
+        {
+            label: 'Jenny Jillerson',
+            value: 'jenny',
+        },
+        {
+            label: 'Jill Betterson',
+            value: 'jill',
+        },
+    ],
+};
+
+let select: Tabulator.SelectParams = {
+    multiselect: true,
+    values: [
+        {
+            label: 'Steve Boberson',
+            value: 'steve',
+            elementAttributes: {
+                class: 'primary-name',
+            },
+        },
+    ],
+};
+
+// 4.8
+
+table = new Tabulator('#example-table', {
+    textDirection: 'rtl',
+    virtualDomHoz: true,
+    autoColumnsDefinitions: () => {
+        const columnDefinitions: Tabulator.ColumnDefinition[] = [];
+        return columnDefinitions;
+    },
+});
+
+table = new Tabulator('#example-table', {
+    autoColumnsDefinitions: {
+        name: { editor: 'input' },
+        age: { headerFilter: true },
+        myProp: { title: 'my title' },
+    },
+});
+
+let colDefs: Tabulator.ColumnDefinition[] = [];
+colDefs.push({
+    field: 'name',
+    title: 'input',
+    clickMenu: contextMenu,
+    titleFormatterParams: { rowRange: 'active' },
+    accessor: (value, data, type, params, column, row) => {
+        return Math.floor(value);
+    },
+    accessorParams: (value, data, type, component, row) => {
+        return { param1: 'green' };
+    },
+});
+
+const groupContextMenu: Array<Tabulator.MenuObject<Tabulator.GroupComponent> | Tabulator.MenuSeparator> = [
+    { separator: true },
+];
+
+table = new Tabulator('#example-table', {
+    autoColumnsDefinitions: colDefs,
+
+    rowContextMenu: (component, e: MouseEvent) => {
+        component.delete();
+        return false;
+    },
+    rowClickMenu: rowContextMenu,
+    groupClickMenu: groupContextMenu,
+    headerHozAlign: 'right',
+    headerSortElement: "<i class='fas fa-arrow-up'></i>",
+    dataTreeFilter: false,
+    dataTreeSort: false,
+    groupUpdateOnCellEdit: true,
+    dataChanged: data => {},
+});
+
+table.setGroupValues([['male', 'female', 'smizmar']]);
+table.getData('all');
+table.getDataCount('all');
+table.getRows('all');
+table.selectRow('all');
+
+row.getData();
+row.getElement();
+row.getTable();
+row.getCells();
+row.getCell(column);
+
+let calcComponent = {} as Tabulator.CalculationComponent;
+calcComponent.getData();
+calcComponent.getElement();
+calcComponent.getTable();
+calcComponent.getCells();
+calcComponent.getCell(column);

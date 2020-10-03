@@ -18,23 +18,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/data": [
-                "wordpress__data"
-            ],
-            "@wordpress/element": [
-                "wordpress__element"
-            ],
-            "@wordpress/components": [
-                "wordpress__components"
-            ],
-            "@wordpress/edit-post": [
-                "wordpress__edit-post"
-            ],
-            "@wordpress/notices": [
-                "wordpress__notices"
-            ],
-            "@wordpress/rich-text": [
-                "wordpress__rich-text"
+            "@wordpress/*": [
+                "wordpress__*"
             ]
         }
     },

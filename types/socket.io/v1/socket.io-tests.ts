@@ -148,15 +148,15 @@ function testSocketConnection() {
     var io = socketIO.listen(80);
 
     io.sockets.on('connection', function (socket) {
-		console.log(socket.client.conn === socket.conn);
-		console.log(socket.client.request.httpVersion);
-		console.log(socket.conn.id);
-		console.log(socket.conn.upgraded);
-		console.log(socket.conn.readyState);
+        console.log(socket.client.conn === socket.conn);
+        console.log(socket.client.request.httpVersion);
+        console.log(socket.conn.id);
+        console.log(socket.conn.upgraded);
+        console.log(socket.conn.readyState);
 
-		socket.on('packet', function(message :string, ping :string){
-			console.log(message, ping);
-		});;
+        socket.on('packet', function(message :string, ping :string){
+            console.log(message, ping);
+        });;
     });
 }
 
@@ -187,5 +187,22 @@ function testSocketUse() {
         socket.use((packet, next) => {
             console.log(packet);
         });
+    });
+}
+
+function testOverwriteGenerateId() {
+    var io = socketIO.listen(80);
+    var hash = new Date().toLocaleString();
+    io.use((socket, next) => {
+        io.engine.generateId = () => {
+            return socket.handshake.query.deviceCode;
+        }
+        next();
+    })
+    .on('connection', (socket) => {
+        console.log(socket.id);
+        if (socket.id !== hash) {
+            throw new Error("GenerateId has not been overwritten");
+        }
     });
 }

@@ -56,6 +56,7 @@ export interface TableToolkitProps<T extends object = any> {
     columns: Array<ColumnDescription<T>>;
     children: (props: ToolkitContextType) => JSX.Element;
     exportCSV?: boolean | CSVProps;
+    columnToggle?: boolean;
 }
 
 export interface ToolkitContextType {
@@ -106,7 +107,7 @@ export interface ExportCSVButtonProps {
 }
 
 export namespace CSVExport {
-    function ToggleList(props: ExportCSVButtonProps): React.ReactElement | null;
+    function ExportCSVButton(props: ExportCSVButtonProps): React.ReactElement | null;
 }
 
 export interface SearchBarProps {
@@ -126,7 +127,7 @@ export interface ClearSearchButtonProps {
 
 export namespace Search {
     function SearchBar(props: SearchBarProps): React.ReactElement | null;
-    function ClearSearchButton(props: ExportCSVButtonProps): React.ReactElement | null;
+    function ClearSearchButton(props: ClearSearchButtonProps): React.ReactElement | null;
 }
 
 export const ToolkitContext: React.Context<ToolkitContextType>;

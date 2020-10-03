@@ -41,29 +41,329 @@ export type FingerprintResponse = string | null;
 
 export type CustomLinkData = string | number | boolean;
 
+export enum UriRedirectMode {
+    /**
+     * This is the default value that yields the standard behavior where we don't try to open the app if the user can see an error.
+     */
+    Default = 0,
+    /**
+     * Smart redirect mode. Same behavior as Default until we know the user has the app installed through Branch persona data. In that case, force URI schemes to open the app.
+     */
+    Smart = 1,
+    /**
+     * Forceful redirect mode. Always try to force open the app, even if it risks showing an error message when the app is not installed.
+     */
+    Forceful = 2,
+}
+
 export interface DeepLinkData {
-    tags?: string[];
+    // Analytical labels
+    /**
+     * Use channel to tag the route that your link reaches users. For example, tag links with 'Facebook' or 'LinkedIn' to help track clicks and installs through those paths separately
+     */
     channel?: string;
+
+    /**
+     * This is the feature of your app that the link might be associated with. For example, if you had built a referral program, you would label links with the feature 'referral'
+     */
     feature?: string;
+    /**
+     * Use this field to organize the links by actual campaign. For example, if you launched a new feature or product and want to run a campaign around that
+     */
+    campaign?: string;
+    /**
+     * Use this to categorize the progress or category of a user when the link was generated.
+     * For example, if you had an invite system accessible on level 1, level 3 and 5, you could differentiate links generated at each level with this parameter.
+     */
     stage?: string;
+    /**
+     * This is a free form entry with unlimited values ['string']. Use it to organize your link data with labels that don't fit within the bounds of the above
+     */
+    tags?: string[];
     data?: {
-        $desktop_url?: string;
-        $android_url?: string;
-        $ios_url?: string;
-        $ipad_url?: string;
-        $fire_url?: string;
-        $blackberry_url?: string;
-        $windows_phone_url?: string;
-        $after_click_url?: string;
-        $deeplink_path?: string;
-        $always_deeplink?: boolean;
-        $og_app_id?: string;
-        $og_title?: string;
-        $og_description?: string;
-        $og_image_url?: string;
-        $og_video?: string;
-        $og_redirect?: string;
+        // Attribution windows
+
+        /**
+         * Time between a click or a web to app auto redirect and an install or reinstall.
+         */
+        $click_install_window_days?: number;
+        /**
+         * Time between a click or a web to app auto redirect and an open or web session start.
+         */
+        $click_session_start_window_days?: number;
+        /**
+         * Time between a click or a web to app auto redirect and a conversion event.
+         * Conversion events include commerce events (e.g. purchase, add to cart), all custom events, and all view events like pageviews & content views.
+         */
+        $click_conversion_window_days?: number;
+        /**
+         * Time between an ad impression and an install or reinstall.
+         */
+        $impression_install_window_days?: number;
+        /**
+         * Time between an ad impression and an open or web session start.
+         */
+        $impression_session_start_window_days?: number;
+        /**
+         * Time between an ad impression and a conversion event.
+         * Conversion events include commerce events (e.g. purchase, add to cart), all custom events, and all view events like pageviews & content views.
+         */
+        $impression_conversion_window_days?: number;
+
+        // Custom data
+
         [custom_key: string]: any;
+
+        // Redirections
+
+        /**
+         * Change the redirect endpoint for all platforms - so you don't have to enable it by platform.
+         * Note that Branch will forward all robots to this URL, which overrides any OG tags entered in the link.
+         */
+        $fallback_url?: string;
+        /**
+         * Change the redirect endpoint on desktops
+         */
+        $desktop_url?: string;
+        /**
+         * Change the redirect endpoint for iOS App Store page for your app
+         */
+        $ios_url?: string;
+        /**
+         * Change the redirect endpoint for iPads $ios_url value
+         */
+        $ipad_url?: string;
+        /**
+         * Change the redirect endpoint for Android Play Store page for your app
+         */
+        $android_url?: string;
+        /**
+         * Redirect to Samsung Galaxy Store on Samsung devices. Only link level control. Format should be http://www.samsungapps.com/appquery/appDetail.as?appId=YOUR.PACKAGE.NAME
+         */
+        $samsung_url?: string;
+        /**
+         * Change the redirect endpoint for Windows OS Windows Phone default URL
+         */
+        $windows_phone_url?: string;
+        /**
+         * Change the redirect endpoint for Blackberry OS BlackBerry default URL
+         */
+        $blackberry_url?: string;
+        /**
+         * Change the redirect endpoint for Amazon Fire OS Fire default URL
+         */
+        $fire_url?: string;
+        /*
+         * Change the redirect endpoint for WeChat on iOS devices $ios_url value
+         */
+        $ios_wechat_url?: string;
+        /**
+         * Change the redirect endpoint for WeChat on Android devices $android_url value
+         */
+        $android_wechat_url?: string;
+        /**
+         * Force to open the $fallback_url instead of the app
+         */
+        $web_only?: boolean;
+
+        // Forced redirections
+
+        /**
+         * Prevent error messages from other apps when Branch deep links are clicked
+         */
+        $uri_redirect_mode?: UriRedirectMode;
+
+        // Deep linking
+
+        /**
+         * Set the deep link path for all platforms - so you don't have to enable it by platform.
+         * When the Branch SDK receives a link with this parameter set, it will automatically load the custom URI path contained within
+         */
+        $deeplink_path?: string;
+        /**
+         * Set the deep link path for Android apps. When the Branch SDK receives a link with this parameter set, it will automatically load the custom Android URI path contained within
+         */
+        $android_deeplink_path?: string;
+        /**
+         * Set the deep link path for iOS apps. When the Branch SDK receives a link with this parameter set, it will automatically load the custom iOS URI path contained within
+         */
+        $ios_deeplink_path?: string;
+        /**
+         * Set the deep link path for Desktop apps. You will have to fetch this parameter and route the user accordingly
+         */
+        $desktop_deeplink_path?: string;
+        /**
+         * Lets you control the snapshotting match timeout (the time that a click will wait for an app open to match) also known as attribution window. Specified in seconds
+         */
+        $match_duration?: number;
+        /**
+         * Set to false to make links always fall back to your mobile site. Does not apply to Universal Links or Android App Links.
+         */
+        $always_deeplink?: boolean;
+        /**
+         * Control the timeout that the client-side JS waits after trying to open up the app before redirecting to the App Store. Specified in milliseconds
+         */
+        $ios_redirect_timeout?: number;
+        /**
+         * Control the timeout that the client side JS waits after trying to open up the app before redirecting to the Play Store. Specified in milliseconds
+         */
+        $android_redirect_timeout?: number;
+        /**
+         * Text for SMS link sent for desktop clicks to this link. Must contain {{ link }} Value of Text me the app page in Settings
+         */
+        $custom_sms_text?: string;
+        /**
+         * Set the marketing title for the deep link.
+         */
+        $marketing_title?: string;
+        /**
+         * Set to true for the links to only support deep linking without any attribution for that link.
+         */
+        $deeplink_no_attribution?: boolean;
+        /**
+         * When a user returns to the browser after going to the app, take them to this URL. iOS only; Android coming soon
+         */
+        $after_click_url?: string;
+
+        // Content
+
+        /**
+         * Keywords for which this content should be discovered by. Just assign an array of strings with the keywords you'd like to use
+         */
+        '~keyword'?: string[];
+        /**
+         * This is the unique identifier for content that will help Branch dedupe across many instances of the same thing.
+         * Suitable options: a website with pathing, or a database with identifiers for entities
+         */
+        $canonical_identifier?: string;
+        /**
+         * This is a label for the type of content present.
+         */
+        $content_type?: string;
+        /**
+         * This will prevent click tracking and storage of link analytics. Deep link data will still flow into the app from link click to app open.
+         */
+        $do_not_process?: boolean;
+
+        // Deepview
+
+        /**
+         * The name of the deepview template to use for iOS
+         */
+        $ios_deepview?: string;
+        /**
+         * The name of the deepview template to use for Android
+         */
+        $android_deepview?: string;
+        /**
+         * The name of the deepview template to use for the Desktop
+         */
+        $desktop_deepview?: string;
+        /**
+         * The name of the template to use for iOS.
+         */
+        $ios_passive_deepview?: string;
+        /**
+         * The name of the template to use for Android.
+         */
+        $android_passive_deepview?: string;
+
+        // Link appearance
+
+        /**
+         * Specify a link alias to replace of the standard encoded short URL (e.g. https://example.app.link/aQXXDHaxKF -> https://example.app.link/october-campaign).
+         * Link aliases must be unique per app (a 409 error will occur if you create an alias already taken)
+         */
+        alias?: string;
+
+        // Open Graph
+
+        /**
+         * Set the title of the link as it will be seen in social media displays
+         */
+        $og_title?: string;
+        /**
+         * Set the description of the link as it will be seen in social media displays
+         */
+        $og_description?: string;
+        /**
+         * Set the image of the link as it will be seen in social media displays
+         */
+        $og_image_url?: string;
+        /**
+         * Set the image's width in pixels for social media displays
+         */
+        $og_image_width?: number;
+        /**
+         * Set the image's height in pixels for social media displays
+         */
+        $og_image_height?: number;
+        /**
+         * Set a video as it will be seen in social media displays
+         */
+        $og_video?: string;
+        /**
+         * Set the base URL of the link as it will be seen in social media displays
+         */
+        $og_url?: string;
+        /**
+         * Set the type of custom card format link as it will be seen in social media displays. Don't set this property when sharing deep links on Facebook
+         */
+        $og_type?: string;
+        /**
+         * (Advanced, not recommended) Set a custom URL that we redirect the social media robots to in order to retrieve all the appropriate tags
+         */
+        $og_redirect?: string;
+        /**
+         * (Rarely used) Sets the app id tag
+         */
+        $og_app_id?: string;
+
+        // Twitter
+
+        /**
+         * Set the Twitter card type of the link (e.g. player) (you must whitelist your deep link with the Twitter Card Validator)
+         */
+        $twitter_card?: string;
+        /**
+         * Set the title of the Twitter card
+         */
+        $twitter_title?: string;
+        /**
+         * Set the description of the Twitter card
+         */
+        $twitter_description?: string;
+        /**
+         * Set the image URL for the Twitter card
+         */
+        twitter_image_url?: string;
+        /**
+         * Set the site for Twitter
+         */
+        $twitter_site?: string;
+        /**
+         * Set the app country for the app card
+         */
+        $twitter_app_country?: string;
+        /**
+         * Set the video player's URL. Defaults to the value of $og_video.
+         */
+        $twitter_player?: string;
+        /**
+         * Set the player's width in pixels
+         */
+        $twitter_player_width?: number;
+        /**
+         * Set the player's height in pixels
+         */
+        $twitter_player_height?: number;
+
+        // Custom Tags
+
+        /**
+         * Valid stringified JSON dictionary of the tags’ keys and values
+         */
+        $custom_meta_tags?: string;
     };
 }
 
@@ -172,7 +472,7 @@ export function logout(callback?: (err: BranchError) => void): void;
  *
  * @param callback callback to read a user's browser-fingerprint-id
  */
-export function getBrowserFingerprint(
+export function getBrowserFingerprintId(
     callback: (err: BranchError, browser_fingerprint: FingerprintResponse) => void,
 ): void;
 

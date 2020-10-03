@@ -598,6 +598,7 @@ let panoramaOptions: google.maps.StreetViewPanoramaOptions = {
     visible: true,
     motionTracking: true,
     motionTrackingControl: true,
+    showRoadLabels: true,
 };
 let panorama = new google.maps.StreetViewPanorama(document.createElement('div'), panoramaOptions);
 
@@ -713,6 +714,10 @@ service.getDetails(
         }
 
         result.name; // $ExpectType string
+        result.reviews; // $ExpectType PlaceReview[] | undefined
+        if (result.reviews && result.reviews.length) {
+            result.reviews[0].rating; // $ExpectType number
+        }
     },
 );
 

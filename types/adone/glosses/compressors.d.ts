@@ -648,7 +648,7 @@ declare namespace adone {
                 blockSize?: number;
 
                 /**
-                 * 	Timeout for a single encoding operation in multi-threading mode
+                 *     Timeout for a single encoding operation in multi-threading mode
                  */
                 timeout?: number;
 

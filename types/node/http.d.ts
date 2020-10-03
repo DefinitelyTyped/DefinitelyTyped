@@ -1,5 +1,4 @@
 declare module "http" {
-    import * as events from "events";
     import * as stream from "stream";
     import { URL } from "url";
     import { Socket, Server as NetServer } from "net";
@@ -16,6 +15,8 @@ declare module "http" {
         'access-control-allow-origin'?: string;
         'access-control-expose-headers'?: string;
         'access-control-max-age'?: string;
+        'access-control-request-headers'?: string;
+        'access-control-request-method'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -42,6 +43,7 @@ declare module "http" {
         'if-unmodified-since'?: string;
         'last-modified'?: string;
         'location'?: string;
+        'origin'?: string;
         'pragma'?: string;
         'proxy-authenticate'?: string;
         'proxy-authorization'?: string;
@@ -129,6 +131,12 @@ declare module "http" {
          */
         headersTimeout: number;
         keepAliveTimeout: number;
+        /**
+         * Sets the timeout value in milliseconds for receiving the entire request from the client.
+         * @default 0
+         * {@link https://nodejs.org/api/http.html#http_server_requesttimeout}
+         */
+        requestTimeout: number;
     }
 
     interface Server extends HttpBase {}
@@ -344,6 +352,10 @@ declare module "http" {
          */
         maxSockets?: number;
         /**
+         * Maximum number of sockets allowed for all hosts in total. Each request will use a new socket until the maximum is reached. Default: Infinity.
+         */
+        maxTotalSockets?: number;
+        /**
          * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
          */
         maxFreeSockets?: number;
@@ -351,11 +363,16 @@ declare module "http" {
          * Socket timeout in milliseconds. This will set the timeout after the socket is connected.
          */
         timeout?: number;
+        /**
+         * Scheduling strategy to apply when picking the next free socket to use. Default: 'fifo'.
+         */
+        scheduling?: 'fifo' | 'lifo';
     }
 
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
+        readonly freeSockets: NodeJS.ReadOnlyDict<Socket[]>;
         readonly sockets: NodeJS.ReadOnlyDict<Socket[]>;
         readonly requests: NodeJS.ReadOnlyDict<IncomingMessage[]>;
 

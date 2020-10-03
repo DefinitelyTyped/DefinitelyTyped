@@ -1,4 +1,5 @@
 import * as rtlcss from "rtlcss";
+import { Transformer } from 'postcss';
 
 rtlcss.process("body { direction:ltr; }");
 
@@ -25,3 +26,5 @@ const config = {
 };
 
 rtlcss.configure(config);
+
+const transformer: Transformer = rtlcss(config);

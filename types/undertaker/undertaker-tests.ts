@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import * as fs from "fs";
 import Undertaker = require("undertaker");
 import Registry = require("undertaker-registry");
@@ -16,7 +15,7 @@ taker.task("task2", () => {
 });
 
 taker.task("task3", () => {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
         // do things
         resolve(); // when everything is done
     });

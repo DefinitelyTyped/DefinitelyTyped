@@ -15,13 +15,15 @@ export class Keccak extends Transform {
         options: TransformOptions,
     );
     update(data: string | Buffer, encoding?: BufferEncoding): Keccak;
-    digest(encoding?: BufferEncoding): Buffer;
+    digest(): Buffer;
+    digest(encoding: BufferEncoding): string;
 }
 
 export class Shake extends Transform {
     constructor(rate: number, capacity: number, delimitedSuffix: number | null, options: TransformOptions);
     update(data: string | Buffer, encoding?: BufferEncoding): Shake;
-    squeeze(dataByteLength: number, encoding?: BufferEncoding): Buffer;
+    squeeze(dataByteLength: number): Buffer;
+    squeeze(dataByteLength: number, encoding: BufferEncoding): string;
 }
 
 export type KeccakAlgorithm = 'keccak224' | 'keccak256' | 'keccak384' | 'keccak512';

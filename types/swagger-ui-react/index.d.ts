@@ -20,7 +20,7 @@ type PluginGenerator = (system: System) => object;
 type Plugin = object | PluginGenerator;
 
 export interface SwaggerUIProps {
-    spec?: object;
+    spec?: object | string;
     url?: string;
     onComplete?: (system: System) => void;
     requestInterceptor?: (req: Request) => Request | Promise<Request>;
@@ -28,6 +28,7 @@ export interface SwaggerUIProps {
     docExpansion?: 'list' | 'full' | 'none';
     defaultModelExpandDepth?: number;
     plugins?: Plugin[];
+    supportedSubmitMethods?: string[];
 }
 
 declare class SwaggerUI extends React.PureComponent<SwaggerUIProps> {}

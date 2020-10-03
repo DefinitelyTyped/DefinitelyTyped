@@ -1548,7 +1548,7 @@ interface DurandalRelativeRouteSettings {
     moduleId?: string;
     route?: string;
     fromParent?: boolean;
-	dynamicHash?: string;
+    dynamicHash?: string;
 }
 
 interface DurandalRouterBase<T> extends DurandalEventSupport<T> {

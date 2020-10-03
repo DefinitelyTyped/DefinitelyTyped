@@ -3041,6 +3041,12 @@ declare namespace Xrm {
             refresh(): void;
 
             /**
+             * Refreshes the sub grid ribbon.
+             * @see {@link https://docs.microsoft.com/it-it/powerapps/developer/model-driven-apps/clientapi/reference/grids/gridcontrol/refreshribbon External Link: refreshRibbon (Client API reference)}
+             */
+            refreshRibbon(): void;
+
+            /**
              * Use this method to remove event handlers from the GridControl's OnLoad event.
              * @param handler The handler.
              */
@@ -4240,7 +4246,7 @@ declare namespace Xrm {
              */
             text: string;
             /**
-             * (Optional) String. The title of the alert dialog.
+             * (Optional) The title of the alert dialog.
              */
             title?: string;
         }
@@ -4453,6 +4459,54 @@ declare namespace Xrm {
             roleType?: XrmEnum.RoleType;
         }
 
+        interface PageInputEntityRecord {
+            pageType: "entityrecord";
+            /**
+             * Logical name of the entity to display the form for.
+             * */
+            entityName: string;
+            /**
+             * ID of the entity record to display the form for. If you don't specify this value, the form will be opened in create mode.
+             * */
+            entityId?: string;
+            /**
+             * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name (optional).
+             */
+            createFromEntity?: boolean;
+            /**
+             * A dictionary object that passes extra parameters to the form. Invalid parameters will cause an error.
+             */
+            data?: { [attributeName: string]: any };
+            /**
+             * ID of the form instance to be displayed.
+             */
+            formId?: string;
+            /**
+             * Indicates whether the form is navigated to from a different entity using cross-entity business process flow.
+             */
+            isCrossEntityNavigate?: boolean;
+            /**
+             * Indicates whether there are any offline sync errors.
+             */
+            isOfflineSyncError?: boolean;
+            /**
+             * ID of the business process to be displayed on the form.
+             */
+            processId?: string;
+            /**
+             * ID of the business process instance to be displayed on the form.
+             */
+            processInstanceId?: string;
+            /**
+             * Define a relationship object to display the related records on the form.
+             */
+            relationship?: Relationship;
+            /**
+             * ID of the selected stage in business process instance.
+             */
+            selectedStageId?: string;
+        }
+
         interface PageInputEntityList {
             pageType: "entitylist";
             /**
@@ -4527,7 +4581,7 @@ declare namespace Xrm {
          * @param pageInput Input about the page to navigate to. The object definition changes depending on the type of page to navigate to: entity list or HTML web resource.
          * @param navigationOptions Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
          */
-        navigateTo(pageInput: Navigation.PageInputEntityList | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
+        navigateTo(pageInput: Navigation.PageInputEntityRecord | Navigation.PageInputEntityList | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
 
         /**
          * Displays an alert dialog containing a message and a button.
@@ -4666,19 +4720,18 @@ declare namespace Xrm {
          * Type to hold the Attribute metadata as part of the EntityMetadata
          */
         interface AttributeMetadata {
-            defaultFormValue: number;
+            DefaultFormValue: number;
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            options: string[];
-            logicalName: string;
-            displayName: string;
-            attributeType: XrmEnum.AttributeTypeCode;
-            entityLogicalName: string;
+            LogicalName: string;
+            DisplayName: string;
+            AttributeType: XrmEnum.AttributeTypeCode;
+            EntityLogicalName: string;
             /**
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-            optionSet: OptionMetadata[];
+            OptionSet: OptionMetadata[];
         }
 
         /**
@@ -5172,10 +5225,10 @@ declare namespace XrmEnum {
     }
 
     const enum ClientFormFactor {
-        Unknown = 1,
-        Desktop = 2,
-        Tablet = 3,
-        Phone = 4
+        Unknown = 0,
+        Desktop = 1,
+        Tablet = 2,
+        Phone = 3
     }
 
     /**

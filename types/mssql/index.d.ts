@@ -32,7 +32,7 @@ export interface ISqlTypeFactoryWithNoParams extends ISqlTypeFactory { (): ISqlT
 export interface ISqlTypeFactoryWithLength extends ISqlTypeFactory { (length?: number): ISqlTypeWithLength }
 export interface ISqlTypeFactoryWithScale extends ISqlTypeFactory { (scale?: number): ISqlTypeWithScale }
 export interface ISqlTypeFactoryWithPrecisionScale extends ISqlTypeFactory { (precision?: number, scale?: number): ISqlTypeWithPrecisionScale; }
-export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory { (tvpType: any): ISqlTypeWithTvpType }
+export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory { (tvpType?: any): ISqlTypeWithTvpType }
 
 
 export declare var VarChar: ISqlTypeFactoryWithLength;
@@ -163,6 +163,7 @@ export declare var ISOLATION_LEVEL: {
 export interface IOptions extends tds.ConnectionOptions {
     beforeConnect?: void;
     connectionString?: string;
+    enableArithAbort?: boolean;
     instanceName?: string;
     trustedConnection?: boolean;
     useUTC?: boolean;
@@ -241,6 +242,9 @@ export declare class ConnectionError implements Error {
 export interface IColumnOptions {
     nullable?: boolean;
     primary?: boolean;
+    identity?: boolean;
+    readOnly?: boolean;
+    length?: number
 }
 
 export interface IColumn extends ISqlType {
@@ -249,13 +253,13 @@ export interface IColumn extends ISqlType {
     primary: boolean;
 }
 
-declare class columns extends Array {
+declare class columns extends Array<IColumn> {
     public add(name: string, type: (() => ISqlType) | ISqlType, options?: IColumnOptions): number;
 }
 
 type IRow = (string | number | boolean | Date | Buffer | undefined)[];
 
-declare class rows extends Array {
+declare class rows extends Array<IRow> {
     public add(...row: IRow): number;
 }
 
@@ -352,8 +356,13 @@ export declare class RequestError implements Error {
 export declare class Transaction extends events.EventEmitter {
     public isolationLevel: IIsolationLevel;
     public constructor(connection?: ConnectionPool);
-    public begin(isolationLevel?: IIsolationLevel): Promise<void>;
-    public begin(isolationLevel?: IIsolationLevel, callback?: (err?: any) => void): void;
+    /**
+     * Begin a transaction.
+     * @param [isolationLevel] - Controls the locking and row versioning behavior of TSQL statements issued by a connection.
+     * @param [callback] A callback which is called after transaction has began, or an error has occurred. If omited, method returns Promise.
+     */
+    public begin(isolationLevel?: IIsolationLevel): Promise<Transaction>;
+    public begin(isolationLevel?: IIsolationLevel, callback?: (err?: ConnectionError | TransactionError) => void): Transaction;
     public commit(): Promise<void>;
     public commit(callback: (err?: any) => void): void;
     public rollback(): Promise<void>;

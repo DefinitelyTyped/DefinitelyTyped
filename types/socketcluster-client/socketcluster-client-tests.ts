@@ -1,6 +1,7 @@
 // Adapted from README
 
-import { create } from 'socketcluster-client';
+import { create, AGClientSocket } from 'socketcluster-client';
+import AuthEngine = require('socketcluster-client/lib/auth');
 
 const socket = create({
     hostname: 'localhost',
@@ -56,6 +57,7 @@ socket.transmitPublish('myChannel', 'This is a message');
     } catch (error) {}
 })();
 
+// tslint:disable-next-line: no-async-without-await Used in for-await
 (async () => {
     const myChannel = socket.channel('myChannel');
 
@@ -84,6 +86,7 @@ socket.transmitPublish('myChannel', 'This is a message');
     authStatus.isAuthenticated;
 })();
 
+// tslint:disable-next-line: no-async-without-await Used in for-await
 (async () => {
     // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
     for await (const event of socket.listener('subscribeStateChange')) {
@@ -101,13 +104,20 @@ socket.transmitPublish('myChannel', 'This is a message');
     }
 })();
 
-const mostOptions = {
+const authToken = socket.authToken;
+if (authToken) {
+    // $ExpectType any
+    authToken.iat;
+}
+
+const authEngine = new AuthEngine();
+
+const mostOptions: AGClientSocket.ClientOptions = {
     path: '/socketcluster/',
     port: 8000,
     hostname: '127.0.0.1',
     autoConnect: true,
     secure: false,
-    rejectUnauthorized: false,
     connectTimeout: 10000,
     ackTimeout: 10000,
     channelPrefix: null,
@@ -118,7 +128,7 @@ const mostOptions = {
         multiplier: 1.5,
         maxDelay: 60000,
     },
-    authEngine: null,
+    authEngine,
     codecEngine: null,
     subscriptionRetryOptions: {},
     query: {
@@ -135,3 +145,21 @@ const oldVersionSocket = create({
 
 // $ExpectType ProtocolVersions
 oldVersionSocket.protocolVersion;
+
+export class MyAuthEngine implements AuthEngine.AGAuthEngine {
+    saveToken(
+        _name: string,
+        token: AuthEngine.AuthToken | AuthEngine.SignedAuthToken,
+        _options?: { [key: string]: any },
+    ): Promise<AuthEngine.AuthToken | AuthEngine.SignedAuthToken> {
+        return Promise.resolve(token);
+    }
+
+    removeToken(_name: string): Promise<AuthEngine.AuthToken | AuthEngine.SignedAuthToken | null> {
+        return Promise.resolve(null);
+    }
+
+    loadToken(_name: string): Promise<AuthEngine.AuthToken | AuthEngine.SignedAuthToken | null> {
+        return Promise.resolve(null);
+    }
+}
