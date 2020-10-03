@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import StackGrid, { transitions, easing } from 'react-stack-grid';
+import StackGrid, { transitions, easings } from 'react-stack-grid';
 /** Default Options */
 ReactDOM.render(
     <StackGrid columnWidth={150}>
