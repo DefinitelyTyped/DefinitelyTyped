@@ -3,10 +3,6 @@
 // Definitions by: ReazerDev <https://github.com/ReazerDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Type definitions for npm package @paypal/paypal-js
-
-/// <reference types="node" />
-
 export interface ScriptElementOptions {
     url: string;
     dataAttributes: {};
