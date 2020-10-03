@@ -962,6 +962,12 @@ export interface TextPropsAndroid {
      * default is `highQuality`.
      */
     textBreakStrategy?: 'simple' | 'highQuality' | 'balanced';
+
+    /**
+     * Determines the types of data converted to clickable URLs in the text element.
+     * By default no data types are detected.
+     */
+    dataDetectorType?: 'phoneNumber' | 'link' | 'email' | 'none' | 'all';
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
