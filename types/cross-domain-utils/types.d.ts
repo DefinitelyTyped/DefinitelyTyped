@@ -1,6 +1,6 @@
 export const TYPES = true;
 
-export type CrossDomainWindowType = {
+export interface CrossDomainWindowType {
     location: string | {};
     self: CrossDomainWindowType;
     closed: boolean;
@@ -12,22 +12,22 @@ export type CrossDomainWindowType = {
     opener?: CrossDomainWindowType;
     parent: CrossDomainWindowType;
     length: number;
-    postMessage: (a: string, b: string) => void
+    postMessage: (a: string, b: string) => void;
 }
 
-export type SameDomainWindowType = {
+export interface SameDomainWindowType {
     location: string | {};
     self: CrossDomainWindowType;
     closed: boolean;
     open: (url?: string, target?: string, features?: string) => CrossDomainWindowType | null;
     close: () => void;
     focus: () => void;
-    XMLHttpRequest: typeof XMLHttpRequest;
+    XMLHttpRequest?: typeof XMLHttpRequest;
     document: Document;
     navigator: {
         userAgent: string;
-        mockUserAgent?: string
-    }
+        mockUserAgent?: string;
+    };
 }
 
 export type DomainMatcher = string | ReadonlyArray<string> | RegExp;
