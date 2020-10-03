@@ -249,7 +249,7 @@ export class DateTime {
     second: number;
     weekNumber: number;
     weekYear: number;
-    weekday: number;
+    weekday: 1|2|3|4|5|6|7;
     weekdayLong: string;
     weekdayShort: string;
     weeksInWeekYear: number;
