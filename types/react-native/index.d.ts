@@ -5055,7 +5055,7 @@ export interface ModalPropsAndroid {
     statusBarTranslucent?: boolean;
 }
 
-export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;
+export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid & ViewProps;
 
 export class Modal extends React.Component<ModalProps> {}
 
@@ -6481,14 +6481,6 @@ export interface ScrollViewPropsIOS {
     contentInsetAdjustmentBehavior?: 'automatic' | 'scrollableAxes' | 'never' | 'always';
 
     /**
-     * A floating-point number that determines how quickly the scroll view
-     * decelerates after the user lifts their finger. Reasonable choices include
-     *   - Normal: 0.998 (the default)
-     *   - Fast: 0.9
-     */
-    decelerationRate?: 'fast' | 'normal' | number;
-
-    /**
      * When true the ScrollView will try to lock to only vertical or horizontal
      * scrolling while dragging.  The default value is false.
      */
@@ -6504,6 +6496,32 @@ export interface ScrollViewPropsIOS {
      */
     indicatorStyle?: 'default' | 'black' | 'white';
 
+    /**
+     * When set, the scroll view will adjust the scroll position so that the first child
+     * that is currently visible and at or beyond minIndexForVisible will not change position.
+     * This is useful for lists that are loading content in both directions, e.g. a chat thread,
+     * where new messages coming in might otherwise cause the scroll position to jump. A value
+     * of 0 is common, but other values such as 1 can be used to skip loading spinners or other
+     * content that should not maintain position.
+     *
+     * The optional autoscrollToTopThreshold can be used to make the content automatically scroll
+     * to the top after making the adjustment if the user was within the threshold of the top
+     * before the adjustment was made. This is also useful for chat-like applications where you
+     * want to see new messages scroll into place, but not if the user has scrolled up a ways and
+     * it would be disruptive to scroll a bunch.
+     *
+     * Caveat 1: Reordering elements in the scrollview with this enabled will probably cause
+     * jumpiness and jank. It can be fixed, but there are currently no plans to do so. For now,
+     * don't re-order the content of any ScrollViews or Lists that use this feature.
+     *
+     * Caveat 2: This uses contentOffset and frame.origin in native code to compute visibility.
+     * Occlusion, transforms, and other complexity won't be taken into account as to whether
+     * content is "visible" or not.
+     */
+    maintainVisibleContentPosition?: null | {
+        autoscrollToTopThreshold?: number | null;
+        minIndexForVisible: number;
+    };
     /**
      * The maximum allowed zoom scale. The default value is 1.0.
      */
@@ -6554,18 +6572,18 @@ export interface ScrollViewPropsIOS {
     scrollsToTop?: boolean;
 
     /**
+     * When `snapToInterval` is set, `snapToAlignment` will define the relationship of the the snapping to the scroll view.
+     *      - `start` (the default) will align the snap at the left (horizontal) or top (vertical)
+     *      - `center` will align the snap in the center
+     *      - `end` will align the snap at the right (horizontal) or bottom (vertical)
+     */
+    snapToAlignment?: 'start' | 'center' | 'end';
+
+    /**
      * Fires when the scroll view scrolls to top after the status bar has been tapped
      * @platform ios
      */
     onScrollToTop?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-    /**
-     * An array of child indices determining which children get docked to the
-     * top of the screen when scrolling. For example passing
-     * `stickyHeaderIndices={[0]}` will cause the first child to be fixed to the
-     * top of the scroll view. This property is not supported in conjunction
-     * with `horizontal={true}`.
-     */
-    stickyHeaderIndices?: number[];
 
     /**
      * The current scale of the scroll view content. The default value is 1.0.
@@ -6642,6 +6660,18 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      *   });
      */
     contentContainerStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * A floating-point number that determines how quickly the scroll view
+     * decelerates after the user lifts their finger. You may also use string
+     * shortcuts `"normal"` and `"fast"` which match the underlying iOS settings
+     * for `UIScrollViewDecelerationRateNormal` and
+     * `UIScrollViewDecelerationRateFast` respectively.
+     *
+     *  - `'normal'`: 0.998 on iOS, 0.985 on Android (the default)
+     *  - `'fast'`: 0.99 on iOS, 0.9 on Android
+     */
+    decelerationRate?: 'fast' | 'normal' | number,
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
@@ -6751,14 +6781,6 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     refreshControl?: React.ReactElement<RefreshControlProps>;
 
     /**
-     * When `snapToInterval` is set, `snapToAlignment` will define the relationship of the the snapping to the scroll view.
-     *      - `start` (the default) will align the snap at the left (horizontal) or top (vertical)
-     *      - `center` will align the snap in the center
-     *      - `end` will align the snap at the right (horizontal) or bottom (vertical)
-     */
-    snapToAlignment?: 'start' | 'center' | 'end';
-
-    /**
      * When set, causes the scroll view to stop at multiples of the value of `snapToInterval`.
      * This can be used for paginating through children that have lengths smaller than the scroll view.
      * Used in combination with `snapToAlignment` and `decelerationRate="fast"`. Overrides less
@@ -6787,6 +6809,15 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      * between its end and the last `snapToOffsets` offset. The default value is true.
      */
     snapToEnd?: boolean;
+
+    /**
+     * An array of child indices determining which children get docked to the
+     * top of the screen when scrolling. For example passing
+     * `stickyHeaderIndices={[0]}` will cause the first child to be fixed to the
+     * top of the scroll view. This property is not supported in conjunction
+     * with `horizontal={true}`.
+     */
+    stickyHeaderIndices?: number[];
 
     /**
      * When true, the scroll view stops on the next index (in relation to scroll position at release)
@@ -8585,7 +8616,7 @@ export class Switch extends SwitchBase {}
  * V(fixed) --wait(1s)--> V(fixed) --wait(2s)--> V(fixed) --wait(3s)--> V(fixed)
  */
 export interface VibrationStatic {
-    vibrate(pattern: number | number[], repeat?: boolean): void;
+    vibrate(pattern?: number | number[] | null, repeat?: boolean | null): void;
 
     /**
      * Stop vibration

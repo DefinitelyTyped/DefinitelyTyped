@@ -445,7 +445,7 @@ export interface BootstrapTableProps<T extends object = any> {
     remote?:
         | boolean
         | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
-    noDataIndication?: () => JSX.Element | JSX.Element | string;
+    noDataIndication?: (() => JSX.Element | string) | JSX.Element | string;
     striped?: boolean;
     bordered?: boolean;
     hover?: boolean;

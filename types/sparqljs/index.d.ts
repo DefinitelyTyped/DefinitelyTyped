@@ -1,4 +1,4 @@
-// Type definitions for sparqljs 3.0
+// Type definitions for sparqljs 3.1
 // Project: https://github.com/RubenVerborgh/SPARQL.js
 // Definitions by: Alexey Morozov <https://github.com/AlexeyMz>
 //                 Ruben Taelman <https://github.com/rubensworks>
@@ -12,9 +12,10 @@ export const Parser: {
 };
 
 export interface ParserOptions {
-  prefixes?: { [prefix: string]: string };
-  baseIRI?: string;
-  factory?: RdfJs.DataFactory;
+    prefixes?: { [prefix: string]: string };
+    baseIRI?: string;
+    factory?: RdfJs.DataFactory;
+    sparqlStar?: boolean;
 }
 
 export const Generator: {
@@ -23,6 +24,10 @@ export const Generator: {
 
 export interface GeneratorOptions {
     allPrefixes?: boolean;
+    prefixes?: { [prefix: string]: string };
+    indent?: string;
+    newline?: string;
+    sparqlStar?: boolean;
 }
 
 export interface SparqlParser {
@@ -31,6 +36,7 @@ export interface SparqlParser {
 
 export interface SparqlGenerator {
     stringify(query: SparqlQuery): string;
+    createGenerator(): any;
 }
 
 export class Wildcard {
@@ -39,12 +45,13 @@ export class Wildcard {
     equals(other: RdfJs.Term | null | undefined): boolean;
 }
 
-export type Term = VariableTerm | IriTerm | LiteralTerm | BlankTerm;
+export type Term = VariableTerm | IriTerm | LiteralTerm | BlankTerm | QuadTerm;
 
 export type VariableTerm = RdfJs.Variable;
 export type IriTerm = RdfJs.NamedNode;
 export type LiteralTerm = RdfJs.Literal;
 export type BlankTerm = RdfJs.BlankNode;
+export type QuadTerm = RdfJs.Quad;
 
 export type SparqlQuery = Query | Update;
 
@@ -172,8 +179,6 @@ export interface VariableExpression {
 export type Pattern =
     | BgpPattern
     | BlockPattern
-    | GraphPattern
-    | ServicePattern
     | FilterPattern
     | BindPattern
     | ValuesPattern
@@ -193,24 +198,45 @@ export interface GraphQuads {
     triples: Triple[];
 }
 
-export interface BlockPattern {
-    type: 'optional' | 'union' | 'group' | 'minus' | 'graph' | 'service';
+export type BlockPattern =
+    | OptionalPattern
+    | UnionPattern
+    | GroupPattern
+    | GraphPattern
+    | MinusPattern
+    | ServicePattern;
+
+export interface OptionalPattern {
+    type: 'optional';
     patterns: Pattern[];
 }
 
-export interface GroupPattern extends BlockPattern {
-    type: 'group';
+export interface UnionPattern {
+    type: 'union';
+    patterns: Pattern[];
 }
 
-export interface GraphPattern extends BlockPattern {
+export interface GroupPattern {
+    type: 'group';
+    patterns: Pattern[];
+}
+
+export interface GraphPattern {
     type: 'graph';
     name: IriTerm;
+    patterns: Pattern[];
 }
 
-export interface ServicePattern extends BlockPattern {
+export interface MinusPattern {
+    type: 'minus';
+    patterns: Pattern[];
+}
+
+export interface ServicePattern {
     type: 'service';
     name: IriTerm;
     silent: boolean;
+    patterns: Pattern[];
 }
 
 export interface FilterPattern {
@@ -234,15 +260,15 @@ export interface ValuePatternRow {
 }
 
 export interface Triple {
-    subject: Term;
-    predicate: PropertyPath | Term;
+    subject: IriTerm | BlankTerm | VariableTerm | QuadTerm;
+    predicate: IriTerm | VariableTerm | PropertyPath;
     object: Term;
 }
 
 export interface PropertyPath {
     type: 'path';
     pathType: '|' | '/' | '^' | '+' | '*' | '!';
-    items: Array<PropertyPath | Term>;
+    items: Array<IriTerm | PropertyPath>;
 }
 
 export type Expression =
@@ -250,6 +276,7 @@ export type Expression =
     | FunctionCallExpression
     | AggregateExpression
     | BgpPattern
+    | GraphPattern
     | GroupPattern
     | Tuple
     | Term;

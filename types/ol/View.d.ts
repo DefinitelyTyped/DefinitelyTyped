@@ -1,6 +1,6 @@
 import { Type } from './centerconstraint';
 import { Coordinate } from './coordinate';
-import { EventsKey, ListenerFunction } from './events';
+import { EventsKey } from './events';
 import BaseEvent from './events/Event';
 import { Extent } from './extent';
 import SimpleGeometry from './geom/SimpleGeometry';
@@ -144,7 +144,7 @@ export default class View extends BaseObject {
     setViewportSize(opt_size?: Size): void;
     setZoom(zoom: number): void;
     updateAnimations_(): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@tryghost/content-api": ["tryghost__content-api"]
+            "@tryghost/*": ["tryghost__*"]
         }
     },
     "files": [

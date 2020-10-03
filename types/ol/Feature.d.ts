@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from './events';
+import { EventsKey } from './events';
 import BaseEvent from './events/Event';
 import Geometry from './geom/Geometry';
 import BaseObject, { ObjectEvent } from './Object';
@@ -18,8 +18,8 @@ export default class Feature<GeomType extends Geometry = Geometry> extends BaseO
     setGeometry(geometry: GeomType | undefined): void;
     setGeometryName(name: string): void;
     setId(id: number | string | undefined): void;
-    setStyle(style: StyleLike | null): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    setStyle(opt_style?: StyleLike): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

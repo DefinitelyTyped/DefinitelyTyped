@@ -43,8 +43,9 @@ export type BuiltInParserName =
     | 'mdx'
     | 'yaml'
     | 'lwc';
+export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
-export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
+export type CustomParser = (text: string, parsers: BuiltInParsers, options: Options) => AST;
 
 export interface Options extends Partial<RequiredOptions> {}
 export interface RequiredOptions extends doc.printer.Options {

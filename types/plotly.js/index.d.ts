@@ -935,6 +935,7 @@ export interface Delta {
 export interface DataTitle {
     text: string;
     font: Partial<Font>;
+    standoff: number;
     position:
         | 'top left'
         | 'top center'
@@ -1039,6 +1040,9 @@ export interface PlotData {
     x: Datum[] | Datum[][] | TypedArray;
     y: Datum[] | Datum[][] | TypedArray;
     z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+    i: TypedArray;
+    j: TypedArray;
+    k: TypedArray;
     xy: Float32Array;
     error_x: ErrorBar;
     error_y: ErrorBar;
@@ -1179,6 +1183,9 @@ export interface PlotData {
     orientation: 'v' | 'h';
     width: number | number[];
     boxmean: boolean | 'sd';
+    boxpoints: 'all' | 'outliers' | 'suspectedoutliers' | false;
+    jitter: number;
+    pointpos: number;
     opacity: number;
     showscale: boolean;
     colorscale: ColorScale;
@@ -1201,6 +1208,7 @@ export interface PlotData {
     theta: Datum[];
     r: Datum[];
     customdata: Datum[];
+    selectedpoints: Datum[];
     domain: Partial<{
         rows: number;
         columns: number;

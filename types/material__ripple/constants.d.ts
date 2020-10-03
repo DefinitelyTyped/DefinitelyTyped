@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { MDCStrings, MDCNumbers } from 'material__base';
+import { MDCStrings, MDCNumbers } from '@material/base';
 
 export interface cssClasses extends MDCStrings {
     // Ripple is a special case where the "root" component is really a "mixin" of sorts,

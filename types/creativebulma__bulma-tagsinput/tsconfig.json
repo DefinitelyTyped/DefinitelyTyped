@@ -14,8 +14,8 @@
             "../"
         ],
         "paths": {
-            "@creativebulma/bulma-tagsinput": [
-                "creativebulma__bulma-tagsinput"
+            "@creativebulma/*": [
+                "creativebulma__*"
             ]
         },
         "types": [],

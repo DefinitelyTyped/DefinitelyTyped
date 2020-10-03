@@ -13,8 +13,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@babel/preset-env": [
-                "babel__preset-env"
+            "@babel/*": [
+                "babel__*"
             ]
         }
     },
