@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "@riderize__passport-strava-oauth2-tests.ts"
+        "riderize__passport-strava-oauth2-tests.ts"
     ]
 }

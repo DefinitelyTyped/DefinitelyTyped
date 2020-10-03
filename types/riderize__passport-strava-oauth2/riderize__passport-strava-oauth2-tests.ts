@@ -1,5 +1,5 @@
 import passport = require('passport');
-import strava = require('@riderize__passport-strava-oauth2');
+import strava = require('riderize__passport-strava-oauth2');
 import express = require('express');
 
 // just some test model
