@@ -125,4 +125,4 @@ interface easingProps{
     backOut:string;
     backInOut:string;
 }
-export const easing:easingProps;
+export const easings:easingProps;
