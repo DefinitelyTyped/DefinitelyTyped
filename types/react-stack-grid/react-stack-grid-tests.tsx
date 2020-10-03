@@ -35,7 +35,7 @@ ReactDOM.render(
         appear={scaleDown.appear}
         appeared={scaleDown.appeared}
         enter={scaleDown.enter}
-        easing={easing.cubicOut}
+        easing={easings.cubicOut}
         entered={scaleDown.entered}
         leaved={scaleDown.leaved}
     >

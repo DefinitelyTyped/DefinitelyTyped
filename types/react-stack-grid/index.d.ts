@@ -94,35 +94,34 @@ interface transitionsProps {
 
 export const transitions: transitionsProps;
 
-
-interface easingProps{
-    linear:string;
-    easeIn:string;
-    easeOut:string;
-    easeInOut:string;
-    sineIn:string;
-    sineOut:string;
-    sineInOut:string;
-    quadIn:string;
-    quadOut:string;
-    quadInOut:string;
-    cubicIn:string;
-    cubicOut:string;
-    cubicInOut:string;
-    quartIn:string;
-    quartOut:string;
-    quartInOut:string;
-    quintIn:string;
-    quintOut:string;
-    quintInOut:string;
-    expoIn:string;
-    expoOut:string;
-    expoInOut:string;
-    circIn:string;
-    circOut:string;
-    circInOut:string;
-    backIn:string;
-    backOut:string;
-    backInOut:string;
+interface easingProps {
+    linear: string;
+    easeIn: string;
+    easeOut: string;
+    easeInOut: string;
+    sineIn: string;
+    sineOut: string;
+    sineInOut: string;
+    quadIn: string;
+    quadOut: string;
+    quadInOut: string;
+    cubicIn: string;
+    cubicOut: string;
+    cubicInOut: string;
+    quartIn: string;
+    quartOut: string;
+    quartInOut: string;
+    quintIn: string;
+    quintOut: string;
+    quintInOut: string;
+    expoIn: string;
+    expoOut: string;
+    expoInOut: string;
+    circIn: string;
+    circOut: string;
+    circInOut: string;
+    backIn: string;
+    backOut: string;
+    backInOut: string;
 }
-export const easings:easingProps;
+export const easings: easingProps;
