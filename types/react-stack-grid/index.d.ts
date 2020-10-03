@@ -13,7 +13,7 @@ export interface StackGridProps {
     columnWidth: number | string;
     className?: string;
     style?: React.CSSProperties;
-    gridRef?: Function;
+    gridRef?: () => void;
     component?: string;
     itemComponent?: string;
     gutterWidth?: number;
@@ -21,17 +21,17 @@ export interface StackGridProps {
     duration?: number;
     easing?: string;
     appearDelay?: number;
-    appear?: Function;
-    appeared?: Function;
-    enter?: Function;
-    entered?: Function;
-    leaved?: Function;
+    appear?: () => void;
+    appeared?: () => void;
+    enter?: () => void;
+    entered?: () => void;
+    leaved?: () => void;
     units?: Units;
     monitorImagesLoaded?: boolean;
     vendorPrefix?: boolean;
     userAgent?: string;
     enableSSR?: boolean;
-    onLayout?: Function;
+    onLayout?: () => void;
     horizontal?: boolean;
     rtl?: boolean;
 }
@@ -42,53 +42,53 @@ export default StackGrid;
 
 interface transitionsProps {
     fade: {
-        appear: Function;
-        appeared: Function;
-        enter: Function;
-        entered: Function;
-        leaved: Function;
+        appear: () => void;
+        appeared: () => void;
+        enter: () => void;
+        entered: () => void;
+        leaved: () => void;
     };
     fadeDown: {
-        appear: Function;
-        appeared: Function;
-        enter: Function;
-        entered: Function;
-        leaved: Function;
+        appear: () => void;
+        appeared: () => void;
+        enter: () => void;
+        entered: () => void;
+        leaved: () => void;
     };
     fadeUp: {
-        appear: Function;
-        appeared: Function;
-        enter: Function;
-        entered: Function;
-        leaved: Function;
+        appear: () => void;
+        appeared: () => void;
+        enter: () => void;
+        entered: () => void;
+        leaved: () => void;
     };
     scaleDown: {
-        appear: Function;
-        appeared: Function;
-        enter: Function;
-        entered: Function;
-        leaved: Function;
+        appear: () => void;
+        appeared: () => void;
+        enter: () => void;
+        entered: () => void;
+        leaved: () => void;
     };
     scaleUp: {
-        appear: Function;
-        appeared: Function;
-        enter: Function;
-        entered: Function;
-        leaved: Function;
+        appear: () => void;
+        appeared: () => void;
+        enter: () => void;
+        entered: () => void;
+        leaved: () => void;
     };
     flip: {
-        appear: Function;
-        appeared: Function;
-        enter: Function;
-        entered: Function;
-        leaved: Function;
+        appear: () => void;
+        appeared: () => void;
+        enter: () => void;
+        entered: () => void;
+        leaved: () => void;
     };
     helix: {
-        appear: Function;
-        appeared: Function;
-        enter: Function;
-        entered: Function;
-        leaved: Function;
+        appear: () => void;
+        appeared: () => void;
+        enter: () => void;
+        entered: () => void;
+        leaved: () => void;
     };
 }
 
