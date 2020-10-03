@@ -178,12 +178,12 @@ export function variance<T>(array: Iterable<T>, accessor: (datum: T, index: numb
 // --------------------------------------------------------------------------------------
 
 /**
- * Deprecated. Use leastIndex instead.
+ * @deprecated Use leastIndex instead.
  */
 export function scan(array: Iterable<number>, comparator?: (a: number, b: number) => number): number | undefined;
 
 /**
- * Deprecated. Use leastIndex instead.
+ * @deprecated Use leastIndex instead.
  */
 export function scan<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): number | undefined;
 
@@ -572,17 +572,17 @@ export interface HistogramGeneratorNumber<Datum, Value extends number | undefine
 }
 
 /**
- * Deprecated. Use bin instead.
+ * @deprecated. Use bin instead.
  */
 export function histogram(): HistogramGeneratorNumber<number, number>;
 
 /**
- * Deprecated. Use bin instead.
+ * @deprecated Use bin instead.
  */
 export function histogram<Datum, Value extends number | undefined>(): HistogramGeneratorNumber<Datum, Value>;
 
 /**
- * Deprecated. Use bin instead.
+ * @deprecated Use bin instead.
  */
 export function histogram<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
 
