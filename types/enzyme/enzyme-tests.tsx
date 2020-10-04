@@ -998,7 +998,7 @@ function ReactWrapperTest() {
 
 // CheerioWrapper
 function CheerioWrapperTest() {
-    const wrapper: Cheerio =
+    const wrapper: cheerio.Cheerio =
         shallow(<div />).render() ||
         mount(<div />).render();
 

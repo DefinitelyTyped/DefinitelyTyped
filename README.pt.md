@@ -549,7 +549,7 @@ Quando `dts-gen` for usado para montar um pacote com escopo, a propriedade `path
 ```json
 {
     "paths":{
-      "@foo/bar": ["foo__bar"]
+      "@foo/*": ["foo__*"]
     }
 }
 ```

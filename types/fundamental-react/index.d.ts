@@ -1,13 +1,15 @@
-// Type definitions for fundamental-react 0.9
+// Type definitions for fundamental-react 0.13
 // Project: https://sap.github.io/fundamental-react
 // Definitions by: Frank Feinbube <https://github.com/Feinbube>
 //                 Milan Proell <https://github.com/milanpro>
 //                 Sam Kvale <https://github.com/skvale>
+//                 Auryn Engel <https://github.com/auryn31>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 export { default as ActionBar } from "./lib/ActionBar/ActionBar";
 export { default as Breadcrumb } from "./lib/Breadcrumb/Breadcrumb";
+export { default as BusyIndicator } from "./lib/BusyIndicator/BusyIndicator";
 export { default as Button } from "./lib/Button/Button";
 export { default as ButtonGroup } from "./lib/Button/ButtonGroup";
 export { default as Calendar } from "./lib/Calendar/Calendar";
@@ -57,5 +59,6 @@ export { default as Table } from "./lib/Table/Table";
 export { default as Tile } from "./lib/Tile/Tile";
 export { default as Time } from "./lib/Time/Time";
 export { default as TimePicker } from "./lib/TimePicker/TimePicker";
+export { default as Title } from "./lib/Title/Title";
 export { default as Token } from "./lib/Token/Token";
 export { default as TreeView } from "./lib/TreeView/TreeView";

@@ -1411,6 +1411,12 @@
             "asOfVersion": "2.2.1"
         },
         {
+            "libraryName": "favicons-webpack-plugin",
+            "typingsPackageName": "favicons-webpack-plugin",
+            "sourceRepoURL": "https://github.com/jantimon/favicons-webpack-plugin",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "@types/facebook-js-sdk",
             "typingsPackageName": "fb",
             "sourceRepoURL": "https://github.com/DefinitelyTyped/DefinitelyTyped",
@@ -3005,6 +3011,12 @@
             "typingsPackageName": "material__top-app-bar",
             "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-top-app-bar",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "matrix-appservice-bridge",
+            "typingsPackageName": "matrix-appservice-bridge",
+            "sourceRepoURL": "https://github.com/matrix-org/matrix-appservice-bridge",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "maxmind",
@@ -5603,6 +5615,12 @@
             "typingsPackageName": "use-dark-mode",
             "sourceRepoURL": "https://github.com/donavon/use-dark-mode#readme",
             "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "username",
+            "typingsPackageName": "username",
+            "sourceRepoURL": "https://github.com/sindresorhus/username",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "UUID.js",

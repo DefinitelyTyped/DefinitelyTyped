@@ -1944,7 +1944,8 @@ export function trim(str: string): string;
  * function and returns its result. Note that for effective composition with this function, both the tryer and
  * catcher functions must return the same type of results.
  */
-export function tryCatch<T>(tryer: (...args: readonly any[]) => T, catcher: (...args: readonly any[]) => T): (...args: readonly any[]) => T;
+export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T, catcher: (...args: readonly A[]) => T): (...args: readonly A[]) => T;
+export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T): (catcher: (...args: readonly A[]) => T) => (...args: readonly A[]) => T;
 
 /**
  * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
@@ -2082,8 +2083,8 @@ export function view<T, U>(lens: Lens, obj: T): U;
  * will return the result of calling the whenTrueFn function with the same argument. If the predicate is not satisfied,
  * the argument is returned as is.
  */
-export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, obj: T): U;
-export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (obj: T) => U;
+export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, obj: T): T | U;
+export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (obj: T) => T | U;
 
 /**
  * Takes a spec object and a test object and returns true if the test satisfies the spec.

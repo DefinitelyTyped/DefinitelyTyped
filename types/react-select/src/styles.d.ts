@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react';
 import { ControlProps } from './components/Control';
+import { PlaceholderProps } from './components/Placeholder';
 
 export interface Props { [key: string]: any; }
 
@@ -27,7 +28,7 @@ export interface Styles {
   // TODO noOptionsMessageCSS?: StylesConfigFunction;
   noOptionsMessage?: StylesConfigFunction;
   option?: StylesConfigFunction;
-  placeholder?: StylesConfigFunction;
+  placeholder?: StylesConfigFunction<PlaceholderProps<{}>>;
   singleValue?: StylesConfigFunction;
   valueContainer?: StylesConfigFunction;
 }

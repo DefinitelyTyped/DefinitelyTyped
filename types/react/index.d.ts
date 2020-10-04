@@ -475,12 +475,12 @@ declare namespace React {
         // TODO (TypeScript 3.0): unknown
         context: any;
 
-        constructor(props: Readonly<P>);
+        constructor(props: Readonly<P> | P);
         /**
          * @deprecated
          * @see https://reactjs.org/docs/legacy-context.html
          */
-        constructor(props: P, context?: any);
+        constructor(props: P, context: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
@@ -2035,14 +2035,18 @@ declare namespace React {
         allow?: string;
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
+        /** @deprecated */
         frameBorder?: number | string;
         height?: number | string;
         loading?: "eager" | "lazy";
+        /** @deprecated */
         marginHeight?: number;
+        /** @deprecated */
         marginWidth?: number;
         name?: string;
         referrerPolicy?: string;
         sandbox?: string;
+        /** @deprecated */
         scrolling?: string;
         seamless?: boolean;
         src?: string;

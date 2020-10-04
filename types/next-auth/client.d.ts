@@ -1,16 +1,8 @@
 import { FC } from 'react';
 import { IncomingMessage } from 'http';
-import { GenericObject } from './_utils';
+import { GenericObject, SessionBase  } from './_utils';
 
-interface Session {
-    user: {
-        name: string;
-        email: string;
-        image: string;
-    };
-    accessToken?: string;
-    expires: string;
-}
+type Session = SessionBase & GenericObject;
 
 interface GetProvidersResponse {
     [provider: string]: SessionProvider;
@@ -25,7 +17,7 @@ interface SessionProvider extends GenericObject {
 }
 
 interface ContextProviderProps {
-    session: Session;
+    session: Session | null | undefined;
     options?: SetOptionsParams;
 }
 
@@ -43,7 +35,7 @@ interface NextContext {
     ctx?: { req: IncomingMessage };
 }
 
-declare function useSession(): [Session, boolean];
+declare function useSession(): [Session | null | undefined, boolean];
 declare function providers(): Promise<GetProvidersResponse | null>;
 declare const getProviders: typeof providers;
 declare function session(

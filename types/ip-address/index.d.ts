@@ -1,4 +1,4 @@
-// Type definitions for ip-address 5.8
+// Type definitions for ip-address 6.0
 // Project: https://github.com/beaugunderson/ip-address
 // Definitions by: Ian Copp <https://github.com/icopp>
 //                 Daniel Byrne <https://github.com/danwbyrne>
@@ -127,11 +127,6 @@ export class Address4 {
   toGroup6(): string;
   /** Converts an IPv4 address object to a hex string */
   toHex(): string;
-  /**
-   * Converts an IPv4 address object to an IPv6 address group
-   * @deprecated
-   */
-  toV6Group(): string;
 }
 /**
  * Represents an IPv6 address
@@ -238,29 +233,4 @@ export class Address6 {
   toByteArray(): number[];
   /** Return an unsigned byte array */
   toUnsignedByteArray(): number[];
-  /**
-   * Return a v6 6to4 address from a v6 v4inv6 address
-   * @deprecated
-   */
-  get6to4(): Address6;
-  /**
-   * Return an object containing the 6to4 properties of the address
-   * @deprecated
-   */
-  six2four(): SixToFourProperties;
-  /**
-   * Return an object containing the Teredo properties of the address
-   * @deprecated
-   */
-  toredo(): TeredoProperties;
-  /**
-   * Return the last two groups of this address as an IPv4 address string
-   * @deprecated
-   */
-  tov4(): string;
-  /**
-   * Return the v4-in-v6 form of the address
-   * @deprecated
-   */
-  v4inv6(): string;
 }

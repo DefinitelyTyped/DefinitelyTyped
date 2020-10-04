@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@microsoft/typescript-etw": ["microsoft__typescript-etw"]
+            "@microsoft/*": ["microsoft__*"]
         }
     },
     "files": [

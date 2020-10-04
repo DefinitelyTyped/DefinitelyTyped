@@ -26,6 +26,8 @@ export enum DownloadTaskState {
   DOWNLOADING = 'DOWNLOADING',
   PAUSED = 'PAUSED',
   DONE = 'DONE',
+  FAILED = 'FAILED',
+  STOPPED = 'STOPPED',
 }
 
 export interface DownloadTask {

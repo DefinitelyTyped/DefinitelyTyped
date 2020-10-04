@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@keyv/postgres": [
-                "keyv__postgres"
+            "@keyv/*": [
+                "keyv__*"
             ]
         },
         "types": [],

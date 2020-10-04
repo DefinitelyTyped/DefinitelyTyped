@@ -286,6 +286,8 @@ export class RemoteTrackStats extends TrackStats {
 }
 export class RemoteVideoTrack extends VideoTrack {
     sid: Track.SID;
+    isSwitchedOff: boolean;
+    priority: Track.Priority | null;
 }
 export class RemoteVideoTrackPublication extends RemoteTrackPublication {
     kind: 'video';

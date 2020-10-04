@@ -375,7 +375,7 @@ NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 ```json
 {
     "paths":{
-      "@foo/bar": ["foo__bar"]
+      "@foo/*": ["foo__*"]
     }
 }
 ```

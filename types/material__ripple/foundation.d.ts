@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import MDCFoundation from 'material__base/foundation';
+import MDCFoundation from '@material/base/foundation';
 import MDCRippleAdapter from './adapter';
 import { cssClasses, strings, numbers } from './constants';
 

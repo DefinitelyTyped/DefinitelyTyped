@@ -42,7 +42,9 @@ async function testSObject(connection: sf.Connection) {
 
     // currently untyped, but some future change may make this stricter
     const restApiOptions = {
-        headers: { Bearer: 'I have no idea what this wants' }
+        headers: { Bearer: 'I have no idea what this wants' },
+        allowRecursive: true,
+        allOrNone: true
     };
 
     { // Test SObject.record

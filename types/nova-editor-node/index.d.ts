@@ -1,5 +1,5 @@
-// Type definitions for non-npm package nova-editor-node 1.0
-// Project: https://novadocs.panic.com
+// Type definitions for non-npm package nova-editor-node 1.2
+// Project: https://docs.nova.app/api-reference/
 // Definitions by: Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.3
@@ -33,11 +33,11 @@ interface ColorAssistant {
 }
 
 interface CompletionAssistant {
-    provideCompletionItems(editor: TextEditor, context: CompletionContext): void | CompletionItem[];
+    provideCompletionItems(editor: TextEditor, context: CompletionContext): CompletionItem[] | Promise<CompletionItem[]>;
 }
 
 interface IssueAssistant {
-    provideIssues(editor: TextEditor): Issue[];
+    provideIssues(editor: TextEditor): Issue[] | Promise<Issue[]>;
 }
 
 /// https://novadocs.panic.com/api-reference/charset/
@@ -57,6 +57,13 @@ declare class Charset {
 
     concat(...charsets: Array<Charset>): Charset;
     intersect(...charsets: Array<Charset>): Charset;
+}
+
+/// https://docs.nova.app/api-reference/clipboard/
+
+declare interface Clipboard {
+    readText(): Promise<string>;
+    writeText(text: string): Promise<void>;
 }
 
 /// https://novadocs.panic.com/api-reference/color/
@@ -100,13 +107,14 @@ declare class CompletionItem {
 
     label: string;
     kind: CompletionItemKind;
+    color?: Color;
     detail?: string;
     documentation?: string;
     filterText?: string;
     insertText?: string;
+    insertTextFormat?: InsertTextFormat;
     range?: Range;
-    commitCharacters?: string[];
-    tokenize: boolean; // default false
+    commitChars?: Charset;
 }
 
 declare enum CompletionItemKind {
@@ -138,6 +146,11 @@ declare enum CompletionItemKind {
     StyleDirective,
     StyleID,
     StyleClass,
+}
+
+declare enum InsertTextFormat {
+    PlainText,
+    Snippet,
 }
 
 /// https://novadocs.panic.com/api-reference/composite-disposable/
@@ -223,6 +236,7 @@ interface Environment {
     readonly versionString: string;
     readonly systemVersion: [number, number, number];
     readonly locales: string[];
+    readonly clipboard: Clipboard;
     readonly config: Configuration;
     readonly credentials: Credentials;
     readonly extension: Extension;
@@ -693,7 +707,7 @@ declare class TextEditor {
     readonly tabText: string;
 
     edit(callback: (edit: TextEditorEdit) => void, options?: unknown): Promise<void>;
-    insert(string: string): Promise<void>;
+    insert(string: string, format?: InsertTextFormat): Promise<void>;
     save(): void;
     getTextInRange(range: Range): string;
     getLineRangeForRange(range: Range): Range;

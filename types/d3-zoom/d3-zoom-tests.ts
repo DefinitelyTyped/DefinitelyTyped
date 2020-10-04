@@ -297,6 +297,7 @@ const svgOverlayTransition = svgOverlay.transition();
 
 // use on selection
 svgZoom.transform(svgOverlay, d3Zoom.zoomIdentity);
+svgZoom.transform(svgOverlay, d3Zoom.zoomIdentity, [0, 0]);
 // $ExpectError
 svgZoom.transform(groupsSelection, d3Zoom.zoomIdentity); // fails, as groupSelection mismatches DOM Element type and datum type
 
@@ -432,6 +433,7 @@ svgZoom.translateBy(
 
 // use on selection
 svgZoom.translateTo(svgOverlay, 20, 50);
+svgZoom.translateTo(svgOverlay, 20, 50, [0, 0]);
 // $ExpectError
 svgZoom.translateTo(groupsSelection, 20, 50); // fails, as groupSelection mismatches DOM Element type and datum type
 
@@ -534,6 +536,7 @@ svgZoom.translateTo(
 
 // use on selection
 svgZoom.scaleBy(svgOverlay, 3);
+svgZoom.scaleBy(svgOverlay, 3, [0, 0]);
 // $ExpectError
 svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismatches DOM Element type and datum type
 

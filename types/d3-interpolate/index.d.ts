@@ -1,13 +1,14 @@
-// Type definitions for D3JS d3-interpolate module 1.3
+// Type definitions for D3JS d3-interpolate module 2.0
 // Project: https://github.com/d3/d3-interpolate/, https://d3js.org/d3-interpolate
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.3.2
+// Last module patch version validated against: 2.0.1
 
 import { ColorCommonInstance } from 'd3-color';
 
@@ -21,6 +22,14 @@ export interface ZoomInterpolator extends Function {
      * Recommended duration of zoom transition in milliseconds.
      */
     duration: number;
+
+    /**
+     * Given a zoom interpolator, returns a new zoom interpolator using the specified curvature rho.
+     * When rho is close to 0, the interpolator is almost linear.
+     * The default curvature is sqrt(2).
+     * @param rho
+     */
+    rho(rho: number): this;
 }
 
 export interface ColorGammaInterpolationFactory extends Function {
@@ -42,6 +51,19 @@ export interface ColorGammaInterpolationFactory extends Function {
  */
 export type ZoomView = [number, number, number];
 
+export type TypedArray =
+    | Int8Array
+    | Uint8Array
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Uint8ClampedArray
+    | Float32Array
+    | Float64Array;
+
+export type NumberArray = TypedArray | DataView;
+
 // ---------------------------------------------------------------------------
 // Interpolation Function Factories
 // ---------------------------------------------------------------------------
@@ -50,42 +72,38 @@ export type ZoomView = [number, number, number];
  * Returns an `null` constant interpolator.
  */
 export function interpolate(a: any, b: null): ((t: number) => null);
-
 /**
  * Returns an boolean constant interpolator of value `b`.
  */
 export function interpolate(a: any, b: boolean): ((t: number) => boolean);
-
 /**
  * Returns a `interpolateNumber` interpolator.
  */
 export function interpolate(a: number | { valueOf(): number }, b: number): ((t: number) => number);
-
 /**
  * Returns a `interpolateRgb` interpolator.
  */
 export function interpolate(a: string | ColorCommonInstance, b: ColorCommonInstance): ((t: number) => string);
-
 /**
  * Returns a `interpolateDate` interpolator.
  */
 export function interpolate(a: Date, b: Date): ((t: number) => Date);
-
+/**
+ * Returns a `interpolateNumberArray` interpolator.
+ */
+export function interpolate<T extends NumberArray>(a: NumberArray | number[], b: T): ((t: number) => T);
 /**
  * Returns a `interpolateString` interpolator. If `b` is a string coercible to a color use use `interpolateRgb`.
  */
 export function interpolate(a: string | { toString(): string }, b: string): ((t: number) => string);
-
 /**
  * Returns a `interpolateArray` interpolator.
  */
 export function interpolate<U extends any[]>(a: any[], b: U): ((t: number) => U);
-
 /**
  * Returns a `interpolateNumber` interpolator.
  */
 export function interpolate(a: number | { valueOf(): number }, b: { valueOf(): number }): ((t: number) => number);
-
 /**
  * Returns a `interpolateObject` interpolator.
  */
@@ -140,6 +158,21 @@ export type ArrayInterpolator<A extends any[]> = ((t: number) => A);
  * No copy is made for performance reasons; interpolators are often part of the inner loop of animated transitions.
  */
 export function interpolateArray<A extends any[]>(a: any[], b: A): ArrayInterpolator<A>;
+/**
+ * interpolateNumberArray is called
+ */
+export function interpolateArray<T extends NumberArray>(a: NumberArray | number[], b: T): ((t: number) => T);
+
+/**
+ * Returns an interpolator between the two arrays of numbers a and b.
+ * Internally, an array template is created that is the same type and length as b.
+ * For each element in b, if there exists a corresponding element in a, the values are directly interpolated in the array template.
+ * If there is no such element, the static value from b is copied.
+ * The updated array template is then returned.
+ *
+ * Note: For performance reasons, no defensive copy is made of the template array and the arguments a and b; modifications of these arrays may affect subsequent evaluation of the interpolator.
+ */
+export function interpolateNumberArray<T extends NumberArray | number[]>(a: NumberArray | number[], b: T): ((t: number) => T);
 
 /**
  * Returns an interpolator between the two objects `a` and `b`. Internally, an object template is created that has the same properties as `b`.
@@ -294,6 +327,15 @@ export function interpolateBasisClosed(splineNodes: number[]): ((t: number) => n
  * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,
  * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
  * For example, to blend through three different zoom views: `d3.piecewise(d3.interpolateZoom, [[0, 0, 1], [0, 0, 10], [0, 0, 15]])`.
+ *
+ * interpolate defaults to d3.interpolate.
+ */
+export function piecewise(values: ZoomView[]): ZoomInterpolator;
+/**
+ * Returns a piecewise zoom interpolator, composing zoom interpolators for each adjacent pair of zoom view.
+ * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,
+ * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
+ * For example, to blend through three different zoom views: `d3.piecewise(d3.interpolateZoom, [[0, 0, 1], [0, 0, 10], [0, 0, 15]])`.
  */
 export function piecewise(interpolate: (a: ZoomView, b: ZoomView) => ZoomInterpolator, values: ZoomView[]): ZoomInterpolator;
 
@@ -302,9 +344,27 @@ export function piecewise(interpolate: (a: ZoomView, b: ZoomView) => ZoomInterpo
  * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,
  * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
  * For example, to blend through three different arrays: `d3.piecewise(d3.interpolateArray, [[0, 0, 1], [0, 0, 10], [0, 0, 15]])`.
+ *
+ * interpolate defaults to d3.interpolate.
+ */
+export function piecewise<A extends any[]>(values: A[]): ArrayInterpolator<A>;
+/**
+ * Returns a piecewise array interpolator, composing array interpolators for each adjacent pair of arrays.
+ * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,
+ * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
+ * For example, to blend through three different arrays: `d3.piecewise(d3.interpolateArray, [[0, 0, 1], [0, 0, 10], [0, 0, 15]])`.
  */
 export function piecewise<A extends any[]>(interpolate: (a: any[], b: A) => ArrayInterpolator<A>, values: A[]): ArrayInterpolator<A>;
 
+/**
+ * Returns a piecewise interpolator, composing interpolators for each adjacent pair of values.
+ * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,
+ * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
+ * For example, to blend through red, green and blue: `d3.piecewise(d3.interpolateRgb.gamma(2.2), ["red", "green", "blue"])`.
+ *
+ * interpolate defaults to d3.interpolate.
+ */
+export function piecewise<TData>(values: TData[]): (t: number) => any;
 /**
  * Returns a piecewise interpolator, composing interpolators for each adjacent pair of values.
  * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,

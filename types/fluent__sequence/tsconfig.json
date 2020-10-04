@@ -19,11 +19,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@fluent/bundle": [
-                "fluent__bundle"
-            ],
-            "@fluent/sequence": [
-                "fluent__sequence"
+            "@fluent/*": [
+                "fluent__*"
             ]
         }
     },
