@@ -52,7 +52,7 @@ declare namespace bonjour {
         probe?: boolean;
     }
 
-    interface Service {
+    interface BaseService {
         name: string;
         fqdn: string;
         host: string;
@@ -62,12 +62,12 @@ declare namespace bonjour {
         subtypes: string[];
         txt: { [key: string]: string };
     }
-    interface RemoteService extends Service {
+    interface RemoteService extends BaseService {
         referer: RemoteInfo;
         rawTxt: Buffer;
         addresses: string[];
     }
-    interface LocalService extends Service, NodeJS.EventEmitter {
+    interface Service extends BaseService, NodeJS.EventEmitter {
         published: boolean;
 
         stop(cb: () => void): void;
@@ -85,7 +85,7 @@ declare namespace bonjour {
     }
     interface Bonjour {
         (opts?: BonjourOptions): Bonjour;
-        publish(options: ServiceOptions): LocalService;
+        publish(options: ServiceOptions): Service;
         unpublishAll(cb?: () => void): void;
         find(options: BrowserOptions, onUp?: (service: RemoteService) => void): Browser;
         findOne(options: BrowserOptions, cb?: (service: RemoteService) => void): Browser;

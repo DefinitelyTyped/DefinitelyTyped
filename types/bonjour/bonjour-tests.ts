@@ -4,7 +4,7 @@ let bonjourOptions: bonjour.BonjourOptions;
 let bonjourInstance: bonjour.Bonjour;
 
 let serviceOptions: bonjour.ServiceOptions;
-let service: bonjour.LocalService;
+let service: bonjour.Service;
 
 let browserOptions: bonjour.BrowserOptions;
 let browser: bonjour.Browser;
