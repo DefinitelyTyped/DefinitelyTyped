@@ -457,6 +457,7 @@ const awsServerless: Aws.Serverless = {
                     schedule: '1',
                 }, {
                     sns: {
+                        arn: 'testarn',
                         topicName: 'testtopicName',
                         displayName: 'testdisplayName',
                         filterPolicy: ['testfilterpolicy'],
