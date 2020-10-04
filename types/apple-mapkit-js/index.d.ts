@@ -3,6 +3,7 @@
 // Definitions by: Philipp Jean-Jacques <https://github.com/kilghaz>
 //                 Waseem Dahman <https://github.com/wsmd>
 //                 Chris Drackett <https://github.com/chrisdrackett>
+//                 Moritz Sternemann <https://github.com/moritzsternemann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
