@@ -1,61 +1,49 @@
 // Type definitions for async-csv 2.1
 // Project: https://github.com/anton-bot/async-csv#readme
-// Definitions by: Anton Ivanov <https://github.com/anton-bot>
 // Definitions by: Moritz Friedrich <https://github.com/Radiergummi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // For the `Buffer` reference
 /// <reference types="node" />
 
-declare module 'async-csv' {
+declare namespace CsvAsync {
+    /**
+     * @param options
+     */
+    function generate(options?: CsvGenerateOptions): Promise<unknown>;
 
-    export class CsvAsync {
-        /**
-         * @param options
-         */
-        static generate( options?: CsvGenerateOptions ): Promise<unknown>;
+    /**
+     * Parses a CSV file into an array of rows.
+     *
+     * @param input
+     * @param options
+     */
+    function parse(input: string, options?: CsvParseOptions): Promise<unknown>;
 
-        /**
-         * Parses a CSV file into an array of rows.
-         *
-         * @param input
-         * @param options
-         */
-        static parse<T = any[]>(
-            input: string,
-            options?: CsvParseOptions,
-        ): Promise<T[]>;
+    /**
+     *
+     * @param data
+     * @param handler
+     * @param options
+     */
+    function transform<T = any, U = any>(
+        data: T[],
+        handler: (record: T, callback: (err?: Error | null, record?: T) => void, params?: any) => U,
+        options?: TransformOptions,
+    ): Promise<U[]>;
 
-        /**
-         *
-         * @param data
-         * @param handler
-         * @param options
-         */
-        static transform<T = any, U = any>(
-            data: T[],
-            handler: (
-                record: T,
-                callback: ( err?: Error | null, record?: T ) => void,
-                params?: any,
-            ) => U,
-            options?: TransformOptions,
-        ): Promise<U[]>;
+    /**
+     * Converts an array of rows into a CSV string.
+     *
+     * @param data
+     * @param options
+     */
+    function stringify(
+        data: Array<Array<string | number | null | undefined>>,
+        options?: CsvStringifyOptions,
+    ): Promise<string>;
 
-        /**
-         * Converts an array of rows into a CSV string.
-         *
-         * @param {string[][]} data
-         * @param {object} options
-         */
-        static stringify(
-            data: ( string | number | null | undefined )[][],
-            options?: CsvStringifyOptions,
-        ): Promise<string>;
-    }
-
-    export type CsvGenerateOptions = {
-
+    interface CsvGenerateOptions {
         /**
          * Define the number of generated fields and the generation method.
          */
@@ -83,20 +71,21 @@ declare module 'async-csv' {
         end?: number | Date;
 
         /**
-         * One or multiple characters to print at the end of the file; only apply when
-         * objectMode is disabled.
+         * One or multiple characters to print at the end of the file; only
+         * apply when objectMode is disabled.
          */
         eof?: boolean | string;
 
         /**
-         * Generate buffers equals length as defined by the `highWaterMark` option.
+         * Generate buffers equals length as defined by the
+         * `highWaterMark` option.
          */
         fixed_size?: boolean;
         fixedSize?: boolean;
 
         /**
-         * The maximum number of bytes to store in the internal buffer before ceasing
-         * to read from the underlying resource.
+         * The maximum number of bytes to store in the internal buffer before
+         * ceasing to read from the underlying resource.
          */
         high_water_mark?: number;
         highWaterMark?: number;
@@ -132,10 +121,9 @@ declare module 'async-csv' {
          * The time to wait between the generation of each records
          */
         sleep?: number;
-    };
+    }
 
-    export type CsvParseOptions = {
-
+    interface CsvParseOptions {
         /**
          * If true, the parser will attempt to convert read data types to
          * native types.
@@ -153,33 +141,34 @@ declare module 'async-csv' {
         auto_parse_date?: boolean | CastingDateFunction;
 
         /**
-         * If true, detect and exclude the byte order mark (BOM) from the CSV input
-         * if present.
+         * If true, detect and exclude the byte order mark (BOM) from the CSV
+         * input, if present.
          */
         bom?: boolean;
 
         /**
-         * If true, the parser will attempt to convert input string to native types.
-         * If a function, receive the value as first argument, a context as second
-         * argument and return a new value. More information about the context
-         * properties is available below.
+         * If true, the parser will attempt to convert input string to native
+         * types. If a function, receive the value as first argument, a context
+         * as second argument and return a new value. More information about the
+         * context properties is available below.
          */
         cast?: boolean | CastingFunction;
 
         /**
          * If true, the parser will attempt to convert input string to dates.
          * If a function, receive the value as argument and return a new value.
-         * It requires the "auto_parse" option. Be careful, it relies on `Date.parse`.
+         * It requires the "auto_parse" option. Be careful, it relies
+         * on `Date.parse`.
          */
         cast_date?: boolean | CastingDateFunction;
 
         /**
-         * List of fields as an array, a user defined callback accepting the first
-         * line and returning the column names or true if auto-discovered in the first
-         * CSV line. Defaults to null. Affects the result data set in the sense that
-         * records will be objects instead of arrays.
+         * List of fields as an array, a user defined callback accepting the
+         * first line and returning the column names or true if auto-discovered
+         * in the first CSV line. Defaults to null. Affects the result data set
+         * in the sense that records will be objects instead of arrays.
          */
-        columns?: ColumnOption[] | boolean | ( ( record: any ) => ColumnOption[] );
+        columns?: ColumnOption[] | boolean | ((record: any) => ColumnOption[]);
 
         /**
          * Treat all the characters after this one as a comment.
@@ -193,7 +182,8 @@ declare module 'async-csv' {
         delimiter?: string | Buffer;
 
         /**
-         * Set the escape character, one character only, defaults to double quotes.
+         * Set the escape character, one character only.
+         * Defaults to double quotes.
          */
         escape?: string | Buffer;
 
@@ -208,23 +198,23 @@ declare module 'async-csv' {
         from_line?: number;
 
         /**
-         * Generate two properties `info` and `record` where `info` is a snapshot of
-         * the info object at the time the record was created and `record` is the
-         * parsed array or object.
+         * Generate two properties `info` and `record` where `info` is a
+         * snapshot of the info object at the time the record was created and
+         * `record` is the parsed array or object.
          */
         info?: boolean;
 
         /**
          * If true, ignore whitespace immediately following the delimiter (i.e.
-         * left-trim all fields), defaults to false. Does not remove whitespace in a
-         * quoted field.
+         * left-trim all fields), defaults to false. Does not remove whitespace
+         * in a quoted field.
          */
         ltrim?: boolean;
 
         /**
-         * Maximum number of characters to be contained in the field and line buffers
-         * before an exception is raised, used to guard against a wrong delimiter or
-         * `record_delimiter`, default to 128,000 characters.
+         * Maximum number of characters to be contained in the field and line
+         * buffers before an exception is raised, used to guard against a wrong
+         * delimiter or `record_delimiter`, default to 128,000 characters.
          */
         max_record_size?: number;
 
@@ -234,8 +224,8 @@ declare module 'async-csv' {
         objname?: string;
 
         /**
-         * Optional character surrounding a field, one character only, defaults to
-         * double quotes.
+         * Optional character surrounding a field, one character only, defaults
+         * to double quotes.
          */
         quote?: string | boolean | Buffer;
 
@@ -256,16 +246,16 @@ declare module 'async-csv' {
         relax_column_count?: boolean;
 
         /**
-         * One or multiple characters used to delimit record rows; defaults to auto
-         * discovery if not provided. Supported auto discovery method are Linux
-         * ("\n"), Apple ("\r") and Windows ("\r\n") row delimiters.
+         * One or multiple characters used to delimit record rows; defaults to
+         * auto discovery if not provided. Supported auto discovery method are
+         * Linux ("\n"), Apple ("\r") and Windows ("\r\n") row delimiters.
          */
         record_delimiter?: string | string[] | Buffer | Buffer[];
 
         /**
          * If true, ignore whitespace immediately preceding the delimiter (i.e.
-         * right-trim all fields), defaults to false. Does not remove whitespace in a
-         * quoted field.
+         * right-trim all fields), defaults to false. Does not remove whitespace
+         * in a quoted field.
          */
         rtrim?: boolean;
 
@@ -276,13 +266,14 @@ declare module 'async-csv' {
         skip_empty_lines?: boolean;
 
         /**
-         * Skip a line with error found inside and directly go process the next line.
+         * Skip a line with error found inside and directly go process the
+         * next line.
          */
         skip_lines_with_error?: boolean;
 
         /**
-         * Don't generate records for lines containing empty column values (column
-         * matching /\s*\/), defaults to false.
+         * Don't generate records for lines containing empty column values
+         * (column matching /\s*\/), defaults to false.
          */
         skip_lines_with_empty_values?: boolean;
 
@@ -297,29 +288,21 @@ declare module 'async-csv' {
         to_line?: number;
 
         /**
-         * If true, ignore whitespace immediately around the delimiter, defaults to
-         * false. Does not remove whitespace in a quoted field.
+         * If `true`, ignore whitespace immediately around the delimiter,
+         * defaults to `false`. Does not remove whitespace in a quoted field.
          */
         trim?: boolean;
-    };
+    }
 
-    export type CastingFunction = (
-        value: string,
-        context: CastingContext,
-    ) => any;
+    type CastingFunction = (value: string, context: CastingContext) => any;
 
-    export type CastingDateFunction = (
-        value: string,
-        context: CastingContext,
-    ) => Date;
+    type CastingDateFunction = (value: string, context: CastingContext) => Date;
 
-    export type ColumnOption = string | undefined | null | false | {
-        name: string;
-    };
+    type ColumnOption = string | undefined | null | false | { name: string };
 
-    export type ParseColumnOption = string | undefined | null;
+    type ParseColumnOption = string | undefined | null;
 
-    export interface CastingContext {
+    interface CastingContext {
         readonly column?: number | string;
         readonly empty_lines: number;
         readonly header: boolean;
@@ -330,11 +313,11 @@ declare module 'async-csv' {
         readonly invalid_field_length: number;
     }
 
-    export type Cast<T> = ( value: T, context: CastingContext ) => string;
+    type Cast<T> = (value: T, context: CastingContext) => string;
 
-    export type PlainObject<T> = Record<string, T>;
-    export type CsvStringifyOptions = {
+    type PlainObject<T> = Record<string, T>;
 
+    interface CsvStringifyOptions {
         /**
          * Key-value object which defines custom cast for certain data types
          */
@@ -352,10 +335,11 @@ declare module 'async-csv' {
 
         /**
          * List of fields, applied when `transform` returns an object, the order
-         * matters. Read the transformer documentation for additional information.
-         * Columns are auto-discovered in the first record when the user write objects
-         * can refer to nested properties of the input JSON see the "header" option on
-         * how to print columns names on the first line.
+         * matters. Read the transformer documentation for additional
+         * information. Columns are auto-discovered in the first record when the
+         * user write objects can refer to nested properties of the input JSON
+         * see the "header" option on how to print columns names on the
+         * first line.
          */
         columns?: string[] | PlainObject<string> | ParseColumnOption[];
 
@@ -377,8 +361,8 @@ declare module 'async-csv' {
         header?: boolean;
 
         /**
-         * The quote characters, defaults to the ", an empty quote value will preserve
-         * the original field.
+         * The quote characters, defaults to the ", an empty quote value will
+         * preserve the original field.
          */
         quote?: string | Buffer | boolean;
 
@@ -389,13 +373,14 @@ declare module 'async-csv' {
         quoted?: boolean;
 
         /**
-         * Boolean, no default, quote empty fields and overrides `quoted_string` on
-         * empty strings when defined.
+         * Boolean, no default, quote empty fields and overrides `quoted_string`
+         * on empty strings when defined.
          */
         quoted_empty?: boolean;
 
         /**
-         * Boolean, default to false, quote all fields matching a regular expression.
+         * Boolean, default to false, quote all fields matching a
+         * regular expression.
          */
         quoted_match?: boolean;
 
@@ -406,17 +391,16 @@ declare module 'async-csv' {
         quoted_string?: boolean;
 
         /**
-         * String used to delimit record rows or a special value. Special values are
-         * 'auto', 'unix', 'mac', 'windows', 'ascii', 'unicode'. Defaults to 'auto'
-         * (discovered in source or 'unix' if no source is specified).
+         * String used to delimit record rows or a special value. Special values
+         * are 'auto', 'unix', 'mac', 'windows', 'ascii', 'unicode'. Defaults
+         * to 'auto' (discovered in source or 'unix' if no source is specified).
          */
         record_delimiter?: RecordDelimiter;
-    };
+    }
 
-    export type RecordDelimiter = string | Buffer | 'auto' | 'unix' | 'mac' | 'windows' | 'ascii' | 'unicode';
+    type RecordDelimiter = string | Buffer | 'auto' | 'unix' | 'mac' | 'windows' | 'ascii' | 'unicode';
 
-    export type TransformOptions = {
-
+    interface TransformOptions {
         /**
          * In the absence of a consumer, like a `stream.Readable`, trigger the
          * consumption of the stream.
@@ -434,11 +418,6 @@ declare module 'async-csv' {
          */
         params?: any;
     }
-
-    export default CsvAsync;
-
-    export const generate: typeof CsvAsync.generate;
-    export const parse: typeof CsvAsync.parse;
-    export const transform: typeof CsvAsync.transform;
-    export const stringify: typeof CsvAsync.stringify;
 }
+
+export = CsvAsync;
