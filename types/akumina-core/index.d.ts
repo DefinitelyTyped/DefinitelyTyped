@@ -8,9 +8,7 @@
 
 /// <reference types="jquery" />
 
-// tslint:disable-next-line interface-name
 import IGetListRequest from "./interfaces/IGetListRequest";
-// tslint:disable-next-line interface-name
 import ISavePageWidgetRequest from "./interfaces/ISavePageWidgetRequest";
 
 declare namespace Akumina {

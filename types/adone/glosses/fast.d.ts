@@ -151,7 +151,6 @@ declare namespace adone {
             type DirectoryFile = File;
             type SymbolicFile = File;
 
-            /* tslint:disable-next-line:no-empty-interface */
             interface Stream<S, T = File> extends stream.core.Stream<S, T> {
                 //
             }

@@ -447,8 +447,6 @@ import Module = require("module");
             ['user', 'abc'],
             ['query', 'first'],
             ['query', 'second'],
-        // ts 2.1/2.* compatibility
-        // tslint:disable-next-line no-unnecessary-type-assertion
         ] as ReadonlyArray<[string, string]>);
         assert.equal(params.toString(), 'user=abc&query=first&query=second');
     }
@@ -664,7 +662,7 @@ import Module = require("module");
         let s: string = await setTimeout(100, "");
 
         const setImmediate = util.promisify(timers.setImmediate);
-        v = await setImmediate(); // tslint:disable-line no-void-expression
+        v = await setImmediate();
         s = await setImmediate("");
     }
 }

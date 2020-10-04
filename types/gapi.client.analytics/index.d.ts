@@ -999,7 +999,6 @@ declare namespace gapi.client {
             kind?: string;
             webPropertyId?: string;
         }
-        // tslint:disable-next-line:interface-name
         interface IncludeConditions {
             /**
              * The look-back window lets you specify a time frame for evaluating the behavior that qualifies users for your audience. For example, if your filters include users from Central Asia,

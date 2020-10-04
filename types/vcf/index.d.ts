@@ -6,7 +6,6 @@
 
 /// <reference types="node" />
 
-// tslint:disable-next-line npm-naming
 export = vCard;
 
 declare class vCard {

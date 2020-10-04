@@ -4124,7 +4124,7 @@ import { default as Table_ } from './lib/Table'; /* tslint:disable-line: no-rela
 import { default as TabPane_ } from './lib/TabPane'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Tag_ } from './lib/Tag'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Tooltip_ } from './lib/Tooltip'; /* tslint:disable-line: no-relative-import-in-test */
-import { UncontrolledAlert as UncontrolledAlert_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+import { UncontrolledAlert as UncontrolledAlert_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test */
 import { UncontrolledButtonDropdown as UncontrolledButtonDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 import { UncontrolledDropdown as UncontrolledDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 import { UncontrolledTooltip as UncontrolledTooltip_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
