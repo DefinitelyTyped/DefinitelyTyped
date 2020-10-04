@@ -1,4 +1,4 @@
-// Type definitions for non-npm package MapKit JS 5.18
+// Type definitions for non-npm package MapKit JS 5.50
 // Project: https://developer.apple.com/reference/mapkitjs
 // Definitions by: Philipp Jean-Jacques <https://github.com/kilghaz>
 //                 Waseem Dahman <https://github.com/wsmd>
