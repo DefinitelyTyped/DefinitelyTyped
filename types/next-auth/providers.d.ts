@@ -74,7 +74,7 @@ interface ProviderCredentialsOptions {
     id?: string;
     name: string;
     credentials: unknown;
-    authorize(credentails: unknown): Promise<unknown | null>;
+    authorize(credentials: unknown): Promise<unknown | null>;
 }
 
 /**
