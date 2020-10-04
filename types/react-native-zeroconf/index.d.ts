@@ -92,6 +92,7 @@ export default class Zeroconf extends EventEmitter {
      * suffixed, for example `'local.'`. Defaults to `'local'`.
      * @param name should be unique to the device, often the device name.
      * @param port should be an integer between 0 and 65535.
+     * @param txt contains key-value pairs of additional TXT record data.
      */
     publishService(
         type: string,
