@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-scale module 3.0
+// Type definitions for D3JS d3-scale module 3.1
 // Project: https://github.com/d3/d3-scale/, https://d3js.org/d3-scale
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 3.1.0
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
 
@@ -840,6 +840,36 @@ export interface ScaleIdentity {
 export function scaleIdentity(range?: Iterable<NumberValue>): ScaleIdentity;
 
 // -------------------------------------------------------------------------------
+// Radial Scale Factory
+// -------------------------------------------------------------------------------
+
+/**
+ * Constructs a new radial scale with the specified range.
+ * The domain defaults to [0, 1].
+ *
+ * The generic corresponds to the data type of the range elements.
+ *
+ * The range must be set in accordance with the range element type.
+ *
+ * @param range Iterable of range values.
+ */
+export function scaleRadial<Range = number>(range?: Iterable<Range>): ScaleContinuousNumeric<Range, Range>;
+/**
+ * Constructs a new radial scale with the specified domain and range.
+ *
+ * The generic corresponds to the data type of the range elements.
+ *
+ * The range must be set in accordance with the range element type.
+ *
+ * @param domain Iterable of numeric domain values.
+ * @param range Iterable of range values.
+ */
+export function scaleRadial<Range>(
+    domain: Iterable<NumberValue>,
+    range: Iterable<Range>
+): ScaleContinuousNumeric<Range, Range>;
+
+// -------------------------------------------------------------------------------
 // Time Scale Factories
 // -------------------------------------------------------------------------------
 
@@ -1250,6 +1280,12 @@ export interface ScaleSequential<Output> {
     interpolator<NewOutput>(interpolator: (t: number) => NewOutput): ScaleSequential<NewOutput>;
 
     /**
+     * See continuous.range.
+     * Note that a sequential scale’s range is read-only, as it is determined by its interpolator.
+     */
+    range(): () => [Output, Output];
+
+    /**
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): ScaleSequential<Output>;
@@ -1454,6 +1490,12 @@ export interface ScaleDiverging<Output> {
      * @param interpolator The scale’s interpolator.
      */
     interpolator(interpolator?: (t: number) => Output): this;
+
+    /**
+     * See continuous.range.
+     * Note that a sequential scale’s range is read-only, as it is determined by its interpolator.
+     */
+    range(): () => [Output, Output, Output];
 
     /**
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
