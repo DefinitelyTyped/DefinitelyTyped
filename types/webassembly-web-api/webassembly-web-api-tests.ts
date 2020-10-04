@@ -16,3 +16,11 @@ WebAssembly.instantiateStreaming(response);
 // InstantiateStreaming - taking Promise<Response>
 // $ExpectType Promise<ResultObject>
 WebAssembly.instantiateStreaming(promise);
+
+// Instante - taking Response
+// $ExpectType Promise<ResultObject>
+WebAssembly.instantiate(response);
+
+// Instantiate - taking Promise<Response>
+// $ExpectType Promise<ResultObject>
+WebAssembly.instantiate(promise);
