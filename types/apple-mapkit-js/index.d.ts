@@ -197,6 +197,30 @@ declare namespace mapkit {
      * Changes the map's visible map rectangle to the specified map rectangle.
      */
     setVisibleMapRectAnimated(mapRect: MapRect, animate?: boolean): this;
+    /**
+     * Sets a constraint for the center of the map.
+     */
+    cameraBoundary: CameraBoundaryDescription;
+    /**
+     * Changes the map's camera boundary with an animated transition.
+     */
+    setCameraBoundaryAnimated(coordinateRegionOrMapRect: CoordinateRegion | MapRect, animate?: boolean): this;
+    /**
+     * Sets the altitude of the camera above the center of the map.
+     */
+    cameraDistance: number;
+    /**
+     * Changes the map's camera distance with an animated transition.
+     */
+    setCameraDistanceAnimated(distance: number, animate?: boolean): this;
+    /**
+     * Sets the minimum and maximum distance of the camera from the map center.
+     */
+    cameraZoomRange: CameraZoomRange;
+    /**
+     * Changes the map's camera zoom range with an animated transition.
+     */
+    setCameraZoomRangeAnimated(cameraZoomRange: CameraZoomRange, animate?: boolean): this;
 
     // Configuring the Map's Appearance
 
@@ -287,6 +311,10 @@ declare namespace mapkit {
      * A Boolean value that determines whether the user location control is visible.
      */
     showsUserLocationControl: boolean;
+    /**
+     * The filter used to determine the points of interest shown on the map.
+     */
+    pointOfInterestFilter: PointOfInterestFilter;
     /**
      * A Boolean value that determines whether the map displays points of interest.
      */
@@ -379,6 +407,17 @@ declare namespace mapkit {
      * Returns the topmost overlay at a given point on the webpage.
      */
     topOverlayAtPoint(point: DOMPoint): Overlay | null;
+
+    // Adding and Removing Geographical Features
+
+    /**
+     * Adds a collection of annotations, overlays, or other item collections to the map.
+     */
+    addItems(items: Array<Annotation | Overlay | ItemCollection> | ItemCollection): Array<Annotation | Overlay | ItemCollection> | ItemCollection;
+    /**
+     * Removes a collection of annotations, overlays, or other item collections from the map.
+     */
+    removeItems(items: Array<Annotation | Overlay | ItemCollection> | ItemCollection): Array<Annotation | Overlay | ItemCollection> | ItemCollection;
 
     // Adding and Removing Tile Overlays
 
@@ -526,6 +565,10 @@ declare namespace mapkit {
      * A Boolean value that determines whether the map displays points of interest.
      */
     showsPointsOfInterest?: boolean;
+    /*
+      * The filter used to determine the points of interest shown on the map.
+      */
+    pointOfInterestFilter?: PointOfInterestFilter;
     /**
      * A Boolean value that determines whether to show the user's location on
      * the map.
@@ -540,6 +583,20 @@ declare namespace mapkit {
      * A Boolean value that determines whether the user location control is visible.
      */
     showsUserLocationControl?: boolean;
+  }
+
+  /**
+   * An object literal containing at least one property defining an area on the map.
+   */
+  interface CameraBoundaryDescription {
+    /**
+     * A rectangular area on a two-dimensional map projection.
+     */
+    mapRect?: MapRect;
+    /**
+     * A rectangular area on a map, defined by coordinates of the rectangle's northeast and southwest corners.
+     */
+    region?: CoordinateRegion;
   }
 
   /**
@@ -689,6 +746,10 @@ declare namespace mapkit {
      * The horizontal and vertical span representing the amount of map to display.
      */
     span: CoordinateSpan;
+    /**
+     * The distance provided in meters or the longest distance derived from the center point to the region’s bounding box.
+     */
+    readonly radius: number;
     /**
      * Returns a copy of the calling coordinate region.
      */
@@ -867,6 +928,7 @@ declare namespace mapkit {
     static readonly CollisionMode: {
       readonly Rectangle: string;
       readonly Circle: string;
+      readonly None: string;
     };
     /**
      * The annotation's coordinate.
@@ -905,6 +967,10 @@ declare namespace mapkit {
      * A numeric hint the map uses to prioritize displaying annotations.
      */
     displayPriority: number;
+    /**
+     * Spacing added around the annotation when showing items.
+     */
+    padding: Padding;
     /**
      * The desired dimensions of the annotation, in CSS pixels.
      */
@@ -1026,6 +1092,10 @@ declare namespace mapkit {
      * A hint the map uses to prioritize displaying the annotation.
      */
     displayPriority?: number;
+    /**
+     * Spacing added around the annotation when showing items.
+     */
+    padding?: Padding;
     /**
      * A mode that determines the shape of the collision frame.
      */
@@ -1492,6 +1562,18 @@ declare namespace mapkit {
      * The opacity of the stroke color.
      */
     strokeOpacity: number;
+    /**
+     * The unit distance along the line where a stroke begins.
+     */
+    strokeStart: number;
+    /**
+     * The unit distance along the line where a stroke ends.
+     */
+    strokeEnd: number;
+    /**
+     * The gradient to apply along the line.
+     */
+    lineGradient: LineGradient;
   }
 
   /**
@@ -1538,6 +1620,44 @@ declare namespace mapkit {
      * The opacity of the stroke color.
      */
     strokeOpacity?: number;
+    /**
+     * The unit distance along the line where a stroke begins.
+     */
+    strokeStart?: number;
+    /**
+     * The unit distance along the line where a stroke ends.
+     */
+    strokeEnd?: number;
+    /**
+     * The gradient to apply along the line.
+     */
+    lineGradient: LineGradient;
+  }
+
+  /**
+   * A line that displays with a gradient along the length of the line.
+   */
+  class LineGradient {
+    /**
+     * Creates a style that renders a gradient along the length of a line.
+     *
+     * @param options A JavaScript object with unit distance values as keys with matched CSS colors.
+     */
+    constructor(options?: object);
+    /**
+     * Adds a color transition point to the gradient.
+     *
+     * @param offset The unit distance at which to add the color.
+     * @param color The CSS color at the transition point.
+     */
+    addColorStop(offset: number, color: string): void;
+    /**
+     * Adds a color transition at the index point in the list of points within a polyline.
+     *
+     * @param index A valid index into a polyline’s points.
+     * @param color The CSS color at the index point.
+     */
+    addColorStopAtIndex(index: number, color: string): void;
   }
 
   /**
@@ -1660,6 +1780,54 @@ declare namespace mapkit {
      * The country code associated with the place.
      */
     countryCode: string;
+    /**
+     * The category of the place.
+     */
+    pointOfInterestCategory?: PointOfInterestCategory;
+    /**
+     * The country of the place.
+     */
+    country?: string;
+    /**
+     * The state or province of the place.
+     */
+    administrativeArea?: string;
+    /**
+     * The short code for the state or area.
+     */
+    administrativeAreaCode?: string;
+    /**
+     * The city of the place.
+     */
+    locality?: string;
+    /**
+     * The postal code of the place.
+     */
+    postCode?: string;
+    /**
+     * The name of the area within the locality.
+     */
+    subLocality?: string;
+    /**
+     * The street name at the place.
+     */
+    thoroughfare?: string;
+    /**
+     * The number on the street at the place.
+     */
+    subThoroughfare?: string;
+    /**
+     * A combination of thoroughfare and subthoroughfare.
+     */
+    fullThoroughfare?: string;
+    /**
+     * Common names of the area in which the place resides.
+     */
+    areasOfInterest?: string[];
+    /**
+     * Common names for the local area or neighborhood of the place.
+     */
+    dependentLocalities?: string[];
   }
 
   /**
@@ -1730,6 +1898,64 @@ declare namespace mapkit {
      * A map region that provides a hint for the geographic area to search.
      */
     region?: CoordinateRegion;
+    /**
+     * A Boolean value that indicates whether the search autocomplete results should include queries.
+     */
+    includeQueries?: boolean;
+    /**
+     * A Boolean value that indicates whether the search results should include addresses.
+     */
+    includeAddresses?: boolean;
+    /**
+     * A string that constrains search results to within the provided countries.
+     */
+    limitToCountries?: boolean;
+    /**
+     * A Boolean value that indicates whether the search results should include points of interest.
+     */
+    includePointsOfInterest?: boolean;
+    /**
+     * A filter used to include or exclude point of interest categories.
+     */
+    pointOfInterestFilter?: PointOfInterestFilter;
+  }
+
+  /**
+   * Options you provide to constrain an autocomplete request.
+   */
+  interface SearchAutocompleteOptions {
+    /**
+     * A language ID that determines the language for the search result text.
+     */
+    language?: string;
+    /**
+     * A map coordinate that provides a hint for the geographic area to search.
+     */
+    coordinate?: Coordinate;
+    /**
+     * A map region that provides a hint for the geographic area to search.
+     */
+    region?: CoordinateRegion;
+    /**
+     * A Boolean value that indicates whether the search results should include addresses.
+     */
+    includeAddresses?: boolean;
+    /**
+     * A Boolean value that indicates whether the search results should include points of interest.
+     */
+    includePointsOfInterest?: boolean;
+    /**
+     * A Boolean value that indicates whether the search results should include queries.
+     */
+    includeQueries?: boolean;
+    /**
+     * A filter used to include or exclude point of interest categories in search results.
+     */
+    pointOfInterestFilter?: PointOfInterestFilter;
+    /**
+     * A string that constrains search results to within the provided countries.
+     */
+    limitToCountries?: string;
   }
 
   type SearchCallback<Q> = (
@@ -1799,6 +2025,18 @@ declare namespace mapkit {
      * A map region that provides a hint for the geographic area to search.
      */
     region: CoordinateRegion;
+    /**
+     * A Boolean value that indicates whether the search results should include addresses.
+     */
+    includeAddresses?: boolean;
+    /**
+     * A Boolean value that indicates whether the search results should include points of interest.
+     */
+    includePointsOfInterest?: boolean;
+    /**
+     * A filter used to include or exclude point of interest categories in search results.
+     */
+    pointOfInterestFilter?: PointOfInterestFilter;
   }
 
   /**
@@ -1849,6 +2087,314 @@ declare namespace mapkit {
   }
 
   /**
+   * A filter used to determine the points of interest to include or exclude on a map or local search.
+   */
+  class PointOfInterestFilter {
+    /**
+     * Creates a point of interest filter that includes categories from a list that you provide.
+     */
+    static including(categoryList: PointOfInterestCategory[]): PointOfInterestFilter;
+    /**
+     * Creates a point of interest filter that excludes categories from a list that you provide.
+     */
+    static excluding(categoryList: PointOfInterestCategory[]): PointOfInterestFilter;
+    /**
+     * A filter that includes all point of interest categories.
+     */
+    static readonly filterIncludingAllCategories: PointOfInterestFilter;
+    /**
+     * A filter that excludes all point of interest categories.
+     */
+    static readonly filterExcludingAllCategories: PointOfInterestFilter;
+    /**
+     * Returns a Boolean value that indicates whether the filter includes the provided point of interest category.
+     */
+    includesCategory(category: PointOfInterestCategory): boolean;
+    /**
+     * Returns a Boolean value that indicates whether the filter excludes the provided point of interest category.
+     */
+    excludesCategory(category: PointOfInterestCategory): boolean;
+  }
+
+  /**
+   * An object that fetches points of interest within a specified region.
+   */
+  class PointsOfInterestSearch {
+    /**
+     * Creates a search object for fetching points of interest.
+     *
+     * @param options Options that you may provide when you create a points of interest search.
+     */
+    constructor(options?: PointsOfInterestSearchOptions);
+    /**
+     * The region that bounds the area in which to fetch points of interest.
+     */
+    region: CoordinateRegion;
+    /**
+     * The center point of the request represented as latitude and longitude.
+     */
+    center: Coordinate;
+    /**
+     * The distance provided in meters, or the longest distance derived from the center point to the region’s bounding box.
+     */
+    radius: number;
+    /**
+     * A filter that lists points of interest categories to include or exclude.
+     */
+    pointOfInterestFilter: PointOfInterestFilter;
+    /**
+     * The language ID to use when fetching points of interest.
+     */
+    language: string;
+    /**
+     * The maximum distance to use from the center of the region for fetching points of interest.
+     */
+    readonly MaxRadius: number;
+    /**
+     * Fetches points of interest.
+     *
+     * @param query A String or a SearchAutocompleteResult.
+     * @param callback A callback function or delegate object.
+     * @param options A PointsOfInterestSearchOptions object.
+     * @returns a request ID (integer) that can be passed to cancel to abort a
+     * pending request.
+     */
+    search(
+      callback: PointsOfInterestSearchDelegate | PointsOfInterestSearchCallback,
+      options?: PointsOfInterestSearchOptions,
+    ): number;
+    /**
+     * Cancels a search request using its request ID.
+     *
+     * @param id The integer ID returned by a call to Search.search
+     * @return true if the server canceled the pending search request.
+     */
+    cancel(id: number): boolean;
+  }
+
+  /**
+   * Options that you may provide when creating a search object.
+   */
+  interface PointsOfInterestSearchOptions {
+    /**
+     * A language ID that determines the language for the search result text.
+     */
+    language?: string;
+    /**
+     * The center point of the request represented as latitude and longitude.
+     */
+    center?: Coordinate;
+    /**
+     * The distance provided in meters, or the longest distance derived from the center point to the region’s bounding box.
+     */
+    radius?: number;
+    /**
+     * The region that bounds the area in which to fetch points of interest.
+     */
+    region?: CoordinateRegion;
+    /**
+     * A filter used to include or exclude point of interest categories.
+     */
+    pointOfInterestFilter?: PointOfInterestFilter;
+  }
+
+  type PointsOfInterestSearchCallback = (
+    error: Error | null,
+    data: PointsOfInterestSearchResponse,
+  ) => void;
+
+  /**
+   * An object or callback function that MapKit JS calls when fetching points of interest.
+   */
+  interface PointsOfInterestSearchDelegate {
+    /**
+     * Tells the delegate that the search completed.
+     */
+    searchDidComplete?(data: PointsOfInterestSearchResponse): void;
+    /**
+     * Tells the delegate that the search failed due to an error.
+     */
+    searchDidError?(error: Error): void;
+  }
+
+  /**
+   * The result of a request used to fetch points of interest.
+   */
+  interface PointsOfInterestSearchResponse {
+    /**
+     * The list of points of interest that match the request options.
+     */
+    places: Place[];
+  }
+
+  /**
+   * Point of interest categories.
+   */
+
+  enum PointOfInterestCategory {
+    /**
+     * The point of interest category for airports.
+     */
+    Airport,
+    /**
+     * The point of interest category for amusement parks.
+     */
+    AmusementPark,
+    /**
+     * The point of interest category for aquariums.
+     */
+    Aquarium,
+    /**
+     * The point of interest category for ATM machines.
+     */
+    ATM,
+    /**
+     * The point of interest category for bakeries.
+     */
+    Bakery,
+    /**
+     * The point of interest category for banks.
+     */
+    Bank,
+    /**
+     * The point of interest category for beaches.
+     */
+    Beach,
+    /**
+     * The point of interest category for breweries.
+     */
+    Brewery,
+    /**
+     * The point of interest category for cafes.
+     */
+    Cafe,
+    /**
+     * The point of interest category for campgrounds.
+     */
+    Campground,
+    /**
+     * The point of interest category for car rentals.
+     */
+    CarRental,
+    /**
+     * The point of interest category for EV chargers.
+     */
+    EVCharger,
+    /**
+     * The point of interest category for fire stations.
+     */
+    FireStation,
+    /**
+     * The point of interest category for fitness centers.
+     */
+    FitnessCenter,
+    /**
+     * The point of interest category for food markets.
+     */
+    FoodMarket,
+    /**
+     * The point of interest category for gas stations.
+     */
+    GasStation,
+    /**
+     * The point of interest category for hospitals.
+     */
+    Hospital,
+    /**
+     * The point of interest category for hotels.
+     */
+    Hotel,
+    /**
+     * The point of interest category for laundries.
+     */
+    Laundry,
+    /**
+     * The point of interest category for libraries.
+     */
+    Library,
+    /**
+     * The point of interest category for marinas.
+     */
+    Marina,
+    /**
+     * The point of interest category for movie theaters.
+     */
+    MovieTheater,
+    /**
+     * The point of interest category for museums.
+     */
+    Museum,
+    /**
+     * The point of interest category for national parks.
+     */
+    NationalPark,
+    /**
+     * The point of interest category for nightlife.
+     */
+    Nightlife,
+    /**
+     * The point of interest category for parks
+     */
+    Park,
+    /**
+     * The point of interest category for parking locations.
+     */
+    Parking,
+    /**
+     * The point of interest category for pharmacies.
+     */
+    Pharmacy,
+    /**
+     * The point of interest category for police.
+     */
+    Police,
+    /**
+     * The point of interest category for post offices.
+     */
+    PostOffice,
+    /**
+     * The point of interest category for locations of public transportation.
+     */
+    PublicTransport,
+    /**
+     * The point of interest category for restaurants.
+     */
+    Restaurant,
+    /**
+     * The point of interest category for restrooms.
+     */
+    Restroom,
+    /**
+     * The point of interest category for schools.
+     */
+    School,
+    /**
+     * The point of interest category for stadiums.
+     */
+    Stadium,
+    /**
+     * The point of interest category for stores.
+     */
+    Store,
+    /**
+     * The point of interest category for theaters.
+     */
+    Theater,
+    /**
+     * The point of interest category for universities.
+     */
+    University,
+    /**
+     * The point of interest category for wineries.
+     */
+    Winery,
+    /**
+     * The point of interest category for zoos.
+     */
+    Zoo
+  }
+
+  /**
    * Creates a directions object with options that you may provide.
    */
   class Directions {
@@ -1859,6 +2405,17 @@ declare namespace mapkit {
      * This parameter is optional.
      */
     constructor(options?: DirectionsConstructorOptions);
+    /**
+     * Retrieves estimated arrival times to up to 10 destinations from a single starting point.
+     *
+     * @param request An EtaRequestOptions object that specifies details for the server to provide estimated arrival times at one or more destinations.
+     * @param callback A callback function that receives the estimated time response object, returned asynchronously.
+     * @return A request ID, which you can pass to cancel to abort a pending request.
+     */
+    eta(
+      request: EtaRequestOptions,
+      callback: (error: Error | null, data: EtaResponse) => void,
+    ): number;
     /**
      * Retrieves directions and estimated travel time for the specified start
      * and end points.
@@ -1879,19 +2436,22 @@ declare namespace mapkit {
      * @param id The ID returned by a call to route.
      */
     cancel(id: number): boolean;
+  }
+
+  namespace Directions {
     /**
      * The modes of transportation.
      */
-    static readonly Transport: {
-      /**
-       * A constant identifying the mode of transportation as driving.
-       */
-      readonly Automobile: string;
-      /**
-       * A constant identifying the mode of transportation as walking.
-       */
-      readonly Walking: string;
-    };
+    enum Transport {
+        /**
+         * A constant identifying the mode of transportation as driving.
+         */
+        Automobile,
+        /**
+         * A constant identifying the mode of transportation as walking.
+         */
+        Walking
+    }
   }
 
   /**
@@ -1902,6 +2462,64 @@ declare namespace mapkit {
      * A language ID that determines the language for route information.
      */
     language?: string;
+  }
+
+  /**
+   * The options you may provide for requesting estimated arrival times.
+   */
+  interface EtaRequestOptions {
+    /**
+     * The starting point for estimated arrival time requests.
+     */
+    origin: Coordinate;
+    /**
+     * The time of departure used in an estimated arrival time request.
+     */
+    destinations: Coordinate[];
+    /**
+     * An array of coordinates that represent end points for estimated arrival time requests.
+     */
+    transportType: Directions.Transport;
+    /**
+     * The mode of transportation the server uses when estimating arrival times.
+     */
+    departureDate: Date;
+  }
+
+  /**
+   * The estimated arrival times for a set of destinations.
+   */
+  interface EtaResponse {
+    /**
+     * The request object associated with the estimated time of arrival response.
+     */
+    request: EtaRequestOptions;
+    /**
+     * An array of estimated arrival times.
+     */
+    etas: EtaResult[];
+  }
+
+  /**
+   * The mode of transportation, distance, and travel time estimates for a single destination.
+   */
+  interface EtaResult {
+    /**
+     * The mode of transportation used to estimate the arrival time.
+     */
+    transportType: Directions.Transport;
+    /**
+     * The route distance in meters.
+     */
+    distance: number;
+    /**
+     * The estimated travel time in seconds, including estimated delays due to traffic.
+     */
+    expectedTravelTime: number;
+    /**
+     * The estimated travel time in seconds, excluding estimated delays for traffic.
+     */
+    staticTravelTime: number;
   }
 
   /**
@@ -1917,9 +2535,17 @@ declare namespace mapkit {
      */
     destination: string | Coordinate | Place;
     /**
+     * The arrival date for the trip.
+     */
+    arrivalDate?: Date;
+    /**
+     * The departure date for the trip.
+     */
+    departureDate?: Date;
+    /**
      * The mode of transportation to which directions should apply.
      */
-    transportType?: string;
+    transportType?: Directions.Transport;
     /**
      * A Boolean value that indicates whether the server should return multiple
      * routes when they are available.
@@ -1968,7 +2594,7 @@ declare namespace mapkit {
     /**
      * The overall route transport type.
      */
-    transportType: string;
+    transportType: Directions.Transport;
   }
 
   /**
@@ -1990,7 +2616,7 @@ declare namespace mapkit {
     /**
      * The transport type of the step.
      */
-    transportType: string;
+    transportType: Directions.Transport;
   }
   /**
    * A location on a map when the Earth's surface is projected onto a
@@ -2110,6 +2736,38 @@ declare namespace mapkit {
   }
 
   /**
+   * A minimum and maximum camera distance as meters from the center of the map.
+   */
+  class CameraZoomRange {
+    /**
+     * Describes the minimum and maximum camera distance in meters.
+     */
+    constructor(minCameraDistance: CameraZoomRangeConstructorOptions | number, maxCameraDistance?: number);
+    /**
+     * The minimum allowed distance of the camera from the center of the map in meters.
+     */
+    minCameraDistance: number;
+    /**
+     * The maximum allowed distance of the camera from the center of the map in meters.
+     */
+    maxCameraDistance: number;
+  }
+
+  /**
+   * Initialization options for the camera zoom range.
+   */
+  interface CameraZoomRangeConstructorOptions {
+    /**
+     * The minimum allowed distance of the camera from the center of the map in meters.
+     */
+    minCameraDistance?: number;
+    /**
+     * The maximum allowed distance of the camera from the center of the map in meters.
+     */
+    maxCameraDistance?: number;
+  }
+
+  /**
    *
    * @param data The original GeoJSON data, which may be a URL to a GeoJSON file,
    * or a GeoJSON object.
@@ -2136,7 +2794,7 @@ declare namespace mapkit {
      * @param geoJSON The original GeoJSON object for this feature.
      */
     itemForFeature?(
-      item: Annotation | Overlay | null,
+      item: Annotation | Overlay | ItemCollection | null,
       geoJSON: object,
     ): Annotation | Overlay | Array<Annotation | Overlay>;
     /**
