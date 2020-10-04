@@ -4,7 +4,7 @@
 //                 erbridge <https://github.com/erbridge>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 import { PixelmatchOptions } from 'pixelmatch';

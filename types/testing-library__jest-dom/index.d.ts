@@ -4,7 +4,7 @@
 //                 John Gozde <https://github.com/jgoz>
 //                 Seth Macpherson <https://github.com/smacpherson64>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 

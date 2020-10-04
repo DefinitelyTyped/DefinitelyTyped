@@ -2,7 +2,7 @@
 // Project: https://github.com/WordPress/gutenberg/blob/master/packages/jest-console/README.md
 // Definitions by: Damien Sorel <https://github.com/mistic100>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 

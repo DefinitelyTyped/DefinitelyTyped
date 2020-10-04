@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "jest-diff": "^25.2.1",
-        "pretty-format": "^25.2.1"
+        "jest-diff": "^26.0.0",
+        "pretty-format": "^26.0.0"
     }
 }

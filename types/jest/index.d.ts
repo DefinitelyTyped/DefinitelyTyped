@@ -28,6 +28,7 @@
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.8
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
