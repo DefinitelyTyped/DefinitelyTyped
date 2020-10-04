@@ -1,4 +1,4 @@
-// Type definitions for d3JS d3-zoom module 1.8
+// Type definitions for d3JS d3-zoom module 2.0
 // Project: https://github.com/d3/d3-zoom/, https://d3js.org/d3-zoom
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,10 +8,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.8.3
+// Last module patch version validated against: 2.0.0
 
-import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
-import { ZoomView, ZoomInterpolator } from 'd3-interpolate';
+import { Selection, TransitionLike, ValueFn } from 'd3-selection';
+import { ZoomView } from 'd3-interpolate';
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
