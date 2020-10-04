@@ -12,7 +12,7 @@
 /**
  * *All the doc are same as original doc
  */
-export default interface ReactNativeBcrypt {
+interface ReactNativeBcrypt {
     /**
      * Sets the pseudo random number generator to use as a fallback if neither node's `crypto` module nor the Web Crypto
      *  API is available. Please note: It is highly important that the PRNG used is cryptographically secure and that it
@@ -128,3 +128,5 @@ export default interface ReactNativeBcrypt {
     decodeBase64(s: string, len: number): number[];
 }
 
+declare const reactNativeBcrypt: ReactNativeBcrypt;
+export default reactNativeBcrypt;
