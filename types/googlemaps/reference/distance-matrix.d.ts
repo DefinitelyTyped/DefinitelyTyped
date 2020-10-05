@@ -7,9 +7,9 @@ declare namespace google.maps {
     }
 
     interface DistanceMatrixRequest {
-        destinations?: Array<string | LatLng | LatLngLiteral | Place>;
-        origins?: Array<string | LatLng | LatLngLiteral | Place>;
-        travelMode?: TravelMode;
+        destinations: Array<string | LatLng | LatLngLiteral | Place>;
+        origins: Array<string | LatLng | LatLngLiteral | Place>;
+        travelMode: TravelMode;
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
