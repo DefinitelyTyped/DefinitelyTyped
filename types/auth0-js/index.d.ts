@@ -990,7 +990,7 @@ export interface RenewAuthOptions {
      */
     timeout?: number;
     /**
-     * use postMessage to comunicate between the silent callback and the SPA.
+     * use postMessage to communicate between the silent callback and the SPA.
      * When false the SDK will attempt to parse the url hash should ignore the url hash
      * and no extra behaviour is needed
      * @default false
