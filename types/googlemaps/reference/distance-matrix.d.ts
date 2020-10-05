@@ -1,5 +1,13 @@
 declare namespace google.maps {
+    /**
+     * A service for computing distances between multiple origins and destinations.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixService Maps JavaScript API}
+     */
     class DistanceMatrixService {
+        /**
+         * Issues a distance matrix request.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixService.getDistanceMatrix Maps JavaScript API}
+         */
         getDistanceMatrix(
             request: DistanceMatrixRequest,
             callback: (response: DistanceMatrixResponse, status: DistanceMatrixStatus) => void,
