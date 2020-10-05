@@ -23,12 +23,12 @@ import {
     FormSet,
     FormTextarea,
     Icon,
-    Identifier,
     Image,
     InfoLabel,
     InlineHelp,
     InputGroup,
     LayoutGrid,
+    LayoutPanel,
     Link,
     List,
     LocalizationEditor,
@@ -36,7 +36,6 @@ import {
     MessageStrip,
     MultiInput,
     Pagination,
-    Panel,
     Popover,
     SearchInput,
     Select,
@@ -55,7 +54,6 @@ import {
     TreeView,
 } from "fundamental-react";
 import * as React from "react";
-import LayoutPanel from "./lib/LayoutPanel/LayoutPanel";
 
 const counter = <Counter>101</Counter>;
 
@@ -678,93 +676,6 @@ const icons = (
     </div>
 );
 
-const identifiers = (
-    <div>
-        <Identifier glyph="washing-machine" size="xxs" />
-        <Identifier glyph="washing-machine" size="xs" />
-        <Identifier glyph="washing-machine" size="s" />
-        <Identifier glyph="washing-machine" size="m" />
-        <Identifier glyph="washing-machine" size="l" />
-        <Identifier glyph="washing-machine" size="xl" />
-        <Identifier glyph="washing-machine" size="xxl" />
-        <Identifier label="Wendy Wallace" size="xxs">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="xs">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="s">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="m">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="l">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="xl">
-            WW
-        </Identifier>
-        <Identifier label="Wendy Wallace" size="xxl">
-            WW
-        </Identifier>
-        <Identifier glyph="washing-machine" modifier="circle" size="xxs" />
-        <Identifier glyph="washing-machine" modifier="circle" size="xs" />
-        <Identifier glyph="washing-machine" modifier="circle" size="s" />
-        <Identifier glyph="washing-machine" modifier="circle" size="m" />
-        <Identifier glyph="washing-machine" modifier="circle" size="l" />
-        <Identifier glyph="washing-machine" modifier="circle" size="xl" />
-        <Identifier glyph="washing-machine" modifier="circle" size="xxl" />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="xxs"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="xs"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="s"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="m"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="l"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="xl"
-        />
-        <Identifier
-            backgroundImageUrl="https://placeimg.com/400/400/nature"
-            modifier="circle"
-            size="xxl"
-        />
-        <Identifier label="Wendy Wallace" modifier="transparent" size="m">
-            WW
-        </Identifier>
-        <Identifier glyph="washing-machine" modifier="transparent" size="l" />
-        <Identifier color={1} glyph="money-bills" size="m" />
-        <Identifier color={2} glyph="money-bills" size="m" />
-        <Identifier color={3} glyph="money-bills" size="m" />
-        <Identifier color={4} glyph="money-bills" size="m" />
-        <Identifier color={5} glyph="money-bills" size="m" />
-        <Identifier color={6} glyph="money-bills" size="m" />
-        <Identifier color={7} glyph="money-bills" size="m" />
-        <Identifier color={8} glyph="money-bills" size="m" />
-        <Identifier color={9} glyph="money-bills" size="m" />
-    </div>
-);
 const images = (
     <div>
         <Image photo="https://placeimg.com/400/400/nature" size="s" />
@@ -1236,173 +1147,6 @@ const paginations = (
     </div>
 );
 
-const panels = (
-    <div>
-        <Panel>
-            <Panel.Header>
-                <Panel.Head
-                    description="Panel Description"
-                    title="Panel Header with Actions"
-                />
-                <Panel.Actions>
-                    <Button compact glyph="add">
-                        Add New Button
-                    </Button>
-                </Panel.Actions>
-            </Panel.Header>
-            <Panel.Filters>
-                <div>Panel Filters</div>
-                <br />
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button>Color</Button>}
-                    noArrow
-                />
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button>Size</Button>}
-                    noArrow
-                />
-            </Panel.Filters>
-            <Panel.Body>
-                <div>Panel Body</div>
-                <br />
-                <Tile>
-                    <Tile.Media>
-                        <Image
-                            photo="https://placeimg.com/400/400/nature"
-                            size="l"
-                            type="circle"
-                        />
-                    </Tile.Media>
-                    <Tile.Content title="Tile Title">
-                        <p>Tile Description</p>
-                    </Tile.Content>
-                </Tile>
-                <br />
-                <Token>Bibendum</Token>
-                <Token>Lorem</Token>
-                <Token>Dolor</Token>
-                <Token>Filter</Token>
-            </Panel.Body>
-            <Panel.Footer>Panel Footer</Panel.Footer>
-        </Panel>
-        <LayoutGrid>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-        </LayoutGrid>
-        <LayoutGrid nogap>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-        </LayoutGrid>
-        <LayoutGrid cols={2}>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-        </LayoutGrid>
-        <LayoutGrid cols={6}>
-            <Panel colSpan={2}>
-                <Panel.Body>Panel with colSpan=2</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel colSpan={3}>
-                <Panel.Body>Panel with colSpan=3</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel colSpan={4}>
-                <Panel.Body>Panel with colSpan=4</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel colSpan={5}>
-                <Panel.Body>Panel with colSpan=5</Panel.Body>
-            </Panel>
-            <Panel>
-                <Panel.Body>Panel</Panel.Body>
-            </Panel>
-            <Panel colSpan={6}>
-                <Panel.Body>Panel with colSpan=6</Panel.Body>
-            </Panel>
-        </LayoutGrid>
-    </div>
-);
-
 const layoutPanel = (
     <LayoutPanel>
         <LayoutPanel.Header>
@@ -1728,7 +1472,7 @@ const popovers = (
                         </Menu.List>
                     </Menu>
                 }
-                control={<Identifier color={6} glyph="money-bills" size="m" />}
+                control={<Icon glyph="menu2" size="xl" />}
                 noArrow
                 placement="bottom"
             />
@@ -2623,9 +2367,6 @@ const tiles = (
         </Tile>
         <br />
         <Tile role="button">
-            <Tile.Media>
-                <Identifier color={3} glyph="home" size="m" />
-            </Tile.Media>
             <Tile.Content title="Tile Title">
                 <p>Tile Description</p>
             </Tile.Content>
@@ -2686,9 +2427,6 @@ const tiles = (
                 </Tile.Content>
             </Tile>
             <Tile role="button">
-                <Tile.Media>
-                    <Identifier color={3} glyph="home" size="l" />
-                </Tile.Media>
                 <Tile.Content title="Tile Title" />
             </Tile>
             <Tile>
