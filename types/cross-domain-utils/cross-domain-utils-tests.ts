@@ -18,10 +18,10 @@ crossDomainUtils.isBlankDomain(window);
 // $ExpectType boolean
 crossDomainUtils.isSameDomain(window);
 
-// $ExpectType CrossDomainWindowType | null
+// $ExpectType CrossDomainWindowType | undefined
 crossDomainUtils.getParent(window);
 
-// $ExpectType CrossDomainWindowType | null
+// $ExpectType CrossDomainWindowType | undefined
 crossDomainUtils.getOpener(window);
 
 // $ExpectType ReadonlyArray<CrossDomainWindowType>
@@ -36,7 +36,7 @@ crossDomainUtils.getFrames(window);
 // $ExpectType ReadonlyArray<CrossDomainWindowType>
 crossDomainUtils.getAllChildFrames(window);
 
-// $ExpectType CrossDomainWindowType
+// $ExpectType CrossDomainWindowType | undefined
 crossDomainUtils.getTop(window);
 
 // $ExpectType ReadonlyArray<CrossDomainWindowType>
@@ -54,13 +54,13 @@ crossDomainUtils.isWindowClosed(window);
 // $ExpectType string
 crossDomainUtils.getUserAgent(window);
 
-// $ExpectType CrossDomainWindowType | null
+// $ExpectType CrossDomainWindowType | undefined
 crossDomainUtils.getFrameByName(window, '<name>');
 
-// $ExpectType CrossDomainWindowType | null
+// $ExpectType CrossDomainWindowType | undefined
 crossDomainUtils.findChildFrameByName(window, '<name>');
 
-// $ExpectType CrossDomainWindowType | null
+// $ExpectType CrossDomainWindowType | undefined
 crossDomainUtils.findFrameByName(window, '<name>');
 
 // $ExpectType boolean
@@ -69,7 +69,7 @@ crossDomainUtils.isParent(window, window);
 // $ExpectType boolean
 crossDomainUtils.isOpener(window, window);
 
-// $ExpectType CrossDomainWindowType | null
+// $ExpectType CrossDomainWindowType | undefined
 crossDomainUtils.getAncestor(window);
 
 // $ExpectType ReadonlyArray<CrossDomainWindowType>
@@ -87,7 +87,7 @@ crossDomainUtils.isIframe(window);
 // $ExpectType number
 crossDomainUtils.getDistanceFromTop(window);
 
-// $ExpectType CrossDomainWindowType | null
+// $ExpectType CrossDomainWindowType | undefined
 crossDomainUtils.getNthParent(window, 1);
 
 // $ExpectType boolean

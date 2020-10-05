@@ -3,6 +3,8 @@
 // Definitions by: ANovokmet <https://github.com/ANovokmet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace crossDomainUtils;
+
 export * from './utils';
 export * from './types';
 export * from './constants';

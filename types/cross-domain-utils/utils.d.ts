@@ -10,7 +10,7 @@ export function isAboutProtocol(win: SameDomainWindowType): boolean;
  *  - Only returns the parent of iframes
  *  - Returns void if the window is the top-level window
  */
-export function getParent(win?: CrossDomainWindowType): CrossDomainWindowType | null;
+export function getParent(win?: CrossDomainWindowType): CrossDomainWindowType | undefined;
 
 /**
  *  Gets the opener of the specified window, if the window has an opener.
@@ -18,7 +18,7 @@ export function getParent(win?: CrossDomainWindowType): CrossDomainWindowType | 
  *  - Only returns the opener of windows opened with `window.open`
  *  - Returns void if the window is the top-level window
  */
-export function getOpener(win?: CrossDomainWindowType): CrossDomainWindowType | null;
+export function getOpener(win?: CrossDomainWindowType): CrossDomainWindowType | undefined;
 
 export function canReadFromWindow(win: CrossDomainWindowType | SameDomainWindowType): boolean;
 
@@ -84,9 +84,9 @@ export function getAllChildFrames(win: CrossDomainWindowType): ReadonlyArray<Cro
 /**
  *  Gets the top-level parent of the specified window.
  */
-export function getTop(win?: CrossDomainWindowType): CrossDomainWindowType;
+export function getTop(win?: CrossDomainWindowType): CrossDomainWindowType | undefined;
 
-export function getNextOpener(win?: CrossDomainWindowType): CrossDomainWindowType;
+export function getNextOpener(win?: CrossDomainWindowType): CrossDomainWindowType | undefined;
 
 export function getUltimateTop(win?: CrossDomainWindowType): CrossDomainWindowType;
 
@@ -131,19 +131,19 @@ export function getUserAgent(win: SameDomainWindowType): string;
 /**
  *  Gets a frame window with the given name, if it exists as a child of the specified window.
  */
-export function getFrameByName(win: CrossDomainWindowType, name: string): CrossDomainWindowType | null;
+export function getFrameByName(win: CrossDomainWindowType, name: string): CrossDomainWindowType | undefined;
 
 /**
  *  Recursively searches for a given frame window inside the children specified window.
  */
-export function findChildFrameByName(win: CrossDomainWindowType, name: string): CrossDomainWindowType | null;
+export function findChildFrameByName(win: CrossDomainWindowType, name: string): CrossDomainWindowType | undefined;
 
 /**
  *  Recursively searches for a given frame window inside the entire frame hierarchy of the specified window.
  *
  *  - Searches both the children and the parent windows recursively for the frame.
  */
-export function findFrameByName(win: CrossDomainWindowType, name: string): CrossDomainWindowType | null;
+export function findFrameByName(win: CrossDomainWindowType, name: string): CrossDomainWindowType | undefined;
 
 /**
  *  Returns true if the specified parent window is the parent of the specified child window.
@@ -158,7 +158,7 @@ export function isOpener(parent: CrossDomainWindowType, child: CrossDomainWindow
 /**
  *  Gets either the parent or the opener of the specified window, if either is present.
  */
-export function getAncestor(win?: CrossDomainWindowType): CrossDomainWindowType | null;
+export function getAncestor(win?: CrossDomainWindowType): CrossDomainWindowType | undefined;
 
 /**
  *  Recursively gets either the parent or the opener of the specified window, if either is present, and returns an array of the entire ancestor hierarchy.
@@ -192,9 +192,9 @@ export function getDistanceFromTop(win: CrossDomainWindowType): number;
 /**
  *  Gets the window `n` levels up from the specified window, if it exists.
  */
-export function getNthParent(win: CrossDomainWindowType, n?: number): CrossDomainWindowType | null;
+export function getNthParent(win: CrossDomainWindowType, n?: number): CrossDomainWindowType | undefined;
 
-export function getNthParentFromTop(win: CrossDomainWindowType, n?: number): CrossDomainWindowType;
+export function getNthParentFromTop(win: CrossDomainWindowType, n?: number): CrossDomainWindowType | undefined;
 
 /**
  *  Returns true if the windows are in the same hierarchy, with the same top level window
@@ -244,4 +244,4 @@ export function normalizeMockUrl(url: string): string;
 
 export function closeWindow(win: CrossDomainWindowType): void;
 
-export function getFrameForWindow(win: CrossDomainWindowType): HTMLElement;
+export function getFrameForWindow(win: CrossDomainWindowType): HTMLElement | undefined;
