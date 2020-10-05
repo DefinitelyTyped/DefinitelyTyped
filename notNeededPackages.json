@@ -1909,6 +1909,12 @@
             "asOfVersion": "7.0.0"
         },
         {
+            "libraryName": "hirestime",
+            "typingsPackageName": "hirestime",
+            "sourceRepoURL": "https://github.com/seriousManual/hirestime",
+            "asOfVersion": "6.0.0"
+        },
+        {
             "libraryName": "homeworks",
             "typingsPackageName": "homeworks",
             "sourceRepoURL": "https://github.com/IGAWorksDev/homeworks/",
