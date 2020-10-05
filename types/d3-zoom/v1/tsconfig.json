@@ -9,10 +9,21 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "d3-interpolate": [
+                "d3-interpolate/v1"
+            ],
+            "d3-selection": [
+                "d3-selection/v1"
+            ],
+            "d3-zoom": [
+                "d3-zoom/v1"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
