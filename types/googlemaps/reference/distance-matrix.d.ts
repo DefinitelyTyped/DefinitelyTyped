@@ -47,9 +47,28 @@ declare namespace google.maps {
         UNKNOWN_ERROR = 'UNKNOWN_ERROR',
     }
 
+    /**
+     * The element-level status about a particular origin-destination pairing returned by the
+     * {@link DistanceMatrixService} upon completion of a distance matrix request.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixElementStatus Maps JavaScript API}
+     */
     enum DistanceMatrixElementStatus {
+        /**
+         * The origin and/or destination of this pairing could not be geocoded.
+         * @see {@link  Maps JavaScript API}
+         */
         NOT_FOUND = 'NOT_FOUND',
+
+        /**
+         * The response contains a valid result.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixElementStatus.OK Maps JavaScript API}
+         */
         OK = 'OK',
+
+        /**
+         * No route could be found between the origin and destination.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixElementStatus.ZERO_RESULTS Maps JavaScript API}
+         */
         ZERO_RESULTS = 'ZERO_RESULTS',
     }
 }
