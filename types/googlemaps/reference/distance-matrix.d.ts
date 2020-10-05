@@ -65,11 +65,45 @@ declare namespace google.maps {
         elements: DistanceMatrixResponseElement[];
     }
 
+    /**
+     * A single element of a response to a {@link DistanceMatrixService} request, which contains the duration and
+     * distance from one origin to one destination.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponseElement Maps JavaScript API}
+     */
     interface DistanceMatrixResponseElement {
+        /**
+         * The distance for this origin-destination pairing. This property may be undefined as the distance may be
+         * unknown.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponseElement.distance Maps JavaScript API}
+         */
         distance: Distance;
+
+        /**
+         * The duration for this origin-destination pairing. This property may be undefined as the duration may be
+         * unknown.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponseElement.duration Maps JavaScript API}
+         */
         duration: Duration;
+
+        /**
+         * The duration for this origin-destination pairing, taking into account the traffic conditions indicated by the
+         * `trafficModel` property. This property may be undefined as the duration may be unknown. Only available to
+         * Premium Plan customers when {@link DistanceMatrixRequest#drivingOptions drivingOptions} is defined when
+         * making the request.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponseElement.duration_in_traffic Maps JavaScript API}
+         */
         duration_in_traffic: Duration;
+
+        /**
+         * The total fare for this origin-destination pairing. Only applicable to transit requests.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponseElement.fare Maps JavaScript API}
+         */
         fare: TransitFare;
+
+        /**
+         * The status of this particular origin-destination pairing.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponseElement.status Maps JavaScript API}
+         */
         status: DistanceMatrixElementStatus;
     }
 
