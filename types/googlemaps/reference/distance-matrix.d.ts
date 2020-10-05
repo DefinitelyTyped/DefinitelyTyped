@@ -33,7 +33,16 @@ declare namespace google.maps {
         rows: DistanceMatrixResponseRow[];
     }
 
+    /**
+     * A row of the response to a {@link DistanceMatrixService} request, consisting of a sequence of
+     * {@link DistanceMatrixResponseElement}s, one for each corresponding destination address.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponseRow Maps JavaScript API}
+     */
     interface DistanceMatrixResponseRow {
+        /**
+         * The row's elements, corresponding to the destination addresses.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponseRow.elements Maps JavaScript API}
+         */
         elements: DistanceMatrixResponseElement[];
     }
 
