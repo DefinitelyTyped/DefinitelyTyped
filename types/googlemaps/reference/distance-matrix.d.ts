@@ -27,9 +27,28 @@ declare namespace google.maps {
         unitSystem?: UnitSystem;
     }
 
+    /**
+     * The response to a {@link DistanceMatrixService} request, consisting of the formatted origin and destination
+     * addresses, and a sequence of {@link DistanceMatrixResponseRow}s, one for each corresponding origin address.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponse Maps JavaScript API}
+     */
     interface DistanceMatrixResponse {
+        /**
+         * The formatted destination addresses.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponse.destinationAddresses Maps JavaScript API}
+         */
         destinationAddresses: string[];
+
+        /**
+         * The formatted origin addresses.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponse.originAddresses Maps JavaScript API}
+         */
         originAddresses: string[];
+
+        /**
+         * The rows of the matrix, corresponding to the origin addresses.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixResponse.rows Maps JavaScript API}
+         */
         rows: DistanceMatrixResponseRow[];
     }
 
