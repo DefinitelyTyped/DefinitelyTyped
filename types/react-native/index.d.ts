@@ -2093,7 +2093,7 @@ export type TVParallaxProperties = {
 
 export interface TVViewPropsIOS {
     /**
-     * *(Apple TV only)* When set to true, this view will be focusable
+     * *(react-native-tvos)* When set to true, this view will be focusable
      * and navigable using the Apple TV remote.
      *
      * @platform ios
@@ -2101,42 +2101,42 @@ export interface TVViewPropsIOS {
     isTVSelectable?: boolean;
 
     /**
-     * *(Apple TV only)* May be set to true to force the Apple TV focus engine to move focus to this view.
+     * *(react-native-tvos)* May be set to true to force the Apple TV focus engine to move focus to this view.
      *
      * @platform ios
      */
     hasTVPreferredFocus?: boolean;
 
     /**
-     * *(Apple TV only)* Object with properties to control Apple TV parallax effects.
+     * *(react-native-tvos)* Object with properties to control Apple TV parallax effects.
      *
      * @platform ios
      */
     tvParallaxProperties?: TVParallaxProperties;
 
     /**
-     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.
+     * *(react-native-tvos)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.
      *
      * @platform ios
      */
     tvParallaxShiftDistanceX?: number;
 
     /**
-     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.
+     * *(react-native-tvos)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 2.0.
      *
      * @platform ios
      */
     tvParallaxShiftDistanceY?: number;
 
     /**
-     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 0.05.
+     * *(react-native-tvos)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 0.05.
      *
      * @platform ios
      */
     tvParallaxTiltAngle?: number;
 
     /**
-     * *(Apple TV only)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 1.0.
+     * *(react-native-tvos)* May be used to change the appearance of the Apple TV parallax effect when this view goes in or out of focus.  Defaults to 1.0.
      *
      * @platform ios
      */
@@ -5125,14 +5125,14 @@ interface TouchableMixin {
 
 export interface TouchableWithoutFeedbackPropsIOS {
     /**
-     * *(Apple TV only)* TV preferred focus (see documentation for the View component).
+     * *(react-native-tvos)* TV preferred focus (see documentation for the View component).
      *
      * @platform ios
      */
     hasTVPreferredFocus?: boolean;
 
     /**
-     * *(Apple TV only)* Object with properties to control Apple TV parallax effects.
+     * *(react-native-tvos)* Object with properties to control Apple TV parallax effects.
      *
      * enabled: If true, parallax effects are enabled.  Defaults to true.
      * shiftDistanceX: Defaults to 2.0.
@@ -9348,6 +9348,109 @@ export interface KeyboardStatic extends NativeEventEmitter {
     dismiss: () => void;
     addListener(eventType: KeyboardEventName, listener: KeyboardEventListener): EmitterSubscription;
 }
+
+/**
+ * *(react-native-tvos)* Handle TV remote events
+ */
+export const useTVEventHandler: (handleEvent: (event: HWKeyEvent) => void) => void;
+
+/**
+ * *(react-native-tvos)* Enable/Disable navigation using the menu key on the
+ * TV remote.
+ *
+ * @platform ios
+ */
+export const TVMenuControl: {
+    enableTVMenuKey(): void;
+    disableTVMenuKey(): void;
+};
+
+interface HWFocusEvent {
+    eventType: 'blur' | 'focus';
+    eventKeyAction: -1;
+    tag: number;
+}
+
+export type HWKeyEvent =
+    | HWFocusEvent
+    | {
+          eventType: 'up' | 'down' | 'right' | 'left' | string;
+          eventKeyAction: -1 | 1 | 0 | number;
+          tag?: number;
+      };
+
+/**
+ * *(react-native-tvos)* Handle TV remote events
+ */
+export class TVEventHandler {
+    enable<T extends React.Component<unknown>>(
+        component?: T,
+        callback?: (component: T, data: HWKeyEvent) => void,
+    ): void;
+    disable(): void;
+}
+
+export interface FocusGuideProps extends ViewProps {
+    /**
+     * Array of `Component`s to register as destinations with `UIFocusGuide`
+     */
+    destinations?: (null | number | React.Component<any, any> | React.ComponentClass<any>)[];
+}
+
+/**
+ * This component provides support for Apple's `UIFocusGuide` API,
+ * to help ensure that focusable controls can be navigated to,
+ * even if they are not directly in line with other controls.
+ * An example is provided in `RNTester` that shows two different ways of using
+ * this component.
+ *
+ * https://github.com/react-native-community/react-native-tvos/blob/master/RNTester/js/TVFocusGuideExample.js
+ *
+ * @platform ios
+ */
+export class TVFocusGuideView extends React.Component<FocusGuideProps> {}
+
+export interface TVTextScrollViewProps extends ScrollViewProps {
+    /**
+     * The duration of the scroll animation when a swipe is detected.
+     * Default value is 0.3 s
+     */
+    scrollDuration?: number;
+    /**
+     * Scrolling distance when a swipe is detected
+     * Default value is half the visible height (vertical scroller)
+     * or width (horizontal scroller)
+     */
+    pageSize?: number;
+    /**
+     * If true, will scroll to start when focus moves out past the beginning
+     * of the scroller
+     * Defaults to true
+     */
+    snapToStart?: boolean;
+    /**
+     * If true, will scroll to end when focus moves out past the end of the
+     * scroller
+     * Defaults to true
+     */
+    snapToEnd?: boolean;
+    /**
+     * Called when the scroller comes into focus (e.g. for highlighting)
+     */
+    onFocus?(evt: HWKeyEvent): void;
+    /**
+     * Called when the scroller goes out of focus
+     */
+    onBlur?(evt: HWKeyEvent): void;
+}
+
+/**
+ * *(react-native-tvos)* A ScrollView for tvOS that supports scrolling a list
+ * with no focusable items inside/above/below.
+ *
+ * @platform ios
+ */
+export class TVTextScrollView extends React.Component<TVTextScrollViewProps> {}
 
 /**
  * The DevSettings module exposes methods for customizing settings for developers in development.
