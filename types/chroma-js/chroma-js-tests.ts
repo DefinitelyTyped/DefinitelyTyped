@@ -34,11 +34,12 @@ function test_chroma() {
     chroma.mix('red', 'blue', 0.5, 'rgb');
     chroma.mix('red', 'blue', 0.5, 'hsl');
     chroma.mix('red', 'blue', 0.5, 'lab');
-    chroma.mix('red', 'blue', 0.5, 'lch');
+    chroma.mix('red', 'blue', 0.5, 'lrgb');
     chroma.blend('4CBBFC', 'EEEE22', 'multiply');
     chroma.blend('4CBBFC', 'EEEE22', 'darken');
     chroma.blend('4CBBFC', 'EEEE22', 'lighten');
     chroma.average(['4CBBFC', 'yellow'], 'lch', [1, 1, 2, 1]);
+    chroma.average(['4CBBFC', 'yellow'], 'lrgb', [1, 1, 2, 1]);
     chroma.random();
     chroma.contrast('pink', 'hotpink');
     chroma.contrast('pink', 'purple');
