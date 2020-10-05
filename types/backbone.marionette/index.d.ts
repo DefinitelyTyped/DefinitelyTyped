@@ -482,7 +482,7 @@ export class Object extends Backbone.EventsMixin implements CommonMixin, RadioMi
     radioRequests: any;
 
     /**
-     * Check if this Oject has been destroyed.
+     * Check if this Object has been destroyed.
      */
     isDestroyed(): boolean;
 
@@ -497,7 +497,7 @@ export class Object extends Backbone.EventsMixin implements CommonMixin, RadioMi
      * attached to the instance. Invoking the destroy method will trigger a
      * "before:destroy" event and corresponding onBeforeDestroy method call.
      * These calls will be passed any arguments destroy was invoked with.
-     * @param args any arguments to pass to the "before:destory" event and call to
+     * @param args any arguments to pass to the "before:destroy" event and call to
      * onBeforeDestroy.
      */
     destroy(...args: any[]): void;

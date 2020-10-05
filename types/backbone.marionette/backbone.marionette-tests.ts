@@ -5,7 +5,7 @@ import * as Backbone from 'backbone';
 class DestroyWarn extends Marionette.Behavior {
     // you can set default options
     // just like you can in your Backbone Models
-    // they will be overriden if you pass in an option with the same key
+    // they will be overridden if you pass in an option with the same key
     defaults = {
         message: 'you are destroying!'
     };
