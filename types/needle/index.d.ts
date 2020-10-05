@@ -1,4 +1,4 @@
-// Type definitions for needle 2.0
+// Type definitions for needle 2.5
 // Project: https://github.com/tomas/needle
 // Definitions by: San Chen <https://github.com/bigsan>,
 //                 Niklas Mollenhauer <https://github.com/nikeee>,
@@ -47,6 +47,12 @@ declare namespace core {
          * Alias for open_timeout
          */
         timeout?: RequestOptions['open_timeout'];
+
+        /**
+         * Returns error if no response headers are received in X milisecs,
+         * counting from when the connection is opened. Defaults to `0` (no response timeout).
+         */
+        response_timeout?: number;
 
         /**
          * Returns error if data transfer takes longer than X milisecs,
@@ -103,6 +109,11 @@ declare namespace core {
          * which is no Content-Length header for stream payloads.
          */
         stream_length?: number;
+
+        /**
+         * IP address. Passed to http/https request. Local interface from which the request should be emitted.
+         */
+        localAddress?: string;
 
         // These properties are overwritten by those in the 'headers' field
         /**

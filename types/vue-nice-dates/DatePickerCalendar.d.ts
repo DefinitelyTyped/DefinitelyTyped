@@ -4,7 +4,7 @@ import { DatePickerProps } from './shared.d';
 export const DatePickerCalendar: DatePickerCalendar;
 
 export interface DatePickerCalendar extends VueConstructor {
-    props: Partial<DatePickerProps>;
+    props: Omit<DatePickerProps, 'isFocus'>;
     date: () => {
         receivedDate: string | Date | null;
     };
@@ -13,14 +13,8 @@ export interface DatePickerCalendar extends VueConstructor {
     };
     methods: {
         initDate(): void;
-        isSelected(date: Date): boolean;
         isValidAndSelectable(date: Date): boolean;
-        mergeModifiers(): {
-            [propName: string]: (date: Date) => boolean;
-        };
-        handleClickDate(date: Date): void;
-        handleMouseEnterDate(date: Date): void;
-        handleMouseLeaveDates(): void;
-        handleMonthChange(date: Date): void;
+        handleClickDate(date: Date, type: string): void;
+        changeLastValidDate(date: string): void;
     };
 }

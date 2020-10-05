@@ -114,7 +114,7 @@ declare class CompletionItem {
     insertText?: string;
     insertTextFormat?: InsertTextFormat;
     range?: Range;
-    commitCharacters?: string[];
+    commitChars?: Charset;
 }
 
 declare enum CompletionItemKind {

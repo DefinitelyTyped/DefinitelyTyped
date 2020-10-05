@@ -915,7 +915,7 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#usestate
      */
     function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
-    // convenience overload when first argument is ommitted
+    // convenience overload when first argument is omitted
     /**
      * Returns a stateful value, and a function to update it.
      *
@@ -966,7 +966,7 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#usereducer
      */
     // overload where "I" may be a subset of ReducerState<R>; used to provide autocompletion.
-    // If "I" matches ReducerState<R> exactly then the last overload will allow initializer to be ommitted.
+    // If "I" matches ReducerState<R> exactly then the last overload will allow initializer to be omitted.
     // the last overload effectively behaves as if the identity function (x => x) is the initializer.
     function useReducer<R extends Reducer<any, any>, I>(
         reducer: R,

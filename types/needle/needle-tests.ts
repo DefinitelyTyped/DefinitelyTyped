@@ -297,6 +297,21 @@ function FileUpload() {
     });
 }
 
+async function Timeout() {
+    await needle('get', 'http://test.com/', null, {
+        timeout: 7,
+        open_timeout: 8,
+        read_timeout: 9,
+        response_timeout: 10,
+    });
+}
+
+async function LocalAddress() {
+    await needle('get', 'http://test.com/', null, {
+        localAddress: '169.254.6.9',
+    });
+}
+
 function Multipart() {
     const buffer = fs.readFileSync('/path/to/package.zip');
 

@@ -2,7 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "interface-name": false,
         "jsdoc-format": false,
@@ -11,7 +10,6 @@
         "no-mergeable-namespace": false,
         "no-object-literal-type-assertion": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-trailing-whitespace": false,
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,
@@ -20,7 +18,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
         "trim-file": false,

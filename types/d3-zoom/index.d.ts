@@ -1,4 +1,4 @@
-// Type definitions for d3JS d3-zoom module 1.8
+// Type definitions for d3JS d3-zoom module 2.0
 // Project: https://github.com/d3/d3-zoom/, https://d3js.org/d3-zoom
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,10 +8,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.8.3
+// Last module patch version validated against: 2.0.0
 
-import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
-import { ZoomView, ZoomInterpolator } from 'd3-interpolate';
+import { Selection, TransitionLike, ValueFn } from 'd3-selection';
+import { ZoomView } from 'd3-interpolate';
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -70,14 +70,14 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      *
      * @param selection A selection or a transition.
      * @param transform A zoom transform or a function that returns a zoom transform.
-     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
+     * If a function, it is invoked for each selected element, being passed the current event (event) and datum d, with the this context as the current DOM element.
      * @param point A two-element array [x, y] or a function that returns such an array.
-     * If a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
+     * If a function, it is invoked for each selected element, being passed the current event (event) and datum d, with the this context as the current DOM element.
      */
     transform(
         selection: Selection<ZoomRefElement, Datum, any, any> | TransitionLike<ZoomRefElement, Datum>,
-        transform: ZoomTransform | ValueFn<ZoomRefElement, Datum, ZoomTransform>,
-        point?: [number, number] | ValueFn<ZoomRefElement, Datum, [number, number]>
+        transform: ZoomTransform | ((this: ZoomRefElement, event: any, d: Datum) => ZoomTransform),
+        point?: [number, number] | ((this: ZoomRefElement, event: any, d: Datum) => [number, number])
     ): void;
 
     /**
@@ -177,7 +177,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     /**
      * Returns the current filter function.
      */
-    filter(): ValueFn<ZoomRefElement, Datum, boolean>;
+    filter(): (this: ZoomRefElement, event: any, datum: Datum) => boolean;
     /**
      * Sets the filter to the specified filter function and returns the zoom behavior.
      * The filter function is invoked in the zoom initiating event handlers of each element to which the zoom behavior was applied.
@@ -186,11 +186,11 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * Thus, the filter determines which input events are ignored. The default filter ignores mousedown events on secondary buttons,
      * since those buttons are typically intended for other purposes, such as the context menu.
      *
-     * @param filterFn A filter function which is invoked in the zoom initiating event handlers of each element to which the zoom behavior was applied,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element. The function returns a boolean value.
+     * @param filter A filter function which is invoked in the zoom initiating event handlers of each element to which the zoom behavior was applied,
+     * in order, being passed the current event (event) and datum d, with the this context as the current DOM element.
+     * The function returns a boolean value.
      */
-    filter(filterFn: ValueFn<ZoomRefElement, Datum, boolean>): this;
+    filter(filter: (this: ZoomRefElement, event: any, datum: Datum) => boolean): this;
 
     /**
      * Returns the current touch support detector, which defaults to a function returning true,
@@ -243,7 +243,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * SVG provides no programmatic method for retrieving the initial viewport size. Alternatively, consider using element.getBoundingClientRect.
      * (In Firefox, element.clientWidth and element.clientHeight is zero for SVG elements!)
      */
-    extent(): ValueFn<ZoomRefElement, Datum, [[number, number], [number, number]]>;
+    extent(): (this: ZoomRefElement, datum: Datum) => [[number, number], [number, number]];
     /**
      * Set the viewport extent to the specified array of points [[x0, y0], [x1, y1]],
      * where [x0, y0] is the top-left corner of the viewport and [x1, y1] is the bottom-right corner of the viewport,
@@ -271,11 +271,10 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * SVG provides no programmatic method for retrieving the initial viewport size. Alternatively, consider using element.getBoundingClientRect.
      * (In Firefox, element.clientWidth and element.clientHeight is zero for SVG elements!)
      *
-     * @extent An extent accessor function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.The function returns the extent array.
+     * @extent An extent accessor function which is evaluated for each selected element, being passed the current datum d, with the this context as the current DOM element.
+     * The function returns the extent array.
      */
-    extent(extent: ValueFn<ZoomRefElement, Datum, [[number, number], [number, number]]>): this;
+    extent(extent: (this: ZoomRefElement, datum: Datum) => [[number, number], [number, number]]): this;
 
     /**
      * Return the current scale extent.
@@ -330,6 +329,18 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     clickDistance(distance: number): this;
 
     /**
+     * Return the current tap distance threshold, which defaults to 10.
+     */
+    tapDistance(): number;
+    /**
+     * Sets the maximum distance that a double-tap gesture can move between first touchstart and second touchend that will trigger a subsequent double-click event.
+     *
+     * @param distance The distance threshold between mousedown and mouseup measured in client coordinates (event.clientX and event.clientY).
+     * The default is 10.
+     */
+    tapDistance(distance: number): this;
+
+    /**
      * Get the duration for zoom transitions on double-click and double-tap in milliseconds.
      */
     duration(): number;
@@ -338,7 +349,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      *
      * To disable double-click and double-tap transitions, you can remove the zoom behavior’s dblclick event listener after applying the zoom behavior to the selection.
      *
-     * @param Duration in milliseconds.
+     * @param duration in milliseconds.
      */
     duration(duration: number): this;
 
@@ -368,7 +379,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * start (after zooming begins [such as mousedown]), zoom (after a change to the zoom  transform [such as mousemove], or
      * end (after an active pointer becomes inactive [such as on mouseup].)
      */
-    on(typenames: string): ValueFn<ZoomRefElement, Datum, void> | undefined;
+    on(typenames: string): ((this: ZoomRefElement, event: any, d: Datum) => void) | undefined;
     /**
      * Remove the current event listeners for the specified typenames, if any, return the drag behavior.
      *
@@ -386,17 +397,15 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * the existing listener is removed before the new listener is added.
      * When a specified event is dispatched, each listener will be invoked with the same context and arguments as selection.on listeners.
      *
-     *
      * @param typenames The typenames is a string containing one or more typename separated by whitespace.
      * Each typename is a type, optionally followed by a period (.) and a name, such as "drag.foo"" and "drag.bar";
      * the name allows multiple listeners to be registered for the same type. The type must be one of the following:
      * start (after zooming begins [such as mousedown]), zoom (after a change to the zoom  transform [such as mousemove], or
      * end (after an active pointer becomes inactive [such as on mouseup].)
      * @param listener An event listener function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element.
+     * in order, being passed the current event (event) and datum d, with the this context as the current DOM element.
      */
-    on(typenames: string, listener: ValueFn<ZoomRefElement, Datum, void>): this;
+    on(typenames: string, listener: (this: ZoomRefElement, event: any, d: Datum) => void): this;
 }
 
 /**
@@ -564,8 +573,8 @@ export interface ZoomTransform {
     toString(): string;
 
     /**
-     * Return a transform whose translation tx1 and ty1 is equal to tx0 + x and ty0 + y,
-     * where tx0 and ty0 is this transform’s translation.
+     * Returns a transform whose translation tx1 and ty1 is equal to tx0 + tkx and ty0 + tky,
+     * where tx0 and ty0 is this transform’s translation and tk is this transform’s scale.
      *
      * @param x Amount of translation in x-direction.
      * @param y Amount of translation in y-direction.

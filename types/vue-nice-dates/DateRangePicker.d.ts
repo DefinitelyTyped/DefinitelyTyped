@@ -4,7 +4,7 @@ import { DateRangePickerProps } from './shared.d';
 export const DateRangePicker: DateRangePicker;
 
 export interface DateRangePicker extends VueConstructor {
-    props: Partial<DateRangePickerProps>;
+    props: DateRangePickerProps;
     date: () => {
         receivedStartDate: string;
         receivedEndDate: string;
@@ -22,10 +22,7 @@ export interface DateRangePicker extends VueConstructor {
         receivedFocusName(focusName: string): void;
     };
     methods: {
-        handleClickDate(date: Date): void;
-        handleMouseEnterDate(date: Date): void;
-        handleMouseLeaveDates(): void;
-        handleMonthChange(date: Date): void;
+        handleClickDate(date: Date, type: string): void;
         changeLastValidStartDate(date: string): void;
         changeLastValidEndDate(date: string): void;
         updateReceivedStartDate(date: string): void;
