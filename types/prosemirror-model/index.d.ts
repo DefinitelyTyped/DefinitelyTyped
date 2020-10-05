@@ -878,6 +878,11 @@ export class ResolvedPos<S extends Schema = any> {
    */
   nodeBefore?: ProsemirrorNode<S> | null;
   /**
+   * Get the position at the given index in the parent node at the
+   * given depth (which defaults to this.depth).
+   */
+  posAtIndex(index: number, depth?: number): number;
+  /**
    * Get the marks at this position, factoring in the surrounding
    * marks' [`inclusive`](#model.MarkSpec.inclusive) property. If the
    * position is at the start of a non-empty node, the marks of the
