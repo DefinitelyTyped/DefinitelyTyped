@@ -13,12 +13,17 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@fingerprintjs/fingerprintjs": [
+                "fingerprintjs__fingerprintjs"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "fingerprintjs-tests.ts"
+        "fingerprintjs__fingerprintjs-tests.ts"
     ]
 }
