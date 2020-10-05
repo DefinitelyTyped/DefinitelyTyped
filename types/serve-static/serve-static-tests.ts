@@ -26,3 +26,9 @@ serveStatic.mime.define({
     'application/babylonmeshdata': ['babylonmeshdata'],
     'application/fx': ['fx']
 });
+
+serveStatic('/assumes-express', {
+    setHeaders: function(res) {
+        res.set("foo", "bar")
+    }
+})
