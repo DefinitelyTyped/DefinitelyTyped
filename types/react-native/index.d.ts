@@ -967,7 +967,7 @@ export interface TextPropsAndroid {
      * Determines the types of data converted to clickable URLs in the text element.
      * By default no data types are detected.
      */
-    dataDetectorType?: 'phoneNumber' | 'link' | 'email' | 'none' | 'all';
+    dataDetectorType?: null |'phoneNumber' | 'link' | 'email' | 'none' | 'all';
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
