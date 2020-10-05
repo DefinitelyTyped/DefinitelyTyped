@@ -1,9 +1,9 @@
 import * as timing from 'timing.js';
 
 const t = timing.getTimes();
-console.log(t.domReadyTime);
-console.log(t.firstPaintTime);
-console.log(t.firstPaint - t.fetchStart);
+t.domReadyTime; // $ExpectType number
+t.firstPaintTime; // $ExpectType number
+t.firstPaint - t.fetchStart; // $ExpectType number
 
-timing.printTable();
-timing.printSimpleTable();
+timing.printTable(); // $ExpectType void
+timing.printSimpleTable(); // $ExpectType void
