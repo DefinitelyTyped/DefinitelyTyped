@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.15
+// Type definitions for prosemirror-view 1.16
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -323,7 +323,7 @@ export class EditorView<S extends Schema = any> {
    * and `right` will be the same number, as this returns a flat
    * cursor-ish rectangle.
    */
-  coordsAtPos(pos: number): { left: number; right: number; top: number; bottom: number };
+  coordsAtPos(pos: number, side?: number): { left: number; right: number; top: number; bottom: number };
   /**
    * Find the DOM position that corresponds to the given document
    * position. Note that you should **not** mutate the editor's
