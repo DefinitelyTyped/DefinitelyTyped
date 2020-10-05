@@ -35,6 +35,7 @@ import {
     Menu,
     MessageStrip,
     MultiInput,
+    ObjectStatus,
     Pagination,
     Popover,
     SearchInput,
@@ -1119,6 +1120,10 @@ const multiInputs = (
             placeHolder="Select a Fruit"
         />
     </div>
+);
+
+const objectStatus = (
+    <ObjectStatus indication={1} size={'l'}/>
 );
 
 const paginations = (

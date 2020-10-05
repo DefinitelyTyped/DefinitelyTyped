@@ -45,6 +45,7 @@ export {
 export { default as Menu } from "./lib/Menu/Menu";
 export { default as MessageStrip } from "./lib/MessageStrip/MessageStrip";
 export { default as MultiInput } from "./lib/MultiInput/MultiInput";
+export { default as ObjectStatus } from "./lib/ObjectStatus/ObjectStatus";
 export { default as Pagination } from "./lib/Pagination/Pagination";
 export { default as Popover } from "./lib/Popover/Popover";
 export { default as SearchInput } from "./lib/SearchInput/SearchInput";
