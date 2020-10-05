@@ -14,16 +14,75 @@ declare namespace google.maps {
         ): void;
     }
 
+    /**
+     * A distance matrix query sent by the {@link DistanceMatrixService} containing arrays of origin and destination
+     * locations, and various options for computing metrics.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixRequest Maps JavaScript API}
+     */
     interface DistanceMatrixRequest {
+        /**
+         * An array containing destination address strings, or {@link LatLng}, or {@link Place} objects, to which to
+         * calculate distance and time.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixRequest.destinations Maps JavaScript API}
+         */
         destinations: Array<string | LatLng | LatLngLiteral | Place>;
+
+        /**
+         * An array containing origin address strings, or {@link LatLng}, or {@link Place} objects, from which to
+         * calculate distance and time.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixRequest.origins Maps JavaScript API}
+         */
         origins: Array<string | LatLng | LatLngLiteral | Place>;
+
+        /**
+         * Type of routing requested.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixRequest.travelMode Maps JavaScript API}
+         */
         travelMode: TravelMode;
+
+        /**
+         * If true, instructs the Distance Matrix service to avoid ferries where possible.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixRequest.avoidFerries Maps JavaScript API}
+         */
         avoidFerries?: boolean;
+
+        /**
+         * If true, instructs the Distance Matrix service to avoid highways where possible.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixRequest.avoidHighways Maps JavaScript API}
+         */
         avoidHighways?: boolean;
+
+        /**
+         * If true, instructs the Distance Matrix service to avoid toll roads where possible.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixRequest.avoidTolls Maps JavaScript API}
+         */
         avoidTolls?: boolean;
+
+        /**
+         * Settings that apply only to requests where {@link travelMode} is {@link TravelMode.DRIVING DRIVING}. This
+         * object will have no effect for other travel modes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixRequest.drivingOptions Maps JavaScript API}
+         */
         drivingOptions?: DrivingOptions;
+
+        /**
+         * Region code used as a bias for geocoding requests.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixRequest.region Maps JavaScript API}
+         */
         region?: string;
+
+        /**
+         * Settings that apply only to requests where {@link travelMode} is {@link TravelMode.TRANSIT TRANSIT}. This
+         * object will have no effect for other travel modes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixRequest.transitOptions Maps JavaScript API}
+         */
         transitOptions?: TransitOptions;
+
+        /**
+         * Preferred unit system to use when displaying distance.
+         * @default UnitSystem.METRIC
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixRequest.unitSystem Maps JavaScript API}
+         */
         unitSystem?: UnitSystem;
     }
 
