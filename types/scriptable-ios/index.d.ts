@@ -976,7 +976,7 @@ declare class Contact {
      *       "country": "United States of America"
      *     }
      *
-     * The identifier uniquely identifies the postal adress on this device. The label is a description of the postal address.
+     * The identifier uniquely identifies the postal address on this device. The label is a description of the postal address.
      *
      * When updating this property, you must set the entire array of postal addresses that you would like to store on the contact. The "identifier" key is optional.
      * @see https://docs.scriptable.app/contact/#postaladdresses
@@ -1301,7 +1301,7 @@ declare class ContactsContainer {
 /**
  * _Group of contacts._
  *
- * In order to add the group to your address book, you must queue it for insertion using `Contact.add()`. When you're done making changes to the address book you should call
+ * In order to add the group to your address book, you must queue it for insertion using `ContactsGroup.add()`. When you're done making changes to the address book you should call
  * `Contact.persistChanges()` to persist the changes.
  * @see https://docs.scriptable.app/contactsgroup/#-new-contactsgroup
  */
@@ -1548,7 +1548,7 @@ declare class DateFormatter {
     locale: string;
 
     /**
-     * _Converts between texts and strings._
+     * _Converts between dates and strings._
      *
      * To convert between dates and their textual representation, use the `string()` and `date()` functions.
      * @see https://docs.scriptable.app/dateformatter/#-new-dateformatter
@@ -1920,6 +1920,8 @@ declare var Device: {
 
     /**
      * _Whether the device is using dark appearance._
+     *
+     * This API is not supported in widgets.
      * @see https://docs.scriptable.app/device/#isusingdarkappearance
      */
     isUsingDarkAppearance(): boolean;
@@ -2632,7 +2634,7 @@ declare class FileManager {
     /**
      * _Checks if a file is stored in iCloud._
      *
-     * Checks if a file is stored in iCloud or locally on the device. The function returns false too if the file does not exist. Check if a file exists using `fileExists(filePath)`
+     * Checks if a file is stored in iCloud or locally on the device. The function returns false if the file does not exist. Check if a file exists using `fileExists(filePath)`
      * @param filePath - Path of file.
      * @see https://docs.scriptable.app/filemanager/#-isfilestoredinicloud
      */
@@ -2644,7 +2646,7 @@ declare class FileManager {
      * If a file is stored in iCloud and it has not been downloaded, this function returns false. In that case, the file can be downloaded using `downloadFileFromiCloud(filePath`. If the
      * file is not stored in iCloud but rather locally on the device, this function returns true.
      *
-     * The function returns false too if the file does not exist. Check if a file exists using `fileExists(filePath)`
+     * The function returns false if the file does not exist. Check if a file exists using `fileExists(filePath)`
      * @param filePath - Path of file.
      * @see https://docs.scriptable.app/filemanager/#-isfiledownloaded
      */
@@ -3089,7 +3091,7 @@ declare class LinearGradient {
 /**
  * _Widget showing a list of elements._
  *
- * A widget showing a list of elements. Pass the widget to Script.setWidget() display it on your Home screen.
+ * A widget showing a list of elements. Pass the widget to Script.setWidget() to display it on your Home screen.
  * @see https://docs.scriptable.app/listwidget/#-new-listwidget
  */
 declare class ListWidget {
@@ -3123,15 +3125,28 @@ declare class ListWidget {
      * _URL to open._
      *
      * The URL will be opened when the widget is tapped. This will override any behavior defined in the configuration of the widget. E.g. if the widget is configured to run the script
-     * when interacting with the widget but a URL is set, the URL will take precedence.
+     * when interacting with the widget but a URL is set the URL will take precedence.
      * @see https://docs.scriptable.app/listwidget/#url
      */
     url: string;
 
     /**
+     * _Earliest date to refresh the widget._
+     *
+     * The property indicates when the widget can be refreshed again. The widget will not be refreshed before the date has been reached. It is not guaranteed that the widget will refresh
+     * at exactly the specified date.
+     *
+     * The refresh rate of a widget is partly up to iOS/iPadOS. For example, a widget may not refresh if the device is low on battery or the user is rarely looking at the widget.
+     *
+     * When the property is `null` the default refresh interval is used. Defaults to `null`.
+     * @see https://docs.scriptable.app/listwidget/#refreshafterdate
+     */
+    refreshAfterDate: Date;
+
+    /**
      * _Widget showing a list of elements._
      *
-     * A widget showing a list of elements. Pass the widget to Script.setWidget() display it on your Home screen.
+     * A widget showing a list of elements. Pass the widget to Script.setWidget() to display it on your Home screen.
      * @see https://docs.scriptable.app/listwidget/#-new-listwidget
      */
     constructor();
@@ -3145,9 +3160,17 @@ declare class ListWidget {
     addText(text: string): WidgetText;
 
     /**
+     * _Add date to the widget._
+     *
+     * Adds a date element to the widget. Use the properties on the returned element to style the date.
+     * @see https://docs.scriptable.app/listwidget/#-adddate
+     */
+    addDate(date: Date): WidgetDate;
+
+    /**
      * _Add image to the widget._
      *
-     * Adds an image element to the widget.
+     * Adds an image element to the widget. Use the properties on the returned element to style the image.
      * @see https://docs.scriptable.app/listwidget/#-addimage
      */
     addImage(image: Image): WidgetImage;
@@ -3160,6 +3183,14 @@ declare class ListWidget {
      * @see https://docs.scriptable.app/listwidget/#-addspacer
      */
     addSpacer(length: number): WidgetSpacer;
+
+    /**
+     * _Add stack._
+     *
+     * Adds a stack to the widget. Stacks layout elements horizontally by default.
+     * @see https://docs.scriptable.app/listwidget/#-addstack
+     */
+    addStack(): WidgetStack;
 
     /**
      * _Set padding._
@@ -3272,8 +3303,6 @@ declare var Location: {
 
 /**
  * _Sends a mail._
- *
- * Constructs a mail to be sent.
  * @see https://docs.scriptable.app/mail/#-new-mail
  */
 declare class Mail {
@@ -3335,8 +3364,6 @@ declare class Mail {
 
     /**
      * _Sends a mail._
-     *
-     * Constructs a mail to be sent.
      * @see https://docs.scriptable.app/mail/#-new-mail
      */
     constructor();
@@ -4141,7 +4168,7 @@ declare class Rect {
     /**
      * _Point that specifies the rectangles origin._
      *
-     * The x and y-coordinate that specifies the rectangles origin as a Point structure.
+     * The x- and y-coordinate that specifies the rectangles origin as a Point structure.
      * @see https://docs.scriptable.app/rect/#origin
      */
     origin: Point;
@@ -4177,7 +4204,7 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a daily recurrence rule._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every day and a
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every day and a
      * value of 3 specifies that the rule should repeat every third day.
      * @param interval - Interval at which to repeat the rule.
      * @see https://docs.scriptable.app/recurrencerule/#daily
@@ -4187,7 +4214,7 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a daily recurrence rule with an end date._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every day and a
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every day and a
      * value of 3 specifies that the rule should repeat every third day.
      * @param interval - Interval at which to repeat the rule.
      * @param endDate - Date at which the recurrence rule should end.
@@ -4198,7 +4225,7 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a daily recurrence rule with an occurrence count._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every day and a
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every day and a
      * value of 3 specifies that the rule should repeat every third day.
      * @param interval - Interval at which to repeat the rule.
      * @param occurrenceCount - Number of times the rule should repeat before it ends.
@@ -4209,8 +4236,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a weekly recurrence rule._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and
-     * a value of 3 specifies that the rule should repeat every third week.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and a
+     * value of 3 specifies that the rule should repeat every third week.
      * @param interval - Interval at which to repeat the rule.
      * @see https://docs.scriptable.app/recurrencerule/#weekly
      */
@@ -4219,8 +4246,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a weekly recurrence rule with an end date._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and
-     * a value of 3 specifies that the rule should repeat every third week.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and a
+     * value of 3 specifies that the rule should repeat every third week.
      * @param interval - Interval at which to repeat the rule.
      * @param endDate - Date at which the recurrence rule should end.
      * @see https://docs.scriptable.app/recurrencerule/#weeklyenddate
@@ -4230,8 +4257,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a weekly recurrence rule with an occurrence count._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and
-     * a value of 3 specifies that the rule should repeat every third week.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and a
+     * value of 3 specifies that the rule should repeat every third week.
      * @param interval - Interval at which to repeat the rule.
      * @param occurrenceCount - Number of times the rule should repeat before it ends.
      * @see https://docs.scriptable.app/recurrencerule/#weeklyoccurrencecount
@@ -4241,8 +4268,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a monthly recurrence rule._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and
-     * a value of 3 specifies that the rule should repeat every third month.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and a
+     * value of 3 specifies that the rule should repeat every third month.
      * @param interval - Interval at which to repeat the rule.
      * @see https://docs.scriptable.app/recurrencerule/#monthly
      */
@@ -4251,8 +4278,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a monthly recurrence rule with an end date._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and
-     * a value of 3 specifies that the rule should repeat every third month.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and a
+     * value of 3 specifies that the rule should repeat every third month.
      * @param interval - Interval at which to repeat the rule.
      * @param endDate - Date at which the recurrence rule should end.
      * @see https://docs.scriptable.app/recurrencerule/#monthlyenddate
@@ -4262,8 +4289,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a monthly recurrence rule with an occurrence count._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and
-     * a value of 3 specifies that the rule should repeat every third month.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and a
+     * value of 3 specifies that the rule should repeat every third month.
      * @param interval - Interval at which to repeat the rule.
      * @param occurrenceCount - Number of times the rule should repeat before it ends.
      * @see https://docs.scriptable.app/recurrencerule/#monthlyoccurrencecount
@@ -4273,8 +4300,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a yearly recurrence rule._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and
-     * a value of 3 specifies that the rule should repeat every third year.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and a
+     * value of 3 specifies that the rule should repeat every third year.
      * @param interval - Interval at which to repeat the rule.
      * @see https://docs.scriptable.app/recurrencerule/#yearly
      */
@@ -4283,8 +4310,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a yearly recurrence rule with an end date._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and
-     * a value of 3 specifies that the rule should repeat every third year.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and a
+     * value of 3 specifies that the rule should repeat every third year.
      * @param interval - Interval at which to repeat the rule.
      * @param endDate - Date at which the recurrence rule should end.
      * @see https://docs.scriptable.app/recurrencerule/#yearlyenddate
@@ -4294,8 +4321,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a yearly recurrence rule with an occurrence count._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and
-     * a value of 3 specifies that the rule should repeat every third year.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and a
+     * value of 3 specifies that the rule should repeat every third year.
      * @param interval - Interval at which to repeat the rule.
      * @param occurrenceCount - Number of times the rule should repeat before it ends.
      * @see https://docs.scriptable.app/recurrencerule/#yearlyoccurrencecount
@@ -4305,8 +4332,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a complex weekly recurrence rule._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and
-     * a value of 3 specifies that the rule should repeat every third week.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and a
+     * value of 3 specifies that the rule should repeat every third week.
      *
      * The setPositions filters which recurrences to include in the rule's frequency. For example, a yearly recurrence rule that has a daysOfTheWeek value that specifies Monday through
      * Friday and setPositions contain 2 and -1, occurs only on the second weekday and last weekday of every year.
@@ -4320,8 +4347,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a complex weekly recurrence rule with an end date._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and
-     * a value of 3 specifies that the rule should repeat every third week.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and a
+     * value of 3 specifies that the rule should repeat every third week.
      *
      * The setPositions filters which recurrences to include in the rule's frequency. For example, a yearly recurrence rule that has a daysOfTheWeek value that specifies Monday through
      * Friday and setPositions contain 2 and -1, occurs only on the second weekday and last weekday of every year.
@@ -4341,8 +4368,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a complex weekly recurrence rule with an occurrence count._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and
-     * a value of 3 specifies that the rule should repeat every third week.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every week and a
+     * value of 3 specifies that the rule should repeat every third week.
      *
      * The setPositions filters which recurrences to include in the rule's frequency. For example, a yearly recurrence rule that has a daysOfTheWeek value that specifies Monday through
      * Friday and setPositions contain 2 and -1, occurs only on the second weekday and last weekday of every year.
@@ -4362,8 +4389,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a complex monthly recurrence rule._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and
-     * a value of 3 specifies that the rule should repeat every third month.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and a
+     * value of 3 specifies that the rule should repeat every third month.
      *
      * The setPositions filters which recurrences to include in the rule's frequency. For example, a yearly recurrence rule that has a daysOfTheWeek value that specifies Monday through
      * Friday and setPositions contain 2 and -1, occurs only on the second weekday and last weekday of every year.
@@ -4383,8 +4410,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a complex monthly recurrence rule with an end date._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and
-     * a value of 3 specifies that the rule should repeat every third month.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and a
+     * value of 3 specifies that the rule should repeat every third month.
      *
      * The setPositions filters which recurrences to include in the rule's frequency. For example, a yearly recurrence rule that has a daysOfTheWeek value that specifies Monday through
      * Friday and setPositions contain 2 and -1, occurs only on the second weekday and last weekday of every year.
@@ -4406,8 +4433,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a complex monthly recurrence rule with an occurrence count._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and
-     * a value of 3 specifies that the rule should repeat every third month.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every month and a
+     * value of 3 specifies that the rule should repeat every third month.
      *
      * The setPositions filters which recurrences to include in the rule's frequency. For example, a yearly recurrence rule that has a daysOfTheWeek value that specifies Monday through
      * Friday and setPositions contain 2 and -1, occurs only on the second weekday and last weekday of every year.
@@ -4429,8 +4456,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a complex yearly recurrence rule._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and
-     * a value of 3 specifies that the rule should repeat every third year.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and a
+     * value of 3 specifies that the rule should repeat every third year.
      *
      * The setPositions filters which recurrences to include in the rule's frequency. For example, a yearly recurrence rule that has a daysOfTheWeek value that specifies Monday through
      * Friday and setPositions contain 2 and -1, occurs only on the second weekday and last weekday of every year.
@@ -4454,8 +4481,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a complex yearly recurrence rule with an end date._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and
-     * a value of 3 specifies that the rule should repeat every third week.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and a
+     * value of 3 specifies that the rule should repeat every third week.
      *
      * The setPositions filters which recurrences to include in the rule's frequency. For example, a yearly recurrence rule that has a daysOfTheWeek value that specifies Monday through
      * Friday and setPositions contain 2 and -1, occurs only on the second weekday and last weekday of every year.
@@ -4481,8 +4508,8 @@ declare namespace RecurrenceRule {
     /**
      * _Constructs a complex yearly recurrence rule with an occurrence count._
      *
-     * The interval should have a value greater than 0 and specifies how often the the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and
-     * a value of 3 specifies that the rule should repeat every third year.
+     * The interval should have a value greater than 0 and specifies how often the pattern repeats. For example, an interval of 1 specifies that the rule should repeat every year and a
+     * value of 3 specifies that the rule should repeat every third year.
      *
      * The setPositions filters which recurrences to include in the rule's frequency. For example, a yearly recurrence rule that has a daysOfTheWeek value that specifies Monday through
      * Friday and setPositions contain 2 and -1, occurs only on the second weekday and last weekday of every year.
@@ -5086,6 +5113,93 @@ declare class Request {
 }
 
 /**
+ * _Representation of an SF symbol._
+ * @see https://docs.scriptable.app/sfsymbol
+ */
+declare class SFSymbol {
+    /**
+     * _Convert the symbol to an image._
+     * @see https://docs.scriptable.app/sfsymbol/#image
+     */
+    image: Image;
+
+    private constructor();
+
+    /**
+     * _Constructs an SF symbol._
+     *
+     * SF symbols are Apple's configurable icons that are designed to look great with the San Francisco font.
+     *
+     * Symbols are referenced by their name. You can find the symbol names in [Apples SF Symbols app for macOS](https://developer.apple.com/sf-symbols/). You can also browse symbol names
+     * in the [SF Symbols Browser](https://apps.apple.com/us/app/sf-symbols-browser/id1491161336) and [San Fransymbols](https://apps.apple.com/us/app/san-fransymbols/id1504761986) apps
+     * for iOS.
+     * @param symbolName - Name of the symbol.
+     * @see https://docs.scriptable.app/sfsymbol/#named
+     */
+    static named(symbolName: string): SFSymbol;
+
+    /**
+     * _Configures the symbol with the specified font information._
+     * @see https://docs.scriptable.app/sfsymbol/#-applyfont
+     */
+    applyFont(font: Font): void;
+
+    /**
+     * _Configures the symbol to use an ultra light weight._
+     * @see https://docs.scriptable.app/sfsymbol/#-applyultralightweight
+     */
+    applyUltraLightWeight(): void;
+
+    /**
+     * _Configures the symbol to use a thin weight._
+     * @see https://docs.scriptable.app/sfsymbol/#-applythinweight
+     */
+    applyThinWeight(): void;
+
+    /**
+     * _Configures the symbol to use a light weight._
+     * @see https://docs.scriptable.app/sfsymbol/#-applylightweight
+     */
+    applyLightWeight(): void;
+
+    /**
+     * _Configures the symbol to use a regular weight._
+     * @see https://docs.scriptable.app/sfsymbol/#-applyregularweight
+     */
+    applyRegularWeight(): void;
+
+    /**
+     * _Configures the symbol to use a medium weight._
+     * @see https://docs.scriptable.app/sfsymbol/#-applymediumweight
+     */
+    applyMediumWeight(): void;
+
+    /**
+     * _Configures the symbol to use a semibold weight._
+     * @see https://docs.scriptable.app/sfsymbol/#-applysemiboldweight
+     */
+    applySemiboldWeight(): void;
+
+    /**
+     * _Configures the symbol to use a bold weight._
+     * @see https://docs.scriptable.app/sfsymbol/#-applyboldweight
+     */
+    applyBoldWeight(): void;
+
+    /**
+     * _Configures the symbol to use a heavy weight._
+     * @see https://docs.scriptable.app/sfsymbol/#-applyheavyweight
+     */
+    applyHeavyWeight(): void;
+
+    /**
+     * _Configures the symbol to use a black weight._
+     * @see https://docs.scriptable.app/sfsymbol/#-applyblackweight
+     */
+    applyBlackWeight(): void;
+}
+
+/**
  * _Presents a website._
  * @see https://docs.scriptable.app/safari
  */
@@ -5093,7 +5207,7 @@ declare var Safari: {
     /**
      * _Presents a website in-app._
      *
-     * Presents a website without leaving the app. To present a website and leave the app, take a look at `open`.
+     * Presents a website without leaving the app.
      * @param url - URL of website to present.
      * @param fullscreen - Optional. Set to true to display the web view in fullsceen. This only has an effect when used within the app. Defaults to true.
      * @see https://docs.scriptable.app/safari/#openinapp
@@ -5245,7 +5359,7 @@ declare class Timer {
      * This is a convenience function for creating a new timer. The created timer is instantly scheduled and will fire after the specified time interval.
      * @param timeInterval - The time interval to fire the timer at.
      * @param repeats - Whether the timer should repeat or not.
-     * @param callback - The callback to call when the timer fires.
+     * @param callback - The callback to be called when the timer fires.
      * @see https://docs.scriptable.app/timer/#schedule
      */
     static schedule(timeInterval: number, repeats: boolean, callback: () => void): Timer;
@@ -5254,7 +5368,7 @@ declare class Timer {
      * _Schedules the timer._
      *
      * Schedules the timer using its configuration. The supplied function is called when the timer fires. To stop the timer from firing, call the `invalidate()` function.
-     * @param callback - The callback to call when the timer fires.
+     * @param callback - The callback to be called when the timer fires.
      * @see https://docs.scriptable.app/timer/#-schedule
      */
     schedule(callback: () => void): void;
@@ -5598,7 +5712,7 @@ declare var URLScheme: {
      *
      * Gets the URL for running the current script. When making a request to the returned URL from another app, e.g. Safari, the current script will run.
      *
-     * Any query parameter in the URL will be available using the args bridge. Get the query paramters using `args.queryParameters`.
+     * Get the query parameters using `args.queryParameters`.
      * @see https://docs.scriptable.app/urlscheme/#forrunningscript
      */
     forRunningScript(): string;
@@ -5771,6 +5885,163 @@ declare class WebView {
 }
 
 /**
+ * _Date element shown in a widget._
+ * @see https://docs.scriptable.app/widgetdate
+ */
+declare class WidgetDate {
+    /**
+     * _Date to show in a widget._
+     * @see https://docs.scriptable.app/widgetdate/#date
+     */
+    date: Date;
+
+    /**
+     * _Color of the text._
+     * @see https://docs.scriptable.app/widgetdate/#textcolor
+     */
+    textColor: Color;
+
+    /**
+     * _Font and text size of the text._
+     * @see https://docs.scriptable.app/widgetdate/#font
+     */
+    font: Font;
+
+    /**
+     * _Opacity of the text._
+     *
+     * Opacity of the text. This must be a value between 0 and 1. Defaults to 1.
+     * @see https://docs.scriptable.app/widgetdate/#textopacity
+     */
+    textOpacity: number;
+
+    /**
+     * _Maximum number of lines._
+     *
+     * Maximum number of lines to display. The limit is disabled when the value is 0 or less. Defaults to 0.
+     * @see https://docs.scriptable.app/widgetdate/#linelimit
+     */
+    lineLimit: number;
+
+    /**
+     * _Minimum amount the text scales down to._
+     *
+     * Sets the minimum amount that text scales down to fit in the available space. For example, a text with a minimum scale factor of 0.5 allows the widget to draw the text in a font
+     * size half the size of the actual font. The scale factor should be a fraction between 0 and 1, both inclusive. Defaults to 1.
+     * @see https://docs.scriptable.app/widgetdate/#minimumscalefactor
+     */
+    minimumScaleFactor: number;
+
+    /**
+     * _Color of the shadow._
+     *
+     * Sets the color of the shadow cast by the text. The `shadowRadius` property must have a value greater than zero for this property to have an effect. Defaults to black.
+     * @see https://docs.scriptable.app/widgetdate/#shadowcolor
+     */
+    shadowColor: Color;
+
+    /**
+     * _Size of the shadow._
+     *
+     * Sets the size of the shadow cast by the text. Defaults to 0.
+     * @see https://docs.scriptable.app/widgetdate/#shadowradius
+     */
+    shadowRadius: number;
+
+    /**
+     * _Offset of the shadow._
+     *
+     * Sets the offset of the shadow cast by the text. The `shadowRadius` property must have a value greater than zero for this property to have an effect. Defaults to (0, 0).
+     * @see https://docs.scriptable.app/widgetdate/#shadowoffset
+     */
+    shadowOffset: Point;
+
+    /**
+     * _URL to open._
+     *
+     * The URL will be opened when the text is tapped. This is only supported in medium and large widgets. Small widgets can only have a single tap target, which is specified by the `url`
+     * property on the widget.
+     * @see https://docs.scriptable.app/widgetdate/#url
+     */
+    url: string;
+
+    /**
+     * _Left aligns the text._
+     *
+     * Specifies that text should be left aligned. This is the default.
+     *
+     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to left in a horizontal stack, you should place a spacer
+     * after the text.
+     * @see https://docs.scriptable.app/widgetdate/#-leftaligntext
+     */
+    leftAlignText(): void;
+
+    /**
+     * _Center aligns the text._
+     *
+     * Specifies that text should be center aligned.
+     *
+     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text in the center of a horizontal stack, you should place a spacer both
+     * before and after the text.
+     * @see https://docs.scriptable.app/widgetdate/#-centeraligntext
+     */
+    centerAlignText(): void;
+
+    /**
+     * _Right aligns the text._
+     *
+     * Specifies that text should be right aligned.
+     *
+     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to the right in a horizontal stack, you should place a spacer
+     * before the text.
+     * @see https://docs.scriptable.app/widgetdate/#-rightaligntext
+     */
+    rightAlignText(): void;
+
+    /**
+     * _Display time component of the date._
+     *
+     * Example output: 11:23PM
+     * @see https://docs.scriptable.app/widgetdate/#-applytimestyle
+     */
+    applyTimeStyle(): void;
+
+    /**
+     * _Display entire date._
+     *
+     * Example output: June 3, 2019
+     *
+     * This is the default.
+     * @see https://docs.scriptable.app/widgetdate/#-applydatestyle
+     */
+    applyDateStyle(): void;
+
+    /**
+     * _Display date as relative to now._
+     *
+     * Example output: 2 hours, 23 minutes 1 year, 1 month
+     * @see https://docs.scriptable.app/widgetdate/#-applyrelativestyle
+     */
+    applyRelativeStyle(): void;
+
+    /**
+     * _Display date as offset from now._
+     *
+     * Example output: +2 hours -3 months
+     * @see https://docs.scriptable.app/widgetdate/#-applyoffsetstyle
+     */
+    applyOffsetStyle(): void;
+
+    /**
+     * _Display date as timer counting from now._
+     *
+     * Example output: 2:32 36:59:01
+     * @see https://docs.scriptable.app/widgetdate/#-applytimerstyle
+     */
+    applyTimerStyle(): void;
+}
+
+/**
  * _Image element shown in widget._
  * @see https://docs.scriptable.app/widgetimage
  */
@@ -5782,12 +6053,12 @@ declare class WidgetImage {
     image: Image;
 
     /**
-     * _Opacity when shown in widget._
+     * _Whether the image is resizable._
      *
-     * Opacity of the image. This must be a value between 0 and 1. Defaults to 1.
-     * @see https://docs.scriptable.app/widgetimage/#imageopacity
+     * When set to true, the image can be resized. Defaults to true.
+     * @see https://docs.scriptable.app/widgetimage/#resizable
      */
-    imageOpacity: number;
+    resizable: boolean;
 
     /**
      * _Size of the image in the widget._
@@ -5796,6 +6067,14 @@ declare class WidgetImage {
      * @see https://docs.scriptable.app/widgetimage/#imagesize
      */
     imageSize: Size;
+
+    /**
+     * _Opacity when shown in widget._
+     *
+     * Opacity of the image. This must be a value between 0 and 1. Defaults to 1.
+     * @see https://docs.scriptable.app/widgetimage/#imageopacity
+     */
+    imageOpacity: number;
 
     /**
      * _Radius of the corners._
@@ -5830,6 +6109,23 @@ declare class WidgetImage {
     containerRelativeShape: boolean;
 
     /**
+     * _Tint color of the image._
+     *
+     * Changes the color of the image. Set to `null` to show the original image. Defaults to `null`.
+     * @see https://docs.scriptable.app/widgetimage/#tintcolor
+     */
+    tintColor: Color;
+
+    /**
+     * _URL to open._
+     *
+     * The URL will be opened when the image is tapped. This is only supported in medium and large widgets. Small widgets can only have a single tap target, which is specified by the `url`
+     * on the widget.
+     * @see https://docs.scriptable.app/widgetimage/#url
+     */
+    url: string;
+
+    /**
      * _Left aligns the image._
      *
      * Specifies that image should be left aligned. This is the default.
@@ -5852,6 +6148,22 @@ declare class WidgetImage {
      * @see https://docs.scriptable.app/widgetimage/#-rightalignimage
      */
     rightAlignImage(): void;
+
+    /**
+     * _Uses fitting content mode._
+     *
+     * The image will fit the available space. This content mode is the default.
+     * @see https://docs.scriptable.app/widgetimage/#-applyfittingcontentmode
+     */
+    applyFittingContentMode(): void;
+
+    /**
+     * _Uses filling content mode._
+     *
+     * The image will fill the available space.
+     * @see https://docs.scriptable.app/widgetimage/#-applyfillingcontentmode
+     */
+    applyFillingContentMode(): void;
 }
 
 /**
@@ -5867,30 +6179,205 @@ declare class WidgetSpacer {
 }
 
 /**
- * _Text element shown in widget._
+ * _Stack element shown in widget._
+ * @see https://docs.scriptable.app/widgetstack
+ */
+declare class WidgetStack {
+    /**
+     * _Background color of the stack._
+     * @see https://docs.scriptable.app/widgetstack/#backgroundcolor
+     */
+    backgroundColor: Color;
+
+    /**
+     * _Background image._
+     * @see https://docs.scriptable.app/widgetstack/#backgroundimage
+     */
+    backgroundImage: Image;
+
+    /**
+     * _Background gradient._
+     * @see https://docs.scriptable.app/widgetstack/#backgroundgradient
+     */
+    backgroundGradient: LinearGradient;
+
+    /**
+     * _Spacing between elements._
+     *
+     * Specifies the spacing between elements in the stack. You can also use the `addSpacer()` function on the widget to add spacing between elements. Defaults to 0.
+     * @see https://docs.scriptable.app/widgetstack/#spacing
+     */
+    spacing: number;
+
+    /**
+     * _Size of the stack._
+     *
+     * Specifies the size of the stack when shown in a widget. When a dimension is set to zero or less, the widget will automatically decide a length for that dimension. Both dimensions
+     * default to 0.
+     * @see https://docs.scriptable.app/widgetstack/#size
+     */
+    size: Size;
+
+    /**
+     * _Radius of the corners._
+     *
+     * Radius of the rounded corners. Defaults to 0.
+     * @see https://docs.scriptable.app/widgetstack/#cornerradius
+     */
+    cornerRadius: number;
+
+    /**
+     * _Border width._
+     *
+     * Width of the border around the stack. Defaults to 0.
+     * @see https://docs.scriptable.app/widgetstack/#borderwidth
+     */
+    borderWidth: number;
+
+    /**
+     * _Border color._
+     *
+     * Color of the border around the stack. Defaults to black.
+     * @see https://docs.scriptable.app/widgetstack/#bordercolor
+     */
+    borderColor: Color;
+
+    /**
+     * _URL to open._
+     *
+     * The URL will be opened when the stack is tapped. This is only supported in medium and large widgets. Small widgets can only have a single tap target, which is specified by the `url`
+     * on the widget.
+     * @see https://docs.scriptable.app/widgetstack/#url
+     */
+    url: string;
+
+    /**
+     * _Add text to the stack._
+     *
+     * Adds a text element to the stack. Use the properties on the returned element to style the text.
+     * @see https://docs.scriptable.app/widgetstack/#-addtext
+     */
+    addText(text: string): WidgetText;
+
+    /**
+     * _Add date to the widget._
+     *
+     * Adds a date element to the widget. Use the properties on the returned element to style the date.
+     * @see https://docs.scriptable.app/widgetstack/#-adddate
+     */
+    addDate(date: Date): WidgetDate;
+
+    /**
+     * _Add image to the stack._
+     *
+     * Adds an image element to the stack. Use the properties on the returned element to style the image.
+     * @see https://docs.scriptable.app/widgetstack/#-addimage
+     */
+    addImage(image: Image): WidgetImage;
+
+    /**
+     * _Add spacer._
+     *
+     * Adds a spacer to the stack. This can be used to offset the content horizontally in the stack.
+     * @param length - Length of the spacer. Pass null to create a spacer with a flexible length.
+     * @see https://docs.scriptable.app/widgetstack/#-addspacer
+     */
+    addSpacer(length: number): WidgetSpacer;
+
+    /**
+     * _Add stack._
+     *
+     * Adds a stack to the widget. Stacks layout elements horizontally by default.
+     * @see https://docs.scriptable.app/widgetstack/#-addstack
+     */
+    addStack(): WidgetStack;
+
+    /**
+     * _Set padding._
+     *
+     * Sets the padding on each side of the stack.
+     * @param top - Padding on the top edge.
+     * @param leading - Padding on the leading edge.
+     * @param bottom - Padding on the bottom edge.
+     * @param trailing - Padding on the trailing edge.
+     * @see https://docs.scriptable.app/widgetstack/#-setpadding
+     */
+    setPadding(top: number, leading: number, bottom: number, trailing: number): void;
+
+    /**
+     * _Use the default padding._
+     *
+     * Configure the stack to use the default padding. Any padding previously defined with `setPadding()` will be discarded.
+     * @see https://docs.scriptable.app/widgetstack/#-usedefaultpadding
+     */
+    useDefaultPadding(): void;
+
+    /**
+     * _Top aligns the content._
+     *
+     * Specifies that the content should be top aligned. This is the default.
+     * @see https://docs.scriptable.app/widgetstack/#-topaligncontent
+     */
+    topAlignContent(): void;
+
+    /**
+     * _Center aligns the content._
+     *
+     * Specifies that the content should be center aligned.
+     * @see https://docs.scriptable.app/widgetstack/#-centeraligncontent
+     */
+    centerAlignContent(): void;
+
+    /**
+     * _Bottom aligns the content._
+     *
+     * Specifies that the content should be bottom aligned.
+     * @see https://docs.scriptable.app/widgetstack/#-bottomaligncontent
+     */
+    bottomAlignContent(): void;
+
+    /**
+     * _Layout elements horizontally._
+     *
+     * Specifies that the stack should layout elements horizontally. This is the default.
+     * @see https://docs.scriptable.app/widgetstack/#-layouthorizontally
+     */
+    layoutHorizontally(): void;
+
+    /**
+     * _Layout elements vertically._
+     *
+     * Specifies that the stack should layout elements vertically.
+     * @see https://docs.scriptable.app/widgetstack/#-layoutvertically
+     */
+    layoutVertically(): void;
+}
+
+/**
+ * _Text element shown in a widget._
  * @see https://docs.scriptable.app/widgettext
  */
 declare class WidgetText {
     /**
-     * _Text to show in widget._
+     * _Text to show in a widget._
      * @see https://docs.scriptable.app/widgettext/#text
      */
     text: string;
 
     /**
-     * _Color of the text in widget._
+     * _Color of the text._
      * @see https://docs.scriptable.app/widgettext/#textcolor
      */
     textColor: Color;
 
     /**
-     * _Font and text size of the text in widget._
+     * _Font and text size of the text._
      * @see https://docs.scriptable.app/widgettext/#font
      */
     font: Font;
 
     /**
-     * _Opacity when shown in widget._
+     * _Opacity of the text._
      *
      * Opacity of the text. This must be a value between 0 and 1. Defaults to 1.
      * @see https://docs.scriptable.app/widgettext/#textopacity
@@ -5906,17 +6393,65 @@ declare class WidgetText {
     lineLimit: number;
 
     /**
+     * _Minimum amount the text scales down to._
+     *
+     * Sets the minimum amount that text scales down to fit in the available space. For example, a text with a minimum scale factor of 0.5 allows the widget to draw the text in a font
+     * size half the size of the actual font. The scale factor should be a fraction between 0 and 1, both inclusive. Defaults to 1.
+     * @see https://docs.scriptable.app/widgettext/#minimumscalefactor
+     */
+    minimumScaleFactor: number;
+
+    /**
+     * _Color of the shadow._
+     *
+     * Sets the color of the shadow cast by the text. The `shadowRadius` property must have a value greater than zero for this property to have an effect. Defaults to black.
+     * @see https://docs.scriptable.app/widgettext/#shadowcolor
+     */
+    shadowColor: Color;
+
+    /**
+     * _Size of the shadow._
+     *
+     * Sets the size of the shadow cast by the text. Defaults to 0.
+     * @see https://docs.scriptable.app/widgettext/#shadowradius
+     */
+    shadowRadius: number;
+
+    /**
+     * _Offset of the shadow._
+     *
+     * Sets the offset of the shadow cast by the text. The `shadowRadius` property must have a value greater than zero for this property to have an effect. Defaults to (0, 0).
+     * @see https://docs.scriptable.app/widgettext/#shadowoffset
+     */
+    shadowOffset: Point;
+
+    /**
+     * _URL to open._
+     *
+     * The URL will be opened when the text is tapped. This is only supported in medium and large widgets. Small widgets can only have a single tap target, which is specified by the `url`
+     * property on the widget.
+     * @see https://docs.scriptable.app/widgettext/#url
+     */
+    url: string;
+
+    /**
      * _Left aligns the text._
      *
      * Specifies that text should be left aligned. This is the default.
+     *
+     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to left in a horizontal stack, you should place a spacer
+     * after the text.
      * @see https://docs.scriptable.app/widgettext/#-leftaligntext
      */
     leftAlignText(): void;
 
     /**
-     * _center aligns the text._
+     * _Center aligns the text._
      *
      * Specifies that text should be center aligned.
+     *
+     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text in the center of a horizontal stack, you should place a spacer both
+     * before and after the text.
      * @see https://docs.scriptable.app/widgettext/#-centeraligntext
      */
     centerAlignText(): void;
@@ -5925,6 +6460,9 @@ declare class WidgetText {
      * _Right aligns the text._
      *
      * Specifies that text should be right aligned.
+     *
+     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to the right in a horizontal stack, you should place a spacer
+     * before the text.
      * @see https://docs.scriptable.app/widgettext/#-rightaligntext
      */
     rightAlignText(): void;
@@ -5933,7 +6471,7 @@ declare class WidgetText {
 /**
  * _Event driven XML parser._
  *
- * Constructs an event driven XML parser. It does not do any parsing on its own therfore the callback functions must be set before starting to parse.
+ * Constructs an event driven XML parser. It does not do any parsing on its own and therefore the callback functions must be set before starting to parse.
  * @see https://docs.scriptable.app/xmlparser/#-new-xmlparser
  */
 declare class XMLParser {
@@ -5946,7 +6484,7 @@ declare class XMLParser {
     /**
      * _Event driven XML parser._
      *
-     * Constructs an event driven XML parser. It does not do any parsing on its own therfore the callback functions must be set before starting to parse.
+     * Constructs an event driven XML parser. It does not do any parsing on its own and therefore the callback functions must be set before starting to parse.
      * @param string - XML string to be parsed.
      * @see https://docs.scriptable.app/xmlparser/#-new-xmlparser
      */
