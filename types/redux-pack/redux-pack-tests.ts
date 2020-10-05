@@ -1,4 +1,4 @@
-import { handle, Action, GetState } from 'redux-pack';
+import { handle, Action, MetaPayload, LIFECYCLE } from 'redux-pack';
 
 interface Foo {
   id: string;
@@ -112,3 +112,8 @@ function userDoesFoo(): Action<FooState, Foo> {
     }
   };
 }
+
+// It should work fine with the success lifecycle
+const payloadMeta: MetaPayload<{}> = {
+  'redux-pack/LIFECYCLE': LIFECYCLE.SUCCESS
+};

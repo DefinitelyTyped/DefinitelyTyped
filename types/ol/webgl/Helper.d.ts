@@ -53,6 +53,7 @@ export default class WebGLHelper extends Disposable {
         opt_texture?: WebGLTexture,
     ): WebGLTexture;
     deleteBuffer(buf: WebGLArrayBuffer): void;
+    disposeInternal(): void;
     drawElements(start: number, end: number): void;
     enableAttributes(attributes: AttributeDescription[]): void;
     finalizeDraw(frameState: FrameState): void;

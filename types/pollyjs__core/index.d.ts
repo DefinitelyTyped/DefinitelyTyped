@@ -1,4 +1,4 @@
-// Type definitions for @pollyjs/core 4.0
+// Type definitions for @pollyjs/core 4.3
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/core
 // Definitions by: feinoujc <https://github.com/feinoujc>
 //                 Borui Gu <https://github.com/BoruiGu>
@@ -34,6 +34,7 @@ export interface PollyConfig {
     persister?: string | typeof Persister;
     persisterOptions?: {
         keepUnusedRequests?: boolean;
+        disableSortingHarEntries?: boolean;
         fs?: { recordingsDir?: string };
         'local-storage'?: { context?: any; key?: string };
         rest?: { host?: string; apiNamespace?: string };
@@ -41,6 +42,7 @@ export interface PollyConfig {
     };
 
     logging?: boolean;
+    flushRequestsOnStop?: boolean;
 
     recordIfMissing?: boolean;
     recordFailedRequests?: boolean;
@@ -107,6 +109,7 @@ export interface Request extends HTTPBase {
 }
 export interface Response extends HTTPBase {
     statusCode: number;
+    isBinary: boolean;
     readonly statusText: string;
     readonly ok: boolean;
 
@@ -122,12 +125,14 @@ export type RequestRouteEvent = 'request';
 export type RecordingRouteEvent = 'beforeReplay' | 'beforePersist';
 export type ResponseRouteEvent = 'beforeResponse' | 'response';
 export type ErrorRouteEvent = 'error';
+export type AbortRouteEvent = 'abort';
 
 export interface ListenerEvent {
     readonly type: string;
     stopPropagation: () => void;
 }
 export type ErrorEventListener = (req: Request, error: any, event: ListenerEvent) => void | Promise<void>;
+export type AbortEventListener = (req: Request, event: ListenerEvent) => void | Promise<void>;
 export type RequestEventListener = (req: Request, event: ListenerEvent) => void | Promise<void>;
 export type RecordingEventListener = (req: Request, recording: any, event: ListenerEvent) => void | Promise<void>;
 export type ResponseEventListener = (req: Request, res: Response, event: ListenerEvent) => void | Promise<void>;
@@ -137,14 +142,17 @@ export class RouteHandler {
     on(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
     on(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
     on(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
+    on(event: AbortRouteEvent, listener: AbortEventListener): RouteHandler;
     off(event: RequestRouteEvent, listener?: RequestEventListener): RouteHandler;
     off(event: RecordingRouteEvent, listener?: RecordingEventListener): RouteHandler;
     off(event: ResponseRouteEvent, listener?: ResponseEventListener): RouteHandler;
     off(event: ErrorRouteEvent, listener?: ErrorEventListener): RouteHandler;
+    off(event: AbortRouteEvent, listener?: AbortEventListener): RouteHandler;
     once(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
     once(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
     once(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
     once(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
+    once(event: AbortRouteEvent, listener: AbortEventListener): RouteHandler;
     filter: (callback: (req: Request) => boolean) => RouteHandler;
     passthrough(value?: boolean): RouteHandler;
     intercept(fn: InterceptHandler): RouteHandler;

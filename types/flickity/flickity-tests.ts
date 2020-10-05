@@ -3,30 +3,30 @@
 // jQuery tests
 
 let $flickity = $("#flickity-selector").flickity({
-        initialIndex: 0,
-        accessibility: true,
-        asNavFor: "#nav-bar",
-        autoPlay: true,
-        cellAlign: "left",
-        cellSelector: ".gallery-cell",
-        contain: true,
-        draggable: true,
-        freeScroll: false,
-        freeScrollFriction: 0.5,
-        friction: 0.8,
-        imagesLoaded: false,
-        lazyLoad: false,
-        pageDots: false,
-        arrowShape: "arrow.svg",
-        percentPosition: false,
-        prevNextButtons: false,
-        selectedAttraction: 0.050,
-        setGallerySize: true,
-        watchCSS: true,
-        wrapAround: true,
-        resize: true,
-        rightToLeft: false
-    });
+    initialIndex: 0,
+    accessibility: true,
+    asNavFor: "#nav-bar",
+    autoPlay: true,
+    cellAlign: "left",
+    cellSelector: ".gallery-cell",
+    contain: true,
+    draggable: true,
+    freeScroll: false,
+    freeScrollFriction: 0.5,
+    friction: 0.8,
+    imagesLoaded: false,
+    lazyLoad: false,
+    pageDots: false,
+    arrowShape: "arrow.svg",
+    percentPosition: false,
+    prevNextButtons: false,
+    selectedAttraction: 0.050,
+    setGallerySize: true,
+    watchCSS: true,
+    wrapAround: true,
+    resize: true,
+    rightToLeft: false
+});
 
 $flickity.flickity("next")
     .flickity("select", 4);
@@ -101,6 +101,10 @@ flikty2.on("cellSelect", (evt, ele) => {
     // do something
 });
 
+flikty2.on('change', idx => {
+    // do something
+});
+
 flikty2.off("cellSelect", (evt, ele, pntr, vctr) => {
     // do something
 });
@@ -161,18 +165,18 @@ let flikty5: Flickity = new Flickity(new HTMLElement(), {
         ready: () => {},
         change: (index) => {},
         select: (index) => {},
-        settle: (index)  => {},
-        scroll: (progress)  => {},
-        dragStart: (event, pointer)  => {},
-        dragMove: (event, pointer, moveVector)  => {},
-        dragEnd: (event, pointer)  => {},
-        pointerDown: (event, pointer)  => {},
-        pointerMove: (event, pointer, moveVector)  => {},
-        pointerUp: (event, pointer)  => {},
-        staticClick: (event, pointer, cellElement, cellIndex)  => {},
-        lazyLoad: (event, cellElement)  => {},
-        bgLazyLoad: (event, element)  => {},
-        fullscreenChange: (isFullscreen)  => {}
+        settle: (index) => {},
+        scroll: (progress) => {},
+        dragStart: (event, pointer) => {},
+        dragMove: (event, pointer, moveVector) => {},
+        dragEnd: (event, pointer) => {},
+        pointerDown: (event, pointer) => {},
+        pointerMove: (event, pointer, moveVector) => {},
+        pointerUp: (event, pointer) => {},
+        staticClick: (event, pointer, cellElement, cellIndex) => {},
+        lazyLoad: (event, cellElement) => {},
+        bgLazyLoad: (event, element) => {},
+        fullscreenChange: (isFullscreen) => {}
     }
 });
 
@@ -180,18 +184,18 @@ let fliktyBindings: Flickity.EventBindings = {
     ready: () => {},
     change: (index) => {},
     select: (index) => {},
-    settle: (index)  => {},
-    scroll: (progress)  => {},
-    dragStart: (event, pointer)  => {},
-    dragMove: (event, pointer, moveVector)  => {},
-    dragEnd: (event, pointer)  => {},
-    pointerDown: (event, pointer)  => {},
-    pointerMove: (event, pointer, moveVector)  => {},
-    pointerUp: (event, pointer)  => {},
-    staticClick: (event, pointer, cellElement, cellIndex)  => {},
-    lazyLoad: (event, cellElement)  => {},
-    bgLazyLoad: (event, element)  => {},
-    fullscreenChange: (isFullscreen)  => {}
+    settle: (index) => {},
+    scroll: (progress) => {},
+    dragStart: (event, pointer) => {},
+    dragMove: (event, pointer, moveVector) => {},
+    dragEnd: (event, pointer) => {},
+    pointerDown: (event, pointer) => {},
+    pointerMove: (event, pointer, moveVector) => {},
+    pointerUp: (event, pointer) => {},
+    staticClick: (event, pointer, cellElement, cellIndex) => {},
+    lazyLoad: (event, cellElement) => {},
+    bgLazyLoad: (event, element) => {},
+    fullscreenChange: (isFullscreen) => {}
 };
 
 let fliktyOpts1: Flickity.Options = {
@@ -219,4 +223,10 @@ let fliktyOpts1: Flickity.Options = {
     resize: true,
     rightToLeft: false,
     on: fliktyBindings
+};
+
+// options test
+let fliktyOpts2: Flickity.Options = {
+    autoPlay: true,
+    pauseAutoPlayOnHover: true,
 };

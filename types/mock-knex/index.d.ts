@@ -7,8 +7,23 @@
 
 /// <reference types="node" />
 
-import * as Knex from "knex";
 import { EventEmitter } from "events";
+
+interface Knex {
+    client: any;
+}
+
+declare namespace Knex {
+    interface Sql {
+        method: string;
+        options: any;
+        bindings: any;
+        sql: string;
+        toNative(): any;
+    }
+}
+
+export {};
 
 /**
  * Attaches mocked client to knex instance

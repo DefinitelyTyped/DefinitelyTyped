@@ -349,6 +349,8 @@ function sample6() {
         obj.set('opacity', (1 / (dist / 20)));
       });
     });
+  }, null, {
+      crossOrigin:'anonymous'
   });
 }
 

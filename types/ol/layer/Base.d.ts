@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import BaseObject, { ObjectEvent } from '../Object';
@@ -19,6 +19,7 @@ export interface Options {
 }
 export default class BaseLayer extends BaseObject {
     constructor(options: Options);
+    disposeInternal(): void;
     getClassName(): string;
     getExtent(): Extent;
     getLayersArray(opt_array?: Layer<Source>[]): Layer<Source>[];
@@ -40,7 +41,7 @@ export default class BaseLayer extends BaseObject {
     setOpacity(opacity: number): void;
     setVisible(visible: boolean): void;
     setZIndex(zindex: number): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

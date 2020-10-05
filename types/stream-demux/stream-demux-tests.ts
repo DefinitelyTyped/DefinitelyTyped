@@ -55,7 +55,7 @@ const demux = new StreamDemux<string>();
 
 // Utility function for using setTimeout() with async/await.
 function wait(duration: number) {
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
         setTimeout(() => {
             resolve();
         }, duration);

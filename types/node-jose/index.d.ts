@@ -94,9 +94,11 @@ export namespace JWE {
     function createEncrypt(keys: JWK.Key | JWK.Key[]): Encryptor;
     function createEncrypt(
         options: {
-            format?: 'compact' | 'flattened';
-            zip?: boolean;
+            format?: 'general' | 'compact' | 'flattened';
+            zip?: boolean | 'DEF';
             fields?: object;
+            contentAlg?: string;
+            protect?: string | string[];
         },
         key: JWK.Key
     ): Encryptor;
@@ -177,6 +179,7 @@ export namespace JWK {
         alg: string;
         kty: string;
         use: KeyUse;
+        kid: string;
 
         // e and n make up the public key
         e: string;
@@ -226,6 +229,23 @@ export namespace JWK {
             extras?: Record<string, unknown>
         ): Promise<Key>;
 
+        /**
+         * Generates a new random Key into this KeyStore.
+         *
+         * The type of {size} depends on the value of {kty}:
+         *
+         * + **`EC`**: String naming the curve to use, which can be one of:
+         *   `"P-256"`, `"P-384"`, or `"P-521"` (default is **`"P-256"`**).
+         * + **`RSA`**: Number describing the size of the key, in bits (default is
+         *   **`2048`**).
+         * + **`oct`**: Number describing the size of the key, in bits (default is
+         *   **`256`**).
+         *
+         * Any properties in {props} are applied before the key is generated,
+         * and are expected to be data types acceptable in JSON.  This allows the
+         * generated key to have a specific key identifier, or to specify its
+         * acceptable usage.
+         */
         generate(kty: string, size?: string | number, props?: any): Promise<Key>;
 
         remove(key: Key): void;
@@ -333,7 +353,7 @@ export namespace util {
     function randomBytes(len: number): Buffer;
 
     namespace base64url {
-        function decode(base64url: string): string;
+        function decode(base64url: string): Buffer;
 
         function encode(buffer: string | Buffer, encoding?: string): string;
     }

@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 declare namespace BlockVerticalAlignmentToolbar {
     type Value = 'bottom' | 'center' | 'top' | undefined;

@@ -13,11 +13,8 @@
             "../"
         ],
         "paths": {
-            "@hapi/catbox": [
-                "hapi__catbox"
-            ],
-            "@hapi/catbox-memory": [
-                "hapi__catbox-memory"
+            "@hapi/*": [
+                "hapi__*"
             ]
         },
         "types": [],

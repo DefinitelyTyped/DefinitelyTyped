@@ -6,7 +6,7 @@
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 declare module 'ember-modal-dialog/components/modal-dialog' {
     import Ember from 'ember';

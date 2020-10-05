@@ -6,25 +6,30 @@
 
 import { Languages } from 'prismjs';
 
-export default class CodeFlask {
-    constructor(selectorOrElement: string | HTMLElement, opts: options);
+declare class CodeFlask {
+    constructor(selectorOrElement: string | HTMLElement, opts: CodeFlask.options);
     onUpdate(callback: (code: string) => void): void;
     updateCode(newCode: string): void;
     getCode(): string;
     addLanguage(name: string, options: Languages): void;
 }
 
-export interface options {
-    language?: string;
-    rtl?: boolean;
-    tabSize?: number;
-    enableAutocorrect?: boolean;
-    lineNumbers?: boolean;
-    defaultTheme?: boolean;
-    areaId?: string;
-    ariaLabelledby?: string;
-    readonly?: boolean;
-    handleTabs?: boolean;
-    handleSelfClosingCharacters?: boolean;
-    handleNewLineIndentation?: boolean;
+export = CodeFlask;
+
+declare namespace CodeFlask {
+    interface options {
+        language?: string;
+        rtl?: boolean;
+        tabSize?: number;
+        enableAutocorrect?: boolean;
+        lineNumbers?: boolean;
+        defaultTheme?: boolean;
+        areaId?: string;
+        ariaLabelledby?: string;
+        readonly?: boolean;
+        handleTabs?: boolean;
+        handleSelfClosingCharacters?: boolean;
+        handleNewLineIndentation?: boolean;
+        styleParent?: ShadowRoot;
+    }
 }

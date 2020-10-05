@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Apple Music API 0.1
+// Type definitions for non-npm package Apple Music API 0.4
 // Project: https://developer.apple.com/documentation/applemusicapi/
 // Definitions by: Noah Chase <https://github.com/nchase>
 //                 Useff Chase <https://github.com/useffc>
@@ -8,6 +8,21 @@ declare namespace AppleMusicApi {
     // https://developer.apple.com/documentation/applemusicapi/songresponse
     interface SongResponse {
         data: Song[];
+    }
+
+    // https://developer.apple.com/documentation/applemusicapi/albumresponse
+    interface AlbumResponse {
+        data: Album[];
+    }
+
+    // https://developer.apple.com/documentation/applemusicapi/playlistresponse
+    interface PlaylistResponse {
+        data: Playlist[];
+    }
+
+    // https://developer.apple.com/documentation/applemusicapi/artistresponse
+    interface ArtistResponse {
+        data: Artist[];
     }
 
     // https://developer.apple.com/documentation/applemusicapi/relationship
@@ -120,20 +135,24 @@ declare namespace AppleMusicApi {
     // https://developer.apple.com/documentation/applemusicapi/artist/relationships
     interface ArtistRelationships {
         albums: Relationship<Album>;
-        genres: Relationship<Genre>;
+        genres?: Relationship<Genre>;
     }
 
     // https://developer.apple.com/documentation/applemusicapi/album
     interface Album extends Resource {
         // https://developer.apple.com/documentation/applemusicapi/album/attributes
         attributes?: {
-            albumName: string;
+            // albumName might not actually be a required attribute of Album.
+            // There may be a typo in Apple's documentation, their data doesn't
+            // actually return this attribute for the example I picked and the description of the field references music videos, further increasingly the likelihood that it's just a typo):
+            albumName?: string;
             artistName: string;
             artwork?: Artwork;
             contentRating?: 'clean' | 'explicit';
             copyright?: string;
             editorialNotes?: EditorialNotes;
             genreNames: string[];
+            isCompilation: boolean;
             isComplete: boolean;
             isSingle: boolean;
             name: string;
@@ -151,7 +170,8 @@ declare namespace AppleMusicApi {
     // https://developer.apple.com/documentation/applemusicapi/album/relationships
     interface AlbumRelationships {
         artists: Relationship<Artist>;
-        genres: {};
+        tracks: Relationship<Song>;
+        genres?: Relationship<Genre>;
     }
 
     // https://developer.apple.com/documentation/applemusicapi/genre
@@ -160,5 +180,41 @@ declare namespace AppleMusicApi {
             name: string;
         };
         type: 'genres';
+    }
+
+    // https://developer.apple.com/documentation/applemusicapi/playlist
+    interface Playlist extends Resource {
+        attributes?: {
+            artwork?: Artwork;
+            curatorName?: string;
+            description?: EditorialNotes;
+            lastModifiedDate: string;
+            // `isChart` is not currently mentioned in the apple music api documentation:
+            isChart?: boolean;
+            name: string;
+            playParams?: PlayParameters;
+            playlistType: 'user-shared' | 'editorial' | 'external' | 'personal-mix';
+            url: string;
+        };
+
+        relationships?: {
+            curator: Relationship<Curator>;
+            tracks?: Relationship<Song>;
+        };
+        type: 'playlists';
+    }
+
+    // https://developer.apple.com/documentation/applemusicapi/curator
+    interface Curator extends Resource {
+        attributes?: {
+            artwork?: Artwork;
+            editorialNotes?: EditorialNotes;
+            name: string;
+            url: string;
+        };
+        relationships?: {
+            playlists?: Relationship<Playlist>;
+        };
+        type: 'curators';
     }
 }

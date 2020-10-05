@@ -4,7 +4,7 @@ import { _Window } from '../window/window';
 import { Point } from '../system/point';
 import { MonitorInfo } from '../system/monitor';
 import Transport from '../../transport/transport';
-import { Bounds } from '../../shapes';
+import { Bounds } from '../../shapes/shapes';
 import { ApplicationEvents } from '../events/application';
 import { ApplicationOption } from './applicationOption';
 import { View } from '../view/view';
@@ -13,12 +13,14 @@ export interface TrayIconClickReply extends Point, Reply<'application', 'tray-ic
     monitorInfo: MonitorInfo;
 }
 export interface ApplicationInfo {
-    initialOptions: object;
+    initialOptions: ApplicationOption;
     launchMode: string;
     manifest: object;
     manifestUrl: string;
     parentUuid?: string;
-    runtime: object;
+    runtime: {
+        version: string;
+    };
 }
 export interface LogInfo {
     logId: string;
@@ -129,20 +131,20 @@ export default class ApplicationModule extends Base {
     wrapSync(identity: Identity): Application;
     private _create;
     /**
-    * DEPRECATED method to create a new Application. Use {@link Application.start} instead.
-    * @param { ApplicationOption } appOptions
-    * @return {Promise.<Application>}
-    * @tutorial Application.create
-    * @ignore
-    */
+     * DEPRECATED method to create a new Application. Use {@link Application.start} instead.
+     * @param { ApplicationOption } appOptions
+     * @return {Promise.<Application>}
+     * @tutorial Application.create
+     * @ignore
+     */
     create(appOptions: ApplicationOption): Promise<Application>;
     /**
-    * Creates and starts a new Application.
-    * @param { ApplicationOption } appOptions
-    * @return {Promise.<Application>}
-    * @tutorial Application.start
-    * @static
-    */
+     * Creates and starts a new Application.
+     * @param { ApplicationOption } appOptions
+     * @return {Promise.<Application>}
+     * @tutorial Application.start
+     * @static
+     */
     start(appOptions: ApplicationOption): Promise<Application>;
     /**
      * Asynchronously starts a batch of applications given an array of application identifiers and manifestUrls.
@@ -320,11 +322,11 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     getShortcuts(): Promise<ShortCutConfig>;
     /**
-    * Retrieves current application's views.
-    * @experimental
-    * @return {Promise.Array.<View>}
-    * @tutorial Application.getViews
-    */
+     * Retrieves current application's views.
+     * @experimental
+     * @return {Promise.Array.<View>}
+     * @tutorial Application.getViews
+     */
     getViews(): Promise<Array<View>>;
     /**
      * Returns the current zoom level of the application.
@@ -339,12 +341,12 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     getWindow(): Promise<_Window>;
     /**
-    * Manually registers a user with the licensing service. The only data sent by this call is userName and appName.
-    * @param { string } userName - username to be passed to the RVM.
-    * @param { string } appName - app name to be passed to the RVM.
-    * @return {Promise.<void>}
-    * @tutorial Application.registerUser
-    */
+     * Manually registers a user with the licensing service. The only data sent by this call is userName and appName.
+     * @param { string } userName - username to be passed to the RVM.
+     * @param { string } appName - app name to be passed to the RVM.
+     * @return {Promise.<void>}
+     * @tutorial Application.registerUser
+     */
     registerUser(userName: string, appName: string): Promise<void>;
     /**
      * Removes the application’s icon from the tray.
@@ -397,6 +399,13 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      * @tutorial Application.setShortcuts
      */
     setShortcuts(config: ShortCutConfig): Promise<void>;
+    /**
+     * Sets the query string in all shortcuts for this app. Requires RVM 5.5+.
+     * @param { string } queryString The new query string for this app's shortcuts.
+     * @return {Promise.<void>}
+     * @tutorial Application.setShortcutQueryParams
+     */
+    setShortcutQueryParams(queryString: string): Promise<void>;
     /**
      * Sets the zoom level of the application. The original size is 0 and each increment above or below represents zooming 20%
      * larger or smaller to default limits of 300% and 50% of original size, respectively.

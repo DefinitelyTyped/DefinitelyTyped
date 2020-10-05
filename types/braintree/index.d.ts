@@ -188,7 +188,7 @@ declare namespace braintree {
     }
 
     interface PlanGateway {
-        all(): Promise<Plan[]>;
+        all(): Promise<{ plans: Plan[] }>;
     }
 
     interface SettlementBatchSummaryGateway {
@@ -1021,7 +1021,7 @@ declare namespace braintree {
         billingDayOfMonth: number;
         billingFrequency: number;
         createdAt: Date;
-        currenyIsoCode: string;
+        currencyIsoCode: string;
         description?: string;
         discounts?: Discount[];
         id: string;
@@ -1063,7 +1063,7 @@ declare namespace braintree {
         merchantAccountId: string;
         neverExpires?: boolean;
         nextBillAmount: string;
-        nextBillingDate: Date;
+        nextBillingDate: string;
         nextBillingPeriodAmount: string;
         numberOfBillingCycles?: number;
         paidThroughDate: Date;

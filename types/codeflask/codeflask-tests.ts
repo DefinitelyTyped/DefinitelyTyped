@@ -1,4 +1,4 @@
-import CodeFlask from 'codeflask';
+import CodeFlask  = require('codeflask');
 
 const flask = new CodeFlask(new HTMLElement(), {
   language: 'js',

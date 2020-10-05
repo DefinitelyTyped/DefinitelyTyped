@@ -1,4 +1,4 @@
-// Type definitions for Bootstrap 4.3
+// Type definitions for Bootstrap 4.5
 // Project: https://github.com/twbs/bootstrap/, https://getbootstrap.com
 // Definitions by: denisname <https://github.com/denisname>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -223,7 +223,7 @@ export interface ScrollspyOption {
      *
      * @default ""
      */
-    target?: string | Element;
+    target?: string | JQuery<Element> | Element;
 }
 
 export interface ToastOption {

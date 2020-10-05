@@ -153,3 +153,20 @@ XmlService.createElement('')
   .addContent(XmlService.createComment(''))
   .addContent(XmlService.createDocType(''))
   .addContent(XmlService.createText(''));
+
+const createFolderAndGetDescription = () => {
+  // Create folder.
+  const folder = DriveApp.createFolder('MyFolder');
+  // Get description. Expect null.
+  Logger.log(folder.getDescription());
+  // Set description.
+  folder.setDescription('desc');
+  // Get description. Expect 'DESC'.
+  Logger.log(folder.getDescription().toUpperCase());
+};
+
+function onChange(e: GoogleAppsScript.Events.SheetsOnChange) {
+  if (e.changeType === 'FORMAT') {
+    console.log('Formatting change detected');
+  }
+}

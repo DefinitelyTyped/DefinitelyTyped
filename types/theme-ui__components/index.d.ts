@@ -2,6 +2,7 @@
 // Project: https://github.com/system-ui/theme-ui
 // Definitions by: Piotr Monwid-Olechnowicz <https://github.com/hasparus>
 //                 Kristóf Poduszló <https://github.com/kripod>
+//                 Jesús Jiménez Ballano <https://github.com/jjballano-qatium>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -48,7 +49,7 @@ export interface GridProps extends BoxProps {
      */
     width?: ResponsiveValue<string | number>;
     /**
-     * 	Number of columns to use for the layout (cannot be used in conjunction with the width prop)
+     *     Number of columns to use for the layout (cannot be used in conjunction with the width prop)
      */
     columns?: ResponsiveValue<string | number>;
     /**
@@ -332,7 +333,7 @@ export interface IconButtonProps extends Assign<React.ComponentPropsWithRef<'but
  *
  * @see https://theme-ui.com/components/icon-button
  */
-export const IconButton: ForwardRef<HTMLButtonElement, BoxProps>;
+export const IconButton: ForwardRef<HTMLButtonElement, IconButtonProps>;
 
 export type MenuButtonProps = IconButtonProps;
 /**

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Pay API 0.3
+// Type definitions for non-npm package Google Pay API 0.5
 // Project: https://developers.google.com/pay/api/web/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
 //                 Radu Raicea <https://github.com/Radu-Raicea>,
@@ -6,6 +6,7 @@
 //                 Alexandre Couret <https://github.com/ozotek>
 //                 Sergi Ferriz <https://github.com/mumpo>
 //                 Soc Sieng <https://github.com/socsieng>
+//                 Jose L Ugia <https://github.com/JlUgia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google.payments.api {
@@ -168,19 +169,13 @@ declare namespace google.payments.api {
          * List of allowed payment methods.
          *
          * This field is required and must contain at least one
-         * [[PaymentMethodSpecification|`PaymentMethodSpecification`]].
+         * allowed payment method.
          *
-         * Note that when
-         * [[PaymentMethodSpecification|`PaymentMethodSpecification`]] is used
-         * within an IsReadyToPayRequest not all fields are required. For
-         * example,
-         * [[PaymentMethodSpecification.tokenizationSpecification|`PaymentMethodSpecification.tokenizationSpecification`]]
-         * is ignored by the `isReadyToPay` client method so you may leave it
-         * unset. Check each filtering criteria within the payment method's
+         * Check each filtering criteria within the payment method's
          * parameters field to see if the properties within are applicable for
-         * IsReadyToPayRequest.
+         * `IsReadyToPayRequest`.
          */
-        allowedPaymentMethods: PaymentMethodSpecification[];
+        allowedPaymentMethods: IsReadyToPayPaymentMethodSpecification[];
 
         /**
          * If set to `true` then the
@@ -505,7 +500,36 @@ declare namespace google.payments.api {
     }
 
     /**
-     * Specification of accepted payment method.
+     * Specification of accepted payment method for use in `isReadyToPay`.
+     */
+    interface IsReadyToPayPaymentMethodSpecification {
+        /**
+         * Type of payment method.
+         *
+         * This field is required.
+         */
+        type: PaymentMethodType;
+
+        /**
+         * Payment method parameters.
+         *
+         * The parameters set here affect which payment methods will be
+         * available for the user to choose from.
+         */
+        parameters: CardParameters;
+
+        /**
+         * Tokenization parameters.
+         *
+         * These parameters will be used to tokenize/transmit the
+         * payment method returned to you in a format you can charge or
+         * reference.
+         */
+        tokenizationSpecification?: PaymentMethodTokenizationSpecification;
+    }
+
+    /**
+     * Specification of accepted payment method for use in `loadPaymentData`.
      */
     interface PaymentMethodSpecification {
         /**
@@ -534,32 +558,41 @@ declare namespace google.payments.api {
     }
 
     /**
-     * Tokenization parameters.
+     * Payment gateway tokenization parameters.
      *
      * These parameters will be used to tokenize/transmit the
      * payment method returned to you in a format you can charge or reference.
      */
-    interface PaymentMethodTokenizationSpecification {
+    interface PaymentGatewayTokenizationSpecification {
         /**
          * The type of payment method tokenization to apply to the selected
          * payment method.
-         *
-         * This field is required.
          */
-        type: PaymentMethodTokenizationType;
+        type: "PAYMENT_GATEWAY";
 
         /**
-         * Specific parameters used for tokenization.
-         *
-         * The values in this object will depend on the value of type set in
-         * [[PaymentMethodTokenizationSpecification.type|`type`]]:
-         *
-         * - [[PaymentMethodTokenizationType|`PAYMENT_GATEWAY`]]:
-         *   [[PaymentGatewayTokenizationParameters|`PaymentGatewayTokenizationParameters`]]
-         * - [[PaymentMethodTokenizationType|`DIRECT`]]:
-         *   [[DirectTokenizationParameters|`DirectTokenizationParameters`]]
+         * Specific parameters used for payment gateway tokenization.
          */
-        parameters: PaymentGatewayTokenizationParameters | DirectTokenizationParameters;
+        parameters: PaymentGatewayTokenizationParameters;
+    }
+
+    /**
+     * Direct tokenization parameters.
+     *
+     * These parameters will be used to tokenize/transmit the direct
+     * payment method returned to you in a format you can charge or reference.
+     */
+    interface DirectTokenizationSpecification {
+        /**
+         * The type of payment method tokenization to apply to the selected
+         * payment method.
+         */
+        type: "DIRECT";
+
+        /**
+         * Specific parameters used for direct tokenization.
+         */
+        parameters: DirectTokenizationParameters;
     }
 
     /**
@@ -819,6 +852,38 @@ declare namespace google.payments.api {
          * Pay Developer Profile will be used.
          */
         merchantName?: string;
+
+        /**
+         * The info of the software used by merchants to integrate with GPay.
+         *
+         * This field is optional and its values may be set by software
+         * providers to identify the software the merchant is using.
+         */
+        softwareInfo?: SoftwareInfo;
+    }
+
+    /**
+     * The info of the software used by merchants to integrate with GPay.
+     */
+    interface SoftwareInfo {
+        /**
+         * The identifier of the software used by merchants to integrate with
+         * GPay.
+         *
+         * Partner's domain name can be used as the identifier.
+         *
+         * This field is optional.
+         */
+        id?: string;
+
+        /**
+         * The version of the software.
+         *
+         * GPay metrics are provided per version.
+         *
+         * This field is optional.
+         */
+        version?: string;
     }
 
     /**
@@ -1230,6 +1295,14 @@ declare namespace google.payments.api {
     type PaymentMethodType = "CARD" | "PAYPAL";
 
     /**
+     * Tokenization parameters.
+     *
+     * These parameters will be used to tokenize/transmit the
+     * payment method returned to you in a format you can charge or reference.
+     */
+    type PaymentMethodTokenizationSpecification = PaymentGatewayTokenizationSpecification | DirectTokenizationSpecification;
+
+    /**
      * Payment method tokenization type enum string.
      *
      * Options:
@@ -1595,9 +1668,14 @@ declare namespace google.payments.api {
         buttonColor?: ButtonColor;
 
         /**
-         * @default "long"
+         * @default "buy"
          */
         buttonType?: ButtonType;
+
+        /**
+         * @default "static"
+         */
+        buttonSizeMode?: ButtonSizeMode;
     }
 
     /**
@@ -1842,18 +1920,42 @@ declare namespace google.payments.api {
     /**
      * Supported methods for presenting the Google Pay button.
      *
+     * A translated button label may appear if a language specified in the
+     * viewer's browser matches an [available
+     * language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
+     *
+     *
      * Options:
      *
+     * - `buy`:
+     *   "Buy with Google Pay" button.
+     *
+     * - `donate`:
+     *   "Donate with Google Pay" button.
+     *
+     * - `plain`:
+     *   "Google Pay" button without text.
+     *
      * - `long`:
-     *   "Buy with Google Pay" button. A translated button label may
-     *   appear if a language specified in the viewer's browser matches an
-     *   [available
-     *   language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
+     *   Same as "buy".
      *
      * - `short`:
-     *   Google Pay payment button without the "Buy with" text.
+     *   Same as "plain".
      */
-    type ButtonType = "long" | "short";
+    type ButtonType = "buy" | "donate" | "plain" | "long" | "short";
+
+    /**
+     * Supported methods for controlling the size of the Google Pay button.
+     *
+     * Options:
+     *
+     * - `static`:
+     *   Default behavior. The button has a fixed width and height.
+     *
+     * - `fill`:
+     *   The button fills its container.
+     */
+    type ButtonSizeMode = "static" | "fill";
 
     /**
      * Supported environment names to run Google Pay.

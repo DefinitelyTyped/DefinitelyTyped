@@ -15,3 +15,7 @@ declare enum Instruction {
 }
 
 export default Instruction;
+export const beginPathInstruction: Instruction[];
+export const closePathInstruction: Instruction[];
+export const fillInstruction: Instruction[];
+export const strokeInstruction: Instruction[];

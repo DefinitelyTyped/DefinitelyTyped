@@ -25,16 +25,16 @@ export class Decoder extends stream.Transform {
     constructor(options?: DecoderOptions);
 
     static nullcheck(val: any): any;
-    static decodeFirstSync(input: string | Buffer, options?: DecodeOptions | string): any;
-    static decodeAllSync(input: string | Buffer, options?: DecodeOptions | string): any[];
+    static decodeFirstSync(input: string | Buffer | ArrayBufferView, options?: DecodeOptions | string): any;
+    static decodeAllSync(input: string | Buffer | ArrayBufferView, options?: DecodeOptions | string): any[];
 
-    static decodeFirst(input: string | Buffer, cb: decodeCallback): void;
-    static decodeFirst(input: string | Buffer, options: DecodeOptions | string, cb: decodeCallback): void;
-    static decodeFirst(input: string | Buffer, options?: DecodeOptions | string): Promise<any>;
+    static decodeFirst(input: string | Buffer | ArrayBufferView, cb: decodeCallback): void;
+    static decodeFirst(input: string | Buffer | ArrayBufferView, options: DecodeOptions | string, cb: decodeCallback): void;
+    static decodeFirst(input: string | Buffer | ArrayBufferView, options?: DecodeOptions | string): Promise<any>;
 
-    static decodeAll(input: string | Buffer, cb: decodeAllCallback): void;
-    static decodeAll(input: string | Buffer, options: DecodeOptions | string, cb: decodeAllCallback): void;
-    static decodeAll(input: string | Buffer, options?: DecodeOptions | string): Promise<any>;
+    static decodeAll(input: string | Buffer | ArrayBufferView, cb: decodeAllCallback): void;
+    static decodeAll(input: string | Buffer | ArrayBufferView, options: DecodeOptions | string, cb: decodeAllCallback): void;
+    static decodeAll(input: string | Buffer | ArrayBufferView, options?: DecodeOptions | string): Promise<any>;
 }
 
 export interface EncoderOptions extends stream.TransformOptions {
@@ -55,10 +55,10 @@ export class Encoder extends stream.Transform {
     pushAny(input: any): boolean;
     removeLoopDetectors(obj: any): boolean;
 
-    static encode(...objs: any[]): Buffer;
-    static encodeCanonical(...objs: any[]): Buffer;
-    static encodeOne(obj: any, options?: EncoderOptions): Buffer;
-    static encodeAsync(obj: any, options?: EncoderOptions): Promise<Buffer>;
+    static encode(...objs: any[]): Buffer | ArrayBufferView;
+    static encodeCanonical(...objs: any[]): Buffer | ArrayBufferView;
+    static encodeOne(obj: any, options?: EncoderOptions): Buffer | ArrayBufferView;
+    static encodeAsync(obj: any, options?: EncoderOptions): Promise<Buffer | ArrayBufferView>;
 }
 
 export class Simple {
@@ -89,9 +89,9 @@ type commentCallback = (error?: Error, commented?: string) => void;
 export class Commented extends stream.Transform {
     constructor(options?: CommentedOptions);
 
-    static comment(input: string | Buffer, cb: commentCallback): void;
-    static comment(input: string | Buffer, options: CommentOptions | string, cb: commentCallback): void;
-    static comment(input: string | Buffer, options?: CommentOptions | string): Promise<string>;
+    static comment(input: string | Buffer | ArrayBufferView, cb: commentCallback): void;
+    static comment(input: string | Buffer | ArrayBufferView, options: CommentOptions | string, cb: commentCallback): void;
+    static comment(input: string | Buffer | ArrayBufferView, options?: CommentOptions | string): Promise<string>;
 }
 
 declare class CborMap extends Map {
@@ -119,8 +119,8 @@ type diagnoseCallback = (error?: Error, str?: string) => void;
 export class Diagnose extends stream.Transform {
     constructor(options?: DiagnoseOptions);
 
-    static diagnose(input: string | Buffer, encoding?: string): Promise<string>;
-    static diagnose(input: string | Buffer, cb: diagnoseCallback): void;
+    static diagnose(input: string | Buffer | ArrayBufferView, encoding?: string): Promise<string>;
+    static diagnose(input: string | Buffer | ArrayBufferView, cb: diagnoseCallback): void;
 }
 
 export const decode: typeof Decoder.decodeFirstSync;

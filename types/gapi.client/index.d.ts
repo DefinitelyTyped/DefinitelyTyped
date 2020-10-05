@@ -24,7 +24,7 @@ declare namespace gapi {
          * Creates a HTTP request for making RESTful requests.
          * An object encapsulating the various arguments for this method.
          */
-        function request<T>(args: {
+        function request(args: {
             /**
              * The URL to handle the request
              */
@@ -49,8 +49,7 @@ declare namespace gapi {
             //  * If supplied, the request is executed immediately and no gapi.client.HttpRequest object is returned
             //  */
             // callback?: () => any;
-        // tslint:disable-next-line:no-unnecessary-generics
-        }): Request<T>;
+        }): Request<any>;
 
         /**
          * Sets the API key for the application.
@@ -142,8 +141,7 @@ declare namespace gapi {
         /**
          * Creates a batch object for batching individual requests.
          */
-        // tslint:disable-next-line:no-unnecessary-generics
-        function newBatch<T>(): Batch<T>;
+        function newBatch(): Batch<any>;
     }
 
     namespace auth {

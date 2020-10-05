@@ -1,14 +1,16 @@
-// Type definitions for k6 0.25
-// Project: https://docs.k6.io/docs
+// Type definitions for k6 0.28
+// Project: https://k6.io/docs
 // Definitions by: MajorBreakfast <https://github.com/MajorBreakfast>
 //                 Book Moons <https://github.com/bookmoons>
 //                 na-- <https://github.com/na-->
+//                 Pepe Cano <https://github.com/ppcano>
+//                 Simon Aronsson <https://github.com/simskij>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
 /**
  * k6 JavaScript API.
- * https://docs.k6.io/docs
+ * https://k6.io/docs
  *
  * @privateRemarks
  * Uses a branding pattern throughout to reflect the custom classes exposed by
@@ -41,47 +43,55 @@ import './ws';
 
 /**
  * Run checks on a value.
- * https://docs.k6.io/docs/check-val-sets-tags
+ * https://k6.io/docs/javascript-api/k6/check-val-sets-tags
  * @typeParam VT - Value type.
  * @param val - Value to test.
  * @param sets - Tests (checks) to run on the value.
  * @param tags - Extra tags to attach to metrics emitted.
  * @returns `true` if all checks have succeeded, otherwise `false`.
- * @public
+ * @example
+ * check(res, {
+ *  "response code was 200": (res) => res.status == 200,
+ *  "body size was 1234 bytes": (res) => res.body.length == 1234,
+ * });
  */
 export function check<VT>(val: VT, sets: Checkers<VT>, tags?: object): boolean;
 
 /**
  * Immediately throw an error, aborting the current script iteration.
- * https://docs.k6.io/docs/fail-err
+ * https://k6.io/docs/javascript-api/k6/fail-err
  * @param err - Error message that gets printed to stderr.
- * @public
+ * @example
+ * fail("abort current iteration");
  */
 export function fail(err?: string): never;
 
 /**
  * Run code inside a group.
- * https://docs.k6.io/docs/group-name-fn-cond
+ * https://k6.io/docs/javascript-api/k6/group-name-fn
  * @typeParam RT - Return type.
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
  * @returns The return value of `fn`.
- * @public
+ * @example
+ * group("group name", function() {
+ *  ..
+ * });
  */
 export function group<RT>(name: string, fn: () => RT): RT;
 
 /**
  * Suspend VU execution for the specified duration.
- * https://docs.k6.io/docs/sleep-t-1
+ * https://k6.io/docs/javascript-api/k6/sleep-t
  * @param t - Duration, in seconds.
- * @public
+ * @example
+ * sleep(3);
  */
 export function sleep(t: number): void;
 
 /**
  * Check procedure.
  * @typeParam VT - Value type.
- * @public
  */
 export interface Checker<VT> {
     /**
@@ -95,7 +105,6 @@ export interface Checker<VT> {
 /**
  * Named check procedures.
  * @typeParam VT - Value type.
- * @public
  */
 export interface Checkers<VT> {
     [description: string]: Checker<VT>;
@@ -106,13 +115,11 @@ export interface Checkers<VT> {
 
 /**
  * Byte represented as number. Value range [0,256)
- * @public
  */
 export type byte = number;
 
 /**
  * Byte array.
- * @public
  */
 export type bytes = byte[];
 
@@ -121,19 +128,16 @@ export type bytes = byte[];
 
 /**
  * JavaScript value representable with JSON.
- * @public
  */
 export type JSONValue = null | boolean | number | string | JSONArray | JSONObject;
 
 /**
  * Array representable with JSON.
- * @public
  */
 export interface JSONArray extends Array<JSONValue> {}
 
 /**
  * Object representable with JSON.
- * @public
  */
 export interface JSONObject {
     [key: string]: JSONValue;

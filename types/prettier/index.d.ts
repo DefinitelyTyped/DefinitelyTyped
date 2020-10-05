@@ -1,4 +1,4 @@
-// Type definitions for prettier 2.0
+// Type definitions for prettier 2.1
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
@@ -43,8 +43,9 @@ export type BuiltInParserName =
     | 'mdx'
     | 'yaml'
     | 'lwc';
+export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
-export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
+export type CustomParser = (text: string, parsers: BuiltInParsers, options: Options) => AST;
 
 export interface Options extends Partial<RequiredOptions> {}
 export interface RequiredOptions extends doc.printer.Options {
@@ -145,6 +146,11 @@ export interface RequiredOptions extends doc.printer.Options {
      * @default false
      */
     vueIndentScriptAndStyle: boolean;
+    /**
+     * Control whether Prettier formats quoted code embedded in the file.
+     * @default 'auto'
+     */
+    embeddedLanguageFormatting: 'auto' | 'off';
 }
 
 export interface ParserOptions extends RequiredOptions {
@@ -324,6 +330,7 @@ export interface SupportOptionDefault {
 }
 
 export interface SupportOption {
+    name: string;
     since?: string;
     type: 'int' | 'boolean' | 'choice' | 'path';
     array?: boolean;
@@ -417,7 +424,9 @@ export namespace doc {
             | Indent
             | Line
             | LineSuffix
-            | LineSuffixBoundary;
+            | LineSuffixBoundary
+            | Trim
+            | Cursor;
 
         interface Align {
             type: 'align';
@@ -473,6 +482,15 @@ export namespace doc {
             type: 'line-suffix-boundary';
         }
 
+        interface Trim {
+            type: 'trim';
+        }
+
+        interface Cursor {
+            type: 'cursor';
+            placeholder: symbol;
+        }
+
         function addAlignmentToDoc(doc: Doc, size: number, tabWidth: number): Doc;
         function align(n: Align['n'], contents: Doc): Align;
         const breakParent: BreakParent;
@@ -492,6 +510,8 @@ export namespace doc {
         const literalline: Concat;
         function markAsRoot(contents: Doc): Align;
         const softline: Line;
+        const trim: Trim;
+        const cursor: Cursor;
     }
     namespace debug {
         function printDocToDebug(doc: Doc): string;

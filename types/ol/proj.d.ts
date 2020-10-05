@@ -25,6 +25,11 @@ export function clearAllProjections(): void;
 export function clearUserProjection(): void;
 export function cloneTransform(input: number[], opt_output?: number[], opt_dimension?: number): number[];
 export function createProjection(projection: Projection | string | undefined, defaultCode: string): Projection;
+export function createSafeCoordinateTransform(
+    sourceProj: Projection,
+    destProj: Projection,
+    transform: (p0: Coordinate) => Coordinate,
+): (p0: Coordinate) => Coordinate;
 export function createTransformFromCoordinateTransform(
     coordTransform: (p0: Coordinate) => Coordinate,
 ): TransformFunction;

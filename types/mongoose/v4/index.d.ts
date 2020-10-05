@@ -6,7 +6,7 @@
 //                 murbanowicz <https://github.com/murbanowicz>
 //                 Samuel Bodin <https://github.com/bodinsamuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="mongodb" />
 /// <reference types="node" />

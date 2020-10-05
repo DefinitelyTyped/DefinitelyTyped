@@ -2979,7 +2979,7 @@ declare namespace EngineAPI {
 
         /**
          * Retrieves the variables that are tagged as favorite.
-         * @returns - return a Promise 	Array of String
+         * @returns - return a Promise     Array of String
          */
         getFavoriteVariables(): Promise<string[]>;
 
@@ -4819,7 +4819,7 @@ declare namespace EngineAPI {
         qSelectionInfo: INxSelectionInfo;
 
         /**
-         * 	Name of the alternate state. Default is current selections $ .
+         *     Name of the alternate state. Default is current selections $ .
          */
         qStateName: string;
     }
@@ -4856,9 +4856,9 @@ declare namespace EngineAPI {
      */
     interface IRangeSelectInfo {
         /* ToCheck!
-           qRangeLo	Lowest value in the range.	Double
-           qRangeHi	Highest value in the range.	Double
-           qMeasure	Label of the measure.	String
+           qRangeLo    Lowest value in the range.    Double
+           qRangeHi    Highest value in the range.    Double
+           qMeasure    Label of the measure.    String
          */
 
         /**
@@ -6366,7 +6366,7 @@ declare namespace EngineAPI {
         qNbr: number;
 
         /**
-         * Number of the parent rule definition.	Integer
+         * Number of the parent rule definition.    Integer
          */
         qPNbr: number;
 
@@ -7733,13 +7733,13 @@ declare namespace EngineAPI {
     interface INxAttrDimInfo {
         /**
          * Cardinality of the attribute expression.
-         * 	Integer
+         *     Integer
          */
         qCardinal: number;
 
         /**
          * Number of rows.
-         * 	Size
+         *     Size
          */
         qSize: number;
 

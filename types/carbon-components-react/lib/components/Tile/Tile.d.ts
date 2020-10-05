@@ -17,9 +17,12 @@ export declare class Tile extends React.Component<TileProps> { }
 
 // ClickableTile
 
-interface ClickableTileInheritedProps extends ReactAnchorAttr { }
+interface ClickableTileInheritedProps extends Omit<ReactAnchorAttr, "onClick" | "onKeyDown">, ThemeProps { }
 
-export interface ClickableTileProps extends ClickableTileInheritedProps { }
+export interface ClickableTileProps extends ClickableTileInheritedProps {
+    handleClick?: ReactAnchorAttr["onClick"],
+    handleKeyDown?: ReactAnchorAttr["onKeyDown"],
+}
 
 export declare class ClickableTile extends React.Component<ClickableTileProps> { }
 

@@ -139,16 +139,16 @@ interface AsyncResult {
 }
 
 interface DeployOptions {
-    allowMissingFiles?:	boolean;
+    allowMissingFiles?:    boolean;
     autoUpdatePackage?: boolean;
-    checkOnly?:	boolean;
+    checkOnly?:    boolean;
     ignoreWarnings?: boolean;
     performRetrieve?: boolean;
     purgeOnDelete?: boolean;
     rollbackOnError?: boolean;
     runAllTests?: boolean;
     runTests?: string[];
-    singlePackage?:	boolean;
+    singlePackage?:    boolean;
 }
 
 export class AsyncResultLocator<T> extends EventEmitter implements PromiseLike<T> {

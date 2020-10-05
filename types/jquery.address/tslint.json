@@ -3,11 +3,8 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
-        "no-redundant-jsdoc": false,
         "no-trailing-whitespace": false,
         "npm-naming": false,
-        "prefer-method-signature": false,
         "unified-signatures": false
     }
 }

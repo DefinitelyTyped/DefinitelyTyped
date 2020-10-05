@@ -30,8 +30,8 @@ export type HighlightCallback = (element: Element) => void;
  * @param [callback] Same as in {@link Prism.highlightAllUnder}.
  */
 export function highlightAll(
-	async?: boolean,
-	callback?: HighlightCallback
+    async?: boolean,
+    callback?: HighlightCallback
 ): void;
 
 /**
@@ -47,9 +47,9 @@ export function highlightAll(
  * @param [callback] An optional callback to be invoked on each element after its highlighting is done.
  */
 export function highlightAllUnder(
-	container: ParentNode,
-	async?: boolean,
-	callback?: HighlightCallback
+    container: ParentNode,
+    async?: boolean,
+    callback?: HighlightCallback
 ): void;
 
 /**
@@ -76,9 +76,9 @@ export function highlightAllUnder(
  * Mostly useful when `async` is `true`, since in that case, the highlighting is done asynchronously.
  */
 export function highlightElement(
-	element: Element,
-	async?: boolean,
-	callback?: HighlightCallback
+    element: Element,
+    async?: boolean,
+    callback?: HighlightCallback
 ): void;
 
 /**
@@ -101,9 +101,9 @@ export function highlightElement(
  * Prism.highlight('var foo = true;', Prism.languages.js, 'js');
  */
 export function highlight(
-	text: string,
-	grammar: Grammar,
-	language: string
+    text: string,
+    grammar: Grammar,
+    language: string
 ): string;
 
 /**
@@ -121,317 +121,317 @@ export function highlight(
  * @returns An array of strings, tokens and other arrays.
  */
 export function tokenize(
-	text: string,
-	grammar: Grammar
+    text: string,
+    grammar: Grammar
 ): Array<string | Token>;
 
 export interface Environment extends Record<string, any> {
-	selector?: string;
-	element?: Element;
-	language?: string;
-	grammar?: Grammar;
-	code?: string;
-	highlightedCode?: string;
-	type?: string;
-	content?: string;
-	tag?: string;
-	classes?: string[];
-	attributes?: Record<string, string>;
-	parent?: Array<string | Token>;
+    selector?: string;
+    element?: Element;
+    language?: string;
+    grammar?: Grammar;
+    code?: string;
+    highlightedCode?: string;
+    type?: string;
+    content?: string;
+    tag?: string;
+    classes?: string[];
+    attributes?: Record<string, string>;
+    parent?: Array<string | Token>;
 }
 
 export namespace util {
-	interface Identifier {
-		value: number;
-	}
+    interface Identifier {
+        value: number;
+    }
 
-	/** Encode raw strings in tokens in preparation to display as HTML */
-	function encode(tokens: TokenStream): TokenStream;
+    /** Encode raw strings in tokens in preparation to display as HTML */
+    function encode(tokens: TokenStream): TokenStream;
 
-	/** Determine the type of the object */
-	function type(o: null): "Null";
-	function type(o: undefined): "Undefined";
-	// tslint:disable:ban-types
-	function type(o: boolean | Boolean): "Boolean";
-	function type(o: number | Number): "Number";
-	function type(o: string | String): "String";
-	function type(o: Function): "Function";
-	// tslint:enable:ban-types
-	function type(o: RegExp): "RegExp";
-	function type(o: any[]): "Array";
-	function type(o: any): string;
+    /** Determine the type of the object */
+    function type(o: null): "Null";
+    function type(o: undefined): "Undefined";
+    // tslint:disable:ban-types
+    function type(o: boolean | Boolean): "Boolean";
+    function type(o: number | Number): "Number";
+    function type(o: string | String): "String";
+    function type(o: Function): "Function";
+    // tslint:enable:ban-types
+    function type(o: RegExp): "RegExp";
+    function type(o: any[]): "Array";
+    function type(o: any): string;
 
-	/** Get the unique id of this object or give it one if it does not have one */
-	function objId(obj: any): Identifier;
+    /** Get the unique id of this object or give it one if it does not have one */
+    function objId(obj: any): Identifier;
 
-	/** Deep clone a language definition (e.g. to extend it) */
-	function clone<T>(o: T): T;
+    /** Deep clone a language definition (e.g. to extend it) */
+    function clone<T>(o: T): T;
 }
 
 export type GrammarValue = RegExp | TokenObject | Array<RegExp | TokenObject>;
 export type Grammar = GrammarRest & Record<string, GrammarValue>;
 export interface GrammarRest {
-	keyword?: GrammarValue;
-	number?: GrammarValue;
-	function?: GrammarValue;
-	string?: GrammarValue;
-	boolean?: GrammarValue;
-	operator?: GrammarValue;
-	punctuation?: GrammarValue;
-	atrule?: GrammarValue;
-	url?: GrammarValue;
-	selector?: GrammarValue;
-	property?: GrammarValue;
-	important?: GrammarValue;
-	style?: GrammarValue;
-	comment?: GrammarValue;
-	"class-name"?: GrammarValue;
+    keyword?: GrammarValue;
+    number?: GrammarValue;
+    function?: GrammarValue;
+    string?: GrammarValue;
+    boolean?: GrammarValue;
+    operator?: GrammarValue;
+    punctuation?: GrammarValue;
+    atrule?: GrammarValue;
+    url?: GrammarValue;
+    selector?: GrammarValue;
+    property?: GrammarValue;
+    important?: GrammarValue;
+    style?: GrammarValue;
+    comment?: GrammarValue;
+    "class-name"?: GrammarValue;
 
-	/**
-	 * An optional grammar object that will appended to this grammar.
-	 */
-	rest?: Grammar;
+    /**
+     * An optional grammar object that will appended to this grammar.
+     */
+    rest?: Grammar;
 }
 
 /**
  * The expansion of a simple `RegExp` literal to support additional properties.
  */
 export interface TokenObject {
-	/**
-	 * The regular expression of the token.
-	 */
-	pattern: RegExp;
+    /**
+     * The regular expression of the token.
+     */
+    pattern: RegExp;
 
-	/**
-	 * If `true`, then the first capturing group of `pattern` will (effectively) behave as a lookbehind
-	 * group meaning that the captured text will not be part of the matched text of the new token.
-	 */
-	lookbehind?: boolean;
+    /**
+     * If `true`, then the first capturing group of `pattern` will (effectively) behave as a lookbehind
+     * group meaning that the captured text will not be part of the matched text of the new token.
+     */
+    lookbehind?: boolean;
 
-	/**
-	 * Whether the token is greedy.
-	 *
-	 * @default false
-	 */
-	greedy?: boolean;
+    /**
+     * Whether the token is greedy.
+     *
+     * @default false
+     */
+    greedy?: boolean;
 
-	/**
-	 * An optional alias or list of aliases.
-	 */
-	alias?: string | string[];
+    /**
+     * An optional alias or list of aliases.
+     */
+    alias?: string | string[];
 
-	/**
-	 * The nested tokens of this token.
-	 *
-	 * This can be used for recursive language definitions.
-	 *
-	 * Note that this can cause infinite recursion.
-	 */
-	inside?: Grammar;
+    /**
+     * The nested tokens of this token.
+     *
+     * This can be used for recursive language definitions.
+     *
+     * Note that this can cause infinite recursion.
+     */
+    inside?: Grammar;
 }
 export type Languages = LanguageMapProtocol & LanguageMap;
 export interface LanguageMap {
-	/**
-	 * Get a defined language's definition.
-	 */
-	[language: string]: Grammar;
+    /**
+     * Get a defined language's definition.
+     */
+    [language: string]: Grammar;
 }
 export interface LanguageMapProtocol {
-	/**
-	 * Creates a deep copy of the language with the given id and appends the given tokens.
-	 *
-	 * If a token in `redef` also appears in the copied language, then the existing token in the copied language
-	 * will be overwritten at its original position.
-	 *
-	 * @param id The id of the language to extend. This has to be a key in `Prism.languages`.
-	 * @param redef The new tokens to append.
-	 * @returns The new language created.
-	 * @example
-	 * Prism.languages['css-with-colors'] = Prism.languages.extend('css', {
-	 *     'color': /\b(?:red|green|blue)\b/
-	 * });
-	 */
-	extend(id: string, redef: Grammar): Grammar;
+    /**
+     * Creates a deep copy of the language with the given id and appends the given tokens.
+     *
+     * If a token in `redef` also appears in the copied language, then the existing token in the copied language
+     * will be overwritten at its original position.
+     *
+     * @param id The id of the language to extend. This has to be a key in `Prism.languages`.
+     * @param redef The new tokens to append.
+     * @returns The new language created.
+     * @example
+     * Prism.languages['css-with-colors'] = Prism.languages.extend('css', {
+     *     'color': /\b(?:red|green|blue)\b/
+     * });
+     */
+    extend(id: string, redef: Grammar): Grammar;
 
-	/**
-	 * Inserts tokens _before_ another token in a language definition or any other grammar.
-	 *
-	 * As this needs to recreate the object (we cannot actually insert before keys in object literals),
-	 * we cannot just provide an object, we need an object and a key.
-	 *
-	 * If the grammar of `inside` and `insert` have tokens with the same name, the tokens in `inside` will be ignored.
-	 *
-	 * All references of the old object accessible from `Prism.languages` or `insert` will be replace with the new one.
-	 *
-	 * @param inside The property of `root` that contains the object to be modified.
-	 *
-	 * This is usually a language id.
-	 * @param before The key to insert before.
-	 * @param insert An object containing the key-value pairs to be inserted.
-	 * @param [root] The object containing `inside`, i.e. the object that contains the object that will be modified.
-	 *
-	 * Defaults to `Prism.languages`.
-	 * @returns The new grammar created.
-	 * @example
-	 * Prism.languages.insertBefore('markup', 'cdata', {
-	 *     'style': { ... }
-	 * });
-	 */
-	insertBefore(
-		inside: string,
-		before: string,
-		insert: Grammar,
-		root: LanguageMap
-	): Grammar;
+    /**
+     * Inserts tokens _before_ another token in a language definition or any other grammar.
+     *
+     * As this needs to recreate the object (we cannot actually insert before keys in object literals),
+     * we cannot just provide an object, we need an object and a key.
+     *
+     * If the grammar of `inside` and `insert` have tokens with the same name, the tokens in `inside` will be ignored.
+     *
+     * All references of the old object accessible from `Prism.languages` or `insert` will be replace with the new one.
+     *
+     * @param inside The property of `root` that contains the object to be modified.
+     *
+     * This is usually a language id.
+     * @param before The key to insert before.
+     * @param insert An object containing the key-value pairs to be inserted.
+     * @param [root] The object containing `inside`, i.e. the object that contains the object that will be modified.
+     *
+     * Defaults to `Prism.languages`.
+     * @returns The new grammar created.
+     * @example
+     * Prism.languages.insertBefore('markup', 'cdata', {
+     *     'style': { ... }
+     * });
+     */
+    insertBefore(
+        inside: string,
+        before: string,
+        insert: Grammar,
+        root: LanguageMap
+    ): Grammar;
 }
 
 export namespace hooks {
-	/**
-	 * @param env The environment variables of the hook.
-	 */
-	type HookCallback = (env: Environment) => void;
-	type HookTypes = keyof HookEnvironmentMap;
+    /**
+     * @param env The environment variables of the hook.
+     */
+    type HookCallback = (env: Environment) => void;
+    type HookTypes = keyof HookEnvironmentMap;
 
-	interface HookEnvironmentMap {
-		"before-highlightall": RequiredEnvironment<"selector">;
+    interface HookEnvironmentMap {
+        "before-highlightall": RequiredEnvironment<"selector">;
 
-		"before-sanity-check": ElementEnvironment;
-		"before-highlight": ElementEnvironment;
+        "before-sanity-check": ElementEnvironment;
+        "before-highlight": ElementEnvironment;
 
-		"before-insert": ElementHighlightedEnvironment;
-		"after-highlight": ElementHighlightedEnvironment;
-		complete: ElementHighlightedEnvironment;
+        "before-insert": ElementHighlightedEnvironment;
+        "after-highlight": ElementHighlightedEnvironment;
+        complete: ElementHighlightedEnvironment;
 
-		"before-tokenize": TokenizeEnvironment;
-		"after-tokenize": TokenizeEnvironment;
+        "before-tokenize": TokenizeEnvironment;
+        "after-tokenize": TokenizeEnvironment;
 
-		wrap: RequiredEnvironment<
-			"type" | "content" | "tag" | "classes" | "attributes" | "language"
-		>;
-	}
+        wrap: RequiredEnvironment<
+            "type" | "content" | "tag" | "classes" | "attributes" | "language"
+        >;
+    }
 
-	type RequiredEnvironment<
-		T extends keyof Environment,
-		U extends Environment = Environment
-	> = U & Required<Pick<U, T>>;
-	type ElementEnvironment = RequiredEnvironment<
-		"element" | "language" | "grammar" | "code"
-	>;
-	type ElementHighlightedEnvironment = RequiredEnvironment<
-		"highlightedCode",
-		ElementEnvironment
-	>;
-	type TokenizeEnvironment = RequiredEnvironment<
-		"code" | "grammar" | "language"
-	>;
+    type RequiredEnvironment<
+        T extends keyof Environment,
+        U extends Environment = Environment
+    > = U & Required<Pick<U, T>>;
+    type ElementEnvironment = RequiredEnvironment<
+        "element" | "language" | "grammar" | "code"
+    >;
+    type ElementHighlightedEnvironment = RequiredEnvironment<
+        "highlightedCode",
+        ElementEnvironment
+    >;
+    type TokenizeEnvironment = RequiredEnvironment<
+        "code" | "grammar" | "language"
+    >;
 
-	interface RegisteredHooks {
-		[hook: string]: HookCallback[];
-	}
+    interface RegisteredHooks {
+        [hook: string]: HookCallback[];
+    }
 
-	const all: RegisteredHooks;
+    const all: RegisteredHooks;
 
-	/**
-	 * Adds the given callback to the list of callbacks for the given hook.
-	 *
-	 * The callback will be invoked when the hook it is registered for is run.
-	 * Hooks are usually directly run by a highlight function but you can also run hooks yourself.
-	 *
-	 * One callback function can be registered to multiple hooks and the same hook multiple times.
-	 *
-	 * @param name The name of the hook.
-	 * @param callback The callback function which is given environment variables.
-	 */
-	function add<K extends keyof HookEnvironmentMap>(
-		name: K,
-		callback: (env: HookEnvironmentMap[K]) => void
-	): void;
-	function add(name: string, callback: HookCallback): void;
+    /**
+     * Adds the given callback to the list of callbacks for the given hook.
+     *
+     * The callback will be invoked when the hook it is registered for is run.
+     * Hooks are usually directly run by a highlight function but you can also run hooks yourself.
+     *
+     * One callback function can be registered to multiple hooks and the same hook multiple times.
+     *
+     * @param name The name of the hook.
+     * @param callback The callback function which is given environment variables.
+     */
+    function add<K extends keyof HookEnvironmentMap>(
+        name: K,
+        callback: (env: HookEnvironmentMap[K]) => void
+    ): void;
+    function add(name: string, callback: HookCallback): void;
 
-	/**
-	 * Runs a hook invoking all registered callbacks with the given environment variables.
-	 *
-	 * Callbacks will be invoked synchronously and in the order in which they were registered.
-	 *
-	 * @param name The name of the hook.
-	 * @param env The environment variables of the hook passed to all callbacks registered.
-	 */
-	function run<K extends keyof HookEnvironmentMap>(
-		name: K,
-		env: HookEnvironmentMap[K]
-	): void;
-	function run(name: string, env: Environment): void;
+    /**
+     * Runs a hook invoking all registered callbacks with the given environment variables.
+     *
+     * Callbacks will be invoked synchronously and in the order in which they were registered.
+     *
+     * @param name The name of the hook.
+     * @param env The environment variables of the hook passed to all callbacks registered.
+     */
+    function run<K extends keyof HookEnvironmentMap>(
+        name: K,
+        env: HookEnvironmentMap[K]
+    ): void;
+    function run(name: string, env: Environment): void;
 }
 
 export type TokenStream = string | Token | Array<string | Token>;
 
 export class Token {
-	/**
-	 * Creates a new token.
-	 *
-	 * @param type See {@link Prism.Token#type type}
-	 * @param content See {@link Prism.Token#content content}
-	 * @param [alias] The alias(es) of the token.
-	 * @param [matchedStr=""] A copy of the full string this token was created from.
-	 * @param [greedy=false] See {@link Prism.Token#greedy greedy}
-	 */
-	constructor(
-		type: string,
-		content: TokenStream,
-		alias?: string | string[],
-		matchedStr?: string,
-		greedy?: boolean
-	);
+    /**
+     * Creates a new token.
+     *
+     * @param type See {@link Prism.Token#type type}
+     * @param content See {@link Prism.Token#content content}
+     * @param [alias] The alias(es) of the token.
+     * @param [matchedStr=""] A copy of the full string this token was created from.
+     * @param [greedy=false] See {@link Prism.Token#greedy greedy}
+     */
+    constructor(
+        type: string,
+        content: TokenStream,
+        alias?: string | string[],
+        matchedStr?: string,
+        greedy?: boolean
+    );
 
-	/**
-	 * The type of the token.
-	 *
-	 * This is usually the key of a pattern in a {@link Grammar}.
-	 */
-	type: string;
+    /**
+     * The type of the token.
+     *
+     * This is usually the key of a pattern in a {@link Grammar}.
+     */
+    type: string;
 
-	/**
-	 * The strings or tokens contained by this token.
-	 *
-	 * This will be a token stream if the pattern matched also defined an `inside` grammar.
-	 */
-	content: TokenStream;
+    /**
+     * The strings or tokens contained by this token.
+     *
+     * This will be a token stream if the pattern matched also defined an `inside` grammar.
+     */
+    content: TokenStream;
 
-	/**
-	 * The alias(es) of the token.
-	 *
-	 * @see TokenObject
-	 */
-	alias: string | string[];
+    /**
+     * The alias(es) of the token.
+     *
+     * @see TokenObject
+     */
+    alias: string | string[];
 
-	/**
-	 * The length of the matched string or 0.
-	 */
-	length: number;
+    /**
+     * The length of the matched string or 0.
+     */
+    length: number;
 
-	/**
-	 * Whether the pattern that created this token is greedy or not.
-	 *
-	 * @see TokenObject
-	 */
-	greedy: boolean;
+    /**
+     * Whether the pattern that created this token is greedy or not.
+     *
+     * @see TokenObject
+     */
+    greedy: boolean;
 
-	// tslint:disable:no-redundant-jsdoc-2
-	/**
-	 * Converts the given token or token stream to an HTML representation.
-	 *
-	 * The following hooks will be run:
-	 * 1. `wrap`: On each {@link Prism.Token}.
-	 *
-	 * @param token The token or token stream to be converted.
-	 * @param language The name of current language.
-	 * @param [parent] The parent token stream, if any.
-	 * @return The HTML representation of the token or token stream.
-	 * @private
-	 */
-	static stringify(
-		token: TokenStream,
-		language: string,
-		parent?: Array<string | Token>
-	): string;
+    // tslint:disable:no-redundant-jsdoc-2
+    /**
+     * Converts the given token or token stream to an HTML representation.
+     *
+     * The following hooks will be run:
+     * 1. `wrap`: On each {@link Prism.Token}.
+     *
+     * @param token The token or token stream to be converted.
+     * @param language The name of current language.
+     * @param [parent] The parent token stream, if any.
+     * @return The HTML representation of the token or token stream.
+     * @private
+     */
+    static stringify(
+        token: TokenStream,
+        language: string,
+        parent?: Array<string | Token>
+    ): string;
 }

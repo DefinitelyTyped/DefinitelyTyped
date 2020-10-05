@@ -1,6 +1,7 @@
 // Type definitions for react-bootstrap-table-next 4.0
 // Project: https://github.com/react-bootstrap-table/react-bootstrap-table2#readme
 // Definitions by: Wlad Meixner <https://github.com/gosticks>
+//                 Valentin Slobozanin <https://github.com/ignefolio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -107,6 +108,10 @@ export interface ColumnDescription<T extends object = any, E = any> {
      * Column header field
      */
     text: string;
+    classes?: string | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => string);
+    style?:
+        | React.CSSProperties
+        | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => React.CSSProperties);
     sort?: boolean;
     sortFunc?: ColumnSortFunc<T>;
     searchable?: boolean;
@@ -135,6 +140,27 @@ export interface ColumnDescription<T extends object = any, E = any> {
     footerTitle?: boolean;
     footerEvents?: { onClick: (e: any, column: ColumnDescription<T, E>, columnIndex: number) => void };
     footerAlign?: CellAlignment | ((column: ColumnDescription<T, E>, colIndex: number) => CellAlignment);
+
+    /**
+     * CSV Column options only used with the toolkit provider
+     */
+
+    /**
+     * export csv cell type can be Number or String
+     */
+    csvType?: object;
+    /**
+     * Custom csv cell formatter used when exporting csv
+     */
+    csvFormatter?: ColumnFormatter<T, E>;
+    /**
+     * csvText defaults to column.text
+     */
+    csvText?: string;
+    /**
+     * Toggle column display in CSV export
+     */
+    csvExport?: boolean;
 }
 
 /**
@@ -204,19 +230,19 @@ export type PaginationOptions = Partial<{
     /**
      * the text of first page button
      */
-    firstPageText: string;
+    firstPageText: string | JSX.Element;
     /**
      * the text of previous page button
      */
-    prePageText: string;
+    prePageText: string | JSX.Element;
     /**
      * the text of next page button
      */
-    nextPageText: string;
+    nextPageText: string | JSX.Element;
     /**
      * the text of last page button
      */
-    lastPageText: string;
+    lastPageText: string | JSX.Element;
     /**
      * the title of next page button
      */
@@ -242,6 +268,10 @@ export type PaginationOptions = Partial<{
      */
     hidePageListOnlyOnePage: boolean;
     /**
+     * custom page button inside the pagination list
+     */
+    pageButtonRenderer: (options: PageButtonRendererOptions) => JSX.Element;
+    /**
      * callback function when page was changing
      */
     onPageChange: (page: number, sizePerPage: number) => void;
@@ -250,10 +280,86 @@ export type PaginationOptions = Partial<{
      */
     onSizePerPageChange: (page: number, sizePerPage: number) => void;
     /**
+     * custom pagination list component
+     */
+    pageListRenderer: (options: PageListRendererOptions) => JSX.Element;
+    /**
+     * custom size per page
+     */
+    sizePerPageRenderer: (options: SizePerPageRendererOptions) => JSX.Element;
+    /**
+     * custom size per page dropdown component
+     */
+    sizePerPageOptionRenderer: (options: SizePerPageOptionRendererOptions) => JSX.Element;
+    /**
      * custom the pagination total
      */
     paginationTotalRenderer: (from: number, to: number, size: number) => JSX.Element;
 }>;
+
+export interface SizePerPageOptionRendererOptions {
+    /**
+     * text of the option
+     */
+    text: string;
+    /**
+     * size of per page option
+     */
+    page: number;
+    /**
+     * call it when you need to change size per page
+     */
+    onSizePerPageChange: (page: number, sizePerPage: number) => void;
+}
+
+export interface PageListRendererOptions {
+    /**
+     * current page
+     */
+    pages: Array<{ active: boolean; disabled: boolean; page: number; title: string }>;
+    /**
+     * call it when you need to change page
+     */
+    onPageChange: (page: number, sizePerPage: number) => void;
+}
+
+export interface PageButtonRendererOptions {
+    /**
+     * page number
+     */
+    page: number | string;
+    /**
+     * is this page the current page or not
+     */
+    active: boolean;
+    /**
+     *  is this page disabled or not
+     */
+    disabled: boolean;
+    /**
+     * page title
+     */
+    title: string;
+    /**
+     * call it when you need to change page
+     */
+    onPageChange: (page: number, sizePerPage: number) => void;
+}
+
+export interface SizePerPageRendererOptions {
+    /**
+     * dropdown options
+     */
+    options: Array<{ text: string; value: number }>;
+    /**
+     * current size per page
+     */
+    currentSizePerPage: number;
+    /**
+     * call it when you need to change size per page
+     */
+    onSizePerPageChange: (page: number, sizePerPage: number) => void;
+}
 
 export interface SelectRowProps<T> {
     mode: RowSelectionType;
@@ -272,10 +378,15 @@ export interface SelectRowProps<T> {
     nonSelectable?: number[];
     nonSelectableStyle?: ((row: T, rowIndex: number) => CSSProperties | undefined) | CSSProperties;
     nonSelectableClasses?: ((row: T, rowIndex: number) => string | undefined) | string;
-    bgColor?: string;
+    bgColor?: (row: T, rowIndex: number) => string | string;
     hideSelectColumn?: boolean;
-    selectionRenderer?: ReactElement<{ mode: string; checked: boolean; disabled: boolean }>;
-    selectionHeaderRenderer?: ReactElement<{ mode: string; checked: boolean; indeterminate: boolean }>;
+    selectionRenderer?: (options: {
+        checked: boolean;
+        disabled: boolean;
+        mode: string;
+        rowIndex: number;
+    }) => JSX.Element;
+    selectionHeaderRenderer?: (options: { mode: string; checked: boolean; indeterminate: boolean }) => JSX.Element;
     headerColumnStyle?: ((status: TableCheckboxStatus) => CSSProperties | undefined) | CSSProperties;
     selectColumnStyle?:
         | ((props: {
@@ -331,8 +442,10 @@ export interface BootstrapTableProps<T extends object = any> {
     data: any[];
     columns: ColumnDescription[];
     bootstrap4?: boolean;
-    remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean }>;
-    noDataIndication?: () => JSX.Element | JSX.Element | string;
+    remote?:
+        | boolean
+        | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
+    noDataIndication?: (() => JSX.Element | string) | JSX.Element | string;
     striped?: boolean;
     bordered?: boolean;
     hover?: boolean;
@@ -408,17 +521,17 @@ export interface ExpandHeaderColumnRenderer {
 
 export interface ExpandRowProps<T> {
     renderer: (row: T, rowIndex: number) => JSX.Element;
-    expanded?: number[];
+    expanded?: any[];
     onExpand?: (row: T, isExpand: boolean, rowIndex: number, e: SyntheticEvent) => void;
-    onExpandAll: (isExpandAll: boolean, results: number[], e: SyntheticEvent) => void;
-    nonExpandable: number[];
+    onExpandAll?: (isExpandAll: boolean, results: T[], e: SyntheticEvent) => void;
+    nonExpandable?: number[];
     showExpandColumn?: boolean;
     onlyOneExpanding?: boolean;
     expandByColumnOnly?: boolean;
-    expandColumnRenderer: ReactElement<ExpandColumnRendererProps>;
-    expandHeaderColumnRenderer: ReactElement<ExpandHeaderColumnRenderer>;
-    expandColumnPosition: 'left' | 'right';
-    className: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
+    expandColumnRenderer?: (props: ExpandColumnRendererProps) => JSX.Element;
+    expandHeaderColumnRenderer?: (props: ExpandHeaderColumnRenderer) => JSX.Element;
+    expandColumnPosition?: 'left' | 'right';
+    className?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
 }
 
 export type TableColumnFilterProps<FT = any, T extends object = any> = Partial<{

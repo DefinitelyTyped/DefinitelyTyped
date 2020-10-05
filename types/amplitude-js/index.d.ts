@@ -1,4 +1,4 @@
-// Type definitions for Amplitude SDK 5.8
+// Type definitions for Amplitude SDK 6.0
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Arvydas Sidorenko <https://github.com/Asido>
 //                 Dan Manastireanu <https://github.com/danmana>
@@ -14,10 +14,13 @@ export interface Config {
     apiEndpoint?: string;
     batchEvents?: boolean;
     cookieExpiration?: number;
+    cookieForceUpgrade?: boolean;
     cookieName?: string;
     userId?: string;
+    deferInitialization?: boolean;
     deviceId?: string;
     deviceIdFromUrlParam?: boolean;
+    disableCookies?: boolean;
     domain?: string;
     eventUploadPeriodMillis?: number;
     eventUploadThreshold?: number;
@@ -30,12 +33,12 @@ export interface Config {
     optOut?: boolean;
     onError?: () => void;
     platform?: string;
+    sameSiteCookie?: 'Lax' | 'Strict' | 'None';
     saveEvents?: boolean;
     savedMaxCount?: number;
     saveParamsReferrerOncePerSession?: boolean;
     secureCookie?: boolean;
     sessionTimeout?: number;
-    useNativeDeviceInfo?: boolean;
     trackingOptions?: {
         city?: boolean;
         country?: boolean;
@@ -55,6 +58,7 @@ export interface Config {
     unsentKey?: string;
     unsentIdentifyKey?: string;
     uploadBatchSize?: number;
+    useNativeDeviceInfo?: boolean;
 }
 
 export class Identify {
@@ -63,11 +67,11 @@ export class Identify {
     /** Append a value or values to a user property */
     append(key: string, value: number | string | any[] | object): Identify;
     /** Prepend a value or values to a user property */
-    prepend(key: string, value: number | string | any[] | object): Identify;
+    prepend(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Sets the value of a given user property */
-    set(key: string, value: number | string | any[] | object): Identify;
+    set(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Sets the value of a given user property only once */
-    setOnce(key: string, value: number | string | any[] | object): Identify;
+    setOnce(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Unset and remove a user property */
     unset(key: string): Identify;
 }

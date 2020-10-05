@@ -1,4 +1,4 @@
-import Flatbush from 'flatbush';
+import Flatbush = require('flatbush');
 
 const from: Flatbush = Flatbush.from(new ArrayBuffer(0));
 

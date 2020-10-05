@@ -143,13 +143,11 @@ function test_table2() {
 
     table.create = true;
 
-    ([
-        { name: 'name', type: { typeName: 'VarChar', length: sql.MAX }, nullable: false },
-        { name: 'type', type: { typeName: 'Int' }, nullable: false },
-        { name: 'type', type: { typeName: 'Decimal', precision: 7, scale: 2 }, nullable: false }
-    ] as any[])
-        .forEach((col: sql.IColumn) =>
-            table.columns.add(col.name, _getSqlType(col.type), { nullable: col.nullable }));
+    table.columns.add('col1', sql.VarChar, { length: sql.MAX, nullable: false });
+    table.columns.add('col2', sql.Int, { nullable: false, identity: true });
+    table.columns.add('col3', sql.VarChar, { nullable: false, readOnly: true });
+    table.columns.add('col4', sql.VarChar, { nullable: false, length: 20 });
+    table.columns.add('col5', sql.Decimal(7, 2), { nullable: false});
 
     [['name', 42, 3.50], ['name2', 7, 3.14]].forEach((row: sql.IRow) => table.rows.add(...row));
 }
@@ -176,8 +174,17 @@ function test_promise_returns() {
     preparedStatment.execute({ myValue: 1 }).then((recordSet) => { });
     preparedStatment.unprepare().then(() => { });
 
-    var transaction = new sql.Transaction(connection);
+    const transaction = new sql.Transaction(connection);
     transaction.begin().then(() => { });
+    transaction.begin(sql.ISOLATION_LEVEL.READ_COMMITTED).then(() => {}).catch(() => {});
+    transaction.begin(sql.ISOLATION_LEVEL.READ_COMMITTED).then(trans => {}).catch(err => {});
+    transaction.begin(undefined, err => {
+        err; // $ExpectType ConnectionError | TransactionError
+    });
+    (async () => {
+        await transaction.begin();
+        transaction.begin(sql.ISOLATION_LEVEL.READ_COMMITTED)
+    })();
     transaction.commit().then(() => { });
     transaction.rollback().then(() => { });
 
@@ -239,4 +246,9 @@ async function test_msnodesqlv8() {
     await connection.connect();
     const result = await connection.query`SELECT * FROM sys.databases`;
     await connection.close();
+}
+
+function test_rows_and_columnns() {
+    var table = new sql.Table('#temp_table3');
+    table.columns.forEach(col => col.name)
 }

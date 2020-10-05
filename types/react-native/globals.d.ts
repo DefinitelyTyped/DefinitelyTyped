@@ -254,7 +254,34 @@ declare var XMLHttpRequestUpload: {
 declare type XMLHttpRequestResponseType = '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
 
 /**
- * Based on definitions of lib.dom and  lib.dom.iteralbe
+ * Based on definition from lib.dom but using class syntax.
+ * The properties are mutable to support users that use a `URL` polyfill, but the implementation
+ * built into React Native (as of 0.63) does not implement all the properties.
+ */
+declare class URL {
+    static createObjectURL(blob: Blob): string;
+    static revokeObjectURL(url: string): void;
+
+    constructor(url: string, base?: string);
+
+    href: string;
+    readonly origin: string;
+    protocol: string;
+    username: string;
+    password: string;
+    host: string;
+    hostname: string;
+    port: string;
+    pathname: string;
+    search: string;
+    readonly searchParams: URLSearchParams;
+    hash: string;
+
+    toJSON(): string;
+}
+
+/**
+ * Based on definitions of lib.dom and lib.dom.iterable
  */
 declare class URLSearchParams {
     constructor(init?: string[][] | Record<string, string> | string | URLSearchParams);

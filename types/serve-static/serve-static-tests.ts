@@ -17,6 +17,9 @@ app.use(serveStatic('/3', {
         res.setHeader('Server', 'server-static middleware');
     }
 }));
+app.use(serveStatic('/4', {
+    extensions: false,
+}));
 
 serveStatic.mime.define({
     'application/babylon': ['babylon'],

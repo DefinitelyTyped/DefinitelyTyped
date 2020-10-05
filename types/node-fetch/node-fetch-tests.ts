@@ -159,10 +159,15 @@ function handlePromise(
         });
 }
 
-function test_headersRaw() {
+function test_headers() {
     const headers = new Headers();
     const myHeader = "foo";
     headers.raw()[myHeader]; // $ExpectType string[]
+
+    [...headers]; // $ExpectType [string, string][]
+    [...headers.entries()]; // $ExpectType [string, string][]
+    [...headers.keys()]; // $ExpectType string[]
+    [...headers.values()]; // $ExpectType [string][]
 }
 
 function test_isRedirect() {

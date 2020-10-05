@@ -152,6 +152,11 @@ interface String {
     trimLeft(): string;
     /** Removes whitespace from the right end of a string. */
     trimRight(): string;
+
+    /** Returns a copy with leading whitespace removed. */
+    trimStart(): string;
+    /** Returns a copy with trailing whitespace removed. */
+    trimEnd(): string;
 }
 
 /*-----------------------------------------------*
@@ -692,6 +697,7 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
     interface ReadStream extends Socket {
+        readonly readableFlowing: boolean | null;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         isRaw?: boolean;
@@ -704,6 +710,7 @@ declare namespace NodeJS {
 
     interface HRTime {
         (time?: [number, number]): [number, number];
+        bigint(): bigint;
     }
 
     interface Process extends EventEmitter {
@@ -843,6 +850,7 @@ declare namespace NodeJS {
         on(event: "newListener", listener: NewListenerListener): this;
         on(event: "removeListener", listener: RemoveListenerListener): this;
         on(event: "multipleResolves", listener: MultipleResolveListener): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
         once(event: "beforeExit", listener: BeforeExitListener): this;
         once(event: "disconnect", listener: DisconnectListener): this;

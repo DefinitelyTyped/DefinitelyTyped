@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {
     Calendar,
     CalendarProps,
@@ -17,9 +17,11 @@ import {
     EventProps,
     EventWrapperProps,
     NavigateAction,
-    Culture
-} from "react-big-calendar";
-import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+    Culture, DayLayoutAlgorithm, DayLayoutFunction,
+    stringOrDate,
+    ViewProps
+} from 'react-big-calendar';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const globalize: any;
@@ -104,10 +106,12 @@ class CalendarResource {
 
 // Drag and Drop Example Test
 {
+    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> {}
+
     interface Props {
         localizer: DateLocalizer;
     }
-    const DragAndDropCalendar = withDragAndDrop(Calendar);
+    const DragAndDropCalendar = withDragAndDrop<CalendarEvent, CalendarResource>(MyCalendar);
     const DnD = ({ localizer }: Props) => (
         <DragAndDropCalendar
             events={getEvents()}
@@ -141,12 +145,12 @@ class CalendarResource {
     ReactDOM.render(<DnD localizer={localizer} />, document.body);
 }
 
-// overriding 'views' props
+// overriding 'views' props, with custom day view
 {
-    interface DayProps {
-        random: string;
+    interface DayComponentProps {
+        date: stringOrDate;
     }
-    class DayComponent extends React.Component<DayProps> {
+    class DayComponent extends React.Component<DayComponentProps> {
         static title() {
             return 'title';
         }
@@ -166,7 +170,29 @@ class CalendarResource {
     />, document.body);
 }
 
-// optional 'views' prop
+// overriding 'views' props, with custom day view using ViewProps interface
+{
+    class DayComponent extends React.Component<ViewProps> {
+        static title() {
+            return 'title';
+        }
+
+        static navigate() {
+            return new Date();
+        }
+    }
+    // supplying object to 'views' prop with only some of the supported views.
+    // A view can be a boolean or implement title() and navigate()
+    ReactDOM.render(<Calendar
+                        localizer={momentLocalizer(moment)}
+                        views={{
+                            day: DayComponent,
+                            work_week: true
+                        }}
+    />, document.body);
+}
+
+// optional 'localizer' prop
 {
     ReactDOM.render(<Calendar localizer={momentLocalizer(moment)} />, document.body);
 }
@@ -198,7 +224,7 @@ class CalendarResource {
                         const end = slotInfo.end;
                         return true;
                     }}
-                    dayLayoutAlgorithm="overlap"
+                    dayLayoutAlgorithm={customLayoutAlgorithm}
                     views={['day']}
                     toolbar={true}
                     popup={true}
@@ -261,6 +287,7 @@ class CalendarResource {
                     resourceAccessor={event => event.resourceId}
                     resourceIdAccessor={resource => resource.id}
                     resourceTitleAccessor={resource => resource.title}
+                    style={{ height: 500 }}
                 />
             );
         }
@@ -298,7 +325,7 @@ function getResources(): CalendarResource[] {
     ];
 }
 
-class EventAgenda extends React.Component<any, any> {
+class EventAgenda extends React.Component<EventProps<CalendarEvent>> {
     render() {
         // const { label } = this.props;
         return (
@@ -334,6 +361,18 @@ const customGroupSlotPropGetter = () => {
     };
 };
 
+const customLayoutAlgorithm: DayLayoutFunction<CalendarEvent> = (args: {
+    events: CalendarEvent[],
+    minimumStartDifference: any,
+    slotMetrics: any,
+    accessors: any,
+}) => {
+    // This is where the events would get styled in an actual algorithm, but for TS test we just want to confirm it returns
+    return args.events.map(e => {
+        return { event: e, style: {} };
+    });
+};
+
 function Event(props: EventProps<CalendarEvent>) {
     return (
         <span>
@@ -352,7 +391,7 @@ function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
     );
 }
 
-class Toolbar extends React.Component<ToolbarProps> {
+class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResource>> {
     render() {
         const { date, label, view } = this.props;
         return (
@@ -361,4 +400,28 @@ class Toolbar extends React.Component<ToolbarProps> {
             </div>
         );
     }
+}
+
+// test OnRangeChange return types
+{
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const Basic = ({ localizer }: Props) => (
+        <Calendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+            onRangeChange={(range, view) => {
+                console.log('onRangeChange fired, range: %O, view: %O', range, view);
+            }}
+        />
+    );
+
+    const localizer = momentLocalizer(moment);
+
+    ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }

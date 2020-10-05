@@ -14,13 +14,13 @@ https://github.com/hyperledger/sawtooth-sdk-javascript
 
 This project will need to be maintained as the SDK is updated.
 
-The best way to verify new contributions is to test them out in an existing TypeScript project that uses the new features from the Sawtooth SDK that are missing from DefinitelyTyped. Then, verify that the new definitions are tested properly in DefinitelyTyped before opening a PR.
+The best way to verify new contributions is to test them out in an existing TypeScript project that uses the new features from the Sawtooth SDK that are missing from Definitely Typed. Then, verify that the new definitions are tested properly in Definitely Typed before opening a PR.
 
 ### Setup
 
 Create a fork of [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) and clone it locally. `cd` into the project and run `npm install`.
 
-Copy over the contents of `types/sawtooth-sdk` from your DefinitelyTyped fork to the `node_modules/@types` folder in your project, e.g.
+Copy over the contents of `types/sawtooth-sdk` from your Definitely Typed fork to the `node_modules/@types` folder in your project, e.g.
 
 ```sh
 cd /path/to/DefinitelyTyped
@@ -54,7 +54,7 @@ If a new protobuf is added to the SDK, follow these steps to re-generate the def
 
 ### Testing
 
-When you are confident the new types are accurate, copy the changes back to DefinitelyTyped in `types/sawtooth-sdk`.
+When you are confident the new types are accurate, copy the changes back to Definitely Typed in `types/sawtooth-sdk`.
 
 Before opening a PR you will need to write new tests for the updates you've made.
 
@@ -72,7 +72,7 @@ const signerPubKey = signer.getPublicKey();
 
 #### Running tests
 
-To verify the correctness of any changes, run the following tests from the root of DefinitelyTyped.
+To verify the correctness of any changes, run the following tests from the root of Definitely Typed.
 
 ```sh
 $ npm run prettier -- --write types/sawtooth-sdk/**/*.ts
@@ -82,6 +82,6 @@ $ npm run test
 
 ### Opening A PR
 
-At this point your changes should be ready to submit in a PR. Follow [these instructions on Editing An Existing Package](https://github.com/DefinitelyTyped/DefinitelyTyped#edit-an-existing-package) in DefinitelyTyped.
+At this point your changes should be ready to submit in a PR. Follow [these instructions on Editing An Existing Package](https://github.com/DefinitelyTyped/DefinitelyTyped#edit-an-existing-package) in Definitely Typed.
 
 ### Copyright (c) 2020 Target Brands, Inc.

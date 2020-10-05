@@ -93,7 +93,7 @@ declare namespace AMap {
          */
         const ie11: boolean;
         /**
-         * 	是否Edge浏览器
+         *     是否Edge浏览器
          */
         const edge: boolean;
         /**
@@ -101,7 +101,7 @@ declare namespace AMap {
          */
         const ielt9: boolean;
         /**
-         * 	是否百度浏览器
+         *     是否百度浏览器
          */
         const baidu: boolean;
         /**
@@ -129,7 +129,7 @@ declare namespace AMap {
          */
         const retina: boolean;
         /**
-         * 	是否触屏
+         *     是否触屏
          */
         const touch: boolean;
         /**
