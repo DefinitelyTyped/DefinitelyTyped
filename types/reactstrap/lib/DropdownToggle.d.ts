@@ -10,7 +10,7 @@ export interface DropdownToggleProps extends React.HTMLAttributes<HTMLElement> {
     onClick?: React.MouseEventHandler<any>;
     outline?: boolean;
     'data-toggle'?: string;
-    'aria-haspopup'?: boolean;
+    'aria-haspopup'?: boolean | "menu" | "listbox" | "tree" | "grid" | "dialog";
     split?: boolean;
     tag?: string | React.ReactType;
     nav?: boolean;
