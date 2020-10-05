@@ -28,14 +28,14 @@ export function createSVGRefElementsMarkup(canvas: StaticCanvas): string;
  * Creates markup containing SVG font faces
  * @param objects Array of fabric objects
  */
-export function createSVGFontFacesMarkup(objects: Object[]): string;
+export function createSVGFontFacesMarkup(objects: FabricObject[]): string;
 /**
  * Takes string corresponding to an SVG document, and parses it into a set of fabric objects
  * @param [reviver] Method for further parsing of SVG elements, called after each fabric object created.
  */
 export function loadSVGFromString(
     string: string,
-    callback: (results: Object[], options: any) => void,
+    callback: (results: FabricObject[], options: any) => void,
     reviver?: Function,
 ): void;
 /**
@@ -44,13 +44,13 @@ export function loadSVGFromString(
  * @param {String} url URL to get a SVG from
  * @param {Function} callback Callback is invoked when svg has been loaded
  * @param {Function} [reviver] Method for further parsing of SVG elements, called after each fabric object created.
- * @param {Object} [options] options for crossOrigin
+ * @param {FabricObject} [options] options for crossOrigin
  * @param {String} [options.crossOrigin] crossOrigin settings
  *
  */
 export function loadSVGFromURL(
     url: string,
-    callback: (results: Object[], options: any) => void,
+    callback: (results: FabricObject[], options: any) => void,
     reviver?: Function,
     options?: { crossOrigin?: string }
 ): void;
@@ -105,7 +105,7 @@ export function parseFontDeclaration(value: string, oStyle: any): void;
  */
 export function parseSVGDocument(
     doc: SVGElement,
-    callback: (results: Object[], options: any) => void,
+    callback: (results: FabricObject[], options: any) => void,
     reviver?: Function,
 ): void;
 /**
@@ -165,13 +165,13 @@ interface IDataURLOptions {
 
 interface IEvent {
     e: Event;
-    target?: Object;
-    subTargets?: Object[];
+    target?: FabricObject;
+    subTargets?: FabricObject[];
     button?: number;
     isClick?: boolean;
     pointer?: Point;
     absolutePointer?: Point;
-    transform?: { corner: string; original: Object; originX: string; originY: string; width: number };
+    transform?: { corner: string; original: FabricObject; originX: string; originY: string; width: number };
 }
 
 interface IFillOptions {
@@ -239,25 +239,25 @@ interface IViewBox {
 // Mixins Interfaces
 //////////////////////////////////////////////////////////////////////////////
 interface ICollection<T> {
-    _objects: Object[];
+    _objects: FabricObject[];
 
     /**
      * Adds objects to collection, then renders canvas (if `renderOnAddRemove` is not `false`)
-     * Objects should be instances of (or inherit from) fabric.Object
+     * Objects should be instances of (or inherit from) fabric.FabricObject
      * @param object Zero or more fabric instances
      */
-    add(...object: Object[]): T;
+    add(...object: FabricObject[]): T;
 
     /**
      * Inserts an object into collection at specified index, then renders canvas (if `renderOnAddRemove` is not `false`)
-     * An object should be an instance of (or inherit from) fabric.Object
+     * An object should be an instance of (or inherit from) fabric.FabricObject
      * @param object Object to insert
      * @param index Index to insert object at
      * @param nonSplicing When `true`, no splicing (shifting) of objects occurs
      * @return thisArg
      * @chainable
      */
-    insertAt(object: Object, index: number, nonSplicing: boolean): T;
+    insertAt(object: FabricObject, index: number, nonSplicing: boolean): T;
 
     /**
      * Removes objects from a collection, then renders canvas (if `renderOnAddRemove` is not `false`)
@@ -265,21 +265,21 @@ interface ICollection<T> {
      * @return thisArg
      * @chainable
      */
-    remove(...object: Object[]): T;
+    remove(...object: FabricObject[]): T;
 
     /**
      * Executes given function for each object in this group
      * @param context Context (aka thisObject)
      * @return thisArg
      */
-    forEachObject(callback: (element: Object, index: number, array: Object[]) => void, context?: any): T;
+    forEachObject(callback: (element: FabricObject, index: number, array: FabricObject[]) => void, context?: any): T;
 
     /**
      * Returns an array of children objects of this instance
      * Type parameter introduced in 1.3.10
      * @param [type] When specified, only objects of this type are returned
      */
-    getObjects(type?: string): Object[];
+    getObjects(type?: string): FabricObject[];
 
     /**
      * Returns object at specified index
@@ -304,7 +304,7 @@ interface ICollection<T> {
      * @param object Object to check against
      * @return `true` if collection contains an object
      */
-    contains(object: Object): boolean;
+    contains(object: FabricObject): boolean;
 
     /**
      * Returns number representation of a collection complexity
@@ -356,28 +356,28 @@ interface ICanvasAnimation<T> {
      * Centers object horizontally with animation.
      * @param object Object to center
      */
-    fxCenterObjectH(object: Object, callbacks?: Callbacks): T;
+    fxCenterObjectH(object: FabricObject, callbacks?: Callbacks): T;
 
     /**
      * Centers object vertically with animation.
      * @param object Object to center
      */
-    fxCenterObjectV(object: Object, callbacks?: Callbacks): T;
+    fxCenterObjectV(object: FabricObject, callbacks?: Callbacks): T;
 
     /**
      * Same as `fabric.Canvas#remove` but animated
      * @param object Object to remove
      * @chainable
      */
-    fxRemove(object: Object): T;
+    fxRemove(object: FabricObject): T;
 
     /**
      * Same as {@link fabric.Canvas.prototype.straightenObject}, but animated
-     * @param {fabric.Object} object Object to straighten
+     * @param {fabric.FabricObject} object Object to straighten
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    fxStraightenObject(object: Object): T;
+    fxStraightenObject(object: FabricObject): T;
 }
 interface IObjectAnimation<T> {
     /**
@@ -387,14 +387,14 @@ interface IObjectAnimation<T> {
      * @param value Value to animate property
      * @param options The animation options
      */
-    animate(property: string, value: number | string, options?: IAnimationOptions): Object;
+    animate(property: string, value: number | string, options?: IAnimationOptions): FabricObject;
     /**
      * Animates object's properties
      * object.animate({ left: ..., top: ... }, { duration: ... });
      * @param properties Properties to animate with values to animate to
      * @param options The animation options
      */
-    animate(properties: { [key: string]: number | string }, options?: IAnimationOptions): Object;
+    animate(properties: { [key: string]: number | string }, options?: IAnimationOptions): FabricObject;
 }
 interface IAnimationOptions {
     /**
@@ -621,13 +621,13 @@ export interface Gradient extends IGradientOptions {}
 export class Gradient {
     /**
      * Constructor
-     * @param {Object} options Options object with type, coords, gradientUnits and colorStops
-     * @param {Object} [options.type] gradient type linear or radial
-     * @param {Object} [options.gradientUnits] gradient units
-     * @param {Object} [options.offsetX] SVG import compatibility
-     * @param {Object} [options.offsetY] SVG import compatibility
-     * @param {Object[]} options.colorStops contains the colorstops.
-     * @param {Object} options.coords contains the coords of the gradient
+     * @param {FabricObject} options Options object with type, coords, gradientUnits and colorStops
+     * @param {FabricObject} [options.type] gradient type linear or radial
+     * @param {FabricObject} [options.gradientUnits] gradient units
+     * @param {FabricObject} [options.offsetX] SVG import compatibility
+     * @param {FabricObject} [options.offsetY] SVG import compatibility
+     * @param {FabricObject[]} options.colorStops contains the colorstops.
+     * @param {FabricObject} options.coords contains the coords of the gradient
      * @param {Number} [options.coords.x1] X coordiante of the first point for linear or of the focal point for radial
      * @param {Number} [options.coords.y1] Y coordiante of the first point for linear or of the focal point for radial
      * @param {Number} [options.coords.x2] X coordiante of the second point for linear or of the center point for radial
@@ -655,7 +655,7 @@ export class Gradient {
     toObject(propertiesToInclude?: any): any;
     /**
      * Returns SVG representation of an gradient
-     * @param {Object} object Object to create a gradient for
+     * @param {FabricObject} object Object to create a gradient for
      * @return {String} SVG representation of an gradient (linear/radial)
      */
     toSVG(object: any): string;
@@ -669,18 +669,18 @@ export class Gradient {
      * @static
      * @memberOf fabric.Gradient
      * @param {SVGGradientElement} el SVG gradient element
-     * @param {fabric.Object} instance
+     * @param {fabric.FabricObject} instance
      * @return {fabric.Gradient} Gradient instance
      * @see http://www.w3.org/TR/SVG/pservers.html#LinearGradientElement
      * @see http://www.w3.org/TR/SVG/pservers.html#RadialGradientElement
      */
-    static fromElement(el: SVGGradientElement, instance: Object): Gradient;
+    static fromElement(el: SVGGradientElement, instance: FabricObject): Gradient;
     /**
      * Returns {@link fabric.Gradient} instance from its object representation
      * @static
      * @memberOf fabric.Gradient
-     * @param {Object} obj
-     * @param {Object} [options] Options object
+     * @param {FabricObject} obj
+     * @param {FabricObject} [options] Options object
      */
     static forObject(obj: any, options?: IGradientOptions): Gradient;
 }
@@ -753,15 +753,15 @@ export class Pattern {
     /**
      * Returns object representation of a pattern
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-     * @return {Object} Object representation of a pattern instance
+     * @return {FabricObject} Object representation of a pattern instance
      */
     toObject(propertiesToInclude: any): any;
     /**
      * Returns SVG representation of a pattern
-     * @param {fabric.Object} object
+     * @param {fabric.FabricObject} object
      * @return {String} SVG representation of a pattern
      */
-    toSVG(object: Object): string;
+    toSVG(object: FabricObject): string;
     setOptions(options: IPatternOptions): void;
     /**
      * Returns an instance of CanvasPattern
@@ -1001,13 +1001,13 @@ export class Shadow {
     toString(): string;
     /**
      * Returns SVG representation of a shadow
-     * @param {fabric.Object} object
+     * @param {fabric.FabricObject} object
      * @return {String} SVG representation of a shadow
      */
-    toSVG(object: Object): string;
+    toSVG(object: FabricObject): string;
     /**
      * Returns object representation of a shadow
-     * @return {Object} Object representation of a shadow instance
+     * @return {FabricObject} Object representation of a shadow instance
      */
     toObject(): any;
     /**
@@ -1177,9 +1177,9 @@ interface IStaticCanvasOptions {
      * the clipPath object gets used when the canvas has rendered, and the context is placed in the
      * top left corner of the canvas.
      * clipPath will clip away controls, if you do not want this to happen use controlsAboveOverlay = true
-     * @type fabric.Object
+     * @type fabric.FabricObject
      */
-    clipPath?: Object;
+    clipPath?: FabricObject;
     /**
      * When true, getSvgTransform() will apply the StaticCanvas.viewportTransform to the SVG transformation. When true,
      * a zoomed canvas will then produce zoomed SVG output.
@@ -1209,12 +1209,12 @@ export class StaticCanvas {
     /**
      * Constructor
      * @param {HTMLElement | String} el <canvas> element to initialize instance on
-     * @param {Object} [options] Options object
-     * @return {Object} thisArg
+     * @param {FabricObject} [options] Options object
+     * @return {FabricObject} thisArg
      */
     constructor(element: HTMLCanvasElement | string | null, options?: ICanvasOptions);
 
-    _activeObject?: Object | Group;
+    _activeObject?: FabricObject | Group;
 
     freeDrawingBrush: FreeDrawingBrush;
 
@@ -1230,7 +1230,7 @@ export class StaticCanvas {
      * Sets {@link fabric.StaticCanvas#overlayImage|overlay image} for this canvas
      * @param {(fabric.Image|String)} image fabric.Image instance or URL of an image to set overlay to
      * @param {Function} callback callback to invoke when image is loaded and set as an overlay
-     * @param {Object} [options] Optional options to set for the {@link fabric.Image|overlay image}.
+     * @param {FabricObject} [options] Optional options to set for the {@link fabric.Image|overlay image}.
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
@@ -1240,7 +1240,7 @@ export class StaticCanvas {
      * Sets {@link fabric.StaticCanvas#backgroundImage|background image} for this canvas
      * @param {(fabric.Image|String)} image fabric.Image instance or URL of an image to set background to
      * @param {Function} callback Callback to invoke when image is loaded and set as background
-     * @param {Object} [options] Optional options to set for the {@link fabric.Image|background image}.
+     * @param {FabricObject} [options] Optional options to set for the {@link fabric.Image|background image}.
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
@@ -1279,7 +1279,7 @@ export class StaticCanvas {
     /**
      * Sets width of this canvas instance
      * @param {Number|String} value                         Value to set width to
-     * @param {Object}        [options]                     Options object
+     * @param {FabricObject}        [options]                     Options object
      * @return {fabric.Canvas} instance
      * @chainable true
      */
@@ -1407,7 +1407,7 @@ export class StaticCanvas {
      * Calculate the position of the 4 corner of canvas with current viewportTransform.
      * helps to determinate when an object is in the current rendering viewport using
      * object absolute coordinates ( aCoords )
-     * @return {Object} points.tl
+     * @return {FabricObject} points.tl
      * @chainable
      */
     calcViewportBoundaries(): { tl: Point; br: Point; tr: Point; bl: Point };
@@ -1419,7 +1419,7 @@ export class StaticCanvas {
      * @return {fabric.Canvas} instance
      * @chainable
      */
-    renderCanvas(ctx: CanvasRenderingContext2D, objects: Object[]): Canvas;
+    renderCanvas(ctx: CanvasRenderingContext2D, objects: FabricObject[]): Canvas;
 
     /**
      * Paint the cached clipPath on the lowerCanvasEl
@@ -1430,56 +1430,56 @@ export class StaticCanvas {
     /**
      * Returns coordinates of a center of canvas.
      * Returned value is an object with top and left properties
-     * @return {Object} object with "top" and "left" number values
+     * @return {FabricObject} object with "top" and "left" number values
      */
     getCenter(): { top: number; left: number };
 
     /**
      * Centers object horizontally in the canvas
-     * @param {fabric.Object} object Object to center horizontally
+     * @param {fabric.FabricObject} object Object to center horizontally
      * @return {fabric.Canvas} thisArg
      */
-    centerObjectH(object: Object): Canvas;
+    centerObjectH(object: FabricObject): Canvas;
 
     /**
      * Centers object vertically in the canvas
-     * @param {fabric.Object} object Object to center vertically
+     * @param {fabric.FabricObject} object Object to center vertically
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    centerObjectV(object: Object): Canvas;
+    centerObjectV(object: FabricObject): Canvas;
 
     /**
      * Centers object vertically and horizontally in the canvas
-     * @param {fabric.Object} object Object to center vertically and horizontally
+     * @param {fabric.FabricObject} object Object to center vertically and horizontally
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    centerObject(object: Object): Canvas;
+    centerObject(object: FabricObject): Canvas;
 
     /**
      * Centers object vertically and horizontally in the viewport
-     * @param {fabric.Object} object Object to center vertically and horizontally
+     * @param {fabric.FabricObject} object Object to center vertically and horizontally
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    viewportCenterObject(object: Object): Canvas;
+    viewportCenterObject(object: FabricObject): Canvas;
 
     /**
      * Centers object horizontally in the viewport, object.top is unchanged
-     * @param {fabric.Object} object Object to center vertically and horizontally
+     * @param {fabric.FabricObject} object Object to center vertically and horizontally
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    viewportCenterObjectH(object: Object): Canvas;
+    viewportCenterObjectH(object: FabricObject): Canvas;
 
     /**
      * Centers object Vertically in the viewport, object.top is unchanged
-     * @param {fabric.Object} object Object to center vertically and horizontally
+     * @param {fabric.FabricObject} object Object to center vertically and horizontally
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    viewportCenterObjectV(object: Object): Canvas;
+    viewportCenterObjectV(object: FabricObject): Canvas;
 
     /**
      * Calculate the point in canvas that correspond to the center of actual viewport.
@@ -1504,14 +1504,14 @@ export class StaticCanvas {
     /**
      * Returns object representation of canvas
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-     * @return {Object} object representation of an instance
+     * @return {FabricObject} object representation of an instance
      */
     toObject(propertiesToInclude?: string[]): any;
 
     /**
      * Returns dataless object representation of canvas
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
-     * @return {Object} object representation of an instance
+     * @return {FabricObject} object representation of an instance
      */
     toDatalessObject(propertiesToInclude?: string[]): any;
 
@@ -1526,20 +1526,20 @@ export class StaticCanvas {
     /**
      * Moves an object or the objects of a multiple selection
      * to the bottom of the stack of drawn objects
-     * @param {fabric.Object} object Object to send to back
+     * @param {fabric.FabricObject} object Object to send to back
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    sendToBack(object: Object): Canvas;
+    sendToBack(object: FabricObject): Canvas;
 
     /**
      * Moves an object or the objects of a multiple selection
      * to the top of the stack of drawn objects
-     * @param {fabric.Object} object Object to send
+     * @param {fabric.FabricObject} object Object to send
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    bringToFront(object: Object): Canvas;
+    bringToFront(object: FabricObject): Canvas;
 
     /**
      * Moves an object or a selection down in stack of drawn objects
@@ -1547,12 +1547,12 @@ export class StaticCanvas {
      * the first intersecting object. Where intersection is calculated with
      * bounding box. If no intersection is found, there will not be change in the
      * stack.
-     * @param {fabric.Object} object Object to send
+     * @param {fabric.FabricObject} object Object to send
      * @param {Boolean} [intersecting] If `true`, send object behind next lower intersecting object
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    sendBackwards(object: Object, intersecting?: boolean): Canvas;
+    sendBackwards(object: FabricObject, intersecting?: boolean): Canvas;
 
     /**
      * Moves an object or a selection up in stack of drawn objects
@@ -1560,21 +1560,21 @@ export class StaticCanvas {
      * of the first intersecting object. Where intersection is calculated with
      * bounding box. If no intersection is found, there will not be change in the
      * stack.
-     * @param {fabric.Object} object Object to send
+     * @param {fabric.FabricObject} object Object to send
      * @param {Boolean} [intersecting] If `true`, send object in front of next upper intersecting object
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    bringForward(object: Object, intersecting?: boolean): Canvas;
+    bringForward(object: FabricObject, intersecting?: boolean): Canvas;
 
     /**
      * Moves an object to specified level in stack of drawn objects
-     * @param {fabric.Object} object Object to send
+     * @param {fabric.FabricObject} object Object to send
      * @param {Number} index Position to move to
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    moveTo(object: Object, index: number): Canvas;
+    moveTo(object: FabricObject, index: number): Canvas;
 
     /**
      * Clears a canvas element and dispose objects
@@ -1637,7 +1637,7 @@ export class StaticCanvas {
      * Populates canvas with data from the specified dataless JSON.
      * JSON format must conform to the one of {@link fabric.Canvas#toDatalessJSON}
      * @deprecated since 1.2.2
-     * @param {String|Object} json JSON string or object
+     * @param {String|FabricObject} json JSON string or object
      * @param {Function} callback Callback, invoked when json is parsed
      *                            and corresponding objects (e.g: {@link fabric.Image})
      *                            are initialized
@@ -1650,7 +1650,7 @@ export class StaticCanvas {
     /**
      * Populates canvas with data from the specified JSON.
      * JSON format must conform to the one of {@link fabric.Canvas#toJSON}
-     * @param {String|Object} json JSON string or object
+     * @param {String|FabricObject} json JSON string or object
      * @param {Function} callback Callback, invoked when json is parsed
      *                            and corresponding objects (e.g: {@link fabric.Image})
      *                            are initialized
@@ -1673,11 +1673,11 @@ export class StaticCanvas {
     createSVGRefElementsMarkup(): string;
     /**
      * Straightens object, then rerenders canvas
-     * @param {fabric.Object} object Object to straighten
+     * @param {fabric.FabricObject} object Object to straighten
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    straightenObject(object: Object): Canvas;
+    straightenObject(object: FabricObject): Canvas;
 }
 
 interface ICanvasOptions extends IStaticCanvasOptions {
@@ -1909,11 +1909,11 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 
     /**
      * Keep track of the subTargets for Mouse Events
-     * @type {Array.<fabric.Object>}
+     * @type {Array.<fabric.FabricObject>}
      * @since 3.6.0
      * @default
      */
-    targets?: Object[];
+    targets?: FabricObject[];
 
     /**
      * Canvas width
@@ -1945,9 +1945,9 @@ export class Canvas {
      * @default
      */
     skipTargetFind: boolean;
-    _activeObject: Object;
-    _objects: Object[];
-    targets: Object[];
+    _activeObject: FabricObject;
+    _objects: FabricObject[];
+    targets: FabricObject[];
     /**
      * Indicates which key enable alternative selection
      * in case of target overlapping with active object
@@ -1979,19 +1979,19 @@ export class Canvas {
     /**
      * Checks if point is contained within an area of given object
      * @param {Event} e Event object
-     * @param {fabric.Object} target Object to test against
-     * @param {Object} [point] x,y object of point coordinates we want to check.
+     * @param {fabric.FabricObject} target Object to test against
+     * @param {FabricObject} [point] x,y object of point coordinates we want to check.
      * @return {Boolean} true if point is contained within an area of given object
      */
-    containsPoint(e: Event, target: Object, point?: { x: number; y: number }): boolean;
+    containsPoint(e: Event, target: FabricObject, point?: { x: number; y: number }): boolean;
     /**
      * Returns true if object is transparent at a certain location
-     * @param {fabric.Object} target Object to check
+     * @param {fabric.FabricObject} target Object to check
      * @param {Number} x Left coordinate
      * @param {Number} y Top coordinate
      * @return {Boolean}
      */
-    isTargetTransparent(target: Object, x: number, y: number): boolean;
+    isTargetTransparent(target: FabricObject, x: number, y: number): boolean;
     /**
      * Set the cursor type of the canvas element
      * @param {String} value Cursor type of the canvas element.
@@ -2005,13 +2005,13 @@ export class Canvas {
      * or the outside part of the corner.
      * @param {Event} e mouse event
      * @param {Boolean} skipGroup when true, activeGroup is skipped and only objects are traversed through
-     * @return {fabric.Object} the target found
+     * @return {fabric.FabricObject} the target found
      */
-    findTarget(e: Event, skipGroup: boolean): Object | undefined;
+    findTarget(e: Event, skipGroup: boolean): FabricObject | undefined;
     /**
      * Returns pointer coordinates without the effect of the viewport
-     * @param {Object} pointer with "x" and "y" number values
-     * @return {Object} object with "x" and "y" number values
+     * @param {FabricObject} pointer with "x" and "y" number values
+     * @return {FabricObject} object with "x" and "y" number values
      */
     restorePointerVpt(pointer: Point): any;
     /**
@@ -2030,7 +2030,7 @@ export class Canvas {
      * of the time.
      * @param {Event} e
      * @param {Boolean} ignoreZoom
-     * @return {Object} object with "x" and "y" number values
+     * @return {FabricObject} object with "x" and "y" number values
      */
     getPointer(e: Event, ignoreZoom?: boolean): { x: number; y: number };
     /**
@@ -2045,22 +2045,22 @@ export class Canvas {
     getSelectionElement(): HTMLCanvasElement;
     /**
      * Returns currently active object
-     * @return {fabric.Object} active object
+     * @return {fabric.FabricObject} active object
      */
-    getActiveObject(): Object;
+    getActiveObject(): FabricObject;
     /**
      * Returns an array with the current selected objects
-     * @return {fabric.Object} active object
+     * @return {fabric.FabricObject} active object
      */
-    getActiveObjects(): Object[];
+    getActiveObjects(): FabricObject[];
     /**
      * Sets given object as the only active object on canvas
-     * @param {fabric.Object} object Object to set as an active one
+     * @param {fabric.FabricObject} object Object to set as an active one
      * @param {Event} [e] Event (passed along when firing "object:selected")
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
-    setActiveObject(object: Object, e?: Event): Canvas;
+    setActiveObject(object: FabricObject, e?: Event): Canvas;
     /**
      * Discards currently active object and fire events. If the function is called by fabric
      * as a consequence of a mouse event, the event is passed as a parameter and
@@ -2113,14 +2113,14 @@ export class Canvas {
     _scaleObject(x: number, y: number, by?: 'x' | 'y' | 'equally'): boolean;
     /**
      * @private
-     * @param {fabric.Object} obj Object that was removed
+     * @param {fabric.FabricObject} obj Object that was removed
      */
-    _onObjectRemoved(obj: Object): void;
+    _onObjectRemoved(obj: FabricObject): void;
     /**
      * @private
-     * @param {fabric.Object} obj Object that was added
+     * @param {fabric.FabricObject} obj Object that was added
      */
-    _onObjectAdded(obj: Object): void;
+    _onObjectAdded(obj: FabricObject): void;
     /**
      * Resets the current transform to its original values and chooses the type of resizing based on the event
      * @private
@@ -2129,16 +2129,16 @@ export class Canvas {
     /**
      * @private
      * Compares the old activeObject with the current one and fires correct events
-     * @param {fabric.Object} obj old activeObject
+     * @param {fabric.FabricObject} obj old activeObject
      */
-    _fireSelectionEvents(oldObjects: Object[], e?: Event): void;
+    _fireSelectionEvents(oldObjects: FabricObject[], e?: Event): void;
     /**
      * @private
-     * @param {Object} object to set as active
+     * @param {FabricObject} object to set as active
      * @param {Event} [e] Event (passed along when firing "object:selected")
      * @return {Boolean} true if the selection happened
      */
-    _setActiveObject(object: fabric.Object, e?: Event): boolean;
+    _setActiveObject(object: fabric.FabricObject, e?: Event): boolean;
     /**
      * Returns pointer coordinates relative to canvas.
      * Can return coordinates with or without viewportTransform.
@@ -2155,17 +2155,17 @@ export class Canvas {
      * of the time.
      * @param {Event} e
      * @param {Boolean} ignoreZoom
-     * @return {Object} object with "x" and "y" number values
+     * @return {FabricObject} object with "x" and "y" number values
      */
     getPointer(e: Event, ignoreZoom: boolean): { x: number; y: number };
     /**
      * Function used to search inside objects an object that contains pointer in bounding box or that contains pointerOnCanvas when painted
      * @param {Array} [objects] objects array to look into
-     * @param {Object} [pointer] x,y object of point coordinates we want to check.
-     * @return {fabric.Object} object that contains pointer
+     * @param {FabricObject} [pointer] x,y object of point coordinates we want to check.
+     * @return {fabric.FabricObject} object that contains pointer
      * @private
      */
-    _searchPossibleTargets(objects: Object[], pointer: { x: number; y: number }): Object;
+    _searchPossibleTargets(objects: FabricObject[], pointer: { x: number; y: number }): FabricObject;
 
     static EMPTY_JSON: string;
     /**
@@ -2203,7 +2203,7 @@ interface ICircleOptions extends IObjectOptions {
      */
     endAngle?: number;
 }
-export interface Circle extends Object, ICircleOptions {}
+export interface Circle extends FabricObject, ICircleOptions {}
 export class Circle {
     constructor(options?: ICircleOptions);
     /**
@@ -2251,7 +2251,7 @@ interface IEllipseOptions extends IObjectOptions {
      */
     ry?: number;
 }
-export interface Ellipse extends Object, IEllipseOptions {}
+export interface Ellipse extends FabricObject, IEllipseOptions {}
 export class Ellipse {
     constructor(options?: IEllipseOptions);
     /**
@@ -2299,27 +2299,27 @@ interface IGroupOptions extends IObjectOptions {
      */
     useSetOnGroup?: boolean;
 }
-export interface Group extends Object, ICollection<Group>, IGroupOptions {}
+export interface Group extends FabricObject, ICollection<Group>, IGroupOptions {}
 export class Group {
     /**
      * Constructor
      * @param objects Group objects
      * @param [options] Options object
      */
-    constructor(objects?: Object[], options?: IGroupOptions, isAlreadyGrouped?: boolean);
+    constructor(objects?: FabricObject[], options?: IGroupOptions, isAlreadyGrouped?: boolean);
     /**
      * Adds an object to a group; Then recalculates group's dimension, position.
      * @param [Object] object
      * @return thisArg
      * @chainable
      */
-    addWithUpdate(object?: Object): Group;
+    addWithUpdate(object?: FabricObject): Group;
     /**
      * Removes an object from a group; Then recalculates group's dimension, position.
      * @return thisArg
      * @chainable
      */
-    removeWithUpdate(object: Object): Group;
+    removeWithUpdate(object: FabricObject): Group;
     /**
      * Renders instance on a given context
      * @param ctx context to render instance on
@@ -2358,10 +2358,10 @@ export class Group {
      * i.e. it tells you what would happen if the supplied object was in
      * the group, and then the group was destroyed. It mutates the supplied
      * object.
-     * @param {fabric.Object} object
-     * @return {fabric.Object} transformedObject
+     * @param {fabric.FabricObject} object
+     * @return {fabric.FabricObject} transformedObject
      */
-    realizeTransform(object: Object): Object;
+    realizeTransform(object: FabricObject): FabricObject;
     /**
      * Destroys a group (restoring state of its objects)
      * @return {fabric.Group} thisArg
@@ -2401,11 +2401,11 @@ export class Group {
     toClipPathSVG(reviver?: Function): string;
     /**
      * Adds an object to a group; Then recalculates group's dimension, position.
-     * @param {Object} object
+     * @param {FabricObject} object
      * @return {fabric.Group} thisArg
      * @chainable
      */
-    addWithUpdate(object: Object): Group;
+    addWithUpdate(object: FabricObject): Group;
     /**
      * Retores original state of each of group objects (original state is that which was before group was created).
      * @private
@@ -2432,7 +2432,7 @@ export class Group {
     /**
      * @private
      */
-    _onObjectRemoved(object: Object): void;
+    _onObjectRemoved(object: FabricObject): void;
     /**
      * Returns {@link fabric.Group} instance from an object representation
      * @param object Object to create a group from
@@ -2451,14 +2451,14 @@ export class ActiveSelection {
      * @param objects ActiveSelection objects
      * @param [options] Options object
      */
-    constructor(objects?: Object[], options?: IObjectOptions);
+    constructor(objects?: FabricObject[], options?: IObjectOptions);
     /**
      * Constructor
-     * @param {Object} objects ActiveSelection objects
-     * @param {Object} [options] Options object
-     * @return {Object} thisArg
+     * @param {FabricObject} objects ActiveSelection objects
+     * @param {FabricObject} [options] Options object
+     * @return {FabricObject} thisArg
      */
-    initialize(objects: ActiveSelection, options?: IObjectOptions): Object;
+    initialize(objects: ActiveSelection, options?: IObjectOptions): FabricObject;
     /**
      * Change te activeSelection to a normal group,
      * High level function that automatically adds it to canvas as
@@ -2516,7 +2516,7 @@ interface IImageOptions extends IObjectOptions {
      */
     filters?: IBaseFilter[];
 }
-interface Image extends Object, IImageOptions {}
+interface Image extends FabricObject, IImageOptions {}
 export class Image {
     /**
      * Constructor
@@ -2551,7 +2551,7 @@ export class Image {
     setCrossOrigin(value: string): Image;
     /**
      * Returns original size of an image
-     * @return Object with "width" and "height" properties
+     * @return FabricObject with "width" and "height" properties
      */
     getOriginalSize(): { width: number; height: number };
     /**
@@ -2574,7 +2574,7 @@ export class Image {
      * Sets source of an image
      * @param {String} src Source string (URL)
      * @param {Function} [callback] Callback is invoked when image has been loaded (and all filters have been applied)
-     * @param {Object} [options] Options object
+     * @param {FabricObject} [options] Options object
      * @return {fabric.Image} thisArg
      * @chainable
      */
@@ -2591,7 +2591,7 @@ export class Image {
      * Calculate offset for center and scale factor for the image in order to respect
      * the preserveAspectRatio attribute
      * @private
-     * @return {Object}
+     * @return {FabricObject}
      */
     parsePreserveAspectRatioAttribute(): any;
     /**
@@ -2634,7 +2634,7 @@ interface ILineOptions extends IObjectOptions {
      */
     y2?: number;
 }
-export interface Line extends Object, ILineOptions {}
+export interface Line extends FabricObject, ILineOptions {}
 export class Line {
     /**
      * Constructor
@@ -2653,7 +2653,7 @@ export class Line {
      * @static
      * @memberOf fabric.Line
      * @param {SVGElement} element Element to parse
-     * @param {Object} [options] Options object
+     * @param {FabricObject} [options] Options object
      * @param {Function} [callback] callback function invoked after parsing
      */
     static fromElement(element: SVGElement, callback?: Function, options?: ILineOptions): Line;
@@ -3073,7 +3073,7 @@ interface IObjectOptions {
 
     /**
      * List of properties to consider when checking if state
-     * of an object is changed (fabric.Object#hasStateChanged)
+     * of an object is changed (fabric.FabricObject#hasStateChanged)
      * as well as for history (undo/redo) purposes
      * @type Array
      */
@@ -3094,7 +3094,7 @@ interface IObjectOptions {
      * of the object cacheCanvas.
      * If you want 0,0 of a clipPath to align with an object center, use clipPath.originX/Y to 'center'
      */
-    clipPath?: Object;
+    clipPath?: FabricObject;
 
     /**
      * Meaningful ONLY when the object is used as clipPath.
@@ -3136,7 +3136,7 @@ interface IObjectOptions {
      * skewX, skewY, angle, strokeWidth, viewportTransform, top, left, padding.
      * The coordinates get updated with @method setCoords.
      * You can calculate them without updating with @method calcCoords;
-     * @memberOf fabric.Object.prototype
+     * @memberOf fabric.FabricObject.prototype
      */
     oCoords?: { tl: Point; mt: Point; tr: Point; ml: Point; mr: Point; bl: Point; mb: Point; br: Point; mtr: Point };
     /**
@@ -3149,7 +3149,7 @@ interface IObjectOptions {
      * with oCoords but they do not need to be updated when zoom or panning change.
      * The coordinates get updated with @method setCoords.
      * You can calculate them without updating with @method calcCoords(true);
-     * @memberOf fabric.Object.prototype
+     * @memberOf fabric.FabricObject.prototype
      */
     aCoords?: { bl: Point; br: Point; tl: Point; tr: Point };
     /**
@@ -3178,8 +3178,8 @@ interface IObjectOptions {
      */
     canvas?: Canvas;
 }
-export interface Object extends IObservable<Object>, IObjectOptions, IObjectAnimation<Object> {}
-export class Object {
+export interface FabricObject extends IObservable<FabricObject>, IObjectOptions, IObjectAnimation<FabricObject> {}
+export class FabricObject {
     _controlsVisibility: {
         bl?: boolean;
         br?: boolean;
@@ -3193,7 +3193,7 @@ export class Object {
     };
 
     constructor(options?: IObjectOptions);
-    initialize(options?: IObjectOptions): Object;
+    initialize(options?: IObjectOptions): FabricObject;
 
     /* Sets object's properties from options
      * @param {Object} [options] Options object
@@ -3225,13 +3225,13 @@ export class Object {
 
     /**
      * Return the object scale factor counting also the group scaling
-     * @return {Object} object with scaleX and scaleY properties
+     * @return {FabricObject} object with scaleX and scaleY properties
      */
     getObjectScaling(): { scaleX: number; scaleY: number };
 
     /**
      * Return the object scale factor counting also the group scaling, zoom and retina
-     * @return {Object} object with scaleX and scaleY properties
+     * @return {FabricObject} object with scaleX and scaleY properties
      */
     getTotalObjectScaling(): { scaleX: number; scaleY: number };
 
@@ -3323,11 +3323,11 @@ export class Object {
      * Creates an instance of fabric.Image out of an object
      * @param callback callback, invoked with an instance as a first argument
      */
-    cloneAsImage(callback: Function, options?: IDataURLOptions): Object;
+    cloneAsImage(callback: Function, options?: IDataURLOptions): FabricObject;
 
     /**
      * Converts an object into a HTMLCanvas element
-     * @param {Object} options Options object
+     * @param {FabricObject} options Options object
      * @param {Number} [options.multiplier=1] Multiplier to scale by
      * @param {Number} [options.left] Cropping left offset. Introduced in v1.2.14
      * @param {Number} [options.top] Cropping top offset. Introduced in v1.2.14
@@ -3369,73 +3369,73 @@ export class Object {
      * @param property Property name 'stroke' or 'fill'
      * @param [options] Options object
      */
-    setGradient(property: 'stroke' | 'fill', options?: OGradientOptions): Object;
+    setGradient(property: 'stroke' | 'fill', options?: OGradientOptions): FabricObject;
 
     /**
      * Sets pattern fill of an object
      * @param options Options object
      */
-    setPatternFill(options: IFillOptions, callback: Function): Object;
+    setPatternFill(options: IFillOptions, callback: Function): FabricObject;
 
     /**
      * Sets shadow of an object
      * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
      */
-    setShadow(options?: string | Shadow): Object;
+    setShadow(options?: string | Shadow): FabricObject;
 
     /**
      * Sets "color" of an instance (alias of `set('fill', …)`)
      * @param color Color value
      */
-    setColor(color: string): Object;
+    setColor(color: string): FabricObject;
 
     /**
      * Sets "angle" of an instance
      * @param angle Angle value
      */
-    rotate(angle: number): Object;
+    rotate(angle: number): FabricObject;
 
     /**
      * Centers object horizontally on canvas to which it was added last.
      * You might need to call `setCoords` on an object after centering, to update controls area.
      */
-    centerH(): Object;
+    centerH(): FabricObject;
 
     /**
      * Centers object horizontally on current viewport of canvas to which it was added last.
      * You might need to call `setCoords` on an object after centering, to update controls area.
-     * @return {fabric.Object} thisArg
+     * @return {fabric.FabricObject} thisArg
      * @chainable
      */
-    viewportCenterH(): Object;
+    viewportCenterH(): FabricObject;
 
     /**
      * Centers object vertically on canvas to which it was added last.
      * You might need to call `setCoords` on an object after centering, to update controls area.
      */
-    centerV(): Object;
+    centerV(): FabricObject;
 
     /**
      * Centers object vertically on current viewport of canvas to which it was added last.
      * You might need to call `setCoords` on an object after centering, to update controls area.
-     * @return {fabric.Object} thisArg
+     * @return {fabric.FabricObject} thisArg
      * @chainable
      */
-    viewportCenterV(): Object;
+    viewportCenterV(): FabricObject;
 
     /**
      * Centers object vertically and horizontally on canvas to which is was added last
      * You might need to call `setCoords` on an object after centering, to update controls area.
      */
-    center(): Object;
+    center(): FabricObject;
 
     /**
      * Centers object on current viewport of canvas to which it was added last.
      * You might need to call `setCoords` on an object after centering, to update controls area.
-     * @return {fabric.Object} thisArg
+     * @return {fabric.FabricObject} thisArg
      * @chainable
      */
-    viewportCenter(): Object;
+    viewportCenter(): FabricObject;
 
     /**
      * Returns coordinates of a pointer relative to an object
@@ -3457,7 +3457,7 @@ export class Object {
      * @param key Property name
      * @param value Property value (if function, the value is passed into it and its return value is used as a new one)
      */
-    set<K extends keyof this>(key: K, value: this[K] | ((value: this[K]) => this[K])): Object;
+    set<K extends keyof this>(key: K, value: this[K] | ((value: this[K]) => this[K])): FabricObject;
 
     /**
      * Sets property to a given value.
@@ -3465,25 +3465,25 @@ export class Object {
      * If you need to update those, call `setCoords()`.
      * @param options Property object, iterate over the object properties
      */
-    set(options: Partial<this>): Object;
+    set(options: Partial<this>): FabricObject;
 
     /**
      * Toggles specified property from `true` to `false` or from `false` to `true`
      * @param property Property to toggle
      */
-    toggle(property: keyof this): Object;
+    toggle(property: keyof this): FabricObject;
 
     /**
      * Sets sourcePath of an object
      * @param value Value to set sourcePath to
      */
-    setSourcePath(value: string): Object;
+    setSourcePath(value: string): FabricObject;
 
     /**
      * Sets "angle" of an instance
      * @param angle Angle value
      */
-    setAngle(angle: number): Object;
+    setAngle(angle: number): FabricObject;
 
     /**
      * Sets object's properties from options
@@ -3494,7 +3494,7 @@ export class Object {
      * Sets sourcePath of an object
      * @param value Value to set sourcePath to
      */
-    setSourcePath(value: string): Object;
+    setSourcePath(value: string): FabricObject;
     // functions from object svg export mixin
     // -----------------------------------------------------------------------------------------------------------------------------------
     /**
@@ -3519,7 +3519,7 @@ export class Object {
     /**
      * Returns true if object state (one of its state properties) was changed
      * @param {String} [propertySet] optional name for the set of property we want to save
-     * @return {Boolean} true if instance' state has changed since `{@link fabric.Object#saveState}` was called
+     * @return {Boolean} true if instance' state has changed since `{@link fabric.FabricObject#saveState}` was called
      */
     hasStateChanged(propertySet: string): boolean;
     /**
@@ -3527,23 +3527,23 @@ export class Object {
      * @param [options] Object with additional `stateProperties` array to include when saving state
      * @return thisArg
      */
-    saveState(options?: { stateProperties?: any[]; propertySet?: string }): Object;
+    saveState(options?: { stateProperties?: any[]; propertySet?: string }): FabricObject;
     /**
      * Setups state of an object
-     * @param {Object} [options] Object with additional `stateProperties` array to include when saving state
-     * @return {fabric.Object} thisArg
+     * @param {FabricObject} [options] Object with additional `stateProperties` array to include when saving state
+     * @return {fabric.FabricObject} thisArg
      */
-    setupState(options?: any): Object;
+    setupState(options?: any): FabricObject;
     // functions from object straightening mixin
     // -----------------------------------------------------------------------------------------------------------------------------------
     /**
      * Straightens an object (rotating it from current angle to one of 0, 90, 180, 270, etc. depending on which is closer)
      */
-    straighten(): Object;
+    straighten(): FabricObject;
     /**
      * Same as straighten but with animation
      */
-    fxStraighten(callbacks: Callbacks): Object;
+    fxStraighten(callbacks: Callbacks): FabricObject;
 
     // functions from object stacking mixin
     // -----------------------------------------------------------------------------------------------------------------------------------
@@ -3551,25 +3551,25 @@ export class Object {
      * Moves an object up in stack of drawn objects
      * @param [intersecting] If `true`, send object in front of next upper intersecting object
      */
-    bringForward(intersecting?: boolean): Object;
+    bringForward(intersecting?: boolean): FabricObject;
     /**
      * Moves an object to the top of the stack of drawn objects
      */
-    bringToFront(): Object;
+    bringToFront(): FabricObject;
     /**
      * Moves an object down in stack of drawn objects
      * @param [intersecting] If `true`, send object behind next lower intersecting object
      */
-    sendBackwards(intersecting?: boolean): Object;
+    sendBackwards(intersecting?: boolean): FabricObject;
     /**
      * Moves an object to the bottom of the stack of drawn objects
      */
-    sendToBack(): Object;
+    sendToBack(): FabricObject;
     /**
      * Moves an object to specified level in stack of drawn objects
      * @param index New position of object
      */
-    moveTo(index: number): Object;
+    moveTo(index: number): FabricObject;
 
     // functions from object origin mixin
     // -----------------------------------------------------------------------------------------------------------------------------------
@@ -3629,11 +3629,11 @@ export class Object {
      * Requires public properties: width, height
      * Requires public options: padding, borderColor
      * @param {CanvasRenderingContext2D} ctx Context to draw on
-     * @param {Object} styleOverride object to override the object style
-     * @return {fabric.Object} thisArg
+     * @param {FabricObject} styleOverride object to override the object style
+     * @return {fabric.FabricObject} thisArg
      * @chainable
      */
-    drawBorders(ctx: CanvasRenderingContext2D, styleOverride?: any): Object;
+    drawBorders(ctx: CanvasRenderingContext2D, styleOverride?: any): FabricObject;
 
     /**
      * Draws borders of an object's bounding box when it is inside a group.
@@ -3641,22 +3641,22 @@ export class Object {
      * Requires public options: padding, borderColor
      * @param {CanvasRenderingContext2D} ctx Context to draw on
      * @param {object} options object representing current object parameters
-     * @param {Object} styleOverride object to override the object style
-     * @return {fabric.Object} thisArg
+     * @param {FabricObject} styleOverride object to override the object style
+     * @return {fabric.FabricObject} thisArg
      * @chainable
      */
-    drawBordersInGroup(ctx: CanvasRenderingContext2D, options?: any, styleOverride?: any): Object;
+    drawBordersInGroup(ctx: CanvasRenderingContext2D, options?: any, styleOverride?: any): FabricObject;
 
     /**
      * Draws corners of an object's bounding box.
      * Requires public properties: width, height
      * Requires public options: cornerSize, padding
      * @param {CanvasRenderingContext2D} ctx Context to draw on
-     * @param {Object} styleOverride object to override the object style
-     * @return {fabric.Object} thisArg
+     * @param {FabricObject} styleOverride object to override the object style
+     * @return {fabric.FabricObject} thisArg
      * @chainable
      */
-    drawControls(ctx: CanvasRenderingContext2D, styleOverride?: any): Object;
+    drawControls(ctx: CanvasRenderingContext2D, styleOverride?: any): FabricObject;
 
     /**
      * Draws a colored layer behind the object, inside its selection borders.
@@ -3664,10 +3664,10 @@ export class Object {
      * this function is called when the context is transformed
      * has checks to be skipped when the object is on a staticCanvas
      * @param {CanvasRenderingContext2D} ctx Context to draw on
-     * @return {fabric.Object} thisArg
+     * @return {fabric.FabricObject} thisArg
      * @chainable
      */
-    drawSelectionBackground(ctx: CanvasRenderingContext2D): Object;
+    drawSelectionBackground(ctx: CanvasRenderingContext2D): FabricObject;
 
     /**
      * Draws corners of an object's bounding box.
@@ -3675,7 +3675,7 @@ export class Object {
      * Requires public options: cornerSize, padding
      * @param ctx Context to draw on
      */
-    drawCorners(context: CanvasRenderingContext2D): Object;
+    drawCorners(context: CanvasRenderingContext2D): FabricObject;
 
     /**
      * Returns true if the specified control is visible, false otherwise.
@@ -3687,7 +3687,7 @@ export class Object {
      * @param controlName The name of the control. Possible values are 'tl', 'tr', 'br', 'bl', 'ml', 'mt', 'mr', 'mb', 'mtr'.
      * @param visible true to set the specified control visible, false otherwise
      */
-    setControlVisible(controlName: string, visible: boolean): Object;
+    setControlVisible(controlName: string, visible: boolean): FabricObject;
 
     /**
      * Sets the visibility state of object controls.
@@ -3712,16 +3712,16 @@ export class Object {
      * See {@link https://github.com/kangax/fabric.js/wiki/When-to-call-setCoords|When-to-call-setCoords}
      * @param {Boolean} [ignoreZoom] set oCoords with or without the viewport transform.
      * @param {Boolean} [skipAbsolute] skip calculation of aCoords, usefull in setViewportTransform
-     * @return {fabric.Object} thisArg
+     * @return {fabric.FabricObject} thisArg
      * @chainable
      */
-    setCoords(ignoreZoom?: boolean, skipAbsolute?: boolean): Object;
+    setCoords(ignoreZoom?: boolean, skipAbsolute?: boolean): FabricObject;
     /**
      * Returns coordinates of object's bounding rectangle (left, top, width, height)
      * the box is intented as aligned to axis of canvas.
      * @param {Boolean} [absolute] use coordinates without viewportTransform
      * @param {Boolean} [calculate] use coordinates of current position instead of .oCoords / .aCoords
-     * @return {Object} Object with left, top, width, height properties
+     * @return {FabricObject} Object with left, top, width, height properties
      */
     getBoundingRect(
         absolute?: boolean,
@@ -3729,12 +3729,12 @@ export class Object {
     ): { left: number; top: number; width: number; height: number };
     /**
      * Checks if object is fully contained within area of another object
-     * @param {Object} other Object to test
+     * @param {FabricObject} other Object to test
      * @param {Boolean} [absolute] use coordinates without viewportTransform
      * @param {Boolean} [calculate] use coordinates of current position instead of .oCoords
      * @return {Boolean} true if object is fully contained within area of another object
      */
-    isContainedWithinObject(other: Object, absolute?: boolean, calculate?: boolean): boolean;
+    isContainedWithinObject(other: FabricObject, absolute?: boolean, calculate?: boolean): boolean;
     /**
      * Checks if object is fully contained within area formed by 2 points
      * @param pointTL top-left point of area
@@ -3744,7 +3744,7 @@ export class Object {
     /**
      * Checks if point is inside the object
      * @param {fabric.Point} point Point to check against
-     * @param {Object} [lines] object returned from @method _getImageLines
+     * @param {FabricObject} [lines] object returned from @method _getImageLines
      * @param {Boolean} [absolute] use coordinates without viewportTransform
      * @param {Boolean} [calculate] use coordinates of current position instead of .oCoords
      * @return {Boolean} true if point is inside the object
@@ -3755,29 +3755,29 @@ export class Object {
      * @param value Scale factor
      * @return thisArg
      */
-    scale(value: number): Object;
+    scale(value: number): FabricObject;
     /**
      * Scales an object to a given height, with respect to bounding box (scaling by x/y equally)
      * @param value New height value
      */
-    scaleToHeight(value: number, absolute?: boolean): Object;
+    scaleToHeight(value: number, absolute?: boolean): FabricObject;
     /**
      * Scales an object to a given width, with respect to bounding box (scaling by x/y equally)
      * @param value New width value
      */
-    scaleToWidth(value: number, absolute?: boolean): Object;
+    scaleToWidth(value: number, absolute?: boolean): FabricObject;
     /**
      * Checks if object intersects with another object
-     * @param {Object} other Object to test
+     * @param {FabricObject} other Object to test
      * @param {Boolean} [absolute] use coordinates without viewportTransform
      * @param {Boolean} [calculate] use coordinates of current position instead of .oCoords
      * @return {Boolean} true if object intersects with another object
      */
-    intersectsWithObject(other: Object, absolute?: boolean, calculate?: boolean): boolean;
+    intersectsWithObject(other: FabricObject, absolute?: boolean, calculate?: boolean): boolean;
     /**
      * Checks if object intersects with an area formed by 2 points
-     * @param {Object} pointTL top-left point of area
-     * @param {Object} pointBR bottom-right point of area
+     * @param {FabricObject} pointTL top-left point of area
+     * @param {FabricObject} pointBR bottom-right point of area
      * @param {Boolean} [absolute] use coordinates without viewportTransform
      * @param {Boolean} [calculate] use coordinates of current position instead of .oCoords
      * @return {Boolean} true if object intersects with an area formed by 2 points
@@ -3793,17 +3793,17 @@ export class Object {
      * @param value Value to animate property
      * @param options The animation options
      */
-    animate(property: string, value: number | string, options?: IAnimationOptions): Object;
+    animate(property: string, value: number | string, options?: IAnimationOptions): FabricObject;
     /**
      * Animates object's properties
      * object.animate({ left: ..., top: ... }, { duration: ... });
      * @param properties Properties to animate with values to animate to
      * @param options The animation options
      */
-    animate(properties: { [key: string]: number | string }, options?: IAnimationOptions): Object;
+    animate(properties: { [key: string]: number | string }, options?: IAnimationOptions): FabricObject;
     /**
      * Calculate and returns the .coords of an object.
-     * @return {Object} Object with tl, tr, br, bl ....
+     * @return {FabricObject} Object with tl, tr, br, bl ....
      * @chainable
      */
     calcCoords(absolute?: boolean): any;
@@ -3848,14 +3848,14 @@ export class Object {
     getSvgFilter(): string;
     /**
      * Returns styles-string for svg-export
-     * @param {Object} style the object from which to retrieve style properties
+     * @param {FabricObject} style the object from which to retrieve style properties
      * @param {Boolean} useWhiteSpace a boolean to include an additional attribute in the style.
      * @return {String}
      */
     getSvgSpanStyles(style: any, useWhiteSpace?: boolean): string;
     /**
      * Returns text-decoration property for svg-export
-     * @param {Object} style the object from which to retrieve style properties
+     * @param {FabricObject} style the object from which to retrieve style properties
      * @return {String}
      */
     getSvgTextDecoration(style: any): string;
@@ -3877,14 +3877,14 @@ export class Object {
      * try to to deselect this object. If the function returns true, the process is cancelled
      * @return {Boolean} true to cancel selection
      */
-    onDeselect(options: { e?: Event; object?: Object }): boolean;
+    onDeselect(options: { e?: Event; object?: FabricObject }): boolean;
     /**
      * This callback function is called every time _discardActiveObject or _setActiveObject
      * try to to deselect this object. If the function returns true, the process is cancelled
-     * @param {Object} [options] options sent from the upper functions
+     * @param {FabricObject} [options] options sent from the upper functions
      * @param {Event} [options.e] event if the process is generated by an event
      */
-    onDeselect(options: { e?: Event; object?: fabric.Object }): boolean;
+    onDeselect(options: { e?: Event; object?: fabric.FabricObject }): boolean;
     /**
      * This callback function is called every time _discardActiveObject or _setActiveObject
      * try to to select this object. If the function returns true, the process is cancelled
@@ -3969,9 +3969,9 @@ export class Object {
     /**
      * @private
      * @param {CanvasRenderingContext2D} ctx Context to render on
-     * @param {Object} filler fabric.Pattern or fabric.Gradient
-     * @return {Object} offset.offsetX offset for text rendering
-     * @return {Object} offset.offsetY offset for text rendering
+     * @param {FabricObject} filler fabric.Pattern or fabric.Gradient
+     * @return {FabricObject} offset.offsetX offset for text rendering
+     * @return {FabricObject} offset.offsetY offset for text rendering
      */
     _applyPatternGradientTransform(ctx: CanvasRenderingContext2D, filler: string | Pattern | Gradient): void;
     /**
@@ -3987,7 +3987,7 @@ export class Object {
     /**
      * Returns the instance of the control visibility set for this object.
      * @private
-     * @returns {Object}
+     * @returns {FabricObject}
      */
     _getControlsVisibility(): {
         tl: boolean;
@@ -4003,7 +4003,7 @@ export class Object {
     /**
      * Determines which corner has been clicked
      * @private
-     * @param {Object} pointer The pointer indicating the mouse position
+     * @param {FabricObject} pointer The pointer indicating the mouse position
      * @return {String|Boolean} corner code (tl, tr, bl, br, etc.), or false if nothing is found
      */
     _findTargetCorner(pointer: {
@@ -4015,17 +4015,17 @@ export class Object {
      * @param {String} key
      * @param {*} value
      */
-    _set(key: string, value: any): Object;
+    _set(key: string, value: any): FabricObject;
     /**
      * Creates fabric Object instance
      * @param {string} Class name
-     * @param {fabric.Object} Original object
+     * @param {fabric.FabricObject} Original object
      * @param {Function} Callback when complete
-     * @param {Object} Extra parameters for fabric.Object
+     * @param {FabricObject} Extra parameters for fabric.FabricObject
      * @private
-     * @return {fabric.Object}
+     * @return {fabric.FabricObject}
      */
-    static _fromObject(className: string, object: Object, callback?: Function, extraParam?: any): Object;
+    static _fromObject(className: string, object: FabricObject, callback?: Function, extraParam?: any): FabricObject;
     /**
      * Defines the number of fraction digits to use when serializing object values.
      */
@@ -4038,7 +4038,7 @@ interface IPathOptions extends IObjectOptions {
      */
     path?: Point[];
 }
-export interface Path extends Object, IPathOptions {}
+export interface Path extends FabricObject, IPathOptions {}
 export class Path {
     /**
      * Constructor
@@ -4106,7 +4106,7 @@ interface IPolylineOptions extends IObjectOptions {
     points?: Point[];
 }
 export interface Polyline extends IPolylineOptions {}
-export class Polyline extends Object {
+export class Polyline extends FabricObject {
     /**
      * Constructor
      * @param points Array of points (where each point is an object with x and y)
@@ -4121,10 +4121,10 @@ export class Polyline extends Object {
      * Calculate the polygon min and max point from points array,
      * returning an object with left, top, width, height to measure the polygon size
      * @private
-     * @return {Object} object.left X coordinate of the polygon leftmost point
-     * @return {Object} object.top Y coordinate of the polygon topmost point
-     * @return {Object} object.width distance between X coordinates of the polygon leftmost and rightmost point
-     * @return {Object} object.height distance between Y coordinates of the polygon topmost and bottommost point
+     * @return {FabricObject} object.left X coordinate of the polygon leftmost point
+     * @return {FabricObject} object.top Y coordinate of the polygon topmost point
+     * @return {FabricObject} object.width distance between X coordinates of the polygon leftmost and rightmost point
+     * @return {FabricObject} object.height distance between Y coordinates of the polygon topmost and bottommost point
      */
     _calcDimensions(): { left: number; top: number; width: number; height: number };
     /**
@@ -4157,7 +4157,7 @@ interface IRectOptions extends IObjectOptions {
 }
 
 export interface Rect extends IRectOptions {}
-export class Rect extends Object {
+export class Rect extends FabricObject {
     /**
      * Constructor
      * @param [options] Options object
@@ -4230,12 +4230,12 @@ interface TextOptions extends IObjectOptions {
     lineHeight?: number;
     /**
      * Superscript schema object (minimum overlap)
-     * @type {Object}
+     * @type {FabricObject}
      */
     superscript?: { size: number; baseline: number };
     /**
      * Subscript schema object (minimum overlap)
-     * @type {Object}
+     * @type {FabricObject}
      */
     subscript?: { size: number; baseline: number };
     /**
@@ -4263,7 +4263,7 @@ interface TextOptions extends IObjectOptions {
     /**
      * Object containing character styles - top-level properties -> line numbers,
      * 2nd-level properties - charater numbers
-     * @type Object
+     * @type FabricObject
      */
     styles?: any;
     /**
@@ -4279,19 +4279,19 @@ interface TextOptions extends IObjectOptions {
     cacheProperties?: string[];
     /**
      * List of properties to consider when checking if
-     * state of an object is changed ({@link fabric.Object#hasStateChanged})
+     * state of an object is changed ({@link fabric.FabricObject#hasStateChanged})
      * as well as for history (undo/redo) purposes
      * @type Array
      */
     stateProperties?: string[];
 }
 export interface Text extends TextOptions {}
-export class Text extends Object {
+export class Text extends FabricObject {
     _text: string[];
     cursorOffsetCache: { top: number; left: number };
     /**
      * Properties which when set cause object to change dimensions
-     * @type Object
+     * @type FabricObject
      * @private
      */
     _dimensionAffectingProps: string[];
@@ -4420,8 +4420,8 @@ export class Text extends Object {
     /**
      * measure a text line measuring all characters.
      * @param {Number} lineIndex line number
-     * @return {Object} object.width total width of characters
-     * @return {Object} object.numOfSpaces length of chars that match this._reSpacesAndTabs
+     * @return {FabricObject} object.width total width of characters
+     * @return {FabricObject} object.numOfSpaces length of chars that match this._reSpacesAndTabs
      */
     measureLine(lineIndex: number): { width: number; numOfSpaces: number };
 
@@ -4472,7 +4472,7 @@ export class Text extends Object {
      * @memberOf fabric.Text
      * @param {SVGElement} element Element to parse
      * @param {Function} callback callback function invoked after parsing
-     * @param {Object} [options] Options object
+     * @param {FabricObject} [options] Options object
      */
     static fromElement(element: SVGElement, callback?: Function, options?: TextOptions): Text;
 
@@ -4480,7 +4480,7 @@ export class Text extends Object {
      * Returns fabric.Text instance from an object representation
      * @static
      * @memberOf fabric.Text
-     * @param {Object} object Object to create an instance from
+     * @param {FabricObject} object Object to create an instance from
      * @param {Function} [callback] Callback to invoke when an fabric.Text instance is created
      */
     static fromObject(object: any, callback?: Function): Text;
@@ -4509,7 +4509,7 @@ export class Text extends Object {
      * the object returned is newly created
      * @param {Number} lineIndex of the line where the character is
      * @param {Number} charIndex position of the character on the line
-     * @return {Object} style object
+     * @return {FabricObject} style object
      */
     getCompleteStyleDeclaration(lineIndex: number, charIndex: number): any;
 
@@ -4548,7 +4548,7 @@ export class Text extends Object {
 
     /**
      * Sets style of a current selection, if no selection exist, do not set anything.
-     * @param {Object} [styles] Styles object
+     * @param {FabricObject} [styles] Styles object
      * @param {Number} [startIndex] Start index to get styles at
      * @param {Number} [endIndex] End index to get styles at, if not specified selectionEnd or startIndex + 1
      * @return {fabric.IText} thisArg
@@ -4586,7 +4586,7 @@ export class Text extends Object {
      * @param {CanvasRenderingContext2D} ctx Context to render on
      * @param {Number} lineIndex
      * @param {Number} charIndex
-     * @param {Object} [decl]
+     * @param {FabricObject} [decl]
      */
     _applyCharStyles(
         method: string,
@@ -4600,7 +4600,7 @@ export class Text extends Object {
      * get the reference, not a clone, of the style object for a given character
      * @param {Number} lineIndex
      * @param {Number} charIndex
-     * @return {Object} style object
+     * @return {FabricObject} style object
      */
     _getStyleDeclaration(lineIndex: number, charIndex: number): any;
 
@@ -4630,10 +4630,10 @@ export class Text extends Object {
      * to hook some external lib for character measurement
      * @private
      * @param {String} char to be measured
-     * @param {Object} charStyle style of char to be measured
+     * @param {FabricObject} charStyle style of char to be measured
      * @param {String} [previousChar] previous char
-     * @param {Object} [prevCharStyle] style of previous char
-     * @return {Object} object contained char width anf kerned width
+     * @param {FabricObject} [prevCharStyle] style of previous char
+     * @return {FabricObject} object contained char width anf kerned width
      */
     _measureChar(
         _char: string,
@@ -4714,14 +4714,14 @@ export class Text extends Object {
     /**
      * Divides text into lines of text and lines of graphemes.
      * @private
-     * @returns {Object} Lines and text in the text
+     * @returns {FabricObject} Lines and text in the text
      */
     _splitText(): { _unwrappedLines: string[]; lines: string[]; graphemeText: string[]; graphemeLines: string[] };
 
     /**
      * @private
-     * @param {Object} prevStyle
-     * @param {Object} thisStyle
+     * @param {FabricObject} prevStyle
+     * @param {FabricObject} thisStyle
      */
     _hasStyleChanged(prevStyle: any, thisStyle: any): boolean;
 
@@ -4729,7 +4729,7 @@ export class Text extends Object {
      * Set the font parameter of the context with the object properties or with charStyle
      * @private
      * @param {CanvasRenderingContext2D} ctx Context to render on
-     * @param {Object} [charStyle] object with font style properties
+     * @param {FabricObject} [charStyle] object with font style properties
      * @param {String} [charStyle.fontFamily] Font Family
      * @param {Number} [charStyle.fontSize] Font size in pixels. ( without px suffix )
      * @param {String} [charStyle.fontWeight] Font weight
@@ -4894,13 +4894,13 @@ export class IText extends Text {
     renderCursorOrSelection(): void;
     /**
      * Renders cursor
-     * @param {Object} boundaries
+     * @param {FabricObject} boundaries
      * @param {CanvasRenderingContext2D} ctx transformed context to draw on
      */
     renderCursor(boundaries: any, ctx: CanvasRenderingContext2D): void;
     /**
      * Renders text selection
-     * @param {Object} boundaries Object with left/top/leftOffset/topOffset
+     * @param {FabricObject} boundaries Object with left/top/leftOffset/topOffset
      * @param {CanvasRenderingContext2D} ctx transformed context to draw on
      */
     renderSelection(boundaries: any, ctx: CanvasRenderingContext2D): void;
@@ -4922,7 +4922,7 @@ export class IText extends Text {
      * Returns fabric.IText instance from an object representation
      * @static
      * @memberOf fabric.IText
-     * @param {Object} object Object to create an instance from
+     * @param {FabricObject} object Object to create an instance from
      * @param {function} [callback] invoked with new instance as argument
      */
     static fromObject(object: any, callback?: Function): IText;
@@ -5249,12 +5249,12 @@ export class IText extends Text {
      * Scope of this implementation is: find the click position, set selectionStart
      * find selectionEnd, initialize the drawing of either cursor or selection area
      * @private
-     * @param {Object} Options (seems to have an event `e` parameter
+     * @param {FabricObject} Options (seems to have an event `e` parameter
      */
     _mouseDownHandler(options: any): void;
     /**
      * @private
-     * @return {Object} style contains style for hiddenTextarea
+     * @return {FabricObject} style contains style for hiddenTextarea
      */
     _calcTextareaPosition(): { left: string; top: string; fontSize: string; charHeight: number };
 }
@@ -5365,13 +5365,13 @@ export class Textbox extends IText {
      * Returns fabric.Textbox instance from an object representation
      * @static
      * @memberOf fabric.Textbox
-     * @param {Object} object Object to create an instance from
+     * @param {FabricObject} object Object to create an instance from
      * @param {Function} [callback] Callback to invoke when an fabric.Textbox instance is created
      */
     static fromObject(object: any, callback?: Function): Textbox;
 }
 interface ITriangleOptions extends IObjectOptions {}
-export class Triangle extends Object {
+export class Triangle extends FabricObject {
     /**
      * Constructor
      * @param [options] Options object
@@ -5643,7 +5643,7 @@ interface IBaseFilter {
     /**
      * Apply the operation to a Uint8Array representing the pixels of an image.
      *
-     * @param {Object} options
+     * @param {FabricObject} options
      * @param {ImageData} options.imageData The Uint8Array to be filtered.
      */
     applyTo2d(options: any): void;
@@ -6343,7 +6343,7 @@ interface IUtilMisc {
      * @param elements SVG elements to group
      * @param [options] Options object
      */
-    groupSVGElements(elements: any[], options?: any, path?: string): Object | Group;
+    groupSVGElements(elements: any[], options?: any, path?: string): FabricObject | Group;
 
     /**
      * Clear char widths cache for the given font family or all the cache if no
@@ -6401,7 +6401,7 @@ interface IUtilMisc {
      * @param receiver Object implementing `clipTo` method
      * @param ctx Context to clip
      */
-    clipContext(receiver: Object, ctx: CanvasRenderingContext2D): void;
+    clipContext(receiver: FabricObject, ctx: CanvasRenderingContext2D): void;
 
     /**
      * Multiply matrix A by matrix B to nest transformations
@@ -6428,11 +6428,11 @@ interface IUtilMisc {
 
     /**
      * Extract Object transform values
-     * @param  {fabric.Object} target object to read from
-     * @return {Object} Components of transform
+     * @param  {fabric.FabricObject} target object to read from
+     * @return {FabricObject} Components of transform
      */
     saveObjectTransform(
-        target: Object,
+        target: FabricObject,
     ): {
         scaleX: number;
         scaleY: number;
@@ -6470,9 +6470,9 @@ interface IUtilMisc {
      * reset an object transform state to neutral. Top and left are not accounted for
      * @static
      * @memberOf fabric.util
-     * @param  {fabric.Object} target object to transform
+     * @param  {fabric.FabricObject} target object to transform
      */
-    resetObjectTransform(target: Object): void;
+    resetObjectTransform(target: FabricObject): void;
 }
 
 export const util: IUtil;

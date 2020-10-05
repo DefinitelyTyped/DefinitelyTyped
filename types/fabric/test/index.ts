@@ -48,7 +48,7 @@ function sample2() {
   const rainbow = ["#ffcc66", "#ccff66", "#66ccff", "#ff6fcf", "#ff6666"];
   const rainbowEnd = rainbow.length - 1;
 
-  fabric.Object.NUM_FRACTION_DIGITS = 2;
+  fabric.FabricObject.NUM_FRACTION_DIGITS = 2;
 
   //
   // Rendering canvas #1
@@ -334,10 +334,10 @@ function sample6() {
     canvas.centerObject(obj);
     canvas.add(obj);
 
-    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 100, top: 100, angle: -15 })));
-    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 480, top: 100, angle: 15 })));
-    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 100, top: 400, angle: -15 })));
-    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 480, top: 400, angle: 15 })));
+    obj.clone((clone: fabric.FabricObject) => canvas.add(clone.set({ left: 100, top: 100, angle: -15 })));
+    obj.clone((clone: fabric.FabricObject) => canvas.add(clone.set({ left: 480, top: 100, angle: 15 })));
+    obj.clone((clone: fabric.FabricObject) => canvas.add(clone.set({ left: 100, top: 400, angle: -15 })));
+    obj.clone((clone: fabric.FabricObject) => canvas.add(clone.set({ left: 480, top: 400, angle: 15 })));
 
     canvas.on('mouse:move', options => {
       const p = canvas.getPointer(options.e);
@@ -362,7 +362,7 @@ function sample7() {
   const canvas = new fabric.Canvas('c', { selection: false });
 
   setInterval(() => {
-    fabric.Image.fromURL('../assets/ladybug.png', (obj: fabric.Object) => {
+    fabric.Image.fromURL('../assets/ladybug.png', (obj: fabric.FabricObject) => {
       const img = <ImageWithInfo> obj;
       img.set('left', fabric.util.getRandomInt(200, 600)).set('top', -50);
       img.movingLeft = !!Math.round(Math.random());
@@ -411,7 +411,7 @@ function sample8() {
   }
 
   if (/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
-    (fabric.Object.prototype as any).cornersize = 30;
+    (fabric.FabricObject.prototype as any).cornersize = 30;
   }
 
   const canvas = new fabric.Canvas('canvas');

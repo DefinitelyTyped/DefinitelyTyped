@@ -7,6 +7,7 @@
         "jsdoc-format": false,
         "no-any-union": false,
         "no-empty-interface": false,
+        "no-redundant-jsdoc-2": false,
         "no-unnecessary-class": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
