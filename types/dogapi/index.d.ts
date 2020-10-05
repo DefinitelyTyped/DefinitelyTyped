@@ -41,7 +41,7 @@ interface metric {
             type?: string;
             metric_type?: string;
         }>,
-        callback: (err: Error | null, res: 'ok') => void
+        callback: (err: Error | null, res: EventCreateResponse) => void
     ): void;
 }
 
