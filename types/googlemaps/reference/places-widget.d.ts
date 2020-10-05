@@ -7,7 +7,7 @@ declare namespace google.maps.places {
         setComponentRestrictions(restrictions: ComponentRestrictions): void;
         setFields(fields: string[] | undefined): void;
         setOptions(options: AutocompleteOptions): void;
-        setTypes(types: string[]): void;
+        setTypes(...types: string[][]): void;
     }
 
     interface AutocompleteOptions {
