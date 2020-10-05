@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// Type definitions for fundamental-react 0.9
-=======
 // Type definitions for fundamental-react 0.13
->>>>>>> 52ae6e60d694ce4cda048bedbf362330036898f3
 // Project: https://sap.github.io/fundamental-react
 // Definitions by: Frank Feinbube <https://github.com/Feinbube>
 //                 Milan Proell <https://github.com/milanpro>
@@ -12,6 +8,7 @@
 // TypeScript Version: 2.8
 
 export { default as ActionBar } from "./lib/ActionBar/ActionBar";
+export { default as Avatar } from "./lib/Avatar/Avatar";
 export { default as Breadcrumb } from "./lib/Breadcrumb/Breadcrumb";
 export { default as BusyIndicator } from "./lib/BusyIndicator/BusyIndicator";
 export { default as Button } from "./lib/Button/Button";
@@ -40,6 +37,7 @@ export { default as InfoLabel } from "./lib/InfoLabel/InfoLabel";
 export { default as InlineHelp } from "./lib/InlineHelp/InlineHelp";
 export { default as InputGroup } from "./lib/InputGroup/InputGroup";
 export { default as LayoutGrid } from "./lib/LayoutGrid/LayoutGrid";
+export { default as LayoutPanel } from "./lib/LayoutPanel/LayoutPanel";
 export { default as Link } from "./lib/Link/Link";
 export { default as List } from "./lib/List/List";
 export {

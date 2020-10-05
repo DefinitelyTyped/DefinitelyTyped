@@ -1,5 +1,6 @@
 import {
     ActionBar,
+    Avatar,
     Breadcrumb,
     BusyIndicator,
     Button,
@@ -54,6 +55,7 @@ import {
     TreeView,
 } from "fundamental-react";
 import * as React from "react";
+import LayoutPanel from "./lib/LayoutPanel/LayoutPanel";
 
 const counter = <Counter>101</Counter>;
 
@@ -100,6 +102,10 @@ const actionBars = (
             title={'Page Title'}
         />
     </div>
+);
+
+const avatar = (
+    <Avatar color={1} tile={false} />
 );
 
 const breadcrumb = (
@@ -1395,6 +1401,17 @@ const panels = (
             </Panel>
         </LayoutGrid>
     </div>
+);
+
+const layoutPanel = (
+    <LayoutPanel>
+        <LayoutPanel.Header>
+            LayoutPanel Head
+        </LayoutPanel.Header>
+        <LayoutPanel.Body>
+            LayoutPanel Body
+        </LayoutPanel.Body>
+    </LayoutPanel>
 );
 
 const popovers = (
