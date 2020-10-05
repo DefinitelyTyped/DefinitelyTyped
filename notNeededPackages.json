@@ -2956,7 +2956,7 @@
             "libraryName": "@material/ripple",
             "typingsPackageName": "material__ripple",
             "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-ripple",
-            "asOfVersion": "1.0.0"
+            "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "@material/select",
