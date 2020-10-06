@@ -112,6 +112,43 @@ declare module "zlib" {
     function unzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     function unzipSync(buf: InputType, options?: ZlibOptions): Buffer;
 
+    namespace brotliCompress {
+        function __promisify__(buffer: InputType, options: BrotliOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType): Promise<Buffer>;
+    }
+    namespace brotliDecompress {
+        function __promisify__(buffer: InputType, options: BrotliOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType): Promise<Buffer>;
+    }
+    namespace deflate {
+        function __promisify__(buffer: InputType): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options: ZlibOptions): Promise<Buffer>;
+    }
+    namespace deflateRaw {
+        function __promisify__(buffer: InputType): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options: ZlibOptions): Promise<Buffer>;
+    }
+    namespace gzip {
+        function __promisify__(buffer: InputType): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options: ZlibOptions): Promise<Buffer>;
+    }
+    namespace gunzip {
+        function __promisify__(buffer: InputType): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options: ZlibOptions): Promise<Buffer>;
+    }
+    namespace inflate {
+        function __promisify__(buffer: InputType): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options: ZlibOptions): Promise<Buffer>;
+    }
+    namespace inflateRaw {
+        function __promisify__(buffer: InputType): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options: ZlibOptions): Promise<Buffer>;
+    }
+    namespace unzip {
+        function __promisify__(buffer: InputType): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options: ZlibOptions): Promise<Buffer>;
+    }
+
     namespace constants {
         const BROTLI_DECODE: number;
         const BROTLI_DECODER_ERROR_ALLOC_BLOCK_TYPE_TREES: number;
