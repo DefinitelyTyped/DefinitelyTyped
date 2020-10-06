@@ -489,7 +489,9 @@ declare namespace Autodesk {
             getData(): any;
             getFragmentList(): any;
             getGeometryList(): any;
+            getGlobalOffset(): THREE.Vector3;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
+            getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
@@ -1054,6 +1056,7 @@ declare namespace Autodesk {
                 rayIntersect(ray: THREE.Ray): HitTestResult;
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
+                setPlacementTransform(model: Model, matrix: THREE.Matrix4): void;
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
                 syncCamera(syncWorldUp?: boolean): void;
                 viewportToRay(vpVec: THREE.Vector3, ray: THREE.Ray): THREE.Ray;
