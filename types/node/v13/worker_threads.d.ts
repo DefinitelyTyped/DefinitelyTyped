@@ -16,9 +16,11 @@ declare module "worker_threads" {
         readonly port2: MessagePort;
     }
 
+    type TransferListItem = ArrayBuffer | MessagePort;
+
     class MessagePort extends EventEmitter {
         close(): void;
-        postMessage(value: any, transferList?: Array<ArrayBuffer | MessagePort>): void;
+        postMessage(value: any, transferList?: TransferListItem[]): void;
         ref(): void;
         unref(): void;
         start(): void;
@@ -75,7 +77,7 @@ declare module "worker_threads" {
         /**
          * Additional data to send in the first worker message.
          */
-        transferList?: Array<ArrayBuffer | MessagePort>;
+        transferList?: TransferListItem[];
     }
 
     interface ResourceLimits {
@@ -113,7 +115,7 @@ declare module "worker_threads" {
          */
         constructor(filename: string | URL, options?: WorkerOptions);
 
-        postMessage(value: any, transferList?: Array<ArrayBuffer | MessagePort>): void;
+        postMessage(value: any, transferList?: TransferListItem[]): void;
         ref(): void;
         unref(): void;
         /**

@@ -86,7 +86,7 @@ declare module "worker_threads" {
         /**
          * Additional data to send in the first worker message.
          */
-        transferList?: Array<ArrayBuffer | MessagePort>;
+        transferList?: TransferListItem[];
         trackUnmanagedFds?: boolean;
     }
 
