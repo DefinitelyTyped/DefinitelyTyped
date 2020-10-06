@@ -169,8 +169,11 @@ const defaults: amplitude.Config = {
     apiEndpoint: 'api.amplitude.com',
     batchEvents: false,
     cookieExpiration: 365 * 10,
+    cookieForceUpgrade: false,
     cookieName: 'amplitude_id',
+    deferInitialization: false,
     deviceIdFromUrlParam: false,
+    disableCookies: false,
     domain: '',
     eventUploadPeriodMillis: 30 * 1000, // 30s
     eventUploadThreshold: 30,
@@ -180,9 +183,10 @@ const defaults: amplitude.Config = {
     includeUtm: false,
     language: 'en',
     logLevel: 'WARN',
-    optOut: false,
     onError: () => {},
+    optOut: false,
     platform: 'iOS',
+    sameSiteCookie: 'Lax', // cookie privacy policy
     savedMaxCount: 1000,
     saveEvents: true,
     saveParamsReferrerOncePerSession: true,

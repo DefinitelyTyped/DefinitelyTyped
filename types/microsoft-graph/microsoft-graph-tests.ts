@@ -4,7 +4,7 @@
 import {
     User, Event, DateTimeTimeZone, ItemBody, ServicePrincipal,
     Invitation, Application, CallTranscriptionInfo, CancelMediaProcessingOperation, ResultInfo, CallRecords,
-    IdentitySet, Identity, RiskLevel, EventMessageResponse
+    IdentitySet, Identity, RiskLevel, EventMessageResponse, PermissionClassificationType, DelegatedPermissionClassification, Permission
 } from "microsoft-graph";
 
 const user: User = {
@@ -104,4 +104,15 @@ const riskLevel: RiskLevel = "hidden";
 
 const eventMessageResponse: EventMessageResponse = {
     type: null
+};
+
+const permissionClassificationType: PermissionClassificationType = "medium";
+
+const delegatedPermissionClassification: DelegatedPermissionClassification = {
+    classification: permissionClassificationType
+};
+
+const permission: Permission = {
+    link: null,
+    id: "string"
 };

@@ -161,6 +161,10 @@ function _typeof() {
     (5).should.not.be.a('number', 'blah');
 }
 
+function finite() {
+    expect(1).to.be.finite;
+}
+
 class Foo {
 }
 
@@ -1373,6 +1377,10 @@ suite('assert', () => {
         assert.isFalse(false);
         assert.isFalse(true);
         assert.isFalse(0);
+    });
+
+    test('finite', () => {
+        assert.isFinite(1);
     });
 
     test('equal', () => {

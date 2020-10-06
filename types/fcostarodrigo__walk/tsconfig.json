@@ -17,8 +17,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@fcostarodrigo/walk": [
-                "fcostarodrigo__walk"
+            "@fcostarodrigo/*": [
+                "fcostarodrigo__*"
             ]
         }
     },

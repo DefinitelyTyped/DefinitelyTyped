@@ -12,6 +12,7 @@ const repo = new Git.Repository();
 const id = new Git.Oid();
 const ref = new Git.Reference();
 const tree = new Git.Tree();
+const fetchOptions = new Git.FetchOptions();
 
 tree.walk().start();
 tree.getEntry('/').then(entry => {
@@ -57,6 +58,11 @@ const array = Git.Attr.getMany(repo, 1, 'path', 1, 'names');
 result = Git.Attr.value('attr');
 
 const blameOptions = new Git.BlameOptions();
+
+Git.Blame.file(repo, 'path').then(blame => {
+    const hunk = blame.getHunkByLine(0);
+    hunk.linesInHunk();
+});
 
 Git.Branch.lookup(repo, 'branch_name', Git.Branch.BRANCH.LOCAL).then(reference => {
     // Use reference

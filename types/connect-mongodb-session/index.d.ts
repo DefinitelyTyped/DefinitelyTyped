@@ -1,5 +1,5 @@
 // Type definitions for connect-mongodb-session
-// Project: https://github.com/kcbanner/connect-mongodb-session
+// Project: https://github.com/mongodb-js/connect-mongodb-session#readme
 // Definitions by: Nattapong Sirilappanich <https://github.com/NattapongSiri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2

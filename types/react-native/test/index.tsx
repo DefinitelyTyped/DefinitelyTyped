@@ -244,11 +244,17 @@ const combinedStyle: StyleProp<TextStyle> = StyleSheet.compose(composeTextStyle,
 
 const combinedStyle1: StyleProp<ImageStyle> = StyleSheet.compose(composeImageStyle, composeImageStyle);
 
-const combinedStyle2: StyleProp<TextStyle> = StyleSheet.compose([composeTextStyle], [composeTextStyle]);
+const combinedStyle2: StyleProp<TextStyle | ConcatArray<TextStyle>> = StyleSheet.compose(
+    [composeTextStyle],
+    [composeTextStyle],
+);
 
-const combinedStyle3: StyleProp<TextStyle> = StyleSheet.compose(composeTextStyle, null);
+const combinedStyle3: StyleProp<TextStyle | null> = StyleSheet.compose(composeTextStyle, null);
 
-const combinedStyle4: StyleProp<TextStyle> = StyleSheet.compose([composeTextStyle], null);
+const combinedStyle4: StyleProp<TextStyle | ConcatArray<TextStyle> | null> = StyleSheet.compose(
+    [composeTextStyle],
+    null,
+);
 
 const combinedStyle5: StyleProp<TextStyle> = StyleSheet.compose(
     composeTextStyle,
@@ -605,10 +611,14 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
         if (this.scrollView) {
             this.scrollView.setNativeProps({ scrollEnabled: false });
 
-            // Dummy values for scroll dimenions changes
+            // Dummy values for scroll dimensions changes
             this.scrollView.getScrollResponder().scrollResponderZoomTo({
-                x: 0, y: 0, width: 300, height: 500, animated: true
-            })
+                x: 0,
+                y: 0,
+                width: 300,
+                height: 500,
+                animated: true,
+            });
         }
     }
 
@@ -1034,7 +1044,7 @@ class AccessibilityTest extends React.Component {
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityState={{ checked: true }}
-                accessibilityHint="Very importent header"
+                accessibilityHint="Very important header"
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
@@ -1096,6 +1106,7 @@ AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
 const ModalTest = () => <Modal hardwareAccelerated />;
+const ModalTest2 = () => <Modal hardwareAccelerated testID="modal-test-2" />;
 
 const TimePickerAndroidTest = () => {
     TimePickerAndroid.open({
@@ -1165,6 +1176,11 @@ const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
         <View nativeID={'nativeID'} />
         <Text nativeID={'nativeID'}>Text</Text>
+    </ScrollView>
+);
+
+const ScrollViewMaintainVisibleContentPositionTest = () => (
+    <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}>
     </ScrollView>
 );
 
@@ -1290,7 +1306,7 @@ const OpaqueTest2 = () => (
     />
 );
 
-// Test you cannot ammend opaque type
+// Test you cannot amend opaque type
 PlatformColor('?attr/colorControlNormal').resource_paths.push('foo'); // $ExpectError
 
 const someColorProp: ColorValue = PlatformColor('test');
@@ -1508,4 +1524,18 @@ export class DrawerLayoutAndroidTest extends React.Component {
             </DrawerLayoutAndroid>
         );
     }
+}
+
+// DataDetectorType for Text component
+const DataDetectorTypeTest = () => {
+    return (
+        <>
+            <Text dataDetectorType={'all'}>http://test.com test@test.com +33123456789</Text>
+            <Text dataDetectorType={'email'}>test@test.com</Text>
+            <Text dataDetectorType={'link'}>http://test.com</Text>
+            <Text dataDetectorType={'none'}>Hi there !</Text>
+            <Text dataDetectorType={'phoneNumber'}>+33123456789</Text>
+            <Text dataDetectorType={null}>Must allow null value</Text>
+        </>
+    )
 }

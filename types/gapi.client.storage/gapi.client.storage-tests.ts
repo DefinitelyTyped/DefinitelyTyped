@@ -4,7 +4,7 @@
 * In case of any problems please post issue to https://github.com/Maxim-Mazurok/google-api-typings-generator
 **/
 
-// Revision: 20200814
+// Revision: 20200927
 
 gapi.load('client', () => {
     /** now we can use gapi.client */
@@ -277,7 +277,6 @@ gapi.load('client', () => {
             },
             zoneAffinity: [
                 "Test string"            ],
-            zoneSeparation: true,
         });
         /** Retrieves a list of buckets for a given project. */
         await gapi.client.storage.buckets.list({
@@ -428,7 +427,6 @@ gapi.load('client', () => {
             },
             zoneAffinity: [
                 "Test string"            ],
-            zoneSeparation: true,
         });
         /** Updates an IAM policy for the specified bucket. */
         await gapi.client.storage.buckets.setIamPolicy({
@@ -592,7 +590,6 @@ gapi.load('client', () => {
             },
             zoneAffinity: [
                 "Test string"            ],
-            zoneSeparation: true,
         });
         /** Stop watching resources through this channel */
         await gapi.client.storage.channels.stop({} , {

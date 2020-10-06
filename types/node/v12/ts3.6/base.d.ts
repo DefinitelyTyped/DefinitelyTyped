@@ -17,4 +17,5 @@
 /// <reference path="../ts3.3/base.d.ts" />
 
 // TypeScript 3.5-specific augmentations:
-/// <reference path="globals.global.d.ts" />
+/// <reference path="../globals.global.d.ts" />
+/// <reference path="../wasi.d.ts" />
