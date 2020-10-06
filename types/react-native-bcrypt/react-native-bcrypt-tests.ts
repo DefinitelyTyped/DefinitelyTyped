@@ -1,6 +1,6 @@
 import bcrypt from 'react-native-bcrypt';
 
-const ROUND_NUMBER = 10;
+const ROUND_NUMBER: number = 10;
 const salt = bcrypt.genSaltSync(ROUND_NUMBER);
 const hashedHello = bcrypt.hashSync("hello", salt);
 
