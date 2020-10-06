@@ -741,10 +741,8 @@ export type Calendar =
     | 'thai'
     | 'ummalqura';
 
-export type XAxisName =
-    | 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9' | 'x10' | 'x11';
-export type YAxisName =
-    | 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9' | 'y10' | 'y11';
+export type XAxisName = 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9' | 'x10' | 'x11';
+export type YAxisName = 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9' | 'y10' | 'y11';
 export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
@@ -1132,7 +1130,8 @@ export interface PlotData {
         | 'z+y+x+name'
         | 'z+x+y'
         | 'z+x+y+text'
-        | 'z+x+y+name';
+        | 'z+x+y+name'
+        | 'label+percent parent';
     hoverlabel: Partial<HoverLabel>;
     hovertemplate: string | string[];
     hovertext: string | string[];
@@ -1217,6 +1216,8 @@ export interface PlotData {
     }>;
     title: Partial<DataTitle>;
     branchvalues: 'total' | 'remainder';
+    insidetextorientation: 'auto' | 'radial' | 'horizontal' | 'tangential';
+    outsidetextfont: Partial<Font>;
 }
 
 /**
