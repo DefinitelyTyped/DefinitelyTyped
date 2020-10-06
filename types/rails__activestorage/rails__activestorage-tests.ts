@@ -1,4 +1,5 @@
 import * as ActiveStorage from '@rails/activestorage';
+import { FileChecksum } from '@rails/activestorage/src/file_checksum';
 
 ActiveStorage.start();
 
@@ -24,5 +25,13 @@ d.create((error, blob) => {
     } else {
         const { byte_size, checksum, content_type, filename, signed_id } = blob;
         console.log({ byte_size, checksum, content_type, filename, signed_id });
+    }
+});
+
+FileChecksum.create(new File([], 'blank.txt'), (error, checksum) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log(checksum);
     }
 });
