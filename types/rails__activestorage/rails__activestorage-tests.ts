@@ -1,5 +1,6 @@
 import * as ActiveStorage from '@rails/activestorage';
 import { FileChecksum } from '@rails/activestorage/src/file_checksum';
+import { BlobUpload } from '@rails/activestorage/src/blob_upload';
 
 ActiveStorage.start();
 
@@ -33,5 +34,23 @@ FileChecksum.create(new File([], 'blank.txt'), (error, checksum) => {
         console.log(error);
     } else {
         console.log(checksum);
+    }
+});
+
+const upload = new BlobUpload({
+    file: new File([], 'blank.txt'),
+    directUploadData: {
+        headers: { 'X-CSRF-Token': 'qweasdzxc' },
+        url: '/rails/active_storage/direct_uploads/xyz'
+    },
+});
+
+upload.xhr.addEventListener('progress', event => console.log(event));
+
+upload.create((error, response) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log(response);
     }
 });
