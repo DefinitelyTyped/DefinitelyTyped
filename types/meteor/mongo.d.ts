@@ -146,7 +146,7 @@ declare module "meteor/mongo" {
             new <T, U = T>(name: string | null, options?: {
                 connection?: Object | null;
                 idGeneration?: string;
-                transform?: Function | null;
+                transform?: (doc: T) => U;
             }): Collection<T, U>;
         }
         interface Collection<T, U = T> {
