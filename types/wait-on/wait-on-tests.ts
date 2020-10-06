@@ -31,15 +31,25 @@ const opts = {
     ],
     passphrase: 'yourpassphrase',
     auth: {
-        user: 'theuser', // or username
-        pass: 'thepassword', // or password
+        username: 'theuser',
+        password: 'thepassword',
+    },
+    validateStatus: (status: number) => {
+        return status === 401 || (status >= 200 && status < 300);
+    },
+    proxy: {
+        host: '127.0.0.1',
+        port: 9000,
+        auth: {
+            username: 'mikeymike',
+            password: 'rapunz3l',
+        },
     },
     httpSignature: {
         keyId: 'yourKeyId',
         key: 'yourKey',
     },
     strictSSL: false,
-    followAllRedirects: true,
     followRedirect: true,
     headers: {
         'x-custom': 'headers',
