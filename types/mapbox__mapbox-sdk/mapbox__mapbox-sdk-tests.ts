@@ -95,7 +95,7 @@ staticMapService.getStaticImage({
                 strokeOpacity: 0.4,
                 fillColor: '000',
                 fillOpacity: 0.75
-        }
+            }
         },
         {
             marker: {
