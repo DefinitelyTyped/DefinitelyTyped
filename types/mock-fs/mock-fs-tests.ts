@@ -1,4 +1,5 @@
 import mock = require('mock-fs');
+import path = require('path');
 
 import FileSystem = require('mock-fs/lib/filesystem');
 import Item = require('mock-fs/lib/item');
@@ -27,6 +28,18 @@ mock({
 
 mock({
     'path/to/file.txt': 'file content here',
+});
+
+mock({
+    'path/to/real/file.txt': mock.load(path.resolve(__dirname, 'OTHER_FILES.txt')),
+});
+
+mock({
+    'path/to/real/not-lazy/file.txt': mock.load(path.resolve(__dirname, 'OTHER_FILES.txt'), { lazy: false }),
+});
+
+mock({
+    '/tmp': mock.load('/tmp/special_tmp_files', { lazy: false, recursive: false }),
 });
 
 mock({
