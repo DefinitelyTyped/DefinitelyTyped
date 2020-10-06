@@ -146,3 +146,5 @@ const encoded2 = Encoding.base64Encode(sjisArray5); // $ExpectType string
 
 const decoded2 = Encoding.base64Decode(encoded2); // $ExpectType number[]
 // decoded2: [130, 177, 130, 241, 130, 201, 130, 191, 130, 205]
+
+Encoding.orders; // $ExpectType string[]

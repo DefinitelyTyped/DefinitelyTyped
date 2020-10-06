@@ -92,3 +92,5 @@ export declare function toHankakuSpace(data: ReadonlyArray<number>): number[];
 export declare function toHankakuSpace(data: string): string;
 export declare function toZenkakuSpace(data: ReadonlyArray<number>): number[];
 export declare function toZenkakuSpace(data: string): string;
+
+export declare const orders: string[];
