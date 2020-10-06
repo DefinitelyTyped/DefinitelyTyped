@@ -225,7 +225,7 @@ declare namespace google.maps {
     enum DistanceMatrixElementStatus {
         /**
          * The origin and/or destination of this pairing could not be geocoded.
-         * @see {@link  Maps JavaScript API}
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/distance-matrix#DistanceMatrixElementStatus.NOT_FOUND Maps JavaScript API}
          */
         NOT_FOUND = 'NOT_FOUND',
 
