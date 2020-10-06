@@ -119,6 +119,14 @@ declare namespace google.maps {
         unbindAll(): void;
     }
 
+    interface MVCArrayHandlerMap<C extends MVCArray<T>, T> {
+        insert_at: (this: C, index: number) => void;
+
+        remove_at: (this: C, index: number, removed: T) => void;
+
+        set_at: (this: C, index: number, previous: T) => void;
+    }
+
     /**
      * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray Maps JavaScript API}
      */
@@ -128,6 +136,14 @@ declare namespace google.maps {
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.constructor Maps JavaScript API}
          */
         constructor(array?: T[]);
+
+        addListener<N extends keyof MVCArrayHandlerMap<this, T>>(
+            eventName: N,
+            handler: MVCArrayHandlerMap<this, T>[N],
+        ): MapsEventListener;
+
+        /** @deprecated */
+        addListener(eventName: string, handler: (this: this, ...args: any[]) => void): MapsEventListener;
 
         /**
          * Removes all elements from the array.
