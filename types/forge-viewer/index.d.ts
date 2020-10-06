@@ -706,6 +706,7 @@ declare namespace Autodesk {
             id: number;
             impl: Private.Viewer3DImpl;
             model: Model;
+            prefs: any;
             started: boolean;
             toolbar: UI.ToolBar;
 
@@ -881,7 +882,6 @@ declare namespace Autodesk {
             autocam: any;
             progressbar: any;
             utilities: ViewingUtilities;
-            prefs: any;
             dockingPanels: any;
             overlays: OverlayManager;
 
