@@ -120,10 +120,25 @@ declare namespace google.maps {
     }
 
     interface MVCArrayHandlerMap<C extends MVCArray<T>, T> {
+        /**
+         * This event is fired when {@link MVCArray.insertAt insertAt}() is called. The event passes the index that was
+         * passed to {@link MVCArray.insertAt insertAt}().
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.insert_at Maps JavaScript API}
+         */
         insert_at: (this: C, index: number) => void;
 
+        /**
+         * This event is fired when {@link MVCArray.removeAt removeAt}() is called. The event passes the index that was
+         * passed to {@link MVCArray.removeAt removeAt}() and the element that was removed from the array.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.remove_at Maps JavaScript API}
+         */
         remove_at: (this: C, index: number, removed: T) => void;
 
+        /**
+         * This event is fired when {@link MVCArray.setAt setAt}() is called. The event passes the index that was passed
+         * to {@link MVCArray.setAt setAt}() and the element that was previously in the array at that index.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.set_at Maps JavaScript API}
+         */
         set_at: (this: C, index: number, previous: T) => void;
     }
 
@@ -137,6 +152,11 @@ declare namespace google.maps {
          */
         constructor(array?: T[]);
 
+        /**
+         * @see {@link MVCArrayHandlerMap#insert_at insert_at} event
+         * @see {@link MVCArrayHandlerMap#remove_at remove_at} event
+         * @see {@link MVCArrayHandlerMap#set_at set_at} event
+         */
         addListener<N extends keyof MVCArrayHandlerMap<this, T>>(
             eventName: N,
             handler: MVCArrayHandlerMap<this, T>[N],
@@ -195,6 +215,7 @@ declare namespace google.maps {
          * @see {@link push}
          * @see {@link removeAt}
          * @see {@link setAt}
+         * @see {@link MVCArrayHandlerMap#insert_at insert_at} event
          */
         insertAt(i: number, elem: T): void;
 
@@ -222,6 +243,7 @@ declare namespace google.maps {
          * @see {@link insertAt}
          * @see {@link pop}
          * @see {@link setAt}
+         * @see {@link MVCArrayHandlerMap#remove_at remove_at} event
          */
         removeAt(i: number): T;
 
@@ -232,6 +254,7 @@ declare namespace google.maps {
          * @see {@link insertAt}
          * @see {@link push}
          * @see {@link removeAt}
+         * @see {@link MVCArrayHandlerMap#set_at set_at} event
          */
         setAt(i: number, elem: T): void;
     }
