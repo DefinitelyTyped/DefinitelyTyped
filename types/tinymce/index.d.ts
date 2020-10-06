@@ -1,4 +1,4 @@
-// Type definitions for TinyMCE 4.5
+// Type definitions for TinyMCE 4.6
 // Project: https://github.com/tinymce/tinymce, https://github.com/tinymce/tinymce-dist
 // Definitions by: Martin Duparc <https://github.com/martinduparc>
 //                 Poul Poulsen <https://github.com/ipoul>
@@ -76,8 +76,6 @@ export interface Settings {
     table_default_attributes?: object | string;
 
     table_default_styles?: object | string;
-
-    table_responsive_width?: boolean;
 
     table_sizing_mode?: 'fixed' | 'relative' | 'responsive' | 'auto';
 
@@ -184,6 +182,8 @@ export interface Settings {
     content_style?: string;
 
     inline_boundaries?: boolean;
+
+    inline_boundaries_selector?: boolean;
 
     visual_anchor_class?: string;
 

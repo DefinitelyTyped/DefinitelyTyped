@@ -32,7 +32,6 @@ const settings: tinymce.Settings = {
     table_default_styles: {
         fontWeight: 'bold',
     },
-    table_responsive_width: false,
     table_sizing_mode: 'auto',
     table_class_list: [
         { title: 'None', value: '' },
