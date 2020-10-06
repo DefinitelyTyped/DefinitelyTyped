@@ -1,12 +1,22 @@
-import grumbler_scripts = require('grumbler-scripts');
+import { getKarmaConfig } from 'grumbler-scripts/config/karma.conf';
+import {
+    getCurrentVersion,
+    getNextVersion,
+    getWebpackConfig,
+    WebpackConfigOptions,
+} from 'grumbler-scripts/config/webpack.config';
 
-grumbler_scripts.getCurrentVersion({ version: 'foo' });
-grumbler_scripts.getNextVersion({ version: 'foo' }, 'bar');
+// $ExpectError
+getCurrentVersion();
+getCurrentVersion({ version: 'foo' });
+// $ExpectError
+getNextVersion({ version: 'foo' }, 2);
+getNextVersion({ version: 'foo' }, 'bar');
 
 const FILE_NAME = 'mylibrary';
 const MODULE_NAME = 'mylibrary';
 
-const BASE_CONFIG: grumbler_scripts.WebpackConfigOptions = {
+const BASE_CONFIG: WebpackConfigOptions = {
     entry: './foo/bar.js',
     filename: `${FILE_NAME}.min.js`,
     modulename: MODULE_NAME,
@@ -17,7 +27,6 @@ const BASE_CONFIG: grumbler_scripts.WebpackConfigOptions = {
     minify: true,
 };
 
-grumbler_scripts.getWebpackConfig(BASE_CONFIG);
+getWebpackConfig(BASE_CONFIG);
 
-(karma: object) =>
-    grumbler_scripts.getKarmaConfig(karma, { basePath: 'foo', webpack: grumbler_scripts.getWebpackConfig() });
+(karma: object) => getKarmaConfig(karma, { basePath: 'foo', webpack: getWebpackConfig() });
