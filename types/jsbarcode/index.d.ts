@@ -1,4 +1,4 @@
-// Type definitions for jsbarcode 3.11.3
+// Type definitions for jsbarcode 3.11
 // Project: https://github.com/lindell/JsBarcode
 // Definitions by: Domien Bakker <https://github.com/domienbakker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
