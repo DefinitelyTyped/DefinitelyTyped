@@ -4987,6 +4987,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "snappy",
+            "typingsPackageName": "snappy",
+            "sourceRepoURL": "https://github.com/jantimon/node-snappy",
+            "asOfVersion": "6.3.2"
+        },
+        {
             "libraryName": "snoowrap",
             "typingsPackageName": "snoowrap",
             "sourceRepoURL": "https://github.com/not-an-aardvark/snoowrap",
