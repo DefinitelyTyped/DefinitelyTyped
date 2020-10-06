@@ -30,6 +30,15 @@ declare function mock(config?: FileSystem.DirectoryItems, options?: FileSystem.O
 
 declare namespace mock {
     /**
+     * Temporarily bypass the mocked file system and load directly from the real file system.
+     *
+     * @example
+     * const filePath = '/path/file.json';
+     * const data = mock.bypass(() => fs.readFileSync(filePath, 'utf-8'));
+     */
+    function bypass<T>(fn: () => T): T;
+
+    /**
      * Load a real file/folder into the mock file system.
      */
     function load(path: string, options?: FileSystem.LoaderOptions): FileSystem.DirectoryItem;

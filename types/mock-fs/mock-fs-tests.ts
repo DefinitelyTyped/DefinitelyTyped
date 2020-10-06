@@ -1,3 +1,4 @@
+import fs = require('fs');
 import mock = require('mock-fs');
 import path = require('path');
 
@@ -41,6 +42,12 @@ mock({
 mock({
     '/tmp': mock.load('/tmp/special_tmp_files', { lazy: false, recursive: false }),
 });
+
+mock({
+    'OTHER_FILES.txt': mock.load(path.resolve(__dirname, 'OTHER_FILES.txt')),
+});
+
+mock.bypass(() => fs.readFileSync(path.resolve(__dirname, 'OTHER_FILES.txt')).toString());
 
 mock({
     foo: mock.file({
