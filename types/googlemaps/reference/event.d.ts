@@ -119,48 +119,64 @@ declare namespace google.maps {
         unbindAll(): void;
     }
 
-    /** This class extends MVCObject. */
+    /**
+     */
     class MVCArray<T> extends MVCObject {
-        /** A mutable MVC Array. */
+        /**
+         * A mutable MVC Array.
+         */
         constructor(array?: T[]);
 
-        /** Removes all elements from the array. */
+        /**
+         * Removes all elements from the array.
+         */
         clear(): void;
 
         /**
-         * Iterate over each element, calling the provided callback.
-         * The callback is called for each element like: callback(element, index).
+         * Iterate over each element, calling the provided callback. The callback is called for each element like:
+         * `callback(element, index)`.
          */
         forEach(callback: (elem: T, i: number) => void): void;
 
         /**
-         * Returns a reference to the underlying Array.
-         * Warning: if the Array is mutated, no events will be fired by this object.
+         * Returns a reference to the underlying Array. Warning: if the Array is mutated, no events will be fired by
+         * this object.
          */
         getArray(): T[];
 
-        /** Returns the element at the specified index. */
+        /**
+         * Returns the element at the specified index.
+         */
         getAt(i: number): T;
 
-        /** Returns the number of elements in this array. */
+        /**
+         * Returns the number of elements in this array.
+         */
         getLength(): number;
 
-        /** Inserts an element at the specified index. */
+        /**
+         * Inserts an element at the specified index.
+         */
         insertAt(i: number, elem: T): void;
 
-        /** Removes the last element of the array and returns that element. */
+        /**
+         * Removes the last element of the array and returns that element.
+         */
         pop(): T;
 
         /**
-         * Adds one element to the end of the array and returns the new length of
-         * the array.
+         * Adds one element to the end of the array and returns the new length of the array.
          */
         push(elem: T): number;
 
-        /** Removes an element from the specified index. */
+        /**
+         * Removes an element from the specified index.
+         */
         removeAt(i: number): T;
 
-        /** Sets an element at the specified index. */
+        /**
+         * Sets an element at the specified index.
+         */
         setAt(i: number, elem: T): void;
     }
 }
