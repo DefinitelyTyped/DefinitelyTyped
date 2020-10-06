@@ -6,6 +6,7 @@
 /// <reference types="node" />
 
 declare namespace JsBarcode {
+    function getModule(name: string): () => void;
     interface JsBarcodeOptions {
         format: string;
         width?: number;

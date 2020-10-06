@@ -7,3 +7,5 @@ JsBarcode("#barcode", "1234", {
   height: 40,
   displayValue: false
 });
+
+const module = JsBarcode.getModule("CODE128");
