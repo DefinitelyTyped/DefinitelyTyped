@@ -120,62 +120,74 @@ declare namespace google.maps {
     }
 
     /**
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray Maps JavaScript API}
      */
     class MVCArray<T> extends MVCObject {
         /**
          * A mutable MVC Array.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.constructor Maps JavaScript API}
          */
         constructor(array?: T[]);
 
         /**
          * Removes all elements from the array.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.clear Maps JavaScript API}
          */
         clear(): void;
 
         /**
          * Iterate over each element, calling the provided callback. The callback is called for each element like:
          * `callback(element, index)`.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.forEach Maps JavaScript API}
          */
         forEach(callback: (elem: T, i: number) => void): void;
 
         /**
          * Returns a reference to the underlying Array. Warning: if the Array is mutated, no events will be fired by
          * this object.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.getArray Maps JavaScript API}
          */
         getArray(): T[];
 
         /**
          * Returns the element at the specified index.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.getAt Maps JavaScript API}
          */
         getAt(i: number): T;
 
         /**
          * Returns the number of elements in this array.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.getLength Maps JavaScript API}
          */
         getLength(): number;
 
         /**
          * Inserts an element at the specified index.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.insertAt Maps JavaScript API}
          */
         insertAt(i: number, elem: T): void;
 
         /**
          * Removes the last element of the array and returns that element.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.pop Maps JavaScript API}
          */
         pop(): T;
 
         /**
          * Adds one element to the end of the array and returns the new length of the array.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.push Maps JavaScript API}
          */
         push(elem: T): number;
 
         /**
          * Removes an element from the specified index.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.removeAt Maps JavaScript API}
          */
         removeAt(i: number): T;
 
         /**
          * Sets an element at the specified index.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.setAt Maps JavaScript API}
          */
         setAt(i: number, elem: T): void;
     }
