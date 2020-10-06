@@ -444,16 +444,17 @@ export class WorkWeek extends Week {}
 export interface WeekProps {
     date: Date;
 }
-export class Week extends React.Component<WeekProps, {}> {
-    static range: (date: Date) => Array<Date>;
-    static navigate: (date: Date, action: NavigateAction ) => Date;
+
+export class Week extends React.Component<WeekProps> {
+    static range: (date: Date) => Date[];
+    static navigate: (date: Date, action: NavigateAction) => Date;
     static title: (date: Date) => string;
 }
 
 export interface DayProps {
     date: Date;
 }
-export class Day extends React.Component<DayProps, {}> {}
+export class Day extends React.Component<DayProps> {}
 
 // Turn off automatic exports
 export {};
