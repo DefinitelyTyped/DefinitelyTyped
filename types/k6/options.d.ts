@@ -74,13 +74,7 @@ export interface Options {
     rps?: number;
 
     /** Scenario specifications. */
-    scenarios?: { [name: string]: SharedIterationsScenario |
-                                  PerVUIterationsScenario |
-                                  ConstantVUsScenario |
-                                  RampingVUsScenario |
-                                  ConstantArrivalRateScenario |
-                                  RampingArrivalRateScenario |
-                                  ExternallyControlledScenario };
+    scenarios?: { [name: string]: Scenario};
 
     /** Setup function timeout. */
     setupTimeout?: string;
@@ -413,3 +407,11 @@ export interface ExternallyControlledScenario extends BaseScenario {
     /** Maximum number of VUs to allow during the test run. */
     maxVUs?: number;
 }
+
+export type Scenario = SharedIterationsScenario |
+                       PerVUIterationsScenario |
+                       ConstantVUsScenario |
+                       RampingVUsScenario |
+                       ConstantArrivalRateScenario |
+                       RampingArrivalRateScenario |
+                       ExternallyControlledScenario;
