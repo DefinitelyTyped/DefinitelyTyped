@@ -3,14 +3,13 @@
 // Definitions by: Moritz Friedrich <https://github.com/Radiergummi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// For the `Buffer` reference
 /// <reference types="node" />
 
-declare namespace CsvAsync {
+declare const CsvAsync: {
     /**
      * @param options
      */
-    function generate(options?: CsvGenerateOptions): Promise<unknown>;
+    generate(options?: CsvAsync.CsvGenerateOptions): Promise<unknown>;
 
     /**
      * Parses a CSV file into an array of rows.
@@ -18,7 +17,7 @@ declare namespace CsvAsync {
      * @param input
      * @param options
      */
-    function parse(input: string, options?: CsvParseOptions): Promise<unknown>;
+    parse(input: string, options?: CsvAsync.CsvParseOptions): Promise<unknown>;
 
     /**
      *
@@ -26,10 +25,10 @@ declare namespace CsvAsync {
      * @param handler
      * @param options
      */
-    function transform<T = any, U = any>(
+    transform<T = any, U = any>(
         data: T[],
         handler: (record: T, callback: (err?: Error | null, record?: T) => void, params?: any) => U,
-        options?: TransformOptions,
+        options?: CsvAsync.TransformOptions,
     ): Promise<U[]>;
 
     /**
@@ -38,10 +37,37 @@ declare namespace CsvAsync {
      * @param data
      * @param options
      */
-    function stringify(
+    stringify(
         data: Array<Array<string | number | null | undefined>>,
-        options?: CsvStringifyOptions,
+        options?: CsvAsync.CsvStringifyOptions,
     ): Promise<string>;
+};
+
+declare namespace CsvAsync {
+    type CastingFunction = (value: string, context: CastingContext) => any;
+
+    type CastingDateFunction = (value: string, context: CastingContext) => Date;
+
+    type ColumnOption = string | undefined | null | false | { name: string };
+
+    type ParseColumnOption = string | undefined | null;
+
+    type Cast<T> = (value: T, context: CastingContext) => string;
+
+    type PlainObject<T> = Record<string, T>;
+
+    type RecordDelimiter = string | Buffer | 'auto' | 'unix' | 'mac' | 'windows' | 'ascii' | 'unicode';
+
+    interface CastingContext {
+        readonly column?: number | string;
+        readonly empty_lines: number;
+        readonly header: boolean;
+        readonly index: number;
+        readonly quoting: boolean;
+        readonly lines: number;
+        readonly records: number;
+        readonly invalid_field_length: number;
+    }
 
     interface CsvGenerateOptions {
         /**
@@ -294,29 +320,6 @@ declare namespace CsvAsync {
         trim?: boolean;
     }
 
-    type CastingFunction = (value: string, context: CastingContext) => any;
-
-    type CastingDateFunction = (value: string, context: CastingContext) => Date;
-
-    type ColumnOption = string | undefined | null | false | { name: string };
-
-    type ParseColumnOption = string | undefined | null;
-
-    interface CastingContext {
-        readonly column?: number | string;
-        readonly empty_lines: number;
-        readonly header: boolean;
-        readonly index: number;
-        readonly quoting: boolean;
-        readonly lines: number;
-        readonly records: number;
-        readonly invalid_field_length: number;
-    }
-
-    type Cast<T> = (value: T, context: CastingContext) => string;
-
-    type PlainObject<T> = Record<string, T>;
-
     interface CsvStringifyOptions {
         /**
          * Key-value object which defines custom cast for certain data types
@@ -397,8 +400,6 @@ declare namespace CsvAsync {
          */
         record_delimiter?: RecordDelimiter;
     }
-
-    type RecordDelimiter = string | Buffer | 'auto' | 'unix' | 'mac' | 'windows' | 'ascii' | 'unicode';
 
     interface TransformOptions {
         /**
