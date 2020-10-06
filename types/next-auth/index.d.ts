@@ -66,7 +66,7 @@ interface Cookies {
 
 interface Cookie {
     name: string;
-    options: CookieOptions;
+    options?: CookieOptions;
 }
 
 interface CookieOptions {

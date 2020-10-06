@@ -479,6 +479,18 @@ outputNumber = identityScale(10);
 const copiedIdentityScale: d3Scale.ScaleIdentity = identityScale.copy();
 
 // -------------------------------------------------------------------------------
+// Radial Scale Factory
+// -------------------------------------------------------------------------------
+
+// scaleRadial() ---------------------------------------------------------------------
+
+let radialScaleNumber: d3Scale.ScaleContinuousNumeric<number, number>;
+
+radialScaleNumber = d3Scale.scaleRadial();
+radialScaleNumber = d3Scale.scaleRadial([0, 5]);
+radialScaleNumber = d3Scale.scaleRadial([0, 5], [0, 5]);
+
+// -------------------------------------------------------------------------------
 // Time Scale Factories
 // -------------------------------------------------------------------------------
 
@@ -557,7 +569,6 @@ localTimeScaleNumString = localTimeScaleNumString.interpolate((a, b) => {
 localTimeScaleNumber = localTimeScaleNumber.nice();
 localTimeScaleNumber = localTimeScaleNumber.nice(5);
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour);
-localTimeScaleNumber = localTimeScaleNumber.nice(timeHour, 5);
 
 // $ExpectError
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour.every(5)); // fails, requires CountableTimeInterval
@@ -631,6 +642,10 @@ sequentialScaleColorString = sequentialScaleColorString.interpolator(interpolate
 let sequentialInterpolator: (t: number) => string;
 sequentialInterpolator = sequentialScaleColorString.interpolator();
 
+// range(...) ----------------------------------------------------------------
+
+const rangeSequential: [string, string] = sequentialScaleColorString.range()();
+
 // (...) value mapping from domain to output -----------------------------------
 
 outputString = sequentialScaleColorString(10);
@@ -674,19 +689,9 @@ divergingScaleNumber = divergingScaleNumber.domain([0, 0.5, 1]);
 divergingScaleNumber = divergingScaleNumber.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
 domainDivergingScale = divergingScaleNumber.domain();
 
-// $ExpectError
-divergingScaleNumber.domain([0, 1]);
-// $ExpectError
-divergingScaleNumber.domain([new NumCoercible(0), new NumCoercible(0.5)]);
-
 divergingScaleString = divergingScaleString.domain([0, 0.5, 1]);
 divergingScaleString = divergingScaleString.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
 domainDivergingScale = divergingScaleString.domain();
-
-// $ExpectError
-divergingScaleString.domain([0, 1]);
-// $ExpectError
-divergingScaleString.domain([new NumCoercible(0), new NumCoercible(0.5)]);
 
 // clamp(...) -----------------------------------------------------------------
 
@@ -704,6 +709,10 @@ const istr: (t: number) => string = divergingScaleString.interpolator();
 divergingScaleNumber = divergingScaleNumber.interpolator((t) => t + 2);
 divergingScaleNumber = divergingScaleNumber.interpolator(interpolateRound(2, 3));
 divergingScaleString = divergingScaleString.interpolator(sequentialInterpolator);
+
+// range(...) ----------------------------------------------------------------
+
+domainDivergingScale = divergingScaleNumber.range()();
 
 // copy(...) -----------------------------------------------------------------
 

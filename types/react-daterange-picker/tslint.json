@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-duplicate-imports": false,
-        "no-outside-dependencies": false
+        "no-duplicate-imports": false
     }
 }

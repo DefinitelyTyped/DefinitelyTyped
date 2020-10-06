@@ -3,7 +3,7 @@
         "module": "commonjs",
         "target": "es5",
         "lib": [
-            "es6",
+            "es2018",
             "dom"
         ],
         "noImplicitAny": true,

@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-interpolate module 1.4
+// Type definitions for D3JS d3-interpolate module 2.0
 // Project: https://github.com/d3/d3-interpolate/, https://d3js.org/d3-interpolate
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.4.0
+// Last module patch version validated against: 2.0.1
 
 import { ColorCommonInstance } from 'd3-color';
 
@@ -22,6 +22,14 @@ export interface ZoomInterpolator extends Function {
      * Recommended duration of zoom transition in milliseconds.
      */
     duration: number;
+
+    /**
+     * Given a zoom interpolator, returns a new zoom interpolator using the specified curvature rho.
+     * When rho is close to 0, the interpolator is almost linear.
+     * The default curvature is sqrt(2).
+     * @param rho
+     */
+    rho(rho: number): this;
 }
 
 export interface ColorGammaInterpolationFactory extends Function {
@@ -319,6 +327,15 @@ export function interpolateBasisClosed(splineNodes: number[]): ((t: number) => n
  * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,
  * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
  * For example, to blend through three different zoom views: `d3.piecewise(d3.interpolateZoom, [[0, 0, 1], [0, 0, 10], [0, 0, 15]])`.
+ *
+ * interpolate defaults to d3.interpolate.
+ */
+export function piecewise(values: ZoomView[]): ZoomInterpolator;
+/**
+ * Returns a piecewise zoom interpolator, composing zoom interpolators for each adjacent pair of zoom view.
+ * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,
+ * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
+ * For example, to blend through three different zoom views: `d3.piecewise(d3.interpolateZoom, [[0, 0, 1], [0, 0, 10], [0, 0, 15]])`.
  */
 export function piecewise(interpolate: (a: ZoomView, b: ZoomView) => ZoomInterpolator, values: ZoomView[]): ZoomInterpolator;
 
@@ -327,9 +344,27 @@ export function piecewise(interpolate: (a: ZoomView, b: ZoomView) => ZoomInterpo
  * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,
  * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
  * For example, to blend through three different arrays: `d3.piecewise(d3.interpolateArray, [[0, 0, 1], [0, 0, 10], [0, 0, 15]])`.
+ *
+ * interpolate defaults to d3.interpolate.
+ */
+export function piecewise<A extends any[]>(values: A[]): ArrayInterpolator<A>;
+/**
+ * Returns a piecewise array interpolator, composing array interpolators for each adjacent pair of arrays.
+ * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,
+ * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
+ * For example, to blend through three different arrays: `d3.piecewise(d3.interpolateArray, [[0, 0, 1], [0, 0, 10], [0, 0, 15]])`.
  */
 export function piecewise<A extends any[]>(interpolate: (a: any[], b: A) => ArrayInterpolator<A>, values: A[]): ArrayInterpolator<A>;
 
+/**
+ * Returns a piecewise interpolator, composing interpolators for each adjacent pair of values.
+ * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,
+ * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
+ * For example, to blend through red, green and blue: `d3.piecewise(d3.interpolateRgb.gamma(2.2), ["red", "green", "blue"])`.
+ *
+ * interpolate defaults to d3.interpolate.
+ */
+export function piecewise<TData>(values: TData[]): (t: number) => any;
 /**
  * Returns a piecewise interpolator, composing interpolators for each adjacent pair of values.
  * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,

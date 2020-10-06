@@ -635,6 +635,7 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     char: string;
     /** @deprecated */
     charCode: number;
+    code: string;
     key: string;
     /** @deprecated */
     keyCode: number;

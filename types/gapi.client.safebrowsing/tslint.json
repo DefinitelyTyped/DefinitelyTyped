@@ -1,6 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "await-promise": false
-    }
-}
+{ "extends": "dtslint/dt.json" }

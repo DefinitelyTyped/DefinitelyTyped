@@ -1,4 +1,4 @@
-// Type definitions for update-notifier 4.1
+// Type definitions for update-notifier 5.0
 // Project: https://github.com/yeoman/update-notifier
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 Noah Chen <https://github.com/nchen63>
@@ -6,8 +6,6 @@
 //                 Michael Grinich <https://github.com/grinich>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import boxen = require('boxen');
 import ConfigStore = require('configstore');
 
@@ -23,14 +21,20 @@ declare namespace UpdateNotifier {
         readonly config: ConfigStore;
         readonly update?: UpdateInfo;
         check(): void;
-        /** Check update information */
+        /**
+         * Check update information
+         * @async
+         */
         fetchInfo(): UpdateInfo | Promise<UpdateInfo>;
         /** Convenience method to display a notification message */
         notify(customMessage?: NotifyOptions): void;
     }
 
     interface Settings {
-        /** Which dist-tag to use to find the latest version */
+        /**
+         * Which dist-tag to use to find the latest version
+         * @default 'latest'
+         */
         distTag?: string;
         pkg?: Package;
         /**
