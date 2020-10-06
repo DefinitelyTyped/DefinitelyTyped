@@ -335,7 +335,7 @@ declare namespace Autodesk {
           startBimWalk(): void;
           stopBimWalk(): void;
           show(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
-          switchView(bubbleNodes: BubbleNode[], diffConfig: any): void
+          switchView(bubbleNodes: BubbleNode[], diffConfig: any): void;
           unload(bubbleNode: BubbleNode): void;
           unloadAll(filter?: (item: any) => boolean): void;
           unloadUnderlayRaster(bubbleNode: BubbleNode): void;
