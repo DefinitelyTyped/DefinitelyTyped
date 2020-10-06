@@ -765,8 +765,8 @@ declare namespace Autodesk {
             getAggregateSelection(callback?: (model: Model, dbId: number) => void): any[];
             getAggregateIsolation(): any[];
             getAggregateHiddenNodes(): any[];
-            hide(node: number|number[]): void;
-            show(node: number|number[]): void;
+            hide(node: number|number[], model?: Model): void;
+            show(node: number|number[], model?: Model): void;
             showAll(): void;
             toggleVisibility(dbId: number, model?: Model): void;
             areAllVisible(): boolean;
