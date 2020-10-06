@@ -33,7 +33,7 @@ declare namespace JsBarcode {
 /**
  * The Browser version of the library's functionality, which makes use of an HTMLCanvasElement, HTMLImageElement or SVGElement
  * for rendering.
- * @param svg ID string or HTML element of the target to render within. 
+ * @param svg ID string or HTML element of the target to render within.
  * @param barcodeText Text to be rendered.
  * @param barcodeOptions Options used for rendering.
  */
