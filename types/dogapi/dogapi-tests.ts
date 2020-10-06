@@ -26,7 +26,7 @@ dogapi.metric.send_all(
         metric: 'metricName',
         points: 500,
     }],
-    (err: Error | null, res: string) => {}
+    (err: Error | null, res: dogapi.EventCreateResponse) => {}
 );
 
 // multiple metric
@@ -41,7 +41,7 @@ dogapi.metric.send_all(
             points: 200,
         }
     ],
-    (err: Error | null, res: string) => {}
+    (err: Error | null, res: dogapi.EventCreateResponse) => {}
 );
 
 // multi point without date
@@ -52,7 +52,7 @@ dogapi.metric.send_all(
         points: [500, 600],
         tags: ['tag1', 'tag2'],
     }],
-    (err: Error | null, res: string) => {}
+    (err: Error | null, res: dogapi.EventCreateResponse) => {}
 );
 
 // multi point with date
@@ -63,5 +63,5 @@ dogapi.metric.send_all(
         points: [['123', 500], ['124', 600]],
         metric_type: 'type',
     }],
-    (err: Error | null, res: string) => {}
+    (err: Error | null, res: dogapi.EventCreateResponse) => {}
 );
