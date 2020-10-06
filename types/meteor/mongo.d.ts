@@ -128,18 +128,18 @@ declare module "meteor/mongo" {
             [id: string]: Number;
         }
 
-        type TransformFn = Function | null;
+        type TransformFn<T> = ((doc: T) => any) | null;
 
-        type Options = {
+        type Options<T> = {
             sort?: SortSpecifier;
             skip?: number;
             limit?: number;
             fields?: FieldSpecifier;
             reactive?: boolean;
-            transform?: TransformFn;
+            transform?: TransformFn<T>;
         }
 
-        type DispatchTransform<Transf extends { transform?: TransformFn }, DefType, U> = Transf['transform'] extends null ? DefType : Transf['transform'] extends (...args: any) => any ? ReturnType<Transf['transform']> : U;
+        type DispatchTransform<Transf, DefType, U> = Transf extends (...args: any) => any ? ReturnType<Transf> : Transf extends null ? DefType : U;
 
         var Collection: CollectionStatic;
         interface CollectionStatic {
@@ -150,22 +150,24 @@ declare module "meteor/mongo" {
             }): Collection<T, U>;
         }
         interface Collection<T, U = T> {
-            allow<Fn extends TransformFn, Doc = DispatchTransform<{ transform: Fn }, T, U>>(options: {
+            allow<Fn extends TransformFn<T> | undefined = undefined, Doc = DispatchTransform<Fn, T, U>>(options: {
                 insert?: (userId: string, doc: Doc) => boolean;
                 update?: (userId: string, doc: Doc, fieldNames: string[], modifier: any) => boolean;
                 remove?: (userId: string, doc: Doc) => boolean;
                 fetch?: string[];
                 transform?: Fn;
             }): boolean;
-            deny<Fn extends TransformFn, Doc = DispatchTransform<{ transform: Fn }, T, U>>(options: {
+            deny<Fn extends TransformFn<T> | undefined = undefined, Doc = DispatchTransform<Fn, T, U>>(options: {
                 insert?: (userId: string, doc: Doc) => boolean;
                 update?: (userId: string, doc: Doc, fieldNames: string[], modifier: any) => boolean;
                 remove?: (userId: string, doc: Doc) => boolean;
                 fetch?: string[];
                 transform?: Fn;
             }): boolean;
-            find<O extends Options>(selector?: Selector<T> | ObjectID | string, options?: O): Cursor<T, DispatchTransform<O, T, U>>;
-            findOne<O extends Omit<Options, 'limit'>>(selector?: Selector<T> | ObjectID | string, options?: O): DispatchTransform<O, T, U> | undefined;
+            find(selector?: Selector<T> | ObjectID | string): Cursor<T, U>;
+            find<O extends Options<T>>(selector?: Selector<T> | ObjectID | string, options?: O): Cursor<T, DispatchTransform<O['transform'], T, U>>;
+            findOne(selector?: Selector<T> | ObjectID | string): U | undefined;
+            findOne<O extends Omit<Options<T>, 'limit'>>(selector?: Selector<T> | ObjectID | string, options?: O): DispatchTransform<O['transform'], T, U> | undefined;
             insert(doc: OptionalId<T>, callback?: Function): string;
             rawCollection(): MongoCollection<T>;
             rawDatabase(): MongoDb;
@@ -214,7 +216,7 @@ declare module "meteor/mongo" {
             count(applySkipLimit?: boolean): number;
             fetch(): Array<U>;
             forEach(callback: (doc: U, index: number, cursor: Cursor<T, U>) => void, thisArg?: any): void;
-            map<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): Array<U>;
+            map<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): Array<M>;
             observe(callbacks: ObserveCallbacks<U>): Meteor.LiveQueryHandle;
             observeChanges(callbacks: ObserveChangesCallbacks<T>): Meteor.LiveQueryHandle;
         }
