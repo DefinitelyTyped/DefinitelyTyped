@@ -1,5 +1,3 @@
-import Context from "cordova-hook";
-
-export default function (ctx: Context) {
+export default function (ctx: CordovaHookContext) {
     console.log(ctx.hook);
 }
