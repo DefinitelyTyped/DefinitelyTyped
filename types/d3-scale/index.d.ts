@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-scale module 3.1
+// Type definitions for D3JS d3-scale module 3.2
 // Project: https://github.com/d3/d3-scale/, https://d3js.org/d3-scale
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 3.1.0
+// Last module patch version validated against: 3.2.3
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
 
@@ -1218,9 +1218,10 @@ export function scaleUtc<Range, Output = Range>(
 // -------------------------------------------------------------------------------
 
 /**
- * Sequential scales are similar to continuous scales in that they map a continuous,
- * numeric input domain to a continuous output range. However, unlike continuous scales,
- * the output range of a sequential scale is fixed by its interpolator and not configurable.
+ * Sequential scales are similar to continuous scales in that they map a continuous, numeric input domain to a continuous output range.
+ * However, unlike continuous scales, the input domain and output range of a sequential scale always has exactly two elements,
+ * and the output range is typically specified as an interpolator rather than an array of values.
+ * These scales do not expose invert and interpolate methods.
  *
  * The generic corresponds to the data type of the output of the interpolator underlying the scale.
  */
@@ -1281,9 +1282,23 @@ export interface ScaleSequential<Output> {
 
     /**
      * See continuous.range.
-     * Note that a sequential scale’s range is read-only, as it is determined by its interpolator.
      */
     range(): () => [Output, Output];
+    /**
+     * See continuous.range.
+     * The given two-element array is converted to an interpolator function using d3.interpolate.
+     *
+     * @param range Range values.
+     */
+    range(range: Iterable<Output>): this;
+
+    /**
+     * See continuous.rangeRound.
+     * If range is specified, implicitly uses d3.interpolateRound as the interpolator.
+     *
+     * @param range Range values.
+     */
+    rangeRound(range: Iterable<NumberValue>): this;
 
     /**
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
@@ -1303,28 +1318,34 @@ export interface ScaleSequential<Output> {
 }
 
 /**
- * Constructs a new sequential scale with the specified interpolator function.
+ * Constructs a new sequential scale with the specified interpolator function or array.
  * The domain defaults to [0, 1].
  * If interpolator is not specified, it defaults to the identity function.
  * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1], where 0 represents the minimum value and 1 represents the maximum value.
  *
+ * If interpolator is an array, it represents the scale’s two-element output range and is converted to an interpolator function using d3.interpolate.
+ *
  * The generic corresponds to the data type of the output of the interpolator underlying the scale.
  *
- * @param interpolator The interpolator function to be used with the scale.
+ * @param interpolator The interpolator function or array to be used with the scale.
  */
-export function scaleSequential<Output = number>(interpolator?: (t: number) => Output): ScaleSequential<Output>;
+export function scaleSequential<Output = number>(
+    interpolator?: ((t: number) => Output) | Iterable<Output>
+): ScaleSequential<Output>;
 /**
- * Constructs a new sequential scale with the specified domain and interpolator function.
+ * Constructs a new sequential scale with the specified domain and interpolator function or array.
  * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1], where 0 represents the minimum value and 1 represents the maximum value.
+ *
+ * If interpolator is an array, it represents the scale’s two-element output range and is converted to an interpolator function using d3.interpolate.
  *
  * The generic corresponds to the data type of the output of the interpolator underlying the scale.
  *
  * @param domain A two-element array of numeric domain values.
- * @param interpolator The interpolator function to be used with the scale.
+ * @param interpolator The interpolator function or array to be used with the scale.
  */
 export function scaleSequential<Output>(
     domain: Iterable<NumberValue>,
-    interpolator: (t: number) => Output
+    interpolator: ((t: number) => Output) | Iterable<Output>
 ): ScaleSequential<Output>;
 
 /**
@@ -1411,6 +1432,14 @@ export function scaleSequentialSymlog<Output>(
     interpolator: (t: number) => Output
 ): ScaleSequential<Output>;
 
+export interface ScaleSequentialQuantile<Output> extends ScaleSequential<Output> {
+    /**
+     * Returns an array of n + 1 quantiles.
+     * For example, if n = 4, returns an array of five numbers: the minimum value, the first quartile, the median, the third quartile, and the maximum.
+     */
+    quantiles(): number[];
+}
+
 /**
  * A sequential scale using a p-quantile transform, analogous to a quantile scale.
  *
@@ -1418,7 +1447,9 @@ export function scaleSequentialSymlog<Output>(
  *
  * @param interpolator The interpolator function to be used with the scale.
  */
-export function scaleSequentialQuantile<Output = number>(interpolator?: (t: number) => Output): ScaleSequential<Output>;
+export function scaleSequentialQuantile<Output = number>(
+    interpolator?: (t: number) => Output
+): ScaleSequentialQuantile<Output>;
 /**
  * A sequential scale using a p-quantile transform, analogous to a quantile scale.
  *
@@ -1430,7 +1461,7 @@ export function scaleSequentialQuantile<Output = number>(interpolator?: (t: numb
 export function scaleSequentialQuantile<Output>(
     domain: Iterable<NumberValue>,
     interpolator: (t: number) => Output
-): ScaleSequential<Output>;
+): ScaleSequentialQuantile<Output>;
 
 // -------------------------------------------------------------------------------
 // Diverging Scale Factory
@@ -1438,8 +1469,9 @@ export function scaleSequentialQuantile<Output>(
 
 /**
  * Diverging scales, like sequential scales, are similar to continuous scales in that they map a continuous, numeric input domain to a continuous output range.
- * However, unlike continuous scales, the output range of a diverging scale is fixed by its interpolator and not configurable.
- * These scales do not expose invert, range, rangeRound and interpolate methods.
+ * However, unlike continuous scales, the input domain and output range of a diverging scale always has exactly three elements,
+ * and the output range is typically specified as an interpolator rather than an array of values.
+ * These scales do not expose invert and interpolate methods.
  *
  * The generic corresponds to the data type of the interpolator return type.
  */
@@ -1493,9 +1525,23 @@ export interface ScaleDiverging<Output> {
 
     /**
      * See continuous.range.
-     * Note that a sequential scale’s range is read-only, as it is determined by its interpolator.
      */
     range(): () => [Output, Output, Output];
+    /**
+     * See continuous.range.
+     * The given two-element array is converted to an interpolator function using d3.interpolate and d3.piecewise.
+     *
+     * @param range Range values.
+     */
+    range(range: Iterable<Output>): this;
+
+    /**
+     * See continuous.rangeRound.
+     * If range is specified, implicitly uses d3.interpolateRound as the interpolator.
+     *
+     * @param range Range values.
+     */
+    rangeRound(range: Iterable<NumberValue>): this;
 
     /**
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
@@ -1515,30 +1561,36 @@ export interface ScaleDiverging<Output> {
 }
 
 /**
- * Constructs a new diverging scale with the specified interpolator function.
- * The domain defaults to [0, 1].
+ * Constructs a new diverging scale with the specified interpolator function or array.
+ * The domain defaults to [0, 0.5, 1].
  * If interpolator is not specified, it defaults to the identity function.
  * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1],
  * where 0 represents the extreme negative value, 0.5 represents the neutral value, and 1 represents the extreme positive value.
  *
+ * If interpolator is an array, it represents the scale’s three-element output range and is converted to an interpolator function using d3.interpolate and d3.piecewise.
+ *
  * The generic corresponds to the data type of the interpolator return type.
  *
- * @param interpolator The scale’s interpolator.
+ * @param interpolator The scale’s interpolator function or array.
  */
-export function scaleDiverging<Output = number>(interpolator?: (t: number) => Output): ScaleDiverging<Output>;
+export function scaleDiverging<Output = number>(
+    interpolator?: ((t: number) => Output) | Iterable<Output>
+): ScaleDiverging<Output>;
 /**
- * Constructs a new diverging scale with the specified domain and interpolator function.
+ * Constructs a new diverging scale with the specified domain and interpolator function or array.
  * When the scale is applied, the interpolator will be invoked with a value typically in the range [0, 1],
  * where 0 represents the extreme negative value, 0.5 represents the neutral value, and 1 represents the extreme positive value.
+ *
+ * If interpolator is an array, it represents the scale’s three-element output range and is converted to an interpolator function using d3.interpolate and d3.piecewise.
  *
  * The generic corresponds to the data type of the interpolator return type.
  *
  * @param domain Array of three numeric domain values.
- * @param interpolator The scale’s interpolator.
+ * @param interpolator The scale’s interpolator function or array.
  */
 export function scaleDiverging<Output>(
     domain: Iterable<NumberValue>,
-    interpolator: (t: number) => Output
+    interpolator: ((t: number) => Output) | Iterable<Output>
 ): ScaleDiverging<Output>;
 
 /**
