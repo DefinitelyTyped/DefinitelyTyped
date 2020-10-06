@@ -304,6 +304,44 @@ declare namespace Autodesk {
           mime?: string;
         }
 
+        interface AggregatedViewInitOptions {
+          ignoreGlobalOffset?: boolean;
+          headlessViewer?: boolean;
+          useDynamicGlobalOffset?: boolean;
+        }
+
+        class AggregatedView {
+          viewer: Viewer3D | GuiViewer3D;
+
+          areAllNodes2D(): boolean;
+          getFloorSelector(): any;
+          getModel(node: BubbleNode): Model;
+          getModelAndWait(node: BubbleNode): Promise<Model>;
+          getVisibleNodes(): Model[];
+          hide(node: BubbleNode): void;
+          hideAll(): void;
+          init(parentDiv: HTMLElement, options?: AggregatedViewInitOptions): Promise<Extension[]>;
+          isBimWalkActive(): boolean;
+          isEmpty(): boolean;
+          isLoadDone(): boolean;
+          isVisible(node: BubbleNode): boolean;
+          load(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
+          reset(): void;
+          setAlignmentService(alignmentService: any): void;
+          setBookmarks(bookmarks: BubbleNode[]): void;
+          setCamera(camera: any): void;
+          setCameraGlobal(camera: any): void;
+          setNodes(bubbleNodes: BubbleNode[], diffConfig: any): void;
+          startBimWalk(): void;
+          stopBimWalk(): void;
+          show(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
+          switchView(bubbleNodes: BubbleNode[], diffConfig: any): void
+          unload(bubbleNode: BubbleNode): void;
+          unloadAll(filter?: (item: any) => boolean): void;
+          unloadUnderlayRaster(bubbleNode: BubbleNode): void;
+          waitForLoadDone(): Promise<void>;
+        }
+
         class BubbleNode {
           static MODEL_NODE: BubbleNodeSearchProps;
           static GEOMETRY_SVF_NODE: BubbleNodeSearchProps;
