@@ -132,6 +132,8 @@ declare namespace google.maps {
         /**
          * Removes all elements from the array.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.clear Maps JavaScript API}
+         * @see {@link pop}
+         * @see {@link removeAt}
          */
         clear(): void;
 
@@ -139,6 +141,8 @@ declare namespace google.maps {
          * Iterate over each element, calling the provided callback. The callback is called for each element like:
          * `callback(element, index)`.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.forEach Maps JavaScript API}
+         * @see {@link getArray}
+         * @see {@link getAt}
          */
         forEach(callback: (elem: T, i: number) => void): void;
 
@@ -146,12 +150,19 @@ declare namespace google.maps {
          * Returns a reference to the underlying Array. Warning: if the Array is mutated, no events will be fired by
          * this object.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.getArray Maps JavaScript API}
+         * @see {@link forEach}
+         * @see {@link getAt}
          */
         getArray(): T[];
 
         /**
          * Returns the element at the specified index.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.getAt Maps JavaScript API}
+         * @see {@link forEach}
+         * @see {@link getArray}
+         * @see {@link insertAt}
+         * @see {@link removeAt}
+         * @see {@link setAt}
          */
         getAt(i: number): T;
 
@@ -164,30 +175,47 @@ declare namespace google.maps {
         /**
          * Inserts an element at the specified index.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.insertAt Maps JavaScript API}
+         * @see {@link getAt}
+         * @see {@link push}
+         * @see {@link removeAt}
+         * @see {@link setAt}
          */
         insertAt(i: number, elem: T): void;
 
         /**
          * Removes the last element of the array and returns that element.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.pop Maps JavaScript API}
+         * @see {@link clear}
+         * @see {@link removeAt}
          */
         pop(): T;
 
         /**
          * Adds one element to the end of the array and returns the new length of the array.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.push Maps JavaScript API}
+         * @see {@link insertAt}
+         * @see {@link setAt}
          */
         push(elem: T): number;
 
         /**
          * Removes an element from the specified index.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.removeAt Maps JavaScript API}
+         * @see {@link clear}
+         * @see {@link getAt}
+         * @see {@link insertAt}
+         * @see {@link pop}
+         * @see {@link setAt}
          */
         removeAt(i: number): T;
 
         /**
          * Sets an element at the specified index.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.setAt Maps JavaScript API}
+         * @see {@link getAt}
+         * @see {@link insertAt}
+         * @see {@link push}
+         * @see {@link removeAt}
          */
         setAt(i: number, elem: T): void;
     }
