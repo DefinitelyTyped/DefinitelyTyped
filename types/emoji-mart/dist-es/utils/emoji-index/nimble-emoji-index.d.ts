@@ -26,6 +26,7 @@ export interface CustomEmoji {
     emoticons?: string[];
     keywords?: string[];
     imageUrl: string;
+    native?: string;
 }
 
 export type EmojiData = BaseEmoji | CustomEmoji;
