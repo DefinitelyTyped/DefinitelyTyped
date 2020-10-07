@@ -17,6 +17,7 @@ class ReactTypist extends React.Component {
                 <Typist
                     className="TypistExample-header"
                     avgTypingDelay={40}
+                    avgTypingSpeed={0.1}
                     startDelay={2000}
                     onTypingDone={this.onHeaderTyped}
                 >

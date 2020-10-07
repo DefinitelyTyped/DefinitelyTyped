@@ -38,6 +38,7 @@ export namespace Typist {
 export interface TypistProps {
     className?: string;
     avgTypingDelay?: number;
+    avgTypingSpeed?: number;
     stdTypingDelay?: number;
     startDelay?: number;
     cursor?: Typist.CursorProps;
