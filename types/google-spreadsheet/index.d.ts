@@ -80,7 +80,7 @@ export type WorksheetGridProperties = Partial<{
     hideGridlines: boolean;
     rowGroupControlAfter: boolean;
     columnGroupControlAfter: boolean;
-}>
+}>;
 
 export interface DimensionRange {
     sheetId: number;
@@ -591,7 +591,7 @@ export interface WorksheetBasicProperties {
 }
 
 export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
-    constructor(parentSpreadsheet: GoogleSpreadsheetWorksheet, { properties, data }: { properties: WorksheetBasicProperties, data?: any})
+    constructor(parentSpreadsheet: GoogleSpreadsheetWorksheet, { properties, data }: { properties: WorksheetBasicProperties, data?: any })
 
     // #region BASIC PROPERTIES
     // These properties should reflect the ones in the WorksheetBasicProperties interface
@@ -778,8 +778,8 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
     addRow(
         values:
             | {
-                  [header: string]: string | number | boolean;
-              }
+                [header: string]: string | number | boolean;
+            }
             | Array<string | number | boolean>,
         options?: { raw: boolean; insert: boolean },
     ): Promise<GoogleSpreadsheetRow>;
@@ -800,8 +800,8 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
     addRows(
         rowValues: Array<(
             | {
-                  [header: string]: string | number | boolean;
-              }
+                [header: string]: string | number | boolean;
+            }
             | Array<string | number | boolean>
         )>,
         options?: { raw: boolean; insert: boolean },
