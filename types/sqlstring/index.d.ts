@@ -1,4 +1,4 @@
-// Type definitions for sqlstring 2.2
+// Type definitions for sqlstring 2.3
 // Project: https://github.com/mysqljs/sqlstring
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 koooge <https://github.com/koooge>
