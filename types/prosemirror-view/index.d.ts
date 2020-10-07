@@ -319,9 +319,12 @@ export class EditorView<S extends Schema = any> {
     top: number;
   }): { pos: number; inside: number } | null | undefined;
   /**
-   * Returns the viewport rectangle at a given document position. `left`
-   * and `right` will be the same number, as this returns a flat
-   * cursor-ish rectangle.
+   * Returns the viewport rectangle at a given document position.
+   * `left` and `right` will be the same number, as this returns a
+   * flat cursor-ish rectangle. If the position is between two things
+   * that aren't directly adjacent, `side` determines which element is
+   * used. When < 0, the element before the position is used,
+   * otherwise the element after.
    */
   coordsAtPos(pos: number, side?: number): { left: number; right: number; top: number; bottom: number };
   /**
