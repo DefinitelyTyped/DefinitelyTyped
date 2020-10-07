@@ -214,6 +214,13 @@ export class DateTime {
     static max(...dateTimes: DateTime[]): DateTime;
     static min(): undefined;
     static min(...dateTimes: DateTime[]): DateTime;
+    /**
+     * Create a DateTime for the current instant, in the system's time zone.
+     *
+     * Use Settings to override these default values if needed.
+     * @example DateTime.now().toISO() //~> now in the ISO format
+     */
+    static now(): DateTime;
     static utc(
         year?: number,
         month?: number,
