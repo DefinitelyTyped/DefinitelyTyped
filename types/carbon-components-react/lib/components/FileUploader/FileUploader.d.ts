@@ -18,7 +18,8 @@ export type FileUploaderSize = "default" | "field" | "small";
 
 interface FileUploaderButtonInheritedProps extends
     Omit<ReactLabelAttr, "onChange">,
-    SharedProps
+    SharedProps,
+    ReactInputAttr
 {
     onChange?(event: React.ChangeEvent<HTMLInputElement>): void,
 }
