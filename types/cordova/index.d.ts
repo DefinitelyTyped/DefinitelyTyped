@@ -29,6 +29,86 @@ interface Cordova {
     plugins:CordovaPlugins;
 }
 
+type CordovaHookType = "before_platform_add"
+    | "after_platform_add"
+    | "before_platform_rm"
+    | "after_platform_rm"
+    | "before_platform_ls"
+    | "after_platform_ls"
+    | "before_prepare"
+    | "after_prepare"
+    | "before_compile"
+    | "after_compile"
+    | "before_deploy"
+    | "before_build"
+    | "after_build"
+    | "before_emulate"
+    | "after_emulate"
+    | "before_run"
+    | "after_run"
+    | "before_serve"
+    | "after_serve"
+    | "before_clean"
+    | "after_clean"
+    | "before_plugin_add"
+    | "after_plugin_add"
+    | "before_plugin_rm"
+    | "after_plugin_rm"
+    | "before_plugin_ls"
+    | "after_plugin_ls"
+    | "before_plugin_install"
+    | "after_plugin_install"
+    | "before_plugin_uninstall";
+
+interface CordovaHookOptions {
+    projectRoot: string;
+    cordova: {
+        platforms: string[];
+        plugins: string[];
+        version: string;
+    };
+    options: {
+        [key: string]: string | string[] | boolean;
+        argv: string[];
+        buildConfig: string;
+    };
+    verbose: boolean;
+    silent: boolean;
+    browserify: boolean;
+    fetch: boolean;
+    nohooks: any[];
+    searchpath: string | undefined;
+    save: boolean;
+    paths: string[];
+}
+
+interface CordovaHookContext {
+    /** The type of hook being run */
+    hook: CordovaHookType;
+    /** Absolute path to the hook script that is currently executing */
+    scriptLocation: string;
+    /** The CLI command that lead to this hook being executed */
+    cmdLine: string;
+    /** 
+     The options associated with the current operation.
+     WARNING: The contents of this object vary among the different
+     operations and are currently not documented anywhere.
+    */
+    opts: CordovaHookOptions;
+    /** Information about the plugin currently operated on
+        This object will only be passed to plugin hooks scripts.
+    */
+    plugin: {
+        id: string;
+        pluginInfo: any;
+        platform: string;
+        dir: string;
+    };
+    /** A reference to Cordova's API */
+    cordova: Cordova;
+    requireCordovaModule<T = any>(name: string): T;
+}
+
 interface CordovaPlugins {}
 
 interface Document {
