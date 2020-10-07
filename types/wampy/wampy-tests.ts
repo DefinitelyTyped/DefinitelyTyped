@@ -20,8 +20,14 @@ ws.options({
     onClose: () => console.log('See you next time!'),
     onError: () => console.log('Breakdown happened'),
     onReconnect: () => console.log('Reconnecting...'),
-    onReconnectSuccess: () => console.log('Successfully reconnected!')
+    onReconnectSuccess: () => console.log('Successfully reconnected!'),
+    urlValidation: 'loose',
 });
+
+ws.options({
+    // $ExpectError
+    urlValidation: 'wrong',
+})
 
 ws.connect();
 ws.connect('/my-socket-path');
