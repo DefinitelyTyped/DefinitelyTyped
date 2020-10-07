@@ -312,6 +312,12 @@ async function LocalAddress() {
     });
 }
 
+async function UriModifier() {
+    await needle('get', 'http://test.com/', null, {
+        uri_modifier: s => s.replace('test', ''),
+    });
+}
+
 function Multipart() {
     const buffer = fs.readFileSync('/path/to/package.zip');
 
