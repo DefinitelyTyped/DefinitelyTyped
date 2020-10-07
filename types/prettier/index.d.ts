@@ -588,6 +588,8 @@ export namespace doc {
              * @default false
              */
             useTabs: boolean;
+            parentParser?: string;
+            embeddedInHtml: boolean;
         }
     }
     namespace utils {
