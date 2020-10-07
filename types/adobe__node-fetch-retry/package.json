@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@adobe/node-fetch-retry": "^1.0.1"
+    }
+}
