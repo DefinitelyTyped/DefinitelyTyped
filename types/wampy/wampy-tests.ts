@@ -47,6 +47,10 @@ ws.subscribe('system.monitor.update', (args: DataArgs) =>
         console.log('Received client.message event!');
     });
 
+ws.subscribe('system.monitor.update', (args: DataArgs) => {}, { match: 'prefix' })
+// $ExpectError
+ws.subscribe('system.monitor.update', (args: DataArgs) => {}, { match: 'wrong' })
+
 let f1 = () => console.log('Subscribe processing!');
 
 ws.unsubscribe('subscribed.topic', f1);

@@ -92,6 +92,11 @@ declare namespace wampy {
         onError?: ErrorCallback;
     }
 
+    interface SubscribeAdvancedOptions
+    {
+        match?: "prefix" | "wildcard"
+    }
+
     interface AdvancedOptions
     {
         exclude?: number | number[];
@@ -169,7 +174,8 @@ declare namespace wampy {
         disconnect(): Wampy;
         abort(): Wampy;
         subscribe(topicURI: string,
-                  callbacks: EventCallback | SubscribeCallbacksHash): Wampy;
+                  callbacks: EventCallback | SubscribeCallbacksHash,
+                  advancedOptions?: SubscribeAdvancedOptions): Wampy;
         unsubscribe(topicURI: string,
                     callbacks?: EventCallback | UnsubscibeCallbacksHash): Wampy;
         publish(topicURI: string,
