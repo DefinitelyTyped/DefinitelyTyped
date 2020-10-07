@@ -72,7 +72,7 @@ export interface WorksheetGridRange {
     endColumnIndex: number;
 }
 
-export interface WorksheetGridProperties {
+export type WorksheetGridProperties = Partial<{
     rowCount: number;
     columnCount: number;
     frozenRowCount: number;
@@ -80,7 +80,7 @@ export interface WorksheetGridProperties {
     hideGridlines: boolean;
     rowGroupControlAfter: boolean;
     columnGroupControlAfter: boolean;
-}
+}>
 
 export interface DimensionRange {
     sheetId: number;
