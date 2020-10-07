@@ -78,11 +78,6 @@ declare namespace Button {
          * Used as the Tooltip text and `aria-label` if one is not provided.
          */
         label?: string;
-        /**
-         * When `true` will allow a disabled button to still be perceivable
-         * by screen reader users.
-         */
-        __experimentalIsFocusable?: boolean;
     }
     interface AnchorProps extends BaseProps, HTMLProps<HTMLAnchorElement> {}
     interface ButtonProps extends BaseProps, HTMLProps<HTMLButtonElement> {
