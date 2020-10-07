@@ -87,6 +87,7 @@ declare namespace mapboxgl {
         | 'number'
         | 'object'
         | 'string'
+        | 'image'
         | 'to-boolean'
         | 'to-color'
         | 'to-number'
