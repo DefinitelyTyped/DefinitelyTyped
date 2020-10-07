@@ -114,7 +114,7 @@ declare namespace core {
          * IP address. Passed to http/https request. Local interface from which the request should be emitted.
          */
         localAddress?: string;
-        
+
         /**
          * Anonymous function taking request (or redirect location if following redirects) URI as an argument and modifying it given logic.
          * It has to return a valid URI string for successful request.
