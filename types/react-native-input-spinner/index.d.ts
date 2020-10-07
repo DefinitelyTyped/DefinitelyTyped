@@ -55,5 +55,6 @@ export interface ReactNativeInputSpinnerProps {
     append?: React.ReactElement;
     prepend?: React.ReactElement;
     initialValue?: number;
+    buttonPressTextColor?: string;
 }
 export default class InputSpinner extends Component<ReactNativeInputSpinnerProps> { }
