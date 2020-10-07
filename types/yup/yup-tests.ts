@@ -827,6 +827,7 @@ const personSchema = yup.object({
         .boolean()
         .nullable()
         .notRequired(),
+	optionalString: yup.string(),
     mustBeAString: yup
         .string()
         .nullable(true)
@@ -918,6 +919,8 @@ person.gender = 1;
 person.firstName = null;
 // $ExpectError
 person.firstName = undefined;
+// $ExpectError
+person.optionalString = 1;
 // $ExpectError
 person.mustBeAString = null;
 // $ExpectError

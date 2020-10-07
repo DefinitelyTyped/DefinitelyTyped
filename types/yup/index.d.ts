@@ -106,14 +106,14 @@ export interface MixedSchema<T extends any = {} | null | undefined, C = object> 
         arrayOfValues: ReadonlyArray<U | Ref>,
         message?: MixedLocale['oneOf'],
     ): MixedSchema<MaintainOptionality<T, U>, C>;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): MixedSchema<U, C>;
+    test(options: TestOptions<Record<string, any>, C>): this;
     test<U extends T = T>(
         name: string,
         message: TestOptionsMessage,
         test: AssertingTestFunction<U, C>,
     ): MixedSchema<U, C>;
     test(name: string, message: TestOptionsMessage, test: TestFunction<unknown, C>): this;
-    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): MixedSchema<U, C>;
-    test(options: TestOptions<Record<string, any>, C>): this;
 }
 
 export interface StringSchemaConstructor {
