@@ -6,7 +6,6 @@
 // TypeScript Version: 2.6
 
 /// <reference types="jquery"/>
-/// <reference types="requirejs"/>
 
 export as namespace Select2;
 
@@ -169,6 +168,29 @@ export interface AjaxOptions<Result = DataFormat | GroupedDataFormat, RemoteResu
 }
 
 // --------------------------------------------------------------------------
+// Built-in AMD Loader
+// --------------------------------------------------------------------------
+
+export interface Select2Require {
+    config(config: Select2RequireConfig): Select2Require;
+    (module: string): any;
+    (modules: string[]): void;
+    (modules: string[], ready: (...modules: any[]) => void): void;
+    (modules: string[], ready: (...modules: any[]) => void, errback: (err: any) => void): void;
+}
+
+export interface Select2RequireConfig {
+    map?: {
+        [id: string]: {
+            [id: string]: string;
+        };
+    };
+    config?: { [id: string]: {}; };
+    deps?: string[];
+    callback?: (...modules: any[]) => void;
+}
+
+// --------------------------------------------------------------------------
 // Options
 // --------------------------------------------------------------------------
 
@@ -222,7 +244,7 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
 // --------------------------------------------------------------------------
 
 export interface Select2Plugin<TElement = HTMLElement>  {
-    amd: { require: Require; };
+    amd: { require: Select2Require; };
 
     defaults: {
         set: (key: string, value: any) => void;
