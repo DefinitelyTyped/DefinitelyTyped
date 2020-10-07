@@ -234,6 +234,10 @@ declare namespace core {
          * false by default.
          */
         follow_if_same_protocol?: boolean;
+        /**
+         * Unless true, Needle will not follow redirects that point to same location (as set in the response header) as the original request URL. false by default.
+         */
+        follow_if_same_location?: boolean;
     }
 
     interface KeyValue {
