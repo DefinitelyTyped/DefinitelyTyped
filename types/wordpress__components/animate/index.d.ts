@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode, CSSProperties } from 'react';
+import { ComponentType, ReactNode } from 'react';
 
 declare namespace Animate {
     interface BaseProps {
@@ -11,7 +11,23 @@ declare namespace Animate {
     interface AppearProps extends BaseProps {
         type: 'appear';
         options?: {
-            origin?: CSSProperties['transformOrigin'];
+            origin?:
+                | 'top'
+                | 'top left'
+                | 'top center'
+                | 'top right'
+                | 'middle'
+                | 'middle left'
+                | 'middle center'
+                | 'middle right'
+                | 'center'
+                | 'center left'
+                | 'center center'
+                | 'center right'
+                | 'bottom'
+                | 'bottom left'
+                | 'bottom center'
+                | 'bottom right';
         };
     }
 
