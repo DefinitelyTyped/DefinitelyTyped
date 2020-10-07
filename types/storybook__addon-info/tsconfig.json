@@ -13,8 +13,8 @@
         "jsx": "react",
         "typeRoots": ["../"],
         "paths": {
-            "@storybook/addon-info": [
-                "storybook__addon-info"
+            "@storybook/*": [
+                "storybook__*"
             ]
         },
         "types": [],

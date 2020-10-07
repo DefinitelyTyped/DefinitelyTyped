@@ -1,12 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "dt-header": false,
-        "eofline": false,
-        "no-redundant-jsdoc": false,
         "only-arrow-functions": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,

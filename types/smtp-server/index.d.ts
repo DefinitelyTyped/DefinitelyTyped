@@ -58,7 +58,7 @@ export interface SMTPServerAuthenticationResponse {
      * and this value is used later with the session data to identify the user.
      * If this value is empty, then the authentication is considered failed
      */
-    user: any;
+    user?: any;
     /**
      * an object to return if XOAUTH2 authentication failed (do not set the error object in this case).
      * This value is serialized to JSON and base64 encoded automatically, so you can just return the object

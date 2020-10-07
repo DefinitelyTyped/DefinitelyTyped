@@ -14,8 +14,8 @@
             "../"
         ],
         "paths": {
-            "@loadable/server": [
-                "loadable__server"
+            "@loadable/*": [
+                "loadable__*"
             ]
         },
         "types": [],

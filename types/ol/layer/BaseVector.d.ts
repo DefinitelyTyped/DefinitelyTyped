@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import Feature from '../Feature';
@@ -45,8 +45,8 @@ export default class BaseVectorLayer<
     getUpdateWhileAnimating(): boolean;
     getUpdateWhileInteracting(): boolean;
     setRenderOrder(renderOrder: OrderFunction | null | undefined): void;
-    setStyle(style: StyleLike | null | undefined): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    setStyle(opt_style?: StyleLike | null): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

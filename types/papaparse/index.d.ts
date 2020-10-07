@@ -32,7 +32,7 @@ export function unparse(data: object[] | any[][] | UnparseObject, config?: Unpar
  * Read-Only Properties
  */
 // An array of characters that are not allowed as delimiters.
-export const BAD_DELIMETERS: string[];
+export const BAD_DELIMITERS: string[];
 
 // The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for.
 export type RECORD_SEP_TYPE = '';

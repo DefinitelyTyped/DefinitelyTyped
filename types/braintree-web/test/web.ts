@@ -386,7 +386,7 @@ braintree.client.create(
             {
                 client: clientInstance,
             },
-            (createErr, paypalInstance) => {
+            (createErr, paypalInstance: braintree.PayPal) => {
                 if (createErr) {
                     if (createErr.code === 'PAYPAL_BROWSER_NOT_SUPPORTED') {
                         console.error('This browser is not supported.');
@@ -435,6 +435,59 @@ braintree.client.create(
                             }
                         },
                     );
+                });
+            },
+        );
+
+        braintree.paypal.create(
+            {
+                client: clientInstance,
+            },
+            (createErr, paypalInstance) => {
+                if (createErr) {
+                    if (createErr.code === 'PAYPAL_BROWSER_NOT_SUPPORTED') {
+                        console.error('This browser is not supported.');
+                    } else {
+                        console.error('Error!', createErr);
+                    }
+                }
+
+                const button = new HTMLButtonElement();
+
+                button.addEventListener('click', async () => {
+                    // Disable the button so that we don't attempt to open multiple popups.
+                    button.setAttribute('disabled', 'disabled');
+
+                    // Because PayPal tokenization opens a popup, this must be called
+                    // as a result of a user action, such as a button click.
+                    try {
+                        const payload = await paypalInstance.tokenize({
+                            flow: 'vault', // Required
+                            // Any other tokenization options
+                        });
+                        payload.nonce;
+                        // Submit payload.nonce to your server
+                    } catch (tokenizeErr /*braintree.BraintreeError*/) {
+                        // Handle tokenization errors or premature flow closure
+                        switch (tokenizeErr.code) {
+                            case 'PAYPAL_POPUP_CLOSED':
+                                console.error('Customer closed PayPal popup.');
+                                break;
+                            case 'PAYPAL_ACCOUNT_TOKENIZATION_FAILED':
+                                console.error('PayPal tokenization failed. See details:', tokenizeErr.details);
+                                break;
+                            case 'PAYPAL_FLOW_FAILED':
+                                console.error(
+                                    'Unable to initialize PayPal flow. Are your options correct?',
+                                    tokenizeErr.details,
+                                );
+                                break;
+                            default:
+                                console.error('Error!', tokenizeErr);
+                        }
+                    } finally {
+                        button.removeAttribute('disabled');
+                    }
                 });
             },
         );

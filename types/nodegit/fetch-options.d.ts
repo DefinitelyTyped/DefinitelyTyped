@@ -1,7 +1,7 @@
 import { RemoteCallbacks } from './remote-callbacks';
 import { Strarray } from './str-array';
 
-export interface FetchOptions {
+export class FetchOptions {
     version?: number;
     callbacks?: RemoteCallbacks;
     prune?: number;

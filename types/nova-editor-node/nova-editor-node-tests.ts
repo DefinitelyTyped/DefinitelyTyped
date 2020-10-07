@@ -37,18 +37,40 @@ nova.commands.register(
 
 nova.commands.invoke('apexskier.bar', 'foo');
 
-new CompletionItem('label', CompletionItemKind.Argument);
-
 // after 3.4: $ExpectType unknown
 nova.config.get('test');
 
 // $ExpectType string[] | null
 nova.config.get('test', 'array');
 
+/// https://novadocs.panic.com/api-reference/assistants-registry/
+
+nova.assistants.registerCompletionAssistant("foo", {
+    async provideCompletionItems(editor, context) {
+        // $ExpectType TextEditor
+        editor;
+        // $ExpectType CompletionContext
+        context;
+        return [completionItem];
+    }
+});
+
 /// https://novadocs.panic.com/api-reference/charset/
 
 const charset1 = new Charset('abcd1234');
 const charset2 = charset1.intersect(Charset.letters);
+
+/// https://docs.nova.app/api-reference/clipboard/
+
+// $ExpectType Promise<string>
+nova.clipboard.readText();
+
+/// https://novadocs.panic.com/api-reference/completion-item/
+
+const completionItem = new CompletionItem("label", CompletionItemKind.Struct);
+completionItem.insertTextFormat = InsertTextFormat.Snippet;
+completionItem.insertText = "text to insert";
+completionItem.commitChars = new Charset("-");
 
 /// https://novadocs.panic.com/api-reference/emitter/
 
@@ -99,6 +121,26 @@ nova.fs.moveAsync(
     },
     thisValue,
 );
+
+/// https://novadocs.panic.com/api-reference/issue-collection/
+
+class MyLinterClass {
+    issueCollection = new IssueCollection();
+
+    deliverResults(fileURI: string, issues: Issue[]) {
+        this.issueCollection.set(fileURI, issues);
+    }
+
+    // $ExpectType (fileURI: string) => boolean
+    hasIssues(fileURI: string) {
+        return this.issueCollection.has(fileURI);
+    }
+
+    // $ExpectType (fileURI: string) => ReadonlyArray<Issue>
+    getIssues(fileURI: string) {
+        return this.issueCollection.get(fileURI);
+    }
+}
 
 /// https://novadocs.panic.com/api-reference/issue-parser/
 

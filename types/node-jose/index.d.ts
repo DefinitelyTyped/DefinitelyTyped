@@ -353,7 +353,7 @@ export namespace util {
     function randomBytes(len: number): Buffer;
 
     namespace base64url {
-        function decode(base64url: string): string;
+        function decode(base64url: string): Buffer;
 
         function encode(buffer: string | Buffer, encoding?: string): string;
     }

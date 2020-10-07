@@ -21,6 +21,7 @@ export interface PushNotification {
     badge: number;
     alert: object;
     sound: string;
+    id: number;
     finish: (fetchResult: string) => void;
 }
 
@@ -60,6 +61,7 @@ export class PushNotificationObject {
     shortcutId?: string;
     channelId?: string;
     onlyAlertOnce?: boolean;
+    allowWhileIdle?: boolean;
 
     messageId?: string;
 
@@ -84,6 +86,7 @@ export class PushNotificationObject {
 
 export class PushNotificationScheduleObject extends PushNotificationObject {
     date: Date;
+    allowWhileIdle?: boolean;
 }
 
 export class PushNotificationDeliveredObject {

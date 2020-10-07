@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-any-union": false,
-        "no-redundant-jsdoc": false
+        "no-any-union": false
     }
 }
