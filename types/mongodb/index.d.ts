@@ -1103,11 +1103,11 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     estimatedDocumentCount(query: FilterQuery<TSchema>, options: MongoCountPreferences, callback: MongoCallback<number>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#find */
     find<T = TSchema>(query?: FilterQuery<TSchema>): Cursor<T>;
-    find<T = TSchema>(query: FilterQuery<TSchema>, options?: FindOneOptions<T extends TSchema ? TSchema : T>): Cursor<T>;
+    find<T = TSchema>(query: FilterQuery<TSchema>, options?: FindOneOptions<T>): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
-    findOne<T = TSchema>(filter: FilterQuery<TSchema>, callback: MongoCallback<T extends TSchema ? TSchema : T | null>): void;
-    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options?: FindOneOptions<T extends TSchema ? TSchema : T>): Promise<T | null>;
-    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options: FindOneOptions<T extends TSchema ? TSchema : T>, callback: MongoCallback<T extends TSchema ? TSchema : T | null>): void;
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, callback: MongoCallback<T | null>): void;
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options?: FindOneOptions<T>): Promise<T | null>;
+    findOne<T = TSchema>(filter: FilterQuery<TSchema>, options: FindOneOptions<T>, callback: MongoCallback<T | null>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndDelete */
     findOneAndDelete(filter: FilterQuery<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndDelete(filter: FilterQuery<TSchema>, options?: FindOneAndDeleteOption<TSchema>): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
