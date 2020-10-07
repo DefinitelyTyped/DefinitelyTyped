@@ -1,4 +1,4 @@
-import { getKarmaConfig } from 'grumbler-scripts/config/karma.conf';
+import karma, { getKarmaConfig } from 'grumbler-scripts/config/karma.conf';
 import {
     getCurrentVersion,
     getNextVersion,
@@ -29,4 +29,5 @@ const BASE_CONFIG: WebpackConfigOptions = {
 
 getWebpackConfig(BASE_CONFIG);
 
-(karma: object) => getKarmaConfig(karma, { basePath: 'foo', webpack: getWebpackConfig() });
+karma({});
+(k: any) => k.set(getKarmaConfig(k, { basePath: 'foo', webpack: getWebpackConfig() }));

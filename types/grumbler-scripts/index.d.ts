@@ -33,4 +33,5 @@ declare module 'grumbler-scripts/config/webpack.config' {
 
 declare module 'grumbler-scripts/config/karma.conf' {
     function getKarmaConfig(karma: object, cfg?: object): object;
+    export default function karma(karma: object): object;
 }
