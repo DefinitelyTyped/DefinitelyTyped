@@ -464,7 +464,7 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * @returns When no item is found, null is returned when a single item was requested,
    * and and empty Array is returned in case of multiple id's.
    */
-  get(id: IdType, options?: DataSelectionOptions<T>): T|null;
+  get(id: IdType, options?: DataSelectionOptions<T>): T | null;
 
   /**
    * Get multiple items from the DataSet.
@@ -1015,6 +1015,8 @@ export type NetworkEvents =
   'dragStart' |
   'dragging' |
   'dragEnd' |
+  'controlNodeDragging' |
+  'controlNodeDragEnd' |
   'hoverNode' |
   'blurNode' |
   'hoverEdge' |
@@ -1761,7 +1763,7 @@ export interface Options {
 
   clickToUse?: boolean;
 
-  configure?: any; // http://visjs.org/docs/network/configure.html#
+  configure?: NetworkConfigure;
 
   edges?: EdgeOptions;
 
@@ -1781,6 +1783,13 @@ export interface Options {
 export interface Image {
   unselected?: string;
   selected?: string;
+}
+
+export interface NetworkConfigure {
+  enabled?: boolean;
+  filter?: string | string[] | boolean; // please note, filter could be also a function. This case is not represented here
+  container?: HTMLElement; // SW TODO
+  showButton?: boolean;
 }
 
 export interface Color {
@@ -1895,22 +1904,41 @@ export interface EdgeOptions {
   arrows?: string | {
     to?: boolean | {
       enabled?: boolean,
+      imageHeight?: number,
+      imageWidth?: number,
       scaleFactor?: number,
+      src?: string,
       type?: string
     },
     middle?: boolean | {
       enabled?: boolean,
+      imageHeight?: number,
+      imageWidth?: number,
       scaleFactor?: number,
+      src?: string,
       type?: string
     },
     from?: boolean | {
       enabled?: boolean,
+      imageHeight?: number,
+      imageWidth?: number,
       scaleFactor?: number,
+      src?: string,
       type?: string
-    }
+    },
   };
 
+  endPointOffset?: {
+    from?: number,
+    to?: number
+  }
+
   arrowStrikethrough?: boolean;
+
+  chosen?: boolean | {
+    edge?: boolean, // please note, chosen.edge could be also a function. This case is not represented here
+    label?: boolean, // please note, chosen.label could be also a function. This case is not represented here
+  }
 
   color?: string | {
     color?: string,
@@ -1938,9 +1966,13 @@ export interface EdgeOptions {
     mono?: string | FontOptions,
   };
 
+  from?: number | string;
+
   hidden?: boolean;
 
   hoverWidth?: number; // please note, hoverWidth could be also a function. This case is not represented here
+
+  id?: string;
 
   label?: string;
 
@@ -1956,6 +1988,12 @@ export interface EdgeOptions {
 
   selfReferenceSize?: number;
 
+  selfReference?: {
+    size?: number,
+    angle?: number,
+    renderBehindTheNode?: boolean
+  }
+
   shadow?: boolean | OptionsShadow;
 
   smooth?: boolean | {
@@ -1967,9 +2005,15 @@ export interface EdgeOptions {
 
   title?: string;
 
+  to?: number | string;
+
   value?: number;
 
   width?: number;
+
+  widthConstraint?: number | boolean | {
+    maximum?: number;
+  }
 }
 
 export interface FontOptions {
@@ -1994,11 +2038,11 @@ export interface OptionsScaling {
 }
 
 export interface OptionsShadow {
-  enabled: boolean;
-  color: string;
-  size: number;
-  x: number;
-  y: number;
+  enabled?: boolean;
+  color?: string;
+  size?: number;
+  x?: number;
+  y?: number;
 }
 
 export as namespace vis;
