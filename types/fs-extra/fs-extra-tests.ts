@@ -256,6 +256,6 @@ const openDirTest = async (path: string, opts: fs.OpenDirOptions) => {
     await fs.opendir(path, opts); // $ExpectType Dir
 };
 
-fs.readdir("src").then((files: string[]) => {})
-fs.readdir("src", "buffer").then((files: Buffer[]) => {})
-fs.readdir("src", {withFileTypes: true}).then((files: fs.Dirent[]) => {})
+fs.readdir("src").then((files: string[]) => {});
+fs.readdir("src", "buffer").then((files: Buffer[]) => {});
+fs.readdir("src", {withFileTypes: true}).then((files: fs.Dirent[]) => {});

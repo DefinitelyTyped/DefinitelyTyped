@@ -197,7 +197,7 @@ export function opendir(path: string, options?: fs.OpenDirOptions): Promise<fs.D
 
 export function read<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null,
     callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void): void;
-export function read<TBuffer extends ArrayBufferView>(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+export function read<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
 
 export function readFile(file: PathLike | number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 export function readFile(file: PathLike | number, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
@@ -255,8 +255,14 @@ export function utimes(path: PathLike, atime: Date, mtime: Date, callback: (err:
 export function utimes(path: PathLike, atime: number, mtime: number): Promise<void>;
 export function utimes(path: PathLike, atime: Date, mtime: Date): Promise<void>;
 
-export function write<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
-export function write<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffer, offset: number, length: number, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+export function write<TBuffer extends ArrayBufferView>(
+    fd: number, buffer: TBuffer, offset: number, length: number, position: number | null,
+    callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void
+): void;
+export function write<TBuffer extends ArrayBufferView>(
+    fd: number, buffer: TBuffer, offset: number, length: number,
+    callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void
+): void;
 export function write(fd: number, data: any, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, data: any, offset: number, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, data: any, offset: number, encoding: string, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
