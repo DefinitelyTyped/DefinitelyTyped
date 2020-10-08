@@ -1,24 +1,40 @@
+// TODO: Is this exported????
 export { graphql } from 'relay-runtime';
-export { fetchQuery } from './relay-experimental/fetchQuery';
 
 export * from './relay-experimental/EntryPointTypes';
 
-export { EntryPointContainer } from './relay-experimental/EntryPointContainer';
-export { LazyLoadEntryPointContainer } from './relay-experimental/LazyLoadEntryPointContainer';
-export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentProvider';
+/* TODO: ❌ */ export type { MatchContainerProps, MatchPointer } from './relay-experimental/MatchContainer';
+/* TODO: ❌ */ export type { ProfilerContextType } from './relay-experimental/ProfilerContext';
+/* TODO: ❌ */ export type { Direction, LoadMoreFn } from './relay-experimental/useLoadMoreFunction';
+/* TODO: ❌ */ export type { UseMutationConfig } from './relay-experimental/useMutation';
+/* TODO: ❌ */ export type {
+    RefetchFn,
+    RefetchFnDynamic,
+    Options as RefetchOptions,
+} from './useRefetchableFragmentNode';
 
-export { loadQuery } from './relay-experimental/loadQuery';
+/* TODO: ❌ */ export { EntryPointContainer } from './relay-experimental/EntryPointContainer';
+/* TODO: ❌ */ export { LazyLoadEntryPointContainer_DEPRECATED } from './relay-experimental/LazyLoadEntryPointContainer_DEPRECATED';
+/* TODO: ❌ */ export { MatchContainer } from './relay-experimental/MatchContainer';
+/* TODO: ❌ */ export { ProfilerContext } from './relay-experimental/ProfilerContext';
+/* TODO: ❌ */ export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentProvider';
 
-export { preloadQuery } from './relay-experimental/preloadQuery';
-export { prepareEntryPoint } from './relay-experimental/prepareEntryPoint';
+/* TODO: ❌ */ export { fetchQuery } from './relay-experimental/fetchQuery';
 
-export { useBlockingPaginationFragment } from './relay-experimental/useBlockingPaginationFragment';
-export { useFragment } from './relay-experimental/useFragment';
-export { useLazyLoadQuery } from './relay-experimental/useLazyLoadQuery';
-export { useLegacyPaginationFragment as usePaginationFragment } from './relay-experimental/useLegacyPaginationFragment';
-export { useMutation } from './relay-experimental/useMutation';
-export { usePreloadedQuery } from './relay-experimental/usePreloadedQuery';
-export { useRefetchableFragment } from './relay-experimental/useRefetchableFragment';
-export { useRelayEnvironment } from './relay-experimental/useRelayEnvironment';
-export { useSubscription } from './relay-experimental/useSubscription';
-export { useQueryLoader } from './relay-experimental/useQueryLoader';
+/* TODO: ❌ */ export { loadQuery } from './relay-experimental/loadQuery';
+/* TODO: ❌ */ export { loadEntryPoint } from './relay-experimental/loadEntryPoint';
+
+/* TODO: ❌ */ export { prepareEntryPoint_DEPRECATED } from './relay-experimental/prepareEntryPoint_DEPRECATED';
+
+/* TODO: ❌ */ export { useBlockingPaginationFragment } from './relay-experimental/useBlockingPaginationFragment';
+/* TODO: ❌ */ export { useFragment } from './relay-experimental/useFragment';
+/* TODO: ❌ */ export { useLazyLoadQuery } from './relay-experimental/useLazyLoadQuery';
+/* TODO: ❌ */ export { useEntryPointLoader } from './relay-experimental/useEntryPointLoader';
+/* TODO: ❌ */ export { useQueryLoader } from './relay-experimental/useQueryLoader';
+/* TODO: ❌ */ export { useMutation } from './relay-experimental/useMutation';
+/* TODO: ❌ */ export { usePaginationFragment } from './relay-experimental/usePaginationFragment';
+/* TODO: ❌ */ export { usePreloadedQuery } from './relay-experimental/usePreloadedQuery';
+/* TODO: ❌ */ export { useRefetchableFragment } from './relay-experimental/useRefetchableFragment';
+/* TODO: ❌ */ export { useRelayEnvironment } from './relay-experimental/useRelayEnvironment';
+/* TODO: ❌ */ export { useSubscribeToInvalidationState } from './relay-experimental/useSubscribeToInvalidationState';
+/* TODO: ❌ */ export { useSubscription } from './relay-experimental/useSubscription';
