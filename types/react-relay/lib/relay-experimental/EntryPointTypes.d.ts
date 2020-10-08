@@ -33,18 +33,42 @@ export interface EnvironmentProviderOptions {
     [key: string]: unknown;
 }
 
-export interface PreloadedQuery<
+export type PreloadedQuery<
     TQuery extends OperationType,
     TEnvironmentProviderOptions = EnvironmentProviderOptions
-> {
-    readonly environment: IEnvironment;
-    readonly environmentProviderOptions: TEnvironmentProviderOptions | null | undefined;
-    readonly fetchKey: string | number | null | undefined;
-    readonly fetchPolicy: PreloadFetchPolicy;
-    readonly name: string;
-    readonly source: Observable<GraphQLResponse> | null | undefined;
-    readonly variables: TQuery['variables'];
-}
+> =
+    | PreloadedQueryInner_DEPRECATED<TQuery, TEnvironmentProviderOptions>
+    | PreloadedQueryInner<TQuery, TEnvironmentProviderOptions>;
+
+export type PreloadedQueryInner_DEPRECATED<
+    TQuery extends OperationType,
+    TEnvironmentProviderOptions = EnvironmentProviderOptions
+> = Readonly<{
+    environment: IEnvironment;
+    environmentProviderOptions: TEnvironmentProviderOptions | null | undefined;
+    fetchKey: string | number | null | undefined;
+    fetchPolicy: PreloadFetchPolicy;
+    name: string;
+    source: Observable<GraphQLResponse> | null | undefined;
+    variables: TQuery['variables'];
+}>;
+
+export type PreloadedQueryInner<
+    TQuery extends OperationType,
+    TEnvironmentProviderOptions = EnvironmentProviderOptions
+> = Readonly<{
+    dispose: () => void;
+    environment: IEnvironment;
+    environmentProviderOptions?: TEnvironmentProviderOptions | null;
+    fetchPolicy: PreloadFetchPolicy;
+    name: string;
+    id?: string | null;
+    isDisposed: boolean;
+    networkCacheConfig?: CacheConfig | null;
+    source?: Observable<GraphQLResponse> | null;
+    kind: 'PreloadedQuery';
+    variables: TQuery['variables']
+}>;
 
 /**
  * The Interface of the EntryPoints .entrypoint files
@@ -158,17 +182,3 @@ export type EntryPoint<TEntryPointParams, TEntryPointComponent> = InternalEntryP
 export interface IEnvironmentProvider<TOptions> {
     getEnvironment(options: TOptions | null): IEnvironment;
 }
-
-export type PreloadedQueryInner<TQuery extends OperationType, TEnvironmentProviderOptions extends EnvironmentProviderOptions = {}> = Readonly<{
-    dispose: () => void;
-    environment: IEnvironment;
-    environmentProviderOptions?: TEnvironmentProviderOptions | null;
-    fetchPolicy: PreloadFetchPolicy;
-    id?: string | null;
-    isDisposed: boolean;
-    name: string;
-    networkCacheConfig?: CacheConfig | null;
-    source?: Observable<GraphQLResponse> | null;
-    kind: 'PreloadedQuery';
-    variables: TQuery['variables']
-}>;
