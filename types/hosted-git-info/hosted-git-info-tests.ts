@@ -1,4 +1,4 @@
-import HostedGitInfo = require("hosted-git-info");
+import HostedGitInfo = require('hosted-git-info');
 
 HostedGitInfo.fromUrl('');
 const result = HostedGitInfo.fromUrl('', {});
@@ -21,8 +21,8 @@ result.file('', {});
 result.getDefaultRepresentation();
 result.toString({});
 
-new HostedGitInfo("github", "DefinitelyTyped", undefined, "DefinitelyTyped");
+new HostedGitInfo('github', 'DefinitelyTyped', undefined, 'DefinitelyTyped');
 
-new HostedGitInfo("github", "webpack-contrib", undefined, "copy-webpack-plugin", "40e6ae58", "https");
+new HostedGitInfo('github', 'webpack-contrib', undefined, 'copy-webpack-plugin', '40e6ae58', 'https');
 
-new HostedGitInfo("gitlab", "bagrounds", undefined, "monad-id", "6d3c759b", "docs");
+new HostedGitInfo('gitlab', 'bagrounds', undefined, 'monad-id', '6d3c759b', 'docs');
