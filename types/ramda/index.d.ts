@@ -221,7 +221,7 @@ export function assocPath<T, U>(path: Path): _.F.Curry<(a: T, b: U) => U>;
  * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
  * parameters. Any extraneous parameters will not be passed to the supplied function.
  */
-export function binary(fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
+export function binary<T extends (...arg: any) => any>(fn: T): (...arg: _.T.Take<Parameters<T>, '2'>) => ReturnType<T>;
 
 /**
  * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
