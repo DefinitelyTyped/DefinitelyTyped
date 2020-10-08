@@ -292,7 +292,7 @@ export namespace Rule {
         NewExpression?: (node: ESTree.NewExpression & NodeExtensions) => void;
         ObjectExpression?: (node: ESTree.ObjectExpression & NodeExtensions) => void;
         ObjectPattern?: (node: ESTree.ObjectPattern & NodeExtensions) => void;
-        Program?: (node: ESTree.Program & NodeExtensions) => void;
+        Program?: (node: ESTree.Program) => void;
         Property?: (node: ESTree.Property & NodeExtensions) => void;
         RestElement?: (node: ESTree.RestElement & NodeExtensions) => void;
         ReturnStatement?: (node: ESTree.ReturnStatement & NodeExtensions) => void;
