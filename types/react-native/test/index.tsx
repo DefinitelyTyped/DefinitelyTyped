@@ -611,7 +611,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
         if (this.scrollView) {
             this.scrollView.setNativeProps({ scrollEnabled: false });
 
-            // Dummy values for scroll dimenions changes
+            // Dummy values for scroll dimensions changes
             this.scrollView.getScrollResponder().scrollResponderZoomTo({
                 x: 0,
                 y: 0,
@@ -1044,7 +1044,7 @@ class AccessibilityTest extends React.Component {
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityState={{ checked: true }}
-                accessibilityHint="Very importent header"
+                accessibilityHint="Very important header"
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
@@ -1179,6 +1179,11 @@ const NativeIDTest = () => (
     </ScrollView>
 );
 
+const ScrollViewMaintainVisibleContentPositionTest = () => (
+    <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}>
+    </ScrollView>
+);
+
 const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
 
 const ShareTest = () => {
@@ -1301,7 +1306,7 @@ const OpaqueTest2 = () => (
     />
 );
 
-// Test you cannot ammend opaque type
+// Test you cannot amend opaque type
 PlatformColor('?attr/colorControlNormal').resource_paths.push('foo'); // $ExpectError
 
 const someColorProp: ColorValue = PlatformColor('test');
@@ -1519,4 +1524,18 @@ export class DrawerLayoutAndroidTest extends React.Component {
             </DrawerLayoutAndroid>
         );
     }
+}
+
+// DataDetectorType for Text component
+const DataDetectorTypeTest = () => {
+    return (
+        <>
+            <Text dataDetectorType={'all'}>http://test.com test@test.com +33123456789</Text>
+            <Text dataDetectorType={'email'}>test@test.com</Text>
+            <Text dataDetectorType={'link'}>http://test.com</Text>
+            <Text dataDetectorType={'none'}>Hi there !</Text>
+            <Text dataDetectorType={'phoneNumber'}>+33123456789</Text>
+            <Text dataDetectorType={null}>Must allow null value</Text>
+        </>
+    )
 }

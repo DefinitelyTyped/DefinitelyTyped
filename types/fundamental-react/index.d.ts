@@ -1,13 +1,16 @@
-// Type definitions for fundamental-react 0.9
+// Type definitions for fundamental-react 0.13
 // Project: https://sap.github.io/fundamental-react
 // Definitions by: Frank Feinbube <https://github.com/Feinbube>
 //                 Milan Proell <https://github.com/milanpro>
 //                 Sam Kvale <https://github.com/skvale>
+//                 Auryn Engel <https://github.com/auryn31>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.5
 
 export { default as ActionBar } from "./lib/ActionBar/ActionBar";
+export { default as Avatar } from "./lib/Avatar/Avatar";
 export { default as Breadcrumb } from "./lib/Breadcrumb/Breadcrumb";
+export { default as BusyIndicator } from "./lib/BusyIndicator/BusyIndicator";
 export { default as Button } from "./lib/Button/Button";
 export { default as ButtonGroup } from "./lib/Button/ButtonGroup";
 export { default as Calendar } from "./lib/Calendar/Calendar";
@@ -28,12 +31,12 @@ export { default as FormSelect } from "./lib/Forms/FormSelect";
 export { default as FormSet } from "./lib/Forms/FormSet";
 export { default as FormTextarea } from "./lib/Forms/FormTextarea";
 export { default as Icon } from "./lib/Icon/Icon";
-export { default as Identifier } from "./lib/Identifier/Identifier";
 export { default as Image } from "./lib/Image/Image";
 export { default as InfoLabel } from "./lib/InfoLabel/InfoLabel";
 export { default as InlineHelp } from "./lib/InlineHelp/InlineHelp";
 export { default as InputGroup } from "./lib/InputGroup/InputGroup";
 export { default as LayoutGrid } from "./lib/LayoutGrid/LayoutGrid";
+export { default as LayoutPanel } from "./lib/LayoutPanel/LayoutPanel";
 export { default as Link } from "./lib/Link/Link";
 export { default as List } from "./lib/List/List";
 export {
@@ -42,8 +45,8 @@ export {
 export { default as Menu } from "./lib/Menu/Menu";
 export { default as MessageStrip } from "./lib/MessageStrip/MessageStrip";
 export { default as MultiInput } from "./lib/MultiInput/MultiInput";
+export { default as ObjectStatus } from "./lib/ObjectStatus/ObjectStatus";
 export { default as Pagination } from "./lib/Pagination/Pagination";
-export { default as Panel } from "./lib/Panel/Panel";
 export { default as Popover } from "./lib/Popover/Popover";
 export { default as SearchInput } from "./lib/SearchInput/SearchInput";
 export { default as Select } from "./lib/Select/Select";
@@ -57,5 +60,6 @@ export { default as Table } from "./lib/Table/Table";
 export { default as Tile } from "./lib/Tile/Tile";
 export { default as Time } from "./lib/Time/Time";
 export { default as TimePicker } from "./lib/TimePicker/TimePicker";
+export { default as Title } from "./lib/Title/Title";
 export { default as Token } from "./lib/Token/Token";
 export { default as TreeView } from "./lib/TreeView/TreeView";

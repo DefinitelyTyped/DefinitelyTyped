@@ -49,7 +49,7 @@ declare namespace WebpackBar {
     color?: string;
     /** Enable the profiler for files and loaders */
     profile?: boolean;
-    /** Stream to rwite to */
+    /** Stream to write to */
     stream?: NodeJS.WriteStream;
     /** Minimal output */
     minimal?: boolean;

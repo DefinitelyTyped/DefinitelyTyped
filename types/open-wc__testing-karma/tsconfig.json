@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@open-wc/testing-karma": [
-                "open-wc__testing-karma"
+            "@open-wc/*": [
+                "open-wc__*"
             ]
         }
     },

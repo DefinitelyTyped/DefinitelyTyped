@@ -331,6 +331,10 @@ declare namespace Office {
      */
     function useShortNamespace(useShortNamespace: boolean): void;
     /**
+     * Provides a method for associating action names with functions that carry out an action.
+     */
+    const actions: Actions;
+    /**
      * Represents the add-in.
      */
     const addin: Addin;
@@ -522,6 +526,15 @@ declare namespace Office {
         value: T;
     }
     /**
+     * Used to associate an action name to a function.
+     */
+    interface Actions {
+        /**
+         * Function to associate a name with the action function.
+         */
+        associate: (actionName: string, action: (arg?: any) => void) => void;
+    }
+    /**
      * Message used in the `onVisibilityModeChanged` invocation.
      */
     interface VisibilityModeChangedMessage {
@@ -560,7 +573,7 @@ declare namespace Office {
         /**
          * Adds a listener for the `onVisbilityModeChanged` event.
          * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
-         * @returns A promise that resolves when the listener is added.
+         * @returns A promise that resolves to a function when the listener is added. The `RemoveEventListener` type is defined with `type RemoveEventListener = () => Promise<void>`. Calling it removes the listener.
          */
         onVisibilityModeChanged(
             listener: (message: VisibilityModeChangedMessage) => void,
@@ -1484,7 +1497,7 @@ declare namespace Office {
      */
     interface RemoveHandlerOptions {
         /**
-         * The handler to be removed. If not specified all handlers for the specified event type are removed.
+         * The handler to be removed. If a particular handler is not specified, then all handlers for the specified event type are removed. The `BindingEventHandler` type is defined with `type BindingEventHandler = (eventArgs?: Office.BindingDataChangedEventArgs | Office.BindingSelectionChangedEventArgs) => any`.
          */
         handler?: BindingEventHandler
         /**
@@ -14186,9 +14199,6 @@ declare namespace Office {
         /**
          * Gets the email address of the sender of a message.
          *
-         * The `from` and `sender` properties represent the same person unless the message is sent by a delegate.
-         * In that case, the `from` property represents the owner, and the `sender` property represents the delegate.
-         *
          * The `from` property returns a `From` object that provides a method to get the from value.
          *
          * [Api set: Mailbox 1.7]
@@ -14928,6 +14938,14 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
+         * **Important**: In Message Compose mode, this API is not supported in Outlook on the web or Windows unless the following conditions are met.
+         *
+         * 1. The owner shares at least one mailbox folder with the delegate.
+         *
+         * 2. The delegate drafts a message in the shared folder.
+         *
+         * After the message has been sent, it's usually found in the delegate's **Sent Items** folder.
+         *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
          *
@@ -14949,6 +14967,14 @@ declare namespace Office {
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * **Important**: In Message Compose mode, this API is not supported in Outlook on the web or Windows unless the following conditions are met.
+         *
+         * 1. The owner shares at least one mailbox folder with the delegate.
+         *
+         * 2. The delegate drafts a message in the shared folder.
+         *
+         * After the message has been sent, it's usually found in the delegate's **Sent Items** folder.
          *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
@@ -17823,13 +17849,16 @@ declare namespace Office {
         owner: string;
         /**
          * The REST API's base URL (currently https://outlook.office.com/api).
-         * Use with `targetMailbox` to construct REST operation's URL.
+         *
+         * Use with `targetMailbox` to construct the REST operation's URL.
          *
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
          */
         targetRestUrl: string;
         /**
-         * The target/owner's mailbox. Use with `targetRestUrl` to construct REST operation's URL.
+         * The location of the owner's mailbox for the delegate's access. This location may differ based on the Outlook client.
+         *
+         * Use with `targetRestUrl` to construct the REST operation's URL.
          *
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
          */

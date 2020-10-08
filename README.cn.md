@@ -474,7 +474,7 @@ TypeScript 手册包含了优秀的 [关于编写类型定义的概括信息](ht
 ```json
 {
     "paths":{
-      "@foo/bar": ["foo__bar"]
+      "@foo/*": ["foo__*"]
     }
 }
 ```

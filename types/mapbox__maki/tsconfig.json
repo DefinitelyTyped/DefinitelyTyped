@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@mapbox/maki": [
-                "mapbox__maki"
+            "@mapbox/*": [
+                "mapbox__*"
             ]
         },
         "types": [],

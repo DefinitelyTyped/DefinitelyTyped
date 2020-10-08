@@ -282,7 +282,7 @@ You can remove it by running `npm run not-needed -- typingsPackageName asOfVersi
 - `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
 
 Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
-You can get this list by looking at the errors from `npm run test`.
+You can get this list by looking at the errors from `npm run test-all`.
 To fix the errors, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
 For example:
 
@@ -295,7 +295,7 @@ For example:
 }
 ```
 
-When you add a `package.json` to dependents of `foo`, you will also need to open a PR to add `foo` [to dependenciesWhitelist.txt in types-publisher](https://github.com/Microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
+When you add a `package.json` to dependents of `foo`, you will also need to open a PR to add `foo` [to allowedPackageJsonDependencies.txt in DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
@@ -560,7 +560,7 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 ```json
 {
     "paths":{
-      "@foo/bar": ["foo__bar"]
+      "@foo/*": ["foo__*"]
     }
 }
 ```

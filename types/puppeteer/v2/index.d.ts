@@ -293,6 +293,19 @@ export interface MousePressOptions {
   clickCount?: number;
 }
 
+export interface MouseWheelOptions {
+    /**
+     * X delta in CSS pixels for mouse wheel event (default: 0). Positive values emulate a scroll up and negative values a scroll down event.
+     * @default 0
+     */
+    deltaX?: number;
+    /**
+     *  Y delta in CSS pixels for mouse wheel event (default: 0). Positive values emulate a scroll right and negative values a scroll left event.
+     * @default 0
+     */
+    deltaY?: number;
+}
+
 export interface Mouse {
   /**
    * Shortcut for `mouse.move`, `mouse.down` and `mouse.up`.
@@ -319,6 +332,11 @@ export interface Mouse {
    * @param options The mouse press options.
    */
   up(options?: MousePressOptions): Promise<void>;
+  /**
+   * Dispatches a `mousewheel` event.
+   * @param options The mouse wheel options.
+   */
+  wheel(options?: MouseWheelOptions): Promise<void>;
 }
 
 export interface Touchscreen {

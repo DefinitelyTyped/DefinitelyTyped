@@ -2,15 +2,8 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
-        "interface-name": false,
-        "jsdoc-format": false,
-        "no-padding": false,
-        "no-redundant-jsdoc": false,
-        "no-var-keyword": false,
-        "prefer-method-signature": false,
-        "semicolon": false
+        "no-var-keyword": false
     }
 }

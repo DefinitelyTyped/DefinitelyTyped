@@ -10,7 +10,7 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "paths": {
-            "@rgrove/parse-xml": ["rgrove__parse-xml"]
+            "@rgrove/*": ["rgrove__*"]
         },
         "typeRoots": [
             "../"

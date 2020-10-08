@@ -203,6 +203,7 @@ export type QueryResultRowType<ColumnName extends string = string> = {
 
 export type QueryAnyFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<Array<T[keyof T]>>;
 export type QueryAnyFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T[]>;
+export type QueryExistsFunctionType = (...args: QueryMethodParams<any>) => Promise<boolean>;
 export type QueryFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<QueryResultType<T>>;
 export type QueryManyFirstFunctionType = QueryAnyFirstFunctionType;
 export type QueryManyFunctionType = QueryAnyFunctionType;
@@ -214,6 +215,7 @@ export type QueryOneFunctionType = <T>(...args: QueryMethodParams<T>) => Promise
 export interface CommonQueryMethodsType {
     any: QueryAnyFunctionType;
     anyFirst: QueryAnyFirstFunctionType;
+    exists: QueryExistsFunctionType;
     many: QueryManyFunctionType;
     manyFirst: QueryManyFirstFunctionType;
     maybeOne: QueryMaybeOneFunctionType;

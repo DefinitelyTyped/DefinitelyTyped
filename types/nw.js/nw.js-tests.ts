@@ -349,3 +349,6 @@ nw.Window.get().on( 'new-win-policy', function ( frame, url, policy ) {
     // and open it in external browser
     nw.Shell.openExternal( url );
 });
+
+// Require a package
+var fs = nw.require('fs')

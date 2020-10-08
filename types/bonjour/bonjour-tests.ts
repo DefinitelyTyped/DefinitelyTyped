@@ -18,6 +18,6 @@ service = bonjourInstance.publish(serviceOptions);
 
 browserOptions = { protocol: 'tcp', type: 'http' };
 // Look for the server
-browser = bonjourInstance.findOne(browserOptions, (srv: bonjour.Service) => {
+browser = bonjourInstance.findOne(browserOptions, (srv: bonjour.RemoteService) => {
     // You can test here if the found server (srv) name is 'My Website'
 });

@@ -259,11 +259,14 @@ declare namespace jest {
          * const noClasses = getByTestId('no-classes')
          * expect(deleteButton).toHaveClass('btn')
          * expect(deleteButton).toHaveClass('btn-danger xs')
+         * expect(deleteButton).toHaveClass('btn xs btn-danger', {exact: true})
+         * expect(deleteButton).not.toHaveClass('btn xs btn-danger', {exact: true})
          * expect(noClasses).not.toHaveClass()
          * @see
          * [testing-library/jest-dom#tohaveclass](https:github.com/testing-library/jest-dom#tohaveclass)
          */
         toHaveClass(...classNames: string[]): R;
+        toHaveClass(classNames: string, options?: { exact: boolean }): R;
         /**
          * @description
          * This allows you to check whether the given form element has the specified displayed value (the one the

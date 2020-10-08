@@ -11,7 +11,7 @@
 import { ConnectionOptions } from 'typeorm';
 import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
-import { GenericObject, NextApiRequest, NextApiResponse } from './_utils';
+import { GenericObject, SessionBase, NextApiRequest, NextApiResponse } from './_utils';
 import { SessionProvider } from './client';
 import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
@@ -66,7 +66,7 @@ interface Cookies {
 
 interface Cookie {
     name: string;
-    options: CookieOptions;
+    options?: CookieOptions;
 }
 
 interface CookieOptions {
@@ -105,7 +105,7 @@ interface JWTOptions {
 interface Callbacks {
     signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean>;
     redirect?(url: string, baseUrl: string): Promise<string>;
-    session?(session: Session, user: GenericObject): Promise<GenericObject>;
+    session?(session: SessionBase, user: GenericObject): Promise<GenericObject>;
     jwt?(
         token: GenericObject,
         user: GenericObject,

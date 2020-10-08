@@ -115,7 +115,11 @@ import * as net from 'net';
     req.abort();
 
     // connection
-    req.connection.on('pause', () => { });
+    req.connection?.on('pause', () => { });
+
+    if (req.socket) {
+        req.socket.on("connect", () => {});
+    }
 
     // event
     req.on('data', () => { });

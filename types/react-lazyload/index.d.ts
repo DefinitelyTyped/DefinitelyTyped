@@ -1,4 +1,4 @@
-// Type definitions for react-lazyload ver 2.6
+// Type definitions for react-lazyload ver 3.0
 // Project: https://github.com/jasonslyvia/react-lazyload
 // Definitions by: m0a <https://github.com/m0a>
 //                 svobik7 <https://github.com/svobik7>
@@ -21,6 +21,7 @@ export interface LazyLoadProps {
     scrollContainer?: string | Element;
     unmountIfInvisible?: boolean;
     preventLoading?: boolean;
+    classNamePrefix?: string;
 }
 
 export default class LazyLoad extends Component<LazyLoadProps> {
@@ -30,3 +31,5 @@ export default class LazyLoad extends Component<LazyLoadProps> {
 export function lazyload(option: {}): LazyLoad;
 
 export function forceCheck(): void;
+
+export function forceVisible(): void;
