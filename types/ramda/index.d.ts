@@ -2148,7 +2148,6 @@ export function zipObj<K extends string>(keys: readonly K[]): <T>(values: readon
 export function zipObj<T, K extends number>(keys: readonly K[], values: readonly T[]): { [P in K]: T };
 export function zipObj<K extends number>(keys: readonly K[]): <T>(values: readonly T[]) => { [P in K]: T };
 
-
 /**
  * Creates a new list out of the two supplied by applying the function to each
  * equally-positioned pair in the lists.
