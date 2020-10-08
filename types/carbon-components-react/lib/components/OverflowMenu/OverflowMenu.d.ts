@@ -19,7 +19,6 @@ interface InheritedProps extends
     ThemeProps
 {
     ariaLabel?: React.AriaAttributes["aria-label"],
-    onClick?(e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void,
 }
 
 export type MenuOffsetValue = MenuOffsetData | GetMenuOffsetFn;
