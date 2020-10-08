@@ -959,7 +959,7 @@ function LoadQuery() {
 
     const variables: AppQueryVariables  = {
         id: "1"
-    }
+    };
 
     const dataWithoutExtraOptions = loadQuery<AppQuery>(environment, query, variables);
 
