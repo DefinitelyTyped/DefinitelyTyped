@@ -1,7 +1,7 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactLIAttr } from "../../../typings/shared";
+import { ReactLIAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactLIAttr, EmbeddedIconProps { }
+interface InheritedProps extends ReactLIAttr { }
 
 export interface HeadingClickData {
     event: React.MouseEvent<HTMLElement>;
@@ -9,6 +9,10 @@ export interface HeadingClickData {
 }
 
 export interface AccordionItemProps extends Omit<InheritedProps, "title"> {
+    /**
+     * @deprecated
+     */
+    iconDescription?: string;
     onHeadingClick?(data: HeadingClickData): void,
     open?: boolean,
     renderExpando?: React.ReactNode,
