@@ -1,4 +1,4 @@
-// Type definitions for vis.js 4.21
+// Type definitions for vis.js 8.3.2
 // Project: https://github.com/almende/vis, http://visjs.org
 // Definitions by: Michaël Bitard <https://github.com/MichaelBitard>
 //                 MacLeod Broad <https://github.com/macleodbroad-wf>

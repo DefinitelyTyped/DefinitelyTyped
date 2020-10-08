@@ -149,12 +149,12 @@ const positiveBalance = dataset.get({
 
 // DataGroup test
 const groups = [
-  {id: "1", content: "group 1", visible: true},
-  {id: "2", content: "group 2", visible: false},
-  {id: "3", content: "parent group", nestedGroups: [ "1", "2" ],  visible: false, showNested: true}
+  { id: "1", content: "group 1", visible: true },
+  { id: "2", content: "group 2", visible: false },
+  { id: "3", content: "parent group", nestedGroups: ["1", "2"], visible: false, showNested: true }
 ];
 
-const timelineContainer = <HTMLElement> document.getElementById('timeline');
+const timelineContainer = <HTMLElement>document.getElementById('timeline');
 const timeline = new vis.Timeline(timelineContainer, [], groups);
 
 //
@@ -179,7 +179,7 @@ const edges = new vis.DataSet([
 ]);
 
 // create a network
-const container = <HTMLElement> document.getElementById('mynetwork');
+const container = <HTMLElement>document.getElementById('mynetwork');
 
 // provide the data in the vis format
 const data2 = { nodes, edges };
@@ -235,24 +235,50 @@ network.setOptions(options);
 // should accept different formats of widthConstraint for NodeOptions
 //
 let nodeWidthConstraintOptions: NodeOptions = {
-    widthConstraint: {
-        maximum: 100
+  widthConstraint: {
+    maximum: 100
+  }
+};
+nodeWidthConstraintOptions = {
+  widthConstraint: false
+};
+nodeWidthConstraintOptions = {
+  widthConstraint: {
+    minimum: 1,
+    maximum: 5
+  }
+};
+nodeWidthConstraintOptions = {
+  widthConstraint: {
+    minimum: 1
+  }
+};
+nodeWidthConstraintOptions = {
+  widthConstraint: 150
+};
+
+
+// should accept different types of event names
+
+let networkEvent: vis.NetworkEvents = 'controlNodeDragEnd';
+networkEvent = 'controlNodeDragging';
+
+// Network Configure options
+let networkConfig: vis.NetworkConfigure = {
+  enabled: true,
+  filter: true,
+  showButton: true
+};
+
+networkConfig.enabled = false;
+
+// Testing new EdgeOptions
+
+let edgeArrow: vis.EdgeOptions = {
+  arrows: {
+    to: {
+      imageHeight: 50,
+      imageWidth: 50
     }
-};
-nodeWidthConstraintOptions = {
-    widthConstraint: false
-};
-nodeWidthConstraintOptions = {
-    widthConstraint: {
-        minimum: 1,
-        maximum: 5
-    }
-};
-nodeWidthConstraintOptions = {
-    widthConstraint: {
-        minimum: 1
-    }
-};
-nodeWidthConstraintOptions = {
-    widthConstraint: 150
+  }
 };
