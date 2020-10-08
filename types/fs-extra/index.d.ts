@@ -179,7 +179,7 @@ export function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => 
  *
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
-export function mkdir(path: PathLike, mode: Mode, callback: (err: NodeJS.ErrnoException) => void): void;
+export function mkdir(path: PathLike, options: Mode | fs.MakeDirectoryOptions | null, callback: (err: NodeJS.ErrnoException) => void): void;
 export function mkdir(path: PathLike): Promise<void>;
 
 export function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
@@ -194,9 +194,9 @@ export function opendir(
 ): void;
 export function opendir(path: string, options?: fs.OpenDirOptions): Promise<fs.Dir>;
 
-export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null,
-    callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
-export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): Promise<ReadResult>;
+export function read<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null,
+    callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void): void;
+export function read<TBuffer extends ArrayBufferView>(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
 
 export function readFile(file: PathLike | number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 export function readFile(file: PathLike | number, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
@@ -206,6 +206,7 @@ export function readFile(file: PathLike | number, options: { flag?: string; } | 
 export function readFile(file: PathLike | number, encoding: string): Promise<string>;
 export function readFile(file: PathLike | number): Promise<Buffer>;
 
+export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
 export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
 export function readdir(path: PathLike): Promise<string[]>;
 
@@ -251,13 +252,13 @@ export function utimes(path: PathLike, atime: Date, mtime: Date, callback: (err:
 export function utimes(path: PathLike, atime: number, mtime: number): Promise<void>;
 export function utimes(path: PathLike, atime: Date, mtime: Date): Promise<void>;
 
-export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
-export function write(fd: number, buffer: Buffer, offset: number, length: number, callback: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
+export function write<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+export function write<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffer, offset: number, length: number, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 export function write(fd: number, data: any, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, data: any, offset: number, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, data: any, offset: number, encoding: string, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-export function write(fd: number, buffer: Buffer, offset?: number, length?: number, position?: number | null): Promise<WriteResult>;
-export function write(fd: number, data: any, offset?: number, encoding?: string): Promise<WriteResult>;
+export function write<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffer, offset?: number, length?: number, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
+export function write(fd: number, data: any, offset?: number, encoding?: string): Promise<{ bytesWritten: number, buffer: string }>;
 
 export function writeFile(file: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(file: PathLike | number, data: any, options?: WriteFileOptions | string): Promise<void>;
@@ -291,6 +292,8 @@ export type SymlinkType = "dir" | "file";
 export type FsSymlinkType = "dir" | "file" | "junction";
 
 export type Mode = string | number;
+
+export type ArrayBufferView = NodeJS.TypedArray | DataView;
 
 export interface CopyOptions {
     dereference?: boolean;
@@ -333,16 +336,6 @@ export interface WriteOptions extends WriteFileOptions {
     replacer?: any;
     spaces?: number | string;
     EOL?: string;
-}
-
-export interface ReadResult {
-    bytesRead: number;
-    buffer: Buffer;
-}
-
-export interface WriteResult {
-    bytesWritten: number;
-    buffer: Buffer;
 }
 
 export interface WritevResult {
