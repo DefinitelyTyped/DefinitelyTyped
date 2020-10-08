@@ -11,7 +11,7 @@ declare class GitHost {
     auth?: string;
     project: string;
     committish?: string;
-    default: string;
+    default?: string;
     opts: GitHost.Options;
     protocols: string[];
     domain: string;
@@ -49,7 +49,7 @@ declare class GitHost {
     path(opts?: GitHost.FillOptions): string;
     tarball(opts?: GitHost.FillOptions): string;
     file(path: string, opts?: GitHost.FillOptions): string;
-    getDefaultRepresentation(): GitHost.Representation;
+    getDefaultRepresentation(): GitHost.Representation | undefined;
     toString(opts?: GitHost.FillOptions): string;
 }
 
