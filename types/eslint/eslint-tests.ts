@@ -381,10 +381,14 @@ rule = {
             onCodePathSegmentStart(segment, node) {},
             onCodePathSegmentEnd(segment, node) {},
             onCodePathSegmentLoop(fromSegment, toSegment, node) {},
-            IfStatement(node) {},
+            IfStatement(node) {
+                node.parent;
+            },
             WhileStatement(node: WhileStatement) {},
             'Program:exit'() {},
-            'MemberExpression[object.name="req"]': () => {},
+            'MemberExpression[object.name="req"]': (node: Rule.Node) => {
+                node.parent;
+            },
         };
     },
 };

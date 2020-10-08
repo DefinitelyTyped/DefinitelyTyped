@@ -246,92 +246,95 @@ export namespace Rule {
 
     type NodeTypes = ESTree.Node['type'];
     interface NodeListener {
-        ArrayExpression?: (node: ESTree.ArrayExpression) => void;
-        ArrayPattern?: (node: ESTree.ArrayPattern) => void;
-        ArrowFunctionExpression?: (node: ESTree.ArrowFunctionExpression) => void;
-        AssignmentExpression?: (node: ESTree.AssignmentExpression) => void;
-        AssignmentPattern?: (node: ESTree.AssignmentPattern) => void;
-        AwaitExpression?: (node: ESTree.AwaitExpression) => void;
-        BinaryExpression?: (node: ESTree.BinaryExpression) => void;
-        BlockStatement?: (node: ESTree.BlockStatement) => void;
-        BreakStatement?: (node: ESTree.BreakStatement) => void;
-        CallExpression?: (node: ESTree.CallExpression) => void;
-        CatchClause?: (node: ESTree.CatchClause) => void;
-        ChainExpression?: (node: ESTree.ChainExpression) => void;
-        ClassBody?: (node: ESTree.ClassBody) => void;
-        ClassDeclaration?: (node: ESTree.ClassDeclaration) => void;
-        ClassExpression?: (node: ESTree.ClassExpression) => void;
-        ConditionalExpression?: (node: ESTree.ConditionalExpression) => void;
-        ContinueStatement?: (node: ESTree.ContinueStatement) => void;
-        DebuggerStatement?: (node: ESTree.DebuggerStatement) => void;
-        DoWhileStatement?: (node: ESTree.DoWhileStatement) => void;
-        EmptyStatement?: (node: ESTree.EmptyStatement) => void;
-        ExportAllDeclaration?: (node: ESTree.ExportAllDeclaration) => void;
-        ExportDefaultDeclaration?: (node: ESTree.ExportDefaultDeclaration) => void;
-        ExportNamedDeclaration?: (node: ESTree.ExportNamedDeclaration) => void;
-        ExportSpecifier?: (node: ESTree.ExportSpecifier) => void;
-        ExpressionStatement?: (node: ESTree.ExpressionStatement) => void;
-        ForInStatement?: (node: ESTree.ForInStatement) => void;
-        ForOfStatement?: (node: ESTree.ForOfStatement) => void;
-        ForStatement?: (node: ESTree.ForStatement) => void;
-        FunctionDeclaration?: (node: ESTree.FunctionDeclaration) => void;
-        FunctionExpression?: (node: ESTree.FunctionExpression) => void;
-        Identifier?: (node: ESTree.Identifier) => void;
-        IfStatement?: (node: ESTree.IfStatement) => void;
-        ImportDeclaration?: (node: ESTree.ImportDeclaration) => void;
-        ImportDefaultSpecifier?: (node: ESTree.ImportDefaultSpecifier) => void;
-        ImportExpression?: (node: ESTree.ImportExpression) => void;
-        ImportNamespaceSpecifier?: (node: ESTree.ImportNamespaceSpecifier) => void;
-        ImportSpecifier?: (node: ESTree.ImportSpecifier) => void;
-        LabeledStatement?: (node: ESTree.LabeledStatement) => void;
-        Literal?: (node: ESTree.Literal) => void;
-        LogicalExpression?: (node: ESTree.LogicalExpression) => void;
-        MemberExpression?: (node: ESTree.MemberExpression) => void;
-        MetaProperty?: (node: ESTree.MetaProperty) => void;
-        MethodDefinition?: (node: ESTree.MethodDefinition) => void;
-        NewExpression?: (node: ESTree.NewExpression) => void;
-        ObjectExpression?: (node: ESTree.ObjectExpression) => void;
-        ObjectPattern?: (node: ESTree.ObjectPattern) => void;
-        Program?: (node: ESTree.Program) => void;
-        Property?: (node: ESTree.Property) => void;
-        RestElement?: (node: ESTree.RestElement) => void;
-        ReturnStatement?: (node: ESTree.ReturnStatement) => void;
-        SequenceExpression?: (node: ESTree.SequenceExpression) => void;
-        SpreadElement?: (node: ESTree.SpreadElement) => void;
-        Super?: (node: ESTree.Super) => void;
-        SwitchCase?: (node: ESTree.SwitchCase) => void;
-        SwitchStatement?: (node: ESTree.SwitchStatement) => void;
-        TaggedTemplateExpression?: (node: ESTree.TaggedTemplateExpression) => void;
-        TemplateElement?: (node: ESTree.TemplateElement) => void;
-        TemplateLiteral?: (node: ESTree.TemplateLiteral) => void;
-        ThisExpression?: (node: ESTree.ThisExpression) => void;
-        ThrowStatement?: (node: ESTree.ThrowStatement) => void;
-        TryStatement?: (node: ESTree.TryStatement) => void;
-        UnaryExpression?: (node: ESTree.UnaryExpression) => void;
-        UpdateExpression?: (node: ESTree.UpdateExpression) => void;
-        VariableDeclaration?: (node: ESTree.VariableDeclaration) => void;
-        VariableDeclarator?: (node: ESTree.VariableDeclarator) => void;
-        WhileStatement?: (node: ESTree.WhileStatement) => void;
-        WithStatement?: (node: ESTree.WithStatement) => void;
-        YieldExpression?: (node: ESTree.YieldExpression) => void;
+        ArrayExpression?: (node: ESTree.ArrayExpression & NodeExtensions) => void;
+        ArrayPattern?: (node: ESTree.ArrayPattern & NodeExtensions) => void;
+        ArrowFunctionExpression?: (node: ESTree.ArrowFunctionExpression & NodeExtensions) => void;
+        AssignmentExpression?: (node: ESTree.AssignmentExpression & NodeExtensions) => void;
+        AssignmentPattern?: (node: ESTree.AssignmentPattern & NodeExtensions) => void;
+        AwaitExpression?: (node: ESTree.AwaitExpression & NodeExtensions) => void;
+        BinaryExpression?: (node: ESTree.BinaryExpression & NodeExtensions) => void;
+        BlockStatement?: (node: ESTree.BlockStatement & NodeExtensions) => void;
+        BreakStatement?: (node: ESTree.BreakStatement & NodeExtensions) => void;
+        CallExpression?: (node: ESTree.CallExpression & NodeExtensions) => void;
+        CatchClause?: (node: ESTree.CatchClause & NodeExtensions) => void;
+        ChainExpression?: (node: ESTree.ChainExpression & NodeExtensions) => void;
+        ClassBody?: (node: ESTree.ClassBody & NodeExtensions) => void;
+        ClassDeclaration?: (node: ESTree.ClassDeclaration & NodeExtensions) => void;
+        ClassExpression?: (node: ESTree.ClassExpression & NodeExtensions) => void;
+        ConditionalExpression?: (node: ESTree.ConditionalExpression & NodeExtensions) => void;
+        ContinueStatement?: (node: ESTree.ContinueStatement & NodeExtensions) => void;
+        DebuggerStatement?: (node: ESTree.DebuggerStatement & NodeExtensions) => void;
+        DoWhileStatement?: (node: ESTree.DoWhileStatement & NodeExtensions) => void;
+        EmptyStatement?: (node: ESTree.EmptyStatement & NodeExtensions) => void;
+        ExportAllDeclaration?: (node: ESTree.ExportAllDeclaration & NodeExtensions) => void;
+        ExportDefaultDeclaration?: (node: ESTree.ExportDefaultDeclaration & NodeExtensions) => void;
+        ExportNamedDeclaration?: (node: ESTree.ExportNamedDeclaration & NodeExtensions) => void;
+        ExportSpecifier?: (node: ESTree.ExportSpecifier & NodeExtensions) => void;
+        ExpressionStatement?: (node: ESTree.ExpressionStatement & NodeExtensions) => void;
+        ForInStatement?: (node: ESTree.ForInStatement & NodeExtensions) => void;
+        ForOfStatement?: (node: ESTree.ForOfStatement & NodeExtensions) => void;
+        ForStatement?: (node: ESTree.ForStatement & NodeExtensions) => void;
+        FunctionDeclaration?: (node: ESTree.FunctionDeclaration & NodeExtensions) => void;
+        FunctionExpression?: (node: ESTree.FunctionExpression & NodeExtensions) => void;
+        Identifier?: (node: ESTree.Identifier & NodeExtensions) => void;
+        IfStatement?: (node: ESTree.IfStatement & NodeExtensions) => void;
+        ImportDeclaration?: (node: ESTree.ImportDeclaration & NodeExtensions) => void;
+        ImportDefaultSpecifier?: (node: ESTree.ImportDefaultSpecifier & NodeExtensions) => void;
+        ImportExpression?: (node: ESTree.ImportExpression & NodeExtensions) => void;
+        ImportNamespaceSpecifier?: (node: ESTree.ImportNamespaceSpecifier & NodeExtensions) => void;
+        ImportSpecifier?: (node: ESTree.ImportSpecifier & NodeExtensions) => void;
+        LabeledStatement?: (node: ESTree.LabeledStatement & NodeExtensions) => void;
+        Literal?: (node: ESTree.Literal & NodeExtensions) => void;
+        LogicalExpression?: (node: ESTree.LogicalExpression & NodeExtensions) => void;
+        MemberExpression?: (node: ESTree.MemberExpression & NodeExtensions) => void;
+        MetaProperty?: (node: ESTree.MetaProperty & NodeExtensions) => void;
+        MethodDefinition?: (node: ESTree.MethodDefinition & NodeExtensions) => void;
+        NewExpression?: (node: ESTree.NewExpression & NodeExtensions) => void;
+        ObjectExpression?: (node: ESTree.ObjectExpression & NodeExtensions) => void;
+        ObjectPattern?: (node: ESTree.ObjectPattern & NodeExtensions) => void;
+        Program?: (node: ESTree.Program & NodeExtensions) => void;
+        Property?: (node: ESTree.Property & NodeExtensions) => void;
+        RestElement?: (node: ESTree.RestElement & NodeExtensions) => void;
+        ReturnStatement?: (node: ESTree.ReturnStatement & NodeExtensions) => void;
+        SequenceExpression?: (node: ESTree.SequenceExpression & NodeExtensions) => void;
+        SpreadElement?: (node: ESTree.SpreadElement & NodeExtensions) => void;
+        Super?: (node: ESTree.Super & NodeExtensions) => void;
+        SwitchCase?: (node: ESTree.SwitchCase & NodeExtensions) => void;
+        SwitchStatement?: (node: ESTree.SwitchStatement & NodeExtensions) => void;
+        TaggedTemplateExpression?: (node: ESTree.TaggedTemplateExpression & NodeExtensions) => void;
+        TemplateElement?: (node: ESTree.TemplateElement & NodeExtensions) => void;
+        TemplateLiteral?: (node: ESTree.TemplateLiteral & NodeExtensions) => void;
+        ThisExpression?: (node: ESTree.ThisExpression & NodeExtensions) => void;
+        ThrowStatement?: (node: ESTree.ThrowStatement & NodeExtensions) => void;
+        TryStatement?: (node: ESTree.TryStatement & NodeExtensions) => void;
+        UnaryExpression?: (node: ESTree.UnaryExpression & NodeExtensions) => void;
+        UpdateExpression?: (node: ESTree.UpdateExpression & NodeExtensions) => void;
+        VariableDeclaration?: (node: ESTree.VariableDeclaration & NodeExtensions) => void;
+        VariableDeclarator?: (node: ESTree.VariableDeclarator & NodeExtensions) => void;
+        WhileStatement?: (node: ESTree.WhileStatement & NodeExtensions) => void;
+        WithStatement?: (node: ESTree.WithStatement & NodeExtensions) => void;
+        YieldExpression?: (node: ESTree.YieldExpression & NodeExtensions) => void;
     }
 
+    interface NodeExtensions { parent: Node; }
+    type Node = ESTree.Node & NodeExtensions;
+
     interface RuleListener extends NodeListener {
-        onCodePathStart?(codePath: CodePath, node: ESTree.Node): void;
+        onCodePathStart?(codePath: CodePath, node: Node): void;
 
-        onCodePathEnd?(codePath: CodePath, node: ESTree.Node): void;
+        onCodePathEnd?(codePath: CodePath, node: Node): void;
 
-        onCodePathSegmentStart?(segment: CodePathSegment, node: ESTree.Node): void;
+        onCodePathSegmentStart?(segment: CodePathSegment, node: Node): void;
 
-        onCodePathSegmentEnd?(segment: CodePathSegment, node: ESTree.Node): void;
+        onCodePathSegmentEnd?(segment: CodePathSegment, node: Node): void;
 
-        onCodePathSegmentLoop?(fromSegment: CodePathSegment, toSegment: CodePathSegment, node: ESTree.Node): void;
+        onCodePathSegmentLoop?(fromSegment: CodePathSegment, toSegment: CodePathSegment, node: Node): void;
 
         [key: string]:
-            | ((codePath: CodePath, node: ESTree.Node) => void)
-            | ((segment: CodePathSegment, node: ESTree.Node) => void)
-            | ((fromSegment: CodePathSegment, toSegment: CodePathSegment, node: ESTree.Node) => void)
-            | ((node: ESTree.Node) => void)
+            | ((codePath: CodePath, node: Node) => void)
+            | ((segment: CodePathSegment, node: Node) => void)
+            | ((fromSegment: CodePathSegment, toSegment: CodePathSegment, node: Node) => void)
+            | ((node: Node) => void)
             | NodeListener[keyof NodeListener]
             | undefined;
     }
