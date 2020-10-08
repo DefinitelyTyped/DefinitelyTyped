@@ -8,6 +8,7 @@
 //                 Sang Dang <https://github.com/sangdth>,
 //                 Florian Keller <https://github.com/ffflorian>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
