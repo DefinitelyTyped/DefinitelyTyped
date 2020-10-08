@@ -33,10 +33,8 @@ const testCases = [
     <input value={['one', 'two'] as ReadonlyArray<string>} />,
     <input value={['one', 'two'] as string[]} />,
     <input value={['one', 'two']} />,
-    <iframe
-        // Non-standard attribute.
-        // Use module augmentation if you need this attribute.
-        // $ExpectError
-        allowTransparency
-    />,
+    // Non-standard attribute.
+    // Use module augmentation if you need this attribute.
+    // $ExpectError
+    <iframe allowTransparency />,
 ];
