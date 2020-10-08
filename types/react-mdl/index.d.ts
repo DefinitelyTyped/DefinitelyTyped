@@ -37,7 +37,6 @@ declare namespace __ReactMDL {
         accessKey?: string;
         action?: string;
         allowFullScreen?: boolean;
-        allowTransparency?: boolean;
         alt?: string;
         async?: boolean;
         autoComplete?: string;

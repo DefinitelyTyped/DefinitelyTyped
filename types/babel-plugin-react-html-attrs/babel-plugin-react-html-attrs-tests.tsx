@@ -90,7 +90,6 @@ const htmlAttributesTest = (
 
         <iframe
             allowfullscreen
-            allowtransparency
             frameborder="0"
             marginheight="2"
             marginwidth="2"
@@ -98,7 +97,7 @@ const htmlAttributesTest = (
             seamless
             srcdoc="test"
         />
-        <iframe allowfullscreen="" allowtransparency="" seamless="" />
+        <iframe allowfullscreen="" seamless="" />
 
         <img crossorigin="anonymous" referrerpolicy="origin" srcset="test" usemap="test" tabindex="-1" />
 

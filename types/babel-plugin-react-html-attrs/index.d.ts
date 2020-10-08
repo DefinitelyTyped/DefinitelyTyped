@@ -1835,8 +1835,6 @@ declare namespace React {
         action?: string;
         allowFullScreen?: boolean;
         allowfullscreen?: boolean | string;
-        allowTransparency?: boolean;
-        allowtransparency?: boolean | string;
         alt?: string;
         as?: string;
         async?: boolean | string;
@@ -2103,8 +2101,6 @@ declare namespace React {
         allow?: string;
         allowFullScreen?: boolean;
         allowfullscreen?: boolean | string;
-        allowTransparency?: boolean;
-        allowtransparency?: boolean | string;
         frameBorder?: number | string;
         frameborder?: number | string;
         height?: number | string;
