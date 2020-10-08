@@ -91,7 +91,29 @@ declare module 'assert' {
         function match(value: string, regExp: RegExp, message?: string | Error): void;
         function doesNotMatch(value: string, regExp: RegExp, message?: string | Error): void;
 
-        const strict: typeof assert;
+        const strict: Omit<
+            typeof assert,
+            | 'strict'
+            | 'deepEqual'
+            | 'notDeepEqual'
+            | 'equal'
+            | 'notEqual'
+            | 'ok'
+            | 'strictEqual'
+            | 'deepStrictEqual'
+            | 'ifError'
+        > & {
+            (value: any, message?: string | Error): asserts value;
+            strict: typeof strict;
+            deepEqual: typeof deepStrictEqual;
+            notDeepEqual: typeof notDeepStrictEqual;
+            equal: typeof strictEqual;
+            notEqual: typeof notStrictEqual;
+            ok(value: any, message?: string | Error): asserts value;
+            strictEqual<T>(actual: any, expected: T, message?: string | Error): asserts actual is T;
+            deepStrictEqual<T>(actual: any, expected: T, message?: string | Error): asserts actual is T;
+            ifError(value: any): asserts value is null | undefined;
+        };
     }
 
     export = assert;
