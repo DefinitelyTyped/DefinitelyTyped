@@ -495,7 +495,7 @@ declare class Application<
      * Return a request handler callback
      * for node's native http/http2 server.
      */
-    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => Promise<void>;
+    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void;
 
     /**
      * Initialize a new context.
