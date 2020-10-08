@@ -36,7 +36,7 @@ const testCases = [
     <iframe
         // Non-standard attribute.
         // Use module augmentation if you need this attribute.
-        // @ts-expect-error
+        // $ExpectError
         allowTransparency
     />,
 ];
