@@ -2,6 +2,8 @@ import * as React from 'react';
 import {
     AccordionItem,
     Button,
+    CodeSnippet,
+    CodeSnippetType,
     Column,
     DataTable,
     DataTableCustomRenderProps,
@@ -140,6 +142,13 @@ const secondaryButtonT2 = (
 const secondaryButtonT3 = (
     <SecondaryButton as={ButtonCustomRenderComp1} someProp={6}>Secondary</SecondaryButton>
 )
+
+// CodeSnippet
+
+let codeSnippetType: CodeSnippetType = "inline";
+const inlineCodeSnippet = (<CodeSnippet type="inline" onClick={(e) => e.preventDefault()}>code</CodeSnippet>);
+const multiCodeSnippet = (<CodeSnippet type="multi" onBlur={(e) => e.preventDefault()}>code</CodeSnippet>)
+const codeSnippetTypeIsVariable = (<CodeSnippet type={codeSnippetType} onClick={(e) => e.preventDefault()}>code</CodeSnippet>);
 
 interface Row1 extends DataTableRow {
     rowProp: string;

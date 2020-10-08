@@ -1,5 +1,4 @@
-import * as React from "react";
-import { ReactDivAttr, ThemeProps } from "../../../typings/shared";
+import { ReactDivAttr, ThemeProps, FCProps, FCReturn } from "../../../typings/shared";
 import { CopyProps } from "../Copy";
 
 interface InheritedDivProps extends Omit<ReactDivAttr, "children"> { }
@@ -10,6 +9,7 @@ interface SharedProps extends ThemeProps {
     copyLabel?: string,
     copyButtonDescription?: string,
     feedback?: CopyProps["feedback"],
+    hideCopyButton?: boolean,
     showLessText?: string,
     showMoreText?: string,
 }
@@ -22,8 +22,9 @@ export interface CodeSnippetInlineProps extends SharedProps, InheritedInlineProp
     type: "inline",
 }
 
-export type AllCodeSnippetProps = CodeSnippetDivProps | CodeSnippetInlineProps;
+export type CodeSnippetType = CodeSnippetDivProps["type"] | CodeSnippetInlineProps["type"];
 
-declare const CodeSnippet: React.FC<AllCodeSnippetProps>;
+declare function CodeSnippet(props: FCProps<CodeSnippetInlineProps>): FCReturn;
+declare function CodeSnippet(props: FCProps<CodeSnippetDivProps>): FCReturn;
 
 export default CodeSnippet;
