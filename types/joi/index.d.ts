@@ -116,15 +116,17 @@ export interface HexOptions {
     byteAligned?: boolean;
 }
 
+type IpVersion = 'ipv4' | 'ipv6' | 'ipvfuture'
+
 export interface IpOptions {
     /**
-     * One or more IP address versions to validate against. Valid values: ipv4, ipv6, ipvfuture
+     * One or more IP address versions to validate against.
      */
-    version?: string | string[];
+    version?: IpVersion | IpVersion[];
     /**
-     * Used to determine if a CIDR is allowed or not. Valid values: optional, required, forbidden
+     * Used to determine if a CIDR is allowed or not.
      */
-    cidr?: string;
+    cidr?: 'optional' | 'required' | 'forbidden';
 }
 
 export type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5';
