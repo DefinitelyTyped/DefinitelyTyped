@@ -3,7 +3,7 @@
 // Definitions by: Nick Whitlock <https://github.com/eezstreet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type MediaValues = Record<
+type MediaValues = Record<
     | 'orientation'
 	| 'scan'
 	| 'width'
@@ -21,11 +21,11 @@ export type MediaValues = Record<
 >;
 
 declare class Mql {
-constructor(query:string, values: Partial<MediaValues>, forceStatic:boolean);
+constructor(query: string, values: Partial<MediaValues>, forceStatic: boolean);
 
-	addListener(listener: function | null): void;
+	// addListener(listener: Function | null): void;
 
-	removeListener(listener: function | null): void;
+	// removeListener(listener: Function | null): void;
 
 	update(evt: Mql): void;
 
@@ -36,5 +36,5 @@ constructor(query:string, values: Partial<MediaValues>, forceStatic:boolean);
 	media: string;
 }
 
-export function matchMedia(query:string, values: Partial<MediaValues>, forceStatic:boolean): Mql;
-
+declare function matchMedia(query: string, values?: Partial<MediaValues>, forceStatic?: boolean): Mql;
+export = matchMedia;
