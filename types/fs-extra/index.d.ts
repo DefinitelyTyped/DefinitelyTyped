@@ -207,8 +207,10 @@ export function readFile(file: PathLike | number, encoding: string): Promise<str
 export function readFile(file: PathLike | number): Promise<Buffer>;
 
 export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-export function readdir(path: PathLike): Promise<string[]>;
+export function readdir(path: PathLike, options?: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null): Promise<string[]>;
+export function readdir(path: PathLike, options: "buffer" | { encoding: "buffer"; withFileTypes?: false }): Promise<Buffer[]>;
+export function readdir(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false }): Promise<string[] | Buffer[]>;
+export function readdir(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Promise<fs.Dirent[]>;
 
 export function readlink(path: PathLike, callback: (err: NodeJS.ErrnoException, linkString: string) => any): void;
 export function readlink(path: PathLike): Promise<string>;
