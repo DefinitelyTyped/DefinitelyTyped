@@ -969,7 +969,7 @@ function LoadQuery() {
     });
 
     function ShouldPassIntoUsePreloadQuery({preloadedQuery}: {preloadedQuery: PreloadedQuery<AppQuery>}) {
-        const data = usePreloadedQuery<AppQuery>(query, preloadedQuery);
+        const data = usePreloadedQuery(query, preloadedQuery); // $ExpectType AppQueryResponse
 
         return <>{data.user.name}</>;
     }
