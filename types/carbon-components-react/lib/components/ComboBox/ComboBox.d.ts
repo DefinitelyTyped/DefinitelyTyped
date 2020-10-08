@@ -16,7 +16,7 @@ import { ListBoxSize } from "../ListBox/ListBoxPropTypes";
 type ExcludedAttributes = "id" | "onChange" | "placeholder" | "ref" | "size";
 interface InheritedProps<ItemType> extends
     Omit<ReactInputAttr, ExcludedAttributes>,
-    DownshiftTypedProps<ItemType>,
+    DownshiftTypedProps<ItemType | null | undefined>,
     InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey>,
     RequiresIdProps,
     ThemeProps,
@@ -33,9 +33,9 @@ extends InheritedProps<ItemType> {
     downshiftProps?: any, // TODO
     helperText?: React.ReactNode,
     initialSelectedItem?: ItemType;
-    items: ItemType[],
+    items: readonly ItemType[],
     itemToElement?: CustomElementProps extends object ? React.ComponentType<CustomElementProps> : never,
-    onChange?(data: { selectedItem?: ItemType | null }): void,
+    onChange?(data: { selectedItem: ItemType | null | undefined }): void,
     onInputChange?(inputValue?: string): void,
     selectedItem?: ItemType | null,
     shouldFilterItem?(item: ItemType, itemToString?: ComboBoxProps<ItemType>["itemToString"], inputValue?: string): void,
