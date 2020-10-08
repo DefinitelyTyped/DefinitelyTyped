@@ -29,13 +29,13 @@ export type NodeTerm = NodeField & {
         start: TermLocation;
         end: TermLocation;
     };
-}
+};
 
 export type NodeRangedTerm = NodeField & {
     inclusive: "both" | "none" | "left" | "right";
     term_max: string;
     term_min: string;
-}
+};
 
 export type Node =
     | NodeTerm
