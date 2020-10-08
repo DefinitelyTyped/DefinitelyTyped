@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class GitHost {
-    constructor(type: GitHost.Hosts, user: string, auth: string | undefined, project: string, committish?: string, defaultRepresentation?: string, opts?: GitHost.FillOptions);
+    constructor(type: GitHost.Hosts, user: string, auth: string | undefined, project: string, committish?: string, defaultRepresentation?: GitHost.Representation, opts?: GitHost.FillOptions);
 
     type: GitHost.Hosts;
     user: string;
@@ -49,7 +49,7 @@ declare class GitHost {
     path(opts?: GitHost.FillOptions): string;
     tarball(opts?: GitHost.FillOptions): string;
     file(path: string, opts?: GitHost.FillOptions): string;
-    getDefaultRepresentation(): string;
+    getDefaultRepresentation(): GitHost.Representation;
     toString(opts?: GitHost.FillOptions): string;
 }
 
@@ -70,6 +70,8 @@ declare namespace GitHost {
     }
 
     type Hosts = 'github' | 'bitbucket' | 'gitlab' | 'gist';
+
+    type Representation = 'hash' | 'ssh' | 'sshurl' | 'browse' | 'docs' | 'bugs' | 'https' | 'git' | 'shortcut' | 'path' | 'tarball' | 'file';
 }
 
 export = GitHost;
