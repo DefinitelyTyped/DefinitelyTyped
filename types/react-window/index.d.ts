@@ -22,18 +22,18 @@ export type Layout = "vertical" | "horizontal";
 export type ScrollDirection = "forward" | "backward";
 export type Align = "auto" | "smart" | "center" | "end" | "start";
 
-export interface ListChildComponentProps {
+export interface ListChildComponentProps<T = any> {
     index: number;
     style: CSSProperties;
-    data: any;
+    data: T;
     isScrolling?: boolean;
 }
 
-export interface GridChildComponentProps {
+export interface GridChildComponentProps<T = any> {
     columnIndex: number;
     rowIndex: number;
     style: CSSProperties;
-    data: any;
+    data: T;
     isScrolling?: boolean;
 }
 
