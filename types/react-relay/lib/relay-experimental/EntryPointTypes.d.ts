@@ -44,13 +44,17 @@ export type PreloadedQueryInner_DEPRECATED<
     TQuery extends OperationType,
     TEnvironmentProviderOptions = EnvironmentProviderOptions
 > = Readonly<{
+    kind: 'PreloadedQuery_DEPRECATED',
     environment: IEnvironment;
-    environmentProviderOptions: TEnvironmentProviderOptions | null | undefined;
-    fetchKey: string | number | null | undefined;
+    environmentProviderOptions?: TEnvironmentProviderOptions | null;
+    fetchKey?: string | number | null;
     fetchPolicy: PreloadFetchPolicy;
+    networkCacheConfig?: CacheConfig | null,
+    id?: string | null
     name: string;
-    source: Observable<GraphQLResponse> | null | undefined;
+    source?: Observable<GraphQLResponse> | null;
     variables: TQuery['variables'];
+    status: PreloadQueryStatus
 }>;
 
 export type PreloadedQueryInner<
@@ -61,13 +65,19 @@ export type PreloadedQueryInner<
     environment: IEnvironment;
     environmentProviderOptions?: TEnvironmentProviderOptions | null;
     fetchPolicy: PreloadFetchPolicy;
-    name: string;
     id?: string | null;
     isDisposed: boolean;
+    name: string;
     networkCacheConfig?: CacheConfig | null;
     source?: Observable<GraphQLResponse> | null;
     kind: 'PreloadedQuery';
     variables: TQuery['variables']
+}>;
+
+export type PreloadQueryStatus = Readonly<{
+    cacheConfig?: CacheConfig | null,
+    source: 'cache' | 'network',
+    fetchTime?: number | null,
 }>;
 
 /**
