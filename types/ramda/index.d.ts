@@ -2143,10 +2143,11 @@ export function zip<K>(list1: readonly K[]): <V>(list2: readonly V[]) => Array<K
  * Creates a new object out of a list of keys and a list of values.
  */
 // TODO: Dictionary<T> as a return value is to specific, any seems to loose
-export function zipObj<T>(keys: readonly string[], values: readonly T[]): { [index: string]: T };
-export function zipObj(keys: readonly string[]): <T>(values: readonly T[]) => { [index: string]: T };
-export function zipObj<T>(keys: readonly number[], values: readonly T[]): { [index: number]: T };
-export function zipObj(keys: readonly number[]): <T>(values: readonly T[]) => { [index: number]: T };
+export function zipObj<T, K extends string>(keys: readonly K[], values: readonly T[]): { [P in K]: T };
+export function zipObj<K extends string>(keys: readonly K[]): <T>(values: readonly T[]) => { [P in K]: T };
+export function zipObj<T, K extends number>(keys: readonly K[], values: readonly T[]): { [P in K]: T };
+export function zipObj<K extends number>(keys: readonly K[]): <T>(values: readonly T[]) => { [P in K]: T };
+
 
 /**
  * Creates a new list out of the two supplied by applying the function to each
