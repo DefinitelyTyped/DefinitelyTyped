@@ -9,9 +9,12 @@ interface ComposedModalInheritedProps extends Omit<ReactDivAttr, ExcludedAttribu
 
 export interface ComposedModalProps extends ComposedModalInheritedProps {
     containerClassName?: string,
+    danger?: boolean,
     onClose?(): boolean | void,
     open?: boolean,
+    preventCloseOnClickOutside?: boolean,
     selectedPrimaryFocus?: string,
+    selectorsFloatingMenus?: string,
     size?: CarbonSize,
 }
 
@@ -54,9 +57,11 @@ interface ModalFooterInheritedProps extends ReactDivAttr { }
 
 export interface ModalFooterProps extends ModalFooterInheritedProps {
     closeModal?: ButtonProps["onClick"];
+    danger?: boolean,
+    inputref?: any; // TODO
     primaryClassName?: string,
     primaryButtonText?: string,
-    primaryButtonDisabled?: string,
+    primaryButtonDisabled?: boolean,
     secondaryClassName?: string,
     secondaryButtonText?: string,
     onRequestClose?: ButtonProps["onClick"],
