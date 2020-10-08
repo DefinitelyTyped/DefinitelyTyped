@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-native-table-component-tests.ts",
-        "tests.tsx"
+        "react-native-table-component-tests.tsx"
     ]
 }
