@@ -1,7 +1,9 @@
 {
     "private": true,
+    "peerDependencies": {
+        "@jest/types": ">=24 && <=26"
+    },
     "dependencies": {
-        "@jest/types": ">=24 && <=26",
         "jest-environment-node": ">=24 && <=26"
     }
 }
