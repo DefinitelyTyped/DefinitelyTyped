@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class GitHost {
-    constructor(type: GitHost.Hosts, user: string, auth: string | undefined, project: string, committish: string | undefined, defaultRepresentation: string, opts?: GitHost.FillOptions);
+    constructor(type: GitHost.Hosts, user: string, auth: string | undefined, project: string, committish?: string, defaultRepresentation?: string, opts?: GitHost.FillOptions);
 
     type: GitHost.Hosts;
     user: string;

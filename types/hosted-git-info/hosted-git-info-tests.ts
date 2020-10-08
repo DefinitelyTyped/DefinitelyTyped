@@ -1,7 +1,7 @@
-import info = require("hosted-git-info");
+import HostedGitInfo = require("hosted-git-info");
 
-info.fromUrl('');
-const result = info.fromUrl('', {});
+HostedGitInfo.fromUrl('');
+const result = HostedGitInfo.fromUrl('', {});
 
 result.hashformat('');
 result.hash();
@@ -20,3 +20,7 @@ result.tarball({});
 result.file('', {});
 result.getDefaultRepresentation();
 result.toString({});
+
+new HostedGitInfo("github", "DefinitelyTyped", undefined, "DefinitelyTyped");
+
+new HostedGitInfo("github", "webpack-contrib", undefined, "copy-webpack-plugin", "40e6ae58", "https");
