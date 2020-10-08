@@ -5,35 +5,35 @@
 
 type MediaValues = Record<
     | 'orientation'
-	| 'scan'
-	| 'width'
-	| 'height'
-	| 'device-width'
-	| 'device-height'
-	| 'resolution'
-	| 'aspect-ratio'
-	| 'device-aspect-ratio'
-	| 'grid'
-	| 'color'
-	| 'color-index'
-	| 'monochrome',
-	unknown
+    | 'scan'
+    | 'width'
+    | 'height'
+    | 'device-width'
+    | 'device-height'
+    | 'resolution'
+    | 'aspect-ratio'
+    | 'device-aspect-ratio'
+    | 'grid'
+    | 'color'
+    | 'color-index'
+    | 'monochrome',
+    unknown
 >;
 
 declare class Mql {
 constructor(query: string, values: Partial<MediaValues>, forceStatic: boolean);
 
-	// addListener(listener: Function | null): void;
+    // addListener(listener: Function | null): void;
 
-	// removeListener(listener: Function | null): void;
+    // removeListener(listener: Function | null): void;
 
-	update(evt: Mql): void;
+    update(evt: Mql): void;
 
-	dispose(): void;
+    dispose(): void;
 
-	matches: boolean;
+    matches: boolean;
 
-	media: string;
+    media: string;
 }
 
 declare function matchMedia(query: string, values?: Partial<MediaValues>, forceStatic?: boolean): Mql;
