@@ -384,6 +384,7 @@ rule = {
             IfStatement(node) {},
             WhileStatement(node: WhileStatement) {},
             'Program:exit'() {},
+            'MemberExpression[object.name="req"]': () => {},
         };
     },
 };
