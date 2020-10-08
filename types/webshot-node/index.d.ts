@@ -38,8 +38,8 @@ declare namespace webshot {
         defaultWhiteBackground?: boolean;
         customCSS?: string;
         quality?: number;
-        streamType?:	'png' | 'jpg' | 'jpeg';
-        siteType?: 'url'	| 'file' | 'html';
+        streamType?: 'png' | 'jpg' | 'jpeg';
+        siteType?: 'url' | 'file' | 'html';
         renderDelay?: number;
         timeout?: number;
         takeShotOnCallback?: boolean;
