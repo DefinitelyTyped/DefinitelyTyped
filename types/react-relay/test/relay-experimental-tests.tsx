@@ -961,18 +961,23 @@ function LoadQuery() {
         id: "1"
     };
 
-    const dataWithoutExtraOptions = loadQuery<AppQuery>(environment, query, variables);
-
-    const dataWithOptions = loadQuery<AppQuery>(environment, query, variables, {
+    const preloadedQuery = loadQuery<AppQuery>(environment, query, variables, {
         fetchPolicy: 'store-or-network',
         networkCacheConfig: {
             force: true
         }
     });
 
-    function ShouldPassIntoUsePreloadQuery() {
-        const data = usePreloadedQuery<AppQuery>(query, dataWithOptions);
+    function ShouldPassIntoUsePreloadQuery({preloadedQuery}: {preloadedQuery: PreloadedQuery<AppQuery>}) {
+        const data = usePreloadedQuery<AppQuery>(query, preloadedQuery);
 
         return <>{data.user.name}</>;
+    }
+
+    // To depict some sort of running app
+    function App() {
+        return (
+            <ShouldPassIntoUsePreloadQuery preloadedQuery={preloadedQuery} />
+        );
     }
 }
