@@ -1817,7 +1817,6 @@ declare namespace React {
         acceptCharset?: string;
         action?: string;
         allowFullScreen?: boolean;
-        allowTransparency?: boolean;
         alt?: string;
         as?: string;
         async?: boolean;
@@ -2034,7 +2033,6 @@ declare namespace React {
     interface IframeHTMLAttributes<T> extends HTMLAttributes<T> {
         allow?: string;
         allowFullScreen?: boolean;
-        allowTransparency?: boolean;
         /** @deprecated */
         frameBorder?: number | string;
         height?: number | string;

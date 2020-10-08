@@ -26,9 +26,17 @@ const testCases = [
     <span autoCorrect="on" />,
     <span translate="no" />,
     <span translate="yes" />,
-    <svg><image crossOrigin="anonymous" /></svg>,
+    <svg>
+        <image crossOrigin="anonymous" />
+    </svg>,
     <details open={true} onToggle={() => {}} />,
     <input value={['one', 'two'] as ReadonlyArray<string>} />,
     <input value={['one', 'two'] as string[]} />,
-    <input value={['one', 'two']} />
+    <input value={['one', 'two']} />,
+    <iframe
+        // Non-standard attribute.
+        // Use module augmentation if you need this attribute.
+        // @ts-expect-error
+        allowTransparency
+    />,
 ];
