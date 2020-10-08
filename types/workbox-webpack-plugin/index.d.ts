@@ -301,7 +301,7 @@ export interface CommonOptions {
      * @default null
      * @example modifyURLPrefix: { '/dist': '' }
      */
-    c?: { [url: string]: string } | null;
+    modifyURLPrefix?: { [url: string]: string } | null;
 
     /**
      * One or more [`ManifestTransform`](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.ManifestTransform)
