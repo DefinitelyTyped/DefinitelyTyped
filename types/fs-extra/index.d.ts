@@ -126,8 +126,8 @@ export function appendFile(file: PathLike | number, data: any, options: { encodi
 export function appendFile(file: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 export function appendFile(file: PathLike | number, data: any, options?: { encoding?: string; mode?: number | string; flag?: string; }): Promise<void>;
 
-export function chmod(path: PathLike, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
-export function chmod(path: PathLike, mode: string | number): Promise<void>;
+export function chmod(path: PathLike, mode: Mode, callback: (err: NodeJS.ErrnoException) => void): void;
+export function chmod(path: PathLike, mode: Mode): Promise<void>;
 
 export function chown(path: PathLike, uid: number, gid: number): Promise<void>;
 export function chown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
@@ -135,8 +135,8 @@ export function chown(path: PathLike, uid: number, gid: number, callback: (err: 
 export function close(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
 export function close(fd: number): Promise<void>;
 
-export function fchmod(fd: number, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
-export function fchmod(fd: number, mode: string | number): Promise<void>;
+export function fchmod(fd: number, mode: Mode, callback: (err: NodeJS.ErrnoException) => void): void;
+export function fchmod(fd: number, mode: Mode): Promise<void>;
 
 export function fchown(fd: number, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
 export function fchown(fd: number, uid: number, gid: number): Promise<void>;
@@ -179,12 +179,12 @@ export function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => 
  *
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
-export function mkdir(path: PathLike, mode: number | string, callback: (err: NodeJS.ErrnoException) => void): void;
+export function mkdir(path: PathLike, mode: Mode, callback: (err: NodeJS.ErrnoException) => void): void;
 export function mkdir(path: PathLike): Promise<void>;
 
 export function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
-export function open(path: PathLike, flags: string | number, mode: number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
-export function open(path: PathLike, flags: string | number, mode?: number): Promise<number>;
+export function open(path: PathLike, flags: string | number, mode: Mode, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
+export function open(path: PathLike, flags: string | number, mode?: Mode | null): Promise<number>;
 
 export function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: fs.Dir) => void): void;
 export function opendir(
@@ -289,6 +289,8 @@ export type CopyFilterAsync = (src: string, dest: string) => Promise<boolean>;
 
 export type SymlinkType = "dir" | "file";
 export type FsSymlinkType = "dir" | "file" | "junction";
+
+export type Mode = string | number;
 
 export interface CopyOptions {
     dereference?: boolean;
