@@ -237,7 +237,7 @@ export interface TimelineOptions {
   horizontalScroll?: boolean;
   itemsAlwaysDraggable?: TimelineOptionsItemsAlwaysDraggableType;
   locale?: string;
-  locales?: any; // TODO
+  locales?: Locales;
   moment?: MomentConstructor;
   margin?: TimelineOptionsMarginType;
   max?: DateType;
@@ -685,7 +685,7 @@ export interface Graph2dOptions {
   hiddenDates?: any; // TODO
   legend?: Graph2dLegendOption;
   locale?: string;
-  locales?: any; // TODO
+  locales?: Locales;
   moment?: MomentConstructor;
   max?: DateType;
   maxHeight?: HeightWidthType;
@@ -1788,7 +1788,7 @@ export interface Image {
 export interface NetworkConfigure {
   enabled?: boolean;
   filter?: string | string[] | boolean; // please note, filter could be also a function. This case is not represented here
-  container?: HTMLElement; // SW TODO
+  container?: any;
   showButton?: boolean;
 }
 
@@ -1931,14 +1931,14 @@ export interface EdgeOptions {
   endPointOffset?: {
     from?: number,
     to?: number
-  }
+  };
 
   arrowStrikethrough?: boolean;
 
   chosen?: boolean | {
     edge?: boolean, // please note, chosen.edge could be also a function. This case is not represented here
     label?: boolean, // please note, chosen.label could be also a function. This case is not represented here
-  }
+  };
 
   color?: string | {
     color?: string,
@@ -1966,13 +1966,9 @@ export interface EdgeOptions {
     mono?: string | FontOptions,
   };
 
-  from?: number | string;
-
   hidden?: boolean;
 
   hoverWidth?: number; // please note, hoverWidth could be also a function. This case is not represented here
-
-  id?: string;
 
   label?: string;
 
@@ -1992,7 +1988,7 @@ export interface EdgeOptions {
     size?: number,
     angle?: number,
     renderBehindTheNode?: boolean
-  }
+  };
 
   shadow?: boolean | OptionsShadow;
 
@@ -2005,15 +2001,13 @@ export interface EdgeOptions {
 
   title?: string;
 
-  to?: number | string;
-
   value?: number;
 
   width?: number;
 
   widthConstraint?: number | boolean | {
     maximum?: number;
-  }
+  };
 }
 
 export interface FontOptions {
