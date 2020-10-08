@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ReactDivAttr } from "../../../typings/shared";
+import { ReactDivAttr, ThemeProps } from "../../../typings/shared";
 
-interface InheritedProps extends Omit<ReactDivAttr, "role"> { }
+interface InheritedProps extends Omit<ReactDivAttr, "role">, ThemeProps { }
 
 export interface ContentSwitcherProps extends InheritedProps {
     selectedIndex?: number,
