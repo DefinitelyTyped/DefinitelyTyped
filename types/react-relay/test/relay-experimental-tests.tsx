@@ -1079,6 +1079,101 @@ function EntryPointTests() {
     }
 
     /*
+    EntryPointContainerNested Tests
+     */
+    function EntryPointContainerNested() {
+        const entrypointA: EntryPoint<Params, typeof RootEntrypointComponent> = {
+            root: JSResource<typeof RootEntrypointComponent>(),
+            getPreloadProps(params) {
+                return {
+                    queries: {
+                        someQueryRef: {
+                            parameters: query as any,
+                            variables: {
+                                slug: params.slug,
+                            },
+                        },
+                    },
+                };
+            },
+        };
+        const entrypointB: EntryPoint<{ author: string }, typeof RootEntrypointComponent> = {
+            root: JSResource<typeof RootEntrypointComponent>(),
+            getPreloadProps(params) {
+                console.log(params.author);
+                return {
+                    queries: {
+                        someQueryRef: {
+                            parameters: query as any,
+                            variables: {
+                                slug: '/test',
+                            },
+                        },
+                    },
+                };
+            },
+        };
+
+        const SuperParentComponent: EntryPointComponent<
+            {},
+            { entrypointA: typeof entrypointA; entrypointB: typeof entrypointB },
+            {},
+            { foo: 'bar' }
+        > = ({ entryPoints, extraProps }) => {
+            const onClick = () => {
+                console.log(extraProps.foo);
+            };
+
+            return (
+                <>
+                    <EntryPointContainer
+                        entryPointReference={entryPoints.entrypointA}
+                        props={{
+                            onClick,
+                        }}
+                    />
+                    <EntryPointContainer
+                        entryPointReference={entryPoints.entrypointB}
+                        props={{
+                            onClick,
+                        }}
+                    />
+                </>
+            );
+        };
+
+        const entrypoint: EntryPoint<{}, typeof SuperParentComponent> = {
+            root: JSResource<typeof SuperParentComponent>(),
+            getPreloadProps() {
+                return {
+                    entryPoints: {
+                        entrypointA: {
+                            entryPoint: entrypointA,
+                            entryPointParams: {
+                                slug: 'hello',
+                            },
+                        },
+                        entrypointB: {
+                            entryPoint: entrypointB,
+                            entryPointParams: {
+                                author: 'world',
+                            },
+                        },
+                    },
+                    queries: {},
+                    extraProps: {
+                        foo: 'bar',
+                    },
+                };
+            },
+        };
+
+        const entrypointReference = loadEntryPoint(environmentProvider, entrypoint, {});
+
+        return <EntryPointContainer entryPointReference={entrypointReference} props={{}} />;
+    }
+
+    /*
     useEntryPointLoader Tests
      */
     function UseEntryPointLoaderTests() {

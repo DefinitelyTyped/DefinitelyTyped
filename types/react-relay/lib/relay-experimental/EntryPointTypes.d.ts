@@ -124,9 +124,24 @@ type ThinQueryParamsObject<TPreloadedQueries extends Record<string, OperationTyp
     [K in keyof TPreloadedQueries]: ThinQueryParams<TPreloadedQueries[K]>;
 };
 
+type ThinNestedEntryPointParamsObject<TPreloadedEntryPoints extends Record<string, EntryPoint<any, any>> = {}> = {
+    [K in keyof TPreloadedEntryPoints]: ThinNestedEntryPointParams<TPreloadedEntryPoints[K]>;
+};
+
 type PreloadedQueries<TPreloadedQueries> = TPreloadedQueries extends Record<string, OperationType>
     ? {
           [T in keyof TPreloadedQueries]: PreloadedQuery<TPreloadedQueries[T]>;
+      }
+    : never;
+
+type PreloadedEntryPoints<TPreloadedEntryPoints> = TPreloadedEntryPoints extends Record<
+    string,
+    InternalEntryPointRepresentation<any, any, any, any, any>
+>
+    ? {
+          [T in keyof TPreloadedEntryPoints]: PreloadedEntryPoint<
+              GetEntryPointComponentFromEntryPoint<TPreloadedEntryPoints[T]>
+          >;
       }
     : never;
 
@@ -134,10 +149,10 @@ type PreloadedQueries<TPreloadedQueries> = TPreloadedQueries extends Record<stri
 export interface PreloadProps<
     TPreloadParams extends {},
     TPreloadedQueries extends Record<string, OperationType>,
-    TPreloadedEntryPoints extends {},
+    TPreloadedEntryPoints extends Record<string, InternalEntryPointRepresentation<any, any, any, any, any>>,
     TExtraProps extends {}
 > extends Readonly<{
-        entryPoints?: TPreloadedEntryPoints;
+        entryPoints?: ThinNestedEntryPointParamsObject<TPreloadedEntryPoints>;
         extraProps?: TExtraProps;
         queries?: ThinQueryParamsObject<TPreloadedQueries>;
     }> {}
@@ -145,18 +160,18 @@ export interface PreloadProps<
 // The shape of the props of the entry point `root` component
 export interface EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>
     extends Readonly<{
-        entryPoints: TPreloadedEntryPoints;
-        extraProps: TExtraProps | null;
+        entryPoints: PreloadedEntryPoints<TPreloadedEntryPoints>;
+        extraProps: TExtraProps;
         props: TRuntimeProps;
         queries: PreloadedQueries<TPreloadedQueries>;
     }> {}
 
 // Type of the entry point `root` component
 export type EntryPointComponent<
-    TPreloadedQueries extends ThinQueryParamsObject,
-    TPreloadedEntryPoints extends {} = {},
+    TPreloadedQueries extends Record<string, OperationType>,
+    TPreloadedEntryPoints extends Record<string, InternalEntryPointRepresentation<any, any, any, any, any>>,
     TRuntimeProps extends {} = {},
-    TExtraProps = {}
+    TExtraProps extends {} | null = {}
 > = ComponentType<EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>>;
 
 // Return type of `loadEntryPoint(...)`
@@ -187,10 +202,10 @@ export interface ThinQueryParams<
         environmentProviderOptions?: TEnvironmentProviderOptions | null;
     }> {}
 
-export interface ThinNestedEntryPointParams<TEntryPointParams, TEntryPoint>
+export interface ThinNestedEntryPointParams<TEntryPoint>
     extends Readonly<{
         entryPoint: TEntryPoint;
-        entryPointParams: TEntryPointParams;
+        entryPointParams: GetEntryPointParamsFromEntryPointRepresentation<TEntryPoint>;
     }> {}
 
 export type EntryPoint<TEntryPointParams, TEntryPointComponent> = TEntryPointComponent extends EntryPointComponent<
@@ -208,6 +223,16 @@ export type EntryPoint<TEntryPointParams, TEntryPointComponent> = TEntryPointCom
       >
     : never;
 
+export interface IEnvironmentProvider<TOptions> {
+    getEnvironment(options: TOptions | null): IEnvironment;
+}
+
+// Helper types
+
+export type GetEntryPointParamsFromEntryPointRepresentation<
+    TEntryPointRepresentation
+> = TEntryPointRepresentation extends InternalEntryPointRepresentation<infer P, any, any, any, any> ? P : never;
+
 export type GetEntryPointComponentFromEntryPoint<TEntryPoint> = TEntryPoint extends InternalEntryPointRepresentation<
     infer TEntryPointParams,
     infer TPreloadedQueries,
@@ -217,7 +242,3 @@ export type GetEntryPointComponentFromEntryPoint<TEntryPoint> = TEntryPoint exte
 >
     ? EntryPointComponent<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>
     : never;
-
-export interface IEnvironmentProvider<TOptions> {
-    getEnvironment(options: TOptions | null): IEnvironment;
-}

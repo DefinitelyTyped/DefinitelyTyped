@@ -3,14 +3,12 @@ import type {
     IEnvironmentProvider,
     PreloadedEntryPoint,
     GetEntryPointComponentFromEntryPoint,
+    GetEntryPointParamsFromEntryPointRepresentation,
 } from './EntryPointTypes';
-import type { InternalEntryPointRepresentation } from './EntryPointTypes';
 
 type UseEntryPointLoaderHookType<TEntryPoint> = [
     PreloadedEntryPoint<GetEntryPointComponentFromEntryPoint<TEntryPoint>> | null | undefined,
-    (
-        entryPointParams: TEntryPoint extends InternalEntryPointRepresentation<infer P, any, any, any, any> ? P : never,
-    ) => void,
+    (entryPointParams: GetEntryPointParamsFromEntryPointRepresentation<TEntryPoint>) => void,
     () => void,
 ];
 
