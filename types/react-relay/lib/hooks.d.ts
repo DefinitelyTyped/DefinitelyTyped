@@ -4,7 +4,7 @@ export { graphql } from 'relay-runtime';
 export * from './relay-experimental/EntryPointTypes';
 
 export type { MatchContainerProps, MatchPointer } from './relay-experimental/MatchContainer';
-/* TODO: ❌ */ export type { ProfilerContextType } from './relay-experimental/ProfilerContext';
+export type { ProfilerContextType } from './relay-experimental/ProfilerContext';
 /* TODO: ❌ */ export type { Direction, LoadMoreFn } from './relay-experimental/useLoadMoreFunction';
 /* TODO: ❌ */ export type { UseMutationConfig } from './relay-experimental/useMutation';
 /* TODO: ❌ */ export type {
@@ -16,7 +16,7 @@ export type { MatchContainerProps, MatchPointer } from './relay-experimental/Mat
 /* TODO: ❌ */ export { EntryPointContainer } from './relay-experimental/EntryPointContainer';
 /* TODO: ❌ */ export { LazyLoadEntryPointContainer_DEPRECATED } from './relay-experimental/LazyLoadEntryPointContainer_DEPRECATED';
 export { MatchContainer } from './relay-experimental/MatchContainer';
-/* TODO: ❌ */ export { ProfilerContext } from './relay-experimental/ProfilerContext';
+export { ProfilerContext } from './relay-experimental/ProfilerContext';
 /* TODO: ❌ */ export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentProvider';
 
 /* TODO: ❌ */ export { fetchQuery } from './relay-experimental/fetchQuery';
