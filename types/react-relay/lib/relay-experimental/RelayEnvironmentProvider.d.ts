@@ -1,5 +1,5 @@
-import type { ProviderProps, ReactElement, ReactNode } from 'react';
-import type { IEnvironment, RelayContext } from 'relay-runtime';
+import { ProviderProps, ReactElement, ReactNode } from 'react';
+import { IEnvironment, RelayContext } from 'relay-runtime';
 
 export interface Props {
     children: ReactNode;

@@ -1,4 +1,4 @@
-import type {
+import {
     Disposable,
     FetchPolicy,
     IEnvironment,
@@ -9,7 +9,7 @@ import type {
     VariablesOf,
 } from 'relay-runtime';
 
-import type { KeyType } from './helpers';
+import { KeyType } from './helpers';
 
 export type RefetchFn<TQuery extends OperationType, TOptions = Options> = RefetchFnExact<TQuery, TOptions>;
 

@@ -1,4 +1,4 @@
-import type { ComponentType, ElementType, ReactNode } from 'react';
+import { ComponentType, ElementType, ReactNode } from 'react';
 
 /**
  * Renders the results of a data-driven dependency fetched with the `@match`

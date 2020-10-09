@@ -1,4 +1,4 @@
-import type { GraphQLSubscriptionConfig, OperationType } from 'relay-runtime';
+import { GraphQLSubscriptionConfig, OperationType } from 'relay-runtime';
 import { requestSubscription } from 'relay-runtime';
 
 export function useSubscription<TSubscriptionPayload extends OperationType>(

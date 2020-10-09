@@ -1,5 +1,5 @@
-import type { ComponentType } from 'react';
-import type {
+import { ComponentType } from 'react';
+import {
     CacheConfig,
     GraphQLResponse,
     IEnvironment,
@@ -9,7 +9,7 @@ import type {
     VariablesOf,
 } from 'relay-runtime';
 
-export type { VariablesOf } from 'relay-runtime';
+export { VariablesOf } from 'relay-runtime';
 
 export interface JSResourceReference<TModule> {
     getModuleId(): string;

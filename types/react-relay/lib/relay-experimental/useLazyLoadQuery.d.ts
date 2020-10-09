@@ -1,4 +1,4 @@
-import type {
+import {
     CacheConfig,
     FetchPolicy,
     GraphQLTaggedNode,
