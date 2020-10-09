@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/rest-client": [
-                "feathersjs__rest-client"
+            "@feathersjs/*": [
+                "feathersjs__*"
             ]
         }
     },

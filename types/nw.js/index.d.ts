@@ -1831,6 +1831,8 @@ namespace nw {
         open( url: string, option?: NWJS_Helpers.WindowOpenOption, callback?: ( new_win?: NWJS_Helpers.win ) => void ): void;
     }
 
+    export function require(id: string): any
+
     export var App: App;
     export var Clipboard: Clipboard;
     export var Screen: Screen;

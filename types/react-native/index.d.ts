@@ -43,7 +43,7 @@
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -336,14 +336,12 @@ export interface NativeMethods {
 
     /**
      * Like [`measure()`](#measure), but measures the view relative an ancestor,
-     * specified as `relativeToNativeNode`. This means that the returned x, y
+     * specified as `relativeToNativeComponentRef`. This means that the returned x, y
      * are relative to the origin x, y of the ancestor view.
-     *
-     * As always, to obtain a native node handle for a component, you can use
-     * `React.findNodeHandle(component)`.
+     * _Can also be called with a relativeNativeNodeHandle but is deprecated._
      */
     measureLayout(
-        relativeToNativeNode: number,
+        relativeToNativeComponentRef: HostComponent<unknown> | number,
         onSuccess: MeasureLayoutOnSuccessCallback,
         onFail: () => void /* currently unused */,
     ): void;
@@ -352,9 +350,9 @@ export interface NativeMethods {
      * This function sends props straight to native. They will not participate in
      * future diff process - this means that if you do not include them in the
      * next render, they will remain active (see [Direct
-     * Manipulation](docs/direct-manipulation.html)).
+     * Manipulation](https://reactnative.dev/docs/direct-manipulation)).
      */
-    setNativeProps(nativeProps: Object): void;
+    setNativeProps(nativeProps: object): void;
 
     /**
      * Requests focus for the given input or view. The exact behavior triggered
@@ -507,7 +505,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * Either children or a render prop that receives a boolean reflecting whether
      * the component is currently pressed.
      */
-    children: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode);
+    children?: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode);
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -811,6 +809,10 @@ interface SkewYTransform {
     skewY: string;
 }
 
+interface MatrixTransform {
+    matrix: number[];
+}
+
 export interface TransformsStyle {
     transform?: (
         | PerpectiveTransform
@@ -825,12 +827,31 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform
+        | MatrixTransform
     )[];
+    /**
+     * @deprecated Use matrix in transform prop instead.
+     */
     transformMatrix?: Array<number>;
+    /**
+     * @deprecated Use rotate in transform prop instead.
+     */
     rotation?: number;
+    /**
+     * @deprecated Use scaleX in transform prop instead.
+     */
     scaleX?: number;
+    /**
+     * @deprecated Use scaleY in transform prop instead.
+     */
     scaleY?: number;
+    /**
+     * @deprecated Use translateX in transform prop instead.
+     */
     translateX?: number;
+    /**
+     * @deprecated Use translateY in transform prop instead.
+     */
     translateY?: number;
 }
 
@@ -847,10 +868,25 @@ export interface LayoutRectangle {
 }
 
 // @see TextProps.onLayout
-export interface LayoutChangeEvent {
-    nativeEvent: {
-        layout: LayoutRectangle;
-    };
+export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle }>;
+
+interface TextLayoutLine {
+    ascender: number;
+    capHeight: number;
+    descender: number;
+    height: number;
+    text: string;
+    width: number;
+    x: number;
+    xHeight: number;
+    y: number;
+}
+
+/**
+ * @see TextProps.onTextLayout
+ */
+export interface TextLayoutEventData extends TargetedEvent {
+    lines: TextLayoutLine[];
 }
 
 export type FontVariant = 'small-caps' | 'oldstyle-nums' | 'lining-nums' | 'tabular-nums' | 'proportional-nums';
@@ -926,6 +962,12 @@ export interface TextPropsAndroid {
      * default is `highQuality`.
      */
     textBreakStrategy?: 'simple' | 'highQuality' | 'balanced';
+
+    /**
+     * Determines the types of data converted to clickable URLs in the text element.
+     * By default no data types are detected.
+     */
+    dataDetectorType?: null |'phoneNumber' | 'link' | 'email' | 'none' | 'all';
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
@@ -978,6 +1020,11 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
     onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
+     * Invoked on Text layout
+     */
+    onTextLayout?: (event: NativeSyntheticEvent<TextLayoutEventData>) => void;
+
+    /**
      * This function is called on press.
      * Text intrinsically supports press handling with a default highlight state (which can be disabled with suppressHighlighting).
      */
@@ -1028,7 +1075,7 @@ type DataDetectorTypes = 'phoneNumber' | 'link' | 'address' | 'calendarEvent' | 
  *
  * It is intended for use by AbstractTextEditor-based components for
  * identifying the appropriate start/end positions to modify the
- * DocumentContent, and for programatically setting browser selection when
+ * DocumentContent, and for programmatically setting browser selection when
  * components re-render.
  */
 export interface DocumentSelectionState extends EventEmitter {
@@ -1647,26 +1694,31 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
  */
 interface TextInputState {
     /**
+     * @deprecated Use currentlyFocusedInput
      * Returns the ID of the currently focused text field, if one exists
      * If no text field is focused it returns null
      */
     currentlyFocusedField(): number;
 
     /**
-     * @deprecated Use ref.focus instead
-     * @param TextInputID id of the text field to focus
+     * Returns the ref of the currently focused text field, if one exists
+     * If no text field is focused it returns null
+     */
+    currentlyFocusedInput(): React.ElementRef<HostComponent<unknown>>;
+
+    /**
+     * @param textField ref of the text field to focus
      * Focuses the specified text field
      * noop if the text field was already focused
      */
-    focusTextInput(textFieldID?: number): void;
+    focusTextInput(textField?: React.ElementRef<HostComponent<unknown>>): void;
 
     /**
-     * @deprecated Use ref.blur instead
-     * @param textFieldID id of the text field to focus
+     * @param textField ref of the text field to focus
      * Unfocuses the specified text field
      * noop if it wasn't focused
      */
-    blurTextInput(textFieldID?: number): void;
+    blurTextInput(textField?: React.ElementRef<HostComponent<unknown>>): void;
 }
 
 /**
@@ -2900,7 +2952,7 @@ export interface ActivityIndicatorIOSProps extends ViewProps {
     /**
      * Invoked on mount and layout changes with
      */
-    onLayout?: (event: { nativeEvent: { layout: { x: number; y: number; width: number; height: number } } }) => void;
+    onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * Size of the indicator.
@@ -2917,7 +2969,17 @@ export interface DatePickerIOSProps extends ViewProps {
     /**
      * The currently selected date.
      */
-    date: Date;
+    date?: Date | null;
+
+    /**
+     * Provides an initial value that will change when the user starts selecting
+     * a date. It is useful for simple use-cases where you do not want to deal
+     * with listening to events and updating the date prop to keep the
+     * controlled state in sync. The controlled state has known bugs which
+     * causes it to go out of sync with native. The initialDate prop is intended
+     * to allow you to have native be source of truth.
+     */
+    initialDate?: Date | null;
 
     /**
      * The date picker locale.
@@ -3009,9 +3071,10 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
 
     /**
      * Specifies the side of the screen from which the drawer will slide in.
-     * enum(DrawerLayoutAndroid.positions.Left, DrawerLayoutAndroid.positions.Right)
+     * - 'left' (the default)
+     * - 'right'
      */
-    drawerPosition?: number;
+    drawerPosition?: 'left' | 'right';
 
     /**
      * Specifies the width of the drawer, more precisely the width of the
@@ -4264,7 +4327,7 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     scrollToOffset: (params: { animated?: boolean | null; offset: number }) => void;
 
     /**
-     * Tells the list an interaction has occured, which should trigger viewability calculations,
+     * Tells the list an interaction has occurred, which should trigger viewability calculations,
      * e.g. if waitForInteractions is true and the user has not scrolled. This is typically called
      * by taps on items or by navigation actions.
      */
@@ -4998,7 +5061,7 @@ export interface ModalPropsAndroid {
     statusBarTranslucent?: boolean;
 }
 
-export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;
+export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid & ViewProps;
 
 export class Modal extends React.Component<ModalProps> {}
 
@@ -5421,7 +5484,7 @@ export namespace StyleSheet {
      * > **NOTE**: Exercise caution as abusing this can tax you in terms of
      * > optimizations.
      * >
-     * > IDs enable optimizations through the bridge and memory in general. Refering
+     * > IDs enable optimizations through the bridge and memory in general. Referring
      * > to style objects directly will deprive you of these optimizations.
      *
      * Example:
@@ -5634,7 +5697,7 @@ export interface ListViewDataSource {
     /**
      * Clones this `ListViewDataSource` with the specified `dataBlob` and
      * `rowIdentities`. The `dataBlob` is just an aribitrary blob of data. At
-     * construction an extractor to get the interesting informatoin was defined
+     * construction an extractor to get the interesting information was defined
      * (or the default was used).
      *
      * The `rowIdentities` is is a 2D array of identifiers for rows.
@@ -5759,7 +5822,7 @@ export interface TabBarIOSItemProps extends ViewProps {
 
     /**
      * Items comes with a few predefined system icons.
-     * Note that if you are using them, the title and selectedIcon will be overriden with the system ones.
+     * Note that if you are using them, the title and selectedIcon will be overridden with the system ones.
      *
      *  enum('bookmarks', 'contacts', 'downloads', 'favorites', 'featured', 'history', 'more', 'most-recent', 'most-viewed', 'recents', 'search', 'top-rated')
      */
@@ -5887,7 +5950,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web';
+export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web' | 'native';
 
 interface PlatformStatic {
     isTV: boolean;
@@ -6424,14 +6487,6 @@ export interface ScrollViewPropsIOS {
     contentInsetAdjustmentBehavior?: 'automatic' | 'scrollableAxes' | 'never' | 'always';
 
     /**
-     * A floating-point number that determines how quickly the scroll view
-     * decelerates after the user lifts their finger. Reasonable choices include
-     *   - Normal: 0.998 (the default)
-     *   - Fast: 0.9
-     */
-    decelerationRate?: 'fast' | 'normal' | number;
-
-    /**
      * When true the ScrollView will try to lock to only vertical or horizontal
      * scrolling while dragging.  The default value is false.
      */
@@ -6447,6 +6502,32 @@ export interface ScrollViewPropsIOS {
      */
     indicatorStyle?: 'default' | 'black' | 'white';
 
+    /**
+     * When set, the scroll view will adjust the scroll position so that the first child
+     * that is currently visible and at or beyond minIndexForVisible will not change position.
+     * This is useful for lists that are loading content in both directions, e.g. a chat thread,
+     * where new messages coming in might otherwise cause the scroll position to jump. A value
+     * of 0 is common, but other values such as 1 can be used to skip loading spinners or other
+     * content that should not maintain position.
+     *
+     * The optional autoscrollToTopThreshold can be used to make the content automatically scroll
+     * to the top after making the adjustment if the user was within the threshold of the top
+     * before the adjustment was made. This is also useful for chat-like applications where you
+     * want to see new messages scroll into place, but not if the user has scrolled up a ways and
+     * it would be disruptive to scroll a bunch.
+     *
+     * Caveat 1: Reordering elements in the scrollview with this enabled will probably cause
+     * jumpiness and jank. It can be fixed, but there are currently no plans to do so. For now,
+     * don't re-order the content of any ScrollViews or Lists that use this feature.
+     *
+     * Caveat 2: This uses contentOffset and frame.origin in native code to compute visibility.
+     * Occlusion, transforms, and other complexity won't be taken into account as to whether
+     * content is "visible" or not.
+     */
+    maintainVisibleContentPosition?: null | {
+        autoscrollToTopThreshold?: number | null;
+        minIndexForVisible: number;
+    };
     /**
      * The maximum allowed zoom scale. The default value is 1.0.
      */
@@ -6497,18 +6578,18 @@ export interface ScrollViewPropsIOS {
     scrollsToTop?: boolean;
 
     /**
+     * When `snapToInterval` is set, `snapToAlignment` will define the relationship of the the snapping to the scroll view.
+     *      - `start` (the default) will align the snap at the left (horizontal) or top (vertical)
+     *      - `center` will align the snap in the center
+     *      - `end` will align the snap at the right (horizontal) or bottom (vertical)
+     */
+    snapToAlignment?: 'start' | 'center' | 'end';
+
+    /**
      * Fires when the scroll view scrolls to top after the status bar has been tapped
      * @platform ios
      */
     onScrollToTop?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-    /**
-     * An array of child indices determining which children get docked to the
-     * top of the screen when scrolling. For example passing
-     * `stickyHeaderIndices={[0]}` will cause the first child to be fixed to the
-     * top of the scroll view. This property is not supported in conjunction
-     * with `horizontal={true}`.
-     */
-    stickyHeaderIndices?: number[];
 
     /**
      * The current scale of the scroll view content. The default value is 1.0.
@@ -6585,6 +6666,18 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      *   });
      */
     contentContainerStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * A floating-point number that determines how quickly the scroll view
+     * decelerates after the user lifts their finger. You may also use string
+     * shortcuts `"normal"` and `"fast"` which match the underlying iOS settings
+     * for `UIScrollViewDecelerationRateNormal` and
+     * `UIScrollViewDecelerationRateFast` respectively.
+     *
+     *  - `'normal'`: 0.998 on iOS, 0.985 on Android (the default)
+     *  - `'fast'`: 0.99 on iOS, 0.9 on Android
+     */
+    decelerationRate?: 'fast' | 'normal' | number,
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
@@ -6694,14 +6787,6 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     refreshControl?: React.ReactElement<RefreshControlProps>;
 
     /**
-     * When `snapToInterval` is set, `snapToAlignment` will define the relationship of the the snapping to the scroll view.
-     *      - `start` (the default) will align the snap at the left (horizontal) or top (vertical)
-     *      - `center` will align the snap in the center
-     *      - `end` will align the snap at the right (horizontal) or bottom (vertical)
-     */
-    snapToAlignment?: 'start' | 'center' | 'end';
-
-    /**
      * When set, causes the scroll view to stop at multiples of the value of `snapToInterval`.
      * This can be used for paginating through children that have lengths smaller than the scroll view.
      * Used in combination with `snapToAlignment` and `decelerationRate="fast"`. Overrides less
@@ -6718,18 +6803,27 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     snapToOffsets?: number[];
 
     /**
-     * Use in conjuction with `snapToOffsets`. By default, the beginning of the list counts as a
+     * Use in conjunction with `snapToOffsets`. By default, the beginning of the list counts as a
      * snap offset. Set `snapToStart` to false to disable this behavior and allow the list to scroll
      * freely between its start and the first `snapToOffsets` offset. The default value is true.
      */
     snapToStart?: boolean;
 
     /**
-     * Use in conjuction with `snapToOffsets`. By default, the end of the list counts as a snap
+     * Use in conjunction with `snapToOffsets`. By default, the end of the list counts as a snap
      * offset. Set `snapToEnd` to false to disable this behavior and allow the list to scroll freely
      * between its end and the last `snapToOffsets` offset. The default value is true.
      */
     snapToEnd?: boolean;
+
+    /**
+     * An array of child indices determining which children get docked to the
+     * top of the screen when scrolling. For example passing
+     * `stickyHeaderIndices={[0]}` will cause the first child to be fixed to the
+     * top of the scroll view. This property is not supported in conjunction
+     * with `horizontal={true}`.
+     */
+    stickyHeaderIndices?: number[];
 
     /**
      * When true, the scroll view stops on the next index (in relation to scroll position at release)
@@ -6779,7 +6873,7 @@ export class ScrollView extends ScrollViewBase {
      * implement this method so that they can be composed while providing access
      * to the underlying scroll responder's methods.
      */
-    getScrollResponder(): JSX.Element;
+    getScrollResponder(): ScrollResponderMixin;
 
     getScrollableNode(): any;
 
@@ -6790,6 +6884,14 @@ export class ScrollView extends ScrollViewBase {
      * @deprecated Use scrollTo instead
      */
     scrollWithoutAnimationTo?: (y: number, x: number) => void;
+
+    /**
+     * This function sends props straight to native. They will not participate in
+     * future diff process - this means that if you do not include them in the
+     * next render, they will remain active (see [Direct
+     * Manipulation](https://reactnative.dev/docs/direct-manipulation)).
+     */
+    setNativeProps(nativeProps: object): void;
 }
 
 export interface NativeScrollRectangle {
@@ -7218,13 +7320,15 @@ export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-passwo
  *      active - The app is running in the foreground
  *      background - The app is running in the background. The user is either in another app or on the home screen
  *      inactive [iOS] - This is a transition state that currently never happens for typical React Native apps.
+ *      unknown [iOS] - Initial value until the current app state is determined
+ *      extension [iOS] - The app is running as an app extension
  *
  * For more information, see Apple's documentation: https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html
  *
  * @see https://facebook.github.io/react-native/docs/appstate#app-states
  */
 export type AppStateEvent = 'change' | 'memoryWarning' | 'blur' | 'focus';
-export type AppStateStatus = 'active' | 'background' | 'inactive';
+export type AppStateStatus = 'active' | 'background' | 'inactive' | 'unknown' | 'extension';
 
 export interface AppStateStatic {
     currentState: AppStateStatus;
@@ -7434,7 +7538,7 @@ export interface CameraRollStatic {
      * On iOS, the tag can be one of the following:
      *      local URI
      *      assets-library tag
-     *      a tag not maching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
+     *      a tag not matching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
      *
      * @deprecated use saveToCameraRoll instead
      */
@@ -8412,7 +8516,7 @@ export interface UIManagerStatic {
      * commandID - Id of the native method that should be called.
      * commandArgs - Args of the native method that we can pass from JS to native.
      */
-    dispatchViewManagerCommand: (reactTag: number | null, commandID: number, commandArgs?: Array<any>) => void;
+    dispatchViewManagerCommand: (reactTag: number | null, commandID: number | string, commandArgs?: Array<any>) => void;
 }
 
 export interface SwitchPropsIOS extends ViewProps {
@@ -8518,7 +8622,7 @@ export class Switch extends SwitchBase {}
  * V(fixed) --wait(1s)--> V(fixed) --wait(2s)--> V(fixed) --wait(3s)--> V(fixed)
  */
 export interface VibrationStatic {
-    vibrate(pattern: number | number[], repeat?: boolean): void;
+    vibrate(pattern?: number | number[] | null, repeat?: boolean | null): void;
 
     /**
      * Stop vibration
@@ -8960,15 +9064,15 @@ export namespace Animated {
 
     type NonAnimatedProps = 'key' | 'ref';
 
-    export type AnimatedProps<T> =
-        | {
-              [key in keyof T]: key extends NonAnimatedProps ? T[key] : WithAnimatedValue<T[key]>;
-          }
-        | (T extends {
-              ref?: React.Ref<infer R>;
-          }
-              ? { ref?: React.Ref<LegacyRef<R>> }
-              : {});
+    type TAugmentRef<T> = T extends React.Ref<infer R> ? React.Ref<R | LegacyRef<R>> : never;
+
+    export type AnimatedProps<T> = {
+        [key in keyof T]: key extends NonAnimatedProps
+            ? key extends 'ref'
+                ? TAugmentRef<T[key]>
+                : T[key]
+            : WithAnimatedValue<T[key]>;
+    };
 
     export interface AnimatedComponent<T extends React.ComponentType<any>>
         extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}

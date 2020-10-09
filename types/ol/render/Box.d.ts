@@ -6,6 +6,7 @@ import PluggableMap from '../PluggableMap';
 export default class RenderBox extends Disposable {
     constructor(className: string);
     createOrUpdateGeometry(): void;
+    disposeInternal(): void;
     getGeometry(): Polygon;
     setMap(map: PluggableMap): void;
     setPixels(startPixel: Pixel, endPixel: Pixel): void;

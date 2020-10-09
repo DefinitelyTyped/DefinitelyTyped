@@ -134,7 +134,7 @@ declare namespace React {
      * inside your component or have to validate them.
      */
     interface Attributes {
-        key?: Key;
+        key?: Key | null;
     }
     interface RefAttributes<T> extends Attributes {
         ref?: Ref<T>;
@@ -475,12 +475,12 @@ declare namespace React {
         // TODO (TypeScript 3.0): unknown
         context: any;
 
-        constructor(props: Readonly<P>);
+        constructor(props: Readonly<P> | P);
         /**
          * @deprecated
          * @see https://reactjs.org/docs/legacy-context.html
          */
-        constructor(props: P, context?: any);
+        constructor(props: P, context: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
@@ -545,6 +545,16 @@ declare namespace React {
 
     interface FunctionComponent<P = {}> {
         (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
+        propTypes?: WeakValidationMap<P>;
+        contextTypes?: ValidationMap<any>;
+        defaultProps?: Partial<P>;
+        displayName?: string;
+    }
+
+    type VFC<P = {}> = VoidFunctionComponent<P>;
+
+    interface VoidFunctionComponent<P = {}> {
+        (props: P, context?: any): ReactElement<any, any> | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -905,7 +915,7 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#usestate
      */
     function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
-    // convenience overload when first argument is ommitted
+    // convenience overload when first argument is omitted
     /**
      * Returns a stateful value, and a function to update it.
      *
@@ -956,7 +966,7 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#usereducer
      */
     // overload where "I" may be a subset of ReducerState<R>; used to provide autocompletion.
-    // If "I" matches ReducerState<R> exactly then the last overload will allow initializer to be ommitted.
+    // If "I" matches ReducerState<R> exactly then the last overload will allow initializer to be omitted.
     // the last overload effectively behaves as if the identity function (x => x) is the initializer.
     function useReducer<R extends Reducer<any, any>, I>(
         reducer: R,
@@ -1200,6 +1210,7 @@ declare namespace React {
 
     interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
+        /** @deprecated */
         charCode: number;
         ctrlKey: boolean;
         /**
@@ -1210,6 +1221,7 @@ declare namespace React {
          * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
          */
         key: string;
+        /** @deprecated */
         keyCode: number;
         locale: string;
         location: number;
@@ -1686,7 +1698,7 @@ declare namespace React {
          * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
          * @see aria-atomic.
          */
-        'aria-relevant'?: 'additions' | 'additions text' | 'all' | 'removals' | 'text';
+        'aria-relevant'?: 'additions' | 'additions removals' | 'additions text' | 'all' | 'removals' | 'removals additions' | 'removals text' | 'text' | 'text additions' | 'text removals';
         /** Indicates that user input is required on the element before a form may be submitted. */
         'aria-required'?: boolean | 'false' | 'true';
         /** Defines a human-readable, author-localized description for the role of an element. */
@@ -2023,14 +2035,18 @@ declare namespace React {
         allow?: string;
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
+        /** @deprecated */
         frameBorder?: number | string;
         height?: number | string;
         loading?: "eager" | "lazy";
+        /** @deprecated */
         marginHeight?: number;
+        /** @deprecated */
         marginWidth?: number;
         name?: string;
         referrerPolicy?: string;
         sandbox?: string;
+        /** @deprecated */
         scrolling?: string;
         seamless?: boolean;
         src?: string;

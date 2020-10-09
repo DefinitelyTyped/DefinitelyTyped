@@ -117,9 +117,9 @@ import webpack = require('webpack');
     },
     // Increase the limit to 4mb:
     maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
-    dontCacheBustUrlsMatching: /\.\w{8}\./,
+    dontCacheBustURLsMatching: /\.\w{8}\./,
     mode: 'production',
-    modifyUrlPrefix: {
+    modifyURLPrefix: {
       // Remove a '/dist' prefix from the URLs:
       '/dist': ''
     },
@@ -184,9 +184,9 @@ import webpack = require('webpack');
     },
     // Increase the limit to 4mb:
     maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
-    dontCacheBustUrlsMatching: /\.\w{8}\./,
+    dontCacheBustURLsMatching: /\.\w{8}\./,
     mode: 'production',
-    modifyUrlPrefix: {
+    modifyURLPrefix: {
       // Remove a '/dist' prefix from the URLs:
       '/dist': ''
     },

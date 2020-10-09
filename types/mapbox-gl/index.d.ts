@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.11
+// Type definitions for Mapbox GL JS 1.12
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -73,8 +73,8 @@ declare namespace mapboxgl {
 
     type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
 
-    type LngLatLike = LngLat | { lng: number; lat: number } | { lon: number; lat: number } | [number, number];
-    type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number];
+    type LngLatLike = [number, number] | LngLat | { lng: number; lat: number } | { lon: number; lat: number } | [number, number];
+    type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number] | LngLatLike;
     type PointLike = Point | [number, number];
 
     type ExpressionName =
@@ -251,7 +251,7 @@ declare namespace mapboxgl {
          */
         queryRenderedFeatures(
             pointOrBox?: PointLike | [PointLike, PointLike],
-            options?: { layers?: string[]; filter?: any[]; validate?: boolean },
+            options?: { layers?: string[]; filter?: any[] } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
         /**
@@ -269,8 +269,7 @@ declare namespace mapboxgl {
             parameters?: {
                 sourceLayer?: string;
                 filter?: any[];
-                validate?: boolean;
-            },
+            } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
         setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean; localIdeographFontFamily?: string }): this;
@@ -315,7 +314,7 @@ declare namespace mapboxgl {
 
         getLayer(id: string): mapboxgl.Layer;
 
-        setFilter(layer: string, filter?: any[] | boolean | null): this;
+        setFilter(layer: string, filter?: any[] | boolean | null, options?: FilterOptions | null): this;
 
         setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -421,6 +420,8 @@ declare namespace mapboxgl {
         rotateTo(bearing: number, options?: mapboxgl.AnimationOptions, eventData?: EventData): this;
 
         resetNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
+
+        resetNorthPitch(options?: mapboxgl.AnimationOptions | null, eventData?: mapboxgl.EventData | null): this;
 
         snapToNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
@@ -1076,12 +1077,30 @@ declare namespace mapboxgl {
         | RasterSource
         | RasterDemSource;
 
+    interface VectorSourceImpl extends VectorSource {
+        /**
+         * Sets the source `tiles` property and re-renders the map.
+         *
+         * @param {string[]} tiles An array of one or more tile source URLs, as in the TileJSON spec.
+         * @returns {VectorTileSource} this
+         */
+        setTiles(tiles: ReadonlyArray<string>): VectorSourceImpl;
+
+        /**
+         * Sets the source `url` property and re-renders the map.
+         *
+         * @param {string} url A URL to a TileJSON resource. Supported protocols are `http:`, `https:`, and `mapbox://<Tileset ID>`.
+         * @returns {VectorTileSource} this
+         */
+        setUrl(url: string): VectorSourceImpl;
+    }
+
     export type AnySourceImpl =
         | GeoJSONSource
         | VideoSource
         | ImageSource
         | CanvasSource
-        | VectorSource
+        | VectorSourceImpl
         | RasterSource
         | RasterDemSource;
 
@@ -1148,6 +1167,8 @@ declare namespace mapboxgl {
         generateId?: boolean;
 
         promoteId?: PromoteIdSpecification;
+
+        filter?: any;
     }
 
     /**
@@ -1648,6 +1669,18 @@ declare namespace mapboxgl {
     }
 
     /**
+     * FilterOptions
+     */
+    export interface FilterOptions {
+        /**
+         * Whether to check if the filter conforms to the Mapbox GL Style Specification.
+         * Disabling validation is a performance optimization that should only be used
+         * if you have previously validated the values you will be passing to this function.
+         */
+        validate?: boolean | null;
+    }
+
+    /**
      * AnimationOptions
      */
     export interface AnimationOptions {
@@ -1731,6 +1764,7 @@ declare namespace mapboxgl {
         error: ErrorEvent;
 
         load: MapboxEvent;
+        idle: MapboxEvent;
         remove: MapboxEvent;
         render: MapboxEvent;
         resize: MapboxEvent;

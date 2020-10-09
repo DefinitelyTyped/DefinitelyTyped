@@ -17,6 +17,7 @@ export default class ReprojTile extends Tile {
         getTileFunction: FunctionType,
         opt_errorThreshold?: number,
         opt_renderEdges?: boolean,
+        opt_contextOptions?: any,
     );
     getImage(): HTMLCanvasElement;
     load(): void;

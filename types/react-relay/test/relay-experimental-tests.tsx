@@ -15,6 +15,7 @@ import {
     RelayEnvironmentProvider,
     useRelayEnvironment,
     preloadQuery,
+    PreloadedQuery,
     usePreloadedQuery,
     useLazyLoadQuery,
     useFragment,
@@ -23,6 +24,8 @@ import {
     useBlockingPaginationFragment,
     useMutation,
     useSubscription,
+    useQueryLoader,
+    loadQuery
 } from 'react-relay/hooks';
 
 const source = new RecordSource();
@@ -879,4 +882,102 @@ function Subscription() {
 
         return <p>The subscription has been started in the background.</p>;
     };
+}
+
+/**
+ * Tests for useQueryLoader
+ * see https://relay.dev/docs/en/experimental/api-reference#usequeryloader
+ */
+function QueryLoader() {
+    const query = graphql`
+        query AppQuery($id: ID!) {
+            user(id: $id) {
+                name
+            }
+        }
+    `;
+
+    const [queryReference, loadQuery, disposeQuery] = useQueryLoader<AppQuery>(query);
+
+    function QueryFetcherExample(): React.ReactElement {
+        React.useEffect(() => {
+            loadQuery({ id: 'EXAMPLE' });
+            return disposeQuery;
+        });
+
+        return (
+            <>
+                {queryReference != null && (
+                    <>
+                        <React.Suspense fallback="Loading">
+                            <NameDisplay queryReference={queryReference} />
+                        </React.Suspense>
+                    </>
+                )}
+            </>
+        );
+    }
+
+    function NameDisplay({ queryReference }: { queryReference: PreloadedQuery<AppQuery> }) {
+        const data = usePreloadedQuery(query, queryReference);
+
+        if (data.user) {
+            return <h1>{data.user.name}</h1>;
+        } else {
+            return null;
+        }
+    }
+}
+
+/**
+ * Tests for loadQuery
+ * see https://github.com/facebook/relay/blob/master/packages/relay-experimental/loadQuery.js
+ */
+function LoadQuery() {
+    interface AppQueryVariables {
+        id: string;
+    }
+
+    interface AppQueryResponse {
+        readonly user: {
+            readonly name: string;
+        };
+    }
+
+    interface AppQuery {
+        readonly response: AppQueryResponse;
+        readonly variables: AppQueryVariables;
+    }
+
+    const query = graphql`
+        query AppQuery($id: ID!) {
+            user(id: $id) {
+                name
+            }
+        }
+    `;
+
+    const variables: AppQueryVariables  = {
+        id: "1"
+    };
+
+    const preloadedQuery = loadQuery<AppQuery>(environment, query, variables, {
+        fetchPolicy: 'store-or-network',
+        networkCacheConfig: {
+            force: true
+        }
+    });
+
+    function ShouldPassIntoUsePreloadQuery({preloadedQuery}: {preloadedQuery: PreloadedQuery<AppQuery>}) {
+        const data = usePreloadedQuery(query, preloadedQuery); // $ExpectType AppQueryResponse
+
+        return <>{data.user.name}</>;
+    }
+
+    // To depict some sort of running app
+    function App() {
+        return (
+            <ShouldPassIntoUsePreloadQuery preloadedQuery={preloadedQuery} />
+        );
+    }
 }

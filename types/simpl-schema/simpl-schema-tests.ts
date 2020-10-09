@@ -1,4 +1,4 @@
-import SimpleSchema, { SimpleSchemaDefinition } from 'simpl-schema';
+import SimpleSchema, { SimpleSchemaDefinition, SchemaDefinition } from 'simpl-schema';
 
 const schema: SimpleSchemaDefinition = {
     basicString: {
@@ -83,5 +83,8 @@ new SimpleSchema({
     shortArray: Array,
     subSchema: StringSchemaWithOptions
 });
+
+SimpleSchema.extend(schema);
+SimpleSchema.extend(StringSchema);
 
 SimpleSchema.extendOptions(['autoform']);

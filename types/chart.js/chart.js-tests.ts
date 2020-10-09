@@ -52,6 +52,7 @@ const chart: Chart = new Chart(ctx, {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
             mode: 'index',
+            axis: 'x',
             itemSort: (a, b, data) => Math.random() - 0.5,
             position: 'average',
             caretPadding: 2,
@@ -288,6 +289,13 @@ const linearScaleChart: Chart = new Chart(ctx, {
             },
             xAxes: [{
                 type: 'time',
+                time: {
+                    adapters: {
+                        date: {
+                            locale: 'de'
+                        }
+                    }
+                },
                 distribution: 'series',
                 ticks: {
                     source: 'data',

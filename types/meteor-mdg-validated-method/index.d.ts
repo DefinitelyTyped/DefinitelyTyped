@@ -1,10 +1,12 @@
 // Type definitions for non-npm package Atmosphere package mdg:validated-method 1.2
 // Project: https://github.com/meteor/validated-method
 // Definitions by: Artemis Kearney <https://github.com/artemiswkearney>
+//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-// Inspiration taken from https://github.com/nicu-chiciuc/typed-meteor-methods, which is Copyright (c) 2020 Chiciuc Nicușor
+// Inspiration taken from https://github.com/nicu-chiciuc/typed-meteor-methods,
+// which was based on https://github.com/meteor-typings/validated-method/blob/master/main.d.ts by Dave Allen
 
 /// <reference types="meteor"/>
 
@@ -14,6 +16,40 @@ declare module 'meteor/mdg:validated-method' {
     export type ValidatedMethodName<T> = T extends ValidatedMethod<infer TName, any> ? TName : never;
     export type ValidatedMethodArg<T> = T extends ValidatedMethod<string, infer TRun> ? Argument<TRun> : never;
     export type ValidatedMethodReturn<T> = T extends ValidatedMethod<string, infer TRun> ? Return<TRun> : never;
+
+    export interface ValidatedMethodThisBase {
+        /**
+         * @summary Access inside a method invocation.  Boolean value, true if this invocation is a stub.
+         * @locus Anywhere
+         */
+        isSimulation: boolean;
+        /**
+         * @summary Call inside a method invocation.  Allow subsequent method from this client to begin running in a new fiber.
+         * @locus Server
+         */
+        unblock(): void;
+        /**
+         * @summary The id of the user that made this method call, or `null` if no user was logged in.
+         * @locus Anywhere
+         */
+        userId: string | null;
+        /**
+         * @summary Set the logged in user.
+         * @locus Server
+         * @param userId The value that should be returned by `userId` on this connection.
+         */
+        setUserId(userId: string | null): void;
+        /**
+         * @summary Access inside a method invocation. The [connection](#meteor_onconnection) that this method was received on. `null` if the method is not associated with a connection, eg. a server
+         * initiated method call. Calls to methods made from a server method which was in turn initiated from the client share the same `connection`.
+         * @locus Server
+         */
+        connection: Meteor.Connection;
+        /**
+         * @summary The seed for randomStream value generation
+         */
+        randomSeed(): string;
+    }
 
     /**
      * When declaring a mixin that adds fields to ValidatedMethodOptions, augment this to add them
@@ -69,7 +105,7 @@ declare module 'meteor/mdg:validated-method' {
     > = TOptions extends ValidatedMethodOptions<any, infer TRun> ? Argument<TRun> : never;
 
     export class ValidatedMethod<TName extends string, TRun extends (...args: any[]) => any> {
-        constructor(options: ValidatedMethodOptionsWithMixins<TName, TRun>);
+        constructor(options: ValidatedMethodOptionsWithMixins<TName, TRun> & ThisType<ValidatedMethodThisBase & { name: TName extends string ? TName : string }>);
         call: Argument<TRun> extends NoArguments
             ? // methods with no argument can be called with () or just a callback
               ((unusedArg: any, callback: (error: Meteor.Error, result: Return<TRun>) => void) => void) &

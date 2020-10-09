@@ -353,6 +353,7 @@ declare namespace Chart {
     }
 
     interface ChartTooltipOptions {
+        axis?: 'x'|'y'|'xy';
         enabled?: boolean;
         custom?: (tooltipModel: ChartTooltipModel) => void;
         mode?: InteractionMode;
@@ -779,7 +780,12 @@ declare namespace Chart {
         year?: string;
     }
 
+    interface DateAdapterOptions {
+        date?: object;
+    }
+
     interface TimeScale extends ChartScales {
+        adapters?: DateAdapterOptions;
         displayFormats?: TimeDisplayFormat;
         isoWeekday?: boolean;
         max?: string;

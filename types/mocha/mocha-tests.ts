@@ -828,6 +828,15 @@ function testParallelMode() {
     mocha.parallelMode();
 }
 
+function testRootHooks() {
+    mocha.rootHooks({
+        beforeAll(done) {
+            done();
+        },
+        afterEach: [done => done()],
+    });
+}
+
 function testUnloadFiles() {
     mocha.unloadFiles();
 }
@@ -882,6 +891,21 @@ function test_constructor_parallel_option() {
 
 function test_constructor_jobs_option() {
     const m: Mocha = new LocalMocha({ jobs: 4 });
+}
+
+function test_constructor_root_hooks() {
+    const m: Mocha = new LocalMocha({
+        rootHooks: {
+            beforeEach(done) {
+                done();
+            },
+            afterEach(done) {
+                done();
+            },
+            afterAll: [done => done()],
+            beforeAll: [done => done()],
+        },
+    });
 }
 
 function test_constructor_all_options() {

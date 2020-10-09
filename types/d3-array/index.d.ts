@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 2.0
+// Type definitions for D3JS d3-array module 2.1
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.3
+// Last module patch version validated against: 2.1.0
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -31,6 +31,40 @@ export interface Numeric {
 // --------------------------------------------------------------------------------------
 
 /**
+ * Return the minimum value in the array using natural order.
+ */
+export function min(array: Iterable<string>): string | undefined;
+
+/**
+ * Return the minimum value in the array using natural order.
+ */
+export function min<T extends Numeric>(array: Iterable<T>): T | undefined;
+
+/**
+ * Return the minimum value in the array using natural order.
+ */
+export function min<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null): string | undefined;
+
+/**
+ * Return the minimum value in the array using natural order.
+ */
+export function min<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
+
+/**
+ * Return the index of the minimum value in the array using natural order.
+ */
+export function minIndex<T>(array: Iterable<T>): number ;
+
+/**
+ * Return the index of the minimum value in the array using natural order and a projection function to map values.
+ */
+export function minIndex<TDatum, U>(array: Iterable<TDatum>, accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null): number ;
+
+/**
+ * Return the index of the minimum value in the array using natural order.
+ */
+export function minIndex<T>(array: Iterable<T>): number ;
+/**
  * Return the maximum value in the array of strings using natural order.
  */
 export function max(array: Iterable<string>): string | undefined;
@@ -51,24 +85,14 @@ export function max<T>(array: Iterable<T>, accessor: (datum: T, index: number, a
 export function max<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
 
 /**
- * Return the minimum value in the array using natural order.
+ * Return the index of the maximum value in the array using natural order.
  */
-export function min(array: Iterable<string>): string | undefined;
+export function maxIndex<T>(array: Iterable<T>): number ;
 
 /**
- * Return the minimum value in the array using natural order.
+ * Return the index of the maximum value in the array using natural order and a projection function to map values.
  */
-export function min<T extends Numeric>(array: Iterable<T>): T | undefined;
-
-/**
- * Return the minimum value in the array using natural order.
- */
-export function min<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null): string | undefined;
-
-/**
- * Return the minimum value in the array using natural order.
- */
-export function min<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
+export function maxIndex<TDatum, U>(array: Iterable<TDatum>, accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null): number ;
 
 /**
  * Return the min and max simultaneously.
@@ -153,8 +177,45 @@ export function variance<T>(array: Iterable<T>, accessor: (datum: T, index: numb
 // Searching Arrays
 // --------------------------------------------------------------------------------------
 
+/**
+ * @deprecated Use leastIndex instead.
+ */
 export function scan(array: Iterable<number>, comparator?: (a: number, b: number) => number): number | undefined;
+
+/**
+ * @deprecated Use leastIndex instead.
+ */
 export function scan<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): number | undefined;
+
+/**
+ * Returns the least element of the specified iterable.
+ */
+export function least<T>(array: Iterable<T>): T | undefined;
+
+/**
+ * Returns the least element of the specified iterable according to the specified comparator.
+ */
+export function least<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): T | undefined;
+
+/**
+ * Returns the least element of the specified iterable according to the specified accessor.
+ */
+export function least<T, U>(array: Iterable<T>, accessor: (a: T) => U): T | undefined;
+
+/**
+ * Returns the index of the least element of the specified iterable according to the specified comparator.
+ */
+export function leastIndex<T>(array: Iterable<T>): number | undefined;
+
+/**
+ * Returns the index of the least element of the specified iterable according to the specified comparator.
+ */
+export function leastIndex<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): number | undefined;
+
+/**
+ * Returns the index of the least element of the specified iterable according to the specified accessor.
+ */
+export function leastIndex<T, U>(array: Iterable<T>, accessor: (a: T) => U): number | undefined;
 
 export function bisectLeft(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
 export function bisectLeft(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
@@ -245,6 +306,20 @@ export function group<TObject, TKey>(a: Iterable<TObject>, key: (value: TObject)
 export function rollup<TObject, TKey, TReduce>(a: Iterable<TObject>, reduce: (value: TObject[]) => TReduce, key: (value: TObject) => TKey): Map<TKey, TReduce>;
 
 /**
+ * Returns the number of valid number values (i.e., not null, NaN, or undefined) in the specified iterable; accepts an accessor.
+ *
+ * @param a Input array.
+ */
+export function count<TObject>(a: Iterable<TObject>): number;
+/**
+ * Returns the number of valid number values (i.e., not null, NaN, or undefined) in the specified iterable; accepts an accessor.
+ *
+ * @param a Input array.
+ * @param accessor Accesor method.
+ */
+export function count<TObject>(a: Iterable<TObject>, accessor: (a: TObject, b: TObject) => number | null | undefined): number;
+
+/**
  * Returns the Cartesian product of the two arrays a and b.
  * For each element i in the specified array a and each element j in the specified array b, in order,
  * it creates a two-element array for each pair.
@@ -292,7 +367,7 @@ export function pairs<T, U>(array: Iterable<T>, reducer: (a: T, b: T) => U): U[]
  * The returned array contains the corresponding element in array for each index in indexes, in order.
  * For example, `permute(["a", "b", "c"], [1, 2, 0]) // ["b", "c", "a"]`
  */
-export function permute<T>(array: { [key: number]: T }, keys: ArrayLike<number>): T[];
+export function permute<T>(array: { [key: number]: T; }, keys: ArrayLike<number>): T[];
 
 /**
  * Extract the values from an object into an array with a stable order. For example:
@@ -496,9 +571,24 @@ export interface HistogramGeneratorNumber<Datum, Value extends number | undefine
     thresholds(thresholds: ThresholdNumberArrayGenerator<Value>): this;
 }
 
+/**
+ * @deprecated. Use bin instead.
+ */
 export function histogram(): HistogramGeneratorNumber<number, number>;
+
+/**
+ * @deprecated Use bin instead.
+ */
 export function histogram<Datum, Value extends number | undefined>(): HistogramGeneratorNumber<Datum, Value>;
+
+/**
+ * @deprecated Use bin instead.
+ */
 export function histogram<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
+
+export function bin(): HistogramGeneratorNumber<number, number>;
+export function bin<Datum, Value extends number | undefined>(): HistogramGeneratorNumber<Datum, Value>;
+export function bin<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
 
 // --------------------------------------------------------------------------------------
 // Histogram Thresholds

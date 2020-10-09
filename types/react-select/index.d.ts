@@ -16,12 +16,14 @@ export default StateManager;
 export * from './src/types';
 export { createFilter } from './src/filters';
 export { mergeStyles, Styles, StylesConfig } from './src/styles';
+export { defaultTheme } from './src/theme';
 
 export { NonceProvider } from './src/NonceProvider';
-export { Props, FormatOptionLabelMeta } from './src/Select';
+export { Props, FormatOptionLabelMeta, NamedProps } from './src/Select';
 
 export { components, SelectComponentsConfig, IndicatorComponentType } from './src/components';
 export { IndicatorProps } from './src/components/indicators';
+export { IndicatorContainerProps } from './src/components/containers';
 export { ControlProps } from './src/components/Control';
 export { GroupProps } from './src/components/Group';
 export { InputProps } from './src/components/Input';

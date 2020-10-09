@@ -115,3 +115,68 @@ export interface Params {
     page: Page;
     searchExtended: string;
 }
+
+// Everything related to Forest collection configuration
+
+export interface SmartFieldValueGetter {
+    (record: any): any;
+}
+
+export interface SmartFieldValueSetter {
+    (record: any, attributeValue: any): object;
+}
+
+export interface SmartFieldSearcher {
+    (query: any, search: string): object;
+}
+
+export interface SmartActionValuesInjector {
+    (record: any): object;
+}
+
+export interface SegmentAggregationCreator {
+    (record: any): object;
+}
+
+export interface SmartFieldOptions {
+    field: string;
+    description?: string;
+    type: string | string[];
+    isReadOnly?: boolean;
+    reference?: string;
+    enums?: string[];
+    defaultValue?: any;
+    get?: SmartFieldValueGetter;
+    set?: SmartFieldValueSetter;
+    search?: SmartFieldSearcher;
+}
+
+export interface SmartActionOptions {
+    name: string;
+    type?: string;
+    fields?: Array<{
+        field: string;
+        type: string | string[];
+        reference?: string;
+        enums?: string[];
+        description?: string;
+        isRequired?: boolean;
+    }>;
+    download?: boolean;
+    endpoint?: string;
+    httpMethod?: string;
+    values?: SmartActionValuesInjector;
+}
+
+export interface SmartSegmentOptions {
+    name: string;
+    where: SegmentAggregationCreator;
+}
+
+export interface CollectionOptions {
+    fields?: SmartFieldOptions[];
+    actions?: SmartActionOptions[];
+    segments?: SmartSegmentOptions[];
+}
+
+export function collection(name: string, options: CollectionOptions): void;

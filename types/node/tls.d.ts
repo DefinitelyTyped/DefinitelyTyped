@@ -706,6 +706,15 @@ declare module "tls" {
          * shared between applications. Unused by clients.
          */
         sessionIdContext?: string;
+        /**
+         * 48 bytes of cryptographically strong pseudo-random data.
+         */
+        ticketKeys?: Buffer;
+        /**
+         * The number of seconds after which a TLS session created by the server
+         * will no longer be resumable.
+         */
+        sessionTimeout?: number;
     }
 
     interface SecureContext {

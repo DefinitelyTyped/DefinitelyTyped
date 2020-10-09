@@ -1,4 +1,4 @@
-// Type definitions for serverless 1.72
+// Type definitions for serverless 1.78
 // Project: https://github.com/serverless/serverless#readme
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
@@ -70,7 +70,9 @@ declare class Serverless {
 
     providers: {};
     utils: Utils;
-    variables: {};
+    variables: {
+        populateService(): Promise<any>;
+    };
     yamlParser: YamlParser;
     pluginManager: PluginManager;
 
@@ -79,6 +81,8 @@ declare class Serverless {
 
     service: Service;
     version: string;
+
+    resources: AwsProvider.Resources;
 }
 
 export = Serverless;

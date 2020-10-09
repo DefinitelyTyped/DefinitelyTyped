@@ -4,7 +4,6 @@
 //                 Cameron Crothers <https://github.com/JProgrammer>
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
-//                 Gabriel Terwesten <https://github.com/blaugold>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 David Koblas <https://github.com/koblas>
 //                 Bond Akinmade <https://github.com/bondz>
@@ -47,6 +46,8 @@ declare namespace Bull {
     duration: number;
     /** When jobs get rate limited, they stay in the waiting queue and are not moved to the delayed queue */
     bounceBack?: boolean;
+    /** Groups jobs with the specified key from the data object passed to the Queue#add ex. "network.handle" */
+    groupKey?: string;
   }
 
   interface QueueOptions {
@@ -237,7 +238,7 @@ declare namespace Bull {
     /**
      * Update a specific job's data. Promise resolves when the job has been updated.
      */
-    update(data: any): Promise<void>;
+    update(data: T): Promise<void>;
 
     /**
      * Removes a job from the queue and from any lists it may be included in.
@@ -708,7 +709,7 @@ declare namespace Bull {
      * Returns a object with the logs according to the start and end arguments. The returned count
      * value is the total amount of logs, useful for implementing pagination.
      */
-    getJobLogs(jobId: string, start?: number, end?: number): Promise<{ logs: string[], count: number }>;
+    getJobLogs(jobId: JobId, start?: number, end?: number): Promise<{ logs: string[], count: number }>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.
