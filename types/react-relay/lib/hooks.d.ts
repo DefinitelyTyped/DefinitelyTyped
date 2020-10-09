@@ -22,7 +22,7 @@ export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentP
 export { fetchQuery } from './relay-experimental/fetchQuery';
 
 export { loadQuery } from './relay-experimental/loadQuery';
-/* TODO: ❌ */ export { loadEntryPoint } from './relay-experimental/loadEntryPoint';
+export { loadEntryPoint } from './relay-experimental/loadEntryPoint';
 
 /* TODO: ❌ */ export { prepareEntryPoint_DEPRECATED } from './relay-experimental/prepareEntryPoint_DEPRECATED';
 
