@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {
+    EntryPoint,
     EntryPointComponent,
+    EntryPointContainer,
     fetchQuery,
     graphql,
     IEnvironmentProvider,
@@ -30,6 +32,7 @@ import {
     RecordSource,
     Store,
 } from 'relay-runtime';
+import { rm } from '../../cacache';
 
 const source = new RecordSource();
 const store = new Store(source);
@@ -1001,11 +1004,13 @@ EntrypointContainer Tests
 
 function EntryPointContainerTests() {
     interface SomeQueryResponse {
-        readonly someType: string;
+        readonly post: {
+            readonly name: string;
+        };
     }
 
     interface SomeQueryVariables {
-        id: string;
+        slug: string;
     }
 
     interface SomeQuery {
@@ -1014,37 +1019,51 @@ function EntryPointContainerTests() {
     }
 
     const query = graphql`
-        query SomeQuery($id: ID!) {
-            someType
+        query SomeQuery($slug: String!) {
+            post {
+                name
+            }
         }
     `;
 
-    const variables: SomeQueryVariables = {
-        id: 'some_id',
-    };
-
-    const RootEntrypointComponent: EntryPointComponent<{ someQueryRef: SomeQuery }> = ({ queries }) => {
+    // RootEntrypoint.entrypoint
+    const RootEntrypointComponent: EntryPointComponent<{ someQueryRef: SomeQuery }, {}, { onClick: () => void }> = ({
+        queries,
+        props,
+    }) => {
         const data = usePreloadedQuery(query, queries.someQueryRef);
 
-        return <>{data.someType}</>;
+        return <button onClick={props.onClick}>{data.post.name}</button>;
     };
 
-    const entrypointReference = loadEntryPoint<typeof RootEntrypointComponent>(
-        environmentProvider,
-        {
-            root: JSResource<any>(),
-            getPreloadProps: () => ({
+    type Params = { slug: string };
+    const entrypoint: EntryPoint<Params, typeof RootEntrypointComponent> = {
+        root: JSResource<typeof RootEntrypointComponent>(),
+        getPreloadProps(
+            // $ExpectType Params
+            params,
+        ) {
+            return {
                 queries: {
                     someQueryRef: {
                         parameters: query as any,
-                        variables,
+                        variables: {
+                            slug: params.slug,
+                        },
                     },
                 },
-            }),
+            };
         },
-        {},
-    );
+    };
+
+    // App
+
+    const entrypointReference = loadEntryPoint(environmentProvider, entrypoint, {
+        slug: 'test-slug',
+    });
 
     // $ExpectType SomeQueryVariables
     const vars = entrypointReference.queries.someQueryRef.variables;
+
+    return <EntryPointContainer entryPointReference={entrypointReference} props={{}} />;
 }

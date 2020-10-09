@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentType } from 'react';
+import type { ComponentType } from 'react';
 import type {
     CacheConfig,
     GraphQLResponse,
@@ -88,11 +88,11 @@ export type PreloadQueryStatus = Readonly<{
  * TExtraProps - a bag of extra props that you may define in `entrypoint` file
  * and they will be passed to the EntryPointComponent as `extraProps`
  */
-interface InternalEntryPointRepresentation<
+export interface InternalEntryPointRepresentation<
     /**
      * object that contains all necessary information to execute the preloaders (routeParams, query variables)
      */
-    TEntryPointParams,
+    TEntryPointParams extends {},
     /**
      * queries, defined in the root components
      */
@@ -100,12 +100,12 @@ interface InternalEntryPointRepresentation<
     /**
      * nested entry points, defined in the root components
      */
-    TPreloadedEntryPoints,
+    TPreloadedEntryPoints extends {},
     /**
      * the type of additional props that you may pass to the component (like `onClick` handler, etc) during runtime.
      * Values for them defined during component runtime
      */
-    TRuntimeProps,
+    TRuntimeProps extends {},
     /**
      * a bag of extra props that you may define in `entrypoint` file and they will be passed to the EntryPointComponent
      * as `extraProps`
@@ -120,58 +120,62 @@ interface InternalEntryPointRepresentation<
         ) => PreloadProps<TEntryPointParams, TPreloadedQueries, TPreloadedEntryPoints, TExtraProps>;
     }> {}
 
-type PreloadedQueries<TPreloadedQueries extends Record<string, OperationType>> = {
+type ThinQueryParamsObject<TPreloadedQueries extends Record<string, OperationType> = {}> = {
     [K in keyof TPreloadedQueries]: ThinQueryParams<TPreloadedQueries[K]>;
 };
+
+type PreloadedQueries<TPreloadedQueries> = TPreloadedQueries extends Record<string, OperationType>
+    ? {
+          [T in keyof TPreloadedQueries]: PreloadedQuery<TPreloadedQueries[T]>;
+      }
+    : never;
 
 // Return type of the `getPreloadProps(...)` of the entry point
 export interface PreloadProps<
     TPreloadParams extends {},
-    TPreloadedQueries extends PreloadedQueries<{}>,
+    TPreloadedQueries extends Record<string, OperationType>,
     TPreloadedEntryPoints extends {},
     TExtraProps extends {}
 > extends Readonly<{
         entryPoints?: TPreloadedEntryPoints;
         extraProps?: TExtraProps;
-        queries?: PreloadedQueries<TPreloadedQueries>;
+        queries?: ThinQueryParamsObject<TPreloadedQueries>;
     }> {}
 
 // The shape of the props of the entry point `root` component
-export interface EntryPointProps<
-    TPreloadedQueries extends PreloadedQueries<{}>,
-    TPreloadedEntryPoints = {},
-    TRuntimeProps = {},
-    TExtraProps = null
-> extends Readonly<{
+export interface EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>
+    extends Readonly<{
         entryPoints: TPreloadedEntryPoints;
         extraProps: TExtraProps | null;
         props: TRuntimeProps;
-        queries: {
-            [T in keyof TPreloadedQueries]: TPreloadedQueries[T] extends OperationType
-                ? PreloadedQuery<TPreloadedQueries[T]>
-                : never;
-        };
+        queries: PreloadedQueries<TPreloadedQueries>;
     }> {}
 
 // Type of the entry point `root` component
 export type EntryPointComponent<
-    TPreloadedQueries extends PreloadedQueries<{}>,
-    TPreloadedEntryPoints = {},
-    TRuntimeProps = {},
+    TPreloadedQueries extends ThinQueryParamsObject,
+    TPreloadedEntryPoints extends {} = {},
+    TRuntimeProps extends {} = {},
     TExtraProps = {}
 > = ComponentType<EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>>;
 
 // Return type of `loadEntryPoint(...)`
-export interface PreloadedEntryPoint<TEntryPointComponent extends EntryPointComponent<any>>
-    extends Readonly<{
-        dispose: () => void;
-        entryPoints: ComponentProps<TEntryPointComponent>['entryPoints'];
-        extraProps: ComponentProps<TEntryPointComponent>['extraProps'];
-        getComponent: () => TEntryPointComponent;
-        isDisposed: boolean;
-        queries: ComponentProps<TEntryPointComponent>['queries'];
-        rootModuleID: string;
-    }> {}
+export type PreloadedEntryPoint<TEntryPointComponent> = TEntryPointComponent extends EntryPointComponent<
+    infer TPreloadedQueries,
+    infer TPreloadedEntryPoints,
+    infer TRuntimeProps,
+    infer TExtraProps
+>
+    ? Readonly<{
+          dispose: () => void;
+          entryPoints: TPreloadedEntryPoints;
+          extraProps: TExtraProps;
+          getComponent: () => TEntryPointComponent;
+          isDisposed: boolean;
+          queries: PreloadedQueries<TPreloadedQueries>;
+          rootModuleID: string;
+      }>
+    : never;
 
 export interface ThinQueryParams<
     TQuery extends OperationType,
