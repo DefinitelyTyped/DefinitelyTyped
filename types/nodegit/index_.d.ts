@@ -49,7 +49,7 @@ export class Index {
     removeDirectory(dir: string, stage: number): number;
     setCaps(caps: number): number;
     updateAll(pathspec: Strarray | string | string[], callback?: Function): Promise<number>;
-    write(): number;
+    write(): Promise<number>;
     writeTree(): Promise<Oid>;
     writeTreeTo(repo: Repository): Promise<Oid>;
     entries(): IndexEntry[];
