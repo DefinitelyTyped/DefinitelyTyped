@@ -17,7 +17,7 @@ export { EntryPointContainer } from './relay-experimental/EntryPointContainer.re
 export { LazyLoadEntryPointContainer_DEPRECATED } from './relay-experimental/LazyLoadEntryPointContainer_DEPRECATED.react';
 export { MatchContainer } from './relay-experimental/MatchContainer';
 export { ProfilerContext } from './relay-experimental/ProfilerContext';
-/* TODO: ❌ */ export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentProvider';
+export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentProvider';
 
 /* TODO: ❌ */ export { fetchQuery } from './relay-experimental/fetchQuery';
 
