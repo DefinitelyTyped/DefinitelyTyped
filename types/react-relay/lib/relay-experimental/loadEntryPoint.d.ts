@@ -9,7 +9,7 @@ import type {
 export function loadEntryPoint<TEntryPoint>(
     environmentProvider: IEnvironmentProvider<EnvironmentProviderOptions>,
     entryPoint: TEntryPoint,
-    entryPointParams: TEntryPoint extends InternalEntryPointRepresentation<infer P, _, _, _, _> ? P : never,
+    entryPointParams: TEntryPoint extends InternalEntryPointRepresentation<infer P, any, any, any, any> ? P : never,
 ): PreloadedEntryPoint<
     TEntryPoint extends InternalEntryPointRepresentation<
         infer TEntryPointParams,

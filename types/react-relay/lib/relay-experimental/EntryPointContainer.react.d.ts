@@ -1,10 +1,17 @@
 import type { ReactElement } from 'react';
-import type { PreloadedEntryPoint } from './EntryPointTypes';
+import type { EntryPointComponent, PreloadedEntryPoint } from './EntryPointTypes';
 
-export function EntryPointContainer<TEntryPointParams, TEntryPointComponent, TRuntimeProps>({
+type GetComponentFromPreloadedEntryPoint<T> = T extends PreloadedEntryPoint<infer C> ? C : never;
+type GetRuntimePropsFromComponent<T> = T extends EntryPointComponent<any, any, infer R, any> ? R : never;
+
+export function EntryPointContainer<
+    TPreloadedEntryPoint extends PreloadedEntryPoint<any>,
+    TEntryPointComponent extends GetComponentFromPreloadedEntryPoint<TPreloadedEntryPoint>,
+    TRuntimeProps extends GetRuntimePropsFromComponent<TEntryPointComponent>
+>({
     entryPointReference,
     props,
 }: Readonly<{
-    entryPointReference: PreloadedEntryPoint<TEntryPointComponent>;
+    entryPointReference: TPreloadedEntryPoint;
     props: TRuntimeProps;
 }>): ReactElement;

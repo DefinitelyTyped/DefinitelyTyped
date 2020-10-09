@@ -32,12 +32,11 @@ import {
     RecordSource,
     Store,
 } from 'relay-runtime';
-import { rm } from '../../cacache';
 
 const source = new RecordSource();
 const store = new Store(source);
 
-function cacheHandler(operation: any, variables: { [key: string]: string }, cacheConfig: {}) {
+function cacheHandler(operation: any, variables: { [key: string]: string }, _cacheConfig: {}) {
     return fetch('/graphql', {
         method: 'POST',
         body: JSON.stringify({
@@ -1065,5 +1064,12 @@ function EntryPointContainerTests() {
     // $ExpectType SomeQueryVariables
     const vars = entrypointReference.queries.someQueryRef.variables;
 
-    return <EntryPointContainer entryPointReference={entrypointReference} props={{}} />;
+    return (
+        <EntryPointContainer
+            entryPointReference={entrypointReference}
+            props={{
+                onClick() {},
+            }}
+        />
+    );
 }
