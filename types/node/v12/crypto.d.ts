@@ -368,6 +368,11 @@ declare module "crypto" {
     function pseudoRandomBytes(size: number): Buffer;
     function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
 
+    function randomInt(max: number): number;
+    function randomInt(min: number, max: number): number;
+    function randomInt(max: number, callback: (err: Error | null, value: number) => void): void;
+    function randomInt(min: number, max: number, callback: (err: Error | null, value: number) => void): void;
+
     function randomFillSync<T extends NodeJS.ArrayBufferView>(buffer: T, offset?: number, size?: number): T;
     function randomFill<T extends NodeJS.ArrayBufferView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
     function randomFill<T extends NodeJS.ArrayBufferView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;

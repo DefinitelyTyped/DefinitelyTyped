@@ -707,12 +707,14 @@ declare module "tls" {
          */
         sessionIdContext?: string;
         /**
-         * 48 bytes of cryptographically strong pseudo-random data.
+         * 48-bytes of cryptographically strong pseudo-random data.
+         * See Session Resumption for more information.
          */
         ticketKeys?: Buffer;
         /**
-         * The number of seconds after which a TLS session created by the server
-         * will no longer be resumable.
+         * The number of seconds after which a TLS session created by the
+         * server will no longer be resumable. See Session Resumption for more
+         * information. Default: 300.
          */
         sessionTimeout?: number;
     }
@@ -738,7 +740,7 @@ declare module "tls" {
      * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
      */
     function createSecurePair(credentials?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
-    function createSecureContext(details: SecureContextOptions): SecureContext;
+    function createSecureContext(options?: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
     /**

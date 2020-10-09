@@ -205,7 +205,9 @@ declare module "http" {
 
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
     class ClientRequest extends OutgoingMessage {
-        aborted: number;
+        aborted: boolean;
+        host: string;
+        protocol: string;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
@@ -370,6 +372,7 @@ declare module "http" {
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
+        maxTotalSockets: number;
         readonly freeSockets: NodeJS.ReadOnlyDict<Socket[]>;
         readonly sockets: NodeJS.ReadOnlyDict<Socket[]>;
         readonly requests: NodeJS.ReadOnlyDict<IncomingMessage[]>;
