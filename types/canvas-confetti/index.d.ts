@@ -1,4 +1,4 @@
-// Type definitions for canvas-confetti 1.3.0
+// Type definitions for canvas-confetti 1.3
 // Project: https://github.com/catdad/canvas-confetti#readme
 // Definitions by: Martin Tracey <https://github.com/matracey>
 //                 Josh Batley <https://github.com/joshbatley>
