@@ -14,7 +14,7 @@ export { VariablesOf } from 'relay-runtime';
 export interface JSResourceReference<TModule> {
     getModuleId(): string;
 
-    getModuleIfRequired(): TModule;
+    getModuleIfRequired(): TModule | null;
 
     load(): Promise<TModule>;
 }
@@ -124,7 +124,9 @@ type ThinQueryParamsObject<TPreloadedQueries extends Record<string, OperationTyp
     [K in keyof TPreloadedQueries]: ThinQueryParams<TPreloadedQueries[K]>;
 };
 
-type ThinNestedEntryPointParamsObject<TPreloadedEntryPoints extends Record<string, EntryPoint<any, any>> = {}> = {
+type ThinNestedEntryPointParamsObject<
+    TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined> = {}
+> = {
     [K in keyof TPreloadedEntryPoints]: ThinNestedEntryPointParams<TPreloadedEntryPoints[K]>;
 };
 
@@ -136,7 +138,7 @@ type PreloadedQueries<TPreloadedQueries> = TPreloadedQueries extends Record<stri
 
 type PreloadedEntryPoints<TPreloadedEntryPoints> = TPreloadedEntryPoints extends Record<
     string,
-    InternalEntryPointRepresentation<any, any, any, any, any>
+    InternalEntryPointRepresentation<any, any, any, any, any> | undefined
 >
     ? {
           [T in keyof TPreloadedEntryPoints]: PreloadedEntryPoint<
@@ -149,7 +151,7 @@ type PreloadedEntryPoints<TPreloadedEntryPoints> = TPreloadedEntryPoints extends
 export interface PreloadProps<
     TPreloadParams extends {},
     TPreloadedQueries extends Record<string, OperationType>,
-    TPreloadedEntryPoints extends Record<string, InternalEntryPointRepresentation<any, any, any, any, any>>,
+    TPreloadedEntryPoints extends Record<string, InternalEntryPointRepresentation<any, any, any, any, any> | undefined>,
     TExtraProps extends {}
 > extends Readonly<{
         entryPoints?: ThinNestedEntryPointParamsObject<TPreloadedEntryPoints>;
@@ -169,7 +171,7 @@ export interface EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRunt
 // Type of the entry point `root` component
 export type EntryPointComponent<
     TPreloadedQueries extends Record<string, OperationType>,
-    TPreloadedEntryPoints extends Record<string, InternalEntryPointRepresentation<any, any, any, any, any>>,
+    TPreloadedEntryPoints extends Record<string, InternalEntryPointRepresentation<any, any, any, any, any> | undefined>,
     TRuntimeProps extends {} = {},
     TExtraProps extends {} | null = {}
 > = ComponentType<EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>>;

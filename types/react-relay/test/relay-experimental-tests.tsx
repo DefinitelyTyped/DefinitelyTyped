@@ -62,6 +62,7 @@ const environmentProvider: IEnvironmentProvider<any> = {
     },
 };
 
+// tslint:disable-next-line no-unnecessary-generics
 declare function JSResource<TModule extends any>(): JSResourceReference<TModule>;
 
 const query = graphql`
@@ -1082,7 +1083,7 @@ function EntryPointTests() {
      */
     function EntryPointContainerNested() {
         const entrypointA: EntryPoint<Params, typeof RootEntrypointComponent> = {
-            root: JSResource<typeof RootEntrypointComponent>(),
+            root: JSResource(),
             getPreloadProps(params) {
                 return {
                     queries: {
@@ -1096,8 +1097,9 @@ function EntryPointTests() {
                 };
             },
         };
+
         const entrypointB: EntryPoint<{ author: string }, typeof RootEntrypointComponent> = {
-            root: JSResource<typeof RootEntrypointComponent>(),
+            root: JSResource(),
             getPreloadProps(params) {
                 console.log(params.author);
                 return {
@@ -1115,7 +1117,7 @@ function EntryPointTests() {
 
         const SuperParentComponent: EntryPointComponent<
             {},
-            { entrypointA: typeof entrypointA; entrypointB: typeof entrypointB },
+            { mainPanelA?: typeof entrypointA; mainPanelB?: typeof entrypointB },
             {},
             { foo: 'bar' }
         > = ({ entryPoints, extraProps }) => {
@@ -1125,40 +1127,48 @@ function EntryPointTests() {
 
             return (
                 <>
-                    <EntryPointContainer
-                        entryPointReference={entryPoints.entrypointA}
-                        props={{
-                            onClick,
-                        }}
-                    />
-                    <EntryPointContainer
-                        entryPointReference={entryPoints.entrypointB}
-                        props={{
-                            onClick,
-                        }}
-                    />
+                    {entryPoints.mainPanelA ? (
+                        <EntryPointContainer
+                            entryPointReference={entryPoints.mainPanelA}
+                            props={{
+                                onClick,
+                            }}
+                        />
+                    ) : null}
+                    {entryPoints.mainPanelB ? (
+                        <EntryPointContainer
+                            entryPointReference={entryPoints.mainPanelB}
+                            props={{
+                                onClick,
+                            }}
+                        />
+                    ) : null}
                 </>
             );
         };
 
-        const entrypoint: EntryPoint<{}, typeof SuperParentComponent> = {
-            root: JSResource<typeof SuperParentComponent>(),
-            getPreloadProps() {
+        const entrypoint: EntryPoint<{ route: string }, typeof SuperParentComponent> = {
+            root: JSResource(),
+            getPreloadProps(params) {
                 return {
-                    entryPoints: {
-                        entrypointA: {
-                            entryPoint: entrypointA,
-                            entryPointParams: {
-                                slug: 'hello',
-                            },
-                        },
-                        entrypointB: {
-                            entryPoint: entrypointB,
-                            entryPointParams: {
-                                author: 'world',
-                            },
-                        },
-                    },
+                    entryPoints:
+                        params.route === 'a'
+                            ? {
+                                  mainPanelA: {
+                                      entryPoint: entrypointA,
+                                      entryPointParams: {
+                                          slug: 'hello',
+                                      },
+                                  },
+                              }
+                            : {
+                                  mainPanelB: {
+                                      entryPoint: entrypointB,
+                                      entryPointParams: {
+                                          author: 'world',
+                                      },
+                                  },
+                              },
                     queries: {},
                     extraProps: {
                         foo: 'bar',
