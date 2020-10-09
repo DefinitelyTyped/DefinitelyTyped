@@ -12,6 +12,7 @@
 //                 Janic Duplessis <https://github.com/janicduplessis>
 //                 Christian Ivicevic <https://github.com/ChristianIvicevic>
 //                 Marais Rossouw <https://github.com/maraisr>
+//                 Edvin Eriksson <https://github.com/edvinerikson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
