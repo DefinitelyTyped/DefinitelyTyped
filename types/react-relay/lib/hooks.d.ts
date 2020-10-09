@@ -6,7 +6,7 @@ export * from './relay-experimental/EntryPointTypes';
 export type { MatchContainerProps, MatchPointer } from './relay-experimental/MatchContainer';
 export type { ProfilerContextType } from './relay-experimental/ProfilerContext';
 export type { Direction, LoadMoreFn } from './relay-experimental/useLoadMoreFunction';
-/* TODO: ❌ */ export type { UseMutationConfig } from './relay-experimental/useMutation';
+export type { UseMutationConfig } from './relay-experimental/useMutation';
 /* TODO: ❌ */ export type {
     RefetchFn,
     RefetchFnDynamic,
@@ -31,7 +31,7 @@ export { loadQuery } from './relay-experimental/loadQuery';
 /* TODO: ❌ */ export { useLazyLoadQuery } from './relay-experimental/useLazyLoadQuery';
 /* TODO: ❌ */ export { useEntryPointLoader } from './relay-experimental/useEntryPointLoader';
 /* TODO: ❌ */ export { useQueryLoader } from './relay-experimental/useQueryLoader';
-/* TODO: ❌ */ export { useMutation } from './relay-experimental/useMutation';
+export { useMutation } from './relay-experimental/useMutation';
 /* TODO: ❌ */ export { usePaginationFragment } from './relay-experimental/usePaginationFragment';
 /* TODO: ❌ */ export { usePreloadedQuery } from './relay-experimental/usePreloadedQuery';
 /* TODO: ❌ */ export { useRefetchableFragment } from './relay-experimental/useRefetchableFragment';
