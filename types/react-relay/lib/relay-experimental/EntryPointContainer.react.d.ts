@@ -1,8 +1,5 @@
-/* tslint:disable:no-unnecessary-generics */
-
-import { ElementType, ClassicElement } from 'react';
-
-import { EntryPointComponent, PreloadedEntryPoint } from './EntryPointTypes';
+import type { ComponentProps, ReactElement } from 'react';
+import type { EntryPointComponent, PreloadedEntryPoint } from './EntryPointTypes';
 
 export function EntryPointContainer<
     TPreloadedQueries extends {},
@@ -21,4 +18,4 @@ export function EntryPointContainer<
 }: Readonly<{
     entryPointReference: PreloadedEntryPoint<TEntryPointComponent>;
     props: TRuntimeProps;
-}>): ClassicElement<ElementType>;
+}>): ReactElement<ComponentProps<TEntryPointComponent>>;

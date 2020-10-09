@@ -160,7 +160,7 @@ export type PreloadProps<
 }>;
 
 // Return type of `loadEntryPoint(...)`
-export type PreloadedEntryPoint<TEntryPointComponent extends EntryPointComponent<any>> = Readonly<{
+export type PreloadedEntryPoint<TEntryPointComponent extends EntryPointComponent<any, any, any, any>> = Readonly<{
     dispose: () => void;
     entryPoints: JSX.LibraryManagedAttributes<TEntryPointComponent, 'entryPoints'>;
     extraProps: JSX.LibraryManagedAttributes<TEntryPointComponent, 'extraProps'>;

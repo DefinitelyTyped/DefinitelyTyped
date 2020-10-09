@@ -13,7 +13,7 @@ export type {
     Options as RefetchOptions,
 } from './relay-experimental/useRefetchableFragmentNode';
 
-/* TODO: ❌ */ export { EntryPointContainer } from './relay-experimental/EntryPointContainer';
+export { EntryPointContainer } from './relay-experimental/EntryPointContainer.react';
 /* TODO: ❌ */ export { LazyLoadEntryPointContainer_DEPRECATED } from './relay-experimental/LazyLoadEntryPointContainer_DEPRECATED';
 export { MatchContainer } from './relay-experimental/MatchContainer';
 export { ProfilerContext } from './relay-experimental/ProfilerContext';
