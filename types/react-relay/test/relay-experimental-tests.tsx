@@ -33,7 +33,6 @@ import {
     RecordSource,
     Store,
 } from 'relay-runtime';
-import { useEffect } from '../../react';
 
 const source = new RecordSource();
 const store = new Store(source);
@@ -1182,7 +1181,7 @@ function EntryPointTests() {
             entrypoint,
         );
 
-        useEffect(() => {
+        React.useEffect(() => {
             entryPointLoaderCallback({
                 slug: 'test-slug',
             });
