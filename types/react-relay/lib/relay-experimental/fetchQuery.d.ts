@@ -5,6 +5,7 @@ import type {
     IEnvironment,
     Observable,
     OperationType,
+    VariablesOf,
 } from 'relay-runtime';
 
 /**
@@ -87,7 +88,7 @@ import type {
 export function fetchQuery<TQuery extends OperationType>(
     environment: IEnvironment,
     query: GraphQLTaggedNode,
-    variables: TQuery['variables'],
+    variables: VariablesOf<TQuery>,
     options?: {
         fetchPolicy?: FetchQueryFetchPolicy;
         networkCacheConfig?: CacheConfig;

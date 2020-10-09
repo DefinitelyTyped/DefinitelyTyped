@@ -1,4 +1,9 @@
-import type { EntryPoint, EntryPointComponent, EnvironmentProviderOptions, IEnvironmentProvider } from './EntryPointTypes';
+import type {
+    EntryPoint,
+    EntryPointComponent,
+    EnvironmentProviderOptions,
+    IEnvironmentProvider,
+} from './EntryPointTypes';
 
 export function prepareEntryPoint_DEPRECATED<
     TEntryPointParams extends {},

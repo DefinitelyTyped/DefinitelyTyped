@@ -1,10 +1,16 @@
 export interface Cache<T> {
-    get(key: string): T | null;
+    get(key: string): T | null | undefined;
+
     set(key: string, value: T): void;
+
     has(key: string): boolean;
+
     delete(key: string): void;
+
     size(): number;
+
     capacity(): number;
+
     clear(): void;
 }
 
@@ -20,9 +26,6 @@ export interface Cache<T> {
  * Get does the same: if the key is present, delete and reinsert it.
  */
 declare class LRUCache<T> implements Cache<T> {
-    _capacity: number;
-    _map: Map<string, T>;
-
     constructor(capacity: number);
 
     set(key: string, value: T): void;
@@ -40,7 +43,4 @@ declare class LRUCache<T> implements Cache<T> {
     clear(): void;
 }
 
-// tslint:disable-next-line:no-unnecessary-generics
-declare function create<T>(capacity: number): LRUCache<T>;
-
-export { create };
+export function create<T>(capacity: number): LRUCache<T>;
