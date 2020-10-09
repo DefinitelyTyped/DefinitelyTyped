@@ -8,6 +8,7 @@ import type {
     PayloadError,
     SelectorStoreUpdater,
     UploadableMap,
+    VariablesOf,
 } from 'relay-runtime';
 
 export interface UseMutationConfig<TMutation extends MutationParameters> {
@@ -19,7 +20,7 @@ export interface UseMutationConfig<TMutation extends MutationParameters> {
     optimisticUpdater?: SelectorStoreUpdater<TMutation['response']> | null;
     updater?: SelectorStoreUpdater<TMutation['response']> | null;
     uploadables?: UploadableMap;
-    variables: TMutation['variables'];
+    variables: VariablesOf<TMutation>;
 }
 
 // tslint:disable-next-line no-unnecessary-generics
