@@ -6,21 +6,8 @@ import type {
     PreloadedEntryPoint,
 } from './EntryPointTypes';
 
-export function loadEntryPoint<
-    TEntryPointParams extends {},
-    TPreloadedQueries extends {},
-    TPreloadedEntryPoints extends {},
-    TRuntimeProps extends {},
-    TExtraProps,
-    TEntryPointComponent extends EntryPointComponent<
-        TPreloadedQueries,
-        TPreloadedEntryPoints,
-        TRuntimeProps,
-        TExtraProps
-    >,
-    TEntryPoint extends EntryPoint<TEntryPointParams, TEntryPointComponent>
->(
+export function loadEntryPoint<TEntryPointComponent extends EntryPointComponent<any>, TEntryPointParams = {}>(
     environmentProvider: IEnvironmentProvider<EnvironmentProviderOptions>,
-    entryPoint: TEntryPoint,
+    entryPoint: EntryPoint<TEntryPointParams, TEntryPointComponent>,
     entryPointParams: TEntryPointParams,
 ): PreloadedEntryPoint<TEntryPointComponent>;

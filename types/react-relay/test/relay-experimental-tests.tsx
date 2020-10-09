@@ -1,30 +1,35 @@
 import * as React from 'react';
-
 import {
-    Environment,
-    RecordSource,
-    Store,
-    Network,
-    commitMutation,
-    FragmentRefs,
-    GraphQLSubscriptionConfig,
-} from 'relay-runtime';
-import {
+    EntryPointComponent,
     fetchQuery,
     graphql,
+    IEnvironmentProvider,
+    JSResourceReference,
+    loadEntryPoint,
+    loadQuery,
+    PreloadedQuery,
     RelayEnvironmentProvider,
-    useRelayEnvironment,
-    usePreloadedQuery,
-    useLazyLoadQuery,
-    useFragment,
-    useRefetchableFragment,
-    usePaginationFragment,
     useBlockingPaginationFragment,
+    useFragment,
+    useLazyLoadQuery,
     useMutation,
-    useSubscription,
+    usePaginationFragment,
+    usePreloadedQuery,
     useQueryLoader,
-    loadQuery, PreloadedQuery,
+    useRefetchableFragment,
+    useRelayEnvironment,
+    useSubscription,
 } from 'react-relay/hooks';
+
+import {
+    commitMutation,
+    Environment,
+    FragmentRefs,
+    GraphQLSubscriptionConfig,
+    Network,
+    RecordSource,
+    Store,
+} from 'relay-runtime';
 
 const source = new RecordSource();
 const store = new Store(source);
@@ -47,6 +52,14 @@ const environment = new Environment({
     network,
     store,
 });
+
+const environmentProvider: IEnvironmentProvider<any> = {
+    getEnvironment(): Environment {
+        return environment;
+    },
+};
+
+declare function JSResource<TModule extends any>(): JSResourceReference<TModule>;
 
 const query = graphql`
     query SomeQuery {
@@ -72,11 +85,13 @@ dispose.unsubscribe();
 interface AppQueryVariables {
     id: string;
 }
+
 interface AppQueryResponse {
     readonly user: {
         readonly name: string;
     } | null;
 }
+
 interface AppQuery {
     readonly response: AppQueryResponse;
     readonly variables: AppQueryVariables;
@@ -132,7 +147,6 @@ function RelayEnvironment() {
     );
 }
 
-
 /**
  * Tests for useLazyLoadQuery
  * see https://relay.dev/docs/en/experimental/api-reference#uselazyloadquery
@@ -169,7 +183,9 @@ interface UserComponent_user {
     };
     readonly ' $refType': 'UserComponent_user';
 }
+
 type UserComponent_user$data = UserComponent_user;
+
 interface UserComponent_user$key {
     readonly ' $data'?: UserComponent_user$data;
     readonly ' $fragmentRefs': FragmentRefs<'UserComponent_user'>;
@@ -332,11 +348,13 @@ function RefetchableFragment() {
         lang: string;
         id: string;
     }
+
     interface CommentBodyRefetchQueryResponse {
         readonly node: {
             readonly ' $fragmentRefs': FragmentRefs<'CommentBody_comment'>;
         } | null;
     }
+
     interface CommentBodyRefetchQuery {
         readonly response: CommentBodyRefetchQueryResponse;
         readonly variables: CommentBodyRefetchQueryVariables;
@@ -349,7 +367,9 @@ function RefetchableFragment() {
         readonly id: string | null;
         readonly ' $refType': 'CommentBody_comment';
     }
+
     type CommentBody_comment$data = CommentBody_comment;
+
     interface CommentBody_comment$key {
         readonly ' $data'?: CommentBody_comment$data;
         readonly ' $fragmentRefs': FragmentRefs<'CommentBody_comment'>;
@@ -404,11 +424,13 @@ function PaginationFragment() {
         cursor?: string;
         id: string;
     }
+
     interface FriendsListPaginationQueryResponse {
         readonly node: {
             readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
         };
     }
+
     interface FriendsListPaginationQuery {
         readonly response: FriendsListPaginationQueryResponse;
         readonly variables: FriendsListPaginationQueryVariables;
@@ -427,7 +449,9 @@ function PaginationFragment() {
         readonly id: string;
         readonly ' $refType': 'FriendsListComponent_user';
     }
+
     type FriendsListComponent_user$data = FriendsListComponent_user;
+
     interface FriendsListComponent_user$key {
         readonly ' $data'?: FriendsListComponent_user$data;
         readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
@@ -486,11 +510,13 @@ function PaginationFragment_WithNonNullUserProp() {
         cursor?: string;
         id: string;
     }
+
     interface FriendsListPaginationQueryResponse {
         readonly node: {
             readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
         };
     }
+
     interface FriendsListPaginationQuery {
         readonly response: FriendsListPaginationQueryResponse;
         readonly variables: FriendsListPaginationQueryVariables;
@@ -509,7 +535,9 @@ function PaginationFragment_WithNonNullUserProp() {
         readonly id: string;
         readonly ' $refType': 'FriendsListComponent_user';
     }
+
     type FriendsListComponent_user$data = FriendsListComponent_user;
+
     interface FriendsListComponent_user$key {
         readonly ' $data'?: FriendsListComponent_user$data;
         readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
@@ -572,11 +600,13 @@ function BlockingPaginationFragment() {
         cursor?: string;
         id: string;
     }
+
     interface FriendsListPaginationQueryResponse {
         readonly node: {
             readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
         };
     }
+
     interface FriendsListPaginationQuery {
         readonly response: FriendsListPaginationQueryResponse;
         readonly variables: FriendsListPaginationQueryVariables;
@@ -595,7 +625,9 @@ function BlockingPaginationFragment() {
         readonly id: string;
         readonly ' $refType': 'FriendsListComponent_user';
     }
+
     type FriendsListComponent_user$data = FriendsListComponent_user;
+
     interface FriendsListComponent_user$key {
         readonly ' $data'?: FriendsListComponent_user$data;
         readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
@@ -652,11 +684,13 @@ function BlockingPaginationFragment_WithNonNullUserProp() {
         cursor?: string;
         id: string;
     }
+
     interface FriendsListPaginationQueryResponse {
         readonly node: {
             readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
         };
     }
+
     interface FriendsListPaginationQuery {
         readonly response: FriendsListPaginationQueryResponse;
         readonly variables: FriendsListPaginationQueryVariables;
@@ -675,7 +709,9 @@ function BlockingPaginationFragment_WithNonNullUserProp() {
         readonly id: string;
         readonly ' $refType': 'FriendsListComponent_user';
     }
+
     type FriendsListComponent_user$data = FriendsListComponent_user;
+
     interface FriendsListComponent_user$key {
         readonly ' $data'?: FriendsListComponent_user$data;
         readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
@@ -822,6 +858,7 @@ function Subscription() {
     interface SubscriptionVariables {
         id: string;
     }
+
     interface SubscriptionResponse {
         readonly store: {
             readonly id: string;
@@ -829,6 +866,7 @@ function Subscription() {
             readonly value2: number;
         };
     }
+
     interface Subscription {
         readonly response: SubscriptionResponse;
         readonly variables: SubscriptionVariables;
@@ -934,18 +972,18 @@ function LoadQuery() {
         }
     `;
 
-    const variables: AppQueryVariables  = {
-        id: "1"
+    const variables: AppQueryVariables = {
+        id: '1',
     };
 
     const preloadedQuery = loadQuery<AppQuery>(environment, query, variables, {
         fetchPolicy: 'store-or-network',
         networkCacheConfig: {
-            force: true
-        }
+            force: true,
+        },
     });
 
-    function ShouldPassIntoUsePreloadQuery({preloadedQuery}: {preloadedQuery: PreloadedQuery<AppQuery>}) {
+    function ShouldPassIntoUsePreloadQuery({ preloadedQuery }: { preloadedQuery: PreloadedQuery<AppQuery> }) {
         const data = usePreloadedQuery(query, preloadedQuery); // $ExpectType AppQueryResponse
 
         return <>{data.user.name}</>;
@@ -953,8 +991,60 @@ function LoadQuery() {
 
     // To depict some sort of running app
     function App() {
-        return (
-            <ShouldPassIntoUsePreloadQuery preloadedQuery={preloadedQuery} />
-        );
+        return <ShouldPassIntoUsePreloadQuery preloadedQuery={preloadedQuery} />;
     }
+}
+
+/*
+EntrypointContainer Tests
+ */
+
+function EntryPointContainerTests() {
+    interface SomeQueryResponse {
+        readonly someType: string;
+    }
+
+    interface SomeQueryVariables {
+        id: string;
+    }
+
+    interface SomeQuery {
+        readonly response: SomeQueryResponse;
+        readonly variables: SomeQueryVariables;
+    }
+
+    const query = graphql`
+        query SomeQuery($id: ID!) {
+            someType
+        }
+    `;
+
+    const variables: SomeQueryVariables = {
+        id: 'some_id',
+    };
+
+    const RootEntrypointComponent: EntryPointComponent<{ someQueryRef: SomeQuery }> = ({ queries }) => {
+        const data = usePreloadedQuery(query, queries.someQueryRef);
+
+        return <>{data.someType}</>;
+    };
+
+    const entrypointReference = loadEntryPoint<typeof RootEntrypointComponent>(
+        environmentProvider,
+        {
+            root: JSResource<any>(),
+            getPreloadProps: () => ({
+                queries: {
+                    someQueryRef: {
+                        parameters: query as any,
+                        variables,
+                    },
+                },
+            }),
+        },
+        {},
+    );
+
+    // $ExpectType SomeQueryVariables
+    const vars = entrypointReference.queries.someQueryRef.variables;
 }

@@ -3,7 +3,7 @@ import {
     EnvironmentProviderOptions,
     LoadQueryOptions,
     PreloadableConcreteRequest,
-    PreloadedQueryInner,
+    PreloadedQuery,
 } from './EntryPointTypes';
 
 export function loadQuery<
@@ -15,4 +15,4 @@ export function loadQuery<
     variables: VariablesOf<TQuery>,
     options?: LoadQueryOptions,
     environmentProviderOptions?: TEnvironmentProviderOptions,
-): PreloadedQueryInner<TQuery, TEnvironmentProviderOptions>;
+): PreloadedQuery<TQuery, TEnvironmentProviderOptions>;

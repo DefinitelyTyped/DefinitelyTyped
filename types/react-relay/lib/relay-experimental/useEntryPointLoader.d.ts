@@ -12,12 +12,7 @@ type UseLoadEntryPointHookType<
     TPreloadedEntryPoints extends {},
     TRuntimeProps extends {},
     TExtraProps,
-    TEntryPointComponent extends EntryPointComponent<
-        TPreloadedQueries,
-        TPreloadedEntryPoints,
-        TRuntimeProps,
-        TExtraProps
-    >
+    TEntryPointComponent extends EntryPointComponent<any>
 > = [PreloadedEntryPoint<TEntryPointComponent> | null | undefined, (params: TEntryPointParams) => void, () => void];
 
 export function useEntryPointLoader<
@@ -26,12 +21,7 @@ export function useEntryPointLoader<
     TPreloadedEntryPoints extends {},
     TRuntimeProps extends {},
     TExtraProps,
-    TEntryPointComponent extends EntryPointComponent<
-        TPreloadedQueries,
-        TPreloadedEntryPoints,
-        TRuntimeProps,
-        TExtraProps
-    >,
+    TEntryPointComponent extends EntryPointComponent<any>,
     TEntryPoint extends EntryPoint<TEntryPointParams, TEntryPointComponent>
 >(
     environmentProvider: IEnvironmentProvider<EnvironmentProviderOptions>,

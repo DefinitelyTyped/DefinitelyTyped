@@ -6,12 +6,7 @@ export function EntryPointContainer<
     TPreloadedNestedEntryPoints extends {},
     TRuntimeProps extends {},
     TExtraProps,
-    TEntryPointComponent extends EntryPointComponent<
-        TPreloadedQueries,
-        TPreloadedNestedEntryPoints,
-        TRuntimeProps,
-        TExtraProps
-    >
+    TEntryPointComponent extends EntryPointComponent<any>
 >({
     entryPointReference,
     props,
