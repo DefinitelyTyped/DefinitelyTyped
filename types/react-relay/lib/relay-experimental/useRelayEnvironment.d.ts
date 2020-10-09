@@ -1,3 +1,3 @@
-import { Environment } from 'relay-runtime';
+import type { Environment } from 'relay-runtime';
 
 export function useRelayEnvironment(): Environment;
