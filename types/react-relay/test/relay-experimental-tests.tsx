@@ -206,7 +206,7 @@ function NonNullableFragment() {
 
     return function UserComponent(props: Props) {
         // $ExpectType UserComponent_user
-        useFragment(
+        const data = useFragment(
             graphql`
                 fragment UserComponent_user on User {
                     name
@@ -218,7 +218,7 @@ function NonNullableFragment() {
             props.user,
         );
 
-        return null;
+        return data.name;
     };
 }
 
@@ -229,7 +229,7 @@ function NullableFragment() {
 
     return function UserComponent(props: Props) {
         // $ExpectType UserComponent_user | null
-        useFragment(
+        const data = useFragment(
             graphql`
                 fragment UserComponent_user on User {
                     name
@@ -240,7 +240,8 @@ function NullableFragment() {
             `,
             props.user,
         );
-        return null;
+
+        return data?.name;
     };
 }
 

@@ -1,5 +1,5 @@
 import type { GraphQLTaggedNode, OperationType } from 'relay-runtime';
-import type { KeyType } from './helpers';
+import type { KeyDataType, KeyType } from './helpers';
 import type { LoadMoreFn } from './useLoadMoreFunction';
 import type { RefetchFnDynamic } from './useRefetchableFragmentNode';
 
@@ -16,4 +16,4 @@ export function useBlockingPaginationFragment<TQuery extends OperationType, TKey
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
     componentDisplayName?: string,
-): ReturnTypeNode<TQuery, TKey, TKey extends null ? null : NonNullable<TKey>[' $data']>;
+): ReturnTypeNode<TQuery, TKey, KeyDataType<TKey>>;

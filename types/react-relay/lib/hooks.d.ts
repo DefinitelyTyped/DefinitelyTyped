@@ -27,7 +27,7 @@ export { loadEntryPoint } from './relay-experimental/loadEntryPoint';
 export { prepareEntryPoint_DEPRECATED } from './relay-experimental/prepareEntryPoint_DEPRECATED';
 
 export { useBlockingPaginationFragment } from './relay-experimental/useBlockingPaginationFragment';
-/* TODO: ❌ */ export { useFragment } from './relay-experimental/useFragment';
+export { useFragment } from './relay-experimental/useFragment';
 /* TODO: ❌ */ export { useLazyLoadQuery } from './relay-experimental/useLazyLoadQuery';
 /* TODO: ❌ */ export { useEntryPointLoader } from './relay-experimental/useEntryPointLoader';
 /* TODO: ❌ */ export { useQueryLoader } from './relay-experimental/useQueryLoader';
