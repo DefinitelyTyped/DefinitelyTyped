@@ -233,7 +233,7 @@ declare namespace ROSLIB {
          */
         getServiceRequestDetails(
             service: string,
-            callback: (type: any) => void,
+            callback: (type: string) => void,
             failedCallback?: (error: any) => void,
         ): void;
     }
