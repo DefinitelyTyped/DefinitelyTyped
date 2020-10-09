@@ -14,8 +14,6 @@ import {
     graphql,
     RelayEnvironmentProvider,
     useRelayEnvironment,
-    preloadQuery,
-    PreloadedQuery,
     usePreloadedQuery,
     useLazyLoadQuery,
     useFragment,
@@ -25,7 +23,7 @@ import {
     useMutation,
     useSubscription,
     useQueryLoader,
-    loadQuery
+    loadQuery, PreloadedQuery,
 } from 'react-relay/hooks';
 
 const source = new RecordSource();
@@ -134,28 +132,6 @@ function RelayEnvironment() {
     );
 }
 
-/**
- * Tests of usePreloadedQuery
- * see https://relay.dev/docs/en/experimental/api-reference#usepreloadedquery
- */
-function PreloadedQuery() {
-    const appQuery = graphql`
-        query AppQuery($id: ID!) {
-            user(id: $id) {
-                name
-            }
-        }
-    `;
-
-    const result = preloadQuery<AppQuery>(environment, appQuery, { id: '4' }, { fetchPolicy: 'store-or-network' });
-
-    return function App() {
-        const data = usePreloadedQuery(query, result);
-
-        if (!data.user) return;
-        return <h1>{data.user.name}</h1>;
-    };
-}
 
 /**
  * Tests for useLazyLoadQuery
