@@ -3,7 +3,7 @@ export { graphql } from 'relay-runtime';
 
 export * from './relay-experimental/EntryPointTypes';
 
-/* TODO: ❌ */ export type { MatchContainerProps, MatchPointer } from './relay-experimental/MatchContainer';
+export type { MatchContainerProps, MatchPointer } from './relay-experimental/MatchContainer';
 /* TODO: ❌ */ export type { ProfilerContextType } from './relay-experimental/ProfilerContext';
 /* TODO: ❌ */ export type { Direction, LoadMoreFn } from './relay-experimental/useLoadMoreFunction';
 /* TODO: ❌ */ export type { UseMutationConfig } from './relay-experimental/useMutation';
@@ -15,13 +15,13 @@ export * from './relay-experimental/EntryPointTypes';
 
 /* TODO: ❌ */ export { EntryPointContainer } from './relay-experimental/EntryPointContainer';
 /* TODO: ❌ */ export { LazyLoadEntryPointContainer_DEPRECATED } from './relay-experimental/LazyLoadEntryPointContainer_DEPRECATED';
-/* TODO: ❌ */ export { MatchContainer } from './relay-experimental/MatchContainer';
+export { MatchContainer } from './relay-experimental/MatchContainer';
 /* TODO: ❌ */ export { ProfilerContext } from './relay-experimental/ProfilerContext';
 /* TODO: ❌ */ export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentProvider';
 
 /* TODO: ❌ */ export { fetchQuery } from './relay-experimental/fetchQuery';
 
-/* TODO: ❌ */ export { loadQuery } from './relay-experimental/loadQuery';
+export { loadQuery } from './relay-experimental/loadQuery';
 /* TODO: ❌ */ export { loadEntryPoint } from './relay-experimental/loadEntryPoint';
 
 /* TODO: ❌ */ export { prepareEntryPoint_DEPRECATED } from './relay-experimental/prepareEntryPoint_DEPRECATED';
