@@ -1,5 +1,7 @@
 import { GraphQLTaggedNode } from 'relay-runtime';
 
+import type { KeyType } from './helpers';
+
 // NOTE: These declares ensure that the type of the returned data is:
 //   - non-nullable if the provided ref type is non-nullable
 //   - nullable if the provided ref type is nullable
@@ -9,9 +11,6 @@ import { GraphQLTaggedNode } from 'relay-runtime';
 
 type $Call<Fn extends (...args: any[]) => any> = Fn extends (arg: any) => infer RT ? RT : never;
 
-interface KeyType {
-    readonly ' $data'?: unknown;
-}
 type ArrayKeyType = ReadonlyArray<{ readonly ' $data'?: ReadonlyArray<unknown> } | null>;
 
 type KeyReturnType<T extends KeyType> = (arg: T) => NonNullable<T[' $data']>;
