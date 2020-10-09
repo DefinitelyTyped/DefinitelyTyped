@@ -5,7 +5,7 @@ export * from './relay-experimental/EntryPointTypes';
 
 export type { MatchContainerProps, MatchPointer } from './relay-experimental/MatchContainer';
 export type { ProfilerContextType } from './relay-experimental/ProfilerContext';
-/* TODO: ❌ */ export type { Direction, LoadMoreFn } from './relay-experimental/useLoadMoreFunction';
+export type { Direction, LoadMoreFn } from './relay-experimental/useLoadMoreFunction';
 /* TODO: ❌ */ export type { UseMutationConfig } from './relay-experimental/useMutation';
 /* TODO: ❌ */ export type {
     RefetchFn,

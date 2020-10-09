@@ -1,30 +1,32 @@
-import {
+import type {
     ConcreteRequest,
     Disposable,
     GraphQLResponse,
     Observer,
+    OperationType,
     ReaderFragment,
     ReaderPaginationMetadata,
-    RequestDescriptor,
 } from 'relay-runtime';
+import { VariablesOf } from './EntryPointTypes';
 
 export type Direction = 'forward' | 'backward';
 
-export type LoadMoreFn = (
+export type LoadMoreFn<TQuery extends OperationType> = (
     count: number,
     options?: {
         onComplete?: (arg: Error | null) => void;
+        UNSTABLE_extraVariables?: Partial<VariablesOf<TQuery>>;
     },
 ) => Disposable;
 
 export interface UseLoadMoreFunctionArgs {
     direction: Direction;
     fragmentNode: ReaderFragment;
+    fragmentRef: unknown;
     fragmentIdentifier: string;
-    fragmentOwner: RequestDescriptor | ReadonlyArray<RequestDescriptor | null> | null;
     fragmentData: unknown;
     connectionPathInFragmentData: ReadonlyArray<string | number>;
-    fragmentRefPathInResponse: ReadonlyArray<string | number>;
+    identifierField?: string | null;
     paginationRequest: ConcreteRequest;
     paginationMetadata: ReaderPaginationMetadata;
     componentDisplayName: string;
@@ -32,7 +34,9 @@ export interface UseLoadMoreFunctionArgs {
     onReset: () => void;
 }
 
-export function useLoadMoreFunction(args: UseLoadMoreFunctionArgs): [LoadMoreFn, boolean, () => void];
+export function useLoadMoreFunction<TQuery extends OperationType>(
+    args: UseLoadMoreFunctionArgs,
+): [LoadMoreFn<TQuery>, boolean, () => void];
 
 export function getConnectionState(
     direction: Direction,
@@ -40,6 +44,6 @@ export function getConnectionState(
     fragmentData: unknown,
     connectionPathInFragmentData: ReadonlyArray<string | number>,
 ): {
-    cursor: string | null;
+    cursor?: string | null;
     hasMore: boolean;
 };
