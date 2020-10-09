@@ -6,7 +6,10 @@ import type {
     Observable,
     OperationType,
     RequestParameters,
+    VariablesOf,
 } from 'relay-runtime';
+
+export { VariablesOf } from 'relay-runtime';
 
 // TODO: Make this come from jsr
 interface JSResourceReference<T> {
@@ -16,9 +19,6 @@ interface JSResourceReference<T> {
 
     load(): Promise<T>;
 }
-
-// TODO: This should really come from relay-runtime, but will do that when we migrate relay-runtime
-export type VariablesOf<TQuery extends OperationType> = TQuery['variables'];
 
 export type PreloadFetchPolicy = 'store-or-network' | 'store-and-network' | 'network-only';
 

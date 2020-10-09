@@ -19,7 +19,7 @@ export { MatchContainer } from './relay-experimental/MatchContainer';
 export { ProfilerContext } from './relay-experimental/ProfilerContext';
 export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentProvider';
 
-/* TODO: ❌ */ export { fetchQuery } from './relay-experimental/fetchQuery';
+export { fetchQuery } from './relay-experimental/fetchQuery';
 
 export { loadQuery } from './relay-experimental/loadQuery';
 /* TODO: ❌ */ export { loadEntryPoint } from './relay-experimental/loadEntryPoint';

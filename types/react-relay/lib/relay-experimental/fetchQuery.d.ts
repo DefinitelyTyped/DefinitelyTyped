@@ -1,4 +1,11 @@
-import { CacheConfig, GraphQLTaggedNode, IEnvironment, Observable, OperationType } from 'relay-runtime';
+import type {
+    CacheConfig,
+    FetchQueryFetchPolicy,
+    GraphQLTaggedNode,
+    IEnvironment,
+    Observable,
+    OperationType,
+} from 'relay-runtime';
 
 /**
  * Fetches the given query and variables on the provided environment,
@@ -36,7 +43,7 @@ import { CacheConfig, GraphQLTaggedNode, IEnvironment, Observable, OperationType
  * from the server.
  *
  * ```
- * fetchQuery(environment, query, variables).then((data) => {
+ * fetchQuery(environment, query, variables).toPromise().then((data) => {
  *   // ...
  * });
  * ```
@@ -81,5 +88,8 @@ export function fetchQuery<TQuery extends OperationType>(
     environment: IEnvironment,
     query: GraphQLTaggedNode,
     variables: TQuery['variables'],
-    options?: { networkCacheConfig?: CacheConfig },
+    options?: {
+        fetchPolicy?: FetchQueryFetchPolicy;
+        networkCacheConfig?: CacheConfig;
+    },
 ): Observable<TQuery['response']>;

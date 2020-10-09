@@ -1,5 +1,4 @@
-import { FetchPolicy, RenderPolicy } from './QueryResource';
-import { CacheConfig, GraphQLTaggedNode, OperationType } from 'relay-runtime';
+import type { CacheConfig, FetchPolicy, GraphQLTaggedNode, OperationType, RenderPolicy } from 'relay-runtime';
 
 export function useLazyLoadQuery<TQuery extends OperationType>(
     gqlQuery: GraphQLTaggedNode,

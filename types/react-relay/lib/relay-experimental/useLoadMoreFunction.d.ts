@@ -6,8 +6,8 @@ import type {
     OperationType,
     ReaderFragment,
     ReaderPaginationMetadata,
+    VariablesOf,
 } from 'relay-runtime';
-import { VariablesOf } from './EntryPointTypes';
 
 export type Direction = 'forward' | 'backward';
 

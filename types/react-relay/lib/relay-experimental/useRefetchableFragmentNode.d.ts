@@ -1,6 +1,12 @@
-import type { Disposable, IEnvironment, OperationType, ReaderFragment, Variables } from 'relay-runtime';
-
-import type { FetchPolicy, RenderPolicy } from './QueryResource';
+import type {
+    Disposable,
+    FetchPolicy,
+    IEnvironment,
+    OperationType,
+    ReaderFragment,
+    RenderPolicy,
+    Variables,
+} from 'relay-runtime';
 
 export type RefetchFn<TQuery extends OperationType, TOptions = Options> = RefetchFnExact<TQuery, TOptions>;
 

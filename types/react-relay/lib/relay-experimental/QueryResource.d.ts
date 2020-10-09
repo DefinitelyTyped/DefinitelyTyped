@@ -1,19 +1,17 @@
-import {
-    Disposable,
+import type {
+    Disposable, FetchPolicy,
     FragmentPointer,
     GraphQLResponse,
     IEnvironment,
     Observable,
     Observer,
     OperationDescriptor,
-    ReaderFragment,
+    ReaderFragment, RenderPolicy,
     Snapshot,
 } from 'relay-runtime';
-import { Cache } from './LRUCache';
+import type { Cache } from './LRUCache';
 
 export type QueryResource = QueryResourceImpl;
-export type FetchPolicy = 'store-only' | 'store-or-network' | 'store-and-network' | 'network-only';
-export type RenderPolicy = 'full' | 'partial';
 
 type QueryResourceCache = Cache<QueryResourceCacheEntry>;
 interface QueryResourceCacheEntry {
