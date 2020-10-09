@@ -24,7 +24,7 @@ export { fetchQuery } from './relay-experimental/fetchQuery';
 export { loadQuery } from './relay-experimental/loadQuery';
 export { loadEntryPoint } from './relay-experimental/loadEntryPoint';
 
-/* TODO: ❌ */ export { prepareEntryPoint_DEPRECATED } from './relay-experimental/prepareEntryPoint_DEPRECATED';
+export { prepareEntryPoint_DEPRECATED } from './relay-experimental/prepareEntryPoint_DEPRECATED';
 
 /* TODO: ❌ */ export { useBlockingPaginationFragment } from './relay-experimental/useBlockingPaginationFragment';
 /* TODO: ❌ */ export { useFragment } from './relay-experimental/useFragment';
