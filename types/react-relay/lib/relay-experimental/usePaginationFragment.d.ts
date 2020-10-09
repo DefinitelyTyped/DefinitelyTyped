@@ -1,11 +1,12 @@
-import { LoadMoreFn, UseLoadMoreFunctionArgs } from './useLoadMoreFunction';
-import { RefetchFnDynamic } from './useRefetchableFragmentNode';
-import { GraphQLResponse, GraphQLTaggedNode, Observer, OperationType } from 'relay-runtime';
+import type { GraphQLTaggedNode, OperationType } from 'relay-runtime';
+import type { KeyType, KeyTypeData } from './helpers';
+import type { LoadMoreFn } from './useLoadMoreFunction';
+import type { RefetchFnDynamic } from './useRefetchableFragmentNode';
 
-export interface ReturnType<TQuery extends OperationType, TKey, TFragmentData> {
+export interface ReturnType<TQuery extends OperationType, TKey extends KeyType | null, TFragmentData> {
     data: TFragmentData;
-    loadNext: LoadMoreFn;
-    loadPrevious: LoadMoreFn;
+    loadNext: LoadMoreFn<TQuery>;
+    loadPrevious: LoadMoreFn<TQuery>;
     hasNext: boolean;
     hasPrevious: boolean;
     isLoadingNext: boolean;
@@ -13,30 +14,12 @@ export interface ReturnType<TQuery extends OperationType, TKey, TFragmentData> {
     refetch: RefetchFnDynamic<TQuery, TKey>;
 }
 
-export type $Call<Fn extends (...args: any[]) => any> = Fn extends (arg: any) => infer RT ? RT : never;
-
-interface KeyType {
-    readonly ' $data'?: unknown;
-}
-
-type KeyReturnType<T extends KeyType> = (arg: T) => NonNullable<T[' $data']>;
-
-export function usePaginationFragment<
-    TQuery extends OperationType,
-    TKey extends KeyType
->(
+export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
-): // tslint:disable-next-line no-unnecessary-generics
-ReturnType<TQuery, TKey, $Call<KeyReturnType<TKey>>>;
+): ReturnType<TQuery, TKey, KeyTypeData<TKey>>;
 
-export function usePaginationFragment<
-    TQuery extends OperationType,
-    TKey extends KeyType
->(
+export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey | null,
-): // tslint:disable-next-line no-unnecessary-generics
-ReturnType<TQuery, TKey | null, $Call<KeyReturnType<TKey>> | null>;
-
-export {};
+): ReturnType<TQuery, TKey | null, KeyTypeData<TKey> | null>;

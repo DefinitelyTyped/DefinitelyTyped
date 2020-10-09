@@ -32,7 +32,7 @@ export { useLazyLoadQuery } from './relay-experimental/useLazyLoadQuery';
 export { useEntryPointLoader } from './relay-experimental/useEntryPointLoader';
 /* TODO: ❌ */ export { useQueryLoader } from './relay-experimental/useQueryLoader';
 export { useMutation } from './relay-experimental/useMutation';
-/* TODO: ❌ */ export { usePaginationFragment } from './relay-experimental/usePaginationFragment';
+export { usePaginationFragment } from './relay-experimental/usePaginationFragment';
 export { usePreloadedQuery } from './relay-experimental/usePreloadedQuery';
 /* TODO: ❌ */ export { useRefetchableFragment } from './relay-experimental/useRefetchableFragment';
 export { useRelayEnvironment } from './relay-experimental/useRelayEnvironment';
