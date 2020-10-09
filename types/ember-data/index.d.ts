@@ -134,6 +134,8 @@ export namespace DS {
         options?: AttrOptions<TransformRegistry[K]>
     ): Ember.ComputedProperty<TransformRegistry[K]>;
     function attr(options?: AttrOptions): Ember.ComputedProperty<any>;
+    function attr(target: any, propertyKey: string): void;
+
     /**
      * WARNING: This interface is likely to change in order to accomodate https://github.com/emberjs/rfcs/pull/4
      * ## Using BuildURLMixin
