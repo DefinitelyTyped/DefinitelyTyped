@@ -1,48 +1,48 @@
 import type {
-    Disposable, FetchPolicy,
+    Disposable,
+    FetchPolicy,
     FragmentPointer,
     GraphQLResponse,
     IEnvironment,
     Observable,
     Observer,
     OperationDescriptor,
-    ReaderFragment, RenderPolicy,
+    ReaderFragment,
+    RenderPolicy,
     Snapshot,
+    Subscription,
 } from 'relay-runtime';
 import type { Cache } from './LRUCache';
 
 export type QueryResource = QueryResourceImpl;
 
 type QueryResourceCache = Cache<QueryResourceCacheEntry>;
+
 interface QueryResourceCacheEntry {
     readonly cacheKey: string;
+    readonly CacheKey: string;
+
     getRetainCount(): number;
+
+    getNetworkSubscription(): Subscription | null | undefined;
+
+    setNetworkSubscription(subscription?: Subscription | null): void;
+
     getValue(): Error | Promise<void> | QueryResult;
-    setValue(value: Error | Promise<void> | QueryResult): void;
-    temporaryRetain(environment: IEnvironment): void;
+
+    setValue(arg: Error | Promise<void> | QueryResult): void;
+
+    temporaryRetain(environment: IEnvironment): Disposable;
+
     permanentRetain(environment: IEnvironment): Disposable;
 }
+
 interface QueryResult {
     cacheKey: string;
     fragmentNode: ReaderFragment;
     fragmentRef: FragmentPointer;
     operation: OperationDescriptor;
 }
-
-declare function getQueryCacheKey(
-    operation: OperationDescriptor,
-    fetchPolicy: FetchPolicy,
-    renderPolicy: RenderPolicy,
-): string;
-
-declare function getQueryResult(operation: OperationDescriptor, cacheKey: string): QueryResult;
-
-declare function createQueryResourceCacheEntry(
-    cacheKey: string,
-    operation: OperationDescriptor,
-    value: Error | Promise<void> | QueryResult,
-    onDispose: (entry: QueryResourceCacheEntry) => void,
-): QueryResourceCacheEntry;
 
 declare class QueryResourceImpl {
     constructor(environment: IEnvironment);
@@ -55,10 +55,11 @@ declare class QueryResourceImpl {
     prepare(
         operation: OperationDescriptor,
         fetchObservable: Observable<GraphQLResponse>,
-        maybeFetchPolicy: FetchPolicy | null,
-        maybeRenderPolicy: RenderPolicy | null,
-        observer?: Observer<Snapshot>,
-        cacheKeyBuster?: string | number,
+        maybeFetchPolicy: FetchPolicy | null | undefined,
+        maybeRenderPolicy: RenderPolicy | null | undefined,
+        observer: Observer<Snapshot> | null | undefined,
+        cacheKeyBuster: string | number | null | undefined,
+        profilerContext: unknown,
     ): QueryResult;
 
     /**
@@ -66,17 +67,15 @@ declare class QueryResourceImpl {
      * (e.g. inside useEffect), in order to retain the operation in the Relay store
      * and transfer ownership of the operation to the component lifecycle.
      */
-    retain(queryResult: QueryResult): Disposable;
+    retain(queryResult: QueryResult, profilerContext: unknown): Disposable;
 
     getCacheEntry(
         operation: OperationDescriptor,
         fetchPolicy: FetchPolicy,
         maybeRenderPolicy?: RenderPolicy,
-    ): QueryResourceCacheEntry | null;
+    ): QueryResourceCacheEntry | null | undefined;
 }
 
-declare function createQueryResource(environment: IEnvironment): QueryResource;
+export function createQueryResource(environment: IEnvironment): QueryResource;
 
-declare function getQueryResourceForEnvironment(environment: IEnvironment): QueryResourceImpl;
-
-export { createQueryResource, getQueryResourceForEnvironment };
+export function getQueryResourceForEnvironment(environment: IEnvironment): QueryResourceImpl;
