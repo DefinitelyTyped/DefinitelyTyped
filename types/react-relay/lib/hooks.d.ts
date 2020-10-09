@@ -14,7 +14,7 @@ export type {
 } from './relay-experimental/useRefetchableFragmentNode';
 
 export { EntryPointContainer } from './relay-experimental/EntryPointContainer.react';
-/* TODO: ❌ */ export { LazyLoadEntryPointContainer_DEPRECATED } from './relay-experimental/LazyLoadEntryPointContainer_DEPRECATED';
+export { LazyLoadEntryPointContainer_DEPRECATED } from './relay-experimental/LazyLoadEntryPointContainer_DEPRECATED.react';
 export { MatchContainer } from './relay-experimental/MatchContainer';
 export { ProfilerContext } from './relay-experimental/ProfilerContext';
 /* TODO: ❌ */ export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentProvider';

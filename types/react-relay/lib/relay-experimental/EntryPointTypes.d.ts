@@ -192,7 +192,7 @@ export type ExtractQueryTypeHelper<TEnvironmentProviderOptions extends Environme
 ) => ThinQueryParams<TQuery, TEnvironmentProviderOptions>;
 
 export type ExtractEntryPointTypeHelper<TEntryPointParams> = <
-    TEntryPointComponent extends EntryPointComponent<unknown>
+    TEntryPointComponent extends EntryPointComponent<any, any, any, any>
 >(
     PreloadedEntryPoint?: PreloadedEntryPoint<TEntryPointComponent> | null,
 ) =>
@@ -202,7 +202,7 @@ export type ExtractEntryPointTypeHelper<TEntryPointParams> = <
 
 export type EntryPoint<
     TEntryPointParams,
-    TEntryPointComponent extends EntryPointComponent<unknown>
+    TEntryPointComponent extends EntryPointComponent<any, any, any, any>
 > = InternalEntryPointRepresentation<
     TEntryPointParams,
     JSX.LibraryManagedAttributes<TEntryPointComponent, 'queries'>,
