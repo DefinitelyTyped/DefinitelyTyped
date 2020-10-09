@@ -88,7 +88,7 @@ export type PreloadQueryStatus = Readonly<{
  * TExtraProps - a bag of extra props that you may define in `entrypoint` file
  * and they will be passed to the EntryPointComponent as `extraProps`
  */
-export interface InternalEntryPointRepresentation<
+interface InternalEntryPointRepresentation<
     /**
      * object that contains all necessary information to execute the preloaders (routeParams, query variables)
      */
@@ -151,7 +151,7 @@ type PreloadedEntryPoints<TPreloadedEntryPoints> = TPreloadedEntryPoints extends
 export interface PreloadProps<
     TPreloadParams extends {},
     TPreloadedQueries extends Record<string, OperationType>,
-    TPreloadedEntryPoints extends Record<string, InternalEntryPointRepresentation<any, any, any, any, any> | undefined>,
+    TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined>,
     TExtraProps extends {}
 > extends Readonly<{
         entryPoints?: ThinNestedEntryPointParamsObject<TPreloadedEntryPoints>;
@@ -171,7 +171,7 @@ export interface EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRunt
 // Type of the entry point `root` component
 export type EntryPointComponent<
     TPreloadedQueries extends Record<string, OperationType>,
-    TPreloadedEntryPoints extends Record<string, InternalEntryPointRepresentation<any, any, any, any, any> | undefined>,
+    TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined>,
     TRuntimeProps extends {} = {},
     TExtraProps extends {} | null = {}
 > = ComponentType<EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>>;
@@ -207,23 +207,16 @@ export interface ThinQueryParams<
 export interface ThinNestedEntryPointParams<TEntryPoint>
     extends Readonly<{
         entryPoint: TEntryPoint;
-        entryPointParams: GetEntryPointParamsFromEntryPointRepresentation<TEntryPoint>;
+        entryPointParams: GetEntryPointParamsFromEntryPoint<TEntryPoint>;
     }> {}
 
-export type EntryPoint<TEntryPointParams, TEntryPointComponent> = TEntryPointComponent extends EntryPointComponent<
-    infer TPreloadedQueries,
-    infer TPreloadedEntryPoints,
-    infer TRuntimeProps,
-    infer TExtraProps
->
-    ? InternalEntryPointRepresentation<
-          TEntryPointParams,
-          TPreloadedQueries,
-          TPreloadedEntryPoints,
-          TRuntimeProps,
-          TExtraProps
-      >
-    : never;
+export type EntryPoint<TEntryPointComponent, TEntryPointParams extends {} = {}> = InternalEntryPointRepresentation<
+    TEntryPointParams,
+    TEntryPointComponent extends EntryPointComponent<infer T, any, any, any> ? T : never,
+    TEntryPointComponent extends EntryPointComponent<any, infer T, any, any> ? T : never,
+    TEntryPointComponent extends EntryPointComponent<any, any, infer T, any> ? T : never,
+    TEntryPointComponent extends EntryPointComponent<any, any, any, infer T> ? T : never
+>;
 
 // tslint:disable-next-line interface-name
 export interface IEnvironmentProvider<TOptions> {
@@ -231,17 +224,16 @@ export interface IEnvironmentProvider<TOptions> {
 }
 
 // Helper types
-
-export type GetEntryPointParamsFromEntryPointRepresentation<
-    TEntryPointRepresentation
-> = TEntryPointRepresentation extends InternalEntryPointRepresentation<infer P, any, any, any, any> ? P : never;
-
-export type GetEntryPointComponentFromEntryPoint<TEntryPoint> = TEntryPoint extends InternalEntryPointRepresentation<
-    infer TEntryPointParams,
-    infer TPreloadedQueries,
-    infer TPreloadedEntryPoints,
-    infer TRuntimeProps,
-    infer TExtraProps
+export type GetEntryPointParamsFromEntryPoint<TEntryPoint> = TEntryPoint extends EntryPoint<
+    infer TEntryPointComponent,
+    infer TEntryPointParams
 >
-    ? EntryPointComponent<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>
+    ? TEntryPointParams
+    : never;
+
+export type GetEntryPointComponentFromEntryPoint<TEntryPoint> = TEntryPoint extends EntryPoint<
+    infer TEntryPointComponent,
+    infer TEntryPointParams
+>
+    ? TEntryPointComponent
     : never;

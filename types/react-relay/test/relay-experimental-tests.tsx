@@ -1039,7 +1039,7 @@ function EntryPointTests() {
         slug: string;
     }
 
-    const entrypoint: EntryPoint<Params, typeof RootEntrypointComponent> = {
+    const entrypoint: EntryPoint<typeof RootEntrypointComponent, Params> = {
         root: JSResource<typeof RootEntrypointComponent>(),
         getPreloadProps(
             // $ExpectType Params
@@ -1083,7 +1083,7 @@ function EntryPointTests() {
     EntryPointContainerNested Tests
      */
     function EntryPointContainerNested() {
-        const entrypointA: EntryPoint<Params, typeof RootEntrypointComponent> = {
+        const entrypointA: EntryPoint<typeof RootEntrypointComponent, Params> = {
             root: JSResource(),
             getPreloadProps(params) {
                 return {
@@ -1099,7 +1099,7 @@ function EntryPointTests() {
             },
         };
 
-        const entrypointB: EntryPoint<{ author: string }, typeof RootEntrypointComponent> = {
+        const entrypointB: EntryPoint<typeof RootEntrypointComponent, { author: string }> = {
             root: JSResource(),
             getPreloadProps(params) {
                 console.log(params.author);
@@ -1148,7 +1148,7 @@ function EntryPointTests() {
             );
         };
 
-        const entrypoint: EntryPoint<{ route: string }, typeof SuperParentComponent> = {
+        const entrypoint: EntryPoint<typeof SuperParentComponent, { route: string }> = {
             root: JSResource(),
             getPreloadProps(params) {
                 return {
@@ -1179,7 +1179,7 @@ function EntryPointTests() {
         };
 
         const entrypointReference = loadEntryPoint(environmentProvider, entrypoint, {
-            route: "b"
+            route: 'b',
         });
 
         return <EntryPointContainer entryPointReference={entrypointReference} props={{}} />;

@@ -3,12 +3,12 @@ import {
     IEnvironmentProvider,
     PreloadedEntryPoint,
     GetEntryPointComponentFromEntryPoint,
-    GetEntryPointParamsFromEntryPointRepresentation,
+    GetEntryPointParamsFromEntryPoint,
 } from './EntryPointTypes';
 
 export type UseEntryPointLoaderHookType<TEntryPoint> = [
     PreloadedEntryPoint<GetEntryPointComponentFromEntryPoint<TEntryPoint>> | null | undefined,
-    (entryPointParams: GetEntryPointParamsFromEntryPointRepresentation<TEntryPoint>) => void,
+    (entryPointParams: GetEntryPointParamsFromEntryPoint<TEntryPoint>) => void,
     () => void,
 ];
 

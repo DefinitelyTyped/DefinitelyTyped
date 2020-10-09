@@ -3,11 +3,11 @@ import {
     IEnvironmentProvider,
     PreloadedEntryPoint,
     GetEntryPointComponentFromEntryPoint,
-    GetEntryPointParamsFromEntryPointRepresentation,
+    GetEntryPointParamsFromEntryPoint,
 } from './EntryPointTypes';
 
 export function loadEntryPoint<TEntryPoint>(
     environmentProvider: IEnvironmentProvider<EnvironmentProviderOptions>,
     entryPoint: TEntryPoint,
-    entryPointParams: GetEntryPointParamsFromEntryPointRepresentation<TEntryPoint>,
+    entryPointParams: GetEntryPointParamsFromEntryPoint<TEntryPoint>,
 ): PreloadedEntryPoint<GetEntryPointComponentFromEntryPoint<TEntryPoint>>;
