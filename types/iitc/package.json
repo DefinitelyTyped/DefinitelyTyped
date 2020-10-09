@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/jquery": "^3.3.31",
+        "@types/jqueryui": "^1.12.9",
+        "@types/leaflet": "^0.7.15-alpha"
+    }
+}
