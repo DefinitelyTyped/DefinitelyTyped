@@ -30,7 +30,7 @@ export { useBlockingPaginationFragment } from './relay-experimental/useBlockingP
 export { useFragment } from './relay-experimental/useFragment';
 export { useLazyLoadQuery } from './relay-experimental/useLazyLoadQuery';
 export { useEntryPointLoader } from './relay-experimental/useEntryPointLoader';
-/* TODO: ❌ */ export { useQueryLoader } from './relay-experimental/useQueryLoader';
+export { useQueryLoader } from './relay-experimental/useQueryLoader';
 export { useMutation } from './relay-experimental/useMutation';
 export { usePaginationFragment } from './relay-experimental/usePaginationFragment';
 export { usePreloadedQuery } from './relay-experimental/usePreloadedQuery';
