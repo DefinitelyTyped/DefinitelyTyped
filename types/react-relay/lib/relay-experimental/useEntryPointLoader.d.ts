@@ -1,36 +1,20 @@
 import type {
-    EntryPoint,
-    EntryPointComponent,
     EnvironmentProviderOptions,
     IEnvironmentProvider,
     PreloadedEntryPoint,
+    GetEntryPointComponentFromEntryPoint,
 } from './EntryPointTypes';
+import type { InternalEntryPointRepresentation } from './EntryPointTypes';
 
-type UseLoadEntryPointHookType<
-    TEntryPointParams extends {},
-    TPreloadedQueries extends {},
-    TPreloadedEntryPoints extends {},
-    TRuntimeProps extends {},
-    TExtraProps,
-    TEntryPointComponent extends EntryPointComponent<any>
-> = [PreloadedEntryPoint<TEntryPointComponent> | null | undefined, (params: TEntryPointParams) => void, () => void];
+type UseEntryPointLoaderHookType<TEntryPoint> = [
+    PreloadedEntryPoint<GetEntryPointComponentFromEntryPoint<TEntryPoint>> | null | undefined,
+    (
+        entryPointParams: TEntryPoint extends InternalEntryPointRepresentation<infer P, any, any, any, any> ? P : never,
+    ) => void,
+    () => void,
+];
 
-export function useEntryPointLoader<
-    TEntryPointParams extends {},
-    TPreloadedQueries extends {},
-    TPreloadedEntryPoints extends {},
-    TRuntimeProps extends {},
-    TExtraProps,
-    TEntryPointComponent extends EntryPointComponent<any>,
-    TEntryPoint extends EntryPoint<TEntryPointParams, TEntryPointComponent>
->(
+export function useEntryPointLoader<TEntryPoint>(
     environmentProvider: IEnvironmentProvider<EnvironmentProviderOptions>,
     entryPoint: TEntryPoint,
-): UseLoadEntryPointHookType<
-    TEntryPointParams,
-    TPreloadedQueries,
-    TPreloadedEntryPoints,
-    TRuntimeProps,
-    TExtraProps,
-    TEntryPointComponent
->;
+): UseEntryPointLoaderHookType<TEntryPoint>;

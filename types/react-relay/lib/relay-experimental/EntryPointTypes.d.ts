@@ -208,6 +208,16 @@ export type EntryPoint<TEntryPointParams, TEntryPointComponent> = TEntryPointCom
       >
     : never;
 
+export type GetEntryPointComponentFromEntryPoint<TEntryPoint> = TEntryPoint extends InternalEntryPointRepresentation<
+    infer TEntryPointParams,
+    infer TPreloadedQueries,
+    infer TPreloadedEntryPoints,
+    infer TRuntimeProps,
+    infer TExtraProps
+>
+    ? EntryPointComponent<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>
+    : never;
+
 export interface IEnvironmentProvider<TOptions> {
     getEnvironment(options: TOptions | null): IEnvironment;
 }

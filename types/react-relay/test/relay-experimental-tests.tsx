@@ -12,6 +12,7 @@ import {
     PreloadedQuery,
     RelayEnvironmentProvider,
     useBlockingPaginationFragment,
+    useEntryPointLoader,
     useFragment,
     useLazyLoadQuery,
     useMutation,
@@ -32,6 +33,7 @@ import {
     RecordSource,
     Store,
 } from 'relay-runtime';
+import { useEffect } from '../../react';
 
 const source = new RecordSource();
 const store = new Store(source);
@@ -998,10 +1000,10 @@ function LoadQuery() {
 }
 
 /*
-EntrypointContainer Tests
+EntryPoint tests
  */
 
-function EntryPointContainerTests() {
+function EntryPointTests() {
     interface SomeQueryResponse {
         readonly post: {
             readonly name: string;
@@ -1055,8 +1057,6 @@ function EntryPointContainerTests() {
         },
     };
 
-    // App
-
     const entrypointReference = loadEntryPoint(environmentProvider, entrypoint, {
         slug: 'test-slug',
     });
@@ -1064,12 +1064,44 @@ function EntryPointContainerTests() {
     // $ExpectType SomeQueryVariables
     const vars = entrypointReference.queries.someQueryRef.variables;
 
-    return (
-        <EntryPointContainer
-            entryPointReference={entrypointReference}
-            props={{
-                onClick() {},
-            }}
-        />
-    );
+    /*
+    EntrypointContainer Tests
+     */
+    function EntryPointContainerTests() {
+        return (
+            <EntryPointContainer
+                entryPointReference={entrypointReference}
+                props={{
+                    onClick() {},
+                }}
+            />
+        );
+    }
+
+    /*
+    useEntryPointLoader Tests
+     */
+    function UseEntryPointLoaderTests() {
+        const [queryReference, entryPointLoaderCallback, dispose] = useEntryPointLoader(
+            environmentProvider,
+            entrypoint,
+        );
+
+        useEffect(() => {
+            entryPointLoaderCallback({
+                slug: 'test-slug',
+            });
+
+            return dispose;
+        }, []);
+
+        return queryReference ? (
+            <EntryPointContainer
+                entryPointReference={queryReference}
+                props={{
+                    onClick() {},
+                }}
+            />
+        ) : null;
+    }
 }
