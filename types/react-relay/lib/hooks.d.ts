@@ -3,11 +3,11 @@ export { graphql } from 'relay-runtime';
 
 export * from './relay-experimental/EntryPointTypes';
 
-export type { MatchContainerProps, MatchPointer } from './relay-experimental/MatchContainer';
-export type { ProfilerContextType } from './relay-experimental/ProfilerContext';
-export type { Direction, LoadMoreFn } from './relay-experimental/useLoadMoreFunction';
-export type { UseMutationConfig } from './relay-experimental/useMutation';
-export type {
+export { MatchContainerProps, MatchPointer } from './relay-experimental/MatchContainer';
+export { ProfilerContextType } from './relay-experimental/ProfilerContext';
+export { Direction, LoadMoreFn } from './relay-experimental/useLoadMoreFunction';
+export { UseMutationConfig } from './relay-experimental/useMutation';
+export {
     RefetchFn,
     RefetchFnDynamic,
     Options as RefetchOptions,
