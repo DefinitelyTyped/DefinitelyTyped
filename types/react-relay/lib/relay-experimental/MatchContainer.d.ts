@@ -85,3 +85,5 @@ export type MatchContainerProps<TProps = {}, TFallback = ReactNode> = Readonly<{
 export function MatchContainer<TProps = {}, TFallback = ReactNode>(
     props: MatchContainerProps<TProps, TFallback>,
 ): ElementType<TProps> | TFallback | null;
+
+export {};

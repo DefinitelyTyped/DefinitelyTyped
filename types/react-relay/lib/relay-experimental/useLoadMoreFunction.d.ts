@@ -36,7 +36,8 @@ export interface UseLoadMoreFunctionArgs {
 
 export function useLoadMoreFunction<TQuery extends OperationType>(
     args: UseLoadMoreFunctionArgs,
-): [LoadMoreFn<TQuery>, boolean, () => void];
+): // tslint:disable-next-line no-unnecessary-generics
+[LoadMoreFn<TQuery>, boolean, () => void];
 
 export function getConnectionState(
     direction: Direction,

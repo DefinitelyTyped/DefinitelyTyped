@@ -4,8 +4,8 @@
 
 import { Context } from 'react';
 
-export type ProfilerContextType = {
+export interface ProfilerContextType {
     wrapPrepareQueryResource: <T>(cb: () => T) => T;
-};
+}
 
 export const ProfilerContext: Context<ProfilerContextType>;

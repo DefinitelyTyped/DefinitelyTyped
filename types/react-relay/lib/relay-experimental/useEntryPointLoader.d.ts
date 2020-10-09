@@ -6,7 +6,7 @@ import {
     GetEntryPointParamsFromEntryPointRepresentation,
 } from './EntryPointTypes';
 
-type UseEntryPointLoaderHookType<TEntryPoint> = [
+export type UseEntryPointLoaderHookType<TEntryPoint> = [
     PreloadedEntryPoint<GetEntryPointComponentFromEntryPoint<TEntryPoint>> | null | undefined,
     (entryPointParams: GetEntryPointParamsFromEntryPointRepresentation<TEntryPoint>) => void,
     () => void,

@@ -11,9 +11,11 @@ export type ReturnTypeNode<TQuery extends OperationType, TKey extends KeyType | 
 export function useRefetchableFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     fragmentRef: TKey,
-): ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey>>;
+): // tslint:disable-next-line no-unnecessary-generics
+ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey>>;
 
 export function useRefetchableFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     fragmentRef: TKey | null,
-): ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey> | null>;
+): // tslint:disable-next-line no-unnecessary-generics
+ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey> | null>;

@@ -225,6 +225,7 @@ export type EntryPoint<TEntryPointParams, TEntryPointComponent> = TEntryPointCom
       >
     : never;
 
+// tslint:disable-next-line interface-name
 export interface IEnvironmentProvider<TOptions> {
     getEnvironment(options: TOptions | null): IEnvironment;
 }

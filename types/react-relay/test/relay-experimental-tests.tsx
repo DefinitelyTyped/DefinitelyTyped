@@ -225,7 +225,7 @@ function NullableFragment() {
 
     return function UserComponent(props: Props) {
         // $ExpectType UserComponent_user | null
-        const data = useFragment(
+        useFragment(
             graphql`
                 fragment UserComponent_user on User {
                     name
@@ -236,8 +236,6 @@ function NullableFragment() {
             `,
             props.user,
         );
-
-        return data?.name;
     };
 }
 
@@ -1037,7 +1035,10 @@ function EntryPointTests() {
         return <button onClick={props.onClick}>{data.post.name}</button>;
     };
 
-    type Params = { slug: string };
+    interface Params {
+        slug: string;
+    }
+
     const entrypoint: EntryPoint<Params, typeof RootEntrypointComponent> = {
         root: JSResource<typeof RootEntrypointComponent>(),
         getPreloadProps(
@@ -1177,7 +1178,9 @@ function EntryPointTests() {
             },
         };
 
-        const entrypointReference = loadEntryPoint(environmentProvider, entrypoint, {});
+        const entrypointReference = loadEntryPoint(environmentProvider, entrypoint, {
+            route: "b"
+        });
 
         return <EntryPointContainer entryPointReference={entrypointReference} props={{}} />;
     }
