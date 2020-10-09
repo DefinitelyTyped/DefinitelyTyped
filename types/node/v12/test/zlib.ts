@@ -121,14 +121,23 @@ brotliDecompress(compressMe, (err: Error | null, result: Buffer) => result);
 brotliDecompress(compressMe, { finishFlush: constants.BROTLI_OPERATION_FINISH }, (err: Error | null, result: Buffer) => result);
 
 {
+    // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer>
     const pBrotliCompress = promisify(brotliCompress);
+    // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer>
     const pBrotliDecompress = promisify(brotliDecompress);
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
     const pDeflate = promisify(deflate);
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
     const pDeflateRaw = promisify(deflateRaw);
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
     const pGzip = promisify(gzip);
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
     const pGunzip = promisify(gunzip);
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
     const pInflate = promisify(inflate);
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
     const pInflateRaw = promisify(inflateRaw);
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
     const pUnzip = promisify(unzip);
 
     (async () => {
