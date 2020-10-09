@@ -1,10 +1,12 @@
 /// <reference types="node" />
 import * as chai from 'chai';
+import './chai-tests-ext';
 
 const expect = chai.expect;
 const assert = chai.assert;
 const should = chai.should();
 const util = chai.util;
+const flag = chai.util.flag;
 
 function chaiVersion(): string {
     return chai.version;
@@ -2156,5 +2158,210 @@ suite('assert', () => {
         assert.notDeepNestedPropertyVal({ tea: { green: { matcha: 'yum' } } }, 'tea.green', { oolong: 'yum' }, 'Should have correct value of the property');
         assert.notDeepNestedPropertyVal({ tea: { green: { matcha: 'yum' } } }, 'tea.green', { matcha: 'yuck' }, 'Should have correct value of the property');
         assert.notDeepNestedPropertyVal({ tea: { green: { matcha: 'yum' } } }, 'tea.black', { matcha: 'yum' }, 'Should have correct value of the property');
+    });
+});
+suite ('Helpers', () => {
+    // freely inspired by https://www.chaijs.com/guide/helpers/
+    class Model {
+        _attrs: Record<string, unknown>;
+        constructor(type: string) {
+            this._attrs = {};
+            this.set('_type', type);
+        }
+        set(key: string, value: unknown) {
+            this._attrs[key] = value;
+        }
+        get(key: string): unknown {
+            return this._attrs[key];
+        }
+    }
+    const arthur = new Model('person');
+    // utility to catch method calls:
+    // push expected strings
+    // then expect some result
+    const spy = {
+        v: '',
+        reset() {
+            this.v = '';
+        },
+        push($: string) {
+            if ($) {
+            this.v += $ + '/';
+            }
+        },
+        expect($: string) {
+            expect(this.v).equal($);
+            this.reset();
+        }
+    };
+    test('addProperty', () => {
+        spy.reset();
+        // tslint:disable-next-line only-arrow-functions
+        function assertModel(this: Chai.Assertion) {
+            spy.push('model');
+            this.assert(
+                this._obj instanceof Model,
+                'expected #{this} to be a Model',
+                'expected #{this} to not be a Model',
+                undefined
+            );
+        }
+        chai.util.addProperty(chai.Assertion.prototype, 'model', assertModel);
+        expect(arthur).to.be.a('Model');
+        expect(arthur).model;
+        spy.expect('model/');
+        expect(arthur).to.be.a.model;
+        spy.expect('model/');
+        // if we define a local chai.d.ts with a declaration of "model"
+        // the above `as any` is no longer necessary.
+        chai.Assertion.addProperty('model', assertModel);
+        expect(arthur).to.be.a.model;
+        spy.expect('model/');
+    });
+    test('addMethod', () => {
+        spy.reset();
+        // tslint:disable-next-line only-arrow-functions
+        function assertTyped(this: Chai.Assertion, type: string) {
+            spy.push('typed');
+            const obj = this._obj;
+            // first, our instanceof check, shortcut
+            new chai.Assertion(obj).to.be.an.instanceof(Model);
+            // second, our type check
+            this.assert(
+                obj.get('_type') === type
+                , "expected #{this} to be of type #{exp} but got #{act}"
+                , "expected #{this} to not be of type #{act}"
+                , type        // expected
+                , obj._type   // actual
+            );
+        }
+        chai.Assertion.addMethod('typed', assertTyped);
+        expect(arthur).to.be.a.typed('person');
+        spy.expect('typed/');
+    });
+    test('addChainableMethod', () => {
+        spy.reset();
+        // tslint:disable-next-line only-arrow-functions
+        function assertAge(this: Chai.Assertion, n: number) {
+            spy.push('assertAge');
+            // make sure we are working with a model
+            const obj = this._obj; // flag(this, 'object')
+            new chai.Assertion(obj).to.be.instanceof(Model);
+            // make sure we have an age and it's a number
+            const age = this._obj.get('age');
+            new chai.Assertion(age).to.be.a('number');
+            // do our comparison
+            this.assert(
+                age === n
+                , "expected #{this} to have have #{exp} but got #{act}"
+                , "expected #{this} to not have age #{act}"
+                , n
+                , age
+            );
+        }
+        // tslint:disable-next-line only-arrow-functions
+        function chainAge(this: Chai.Assertion) {
+            spy.push('chainAge');
+            flag(this, 'model.age', true);
+        }
+        chai.Assertion.addChainableMethod('age', assertAge, chainAge);
+        arthur.set('age', 27);
+        expect(arthur).to.have.age(27); // age(27);
+        spy.expect('chainAge/assertAge/');
+        expect(arthur).age(27); // age(27);
+        spy.expect('chainAge/assertAge/');
+        // tslint:disable-next-line only-arrow-functions
+        chai.Assertion.overwriteMethod('above', function(this: Chai.Assertion, _super: Chai.Method) {
+            // tslint:disable-next-line only-arrow-functions
+            return function assertAge(n) {
+                spy.push('above');
+                if (flag(this, 'model.age')) {
+                    const obj = this._obj;
+                    // first we assert we are actually working with a model
+                    new chai.Assertion(obj).instanceof(Model);
+                    // next, make sure we have an age
+                    new chai.Assertion(obj).to.have.deep.property('_attrs');
+                    new chai.Assertion(obj._attrs).to.have.deep.property('age').a('number');
+                    // new chai.Assertion(obj).to.have.deep.property('_attrs.age');
+                    // now we compare
+                    const age = obj.get('age');
+                    this.assert(
+                        age > n,
+                        "expected #{this} to have an age above #{exp} but got #{act}",
+                        "expected #{this} to not have an age above #{exp} but got #{act}",
+                        n,
+                        age
+                    );
+                } else {
+                    _super.apply(this, n);
+                }
+            };
+        });
+        expect(arthur).to.have.age.above(17);
+        spy.expect('chainAge/above/');
+        expect(arthur).age.above(17);
+        spy.expect('chainAge/above/');
+        expect(arthur).age(27).model.typed('person'); // age(27);
+        spy.expect('chainAge/assertAge/model/typed/');
+    });
+    test('overwriteProperty', () => {
+        spy.reset();
+        // tslint:disable-next-line only-arrow-functions
+        chai.Assertion.overwriteProperty('model', function overwriter(_super: Chai.Getter) {
+            // tslint:disable-next-line only-arrow-functions
+            return function assertModel(this: Chai.Assertion) {
+                spy.push('overwrite');
+                _super.call(this);
+            };
+        });
+        arthur.should.model;
+        spy.expect('overwrite/model/');
+        arthur.should.be.a.model;
+        spy.expect('overwrite/model/');
+        expect(arthur).model;
+        spy.expect('overwrite/model/');
+        expect(arthur).to.be.a.model;
+        spy.expect('overwrite/model/');
+    });
+    test('overwriteMethod', () => {
+        spy.reset();
+        // test for overwritten methods and chainable methods
+        // tslint:disable-next-line only-arrow-functions
+        chai.Assertion.overwriteMethod('typed', function overwriter(this: Chai.Assertion, _super: Chai.Method) {
+            // tslint:disable-next-line only-arrow-functions
+            return function checkModel(this: Chai.Assertion, type: string) {
+                spy.push('overwrite');
+                _super.call(this, type);
+            };
+        });
+        expect(arthur).to.be.a.typed('person');
+        spy.expect('overwrite/typed/');
+        expect(arthur).typed('person');
+        spy.expect('overwrite/typed/');
+    });
+    test('overwriteChainableMethod', () => {
+        spy.reset();
+        chai.Assertion.overwriteChainableMethod(
+            'age',
+            // tslint:disable-next-line only-arrow-functions
+            function assertOverwriter(this: Chai.Assertion, _super: Chai.Method) {
+                // tslint:disable-next-line only-arrow-functions
+                return function assertAge(this: Chai.Assertion, n: number) {
+                    spy.push('overwrite');
+                    _super.call(this, n);
+                };
+            // tslint:disable-next-line only-arrow-functions
+        }, function chainOverwriter(this: Chai.Assertion, _super: Chai.Getter) {
+                // tslint:disable-next-line only-arrow-functions
+                return function chainableAge(this: Chai.Assertion) {
+                    spy.push('overwrite');
+                    _super.call(this);
+                };
+            }
+        );
+        expect(arthur).to.have.age(27);
+        spy.expect('overwrite/chainAge/overwrite/assertAge/');
+        expect(arthur).age(27);
+        spy.expect('overwrite/chainAge/overwrite/assertAge/');
     });
 });

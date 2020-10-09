@@ -13,6 +13,7 @@
 //                 Bogdan Paranytsia <https://github.com/bparan>,
 //                 CXuesong <https://github.com/CXuesong>,
 //                 Joey Kilpatrick <https://github.com/joeykilpatrick>
+//                 Jerome Laurens <https://github.com/jlaurens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -31,6 +32,12 @@ declare namespace Chai {
         new(...args: any[]): Error;
     }
 
+    // Getters and setter that can be added or overwritten
+    type Getter = (this: Assertion) => void;
+    type Method = (this: Assertion, ...args: any[]) => void;
+    // T is one of Getter or Setter
+    type Overwrite<T> = (this: Assertion, _super: T) => T;
+
     interface ChaiUtils {
         addChainableMethod(
             // object to define the method on, e.g. chai.Assertion.prototype
@@ -38,25 +45,25 @@ declare namespace Chai {
             // method name
             name: string,
             // method itself; any arguments
-            method: (...args: any[]) => void,
+            method: Method,
             // called when property is accessed
-            chainingBehavior?: () => void
+            chainingBehavior?: Getter
         ): void;
         overwriteChainableMethod(
             ctx: object,
             name: string,
-            method: (...args: any[]) => void,
-            chainingBehavior?: () => void
+            method: Overwrite<Method>,
+            chainingBehavior?: Overwrite<Getter>
         ): void;
         addLengthGuard(
             fn: Function,
             assertionName: string,
             isChainable: boolean
         ): void;
-        addMethod(ctx: object, name: string, method: Function): void;
-        addProperty(ctx: object, name: string, getter: () => any): void;
-        overwriteMethod(ctx: object, name: string, method: Function): void;
-        overwriteProperty(ctx: object, name: string, getter: () => any): void;
+        addMethod(ctx: object, name: string, method: Method): void;
+        addProperty(ctx: object, name: string, getter: Getter): void;
+        overwriteMethod(ctx: object, name: string, method: Overwrite<Method>): void;
+        overwriteProperty(ctx: object, name: string, getter: Overwrite<Getter>): void;
         compareByInspect(a: object, b: object): -1 | 1;
         expectTypes(obj: object, types: string[]): void;
         flag(obj: object, key: string, value?: any): any;
@@ -140,19 +147,19 @@ declare namespace Chai {
         showDiff: boolean;
 
         // Partials of functions on ChaiUtils:
-        addProperty(name: string, getter: (this: AssertionStatic) => any): void;
-        addMethod(name: string, method: (this: AssertionStatic, ...args: any[]) => any): void;
+        addProperty(name: string, getter: Getter): void;
+        addMethod(name: string, method: Method): void;
         addChainableMethod(
             name: string,
-            method: (this: AssertionStatic, ...args: any[]) => void,
-            chainingBehavior?: () => void
+            method: Method,
+            chainingBehavior?: Getter
         ): void;
-        overwriteProperty(name: string, getter: (this: AssertionStatic) => any): void;
-        overwriteMethod(name: string, method: (this: AssertionStatic, ...args: any[]) => any): void;
+        overwriteProperty(name: string, getter: Overwrite<Getter>): void;
+        overwriteMethod(name: string, method: Overwrite<Method>): void;
         overwriteChainableMethod(
             name: string,
-            method: (this: AssertionStatic, ...args: any[]) => void,
-            chainingBehavior?: () => void
+            method: Overwrite<Method>,
+            chainingBehavior?: Overwrite<Getter>
         ): void;
     }
 
@@ -178,7 +185,7 @@ declare namespace Chai {
         (actual: Function, constructor: Error | Function, expected?: string | RegExp, message?: string): void;
     }
 
-    interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
+    interface Assertion extends AssertionStatic, LanguageChains, NumericComparison, TypeComparison {
         not: Assertion;
         deep: Deep;
         ordered: Ordered;
