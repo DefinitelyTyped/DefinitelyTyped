@@ -7,11 +7,11 @@ export type { MatchContainerProps, MatchPointer } from './relay-experimental/Mat
 export type { ProfilerContextType } from './relay-experimental/ProfilerContext';
 export type { Direction, LoadMoreFn } from './relay-experimental/useLoadMoreFunction';
 export type { UseMutationConfig } from './relay-experimental/useMutation';
-/* TODO: ❌ */ export type {
+export type {
     RefetchFn,
     RefetchFnDynamic,
     Options as RefetchOptions,
-} from './useRefetchableFragmentNode';
+} from './relay-experimental/useRefetchableFragmentNode';
 
 /* TODO: ❌ */ export { EntryPointContainer } from './relay-experimental/EntryPointContainer';
 /* TODO: ❌ */ export { LazyLoadEntryPointContainer_DEPRECATED } from './relay-experimental/LazyLoadEntryPointContainer_DEPRECATED';

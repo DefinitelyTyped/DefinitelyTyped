@@ -1,12 +1,17 @@
-import { Disposable, OperationType, IEnvironment, Variables, ReaderFragment } from 'relay-runtime';
+import type { Disposable, IEnvironment, OperationType, ReaderFragment, Variables } from 'relay-runtime';
 
-import { FetchPolicy, RenderPolicy } from './QueryResource';
+import type { FetchPolicy, RenderPolicy } from './QueryResource';
 
 export type RefetchFn<TQuery extends OperationType, TOptions = Options> = RefetchFnExact<TQuery, TOptions>;
 
+// NOTE: RefetchFnDynamic returns a refetch function that:
+//  - Expects the /exact/ set of query variables if the provided key type is
+//    /nullable/.
+//  - Or, expects /a subset/ of the query variables if the provided key type is
+//    /non-null/.
 export type RefetchFnDynamic<
     TQuery extends OperationType,
-    TKey extends { readonly [key: string]: any } | null,
+    TKey extends Readonly<{ $data: unknown; [key: string]: unknown }> | null,
     TOptions = Options
 > = RefetchInexactDynamicResponse<TQuery, TOptions> & RefetchExactDynamicResponse<TQuery, TOptions>;
 
@@ -35,9 +40,11 @@ export type RefetchFnInexact<TQuery extends OperationType, TOptions = Options> =
     TOptions
 >;
 
+// NOTE: This is the "ReturnType" from relay, but its reserved by TypeScript.
+// https://github.com/facebook/relay/blob/676660dc86d498624d14dc50278563fc42c3fa7d/packages/relay-experimental/useRefetchableFragmentNode.js#L77-L87
 export interface ReturnTypeNode<
     TQuery extends OperationType,
-    TKey extends { readonly [key: string]: any } | null,
+    TKey extends Readonly<{ $data: unknown; [key: string]: unknown }> | null,
     TOptions = Options
 > {
     fragmentData: unknown;
@@ -50,36 +57,37 @@ export interface ReturnTypeNode<
 export interface Options {
     fetchPolicy?: FetchPolicy;
     onComplete?: (arg: Error | null) => void;
+    UNSTABLE_renderPolicy?: RenderPolicy;
 }
 
 export interface InternalOptions extends Options {
     __environment?: IEnvironment;
-    renderPolicy?: RenderPolicy;
 }
 
 export type Action =
     | {
-          type: string;
+          type: 'reset';
           environment: IEnvironment;
           fragmentIdentifier: string;
       }
     | {
-          type: string;
+          type: 'refetch';
           refetchVariables: Variables;
           fetchPolicy?: FetchPolicy;
           renderPolicy?: RenderPolicy;
           onComplete?: (args: Error | null) => void;
-          environment: IEnvironment;
+          environment?: IEnvironment | null;
       };
 
 export interface RefetchState {
-    fetchPolicy: FetchPolicy | undefined;
-    renderPolicy: RenderPolicy | undefined;
+    fetchPolicy?: FetchPolicy;
+    renderPolicy?: RenderPolicy;
     mirroredEnvironment: IEnvironment;
     mirroredFragmentIdentifier: string;
-    onComplete: ((arg: Error | null) => void) | undefined;
+    onComplete?: (arg: Error | null) => void;
     refetchEnvironment?: IEnvironment | null;
     refetchVariables?: Variables | null;
+    refetchGeneration: number;
 }
 
 export interface DebugIDandTypename {
@@ -87,38 +95,12 @@ export interface DebugIDandTypename {
     typename: string;
 }
 
-export function reducer(state: RefetchState, action: Action): RefetchState;
-
 export function useRefetchableFragmentNode<
     TQuery extends OperationType,
-    TKey extends { readonly [key: string]: any } | null
+    TKey extends Readonly<{ $data: unknown; [key: string]: unknown }> | null
 >(
     fragmentNode: ReaderFragment,
     parentFragmentRef: unknown,
     componentDisplayName: string,
 ): // tslint:disable-next-line:no-unnecessary-generics
 ReturnTypeNode<TQuery, TKey, InternalOptions>;
-
-export function useRefetchFunction<TQuery extends OperationType>(
-    fragmentNode: any,
-    parentFragmentRef: any,
-    fragmentIdentifier: any,
-    fragmentRefPathInResponse: any,
-    fragmentData: any,
-    refetchGenerationRef: any,
-    dispatch: any,
-    disposeFetch: any,
-    componentDisplayName: any,
-): // tslint:disable-next-line:no-unnecessary-generics
-RefetchFn<TQuery, InternalOptions>;
-
-export function readQuery(
-    environment: any,
-    query: any,
-    fetchPolicy: any,
-    renderPolicy: any,
-    refetchGeneration: any,
-    componentDisplayName: any,
-    { start, complete }: any,
-    profilerContext: any,
-): any;
