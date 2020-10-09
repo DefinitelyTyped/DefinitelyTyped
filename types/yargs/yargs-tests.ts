@@ -1277,3 +1277,14 @@ function Argv$commandsWithAsynchronousBuilders() {
 function makeSingleton() {
     yargsSingleton(process.argv.slice(2));
 }
+
+function Argv$strictOptions() {
+    // test taken from https://github.com/yargs/yargs/blob/master/test/validation.cjs#L1036
+    const argv1 = yargs
+    .command('foo', 'foo command')
+    .option('a', {
+        describe: 'a is for option'
+    })
+    .strictOptions()
+    .argv;
+}
