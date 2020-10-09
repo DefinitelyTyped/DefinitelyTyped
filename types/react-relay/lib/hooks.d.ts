@@ -34,7 +34,7 @@ export { useEntryPointLoader } from './relay-experimental/useEntryPointLoader';
 export { useMutation } from './relay-experimental/useMutation';
 export { usePaginationFragment } from './relay-experimental/usePaginationFragment';
 export { usePreloadedQuery } from './relay-experimental/usePreloadedQuery';
-/* TODO: ❌ */ export { useRefetchableFragment } from './relay-experimental/useRefetchableFragment';
+export { useRefetchableFragment } from './relay-experimental/useRefetchableFragment';
 export { useRelayEnvironment } from './relay-experimental/useRelayEnvironment';
 export { useSubscribeToInvalidationState } from './relay-experimental/useSubscribeToInvalidationState';
 export { useSubscription } from './relay-experimental/useSubscription';

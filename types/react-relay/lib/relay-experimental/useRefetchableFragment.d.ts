@@ -1,29 +1,19 @@
-import { RefetchFnDynamic } from './useRefetchableFragmentNode';
-import { GraphQLTaggedNode, OperationType } from 'relay-runtime';
+import type { GraphQLTaggedNode, OperationType } from 'relay-runtime';
 
-export type ReturnType<TQuery extends OperationType, TKey, TFragmentData> = [
+import type { KeyType, KeyTypeData } from './helpers';
+import type { RefetchFnDynamic } from './useRefetchableFragmentNode';
+
+export type ReturnTypeNode<TQuery extends OperationType, TKey extends KeyType | null, TFragmentData> = [
     TFragmentData,
     RefetchFnDynamic<TQuery, TKey>,
 ];
 
-export type $Call<Fn extends (...args: any[]) => any> = Fn extends (arg: any) => infer RT ? RT : never;
-
-interface KeyType {
-    readonly ' $data'?: unknown;
-}
-
-type KeyReturnType<T extends KeyType> = (arg: T) => NonNullable<T[' $data']>;
-
 export function useRefetchableFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     fragmentRef: TKey,
-): // tslint:disable-next-line:no-unnecessary-generics
-ReturnType<TQuery, TKey, $Call<KeyReturnType<TKey>>>;
+): ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey>>;
 
 export function useRefetchableFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     fragmentRef: TKey | null,
-): // tslint:disable-next-line:no-unnecessary-generics
-ReturnType<TQuery, TKey, $Call<KeyReturnType<TKey>> | null>;
-
-export {};
+): ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey> | null>;
