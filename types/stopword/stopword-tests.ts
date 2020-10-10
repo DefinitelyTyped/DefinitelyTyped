@@ -1,7 +1,7 @@
-import stopword = require('stopword');
+import sw = require('stopword');
 
 const oldString = 'you can even roll your own custom stopword list'.split(' ');
-const stopwordLangId = stopword.id;
+const stopwordLangId = sw.id;
 
-stopword.removeStopwords(oldString, stopwordLangId); // with custom stopwords
-stopword.removeStopwords(oldString); // default stopwords (en)
+sw.removeStopwords(oldString, stopwordLangId); // with custom stopwords
+sw.removeStopwords(oldString); // default stopwords (en)
