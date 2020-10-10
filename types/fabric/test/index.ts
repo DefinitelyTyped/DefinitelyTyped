@@ -1053,3 +1053,28 @@ function sample12() {
   const x = position.left;
   const y = position.top;
 }
+
+function sample13() {
+  fabric.Object.prototype.controls.scale = new fabric.Control({
+    x: 0.5,
+    y: 0.5,
+    offsetY: 0,
+    offsetX: 0,
+    cursorStyle: 'pointer',
+    cursorStyleHandler: fabric.controlsUtils.scaleCursorStyleHandler,
+    actionHandler: fabric.controlsUtils.scalingEqually,
+    cornerSize: 20,
+  });
+
+  fabric.Object.prototype.controls.rotate = new fabric.Control({
+    x: 0,
+    y: -0.5,
+    offsetY: -20,
+    offsetX: 0,
+    withConnection: true,
+    cursorStyle: 'pointer',
+    cursorStyleHandler: fabric.controlsUtils.rotationStyleHandler,
+    actionHandler: fabric.controlsUtils.rotationWithSnapping,
+    cornerSize: 20,
+  });
+}
