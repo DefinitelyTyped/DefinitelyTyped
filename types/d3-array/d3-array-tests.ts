@@ -630,6 +630,10 @@ const grouped: Map<string, ObjDefinition[]> = d3Array.group(objArray, d => d.nam
 const rolledup: Map<string, number> = d3Array.rollup(objArray, d => d.length, d => d.name);
 const rolledup2: Map<string, string> = d3Array.rollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
+const groups: [string, ObjDefinition[]] = d3Array.groups(objArray, d => d.name);
+const rolledups: [string, number] = d3Array.rollups(objArray, d => d.length, d => d.name);
+const rolledups2: [string, string] = d3Array.rollups(objArray, d => d.map(u => u.name).join(' '), d => d.name);
+
 // count() -----------------------
 
 let count: number;
@@ -708,11 +712,11 @@ const testObject = {
     more: [10, 30, 40]
 };
 
-const p1: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
+const p1: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name' as 'name', 'val' as 'val', 'when' as 'when', 'more' as 'more']);
 // $ExpectType: Array<Date | number[]>
-const p2 = d3Array.permute(testObject, ['when', 'more']);
+const p2 = d3Array.permute(testObject, ['when' as 'when', 'more' as 'more']);
 // $ExpectError
-const p3 = d3Array.permute(testObject, ['when', 'unknown']);
+const p3 = d3Array.permute(testObject, ['when' as 'when', 'unknown' as 'unknown']);
 
 // range() ---------------------------------------------------------------------
 

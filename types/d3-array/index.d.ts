@@ -292,19 +292,43 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
 
 /**
  * Groups the specified array of values into a Map from key to array of value.
- * @param a The array to group.
+ * @param iterable The array to group.
  * @param key The key function.
  */
-export function group<TObject, TKey>(a: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
+export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
+
+/**
+ * Equivalent to group, but returns nested arrays instead of nested maps.
+ * @param iterable The array to group.
+ * @param key The key function.
+ */
+export function groups<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): [TKey, TObject[]];
 
 /**
  * Groups and reduces the specified array of values into a Map from key to value.
  *
- * @param a The array to group.
+ * @param iterable The array to group.
  * @param reduce The reduce function.
  * @param key The key function.
  */
-export function rollup<TObject, TKey, TReduce>(a: Iterable<TObject>, reduce: (value: TObject[]) => TReduce, key: (value: TObject) => TKey): Map<TKey, TReduce>;
+export function rollup<TObject, TKey, TReduce>(
+    iterable: Iterable<TObject>,
+    reduce: (value: TObject[]) => TReduce,
+    key: (value: TObject) => TKey
+): Map<TKey, TReduce>;
+
+/**
+ * Equivalent to rollup, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param reduce The reduce function.
+ * @param key The key function.
+ */
+export function rollups<TObject, TKey, TReduce>(
+    iterable: Iterable<TObject>,
+    reduce: (value: TObject[]) => TReduce,
+    key: (value: TObject) => TKey
+): [TKey, TReduce];
 
 /**
  * Returns the number of valid number values (i.e., not null, NaN, or undefined) in the specified iterable; accepts an accessor.
@@ -364,24 +388,24 @@ export function pairs<T>(array: Iterable<T>): Array<[T, T]>;
 export function pairs<T, U>(array: Iterable<T>, reducer: (a: T, b: T) => U): U[];
 
 /**
- * Returns a permutation of the specified array using the specified array of indexes.
- * The returned array contains the corresponding element in array for each index in indexes, in order.
+ * Returns a permutation of the specified source object (or array) using the specified iterable of keys.
+ * The returned array contains the corresponding property of the source object for each key in keys, in order.
  * For example, `permute(["a", "b", "c"], [1, 2, 0]) // ["b", "c", "a"]`
+ *
+ * It is acceptable to have more keys than source elements, and for keys to be duplicated or omitted.
  */
-export function permute<T>(array: { [key: number]: T; }, keys: ArrayLike<number>): T[];
-
+export function permute<T>(source: { [key: number]: T; }, keys: Iterable<number>): T[];
 /**
  * Extract the values from an object into an array with a stable order. For example:
  * `var object = {yield: 27, year: 1931, site: "University Farm"};`
  * `d3.permute(object, ["site", "yield"]); // ["University Farm", 27]`
  */
-export function permute<T, K extends keyof T>(object: T, keys: ArrayLike<K>): Array<T[K]>;
+export function permute<T, K extends keyof T>(source: T, keys: Iterable<K>): Array<T[K]>;
 
 /**
  * Generates a 0-based numeric sequence. The output range does not include 'stop'.
  */
 export function range(stop: number): number[];
-
 /**
  * Generates a numeric sequence starting from the given start and stop values. 'step' defaults to 1. The output range does not include 'stop'.
  */
