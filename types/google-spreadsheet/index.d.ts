@@ -72,15 +72,15 @@ export interface WorksheetGridRange {
     endColumnIndex: number;
 }
 
-export type WorksheetGridProperties = Partial<{
-    rowCount: number;
-    columnCount: number;
-    frozenRowCount: number;
-    frozenColumnCount: number;
-    hideGridlines: boolean;
-    rowGroupControlAfter: boolean;
-    columnGroupControlAfter: boolean;
-}>;
+export interface WorksheetGridProperties {
+    rowCount?: number;
+    columnCount?: number;
+    frozenRowCount?: number;
+    frozenColumnCount?: number;
+    hideGridlines?: boolean;
+    rowGroupControlAfter?: boolean;
+    columnGroupControlAfter?: boolean;
+}
 
 export interface DimensionRange {
     sheetId: number;
