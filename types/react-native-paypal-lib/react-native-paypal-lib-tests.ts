@@ -9,7 +9,5 @@ RNPaypal.paymentRequest({
     intent: RNPaypal.INTENT.SALE,
     price: 100,
 })
-    .then(({ response }) => {
-        response.id, response.create_time, response.intent, response.state;
-    })
-    .catch(error => {});
+    .then(response => { })
+    .catch(error => { });
