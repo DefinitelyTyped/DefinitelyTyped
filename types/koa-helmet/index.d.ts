@@ -1,6 +1,7 @@
 // Type definitions for koa-helmet 6.0
 // Project: https://github.com/venables/koa-helmet#readme
 // Definitions by: Nick Simmons <https://github.com/me>
+//                 Jan Dolezel <https://github.com/dolezel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
