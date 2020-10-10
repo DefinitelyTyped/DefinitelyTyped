@@ -76,6 +76,7 @@ export interface PaymentParams {
     acceptCreditCards: boolean;
 }
 
+// tslint:disable-next-line no-unnecessary-class
 export default class RNPaypal {
     static paymentRequest(params: PaymentParams): Promise<PaymentConfirmation>;
     static ENVIRONMENT: EnvironmentParam;
