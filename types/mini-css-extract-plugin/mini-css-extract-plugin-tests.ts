@@ -49,7 +49,7 @@ configuration = {
 
 configuration = {
     // ...
-    plugins: [new MiniCssExtractPlugin({})],
+    plugins: [new MiniCssExtractPlugin(), new MiniCssExtractPlugin({})],
 };
 
 configuration = {
