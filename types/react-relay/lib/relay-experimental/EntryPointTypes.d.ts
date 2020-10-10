@@ -212,10 +212,14 @@ export interface ThinNestedEntryPointParams<TEntryPoint>
 
 export type EntryPoint<TEntryPointComponent, TEntryPointParams extends {} = {}> = InternalEntryPointRepresentation<
     TEntryPointParams,
-    TEntryPointComponent extends EntryPointComponent<infer T, any, any, any> ? T : never,
-    TEntryPointComponent extends EntryPointComponent<any, infer T, any, any> ? T : never,
-    TEntryPointComponent extends EntryPointComponent<any, any, infer T, any> ? T : never,
-    TEntryPointComponent extends EntryPointComponent<any, any, any, infer T> ? T : never
+    TEntryPointComponent extends EntryPointComponent<infer TPreloadedQueries, any, any, any>
+        ? TPreloadedQueries
+        : never,
+    TEntryPointComponent extends EntryPointComponent<any, infer TPreloadedEntryPoints, any, any>
+        ? TPreloadedEntryPoints
+        : never,
+    TEntryPointComponent extends EntryPointComponent<any, any, infer TRuntimeProps, any> ? TRuntimeProps : never,
+    TEntryPointComponent extends EntryPointComponent<any, any, any, infer TExtraProps> ? TExtraProps : never
 >;
 
 // tslint:disable-next-line interface-name
