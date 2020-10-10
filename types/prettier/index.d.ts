@@ -365,7 +365,7 @@ export interface IntSupportOption extends BaseSupportOption<'int'> {
 }
 
 export interface IntArraySupportOption extends BaseSupportOption<'int'> {
-    default: number[];
+    default: Array<{ value: number[] }>;
     array: true;
 }
 
@@ -377,7 +377,7 @@ export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
 }
 
 export interface BooleanArraySupportOption extends BaseSupportOption<'boolean'> {
-    default: boolean[];
+    default: Array<{ value: boolean[] }>;
     array: true;
 }
 
@@ -397,7 +397,7 @@ export interface PathSupportOption extends BaseSupportOption<'path'> {
 }
 
 export interface PathArraySupportOption extends BaseSupportOption<'path'> {
-    default: string[];
+    default: Array<{ value: string[] }>;
     array: true;
 }
 
