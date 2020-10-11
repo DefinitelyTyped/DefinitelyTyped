@@ -2236,6 +2236,7 @@ declare namespace React {
 
     interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
         async?: boolean;
+        /** @deprecated */
         charSet?: string;
         crossOrigin?: string;
         defer?: boolean;
