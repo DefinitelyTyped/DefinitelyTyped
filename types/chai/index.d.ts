@@ -178,12 +178,16 @@ declare namespace Chai {
         (actual: Function, constructor: Error | Function, expected?: string | RegExp, message?: string): void;
     }
 
+    interface OneOf {
+        (list: ReadonlyArray<any>, message?: string): Assertion;
+    }
+
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         not: Assertion;
         deep: Deep;
         ordered: Ordered;
         nested: Nested;
-        own: Own;
+        // own: Own; moved to TypeComparison
         any: KeyFilter;
         all: KeyFilter;
         a: TypeComparison;
@@ -208,13 +212,13 @@ declare namespace Chai {
         eq: Equal;
         eql: Equal;
         eqls: Equal;
-        property: Property;
+        // property: Property; moved to TypeComparison
         ownProperty: Property;
         haveOwnProperty: Property;
-        ownPropertyDescriptor: OwnPropertyDescriptor;
+        // ownPropertyDescriptor: OwnPropertyDescriptor; moved to TypeComparison
         haveOwnPropertyDescriptor: OwnPropertyDescriptor;
         length: Length;
-        lengthOf: Length;
+        // lengthOf: Length; moved to TypeComparison
         match: Match;
         matches: Match;
         string(string: string, message?: string): Assertion;
@@ -237,10 +241,11 @@ declare namespace Chai {
         decreases: PropertyChange;
         change: PropertyChange;
         changes: PropertyChange;
+        by(delta: number, message?: string): Assertion;
         extensible: Assertion;
         sealed: Assertion;
         frozen: Assertion;
-        oneOf(list: ReadonlyArray<any>, message?: string): Assertion;
+        oneOf: OneOf;
     }
 
     interface LanguageChains {
@@ -282,8 +287,12 @@ declare namespace Chai {
 
     interface TypeComparison {
         (type: string, message?: string): Assertion;
+        own: Own;
         instanceof: InstanceOf;
         instanceOf: InstanceOf;
+        property: Property;
+        ownPropertyDescriptor: OwnPropertyDescriptor;
+        lengthOf: Length;
     }
 
     interface InstanceOf {
@@ -361,6 +370,7 @@ declare namespace Chai {
         members: Members;
         any: KeyFilter;
         all: KeyFilter;
+        oneOf: OneOf;
     }
 
     interface Match {
