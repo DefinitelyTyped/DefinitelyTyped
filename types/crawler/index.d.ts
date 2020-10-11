@@ -40,8 +40,7 @@ export = Crawler;
 
 declare namespace Crawler {
     // Following 2 types are taken from `request` definitions.
-    // `crawler` uses ancient version of `request` (v2.88.2),
-    // which causes typing problems due to `form-data` v2.3.
+    // as importing `request` v2.88.2 definitions cause DT tests to fail.
     interface Headers {
         [key: string]: any;
     }
