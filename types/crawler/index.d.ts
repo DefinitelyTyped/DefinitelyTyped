@@ -14,13 +14,16 @@ import { Url } from 'url';
 declare class Crawler extends EventEmitter {
     constructor(options: Crawler.CreateCrawlerOptions);
     queueSize: number;
-    on(channel: 'schedule', listener: (options: Crawler.CrawlerRequestOptions) => void): this;
+    on(channel: 'schedule' | 'request', listener: (options: Crawler.CrawlerRequestOptions) => void): this;
     on(channel: 'limiterChange', listener: (options: Crawler.CrawlerRequestOptions, limiter: string) => void): this;
-    on(channel: 'request', listener: (options: Crawler.CrawlerRequestOptions) => void): this;
     on(channel: 'drain', listener: () => void): this;
-    queue(uri: string): void;
-    queue(uri: ReadonlyArray<string>): void;
-    queue(options: Crawler.CrawlerRequestOptions | ReadonlyArray<Crawler.CrawlerRequestOptions>): void;
+    queue(
+        urisOrOptions:
+            | string
+            | ReadonlyArray<string>
+            | Crawler.CrawlerRequestOptions
+            | ReadonlyArray<Crawler.CrawlerRequestOptions>,
+    ): void;
     direct(
         options: Omit<Crawler.CrawlerRequestOptions, 'callback'> & {
             callback: (error: Error, response: Crawler.CrawlerRequestResponse) => void;
@@ -35,17 +38,17 @@ declare namespace Crawler {
     // Following 2 types are taken from `request` definitions.
     // `crawler` uses ancient version of `request` (v2.88.2),
     // which causes typing problems due to `form-data` v2.3.
-    export interface Headers {
+    interface Headers {
         [key: string]: any;
     }
 
-    export interface RequestAsJSON {
+    interface RequestAsJSON {
         uri: Url;
         method: string;
         headers: Headers;
     }
 
-    export interface CrawlerRequestOptions {
+    interface CrawlerRequestOptions {
         uri?: string;
         html?: string;
         proxy?: any;
@@ -59,7 +62,7 @@ declare namespace Crawler {
         [x: string]: any;
     }
 
-    export interface CrawlerRequestResponse {
+    interface CrawlerRequestResponse {
         body: Buffer | string;
         request: RequestAsJSON;
         options: CrawlerRequestOptions;
@@ -67,7 +70,7 @@ declare namespace Crawler {
         [x: string]: any;
     }
 
-    export interface CreateCrawlerOptions {
+    interface CreateCrawlerOptions {
         autoWindowClose?: boolean;
         forceUTF8?: boolean;
         gzip?: boolean;
