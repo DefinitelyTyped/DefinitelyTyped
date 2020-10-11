@@ -1962,28 +1962,28 @@ export interface EdgeOptions {
 }
 
 export interface ArrowHead {
-  enabled?: boolean,
-  imageHeight?: number,
-  imageWidth?: number,
-  scaleFactor?: number,
-  src?: string,
+  enabled?: boolean;
+  imageHeight?: number;
+  imageWidth?: number;
+  scaleFactor?: number;
+  src?: string;
   type?: string;
 }
 
 export interface Font {
-  color?: string,
-  size?: number, // px
-  face?: string,
-  background?: string,
-  strokeWidth?: number, // px
-  strokeColor?: string,
-  align?: string,
-  vadjust?: number,
-  multi?: boolean | string,
-  bold?: string | FontStyles,
-  ital?: string | FontStyles,
-  boldital?: string | FontStyles,
-  mono?: string | FontStyles,
+  color?: string;
+  size?: number; // px
+  face?: string;
+  background?: string;
+  strokeWidth?: number; // px
+  strokeColor?: string;
+  align?: string;
+  vadjust?: number;
+  multi?: boolean | string;
+  bold?: string | FontStyles;
+  ital?: string | FontStyles;
+  boldital?: string | FontStyles;
+  mono?: string | FontStyles;
 }
 
 export interface FontStyles {
