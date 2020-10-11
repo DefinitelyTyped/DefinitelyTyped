@@ -13,10 +13,12 @@ import { Url } from 'url';
 
 declare class Crawler extends EventEmitter {
     constructor(options: Crawler.CreateCrawlerOptions);
-    queueSize: number;
+    readonly queueSize: number;
+
     on(channel: 'schedule' | 'request', listener: (options: Crawler.CrawlerRequestOptions) => void): this;
     on(channel: 'limiterChange', listener: (options: Crawler.CrawlerRequestOptions, limiter: string) => void): this;
     on(channel: 'drain', listener: () => void): this;
+
     queue(
         urisOrOptions:
             | string
@@ -24,11 +26,13 @@ declare class Crawler extends EventEmitter {
             | Crawler.CrawlerRequestOptions
             | ReadonlyArray<Crawler.CrawlerRequestOptions>,
     ): void;
+
     direct(
         options: Omit<Crawler.CrawlerRequestOptions, 'callback'> & {
             callback: (error: Error, response: Crawler.CrawlerRequestResponse) => void;
         },
     ): void;
+
     setLimiterProperty(limiter: string, property?: string, value?: any): void;
 }
 
@@ -56,6 +60,7 @@ declare namespace Crawler {
         limiter?: string;
         encoding?: string;
         priority?: number;
+        jquery?: any;
         jQuery?: any;
         preRequest?: (options: CrawlerRequestOptions, doRequest: (err?: Error) => void) => void;
         callback?: (err: Error, res: CrawlerRequestResponse, done: () => void) => void;
