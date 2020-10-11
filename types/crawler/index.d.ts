@@ -9,7 +9,7 @@
 /// <reference types="cheerio" />
 
 import { EventEmitter } from 'events';
-import { Headers, RequestAsJSON } from 'request';
+import { Url } from 'url';
 
 declare class Crawler extends EventEmitter {
     constructor(options: Crawler.CreateCrawlerOptions);
@@ -32,6 +32,19 @@ declare class Crawler extends EventEmitter {
 export = Crawler;
 
 declare namespace Crawler {
+    // Following 2 types are taken from `request` definitions.
+    // `crawler` uses ancient version of `request` (v2.88.2),
+    // which causes typing problems due to `form-data` v2.3.
+    export interface Headers {
+        [key: string]: any;
+    }
+
+    export interface RequestAsJSON {
+        uri: Url;
+        method: string;
+        headers: Headers;
+    }
+
     export interface CrawlerRequestOptions {
         uri?: string;
         html?: string;

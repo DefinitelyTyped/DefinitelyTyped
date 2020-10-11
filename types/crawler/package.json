@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/form-data": "=2.2.1"
-    }
-}
