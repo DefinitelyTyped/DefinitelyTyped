@@ -6763,7 +6763,8 @@ interface IControlOptions extends IObjectOptions {
     * @param {Object} styleOverride
     * @param {fabric.Object} fabricObject the object where the control is about to be rendered
     */
-    render?: (ctx: any, left: Number, top: Number, styleOverride: Object, fabricObject: Object) => void; //Should ctx be CanvasRenderingContext2D?
+    render?: (ctx: any, left: Number, top: Number, styleOverride: Object, fabricObject: Object) => void;
+         // Should ctx be CanvasRenderingContext2D?
 }
 
 export interface Control extends IControlOptions {}
