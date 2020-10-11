@@ -6,11 +6,13 @@ declare module 'wasi' {
          * WASI command itself.
          */
         args?: string[];
+
         /**
          * An object similar to `process.env` that the WebAssembly
          * application will see as its environment.
          */
         env?: object;
+
         /**
          * This object represents the WebAssembly application's
          * sandbox directory structure. The string keys of `preopens` are treated as
@@ -27,6 +29,24 @@ declare module 'wasi' {
          * @default false
          */
         returnOnExit?: boolean;
+
+        /**
+         * The file descriptor used as standard input in the WebAssembly application.
+         * @default 0
+         */
+        stdin?: number;
+
+        /**
+         * The file descriptor used as standard output in the WebAssembly application.
+         * @default 1
+         */
+        stdout?: number;
+
+        /**
+         * The file descriptor used as standard error in the WebAssembly application.
+         * @default 2
+         */
+        stderr?: number;
     }
 
     class WASI {
@@ -40,11 +60,25 @@ declare module 'wasi' {
          *
          * `start()` requires that `instance` exports a [`WebAssembly.Memory`][] named
          * `memory`. If `instance` does not have a `memory` export an exception is thrown.
+         *
+         * If `start()` is called more than once, an exception is thrown.
          */
         start(instance: object): void; // TODO: avoid DOM dependency until WASM moved to own lib.
+
+        /**
+         * Attempt to initialize `instance` as a WASI reactor by invoking its `_initialize()` export, if it is present.
+         * If `instance` contains a `_start()` export, then an exception is thrown.
+         *
+         * `start()` requires that `instance` exports a [`WebAssembly.Memory`][] named
+         * `memory`. If `instance` does not have a `memory` export an exception is thrown.
+         *
+         * If `initialize()` is called more than once, an exception is thrown.
+         */
+        initialize(instance: object): void; // TODO: avoid DOM dependency until WASM moved to own lib.
+
         /**
          * Is an object that implements the WASI system call API. This object
-         * should be passed as the `wasi_unstable` import during the instantiation of a
+         * should be passed as the `wasi_snapshot_preview1` import during the instantiation of a
          * [`WebAssembly.Instance`][].
          */
         readonly wasiImport: NodeJS.Dict<any>; // TODO: Narrow to DOM types

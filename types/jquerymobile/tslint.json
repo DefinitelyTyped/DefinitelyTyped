@@ -2,10 +2,8 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "npm-naming": false,
@@ -13,7 +11,6 @@
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "space-before-function-paren": false,
         "triple-equals": false,

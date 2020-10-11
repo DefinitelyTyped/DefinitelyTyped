@@ -7,6 +7,8 @@ export { EntryPointContainer } from './relay-experimental/EntryPointContainer';
 export { LazyLoadEntryPointContainer } from './relay-experimental/LazyLoadEntryPointContainer';
 export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentProvider';
 
+export { loadQuery } from './relay-experimental/loadQuery';
+
 export { preloadQuery } from './relay-experimental/preloadQuery';
 export { prepareEntryPoint } from './relay-experimental/prepareEntryPoint';
 

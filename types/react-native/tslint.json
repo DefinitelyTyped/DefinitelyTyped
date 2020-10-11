@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "align": false,
         "array-type": false,
         "ban-types": false,
         "comment-format": false,
@@ -14,9 +13,7 @@
         "no-self-import": false,
         "no-single-declare-module": false,
         "no-unnecessary-generics": false,
-        "no-var": false,
         "prefer-declare-function": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "use-default-type-parameter": false

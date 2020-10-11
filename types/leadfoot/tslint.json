@@ -3,20 +3,16 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
-        "comment-format": false,
         "dt-header": false,
         "jsdoc-format": false,
         "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,
         "no-internal-module": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-self-import": false,
         "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false
     }
 }

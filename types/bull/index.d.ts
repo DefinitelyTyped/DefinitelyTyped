@@ -4,7 +4,6 @@
 //                 Cameron Crothers <https://github.com/JProgrammer>
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
-//                 Gabriel Terwesten <https://github.com/blaugold>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 David Koblas <https://github.com/koblas>
 //                 Bond Akinmade <https://github.com/bondz>
@@ -710,7 +709,7 @@ declare namespace Bull {
      * Returns a object with the logs according to the start and end arguments. The returned count
      * value is the total amount of logs, useful for implementing pagination.
      */
-    getJobLogs(jobId: string, start?: number, end?: number): Promise<{ logs: string[], count: number }>;
+    getJobLogs(jobId: JobId, start?: number, end?: number): Promise<{ logs: string[], count: number }>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.

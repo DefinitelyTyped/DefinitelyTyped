@@ -160,8 +160,8 @@ declare module "http" {
         /**
          * @deprecate Use `socket` instead.
          */
-        connection: Socket;
-        socket: Socket;
+        connection: Socket | null;
+        socket: Socket | null;
 
         constructor();
 
@@ -205,8 +205,6 @@ declare module "http" {
 
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
     class ClientRequest extends OutgoingMessage {
-        connection: Socket;
-        socket: Socket;
         aborted: number;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);

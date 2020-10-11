@@ -4,7 +4,7 @@
 import {
     User, Event, DateTimeTimeZone, ItemBody, ServicePrincipal,
     Invitation, Application, CallTranscriptionInfo, CancelMediaProcessingOperation, ResultInfo, CallRecords,
-    IdentitySet, Identity, RiskLevel, EventMessageResponse, PermissionClassificationType, DelegatedPermissionClassification, Permission
+    IdentitySet, Identity, RiskLevel, EventMessageResponse, PermissionClassificationType, DelegatedPermissionClassification, Permission, TaskStatus
 } from "microsoft-graph";
 
 const user: User = {
@@ -116,3 +116,5 @@ const permission: Permission = {
     link: null,
     id: "string"
 };
+
+const taskStatus: TaskStatus = "completed";
