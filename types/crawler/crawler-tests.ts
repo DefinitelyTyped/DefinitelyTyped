@@ -142,3 +142,21 @@ new Crawler({
         },
     },
 });
+
+// Fixed vs rotating User-Agent strings
+
+new Crawler({
+    userAgent: 'UA-1',
+});
+
+const uaArray = ['UA-1', 'UA-2'];
+
+new Crawler({
+    rotateUA: true,
+    userAgent: uaArray,
+}).direct({
+    uri: 'http://www.google.com',
+    callback: (error, response) => {},
+});
+
+console.log(uaArray[0]); // is now 'UA-2'

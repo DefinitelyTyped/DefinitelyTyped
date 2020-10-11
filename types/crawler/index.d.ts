@@ -93,7 +93,7 @@ declare namespace Crawler {
         timeout?: number;
         skipDuplicates?: boolean;
         rotateUA?: boolean;
-        userAgent?: string | ReadonlyArray<string>;
+        userAgent?: string | string[];
         homogeneous?: boolean;
         debug?: boolean;
         logger?: {
