@@ -9,7 +9,7 @@ declare const CsvAsync: {
     /**
      * @param options
      */
-    generate(options?: CsvAsync.CsvGenerateOptions): Promise<unknown>;
+    generate(options?: CsvAsync.CsvGenerateOptions): Promise<unknown[]>;
 
     /**
      * Parses a CSV file into an array of rows.
@@ -17,7 +17,7 @@ declare const CsvAsync: {
      * @param input
      * @param options
      */
-    parse(input: string, options?: CsvAsync.CsvParseOptions): Promise<unknown>;
+    parse(input: string, options?: CsvAsync.CsvParseOptions): Promise<unknown[]>;
 
     /**
      *
