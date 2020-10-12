@@ -145,8 +145,8 @@ interface XRPose {
 
 interface XRFrame {
     readonly session: XRSession;
-    getPose(space: XRSpace, baseSpace: XRSpace): XRPose | undefined;
-    getViewerPose(referenceSpace: XRReferenceSpace): XRViewerPose | undefined;
+    getPose(space: XRSpace, baseSpace: XRSpace): XRPose | null;
+    getViewerPose(referenceSpace: XRReferenceSpace): XRViewerPose | null;
 
     // AR
     getHitTestResults(hitTestSource: XRHitTestSource): Array<XRHitTestResult>;
