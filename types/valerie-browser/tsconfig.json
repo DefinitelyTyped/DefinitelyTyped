@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "valerie-tests.ts"
+        "valerie-browser-tests.ts"
     ]
 }
