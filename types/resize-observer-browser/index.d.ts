@@ -2,6 +2,7 @@
 // Project: https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver, https://developers.google.com/web/updates/2016/10/resizeobserver, https://wicg.github.io/ResizeObserver/
 // Definitions by: Chives <https://github.com/chivesrs>
 //                 William Furr <https://github.com/wffurr>
+//                 Alexander Shushunov <https://github.com/AlexanderShushunov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -20,8 +21,8 @@ interface ResizeObserverOptions {
 }
 
 interface ResizeObserverSize {
-    inlineSize: number;
-    blockSize: number;
+    readonly inlineSize: number;
+    readonly blockSize: number;
 }
 
 declare class ResizeObserver {
@@ -36,6 +37,7 @@ type ResizeObserverCallback = (entries: ReadonlyArray<ResizeObserverEntry>, obse
 interface ResizeObserverEntry {
     readonly target: Element;
     readonly contentRect: DOMRectReadOnly;
-    readonly borderBoxSize: ResizeObserverSize;
-    readonly contentBoxSize: ResizeObserverSize;
+    readonly borderBoxSize?: ReadonlyArray<ResizeObserverSize>;
+    readonly contentBoxSize?: ReadonlyArray<ResizeObserverSize>;
+    readonly devicePixelContentBoxSize?: ReadonlyArray<ResizeObserverSize>;
 }
