@@ -2,7 +2,7 @@
 // Project: http://socket.io/
 // Definitions by: PROGRE <https://github.com/progre>, Damian Connolly <https://github.com/divillysausages>, Florent Poujol <https://github.com/florentpoujol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import http from 'http';
+import { Agent } from 'http';
 
 declare var io: SocketIOClientStatic;
 
@@ -540,7 +540,7 @@ declare namespace SocketIOClient {
         /**
          * `http.Agent` to use, defaults to `false` (NodeJS only)
          */
-        agent?: http.Agent|boolean;
+        agent?: Agent|boolean;
 
         /**
          * Whether the client should try to upgrade the transport from
