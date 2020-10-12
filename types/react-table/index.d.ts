@@ -439,6 +439,7 @@ export interface UseFiltersState<D extends object> {
 export type UseFiltersColumnOptions<D extends object> = Partial<{
     Filter: Renderer<FilterProps<D>>;
     disableFilters: boolean;
+    canFilter: boolean;
     defaultCanFilter: boolean;
     filter: FilterType<D> | DefaultFilterTypes | string;
 }>;
@@ -806,6 +807,7 @@ export interface UseSortByState<D extends object> {
 }
 
 export type UseSortByColumnOptions<D extends object> = Partial<{
+    canSort: boolean;
     defaultCanSort: boolean;
     disableSortBy: boolean;
     sortDescFirst: boolean;
