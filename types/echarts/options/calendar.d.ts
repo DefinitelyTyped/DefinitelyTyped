@@ -69,7 +69,7 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            bottom?: number |string;
+            bottom?: number | string;
             /**
              * The height of calendar coordinates.
              * Note: cellSize is 20 by default.
@@ -204,7 +204,7 @@ declare namespace echarts {
                 (params: MonthLabelFormatterParams): string;
             }
             interface MonthLabelFormatterParams {
-                nameMap?: string | number | (string|number)[];
+                nameMap?: string | number | (string | number)[];
                 yyyy?: number;
                 yy?: number;
                 MM?: number;
@@ -228,7 +228,7 @@ declare namespace echarts {
                 (params: YearLabelFormatterParams): string;
             }
             interface YearLabelFormatterParams {
-                nameMap?: string | number | (string|number)[];
+                nameMap?: string | number | (string | number)[];
                 start?: number;
                 end?: number;
             }
