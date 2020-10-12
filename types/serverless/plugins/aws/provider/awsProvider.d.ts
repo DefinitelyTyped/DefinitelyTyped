@@ -380,7 +380,7 @@ declare namespace Aws {
     }
 
     interface Stream {
-        arn: string;
+        arn: string | { [key: string]: any };
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;
