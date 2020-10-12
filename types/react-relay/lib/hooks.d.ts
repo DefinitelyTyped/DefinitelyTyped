@@ -1,4 +1,3 @@
-// TODO: Is this exported????
 export { graphql } from 'relay-runtime';
 
 export * from './relay-experimental/EntryPointTypes';
@@ -20,17 +19,17 @@ export { RelayEnvironmentProvider } from './relay-experimental/RelayEnvironmentP
 
 export { fetchQuery } from './relay-experimental/fetchQuery';
 
-export { loadQuery } from './relay-experimental/loadQuery';
 export { loadEntryPoint } from './relay-experimental/loadEntryPoint';
+export { loadQuery } from './relay-experimental/loadQuery';
 
 export { useBlockingPaginationFragment } from './relay-experimental/useBlockingPaginationFragment';
+export { useEntryPointLoader } from './relay-experimental/useEntryPointLoader';
 export { useFragment } from './relay-experimental/useFragment';
 export { useLazyLoadQuery } from './relay-experimental/useLazyLoadQuery';
-export { useEntryPointLoader } from './relay-experimental/useEntryPointLoader';
-export { useQueryLoader } from './relay-experimental/useQueryLoader';
 export { useMutation } from './relay-experimental/useMutation';
 export { usePaginationFragment } from './relay-experimental/usePaginationFragment';
 export { usePreloadedQuery } from './relay-experimental/usePreloadedQuery';
+export { useQueryLoader } from './relay-experimental/useQueryLoader';
 export { useRefetchableFragment } from './relay-experimental/useRefetchableFragment';
 export { useRelayEnvironment } from './relay-experimental/useRelayEnvironment';
 export { useSubscribeToInvalidationState } from './relay-experimental/useSubscribeToInvalidationState';
