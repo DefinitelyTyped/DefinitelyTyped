@@ -8,6 +8,7 @@ import {
     RequestParameters,
     VariablesOf,
 } from 'relay-runtime';
+import { GetEntryPointComponentFromEntryPoint, GetEntryPointParamsFromEntryPoint } from './helpers';
 
 export { VariablesOf } from 'relay-runtime';
 
@@ -226,18 +227,3 @@ export type EntryPoint<TEntryPointComponent, TEntryPointParams extends {} = {}> 
 export interface IEnvironmentProvider<TOptions> {
     getEnvironment(options: TOptions | null): IEnvironment;
 }
-
-// Helper types
-export type GetEntryPointParamsFromEntryPoint<TEntryPoint> = TEntryPoint extends EntryPoint<
-    infer TEntryPointComponent,
-    infer TEntryPointParams
->
-    ? TEntryPointParams
-    : never;
-
-export type GetEntryPointComponentFromEntryPoint<TEntryPoint> = TEntryPoint extends EntryPoint<
-    infer TEntryPointComponent,
-    infer TEntryPointParams
->
-    ? TEntryPointComponent
-    : never;

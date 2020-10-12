@@ -3,6 +3,7 @@ A TS file to help with the construction of the official Relay (flow) types.
  */
 
 import { FragmentReference } from 'relay-runtime';
+import { EntryPoint } from './EntryPointTypes';
 
 export type KeyType<TData = unknown> = Readonly<{
     ' $data'?: TData;
@@ -15,3 +16,17 @@ export type ArrayKeyType<TData = unknown> = ReadonlyArray<KeyType<ReadonlyArray<
 export type ArrayKeyTypeData<TKey extends ArrayKeyType<TData>, TData = unknown> = KeyTypeData<
     NonNullable<TKey[number]>
 >;
+
+export type GetEntryPointParamsFromEntryPoint<TEntryPoint> = TEntryPoint extends EntryPoint<
+    infer TEntryPointComponent,
+    infer TEntryPointParams
+>
+    ? TEntryPointParams
+    : never;
+
+export type GetEntryPointComponentFromEntryPoint<TEntryPoint> = TEntryPoint extends EntryPoint<
+    infer TEntryPointComponent,
+    infer TEntryPointParams
+>
+    ? TEntryPointComponent
+    : never;
