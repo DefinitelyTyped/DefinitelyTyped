@@ -2,6 +2,7 @@ import { ComponentType } from 'react';
 import {
     CacheConfig,
     ConcreteRequest,
+    DisposeFn,
     GraphQLResponse,
     IEnvironment,
     Observable,
@@ -58,7 +59,7 @@ export interface PreloadedQuery<
         name: string;
         source?: Observable<GraphQLResponse> | null;
         variables: VariablesOf<TQuery>;
-        dispose: () => void;
+        dispose: DisposeFn;
         isDisposed: boolean;
     }> {}
 
@@ -186,7 +187,7 @@ export type PreloadedEntryPoint<TEntryPointComponent> = TEntryPointComponent ext
     infer TExtraProps
 >
     ? Readonly<{
-          dispose: () => void;
+          dispose: DisposeFn;
           entryPoints: TPreloadedEntryPoints;
           extraProps: TExtraProps;
           getComponent: () => TEntryPointComponent;
