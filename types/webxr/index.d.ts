@@ -3,7 +3,7 @@
 // Definitions by: Rob Rohan <https://github.com/robrohan>
 //                 Raanan Weber <https://github.com/RaananW>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
+// Minimum TypeScript Version: 3.7
 
 // Most of this was hand written and... more or less copied from the following
 // sites:
@@ -20,36 +20,36 @@ export interface Navigator {
 /**
  * Available session modes
  */
-type XRSessionMode = 'inline' | 'immersive-vr' | 'immersive-ar';
+export type XRSessionMode = 'inline' | 'immersive-vr' | 'immersive-ar';
 
 /**
  * Reference space types
  */
-type XRReferenceSpaceType = 'viewer' | 'local' | 'local-floor' | 'bounded-floor' | 'unbounded';
+export type XRReferenceSpaceType = 'viewer' | 'local' | 'local-floor' | 'bounded-floor' | 'unbounded';
 
-type XREnvironmentBlendMode = 'opaque' | 'additive' | 'alpha-blend';
+export type XREnvironmentBlendMode = 'opaque' | 'additive' | 'alpha-blend';
 
-type XRVisibilityState = 'visible' | 'visible-blurred' | 'hidden';
+export type XRVisibilityState = 'visible' | 'visible-blurred' | 'hidden';
 
 /**
  * Handedness types
  */
-type XRHandedness = 'none' | 'left' | 'right';
+export type XRHandedness = 'none' | 'left' | 'right';
 
 /**
  * InputSource target ray modes
  */
-type XRTargetRayMode = 'gaze' | 'tracked-pointer' | 'screen';
+export type XRTargetRayMode = 'gaze' | 'tracked-pointer' | 'screen';
 
 /**
  * Eye types
  */
-type XREye = 'none' | 'left' | 'right';
+export type XREye = 'none' | 'left' | 'right';
 
 /**
  * Type of XR events available
  */
-type XREventType =
+export type XREventType =
     | 'devicechange'
     | 'visibilitychange'
     | 'end'
@@ -62,37 +62,37 @@ type XREventType =
     | 'squeezeend'
     | 'reset';
 
-type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
+export type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
 
-type XRPlaneSet = Set<XRPlane>;
-type XRAnchorSet = Set<XRAnchor>;
+export type XRPlaneSet = Set<XRPlane>;
+export type XRAnchorSet = Set<XRAnchor>;
 
-type XREventHandler<T extends Event> = (callback: T) => void;
+export type XREventHandler<T extends Event> = (callback: T) => void;
 
-interface XRLayer extends EventTarget {}
+export interface XRLayer extends EventTarget {}
 
-interface XRSessionInit {
+export interface XRSessionInit {
     optionalFeatures?: string[];
     requiredFeatures?: string[];
 }
 
-interface XRSessionEvent extends Event {
+export interface XRSessionEvent extends Event {
     readonly session: XRSession;
 }
 
-interface XRSystem {
+export interface XRSystem {
     isSessionSupported: (sessionMode: XRSessionMode) => Promise<boolean>;
     requestSession: (sessionMode: XRSessionMode, sessionInit?: any) => Promise<XRSession>;
 }
 
-interface XRViewport {
+export interface XRViewport {
     readonly x: number;
     readonly y: number;
     readonly width: number;
     readonly height: number;
 }
 
-interface XRWebGLLayerInit {
+export interface XRWebGLLayerInit {
     antialias?: boolean;
     depth?: boolean;
     stencil?: boolean;
@@ -101,7 +101,7 @@ interface XRWebGLLayerInit {
     framebufferScaleFactor?: number;
 }
 
-declare class XRWebGLLayer {
+export class XRWebGLLayer {
     static getNativeFramebufferScaleFactor(session: XRSession): number;
     constructor(
         session: XRSession,
@@ -117,16 +117,16 @@ declare class XRWebGLLayer {
 }
 
 // tslint:disable-next-line no-empty-interface
-interface XRSpace extends EventTarget {}
+export interface XRSpace extends EventTarget {}
 
-interface XRRenderState {
+export interface XRRenderState {
     readonly baseLayer?: XRWebGLLayer;
     readonly depthFar: number;
     readonly depthNear: number;
     readonly inlineVerticalFieldOfView?: number;
 }
 
-interface XRRenderStateInit extends XRRenderState {
+export interface XRRenderStateInit extends XRRenderState {
     baseLayer: XRWebGLLayer;
     depthFar: number;
     depthNear: number;
@@ -134,40 +134,40 @@ interface XRRenderStateInit extends XRRenderState {
     layers?: XRLayer[];
 }
 
-interface XRReferenceSpace extends XRSpace {
+export interface XRReferenceSpace extends XRSpace {
     getOffsetReferenceSpace(originOffset: XRRigidTransform): XRReferenceSpace;
     onreset: XREventHandler<Event>;
 }
 
-interface XRBoundedReferenceSpace extends XRSpace {
+export interface XRBoundedReferenceSpace extends XRSpace {
     readonly boundsGeometry: DOMPointReadOnly[];
 }
 
-interface XRInputSource {
+export interface XRInputSource {
     readonly handedness: XRHandedness;
     readonly targetRayMode: XRTargetRayMode;
     readonly targetRaySpace: XRSpace;
     readonly gripSpace?: XRSpace;
     readonly gamepad?: Gamepad;
-    readonly profiles: Array<string>;
+    readonly profiles: string[];
     readonly hand?: XRHand;
 }
 
-interface XRPose {
+export interface XRPose {
     readonly transform: XRRigidTransform;
     readonly emulatedPosition: boolean;
 }
 
-interface XRFrame {
+export interface XRFrame {
     readonly session: XRSession;
     getPose(space: XRSpace, baseSpace: XRSpace): XRPose | null;
     getViewerPose(referenceSpace: XRReferenceSpace): XRViewerPose | null;
 
     // AR
-    getHitTestResults(hitTestSource: XRHitTestSource): Array<XRHitTestResult>;
+    getHitTestResults(hitTestSource: XRHitTestSource): XRHitTestResult[];
     getHitTestResultsForTransientInput(
         hitTestSource: XRTransientInputHitTestSource,
-    ): Array<XRTransientInputHitTestResult>;
+    ): XRTransientInputHitTestResult[];
     // Anchors
     trackedAnchors?: XRAnchorSet;
     createAnchor?(pose: XRRigidTransform, space: XRSpace): Promise<XRAnchor>;
@@ -179,14 +179,14 @@ interface XRFrame {
     getJointPose?(joint: XRJointSpace, baseSpace: XRSpace): XRJointPose;
 }
 
-interface XRInputSourceEvent extends Event {
+export interface XRInputSourceEvent extends Event {
     readonly frame: XRFrame;
     readonly inputSource: XRInputSource;
 }
 
-type XRInputSourceArray = XRInputSource[];
+export type XRInputSourceArray = XRInputSource[];
 
-interface XRSession {
+export interface XRSession {
     addEventListener<T extends Event>(
         type: XREventType,
         listener: XREventHandler<T>,
@@ -201,7 +201,7 @@ interface XRSession {
      * Returns a list of this session's XRInputSources, each representing an input device
      * used to control the camera and/or scene.
      */
-    readonly inputSources: Array<XRInputSource>;
+    readonly inputSources: XRInputSource[];
     /**
      * object which contains options affecting how the imagery is rendered.
      * This includes things such as the near and far clipping planes
@@ -228,10 +228,10 @@ interface XRSession {
      */
     requestAnimationFrame: XRFrameRequestCallback;
     /**
-     * Requests that a new XRReferenceSpace of the specified type be created.
+     * Requests that a new XRReferenceSpace of the specified export type be created.
      * Returns a promise which resolves with the XRReferenceSpace or
      * XRBoundedReferenceSpace which was requested, or throws a NotSupportedError if
-     * the requested space type isn't supported by the device.
+     * the requested space export type isn't supported by the device.
      */
     requestReferenceSpace(type: XRReferenceSpaceType): Promise<XRReferenceSpace | XRBoundedReferenceSpace>;
 
@@ -260,11 +260,11 @@ interface XRSession {
     updateWorldTrackingState?(options: { planeDetectionState?: { enabled: boolean } }): void;
 }
 
-interface XRViewerPose extends XRPose {
-    readonly views: Array<XRView>;
+export interface XRViewerPose extends XRPose {
+    readonly views: XRView[];
 }
 
-declare class XRRigidTransform {
+export class XRRigidTransform {
     constructor(position?: DOMPointInit, direction?: DOMPointInit);
     position: DOMPointReadOnly;
     orientation: DOMPointReadOnly;
@@ -272,7 +272,7 @@ declare class XRRigidTransform {
     inverse: XRRigidTransform;
 }
 
-interface XRView {
+export interface XRView {
     readonly eye: XREye;
     readonly projectionMatrix: Float32Array;
     readonly transform: XRRigidTransform;
@@ -280,80 +280,80 @@ interface XRView {
     requestViewportScale(scale: number): void;
 }
 
-interface XRInputSourceChangeEvent extends Event {
+export interface XRInputSourceChangeEvent extends Event {
     session: XRSession;
-    removed: Array<XRInputSource>;
-    added: Array<XRInputSource>;
+    removed: XRInputSource[];
+    added: XRInputSource[];
 }
 
 // Experimental/Draft features
-declare class XRRay {
+export class XRRay {
     constructor(transformOrOrigin: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
     origin: DOMPointReadOnly;
     direction: DOMPointReadOnly;
     matrix: Float32Array;
 }
 
-declare enum XRHitTestTrackableType {
+export enum XRHitTestTrackableType {
     'point',
     'plane',
     'mesh',
 }
 
-interface XRHitResult {
+export interface XRHitResult {
     hitMatrix: Float32Array;
 }
 
-interface XRTransientInputHitTestResult {
+export interface XRTransientInputHitTestResult {
     readonly inputSource: XRInputSource;
-    readonly results: Array<XRHitTestResult>;
+    readonly results: XRHitTestResult[];
 }
 
-interface XRHitTestResult {
+export interface XRHitTestResult {
     getPose(baseSpace: XRSpace): XRPose | undefined;
     // When anchor system is enabled
     createAnchor?(pose: XRRigidTransform): Promise<XRAnchor>;
 }
 
-interface XRHitTestSource {
+export interface XRHitTestSource {
     cancel(): void;
 }
 
-interface XRTransientInputHitTestSource {
+export interface XRTransientInputHitTestSource {
     cancel(): void;
 }
 
-interface XRHitTestOptionsInit {
+export interface XRHitTestOptionsInit {
     space: XRSpace;
-    entityTypes?: Array<XRHitTestTrackableType>;
+    entityTypes?: XRHitTestTrackableType[];
     offsetRay?: XRRay;
 }
 
-interface XRTransientInputHitTestOptionsInit {
+export interface XRTransientInputHitTestOptionsInit {
     profile: string;
-    entityTypes?: Array<XRHitTestTrackableType>;
+    entityTypes?: XRHitTestTrackableType[];
     offsetRay?: XRRay;
 }
 
-interface XRAnchor {
+export interface XRAnchor {
     anchorSpace: XRSpace;
     delete(): void;
 }
 
-interface XRPlane {
+export interface XRPlane {
     orientation: 'Horizontal' | 'Vertical';
     planeSpace: XRSpace;
-    polygon: Array<DOMPointReadOnly>;
+    polygon: DOMPointReadOnly[];
     lastChangedTime: number;
 }
 
-interface XRJointSpace extends XRSpace {}
+export interface XRJointSpace extends XRSpace {}
 
-interface XRJointPose extends XRPose {
+export interface XRJointPose extends XRPose {
     radius: number | undefined;
 }
 
-interface XRHand extends Iterable<XRJointSpace> {
+export interface XRHand extends Iterable<XRJointSpace> {
     readonly length: number;
 
     [index: number]: XRJointSpace;
