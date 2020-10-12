@@ -76,9 +76,10 @@ export interface PaymentParams {
     acceptCreditCards: boolean;
 }
 
-// tslint:disable-next-line no-unnecessary-class
-export default class RNPaypal {
-    static paymentRequest(params: PaymentParams): Promise<PaymentConfirmation>;
-    static ENVIRONMENT: EnvironmentParam;
-    static INTENT: IntentParam;
-}
+declare const RNPaypal: {
+    paymentRequest(params: PaymentParams): Promise<PaymentConfirmation>;
+    readonly ENVIRONMENT: EnvironmentParam;
+    readonly INTENT: IntentParam;
+};
+
+export default RNPaypal;
