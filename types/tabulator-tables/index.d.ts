@@ -199,7 +199,7 @@ declare namespace Tabulator {
 
     interface OptionsRowGrouping {
         /** String/function to select field to group rows by     */
-        groupBy?: string | ((data: any) => any);
+        groupBy?: GroupByArg;
         /** By default Tabulator will create groups for rows based on the values contained in the row data. if you want to explicitly define which field values groups should be created for at each level, you can use the groupValues option.
 
     This option takes an array of value arrays, each item in the first array should be a list of acceptable field values for groups at that level     */
@@ -1271,6 +1271,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
     }
 
     type GroupValuesArg = any[][];
+    type GroupByArg = string | string[] | ((data: any) => any) | Array<((data: any) => any)>;
     type TextDirection = 'auto' | 'ltr' | 'rtl';
     type GlobalTooltipOption = boolean | ((cell: CellComponent) => string);
     type CustomMutator = (
@@ -2170,7 +2171,7 @@ declare class Tabulator {
     /** To retrieve the maximum available page use the getPageMax function. this will return the number of the maximum available page. If pagination is disabled this will return false. */
     getPageMax: () => number | false;
     /** You can use the setGroupBy function to change the fields that rows are grouped by. This function has one argument and takes the same values as passed to the groupBy setup option. */
-    setGroupBy: (groups: string | ((data: any) => any)) => void;
+    setGroupBy: (groups: Tabulator.GroupByArg) => void;
     /** You can use the setGroupStartOpen function to change the default open state of groups. This function has one argument and takes the same values as passed to the groupStartOpen setup option.
      ** Note: If you use the setGroupStartOpen or setGroupHeader before you have set any groups on the table, the table will not update until the setGroupBy function is called.
      */

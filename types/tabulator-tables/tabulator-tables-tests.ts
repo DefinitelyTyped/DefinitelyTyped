@@ -38,6 +38,7 @@ table
     });
 
 table.setGroupBy('gender');
+table.setGroupBy(['gender', 'age']);
 table.setGroupStartOpen(true);
 
 table.setGroupHeader((value, count, data, group) => {
