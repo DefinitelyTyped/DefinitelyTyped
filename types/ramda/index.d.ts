@@ -1273,8 +1273,7 @@ export function omit<K extends string>(names: readonly K[]): <T>(obj: T) => Omit
  * called once, no matter how many times the returned function is invoked. The first value calculated is
  * returned in subsequent invocations.
  */
-export function once(fn: (...a: readonly any[]) => any): (...a: readonly any[]) => any;
-export function once<T>(fn: (...a: readonly any[]) => T): (...a: readonly any[]) => T;
+export function once<F extends (...a: readonly any[]) => any>(fn: F): F;
 
 /**
  * A function that returns the first truthy of two arguments otherwise the last argument. Note that this is
