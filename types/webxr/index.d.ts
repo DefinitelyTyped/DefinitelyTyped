@@ -1,4 +1,4 @@
-// Type definitions for webxr 0.1
+// Type definitions for non-npm package webxr 0.1
 // Project: https://www.w3.org/TR/webxr/
 // Definitions by: Rob Rohan <https://github.com/robrohan>
 //                 Raanan Weber <https://github.com/RaananW>
