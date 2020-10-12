@@ -7,11 +7,10 @@
 import { Request, RequestInit, Response } from 'node-fetch';
 
 declare namespace fetchRetry {
-
     /**
      * options for fetch-retry
      */
-    export interface Options extends RequestInit {
+    interface Options extends RequestInit {
         /**
          * options for retry or false if want to disable retry
          * ... other options for fetch call (method, headers, etc...)
@@ -22,7 +21,7 @@ declare namespace fetchRetry {
     /**
      * options for retry or false if want to disable retry
      */
-    export interface RetryOptions {
+    interface RetryOptions {
         /**
          * time (in milliseconds) to retry until throwing an error
          */
