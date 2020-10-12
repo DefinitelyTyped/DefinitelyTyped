@@ -1,4 +1,4 @@
-// Type definitions for react-native-community__cli 2.0
+// Type definitions for @react-native-community/cli 2.0
 // Project: https://github.com/react-native-community/cli
 // Definitions by: agathekieny <https://github.com/agathekieny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -237,7 +237,7 @@ export interface TimelineOptions {
   horizontalScroll?: boolean;
   itemsAlwaysDraggable?: TimelineOptionsItemsAlwaysDraggableType;
   locale?: string;
-  locales?: any; // TODO
+  locales?: Locales;
   moment?: MomentConstructor;
   margin?: TimelineOptionsMarginType;
   max?: DateType;
@@ -464,7 +464,7 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * @returns When no item is found, null is returned when a single item was requested,
    * and and empty Array is returned in case of multiple id's.
    */
-  get(id: IdType, options?: DataSelectionOptions<T>): T|null;
+  get(id: IdType, options?: DataSelectionOptions<T>): T | null;
 
   /**
    * Get multiple items from the DataSet.
@@ -685,7 +685,7 @@ export interface Graph2dOptions {
   hiddenDates?: any; // TODO
   legend?: Graph2dLegendOption;
   locale?: string;
-  locales?: any; // TODO
+  locales?: Locales;
   moment?: MomentConstructor;
   max?: DateType;
   maxHeight?: HeightWidthType;
@@ -1015,6 +1015,8 @@ export type NetworkEvents =
   'dragStart' |
   'dragging' |
   'dragEnd' |
+  'controlNodeDragging' |
+  'controlNodeDragEnd' |
   'hoverNode' |
   'blurNode' |
   'hoverEdge' |
@@ -1761,7 +1763,7 @@ export interface Options {
 
   clickToUse?: boolean;
 
-  configure?: any; // http://visjs.org/docs/network/configure.html#
+  configure?: NetworkConfigure;
 
   edges?: EdgeOptions;
 
@@ -1781,6 +1783,13 @@ export interface Options {
 export interface Image {
   unselected?: string;
   selected?: string;
+}
+
+export interface NetworkConfigure {
+  enabled?: boolean;
+  filter?: string | string[] | boolean; // please note, filter could be also a function. This case is not represented here
+  container?: any;
+  showButton?: boolean;
 }
 
 export interface Color {
@@ -1813,21 +1822,7 @@ export interface NodeOptions {
     y?: boolean,
   };
 
-  font?: string | {
-    color?: string,
-    size?: number, // px
-    face?: string,
-    background?: string,
-    strokeWidth?: number, // px
-    strokeColor?: string,
-    align?: string,
-    vadjust?: string,
-    multi?: string,
-    bold?: string | FontOptions,
-    ital?: string | FontOptions,
-    boldital?: string | FontOptions,
-    mono?: string | FontOptions,
-  };
+  font?: string | Font;
 
   group?: string;
 
@@ -1893,24 +1888,22 @@ export interface NodeOptions {
 
 export interface EdgeOptions {
   arrows?: string | {
-    to?: boolean | {
-      enabled?: boolean,
-      scaleFactor?: number,
-      type?: string
-    },
-    middle?: boolean | {
-      enabled?: boolean,
-      scaleFactor?: number,
-      type?: string
-    },
-    from?: boolean | {
-      enabled?: boolean,
-      scaleFactor?: number,
-      type?: string
-    }
+    to?: boolean | ArrowHead
+    middle?: boolean | ArrowHead
+    from?: boolean | ArrowHead
+  };
+
+  endPointOffset?: {
+    from?: number,
+    to?: number
   };
 
   arrowStrikethrough?: boolean;
+
+  chosen?: boolean | {
+    edge?: boolean, // please note, chosen.edge could be also a function. This case is not represented here
+    label?: boolean, // please note, chosen.label could be also a function. This case is not represented here
+  };
 
   color?: string | {
     color?: string,
@@ -1922,21 +1915,7 @@ export interface EdgeOptions {
 
   dashes?: boolean | number[];
 
-  font?: string | {
-    color?: string,
-    size?: number, // px
-    face?: string,
-    background?: string,
-    strokeWidth?: number, // px
-    strokeColor?: string,
-    align?: string,
-    vadjust?: string,
-    multi?: string,
-    bold?: string | FontOptions,
-    ital?: string | FontOptions,
-    boldital?: string | FontOptions,
-    mono?: string | FontOptions,
-  };
+  font?: string | Font;
 
   hidden?: boolean;
 
@@ -1956,6 +1935,12 @@ export interface EdgeOptions {
 
   selfReferenceSize?: number;
 
+  selfReference?: {
+    size?: number,
+    angle?: number,
+    renderBehindTheNode?: boolean
+  };
+
   shadow?: boolean | OptionsShadow;
 
   smooth?: boolean | {
@@ -1970,14 +1955,43 @@ export interface EdgeOptions {
   value?: number;
 
   width?: number;
+
+  widthConstraint?: number | boolean | {
+    maximum?: number;
+  };
 }
 
-export interface FontOptions {
+export interface ArrowHead {
+  enabled?: boolean;
+  imageHeight?: number;
+  imageWidth?: number;
+  scaleFactor?: number;
+  src?: string;
+  type?: string;
+}
+
+export interface Font {
+  color?: string;
+  size?: number; // px
+  face?: string;
+  background?: string;
+  strokeWidth?: number; // px
+  strokeColor?: string;
+  align?: string;
+  vadjust?: number;
+  multi?: boolean | string;
+  bold?: string | FontStyles;
+  ital?: string | FontStyles;
+  boldital?: string | FontStyles;
+  mono?: string | FontStyles;
+}
+
+export interface FontStyles {
   color?: string;
   size?: number;
   face?: string;
   mod?: string;
-  vadjust?: string;
+  vadjust?: number;
 }
 
 export interface OptionsScaling {
@@ -1994,11 +2008,11 @@ export interface OptionsScaling {
 }
 
 export interface OptionsShadow {
-  enabled: boolean;
-  color: string;
-  size: number;
-  x: number;
-  y: number;
+  enabled?: boolean;
+  color?: string;
+  size?: number;
+  x?: number;
+  y?: number;
 }
 
 export as namespace vis;

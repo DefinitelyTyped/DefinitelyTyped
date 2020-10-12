@@ -1,11 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "align": false,
         "ban-types": false,
         "interface-over-type-literal": false,
-        "no-var": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false
     }
 }

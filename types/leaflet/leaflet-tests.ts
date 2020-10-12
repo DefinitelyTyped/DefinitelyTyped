@@ -75,6 +75,16 @@ points = L.PolyUtil.clipPolygon(points, bounds);
 points = L.PolyUtil.clipPolygon(points, bounds, true);
 
 let mapOptions: L.MapOptions = {};
+
+const crs: L.CRS[] = [
+    L.CRS.EPSG3395,
+    L.CRS.EPSG3857,
+    L.CRS.EPSG4326,
+    L.CRS.EPSG900913,
+    L.CRS.Earth,
+    L.CRS.Simple,
+];
+
 mapOptions = {
     preferCanvas: true,
     attributionControl: false,

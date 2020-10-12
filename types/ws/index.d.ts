@@ -56,14 +56,23 @@ declare class WebSocket extends events.EventEmitter {
     terminate(): void;
 
     // HTML5 WebSocket events
-    addEventListener(method: 'message', cb?: (event: { data: any; type: string; target: WebSocket }) => void): void;
-    addEventListener(method: 'close', cb?: (event: {
+    addEventListener(method: 'message', cb: (event: {
+        data: any;
+        type: string;
+        target: WebSocket
+    }, options?: WebSocket.EventListenerOptions) => void): void;
+    addEventListener(method: 'close', cb: (event: {
         wasClean: boolean; code: number;
         reason: string; target: WebSocket
-    }) => void): void;
-    addEventListener(method: 'error', cb?: (event: {error: any, message: any, type: string, target: WebSocket }) => void): void;
-    addEventListener(method: 'open', cb?: (event: { target: WebSocket }) => void): void;
-    addEventListener(method: string, listener?: () => void): void;
+    }, options?: WebSocket.EventListenerOptions) => void): void;
+    addEventListener(method: 'error', cb: (event: {
+        error: any,
+        message: any,
+        type: string,
+        target: WebSocket
+    }, options?: WebSocket.EventListenerOptions) => void): void;
+    addEventListener(method: 'open', cb: (event: { target: WebSocket }) => void, options?: WebSocket.EventListenerOptions): void;
+    addEventListener(method: string, listener: () => void, options?: WebSocket.EventListenerOptions): void;
 
     removeEventListener(method: 'message', cb?: (event: { data: any; type: string; target: WebSocket }) => void): void;
     removeEventListener(method: 'close', cb?: (event: {
@@ -190,6 +199,10 @@ declare namespace WebSocket {
         data: Data;
         type: string;
         target: WebSocket;
+    }
+
+    interface EventListenerOptions {
+        once?: boolean;
     }
 
     interface ServerOptions {

@@ -611,3 +611,25 @@ management.deleteRulesConfig({key: 'test'}, (err) => {});
 
 management.getRulesConfigs().then((configs) => console.log(configs));
 management.getRulesConfigs((err, configs) => console.log(configs));
+
+// Custom Domains
+management.createCustomDomain({ domain: 'auth0.com', type: 'auth0_managed_certs' }).then(domain => console.log(domain));
+management.createCustomDomain({ domain: 'auth0.com', type: 'auth0_managed_certs' }, (err, domain) =>
+    console.log(domain),
+);
+
+management.getCustomDomains().then(domains => console.log(domains));
+management.getCustomDomains((err, domains) => console.log(domains));
+
+management.getCustomDomain({ id: 'cd_0000000000000001' }).then(domain => console.log(domain));
+management.getCustomDomain({ id: 'cd_0000000000000001' }, (err, domain) => console.log(domain));
+
+management
+    .verifyCustomDomain({ id: 'cd_0000000000000001' })
+    .then(domainVerification => console.log(domainVerification));
+management.verifyCustomDomain({ id: 'cd_0000000000000001' }, (err, domainVerification) =>
+    console.log(domainVerification),
+);
+
+management.deleteCustomDomain({ id: 'cd_0000000000000001' }).then(() => console.log('deleted'));
+management.deleteCustomDomain({ id: 'cd_0000000000000001' }, err => console.log('deleted'));

@@ -850,6 +850,10 @@ pubnub.objects.getChannelMembers({
 pubnub.objects.setChannelMembers({
     channel: 'myChannel',
     uuids: ['uuid-1', 'uuid-2'],
+    page: {
+        next: "abc",
+        prev: "def"
+    }
 });
 
 pubnub.objects.removeChannelMembers({

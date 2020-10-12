@@ -3,7 +3,8 @@
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
 //                 Florian Keller <https://github.com/ffflorian>,
-//                 Sosuke Suzuki <https://github.com/sosukesuzuki>
+//                 Sosuke Suzuki <https://github.com/sosukesuzuki>,
+//                 Christopher Quadflieg <https://github.com/Shinigami92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -43,8 +44,9 @@ export type BuiltInParserName =
     | 'mdx'
     | 'yaml'
     | 'lwc';
+export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
-export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
+export type CustomParser = (text: string, parsers: BuiltInParsers, options: Options) => AST;
 
 export interface Options extends Partial<RequiredOptions> {}
 export interface RequiredOptions extends doc.printer.Options {
@@ -162,7 +164,7 @@ export interface Plugin {
     languages?: SupportLanguage[];
     parsers?: { [parserName: string]: Parser };
     printers?: { [astFormat: string]: Printer };
-    options?: SupportOption[];
+    options?: SupportOptions;
     defaultOptions?: Partial<RequiredOptions>;
 }
 
@@ -323,46 +325,92 @@ export interface SupportLanguage {
     vscodeLanguageIds?: string[];
 }
 
-export interface SupportOptionDefault {
-    since: string;
-    value: SupportOptionValue;
-}
-
-export interface SupportOption {
-    name: string;
-    since?: string;
-    type: 'int' | 'boolean' | 'choice' | 'path';
-    array?: boolean;
-    deprecated?: string;
-    redirect?: SupportOptionRedirect;
-    description: string;
-    oppositeDescription?: string;
-    default: SupportOptionValue | SupportOptionDefault[];
-    range?: SupportOptionRange;
-    choices?: SupportOptionChoice[];
-    category: string;
-}
-
-export interface SupportOptionRedirect {
-    options: string;
-    value: SupportOptionValue;
-}
-
 export interface SupportOptionRange {
     start: number;
     end: number;
     step: number;
 }
 
-export interface SupportOptionChoice {
-    value: boolean | string;
+export type SupportOptionType = 'int' | 'boolean' | 'choice' | 'path';
+
+export interface BaseSupportOption<Type extends SupportOptionType> {
+    since: string;
+    category: string;
+    /**
+     * The type of the option.
+     *
+     * When passing a type other than the ones listed below, the option is
+     * treated as taking any string as argument, and `--option <${type}>` will
+     * be displayed in --help.
+     */
+    type: Type;
+    /**
+     * Indicate that the option is deprecated.
+     *
+     * Use a string to add an extra message to --help for the option,
+     * for example to suggest a replacement option.
+     */
+    deprecated?: true | string;
+    /**
+     * Description to be displayed in --help. If omitted, the option won't be
+     * shown at all in --help.
+     */
     description?: string;
-    since?: string;
-    deprecated?: string;
-    redirect?: SupportOptionValue;
 }
 
-export type SupportOptionValue = number | boolean | string;
+export interface IntSupportOption extends BaseSupportOption<'int'> {
+    default: number;
+    array?: false;
+    range?: SupportOptionRange;
+}
+
+export interface IntArraySupportOption extends BaseSupportOption<'int'> {
+    default: number[];
+    array: true;
+}
+
+export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
+    default: boolean;
+    array?: false;
+    description: string;
+    oppositeDescription?: boolean;
+}
+
+export interface BooleanArraySupportOption extends BaseSupportOption<'boolean'> {
+    default: boolean[];
+    array: true;
+}
+
+export interface ChoiceSupportOption<Value = any> extends BaseSupportOption<'choice'> {
+    default: Value | Array<{ since: string; value: Value }>;
+    description: string;
+    choices: Array<{
+        since?: string;
+        value: Value;
+        description: string;
+    }>;
+}
+
+export interface PathSupportOption extends BaseSupportOption<'path'> {
+    default: string;
+    array?: false;
+}
+
+export interface PathArraySupportOption extends BaseSupportOption<'path'> {
+    default: string[];
+    array: true;
+}
+
+export type SupportOption =
+    | IntSupportOption
+    | IntArraySupportOption
+    | BooleanSupportOption
+    | BooleanArraySupportOption
+    | ChoiceSupportOption
+    | PathSupportOption
+    | PathArraySupportOption;
+
+export interface SupportOptions extends Record<string, SupportOption> {}
 
 export interface SupportInfo {
     languages: SupportLanguage[];
@@ -540,6 +588,8 @@ export namespace doc {
              * @default false
              */
             useTabs: boolean;
+            parentParser?: string;
+            embeddedInHtml: boolean;
         }
     }
     namespace utils {

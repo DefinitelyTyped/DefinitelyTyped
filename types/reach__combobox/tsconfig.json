@@ -14,7 +14,7 @@
             "../"
         ],
         "paths": {
-            "@reach/combobox": ["reach__combobox"]
+            "@reach/*": ["reach__*"]
         },
         "types": [],
         "noEmit": true,

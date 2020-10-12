@@ -75,8 +75,9 @@ export * from "./trigger/lex";
 // RDS events are delivered using SNS events...
 export * from "./trigger/s3";
 export * from "./trigger/s3-batch";
-// SES events are delivered using SNS events...
+export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
+export * from './trigger/msk';
 
 export as namespace AWSLambda;

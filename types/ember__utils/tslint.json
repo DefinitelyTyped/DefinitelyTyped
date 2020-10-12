@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-submodule-imports": false,
         "only-arrow-functions": false,
         "prefer-const": false
     }

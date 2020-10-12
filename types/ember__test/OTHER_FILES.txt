@@ -1,1 +1,0 @@
-adapter.d.ts

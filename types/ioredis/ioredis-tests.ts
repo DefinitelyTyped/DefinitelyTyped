@@ -17,6 +17,9 @@ const cbNumber = (err: Error | null, result: any) => {
 redis.set('foo', 'bar');
 redis.get('foo', cb);
 
+redis.getrangeBuffer("foo", 0, 1, cb);
+redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
+
 // Static check that returned value is always a number
 redis.del('foo', 'bar').then(result => result * 1);
 
@@ -126,6 +129,12 @@ redis.zpopmax('myset', cb);
 redis.zpopmax('myset', 1, cb);
 redis.zpopmax('myset', 1).then(console.log);
 redis.zpopmax('myset').then(console.log);
+redis.bzpopmin('myset', 0).then(console.log);
+redis.bzpopmin('mysetA', 'mysetB', 0).then(console.log);
+redis.bzpopmin(['mysetA', 'mysetB', 0]).then(console.log);
+redis.bzpopmin('myset', 0, cb);
+redis.bzpopmin('mysetA', 'mysetB', 0, cb);
+redis.bzpopmin(['mysetA', 'mysetB', 0], cb);
 redis.sort('list').then(console.log);
 redis.sort('list', cb);
 redis.sort('list', 'LIMIT', 0, 10).then(console.log);
@@ -313,6 +322,7 @@ pipeline.hset('hash', 'foo', 4);
 pipeline.hget('hash', 'foo');
 pipeline.hsetBuffer('hash', 'fooBuffer', 4);
 pipeline.hgetBuffer('hash', 'fooBuffer');
+pipeline.getrangeBuffer('foo', 0, 1);
 pipeline.exec((err, results) => {
     // `err` is always null, and `results` is an array of responses
     // corresponding to the sequence of queued commands.
