@@ -1,8 +1,8 @@
-import fetchRetry, { Options } from "adobe__node-fetch-retry";
+import fetchRetry = require("adobe__node-fetch-retry");
 import { Request, Response } from "node-fetch";
 
 function test_fetchRetryWithUrlString() {
-    const options: Options = {
+    const options: fetchRetry.Options = {
         retryOptions: {
             retryMaxDuration: 10000,
             retryInitialDelay: 3000,
@@ -24,7 +24,7 @@ function test_fetchRetryWithRequestString() {
         }
     });
 
-    const options: Options = {
+    const options: fetchRetry.Options = {
         retryOptions: {
             retryMaxDuration: 10000,
             retryInitialDelay: 3000,
@@ -39,7 +39,7 @@ function test_fetchRetryWithRequestString() {
 }
 
 function test_fetchRetryWithUrlStringAndFurtherOptions() {
-    const options: Options = {
+    const options: fetchRetry.Options = {
         headers: {
             "Content-Type" : "application/json"
         },
