@@ -32,6 +32,7 @@
 //                 TJT <https://github.com/Celend>
 //                 Julien TASSIN <https://github.com/jtassin>
 //                 Anna Henningsen <https://github.com/addaleax>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -936,8 +937,15 @@ export interface CollectionCreateOptions extends CommonOptions {
     pkFactory?: object;
     readPreference?: ReadPreferenceOrMode;
     serializeFunctions?: boolean;
+    /**
+     * @deprecated
+     * @see https://jira.mongodb.org/browse/NODE-2746
+     */
     strict?: boolean;
     capped?: boolean;
+    /**
+     * @deprecated
+     */
     autoIndexId?: boolean;
     size?: number;
     max?: number;
