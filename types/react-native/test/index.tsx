@@ -82,7 +82,6 @@ import {
     StyleProp,
     StyleSheet,
     Switch,
-    SwitchIOS, // $ExpectError This component was removed in 2016
     Systrace,
     TabBarIOS,
     Text,
@@ -1181,8 +1180,7 @@ const NativeIDTest = () => (
 );
 
 const ScrollViewMaintainVisibleContentPositionTest = () => (
-    <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}>
-    </ScrollView>
+    <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}></ScrollView>
 );
 
 const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
