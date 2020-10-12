@@ -91,11 +91,13 @@ lrd.queueData = {};
 
 // tslint:disable-next-line
 const appData: cast.framework.system.ApplicationData = {
-    id: () => 'id',
-    launchingSenderId: () => 'launch-id',
-    name: () => 'name',
-    namespaces: () => ['namespace'],
-    sessionId: () => 1,
+    id: 'id',
+    iconUrl: 'https://example-image.jpeg',
+    launchingSenderId: 'launch-id',
+    name: 'name',
+    namespaces: ['namespace'],
+    sessionId: 1,
+    launchedFrom: cast.framework.system.LaunchedFrom.CLOUD
 };
 
 // tslint:disable-next-line
@@ -204,3 +206,5 @@ const controls = cast.framework.ui.Controls.getInstance();
 
 controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_1, cast.framework.ui.ControlsButton.LIKE);
 controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_2, cast.framework.ui.ControlsButton.DISLIKE);
+
+cast.framework.CastReceiverContext.getInstance().getApplicationData().launchedFrom === 'CLOUD';

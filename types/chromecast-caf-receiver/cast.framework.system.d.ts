@@ -225,9 +225,30 @@ export class Event {
 
 /** Represents the data of the launched application. */
 export interface ApplicationData {
-    id(): string;
-    launchingSenderId(): string;
-    name(): string;
-    namespaces(): string[];
-    sessionId(): number;
+    /** The application Id. */
+    id: string;
+    /** The application image that is set in Cast Developer Console. */
+    iconUrl: string;
+    /** The id of the sender that launched the application. */
+    launchingSenderId: string;
+    /** The application name. */
+    name: string;
+    /** The namespaces used by the application. */
+    namespaces: string[];
+    /** The session Id. */
+    sessionId: number;
+    /** Indicate where the app was launched from. */
+    launchedFrom: LaunchedFrom;
+}
+
+/** Represent where the receiver was launched from. */
+export enum LaunchedFrom {
+    /** The launch owner could not be determined. */
+    UNKNOWN = 'UNKNOWN',
+    /** App was launched by DIAL request. */
+    DIAL = 'DIAL',
+    /** App was launched by Cast V2 request. */
+    CAST = 'CAST',
+    /** App was launched by assistant request (e.g. voice command). */
+    CLOUD = 'CLOUD',
 }
