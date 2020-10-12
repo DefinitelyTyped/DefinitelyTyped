@@ -22,14 +22,14 @@ export type Layout = "vertical" | "horizontal";
 export type ScrollDirection = "forward" | "backward";
 export type Align = "auto" | "smart" | "center" | "end" | "start";
 
-export interface ListChildComponentProps<T = any> {
+export interface ListChildComponentProps<T> {
     index: number;
     style: CSSProperties;
     data: T;
     isScrolling?: boolean;
 }
 
-export interface GridChildComponentProps<T = any> {
+export interface GridChildComponentProps<T> {
     columnIndex: number;
     rowIndex: number;
     style: CSSProperties;
@@ -116,7 +116,7 @@ export interface ListProps extends CommonProps {
      *
      * If useIsScrolling is enabled for the list, the component also receives an additional isScrolling boolean prop.
      */
-    children: ComponentType<ListChildComponentProps>;
+    children: ComponentType<ListChildComponentProps<any>>;
     /**
      * Height of the list.
      *
@@ -222,7 +222,7 @@ export interface GridProps extends CommonProps {
      *
      * If useIsScrolling is enabled for the list, the component also receives an additional isScrolling boolean prop.
      */
-    children: ComponentType<GridChildComponentProps>;
+    children: ComponentType<GridChildComponentProps<any>>;
     /**
      * Number of columns in the grid. Note that only a few columns will be rendered and displayed at a time.
      */
