@@ -10,7 +10,7 @@ export interface Disposable {
 export type DataID = string;
 
 export interface Variables {
-    [name: string]: unknown;
+    [name: string]: any;
 }
 
 export interface OperationType {
