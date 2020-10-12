@@ -539,7 +539,7 @@ declare namespace SocketIOClient {
         /**
          * `http.Agent` to use, defaults to `false` (NodeJS only)
          */
-        agent?: string|boolean;
+        agent?: http.Agent|boolean;
 
         /**
          * Whether the client should try to upgrade the transport from
