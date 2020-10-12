@@ -1,4 +1,4 @@
-// Type definitions for MongoDB 3.5
+// Type definitions for MongoDB 3.6
 // Project: https://github.com/mongodb/node-mongodb-native
 //          https://github.com/mongodb/node-mongodb-native/tree/3.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
