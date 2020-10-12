@@ -2807,7 +2807,7 @@ function JQuery() {
                 return 400;
             });
 
-            // $ExpectType number | undefined
+            // $ExpectType number
             $('p').height();
         }
 

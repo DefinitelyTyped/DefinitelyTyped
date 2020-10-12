@@ -1832,7 +1832,7 @@ function examples() {
 
     function finish_0() {
         var horiz = $('#path').width()! - 20,
-            vert = $('#path').height()! - 20;
+            vert = $('#path').height() - 20;
 
         var btns: { [key: string]: () => void; } = {
             bstt: function() {
@@ -2001,13 +2001,13 @@ function examples() {
         }
 
         $('#getp').click(function() {
-            showHeight('paragraph', $('p').height()!);
+            showHeight('paragraph', $('p').height());
         });
         $('#getd').click(function() {
-            showHeight('document', $(document).height()!);
+            showHeight('document', $(document).height());
         });
         $('#getw').click(function() {
-            showHeight('window', $(window).height()!);
+            showHeight('window', $(window).height());
         });
     }
 

@@ -4761,7 +4761,7 @@ $( "#getw" ).click(function() {
 </html>
 ```
      */
-    height(): number | undefined;
+    height(): number;
     /**
      * Hide the matched elements.
      * @param duration A string or number determining how long the animation will run.
