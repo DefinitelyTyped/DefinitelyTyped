@@ -1,13 +1,13 @@
 import { NodeType, parse } from 'fast-html-parser';
 
 const root = parse(
-  '<!doctype html><html lang="en-us"><html><body><div id="firstdiv">   first-div   </div><div>  second-div  </div></body></html>',
-  {
-    lowerCaseTagName: true,
-    pre: true,
-    script: true,
-    style: true,
-  },
+    '<!doctype html><html lang="en-us"><html><body><div id="firstdiv">   first-div   </div><div>  second-div  </div></body></html>',
+    {
+        lowerCaseTagName: true,
+        pre: true,
+        script: true,
+        style: true,
+    },
 );
 
 const firstDiv = root.querySelector('div');
