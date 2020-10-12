@@ -67,8 +67,9 @@ export type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame)
 export type XRPlaneSet = Set<XRPlane>;
 export type XRAnchorSet = Set<XRAnchor>;
 
-export type XREventHandler<T extends Event> = (callback: T) => void;
+export type XREventHandler = EventHandlerNonNull;
 
+// tslint:disable-next-line no-empty-interface
 export interface XRLayer extends EventTarget {}
 
 export interface XRSessionInit {
@@ -136,7 +137,7 @@ export interface XRRenderStateInit extends XRRenderState {
 
 export interface XRReferenceSpace extends XRSpace {
     getOffsetReferenceSpace(originOffset: XRRigidTransform): XRReferenceSpace;
-    onreset: XREventHandler<Event>;
+    onreset: XREventHandler;
 }
 
 export interface XRBoundedReferenceSpace extends XRSpace {
@@ -187,14 +188,14 @@ export interface XRInputSourceEvent extends Event {
 export type XRInputSourceArray = XRInputSource[];
 
 export interface XRSession {
-    addEventListener<T extends Event>(
+    addEventListener(
         type: XREventType,
-        listener: XREventHandler<T>,
+        listener: XREventHandler,
         options?: boolean | AddEventListenerOptions,
     ): void;
-    removeEventListener<T extends Event>(
+    removeEventListener(
         type: XREventType,
-        listener: XREventHandler<T>,
+        listener: XREventHandler,
         options?: boolean | EventListenerOptions,
     ): void;
     /**
@@ -237,15 +238,15 @@ export interface XRSession {
 
     updateRenderState(XRRenderStateInit: XRRenderState): Promise<void>;
 
-    onend: XREventHandler<XRSessionEvent>;
-    oninputsourceschange: XREventHandler<XRInputSourceChangeEvent>;
-    onselect: XREventHandler<XRInputSourceEvent>;
-    onselectstart: XREventHandler<XRInputSourceEvent>;
-    onselectend: XREventHandler<XRInputSourceEvent>;
-    onsqueeze: XREventHandler<XRInputSourceEvent>;
-    onsqueezestart: XREventHandler<XRInputSourceEvent>;
-    onsqueezeend: XREventHandler<XRInputSourceEvent>;
-    onvisibilitychange: XREventHandler<Event>;
+    onend: XREventHandler;
+    oninputsourceschange: XREventHandler;
+    onselect: XREventHandler;
+    onselectstart: XREventHandler;
+    onselectend: XREventHandler;
+    onsqueeze: XREventHandler;
+    onsqueezestart: XREventHandler;
+    onsqueezeend: XREventHandler;
+    onvisibilitychange: XREventHandler;
 
     // hit test
     requestHitTestSource?(options: XRHitTestOptionsInit): Promise<XRHitTestSource>;
@@ -347,6 +348,7 @@ export interface XRPlane {
     lastChangedTime: number;
 }
 
+// tslint:disable-next-line no-empty-interface
 export interface XRJointSpace extends XRSpace {}
 
 export interface XRJointPose extends XRPose {
