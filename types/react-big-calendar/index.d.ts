@@ -400,10 +400,10 @@ export interface TimeGridProps<TEvent extends object = Event, TResource extends 
     step?: number;
     timeslots?: number;
     range?: any[];
-    min?: any;
-    max?: any;
+    min?: stringOrDate;
+    max?: stringOrDate;
     getNow?: () => Date;
-    scrollToTime?: any;
+    scrollToTime?: Date;
     showMultiDayTimes?: boolean;
     rtl?: boolean;
     width?: number;
@@ -412,7 +412,7 @@ export interface TimeGridProps<TEvent extends object = Event, TResource extends 
     getters?: object;
     localizer?: object;
     selected?: object;
-    selectable?: any;
+    selectable?: boolean | 'ignoreEvents';
     longPressThreshold?: number;
     onNavigate?: (action: NavigateAction) => void;
     onSelectSlot?: (slotInfo: {
