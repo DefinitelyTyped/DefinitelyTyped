@@ -38,7 +38,6 @@ import {
     SliderProps,
     SliderPropsIOS,
     SliderPropsAndroid,
-    SwitchIOSProps,
     ImageSourcePropType,
     ImageProps,
     ImagePropsIOS,
@@ -188,9 +187,6 @@ declare module 'react-native' {
 
     /** @deprecated Use SliderPropsAndroid */
     export type SliderPropertiesAndroid = SliderPropsAndroid;
-
-    /** @deprecated Use SwitchIOSProps */
-    export type SwitchIOSProperties = SwitchIOSProps;
 
     /** @deprecated Use ImageSourcePropType */
     export type ImagePropertiesSourceOptions = ImageSourcePropType;
