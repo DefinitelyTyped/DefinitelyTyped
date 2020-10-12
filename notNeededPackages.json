@@ -5017,6 +5017,12 @@
             "asOfVersion": "0.4.2"
         },
         {
+            "libraryName": "sololearn",
+            "typingsPackageName": "sololearn",
+            "sourceRepoURL": "https://github.com/sololearnjs/sololearn",
+            "asOfVersion": "2.5.0"
+        },
+        {
             "libraryName": "source-map",
             "typingsPackageName": "source-map",
             "sourceRepoURL": "https://github.com/mozilla/source-map",
