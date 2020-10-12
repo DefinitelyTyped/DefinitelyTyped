@@ -8,7 +8,7 @@ import { ReaderFragment, ReaderInlineDataFragment } from './ReaderNode';
  * fragments).
  */
 export interface ConcreteRequest {
-    readonly kind: string; // 'Request';
+    readonly kind: 'Request';
     readonly fragment: ReaderFragment;
     readonly operation: NormalizationOperation;
     readonly params: RequestParameters;

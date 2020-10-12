@@ -1,6 +1,7 @@
 import { ComponentType } from 'react';
 import {
     CacheConfig,
+    ConcreteRequest,
     GraphQLResponse,
     IEnvironment,
     Observable,
@@ -199,8 +200,20 @@ export interface ThinQueryParams<
     TQuery extends OperationType,
     TEnvironmentProviderOptions extends EnvironmentProviderOptions = EnvironmentProviderOptions
 > extends Readonly<{
-        parameters: PreloadableConcreteRequest<TQuery>;
+        /**
+         * A reference to the $Parameters file that matches the type param provided to preloadQuery type.
+         *
+         * NOTE: For now, since OSS relay-compiler doesnt support generating the $Parameters file, you must give the query
+         * wou would have given to usePreloadedQuery
+         */
+        parameters: ConcreteRequest | PreloadableConcreteRequest<TQuery>;
+        /**
+         * Variables to give to the query
+         */
         variables: VariablesOf<TQuery>;
+        /**
+         * Any execution options to apply during network
+         */
         options?: PreloadOptions | null;
         environmentProviderOptions?: TEnvironmentProviderOptions | null;
     }> {}
