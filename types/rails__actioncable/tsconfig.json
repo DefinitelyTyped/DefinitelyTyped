@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "actioncable-tests.ts"
+        "rails__actioncable-tests.ts"
     ]
 }

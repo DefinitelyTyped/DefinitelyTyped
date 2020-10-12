@@ -5,7 +5,7 @@
 // Definitions: https://github.com/zhu1230/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare module ActionCable {
+declare namespace ActionCable {
     interface Channel {
         unsubscribe(): void;
         perform(action: string, data: {}): void;
@@ -36,17 +36,12 @@ declare module ActionCable {
         [key: string]: any;
     }
 
-    function createConsumer(): Cable;
-    function createConsumer(url: string): Cable;
+    function createConsumer(url?: string): Cable;
 }
 
-declare interface AppInterface {
+interface AppInterface {
     cable?: ActionCable.Cable;
     network?: ActionCable.Channel;
 }
 
 declare var App: AppInterface;
-
-declare module '@rails/actioncable' {
-    export = ActionCable;
-}
