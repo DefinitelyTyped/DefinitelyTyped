@@ -1,4 +1,4 @@
-import fetchRetry = require("adobe__node-fetch-retry");
+import fetchRetry = require("@adobe/node-fetch-retry");
 import { Request, Response } from "node-fetch";
 
 function test_fetchRetryWithUrlString() {
