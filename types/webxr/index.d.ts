@@ -20,36 +20,47 @@ export interface Navigator {
 /**
  * Available session modes
  */
-type XRSessionMode = "inline" | "immersive-vr" | "immersive-ar";
+type XRSessionMode = 'inline' | 'immersive-vr' | 'immersive-ar';
 
 /**
  * Reference space types
  */
-type XRReferenceSpaceType = "viewer" | "local" | "local-floor" | "bounded-floor" | "unbounded";
+type XRReferenceSpaceType = 'viewer' | 'local' | 'local-floor' | 'bounded-floor' | 'unbounded';
 
-type XREnvironmentBlendMode = "opaque" | "additive" | "alpha-blend";
+type XREnvironmentBlendMode = 'opaque' | 'additive' | 'alpha-blend';
 
-type XRVisibilityState = "visible" | "visible-blurred" | "hidden";
+type XRVisibilityState = 'visible' | 'visible-blurred' | 'hidden';
 
 /**
  * Handedness types
  */
-type XRHandedness = "none" | "left" | "right";
+type XRHandedness = 'none' | 'left' | 'right';
 
 /**
  * InputSource target ray modes
  */
-type XRTargetRayMode = "gaze" | "tracked-pointer" | "screen";
+type XRTargetRayMode = 'gaze' | 'tracked-pointer' | 'screen';
 
 /**
  * Eye types
  */
-type XREye = "none" | "left" | "right";
+type XREye = 'none' | 'left' | 'right';
 
 /**
  * Type of XR events available
  */
-type XREventType = "devicechange" | "visibilitychange" | "end" | "inputsourceschange" | "select" | "selectstart" | "selectend" | "squeeze" | "squeezestart" | "squeezeend" | "reset";
+type XREventType =
+    | 'devicechange'
+    | 'visibilitychange'
+    | 'end'
+    | 'inputsourceschange'
+    | 'select'
+    | 'selectstart'
+    | 'selectend'
+    | 'squeeze'
+    | 'squeezestart'
+    | 'squeezeend'
+    | 'reset';
 
 type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
 
@@ -92,7 +103,11 @@ interface XRWebGLLayerInit {
 
 declare class XRWebGLLayer {
     static getNativeFramebufferScaleFactor(session: XRSession): number;
-    constructor(session: XRSession, context: WebGLRenderingContext | WebGL2RenderingContext, layerInit?: XRWebGLLayerInit);
+    constructor(
+        session: XRSession,
+        context: WebGLRenderingContext | WebGL2RenderingContext,
+        layerInit?: XRWebGLLayerInit,
+    );
     readonly antialias: boolean;
     readonly framebuffer: WebGLFramebuffer;
     readonly framebufferWidth: number;
@@ -150,7 +165,9 @@ interface XRFrame {
 
     // AR
     getHitTestResults(hitTestSource: XRHitTestSource): Array<XRHitTestResult>;
-    getHitTestResultsForTransientInput(hitTestSource: XRTransientInputHitTestSource): Array<XRTransientInputHitTestResult>;
+    getHitTestResultsForTransientInput(
+        hitTestSource: XRTransientInputHitTestSource,
+    ): Array<XRTransientInputHitTestResult>;
     // Anchors
     trackedAnchors?: XRAnchorSet;
     createAnchor?(pose: XRRigidTransform, space: XRSpace): Promise<XRAnchor>;
@@ -170,8 +187,16 @@ interface XRInputSourceEvent extends Event {
 type XRInputSourceArray = XRInputSource[];
 
 interface XRSession {
-    addEventListener<T extends Event>(type: XREventType, listener: XREventHandler<T>, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<T extends Event>(type: XREventType, listener: XREventHandler<T>, options?: boolean | EventListenerOptions): void;
+    addEventListener<T extends Event>(
+        type: XREventType,
+        listener: XREventHandler<T>,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<T extends Event>(
+        type: XREventType,
+        listener: XREventHandler<T>,
+        options?: boolean | EventListenerOptions,
+    ): void;
     /**
      * Returns a list of this session's XRInputSources, each representing an input device
      * used to control the camera and/or scene.
@@ -224,7 +249,9 @@ interface XRSession {
 
     // hit test
     requestHitTestSource?(options: XRHitTestOptionsInit): Promise<XRHitTestSource>;
-    requestHitTestSourceForTransientInput?(options: XRTransientInputHitTestOptionsInit): Promise<XRTransientInputHitTestSource>;
+    requestHitTestSourceForTransientInput?(
+        options: XRTransientInputHitTestOptionsInit,
+    ): Promise<XRTransientInputHitTestSource>;
 
     // legacy AR hit test
     requestHitTest?(ray: XRRay, referenceSpace: XRReferenceSpace): Promise<XRHitResult[]>;
@@ -268,9 +295,9 @@ declare class XRRay {
 }
 
 declare enum XRHitTestTrackableType {
-    "point",
-    "plane",
-    "mesh",
+    'point',
+    'plane',
+    'mesh',
 }
 
 interface XRHitResult {
@@ -314,7 +341,7 @@ interface XRAnchor {
 }
 
 interface XRPlane {
-    orientation: "Horizontal" | "Vertical";
+    orientation: 'Horizontal' | 'Vertical';
     planeSpace: XRSpace;
     polygon: Array<DOMPointReadOnly>;
     lastChangedTime: number;
