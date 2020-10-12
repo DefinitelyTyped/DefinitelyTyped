@@ -12,7 +12,7 @@ const root = parse(
 
 const firstDiv = root.querySelector('div');
 const paragraph = parse('<p>This is a paragraph</p>');
-const firstDivWithParagraph = firstDiv.appendChild(paragraph);
+const firstDivWithParagraph = firstDiv ? firstDiv.appendChild(paragraph) : null;
 
 console.log(root.nodeType);
 console.log(firstDiv);

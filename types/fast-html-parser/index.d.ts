@@ -32,7 +32,7 @@ export interface HTMLElement {
     readonly text: string;
     readonly tagName: string;
     appendChild(node: HTMLElement): HTMLElement;
-    querySelector(selector: string): HTMLElement;
+    querySelector(selector: string): HTMLElement | null;
     querySelectorAll(selector: string): HTMLElement[];
     removeWhitespace(): HTMLElement;
     trimRight(pattern?: RegExp): HTMLElement;
