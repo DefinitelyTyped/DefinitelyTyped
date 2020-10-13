@@ -84,15 +84,23 @@ const typeSelector = new window.ymaps.control.TypeSelector({
         panoramasItemMode: 'off',
     },
 });
-typeSelector.getParent()
-
+typeSelector.getParent();
 
 const placemark = new window.ymaps.Placemark([0, 1], {});
 placemark.events.add('dragend', (event) => {
-    const geometryPoint = event.originalEvent.target?.geometry;
+    const target = event.originalEvent.target;
+    if (!target) {
+        return;
+    }
+
+    const geometryPoint = target.geometry;
 
     const coordinates = geometryPoint?.getCoordinates();
-    coordinates?.map((d) => d)
+    if (!coordinates) {
+        return;
+    }
+
+    coordinates.map((d: number) => d);
 });
 
 const balloon = new ymaps.Balloon(map, {});
