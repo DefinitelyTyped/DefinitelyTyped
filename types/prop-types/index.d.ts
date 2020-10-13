@@ -33,7 +33,13 @@ export const nominalTypeHack: unique symbol;
 
 export type IsOptional<T> = undefined extends T ? true : false;
 
-export type RequiredKeys<V> = { [K in keyof V]: V[K] extends infer T ? T extends Requireable<any> ? never : K : never }[keyof V];
+// Unfortunately type definition for RequiredKeys changes
+// depending on the strict null check being on or off,
+// because IsOptional will return different values
+// (since when strict null checks are off, e.g. undefined extends string is true)
+export type RequiredKeys<V> = undefined extends string
+    ? { [K in keyof V]: V[K] extends infer T ? T extends Requireable<any> ? never : K : never }[keyof V]
+    : { [K in keyof V]-?: Exclude<V[K], undefined> extends Validator<infer T> ? IsOptional<T> extends true ? never : K : never }[keyof V];
 export type OptionalKeys<V> = Exclude<keyof V, RequiredKeys<V>>;
 export type InferPropsInner<V> = { [K in keyof V]-?: InferType<V[K]>; };
 
