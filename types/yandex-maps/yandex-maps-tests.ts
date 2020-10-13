@@ -65,5 +65,50 @@ map.setZoom(13);
 const shapeCircle = new ymaps.shape.Circle(
     new ymaps.geometry.pixel.Circle([0, 0], 10)
 );
-
 shapeCircle.getGeometry();
+
+const zoomControl = new ymaps.control.ZoomControl({
+    options: {
+        position: {
+            top: 108,
+            right: 10,
+            bottom: 'auto',
+            left: 'auto',
+        },
+    },
+});
+zoomControl.clear();
+
+const typeSelector = new window.ymaps.control.TypeSelector({
+    options: {
+        panoramasItemMode: 'off',
+    },
+});
+typeSelector.getParent()
+
+
+const placemark = new window.ymaps.Placemark([0, 1], {});
+placemark.events.add('dragend', (event) => {
+    const geometryPoint = event.originalEvent.target?.geometry;
+
+    const coordinates = geometryPoint?.getCoordinates();
+    coordinates?.map((d) => d)
+});
+
+const balloon = new ymaps.Balloon(map, {});
+balloon.destroy();
+
+const layersCollections = map.layers.getAll();
+const layers = layersCollections.reduce((acc, collection) => [...acc, ...collection.getAll()], []);
+const mapLayer = layers.find((layer) => {
+    if (!layer.getAlias) {
+      return;
+    }
+
+    return layer.getAlias() === 'map';
+  });
+
+  if (mapLayer) {
+    const htmlElement = mapLayer.getElement();
+    htmlElement.className = 'grey';
+  }
