@@ -6113,6 +6113,9 @@ function JQuery() {
             $(document).find('select').parents('div');
 
             // $ExpectType JQuery<HTMLElement>
+            $(document).find('select').parents('.container');
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').parents('.container');
         }
 
