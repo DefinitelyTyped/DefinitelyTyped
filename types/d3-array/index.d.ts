@@ -58,7 +58,7 @@ export function min<T, U extends Numeric>(
 /**
  * Return the index of the minimum value in the array using natural order.
  */
-export function minIndex<T>(iterable: Iterable<T>): number ;
+export function minIndex<T>(iterable: Iterable<T>): number;
 /**
  * Return the index of the minimum value in the array using natural order and a projection function to map values.
  */
