@@ -44,7 +44,7 @@ export interface ListSelectionProps {
     checkBoxAriaLabel: string;
     className?: string;
     selected?: boolean;
-    onChange?: (...args: any[]) => any;
+    onChange?: (event: React.SyntheticEvent<HTMLInputElement>, checkedState: boolean) => void;
 }
 
 declare const List: React.FunctionComponent<ListProps> & {
