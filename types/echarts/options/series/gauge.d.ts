@@ -2085,8 +2085,8 @@ declare namespace echarts {
 
                 /**
                  * Formatter is used to format detail, which supports string template and callback function.
-                 * 
-                 * 
+                 *
+                 *
                  * @see https://echarts.apache.org/en/option.html#series-gauge.detail.formatter
                  */
                 formatter?: string | Function;
