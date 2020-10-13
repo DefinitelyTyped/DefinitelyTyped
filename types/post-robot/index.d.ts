@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 3.0
 
+export as namespace 'post-robot'
 // Warning: This is not actually a Promise, but the interface is the same.
 type ZalgoPromise<T> = Promise<T>;
 // Refrenced from https://github.com/krakenjs/cross-domain-utils/src
@@ -44,9 +45,9 @@ interface CancelableType {
 }
 
 // based on https://github.com/post-robot/src/public/on.js
-declare function on(name: string, options: ServerOptionsType | HandlerType, handler?: HandlerType): CancelableType;
+export function on(name: string, options: ServerOptionsType | HandlerType, handler?: HandlerType): CancelableType;
 
-declare function once(
+export function once(
     name: string,
     options?: ServerOptionsType | HandlerType,
     handler?: HandlerType,
@@ -71,7 +72,7 @@ interface FireAndForgetRequestOptionsType {
 }
 
 // based on https://github.com/post-robot/src/public/send.js
-declare function send(
+export function send(
     win: CrossDomainWindowType,
     name: string,
     data?: object,
