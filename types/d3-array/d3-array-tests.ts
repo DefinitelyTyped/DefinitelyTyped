@@ -287,6 +287,12 @@ numOrUndefined = d3Array.quantile(mixedObjectArray, 0.5, accessorMixedObjectToNu
 numOrUndefined = d3Array.quantile(mixedObjectOrUndefinedArray, 0.5, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.quantile(readonlyMixedObjectOrUndefinedArray, 0.5, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// quantileSorted() ------------------------------------------------------------------
+
+numOrUndefined = d3Array.quantileSorted(numbersArray, 0.5);
+numOrUndefined = d3Array.quantileSorted(numericArray, 0.5);
+numOrUndefined = d3Array.quantileSorted(numbersOrUndefinedArray, 0.5);
+
 // sum() -----------------------------------------------------------------------
 
 numOrUndefined = d3Array.sum(numbersArray);
@@ -341,37 +347,7 @@ stringyNumbersArray = ['0', '2', '3', '4', '7', '8'];
 dateArray = [new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)];
 typedArray = Uint8Array.from(numbersArray);
 
-// scan() ----------------------------------------------------------------------
-
-numOrUndefined = d3Array.scan(numbersArray);
-numOrUndefined = d3Array.scan(typedArray);
-numOrUndefined = d3Array.scan(readonlyNumbersArray);
-
-numOrUndefined = d3Array.scan(mixedObjectArray, (a, b) => {
-    const aElem: MixedObject = a;
-    const bElem: MixedObject = b;
-    return a.num - b.num;
-});
-
-numOrUndefined = d3Array.scan(readonlyMixedObjectArray, (a, b) => {
-    const aElem: MixedObject = a;
-    const bElem: MixedObject = b;
-    return a.num - b.num;
-});
-
-numOrUndefined = d3Array.scan(mixedObjectOrUndefinedArray, (a, b) => {
-    const aElem: MixedObject | undefined = a;
-    const bElem: MixedObject | undefined = b;
-    return a && b ? a.num - b.num : NaN;
-});
-
-numOrUndefined = d3Array.scan(readonlyMixedObjectOrUndefinedArray, (a, b) => {
-    const aElem: MixedObject | undefined = a;
-    const bElem: MixedObject | undefined = b;
-    return a && b ? a.num - b.num : NaN;
-});
-
-// leastIndex() ----------------------------------------------------------------------
+// least() ----------------------------------------------------------------------
 
 numOrUndefined = d3Array.least(numbersArray);
 numOrUndefined = d3Array.least(typedArray);
@@ -434,6 +410,70 @@ numOrUndefined = d3Array.leastIndex(readonlyMixedObjectOrUndefinedArray, (a, b) 
 });
 
 numOrUndefined = d3Array.leastIndex(readonlyMixedObjectOrUndefinedArray, a => a ? a.num : null);
+
+// greatest() ----------------------------------------------------------------------
+
+numOrUndefined = d3Array.greatest(numbersArray);
+numOrUndefined = d3Array.greatest(typedArray);
+numOrUndefined = d3Array.greatest(readonlyNumbersArray);
+
+let mo: MixedObject | undefined = d3Array.greatest(mixedObjectArray, (a, b) => {
+    const aElem: MixedObject = a;
+    const bElem: MixedObject = b;
+    return a.num - b.num;
+});
+
+mo = d3Array.greatest(readonlyMixedObjectArray, (a, b) => {
+    const aElem: MixedObject = a;
+    const bElem: MixedObject = b;
+    return a.num - b.num;
+});
+
+mo = d3Array.greatest(mixedObjectOrUndefinedArray, (a, b) => {
+    const aElem: MixedObject | undefined = a;
+    const bElem: MixedObject | undefined = b;
+    return a && b ? a.num - b.num : NaN;
+});
+
+mo = d3Array.greatest(readonlyMixedObjectOrUndefinedArray, (a, b) => {
+    const aElem: MixedObject | undefined = a;
+    const bElem: MixedObject | undefined = b;
+    return a && b ? a.num - b.num : NaN;
+});
+
+mo = d3Array.greatest(readonlyMixedObjectOrUndefinedArray, a => a ? a.num : null);
+
+// greatestIndex() ----------------------------------------------------------------------
+
+numOrUndefined = d3Array.greatestIndex(numbersArray);
+numOrUndefined = d3Array.greatestIndex(typedArray);
+numOrUndefined = d3Array.greatestIndex(readonlyNumbersArray);
+
+numOrUndefined = d3Array.greatestIndex(mixedObjectArray, (a, b) => {
+    const aElem: MixedObject = a;
+    const bElem: MixedObject = b;
+    return a.num - b.num;
+});
+
+numOrUndefined = d3Array.greatestIndex(readonlyMixedObjectArray, (a, b) => {
+    const aElem: MixedObject = a;
+    const bElem: MixedObject = b;
+    return a.num - b.num;
+});
+
+numOrUndefined = d3Array.greatestIndex(mixedObjectOrUndefinedArray, (a, b) => {
+    const aElem: MixedObject | undefined = a;
+    const bElem: MixedObject | undefined = b;
+    return a && b ? a.num - b.num : NaN;
+});
+
+numOrUndefined = d3Array.greatestIndex(readonlyMixedObjectOrUndefinedArray, (a, b) => {
+    const aElem: MixedObject | undefined = a;
+    const bElem: MixedObject | undefined = b;
+    return a && b ? a.num - b.num : NaN;
+});
+
+numOrUndefined = d3Array.greatestIndex(readonlyMixedObjectOrUndefinedArray, a => a ? a.num : null);
 
 // bisectLeft() ----------------------------------------------------------------
 
