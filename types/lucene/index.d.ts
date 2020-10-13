@@ -10,7 +10,7 @@ export interface TermLocation {
     offset: number;
 }
 
-interface NodeField {
+export interface NodeField {
     field: string | '<implicit>';
     fieldLocation: null | {
         end: TermLocation;
@@ -29,13 +29,13 @@ export interface NodeTerm extends NodeField {
         start: TermLocation;
         end: TermLocation;
     };
-};
+}
 
 export interface NodeRangedTerm extends NodeField {
     inclusive: "both" | "none" | "left" | "right";
     term_max: string;
     term_min: string;
-};
+}
 
 export type Node =
     | NodeTerm
