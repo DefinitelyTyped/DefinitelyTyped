@@ -306,7 +306,7 @@ export type MergeAll<Os extends readonly object[]> =
 /**
  * Predicate for an object containing the key.
  */
-export type ObjPred<T = undefined> = (value: any, key: T extends undefined ? string : keyof T) => boolean;
+export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
 
 /**
  * <needs description>

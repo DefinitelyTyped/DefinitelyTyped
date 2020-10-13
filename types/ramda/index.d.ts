@@ -1403,7 +1403,7 @@ export function pickAll(names: readonly string[]): <T, U>(obj: T) => U;
  * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
  */
 export function pickBy<T, U>(pred: ObjPred<T>, obj: T): U;
-export function pickBy(pred: ObjPred): <T, U>(obj: T) => U;
+export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
 
 /**
  * Creates a new function that runs each of the functions supplied as parameters in turn,
