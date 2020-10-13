@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// Type definitions for fundamental-react 0.9
-=======
 // Type definitions for fundamental-react 0.13
->>>>>>> 52ae6e60d694ce4cda048bedbf362330036898f3
 // Project: https://sap.github.io/fundamental-react
 // Definitions by: Frank Feinbube <https://github.com/Feinbube>
 //                 Milan Proell <https://github.com/milanpro>
