@@ -95,7 +95,12 @@ placemark.events.add('dragend', (event) => {
 
     const geometryPoint = target.geometry;
 
-    const coordinates = geometryPoint?.getCoordinates();
+    if (!geometryPoint) {
+        return;
+    }
+
+    const coordinates = geometryPoint.getCoordinates();
+
     if (!coordinates) {
         return;
     }
@@ -120,4 +125,3 @@ if (mapLayer) {
     const htmlElement = mapLayer.getElement();
     htmlElement.className = 'grey';
 }
-  
