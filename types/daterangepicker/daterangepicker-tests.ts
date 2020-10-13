@@ -43,7 +43,44 @@ function tests_simple() {
 
     $('input[name="datefilter"]').on('cancel.daterangepicker', (_event: Event, _picker: DateRangePicker) => {});
 
-    $('input[name="datefilter"]').on('showCalendar.daterangepicker', (_event: Event, _picker: DateRangePicker) => {});
+    $('input[name="datefilter"]').on('showCalendar.daterangepicker', (_event: Event, picker: DateRangePicker) => {
+        picker.startDate; // $ExpectType Moment
+        picker.endDate; // $ExpectType Moment
+        picker.minDate; // $ExpectType Moment
+        picker.maxDate; // $ExpectType Moment
+        picker.showDropdowns; // $ExpectType boolean
+        picker.minYear; // $ExpectType number
+        picker.maxYear; // $ExpectType number
+        picker.showWeekNumbers; // $ExpectType boolean
+        picker.showISOWeekNumbers; // $ExpectType boolean
+        picker.timePicker; // $ExpectType boolean
+        picker.timePickerIncrement; // $ExpectType number
+        picker.timePicker24Hour; // $ExpectType boolean
+        picker.timePickerSeconds; // $ExpectType boolean
+        picker.ranges; // $ExpectType { [name: string]: [DateOrString, DateOrString]; }
+        picker.showCustomRangeLabel; // $ExpectType boolean
+        picker.alwaysShowCalendars; // $ExpectType boolean
+        picker.opens; // $ExpectType "left" | "right" | "center"
+        picker.drops; // $ExpectType "down" | "up"
+        picker.buttonClasses; // $ExpectType string[]
+        picker.applyButtonClasses; // $ExpectType string
+        picker.cancelButtonClasses; // $ExpectType string
+        picker.locale; // $ExpectType Required<Locale>
+        picker.singleDatePicker; // $ExpectType boolean
+        picker.autoApply; // $ExpectType boolean
+        picker.linkedCalendars; // $ExpectType boolean
+        picker.autoUpdateInput; // $ExpectType boolean
+        picker.parentEl; // $ExpectType JQuery<HTMLElement>
+        picker.element; // $ExpectType JQuery<HTMLElement>
+        picker.container; // $ExpectType JQuery<HTMLElement>
+        picker.isShowing; // $ExpectType boolean
+        picker.chosenLabel; // $ExpectType string
+        picker.previousRightTime; // $ExpectType Moment
+        picker.oldStartDate; // $ExpectType Moment
+        picker.oldEndDate; // $ExpectType Moment
+        picker.leftCalendar; // $ExpectType Calendar
+        picker.rightCalendar; // $ExpectType Calendar
+    });
 
     $('#demo').daterangepicker(
         {
