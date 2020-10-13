@@ -201,12 +201,17 @@ export function quantileSorted<T>(
 ): number | undefined;
 
 /**
- * Compute an unbiased estimator of the population variance of the given array of numbers.
+ * Returns an unbiased estimator of the population variance of the given iterable of numbers using Welford’s algorithm.
+ * If the iterable has fewer than two numbers, returns undefined.
+ * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the variance.
+ * This method ignores undefined and NaN values; this is useful for ignoring missing data.
  */
 export function variance<T extends Numeric>(iterable: Iterable<T | undefined | null>): number | undefined;
 /**
- * Compute an unbiased estimator of the population variance of the given array,
- * using the given accessor to convert values to numbers.
+ * Returns an unbiased estimator of the population variance of the given iterable of numbers using Welford’s algorithm.
+ * If the iterable has fewer than two numbers, returns undefined.
+ * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the variance.
+ * This method ignores undefined and NaN values; this is useful for ignoring missing data.
  */
 export function variance<T>(
     iterable: Iterable<T>,
@@ -256,6 +261,44 @@ export function leastIndex<T>(iterable: Iterable<T>, comparator: (a: T, b: T) =>
  * Returns the index of the least element of the specified iterable according to the specified accessor.
  */
 export function leastIndex<T, U>(iterable: Iterable<T>, accessor: (a: T) => U): number | undefined;
+
+/**
+ * Returns the greatest element of the specified iterable according to the specified comparator or accessor.
+ * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns undefined.
+ * If comparator is not specified, it defaults to ascending.
+ */
+export function greatest<T>(iterable: Iterable<T>): T | undefined;
+/**
+ * Returns the greatest element of the specified iterable according to the specified comparator or accessor.
+ * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns undefined.
+ * If comparator is not specified, it defaults to ascending.
+ */
+export function greatest<T>(iterable: Iterable<T>, comparator: (a: T, b: T) => number): T | undefined;
+/**
+ * Returns the greatest element of the specified iterable according to the specified comparator or accessor.
+ * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns undefined.
+ * If comparator is not specified, it defaults to ascending.
+ */
+export function greatest<T, U>(iterable: Iterable<T>, accessor: (a: T) => U): T | undefined;
+
+/**
+ * Returns the index of the greatest element of the specified iterable according to the specified comparator or accessor.
+ * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns -1.
+ * If comparator is not specified, it defaults to ascending.
+ */
+export function greatestIndex<T>(iterable: Iterable<T>): number | undefined;
+/**
+ * Returns the index of the greatest element of the specified iterable according to the specified comparator or accessor.
+ * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns -1.
+ * If comparator is not specified, it defaults to ascending.
+ */
+export function greatestIndex<T>(iterable: Iterable<T>, comparator: (a: T, b: T) => number): number | undefined;
+/**
+ * Returns the index of the greatest element of the specified iterable according to the specified comparator or accessor.
+ * If the given iterable contains no comparable elements (i.e., the comparator returns NaN when comparing each element to itself), returns -1.
+ * If comparator is not specified, it defaults to ascending.
+ */
+export function greatestIndex<T, U>(iterable: Iterable<T>, accessor: (a: T) => U): number | undefined;
 
 export function bisectLeft(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
 export function bisectLeft(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
