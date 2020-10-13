@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
+// tslint:disable-next-line no-declare-current-package no-single-declare-module
 declare module 'node-tlv' {
     interface TL {
         tag: string;
