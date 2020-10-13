@@ -73,7 +73,7 @@ declare namespace daterangepicker {
         endDate: moment.Moment;
         minDate: moment.Moment;
         maxDate: moment.Moment;
-        maxSpan: moment.MomentInput | moment.Duration | boolean;
+        maxSpan: moment.DurationInputArg1 | boolean;
         showDropdowns: boolean;
         minYear: number;
         maxYear: number;
@@ -130,7 +130,7 @@ declare namespace daterangepicker {
         /**
          * The maximum span between the selected start and end dates. Can have any property you can add to a moment object (i.e. days, months)
          */
-        maxSpan?: moment.MomentInput | moment.Duration;
+        maxSpan?: moment.DurationInputArg1;
         /**
          * Show year and month select boxes above calendars to jump to a specific month and year
          */
