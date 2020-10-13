@@ -1003,10 +1003,12 @@ export interface Commands<R> {
     set(key: string, value: string, flag: string, cb?: Callback<'OK'>): R;
     set(key: string, value: string, mode: string, duration: number, cb?: Callback<'OK' | undefined>): R;
     set(key: string, value: string, mode: string, duration: number, flag: string, cb?: Callback<'OK' | undefined>): R;
+    set(key: string, value: string, flag: string, mode: string, duration: number, cb?: Callback<'OK' | undefined>): R;
     SET(key: string, value: string, cb?: Callback<'OK'>): R;
     SET(key: string, value: string, flag: string, cb?: Callback<'OK'>): R;
     SET(key: string, value: string, mode: string, duration: number, cb?: Callback<'OK' | undefined>): R;
     SET(key: string, value: string, mode: string, duration: number, flag: string, cb?: Callback<'OK' | undefined>): R;
+    SET(key: string, value: string, flag: string, mode: string, duration: number, cb?: Callback<'OK' | undefined>): R;
 
     /**
      * Sets or clears the bit at offset in the string value stored at key.
