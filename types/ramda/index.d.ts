@@ -359,8 +359,8 @@ export function composeP<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => Promise<T6>
  * Performs right-to-left function composition using transforming function.
  * With the current typings, all functions must be unary.
  */
-export function composeWith<V0, T>(composer: (a: any) => any, fns: ComposeWithFns<V0, T>): (x0: V0) => T;
-export function composeWith(composer: (a: any) => any): <V0, T>(fns: ComposeWithFns<V0, T>) => (x: V0) => T;
+export function composeWith<V0, T>(composer: (...args: any[]) => any, fns: ComposeWithFns<V0, T>): (x0: V0) => T;
+export function composeWith(composer: (...args: any[]) => any): <V0, T>(fns: ComposeWithFns<V0, T>) => (x: V0) => T;
 
 /**
  * Returns the result of concatenating the given lists or strings.
