@@ -17744,6 +17744,10 @@ declare namespace Excel {
         fiveBoxes: FiveBoxesSet;
     }
     var icons: IconCollections;
+    
+    interface Session {
+    }
+    
     /**
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
      */
