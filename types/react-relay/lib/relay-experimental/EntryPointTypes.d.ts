@@ -155,7 +155,7 @@ export interface PreloadProps<
     TPreloadParams extends {},
     TPreloadedQueries extends Record<string, OperationType>,
     TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined>,
-    TExtraProps extends {}
+    TExtraProps extends {} | null
 > extends Readonly<{
         entryPoints?: ThinNestedEntryPointParamsObject<TPreloadedEntryPoints>;
         extraProps?: TExtraProps;
@@ -166,7 +166,7 @@ export interface PreloadProps<
 export interface EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>
     extends Readonly<{
         entryPoints: PreloadedEntryPoints<TPreloadedEntryPoints>;
-        extraProps: TExtraProps;
+        extraProps: TExtraProps | null;
         props: TRuntimeProps;
         queries: PreloadedQueries<TPreloadedQueries>;
     }> {}
