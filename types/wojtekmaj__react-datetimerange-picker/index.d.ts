@@ -7,7 +7,6 @@
 import { CalendarProps } from 'react-calendar';
 
 export default function DateTimeRangePicker(props: DateRangePickerProps): JSX.Element;
-type Value = Date | Date[];
 
 export interface DateRangePickerProps extends CalendarProps {
     amPmAriaLabel: string;
