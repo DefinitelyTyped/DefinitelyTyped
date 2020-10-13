@@ -417,7 +417,7 @@ numOrUndefined = d3Array.greatest(numbersArray);
 numOrUndefined = d3Array.greatest(typedArray);
 numOrUndefined = d3Array.greatest(readonlyNumbersArray);
 
-let mo: MixedObject | undefined = d3Array.greatest(mixedObjectArray, (a, b) => {
+mo = d3Array.greatest(mixedObjectArray, (a, b) => {
     const aElem: MixedObject = a;
     const bElem: MixedObject = b;
     return a.num - b.num;

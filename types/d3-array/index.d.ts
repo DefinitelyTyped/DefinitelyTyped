@@ -231,7 +231,6 @@ export function deviation<T>(
     accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
 ): number | undefined;
 
-
 // --------------------------------------------------------------------------------------
 // Searching Arrays
 // --------------------------------------------------------------------------------------
