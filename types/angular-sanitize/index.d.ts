@@ -23,7 +23,7 @@ declare module 'angular' {
          * All safe tokens (from a whitelist) are then serialized back to a properly escaped HTML string.
          * This means that no unsafe input can make it into the returned string.
          *
-         * The whitelist for URL sanitization of attribute values is configured using the functions aHrefSanitizationTrustedUri and imgSrcSanitizationTrustedUri of $compileProvider.
+         * URLs allowed in attribute values are configured using the methods aHrefSanitizationTrustedUri and imgSrcSanitizationTrustedUri of $compileProvider.
          * The input may also contain SVG markup if this is enabled via $sanitizeProvider.
          *
          * @param html HTML input.
