@@ -106,9 +106,10 @@ const mapLayer = layers.find((layer) => {
     }
 
     return layer.getAlias() === 'map';
-  });
+});
 
-  if (mapLayer) {
+if (mapLayer) {
     const htmlElement = mapLayer.getElement();
     htmlElement.className = 'grey';
-  }
+}
+  
