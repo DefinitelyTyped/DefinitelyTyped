@@ -58,6 +58,16 @@ declare namespace daterangepicker {
         format(format?: string): string;
     }
 
+    type Month = moment.Moment[][] & {
+        firstDay: moment.Moment;
+        lastDay: moment.Moment;
+    };
+
+    interface Calendar {
+        calendar: Month;
+        month: moment.Moment;
+    }
+
     interface DateRangePicker {
         startDate: moment.Moment;
         endDate: moment.Moment;
@@ -89,6 +99,15 @@ declare namespace daterangepicker {
         isCustomDate(date: DateOrString): string | string[] | false | undefined;
         autoUpdateInput: boolean;
         parentEl: JQuery;
+        element: JQuery;
+        container: JQuery;
+        isShowing: boolean;
+        previousRightTime: moment.Moment;
+        oldStartDate: moment.Moment;
+        oldEndDate: moment.Moment;
+        leftCalendar: Calendar;
+        rightCalendar: Calendar;
+        chosenLabel?: string;
     }
 
     interface Options {
