@@ -1,11 +1,34 @@
 const defaultBehavior = ["drag", "scrollZoom", "dblClickZoom", "multiTouch", "rightMouseButtonMagnifier"];
 const element: HTMLDivElement = document.createElement("div");
+
+const zoomControl = new ymaps.control.ZoomControl({
+    options: {
+        position: {
+            top: 108,
+            right: 10,
+            bottom: 'auto',
+            left: 'auto',
+        },
+    },
+});
+zoomControl.clear();
+
+const typeSelector = new ymaps.control.TypeSelector({
+    options: {
+        panoramasItemMode: 'off',
+    },
+});
+
 const map = new ymaps.Map(
     element,
     {
         behaviors: defaultBehavior,
         center:    [55.76, 37.64],
-        controls:  [],
+        controls:  [
+            'trafficControl',
+            zoomControl,
+            typeSelector,
+        ],
         type:      "yandex#map",
         zoom:      10
     },
@@ -66,25 +89,6 @@ const shapeCircle = new ymaps.shape.Circle(
     new ymaps.geometry.pixel.Circle([0, 0], 10)
 );
 shapeCircle.getGeometry();
-
-const zoomControl = new ymaps.control.ZoomControl({
-    options: {
-        position: {
-            top: 108,
-            right: 10,
-            bottom: 'auto',
-            left: 'auto',
-        },
-    },
-});
-zoomControl.clear();
-
-const typeSelector = new ymaps.control.TypeSelector({
-    options: {
-        panoramasItemMode: 'off',
-    },
-});
-typeSelector.getParent();
 
 const placemark = new ymaps.Placemark([0, 1], {});
 placemark.events.add('dragend', (event: ymaps.IEvent<{}, ymaps.geometry.Point>) => {

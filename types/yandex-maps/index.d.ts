@@ -3050,8 +3050,7 @@ declare namespace ymaps {
         bounds?: number[][];
         center?: number[];
         controls?: Array<
-            boolean
-            | string
+            string
             | control.ZoomControl
             | control.RulerControl
             | control.TypeSelector
