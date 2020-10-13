@@ -19,7 +19,7 @@ export { mergeStyles, Styles, StylesConfig } from './src/styles';
 export { defaultTheme } from './src/theme';
 
 export { NonceProvider } from './src/NonceProvider';
-export { Props, FormatOptionLabelMeta } from './src/Select';
+export { Props, FormatOptionLabelMeta, NamedProps } from './src/Select';
 
 export { components, SelectComponentsConfig, IndicatorComponentType } from './src/components';
 export { IndicatorProps } from './src/components/indicators';

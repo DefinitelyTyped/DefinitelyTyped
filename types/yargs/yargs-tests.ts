@@ -838,6 +838,8 @@ function Argv$commandObject() {
         defaultDescription: "description",
         demand: true,
         demandOption: true,
+        deprecate: true,
+        deprecated: "deprecated",
         desc: "desc",
         describe: "describe",
         description: "description",
@@ -872,6 +874,14 @@ function Argv$demandOption() {
         .demandOption(['a', 'b'])
         .demandOption(['a', 'b'], 'a and b are required')
         .demandOption(['a', 'b'], true)
+        .argv;
+}
+
+function Argv$deprecateOption() {
+    const ya = yargs
+        .option('old', {})
+        .deprecateOption('old', 'use --new')
+        .option('new', {})
         .argv;
 }
 

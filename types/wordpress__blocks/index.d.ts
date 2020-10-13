@@ -21,6 +21,7 @@ export type BlockAlignment = 'left' | 'center' | 'right' | 'wide' | 'full';
 
 export interface BlockEditProps<T extends Record<string, any>> extends BlockSaveProps<T> {
     readonly className: string;
+    readonly clientId: string;
     readonly isSelected: boolean;
     readonly setAttributes: (attrs: Partial<T>) => void;
 }

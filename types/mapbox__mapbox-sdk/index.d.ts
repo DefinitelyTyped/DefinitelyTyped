@@ -1329,6 +1329,10 @@ declare module '@mapbox/mapbox-sdk/services/static' {
     }
 
     interface PathOverlay {
+        path: Path;
+    }
+
+    interface Path {
         /**
          * An array of coordinates describing the path.
          */

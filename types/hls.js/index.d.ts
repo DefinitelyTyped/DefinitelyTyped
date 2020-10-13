@@ -322,7 +322,7 @@ declare namespace Hls {
         /**
          * stream start date and time
          */
-        programDateTime: Date;
+        programDateTime: number;
         /**
          * continuity count
          */

@@ -231,7 +231,7 @@ declare module "meteor/meteor" {
         function _debug(...args: any[]): void;
     }
 
-    interface Subscription {
+    export interface Subscription {
         added(collection: string, id: string, fields: Object): void;
         changed(collection: string, id: string, fields: Object): void;
         connection: Meteor.Connection;

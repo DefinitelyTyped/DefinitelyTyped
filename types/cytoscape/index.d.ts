@@ -4023,7 +4023,7 @@ declare namespace cytoscape {
              * Whether the element is visible; may be visible or hidden.
              * Note that a "visibility : hidden" bezier edge still takes up space in its bundle.
              */
-            "visibility": PropertyValue<SingularType, "none" | "visible">;
+            "visibility": PropertyValue<SingularType, "hidden" | "visible">;
             /**
              * The opacity of the element, ranging from 0 to 1.
              * Note that the opacity of a compound node parent affects the effective opacity of its children.

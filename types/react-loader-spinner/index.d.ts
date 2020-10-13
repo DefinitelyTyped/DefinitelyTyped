@@ -13,26 +13,28 @@ type Types =
     | 'Circles'
     | 'Grid'
     | 'Hearts'
+    | 'MutatingDots'
+    | 'None'
+    | 'NotSpecified'
     | 'Oval'
+    | 'Plane'
     | 'Puff'
+    | 'RevolvingDot'
     | 'Rings'
     | 'TailSpin'
     | 'ThreeDots'
-    | 'Watch'
-    | 'RevolvingDot'
     | 'Triangle'
-    | 'Plane'
-    | 'MutatingDots'
-    | 'None'
-    | 'NotSpecified';
+    | 'Watch';
 
 interface LoaderProps {
-    type?: Types;
     color?: string;
-    timeout?: number; // in milliseconds
     height?: number;
-    width?: number;
+    radius?: number;
+    secondaryColor?: string;
+    timeout?: number; // in milliseconds
+    type?: Types;
     visible?: boolean | string;
+    width?: number;
 }
 
 declare const Loader: FC<LoaderProps>;

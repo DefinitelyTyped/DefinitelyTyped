@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.15
+// Type definitions for prosemirror-view 1.16
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -319,11 +319,14 @@ export class EditorView<S extends Schema = any> {
     top: number;
   }): { pos: number; inside: number } | null | undefined;
   /**
-   * Returns the viewport rectangle at a given document position. `left`
-   * and `right` will be the same number, as this returns a flat
-   * cursor-ish rectangle.
+   * Returns the viewport rectangle at a given document position.
+   * `left` and `right` will be the same number, as this returns a
+   * flat cursor-ish rectangle. If the position is between two things
+   * that aren't directly adjacent, `side` determines which element is
+   * used. When < 0, the element before the position is used,
+   * otherwise the element after.
    */
-  coordsAtPos(pos: number): { left: number; right: number; top: number; bottom: number };
+  coordsAtPos(pos: number, side?: number): { left: number; right: number; top: number; bottom: number };
   /**
    * Find the DOM position that corresponds to the given document
    * position. Note that you should **not** mutate the editor's

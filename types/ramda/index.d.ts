@@ -221,13 +221,14 @@ export function assocPath<T, U>(path: Path): _.F.Curry<(a: T, b: U) => U>;
  * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
  * parameters. Any extraneous parameters will not be passed to the supplied function.
  */
-export function binary(fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
+export function binary<T extends (...arg: any) => any>(fn: T): (...arg: _.T.Take<Parameters<T>, '2'>) => ReturnType<T>;
 
 /**
  * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
  * capabilities of Function.prototype.bind.
  */
-export function bind<T>(fn: (...args: readonly any[]) => any, thisObj: T): (...args: readonly any[]) => any;
+export function bind<F extends (...args: readonly any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends (...args: readonly any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 
 /**
  * A function wrapping calls to the two functions in an && operation, returning the result of the first function
@@ -435,7 +436,8 @@ export function curry<F extends (...args: any) => any>(f: F): _.F.Curry<F>;
  * Returns a curried equivalent of the provided function, with the specified arity. The curried function has
  * two unusual capabilities. First, its arguments needn't be provided one at a time.
  */
-export function curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
+export function curryN<N extends number, F extends (...args: any) => any>(length: N, fn: F): _.F.Curry<(...a: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
+export function curryN<N extends number>(length: N): <F extends (...args: any) => any>(fn: F) => _.F.Curry<(...a: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
 
 /**
  * Decrements its argument.
@@ -1203,8 +1205,8 @@ export function move(from: number): {
  * Wraps a function of any arity (including nullary) in a function that accepts exactly n parameters.
  * Any extraneous parameters will not be passed to the supplied function.
  */
-export function nAry(n: number, fn: (...arg: readonly any[]) => any): (...a: readonly any[]) => any;
-export function nAry(n: number): (fn: (...arg: readonly any[]) => any) => (...a: readonly any[]) => any;
+export function nAry<N extends number, T extends (...arg: any) => any>(n: N, fn: T): (...arg: _.T.Take<Parameters<T>, _.N.NumberOf<N>>) => ReturnType<T>;
+export function nAry<N extends number>(n: N): <T extends (...arg: any) => any>(fn: T) => (...arg: _.T.Take<Parameters<T>, _.N.NumberOf<N>>) => ReturnType<T>;
 
 /**
  * Negates its argument.
@@ -1271,8 +1273,7 @@ export function omit<K extends string>(names: readonly K[]): <T>(obj: T) => Omit
  * called once, no matter how many times the returned function is invoked. The first value calculated is
  * returned in subsequent invocations.
  */
-export function once(fn: (...a: readonly any[]) => any): (...a: readonly any[]) => any;
-export function once<T>(fn: (...a: readonly any[]) => T): (...a: readonly any[]) => T;
+export function once<F extends (...a: readonly any[]) => any>(fn: F): F;
 
 /**
  * A function that returns the first truthy of two arguments otherwise the last argument. Note that this is
@@ -2143,10 +2144,10 @@ export function zip<K>(list1: readonly K[]): <V>(list2: readonly V[]) => Array<K
  * Creates a new object out of a list of keys and a list of values.
  */
 // TODO: Dictionary<T> as a return value is to specific, any seems to loose
-export function zipObj<T>(keys: readonly string[], values: readonly T[]): { [index: string]: T };
-export function zipObj(keys: readonly string[]): <T>(values: readonly T[]) => { [index: string]: T };
-export function zipObj<T>(keys: readonly number[], values: readonly T[]): { [index: number]: T };
-export function zipObj(keys: readonly number[]): <T>(values: readonly T[]) => { [index: number]: T };
+export function zipObj<T, K extends string>(keys: readonly K[], values: readonly T[]): { [P in K]: T };
+export function zipObj<K extends string>(keys: readonly K[]): <T>(values: readonly T[]) => { [P in K]: T };
+export function zipObj<T, K extends number>(keys: readonly K[], values: readonly T[]): { [P in K]: T };
+export function zipObj<K extends number>(keys: readonly K[]): <T>(values: readonly T[]) => { [P in K]: T };
 
 /**
  * Creates a new list out of the two supplied by applying the function to each

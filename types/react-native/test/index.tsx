@@ -1525,3 +1525,17 @@ export class DrawerLayoutAndroidTest extends React.Component {
         );
     }
 }
+
+// DataDetectorType for Text component
+const DataDetectorTypeTest = () => {
+    return (
+        <>
+            <Text dataDetectorType={'all'}>http://test.com test@test.com +33123456789</Text>
+            <Text dataDetectorType={'email'}>test@test.com</Text>
+            <Text dataDetectorType={'link'}>http://test.com</Text>
+            <Text dataDetectorType={'none'}>Hi there !</Text>
+            <Text dataDetectorType={'phoneNumber'}>+33123456789</Text>
+            <Text dataDetectorType={null}>Must allow null value</Text>
+        </>
+    )
+}

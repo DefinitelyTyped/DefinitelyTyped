@@ -1,9 +1,14 @@
-import { Options } from 'k6/options';
+import { Options, Scenario } from 'k6/options';
 
 const options: Options = {
     vus: 10,
     duration: '10s'
 };
+
+const scenarios: Scenario[] = [{
+            executor: "shared-iterations",
+            iterations: 100
+}];
 
 const scenarioExample: Options = {
     executionSegment: "0:1",

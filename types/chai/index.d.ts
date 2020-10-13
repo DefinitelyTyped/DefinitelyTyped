@@ -202,6 +202,7 @@ declare namespace Chai {
         empty: Assertion;
         arguments: Assertion;
         Arguments: Assertion;
+        finite: Assertion;
         equal: Equal;
         equals: Equal;
         eq: Equal;
@@ -761,6 +762,16 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         isNotNumber<T>(value: T, message?: string): void;
+
+        /**
+         * Asserts that value is a finite number.
+         * Unlike `.isNumber`, this will fail for `NaN` and `Infinity`.
+         *
+         * @type T   Type of value
+         * @param value    Actual value
+         * @param message   Message to display on error.
+         */
+        isFinite<T>(value: T, message?: string): void;
 
         /**
          * Asserts that value is a boolean.

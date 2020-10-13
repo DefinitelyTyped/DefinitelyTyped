@@ -3,20 +3,13 @@
 // Definitions by: ReazerDev <https://github.com/ReazerDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface ScriptElementOptions {
-    url: string;
-    dataAttributes: {};
-    onSuccess: () => void;
-    onError: () => void;
-}
-
 export interface ScriptOptions {
     'client-id': string;
     'merchant-id'?: string;
     currency?: string;
     intent?: string;
     commit?: boolean;
-    vault?: boolean;
+    vault?: boolean | string;
     components?: string;
     'disable-funding'?: string;
     /*
@@ -24,20 +17,14 @@ export interface ScriptOptions {
      */
     'disable-card'?: string;
     'integration-date'?: string;
-    debug?: boolean;
+    debug?: boolean | string;
     'buyer-country'?: string;
     locale?: string;
     'data-partner-attribution-id'?: string;
-    'csp-nonce'?: string;
+    'data-csp-nonce'?: string;
     'data-order-id'?: string;
     'data-page-type'?: string;
 }
 
 export function loadScript(options: ScriptOptions): Promise<any>;
-
-export function findScript(url: string, dataAttributes: {}): void;
-export function insertScriptElement(settings: ScriptElementOptions): void;
-export function processOptions(options?: {}): { queryString: string, dataAttributes: {} };
-export function objectToQueryString(params: {}): string;
-
 export const version: string;

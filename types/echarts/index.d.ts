@@ -1,4 +1,4 @@
-// Type definitions for ECharts 4.6.1
+// Type definitions for ECharts 4.8.0
 // Project: http://echarts.apache.org
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>
 //                 AntiMoron <https://github.com/AntiMoron>
@@ -11,6 +11,7 @@
 //                 Ruixuel <https://github.com/ruixuel>
 //                 Robert <https://github.com/robert-wettstaedt>
 //                 trajnisz <https://github.com/trajnisz>
+//                 Roman Nuritdinov (Ky6uk) <https://github.com/Ky6uk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1118,6 +1119,10 @@ declare namespace echarts {
         shadowOffsetY?: number;
     }
 
+    /**
+     * Options for `echartsInstance.showLoading` method
+     * {@link https://echarts.apache.org/en/api.html#echartsInstance.showLoading}
+     */
     interface EChartsLoadingOption {
         /**
          * Loading text.
@@ -1147,7 +1152,35 @@ declare namespace echarts {
          * Zlevel of loading. If not 0, it creates a new canvas for loading.
          * @default 0
          */
-        zlevel?: 0;
+        zlevel?: number;
+
+        /**
+         * Font size.
+         * @default 12
+         * @since 4.8.0
+         */
+        fontSize?: number;
+
+        /**
+         * Show an animated "spinner" or not.
+         * @default true
+         * @since 4.8.0
+         */
+        showSpinner?: boolean;
+
+        /**
+         * Radius of the "spinner".
+         * @default 10
+         * @since 4.8.0
+         */
+        spinnerRadius?: number;
+
+        /**
+         * Line width of the "spinner".
+         * @default 5
+         * @since 4.8.0
+         */
+        lineWidth?: number;
     }
 
     namespace EChartOption {
@@ -1645,7 +1678,20 @@ declare namespace echarts {
                     margin?: number;
                     color?: string;
                     fontStyle?: 'normal' | 'italic' | 'oblique';
-                    fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | '100' | '200' | '300' | '400';
+                    fontWeight?:
+                        | 'normal'
+                        | 'bold'
+                        | 'bolder'
+                        | 'lighter'
+                        | 100
+                        | 200
+                        | 300
+                        | 400
+                        | 500
+                        | 600
+                        | 700
+                        | 800
+                        | 900;
                     fontFamily?: string;
                     fontSize?: number;
                     lineHeight?: number;

@@ -5649,6 +5649,7 @@ $( document ).on( "mousemove", function( event ) {
         char: string | undefined;
         /** @deprecated */
         charCode: number;
+        code: string;
         key: string;
         /** @deprecated */
         keyCode: number;

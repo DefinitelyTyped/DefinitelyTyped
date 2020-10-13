@@ -33,18 +33,52 @@ export interface EnvironmentProviderOptions {
     [key: string]: unknown;
 }
 
-export interface PreloadedQuery<
+export type PreloadedQuery<
     TQuery extends OperationType,
     TEnvironmentProviderOptions = EnvironmentProviderOptions
-> {
-    readonly environment: IEnvironment;
-    readonly environmentProviderOptions: TEnvironmentProviderOptions | null | undefined;
-    readonly fetchKey: string | number | null | undefined;
-    readonly fetchPolicy: PreloadFetchPolicy;
-    readonly name: string;
-    readonly source: Observable<GraphQLResponse> | null | undefined;
-    readonly variables: TQuery['variables'];
-}
+> =
+    | PreloadedQueryInner_DEPRECATED<TQuery, TEnvironmentProviderOptions>
+    | PreloadedQueryInner<TQuery, TEnvironmentProviderOptions>;
+
+export type PreloadedQueryInner_DEPRECATED<
+    TQuery extends OperationType,
+    TEnvironmentProviderOptions = EnvironmentProviderOptions
+> = Readonly<{
+    kind: 'PreloadedQuery_DEPRECATED',
+    environment: IEnvironment;
+    environmentProviderOptions?: TEnvironmentProviderOptions | null;
+    fetchKey?: string | number | null;
+    fetchPolicy: PreloadFetchPolicy;
+    networkCacheConfig?: CacheConfig | null,
+    id?: string | null
+    name: string;
+    source?: Observable<GraphQLResponse> | null;
+    variables: TQuery['variables'];
+    status: PreloadQueryStatus
+}>;
+
+export type PreloadedQueryInner<
+    TQuery extends OperationType,
+    TEnvironmentProviderOptions = EnvironmentProviderOptions
+> = Readonly<{
+    dispose: () => void;
+    environment: IEnvironment;
+    environmentProviderOptions?: TEnvironmentProviderOptions | null;
+    fetchPolicy: PreloadFetchPolicy;
+    id?: string | null;
+    isDisposed: boolean;
+    name: string;
+    networkCacheConfig?: CacheConfig | null;
+    source?: Observable<GraphQLResponse> | null;
+    kind: 'PreloadedQuery';
+    variables: TQuery['variables']
+}>;
+
+export type PreloadQueryStatus = Readonly<{
+    cacheConfig?: CacheConfig | null,
+    source: 'cache' | 'network',
+    fetchTime?: number | null,
+}>;
 
 /**
  * The Interface of the EntryPoints .entrypoint files
