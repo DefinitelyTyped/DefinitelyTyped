@@ -20,10 +20,12 @@ declare module 'angular' {
          * Sanitizes an html string by stripping all potentially dangerous tokens.
          *
          * The input is sanitized by parsing the HTML into tokens.
-         * All safe tokens (from a whitelist) are then serialized back to a properly escaped HTML string.
+         * All safe tokens (from a trusted list) are then serialized back to a properly
+         * escaped HTML string.
          * This means that no unsafe input can make it into the returned string.
          *
-         * URLs allowed in attribute values are configured using the methods aHrefSanitizationTrustedUri and imgSrcSanitizationTrustedUri of $compileProvider.
+         * URLs allowed in attribute values are configured using the methods aHrefSanitizationTrustedUrlList
+         * and imgSrcSanitizationTrustedUrlList of $compileProvider.
          * The input may also contain SVG markup if this is enabled via $sanitizeProvider.
          *
          * @param html HTML input.
@@ -62,7 +64,9 @@ declare module 'angular' {
             /**
              * Extends the built-in list of valid attributes, i.e. attributes that are considered safe and are not stripped off during sanitization.
              *
-             * Note: The new attributes will not be treated as URI attributes, which means their values will not be sanitized as URIs using $compileProvider's aHrefSanitizationTrustedUri and imgSrcSanitizationTrustedUri.
+             * Note: The new attributes will not be treated as URI attributes, which means their
+             * values will not be sanitized as URIs using $compileProvider's
+             * aHrefSanitizationTrustedUrlList and imgSrcSanitizationTrustedUrlList.
              * @see https://code.angularjs.org/1.7.0/docs/api/ngSanitize/provider/$sanitizeProvider#addValidAttrs
              * @param attrs A list of valid attributes.
              */

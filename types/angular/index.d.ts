@@ -1410,21 +1410,21 @@ declare namespace angular {
         component(name: string, options: IComponentOptions): ICompileProvider;
         component(object: {[componentName: string]: IComponentOptions}): ICompileProvider;
 
-        /** @deprecated The old name ofaHrefSanitizationTrustedUri. Kept for compatibility. */
+        /** @deprecated The old name of aHrefSanitizationTrustedUrlList. Kept for compatibility. */
         aHrefSanitizationWhitelist(): RegExp;
-        /** @deprecated The old name ofaHrefSanitizationTrustedUri. Kept for compatibility. */
+        /** @deprecated The old name of aHrefSanitizationTrustedUrlList. Kept for compatibility. */
         aHrefSanitizationWhitelist(regexp: RegExp): ICompileProvider;
 
-        aHrefSanitizationTrustedUri(): RegExp;
-        aHrefSanitizationTrustedUri(regexp: RegExp): ICompileProvider;
+        aHrefSanitizationTrustedUrlList(): RegExp;
+        aHrefSanitizationTrustedUrlList(regexp: RegExp): ICompileProvider;
 
-        /** @deprecated The old name imgSrcSanitizationTrustedUri. Kept for compatibility. */
+        /** @deprecated The old name of imgSrcSanitizationTrustedUrlList. Kept for compatibility. */
         imgSrcSanitizationWhitelist(): RegExp;
-        /** @deprecated The old name imgSrcSanitizationTrustedUri. Kept for compatibility. */
+        /** @deprecated The old name of imgSrcSanitizationTrustedUrlList. Kept for compatibility. */
         imgSrcSanitizationWhitelist(regexp: RegExp): ICompileProvider;
 
-        imgSrcSanitizationTrustedUri(): RegExp;
-        imgSrcSanitizationTrustedUri(regexp: RegExp): ICompileProvider;
+        imgSrcSanitizationTrustedUrlList(): RegExp;
+        imgSrcSanitizationTrustedUrlList(regexp: RegExp): ICompileProvider;
 
         debugInfoEnabled(): boolean;
         debugInfoEnabled(enabled: boolean): ICompileProvider;
@@ -1810,7 +1810,7 @@ declare namespace angular {
         useApplyAsync(): boolean;
         useApplyAsync(value: boolean): IHttpProvider;
 
-        /** @deprecated The old name xsrfTrustedOrigins. Kept for compatibility. */
+        /** @deprecated The old name of xsrfTrustedOrigins. Kept for compatibility. */
         xsrfWhitelistedOrigins: string[];
         /**
          * Array containing URLs whose origins are trusted to receive the XSRF token.
