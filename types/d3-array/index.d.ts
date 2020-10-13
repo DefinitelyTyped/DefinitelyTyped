@@ -374,13 +374,64 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
  * @param key The key function.
  */
 export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
+/**
+ * Groups the specified array of values into a Map from key to array of value.
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function group<TObject, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Map<TKey1, Map<TKey2, TObject[]>>;
+/**
+ * Groups the specified array of values into a Map from key to array of value.
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function group<TObject, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Map<TKey1, Map<TKey2, Map<TKey3, TObject[]>>>;
 
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
  * @param iterable The array to group.
  * @param key The key function.
  */
-export function groups<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): [TKey, TObject[]];
+export function groups<TObject, TKey>(
+    iterable: Iterable<TObject>,
+    key: (value: TObject) => TKey
+): Array<[TKey, TObject[]]>;
+/**
+ * Equivalent to group, but returns nested arrays instead of nested maps.
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function groups<TObject, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Array<[TKey1, Array<[TKey2, TObject[]]>]>;
+/**
+ * Equivalent to group, but returns nested arrays instead of nested maps.
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function groups<TObject, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject[]]>]>]>;
 
 /**
  * Groups and reduces the specified array of values into a Map from key to value.
@@ -389,11 +440,41 @@ export function groups<TObject, TKey>(iterable: Iterable<TObject>, key: (value: 
  * @param reduce The reduce function.
  * @param key The key function.
  */
-export function rollup<TObject, TKey, TReduce>(
+export function rollup<TObject, TReduce, TKey>(
     iterable: Iterable<TObject>,
     reduce: (value: TObject[]) => TReduce,
     key: (value: TObject) => TKey
 ): Map<TKey, TReduce>;
+/**
+ * Groups and reduces the specified array of values into a Map from key to value.
+ *
+ * @param iterable The array to group.
+ * @param reduce The reduce function.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function rollup<TObject, TReduce, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    reduce: (value: TObject[]) => TReduce,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Map<TKey1, Map<TKey2, TReduce>>;
+/**
+ * Groups and reduces the specified array of values into a Map from key to value.
+ *
+ * @param iterable The array to group.
+ * @param reduce The reduce function.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function rollup<TObject, TReduce, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    reduce: (value: TObject[]) => TReduce,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Map<TKey1, Map<TKey2, Map<TKey3, TReduce>>>;
 
 /**
  * Equivalent to rollup, but returns nested arrays instead of nested maps.
@@ -402,11 +483,41 @@ export function rollup<TObject, TKey, TReduce>(
  * @param reduce The reduce function.
  * @param key The key function.
  */
-export function rollups<TObject, TKey, TReduce>(
+export function rollups<TObject, TReduce, TKey>(
     iterable: Iterable<TObject>,
     reduce: (value: TObject[]) => TReduce,
     key: (value: TObject) => TKey
-): [TKey, TReduce];
+): Array<[TKey, TReduce]>;
+/**
+ * Equivalent to rollup, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param reduce The reduce function.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function rollups<TObject, TReduce, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    reduce: (value: TObject[]) => TReduce,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Array<[TKey1, Array<[TKey2, TReduce]>]>;
+/**
+ * Equivalent to rollup, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param reduce The reduce function.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function rollups<TObject, TReduce, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    reduce: (value: TObject[]) => TReduce,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Array<[TKey1, Array<[TKey2, Array<[TKey3, TReduce]>]>]>;
 
 /**
  * Returns the number of valid number values (i.e., not null, NaN, or undefined) in the specified iterable; accepts an accessor.

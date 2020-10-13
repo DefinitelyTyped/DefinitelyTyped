@@ -667,12 +667,20 @@ const objArray: ObjDefinition[] = [
 ];
 
 const grouped: Map<string, ObjDefinition[]> = d3Array.group(objArray, d => d.name);
+const grouped2: Map<string, Map<string, ObjDefinition[]>> = d3Array.group(objArray, d => d.name, d => d.date);
+const grouped3: Map<string, Map<string, Map<string, ObjDefinition[]>>> = d3Array.group(objArray, d => d.name, d => d.date, d => d.amount);
 const rolledup: Map<string, number> = d3Array.rollup(objArray, d => d.length, d => d.name);
-const rolledup2: Map<string, string> = d3Array.rollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
+const rolledup2: Map<string, Map<string, number>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date);
+const rolledup3: Map<string, Map<string, Map<string, number>>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
+const rolledupAlternate: Map<string, string> = d3Array.rollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
-const groups: [string, ObjDefinition[]] = d3Array.groups(objArray, d => d.name);
-const rolledups: [string, number] = d3Array.rollups(objArray, d => d.length, d => d.name);
-const rolledups2: [string, string] = d3Array.rollups(objArray, d => d.map(u => u.name).join(' '), d => d.name);
+const groups: Array<[string, ObjDefinition[]]> = d3Array.groups(objArray, d => d.name);
+const groups2: Array<[string, Array<[string, ObjDefinition[]]>]> = d3Array.groups(objArray, d => d.name, d => d.date);
+const groups3: Array<[string, Array<[string, Array<[string, ObjDefinition[]]>]>]> = d3Array.groups(objArray, d => d.name, d => d.date, d => d.amount);
+const rolledups: Array<[string, number]> = d3Array.rollups(objArray, d => d.length, d => d.name);
+const rolledups2: Array<[string, Array<[string, number]>]> = d3Array.rollups(objArray, d => d.length, d => d.name, d => d.date);
+const rolledups3: Array<[string, Array<[string, Array<[string, number]>]>]> = d3Array.rollups(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
+const rolledupsAlternate: Array<[string, string]> = d3Array.rollups(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
 // count() -----------------------
 
