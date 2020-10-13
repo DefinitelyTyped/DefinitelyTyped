@@ -1,8 +1,8 @@
 import * as React from 'react';
-import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker';
+import DateTimeRangePicker, { DateRangePickerProps } from 'wojtekmaj__react-datetimerange-picker';
 
 function MyApp() {
-    const [value, onChange] = React.useState([new Date(), new Date()]);
+    const [value, onChange] = React.useState<DateRangePickerProps['value']>([new Date(), new Date()]);
 
     return (
         <div>
