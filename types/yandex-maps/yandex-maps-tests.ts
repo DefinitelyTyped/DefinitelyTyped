@@ -79,15 +79,15 @@ const zoomControl = new ymaps.control.ZoomControl({
 });
 zoomControl.clear();
 
-const typeSelector = new window.ymaps.control.TypeSelector({
+const typeSelector = new ymaps.control.TypeSelector({
     options: {
         panoramasItemMode: 'off',
     },
 });
 typeSelector.getParent();
 
-const placemark = new window.ymaps.Placemark([0, 1], {});
-placemark.events.add('dragend', (event) => {
+const placemark = new ymaps.Placemark([0, 1], {});
+placemark.events.add('dragend', (event: ymaps.IEvent<{}, ymaps.geometry.Point>) => {
     const target = event.originalEvent.target;
     if (!target) {
         return;
@@ -112,10 +112,10 @@ const balloon = new ymaps.Balloon(map, {});
 balloon.destroy();
 
 const layersCollections = map.layers.getAll();
-const layers = layersCollections.reduce((acc, collection) => [...acc, ...collection.getAll()], []);
-const mapLayer = layers.find((layer) => {
+const layers = layersCollections.reduce((acc: ymaps.Layer[], collection: ymaps.Collection<ymaps.Layer>) => [...acc, ...collection.getAll()], []);
+const mapLayer = layers.find((layer: ymaps.Layer) => {
     if (!layer.getAlias) {
-      return;
+      return false;
     }
 
     return layer.getAlias() === 'map';
