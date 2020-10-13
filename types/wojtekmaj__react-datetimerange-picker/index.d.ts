@@ -2,6 +2,7 @@
 // Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
 // Definitions by: Pesven <https://github.com/Psvensso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.5
 
 import { CalendarProps } from 'react-calendar';
 
