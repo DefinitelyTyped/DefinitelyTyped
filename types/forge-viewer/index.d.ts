@@ -1021,7 +1021,14 @@ declare namespace Autodesk {
             }
 
             class BoundsCallback {
-              constructor(bounds: THREE.Box3)
+              constructor(bounds: THREE.Box3);
+
+              onCircularArc(cx: number, cy: number, start: number, end: number, radius: number, vpId: number): void;
+              onEllipticalArc(cx: number, cy: number, start: number, end: number, major: number, minor: number, tilt: number, vpId: number): void;
+              onLineSegment(x1: number, y1: number, x2: number, y2: number, vpId: number): void;
+              onOneTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, vpId: number): void;
+              onTexQuad(centerX: number, centerY: number, width: number, height: number, rotation: number, vpId: number): void;
+              onVertex(cx: number, cy: number, vpId: number): void;
             }
 
             class VertexBufferReader {
