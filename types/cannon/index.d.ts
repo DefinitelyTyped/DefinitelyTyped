@@ -2,6 +2,7 @@
 // Project: https://github.com/clark-stevenson/cannon.d.ts
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
 //                 Grzegorz Rozdzialik <https://github.com/Gelio>
+//                 Vitor Macedo <https://github.com/VitorMac10>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
