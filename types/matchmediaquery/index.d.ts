@@ -16,7 +16,7 @@ type MediaValues = Record<
     | 'grid'
     | 'color'
     | 'color-index'
-    | 'monochrome',
+	| 'monochrome'
     | 'type',
     unknown
 >;
