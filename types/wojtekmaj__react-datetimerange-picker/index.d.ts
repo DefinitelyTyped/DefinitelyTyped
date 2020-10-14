@@ -30,7 +30,7 @@ export interface DateTimeRangePickerProps<T = DateTimeRangePickerValue> extends 
     hourPlaceholder?: string;
     isCalendarOpen?: boolean;
     isClockOpen?: boolean;
-    locale?: string | undefined;
+    locale?: string;
     maxDate?: Date;
     maxDetail?: 'hour' | 'minute' | 'second';
     minDate?: Date;
@@ -46,7 +46,7 @@ export interface DateTimeRangePickerProps<T = DateTimeRangePickerValue> extends 
     onFocus?: () => void;
     onClockClose?: () => void;
     onClockOpen?: () => void;
-    rangeDivider?: JSX.Element;
+    rangeDivider?: string | JSX.Element;
     required?: boolean;
     secondAriaLabel?: string;
     secondPlaceholder?: string;
