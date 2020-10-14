@@ -79,7 +79,7 @@ export interface AutoLinkOptions {
     htmlEscapeNonEntities?: boolean;
     targetBlank?: boolean;
     suppressNoFollow?: boolean;
-    urlEntities?: UrlEntity[];
+    urlEntities?: ReadonlyArray<UrlEntity>;
     usernameIncludeSymbol?: boolean;
     linkAttributeBlock?: (entity: EntityWithIndices, attributes: Attributes) => void;
     linkTextBlock?: (entity: EntityWithIndices, text: string) => void;
@@ -95,7 +95,7 @@ export declare function autoLinkCashtags(text: string, options?: AutoLinkOptions
 export declare function autoLinkUrlsCustom(text: string, options?: AutoLinkOptions): string;
 export declare function autoLinkEntities(
     text: string,
-    entities: EntityWithIndices[],
+    entities: ReadonlyArray<EntityWithIndices>,
     options?: AutoLinkOptions,
 ): string;
 
@@ -117,11 +117,15 @@ export declare function getUnicodeTextLength(text: string): number;
 // Note: This function directly modify entities" indices
 export declare function convertUnicodeIndices(
     text: string,
-    entities: EntityWithIndices[],
+    entities: ReadonlyArray<EntityWithIndices>,
     indicesInUTF16?: boolean,
 ): void;
 
-export declare function hitHighlight(text: string, hits?: number[][], options?: { tag: string }): string;
+export declare function hitHighlight(
+    text: string,
+    hits?: ReadonlyArray<ReadonlyArray<number>>,
+    options?: { tag: string },
+): string;
 
 export interface ParseTweetOptions {
     version?: number;
