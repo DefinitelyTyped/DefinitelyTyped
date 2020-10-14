@@ -1,8 +1,7 @@
-// Type definitions for twitter-text v2.0.0
+// Type definitions for twitter-text v3.1.0
 // Project: https://github.com/twitter/twitter-text
 // Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 
 export interface HashtagWithIndices {
     hashtag: string;
@@ -26,11 +25,11 @@ export interface CashtagWithIndices {
     indices: [number, number];
 }
 export type EntityWithIndices =
-    HashtagWithIndices |
-    UrlWithIndices |
-    MentionWithIndices |
-    MentionOrListWithIndices |
-    CashtagWithIndices;
+    | HashtagWithIndices
+    | UrlWithIndices
+    | MentionWithIndices
+    | MentionOrListWithIndices
+    | CashtagWithIndices;
 
 interface Indices {
     indices: [number, number];
@@ -46,7 +45,10 @@ export declare function splitTags(text: string): string[];
 export declare function extractHashtags(text: string): string[];
 export declare function extractHashtagsWithIndices(text: string): HashtagWithIndices[];
 export declare function extractUrls(text: string): string[];
-export declare function extractUrlsWithIndices(text: string, options?: {extractUrlsWithoutProtocol: boolean}): UrlWithIndices[];
+export declare function extractUrlsWithIndices(
+    text: string,
+    options?: { extractUrlsWithoutProtocol: boolean },
+): UrlWithIndices[];
 export declare function extractMentions(text: string): string[];
 export declare function extractMentionsWithIndices(text: string): MentionWithIndices[];
 export declare function extractMentionsOrListsWithIndices(text: string): MentionOrListWithIndices[];
@@ -91,7 +93,11 @@ export declare function autoLinkUsernamesOrLists(text: string, options?: AutoLin
 export declare function autoLinkHashtags(text: string, options?: AutoLinkOptions): string;
 export declare function autoLinkCashtags(text: string, options?: AutoLinkOptions): string;
 export declare function autoLinkUrlsCustom(text: string, options?: AutoLinkOptions): string;
-export declare function autoLinkEntities(text: string, entities: EntityWithIndices[], options?: AutoLinkOptions): string;
+export declare function autoLinkEntities(
+    text: string,
+    entities: EntityWithIndices[],
+    options?: AutoLinkOptions,
+): string;
 
 interface TweetLengthOptions {
     short_url_length: number;
@@ -109,7 +115,11 @@ export declare function isInvalidTweet(text: string): string;
 
 export declare function getUnicodeTextLength(text: string): number;
 // Note: This function directly modify entities" indices
-export declare function convertUnicodeIndices(text: string, entities: EntityWithIndices[], indicesInUTF16?: boolean): void;
+export declare function convertUnicodeIndices(
+    text: string,
+    entities: EntityWithIndices[],
+    indicesInUTF16?: boolean,
+): void;
 
 export declare function hitHighlight(text: string, hits?: number[][], options?: { tag: string }): string;
 
@@ -124,6 +134,7 @@ export interface ParseTweetOptions {
         end: number;
         weight: number;
     }>;
+    emojiParsingEnabled?: boolean;
 }
 
 export interface ParsedTweet {
@@ -137,3 +148,4 @@ export interface ParsedTweet {
 }
 
 export declare function parseTweet(text: string, options?: ParseTweetOptions): ParsedTweet;
+export declare function standardizeIndices(text: string, startIndex: number, endIndex: number): [number, number];
