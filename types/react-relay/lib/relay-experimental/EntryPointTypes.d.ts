@@ -166,7 +166,7 @@ export interface PreloadProps<
 export interface EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>
     extends Readonly<{
         entryPoints: PreloadedEntryPoints<TPreloadedEntryPoints>;
-        extraProps: TExtraProps | null;
+        extraProps: TExtraProps;
         props: TRuntimeProps;
         queries: PreloadedQueries<TPreloadedQueries>;
     }> {}
