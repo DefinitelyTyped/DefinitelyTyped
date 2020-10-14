@@ -250,4 +250,4 @@ declare class TLV {
     desc: undefined | ((tlv: TLV) => string[]);
 }
 
-export default TLV;
+export = TLV;
