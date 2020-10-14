@@ -11024,7 +11024,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -11038,8 +11038,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayReplyAllFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -11076,7 +11074,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -11090,8 +11088,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayReplyFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -11701,7 +11697,7 @@ declare namespace Office {
          *
          * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -11721,8 +11717,6 @@ declare namespace Office {
          *        `coercionType`: The desired format for the data to be appended. The string in the `data` parameter will be converted to this format.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
          *                             of type `Office.AsyncResult`. Any errors encountered will be provided in the `asyncResult.error` property.
-         *
-         * @beta
          */
         appendOnSendAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -11739,7 +11733,7 @@ declare namespace Office {
          *
          * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -11756,8 +11750,6 @@ declare namespace Office {
          * @param data - The string to be added to the end of the body. The string is limited to 5,000 characters.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
          *                             of type `Office.AsyncResult`. Any errors encountered will be provided in the `asyncResult.error` property.
-         *
-         * @beta
          */
         appendOnSendAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -12320,7 +12312,7 @@ declare namespace Office {
          *
          * You can iterate through the dictionary object to discover all `names` and `values`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @returns An object with all custom properties in a collection of name/value pairs.
          *
@@ -12329,8 +12321,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
          *
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @beta
          */
         getAll(): any;
         /**
@@ -13440,7 +13430,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -13453,8 +13443,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayAppointmentFormAsync(itemId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -13497,7 +13485,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -13510,8 +13498,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayMessageFormAsync(itemId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -13559,7 +13545,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -13572,8 +13558,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayNewAppointmentFormAsync(parameters: AppointmentForm, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -13630,7 +13614,7 @@ declare namespace Office {
          *
          * If any of the parameters exceed the specified size limits, or if an unknown parameter name is specified, an exception is thrown.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -13670,8 +13654,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayNewMessageFormAsync(parameters: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -15734,7 +15716,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -15748,8 +15730,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayReplyAllFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -15786,7 +15766,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -15800,8 +15780,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayReplyFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
