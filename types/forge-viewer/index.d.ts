@@ -529,6 +529,7 @@ declare namespace Autodesk {
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
+            getPageToModelTransform(vpId: number): THREE.Matrix4;
             getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             geomPolyCount(): number;
@@ -540,6 +541,7 @@ declare namespace Autodesk {
             getFragmentMap(): any;
             getInstanceTree(): InstanceTree;
             getLayersRoot(): object;
+            getLayerToNodeIdMapping(onSuccessCallback: (mapping: { [key: string]: number[]; }) => void, onErrorCallback: () => void): void;
             getMetadata(itemName: string, subitemName?: string, defaultValue?: any): any;
             getRoot(): object;
             getRootId(): number;
@@ -631,7 +633,9 @@ declare namespace Autodesk {
             getActiveTool(): ToolInterface;
             getActiveToolName(): string;
             getDefaultTool(): ToolInterface;
+            getIsLocked(): boolean;
             getToolNames(): string[];
+            setIsLocked(state: boolean): boolean;
         }
 
         interface ToolInterface {
@@ -987,15 +991,14 @@ declare namespace Autodesk {
         }
 
         namespace Private {
-            function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
-
             const env: string;
 
-            function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
-            function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number,
-                                  d: number, type: string): number;
             function calculatePrecision(value: string|number): number;
-
+            function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
+            function fadeValue(startValue: number, endValue: number, duration: number, setParam: (value: number) => void, onFinished?: () => void): any;
+            function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
+            function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
+            function lerp(x: number, y: number, t: number): number;
             interface PreferencesOptions {
               localStorage?: boolean;
               prefix?: string;
@@ -1015,6 +1018,10 @@ declare namespace Autodesk {
               set(name: string, value: any, notify?: boolean): boolean;
               tag(tag: string, names?: string[]|string): void;
               untag(tag: string, names?: string[]|string): void;
+            }
+
+            class BoundsCallback {
+              constructor(bounds: THREE.Box3)
             }
 
             class VertexBufferReader {
@@ -1074,9 +1081,12 @@ declare namespace Autodesk {
                 visibilityManager: VisibilityManager;
 
                 addOverlay(overlayName: string, mesh: any): void;
+                clearOverlay(name: string): void;
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
                 clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
                 createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any): void;
+                disableHighlight(disable: boolean): void;
+                disableSelection(disable: boolean): void;
                 getCanvasBoundingClientRect(): DOMRect;
                 hitTest(clientX: number, clientY: number, ignoreTransparent: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
@@ -1089,6 +1099,7 @@ declare namespace Autodesk {
                 matman(): any;
                 getMaterials(): any;
                 getScreenShotProgressive(w: number, h: number, onFinished?: () => void, options?: any): any;
+                pauseHighlight(disable: boolean): void;
                 removeOverlayScene(name: string): any;
                 removeOverlay(name: string, mesh: any): any;
                 getFitBounds(p: boolean): THREE.Box3;
