@@ -8,7 +8,7 @@ import { CalendarProps } from 'react-calendar';
 
 export default function DateTimeRangePicker(props: DateRangePickerProps): JSX.Element;
 
-export interface DateRangePickerProps extends CalendarProps {
+export interface DateTimeRangePickerProps extends CalendarProps {
     amPmAriaLabel?: string;
     autoFocus?: boolean;
     calendarAriaLabel?: string;
