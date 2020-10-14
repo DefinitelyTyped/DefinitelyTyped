@@ -16,7 +16,7 @@ declare class Serializer<Q extends BaseQuad = Quad> implements Sink<Stream<Q>, E
     constructor(options?: Serializer.SerializerOptions);
 
     import(stream: Stream<Q>, options?: Serializer.SerializerOptions): EventEmitter;
-    transform(quads: Q[]): string;
+    transform(quads: Iterable<Q>): string;
 }
 
 export = Serializer;

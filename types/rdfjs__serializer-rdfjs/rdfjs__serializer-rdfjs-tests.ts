@@ -1,7 +1,8 @@
 import Serializer = require('@rdfjs/serializer-rdfjs');
-import { Quad, Stream } from 'rdf-js';
+import { Quad, Stream, DatasetCore } from 'rdf-js';
 import { EventEmitter } from 'events';
 
+const dataset: DatasetCore = <any> {};
 const quads: Quad[] = <any> {};
 const quadStream: Stream = <any> {};
 
@@ -18,6 +19,7 @@ const serializerAny = new Serializer({
 });
 
 const code: string = serializer.transform(quads);
+const codeFromDataset: string = serializer.transform(dataset);
 
 const stream: EventEmitter = serializer.import(quadStream);
 const typescriptStream: EventEmitter = serializer.import(quadStream, {
