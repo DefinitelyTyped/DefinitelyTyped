@@ -1,4 +1,4 @@
-// Type definitions for react-typing-effect 2.0
+// Type definitions for react-typing-effect 2.0.4
 // Project: https://github.com/lamyfarai/react-typing-effect#readme
 // Definitions by: Debananda <https://github.com/Debananda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,7 @@ export interface ReactTypingEffectProps {
     className?: string;
     speed?: number;
     eraseDelay?: number;
+    eraseSpeed?: number;
     typingDelay?: number;
     cursor?: string;
     cursorClassName?: string;
