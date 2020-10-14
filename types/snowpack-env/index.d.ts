@@ -17,7 +17,7 @@ interface ImportMetaHot {
     ): void;
     /** Accept the HMR update with dependencies update. */
     accept(
-        dependencies: string[],
+        dependencies: readonly string[],
         callback: (update: {
             /** The newer version of the current module */
             module: unknown;
@@ -36,9 +36,9 @@ interface ImportMetaHot {
 }
 
 interface ImportMeta {
-    url: string;
-    hot?: ImportMetaHot;
-    env: {
+    readonly url: string;
+    readonly hot?: ImportMetaHot;
+    readonly env: {
         readonly [key: string]: any;
         readonly SNOWPACK_PUBLIC_API_URL: string;
         readonly MODE: string;
