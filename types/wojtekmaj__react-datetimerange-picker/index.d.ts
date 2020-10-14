@@ -18,7 +18,7 @@ export interface DateTimeRangePickerProps<T = DateTimeRangePickerValue> extends 
     calendarIcon?: string | JSX.Element;
     clearAriaLabel?: string;
     clearIcon?: string | JSX.Element;
-    clockClassName?: string | JSX.Element;
+    clockClassName?: string | string[];
     closeWidgets?: boolean;
     dayAriaLabel?: string;
     dayPlaceholder?: string;
@@ -46,7 +46,7 @@ export interface DateTimeRangePickerProps<T = DateTimeRangePickerValue> extends 
     onFocus?: () => void;
     onClockClose?: () => void;
     onClockOpen?: () => void;
-    rangeDivider?: string;
+    rangeDivider?: JSX.Element;
     required?: boolean;
     secondAriaLabel?: string;
     secondPlaceholder?: string;
