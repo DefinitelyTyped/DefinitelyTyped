@@ -2,7 +2,6 @@ import twig = require('twig');
 
 const value: any = "";
 const str = "";
-const num = 0;
 const bool = false;
 
 const params: twig.Parameters = {
@@ -33,7 +32,10 @@ twig_async_param(false);
 
 const compOpts: twig.CompileOptions = {
     filename: str,
-    settings: value
+    settings: {
+        views: value,
+        'twig options': value
+    }
 };
 
 twig.extendFilter(str, (left: any, ...params: any[]) => {
@@ -51,6 +53,12 @@ const compiled = twig.compile(str, compOpts);
 
 twig.renderFile(str, compOpts, (err, result) => {
 });
+
+twig.renderFile(str, {}, (err, result) => {
+});
+
+twig.renderFile(str, (err, result) => {
+}, null);
 
 twig.__express(str, compOpts, (err, result) => {
 });

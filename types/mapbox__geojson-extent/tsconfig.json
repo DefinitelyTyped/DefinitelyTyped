@@ -12,12 +12,17 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@mapbox/*": [
+                "mapbox__*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "hirestime-tests.ts"
+        "mapbox__geojson-extent-tests.ts"
     ]
 }

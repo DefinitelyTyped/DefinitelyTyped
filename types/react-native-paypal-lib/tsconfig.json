@@ -4,10 +4,11 @@
         "lib": [
             "es6"
         ],
+        "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "snappy-tests.ts"
+        "react-native-paypal-lib-tests.ts"
     ]
 }

@@ -175,6 +175,7 @@ dropzoneWithOptionsVariations = new Dropzone('.test', {
 const dropzone = new Dropzone('.test');
 
 dropzone.element;
+dropzone.hiddenFileInput;
 dropzone.previewsContainer;
 dropzone.version;
 
