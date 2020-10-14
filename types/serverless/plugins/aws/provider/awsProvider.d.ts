@@ -373,7 +373,7 @@ declare namespace Aws {
     }
 
     interface Sqs {
-        arn: string;
+        arn: string | { [key: string]: any };
         batchSize?: number | string;
         maximumRetryAttempts?: number | string;
         enabled?: boolean;
