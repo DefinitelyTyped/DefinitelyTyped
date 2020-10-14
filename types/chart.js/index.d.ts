@@ -729,6 +729,7 @@ declare namespace Chart {
         type?: ScaleType | string;
         display?: boolean | string;
         id?: string;
+        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]>;
         stacked?: boolean;
         position?: string;
         ticks?: TickOptions;
