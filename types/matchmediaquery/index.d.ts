@@ -17,15 +17,12 @@ type MediaValues = Record<
 	| 'color'
 	| 'color-index'
 	| 'monochrome',
+    | 'type',
 	unknown
 >;
 
 declare class Mql {
-constructor(query: string, values: Partial<MediaValues>, forceStatic: boolean);
-
-	// addListener(listener: Function | null): void;
-
-	// removeListener(listener: Function | null): void;
+    constructor(query: string, values?: Partial<MediaValues>, forceStatic?: boolean);
 
 	update(evt: Mql): void;
 
