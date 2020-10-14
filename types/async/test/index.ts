@@ -96,6 +96,9 @@ async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, resu
 
 async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
 async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
+const cp: Promise<Array<string|undefined>> = async.concat(['dir1', 'dir2', 'dir3'], fs.readdir);
+const csp: Promise<Array<string|undefined>> = async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir);
+const clp: Promise<Array<string|undefined>> = async.concatLimit(['dir1', 'dir2', 'dir3'], 1, fs.readdir);
 
 // Control Flow //
 
