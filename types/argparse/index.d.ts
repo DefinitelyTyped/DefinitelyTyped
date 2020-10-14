@@ -105,6 +105,7 @@ export interface ArgumentOptions {
     required?: boolean;
     help?: string;
     metavar?: string | string[];
+    version?: string;
 }
 
 export const SUPPRESS: string;
