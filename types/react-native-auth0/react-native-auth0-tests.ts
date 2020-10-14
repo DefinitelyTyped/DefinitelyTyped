@@ -60,9 +60,11 @@ auth0.auth.revoke({
     refreshToken: 'refresh-token',
 });
 
-auth0.auth.userInfo({
-    token: 'token',
-});
+auth0.auth
+    .userInfo({
+        token: 'token',
+    })
+    .then(userInfo => userInfo);
 
 auth0.webAuth.authorize({
     state: 'state',

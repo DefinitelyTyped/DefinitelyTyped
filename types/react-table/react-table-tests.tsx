@@ -396,9 +396,6 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             hooks.allColumns.push(columns => [
                 {
                     id: 'selection',
-                    // Make this column a groupByBoundary. This ensures that groupBy columns
-                    // are placed after it
-                    groupByBoundary: true,
                     // The header can use the table's getToggleAllRowsSelectedProps method
                     // to render a checkbox
                     Header: ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (
@@ -597,9 +594,6 @@ const Component = (props: {}) => {
     const columns: Array<Column<Data>> = [
         {
             id: 'selection',
-            // Make this column a groupByBoundary. This ensures that groupBy columns
-            // are placed after it
-            groupByBoundary: true,
             // The header can use the table's getToggleAllRowsSelectedProps method
             // to render a checkbox
             Header: ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (

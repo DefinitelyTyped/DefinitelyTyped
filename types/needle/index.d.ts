@@ -115,6 +115,12 @@ declare namespace core {
          */
         localAddress?: string;
 
+        /**
+         * Anonymous function taking request (or redirect location if following redirects) URI as an argument and modifying it given logic.
+         * It has to return a valid URI string for successful request.
+         */
+        uri_modifier?: (uri: string) => string;
+
         // These properties are overwritten by those in the 'headers' field
         /**
          * Builds and sets a Cookie header from a { key: 'value' } object.
@@ -228,6 +234,10 @@ declare namespace core {
          * false by default.
          */
         follow_if_same_protocol?: boolean;
+        /**
+         * Unless true, Needle will not follow redirects that point to same location (as set in the response header) as the original request URL. false by default.
+         */
+        follow_if_same_location?: boolean;
     }
 
     interface KeyValue {

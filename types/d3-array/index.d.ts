@@ -1,14 +1,15 @@
-// Type definitions for D3JS d3-array module 2.0
+// Type definitions for D3JS d3-array module 2.2
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Tom Wanzek <https://github.com/tomwanzek>
-//                 denisname <https://github.com/denisname>,
+//                 denisname <https://github.com/denisname>
 //                 Hugues Stefanski <https://github.com/ledragon>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.3
+// Last module patch version validated against: 2.2.0
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -31,6 +32,40 @@ export interface Numeric {
 // --------------------------------------------------------------------------------------
 
 /**
+ * Return the minimum value in the array using natural order.
+ */
+export function min(array: Iterable<string>): string | undefined;
+
+/**
+ * Return the minimum value in the array using natural order.
+ */
+export function min<T extends Numeric>(array: Iterable<T>): T | undefined;
+
+/**
+ * Return the minimum value in the array using natural order.
+ */
+export function min<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null): string | undefined;
+
+/**
+ * Return the minimum value in the array using natural order.
+ */
+export function min<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
+
+/**
+ * Return the index of the minimum value in the array using natural order.
+ */
+export function minIndex<T>(array: Iterable<T>): number ;
+
+/**
+ * Return the index of the minimum value in the array using natural order and a projection function to map values.
+ */
+export function minIndex<TDatum, U>(array: Iterable<TDatum>, accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null): number ;
+
+/**
+ * Return the index of the minimum value in the array using natural order.
+ */
+export function minIndex<T>(array: Iterable<T>): number ;
+/**
  * Return the maximum value in the array of strings using natural order.
  */
 export function max(array: Iterable<string>): string | undefined;
@@ -51,24 +86,14 @@ export function max<T>(array: Iterable<T>, accessor: (datum: T, index: number, a
 export function max<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
 
 /**
- * Return the minimum value in the array using natural order.
+ * Return the index of the maximum value in the array using natural order.
  */
-export function min(array: Iterable<string>): string | undefined;
+export function maxIndex<T>(array: Iterable<T>): number ;
 
 /**
- * Return the minimum value in the array using natural order.
+ * Return the index of the maximum value in the array using natural order and a projection function to map values.
  */
-export function min<T extends Numeric>(array: Iterable<T>): T | undefined;
-
-/**
- * Return the minimum value in the array using natural order.
- */
-export function min<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null): string | undefined;
-
-/**
- * Return the minimum value in the array using natural order.
- */
-export function min<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
+export function maxIndex<TDatum, U>(array: Iterable<TDatum>, accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null): number ;
 
 /**
  * Return the min and max simultaneously.
@@ -153,8 +178,45 @@ export function variance<T>(array: Iterable<T>, accessor: (datum: T, index: numb
 // Searching Arrays
 // --------------------------------------------------------------------------------------
 
+/**
+ * @deprecated Use leastIndex instead.
+ */
 export function scan(array: Iterable<number>, comparator?: (a: number, b: number) => number): number | undefined;
+
+/**
+ * @deprecated Use leastIndex instead.
+ */
 export function scan<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): number | undefined;
+
+/**
+ * Returns the least element of the specified iterable.
+ */
+export function least<T>(array: Iterable<T>): T | undefined;
+
+/**
+ * Returns the least element of the specified iterable according to the specified comparator.
+ */
+export function least<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): T | undefined;
+
+/**
+ * Returns the least element of the specified iterable according to the specified accessor.
+ */
+export function least<T, U>(array: Iterable<T>, accessor: (a: T) => U): T | undefined;
+
+/**
+ * Returns the index of the least element of the specified iterable according to the specified comparator.
+ */
+export function leastIndex<T>(array: Iterable<T>): number | undefined;
+
+/**
+ * Returns the index of the least element of the specified iterable according to the specified comparator.
+ */
+export function leastIndex<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): number | undefined;
+
+/**
+ * Returns the index of the least element of the specified iterable according to the specified accessor.
+ */
+export function leastIndex<T, U>(array: Iterable<T>, accessor: (a: T) => U): number | undefined;
 
 export function bisectLeft(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
 export function bisectLeft(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
@@ -230,19 +292,57 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
 
 /**
  * Groups the specified array of values into a Map from key to array of value.
- * @param a The array to group.
+ * @param iterable The array to group.
  * @param key The key function.
  */
-export function group<TObject, TKey>(a: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
+export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
+
+/**
+ * Equivalent to group, but returns nested arrays instead of nested maps.
+ * @param iterable The array to group.
+ * @param key The key function.
+ */
+export function groups<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): [TKey, TObject[]];
 
 /**
  * Groups and reduces the specified array of values into a Map from key to value.
  *
- * @param a The array to group.
+ * @param iterable The array to group.
  * @param reduce The reduce function.
  * @param key The key function.
  */
-export function rollup<TObject, TKey, TReduce>(a: Iterable<TObject>, reduce: (value: TObject[]) => TReduce, key: (value: TObject) => TKey): Map<TKey, TReduce>;
+export function rollup<TObject, TKey, TReduce>(
+    iterable: Iterable<TObject>,
+    reduce: (value: TObject[]) => TReduce,
+    key: (value: TObject) => TKey
+): Map<TKey, TReduce>;
+
+/**
+ * Equivalent to rollup, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param reduce The reduce function.
+ * @param key The key function.
+ */
+export function rollups<TObject, TKey, TReduce>(
+    iterable: Iterable<TObject>,
+    reduce: (value: TObject[]) => TReduce,
+    key: (value: TObject) => TKey
+): [TKey, TReduce];
+
+/**
+ * Returns the number of valid number values (i.e., not null, NaN, or undefined) in the specified iterable; accepts an accessor.
+ *
+ * @param a Input array.
+ */
+export function count<TObject>(a: Iterable<TObject>): number;
+/**
+ * Returns the number of valid number values (i.e., not null, NaN, or undefined) in the specified iterable; accepts an accessor.
+ *
+ * @param a Input array.
+ * @param accessor Accesor method.
+ */
+export function count<TObject>(a: Iterable<TObject>, accessor: (a: TObject, b: TObject) => number | null | undefined): number;
 
 /**
  * Returns the Cartesian product of the two arrays a and b.
@@ -288,24 +388,24 @@ export function pairs<T>(array: Iterable<T>): Array<[T, T]>;
 export function pairs<T, U>(array: Iterable<T>, reducer: (a: T, b: T) => U): U[];
 
 /**
- * Returns a permutation of the specified array using the specified array of indexes.
- * The returned array contains the corresponding element in array for each index in indexes, in order.
+ * Returns a permutation of the specified source object (or array) using the specified iterable of keys.
+ * The returned array contains the corresponding property of the source object for each key in keys, in order.
  * For example, `permute(["a", "b", "c"], [1, 2, 0]) // ["b", "c", "a"]`
+ *
+ * It is acceptable to have more keys than source elements, and for keys to be duplicated or omitted.
  */
-export function permute<T>(array: { [key: number]: T }, keys: ArrayLike<number>): T[];
-
+export function permute<T>(source: { [key: number]: T; }, keys: Iterable<number>): T[];
 /**
  * Extract the values from an object into an array with a stable order. For example:
  * `var object = {yield: 27, year: 1931, site: "University Farm"};`
  * `d3.permute(object, ["site", "yield"]); // ["University Farm", 27]`
  */
-export function permute<T, K extends keyof T>(object: T, keys: ArrayLike<K>): Array<T[K]>;
+export function permute<T, K extends keyof T>(source: T, keys: Iterable<K>): Array<T[K]>;
 
 /**
  * Generates a 0-based numeric sequence. The output range does not include 'stop'.
  */
 export function range(stop: number): number[];
-
 /**
  * Generates a numeric sequence starting from the given start and stop values. 'step' defaults to 1. The output range does not include 'stop'.
  */
@@ -496,9 +596,24 @@ export interface HistogramGeneratorNumber<Datum, Value extends number | undefine
     thresholds(thresholds: ThresholdNumberArrayGenerator<Value>): this;
 }
 
+/**
+ * @deprecated. Use bin instead.
+ */
 export function histogram(): HistogramGeneratorNumber<number, number>;
+
+/**
+ * @deprecated Use bin instead.
+ */
 export function histogram<Datum, Value extends number | undefined>(): HistogramGeneratorNumber<Datum, Value>;
+
+/**
+ * @deprecated Use bin instead.
+ */
 export function histogram<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
+
+export function bin(): HistogramGeneratorNumber<number, number>;
+export function bin<Datum, Value extends number | undefined>(): HistogramGeneratorNumber<Datum, Value>;
+export function bin<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
 
 // --------------------------------------------------------------------------------------
 // Histogram Thresholds

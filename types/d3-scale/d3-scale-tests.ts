@@ -479,6 +479,18 @@ outputNumber = identityScale(10);
 const copiedIdentityScale: d3Scale.ScaleIdentity = identityScale.copy();
 
 // -------------------------------------------------------------------------------
+// Radial Scale Factory
+// -------------------------------------------------------------------------------
+
+// scaleRadial() ---------------------------------------------------------------------
+
+let radialScaleNumber: d3Scale.ScaleContinuousNumeric<number, number>;
+
+radialScaleNumber = d3Scale.scaleRadial();
+radialScaleNumber = d3Scale.scaleRadial([0, 5]);
+radialScaleNumber = d3Scale.scaleRadial([0, 5], [0, 5]);
+
+// -------------------------------------------------------------------------------
 // Time Scale Factories
 // -------------------------------------------------------------------------------
 
@@ -630,6 +642,10 @@ sequentialScaleColorString = sequentialScaleColorString.interpolator(interpolate
 let sequentialInterpolator: (t: number) => string;
 sequentialInterpolator = sequentialScaleColorString.interpolator();
 
+// range(...) ----------------------------------------------------------------
+
+const rangeSequential: [string, string] = sequentialScaleColorString.range()();
+
 // (...) value mapping from domain to output -----------------------------------
 
 outputString = sequentialScaleColorString(10);
@@ -693,6 +709,10 @@ const istr: (t: number) => string = divergingScaleString.interpolator();
 divergingScaleNumber = divergingScaleNumber.interpolator((t) => t + 2);
 divergingScaleNumber = divergingScaleNumber.interpolator(interpolateRound(2, 3));
 divergingScaleString = divergingScaleString.interpolator(sequentialInterpolator);
+
+// range(...) ----------------------------------------------------------------
+
+domainDivergingScale = divergingScaleNumber.range()();
 
 // copy(...) -----------------------------------------------------------------
 

@@ -1,7 +1,8 @@
-// Type definitions for big.js 4.0
+// Type definitions for big.js 6.0
 // Project: https://github.com/MikeMcl/big.js/
 // Definitions by: Steve Ognibene <https://github.com/nycdotnet>
 //                 Miika Hänninen <https://github.com/googol>
+//                 Roman Nuritdinov (Ky6uk) <https://github.com/Ky6uk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type BigSource = number | string | Big;
@@ -275,6 +276,14 @@ export interface Big {
      * the value of Big.E_POS and Big.E_NEG. By default, Big numbers correspond to Javascript's number type in this regard.
      */
     toString(): string;
+    /**
+     * Returns a primitive number representing the value of this Big number.
+     *
+     * If Big.strict is true an error will be thrown if toNumber is called on a Big number which cannot be converted to a primitive number without a loss of precision.
+     *
+     * @since 6.0
+     */
+    toNumber(): number;
     /**
      * Returns a string representing the value of this Big number.
      *

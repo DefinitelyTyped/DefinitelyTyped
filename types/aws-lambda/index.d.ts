@@ -47,6 +47,7 @@ export * from "./trigger/alb";
 // TODO: export * from "./trigger/alexa";
 export * from "./trigger/api-gateway-authorizer";
 export * from "./trigger/api-gateway-proxy";
+export * from "./trigger/appsync-resolver";
 // CloudTrail section just describes using S3 to trigger on cloudtrail changes.
 export * from "./trigger/cloudformation-custom-resource";
 export * from "./trigger/cloudfront-request";

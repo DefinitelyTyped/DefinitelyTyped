@@ -565,7 +565,6 @@ export type UseGroupByColumnOptions<D extends object> = Partial<{
     Aggregated: Renderer<CellProps<D>>;
     disableGroupBy: boolean;
     defaultCanGroupBy: boolean;
-    groupByBoundary: boolean;
 }>;
 
 export interface UseGroupByInstanceProps<D extends object> {
@@ -599,6 +598,7 @@ export interface UseGroupByRowProps<D extends object> {
     groupByVal: string;
     values: Record<IdType<D>, AggregatedValue>;
     subRows: Array<Row<D>>;
+    leafRows: Array<Row<D>>;
     depth: number;
     id: string;
     index: number;

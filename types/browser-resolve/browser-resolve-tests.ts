@@ -1,5 +1,7 @@
 import resolve = require('browser-resolve');
 
+const fixturesDir = __dirname + '/fixtures/node_modules';
+
 const basic_test_async = (callback: (err?: Error | null, resolved?: string) => void) => {
     // $ExpectType void
     resolve('typescript', (error, resolved) => {
@@ -22,6 +24,7 @@ resolve(
         modules: {
             fs: './fs-shim.js',
         },
+        paths: [fixturesDir],
     },
     (error, resolved) => {
         if (error) {
@@ -39,8 +42,16 @@ resolve.sync('typescript', {
 
 resolve.sync('@scope/my-module', {
     browser: 'module',
-    packageFilter: pkg => {
+    packageFilter: (pkg: any) => {
         pkg.module = pkg.module || pkg.browser;
+        return pkg;
+    },
+});
+resolve.sync('@scope/my-module', {
+    browser: 'module',
+    packageFilter: (pkg: any, pkgdir: string) => {
+        pkg.module = pkg.module || pkg.browser;
+        console.log(`pkgdir: ${pkgdir}`);
         return pkg;
     },
 });

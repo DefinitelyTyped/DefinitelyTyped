@@ -25,6 +25,7 @@ import {
     useMutation,
     useSubscription,
     useQueryLoader,
+    loadQuery
 } from 'react-relay/hooks';
 
 const source = new RecordSource();
@@ -925,5 +926,58 @@ function QueryLoader() {
         } else {
             return null;
         }
+    }
+}
+
+/**
+ * Tests for loadQuery
+ * see https://github.com/facebook/relay/blob/master/packages/relay-experimental/loadQuery.js
+ */
+function LoadQuery() {
+    interface AppQueryVariables {
+        id: string;
+    }
+
+    interface AppQueryResponse {
+        readonly user: {
+            readonly name: string;
+        };
+    }
+
+    interface AppQuery {
+        readonly response: AppQueryResponse;
+        readonly variables: AppQueryVariables;
+    }
+
+    const query = graphql`
+        query AppQuery($id: ID!) {
+            user(id: $id) {
+                name
+            }
+        }
+    `;
+
+    const variables: AppQueryVariables  = {
+        id: "1"
+    };
+
+    const preloadedQuery = loadQuery<AppQuery>(environment, query, variables, {
+        fetchPolicy: 'store-or-network',
+        networkCacheConfig: {
+            force: true
+        }
+    });
+
+    function ShouldPassIntoUsePreloadQuery({preloadedQuery}: {preloadedQuery: PreloadedQuery<AppQuery>}) {
+        const data = usePreloadedQuery(query, preloadedQuery); // $ExpectType AppQueryResponse
+
+        return <>{data.user.name}</>;
+    }
+
+    // To depict some sort of running app
+    function App() {
+        return (
+            <ShouldPassIntoUsePreloadQuery preloadedQuery={preloadedQuery} />
+        );
     }
 }
