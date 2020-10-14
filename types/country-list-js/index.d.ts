@@ -33,6 +33,18 @@ export interface Country {
     provinces: Province[];
 }
 
+export interface CountriesMap {
+    [key: string]: Country;
+}
+
+export interface Cache {
+    capital?: CountriesMap;
+    currency?: CountriesMap;
+    iso3?: CountriesMap;
+    name?: CountriesMap;
+    province?: CountriesMap;
+}
+
 export type CountryRecordMember =
     | 'name'
     | 'region'
@@ -67,3 +79,7 @@ export function findByCurrency(currency: string): Country | undefined;
 export function findByPhoneNbr(phone: string): Country | undefined;
 
 export function findByProvince(province: string): Country | undefined;
+
+export const all: CountriesMap;
+
+export const cache: Cache;

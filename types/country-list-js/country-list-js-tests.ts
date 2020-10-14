@@ -1,4 +1,6 @@
 import countries = require('country-list-js');
+const _tmp1 = countries.all; // $ExpectType CountriesMap
+const _tmp2 = countries.cache; // $ExpectType Cache
 countries.names(); // $ExpectType string[]
 countries.continents(); // $ExpectType string[]
 countries.capitals(); // $ExpectType string[]
