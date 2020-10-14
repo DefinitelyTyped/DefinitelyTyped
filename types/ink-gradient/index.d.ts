@@ -1,4 +1,4 @@
-// Type definitions for ink-gradient 2.0.0
+// Type definitions for ink-gradient 2.0
 // Project: https://github.com/sindresorhus/ink-gradient
 // Definitions by: aaronleopold <https://github.com/aaronleopold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
