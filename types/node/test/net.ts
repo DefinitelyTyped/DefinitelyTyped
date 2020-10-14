@@ -87,7 +87,7 @@ import { LookupOneOptions } from 'dns';
     _socket = _socket.connect(80, (): void => {});
 
     // test the types of the address object fields
-    const address: net.AddressInfo = _socket.address();
+    const address: net.AddressInfo | {} = _socket.address();
 
     /// addListener
 
