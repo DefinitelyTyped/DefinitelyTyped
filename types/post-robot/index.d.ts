@@ -5,29 +5,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 3.0
 
-export as namespace 'post-robot'
+// to shut off automatic exports
+export {};
 // Warning: This is not actually a Promise, but the interface is the same.
 type ZalgoPromise<T> = Promise<T>;
-// Refrenced from https://github.com/krakenjs/cross-domain-utils/src
-interface CrossDomainWindowType {
-    location: string;
-    self: CrossDomainWindowType;
-    closed: boolean;
-    open: (url: string, windowName: string, windowFeatures?: string[]) => CrossDomainWindowType;
-    close: () => void;
-    focus: () => void;
-    top: CrossDomainWindowType;
-    frames: Readonly<[CrossDomainWindowType]>;
-    opener?: CrossDomainWindowType;
-    parent: CrossDomainWindowType;
-    length: number;
-    postMessage: (message: string, targetOrigin: string) => void;
-}
-
+// For the purposes of using the library on it's own Window is CrossDomain enough
+type CrossDomainWindowType = Window | null;
 type DomainMatcher = string | RegExp | string[];
-
 type HandlerType = (source: CrossDomainWindowType, origin: string, data: object) => void | ZalgoPromise<any>;
-
 type ErrorHandlerType = (err: any) => void;
 
 interface ServerOptionsType {
