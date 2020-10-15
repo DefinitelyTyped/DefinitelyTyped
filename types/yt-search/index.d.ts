@@ -92,7 +92,7 @@ declare namespace yts {
         ago: string;
         author: Pick<Author, 'name' | 'url'>;
     }
-    
+
     interface LiveSearchResult {
         type: 'live';
         title: string;
