@@ -666,10 +666,10 @@ bounds.extend([
 bounds.extend([45, 30, 60, 60]);
 
 // controls
-// $ExpectAssignable IControl
-new mapboxgl.Control();
-// $ExpectAssignable IControl
-new mapboxgl.AttributionControl();
+// $ExpectType IControl
+new mapboxgl.Control() as IControl;
+// $ExpectType IControl
+new mapboxgl.AttributionControl() as IControl;
 
 /*
  * GeolocateControl
