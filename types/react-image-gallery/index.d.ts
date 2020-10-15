@@ -3,14 +3,14 @@
 // Definitions by: Adam Webb <https://github.com/adamwpc>
 //                 William Tio <https://github.com/WToa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
+// TypeScript Version: 3.4
 
 import * as React from 'react';
 
-export type ReactImageGalleryImageSet = readonly {
+export type ReactImageGalleryImageSet = ReadonlyArray<{
     srcSet: string;
     media: string;
-}[];
+}>;
 
 export interface ReactImageGalleryItem {
     bulletClass?: string;
@@ -43,7 +43,7 @@ export interface ReactImageGalleryItem {
 
 export interface ReactImageGalleryProps {
     flickThreshold?: number;
-    items: readonly ReactImageGalleryItem[];
+    items: ReadonlyArray<ReactImageGalleryItem>;
     showNav?: boolean;
     autoPlay?: boolean;
     lazyLoad?: boolean;
