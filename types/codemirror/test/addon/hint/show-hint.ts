@@ -46,3 +46,5 @@ cm.showHint({
     completeSingle: false,
     hint: asyncHintFunc,
 });
+
+cm.showHint();
