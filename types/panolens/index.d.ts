@@ -43,24 +43,41 @@ export namespace DataImage {
     const ViewIndicator: string;
 }
 
+export interface LoaderProgressHandler {
+    (progress?: { loaded: number, total: number; }): any;
+}
+
 export interface ImageLoader {
-    load(url?: string, onLoad?: () => any, onProgress?: () => any, onError?: () => any): void;
+    load(
+        url: string,
+        onLoad?: (image?: HTMLElement) => any,
+        onProgress?: LoaderProgressHandler,
+        onError?: (error?: any) => any,
+    ): HTMLElement;
 }
 
 export interface TextureLoader {
-    load(url?: string, onLoad?: () => any, onProgress?: () => any, onError?: () => any): void;
+    load(
+        url: string,
+        onLoad?: (texture?: THREE.Texture) => any,
+        onProgress?: LoaderProgressHandler,
+        onError?: (error?: any) => any,
+    ): THREE.Texture;
 }
 
 export interface CubeTextureLoader {
-    load(url?: string, onLoad?: () => any, onProgress?: () => any, onError?: () => any): void;
+    load(
+        urls: string[],
+        onLoad?: (texture?: THREE.Texture) => any,
+        onProgress?: LoaderProgressHandler,
+        onError?: (error?: any) => any,
+    ): THREE.Texture;
 }
 
 export class GoogleStreetviewLoader {
     result: object;
     rotation: number;
     copyright: string;
-    onSizeChange: () => any;
-    onPanoramaLoad: () => any;
     levelsW: number[];
     levelsH: number[];
     widths: number[];
@@ -71,7 +88,7 @@ export class GoogleStreetviewLoader {
     panoId: string;
     zoom: number;
 
-    constructor(parameters: { useWebGL?: boolean, [key: string]: any; });
+    constructor(parameters: { useWebGL: boolean; });
 
     setProgress(loaded: number, total: number): void;
 
@@ -100,7 +117,11 @@ export class Media extends THREE.EventDispatcher {
     ratioScalar: number;
     videoDeviceIndex: number;
     container: HTMLElement;
-    scene: object;
+    scene: THREE.Scene;
+
+    setScene(scene: THREE.Scene): void;
+
+    setContainer(container: HTMLElement): void;
 
     enumerateDevices(): Promise<MediaDeviceInfo[]>;
 
@@ -127,10 +148,6 @@ export class Media extends THREE.EventDispatcher {
     createVideoElement(): HTMLVideoElement;
 
     onWindowResize(event?: Event): void;
-
-    setScene(): void;
-
-    setContainer(): void;
 }
 
 export class Reticle extends THREE.Sprite {
@@ -144,17 +161,17 @@ export class Reticle extends THREE.Sprite {
     rippleDuration: number;
     startTimestamp: number;
     timerId: number;
-    callback: () => any;
+    callback: undefined | (() => any);
 
     constructor(color?: THREE.Color, autoSelect?: boolean, dwellTime?: number);
 
-    setColor(color?: THREE.Color): void;
+    setColor(color: THREE.Color): void;
 
-    createCanvasTexture(canvas?: THREE.CanvasTexture): THREE.CanvasTexture;
+    createCanvasTexture(canvas: THREE.CanvasTexture): THREE.CanvasTexture;
 
     createCanvas(): HTMLCanvasElement;
 
-    updateCanvasArcByProgress(progress?: number): void;
+    updateCanvasArcByProgress(progress: number): void;
 
     ripple(): void;
 
@@ -169,6 +186,10 @@ export class Reticle extends THREE.Sprite {
     update(): void;
 }
 
+export interface InfoSpotFocusHandler {
+    (position?: THREE.Vector3, duration?: number, easing?: Easing): any;
+}
+
 export class Infospot extends THREE.Sprite {
     animated: boolean;
     isHovering: boolean;
@@ -178,7 +199,7 @@ export class Infospot extends THREE.Sprite {
     mode: number;
     container: HTMLElement | object;
     originalRaycast: THREE.Raycaster;
-    HANDLER_FOCUS: () => any;
+    HANDLER_FOCUS: null | InfoSpotFocusHandler;
     scaleUpAnimation: TWEEN.Tween;
     scaleDownAnimation: TWEEN.Tween;
     showAnimation: TWEEN.Tween;
@@ -228,11 +249,18 @@ export class Infospot extends THREE.Sprite {
 
     hide(delay?: number): void;
 
-    setFocusMethod(event?: object): void;
+    setFocusMethod(event?: { method: InfoSpotFocusHandler; }): void;
 
-    focus(duration?: number, easing?: () => any): void;
+    focus(duration?: number, easing?: Easing): void;
 
     dispose(): void;
+}
+
+export interface WidgetCustomItemOptions {
+    element?: HTMLElement;
+    onDispose?: () => any;
+    onTap?: (event?: EventListener) => any;
+    style?: CSSStyleDeclaration;
 }
 
 export class Widget extends THREE.EventDispatcher {
@@ -248,7 +276,9 @@ export class Widget extends THREE.EventDispatcher {
     activeSubMenu: HTMLElement;
     mask: HTMLElement;
 
-    PREVENT_EVENT_HANDLER(event?: object): void;
+    constructor(container?: HTMLElement);
+
+    PREVENT_EVENT_HANDLER(event?: EventListener): void;
 
     addControlBar(): void;
 
@@ -278,11 +308,18 @@ export class Widget extends THREE.EventDispatcher {
 
     createMenu(): HTMLElement;
 
-    createCustomItem(options?: object): HTMLElement;
+    createCustomItem(options: WidgetCustomItemOptions): HTMLElement;
 
-    mergeStyleOptions(element?: HTMLElement, options?: object): HTMLElement;
+    mergeStyleOptions(element: HTMLElement, options: CSSStyleDeclaration): HTMLElement;
 
     dispose(): void;
+}
+
+export interface PanoramaClickEvent {
+    intersects: THREE.Intersection[];
+    mouseEvent: MouseEvent;
+    target: Panorama;
+    type: string;
 }
 
 export class Panorama extends THREE.Mesh {
@@ -293,7 +330,7 @@ export class Panorama extends THREE.Mesh {
     ImageQualitySuperHigh: number;
     animationDuration: number;
     defaultInfospotSize: number;
-    container: HTMLElement | object;
+    container: HTMLElement | { container: HTMLElement; };
     loaded: boolean;
     linkedSpots: Infospot[];
     isInfospotVisible: boolean;
@@ -304,11 +341,11 @@ export class Panorama extends THREE.Mesh {
 
     constructor(geometry?: THREE.Geometry, material?: THREE.Material);
 
-    onClick(event?: object): void;
+    onClick(event?: PanoramaClickEvent): void;
 
-    setContainer(data?: HTMLElement | object): void;
+    setContainer(data: HTMLElement | { container: HTMLElement; }): void;
 
-    onLoad(): void;
+    protected onLoad(): void;
 
     onProgress(progress?: number): void;
 
@@ -316,13 +353,13 @@ export class Panorama extends THREE.Mesh {
 
     getZoomLevel(): number;
 
-    updateTexture(texture?: THREE.Texture): void;
+    updateTexture(texture: THREE.Texture): void;
 
     toggleInfospotVisibility(isVisible?: boolean, delay?: number): void;
 
     setLinkingImage(url?: string, scale?: number): void;
 
-    link(pano?: Panorama, position?: THREE.Vector3, imageScale?: number, imageSource?: string): void;
+    link(pano: Panorama, position?: THREE.Vector3, imageScale?: number, imageSource?: string): void;
 
     fadeIn(duration?: number): void;
 
@@ -336,12 +373,12 @@ export class Panorama extends THREE.Mesh {
 }
 
 export class ImagePanorama extends Panorama {
-    src: string | HTMLElement | THREE.Texture;
+    src: string | HTMLElement;
     radius: number;
 
     constructor(image?: string | HTMLImageElement, geometry?: THREE.Geometry, material?: THREE.Material);
 
-    onLoad(src?: string | HTMLElement | THREE.Texture): void;
+    onLoad(src?: THREE.Texture): void;
 
     load(src: string | HTMLImageElement): void;
 
@@ -356,8 +393,6 @@ export class CubePanorama extends Panorama {
     edgeLength: number;
 
     load(): void;
-
-    onLoad(texture?: THREE.CubeTexture): void;
 
     dispose(): void;
 }
@@ -408,19 +443,17 @@ export class GoogleStreetviewPanorama extends ImagePanorama {
     gsvLoader: object;
     loadRequested: any;
 
-    constructor(src?: string, options?: object);
+    constructor(panoId: string, apiKey?: string);
 
     load(panoId: string): void;
 
-    setupGoogleMapAPI(apiKey?: string): void;
+    setupGoogleMapAPI(apiKey: string): void;
 
     setGSVLoader(): object;
 
     getGSVLoader(): object;
 
     loadGSVLoader(panoId: string): void;
-
-    onLoad(canvas?: HTMLCanvasElement): void;
 
     reset(): void;
 }
@@ -440,12 +473,20 @@ export class LittlePlanet extends ImagePanorama {
     vectorY: THREE.Vector3;
 
     constructor(type: string, source: string, size: number, ration: number);
+
+    createGeometry(size: number, ratio: number): THREE.PlaneBufferGeometry;
+
+    createMaterial(size: number): THREE.ShaderMaterial;
+
+    registerMouseEvents(): void;
+
+    unregisterMouseEvents(): void;
+
+    addZoomDelta(delta: number): void;
 }
 
 export class ImageLittlePlanet extends LittlePlanet {
     constructor(source: string, size: number, ratio: number);
-
-    onLoad(texture?: THREE.Texture): void;
 
     updateTexture(texture: THREE.Texture): void;
 
@@ -453,14 +494,14 @@ export class ImageLittlePlanet extends LittlePlanet {
 }
 
 export class CameraPanorama extends Panorama {
-    media: any;
+    media: Media;
     radius: number;
 
-    onPanolensContainer(container: { container: any, [key: string]: any; }): void;
+    onPanolensContainer(container: { container: HTMLElement, [key: string]: any; }): void;
 
-    onPanolensScene(scene: { scene: any, [key: string]: any; }): void;
+    onPanolensScene(scene: { scene: THREE.Scene, [key: string]: any; }): void;
 
-    start(): Promise<any>;
+    start(): Promise<MediaDeviceInfo[]>;
 
     stop(): void;
 }
@@ -655,20 +696,20 @@ export class Viewer extends THREE.EventDispatcher {
     raycaster: THREE.Raycaster;
     raycasterPoint: THREE.Vector2;
     userMouse: THREE.Vector2;
-    updateCallbacks: () => any[];
+    updateCallbacks: Array<(() => any)>;
     requestAnimationId: number;
     cameraFrustum: THREE.Frustum;
     cameraViewProjectionMatrix: THREE.Matrix4;
     autoRotateRequestId: number;
     outputDivElement: HTMLElement;
     touchSupported: boolean;
-    HANDLER_MOUSE_DOWN: () => any;
-    HANDLER_MOUSE_UP: () => any;
-    HANDLER_MOUSE_MOVE: () => any;
-    HANDLER_WINDOW_RESIZE: () => any;
-    HANDLER_KEY_DOWN: () => any;
-    HANDLER_KEY_UP: () => any;
-    HANDLER_TAP: () => any;
+    HANDLER_MOUSE_DOWN: (event?: MouseEvent) => any;
+    HANDLER_MOUSE_UP: (event?: MouseEvent) => any;
+    HANDLER_MOUSE_MOVE: (event?: MouseEvent) => any;
+    HANDLER_WINDOW_RESIZE: (event?: Event) => any;
+    HANDLER_KEY_DOWN: (event?: KeyboardEvent) => any;
+    HANDLER_KEY_UP: (event?: KeyboardEvent) => any;
+    HANDLER_TAP: (event?: MouseEvent) => any;
     OUTPUT_INFOSPOT: HTMLElement;
     tweenLeftAnimation: TWEEN.Tween;
     tweenUpAnimation: TWEEN.Tween;
@@ -826,7 +867,7 @@ export class Viewer extends THREE.EventDispatcher {
 
     onPanoramaDispose(panorama: Panorama): void;
 
-    loadAsyncRequest(url: string, callback: () => any): void;
+    loadAsyncRequest(url: string, callback: (event?: ProgressEvent) => any): void;
 
     addViewIndicator(): void;
 
