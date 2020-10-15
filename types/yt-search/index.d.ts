@@ -135,7 +135,7 @@ declare namespace yts {
     }
 
     interface SearchResult {
-        all: (VideoSearchResult | PlaylistSearchResult | LiveSearchResult | ChannelSearchResult)[];
+        all: Array<VideoSearchResult | PlaylistSearchResult | LiveSearchResult | ChannelSearchResult>;
         videos: VideoSearchResult[];
         live: LiveSearchResult[];
         playlists: PlaylistSearchResult[];
