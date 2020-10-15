@@ -868,7 +868,7 @@ declare namespace mapboxgl {
     export interface IControl {
         onAdd(map: Map): HTMLElement;
 
-        onRemove(map: Map): any;
+        onRemove(map: Map): void;
 
         getDefaultPosition?: () => string;
     }
@@ -878,7 +878,7 @@ declare namespace mapboxgl {
      */
     export class Control extends Evented implements IControl {
         onAdd(map: Map): HTMLElement;
-        onRemove(map: Map): any;
+        onRemove(map: Map): void;
         getDefaultPosition?: () => string;
     }
 
