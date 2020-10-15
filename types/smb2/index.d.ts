@@ -6,49 +6,49 @@
 export = SMB2;
 
 interface SMB2Options {
-	share: string;
+    share: string;
 
-	domain: string;
+    domain: string;
 
-	username: string;
+    username: string;
 
-	password: string;
+    password: string;
 
-	port?: number;
+    port?: number;
 
-	packetConcurrency?: number;
+    packetConcurrency?: number;
 
-	autoCloseTimeout?: number;
+    autoCloseTimeout?: number;
 }
 
 interface SMB2ReadFileOptions {
-	encoding: string | null;
+    encoding: string | null;
 }
 
 declare class SMB2 {
-	constructor(options: SMB2Options);
+    constructor(options: SMB2Options);
 
-	close(): void;
+    close(): void;
 
-	exists(path: string, callback?: (error: unknown, exists: boolean) => void): void;
+    exists(path: string, callback?: (error: unknown, exists: boolean) => void): void;
 
-	rename(oldPath: string, newPath: string, callback?: (error: unknown) => void): void;
+    rename(oldPath: string, newPath: string, callback?: (error: unknown) => void): void;
 
-	readFile(fileName: string, options?: SMB2ReadFileOptions, callback?: (error: unknown, data: string) => void): void;
+    readFile(fileName: string, options?: SMB2ReadFileOptions, callback?: (error: unknown, data: string) => void): void;
 
-	readFile(fileName: string, callback?: (error: unknown, data: string) => void): void;
+    readFile(fileName: string, callback?: (error: unknown, data: string) => void): void;
 
-	writeFile(fileName: string, data: string, options?: SMB2ReadFileOptions, callback?: (error: unknown) => void): void;
+    writeFile(fileName: string, data: string, options?: SMB2ReadFileOptions, callback?: (error: unknown) => void): void;
 
-	writeFile(fileName: string, data: string, callback?: (error: unknown) => void): void;
+    writeFile(fileName: string, data: string, callback?: (error: unknown) => void): void;
 
-	unlink(fileName: string, callback?: (error: unknown) => void): void;
+    unlink(fileName: string, callback?: (error: unknown) => void): void;
 
-	readdir(dir: string, callback?: (error: unknown, files: string[]) => void): void;
+    readdir(dir: string, callback?: (error: unknown, files: string[]) => void): void;
 
-	rmdir(dir: string, callback?: (error: unknown) => void): void;
+    rmdir(dir: string, callback?: (error: unknown) => void): void;
 
-	mkdir(dir: string, mode: string, callback?: (error: unknown) => void): void;
+    mkdir(dir: string, mode: string, callback?: (error: unknown) => void): void;
 
-	mkdir(dir: string, callback?: (error: unknown) => void): void;
+    mkdir(dir: string, callback?: (error: unknown) => void): void;
 }
