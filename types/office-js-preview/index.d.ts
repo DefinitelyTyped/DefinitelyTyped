@@ -19228,7 +19228,7 @@ declare namespace Excel {
         fiveBoxes: FiveBoxesSet;
     }
     var icons: IconCollections;
-
+    
     interface Session {
     }
 
@@ -24188,8 +24188,7 @@ declare namespace Excel {
         /**
          * Returns a `RangeAreas` object that represents the merged areas in this range. Note that if the merged areas count in this range is more than 512, the API will fail to return the result.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         getMergedAreas(): Excel.RangeAreas;
         /**
@@ -26535,6 +26534,7 @@ declare namespace Excel {
          * The style applied to the Table.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
          */
         readonly tableStyle: Excel.TableStyle;
         /**
@@ -33930,6 +33930,7 @@ declare namespace Excel {
          * The style applied to the PivotTable.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
          */
         readonly pivotStyle: Excel.PivotTableStyle;
         /**
@@ -34102,9 +34103,9 @@ declare namespace Excel {
          *
          * @param axis The axis from which to get the PivotItems. Must be either "row" or "column."
          * @param cell A single cell within the PivotTable's data body.
-         * @returns A collection of PivotItems that are used to calculate the values in the specified row.
+         * @returns A PivotItemCollection of the PivotItems that are used to calculate the values in the specified row.
          */
-        getPivotItems(axis: Excel.PivotAxis, cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
+        getPivotItems(axis: Excel.PivotAxis, cell: Range | string): Excel.PivotItemCollection;
         /**
          * Gets the PivotItems from an axis that make up the value in a specified range within the PivotTable.
          *
@@ -34112,9 +34113,9 @@ declare namespace Excel {
          *
          * @param axis The axis from which to get the PivotItems. Must be either "row" or "column."
          * @param cell A single cell within the PivotTable's data body.
-         * @returns A collection of PivotItems that are used to calculate the values in the specified row.
+         * @returns A PivotItemCollection of the PivotItems that are used to calculate the values in the specified row.
          */
-        getPivotItems(axis: "Unknown" | "Row" | "Column" | "Data" | "Filter", cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
+        getPivotItems(axis: "Unknown" | "Row" | "Column" | "Data" | "Filter", cell: Range | string): Excel.PivotItemCollection;
         /**
          * Returns the range the PivotTable exists on, excluding the filter area.
          *
@@ -48402,6 +48403,7 @@ declare namespace Excel {
         itemNotFound = "ItemNotFound",
         nonBlankCellOffSheet = "NonBlankCellOffSheet",
         notImplemented = "NotImplemented",
+        pivotTableRangeConflict = "PivotTableRangeConflict",
         rangeExceedsLimit = "RangeExceedsLimit",
         requestAborted = "RequestAborted",
         unsupportedOperation = "UnsupportedOperation",
@@ -48819,6 +48821,7 @@ declare namespace Excel {
             * The style applied to the Table.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             tableStyle?: Excel.Interfaces.TableStyleUpdateData;
             /**
@@ -51269,6 +51272,7 @@ declare namespace Excel {
             * The style applied to the PivotTable.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             pivotStyle?: Excel.Interfaces.PivotTableStyleUpdateData;
             /**
@@ -53054,7 +53058,8 @@ declare namespace Excel {
             *
             * The style applied to the Slicer.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             slicerStyle?: Excel.Interfaces.SlicerStyleUpdateData;
             /**
@@ -54264,7 +54269,8 @@ declare namespace Excel {
             *
             * The style applied to the Table.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             tableStyle?: Excel.Interfaces.TableStyleData;
             /**
@@ -59363,7 +59369,8 @@ declare namespace Excel {
             *
             * The style applied to the Slicer.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             slicerStyle?: Excel.Interfaces.SlicerStyleData;
             /**
@@ -61008,7 +61015,8 @@ declare namespace Excel {
             *
             * For EACH ITEM in the collection: The style applied to the Table.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
@@ -61141,7 +61149,8 @@ declare namespace Excel {
             *
             * For EACH ITEM in the collection: The style applied to the Table.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
@@ -61275,7 +61284,8 @@ declare namespace Excel {
             *
             * The style applied to the Table.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
@@ -69887,7 +69897,8 @@ declare namespace Excel {
             *
             * The style applied to the Slicer.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             slicerStyle?: Excel.Interfaces.SlicerStyleLoadOptions;
             /**
@@ -69995,7 +70006,8 @@ declare namespace Excel {
             *
             * For EACH ITEM in the collection: The style applied to the Slicer.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             slicerStyle?: Excel.Interfaces.SlicerStyleLoadOptions;
             /**
