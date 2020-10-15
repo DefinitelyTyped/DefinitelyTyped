@@ -1,4 +1,4 @@
-// Type definitions for react-image-gallery 1.0
+// Type definitions for react-image-gallery 1.0.8
 // Project: https://github.com/xiaolin/react-image-gallery
 // Definitions by: Adam Webb <https://github.com/adamwpc>
 //                 William Tio <https://github.com/WToa>
@@ -6,6 +6,11 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+
+export type ReactImageGalleryImageSet = readonly {
+    srcSet: string;
+    media: string;
+}[];
 
 export interface ReactImageGalleryItem {
     bulletClass?: string;
@@ -19,28 +24,28 @@ export interface ReactImageGalleryItem {
         currentIndex: number;
     }): void;
     description?: string;
-    original?: string;
+    original: string;
+    fullscreen?: string;
     originalAlt?: string;
     originalTitle?: string;
     thumbnail?: string;
     thumbnailAlt?: string;
     thumbnailLabel?: string;
     thumbnailTitle?: string;
-    fullscreen?: string;
     originalClass?: string;
     thumbnailClass?: string;
-    renderItem?(item?: ReactImageGalleryItem): React.ReactNode;
-    renderThumbInner?(item?: ReactImageGalleryItem): React.ReactNode;
+    renderItem?(item: ReactImageGalleryItem): React.ReactNode;
+    renderThumbInner?(item: ReactImageGalleryItem): React.ReactNode;
+    imageSet?: ReactImageGalleryImageSet;
     srcSet?: string;
     sizes?: string;
 }
 
 export interface ReactImageGalleryProps {
     flickThreshold?: number;
-    items: ReactImageGalleryItem[];
+    items: readonly ReactImageGalleryItem[];
     showNav?: boolean;
     autoPlay?: boolean;
-
     lazyLoad?: boolean;
     infinite?: boolean;
     showIndex?: boolean;
@@ -63,6 +68,7 @@ export interface ReactImageGalleryProps {
     swipeThreshold?: number;
     swipingTransitionDuration?: number;
     onSlide?: (currentIndex: number) => void;
+    onBeforeSlide?: (currentIndex: number) => void;
     onScreenChange?: (fullScreenElement: Element) => void;
     onPause?: (currentIndex: number) => void;
     onPlay?: (currentIndex: number) => void;
@@ -77,8 +83,8 @@ export interface ReactImageGalleryProps {
     onThumbnailError?: (event: React.ReactEventHandler<HTMLImageElement>) => void;
     onThumbnailClick?: (event: React.MouseEventHandler<HTMLAnchorElement>, index: number) => void;
     renderCustomControls?: () => React.ReactNode;
-    renderLeftNav?: (onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React.ReactNode;
-    renderRightNav?: (onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React.ReactNode;
+    renderLeftNav?: (onClick: React.MouseEventHandler<HTMLElement>, disabled: boolean) => React.ReactNode;
+    renderRightNav?: (onClick: React.MouseEventHandler<HTMLElement>, disabled: boolean) => React.ReactNode;
     renderPlayPauseButton?: (onClick: React.MouseEventHandler<HTMLElement>, isPlaying: boolean) => React.ReactNode;
     renderFullscreenButton?: (onClick: React.MouseEventHandler<HTMLElement>, isFullscreen: boolean) => React.ReactNode;
     renderItem?: (item: ReactImageGalleryItem) => React.ReactNode;
