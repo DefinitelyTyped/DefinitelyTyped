@@ -17,14 +17,14 @@ export interface OptionsBase {
     allowAddedLabels?: boolean;
     dryRun?: boolean;
     format?: {
-        diff?: (str: string) => string;
-        success?: (str: string) => string;
-        warning?: (str: string) => string;
+        diff?: (str: string) => string
+        success?: (str: string) => string
+        warning?: (str: string) => string
     };
     labels: LabelInfo[];
     log?: {
-        info?: (str: string) => void;
-        warn?: (str: string) => void;
+        info?: (str: string) => void
+        warn?: (str: string) => void
     };
 }
 
