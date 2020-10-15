@@ -87,3 +87,24 @@ if (logoutPromise) {
         // You can now do clean up after successful logout
     });
 }
+
+let refreshPromise = NetlifyIdentityWidget.refresh();
+if (refreshPromise) {
+    refreshPromise.then((token: NetlifyIdentityWidget.Token) => {
+        // Use the token
+    });
+}
+
+refreshPromise = NetlifyIdentityWidget.refresh(true);
+if (refreshPromise) {
+    refreshPromise.then((token: NetlifyIdentityWidget.Token) => {
+        // Use the token
+    });
+}
+
+refreshPromise = NetlifyIdentityWidget.refresh(false);
+if (refreshPromise) {
+    refreshPromise.then((token: NetlifyIdentityWidget.Token) => {
+        // Use the token
+    });
+}
