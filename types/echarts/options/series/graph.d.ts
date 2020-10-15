@@ -3924,6 +3924,19 @@ declare namespace echarts {
             categories?: SeriesGraph.CategoryObject[];
 
             /**
+             * For the situation where there are multiple links between nodes, the curveness of each link is automatically calculated.
+             * When set to number, it indicates the length of the edge curvenness array between two nodes, and the calculation result is given by the internal algorithm.
+             * When set to Array, it means that the curveness array is directly specified, and the multilateral curveness is directly selected from the array.
+             * Notice： if lineStyle.curveness has been set, this property is invalid.
+             *
+             * [see doc](https://echarts.apache.org/en/option.html#series-graph.autoCurveness)
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-graph.autoCurveness
+             */
+            autoCurveness?: number | number[];
+
+            /**
              * Nodes list of graph.
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph)
