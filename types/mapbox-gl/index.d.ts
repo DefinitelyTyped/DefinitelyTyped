@@ -73,12 +73,7 @@ declare namespace mapboxgl {
 
     type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
 
-    type LngLatLike =
-        | [number, number]
-        | LngLat
-        | { lng: number; lat: number }
-        | { lon: number; lat: number }
-        | [number, number];
+    type LngLatLike = [number, number] | LngLat | { lng: number; lat: number } | { lon: number; lat: number } | [number, number];
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number] | LngLatLike;
     type PointLike = Point | [number, number];
 
