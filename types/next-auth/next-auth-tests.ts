@@ -75,12 +75,12 @@ const allConfig = {
     },
     pages: pageOptions,
     callbacks: {
-        signIgn: (user: GenericObject, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
+        signIgn: (user: NextAuthTypes.User, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
-        session: (session: SessionBase, user: GenericObject) => Promise.resolve<any>(user),
+        session: (session: SessionBase, user: NextAuthTypes.User) => Promise.resolve<any>(user),
         jwt: (
             token: GenericObject,
-            user: GenericObject,
+            user: NextAuthTypes.User,
             account: GenericObject,
             profile: GenericObject,
             isNewUser: boolean,

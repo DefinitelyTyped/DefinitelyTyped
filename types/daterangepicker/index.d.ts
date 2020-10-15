@@ -58,12 +58,22 @@ declare namespace daterangepicker {
         format(format?: string): string;
     }
 
+    type Month = moment.Moment[][] & {
+        firstDay: moment.Moment;
+        lastDay: moment.Moment;
+    };
+
+    interface Calendar {
+        calendar: Month;
+        month: moment.Moment;
+    }
+
     interface DateRangePicker {
         startDate: moment.Moment;
         endDate: moment.Moment;
         minDate: moment.Moment;
         maxDate: moment.Moment;
-        maxSpan: moment.MomentInput | moment.Duration | boolean;
+        maxSpan: moment.DurationInputArg1 | boolean;
         showDropdowns: boolean;
         minYear: number;
         maxYear: number;
@@ -89,6 +99,15 @@ declare namespace daterangepicker {
         isCustomDate(date: DateOrString): string | string[] | false | undefined;
         autoUpdateInput: boolean;
         parentEl: JQuery;
+        element: JQuery;
+        container: JQuery;
+        isShowing: boolean;
+        previousRightTime: moment.Moment;
+        oldStartDate: moment.Moment;
+        oldEndDate: moment.Moment;
+        leftCalendar: Calendar;
+        rightCalendar: Calendar;
+        chosenLabel?: string;
     }
 
     interface Options {
@@ -111,7 +130,7 @@ declare namespace daterangepicker {
         /**
          * The maximum span between the selected start and end dates. Can have any property you can add to a moment object (i.e. days, months)
          */
-        maxSpan?: moment.MomentInput | moment.Duration;
+        maxSpan?: moment.DurationInputArg1;
         /**
          * Show year and month select boxes above calendars to jump to a specific month and year
          */
