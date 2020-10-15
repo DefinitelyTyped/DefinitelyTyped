@@ -1,21 +1,25 @@
-import styles from './main.sass';
-import * as classNames from 'classnames';
+import * as css from './styles.css';
+import * as less from './styles.less';
+import * as sass from './styles.sass';
+import * as scss from './styles.scss';
+import * as styl from './styles.styl';
 
-class App {
-    private readonly theme: string;
-    constructor(theme: string) {
-        this.theme = theme;
-    }
+css; // $ExpectType CSSModule
 
-    render() {
-        // as a style tag (using webpack's css-loader)
-        const tpl = `<div style="${styles.toString()}"></div>`;
-        // or as scoped unique classes, also latest typescript versions allow prop access using dot like styles.darkUI instead of styles['darkUI']
-        return `
-            <div class="${classNames((this.theme === 'dark') ?
-                styles.darkUI :
-                styles.lightUI.toString())}">
-            </div>
-        `;
-    }
-}
+css.customCssClassName; // $ExpectType string
+
+less; // $ExpectType CSSModule
+
+less.customLessClassName; // $ExpectType string
+
+sass; // $ExpectType CSSModule
+
+sass.customSassClassName; // $ExpectType string
+
+scss; // $ExpectType CSSModule
+
+scss.customScssClassName; // $ExpectType string
+
+styl; // $ExpectType CSSModule
+
+styl.customStylClassName; // $ExpectType string
