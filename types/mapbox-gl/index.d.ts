@@ -876,7 +876,11 @@ declare namespace mapboxgl {
     /**
      * Control
      */
-    export class Control extends Evented {}
+    export class Control extends Evented implements IControl {
+        onAdd(map: Map): HTMLElement;
+        onRemove(map: Map): any;
+        getDefaultPosition?: () => string;
+    }
 
     /**
      * Navigation
