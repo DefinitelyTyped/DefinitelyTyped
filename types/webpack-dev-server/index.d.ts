@@ -27,13 +27,13 @@ declare namespace WebpackDevServer {
     }
 
     interface ProxyConfigMap {
-        [url: string]: string | httpProxyMiddleware.Config;
+        [url: string]: string | httpProxyMiddleware.Options;
     }
 
     type ProxyConfigArrayItem = {
         path?: string | string[];
         context?: string | string[] | httpProxyMiddleware.Filter;
-    } & httpProxyMiddleware.Config;
+    } & httpProxyMiddleware.Options;
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
 

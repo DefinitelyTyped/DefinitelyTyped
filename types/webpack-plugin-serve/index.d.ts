@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 import { Url } from 'url';
-import { Config as HttpProxyMiddlewareConfig, Proxy } from 'http-proxy-middleware';
+import { Options, RequestHandler } from 'http-proxy-middleware';
 import * as Koa from 'koa';
 import {
     ServerOptions as Http2ServerOptions,
@@ -21,7 +21,7 @@ import { Options as KoaStaticOptions } from 'koa-static';
 import { Options as FastGlobOptions } from 'fast-glob';
 
 export interface Builtins {
-    proxy: (args: HttpProxyMiddlewareConfig) => Proxy;
+    proxy: (args: Options) => RequestHandler;
     compress: (opts: CompressOptions) => void;
     static: (paths: string[], opts?: KoaStaticOptions) => void;
     historyFallback: (opts: HistoryApiFallbackOptions) => void;

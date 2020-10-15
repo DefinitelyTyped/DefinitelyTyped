@@ -1945,6 +1945,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "http-proxy-middleware",
+            "typingsPackageName": "http-proxy-middleware",
+            "sourceRepoURL": "https://github.com/chimurai/http-proxy-middleware/",
+            "asOfVersion": "0.20.0"
+        },
+        {
             "libraryName": "http-status",
             "typingsPackageName": "http-status",
             "sourceRepoURL": "https://github.com/wdavidw/node-http-status",
