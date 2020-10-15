@@ -1,4 +1,4 @@
-import matchSorter = require('match-sorter');
+import { matchSorter } from 'match-sorter';
 
 // # Basic Sample
 {
