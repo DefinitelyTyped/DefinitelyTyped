@@ -1,4 +1,4 @@
-// Type definitions for yt-search 2.0
+// Type definitions for yt-search 2.3.3
 // Project: https://github.com/talmobi/yt-search#readme
 // Definitions by: cherryblossom <https://github.com/cherryblossom000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -92,6 +92,20 @@ declare namespace yts {
         ago: string;
         author: Pick<Author, 'name' | 'url'>;
     }
+    
+    interface LiveSearchResult {
+        type: 'live';
+        title: string;
+        description: string;
+        url: string;
+        videoId: string;
+        watching: number;
+        image: string;
+        /** @deprecated */
+        thumbnail: string;
+        author: Pick<Author, 'name' | 'url'>;
+        status: 'LIVE' | 'UPCOMING';
+    }
 
     interface PlaylistSearchResult {
         type: 'list';
@@ -121,7 +135,9 @@ declare namespace yts {
     }
 
     interface SearchResult {
+        all: (VideoSearchResult | PlaylistSearchResult | LiveSearchResult | ChannelSearchResult)[];
         videos: VideoSearchResult[];
+        live: LiveSearchResult[];
         playlists: PlaylistSearchResult[];
         lists: PlaylistSearchResult[];
         accounts: ChannelSearchResult[];
