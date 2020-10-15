@@ -91435,13 +91435,13 @@ declare namespace PowerPoint {
          */
         getItemAt(index: number): PowerPoint.Slide;
         /**
-         * Gets a slide using its unique ID. A null object is returned if the slide does not exist.
+         * Gets a slide using its unique ID. Returns an object whose `isNullObject` property is set to `true` if the slide does not exist.
          *
          * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
          * @beta
          *
          * @param id The ID of the slide.
-         * @returns The slide with the unique ID. If such a slide does not exist, a null object is returned.
+         * @returns The slide with the unique ID. If such a slide does not exist, an object whose `isNullObject` property is set to `true` is returned.
          */
         getItemOrNullObject(id: string): PowerPoint.Slide;
         /**
