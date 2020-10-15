@@ -5,43 +5,39 @@
 // Definitions: https://github.com/zhu1230/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare namespace ActionCable {
-    interface Channel {
-        unsubscribe(): void;
-        perform(action: string, data: {}): void;
-        send(data: any): boolean;
-    }
-
-    interface Subscriptions {
-        create(channel: string | ChannelNameWithParams, obj?: CreateMixin): Channel;
-    }
-
-    interface Cable {
-        subscriptions: Subscriptions;
-        send(data: any): void;
-        connect(): void;
-        disconnect(): void;
-        ensureActiveConnection(): void;
-    }
-
-    interface CreateMixin {
-        connected?(): void;
-        disconnected?(): void;
-        received?(obj: any): void;
-        [key: string]: any;
-    }
-
-    interface ChannelNameWithParams {
-        channel: string;
-        [key: string]: any;
-    }
-
-    function createConsumer(url?: string): Cable;
+export interface Channel {
+    unsubscribe(): void;
+    perform(action: string, data: {}): void;
+    send(data: any): boolean;
 }
 
-interface AppInterface {
-    cable?: ActionCable.Cable;
-    network?: ActionCable.Channel;
+export interface Subscriptions {
+    create(channel: string | ChannelNameWithParams, obj?: CreateMixin): Channel;
 }
 
-declare var App: AppInterface;
+export interface Cable {
+    subscriptions: Subscriptions;
+    send(data: any): void;
+    connect(): void;
+    disconnect(): void;
+    ensureActiveConnection(): void;
+}
+
+export interface CreateMixin {
+    connected?(): void;
+    disconnected?(): void;
+    received?(obj: any): void;
+    [key: string]: any;
+}
+
+export interface ChannelNameWithParams {
+    channel: string;
+    [key: string]: any;
+}
+
+export function createConsumer(url?: string): Cable;
+
+export interface AppInterface {
+    cable?: Cable;
+    network?: Channel;
+}

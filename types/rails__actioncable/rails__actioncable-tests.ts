@@ -1,10 +1,11 @@
-interface HelloChannel extends ActionCable.Channel {
+import { createConsumer, Channel, ChannelNameWithParams } from '@rails/actioncable';
+
+interface HelloChannel extends Channel {
     hello(world: string, name?: string): void;
 }
 
-App = {};
-App.cable = ActionCable.createConsumer();
-const helloChannel = App.cable.subscriptions.create('NetworkChannel', {
+const cable = createConsumer();
+const helloChannel = cable.subscriptions.create('NetworkChannel', {
     connected(): void {
         console.log('connected');
     },
@@ -21,14 +22,14 @@ const helloChannel = App.cable.subscriptions.create('NetworkChannel', {
 
 helloChannel.hello('World');
 
-const channelParams: ActionCable.ChannelNameWithParams = {
+const channelParams: ChannelNameWithParams = {
     channel: 'NetworkChannel',
     token: 'foo',
     data: {
         bar: 'baz',
     },
 };
-const channelWithParams = App.cable.subscriptions.create(channelParams, {
+const channelWithParams = cable.subscriptions.create(channelParams, {
     connected(): void {
         console.log('connected');
     },
