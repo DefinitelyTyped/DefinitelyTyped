@@ -289,6 +289,8 @@ interface NonDeepMutableExtendedUser {
     const updatedUser51: Immutable.Immutable<User> = immutableUserEx.updateIn([ 'address', 'line1' ], x => x.toLowerCase() + ' 43');
     // the type of the updated value must be explicity specified in case of fallback
     const updatedUser52: Immutable.Immutable<User> = immutableUserEx.updateIn<string>([ data.propertyId, 'line1' ], x => x.toLowerCase() + ' 43');
+    // updater function is always called with Immutable object
+    const updatedUser53: Immutable.Immutable<User> = immutableUserEx.updateIn([ 'address' ], address => address.set('line1', 'Small house'));
 
     // without
     const simpleUser1: Immutable.Immutable<User> = immutableUserEx.without('address');
