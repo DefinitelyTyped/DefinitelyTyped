@@ -1,4 +1,4 @@
-// Type definitions for react-typing-effect 2.0.4
+// Type definitions for react-typing-effect 2.0
 // Project: https://github.com/lamyfarai/react-typing-effect#readme
 // Definitions by: Debananda <https://github.com/Debananda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
