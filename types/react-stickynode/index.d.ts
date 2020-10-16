@@ -3,6 +3,7 @@
 // Definitions by: Tim Stirrat <https://github.com/tstirrat>
 //                 Kamil Socha <https://github.com/ksocha>
 //                 Mirek Ciastek <https://github.com/mciastek>
+//                 Yanick Dickbauer <https://github.com/yanickdi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -71,6 +72,12 @@ declare namespace Sticky {
          * Class name to be applied to the inner element ('' by default).
          */
         innerClass?: string;
+
+        /**
+         * Class name to be applied to the element independent of the
+         * sticky state.
+         */
+        className?: string;
 
         /**
          * Class name to be applied to the element when the sticky state is
