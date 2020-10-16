@@ -395,3 +395,13 @@ function addInAddOutRetainsType() {
     const addInSingleWithCallback: clownface.AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, () => {});
     const addInSingleWithObjectAndCallback: clownface.AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, 'foo', () => {});
 }
+
+function testAny() {
+    const multiPtr: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+    const graphPtr: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+    let anyPointer: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+
+    anyPointer = anyPointer.any();
+    anyPointer = multiPtr.any();
+    anyPointer = graphPtr.any();
+}
