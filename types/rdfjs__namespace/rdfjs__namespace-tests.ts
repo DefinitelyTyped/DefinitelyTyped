@@ -15,3 +15,13 @@ const node4: NamedNode = builder1('url');
 const node5: NamedNode = builder1`'Thing'`;
 const node6: NamedNode = builder1`url`;
 const node7: NamedNode = builder1();
+
+type Foobar = 'foo' | 'bar';
+const restrictedBuilder: NamespaceBuilder<Foobar> = namespace<Foobar>('http://example.com/');
+
+const foo = restrictedBuilder.foo;
+const bar = restrictedBuilder('bar');
+// $ExpectError
+const bazProp = restrictedBuilder.baz;
+// $ExpectError
+const bazArg = restrictedBuilder('baz');
