@@ -1449,6 +1449,7 @@ declare namespace webpack {
 
     // Compatibility with webpack@5's own types
     // See https://github.com/webpack/webpack/issues/11630
+    // tslint:disable-next-line no-empty-interface
     interface WebpackPluginInstance extends Plugin {}
 
     abstract class ResolvePlugin implements Tapable.Plugin {
