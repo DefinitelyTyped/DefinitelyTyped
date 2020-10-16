@@ -17,7 +17,7 @@ type MediaValues = Record<
     | 'resolution'
     | 'scan'
     | 'type'
-    | 'width'
+    | 'width',
     unknown
 >;
 
