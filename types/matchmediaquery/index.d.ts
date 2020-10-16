@@ -4,20 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type MediaValues = Record<
-    | 'orientation'
-    | 'scan'
-    | 'width'
-    | 'height'
-    | 'device-width'
-    | 'device-height'
-    | 'resolution'
     | 'aspect-ratio'
-    | 'device-aspect-ratio'
-    | 'grid'
-    | 'color'
     | 'color-index'
+    | 'color'
+    | 'device-aspect-ratio'
+    | 'device-height'
+    | 'device-width'
+    | 'grid'
+    | 'height'
     | 'monochrome'
-    | 'type',
+    | 'orientation'
+    | 'resolution'
+    | 'scan'
+    | 'type'
+    | 'width'
     unknown
 >;
 
