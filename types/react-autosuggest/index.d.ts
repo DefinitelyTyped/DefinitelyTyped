@@ -128,7 +128,17 @@ declare namespace Autosuggest {
         suggestion: TSuggestion,
         params: RenderSuggestionParams,
     ) => React.ReactNode;
-    type ShouldRenderSuggestions = (value: string) => boolean;
+    type ShouldRenderSuggestions = (
+        value: string,
+        reason:
+            | 'input-changed'
+            | 'input-focused'
+            | 'input-blurred'
+            | 'escape-pressed'
+            | 'suggestions-revealed'
+            | 'suggestions-updated'
+            | 'render'
+    ) => boolean;
 
     interface AutosuggestPropsBase<TSuggestion> {
         /**

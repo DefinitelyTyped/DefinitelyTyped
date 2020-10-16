@@ -88,6 +88,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
             renderSuggestion={this.renderSuggestion}
             onSuggestionSelected={this.onSuggestionsSelected}
             alwaysRenderSuggestions={true}
+            shouldRenderSuggestions={(value, reason) => reason !== 'input-focused'}
             inputProps={{
                 placeholder: `Type 'c'`,
                 value,
