@@ -91,7 +91,7 @@ if (logoutPromise) {
 // Invoke refresh of user token with default behavior (not forced)
 let refreshPromise = NetlifyIdentityWidget.refresh();
 if (refreshPromise) {
-    refreshPromise.then((token: NetlifyIdentityWidget.Token) => {
+    refreshPromise.then((token: string) => {
         // Use the token
     });
 }
@@ -99,7 +99,7 @@ if (refreshPromise) {
 // Invoke forced refresh of user token
 refreshPromise = NetlifyIdentityWidget.refresh(true);
 if (refreshPromise) {
-    refreshPromise.then((token: NetlifyIdentityWidget.Token) => {
+    refreshPromise.then((token: string) => {
         // Use the token
     });
 }
@@ -107,7 +107,7 @@ if (refreshPromise) {
 // Invoke refresh of user token with explicit value (false) of default behavior
 refreshPromise = NetlifyIdentityWidget.refresh(false);
 if (refreshPromise) {
-    refreshPromise.then((token: NetlifyIdentityWidget.Token) => {
+    refreshPromise.then((token: string) => {
         // Use the token
     });
 }

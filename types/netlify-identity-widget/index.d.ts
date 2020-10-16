@@ -109,9 +109,9 @@ export function logout(): Promise<void> | undefined;
 export function setLocale(locale: string): void;
 
 /**
- * Refreshes the session if necessary and returns a Promise<Token> containing a valid, unexpired token.
+ * Refreshes the session if necessary and returns a Promise<string> containing a valid, unexpired token string (equivalent of Token.access_token)
  * Call only when a user is logged in.
  *
  * @param force If true, forces generation of a new token
  */
-export function refresh(force?: boolean): Promise<Token> | undefined;
+export function refresh(force?: boolean): Promise<string> | undefined;
