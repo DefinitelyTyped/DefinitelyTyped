@@ -28,7 +28,7 @@ export interface FileUploaderItemProps extends FileUploaderItemInheritedProps {
      * Specify the size of the uploaded items, from a list of available
      * sizes. For `default` size, this prop can remain unspecified.
      */
-    size: "default" | "field" | "small";
+    size?: "default" | "field" | "small";
 
     /**
      * Status of the file upload
