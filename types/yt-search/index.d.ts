@@ -2,7 +2,6 @@
 // Project: https://github.com/talmobi/yt-search#readme
 // Definitions by: cherryblossom <https://github.com/cherryblossom000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
 
 export = yts;
 
@@ -55,87 +54,81 @@ declare namespace yts {
 
     interface Author {
         name: string;
-        id: string;
         url: string;
-        userId: string;
-        userUrl: string;
-        userName: string;
-        channelId: string;
-        channelUrl: string;
-        channelName: string;
-    }
-
-    interface PlaylistAuthor extends Omit<Author, 'userName' | 'channelName'> {
-        userText: string;
-        channelText: string;
     }
 
     interface Duration {
         seconds: number;
         timestamp: string;
-        toString(): string;
+        toString: () => string;
     }
 
     interface VideoSearchResult {
         type: 'video';
+        videoId: string;
+        url: string;
         title: string;
         description: string;
-        url: string;
-        videoId: string;
+        image: string;
+        thumbnail: string;
         seconds: number;
         timestamp: string;
         duration: Duration;
-        views: number;
-        image: string;
-        /** @deprecated */
-        thumbnail: string;
         ago: string;
-        author: Pick<Author, 'name' | 'url'>;
+        views: number;
+        author: Author;
     }
 
-    interface LiveSearchResult {
+    interface LiveSearchResultBase {
         type: 'live';
+        videoId: string;
+        url: string;
         title: string;
         description: string;
-        url: string;
-        videoId: string;
-        watching: number;
         image: string;
-        /** @deprecated */
         thumbnail: string;
-        author: Pick<Author, 'name' | 'url'>;
-        status: 'LIVE' | 'UPCOMING';
+        watching: number;
+        author: Author;
     }
+
+    interface UpcomingLiveSearchResult extends LiveSearchResultBase {
+        status: 'UPCOMING';
+        startTime: number
+        startDate: string
+    }
+
+    interface LiveLiveSearchResult extends LiveSearchResultBase {
+        status: 'LIVE';
+    }
+
+    type LiveSearchResult = UpcomingLiveSearchResult | LiveLiveSearchResult
 
     interface PlaylistSearchResult {
         type: 'list';
-        title: string;
-        url: string;
         listId: string;
-        videoCountLabel: string;
-        videoCount: number;
+        url: string;
+        title: string;
         image: string;
-        /** @deprecated */
         thumbnail: string;
+        videoCount: number;
         author: Author;
     }
 
     interface ChannelSearchResult {
         type: 'channel';
-        title: string;
-        description: string;
-        url: string;
-        videoCountLabel: string;
-        videoCount: number;
-        image: string;
-        /** @deprecated */
-        thumbnail: string;
         name: string;
-        id: string;
+        url: string;
+        title: string;
+        image: string;
+        thumbnail: string;
+        videoCount: number;
+        videoCountLabel: string;
+        subCount: number;
+        subCountLabel: string;
     }
 
     interface SearchResult {
-        all: Array<VideoSearchResult | PlaylistSearchResult | LiveSearchResult | ChannelSearchResult>;
+        all: Array<VideoSearchResult | LiveSearchResult | PlaylistSearchResult | ChannelSearchResult>;
         videos: VideoSearchResult[];
         live: LiveSearchResult[];
         playlists: PlaylistSearchResult[];
@@ -157,7 +150,6 @@ declare namespace yts {
         uploadDate: string;
         ago: string;
         image: string;
-        /** @deprecated */
         thumbnail: string;
         author: Author;
     }
@@ -166,26 +158,19 @@ declare namespace yts {
         title: string;
         videoId: string;
         listId: string;
-        url: string;
-        thumbnailUrl: string;
-        thumbnailUrlHQ: string;
-        owner: string;
-        author: PlaylistAuthor;
+        thumbnail: string;
+        author: Author;
     }
 
     interface PlaylistMetadataResult {
         title: string;
         listId: string;
         url: string;
-        /** @deprecated */
-        videoCount: number;
         views: number;
         date: string;
         image: string;
-        /** @deprecated */
         thumbnail: string;
-        items: PlaylistItem[];
         videos: PlaylistItem[];
-        author: PlaylistAuthor;
+        author: Author;
     }
 }
