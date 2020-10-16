@@ -187,7 +187,6 @@ declare namespace Chai {
         deep: Deep;
         ordered: Ordered;
         nested: Nested;
-        // own: Own; moved to TypeComparison
         any: KeyFilter;
         all: KeyFilter;
         a: TypeComparison;
@@ -212,13 +211,10 @@ declare namespace Chai {
         eq: Equal;
         eql: Equal;
         eqls: Equal;
-        // property: Property; moved to TypeComparison
         ownProperty: Property;
         haveOwnProperty: Property;
-        // ownPropertyDescriptor: OwnPropertyDescriptor; moved to TypeComparison
         haveOwnPropertyDescriptor: OwnPropertyDescriptor;
         length: Length;
-        // lengthOf: Length; moved to TypeComparison
         match: Match;
         matches: Match;
         string(string: string, message?: string): Assertion;
