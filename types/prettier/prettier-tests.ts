@@ -74,13 +74,13 @@ prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel' });
 prettierStandalone.format(' 1', { parser: 'babel' });
 prettierStandalone.check(' console.log(b)');
 
-typescriptParser.parsers.typescript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
-graphqlParser.parsers.graphql.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
-babelParser.parsers.babel.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
-htmlParser.parsers.html.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
-markdownParser.parsers.markdown.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
-postcssParser.parsers.css.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
-yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
+typescriptParser.parsers.typescript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+graphqlParser.parsers.graphql.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+babelParser.parsers.babel.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+htmlParser.parsers.html.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+markdownParser.parsers.markdown.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+postcssParser.parsers.css.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 
 prettier.format('hello world', {
     plugins: [typescriptParser, graphqlParser, babelParser, htmlParser, markdownParser, postcssParser, yamlParser],
@@ -96,3 +96,42 @@ doc.builders.dedent;
 doc.printer.printDocToString;
 doc.utils.isEmpty;
 doc.debug.printDocToDebug;
+
+interface PluginAST {
+    kind: "line";
+    value: string;
+}
+
+const plugin: prettier.Plugin<PluginAST> = {
+    parsers: {
+        lines: {
+            parse(text, parsers, options) {
+                return { kind: "line", value: "This is a line" };
+            },
+            astFormat: "lines",
+            locStart: (node) => {
+                node; // $ExpectType PluginAST
+                return 0;
+            },
+            locEnd: (node) => {
+                node; // $ExpectType PluginAST
+                return 0;
+            }
+        }
+    },
+    printers: {
+        lines: {
+            print(path, options, print) {
+                path; // $ExpectType FastPath<PluginAST>
+                print; // $ExpectType (path: FastPath<PluginAST>) => Doc
+
+                const node = path.getValue();
+                node; // $ExpectType PluginAST
+
+                return node.value;
+            }
+        }
+    }
+};
+
+prettier.format("a line!", { parser: "lines", plugins: [plugin] });
