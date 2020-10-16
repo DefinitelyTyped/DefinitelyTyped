@@ -1953,7 +1953,7 @@ export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T): (catc
  * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
  * all as 'Object'.
  */
-export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined';
+export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined' | 'Symbol';
 
 /**
  * Takes a function fn, which takes a single array argument, and returns a function which:
