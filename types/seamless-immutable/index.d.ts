@@ -69,8 +69,8 @@ declare namespace SeamlessImmutable {
 
         merge(part: DeepPartial<T | Immutable<T>>, config?: MergeConfig): Immutable<T>;
 
-        update<K extends keyof T>(property: K, updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
-        update<TValue>(property: string, updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
+        update<K extends keyof T>(property: K, updaterFunction: (value: Immutable<T[K]>, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
+        update<TValue>(property: string, updaterFunction: (value: Immutable<TValue>, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
 
         updateIn<K extends keyof T>(
             propertyPath: [ K ], updaterFunction: (value: Immutable<T[K]>, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;

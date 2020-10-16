@@ -283,6 +283,8 @@ interface NonDeepMutableExtendedUser {
     const updatedUser41: Immutable.Immutable<User> = immutableUser.update('firstName', x => x.toLowerCase() + ' Whirlwind');
     // the type of the updated value must be explicity specified in case of fallback
     const updatedUser42: Immutable.Immutable<User> = immutableUser.update<string>(data.propertyId, x => x.toLowerCase() + ' Whirlwind');
+    // updater function is always called with Immutable object
+    const updatedUser43: Immutable.Immutable<User> = immutableUserEx.update('address', address => address.set('line1', 'Small house'));
 
     // updateIn: property path is strongly checked for up to 5 arguments (helps with refactoring and intellisense)
     // but will fall back to any[] if there are dynamic arguments on the way
