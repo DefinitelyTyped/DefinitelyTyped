@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-native-simple-radio-button-test.tsx"
+        "react-native-simple-radio-button-tests.tsx"
     ]
 }
