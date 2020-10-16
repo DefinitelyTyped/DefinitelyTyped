@@ -1447,6 +1447,10 @@ declare namespace webpack {
         apply(compiler: Compiler): void;
     }
 
+    // Compatibility with webpack@5's own types
+    // See https://github.com/webpack/webpack/issues/11630
+    interface WebpackPluginInstance extends Plugin {}
+
     abstract class ResolvePlugin implements Tapable.Plugin {
         apply(resolver: any /* EnhancedResolve.Resolver */): void;
     }
