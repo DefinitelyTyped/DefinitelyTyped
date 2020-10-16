@@ -80,6 +80,16 @@ declare namespace KoaRatelimit {
          * A relation of header to the header's display name.
          */
         headers?: HeaderNameOptions;
+        
+        /**
+         * If function returns true, middleware exits before limiting
+         */
+        whitelist?: (context: Context) => boolean;
+        
+        /**
+         * If function returns true, 403 error is thrown
+         */
+        blacklist?: (context: Context) => boolean;
     }
 }
 
