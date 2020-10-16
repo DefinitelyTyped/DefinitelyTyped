@@ -311,7 +311,7 @@ declare namespace Chai {
         property: Property;
     }
 
-    interface Deep {
+    interface Deep extends KeyFilter {
         equal: Equal;
         equals: Equal;
         eq: Equal;
@@ -320,7 +320,6 @@ declare namespace Chai {
         contain: Include;
         contains: Include;
         property: Property;
-        members: Members;
         ordered: Ordered;
         nested: Nested;
         own: Own;

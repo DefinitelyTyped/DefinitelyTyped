@@ -799,6 +799,14 @@ function keys() {
     ({foo: 1}).should.contain.keys('foo', 'bar');
 }
 
+function deepKeys() {
+    expect(new Set([{a: 1}])).to.have.deep.keys([{a: 1}]);
+    (new Set([{a: 1}])).should.have.deep.keys([{a: 1}]);
+
+    expect(new Set([{a: 1}])).not.to.have.deep.keys([{b: 1}]);
+    (new Set([{a: 1}])).should.not.have.deep.keys([{b: 1}]);
+}
+
 function chaining() {
     const tea = {name: 'chai', extras: ['milk', 'sugar', 'smile']};
     expect(tea).to.have.property('extras').with.lengthOf(3);
