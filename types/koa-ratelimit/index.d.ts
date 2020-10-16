@@ -84,12 +84,12 @@ declare namespace KoaRatelimit {
         /**
          * If function returns true, middleware exits before limiting
          */
-        whitelist?: (context: Context) => boolean;
+        whitelist?: (context: Context) => Promise<boolean>;
 
         /**
          * If function returns true, 403 error is thrown
          */
-        blacklist?: (context: Context) => boolean;
+        blacklist?: (context: Context) => Promise<boolean>;
     }
 }
 
