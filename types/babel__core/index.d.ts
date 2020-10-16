@@ -434,7 +434,7 @@ export interface BabelFile {
     opts: TransformOptions;
     hub: Hub;
     metadata: object;
-    path: NodePath<Program>;
+    path: NodePath<t.Program>;
     scope: Scope;
     inputMap: object | null;
     code: string;
