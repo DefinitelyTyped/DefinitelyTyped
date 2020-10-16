@@ -6365,7 +6365,8 @@ declare namespace chrome.storage {
         MAX_WRITE_OPERATIONS_PER_MINUTE: number;
     }
 
-    export interface StorageChangedEvent extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: string) => void> { }
+    type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed'>;
+    export interface StorageChangedEvent extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void> { }
 
     /** Items in the local storage area are local to each machine. */
     export var local: LocalStorageArea;
