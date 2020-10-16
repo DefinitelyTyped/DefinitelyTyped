@@ -7,13 +7,22 @@ export = yts;
 
 declare const yts: typeof search & { search: typeof search };
 
-declare function search(query: string | yts.Options, callback: (err: Error | string | null | undefined, data: yts.SearchResult) => void): void;
+declare function search(
+    query: string | yts.Options,
+    callback: (err: Error | string | null | undefined, data: yts.SearchResult) => void,
+): void;
 declare function search(query: string | yts.Options): Promise<yts.SearchResult>;
 
-declare function search(query: yts.VideoMetadataOptions, callback: (err: Error | string | null | undefined, data: yts.VideoMetadataResult) => void): void;
+declare function search(
+    query: yts.VideoMetadataOptions,
+    callback: (err: Error | string | null | undefined, data: yts.VideoMetadataResult) => void,
+): void;
 declare function search(query: yts.VideoMetadataOptions): Promise<yts.VideoMetadataResult>;
 
-declare function search(query: yts.PlaylistMetadataOptions, callback: (err: Error | string | null | undefined, data: yts.PlaylistMetadataResult) => void): void;
+declare function search(
+    query: yts.PlaylistMetadataOptions,
+    callback: (err: Error | string | null | undefined, data: yts.PlaylistMetadataResult) => void,
+): void;
 declare function search(query: yts.PlaylistMetadataOptions): Promise<yts.PlaylistMetadataResult>;
 
 declare namespace yts {
@@ -44,13 +53,21 @@ declare namespace yts {
         sp?: string;
     }
 
-    interface OptionsWithQuery extends BaseOptions { query: string; }
-    interface OptionsWithSearch extends BaseOptions { search: string; }
+    interface OptionsWithQuery extends BaseOptions {
+        query: string;
+    }
+    interface OptionsWithSearch extends BaseOptions {
+        search: string;
+    }
 
     type Options = OptionsWithQuery | OptionsWithSearch;
 
-    interface VideoMetadataOptions { videoId: string; }
-    interface PlaylistMetadataOptions { listId: string; }
+    interface VideoMetadataOptions {
+        videoId: string;
+    }
+    interface PlaylistMetadataOptions {
+        listId: string;
+    }
 
     interface Author {
         name: string;
@@ -93,15 +110,15 @@ declare namespace yts {
 
     interface UpcomingLiveSearchResult extends LiveSearchResultBase {
         status: 'UPCOMING';
-        startTime: number
-        startDate: string
+        startTime: number;
+        startDate: string;
     }
 
     interface LiveLiveSearchResult extends LiveSearchResultBase {
         status: 'LIVE';
     }
 
-    type LiveSearchResult = UpcomingLiveSearchResult | LiveLiveSearchResult
+    type LiveSearchResult = UpcomingLiveSearchResult | LiveLiveSearchResult;
 
     interface PlaylistSearchResult {
         type: 'list';
