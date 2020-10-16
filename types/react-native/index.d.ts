@@ -8378,6 +8378,8 @@ export interface ToastAndroidStatic {
     show(message: string, duration: number): void;
     /** `gravity` may be ToastAndroid.TOP, ToastAndroid.BOTTOM, ToastAndroid.CENTER */
     showWithGravity(message: string, duration: number, gravity: number): void;
+
+    showWithGravityAndOffset(message: string, duration: number, gravity: number, xOffset: number, yOffset: number): void;
     // Toast duration constants
     SHORT: number;
     LONG: number;
