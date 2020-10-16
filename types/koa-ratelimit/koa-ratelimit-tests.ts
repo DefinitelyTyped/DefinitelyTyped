@@ -21,8 +21,8 @@ app.use(rateLimit({
 app.use(rateLimit({
     driver: 'memory',
     db: new Map(),
-    blacklist: (context) => Promise.resolve(true),
-    whitelist: (context) => Promise.resolve(false)
+    blacklist: async (context) => Promise.resolve(true),
+    whitelist: (context) => false
 }));
 
 app.use(async context => {
