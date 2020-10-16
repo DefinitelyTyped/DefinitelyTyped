@@ -86,6 +86,9 @@ export class ImapSimple extends EventEmitter {
     /** Removes the provided flag(s) from the specified message(s). uid is the uid of the message you want to remove the flag from or an array of uids. flag is either a string or array of strings indicating the flags to remove. */
     delFlags(uid: string | string[], flag: string | string[], callback: (err: Error) => void): void;
     delFlags(uid: string | string[], flag: string | string[]): Promise<void>;
+
+    deleteMessage(uid: string | string[], callBack: (err: Error) => void): void;
+    deleteMessage(uid: string | string[]): Promise<void>;
 }
 
 export namespace errors {
