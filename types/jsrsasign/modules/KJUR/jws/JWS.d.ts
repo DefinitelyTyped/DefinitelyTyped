@@ -357,11 +357,11 @@ declare namespace jsrsasign.KJUR.jws {
             sJWT: string,
             key: string,
             acceptField?: {
-                alg: string[];
-                aud: string[];
-                iss: string[];
+                alg?: string[];
+                aud?: string[];
+                iss?: string[];
                 jti?: string;
-                sub: string[];
+                sub?: string[];
                 verifyAt?: string | number;
             },
         ): boolean;

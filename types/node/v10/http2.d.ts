@@ -571,7 +571,7 @@ declare module "http2" {
         readonly headersSent: boolean;
         removeHeader(name: string): void;
         sendDate: boolean;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         setTimeout(msecs: number, callback?: () => void): void;
         socket: net.Socket | tls.TLSSocket;
         statusCode: number;

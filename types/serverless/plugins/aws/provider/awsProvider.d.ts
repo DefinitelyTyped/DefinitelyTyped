@@ -27,7 +27,7 @@ declare namespace Aws {
 
     interface Provider {
         name: 'aws';
-        runtime: string;
+        runtime?: string;
         stage?: string;
         region?: string;
         stackName?: string;
@@ -380,7 +380,7 @@ declare namespace Aws {
     }
 
     interface Stream {
-        arn: string;
+        arn: string | { [key: string]: any };
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;
