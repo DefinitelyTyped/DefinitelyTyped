@@ -38,6 +38,7 @@ import {
     Modal,
     InlineLoading,
     DataTableSkeleton,
+    TableCell,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -63,16 +64,14 @@ const accordionItemTwo = (
 // Button
 //
 
-const buttonDefaultT1 = (
-    <Button onClick={(event) => event.preventDefault()}>Basic Button</Button>
-);
+const buttonDefaultT1 = <Button onClick={event => event.preventDefault()}>Basic Button</Button>;
 
 const buttonRef = React.useRef<HTMLButtonElement>(null);
-const SimpleButtonIcon = () => <div/>;
+const SimpleButtonIcon = () => <div />;
 const buttonDefaultT2 = (
     <Button
         kind="danger"
-        onClick={(event) => {
+        onClick={event => {
             event.preventDefault();
         }}
         renderIcon={SimpleButtonIcon}
@@ -83,22 +82,22 @@ const buttonDefaultT2 = (
     </Button>
 );
 
-const buttonIconT1 = (
-    <Button renderIcon={SimpleButtonIcon}>With Render Icon</Button>
-);
+const buttonIconT1 = <Button renderIcon={SimpleButtonIcon}>With Render Icon</Button>;
 // TODO: find a way to make this fail because someProp is required by the component but it will never be provided.
-const IconWithProps: React.FC<{ someProp: number, anotherProp?: string }> = () => <div/>;
-const buttonIconT2 = (
-    <Button renderIcon={IconWithProps}>With Render Icon</Button>
-);
+const IconWithProps: React.FC<{ someProp: number; anotherProp?: string }> = () => <div />;
+const buttonIconT2 = <Button renderIcon={IconWithProps}>With Render Icon</Button>;
 
 const buttonIconT3 = (
-    <Button renderIcon={({ className }: ButtonRenderIconRenderProps) => <div className={className}/>}>Anon Icon Render</Button>
+    <Button renderIcon={({ className }: ButtonRenderIconRenderProps) => <div className={className} />}>
+        Anon Icon Render
+    </Button>
 );
 
 const anchorRef = React.useRef<HTMLAnchorElement>(null);
 const buttonAnchorT1 = (
-    <Button href="https://github.com/DefinitelyTyped/DefinitelyTyped" asdf={"asdf"} target="_blank" ref={anchorRef}>Anchor Link</Button>
+    <Button href="https://github.com/DefinitelyTyped/DefinitelyTyped" asdf={'asdf'} target="_blank" ref={anchorRef}>
+        Anchor Link
+    </Button>
 );
 
 const spanRef = React.useRef<HTMLSpanElement>(null);
@@ -106,7 +105,7 @@ const buttonIntrinsicT1 = (
     <Button
         as="span"
         kind="danger"
-        onClick={(event) => {
+        onClick={event => {
             event.preventDefault();
         }}
         ref={spanRef}
@@ -115,15 +114,10 @@ const buttonIntrinsicT1 = (
     </Button>
 );
 
-const ButtonCustomRenderComp1: React.FC<{ someProp: number, anotherProp?: string }> = () => <div/>;
+const ButtonCustomRenderComp1: React.FC<{ someProp: number; anotherProp?: string }> = () => <div />;
 
 const buttonCustomRenderT1 = (
-    <Button
-        as={ButtonCustomRenderComp1}
-        kind="danger"
-        someProp={5}
-        anotherProp="test"
-    >
+    <Button as={ButtonCustomRenderComp1} kind="danger" someProp={5} anotherProp="test">
         Custom Render
     </Button>
 );
@@ -131,15 +125,17 @@ const buttonCustomRenderT1 = (
 //
 // SecondaryButton
 //
-const secondaryButtonT1 = (
-    <SecondaryButton onClick={(event) => event.preventDefault()}>Secondary</SecondaryButton>
-);
+const secondaryButtonT1 = <SecondaryButton onClick={event => event.preventDefault()}>Secondary</SecondaryButton>;
 const secondaryButtonT2 = (
-    <SecondaryButton as="span" onClick={(event) => event.preventDefault()}>Secondary</SecondaryButton>
+    <SecondaryButton as="span" onClick={event => event.preventDefault()}>
+        Secondary
+    </SecondaryButton>
 );
 const secondaryButtonT3 = (
-    <SecondaryButton as={ButtonCustomRenderComp1} someProp={6}>Secondary</SecondaryButton>
-)
+    <SecondaryButton as={ButtonCustomRenderComp1} someProp={6}>
+        Secondary
+    </SecondaryButton>
+);
 
 interface Row1 extends DataTableRow {
     rowProp: string;
@@ -198,7 +194,7 @@ const t2 = (
             let rp = props.getRowProps({ row: { id: 'r1', rowProp: 'asdf' }, extra1: 'asdf' });
             let rk: string = rp.key;
 
-            let rp2 = props.getRowProps<ExtraStuff>({ row: { id: 'r1', rowProp: 'edfg' }, extra1: 'asdf' });
+            let rp2 = props.getRowProps<ExtraStuff>({ row: { id: 'r1' }, extra1: 'asdf' });
             rk = rp2.key;
             e = rp2.extra1;
 
@@ -216,6 +212,9 @@ const t2 = (
             props.selectAll();
             props.selectRow('qwerty');
             props.sortBy('h3');
+
+            props.headers.map(header => props.getHeaderProps({ header }));
+            props.rows.map(row => props.getRowProps({ row }));
 
             props.rows.forEach(denormalizedRow => {
                 denormalizedRow.cells.forEach(cell => {
@@ -251,18 +250,22 @@ const t4 = (
         rows={[rowData1]}
         render={data => {
             let table = <Table {...data.getTableProps()}>Content</Table>;
-            let header = (
-                <TableHeader {...data.getHeaderProps({ header: headerData1, randomAttr: 'asdf' })}>
-                    {headerData1.header}
+            data.headers.map(header => (
+                <TableHeader {...data.getHeaderProps({ header, randomAttr: 'asdf' })}>{header.header}</TableHeader>
+            ));
+            data.headers.map(header => (
+                <TableHeader {...data.getHeaderProps<ExtraStuff>({ header, extra1: 'test' })}>
+                    {header.header}
                 </TableHeader>
-            );
-            let header2 = (
-                <TableHeader {...data.getHeaderProps<ExtraStuff>({ header: headerData1, extra1: 'test' })}>
-                    {headerData1.header}
-                </TableHeader>
-            );
+            ));
+            data.rows.map(row => (
+                <TableRow {...data.getRowProps({ row, extra1: 'qwerty' })}>
+                    {row.cells.map(cell => (
+                        <TableCell key={cell.id}>{cell.value}</TableCell>
+                    ))}
+                </TableRow>
+            ));
             let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
-            let row = <TableRow {...rowProps}>Content</TableRow>;
             let batchActions = (
                 <TableBatchActions {...data.getBatchActionProps({ spellCheck: true, randomAttr: 'Asdf' })}>
                     Content
@@ -396,9 +399,7 @@ const uisHeaderMenuCompRenderNotMatchingOptionalProps = (
 // HeaderMenuItem
 //
 
-const uisHeaderMenuItemRequiredChild = (
-    <HeaderMenuItem>Required Child</HeaderMenuItem>
-);
+const uisHeaderMenuItemRequiredChild = <HeaderMenuItem>Required Child</HeaderMenuItem>;
 
 //
 // UIShell Link
@@ -626,11 +627,11 @@ const sideNavChildren = (
             <SideNavItem>Test</SideNavItem>
         </SideNavItems>
     </SideNav>
-)
+);
 
 const modal = (
     <Modal primaryButtonText={<InlineLoading />} secondaryButtonText={<InlineLoading />} />
-)
+);
 
 // DataTableSkeleton
 const dataTableSkeleton = (
