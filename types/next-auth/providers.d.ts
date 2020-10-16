@@ -73,8 +73,17 @@ type Credentials = (options: ProviderCredentialsOptions) => GenericReturnConfig;
 interface ProviderCredentialsOptions {
     id?: string;
     name: string;
-    credentials: unknown;
-    authorize(credentials: unknown): Promise<unknown | null>;
+    credentials: CredentialInput;
+    authorize(credentails: CredentialInput): Promise<GenericReturnConfig | null>;
+}
+
+interface CredentialInput {
+    [key: string]: {
+        label?: string;
+        type?: string;
+        value?: string;
+        placeholder?: string;
+    };
 }
 
 /**
