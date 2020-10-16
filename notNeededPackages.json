@@ -19,6 +19,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "@hapi/accept",
+            "typingsPackageName": "accept",
+            "sourceRepoURL": "https://github.com/hapijs/accept",
+            "asOfVersion": "5.0.1"
+        },
+        {
             "libraryName": "acme-client",
             "typingsPackageName": "acme-client",
             "sourceRepoURL": "https://github.com/publishlab/node-acme-client",
