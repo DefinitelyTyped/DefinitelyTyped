@@ -70,7 +70,7 @@ declare module "events" {
                 listeners(event: string | symbol): Function[];
                 rawListeners(event: string | symbol): Function[];
                 emit(event: string | symbol, ...args: any[]): boolean;
-                listenerCount(type: string | symbol): number;
+                listenerCount(event: string | symbol): number;
                 // Added in Node 6...
                 prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
                 prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
