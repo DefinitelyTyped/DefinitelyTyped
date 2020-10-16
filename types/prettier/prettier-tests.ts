@@ -8,6 +8,7 @@ import htmlParser = require('prettier/parser-html');
 import markdownParser = require('prettier/parser-markdown');
 import postcssParser = require('prettier/parser-postcss');
 import yamlParser = require('prettier/parser-yaml');
+import * as doc from 'prettier/doc';
 
 const formatted = prettier.format('foo ( );', { semi: false });
 
@@ -90,3 +91,8 @@ prettier.doc.builders.trim.type;
 prettier.doc.builders.cursor;
 prettier.doc.builders.cursor.type;
 prettier.doc.builders.cursor.placeholder;
+
+doc.builders.dedent;
+doc.printer.printDocToString;
+doc.utils.isEmpty;
+doc.debug.printDocToDebug;
