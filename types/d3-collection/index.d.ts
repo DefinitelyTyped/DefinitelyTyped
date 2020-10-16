@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.0.4
+// Last module patch version validated against: 1.0.7
 
 /**
  * Reference type things that can be coerced to string implicitly
