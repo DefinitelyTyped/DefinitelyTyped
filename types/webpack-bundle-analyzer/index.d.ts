@@ -1,4 +1,4 @@
-// Type definitions for webpack-bundle-analyzer 3.8
+// Type definitions for webpack-bundle-analyzer 3.9
 // Project: https://github.com/webpack-contrib/webpack-bundle-analyzer
 // Definitions by: Michael Strobel <https://github.com/kryops>
 //                 Vladimir Grenaderov <https://github.com/VladimirGrenaderov>
@@ -41,6 +41,12 @@ export namespace BundleAnalyzerPlugin {
          * @default 'report.html'
          */
         reportFilename?: string;
+
+        /**
+         * Content of the HTML title element; or a function of the form () => string that provides the content.
+         * @default function that returns pretty printed current date and time.
+         */
+        reportTitle?: string | (() => string);
 
         /**
          * Module sizes to show in report by default.
