@@ -102,12 +102,12 @@ imaps.connect({
 imaps.connect(config).then(connection => {
     return connection.openBox('INBOX')
         .then(() => connection.search(['ALL'], {bodies: ['HEADER']}))
-        .then( messages => {
+        .then(messages => {
             // select messages from bob
             const uidsToDelete = messages
-                .filter( message => {
+                .filter(message => {
                     return message.parts
-                    .filter( part => part.which === 'HEADER')[0].body.to[0] === 'bob@example.com';
+                    .filter(part => part.which === 'HEADER')[0].body.to[0] === 'bob@example.com';
                 })
                 .map(message => message.attributes.uid.toString());
             return connection.deleteMessage(uidsToDelete);
@@ -117,28 +117,28 @@ imaps.connect(config).then(connection => {
 
 imaps.connect(config).then(function (connection) {
     connection.openBox('INBOX').then(function () {
-        var searchCriteria = ['ALL'];
-        var fetchOptions = { bodies: ['TEXT'], struct: true };
+        const searchCriteria = ['ALL'];
+        const fetchOptions = { bodies: ['TEXT'], struct: true };
         return connection.search(searchCriteria, fetchOptions);
     //Loop over each message
     }).then(function (messages) {
         let taskList = messages.map(function (message) {
             return new Promise((res, rej) => {
-                var parts = imaps.getParts(message.attributes.struct);
+                const parts = imaps.getParts(message.attributes.struct);
                 parts.map(function (part) {
                     return connection.getPartData(message, part)
                     .then(function (partData) {
                         //Display e-mail body
-                        if (part.disposition == null && part.encoding != "base64"){
+                        if (part.disposition === null && part.encoding !== "base64") {
                             console.log(partData);
                         }
                         //Mark message for deletion
                         connection.addFlags(message.attributes.uid.toString(), "\Deleted", (err) => {
-                            if (err){
+                            if (err) {
                                 console.log('Problem marking message for deletion');
                                 rej(err);
                             }
-                            res(); //Final resolve
+                            res(message.attributes.uid); //Final resolve
                         })
                     });
                 });
@@ -146,7 +146,7 @@ imaps.connect(config).then(function (connection) {
         })
         return Promise.all(taskList).then(() => {
             connection.closeBox(true, (err) => { //Pass in false to avoid delete-flagged messages being removed
-                if (err){
+                if (err) {
                     console.log(err);
                 }
             });
