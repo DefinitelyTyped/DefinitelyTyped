@@ -9,6 +9,7 @@ import { RequestHandler } from "express";
 import { ClientOpts } from "redis";
 import Bull = require("bull");
 import Bee = require("bee-queue");
+import { Queue } from "bullmq";
 
 declare function Arena(
     options: BullArena.MiddlewareOptions,
@@ -19,6 +20,7 @@ declare namespace BullArena {
     interface MiddlewareOptions {
         Bull?: typeof Bull;
         Bee?: typeof Bee;
+        BullMQ?: typeof Queue;
         queues: Array<QueueOptions & ConnectionOptions>;
     }
 
@@ -33,7 +35,7 @@ declare namespace BullArena {
     interface QueueOptions {
         name: string;
         hostId?: string;
-        type?: "bull" | "bee";
+        type?: "bull" | "bee" | string;
         prefix?: "bull" | "bq" | string;
     }
 
