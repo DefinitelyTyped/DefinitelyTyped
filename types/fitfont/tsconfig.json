@@ -22,6 +22,6 @@
     ],
     "files": [
         "index.d.ts",
-        "fitfont-test.ts"
+        "fitfont-tests.ts"
     ]
 }
