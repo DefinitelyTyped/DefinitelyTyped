@@ -109,7 +109,7 @@ imaps.connect(config).then(connection => {
                     return message.parts
                     .filter(part => part.which === 'HEADER')[0].body.to[0] === 'bob@example.com';
                 })
-                .map(message => message.attributes.uid.toString());
+                .map(message => message.attributes.uid);
             return connection.deleteMessage(uidsToDelete);
         });
 });
@@ -133,7 +133,7 @@ imaps.connect(config).then(function (connection) {
                             console.log(partData);
                         }
                         //Mark message for deletion
-                        connection.addFlags(message.attributes.uid.toString(), "\Deleted", (err) => {
+                        connection.addFlags(message.attributes.uid, "\Deleted", (err) => {
                             if (err) {
                                 console.log('Problem marking message for deletion');
                                 rej(err);
