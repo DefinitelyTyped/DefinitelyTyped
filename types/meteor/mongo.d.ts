@@ -216,7 +216,7 @@ declare module "meteor/mongo" {
             forEach(callback: (doc: T, index: number, cursor: Cursor<T>) => void, thisArg?: any): void;
             map<U>(callback: (doc: T, index: number, cursor: Cursor<T>) => U, thisArg?: any): Array<U>;
             observe(callbacks: ObserveCallbacks<T>): Meteor.LiveQueryHandle;
-            observeChanges(callbacks: ObserveChangesCallbacks<T>): Meteor.LiveQueryHandle;
+            observeChanges(callbacks: ObserveChangesCallbacks<T>, options?: { nonMutatingCallbacks?: boolean }): Meteor.LiveQueryHandle;
         }
 
         var ObjectID: ObjectIDStatic;

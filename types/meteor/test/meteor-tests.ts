@@ -421,6 +421,7 @@ var handle = query.observeChanges({
         console.log("Lost one. We're now down to " + count1 + " admins.");
     }
 });
+query.observeChanges({}, { nonMutatingCallbacks: true }); // $ExpectType LiveQueryHandle
 
 let cursor: Mongo.Cursor<Object>;
 
