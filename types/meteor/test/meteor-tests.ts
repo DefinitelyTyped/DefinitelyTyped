@@ -986,3 +986,11 @@ Meteor.absoluteUrl.defaultOptions = {
   rootUrl: 'http://123.com',
   secure: false
 };
+
+// Connection
+Meteor.onConnection(connection => {
+    connection.id; // $ExpectType string
+    connection.clientAddress; // $ExpectType string
+    connection.onClose(() => {});
+    connection.close();
+});
