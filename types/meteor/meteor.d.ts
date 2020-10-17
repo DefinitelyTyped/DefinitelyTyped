@@ -217,13 +217,13 @@ declare module "meteor/meteor" {
         /** Connection **/
         interface Connection {
             id: string;
-            close: Function;
-            onClose: Function;
+            close: () => void;
+            onClose: (callback: () => void) => void;
             clientAddress: string;
             httpHeaders: Object;
         }
 
-        function onConnection(callback: Function): void;
+        function onConnection(callback: (connection: Connection) => void): void;
         /** Connection **/
 
         function publish(name: string | null, func: (this: Subscription, ...args: any[]) => void, options?: {is_auto: boolean}): void;

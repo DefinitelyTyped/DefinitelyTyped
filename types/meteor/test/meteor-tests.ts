@@ -993,3 +993,11 @@ Random.choice([1, 2, 3]); // $ExpectType number
 Random.choice("String"); // $ExpectType string
 
 EJSON.newBinary(5); // $ExpectType Uint8Array
+
+// Connection
+Meteor.onConnection(connection => {
+    connection.id; // $ExpectType string
+    connection.clientAddress; // $ExpectType string
+    connection.onClose(() => {});
+    connection.close();
+});
