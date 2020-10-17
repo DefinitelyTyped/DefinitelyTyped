@@ -1519,11 +1519,11 @@ const rasterPaint: mapboxgl.RasterPaint = {
     'raster-contrast-transition': transition,
     'raster-fade-duration': eitherType(0, expression),
     'raster-resampling': eitherType('linear', 'nearest'),
-    'circle-sort-key': 0,
 };
 
 const circleLayout: mapboxgl.CircleLayout = {
     visibility: eitherType('visible', 'none'),
+    'circle-sort-key': 0,
 };
 
 const circlePaint: mapboxgl.CirclePaint = {

@@ -73,7 +73,13 @@ declare namespace mapboxgl {
 
     type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
 
-    type LngLatLike = [number, number] | LngLat | { lng: number; lat: number } | { lon: number; lat: number } | [number, number];
+    type LngLatLike =
+        | [number, number]
+        | LngLat
+        | { lng: number; lat: number }
+        | { lon: number; lat: number }
+        | [number, number];
+
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number] | LngLatLike;
     type PointLike = Point | [number, number];
 
@@ -103,7 +109,10 @@ declare namespace mapboxgl {
         | 'at'
         | 'get'
         | 'has'
+        | 'in'
+        | 'index-of'
         | 'length'
+        | 'slice'
         // Decision
         | '!'
         | '!='
@@ -2147,10 +2156,11 @@ declare namespace mapboxgl {
         'raster-contrast-transition'?: Transition;
         'raster-fade-duration'?: number | Expression;
         'raster-resampling'?: 'linear' | 'nearest';
-        'circle-sort-key'?: number;
     }
 
-    export interface CircleLayout extends Layout {}
+    export interface CircleLayout extends Layout {
+        'circle-sort-key'?: number;
+    }
 
     export interface CirclePaint {
         'circle-radius'?: number | StyleFunction | Expression;
