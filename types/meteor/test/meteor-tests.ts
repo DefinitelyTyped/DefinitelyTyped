@@ -989,4 +989,4 @@ Meteor.absoluteUrl.defaultOptions = {
 };
 
 Random.choice([1, 2, 3]); // $ExpectType number
-Random.choice(['a', 'b', 'c']); // $ExpectType string
+Random.choice("String"); // $ExpectType string
