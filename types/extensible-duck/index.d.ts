@@ -123,3 +123,5 @@ export type DuckActionTypes<TActionTypes> = Record<keyof TActionTypes, string>;
 type AnyObject = Record<any, any>;
 
 export {};
+
+export default Duck;
