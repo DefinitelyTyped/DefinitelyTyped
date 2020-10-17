@@ -152,7 +152,18 @@ redis.zscan('key', 0, 'MATCH', '*foo*', 'COUNT', 100, cb);
 redis.pfadd('key', 'a', 'b', 'c').then(console.log);
 redis.pfadd('key', 'a', 'b', 'c', cbNumber);
 
-// Test OverloadedKeyedHashCommand
+// Test OverloadedKeyedHashCommand for hset
+redis.hset('foo', '1', '2', '3', 4, '5', new Buffer([])).then(console.log);
+redis.hset('foo', '1', '2', '3', 4, '5', new Buffer([]), cb);
+redis.hset('foo', '1', '2', '3', 4).then(console.log);
+redis.hset('foo', '1', '2', '3', 4);
+redis.hset('foo', '1', '2').then(console.log);
+redis.hset('foo', '1', ['1', 2]);
+redis.hset('foo', { a: 'b', c: 4 }).then(console.log);
+redis.hset('foo', { a: 'b', c: 4 }, cb);
+redis.hset('foo', new Map<string, number>(), cb);
+
+// Test OverloadedKeyedHashCommand for hmset
 redis.hmset('foo', '1', '2', '3', 4, '5', new Buffer([])).then(console.log);
 redis.hmset('foo', '1', '2', '3', 4, '5', new Buffer([]), cb);
 redis.hmset('foo', '1', '2', '3', 4).then(console.log);
