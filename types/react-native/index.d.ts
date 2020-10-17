@@ -9100,11 +9100,12 @@ export namespace Animated {
 
 // tslint:disable-next-line:interface-name
 export interface I18nManagerStatic {
-    isRTL: boolean;
-    doLeftAndRightSwapInRTL: boolean;
+    getConstants: () => { isRTL: boolean, doLeftAndRightSwapInRTL: boolean };
     allowRTL: (allowRTL: boolean) => {};
     forceRTL: (forceRTL: boolean) => {};
     swapLeftAndRightInRTL: (swapLeftAndRight: boolean) => {};
+    isRTL: boolean;
+    doLeftAndRightSwapInRTL: boolean;
 }
 
 export interface OpenCameraDialogOptions {
