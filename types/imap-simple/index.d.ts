@@ -87,9 +87,13 @@ export class ImapSimple extends EventEmitter {
     delFlags(uid: string | string[], flag: string | string[], callback: (err: Error) => void): void;
     delFlags(uid: string | string[], flag: string | string[]): Promise<void>;
 
-    /** Deletes the specified message(s). uid is the uid of the message you want to add the flag to or an array of uids.*/
+    /** Deletes the specified message(s). uid is the uid of the message you want to add the flag to or an array of uids. */
     deleteMessage(uid: string | string[], callBack: (err: Error) => void): void;
     deleteMessage(uid: string | string[]): Promise<void>;
+
+    /** Close a mailbox, calling the provided callback with signature (err), or resolves the returned promise. If autoExpunge is true, any messages marked as Deleted in the currently open mailbox will be removed. */
+    closeBox(autoExpunge: boolean, callBack: (err: Error) => void): void;
+    closeBox(autoExpunge: boolean): Promise<void>;
 }
 
 export namespace errors {
