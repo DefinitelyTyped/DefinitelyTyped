@@ -87,6 +87,7 @@ export class ImapSimple extends EventEmitter {
     delFlags(uid: string | string[], flag: string | string[], callback: (err: Error) => void): void;
     delFlags(uid: string | string[], flag: string | string[]): Promise<void>;
 
+    /** Deletes the specified message(s). uid is the uid of the message you want to add the flag to or an array of uids.*/
     deleteMessage(uid: string | string[], callBack: (err: Error) => void): void;
     deleteMessage(uid: string | string[]): Promise<void>;
 }
