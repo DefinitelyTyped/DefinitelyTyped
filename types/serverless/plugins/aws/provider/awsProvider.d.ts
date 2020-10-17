@@ -196,7 +196,7 @@ declare namespace Aws {
 
     interface Vpc {
         securityGroupIds: string[];
-        subnetIds: string[];
+        subnetIds: string[]|string;
     }
 
     interface StackParameters {
