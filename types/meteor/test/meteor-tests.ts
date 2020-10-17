@@ -23,6 +23,7 @@ import { ReactiveVar } from "meteor/reactive-var";
 import { Accounts } from "meteor/accounts-base";
 import { BrowserPolicy } from "meteor/browser-policy-common";
 import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
+import { Random } from "meteor/random"
 
 declare module 'meteor/meteor' {
     namespace Meteor {
@@ -986,3 +987,5 @@ Meteor.absoluteUrl.defaultOptions = {
   rootUrl: 'http://123.com',
   secure: false
 };
+
+Random.choice([1, 2, 3]); // $ExpectType number
