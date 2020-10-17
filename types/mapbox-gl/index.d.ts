@@ -2156,10 +2156,11 @@ declare namespace mapboxgl {
         'raster-contrast-transition'?: Transition;
         'raster-fade-duration'?: number | Expression;
         'raster-resampling'?: 'linear' | 'nearest';
-        'circle-sort-key'?: number;
     }
 
-    export interface CircleLayout extends Layout {}
+    export interface CircleLayout extends Layout {
+        'circle-sort-key'?: number;
+    }
 
     export interface CirclePaint {
         'circle-radius'?: number | StyleFunction | Expression;
