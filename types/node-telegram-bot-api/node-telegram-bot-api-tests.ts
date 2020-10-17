@@ -163,6 +163,7 @@ MyTelegramBot.off('shipping_query', (query: TelegramBot.ShippingQuery) => { });
 MyTelegramBot.off('pre_checkout_query', (query: TelegramBot.PreCheckoutQuery) => { });
 MyTelegramBot.off('polling_error', (error: Error) => { });
 MyTelegramBot.removeAllListeners('message');
+MyTelegramBot.removeAllListeners();
 MyTelegramBot.listeners('message');
 MyTelegramBot.rawListeners('message');
 MyTelegramBot.listenerCount('message');

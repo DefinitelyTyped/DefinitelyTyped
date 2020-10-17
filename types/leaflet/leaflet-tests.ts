@@ -232,6 +232,7 @@ zoom = map.getBoundsZoom(latLngBounds);
 zoom = map.getBoundsZoom(latLngBounds, true);
 zoom = map.getBoundsZoom(latLngBoundsLiteral);
 zoom = map.getBoundsZoom(latLngBoundsLiteral, true);
+zoom = map.getBoundsZoom(latLngBoundsLiteral, true, point);
 
 let mapLatLngBounds: L.LatLngBounds;
 mapLatLngBounds = map.getBounds();

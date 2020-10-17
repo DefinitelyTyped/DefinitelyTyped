@@ -281,7 +281,7 @@ export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => nu
  * - applying g to zero or more arguments will give false if applying the same arguments to f gives
  *   a logical true value.
  */
-export function complement(pred: (...args: readonly any[]) => boolean): (...args: readonly any[]) => boolean;
+export function complement<As extends any[]>(pred: (...args: As) => boolean): (...args: As) => boolean;
 
 /**
  * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
@@ -359,8 +359,8 @@ export function composeP<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => Promise<T6>
  * Performs right-to-left function composition using transforming function.
  * With the current typings, all functions must be unary.
  */
-export function composeWith<V0, T>(composer: (a: any) => any, fns: ComposeWithFns<V0, T>): (x0: V0) => T;
-export function composeWith(composer: (a: any) => any): <V0, T>(fns: ComposeWithFns<V0, T>) => (x: V0) => T;
+export function composeWith<V0, T>(composer: (...args: any[]) => any, fns: ComposeWithFns<V0, T>): (x0: V0) => T;
+export function composeWith(composer: (...args: any[]) => any): <V0, T>(fns: ComposeWithFns<V0, T>) => (x: V0) => T;
 
 /**
  * Returns the result of concatenating the given lists or strings.
@@ -1401,8 +1401,8 @@ export function pickAll(names: readonly string[]): <T, U>(obj: T) => U;
 /**
  * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
  */
-export function pickBy<T, U>(pred: ObjPred, obj: T): U;
-export function pickBy(pred: ObjPred): <T, U>(obj: T) => U;
+export function pickBy<T, U>(pred: ObjPred<T>, obj: T): U;
+export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
 
 /**
  * Creates a new function that runs each of the functions supplied as parameters in turn,
@@ -1547,11 +1547,11 @@ export function prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
  * value according to strict equality (`===`).  Most likely used to
  * filter a list.
  */
-export function propEq<K extends string | number, V>(name: K, val: V, obj: Record<K, V>): boolean;
-export function propEq<K extends string | number, V>(name: K, val: V): (obj: Record<K, V>) => boolean;
+export function propEq<K extends string | number>(name: K, val: any, obj: Record<K, any>): boolean;
+export function propEq<K extends string | number>(name: K, val: any): (obj: Record<K, any>) => boolean;
 export function propEq<K extends string | number>(name: K): {
-    <V>(val: V, obj: Record<K, V>): boolean;
-    <V>(val: V): (obj: Record<K, V>) => boolean;
+    (val: any, obj: Record<K, any>): boolean;
+    (val: any): (obj: Record<K, any>) => boolean;
 };
 
 /**
@@ -1953,7 +1953,7 @@ export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T): (catc
  * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
  * all as 'Object'.
  */
-export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined';
+export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined' | 'Symbol';
 
 /**
  * Takes a function fn, which takes a single array argument, and returns a function which:

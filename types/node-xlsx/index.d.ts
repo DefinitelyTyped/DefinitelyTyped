@@ -16,7 +16,7 @@ export function parse(
     options?: {}
 ): Array<{
     name: string;
-    data: Array<[]>;
+    data: unknown[][];
 }>;
 
 /**

@@ -8,4 +8,5 @@ import * as R from 'ramda';
   R.type(null); // => "Null"
   R.type([]); // => "Array"
   R.type(/[A-z]/); // => "RegExp"
+  R.type(Symbol()); // => "Symbol"
 };

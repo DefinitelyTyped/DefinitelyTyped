@@ -40,7 +40,7 @@ import { Readable } from "stream";
     if (workerThreads.isMainThread) {
         const worker = new workerThreads.Worker(__filename);
         const subChannel = new workerThreads.MessageChannel();
-        worker.postMessage({ hereIsYourPort: subChannel.port1 }, [subChannel.port1]);
+        worker.postMessage({ hereIsYourPort: subChannel.port1 }, [subChannel.port1] as ReadonlyArray<workerThreads.TransferListItem>);
         subChannel.port2.on('message', (value) => {
             console.log('received:', value);
         });

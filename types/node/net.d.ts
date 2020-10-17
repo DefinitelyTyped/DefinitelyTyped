@@ -71,7 +71,7 @@ declare module "net" {
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
-        address(): AddressInfo | string;
+        address(): AddressInfo | {};
         unref(): this;
         ref(): this;
 

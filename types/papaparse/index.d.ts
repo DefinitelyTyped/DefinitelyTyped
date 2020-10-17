@@ -9,6 +9,7 @@
 //                 Janne Liuhtonen <https://github.com/jliuhtonen>
 //                 Raphaël Barbazza <https://github.com/rbarbazz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -126,6 +127,7 @@ export interface UnparseConfig {
     quotes?: boolean | boolean[] | ((value: any) => boolean); // default: false
     quoteChar?: string; // default: '"'
     escapeChar?: string; // default: '"'
+    escapeFormulae?: boolean; // default: false
     delimiter?: string; // default: ","
     /**
      * If defined and the download property is true,

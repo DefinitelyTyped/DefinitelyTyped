@@ -1,6 +1,9 @@
 // Type definitions for non-npm package Forge Viewer 7.5
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
-// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Alan Smith <https://github.com/alansmithnbs>, Jan Liska <https://github.com/liskaj>
+// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
+//                 Alan Smith <https://github.com/alansmithnbs>
+//                 Jan Liska <https://github.com/liskaj>
+//                 Petr Broz <https://github.com/petrbroz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -304,6 +307,44 @@ declare namespace Autodesk {
           mime?: string;
         }
 
+        interface AggregatedViewInitOptions {
+          ignoreGlobalOffset?: boolean;
+          headlessViewer?: boolean;
+          useDynamicGlobalOffset?: boolean;
+        }
+
+        class AggregatedView {
+          viewer: Viewer3D | GuiViewer3D;
+
+          areAllNodes2D(): boolean;
+          getFloorSelector(): any;
+          getModel(node: BubbleNode): Model;
+          getModelAndWait(node: BubbleNode): Promise<Model>;
+          getVisibleNodes(): Model[];
+          hide(node: BubbleNode): void;
+          hideAll(): void;
+          init(parentDiv: HTMLElement, options?: AggregatedViewInitOptions): Promise<Extension[]>;
+          isBimWalkActive(): boolean;
+          isEmpty(): boolean;
+          isLoadDone(): boolean;
+          isVisible(node: BubbleNode): boolean;
+          load(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
+          reset(): void;
+          setAlignmentService(alignmentService: any): void;
+          setBookmarks(bookmarks: BubbleNode[]): void;
+          setCamera(camera: any): void;
+          setCameraGlobal(camera: any): void;
+          setNodes(bubbleNodes: BubbleNode[], diffConfig: any): void;
+          startBimWalk(): void;
+          stopBimWalk(): void;
+          show(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
+          switchView(bubbleNodes: BubbleNode[], diffConfig: any): void;
+          unload(bubbleNode: BubbleNode): void;
+          unloadAll(filter?: (item: any) => boolean): void;
+          unloadUnderlayRaster(bubbleNode: BubbleNode): void;
+          waitForLoadDone(): Promise<void>;
+        }
+
         class BubbleNode {
           static MODEL_NODE: BubbleNodeSearchProps;
           static GEOMETRY_SVF_NODE: BubbleNodeSearchProps;
@@ -489,7 +530,9 @@ declare namespace Autodesk {
             getData(): any;
             getFragmentList(): any;
             getGeometryList(): any;
+            getGlobalOffset(): THREE.Vector3;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
+            getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
@@ -706,6 +749,7 @@ declare namespace Autodesk {
             id: number;
             impl: Private.Viewer3DImpl;
             model: Model;
+            prefs: any;
             started: boolean;
             toolbar: UI.ToolBar;
 
@@ -762,8 +806,9 @@ declare namespace Autodesk {
             getAggregateSelection(callback?: (model: Model, dbId: number) => void): any[];
             getAggregateIsolation(): any[];
             getAggregateHiddenNodes(): any[];
-            hide(node: number|number[]): void;
-            show(node: number|number[]): void;
+            getAllModels(): Model[];
+            hide(node: number|number[], model?: Model): void;
+            show(node: number|number[], model?: Model): void;
             showAll(): void;
             toggleVisibility(dbId: number, model?: Model): void;
             areAllVisible(): boolean;
@@ -881,7 +926,6 @@ declare namespace Autodesk {
             autocam: any;
             progressbar: any;
             utilities: ViewingUtilities;
-            prefs: any;
             dockingPanels: any;
             overlays: OverlayManager;
 
@@ -1025,6 +1069,7 @@ declare namespace Autodesk {
                 camera: THREE.Camera;
                 canvas: HTMLCanvasElement;
                 model: any;
+                overlayScenes: any;
                 scene: THREE.Scene;
                 sceneAfter: THREE.Scene;
                 selector: any;
@@ -1035,6 +1080,7 @@ declare namespace Autodesk {
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
                 clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
                 createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any): void;
+                getCanvasBoundingClientRect(): DOMRect;
                 hitTest(clientX: number, clientY: number, ignoreTransparent: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
@@ -1052,9 +1098,12 @@ declare namespace Autodesk {
                 rayIntersect(ray: THREE.Ray): HitTestResult;
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
+                setPlacementTransform(model: Model, matrix: THREE.Matrix4): void;
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
                 syncCamera(syncWorldUp?: boolean): void;
                 viewportToRay(vpVec: THREE.Vector3, ray: THREE.Ray): THREE.Ray;
+                worldToClient(pos: THREE.Vector3): THREE.Vector3;
+                worldUpName(): string;
             }
 
             class VisibilityManager {

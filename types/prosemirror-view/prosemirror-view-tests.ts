@@ -71,3 +71,22 @@ const res6_plugin = new state.Plugin({
         }
     }
 });
+
+const view1 = new state.Plugin({
+    props: {
+        handleDOMEvents: {
+            click(view, event) {
+                event; // $ExpectType MouseEvent
+                return true;
+            },
+            blur(view, event) {
+                event; // $ExpectType FocusEvent
+                return true;
+            },
+            customxyz: (view, event) => {
+                event; // $ExpectType any
+                return true;
+            },
+        },
+    },
+});

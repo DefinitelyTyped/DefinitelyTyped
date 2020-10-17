@@ -2066,12 +2066,12 @@ declare module "fs" {
      */
     export function writev(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
     export function writev(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
@@ -2082,22 +2082,22 @@ declare module "fs" {
     }
 
     export namespace writev {
-        function __promisify__(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
+        function __promisify__(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
     }
 
     /**
      * See `writev`.
      */
-    export function writevSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
+    export function writevSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
 
     export function readv(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
     export function readv(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
@@ -2108,13 +2108,13 @@ declare module "fs" {
     }
 
     export namespace readv {
-        function __promisify__(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
+        function __promisify__(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<ReadVResult>;
     }
 
     /**
      * See `readv`.
      */
-    export function readvSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
+    export function readvSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
 
     export interface OpenDirOptions {
         encoding?: BufferEncoding;

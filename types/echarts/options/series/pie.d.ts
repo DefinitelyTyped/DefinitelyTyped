@@ -27,7 +27,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-pie
          */
         interface SeriesPie {
-
             /**
              * @default
              * "pie"
@@ -335,7 +334,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -611,12 +610,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -659,7 +656,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -984,7 +981,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -1085,7 +1081,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * Whether to show the visual guide line in emphasis status.
                      *
@@ -1098,7 +1093,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.labelLine.emphasis.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *
@@ -1321,12 +1315,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label
                  */
                 label?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.show
                      */
@@ -1419,7 +1411,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -1696,12 +1688,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1744,7 +1734,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -2020,7 +2010,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2264,11 +2253,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-pie.data
              */
-            data?: (
-                number[]
-                | number[][]
-                | SeriesPie.DataObject[]
-            );
+            data?: number[] | number[][] | SeriesPie.DataObject[];
 
             /**
              * Mark point in a chart.
@@ -2277,7 +2262,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -2407,7 +2391,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2582,7 +2565,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -2868,12 +2851,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2919,7 +2900,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -3203,7 +3184,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3378,7 +3358,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -3668,12 +3648,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3719,7 +3697,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -4020,7 +3998,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -4120,7 +4097,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -4241,7 +4217,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -4378,7 +4353,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4480,7 +4454,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -4587,7 +4560,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -4716,7 +4688,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -5006,12 +4978,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -5057,7 +5027,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -5353,7 +5323,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -5482,7 +5451,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -5774,12 +5743,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -5825,7 +5792,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -6237,7 +6204,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-pie.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -6290,7 +6256,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -6364,7 +6329,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -6445,7 +6409,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -6551,7 +6514,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -6670,7 +6632,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -6678,7 +6639,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -6818,7 +6778,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -6928,7 +6887,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7046,7 +7004,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -7122,7 +7079,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -7204,7 +7160,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -7344,7 +7299,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7454,7 +7408,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7572,7 +7525,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -7648,7 +7600,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-pie.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -7839,7 +7790,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-pie.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -7857,7 +7807,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -7986,7 +7935,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -8272,12 +8221,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8323,7 +8270,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -8607,7 +8554,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -8736,7 +8682,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -9026,12 +8972,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -9077,7 +9021,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -9378,7 +9322,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -9478,7 +9421,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -9602,7 +9544,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -9610,7 +9551,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -9654,7 +9594,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -9759,7 +9698,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -9873,7 +9811,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -10002,7 +9939,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -10294,12 +10231,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -10345,7 +10280,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -10642,7 +10577,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -10773,7 +10707,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -11077,12 +11011,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -11129,7 +11061,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -11439,7 +11371,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -11483,7 +11414,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -11588,7 +11518,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -11702,7 +11631,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -11831,7 +11759,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -12123,12 +12051,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -12174,7 +12100,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -12471,7 +12397,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -12602,7 +12527,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -12906,12 +12831,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -12958,7 +12881,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-pie.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -13510,7 +13433,6 @@ declare namespace echarts {
 
         namespace SeriesPie {
             interface DataObject {
-
                 /**
                  * The name of data item.
                  *
@@ -13542,7 +13464,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.data.label
                  */
                 label?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.show
                      */
@@ -13620,7 +13541,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -13897,12 +13818,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -13945,7 +13864,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -14224,7 +14143,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine
                  */
                 labelLine?: {
-
                     /**
                      * Whether to show the visual guide ine.
                      *
@@ -14263,7 +14181,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *
@@ -14365,7 +14282,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show the visual guide line in emphasis
                          * status.
@@ -14379,7 +14295,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.labelLine.emphasis.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -14486,7 +14401,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -14587,12 +14501,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.show
                          */
@@ -14640,7 +14552,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -14921,12 +14833,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -14969,7 +14879,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -15257,7 +15167,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-pie.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *

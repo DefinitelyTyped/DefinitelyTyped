@@ -10,14 +10,17 @@ export interface StringMap {
 
 // buyTypes
 
+export type BuyTradeFinalStatus =
+    | 'SUCCESS' // receive tx was created, waiting for receive tx to be mined
+    | 'ERROR' // the transaction was blocked, the customer will be contacted by email
+    | 'BLOCKED'; // something went wrong during or after confirmTrade
+
 export type BuyTradeStatus =
     | 'LOGIN_REQUEST' // request to login to the partner's site
     | 'REQUESTING' // sending request to the partner
     | 'SUBMITTED' // request was submitted to the partner
     | 'APPROVAL_PENDING' // pending approval
-    | 'SUCCESS' // receive tx was created, waiting for receive tx to be mined
-    | 'BLOCKED' // the transaction was blocked, the customer will be contacted by email
-    | 'ERROR'; // something went wrong during or after confirmTrade
+    | BuyTradeFinalStatus;
 
 export type BuyCryptoPaymentMethod =
     | 'bancontact'
@@ -123,15 +126,18 @@ export interface WatchBuyTradeResponse {
 
 // exchangeTypes
 
+export type ExchangeTradeFinalStatus =
+    | 'SUCCESS' // receive tx was created, waiting for receive tx to be mined
+    | 'ERROR' // something went wrong during or after confirmTrade
+    | 'KYC'; // Trade is subject to KYC/AML
+
 export type ExchangeTradeStatus =
     | 'LOADING' // fetching address from exchange
     | 'CONFIRM' // waiting for user confirmation on TREZOR
     | 'SENDING' // send tx was created, waiting for send tx to be sent
     | 'CONFIRMING' // send tx was sent, waiting for tx to be mined (not used for Trezor Wallet)
     | 'CONVERTING' // send tx was mined, money is on exchange, receive tx not yet created
-    | 'SUCCESS' // receive tx was created, waiting for receive tx to be mined
-    | 'ERROR' // something went wrong during or after confirmTrade
-    | 'KYC'; // Trade is subject to KYC/AML
+    | ExchangeTradeFinalStatus;
 
 export type ExchangeFee =
     | number // actual fee amount in 'receive' currency
@@ -165,6 +171,7 @@ export interface ExchangeCoinInfo {
     ticker: string; // BTC
     name: string; // Bitcoin
     category: string; // popular
+    token?: string; // platform of the token, e.g. ETH
 }
 
 export type ExchangeCoinListResponse = ExchangeCoinInfo[];

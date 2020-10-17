@@ -186,7 +186,7 @@ class WrappedComponent extends React.Component<ComponentProps & InjectedStripePr
                 routing_number: '',
                 account_number: '',
                 account_holder_name: '',
-                account_holder_type: '',
+                account_holder_type: 'individual',
             })
             .then((response: TokenResponse) => this.props.tokenCallback(response));
     }
