@@ -9103,6 +9103,7 @@ export interface I18nManagerStatic {
     isRTL: boolean;
     allowRTL: (allowRTL: boolean) => {};
     forceRTL: (forceRTL: boolean) => {};
+    swapLeftAndRightInRTL: (swapLeftAndRight: boolean) => {};
 }
 
 export interface OpenCameraDialogOptions {
