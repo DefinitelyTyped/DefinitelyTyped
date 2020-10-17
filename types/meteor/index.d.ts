@@ -16,6 +16,7 @@
 //                 Evan Broder <https://github.com/ebroder>
 //                 Radosław Miernik <https://github.com/radekmie>
 //                 Wojciech Adamek <https://github.com/wadamek65>
+//                 Maciej Stasieluk <https://github.com/MacRusher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
