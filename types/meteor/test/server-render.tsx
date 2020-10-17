@@ -16,10 +16,10 @@ onPageLoad(sink => {
 
 onPageLoad(sink => {
   if (sink.getCookies) {
-    sink.getCookies(); // $ExpectType { [key: string]: string }
+    sink.getCookies(); // $ExpectType { [key: string]: string; }
   }
   if (sink.getHeaders) {
-    sink.getHeaders(); // $ExpectType http.IncomingHttpHeaders
+    sink.getHeaders(); // $ExpectType IncomingHttpHeaders
   }
   if (sink.setHeader) {
     sink.setHeader('cache-control', 'no-cache');
