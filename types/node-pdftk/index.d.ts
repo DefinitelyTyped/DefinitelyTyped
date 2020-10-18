@@ -1,10 +1,41 @@
 // Type definitions for node-pdftk 2.1
 // Project: https://github.com/jjwilly16/node-pdftk#readme
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/node-pdftk
 // Minimum TypeScript Version: 3.0
 
 /// <reference types="node" />
+
+export type Input = string | Buffer;
+
+export interface InputMap {
+    A?: Input;
+    B?: Input;
+    C?: Input;
+    D?: Input;
+    E?: Input;
+    F?: Input;
+    G?: Input;
+    H?: Input;
+    I?: Input;
+    J?: Input;
+    K?: Input;
+    L?: Input;
+    M?: Input;
+    N?: Input;
+    O?: Input;
+    P?: Input;
+    Q?: Input;
+    R?: Input;
+    S?: Input;
+    T?: Input;
+    U?: Input;
+    V?: Input;
+    W?: Input;
+    X?: Input;
+    Y?: Input;
+    Z?: Input;
+}
 
 export type Permission =
     | 'Printing' // – Top Quality Printing
@@ -255,5 +286,5 @@ export interface ConfigureOptions {
     tempDir: string;
 }
 
-export function input(file: string | Buffer): PDFTK;
+export function input(file: string | Buffer | Buffer[] | InputMap): PDFTK;
 export function configure(opts: ConfigureOptions): void;
