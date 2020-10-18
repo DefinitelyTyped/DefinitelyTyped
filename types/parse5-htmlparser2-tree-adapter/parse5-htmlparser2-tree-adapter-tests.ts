@@ -1,5 +1,5 @@
 import * as parse5 from "parse5";
-import * as treeAdapter from 'parse5-htmlparser2-tree-adapter';
+import treeAdapter = require('parse5-htmlparser2-tree-adapter');
 
 // htmlparser2 AST
 const htmlparser2Document = parse5.parse<typeof treeAdapter>("<html>", {
