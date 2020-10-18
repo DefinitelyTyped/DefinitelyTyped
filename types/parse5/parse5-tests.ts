@@ -1,5 +1,5 @@
 import * as parse5 from "parse5";
-import * as defaultAdapter from "parse5/lib/tree-adapters/default";
+import defaultAdapter = require("parse5/lib/tree-adapters/default");
 
 // Shorthands
 // parse
@@ -104,7 +104,7 @@ loc.endTag.endOffset; // $ExpectType number
 // Default AST
 declare const defaultDocument: parse5.Document;
 
-defaultDocument.childNodes; // $ExpectType DefaultTreeNode[]
+defaultDocument.childNodes; // $ExpectType ChildNode[]
 defaultDocument.nodeName; // $ExpectType "#document"
 defaultDocument.mode; // $ExpectType DocumentMode
 
@@ -116,17 +116,17 @@ defaultDoctype.systemId; // $ExpectType string
 
 declare const defaultDocumentFragment: parse5.DocumentFragment;
 
-defaultDocumentFragment.childNodes; // $ExpectType DefaultTreeNode[]
+defaultDocumentFragment.childNodes; // $ExpectType ChildNode[]
 defaultDocumentFragment.nodeName; // $ExpectType "#document-fragment"
 
 declare const defaultElement: parse5.Element;
 
-defaultElement.childNodes; // $ExpectType DefaultTreeNode[]
+defaultElement.childNodes; // $ExpectType ChildNode[]
 defaultElement.sourceCodeLocation!; // $ExpectType ElementLocation
 defaultElement.namespaceURI; // $ExpectType string
 defaultElement.nodeName; // $ExpectType string
 defaultElement.tagName; // $ExpectType string
-defaultElement.parentNode; // $ExpectType DefaultTreeParentNode
+defaultElement.parentNode; // $ExpectType ParentNode
 defaultElement.parentNode.nodeName; // $ExpectType string
 
 // $ExpectType Attribute
@@ -142,7 +142,7 @@ declare const defaultTextNode: parse5.TextNode;
 defaultTextNode.sourceCodeLocation!; // $ExpectType Location
 defaultTextNode.nodeName; // $ExpectType "#text"
 defaultTextNode.value; // $ExpectType string
-defaultTextNode.parentNode; // $ExpectType DefaultTreeParentNode
+defaultTextNode.parentNode; // $ExpectType ParentNode
 defaultTextNode.parentNode.nodeName; // $ExpectType string
 
 declare const defaultCommentNode: parse5.CommentNode;
@@ -150,7 +150,7 @@ declare const defaultCommentNode: parse5.CommentNode;
 defaultCommentNode.sourceCodeLocation!; // $ExpectType Location
 defaultCommentNode.nodeName; // $ExpectType "#comment"
 defaultCommentNode.data; // $ExpectType string
-defaultCommentNode.parentNode; // $ExpectType DefaultTreeParentNode
+defaultCommentNode.parentNode; // $ExpectType ParentNode
 defaultCommentNode.parentNode.nodeName; // $ExpectType string
 
 const adapter = defaultAdapter;
