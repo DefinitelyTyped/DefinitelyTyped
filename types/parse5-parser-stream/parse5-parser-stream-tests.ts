@@ -1,8 +1,8 @@
 import * as parse5 from "parse5";
+import defaultAdapter = require("parse5/lib/tree-adapters/default");
 import * as ParserStream from "parse5-parser-stream";
 import { createReadStream } from "fs";
 
-const defaultAdapter = new Object() as parse5.TreeAdapterLike;
 let parser = new ParserStream<parse5.Document>();
 
 parser = new ParserStream<parse5.Document>({ sourceCodeLocationInfo: true });

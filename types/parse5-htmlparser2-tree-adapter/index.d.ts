@@ -7,6 +7,9 @@
 import * as parse5 from "parse5";
 
 declare namespace treeAdapter {
+    /**
+     * htmlparser2 tree adapter Node interface.
+     */
     interface Node {
         /**
          * The type of the node. E.g. {@link Document} will have `type` equal to 'root'`.
@@ -42,6 +45,9 @@ declare namespace treeAdapter {
         nextSibling: Node;
     }
 
+    /**
+     * htmlparser2 tree adapter ChildNode interface.
+     */
     interface ChildNode extends Node {
         /**
          * Parent node.
@@ -49,6 +55,9 @@ declare namespace treeAdapter {
         parentNode: ParentNode;
     }
 
+    /**
+     * htmlparser2 tree adapter ParentNode interface.
+     */
     interface ParentNode extends Node {
         /**
          * Child nodes.
@@ -68,6 +77,9 @@ declare namespace treeAdapter {
         lastChild: ChildNode;
     }
 
+    /**
+     * htmlparser2 tree adapter DocumentType interface.
+     */
     interface DocumentType extends Node {
         /**
          * The type of the node.
@@ -95,6 +107,9 @@ declare namespace treeAdapter {
         "x-systemId": string;
     }
 
+    /**
+     * htmlparser2 tree adapter Document interface.
+     */
     interface Document extends ParentNode {
         /**
          * The type of the node.
@@ -110,6 +125,9 @@ declare namespace treeAdapter {
         "x-mode": parse5.DocumentMode;
     }
 
+    /**
+     * htmlparser2 tree adapter DocumentFragment interface.
+     */
     interface DocumentFragment extends ParentNode {
         /**
          * The type of the node.
@@ -121,6 +139,9 @@ declare namespace treeAdapter {
         name: "root";
     }
 
+    /**
+     * htmlparser2 tree adapter Element interface.
+     */
     interface Element extends ChildNode, ParentNode {
         /**
          * The name of the node. Equals to element {@link tagName}.
@@ -152,6 +173,9 @@ declare namespace treeAdapter {
         sourceCodeLocation?: parse5.ElementLocation;
     }
 
+    /**
+     * htmlparser2 tree adapter CommentNode interface.
+     */
     interface CommentNode extends ChildNode {
         /**
          * The name of the node.
@@ -171,6 +195,9 @@ declare namespace treeAdapter {
         sourceCodeLocation?: parse5.Location;
     }
 
+    /**
+     * htmlparser2 tree adapter TextNode interface.
+     */
     interface TextNode extends ChildNode {
         /**
          * The name of the node.
