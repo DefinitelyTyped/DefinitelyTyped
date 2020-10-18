@@ -11,9 +11,9 @@ declare namespace echarts {
 
         /**
          * Linear gradient.
-         * 
-         * First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. 
-         * 
+         *
+         * First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box.
+         *
          * If global is `true`, then the first four parameters are in absolute pixel positions.
          */
         interface LinearGradient {
@@ -28,7 +28,7 @@ declare namespace echarts {
 
         /**
          * Radial gradient.
-         * 
+         *
          * First three parameters are x and y positions of center, and radius, similar to linear gradient.
          */
         interface RadialGradient {
