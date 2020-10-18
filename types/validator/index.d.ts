@@ -317,6 +317,11 @@ declare namespace validator {
      */
     function isDataURI(str: string): boolean;
 
+    /**
+     * Check if the string is a valid date.
+     */
+    function isDate(str: string): boolean;
+
     type DecimalLocale = FloatLocale;
 
     interface IsDecimalOptions {
