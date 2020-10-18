@@ -176,8 +176,8 @@ adapter.insertText(element, "text");
 adapter.insertTextBefore(document, "text", element);
 adapter.adoptAttributes(element, [{ name: "someAttr", value: "42" }]);
 
-adapter.getFirstChild(element); // $ExpectType Node
-adapter.getChildNodes(element)[0]; // $ExpectType Node
+adapter.getFirstChild(element); // $ExpectType ChildNode
+adapter.getChildNodes(element)[0]; // $ExpectType ChildNode
 adapter.getParentNode(element); // $ExpectType ParentNode
 adapter.getAttrList(element)[0]; // $ExpectType Attribute
 adapter.getTagName(element); // $ExpectType string
@@ -195,4 +195,4 @@ adapter.isElementNode(element); // $ExpectType boolean
 declare const location: parse5.ElementLocation | parse5.StartTagLocation | parse5.Location;
 
 adapter.setNodeSourceCodeLocation(defaultTextNode, location); // $ExpectType void
-adapter.getNodeSourceCodeLocation(defaultTextNode); // $ExpectType ElementLocation | StartTagLocation | Location
+adapter.getNodeSourceCodeLocation(defaultTextNode); // $ExpectType Location | StartTagLocation | ElementLocation

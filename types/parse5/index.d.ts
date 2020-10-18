@@ -436,7 +436,7 @@ export interface TreeAdapter<T extends TreeAdapterMap> extends TreeAdapterLike {
      *
      * @param document - Document node.
      */
-    getDocumentMode(document: T['document']): T['documentType'];
+    getDocumentMode(document: T['document']): DocumentMode;
 
     /**
      * Returns the given document type node's name.
