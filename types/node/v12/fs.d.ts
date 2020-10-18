@@ -740,6 +740,14 @@ declare module "fs" {
 
     interface RmDirOptions {
         /**
+         * If an `EBUSY`, `ENOTEMPTY`, or `EPERM` error is
+         * encountered, Node.js will retry the operation with a linear backoff wait of
+         * 100ms longer on each try. This option represents the number of retries. This
+         * option is ignored if the `recursive` option is not `true`.
+         * @default 3
+         */
+        maxRetries?: number;
+        /**
          * If `true`, perform a recursive directory removal. In
          * recursive mode, errors are not reported if `path` does not exist, and
          * operations are retried on failure.
@@ -747,9 +755,6 @@ declare module "fs" {
          * @default false
          */
         recursive?: boolean;
-    }
-
-    interface RmDirAsyncOptions extends RmDirOptions {
         /**
          * If an `EMFILE` error is encountered, Node.js will
          * retry the operation with a linear backoff of 1ms longer on each try until the
@@ -758,14 +763,6 @@ declare module "fs" {
          * @default 1000
          */
         emfileWait?: number;
-        /**
-         * If an `EBUSY`, `ENOTEMPTY`, or `EPERM` error is
-         * encountered, Node.js will retry the operation with a linear backoff wait of
-         * 100ms longer on each try. This option represents the number of retries. This
-         * option is ignored if the `recursive` option is not `true`.
-         * @default 3
-         */
-        maxBusyTries?: number;
     }
 
     /**
@@ -773,7 +770,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     function rmdir(path: PathLike, callback: NoParamCallback): void;
-    function rmdir(path: PathLike, options: RmDirAsyncOptions, callback: NoParamCallback): void;
+    function rmdir(path: PathLike, options: RmDirOptions, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace rmdir {
@@ -781,7 +778,7 @@ declare module "fs" {
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
+        function __promisify__(path: PathLike, options?: RmDirOptions): Promise<void>;
     }
 
     /**
@@ -2189,7 +2186,7 @@ declare module "fs" {
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function rmdir(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
+        function rmdir(path: PathLike, options?: RmDirOptions): Promise<void>;
 
         /**
          * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.

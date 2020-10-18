@@ -4,7 +4,8 @@ declare module 'fs/promises' {
         WriteVResult,
         ReadVResult,
         PathLike,
-        RmDirAsyncOptions,
+        RmDirOptions,
+        RmOptions,
         MakeDirectoryOptions,
         Dirent,
         OpenDirOptions,
@@ -255,7 +256,12 @@ declare module 'fs/promises' {
      * Asynchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function rmdir(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
+    function rmdir(path: PathLike, options?: RmDirOptions): Promise<void>;
+
+    /**
+     * Asynchronously removes files and directories (modeled on the standard POSIX `rm` utility).
+     */
+    function rm(path: PathLike, options?: RmOptions): Promise<void>;
 
     /**
      * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
