@@ -334,6 +334,22 @@ const customTooltipsPieChart = new Chart(ctx, {
     },
 });
 
+// chart with right-to-left (rtl) legend and tooltip
+const rtlTooltipsLegendsLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {},
+    options: {
+        legend: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+        tooltips: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+    },
+});
+
 // platform global values
 Chart.platform.disableCSSInjection = true;
 
