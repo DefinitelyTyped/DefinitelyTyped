@@ -15,9 +15,9 @@ async function connect() {
         ],
     });
     await port.open({
-        baudrate: 9600,
+        baudRate: 9600,
         parity: 'none',
-        buffersize: 128,
+        bufferSize: 128,
     });
     const info = port.getInfo();
     const vendor = info.vendor;
