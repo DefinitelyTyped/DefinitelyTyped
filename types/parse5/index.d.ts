@@ -293,19 +293,6 @@ export interface TreeAdapterMap {
     textNode: any;
 }
 
-export interface DefaultTreeAdapterMap extends TreeAdapterMap {
-    document: Document;
-    element: Element;
-    parentNode: ParentNode;
-    commentNode: CommentNode;
-    attribute: Attribute;
-    node: Node;
-    documentFragment: DocumentFragment;
-    childNode: ChildNode;
-    documentType: DocumentType;
-    textNode: TextNode;
-}
-
 export interface TreeAdapterLike {
     adoptAttributes(recipient: unknown, attrs: unknown[]): void;
     appendChild(parentNode: unknown, newNode: unknown): void;

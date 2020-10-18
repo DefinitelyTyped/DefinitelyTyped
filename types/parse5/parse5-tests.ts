@@ -1,12 +1,9 @@
 import * as parse5 from "parse5";
-import * as defaultTreeAdapter from "./lib/tree-adapters/default";
-
-const adapter: parse5.TreeAdapter = defaultTreeAdapter;
+import * as defaultAdapter from "parse5/lib/tree-adapters/default";
 
 // Shorthands
 // parse
 declare const document: parse5.Document;
-declare const defaultAdapter: parse5.TreeAdapter;
 
 parse5.parse("<html>"); // $ExpectType Document
 parse5.parse("<html>", {}); // $ExpectType Document
@@ -46,9 +43,9 @@ parse5.parseFragment("<div>", {
     treeAdapter: defaultAdapter
 });
 
-const element = (parse5.parseFragment(
+const element = parse5.parseFragment(
     "<div>"
-) as parse5.DefaultTreeDocumentFragment).childNodes[0] as parse5.Element;
+).childNodes[0] as parse5.Element;
 
 parse5.parseFragment(element, "<div>");
 parse5.parseFragment(element, "<div>", {});
@@ -74,7 +71,7 @@ parse5.serialize(element, { treeAdapter: defaultAdapter });
 parse5.serialize(element, { treeAdapter: defaultAdapter });
 
 // Location info
-const loc = (element as parse5.DefaultTreeElement).sourceCodeLocation!;
+const loc = element.sourceCodeLocation!;
 
 loc.startLine; // $ExpectType number
 loc.startCol; // $ExpectType number
@@ -105,24 +102,24 @@ loc.endTag.startOffset; // $ExpectType number
 loc.endTag.endOffset; // $ExpectType number
 
 // Default AST
-declare const defaultDocument: parse5.DefaultTreeDocument;
+declare const defaultDocument: parse5.Document;
 
 defaultDocument.childNodes; // $ExpectType DefaultTreeNode[]
 defaultDocument.nodeName; // $ExpectType "#document"
 defaultDocument.mode; // $ExpectType DocumentMode
 
-declare const defaultDoctype: parse5.DefaultTreeDocumentType;
+declare const defaultDoctype: parse5.DocumentType;
 
 defaultDoctype.name; // $ExpectType string
 defaultDoctype.publicId; // $ExpectType string
 defaultDoctype.systemId; // $ExpectType string
 
-declare const defaultDocumentFragment: parse5.DefaultTreeDocumentFragment;
+declare const defaultDocumentFragment: parse5.DocumentFragment;
 
 defaultDocumentFragment.childNodes; // $ExpectType DefaultTreeNode[]
 defaultDocumentFragment.nodeName; // $ExpectType "#document-fragment"
 
-declare const defaultElement: parse5.DefaultTreeElement;
+declare const defaultElement: parse5.Element;
 
 defaultElement.childNodes; // $ExpectType DefaultTreeNode[]
 defaultElement.sourceCodeLocation!; // $ExpectType ElementLocation
@@ -140,7 +137,7 @@ defaultAttr.namespace!; // $ExpectType string
 defaultAttr.prefix!; // $ExpectType string
 defaultAttr.value; // $ExpectType string
 
-declare const defaultTextNode: parse5.DefaultTreeTextNode;
+declare const defaultTextNode: parse5.TextNode;
 
 defaultTextNode.sourceCodeLocation!; // $ExpectType Location
 defaultTextNode.nodeName; // $ExpectType "#text"
@@ -148,7 +145,7 @@ defaultTextNode.value; // $ExpectType string
 defaultTextNode.parentNode; // $ExpectType DefaultTreeParentNode
 defaultTextNode.parentNode.nodeName; // $ExpectType string
 
-declare const defaultCommentNode: parse5.DefaultTreeCommentNode;
+declare const defaultCommentNode: parse5.CommentNode;
 
 defaultCommentNode.sourceCodeLocation!; // $ExpectType Location
 defaultCommentNode.nodeName; // $ExpectType "#comment"
