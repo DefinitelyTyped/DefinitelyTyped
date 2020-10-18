@@ -1,4 +1,4 @@
-import SDC, { Tags, TcpOptions, UdpOptions, HttpOptions } from 'statsd-client';
+import SDC = require('statsd-client');
 
 let sdc = new SDC({ host: 'statsd.example.com' });
 
@@ -10,10 +10,10 @@ sdc.timing('some.timer', timer); // Calculates time diff
 sdc.close(); // Optional - stop NOW
 
 // Initialization
-const tags: Tags = { foo: 'bar' };
-const udpOptions: UdpOptions = { host: 'statsd.example.com', port: 8124, debug: true, tags };
-const tcpOptions: TcpOptions = { host: 'statsd.example.com', port: 8124, debug: true, tags, socketTimeoutsToClose: 1 };
-const httpOptions: HttpOptions = {
+const tags: SDC.Tags = { foo: 'bar' };
+const udpOptions: SDC.UdpOptions = { host: 'statsd.example.com', port: 8124, debug: true, tags };
+const tcpOptions: SDC.TcpOptions = { host: 'statsd.example.com', port: 8124, debug: true, tags, socketTimeoutsToClose: 1 };
+const httpOptions: SDC.HttpOptions = {
     host: 'statsd.example.com',
     headers: { 'x-foo': 'bar' },
     method: 'get',
