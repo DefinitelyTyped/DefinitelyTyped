@@ -189,7 +189,7 @@ export interface TextNode extends ChildNode {
     sourceCodeLocation?: parse5.Location;
 }
 
-interface TreeAdapterMap extends parse5.TreeAdapterMap {
+export interface TreeAdapterMap extends parse5.TreeAdapterMap {
     document: Document;
     element: Element;
     parentNode: ParentNode;
