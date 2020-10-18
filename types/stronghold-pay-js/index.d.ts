@@ -27,7 +27,7 @@ declare global {
         }
         enum ERROR_TYPE {
             API_ERROR = "api_error",
-            AUTHENTICATION_ERROR = "authentication_error",
+            AUTH_ERROR = "auth_error",
             INVALID_REQUEST_ERROR = "invalid_request_error",
             OBJECT_ERROR = "object_error",
             VALIDATION_ERROR = "validation_error"
@@ -35,22 +35,29 @@ declare global {
         enum ERROR_CODE {
             SERVER_ERROR = "server_error",
             CONNECTION_ERROR = "connection_error",
+            MERCHANT_SOFTWARE_ERROR = "merchant_software_error",
             INVALID_API_KEY = "invalid_api_key",
+            LIVE_NOT_APPROVED = "live_not_approved",
             FORBIDDEN_RESOURCE = "forbidden_resource",
             INVALID_ACCESS_TOKEN = "invalid_access_token",
             NOT_FOUND = "not_found",
             INVALID_ID = "invalid_id",
             TICKET_NOT_FOUND = "ticket_not_found",
             DISPENSARY_NOT_FOUND = "dispensary_not_found",
+            SANDBOX_ONLY = "sandbox_only",
+            INVALID_OPERATION = "invalid_operation",
             PAYMENT_SOURCE_ALREADY_EXISTS = "payment_source_already_exists",
             PAYMENT_SOURCE_LOGIN_REQUIRED = "payment_source_login_required",
             PAYMENT_SOURCE_UNAVAILABLE = "payment_source_unavailable",
             PAYMENT_SOURCE_LOGIN_UNAVAILABLE = "payment_source_login_unavailable",
+            PAYMENT_SOURCE_INACTIVE = "payment_source_inactive",
+            PAYMENT_SOURCE_ACTION_REQUIRED = "payment_source_action_required",
             INSUFFICIENT_BALANCE = "insufficient_balance",
             CUSTOMER_BLOCKED = "customer_blocked",
             PAY_LINK_CANCELED = "pay_link_canceled",
             PAY_LINK_EXPIRED = "pay_link_expired",
             PAY_LINK_ALREADY_USED = "pay_link_already_used",
+            INVALID_CHARGE_AMOUNT = "invalid_charge_amount",
             MISSING_FIELD = "missing_field",
             INVALID_FIELD = "invalid_field",
             VALUE_TAKEN = "value_taken"
@@ -118,6 +125,7 @@ declare global {
              */
             amount: number;
             paymentSourceId: string;
+            externalId?: string;
         }
         interface TipDataDropin {
             /**
@@ -176,6 +184,9 @@ declare global {
             payment_source_id: string;
         }
         function frameForSrc(src: string): JQuery;
+        function getOptionQuery(options: Options): {
+            [key: string]: string | number | boolean | undefined;
+        };
         function getChargeQuery(charge?: ChargeDropin): {
             [key: string]: string | number | boolean | undefined;
         };
