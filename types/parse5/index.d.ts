@@ -86,7 +86,7 @@ export interface ParserOptions {
      *
      * **Default:** `treeAdapters.default`
      */
-    treeAdapter?: TreeAdapter;
+    treeAdapter?: TreeAdapterLike;
 }
 
 export interface SerializerOptions {
@@ -95,7 +95,7 @@ export interface SerializerOptions {
      *
      * **Default:** `treeAdapters.default`
      */
-    treeAdapter?: TreeAdapter;
+    treeAdapter?: TreeAdapterLike;
 }
 
 /**
@@ -280,6 +280,87 @@ export interface TextNode extends ChildNode {
     sourceCodeLocation?: Location;
 }
 
+export interface TreeAdapterMap {
+    document: any;
+    element: any;
+    parentNode: any;
+    commentNode: any;
+    attribute: any;
+    node: any;
+    documentFragment: any;
+    childNode: any;
+    documentType: any;
+    textNode: any;
+}
+
+interface DefaultTreeAdapterMap extends TreeAdapterMap {
+    document: Document;
+    element: Element;
+    parentNode: ParentNode;
+    commentNode: CommentNode;
+    attribute: Attribute;
+    node: Node;
+    documentFragment: DocumentFragment;
+    childNode: ChildNode;
+    documentType: DocumentType;
+    textNode: TextNode;
+}
+
+export interface TreeAdapterLike {
+    adoptAttributes(recipient: unknown, attrs: unknown[]): void;
+    appendChild(parentNode: unknown, newNode: unknown): void;
+    createCommentNode(data: string): unknown;
+    createDocument(): unknown;
+    createDocumentFragment(): unknown;
+    createElement(
+        tagName: string,
+        namespaceURI: string,
+        attrs: unknown[]
+    ): unknown;
+    detachNode(node: unknown): void;
+    getAttrList(element: unknown): unknown[];
+    getChildNodes(node: unknown): unknown[];
+    getCommentNodeContent(commentNode: unknown): string;
+    getDocumentMode(document: unknown): unknown;
+    getDocumentTypeNodeName(doctypeNode: unknown): string;
+    getDocumentTypeNodePublicId(doctypeNode: unknown): string;
+    getDocumentTypeNodeSystemId(doctypeNode: unknown): string;
+    getFirstChild(node: unknown): unknown;
+    getNamespaceURI(element: unknown): string;
+    getNodeSourceCodeLocation(node: unknown): Location | StartTagLocation | ElementLocation;
+    getParentNode(node: unknown): unknown;
+    getTagName(element: unknown): string;
+    getTextNodeContent(textNode: unknown): string;
+    getTemplateContent(templateElement: unknown): unknown;
+    insertBefore(
+        parentNode: unknown,
+        newNode: unknown,
+        referenceNode: unknown
+    ): void;
+    insertText(parentNode: unknown, text: string): void;
+    insertTextBefore(
+        parentNode: unknown,
+        text: string,
+        referenceNode: unknown
+    ): void;
+    isCommentNode(node: unknown): boolean;
+    isDocumentTypeNode(node: unknown): boolean;
+    isElementNode(node: unknown): boolean;
+    isTextNode(node: unknown): boolean;
+    setDocumentMode(document: unknown, mode: DocumentMode): void;
+    setDocumentType(
+        document: unknown,
+        name: string,
+        publicId: string,
+        systemId: string
+    ): void;
+    setNodeSourceCodeLocation(node: unknown, location: Location | StartTagLocation | ElementLocation): void;
+    setTemplateContent(
+        templateElement: unknown,
+        contentElement: unknown
+    ): void;
+}
+
 /**
  * Tree adapter is a set of utility functions that provides minimal required abstraction layer beetween parser and a specific AST format.
  * Note that `TreeAdapter` is not designed to be a general purpose AST manipulation library. You can build such library
@@ -287,14 +368,14 @@ export interface TextNode extends ChildNode {
  *
  * @see [default implementation](https://github.com/inikulin/parse5/blob/master/packages/parse5/lib/tree-adapters/default.js)
  */
-export interface TreeAdapter {
+export interface TreeAdapter<T extends TreeAdapterMap> extends TreeAdapterLike {
     /**
      * Copies attributes to the given element. Only attributes that are not yet present in the element are copied.
      *
      * @param recipient - Element to copy attributes into.
      * @param attrs - Attributes to copy.
      */
-    adoptAttributes(recipient: Element, attrs: Attribute[]): void;
+    adoptAttributes(recipient: T['element'], attrs: T['attribute'][]): void;
 
     /**
      * Appends a child node to the given parent node.
@@ -302,24 +383,24 @@ export interface TreeAdapter {
      * @param parentNode - Parent node.
      * @param newNode -  Child node.
      */
-    appendChild(parentNode: ParentNode, newNode: Node): void;
+    appendChild(parentNode: T['parentNode'], newNode: T['node']): void;
 
     /**
      * Creates a comment node.
      *
      * @param data - Comment text.
      */
-    createCommentNode(data: string): CommentNode;
+    createCommentNode(data: string): T['commentNode'];
 
     /**
      * Creates a document node.
      */
-    createDocument(): Document;
+    createDocument(): T['document'];
 
     /**
      * Creates a document fragment node.
      */
-    createDocumentFragment(): DocumentFragment;
+    createDocumentFragment(): T['documentFragment'];
 
     /**
      * Creates an element node.
@@ -331,15 +412,15 @@ export interface TreeAdapter {
     createElement(
         tagName: string,
         namespaceURI: string,
-        attrs: Attribute[]
-    ): Element;
+        attrs: T['attribute'][]
+    ): T['element'];
 
     /**
      * Removes a node from its parent.
      *
      * @param node - Node to remove.
      */
-    detachNode(node: Node): void;
+    detachNode(node: T['node']): void;
 
     /**
      * Returns the given element's attributes in an array, in the form of name-value pairs.
@@ -347,98 +428,98 @@ export interface TreeAdapter {
      *
      * @param element - Element.
      */
-    getAttrList(element: Element): Attribute[];
+    getAttrList(element: T['element']): T['attribute'][];
 
     /**
      * Returns the given node's children in an array.
      *
      * @param node - Node.
      */
-    getChildNodes(node: ParentNode): ChildNode[];
+    getChildNodes(node: T['parentNode']): T['childNode'][];
 
     /**
      * Returns the given comment node's content.
      *
      * @param commentNode - Comment node.
      */
-    getCommentNodeContent(commentNode: CommentNode): string;
+    getCommentNodeContent(commentNode: T['commentNode']): string;
 
     /**
      * Returns [document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
      *
      * @param document - Document node.
      */
-    getDocumentMode(document: Document): DocumentMode;
+    getDocumentMode(document: T['document']): T['documentType'];
 
     /**
      * Returns the given document type node's name.
      *
      * @param doctypeNode - Document type node.
      */
-    getDocumentTypeNodeName(doctypeNode: DocumentType): string;
+    getDocumentTypeNodeName(doctypeNode: T['documentType']): string;
 
     /**
      * Returns the given document type node's public identifier.
      *
      * @param doctypeNode - Document type node.
      */
-    getDocumentTypeNodePublicId(doctypeNode: DocumentType): string;
+    getDocumentTypeNodePublicId(doctypeNode: T['documentType']): string;
 
     /**
      * Returns the given document type node's system identifier.
      *
      * @param doctypeNode - Document type node.
      */
-    getDocumentTypeNodeSystemId(doctypeNode: DocumentType): string;
+    getDocumentTypeNodeSystemId(doctypeNode: T['documentType']): string;
 
     /**
      * Returns the first child of the given node.
      *
      * @param node - Node.
      */
-    getFirstChild(node: ParentNode): ChildNode;
+    getFirstChild(node: T['parentNode']): T['childNode'];
 
     /**
      * Returns the given element's namespace.
      *
      * @param element - Element.
      */
-    getNamespaceURI(element: Element): string;
+    getNamespaceURI(element: T['element']): string;
 
     /**
      * Returns the given node's source code location information.
      *
      * @param node - Node.
      */
-    getNodeSourceCodeLocation(node: Node): Location | StartTagLocation | ElementLocation;
+    getNodeSourceCodeLocation(node: T['node']): Location | StartTagLocation | ElementLocation;
 
     /**
      * Returns the given node's parent.
      *
      * @param node - Node.
      */
-    getParentNode(node: ChildNode): ParentNode;
+    getParentNode(node: T['childNode']): T['parentNode'];
 
     /**
      * Returns the given element's tag name.
      *
      * @param element - Element.
      */
-    getTagName(element: Element): string;
+    getTagName(element: T['element']): string;
 
     /**
      * Returns the given text node's content.
      *
      * @param textNode - Text node.
      */
-    getTextNodeContent(textNode: TextNode): string;
+    getTextNodeContent(textNode: T['textNode']): string;
 
     /**
      * Returns the `<template>` element content element.
      *
      * @param templateElement - `<template>` element.
      */
-    getTemplateContent(templateElement: Element): DocumentFragment;
+    getTemplateContent(templateElement: T['element']): T['documentFragment'];
 
     /**
      * Inserts a child node to the given parent node before the given reference node.
@@ -448,9 +529,9 @@ export interface TreeAdapter {
      * @param referenceNode -  Reference node.
      */
     insertBefore(
-        parentNode: ParentNode,
-        newNode: Node,
-        referenceNode: ChildNode
+        parentNode: T['parentNode'],
+        newNode: T['node'],
+        referenceNode: T['childNode']
     ): void;
 
     /**
@@ -460,7 +541,7 @@ export interface TreeAdapter {
      * @param parentNode - Node to insert text into.
      * @param text - Text to insert.
      */
-    insertText(parentNode: ParentNode, text: string): void;
+    insertText(parentNode: T['parentNode'], text: string): void;
 
     /**
      * Inserts text into a sibling node that goes before the reference node. If this sibling node is the text node,
@@ -472,9 +553,9 @@ export interface TreeAdapter {
      * @param referenceNode - Node to insert text before.
      */
     insertTextBefore(
-        parentNode: ParentNode,
+        parentNode: T['parentNode'],
         text: string,
-        referenceNode: Node
+        referenceNode: T['node']
     ): void;
 
     /**
@@ -482,28 +563,28 @@ export interface TreeAdapter {
      *
      * @param node - Node.
      */
-    isCommentNode(node: Node): node is CommentNode;
+    isCommentNode(node: T['node']): node is T['commentNode'];
 
     /**
      * Determines if the given node is a document type node.
      *
      * @param node - Node.
      */
-    isDocumentTypeNode(node: Node): node is Document;
+    isDocumentTypeNode(node: T['node']): node is T['document'];
 
     /**
      * Determines if the given node is an element.
      *
      * @param node - Node.
      */
-    isElementNode(node: Node): node is Element;
+    isElementNode(node: T['node']): node is T['element'];
 
     /**
      * Determines if the given node is a text node.
      *
      * @param node - Node.
      */
-    isTextNode(node: Node): node is TextNode;
+    isTextNode(node: T['node']): node is T['textNode'];
 
     /**
      * Sets the [document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
@@ -511,7 +592,7 @@ export interface TreeAdapter {
      * @param document - Document node.
      * @param mode - Document mode.
      */
-    setDocumentMode(document: Document, mode: DocumentMode): void;
+    setDocumentMode(document: T['document'], mode: DocumentMode): void;
 
     /**
      * Sets the document type. If the `document` already contains a document type node, the `name`, `publicId` and `systemId`
@@ -524,7 +605,7 @@ export interface TreeAdapter {
      * @param systemId - Document type system identifier.
      */
     setDocumentType(
-        document: Document,
+        document: T['document'],
         name: string,
         publicId: string,
         systemId: string
@@ -535,7 +616,7 @@ export interface TreeAdapter {
      *
      * @param node - Node.
      */
-    setNodeSourceCodeLocation(node: Node, location: Location | StartTagLocation | ElementLocation): void;
+    setNodeSourceCodeLocation(node: T['node'], location: Location | StartTagLocation | ElementLocation): void;
 
     /**
      * Sets the `<template>` element content element.
@@ -544,8 +625,8 @@ export interface TreeAdapter {
      * @param contentElement -  Content element.
      */
     setTemplateContent(
-        templateElement: Element,
-        contentElement: DocumentFragment
+        templateElement: T['element'],
+        contentElement: T['documentFragment']
     ): void;
 }
 
@@ -565,7 +646,7 @@ export interface TreeAdapter {
  * console.log(document.childNodes[1].tagName); //> 'html'
  * ```
  */
-export function parse(html: string, options?: ParserOptions): Document;
+export function parse<T = Document>(html: string, options?: ParserOptions): T;
 
 /**
  * Parses an HTML fragment.
@@ -589,15 +670,15 @@ export function parse(html: string, options?: ParserOptions): Document;
  * console.log(trFragment.childNodes[0].childNodes[0].tagName); //> 'td'
  * ```
  */
-export function parseFragment(
+export function parseFragment<T = DocumentFragment>(
     fragmentContext: Element,
     html: string,
     options?: ParserOptions
-): DocumentFragment;
-export function parseFragment(
+): T;
+export function parseFragment<T = DocumentFragment>(
     html: string,
     options?: ParserOptions
-): DocumentFragment;
+): T;
 
 /**
  * Serializes an AST node to an HTML string.
