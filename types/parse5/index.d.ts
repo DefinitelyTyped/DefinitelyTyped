@@ -557,7 +557,7 @@ export interface TreeAdapter<T extends TreeAdapterMap> extends TreeAdapterLike {
      *
      * @param node - Node.
      */
-    isDocumentTypeNode(node: T['node']): node is T['document'];
+    isDocumentTypeNode(node: T['node']): node is T['documentType'];
 
     /**
      * Determines if the given node is an element.
