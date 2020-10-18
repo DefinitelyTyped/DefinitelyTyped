@@ -293,7 +293,7 @@ export interface TreeAdapterMap {
     textNode: any;
 }
 
-interface DefaultTreeAdapterMap extends TreeAdapterMap {
+export interface DefaultTreeAdapterMap extends TreeAdapterMap {
     document: Document;
     element: Element;
     parentNode: ParentNode;
@@ -375,7 +375,7 @@ export interface TreeAdapter<T extends TreeAdapterMap> extends TreeAdapterLike {
      * @param recipient - Element to copy attributes into.
      * @param attrs - Attributes to copy.
      */
-    adoptAttributes(recipient: T['element'], attrs: T['attribute'][]): void;
+    adoptAttributes(recipient: T['element'], attrs: Array<T['attribute']>): void;
 
     /**
      * Appends a child node to the given parent node.
@@ -412,7 +412,7 @@ export interface TreeAdapter<T extends TreeAdapterMap> extends TreeAdapterLike {
     createElement(
         tagName: string,
         namespaceURI: string,
-        attrs: T['attribute'][]
+        attrs: Array<T['attribute']>
     ): T['element'];
 
     /**
@@ -428,14 +428,14 @@ export interface TreeAdapter<T extends TreeAdapterMap> extends TreeAdapterLike {
      *
      * @param element - Element.
      */
-    getAttrList(element: T['element']): T['attribute'][];
+    getAttrList(element: T['element']): Array<T['attribute']>;
 
     /**
      * Returns the given node's children in an array.
      *
      * @param node - Node.
      */
-    getChildNodes(node: T['parentNode']): T['childNode'][];
+    getChildNodes(node: T['parentNode']): Array<T['childNode']>;
 
     /**
      * Returns the given comment node's content.
@@ -646,7 +646,10 @@ export interface TreeAdapter<T extends TreeAdapterMap> extends TreeAdapterLike {
  * console.log(document.childNodes[1].tagName); //> 'html'
  * ```
  */
-export function parse<T = Document>(html: string, options?: ParserOptions): T;
+export function parse(html: string, options?: ParserOptions): Document;
+export function parse<T extends TreeAdapterLike>(
+    html: string,
+    options?: ParserOptions & { treeAdapter: T }): T extends TreeAdapter<infer TMap> ? TMap['document'] : Document;
 
 /**
  * Parses an HTML fragment.
@@ -670,15 +673,19 @@ export function parse<T = Document>(html: string, options?: ParserOptions): T;
  * console.log(trFragment.childNodes[0].childNodes[0].tagName); //> 'td'
  * ```
  */
-export function parseFragment<T = DocumentFragment>(
+export function parseFragment(
     fragmentContext: Element,
     html: string,
     options?: ParserOptions
-): T;
-export function parseFragment<T = DocumentFragment>(
+): DocumentFragment;
+export function parseFragment(
     html: string,
     options?: ParserOptions
-): T;
+): DocumentFragment;
+export function parseFragment<T extends TreeAdapterLike>(
+    fragmentContext: Element,
+    html: string,
+    options?: ParserOptions & { treeAdapter: T }): T extends TreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
 
 /**
  * Serializes an AST node to an HTML string.
