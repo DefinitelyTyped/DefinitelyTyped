@@ -891,7 +891,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#backgroundColor
          */
-        backgroundColor?: string;
+        backgroundColor?: EChartOption.Color;
 
         /**
          * Global font style.
@@ -1647,9 +1647,9 @@ declare namespace echarts {
                     label?: PointerLabel;
                     lineStyle?: LineStyle;
                     shadowStyle?: {
-                        color?: string;
+                        color?: EChartOption.Color;
                         shadowBlur?: number;
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
                         shadowOffsetX?: number;
                         shadowOffsetY?: number;
                         opacity?: number;

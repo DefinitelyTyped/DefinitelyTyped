@@ -121,12 +121,12 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#calendar.itemStyle
              */
             itemStyle?: {
-                color?: string;
-                borderColor?: string;
+                color?: EChartOption.Color;
+                borderColor?: EChartOption.Color;
                 borderWidth?: number;
                 borderType?: 'solid' | 'dashed' | 'dotted';
                 shadowBlur?: number;
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
                 shadowOffsetX?: number;
                 shadowOffsetY?: number;
                 opacity?: number;
