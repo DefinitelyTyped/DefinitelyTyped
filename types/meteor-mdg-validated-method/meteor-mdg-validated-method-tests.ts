@@ -201,7 +201,27 @@ new ValidatedMethod({
 });
 
 // method can access its name
-// TODO "slice" call is needed here because this method actually returns `Return<() => TName> & string` and I don't know why
-// (the `& string` was something I added so you can at least use the name in weird situations like this, but I don't get why TName isn't getting resolved there - it's clearly known by now!)
-// $ExpectType string
-methodReturnsName.call().slice();
+// $ExpectType "methodReturnsName"
+methodReturnsName.call();
+
+// method has all expected "this" properties
+new ValidatedMethod({
+    name: 'methodThatUsesThis',
+    validate: null,
+    run() {
+        // $ExpectType "methodThatUsesThis"
+        this.name;
+        // $ExpectType boolean
+        this.isSimulation;
+        // $ExpectType string | null
+        this.userId;
+        // $ExpectType void
+        this.setUserId("test");
+        // $ExpectType Connection
+        this.connection;
+        // $ExpectType string
+        this.randomSeed();
+        // $ExpectType void
+        this.unblock();
+    }
+});

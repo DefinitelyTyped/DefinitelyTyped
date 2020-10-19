@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { OutputQuoteStyle, minify } from 'uglify-js';
+import { OutputQuoteStyle, minify, CompressOptions } from 'uglify-js';
 
 let code: any;
 
@@ -48,7 +48,7 @@ if (output.warnings) {
     output.warnings.filter(x => x === 'Dropping unused variable');
 }
 
-const compressOptions = {
+const compressOptions: CompressOptions = {
     booleans: true,
     comparisons: true,
     conditionals: true,
@@ -59,6 +59,8 @@ const compressOptions = {
     join_vars: true,
     keep_fargs: true,
     loops: true,
+    merge_vars: true,
+    negate_iife: true,
     side_effects: true,
     unused: true,
 };

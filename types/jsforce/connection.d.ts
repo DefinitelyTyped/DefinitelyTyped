@@ -21,6 +21,8 @@ export type Callback<T> = (err: Error | null, result: T) => void;
 // and search for options
 export interface RestApiOptions {
     headers?: { [x: string]: string }
+    allowRecursive?: boolean;
+    allOrNone?: boolean;
 }
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49

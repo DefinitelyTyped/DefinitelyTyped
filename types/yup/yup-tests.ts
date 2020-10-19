@@ -433,6 +433,7 @@ boolSchema.defined();
 const dateSchema = yup.date(); // $ExpectType DateSchema<Date | undefined, object>
 dateSchema.type;
 dateSchema.isValid(new Date()); // => true
+dateSchema.isValid('2017-11-12'); // => true
 dateSchema.min(new Date());
 dateSchema.min('2017-11-12');
 dateSchema.min(new Date(), 'message');
@@ -926,6 +927,8 @@ person.mustBeAString = undefined;
 person.friends = new Set([1, 2, 3]);
 // $ExpectError
 person.friends = ["Amy", "Beth"];
+// $ExpectError
+person.birthDate = '2017-11-12';
 
 const castPerson = personSchema.cast({});
 castPerson.firstName = '';
@@ -945,6 +948,50 @@ castPerson.isAlive = undefined;
 castPerson.children = ['1', '2', '3'];
 castPerson.children = null;
 castPerson.children = undefined;
+
+// date validations on a string field
+const stringDateSchema = yup.object({
+    stringyDateRequired: yup
+        .date<string>()
+        .required(),
+    stringyDateOptional: yup
+        .date<string>()
+        .nullable()
+        .notRequired(),
+    flexibleDate: yup.date<Date | string>().required(),
+    realDate: yup.date().required()
+}).defined();
+
+type StringDate = yup.InferType<typeof stringDateSchema>;
+const stringDate: StringDate = {
+    stringyDateRequired: "2020-01-01",
+    stringyDateOptional: null,
+    flexibleDate: "2020-01-01",
+    realDate: new Date(),
+};
+
+stringDate.stringyDateRequired = "2020-01-01";
+// $ExpectError
+stringDate.stringyDateRequired = new Date();
+// $ExpectError
+stringDate.stringyDateRequired = null;
+
+stringDate.stringyDateOptional = "2020-01-01";
+stringDate.stringyDateOptional = undefined;
+stringDate.stringyDateOptional = null;
+// $ExpectError
+stringDate.stringyDateOptional = new Date();
+
+stringDate.flexibleDate = new Date();
+stringDate.flexibleDate = "2020-01-01";
+// $ExpectError
+stringDate.flexibleDate = null;
+// $ExpectError
+stringDate.flexibleDate = undefined;
+
+stringDate.realDate = new Date();
+// $ExpectError
+stringDate.realDate = "2020-01-01";
 
 const loginSchema = yup.object({
     password: yup.string(),

@@ -6,7 +6,11 @@ import {
     Action,
     ActionConstructorOptions,
     Namespace,
-    Const,
+    ONE_OR_MORE,
+    ZERO_OR_MORE,
+    OPTIONAL,
+    SUPPRESS,
+    REMAINDER,
 } from 'argparse';
 let args: any;
 
@@ -306,34 +310,34 @@ constExample.add_argument(
     '-f', '--foo',
     {
         help: 'foo bar',
-        nargs: Const.ONE_OR_MORE
+        nargs: ONE_OR_MORE
     }
 );
 constExample.add_argument(
     '-b', '--bar',
     {
         help: 'bar foo',
-        nargs: Const.ZERO_OR_MORE
+        nargs: ZERO_OR_MORE
     }
 );
 constExample.add_argument(
     '--baz',
     {
         help: 'baz',
-        nargs: Const.OPTIONAL
+        nargs: OPTIONAL
     }
 );
 constExample.add_argument(
     '--qux',
     {
-        help: Const.SUPPRESS
+        help: SUPPRESS
     }
 );
 constExample.add_argument(
     'quux',
     {
         help: 'quux',
-        nargs: Const.REMAINDER
+        nargs: REMAINDER
     }
 );
 
@@ -342,4 +346,9 @@ console.log('-----------');
 
 args = constExample.parse_args('--foo x --bar --baz y --qux z a b c d e'.split(' '));
 console.dir(args);
+console.log('-----------');
+
+const versionExample = new ArgumentParser({description: 'Add version'});
+versionExample.add_argument('-v', '--v', {action: 'version', version: '1.0.0'});
+versionExample.print_help();
 console.log('-----------');

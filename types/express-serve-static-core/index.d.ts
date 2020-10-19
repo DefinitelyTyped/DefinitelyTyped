@@ -573,7 +573,7 @@ export interface Response<ResBody = any, StatusCode extends number = number> ext
      *
      * Automatically sets the _Content-Type_ response header field.
      * The callback `fn(err)` is invoked when the transfer is complete
-     * or when an error occurs. Be sure to check `res.sentHeader`
+     * or when an error occurs. Be sure to check `res.headersSent`
      * if you wish to attempt responding, as the header and some data
      * may have already been transferred.
      *
@@ -634,7 +634,7 @@ export interface Response<ResBody = any, StatusCode extends number = number> ext
      * Optionally providing an alternate attachment `filename`,
      * and optional callback `fn(err)`. The callback is invoked
      * when the data transfer is complete, or when an error has
-     * ocurred. Be sure to check `res.headerSent` if you plan to respond.
+     * ocurred. Be sure to check `res.headersSent` if you plan to respond.
      *
      * The optional options argument passes through to the underlying
      * res.sendFile() call, and takes the exact same parameters.

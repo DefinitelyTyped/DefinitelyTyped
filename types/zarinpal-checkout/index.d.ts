@@ -56,6 +56,6 @@ declare namespace ZarinPal {
     }
 }
 
-declare const zarinpal: { create(merchantID: string, sandbox: boolean): ZarinPal.ZarinPalInstance };
+declare const ZarinPal: { create(merchantID: string, sandbox: boolean): ZarinPal.ZarinPalInstance };
 
-export = zarinpal;
+export = ZarinPal;

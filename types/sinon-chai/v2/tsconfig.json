@@ -17,7 +17,7 @@
         "forceConsistentCasingInFileNames": true,
         "paths": {
           "sinon-chai": [ "sinon-chai/v2" ],
-          "@sinonjs/fake-timers": [ "sinonjs__fake-timers" ]
+          "@sinonjs/*": [ "sinonjs__*" ]
         }
     },
     "files": [

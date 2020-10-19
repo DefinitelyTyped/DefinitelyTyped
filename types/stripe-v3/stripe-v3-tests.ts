@@ -162,13 +162,10 @@ describe("Stripe elements", () => {
             account_number: '110000000',
             account_holder_name: 'Jane Austen',
             account_holder_type: 'individual',
-        })
-            .then((result: stripe.TokenResponse) => {
-                console.log(result.token);
-            },
-                (error: stripe.Error) => {
-                    console.error(error);
-                });
+        }).then(
+            (result: stripe.TokenResponse) => console.log(result.token),
+            (error: stripe.Error) => console.error(error)
+        );
 
         stripe.createToken('bank_account', {
             country: 'US',
@@ -177,13 +174,23 @@ describe("Stripe elements", () => {
             account_number: '110000000',
             account_holder_name: 'Jane Austen',
             account_holder_type: 'individual',
-        })
-            .then((result: stripe.TokenResponse) => {
-                console.log(result.token);
-            },
-                (error: stripe.Error) => {
-                    console.error(error);
-                });
+        }).then(
+            (result: stripe.TokenResponse) => console.log(result.token),
+            (error: stripe.Error) => console.error(error)
+        );
+    });
+
+    it("should create a token from IBAN with routing_number not set", () => {
+        stripe.createToken('bank_account', {
+            country: 'FR',
+            currency: 'eur',
+            account_number: 'FR1420041010050500013M02606',
+            account_holder_name: 'Jean Martin',
+            account_holder_type: 'individual',
+        }).then(
+            (result: stripe.TokenResponse) => console.log(result.token),
+            (error: stripe.Error) => console.error(error)
+        );
     });
 
     it("should create an idealBank element", () => {

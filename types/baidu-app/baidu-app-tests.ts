@@ -1825,7 +1825,6 @@
         onShareAppMessage() {
             return {
                 title: '智能小程序示例',
-                content: '世界很复杂，百度更懂你',
                 path: '/pages/openShare/openShare?key=value'
             };
         }

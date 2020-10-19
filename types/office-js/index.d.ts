@@ -330,7 +330,37 @@ declare namespace Office {
      * @param useShortNamespace True to use the shortcut alias; otherwise false to disable it. The default is true.
      */
     function useShortNamespace(useShortNamespace: boolean): void;
+    /**
+     * Represents the add-in.
+     */
+    const addin: Addin;
     // Enumerations
+    /**
+     * Provides options to determine the startup behavior of the add-in upon next start-up.
+     */
+    enum StartupBehavior {
+        /**
+         * The add-in does not load until opened by the user.
+         */
+        none = 'None',
+        /**
+         * Load the add-in but do not show UI.
+         */
+        load = 'Load',
+    }
+    /**
+     * Visibility mode of the add-in.
+     */
+    enum VisibilityMode {
+        /**
+         * UI is Hidden
+         */
+        hidden = 'Hidden',
+        /**
+         * Displayed as taskpane
+         */
+        taskpane = 'Taskpane',
+    }
     /**
      * Specifies the result of an asynchronous call.
      * 
@@ -481,7 +511,51 @@ declare namespace Office {
         */
         value: T;
     }
-	
+	/**
+     * Message used in the `onVisibilityModeChanged` invocation.
+     */
+    interface VisibilityModeChangedMessage {
+        /**
+         * Visibility changed state.
+         */
+        visibilityMode: Office.VisibilityMode;
+    }
+    /**
+     * Function type to turn off the event.
+     */
+    type RemoveEventListener = () => Promise<void>;
+    /**
+     * Represents add-in level functionality for operating or configuring various aspects of the add-in.
+     */
+    interface Addin {
+        /**
+         * Sets the startup behavior for the add-in for when the document is opened next time.
+         * @param behavior - Specifies startup behavior of the add-in.
+         */
+        setStartupBehavior(behavior: Office.StartupBehavior): Promise<void>;
+        /**
+         * Gets the current startup behavior for the add-in.
+         */
+        getStartupBehavior(): Promise<Office.StartupBehavior>;
+        /**
+         * Shows the task pane associated with the add-in.
+         * @returns A promise that is resolved when the UI is shown.
+         */
+        showAsTaskpane(): Promise<void>;
+        /**
+         * Hides the task pane.
+         * @returns A promise that is resolved when the UI is hidden.
+         */
+        hide(): Promise<void>;
+        /**
+         * Adds a listener for the `onVisbilityModeChanged` event.
+         * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
+         * @returns A promise that resolves to a function when the listener is added. The `RemoveEventListener` type is defined with `type RemoveEventListener = () => Promise<void>`. Calling it removes the listener.
+         */
+        onVisibilityModeChanged(
+            listener: (message: VisibilityModeChangedMessage) => void,
+        ): Promise<RemoveEventListener>;
+    }
     /**
      * An interface that contains all the functionality provided to manage the state of the Office ribbon.
 	 *
@@ -1065,7 +1139,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/open-browser-window-requirement-sets | OpenBrowserWindowApi 1.1}
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/open-browser-window-api-requirement-sets | OpenBrowserWindowApi 1.1}
          *  
          * @param url The full URL to be opened including protocol (e.g., https), and port number, if any.
          */
@@ -1404,14 +1478,18 @@ declare namespace Office {
          */
          column?: number
     }
+	/**
+	 * Used to strongly type the `handler` property of RemoveHandlerOptions.
+	 */
+	 type BindingEventHandler = (eventArgs?: Office.BindingDataChangedEventArgs | Office.BindingSelectionChangedEventArgs) => any;
     /**
      * Provides options to determine which event handler or handlers are removed.
      */
     interface RemoveHandlerOptions {
         /**
-         * The handler to be removed. If not specified all handlers for the specified event type are removed.
+         * The handler to be removed. If a particular handler is not specified, then all handlers for the specified event type are removed. The `BindingEventHandler` type is defined with `type BindingEventHandler = (eventArgs?: Office.BindingDataChangedEventArgs | Office.BindingSelectionChangedEventArgs) => any`.
          */
-        handler?: string
+        handler?: BindingEventHandler
         /**
          * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
@@ -9149,14 +9227,11 @@ declare namespace Office {
          */
         notificationMessages: NotificationMessages;
         /**
-         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
-         * 
-         * The `optionalAttendees` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the optional attendees 
-         * for a meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
-         * 
-         * - Get 500 members maximum.
+         * Provides access to the optional attendees of an event. The type of object and level of access depend on the mode of the current item.
          *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * The `optionalAttendees` property returns a `Recipients` object that provides methods to get or update the
+         * optional attendees for a meeting. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many
+         * recipients you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
          *
          * @remarks
          *
@@ -9200,14 +9275,11 @@ declare namespace Office {
          */
         recurrence: Recurrence;
         /**
-         * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
+         * Provides access to the required attendees of an event. The type of object and level of access depend on the mode of the current item.
          *
-         * The `requiredAttendees` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the required attendees 
-         * for a meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
-         *
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * The `requiredAttendees` property returns a `Recipients` object that provides methods to get or update the
+         * required attendees for a meeting. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many
+         * recipients you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
          *
          * @remarks
          *
@@ -10116,21 +10188,24 @@ declare namespace Office {
         */
        location: Location | string;
        /**
-        * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
+        * Provides access to the optional attendees of an event. The type of object and level of access depend on the mode of the current item.
         *
         * *Read mode*
         *
-        * The `optionalAttendees` property returns an array that contains an `EmailAddressDetails` object for each optional attendee to the meeting.
-        * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+        * The `optionalAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+        * each optional attendee to the meeting. Collection size limits:
+        *
+        * - Windows: 500 members
+        *
+        * - Mac: 100 members
+        *
+        * - Other: No limit
         *
         * *Compose mode*
         *
-        * The `optionalAttendees` property returns a `Recipients` object that provides methods to get or update the optional attendees for a meeting.
-        * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
-        * 
-        * - Get 500 members maximum.
-        *
-        * - Set a maximum of 100 members per call, up to 500 members total.
+        * The `optionalAttendees` property returns a `Recipients` object that provides methods to get or update the
+        * optional attendees for a meeting. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many
+        * recipients you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
         *
         * @remarks
         *
@@ -10150,21 +10225,24 @@ declare namespace Office {
         */
        resources: string[];
         /**
-         * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
+         * Provides access to the required attendees of an event. The type of object and level of access depend on the mode of the current item.
          *
          * *Read mode*
          *
-         * The `requiredAttendees` property returns an array that contains an `EmailAddressDetails` object for each required attendee to the meeting.
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+         * The `requiredAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+         * each required attendee to the meeting. Collection size limits:
+         *
+         * - Windows: 500 members
+         *
+         * - Mac: 100 members
+         *
+         * - Other: No limit
          *
          * *Compose mode*
          *
-         * The `requiredAttendees` property returns a `Recipients` object that provides methods to get or update the required attendees for a meeting.
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
-         *
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * The `requiredAttendees` property returns a `Recipients` object that provides methods to get or update the
+         * required attendees for a meeting. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many
+         * recipients you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
          *
          * @remarks
          *
@@ -10427,10 +10505,16 @@ declare namespace Office {
          */
         notificationMessages: NotificationMessages;
         /**
-         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
+         * Provides access to the optional attendees of an event. The type of object and level of access depend on the mode of the current item.
          *
-         * The `optionalAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for each optional attendee to 
-         * the meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+         * The `optionalAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+         * each optional attendee to the meeting. Collection size limits:
+         *
+         * - Windows: 500 members
+         *
+         * - Mac: 100 members
+         *
+         * - Other: No limit
          *
          * @remarks
          *
@@ -10470,11 +10554,16 @@ declare namespace Office {
          */
         recurrence: Recurrence;
         /**
-         * Provides access to the required attendees of an event. The type of object and level of access depends on the mode of the current item.
+         * Provides access to the required attendees of an event. The type of object and level of access depend on the mode of the current item.
          *
-         * The `requiredAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object
-         * for each required attendee to the meeting. By default, the collection is limited to a maximum of 100 members.
-         * However, on Windows and Mac, you can get 500 members maximum.
+         * The `requiredAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+         * each required attendee to the meeting. Collection size limits:
+         *
+         * - Windows: 500 members
+         *
+         * - Mac: 100 members
+         *
+         * - Other: No limit
          *
          * @remarks
          *
@@ -12807,13 +12896,13 @@ declare namespace Office {
          * @param parameters - A dictionary containing all values to be filled in for the user in the new form. All parameters are optional.
          * 
          *        `toRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
-         *        for each of the recipients on the To line. The array is limited to a maximum of 100 entries.
+         *        for each of the recipients on the **To** line. The array is limited to a maximum of 100 entries.
          * 
          *        `ccRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
-         *        for each of the recipients on the Cc line. The array is limited to a maximum of 100 entries.
+         *        for each of the recipients on the **Cc** line. The array is limited to a maximum of 100 entries.
          * 
          *        `bccRecipients`: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails | EmailAddressDetails} object 
-         *        for each of the recipients on the Bcc line. The array is limited to a maximum of 100 entries.
+         *        for each of the recipients on the **Bcc** line. The array is limited to a maximum of 100 entries.
          * 
          *        `subject`: A string containing the subject of the message. The string is limited to a maximum of 255 characters.
          * 
@@ -13283,14 +13372,10 @@ declare namespace Office {
      */
     interface MessageCompose extends Message, ItemCompose {
         /**
-         * Gets an object that provides methods to get or update the recipients on the Bcc (blind carbon copy) line of a message.
+         * Gets an object that provides methods to get or update the recipients on the **Bcc** (blind carbon copy) line of a message.
          *
-         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows, and Mac,
-         * the following limits apply.
-         *
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * Depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many recipients you can get or update.
+         * See the {@link Office.Recipients | Recipients} object for more details.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13328,16 +13413,12 @@ declare namespace Office {
          */
         categories: Categories;
         /**
-         * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
+         * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depend on the mode of the 
          * current item.
          *
-         * The `cc` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the
-         * **Cc** line of the message. By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows,
-         * and Mac, the following limits apply.
-         * 
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * The `cc` property returns a `Recipients` object that provides methods to get or update the recipients on the
+         * **Cc** line of the message. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many recipients
+         * you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
          *
          * @remarks
          *
@@ -13365,9 +13446,6 @@ declare namespace Office {
         conversationId: string;
         /**
          * Gets the email address of the sender of a message.
-         *
-         * The `from` and `sender` properties represent the same person unless the message is sent by a delegate.
-         * In that case, the `from` property represents the owner, and the `sender` property represents the delegate.
          *
          * The `from` property returns a `From` object that provides a method to get the from value.
          * 
@@ -13457,16 +13535,12 @@ declare namespace Office {
          */
         subject: Subject;
         /**
-         * Provides access to the recipients on the To line of a message. The type of object and level of access depends on the mode of the
+         * Provides access to the recipients on the **To** line of a message. The type of object and level of access depend on the mode of the
          * current item.
          *
-         * The `to` property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the
-         * **To** line of the message. By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, Windows,
-         * and Mac, the following limits apply.
-         * 
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
+         * The `to` property returns a `Recipients` object that provides methods to get or update the recipients on the
+         * **To** line of the message. However, depending on the client/platform (i.e., Windows, Mac, etc.), limits may apply on how many recipients
+         * you can get or update. See the {@link Office.Recipients | Recipients} object for more details.
          *
          * @remarks
          *
@@ -13956,6 +14030,14 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
+         * **Important**: In Message Compose mode, this API is not supported in Outlook on the web or Windows unless the following conditions are met.
+         *
+         * 1. The owner shares at least one mailbox folder with the delegate.
+         *
+         * 2. The delegate drafts a message in the shared folder.
+         *
+         * After the message has been sent, it's usually found in the delegate's **Sent Items** folder.
+         *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
          *
@@ -13977,6 +14059,14 @@ declare namespace Office {
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * **Important**: In Message Compose mode, this API is not supported in Outlook on the web or Windows unless the following conditions are met.
+         *
+         * 1. The owner shares at least one mailbox folder with the delegate.
+         *
+         * 2. The delegate drafts a message in the shared folder.
+         *
+         * After the message has been sent, it's usually found in the delegate's **Sent Items** folder.
          *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
@@ -14289,12 +14379,19 @@ declare namespace Office {
          */
         categories: Categories;
         /**
-         * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
+         * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depend on the mode of the 
          * current item.
          *
-         * The `cc` property returns an array that contains an `EmailAddressDetails` object for each recipient listed on the Cc line of the message. 
-         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, you can get 20 members maximum, while
-         * on Windows and Mac, you can get 500 members maximum.
+         * The `cc` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+         * each recipient listed on the **Cc** line of the message. Collection size limits:
+         *
+         * - Windows: 500 members
+         *
+         * - Mac: 100 members
+         *
+         * - Web browser: 20 members
+         *
+         * - Other: No limit
          *
          * @remarks
          *
@@ -14583,12 +14680,19 @@ declare namespace Office {
          */
         subject: string;
         /**
-         * Provides access to the recipients on the To line of a message. The type of object and level of access depends on the mode of the
+         * Provides access to the recipients on the **To** line of a message. The type of object and level of access depend on the mode of the
          * current item.
          *
-         * The `to` property returns an array that contains an `EmailAddressDetails` object for each recipient listed on the To line of the message.
-         * By default, the collection is limited to a maximum of 100 members. However, in Outlook on the web, you can get 20 members maximum, while
-         * on Windows and Mac, you can get 500 members maximum.
+         * The `to` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
+         * each recipient listed on the **To** line of the message. Collection size limits:
+         *
+         * - Windows: 500 members
+         *
+         * - Mac: 100 members
+         *
+         * - Web browser: 20 members
+         *
+         * - Other: No limit
          *
          * @remarks
          *
@@ -15395,6 +15499,15 @@ declare namespace Office {
          *
          * - {@link Office.EmailAddressDetails | EmailAddressDetails} objects
          *
+         * Maximum number that can be added:
+         *
+         * - Windows: 100 recipients.
+         * **Note**: Can call API repeatedly but the maximum number of recipients in the target field on the item is 500 recipients.
+         *
+         * - Mac, web browser: 100 recipients
+         *
+         * - Other: No limit
+         *
          * [Api set: Mailbox 1.1]
          *
          * @remarks
@@ -15425,6 +15538,15 @@ declare namespace Office {
          *
          * - {@link Office.EmailAddressDetails | EmailAddressDetails} objects
          *
+         * Maximum number that can be added:
+         *
+         * - Windows: 100 recipients.
+         * **Note**: Can call API repeatedly but the maximum number of recipients in the target field on the item is 500 recipients.
+         *
+         * - Mac, web browser: 100 recipients
+         *
+         * - Other: No limit
+         *
          * [Api set: Mailbox 1.1]
          *
          * @remarks
@@ -15445,8 +15567,12 @@ declare namespace Office {
         /**
          * Gets a recipient list for an appointment or message.
          *
-         * When the call completes, the `asyncResult.value` property will contain
-         * an array of {@link Office.EmailAddressDetails | EmailAddressDetails} objects.
+         * When the call completes, the `asyncResult.value` property will contain an array of {@link Office.EmailAddressDetails | EmailAddressDetails}
+         * objects. Collection size limits:
+         *
+         * - Windows, Mac, web browser: 500 members
+         *
+         * - Other: No limit
          *
          * [Api set: Mailbox 1.1]
          *
@@ -15465,8 +15591,12 @@ declare namespace Office {
         /**
          * Gets a recipient list for an appointment or message.
          *
-         * When the call completes, the `asyncResult.value` property will contain
-         * an array of {@link Office.EmailAddressDetails | EmailAddressDetails} objects.
+         * When the call completes, the `asyncResult.value` property will contain an array of {@link Office.EmailAddressDetails | EmailAddressDetails}
+         * objects. Collection size limits:
+         *
+         * - Windows, Mac, web browser: 500 members
+         *
+         * - Other: No limit
          *
          * [Api set: Mailbox 1.1]
          *
@@ -15492,6 +15622,12 @@ declare namespace Office {
          * - {@link Office.EmailUser | EmailUser} objects
          *
          * - {@link Office.EmailAddressDetails | EmailAddressDetails} objects
+         *
+         * Maximum number that can be set:
+         *
+         * - Windows, Mac, web browser: 100 recipients
+         *
+         * - Other: No limit
          *
          * [Api set: Mailbox 1.1]
          *
@@ -15525,6 +15661,12 @@ declare namespace Office {
          * - {@link Office.EmailUser | EmailUser} objects
          *
          * - {@link Office.EmailAddressDetails | EmailAddressDetails} objects
+         *
+         * Maximum number that can be set:
+         *
+         * - Windows, Mac, web browser: 100 recipients
+         *
+         * - Other: No limit
          *
          * [Api set: Mailbox 1.1]
          *
@@ -16223,14 +16365,17 @@ declare namespace Office {
         owner: string;
         /**
          * The REST API's base URL (currently https://outlook.office.com/api).
-         * Use with `targetMailbox` to construct REST operation's URL.
-         * 
+         *
+         * Use with `targetMailbox` to construct the REST operation's URL.
+         *
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
          */
         targetRestUrl: string;
         /**
-         * The target/owner's mailbox. Use with `targetRestUrl` to construct REST operation's URL.
-         * 
+         * The location of the owner's mailbox for the delegate's access. This location may differ based on the Outlook client.
+         *
+         * Use with `targetRestUrl` to construct the REST operation's URL.
+         *
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
          */
         targetMailbox: string;
@@ -17599,8 +17744,10 @@ declare namespace Excel {
         fiveBoxes: FiveBoxesSet;
     }
     var icons: IconCollections;
+    
     interface Session {
     }
+    
     /**
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
      */
@@ -19247,7 +19394,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the comment(s) that raised the Added event.
+     * Provides information about the comments that raised the Added event.
      *
      * [Api set: ExcelApi 1.12]
      */
@@ -19283,7 +19430,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the comment(s) that raised the Deleted event.
+     * Provides information about the comments that raised the Deleted event.
      *
      * [Api set: ExcelApi 1.12]
      */
@@ -21593,6 +21740,12 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         getLastRow(): Excel.Range;
+        /**
+         * Returns a RangeAreas object that represents the merged areas in this range. Note that if the merged areas count in this range is more than 512, the API will fail to return the result.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         */
+        getMergedAreas(): Excel.RangeAreas;
         /**
          * Gets an object which represents a range that's offset from the specified range. The dimension of the returned range will match this range. If the resulting range is forced outside the bounds of the worksheet grid, an error will be thrown.
          *
@@ -31365,9 +31518,9 @@ declare namespace Excel {
          *
          * @param axis The axis from which to get the PivotItems. Must be either "row" or "column."
          * @param cell A single cell within the PivotTable's data body.
-         * @returns A collection of PivotItems that are used to calculate the values in the specified row.
+         * @returns A PivotItemCollection of the PivotItems that are used to calculate the values in the specified row.
          */
-        getPivotItems(axis: Excel.PivotAxis, cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
+        getPivotItems(axis: Excel.PivotAxis, cell: Range | string): Excel.PivotItemCollection;
         /**
          * Gets the PivotItems from an axis that make up the value in a specified range within the PivotTable.
          *
@@ -31375,9 +31528,9 @@ declare namespace Excel {
          *
          * @param axis The axis from which to get the PivotItems. Must be either "row" or "column."
          * @param cell A single cell within the PivotTable's data body.
-         * @returns A collection of PivotItems that are used to calculate the values in the specified row.
+         * @returns A PivotItemCollection of the PivotItems that are used to calculate the values in the specified row.
          */
-        getPivotItems(axis: "Unknown" | "Row" | "Column" | "Data" | "Filter", cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
+        getPivotItems(axis: "Unknown" | "Row" | "Column" | "Data" | "Filter", cell: Range | string): Excel.PivotItemCollection;
         /**
          * Returns the range the PivotTable exists on, excluding the filter area.
          *
@@ -45080,6 +45233,7 @@ declare namespace Excel {
         itemNotFound = "ItemNotFound",
         nonBlankCellOffSheet = "NonBlankCellOffSheet",
         notImplemented = "NotImplemented",
+        pivotTableRangeConflict = "PivotTableRangeConflict",
         rangeExceedsLimit = "RangeExceedsLimit",
         requestAborted = "RequestAborted",
         unsupportedOperation = "UnsupportedOperation",
@@ -45476,13 +45630,6 @@ declare namespace Excel {
         }
         /** An interface for updating data on the Table object, for use in `table.set({ ... })`. */
         interface TableUpdateData {
-            /**
-            *
-            * The style applied to the Table.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            tableStyle?: Excel.Interfaces.TableStyleUpdateData;
             /**
              *
              * Specifies if the first column contains special formatting.
@@ -47919,13 +48066,6 @@ declare namespace Excel {
         /** An interface for updating data on the PivotLayout object, for use in `pivotLayout.set({ ... })`. */
         interface PivotLayoutUpdateData {
             /**
-            *
-            * The style applied to the PivotTable.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            pivotStyle?: Excel.Interfaces.PivotTableStyleUpdateData;
-            /**
              *
              * Specifies if formatting will be automatically formatted when it’s refreshed or when fields are moved.
              *
@@ -49655,13 +49795,6 @@ declare namespace Excel {
         interface SlicerUpdateData {
             /**
             *
-            * The style applied to the Slicer.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            slicerStyle?: Excel.Interfaces.SlicerStyleUpdateData;
-            /**
-            *
             * Represents the worksheet containing the slicer.
             *
             * [Api set: ExcelApi 1.10]
@@ -50819,13 +50952,6 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.2]
             */
             sort?: Excel.Interfaces.TableSortData;
-            /**
-            *
-            * The style applied to the Table.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            tableStyle?: Excel.Interfaces.TableStyleData;
             /**
              *
              * Specifies if the first column contains special formatting.
@@ -53707,13 +53833,6 @@ declare namespace Excel {
         /** An interface describing the data returned by calling `pivotLayout.toJSON()`. */
         interface PivotLayoutData {
             /**
-            *
-            * The style applied to the PivotTable.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            pivotStyle?: Excel.Interfaces.PivotTableStyleData;
-            /**
              *
              * Specifies if formatting will be automatically formatted when it’s refreshed or when fields are moved.
              *
@@ -55861,13 +55980,6 @@ declare namespace Excel {
             slicerItems?: Excel.Interfaces.SlicerItemData[];
             /**
             *
-            * The style applied to the Slicer.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            slicerStyle?: Excel.Interfaces.SlicerStyleData;
-            /**
-            *
             * Represents the worksheet containing the slicer.
             *
             * [Api set: ExcelApi 1.10]
@@ -57394,13 +57506,6 @@ declare namespace Excel {
             sort?: Excel.Interfaces.TableSortLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: The style applied to the Table.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
-            /**
-            *
             * For EACH ITEM in the collection: The worksheet containing the current table.
             *
             * [Api set: ExcelApi 1.2]
@@ -57525,13 +57630,6 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.2]
             */
             sort?: Excel.Interfaces.TableSortLoadOptions;
-            /**
-            *
-            * For EACH ITEM in the collection: The style applied to the Table.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
             *
             * For EACH ITEM in the collection: The worksheet containing the current table.
@@ -57659,13 +57757,6 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.2]
             */
             sort?: Excel.Interfaces.TableSortLoadOptions;
-            /**
-            *
-            * The style applied to the Table.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
             *
             * The worksheet containing the current table.
@@ -62022,13 +62113,6 @@ declare namespace Excel {
              */
             $all?: boolean;
             /**
-            *
-            * The style applied to the PivotTable.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            pivotStyle?: Excel.Interfaces.PivotTableStyleLoadOptions;
-            /**
              *
              * Specifies if formatting will be automatically formatted when it’s refreshed or when fields are moved.
              *
@@ -66198,13 +66282,6 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * The style applied to the Slicer.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            slicerStyle?: Excel.Interfaces.SlicerStyleLoadOptions;
-            /**
-            *
             * Represents the worksheet containing the slicer.
             *
             * [Api set: ExcelApi 1.10]
@@ -66296,13 +66373,6 @@ declare namespace Excel {
               Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
              */
             $all?: boolean;
-            /**
-            *
-            * For EACH ITEM in the collection: The style applied to the Slicer.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            slicerStyle?: Excel.Interfaces.SlicerStyleLoadOptions;
             /**
             *
             * For EACH ITEM in the collection: Represents the worksheet containing the slicer.
@@ -86139,9 +86209,122 @@ declare namespace Visio {
 
 
 ////////////////////////////////////////////////////////////////
-///////////////////// Begin PowerPoint APIs ////////////////////
+//////////////////// Begin PowerPoint APIs /////////////////////
 ////////////////////////////////////////////////////////////////
 
+declare namespace PowerPoint {
+    /**
+     * [Api set: PowerPointApi 1.0]
+     */
+    class Application extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * Create a new instance of PowerPoint.Application object
+         */
+        static newObject(context: OfficeExtension.ClientRequestContext): PowerPoint.Application;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original PowerPoint.Application object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): {
+            [key: string]: string;
+        };
+    }
+    /**
+     * [Api set: PowerPointApi 1.0]
+     */
+    class Presentation extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        readonly title: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: PowerPoint.Interfaces.PresentationLoadOptions): PowerPoint.Presentation;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): PowerPoint.Presentation;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): PowerPoint.Presentation;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original PowerPoint.Presentation object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.PresentationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): PowerPoint.Interfaces.PresentationData;
+    }
+    enum ErrorCodes {
+        generalException = "GeneralException",
+    }
+    module Interfaces {
+        /**
+        * Provides ways to load properties of only a subset of members of a collection.
+        */
+        interface CollectionLoadOptions {
+            /**
+            * Specify the number of items in the queried collection to be included in the result.
+            */
+            $top?: number;
+            /**
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
+            */
+            $skip?: number;
+        }
+        /** An interface describing the data returned by calling `presentation.toJSON()`. */
+        interface PresentationData {
+            title?: string;
+        }
+        /**
+         * [Api set: PowerPointApi 1.0]
+         */
+        interface PresentationLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            title?: boolean;
+        }
+    }
+}
+declare namespace PowerPoint {
+    /**
+     * The RequestContext object facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the request context is required to get access to the PowerPoint object model from the add-in.
+     */
+    class RequestContext extends OfficeCore.RequestContext {
+        constructor(url?: string);
+        readonly presentation: Presentation;
+        readonly application: Application;
+    }
+    /**
+     * Executes a batch script that performs actions on the PowerPoint object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the RequestContext is required to get access to the PowerPoint object model from the add-in.
+     */
+    function run<T>(batch: (context: PowerPoint.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the PowerPoint object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the RequestContext is required to get access to the PowerPoint object model from the add-in.
+     */
+    function run<T>(object: OfficeExtension.ClientObject, batch: (context: PowerPoint.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the PowerPoint object model, using the RequestContext of previously-created API objects.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the RequestContext is required to get access to the PowerPoint object model from the add-in.
+     */
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: PowerPoint.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+}
 declare namespace PowerPoint {
     /**
      * Creates and opens a new presentation. Optionally, the presentation can be pre-populated with a base64-encoded .pptx file.
@@ -86153,6 +86336,7 @@ declare namespace PowerPoint {
     function createPresentation(base64File?: string): Promise<void>;
 }
 
+
 ////////////////////////////////////////////////////////////////
-////////////////////// End PowerPoint APIs /////////////////////
+///////////////////// End PowerPoint APIs //////////////////////
 ////////////////////////////////////////////////////////////////

@@ -1,12 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "align": false,
         "await-promise": false,
         "no-boolean-literal-compare": false,
         "no-mergeable-namespace": false,
         "no-namespace": false,
-        "no-restricted-globals": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "space-before-function-paren": false,

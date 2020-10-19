@@ -114,6 +114,11 @@ export function configureToMatchImageSnapshot(
     options: MatchImageSnapshotOptions,
 ): () => { message(): string; pass: boolean };
 
+/**
+ * Mutates original state with new state
+ */
+export function updateSnapshotState<TObject, TPartial>(originalSnapshotState: TObject, partialSnapshotState: TPartial): TObject & TPartial;
+
 declare global {
     namespace jest {
         interface Matchers<R, T> {

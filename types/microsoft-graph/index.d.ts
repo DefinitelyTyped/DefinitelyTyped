@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 1.21
+// Type definitions for non-npm package microsoft-graph 1.24
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -277,7 +277,43 @@ export type MobileAppContentFileUploadState =
     | "commitFileFailed"
     | "commitFileTimedOut";
 export type MobileAppPublishingState = "notPublished" | "processing" | "published";
+export type RunAsAccountType = "system" | "user";
 export type VppTokenAccountType = "business" | "education";
+export type Win32LobAppFileSystemOperationType =
+    | "notConfigured"
+    | "exists"
+    | "modifiedDate"
+    | "createdDate"
+    | "version"
+    | "sizeInMB";
+export type Win32LobAppMsiPackageType = "perMachine" | "perUser" | "dualPurpose";
+export type Win32LobAppNotification = "showAll" | "showReboot" | "hideAll";
+export type Win32LobAppPowerShellScriptRuleOperationType =
+    | "notConfigured"
+    | "string"
+    | "dateTime"
+    | "integer"
+    | "float"
+    | "version"
+    | "boolean";
+export type Win32LobAppRegistryRuleOperationType =
+    | "notConfigured"
+    | "exists"
+    | "doesNotExist"
+    | "string"
+    | "integer"
+    | "version";
+export type Win32LobAppRestartBehavior = "basedOnReturnCode" | "allow" | "suppress" | "force";
+export type Win32LobAppReturnCodeType = "failed" | "success" | "softReboot" | "hardReboot" | "retry";
+export type Win32LobAppRuleOperator =
+    | "notConfigured"
+    | "equal"
+    | "notEqual"
+    | "greaterThan"
+    | "greaterThanOrEqual"
+    | "lessThan"
+    | "lessThanOrEqual";
+export type Win32LobAppRuleType = "detection" | "requirement";
 export type WindowsArchitecture = "none" | "x86" | "x64" | "arm" | "neutral";
 export type WindowsDeviceType = "none" | "desktop" | "mobile" | "holographic" | "team";
 export type InstallState = "notApplicable" | "installed" | "failed" | "notInstalled" | "uninstallFailed" | "unknown";
@@ -896,6 +932,7 @@ export type Tone =
     | "c"
     | "d"
     | "flash";
+export type LifecycleEventType = "missed" | "subscriptionRemoved" | "reauthorizationRequired";
 export type ChannelMembershipType = "standard" | "private" | "unknownFutureValue";
 export type ChatMessageImportance = "normal" | "high" | "urgent" | "unknownFutureValue";
 export type ChatMessagePolicyViolationDlpActionTypes = "none" | "notifySender" | "blockAccess" | "blockAccessExternal";
@@ -1506,6 +1543,7 @@ export interface User extends DirectoryObject {
     activities?: NullableOption<UserActivity[]>;
     onlineMeetings?: NullableOption<OnlineMeeting[]>;
     joinedTeams?: NullableOption<Team[]>;
+    teamwork?: NullableOption<UserTeamwork>;
 }
 export interface AppRoleAssignment extends DirectoryObject {
     /**
@@ -1585,8 +1623,11 @@ export interface OAuth2PermissionGrant extends Entity {
     scope?: NullableOption<string>;
 }
 export interface ScopedRoleMembership extends Entity {
+    // Unique identifier for the administrative unit that the directory role is scoped to
     administrativeUnitId?: string;
+    // Unique identifier for the directory role that the member is in.
     roleId?: string;
+    // Role member identity information. Represents the user that is a member of this scoped-role.
     roleMemberInfo?: Identity;
 }
 export interface Calendar extends Entity {
@@ -1623,6 +1664,7 @@ export interface Calendar extends Entity {
      * skypeForBusiness, skypeForConsumer, teamsForBusiness.
      */
     defaultOnlineMeetingProvider?: NullableOption<OnlineMeetingProviderType>;
+    hexColor?: NullableOption<string>;
     // Indicates whether this user calendar can be deleted from the user mailbox.
     isRemovable?: NullableOption<boolean>;
     /**
@@ -1697,7 +1739,10 @@ export interface Event extends OutlookItem {
     end?: NullableOption<DateTimeTimeZone>;
     // Set to true if the event has attachments.
     hasAttachments?: NullableOption<boolean>;
-    // A unique identifier that is shared by all instances of an event across different calendars. Read-only.
+    /**
+     * A unique identifier for an event across calendars. This ID is different for each occurrence in a recurring series.
+     * Read-only.
+     */
     iCalUId?: NullableOption<string>;
     // The importance of the event. The possible values are: low, normal, high.
     importance?: NullableOption<Importance>;
@@ -1705,6 +1750,7 @@ export interface Event extends OutlookItem {
     isAllDay?: NullableOption<boolean>;
     // Set to true if the event has been canceled.
     isCancelled?: NullableOption<boolean>;
+    isDraft?: NullableOption<boolean>;
     // True if this event has online meeting information, false otherwise. Default is false. Optional.
     isOnlineMeeting?: NullableOption<boolean>;
     /**
@@ -1770,6 +1816,13 @@ export interface Event extends OutlookItem {
     start?: NullableOption<DateTimeTimeZone>;
     // The text of the event's subject line.
     subject?: NullableOption<string>;
+    /**
+     * A custom identifier specified by a client app for the server to avoid redundant POST operations in case of client
+     * retries to create the same event. This is useful when low network connectivity causes the client to time out before
+     * receiving a response from the server for the client's prior create-event request. After you set transactionId when
+     * creating an event, you cannot change transactionId in a subsequent update. This property is only returned in a response
+     * payload if an app has set it. Optional.
+     */
     transactionId?: NullableOption<string>;
     // The event type. The possible values are: singleInstance, occurrence, exception, seriesMaster. Read-only.
     type?: NullableOption<EventType>;
@@ -2489,6 +2542,10 @@ export interface Team extends Entity {
     // The template this team was created from. See available templates.
     template?: NullableOption<TeamsTemplate>;
 }
+export interface UserTeamwork extends Entity {
+    // The apps installed in the personal scope of this user.
+    installedApps?: NullableOption<UserScopeTeamsAppInstallation[]>;
+}
 export interface Application extends DirectoryObject {
     /**
      * Defines custom behavior that a consuming service can use to call an app in specific contexts. For example, applications
@@ -2566,11 +2623,11 @@ export interface Application extends DirectoryObject {
      */
     requiredResourceAccess?: RequiredResourceAccess[];
     /**
-     * Specifies what Microsoft accounts are supported for the current application. Supported values are:AzureADMyOrg: Users
-     * with a Microsoft work or school account in my organization’s Azure AD tenant (i.e. single tenant)AzureADMultipleOrgs:
-     * Users with a Microsoft work or school account in any organization’s Azure AD tenant (i.e. multi-tenant)
-     * AzureADandPersonalMicrosoftAccount: Users with a personal Microsoft account, or a work or school account in any
-     * organization’s Azure AD tenant
+     * Specifies the Microsoft accounts that are supported for the current application. Supported values are:AzureADMyOrg:
+     * Users with a Microsoft work or school account in my organization’s Azure AD tenant (single tenant)AzureADMultipleOrgs:
+     * Users with a Microsoft work or school account in any organization’s Azure AD tenant
+     * (multi-tenant).AzureADandPersonalMicrosoftAccount: Users with a personal Microsoft account, or a work or school account
+     * in any organization’s Azure AD tenant.PersonalMicrosoftAccount: Users with a personal Microsoft account only.
      */
     signInAudience?: NullableOption<string>;
     // Custom strings that can be used to categorize and identify the application. Not nullable.
@@ -2655,10 +2712,25 @@ export interface IdentityProvider extends Entity {
 // tslint:disable-next-line: no-empty-interface
 export interface ActivityBasedTimeoutPolicy extends StsPolicy {}
 export interface AdministrativeUnit extends DirectoryObject {
+    // An optional description for the administrative unit.
     description?: NullableOption<string>;
+    // Display name for the administrative unit.
     displayName?: NullableOption<string>;
+    /**
+     * Controls whether the adminstrative unit and its members are hidden or public. Can be set to HiddenMembership or Public.
+     * If not set, default behavior is Public. When set to HiddenMembership, only members of the administrative unit can list
+     * other members of the adminstrative unit.
+     */
     visibility?: NullableOption<string>;
+    /**
+     * Users and groups that are members of this Adminsitrative Unit. HTTP Methods: GET (list members), POST (add members),
+     * DELETE (remove members).
+     */
     members?: NullableOption<DirectoryObject[]>;
+    /**
+     * Scoped-role members of this Administrative Unit. HTTP Methods: GET (list scopedRoleMemberships), POST (add
+     * scopedRoleMembership), DELETE (remove scopedRoleMembership).
+     */
     scopedRoleMembers?: NullableOption<ScopedRoleMembership[]>;
     extensions?: NullableOption<Extension[]>;
 }
@@ -3010,7 +3082,8 @@ export interface Group extends DirectoryObject {
     mailEnabled?: NullableOption<boolean>;
     /**
      * The mail alias for the group, unique in the organization. This property must be specified when a group is created.
-     * Returned by default. Supports $filter.
+     * These characters cannot be used in the mailNickName: @()/[]';:.&amp;lt;&amp;gt;,SPACE. Returned by default. Supports
+     * $filter.
      */
     mailNickname?: NullableOption<string>;
     /**
@@ -3929,11 +4002,20 @@ export interface Subscription extends Entity {
      */
     creatorId?: NullableOption<string>;
     /**
+     * A base64-encoded representation of a certificate with a public key used to encrypt resource data in change
+     * notifications. Optional. Required when includeResourceData is true.
+     */
+    encryptionCertificate?: NullableOption<string>;
+    // A custom app-provided identifier to help identify the certificate needed to decrypt resource data. Optional.
+    encryptionCertificateId?: NullableOption<string>;
+    /**
      * Required. Specifies the date and time when the webhook subscription expires. The time is in UTC, and can be an amount
      * of time from subscription creation that varies for the resource subscribed to. See the table below for maximum
      * supported subscription length of time.
      */
     expirationDateTime?: string;
+    // When set to true, change notifications include resource data (such as content of a chat message). Optional.
+    includeResourceData?: NullableOption<boolean>;
     /**
      * Specifies the latest version of Transport Layer Security (TLS) that the notification endpoint, specified by
      * notificationUrl, supports. The possible values are: v1_0, v1_1, v1_2, v1_3. For subscribers whose notification endpoint
@@ -3944,6 +4026,7 @@ export interface Subscription extends Entity {
      * Microsoft Graph defaults the property to v1_2.
      */
     latestSupportedTlsVersion?: NullableOption<string>;
+    lifecycleNotificationUrl?: NullableOption<string>;
     /**
      * Required. The URL of the endpoint that will receive the change notifications. This URL must make use of the HTTPS
      * protocol.
@@ -5813,6 +5896,34 @@ export interface WebApp extends MobileApp {
     // Whether or not to use managed browser. This property is only applicable for Android and IOS.
     useManagedBrowser?: boolean;
 }
+export interface Win32LobApp extends MobileLobApp {
+    // The Windows architecture(s) for which this app can run on. Possible values are: none, x86, x64, arm, neutral.
+    applicableArchitectures?: WindowsArchitecture;
+    // The command line to install this app
+    installCommandLine?: NullableOption<string>;
+    // The install experience for this app.
+    installExperience?: NullableOption<Win32LobAppInstallExperience>;
+    // The value for the minimum CPU speed which is required to install this app.
+    minimumCpuSpeedInMHz?: NullableOption<number>;
+    // The value for the minimum free disk space which is required to install this app.
+    minimumFreeDiskSpaceInMB?: NullableOption<number>;
+    // The value for the minimum physical memory which is required to install this app.
+    minimumMemoryInMB?: NullableOption<number>;
+    // The value for the minimum number of processors which is required to install this app.
+    minimumNumberOfProcessors?: NullableOption<number>;
+    // The value for the minimum supported windows release.
+    minimumSupportedWindowsRelease?: NullableOption<string>;
+    // The MSI details if this Win32 app is an MSI app.
+    msiInformation?: NullableOption<Win32LobAppMsiInformation>;
+    // The return codes for post installation behavior.
+    returnCodes?: NullableOption<Win32LobAppReturnCode[]>;
+    // The detection and requirement rules for this app.
+    rules?: NullableOption<Win32LobAppRule[]>;
+    // The relative path of the setup file in the encrypted Win32LobApp package.
+    setupFilePath?: NullableOption<string>;
+    // The command line to uninstall this app
+    uninstallCommandLine?: NullableOption<string>;
+}
 export interface WindowsMobileMSI extends MobileLobApp {
     // The command line.
     commandLine?: NullableOption<string>;
@@ -7648,7 +7759,7 @@ export interface Windows10EndpointProtectionConfiguration extends DeviceConfigur
     // Indicates whether or not to block user from overriding Exploit Protection settings.
     defenderSecurityCenterBlockExploitProtectionOverride?: boolean;
     // Blocks stateful FTP connections to the device
-    firewallBlockStatefulFTP?: boolean;
+    firewallBlockStatefulFTP?: NullableOption<boolean>;
     /**
      * Specify how the certificate revocation list is to be enforced. Possible values are: deviceDefault, none, attempt,
      * require.
@@ -7671,7 +7782,7 @@ export interface Windows10EndpointProtectionConfiguration extends DeviceConfigur
      * If an authentication set is not fully supported by a keying module, direct the module to ignore only unsupported
      * authentication suites rather than the entire set
      */
-    firewallMergeKeyingModuleSettings?: boolean;
+    firewallMergeKeyingModuleSettings?: NullableOption<boolean>;
     /**
      * Configures how packet queueing should be applied in the tunnel gateway scenario. Possible values are: deviceDefault,
      * disabled, queueInbound, queueOutbound, queueBoth.
@@ -9384,9 +9495,9 @@ export interface Channel extends Entity {
     email?: NullableOption<string>;
     membershipType?: NullableOption<ChannelMembershipType>;
     /**
-     * A hyperlink that will navigate to the channel in Microsoft Teams. This is the URL that you get when you right-click a
-     * channel in Microsoft Teams and select Get link to channel. This URL should be treated as an opaque blob, and not
-     * parsed. Read-only.
+     * A hyperlink that will go to the channel in Microsoft Teams. This is the URL that you get when you right-click a channel
+     * in Microsoft Teams and select Get link to channel. This URL should be treated as an opaque blob, and not parsed.
+     * Read-only.
      */
     webUrl?: NullableOption<string>;
     // Metadata for the location where the channel's files are stored.
@@ -9416,8 +9527,13 @@ export interface ChatMessage extends Entity {
     // The importance of the chat message. The possible values are: normal, high, urgent.
     importance?: ChatMessageImportance;
     /**
-     * Read only. Timestamp of when the chat message is created or edited, including when a reply is made (if it's a root chat
-     * message in a channel) or a reaction is added or removed.
+     * Read only. Timestamp when edits to the chat message were made. Triggers an 'Edited' flag in the Microsoft Teams UI. If
+     * no edits are made the value is null.
+     */
+    lastEditedDateTime?: NullableOption<string>;
+    /**
+     * Read only. Timestamp when the chat message is created (initial setting) or edited, including when a reaction is added
+     * or removed.
      */
     lastModifiedDateTime?: NullableOption<string>;
     // Locale of the chat message set by the client.
@@ -9426,6 +9542,7 @@ export interface ChatMessage extends Entity {
     mentions?: NullableOption<ChatMessageMention[]>;
     // The type of chat message. The possible values are: message.
     messageType?: ChatMessageType;
+    // Defines the properties of a policy violation set by a data loss prevention (DLP) application.
     policyViolation?: NullableOption<ChatMessagePolicyViolation>;
     reactions?: NullableOption<ChatMessageReaction[]>;
     /**
@@ -9454,6 +9571,8 @@ export interface TeamsTab extends Entity {
     // The application that is linked to the tab. This cannot be changed after tab creation.
     teamsApp?: NullableOption<TeamsApp>;
 }
+// tslint:disable-next-line: no-empty-interface
+export interface Chat extends Entity {}
 // tslint:disable-next-line: no-empty-interface
 export interface ChatMessageHostedContent extends Entity {}
 export interface Schedule extends Entity {
@@ -9547,6 +9666,9 @@ export interface WorkforceIntegration extends ChangeTrackedEntity {
     supportedEntities?: NullableOption<WorkforceIntegrationSupportedEntities>;
     // Workforce Integration URL for callbacks from the Shifts service.
     url?: NullableOption<string>;
+}
+export interface UserScopeTeamsAppInstallation extends TeamsAppInstallation {
+    chat?: NullableOption<Chat>;
 }
 export interface ScheduleChangeRequest extends ChangeTrackedEntity {
     assignedTo?: NullableOption<ScheduleChangeRequestActor>;
@@ -10160,8 +10282,9 @@ export interface PreAuthorizedApplication {
 export interface AppRole {
     /**
      * Specifies whether this app role can be assigned to users and groups (by setting to ['User']), to other application's
-     * (by setting to ['Application'], or both (by setting to ['User', 'Application']). App roles supporting assignment of
-     * other applications' service principals are also known as application permissions.
+     * (by setting to ['Application'], or both (by setting to ['User', 'Application']). App roles supporting assignment to
+     * other applications' service principals are also known as application permissions. The 'Application' value is only
+     * supported for app roles defined on application entities.
      */
     allowedMemberTypes?: string[];
     /**
@@ -11995,11 +12118,142 @@ export interface MimeContent {
     // The byte array that contains the actual content.
     value?: NullableOption<number>;
 }
+export interface MobileAppInstallTimeSettings {
+    // The time at which the app should be installed.
+    deadlineDateTime?: NullableOption<string>;
+    // The time at which the app should be available for installation.
+    startDateTime?: NullableOption<string>;
+    // Whether the local device time or UTC time should be used when determining the available and deadline times.
+    useLocalTime?: boolean;
+}
 export interface VppLicensingType {
     // Whether the program supports the device licensing type.
     supportsDeviceLicensing?: boolean;
     // Whether the program supports the user licensing type.
     supportsUserLicensing?: boolean;
+}
+export interface Win32LobAppAssignmentSettings extends MobileAppAssignmentSettings {
+    // The install time settings to apply for this app assignment.
+    installTimeSettings?: NullableOption<MobileAppInstallTimeSettings>;
+    // The notification status for this app assignment. Possible values are: showAll, showReboot, hideAll.
+    notifications?: Win32LobAppNotification;
+    // The reboot settings to apply for this app assignment.
+    restartSettings?: NullableOption<Win32LobAppRestartSettings>;
+}
+export interface Win32LobAppRestartSettings {
+    // The number of minutes before the restart time to display the countdown dialog for pending restarts.
+    countdownDisplayBeforeRestartInMinutes?: number;
+    // The number of minutes to wait before restarting the device after an app installation.
+    gracePeriodInMinutes?: number;
+    // The number of minutes to snooze the restart notification dialog when the snooze button is selected.
+    restartNotificationSnoozeDurationInMinutes?: NullableOption<number>;
+}
+export interface Win32LobAppRule {
+    // The rule type indicating the purpose of the rule. Possible values are: detection, requirement.
+    ruleType?: Win32LobAppRuleType;
+}
+export interface Win32LobAppFileSystemRule extends Win32LobAppRule {
+    // A value indicating whether to expand environment variables in the 32-bit context on 64-bit systems.
+    check32BitOn64System?: boolean;
+    // The file or folder comparison value.
+    comparisonValue?: NullableOption<string>;
+    // The file or folder name to look up.
+    fileOrFolderName?: NullableOption<string>;
+    /**
+     * The file system operation type. Possible values are: notConfigured, exists, modifiedDate, createdDate, version,
+     * sizeInMB.
+     */
+    operationType?: Win32LobAppFileSystemOperationType;
+    /**
+     * The operator for file or folder detection. Possible values are: notConfigured, equal, notEqual, greaterThan,
+     * greaterThanOrEqual, lessThan, lessThanOrEqual.
+     */
+    operator?: Win32LobAppRuleOperator;
+    // The file or folder path to look up.
+    path?: NullableOption<string>;
+}
+export interface Win32LobAppInstallExperience {
+    // Device restart behavior. Possible values are: basedOnReturnCode, allow, suppress, force.
+    deviceRestartBehavior?: Win32LobAppRestartBehavior;
+    // Indicates the type of execution context the app runs in.
+    runAsAccount?: RunAsAccountType;
+}
+export interface Win32LobAppMsiInformation {
+    // The MSI package type. Possible values are: perMachine, perUser, dualPurpose.
+    packageType?: Win32LobAppMsiPackageType;
+    // The MSI product code.
+    productCode?: NullableOption<string>;
+    // The MSI product name.
+    productName?: NullableOption<string>;
+    // The MSI product version.
+    productVersion?: NullableOption<string>;
+    // The MSI publisher.
+    publisher?: NullableOption<string>;
+    // Whether the MSI app requires the machine to reboot to complete installation.
+    requiresReboot?: boolean;
+    // The MSI upgrade code.
+    upgradeCode?: NullableOption<string>;
+}
+export interface Win32LobAppPowerShellScriptRule extends Win32LobAppRule {
+    // The script output comparison value. Do not specify a value if the rule is used for detection.
+    comparisonValue?: NullableOption<string>;
+    // The display name for the rule. Do not specify this value if the rule is used for detection.
+    displayName?: NullableOption<string>;
+    // A value indicating whether a signature check is enforced.
+    enforceSignatureCheck?: boolean;
+    /**
+     * The script output comparison operation type. Use NotConfigured (the default value) if the rule is used for detection.
+     * Possible values are: notConfigured, string, dateTime, integer, float, version, boolean.
+     */
+    operationType?: Win32LobAppPowerShellScriptRuleOperationType;
+    /**
+     * The script output operator. Use NotConfigured (the default value) if the rule is used for detection. Possible values
+     * are: notConfigured, equal, notEqual, greaterThan, greaterThanOrEqual, lessThan, lessThanOrEqual.
+     */
+    operator?: Win32LobAppRuleOperator;
+    // A value indicating whether the script should run as 32-bit.
+    runAs32Bit?: boolean;
+    /**
+     * The execution context of the script. Do not specify this value if the rule is used for detection. Script detection
+     * rules will run in the same context as the associated app install context.
+     */
+    runAsAccount?: NullableOption<RunAsAccountType>;
+    // The base64-encoded script content.
+    scriptContent?: NullableOption<string>;
+}
+export interface Win32LobAppProductCodeRule extends Win32LobAppRule {
+    // The product code of the app.
+    productCode?: NullableOption<string>;
+    // The product version comparison value.
+    productVersion?: NullableOption<string>;
+    /**
+     * The product version comparison operator. Possible values are: notConfigured, equal, notEqual, greaterThan,
+     * greaterThanOrEqual, lessThan, lessThanOrEqual.
+     */
+    productVersionOperator?: Win32LobAppRuleOperator;
+}
+export interface Win32LobAppRegistryRule extends Win32LobAppRule {
+    // A value indicating whether to search the 32-bit registry on 64-bit systems.
+    check32BitOn64System?: boolean;
+    // The registry comparison value.
+    comparisonValue?: NullableOption<string>;
+    // The full path of the registry entry containing the value to detect.
+    keyPath?: NullableOption<string>;
+    // The registry operation type. Possible values are: notConfigured, exists, doesNotExist, string, integer, version.
+    operationType?: Win32LobAppRegistryRuleOperationType;
+    /**
+     * The operator for registry detection. Possible values are: notConfigured, equal, notEqual, greaterThan,
+     * greaterThanOrEqual, lessThan, lessThanOrEqual.
+     */
+    operator?: Win32LobAppRuleOperator;
+    // The name of the registry value to detect.
+    valueName?: NullableOption<string>;
+}
+export interface Win32LobAppReturnCode {
+    // Return code.
+    returnCode?: number;
+    // The type of return code. Possible values are: failed, success, softReboot, hardReboot, retry.
+    type?: Win32LobAppReturnCodeType;
 }
 export interface WindowsMinimumOperatingSystem {
     // Windows version 10.0 or later.
@@ -13690,8 +13944,14 @@ export interface ChangeNotification {
      * clientState property received with each change notification. Optional.
      */
     clientState?: NullableOption<string>;
+    /**
+     * (Preview) Encrypted content attached with the change notification. Only provided if encryptionCertificate and
+     * includeResourceData were defined during the subscription request and if the resource supports it. Optional.
+     */
+    encryptedContent?: NullableOption<ChangeNotificationEncryptedContent>;
     // Unique ID for the notification. Optional.
     id?: NullableOption<string>;
+    lifecycleEvent?: NullableOption<LifecycleEventType>;
     // The URI of the resource that emitted the change notification relative to https://graph.microsoft.com. Required.
     resource?: string;
     // The content of this property depends on the type of resource being subscribed to. Required.
@@ -13703,9 +13963,36 @@ export interface ChangeNotification {
     // The unique identifier of the tenant from which the change notification originated.
     tenantId?: string;
 }
+export interface ChangeNotificationEncryptedContent {
+    /**
+     * Base64-encoded encrypted data that produces a full resource respresented as JSON. The data has been encrypted with the
+     * provided dataKey using an AES/CBC/PKCS5PADDING cipher suite.
+     */
+    data?: string;
+    /**
+     * Base64-encoded symmetric key generated by Microsoft Graph to encrypt the data value and to generate the data signature.
+     * This key is encrypted with the certificate public key that was provided during the subscription. It must be decrypted
+     * with the certificate private key before it can be used to decrypt the data or verify the signature. This key has been
+     * encrypted with the following cipher suite: RSA/ECB/OAEPWithSHA1AndMGF1Padding.
+     */
+    dataKey?: string;
+    // Base64-encoded HMAC-SHA256 hash of the data for validation purposes.
+    dataSignature?: string;
+    // ID of the certificate used to encrypt the dataKey.
+    encryptionCertificateId?: string;
+    // Hexadecimal representation of the thumbprint of the certificate used to encrypt the dataKey.
+    encryptionCertificateThumbprint?: string;
+}
 // tslint:disable-next-line: no-empty-interface
 export interface ResourceData {}
 export interface ChangeNotificationCollection {
+    /**
+     * Contains an array of JWT tokens generated by Microsoft Graph for the application to validate the origin of the
+     * notifications. Microsoft Graph generates a single token for each distinct app and tenant pair for an item if it exists
+     * in the value array. Keep in mind that notifications can contain a mix of items for various apps and tenants that
+     * subscribed using the same notification URL. Only provided for change notifications with resource data Optional.
+     */
+    validationTokens?: NullableOption<string[]>;
     // The set of notifications being sent to the notification URL. Required.
     value?: ChangeNotification[];
 }
@@ -13765,15 +14052,47 @@ export interface ChatMessageMention {
     mentionText?: NullableOption<string>;
 }
 export interface ChatMessagePolicyViolation {
+    /**
+     * The action taken by the DLP provider on the message with sensitive content. Supported values are: NoneNotifySender --
+     * Inform the sender of the violation but allow readers to read the message.BlockAccess -- Block readers from reading the
+     * message.BlockAccessExternal -- Block users outside the organization from reading the message, while allowing users
+     * within the organization to read the message.
+     */
     dlpAction?: NullableOption<ChatMessagePolicyViolationDlpActionTypes>;
+    // Justification text provided by the sender of the message when overriding a policy violation.
     justificationText?: NullableOption<string>;
+    // Information to display to the message sender about why the message was flagged as a violation.
     policyTip?: NullableOption<ChatMessagePolicyViolationPolicyTip>;
+    /**
+     * Indicates the action taken by the user on a message blocked by the DLP provider. Supported values are:
+     * NoneOverrideReportFalsePositiveWhen the DLP provider is updating the message for blocking sensitive content, userAction
+     * is not required.
+     */
     userAction?: NullableOption<ChatMessagePolicyViolationUserActionTypes>;
+    /**
+     * Indicates what actions the sender may take in response to the policy violation. Supported values are:
+     * NoneAllowFalsePositiveOverride -- Allows the sender to declare the policyViolation to be an error in the DLP app and
+     * its rules, and allow readers to see the message again if the dlpAction had hidden it.AllowOverrideWithoutJustification
+     * -- Allows the sender to overriide the DLP violation and allow readers to see the message again if the dlpAction had
+     * hidden it, without needing to provide an explanation for doing so. AllowOverrideWithJustification -- Allows the sender
+     * to overriide the DLP violation and allow readers to see the message again if the dlpAction had hidden it, after
+     * providing an explanation for doing so.AllowOverrideWithoutJustification and AllowOverrideWithJustification are mutually
+     * exclusive.
+     */
     verdictDetails?: NullableOption<ChatMessagePolicyViolationVerdictDetailsTypes>;
 }
 export interface ChatMessagePolicyViolationPolicyTip {
+    /**
+     * The URL a user can visit to read about the data loss prevention policies for the organization. (ie, policies about what
+     * users shouldn't say in chats)
+     */
     complianceUrl?: NullableOption<string>;
+    // Explanatory text shown to the sender of the message.
     generalText?: NullableOption<string>;
+    /**
+     * The list of improper data in the message that was detected by the data loss prevention app. Each DLP app defines its
+     * own conditions, examples include 'Credit Card Number' and 'Social Security Number'.
+     */
     matchedConditionDescriptions?: NullableOption<string[]>;
 }
 export interface ChatMessageReaction {

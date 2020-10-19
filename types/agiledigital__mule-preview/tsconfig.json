@@ -17,8 +17,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@agiledigital/mule-preview": [
-                "agiledigital__mule-preview"
+            "@agiledigital/*": [
+                "agiledigital__*"
             ]
         }
     },

@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@google-cloud/text-to-speech": ["google-cloud__text-to-speech"]
+            "@google-cloud/*": ["google-cloud__*"]
         }
     },
     "files": ["index.d.ts", "google-cloud__text-to-speech-tests.ts"]

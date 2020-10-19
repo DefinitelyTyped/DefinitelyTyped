@@ -31,9 +31,7 @@ Ela pode servir de ajuda para contribuidores que estejam passado por problemas c
 * [typescript-bot](https://github.com/typescript-bot) esteve ativo no Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * [Atualizações do status da infraestrutura](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317) atual
 
-Se algo aqui parece estar errado, ou se algum dos itens acima está falhando, por favor fale sobre este problema no [canal do Definitely Typed no Gitter](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
-
-[![Entre no chat em https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Se algo aqui parece estar errado, ou se algum dos itens acima está falhando, por favor fale sobre este problema no [canal do Definitely Typed no Discord](https://discord.gg/typescript).
 
 ## O que são arquivos de declaração?
 
@@ -357,7 +355,7 @@ PRs que forem aprovadas por um autor listado no cabeçalho da definição geralm
 
 #### Minha PR já sofreu merge; Quando é que o pacote `@types` no NPM será atualizado?
 
-Pacotes do NPM devem atualizar dentro de alguns minutos. Se já passou de uma hora, mencione o número da PR [no canal do Gitter do Definitely Typed](https://gitter.im/DefinitelyTyped/DefinitelyTyped) e um mantenedor vai contatar o membro certo do time para investigar.
+Pacotes do NPM devem atualizar dentro de alguns minutos. Se já passou de uma hora, mencione o número da PR [no canal do Discord do Definitely Typed](https://discord.gg/typescript) e um mantenedor vai contatar o membro certo do time para investigar.
 
 #### Eu estou criando uma definição que depende de outra definição. Eu deveria usar `<reference types="" />` ou um import?
 
@@ -551,7 +549,7 @@ Quando `dts-gen` for usado para montar um pacote com escopo, a propriedade `path
 ```json
 {
     "paths":{
-      "@foo/bar": ["foo__bar"]
+      "@foo/*": ["foo__*"]
     }
 }
 ```

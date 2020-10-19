@@ -7,6 +7,7 @@ declare namespace Aws {
     interface Serverless {
         service: Service | string;
         frameworkVersion: string;
+        configValidationMode?: string;
         provider: Provider;
         package?: Package;
         functions?: Functions;
@@ -26,7 +27,7 @@ declare namespace Aws {
 
     interface Provider {
         name: 'aws';
-        runtime: string;
+        runtime?: string;
         stage?: string;
         region?: string;
         stackName?: string;
@@ -44,7 +45,7 @@ declare namespace Aws {
         rolePermissionsBoundary?: string;
         cfnRole?: string;
         versionFunctions?: boolean;
-        environment?: Environment;
+        environment?: Environment | string;
         endpointType?: 'regional' | 'edge' | 'private';
         apiKeys?: string[];
         apiGateway?: ApiGateway;
@@ -195,7 +196,7 @@ declare namespace Aws {
 
     interface Vpc {
         securityGroupIds: string[];
-        subnetIds: string[];
+        subnetIds: string[]|string;
     }
 
     interface StackParameters {
@@ -372,14 +373,14 @@ declare namespace Aws {
     }
 
     interface Sqs {
-        arn: string;
+        arn: string | { [key: string]: any };
         batchSize?: number | string;
         maximumRetryAttempts?: number | string;
         enabled?: boolean;
     }
 
     interface Stream {
-        arn: string;
+        arn: string | { [key: string]: any };
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;

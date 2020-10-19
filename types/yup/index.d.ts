@@ -249,12 +249,12 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean | 
 
 export interface DateSchemaConstructor {
     // tslint:disable-next-line:no-unnecessary-generics
-    <T extends Date | null | undefined = Date | undefined, C = object>(): DateSchema<T, C>;
+    <T extends Date | string | null | undefined = Date | undefined, C = object>(): DateSchema<T, C>;
     // tslint:disable-next-line:no-unnecessary-generics
-    new <T extends Date | null | undefined = Date | undefined, C = object>(): DateSchema<T, C>;
+    new <T extends Date | string | null | undefined = Date | undefined, C = object>(): DateSchema<T, C>;
 }
 
-export interface DateSchema<T extends Date | null | undefined = Date | undefined, C = object> extends Schema<T, C> {
+export interface DateSchema<T extends Date | string | null | undefined = Date | undefined, C = object> extends Schema<T, C> {
     min(limit: Date | string | Ref, message?: DateLocale['min']): DateSchema<T, C>;
     max(limit: Date | string | Ref, message?: DateLocale['max']): DateSchema<T, C>;
     nullable(isNullable?: true): DateSchema<T | null, C>;

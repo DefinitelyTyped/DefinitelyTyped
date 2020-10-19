@@ -1,22 +1,14 @@
-// Type definitions for koa-helmet 5.2
+// Type definitions for koa-helmet 6.0
 // Project: https://github.com/venables/koa-helmet#readme
 // Definitions by: Nick Simmons <https://github.com/me>
+//                 Jan Dolezel <https://github.com/dolezel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import {
-    IHelmetConfiguration,
-    IHelmetFrameguardConfiguration,
-    IHelmetHstsConfiguration,
-    IHelmetXssFilterConfiguration,
-    IHelmetDnsPrefetchControlConfiguration,
-    IHelmetHpkpConfiguration,
-    IHelmetReferrerPolicyConfiguration,
-    IHelmetHidePoweredByConfiguration,
-    IHelmetPermittedCrossDomainPoliciesConfiguration,
-    IHelmetExpectCtConfiguration,
-} from 'helmet';
+import helmet = require('helmet');
 import { Middleware, Context } from 'koa';
+
+type HelmetOptions = Required<Parameters<typeof helmet>>[0];
 
 declare namespace koaHelmet {
     type KoaHelmetContentSecurityPolicyDirectiveFunction = (ctx: Context) => string;
@@ -94,21 +86,20 @@ declare namespace koaHelmet {
     }
 
     interface KoaHelmet {
-        (options?: IHelmetConfiguration): Middleware;
+        (options?: HelmetOptions): Middleware;
         contentSecurityPolicy(options?: KoaHelmetContentSecurityPolicyConfiguration): Middleware;
-        dnsPrefetchControl(options?: IHelmetDnsPrefetchControlConfiguration): Middleware;
-        frameguard(options?: IHelmetFrameguardConfiguration): Middleware;
-        hpkp(options?: IHelmetHpkpConfiguration): Middleware;
-        hsts(options?: IHelmetHstsConfiguration): Middleware;
+        dnsPrefetchControl(options?: HelmetOptions['dnsPrefetchControl']): Middleware;
+        frameguard(options?: HelmetOptions['frameguard']): Middleware;
+        hsts(options?: HelmetOptions['hsts']): Middleware;
         ieNoOpen(): Middleware;
         noCache(options?: any): Middleware;
         noSniff(): Middleware;
-        referrerPolicy(options?: IHelmetReferrerPolicyConfiguration): Middleware;
-        xssFilter(options?: IHelmetXssFilterConfiguration): Middleware;
-        hidePoweredBy(options?: IHelmetHidePoweredByConfiguration): Middleware;
-        permittedCrossDomainPolicies(options?: IHelmetPermittedCrossDomainPoliciesConfiguration): Middleware;
+        referrerPolicy(options?: HelmetOptions['referrerPolicy']): Middleware;
+        xssFilter(options?: HelmetOptions['xssFilter']): Middleware;
+        hidePoweredBy(options?: HelmetOptions['hidePoweredBy']): Middleware;
+        permittedCrossDomainPolicies(options?: HelmetOptions['permittedCrossDomainPolicies']): Middleware;
         featurePolicy(options: KoaHelmetFeaturePolicyConfiguration): Middleware;
-        expectCt(options?: IHelmetExpectCtConfiguration): Middleware;
+        expectCt(options?: HelmetOptions['expectCt']): Middleware;
     }
 }
 

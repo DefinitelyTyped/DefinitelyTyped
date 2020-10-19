@@ -3,7 +3,6 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 //                 Emily Marigold Klassen <https://github.com/forivall>
@@ -145,11 +144,37 @@ declare namespace yargs {
          * Note that when `void` is returned, the handler `argv` object type will not include command-specific arguments.
          * @param [handler] Function, which will be executed with the parsed `argv` object.
          */
-        command<U = T>(command: string | ReadonlyArray<string>, description: string, builder?: BuilderCallback<T, U>, handler?: (args: Arguments<U>) => void): Argv<U>;
-        command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
+        command<U = T>(
+            command: string | ReadonlyArray<string>,
+            description: string,
+            builder?: BuilderCallback<T, U>,
+            handler?: (args: Arguments<U>) => void,
+            middlewares?: MiddlewareFunction[],
+            deprecated?: boolean | string,
+        ): Argv<U>;
+        command<O extends { [key: string]: Options }>(
+            command: string | ReadonlyArray<string>,
+            description: string,
+            builder?: O,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void,
+            middlewares?: MiddlewareFunction[],
+            deprecated?: boolean | string,
+        ): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
-        command<U = T>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: BuilderCallback<T, U>, handler?: (args: Arguments<U>) => void): Argv<T>;
-        command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
+        command<U = T>(
+            command: string | ReadonlyArray<string>,
+            showInHelp: false,
+            builder?: BuilderCallback<T, U>,
+            handler?: (args: Arguments<U>) => void,
+            middlewares?: MiddlewareFunction[],
+            deprecated?: boolean | string,
+        ): Argv<T>;
+        command<O extends { [key: string]: Options }>(
+            command: string | ReadonlyArray<string>,
+            showInHelp: false,
+            builder?: O,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void,
+        ): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
         command<U>(module: CommandModule<T, U>): Argv<U>;
 
@@ -247,6 +272,11 @@ declare namespace yargs {
         demandCommand(min: number, max?: number, minMsg?: string, maxMsg?: string): Argv<T>;
 
         /**
+         * Shows a [deprecated] notice in front of the option
+         */
+        deprecateOption(option: string, msg?: string): Argv<T>;
+
+        /**
          * Describe a `key` for the generated usage information.
          *
          * Optionally `.describe()` can take an object that maps keys to descriptions.
@@ -287,6 +317,7 @@ declare namespace yargs {
          * Examples will be printed out as part of the help message.
          */
         example(command: string, description: string): Argv<T>;
+        example(command: ReadonlyArray<[string, string?]>): Argv<T>;
 
         /** Manually indicate that the program should exit, and provide context about why we wanted to exit. Follows the behavior set by `.exitProcess().` */
         exit(code: number, err: Error): void;
@@ -533,6 +564,14 @@ declare namespace yargs {
         strict(enabled: boolean): Argv<T>;
 
         /**
+         * Similar to `.strict()`, except that it only applies to unrecognized options. A
+         * user can still provide arbitrary positional options, but unknown options
+         * will raise an error.
+         */
+        strictOptions(): Argv<T>;
+        strictOptions(enabled: boolean): Argv<T>;
+
+        /**
          * Tell the parser logic not to interpret `key` as a number or boolean. This can be useful if you need to preserve leading zeros in an input.
          *
          * If `key` is an array, interpret all the elements as strings.
@@ -645,6 +684,10 @@ declare namespace yargs {
          *  Use 'demandOption' instead
          */
         demand?: boolean | string;
+        /** boolean or string, mark the argument as deprecated, see `deprecateOption()` */
+        deprecate?: boolean | string;
+        /** boolean or string, mark the argument as deprecated, see `deprecateOption()` */
+        deprecated?: boolean | string;
         /** boolean or string, demand the option be given, with optional error message, see `demandOption()` */
         demandOption?: boolean | string;
         /** string, the option description for help content, see `describe()` */
@@ -770,6 +813,8 @@ declare namespace yargs {
         builder?: CommandBuilder<T, U>;
         /** string (or array of strings) that executes this command when given on the command line, first string may contain positional args */
         command?: ReadonlyArray<string> | string;
+        /** boolean (or string) to show deprecation notice */
+        deprecated?: boolean | string;
         /** string used as the description for the command in help text, use `false` for a hidden command */
         describe?: string | false;
         /** a function which will be passed the parsed argv. */

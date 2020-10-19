@@ -108,6 +108,13 @@ declare namespace Parsimmon {
          */
         tryParse(input: string): T;
         /**
+         * Passes the result of `parser` to the function `condition`,
+         * which returns a boolean. If the the condition is false, returns
+         * a failed parse with the given `message`. Else it returns the
+         * original result of `parser`.
+         */
+        assert(condition: (result: T) => boolean, message: string): Parser<T>;
+        /**
          * returns a new parser which tries parser, and if it fails uses otherParser.
          */
         or<U>(otherParser: Parser<U>): Parser<T | U>;

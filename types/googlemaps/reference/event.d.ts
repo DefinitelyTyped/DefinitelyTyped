@@ -71,8 +71,6 @@ declare namespace google.maps {
         remove(): void;
     }
 
-    type MVCEventHandler<T extends MVCObject, A extends any[]> = (this: T, ...args: A) => void;
-
     class MVCObject {
         /**
          * The MVCObject constructor is guaranteed to be an empty function, and so
@@ -88,7 +86,7 @@ declare namespace google.maps {
          * identifier for this listener that can be used with
          * google.maps.event.removeListener.
          */
-        addListener(eventName: string, handler: MVCEventHandler<this, any[]>): MapsEventListener;
+        addListener(eventName: string, handler: (this: this, ...args: any[]) => void): MapsEventListener;
 
         /** Binds a View to a Model. */
         bindTo(key: string, target: MVCObject, targetKey?: string, noNotify?: boolean): void;

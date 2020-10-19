@@ -138,6 +138,8 @@ declare namespace Mithril {
         background?: boolean;
         /** Milliseconds a request can take before automatically being terminated. */
         timeout?: number;
+        /** The expected type of the response, as a legal value of XMLHttpRequest.responseType. */
+        responseType?: "" | "arraybuffer" | "blob" | "document" | "json" | "text";
     }
 
     interface JsonpOptions {

@@ -117,8 +117,14 @@ declare namespace IORedis {
         (arg1: T, arg2: T, timeout: number, cb: Callback<U>): void;
         (arg1: T, timeout: number, cb: Callback<U>): void;
         (arg1: Array<T | number>, cb: Callback<U>): void;
-        (...args: Array<T | number>): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, timeout: number): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, timeout: number): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, arg4: T, timeout: number): Promise<U>;
+        (arg1: T, arg2: T, arg3: T, timeout: number): Promise<U>;
+        (arg1: T, arg2: T, timeout: number): Promise<U>;
+        (arg1: T, timeout: number): Promise<U>;
         (arg1: Array<T | number>): Promise<U>;
+        (...args: Array<T | number>): Promise<U>;
     }
 
     interface OverloadedSubCommand<T, U> {
@@ -406,6 +412,10 @@ declare namespace IORedis {
         zpopmax(key: KeyType, count: number, callback: Callback<string[]>): void;
         zpopmax(key: KeyType, count?: number): Promise<string[]>;
 
+        bzpopmin: OverloadedBlockingListCommand<KeyType, [string, string, string]>;
+
+        bzpopmax: OverloadedBlockingListCommand<KeyType, [string, string, string]>;
+
         zrem: OverloadedKeyCommand<ValueType, number>;
 
         zremrangebyscore(key: KeyType, min: number | string, max: number | string, callback: Callback<number>): void;
@@ -635,6 +645,9 @@ declare namespace IORedis {
         hmset: OverloadedKeyedHashCommand<ValueType, Ok>;
 
         hmget: OverloadedKeyCommand<KeyType, Array<string | null>>;
+
+        hstrlen(key: KeyType, field: string, callback: Callback<number>): void;
+        hstrlen(key: KeyType, field: string): Promise<number>;
 
         hincrby(key: KeyType, field: string, increment: number, callback: Callback<number>): void;
         hincrby(key: KeyType, field: string, increment: number): Promise<number>;
@@ -1089,6 +1102,14 @@ declare namespace IORedis {
 
         zincrby(key: KeyType, increment: number, member: string, callback?: Callback<string>): Pipeline;
 
+        zpopmin(key: KeyType, count: number, callback?: Callback<string[]>): Pipeline;
+
+        zpopmax(key: KeyType, count: number, callback?: Callback<string[]>): Pipeline;
+
+        bzpopmin(...args: Array<string | number | Callback<[string, string, string]>>): Pipeline;
+
+        bzpopmax(...args: Array<string | number | Callback<[string, string, string]>>): Pipeline;
+
         zrem(key: KeyType, ...members: ValueType[]): Pipeline;
 
         zremrangebyscore(
@@ -1186,6 +1207,8 @@ declare namespace IORedis {
         hmset(key: KeyType, data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;
 
         hmget(key: KeyType, ...fields: string[]): Pipeline;
+
+        hstrlen(key: KeyType, field: string, callback?: Callback<number>): Pipeline;
 
         hincrby(key: KeyType, field: string, increment: number, callback?: Callback<number>): Pipeline;
 
