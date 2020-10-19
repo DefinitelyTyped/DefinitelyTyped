@@ -1,4 +1,4 @@
-// Type definitions for pino-multi-stream 5.1.1
+// Type definitions for pino-multi-stream 5.1
 // Project: https://github.com/pinojs/pino-multi-stream#readme
 // Definitions by: Jake Ginnivan <https://github.com/JakeGinnivan>
 //                 Slava Obukhov <https://github.com/vyobukhov>
