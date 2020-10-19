@@ -8,34 +8,34 @@
 
 export type Input = string | Buffer;
 
-export interface InputMap {
-    A?: Input;
-    B?: Input;
-    C?: Input;
-    D?: Input;
-    E?: Input;
-    F?: Input;
-    G?: Input;
-    H?: Input;
-    I?: Input;
-    J?: Input;
-    K?: Input;
-    L?: Input;
-    M?: Input;
-    N?: Input;
-    O?: Input;
-    P?: Input;
-    Q?: Input;
-    R?: Input;
-    S?: Input;
-    T?: Input;
-    U?: Input;
-    V?: Input;
-    W?: Input;
-    X?: Input;
-    Y?: Input;
-    Z?: Input;
-}
+export type InputMap = Partial<{
+    A: Input;
+    B: Input;
+    C: Input;
+    D: Input;
+    E: Input;
+    F: Input;
+    G: Input;
+    H: Input;
+    I: Input;
+    J: Input;
+    K: Input;
+    L: Input;
+    M: Input;
+    N: Input;
+    O: Input;
+    P: Input;
+    Q: Input;
+    R: Input;
+    S: Input;
+    T: Input;
+    U: Input;
+    V: Input;
+    W: Input;
+    X: Input;
+    Y: Input;
+    Z: Input;
+}>;
 
 export type Permission =
     | 'Printing' // – Top Quality Printing
