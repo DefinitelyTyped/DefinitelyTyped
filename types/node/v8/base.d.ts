@@ -953,7 +953,6 @@ declare module "http" {
         'proxy-authenticate'?: string;
         'public-key-pins'?: string;
         'retry-after'?: string;
-        'set-cookie'?: string[];
         'strict-transport-security'?: string;
         'tk'?: string;
         'trailer'?: string;
