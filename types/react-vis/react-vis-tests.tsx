@@ -28,7 +28,7 @@ export function Example() {
                     strokeWidth: '3px',
                     line: { stroke: 'red' },
                     ticks: { stroke: 'green' },
-                    title:{ textTransform: 'uppercase' },
+                    title: { textTransform: 'uppercase' },
                     text: {
                         stroke: 'none',
                         fill: 'blue',
@@ -41,7 +41,7 @@ export function Example() {
                     strokeWidth: '3px',
                     line: { stroke: 'purple' },
                     ticks: { stroke: 'orange' },
-                    title:{ textTransform: 'capitalize' },
+                    title: { textTransform: 'capitalize' },
                     text: {
                         stroke: 'none',
                         fill: 'rgb(70%, 80%, 54%)',
