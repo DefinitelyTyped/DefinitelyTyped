@@ -51,7 +51,6 @@ declare module "http" {
         'range'?: string;
         'referer'?: string;
         'retry-after'?: string;
-        'set-cookie'?: string[];
         'strict-transport-security'?: string;
         'tk'?: string;
         'trailer'?: string;
