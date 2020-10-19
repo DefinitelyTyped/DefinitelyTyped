@@ -162,7 +162,7 @@ export class LatLngBounds {
     isValid(): boolean;
 }
 
-export type LatLngBoundsLiteral = LatLngTuple[]; // Must be [LatLngTuple, LatLngTuple], cant't change because Map.setMaxBounds
+export type LatLngBoundsLiteral = LatLngTuple[]; // Must be [LatLngTuple, LatLngTuple], cannot change because Map.setMaxBounds
 
 export type LatLngBoundsExpression = LatLngBounds | LatLngBoundsLiteral;
 
