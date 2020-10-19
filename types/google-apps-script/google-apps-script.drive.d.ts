@@ -160,7 +160,7 @@ declare namespace GoogleAppsScript {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
       getDateCreated(): Base.Date;
-      getDescription(): string;
+      getDescription(): string | null;
       getDownloadUrl(): string;
       getEditors(): User[];
       getId(): string;
