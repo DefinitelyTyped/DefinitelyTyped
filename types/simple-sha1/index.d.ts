@@ -3,18 +3,12 @@
 // Definitions by: Emily M Klassen <https://github.com/forivall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 export = sha1;
 
-/**
- * @param cb On the browser, `data` is a `Uint8Array`, in node, `data` is a `Buffer` (which is a subclass of Uint8Array)
- */
-declare function sha1(buf: string | NodeJS.ArrayBufferView, cb: (data: Buffer | Uint8Array) => void): void;
+declare function sha1(buf: string | sha1.ArrayBufferView, cb: (data: string) => void): void;
 
 declare namespace sha1 {
-    /**
-     * @returns On the browser, `Uint8Array`, in node, a `Buffer` (which is a subclass of Uint8Array)
-     */
-    function sync(buf: string | NodeJS.ArrayBufferView): Buffer | Uint8Array;
+    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+    type ArrayBufferView = TypedArray | DataView;
+    function sync(buf: string | ArrayBufferView): string;
 }

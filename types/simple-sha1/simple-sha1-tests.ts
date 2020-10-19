@@ -1,7 +1,9 @@
 import sha1 = require('simple-sha1');
 
+const log = (...args: any) => {};
+
 sha1('hey there', (hash) => {
-  console.log('async:', hash);
+  log('async:', hash);
 });
 
-console.log('sync:', sha1.sync('hey there'));
+log('sync:', sha1.sync('hey there'));
