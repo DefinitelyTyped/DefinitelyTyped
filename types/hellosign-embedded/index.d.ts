@@ -169,12 +169,10 @@ export declare module HelloSign {
 
         close: () => void;
 
-        on(name: Events['CLOSE'], cb: () => void): void;
-        on(name: Events['CANCEL'], cb: () => void): void;
+        on(name: Events['CLOSE'] | Events['CANCEL'] | Events['FINISH'], cb: () => void): void;
         on(name: Events['CREATE_TEMPLATE'], cb: (data: CreateTemplateEventPyload) => void): void;
         on(name: Events['DECLINE'], cb: (data: DeclineEventPyload) => void): void;
         on(name: Events['ERROR'], cb: (data: ErrorEventPyload) => void): void;
-        on(name: Events['FINISH'], cb: () => void): void;
         on(name: Events['MESSAGE'], cb: (data: MessageEventPayload) => void): void;
         on(name: Events['OPEN'], cb: (data: OpenEventPayload) => void): void;
         on(name: Events['READY'], cb: (data: ReadyEventPayload) => void): void;
@@ -182,12 +180,10 @@ export declare module HelloSign {
         on(name: Events['SEND'], cb: (data: SendEventPayload) => void): void;
         on(name: Events['SIGN'], cb: (data: SignEventPayload) => void): void;
 
-        once(name: Events['CLOSE'], cb: () => void): void;
-        once(name: Events['CANCEL'], cb: () => void): void;
+        once(name: Events['CLOSE'] | Events['CANCEL'] | Events['FINISH'], cb: () => void): void;
         once(name: Events['CREATE_TEMPLATE'], cb: (data: CreateTemplateEventPyload) => void): void;
         once(name: Events['DECLINE'], cb: (data: DeclineEventPyload) => void): void;
         once(name: Events['ERROR'], cb: (data: ErrorEventPyload) => void): void;
-        once(name: Events['FINISH'], cb: () => void): void;
         once(name: Events['MESSAGE'], cb: (data: MessageEventPayload) => void): void;
         once(name: Events['OPEN'], cb: (data: OpenEventPayload) => void): void;
         once(name: Events['READY'], cb: (data: ReadyEventPayload) => void): void;
@@ -195,18 +191,10 @@ export declare module HelloSign {
         once(name: Events['SEND'], cb: (data: SendEventPayload) => void): void;
         once(name: Events['SIGN'], cb: (data: SignEventPayload) => void): void;
 
-        off(name: Events['CLOSE'], cb?: CB): void;
-        off(name: Events['CANCEL'], cb?: CB): void;
-        off(name: Events['CREATE_TEMPLATE'], cb?: CB): void;
-        off(name: Events['DECLINE'], cb?: CB): void;
-        off(name: Events['ERROR'], cb?: CB): void;
-        off(name: Events['FINISH'], cb?: CB): void;
-        off(name: Events['MESSAGE'], cb?: CB): void;
-        off(name: Events['OPEN'], cb?: CB): void;
-        off(name: Events['READY'], cb?: CB): void;
-        off(name: Events['REASSIGN'], cb?: CB): void;
-        off(name: Events['SEND'], cb?: CB): void;
-        off(name: Events['SIGN'], cb?: CB): void;
+        off(name: Events['CLOSE'] | Events['CLOSE'] | Events['CREATE_TEMPLATE'] | Events['DECLINE'] |
+              Events['ERROR'] | Events['FINISH'] | Events['MESSAGE'] | Events['OPEN'] | Events['READY'] |
+              Events['REASSIGN'] | Events['SEND'] | Events['SIGN'],
+            cb?: CB): void;
     }
 }
 
