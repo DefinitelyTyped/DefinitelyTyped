@@ -317,10 +317,30 @@ declare namespace validator {
      */
     function isDataURI(str: string): boolean;
 
+    interface IsDateOptions {
+        /**
+         * @default false
+         */
+        format?: string;
+        /**
+         * If strictMode is set to true,
+         * the validator will reject inputs different from format.
+         *
+         * @default false
+         */
+        strictMode?: boolean;
+        /**
+         * `delimiters` is an array of allowed date delimiters
+         *
+         * @default ['/', '-']
+         */
+        delimiters?: Array<string>;
+    }
+
     /**
      * Check if the string is a valid date.
      */
-    function isDate(str: string): boolean;
+    function isDate(str: string, options?: IsDateOptions): boolean;
 
     type DecimalLocale = FloatLocale;
 

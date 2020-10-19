@@ -568,7 +568,9 @@ const any: any = null;
 
     result = validator.isDataURI('sample');
 
+    const isDateOptions: validator.IsDateOptions = {};
     result = validator.isDate('sample');
+    result = validator.isDate('sample', isDateOptions);
 
     const isDecimalOptions: validator.IsDecimalOptions = {};
     result = validator.isDecimal('sample');
