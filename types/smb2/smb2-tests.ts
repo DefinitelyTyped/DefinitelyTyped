@@ -1,4 +1,8 @@
-function uhOh() {
-    // I don't have any tests!
-    // Quick, someone give me a samba server to connect to!
-}
+import SMB2 = require('smb2');
+
+constsmb2Client = new SMB2({
+  share:'\\\\000.000.000.000\\c$',
+  domain:'DOMAIN',
+  username:'username',
+  password:'password!'
+});
