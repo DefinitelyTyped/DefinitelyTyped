@@ -11,7 +11,7 @@ import {
 type GetMenuOffsetFn = ((menuBody: HTMLElement, direction: Direction, trigger?: HTMLElement, flip?: boolean) => (MenuOffsetData | undefined));
 export declare const getMenuOffset: GetMenuOffsetFn;
 
-type ExcludedAttributes = "aria-expanded" | "aria-haspopup" | "aria-label" | "onBlur" | "onClick" | "onKeyDown" | "onKeyPress" | "role";
+type ExcludedAttributes = "aria-expanded" | "aria-haspopup" | "aria-label" | "onBlur" | "onKeyPress" | "role";
 interface InheritedProps extends
     Omit<ReactButtonAttr, ExcludedAttributes>,
     EmbeddedIconProps,
@@ -19,7 +19,6 @@ interface InheritedProps extends
     ThemeProps
 {
     ariaLabel?: React.AriaAttributes["aria-label"],
-    onClick?(e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void,
 }
 
 export type MenuOffsetValue = MenuOffsetData | GetMenuOffsetFn;

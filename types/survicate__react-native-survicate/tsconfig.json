@@ -6,18 +6,23 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@survicate/*": [
+                "survicate__*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "accept-tests.ts"
+        "survicate__react-native-survicate-tests.ts"
     ]
 }

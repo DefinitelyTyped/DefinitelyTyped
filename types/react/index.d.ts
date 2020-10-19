@@ -1921,6 +1921,17 @@ declare namespace React {
         wrap?: string;
     }
 
+    type HTMLAttributeReferrerPolicy =
+        | ''
+        | 'no-referrer'
+        | 'no-referrer-when-downgrade'
+        | 'origin'
+        | 'origin-when-cross-origin'
+        | 'same-origin'
+        | 'strict-origin'
+        | 'strict-origin-when-cross-origin'
+        | 'unsafe-url';
+
     interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
         download?: any;
         href?: string;
@@ -1930,7 +1941,7 @@ declare namespace React {
         rel?: string;
         target?: string;
         type?: string;
-        referrerPolicy?: string;
+        referrerPolicy?: HTMLAttributeReferrerPolicy;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -1943,6 +1954,7 @@ declare namespace React {
         href?: string;
         hrefLang?: string;
         media?: string;
+        referrerPolicy?: HTMLAttributeReferrerPolicy;
         rel?: string;
         shape?: string;
         target?: string;
@@ -2044,7 +2056,7 @@ declare namespace React {
         /** @deprecated */
         marginWidth?: number;
         name?: string;
-        referrerPolicy?: string;
+        referrerPolicy?: HTMLAttributeReferrerPolicy;
         sandbox?: string;
         /** @deprecated */
         scrolling?: string;
@@ -2060,7 +2072,7 @@ declare namespace React {
         decoding?: "async" | "auto" | "sync";
         height?: number | string;
         loading?: "eager" | "lazy";
-        referrerPolicy?: "no-referrer" | "origin" | "unsafe-url";
+        referrerPolicy?: HTMLAttributeReferrerPolicy;
         sizes?: string;
         src?: string;
         srcSet?: string;
@@ -2136,6 +2148,7 @@ declare namespace React {
         hrefLang?: string;
         integrity?: string;
         media?: string;
+        referrerPolicy?: HTMLAttributeReferrerPolicy;
         rel?: string;
         sizes?: string;
         type?: string;
@@ -2243,6 +2256,7 @@ declare namespace React {
         integrity?: string;
         noModule?: boolean;
         nonce?: string;
+        referrerPolicy?: HTMLAttributeReferrerPolicy;
         src?: string;
         type?: string;
     }

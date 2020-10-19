@@ -41,7 +41,7 @@ import * as fs from "fs";
     if (workerThreads.isMainThread) {
         const worker = new workerThreads.Worker(__filename);
         const subChannel = new workerThreads.MessageChannel();
-        worker.postMessage({ hereIsYourPort: subChannel.port1 }, [subChannel.port1]);
+        worker.postMessage({ hereIsYourPort: subChannel.port1 }, [subChannel.port1] as ReadonlyArray<workerThreads.TransferListItem>);
         subChannel.port2.on('message', (value) => {
             console.log('received:', value);
         });
@@ -90,8 +90,8 @@ import * as fs from "fs";
 
     workerThreads.markAsUntransferable(pooledBuffer);
 
-    const { port1 } = new MessageChannel();
-    port1.postMessage(typedArray1, [ typedArray1.buffer ]);
+    const { port1 } = new workerThreads.MessageChannel();
+    port1.postMessage(typedArray1, [ typedArray1.buffer ] as ReadonlyArray<workerThreads.TransferListItem>);
 
     console.log(typedArray1);
     console.log(typedArray2);
@@ -101,6 +101,6 @@ import * as fs from "fs";
     (async () => {
         const fileHandle = await fs.promises.open("thefile.txt", "r");
         const worker = new workerThreads.Worker(__filename);
-        worker.postMessage("some message", [ fileHandle ]);
+        worker.postMessage("some message", [ fileHandle ] as ReadonlyArray<workerThreads.TransferListItem>);
     })();
 }

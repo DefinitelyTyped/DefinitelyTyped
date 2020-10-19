@@ -20,7 +20,7 @@ declare module "worker_threads" {
 
     class MessagePort extends EventEmitter {
         close(): void;
-        postMessage(value: any, transferList?: TransferListItem[]): void;
+        postMessage(value: any, transferList?: ReadonlyArray<TransferListItem>): void;
         ref(): void;
         unref(): void;
         start(): void;
@@ -115,7 +115,7 @@ declare module "worker_threads" {
          */
         constructor(filename: string | URL, options?: WorkerOptions);
 
-        postMessage(value: any, transferList?: TransferListItem[]): void;
+        postMessage(value: any, transferList?: ReadonlyArray<TransferListItem>): void;
         ref(): void;
         unref(): void;
         /**

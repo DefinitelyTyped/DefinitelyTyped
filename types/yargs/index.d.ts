@@ -564,6 +564,14 @@ declare namespace yargs {
         strict(enabled: boolean): Argv<T>;
 
         /**
+         * Similar to `.strict()`, except that it only applies to unrecognized options. A
+         * user can still provide arbitrary positional options, but unknown options
+         * will raise an error.
+         */
+        strictOptions(): Argv<T>;
+        strictOptions(enabled: boolean): Argv<T>;
+
+        /**
          * Tell the parser logic not to interpret `key` as a number or boolean. This can be useful if you need to preserve leading zeros in an input.
          *
          * If `key` is an array, interpret all the elements as strings.

@@ -243,7 +243,7 @@ export interface AbstractSeriesProps<T extends AbstractSeriesPoint> {
     getY?: RVGet<T, 'y'>;
     height?: number;
     onNearestX?: RVNearestXEventHandler<T>;
-    onNearestXY?: RVNearestXEventHandler<T>;
+    onNearestXY?: RVNearestXYEventHandler<T>;
     onSeriesClick?: RVMouseEventHandler;
     onSeriesMouseOut?: RVMouseEventHandler;
     onSeriesMouseOver?: RVMouseEventHandler;

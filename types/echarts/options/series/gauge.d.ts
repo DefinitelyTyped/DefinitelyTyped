@@ -2076,7 +2076,7 @@ declare namespace echarts {
                 backgroundColor?: object | string;
 
                 /**
-                 * Border width of the text fregment.
+                 * Border width of the text fragment.
                  *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-gauge.detail.borderWidth
@@ -2084,7 +2084,15 @@ declare namespace echarts {
                 borderWidth?: number;
 
                 /**
-                 * Border color of the text fregment.
+                 * Formatter is used to format detail, which supports string template and callback function.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-gauge.detail.formatter
+                 */
+                formatter?: string | Function;
+
+                /**
+                 * Border color of the text fragment.
                  *
                  *
                  * @default

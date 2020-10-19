@@ -27,7 +27,7 @@ declare namespace Aws {
 
     interface Provider {
         name: 'aws';
-        runtime: string;
+        runtime?: string;
         stage?: string;
         region?: string;
         stackName?: string;
@@ -196,7 +196,7 @@ declare namespace Aws {
 
     interface Vpc {
         securityGroupIds: string[];
-        subnetIds: string[];
+        subnetIds: string[]|string;
     }
 
     interface StackParameters {
@@ -373,14 +373,14 @@ declare namespace Aws {
     }
 
     interface Sqs {
-        arn: string;
+        arn: string | { [key: string]: any };
         batchSize?: number | string;
         maximumRetryAttempts?: number | string;
         enabled?: boolean;
     }
 
     interface Stream {
-        arn: string;
+        arn: string | { [key: string]: any };
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;

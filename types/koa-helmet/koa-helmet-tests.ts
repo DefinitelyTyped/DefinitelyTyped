@@ -93,58 +93,6 @@ function frameguardTest() {
 }
 
 /**
- * @summary Test for {@see helmet#hpkp} function.
- */
-function hpkpTest() {
-    app.use(
-        helmet.hpkp({
-            maxAge: 7776000000,
-            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-        }),
-    );
-
-    app.use(
-        helmet.hpkp({
-            maxAge: 7776000000,
-            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-            includeSubDomains: false,
-        }),
-    );
-
-    app.use(
-        helmet.hpkp({
-            maxAge: 7776000000,
-            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-            includeSubDomains: true,
-        }),
-    );
-
-    app.use(
-        helmet.hpkp({
-            maxAge: 7776000000,
-            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-            reportUri: 'http://example.com',
-        }),
-    );
-
-    app.use(
-        helmet.hpkp({
-            maxAge: 7776000000,
-            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-            reportOnly: true,
-        }),
-    );
-
-    app.use(
-        helmet.hpkp({
-            maxAge: 7776000000,
-            sha256s: ['AbCdEf123=', 'ZyXwVu456='],
-            setIf: (req, res) => true,
-        }),
-    );
-}
-
-/**
  * @summary Test for {@see helmet#hsts} function.
  */
 function hstsTest() {

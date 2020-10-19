@@ -2,28 +2,27 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "dom",
             "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "@storybook/polymer": [
-                "storybook__polymer"
-            ]
-        },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@rdfjs/*": [
+                "rdfjs__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "storybook__polymer-tests.ts"
+        "rdfjs__serializer-rdfjs-tests.ts"
     ]
 }

@@ -143,12 +143,12 @@ declare module 'fs/promises' {
         /**
          * See `fs.writev` promisified version.
          */
-        writev(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
+        writev(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
 
         /**
          * See `fs.readv` promisified version.
          */
-        readv(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
+        readv(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<ReadVResult>;
 
         /**
          * Asynchronous close(2) - close a `FileHandle`.
