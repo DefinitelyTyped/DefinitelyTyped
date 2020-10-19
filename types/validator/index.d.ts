@@ -334,7 +334,7 @@ declare namespace validator {
          *
          * @default ['/', '-']
          */
-        delimiters?: Array<string>;
+        delimiters?: string[];
     }
 
     /**
