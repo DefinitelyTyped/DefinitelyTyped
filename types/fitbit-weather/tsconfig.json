@@ -22,7 +22,7 @@
     ],
     "files": [
         "index.d.ts",
-        "tests/app.ts",
-        "tests/companion.ts"
+        "test/app.ts",
+        "test/companion.ts"
     ]
 }
