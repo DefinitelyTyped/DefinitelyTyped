@@ -1,5 +1,5 @@
-import TLV from 'node-tlv';
-import assert from 'assert';
+import TLV = require('node-tlv');
+import assert = require('assert');
 
 // Examples directly from the source page. @see https://github.com/coolbong/node-tlv#readme
 
