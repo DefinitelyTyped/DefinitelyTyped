@@ -472,8 +472,8 @@ export interface Insets {
 
 export type PressableStateCallbackType = Readonly<{
     pressed: boolean;
-    hovered: boolean;
-    focused: boolean;
+    hovered?: boolean;
+    focused?: boolean;
 }>;
 
 export interface PressableAndroidRippleConfig {
