@@ -6,36 +6,33 @@
 
 /// <reference types="node" />
 
-export type Input = string | Buffer;
-
-export type InputMap = Partial<{
-    A: Input;
-    B: Input;
-    C: Input;
-    D: Input;
-    E: Input;
-    F: Input;
-    G: Input;
-    H: Input;
-    I: Input;
-    J: Input;
-    K: Input;
-    L: Input;
-    M: Input;
-    N: Input;
-    O: Input;
-    P: Input;
-    Q: Input;
-    R: Input;
-    S: Input;
-    T: Input;
-    U: Input;
-    V: Input;
-    W: Input;
-    X: Input;
-    Y: Input;
-    Z: Input;
-}>;
+export type Letter =
+    | 'A'
+    | 'B'
+    | 'C'
+    | 'D'
+    | 'E'
+    | 'F'
+    | 'G'
+    | 'H'
+    | 'I'
+    | 'J'
+    | 'K'
+    | 'L'
+    | 'M'
+    | 'N'
+    | 'O'
+    | 'P'
+    | 'Q'
+    | 'R'
+    | 'S'
+    | 'T'
+    | 'U'
+    | 'V'
+    | 'W'
+    | 'X'
+    | 'Y'
+    | 'Z';
 
 export type Permission =
     | 'Printing' // – Top Quality Printing
@@ -286,5 +283,5 @@ export interface ConfigureOptions {
     tempDir: string;
 }
 
-export function input(file: string | Buffer | Buffer[] | InputMap): PDFTK;
+export function input(file: string | Buffer | Buffer[] | Partial<Record<Letter, string | Buffer>>): PDFTK;
 export function configure(opts: ConfigureOptions): void;
