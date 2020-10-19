@@ -1426,6 +1426,25 @@ export type UpdateQuery<TSchema> = {
     $bit?: {
         [key: string]: { [key in 'and' | 'or' | 'xor']?: number };
     };
+} | Array<UpdateAggregation<TSchema>>;
+
+/** https://docs.mongodb.com/v4.2/release-notes/4.2/#update-enhancements */
+export type UpdateAggregation<TSchema> = {
+    /** Can be any valid expression */
+    $replaceWith: object
+} | {
+    $replaceRoot: {
+        /** Can be any valid expression */
+        newRoot: object
+    }
+} | {
+    $unset: keyof TSchema | string | Array<keyof TSchema | string>
+} | {
+    $project: SchemaMember<TSchema, number | boolean | any>
+} | {
+    $set: SchemaMember<TSchema, any>
+} | {
+    $addFields: SchemaMember<TSchema, any>
 };
 
 /** https://docs.mongodb.com/manual/reference/operator/query/type/#available-types */

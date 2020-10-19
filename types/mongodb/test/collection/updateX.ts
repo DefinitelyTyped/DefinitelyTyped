@@ -138,10 +138,8 @@ async function run() {
             }
         }
     });
-    buildUpdateQuery({
-        // $ExpectError
-        $addToSet: { subInterfaceArray: { field1: 123 } }
-    });
+    // $ExpectError
+    buildUpdateQuery({ $addToSet: { subInterfaceArray: { field1: 123 } } });
 
     buildUpdateQuery({ $pop: { fruitTags: 1 } });
     buildUpdateQuery({ $pop: { fruitTags: -1 } });
@@ -193,12 +191,17 @@ async function run() {
             }
         }
     });
-    buildUpdateQuery({
-        // $ExpectError
-        $push: { subInterfaceArray: { field1: 123 } }
-    });
+    // $ExpectError
+    buildUpdateQuery({ $push: { subInterfaceArray: { field1: 123 } } });
     // buildUpdateQuery({ $push: { 'dot.notation': 1 } });
     // buildUpdateQuery({ $push: { 'subInterfaceArray.$[]': { $in: ['a'] } } });
+
+    buildUpdateQuery([
+        { $set: { dateField: "$$NOW", subInterfaceArray: ["$subInterfaceField"] } },
+        { $unset: ["maybeFruitTags", "optionalNumberField"] }
+    ]);
+    // $ExpectError
+    buildUpdateQuery([ { $otherOp: { stringField: 'value' } } ]);
 
     collectionTType.updateOne({ stringField: 'bla' }, justASample);
 
