@@ -189,8 +189,7 @@ import * as net from 'net';
 // http headers
 {
     const headers: http.IncomingHttpHeaders = {
-        'content-type': 'application/json',
-        'set-cookie': [ 'type=ninja', 'language=javascript' ]
+        'content-type': 'application/json'
     };
 
     headers["access-control-request-headers"] = "content-type, x-custom-header";
