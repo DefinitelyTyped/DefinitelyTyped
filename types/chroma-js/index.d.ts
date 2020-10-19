@@ -221,6 +221,8 @@ declare namespace chroma {
 
         darken(f?: number): Color;
 
+        mix(targetColor: string | Color, f?: number, colorSpace?: keyof ColorSpaces): Color;
+
         brighten(f?: number): Color;
 
         /**

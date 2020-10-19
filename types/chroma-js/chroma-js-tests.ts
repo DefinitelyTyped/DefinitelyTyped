@@ -65,6 +65,9 @@ function test_color() {
     chroma('hotpink').desaturate();
     chroma('hotpink').desaturate(2);
     chroma('hotpink').desaturate(3);
+    chroma('hotpink').mix('blue');
+    chroma('hotpink').mix('blue', 0.25);
+    chroma('hotpink').mix('blue', 0.75);
     // change hue to 0 deg (=red)
     chroma('skyblue').set('hsl.h', 0);
     // set chromacity to 30
