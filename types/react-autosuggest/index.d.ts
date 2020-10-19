@@ -35,14 +35,25 @@ declare namespace Autosuggest {
     /** @internal */
     type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
+    type FetchRequestedReasons =
+        | 'input-changed'
+        | 'input-focused'
+        | 'escape-pressed'
+        | 'suggestions-revealed'
+        | 'suggestion-selected';
+
+    type ShouldRenderReasons =
+        | 'input-changed'
+        | 'input-focused'
+        | 'input-blurred'
+        | 'escape-pressed'
+        | 'suggestions-revealed'
+        | 'suggestions-updated'
+        | 'render';
+
     interface SuggestionsFetchRequestedParams {
         value: string;
-        reason:
-            | 'input-changed'
-            | 'input-focused'
-            | 'escape-pressed'
-            | 'suggestions-revealed'
-            | 'suggestion-selected';
+        reason: FetchRequestedReasons;
     }
 
     interface RenderSuggestionParams {
@@ -128,17 +139,7 @@ declare namespace Autosuggest {
         suggestion: TSuggestion,
         params: RenderSuggestionParams,
     ) => React.ReactNode;
-    type ShouldRenderSuggestions = (
-        value: string,
-        reason:
-            | 'input-changed'
-            | 'input-focused'
-            | 'input-blurred'
-            | 'escape-pressed'
-            | 'suggestions-revealed'
-            | 'suggestions-updated'
-            | 'render'
-    ) => boolean;
+    type ShouldRenderSuggestions = (value: string, reason: ShouldRenderReasons) => boolean;
 
     interface AutosuggestPropsBase<TSuggestion> {
         /**
