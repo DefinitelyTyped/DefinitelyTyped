@@ -4327,6 +4327,12 @@
             "asOfVersion": "0.11.0"
         },
         {
+            "libraryName": "@react-native-community/cli",
+            "typingsPackageName": "react-native-community__cli",
+            "sourceRepoURL": "https://github.com/react-native-community/cli",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "react-native-elements",
             "typingsPackageName": "react-native-elements",
             "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",
