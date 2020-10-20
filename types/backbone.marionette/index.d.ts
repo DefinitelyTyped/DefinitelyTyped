@@ -1312,6 +1312,11 @@ export interface CollectionViewOptions<
     filter?(child?: TModel, index?: number, collection?: TCollection): boolean;
 
     /**
+     * Prevent some of the underlying children from being attached to the DOM.
+     */
+    viewFilter?: ((view?: typeof Backbone.View, index?: number, children?: any) => boolean) | Backbone.ObjectHash | string;
+
+    /**
      * Specify a view to use if the collection has no children.
      */
     emptyView?: (() => typeof Backbone.View) | typeof Backbone.View;
