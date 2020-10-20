@@ -1,4 +1,8 @@
 FB.init({
+    version: 'v8.0',
+});
+
+FB.init({
     appId: '***********',
     version: 'v2.5',
     status: true,

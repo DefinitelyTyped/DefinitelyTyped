@@ -111,6 +111,7 @@ import {
     useColorScheme,
     useWindowDimensions,
     SectionListData,
+    ToastAndroid
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1602,3 +1603,7 @@ const DataDetectorTypeTest = () => {
         </>
     );
 };
+
+const ToastAndroidTest = () => {
+    ToastAndroid.showWithGravityAndOffset('My Toast', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 0, 50);
+}

@@ -34,6 +34,7 @@
 /// <reference path="./globals/ddp.d.ts" />
 /// <reference path="./ejson.d.ts" />
 /// <reference path="./globals/ejson.d.ts" />
+/// <reference path="./fetch.d.ts" />
 /// <reference path="./email.d.ts" />
 /// <reference path="./globals/email.d.ts" />
 /// <reference path="./http.d.ts" />

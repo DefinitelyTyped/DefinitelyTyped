@@ -39,7 +39,7 @@
 /// <reference types="node" />
 /// <reference lib="esnext.asynciterable" />
 
-import { Binary, ObjectId, Timestamp } from 'bson';
+import { Binary, Decimal128, Double, Int32, Long, ObjectId, Timestamp } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from 'stream';
 import { checkServerIdentity } from 'tls';
@@ -54,6 +54,8 @@ export function connect(uri: string, callback: MongoCallback<MongoClient>): void
 export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<MongoClient>): void;
 
 export { Binary, DBRef, Decimal128, Double, Int32, Long, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
+
+type NumericTypes = number | Decimal128 | Double | Int32 | Long;
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html
 export class MongoClient extends EventEmitter {
@@ -1406,10 +1408,10 @@ export type PullAllOperator<TSchema> = ({
 export type UpdateQuery<TSchema> = {
     /** https://docs.mongodb.com/manual/reference/operator/update-field/ */
     $currentDate?: OnlyFieldsOfType<TSchema, Date, true | { $type: 'date' | 'timestamp' }>;
-    $inc?: OnlyFieldsOfType<TSchema, number | undefined>;
+    $inc?: OnlyFieldsOfType<TSchema, NumericTypes | undefined>;
     $min?: MatchKeysAndValues<TSchema>;
     $max?: MatchKeysAndValues<TSchema>;
-    $mul?: OnlyFieldsOfType<TSchema, number | undefined>;
+    $mul?: OnlyFieldsOfType<TSchema, NumericTypes | undefined>;
     $rename?: { [key: string]: string };
     $set?: MatchKeysAndValues<TSchema>;
     $setOnInsert?: MatchKeysAndValues<TSchema>;
