@@ -1,4 +1,4 @@
-// Type definitions for react-loader-spinner 3.1
+// Type definitions for react-loader-spinner 3.1.8
 // Project: https://github.com/mhnpd/react-loader-spinner
 // Definitions by: Rayhan Wirjowerdojo <https://github.com/rayhanw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,13 +28,13 @@ type Types =
 
 interface LoaderProps {
     color?: string;
-    height?: number;
+    height?: number | string;
     radius?: number;
     secondaryColor?: string;
     timeout?: number; // in milliseconds
     type?: Types;
     visible?: boolean | string;
-    width?: number;
+    width?: number | string;
 }
 
 declare const Loader: FC<LoaderProps>;
