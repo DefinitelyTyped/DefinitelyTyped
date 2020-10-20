@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 2.3
+// Type definitions for D3JS d3-array module 2.4
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.3.3
+// Last module patch version validated against: 2.4.0
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -164,6 +164,24 @@ export function median<T>(
     iterable: Iterable<T>,
     accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null
 ): number | undefined;
+
+/**
+ * Returns the cumulative sum of the given iterable of numbers, as a Float64Array of the same length.
+ * If the iterable contains no numbers, returns zeros.
+ * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the cumulative sum.
+ * This method ignores undefined and NaN values; this is useful for ignoring missing data.
+ */
+export function cumsum<T extends Numeric>(iterable: Iterable<T | undefined | null>): Float64Array;
+/**
+ * Returns the cumulative sum of the given iterable of numbers, as a Float64Array of the same length.
+ * If the iterable contains no numbers, returns zeros.
+ * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the cumulative sum.
+ * This method ignores undefined and NaN values; this is useful for ignoring missing data.
+ */
+export function cumsum<T>(
+    iterable: Iterable<T>,
+    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null
+): Float64Array;
 
 /**
  * Returns the p-quantile of the given iterable of numbers, where p is a number in the range [0, 1].
