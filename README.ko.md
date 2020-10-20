@@ -2,33 +2,33 @@
 
 > 이 저장소는 고품질의 타입스크립트(TypeScript) 자료형 정의(Type definition)를 위한 저장소입니다.
 
-_이 도움말은 [영어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [스페인어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [러시아어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), 그리고 [중국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)로도 읽으실 수 있습니다!_
+*이 도움말은 [영어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [스페인어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [러시아어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), 그리고 [중국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)로도 읽으실 수 있습니다!*
 
-_[관리자 설명서](./docs/admin.md) 링크_
+*[관리자 설명서](./docs/admin.md) 링크*
 
 ## 목차
 
--   [현재 상태](#현재-상태)
--   [어떻게 기여하나요?](#어떻게-기여하나요)
-    -   [테스트](#테스트)
-    -   [풀 리퀘스트 만들기](#풀-리퀘스트pull-request-만들기)
-        -   [이미 존재하는 패키지를 수정하기](#이미-존재하는-패키지를-수정하기)
-        -   [새 패키지를 만들기](#새-패키지를-만들기)
-        -   [많이 저지르는 실수들](#많이-저지르는-실수들)
-        -   [패키지 삭제하기](#패키지-삭제하기)
-        -   [린터](#린터)
-        -   [검증하기](#검증하기)
--   [자주 하는 질문들](#자주-하는-질문들)
+* [현재 상태](#현재-상태)
+* [어떻게 기여하나요?](#어떻게-기여하나요)
+    * [테스트](#테스트)
+    * [풀 리퀘스트 만들기](#풀-리퀘스트pull-request-만들기)
+        * [이미 존재하는 패키지를 수정하기](#이미-존재하는-패키지를-수정하기)
+        * [새 패키지를 만들기](#새-패키지를-만들기)
+        * [많이 저지르는 실수들](#많이-저지르는-실수들)
+        * [패키지 삭제하기](#패키지-삭제하기)
+        * [린터](#린터)
+        * [검증하기](#검증하기)
+* [자주 하는 질문들](#자주-하는-질문들)
 
 ## 현재 상태
 
 저장소 및 퍼블리싱 과정의 상태를 표시합니다.
 기여자분들이 작성한 PR 또는 패키지에 문제가 발생했을 경우 이 표시를 보면 도움이 될 수 있습니다.
 
--   최신 빌드가 [타입 체크/린트](https://github.com/Microsoft/dtslint) 과정을 깔끔하게 통과했습니다: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
--   모든 패키지가 typescript@next상에서 타입 체크/린트 과정을 깔끔하게 통과합니다: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
--   모든 패키지가 1시간 내에 [npm에 배포](https://github.com/microsoft/types-publisher)되었습니다: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
--   [typescript-bot](https://github.com/typescript-bot)이 Definitely Typed에서 잘 돌고 있습니다 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+* 최신 빌드가 [타입 체크/린트](https://github.com/Microsoft/dtslint) 과정을 깔끔하게 통과했습니다: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* 모든 패키지가 typescript@next상에서 타입 체크/린트 과정을 깔끔하게 통과합니다: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
+* 모든 패키지가 1시간 내에 [npm에 배포](https://github.com/microsoft/types-publisher)되었습니다: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* [typescript-bot](https://github.com/typescript-bot)이 Definitely Typed에서 잘 돌고 있습니다 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
 상태 표시가 비정상이거나 고장 표시가 발생하면 [Definitely Typed Discord 채널](https://discord.gg/typescript)에서 이 문제를 알려주세요.
 
@@ -71,42 +71,43 @@ TypeScript 2.0에서 3.1 버전을 사용하는 경우, 그래도 `@types` 패�
 그러나 작동 여부를 보장하지는 못합니다.
 지원 기간은 다음과 같습니다:
 
-| 버전 | 출시일      | 지원 종료   |
-| ---- | ----------- | ----------- |
-| 2.8  | 2018년 3월  | 2020년 3월  |
-| 2.9  | 2018년 5월  | 2020년 5월  |
-| 3.0  | 2018년 7월  | 2020년 7월  |
-| 3.1  | 2018년 9월  | 2020년 9월  |
-| 3.2  | 2018년 11월 | 2020년 11월 |
-| 3.3  | 2019년 1월  | 2021년 1월  |
-| 3.4  | 2019년 3월  | 2021년 3월  |
-| 3.5  | 2019년 5월  | 2021년 5월  |
-| 3.6  | 2019년 8월  | 2021년 8월  |
-| 3.7  | 2019년 11월 | 2021년 11월 |
-| 3.8  | 2020년 2월  | 2022년 2월  |
-| 3.9  | 2020년 5월  | 2022년 5월  |
-| 4.0  | 2020년 8월  | 2022년 8월  |
+버전 | 출시일 | 지원 종료
+-- | -- | --
+2.8 | 2018년 3월 | 2020년 3월
+2.9 | 2018년 5월 | 2020년 5월
+3.0 | 2018년 7월 | 2020년 7월
+3.1 | 2018년 9월 | 2020년 9월
+3.2 | 2018년 11월 | 2020년 11월
+3.3 | 2019년 1월 | 2021년 1월
+3.4 | 2019년 3월 | 2021년 3월
+3.5 | 2019년 5월 | 2021년 5월
+3.6 | 2019년 8월 | 2021년 8월
+3.7 | 2019년 11월 | 2021년 11월
+3.8 | 2020년 2월 | 2022년 2월
+3.9 | 2020년 5월 | 2022년 5월
+4.0 | 2020년 8월 | 2022년 8월
 
 `@types` 패키지 안에는 패키지가 확실하게 지원하는 TypeScript 버전이 태그로 쓰여 있으므로, 2년 지원 기간이 지난 오래된 패키지도 보통 찾아보실 수 있습니다.
 예를 들어, `npm dist-tags @types/react` 명령어를 입력하면 TypeScript 2.5는 react@16.0용 타입을, TypeScript 2.6 및 2.7은 react@16.4용 타입을 사용할 수 있는 것을 확인하실 수 있습니다:
 
-| 태그   | 버전    |
-| ------ | ------- |
-| latest | 16.9.23 |
-| ts2.0  | 15.0.1  |
-| ...    | ...     |
-| ts2.5  | 16.0.36 |
-| ts2.6  | 16.4.7  |
-| ts2.7  | 16.4.7  |
-| ...    | ...     |
+|태그 | 버전|
+|----|---------|
+|latest| 16.9.23|
+|ts2.0| 15.0.1|
+| ... | ... |
+|ts2.5| 16.0.36|
+|ts2.6| 16.4.7|
+|ts2.7| 16.4.7|
+| ... | ... |
 
-#### TypeScript 1.\*
+#### TypeScript 1.*
 
--   이 저장소의 `master` 브랜치에서 직접 다운로드해 프로젝트에 삽입하기
--   ~~[Typings](https://github.com/typings/typings)를 사용하기~~ (다른 방법을 사용해주세요. typings는 더이상 추천하지 않습니다)
--   ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped) 을 사용하기~~ (다른 방법을 사용해주세요. NuGet은 더 이상 DT 자료형(Typing)을 제공하지 않습니다.)
+* 이 저장소의 `master` 브랜치에서 직접 다운로드해 프로젝트에 삽입하기
+* ~~[Typings](https://github.com/typings/typings)를 사용하기~~ (다른 방법을 사용해주세요. typings는 더이상 추천하지 않습니다)
+* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped) 을 사용하기~~ (다른 방법을 사용해주세요. NuGet은 더 이상 DT 자료형(Typing)을 제공하지 않습니다.)
 
 위 방법을 사용할 경우 수동으로 [참조(Reference)](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)를 추가해주어야 할 수 있습니다.
+
 
 ## 어떻게 기여하나요?
 
@@ -120,6 +121,7 @@ Definitely Typed는 여러분과 같은 많은 기여자들의 도움 덕분에 
 
 새로운 기능을 추가하려면 [모듈 증강(module augmentation)](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)를 사용할 수 있습니다.
 물론 `node_modules/@types/foo/index.d.ts` 를 직접 수정하실 수도 있으며, 이 파일을 복사한 다음 아래의 과정을 따라하실 수도 있습니다.
+
 
 #### 새 패키지를 테스트하기
 
@@ -137,31 +139,34 @@ Definitely Typed는 여러분과 같은 많은 기여자들의 도움 덕분에 
 실제 코드를 통한 확인이 끝나면, [풀 리퀘스트(Pull request)](#풀-리퀘스트pull-request-만들기)를 만들어주세요.
 [이미 존재하는 패키지를 수정](#이미-존재하는-패키지를-수정하기)하거나 [새 패키지를 만들기](#새-패키지-만들기)위한 과정들을 따라하시면 됩니다.
 
+
 ### 풀 리퀘스트(Pull request) 만들기
 
 패키지가 잘 작동하는지 확인하셨다면, Definitely Typed에 공유해주세요.
 
 우선, 이 저장소를 [포크(fork)](https://guides.github.com/activities/forking/)해 주시고, [node](https://nodejs.org/) 를 설치하신 뒤, `npm install` 명령을 실행해주세요.
 
+
 #### 이미 존재하는 패키지를 수정하기
 
--   `cd types/my-package-to-edit` 명령을 실행합니다.
--   자료형(Typing) 파일들을 수정합니다. 테스트를 추가하는 것도 잊지마세요!
-    만약 브레이킹 체인지(Breaking change)를 만드셨다면, [메이저 버전(major version)](#패키지를-새-메이저-버전major-version에-맞게-갱신하고-싶어요)을 꼭 올려주세요.
--   패키지 머릿주석의 "Definitions by" 부분에 여러분의 이름을 추가하실 수도 있습니다.
-    -   이름을 추가하시면 다른 사람들이 그 패키지에 대한 풀 리퀘스트(Pull request)나 이슈(Issue)를 만들 때 여러분에게 알람이 갑니다.
-    -   `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>` 와 같이 여러분의 이름을 줄의 맨 마지막에 추가할 수 있습니다.
-    -   사람이 너무 많을 경우엔, 다음과 같이 여러 줄로 쓰실 수도 있습니다.
-    ```typescript
-    // Definitions by: Alice <https://github.com/alice>
-    //                 Bob <https://github.com/bob>
-    //                 Steve <https://github.com/steve>
-    //                 John <https://github.com/john>
-    ```
--   `tslint.json` 파일이 있는 경우에는, `npm run lint package-name` 명령을 실행시키고 결과를 확인해주세요. 그렇지 않은 경우에는, 해당 패키지가 있는 디렉토리 안에서 `tsc` 명령을 실행시키고 결과를 확인해주세요.
+* `cd types/my-package-to-edit` 명령을 실행합니다.
+* 자료형(Typing) 파일들을 수정합니다. 테스트를 추가하는 것도 잊지마세요!
+  만약 브레이킹 체인지(Breaking change)를 만드셨다면, [메이저 버전(major version)](#패키지를-새-메이저-버전major-version에-맞게-갱신하고-싶어요)을 꼭 올려주세요.
+* 패키지 머릿주석의 "Definitions by" 부분에 여러분의 이름을 추가하실 수도 있습니다.
+  - 이름을 추가하시면 다른 사람들이 그 패키지에 대한 풀 리퀘스트(Pull request)나 이슈(Issue)를 만들 때 여러분에게 알람이 갑니다.
+  - `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>` 와 같이 여러분의 이름을 줄의 맨 마지막에 추가할 수 있습니다.
+  - 사람이 너무 많을 경우엔, 다음과 같이 여러 줄로 쓰실 수도 있습니다.
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
+* `tslint.json` 파일이 있는 경우에는, `npm run lint package-name` 명령을 실행시키고 결과를 확인해주세요. 그렇지 않은 경우에는, 해당 패키지가 있는 디렉토리 안에서 `tsc` 명령을 실행시키고 결과를 확인해주세요.
 
 이미 존재하는 패키지에 대한 풀 리퀘스트(Pull request)를 만들었을 경우에는, `dt-bot` 이 이전 저자들을 자동으로 호출하는지 확인해주세요.
 그렇지 않은 경우에는, 여러분이 직접 풀 리퀘스트(Pull request)와 관계있는 사람들을 호출할 수도 있습니다.
+
 
 #### 새 패키지를 만들기
 
@@ -173,12 +178,12 @@ NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 
 새 자료형 패키지는 다음과 같은 구조로 구성되어있어야만 합니다.
 
-| 파일 이름     | 용도                                                                                                                         |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| index.d.ts    | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다.                                                                          |
-| foo-tests.ts  | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
-| tsconfig.json | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다.                                                                                 |
-| tslint.json   | 린터(Linter)를 사용할 수 있게 해주는 파일입니다.                                                                             |
+| 파일 이름 | 용도 |
+| --- | --- |
+| index.d.ts | 패키지를 위한 자료형(Typing)을 포함하는 파일입니다. |
+| foo-tests.ts | 자료형(Typing)의 테스트를 위한 파일입니다. 이 파일의 코드는 실행되지는 않지만, 자료형 검사(Type checking)를 통과해야 합니다. |
+| tsconfig.json | `tsc` 명령을 돌릴 수 있게 해주는 파일입니다. |
+| tslint.json | 린터(Linter)를 사용할 수 있게 해주는 파일입니다. |
 
 이 파일들은, npm ≥ 5.2.0 에서는 `npx dts-gen --dt --name my-package-name --template module` 명령으로,
 그 이하 경우에는 `npm install -g dts-gen` 와 `dts-gen --dt --name my-package-name --template module` 명령으로 만들 수 있습니다.
@@ -191,40 +196,42 @@ Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(
 
 [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) 패키지는 좋은 예시 중 하나입니다.
 
+
 #### 많이 저지르는 실수들
 
--   우선, [안내서(Handbook)](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)에 나와있는 내용들을 따라주세요.
--   코드에서는 모든 곳에서 탭(Tab)을 사용하거나, 항상 4 개의 띄어쓰기를 사용해주세요.
--   `function sum(nums: number[]): number`의 경우, 만약 함수가 인자를 변경하지 않는다면 `ReadonlyArray` 를 사용해주세요.
--   `interface Foo { new(): Foo; }`의 경우,
+* 우선, [안내서(Handbook)](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)에 나와있는 내용들을 따라주세요.
+* 코드에서는 모든 곳에서 탭(Tab)을 사용하거나, 항상 4 개의 띄어쓰기를 사용해주세요.
+* `function sum(nums: number[]): number`의 경우, 만약 함수가 인자를 변경하지 않는다면 `ReadonlyArray` 를 사용해주세요.
+* `interface Foo { new(): Foo; }`의 경우,
     이런 선언은 이 형(Type)을 가진 객체(Object)에 `new` 를 사용할 수 있도록 만듭니다. 많은 경우 여러분은 `declare class Foo { constructor(); }` 를 사용하려는 것일 겁니다.
--   `const Class: { new(): IClass; }`의 경우,
+* `const Class: { new(): IClass; }`의 경우,
     `new` 를 사용할 수 있는 상수를 만드는 대신, `class Class { constructor(); }` 와 같이 클래스 선언(Class declaration)을 사용하는 게 더 좋습니다.
--   `getMeAT<T>(): T`의 경우,
+* `getMeAT<T>(): T`의 경우,
     만일 자료형 매개변수(Type parameter)가 함수의 매개변수에 등장하지 않는다면, 그런 제너릭(Generic) 함수를 사용할 필요가 없습니다.
     그 제너릭(Generic) 함수는 단순히 자료형 단언(Type assertion)을 위장시킨 것뿐입니다. 이 경우 `getMeAT() as number` 와 같이 진짜 자료형 단언(Type assertion) 을 사용하는 게 더 좋습니다.
     다음은 괜찮은 제너릭(Generic)의 예시입니다. `function id<T>(value: T): T;`.
     다음은 문제가 있는 제너릭(Generic)의 예시입니다. `function parseJson<T>(json: string): T;`.
     예외적으로, `new Map<string, number>()` 와 같은 경우는 괜찮습니다.
--   `Function` 이나 `Object` 와 같은 형(Type)을 사용하는 것은 대부분의 경우 문제를 일으킵니다. 99% 의 경우 더 구체적인 형(Type)을 사용하는게 가능합니다. [함수(Function)](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) 를 위해서는 `(x: number) => number` 와 같은, 객체를 위해서는 `{ x: number, y: number }` 와 같은 형(Type)들을 사용할 수 있습니다. 형(Type)에 대한 정보가 전혀 없을 경우에는, `Object` 형(Type)이 아니라 [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) 형(Type)을 사용해야 합니다. 만일 어떤 형(Type)이 객체라는 사실만 알고 있는 경우, `Object` 나 `{ [key: string]: any }` 가 아니라 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type) 를 사용해주세요.
--   `var foo: string | any`의 경우,
+* `Function` 이나 `Object` 와 같은 형(Type)을 사용하는 것은 대부분의 경우 문제를 일으킵니다. 99% 의 경우 더 구체적인 형(Type)을 사용하는게 가능합니다. [함수(Function)](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) 를 위해서는 `(x: number) => number` 와 같은, 객체를 위해서는 `{ x: number, y: number }` 와 같은 형(Type)들을 사용할 수 있습니다. 형(Type)에 대한 정보가 전혀 없을 경우에는, `Object` 형(Type)이 아니라 [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) 형(Type)을 사용해야 합니다. 만일 어떤 형(Type)이 객체라는 사실만 알고 있는 경우, `Object` 나 `{ [key: string]: any }` 가 아니라 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type) 를 사용해주세요.
+* `var foo: string | any`의 경우,
     `any` 가 합 자료형(Union type)의 안에서 사용될 경우, 결과 형(Type)은 언제나 `any` 가 됩니다. 따라서 형(Type)의 `string` 부분이 유용해 보인다 하더라도, 사실은 자료형 검사(Type checking)의 측면에서 `any` 와 다른 것이 없습니다.
     대신, `any`, `string`, 나 `string | object` 중 하나를 필요에 맞게 골라서 사용해주세요.
+
 
 #### 패키지 삭제하기
 
 패키지가 스스로의 형(Type)을 [포함](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하게 되면, Definitely Typed 에 있는 자료형(Typing) 패키지를 삭제하는 것이 좋습니다.
 
 `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
-
--   `typingsPackageName` 는 삭제할 디렉토리의 이름입니다.
--   `asOfVersion` 는 새 스텁(Stub) 용 `@types/foo` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 NPM 에 올라간 버전보다 더 높은 버전이어야 합니다.
--   `sourceRepoURL` 는 자료형(Typing)을 포함하게 된 저장소의 주소입니다.
--   `libraryName` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 "typingsPackageName" 와 같은 것으로 취급됩니다.)
+- `typingsPackageName` 는 삭제할 디렉토리의 이름입니다.
+- `asOfVersion`  는 새 스텁(Stub) 용 `@types/foo` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 NPM 에 올라간 버전보다 더 높은 버전이어야 합니다.
+- `sourceRepoURL` 는 자료형(Typing)을 포함하게 된 저장소의 주소입니다.
+- `libraryName` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 "typingsPackageName" 와 같은 것으로 취급됩니다.)
 
 Definitely Typed 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 Definitely Typed 패키지들의 `package.json` 파일에 `"dependencies": { "foo": "x.y.z" }` 를 추가해주시면 됩니다.
 
 Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 포함하게 되었다면, `notNeededPackages.json` 파일에 추가할 필요도 없습니다.
+
 
 #### 린터
 
@@ -250,7 +257,7 @@ Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 �
 f(1);
 
 // $ExpectError
-f('one');
+f("one");
 ```
 
 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 저장소의 README 파일에서 더 자세한 내용을 확인하실 수 있습니다.
@@ -260,6 +267,7 @@ f('one');
 `npm run lint package-name` 명령을 통해 변경점을 테스트할 수 있습니다. 이 때, `package-name`은 테스트하고 싶은 패키지의 이름입니다.
 
 작성한 dts 파일을 타입스크립트 컴파일러로 돌려보기 위해 테스트 스크립트 내부적으로 [dtslint](https://github.com/Microsoft/dtslint)를 사용합니다.
+
 
 ## 자주 하는 질문들
 
@@ -332,10 +340,13 @@ NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
         "baseUrl": "../../",
         "typeRoots": ["../../"],
         "paths": {
-            "history": ["history/v2"]
-        }
+            "history": [ "history/v2" ]
+        },
     },
-    "files": ["index.d.ts", "history-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "history-tests.ts"
+    ]
 }
 ```
 
@@ -363,11 +374,12 @@ NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 
 ```json
 {
-    "paths": {
-        "@foo/*": ["foo__*"]
+    "paths":{
+      "@foo/*": ["foo__*"]
     }
 }
 ```
+
 
 #### 깃헙(GitHub)이 보여주는 파일 히스토리(History)가 불완전해요.
 
