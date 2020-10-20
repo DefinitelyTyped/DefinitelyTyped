@@ -821,22 +821,62 @@ declare module "fs" {
 
     export interface RmDirOptions {
         /**
+         * If an `EBUSY`, `EMFILE`, `ENFILE`, `ENOTEMPTY`, or
+         * `EPERM` error is encountered, Node.js will retry the operation with a linear
+         * backoff wait of `retryDelay` ms longer on each try. This option represents the
+         * number of retries. This option is ignored if the `recursive` option is not
+         * `true`.
+         * @default 0
+         */
+        maxRetries?: number;
+        /**
+         * @deprecated since v14.14.0 In future versions of Node.js,
+         * `fs.rmdir(path, { recursive: true })` will throw on nonexistent
+         * paths, or when given a file as a target.
+         * Use `fs.rm(path, { recursive: true, force: true })` instead.
+         *
          * If `true`, perform a recursive directory removal. In
          * recursive mode, errors are not reported if `path` does not exist, and
          * operations are retried on failure.
-         * @experimental
          * @default false
          */
         recursive?: boolean;
-    }
-
-    export interface RmDirAsyncOptions extends RmDirOptions {
         /**
          * The amount of time in milliseconds to wait between retries.
          * This option is ignored if the `recursive` option is not `true`.
          * @default 100
          */
         retryDelay?: number;
+    }
+
+    /**
+     * Asynchronous rmdir(2) - delete a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function rmdir(path: PathLike, callback: NoParamCallback): void;
+    export function rmdir(path: PathLike, options: RmDirOptions, callback: NoParamCallback): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace rmdir {
+        /**
+         * Asynchronous rmdir(2) - delete a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        function __promisify__(path: PathLike, options?: RmDirOptions): Promise<void>;
+    }
+
+    /**
+     * Synchronous rmdir(2) - delete a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function rmdirSync(path: PathLike, options?: RmDirOptions): void;
+
+    export interface RmOptions {
+        /**
+         * When `true`, exceptions will be ignored if `path` does not exist.
+         * @default false
+         */
+        force?: boolean;
         /**
          * If an `EBUSY`, `EMFILE`, `ENFILE`, `ENOTEMPTY`, or
          * `EPERM` error is encountered, Node.js will retry the operation with a linear
@@ -846,29 +886,39 @@ declare module "fs" {
          * @default 0
          */
         maxRetries?: number;
+        /**
+         * If `true`, perform a recursive directory removal. In
+         * recursive mode, errors are not reported if `path` does not exist, and
+         * operations are retried on failure.
+         * @default false
+         */
+        recursive?: boolean;
+        /**
+         * The amount of time in milliseconds to wait between retries.
+         * This option is ignored if the `recursive` option is not `true`.
+         * @default 100
+         */
+        retryDelay?: number;
     }
 
     /**
-     * Asynchronous rmdir(2) - delete a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * Asynchronously removes files and directories (modeled on the standard POSIX `rm` utility).
      */
-    export function rmdir(path: PathLike, callback: NoParamCallback): void;
-    export function rmdir(path: PathLike, options: RmDirAsyncOptions, callback: NoParamCallback): void;
+    export function rm(path: PathLike, callback: NoParamCallback): void;
+    export function rm(path: PathLike, options: RmOptions, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    export namespace rmdir {
+    export namespace rm {
         /**
-         * Asynchronous rmdir(2) - delete a directory.
-         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * Asynchronously removes files and directories (modeled on the standard POSIX `rm` utility).
          */
-        function __promisify__(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
+        function __promisify__(path: PathLike, options?: RmOptions): Promise<void>;
     }
 
     /**
-     * Synchronous rmdir(2) - delete a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * Synchronously removes files and directories (modeled on the standard POSIX `rm` utility).
      */
-    export function rmdirSync(path: PathLike, options?: RmDirOptions): void;
+    export function rmSync(path: PathLike, options?: RmOptions): void;
 
     export interface MakeDirectoryOptions {
         /**

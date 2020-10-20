@@ -65,7 +65,9 @@ declare module "http" {
     }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
-    interface OutgoingHttpHeaders extends NodeJS.Dict<number | string | string[]> {
+    type OutgoingHttpHeader = number | string | string[];
+
+    interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {
     }
 
     interface ClientRequestArgs {
@@ -188,8 +190,8 @@ declare module "http" {
         // https://github.com/nodejs/node/blob/master/test/parallel/test-http-write-callbacks.js#L53
         // no args in writeContinue callback
         writeContinue(callback?: () => void): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): this;
-        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
         writeProcessing(): void;
     }
 

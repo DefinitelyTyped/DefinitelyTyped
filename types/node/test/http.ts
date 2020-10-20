@@ -71,6 +71,7 @@ import * as net from 'net';
     // writeHead
     res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end();
     res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
+    res.writeHead(200, ['Transfer-Encoding', 'chunked']);
     res.writeHead(200);
 
     // writeProcessing
