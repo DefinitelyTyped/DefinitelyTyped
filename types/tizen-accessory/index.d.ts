@@ -1,4 +1,4 @@
-// Type definitions for non-npm package tizen-accessory-browser
+// Type definitions for non-npm package tizen-accessory-browser 1.0
 // Project: https://developer.samsung.com/galaxy-accessory/overview.html
 // Definitions by: Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
