@@ -9,7 +9,14 @@ declare namespace LocalizeJS.Context {
          * Required. Your project key.
          */
         key: string;
-
+        
+        /**
+         * Defaults to false. 
+         * If true and you have machine translations enabled, any new phrases found in your website will be automatically 
+         * moved to the Published bin, and a machine translation will be generated.
+         */
+        autoApprove: boolean;
+        
         /**
          * Language to translate your website to.
          */
@@ -34,6 +41,11 @@ declare namespace LocalizeJS.Context {
          * Defaults to true. If true, "alt" attributes will be translated.
          */
         translateAlt: boolean;
+        
+        /**
+         * Defaults to true. If true, aria-label attributes within HTML elements will be found by Localize and brought into the dashboard, allowing you to translate them.
+         */
+        translateAriaLabels: boolean;
 
         /**
          * Defaults to false. Set to true to prefetch all active languages, or pass a language code or an array of codes to.
@@ -44,6 +56,21 @@ declare namespace LocalizeJS.Context {
          * Array of class names for which Localize will ignore.
          */
         blockedClasses: string[];
+        
+        /**
+         * Array of CSS ID selectors.
+         */
+        blockedIds: string[];
+       
+        /**
+         * Defaults to false. When true, the default Localize widget is disabled.
+         */
+        disableWidget: boolean;
+        
+        /**
+         * Defaults to false. If true, the image URLs used in your website will appear in your phrases bin to allow for image replacement based on language.
+         */
+        localizeImages: boolean;
 
         /**
          * Array of class names for which Localize will translate. If you use this option, Localize will only translate content
@@ -85,6 +112,11 @@ declare namespace LocalizeJS.Context {
         translateMetaTags: boolean;
 
         /**
+         * Defaults to true. If true, unrecognized phrases will be added to your Localize account. Disable this in development.
+         */
+        saveNewPhrases: boolean;
+        
+        /**
          * Defaults to false. If true, Localize will detect phrases only when the page is not translated.
          * Please contact support@localizejs.com prior to updating this option.
          */
@@ -114,6 +146,12 @@ declare namespace LocalizeJS.Context {
          * Defaults to false. If true, the Localize library will pick up numbers as phrases.
          */
         translateNumbers: boolean;
+
+        /**
+         * Defaults to true. If true, text contained within SVGs will be found by Localize and brought into the dashboard, 
+         * allowing you to translate the text. (SVG files are not supported)
+         */
+        translateSVGElement: boolean;
     }
 
     interface RateData {
@@ -140,6 +178,11 @@ declare var Localize: {
      * Returns the current language of the page. If a language hasn't been set, source is returned.
      */
     getLanguage(): string
+    
+    /**
+     * Returns the language code for the source language of the current project.
+     */
+    getSourceLanguage(): string;
 
     /**
      * Returns the visitor's list of preferred languages, based on the browser's "accept-language" header.
@@ -152,6 +195,17 @@ declare var Localize: {
      * @param callback Required.
      */
     getAvailableLanguages(callback: (error: any, languages: string[]) => void): void
+    
+    /**
+     * Calling this function will hide the widget if it's currently visible.
+     * You can use this function to hide the widget on certain pages.
+     */
+    hideWidget(): void;
+    
+    /**
+     * Calling this function will show the widget if it's currently hidden.
+     */
+    showWidget(): void;
 
     /**
      * Translates text or text within html.
@@ -186,12 +240,6 @@ declare var Localize: {
      * @param element Required. A DOM node to untranslate
      */
     untranslate(element: string): void
-
-    /**
-     * Bootstrapping translations enables your app to translate without fetching translations remotely from Localizejs.com
-     * @param translations Required. Generate properly formatted translations on your Languages page
-     */
-    bootstrap(translations: any): void
 
     /**
      * Speed up language switching by prefetching
