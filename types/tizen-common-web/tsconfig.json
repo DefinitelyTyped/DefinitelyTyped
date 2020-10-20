@@ -16,6 +16,9 @@
   },
   "include": [
     "index.d.ts",
-    "test"
+    "test/application-test.ts",
+    "test/tizen-common-web-tests.commonjs.ts",
+    "test/tizen-common-web-tests.global.ts",
+    "test/time-test.ts"
   ]
 }
