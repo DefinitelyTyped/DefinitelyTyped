@@ -19,6 +19,7 @@
 /// <reference path="./tvwindow.d.ts" />
 /// <reference path="./tizen.d.ts" />
 /// <reference path="./package.d.ts" />
+/// <reference path="./time.d.ts" />
 
 import {
     WebAPIException,
@@ -40,6 +41,7 @@ import { TVInputDeviceManager } from './tvinputdevice';
 import { TVWindowManager } from './tvwindow';
 import { PackageManager } from './package';
 import { TVInfoManager } from './tvinfo';
+import { TimeDuration, TimeUtil, TZDate } from './time';
 
 declare const tizen: Tizen;
 
@@ -73,6 +75,9 @@ interface Tizen {
     tvwindow: TVWindowManager;
     DownloadRequest: DownloadRequestConstructor;
     package: PackageManager;
+    time: TimeUtil;
+    TZDate: typeof TZDate;
+    TimeDuration: typeof TimeDuration;
 }
 
 export = tizen;

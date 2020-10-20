@@ -4,20 +4,18 @@
     "module": "commonjs",
     "lib": ["dom", "es6"],
     "noEmit": true,
-    "forceConsistentCasingInFileNames": true,    
+    "forceConsistentCasingInFileNames": true,
     "baseUrl": "../",
     "typeRoots": ["../"],
     "types": [],
     "esModuleInterop": true,
-    "noImplicitAny": true, 
-    "noImplicitThis" : true, 
-    "strictNullChecks": true, 
+    "noImplicitAny": true,
+    "noImplicitThis" : true,
+    "strictNullChecks": true,
     "strictFunctionTypes":true
   },
-  "files": [
+  "include": [
     "index.d.ts",
-    "test/application-test.ts",
-    "test/tizen-common-web-tests.commonjs.ts",
-    "test/tizen-common-web-tests.global.ts"
+    "test",
   ]
 }
