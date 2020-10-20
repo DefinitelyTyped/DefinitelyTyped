@@ -152,9 +152,6 @@ declare module '.' {
      */
     export function unstable_useTransition(config?: SuspenseConfig | null): [TransitionStartFunction, boolean];
 
-    /**
-     * @private
-     */
     const opaqueIdentifierBranding: unique symbol;
     /**
      * WARNING: Don't use this as a `string`.
