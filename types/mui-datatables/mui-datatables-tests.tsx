@@ -202,7 +202,7 @@ const todoOptions: MUIDataTableOptions = {
 <MuiCustomTable title="Todo Table" data={Todos} options={todoOptions} />;
 
 const customComponents: MUIDataTableProps['components'] = {
-    ExpandButton: ({ dataIndex }) => (dataIndex == 1 ? <>expand button</> : null),
+    ExpandButton: ({ dataIndex }) => (dataIndex === 1 ? <>expand button</> : null),
     TableFooter: props => <>table footer</>,
 };
 
