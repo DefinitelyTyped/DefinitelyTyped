@@ -3,7 +3,7 @@
 // Definitions by: Levi Bostian <https://github.com/levibostian>
 //                 Gaurav Sharma <https://github.com/gtpan77>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
+// TypeScript Version: 2.8
 
 import { RequestHandler } from "express";
 import { ClientOpts } from "redis";
@@ -35,7 +35,7 @@ declare namespace BullArena {
     interface QueueOptions {
         name: string;
         hostId?: string;
-        type?: "bull" | "bee" | string;
+        type?: "bull" | "bee" | "bullmq" | string;
         prefix?: "bull" | "bq" | string;
     }
 
