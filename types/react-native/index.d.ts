@@ -4387,7 +4387,7 @@ export interface SectionListRenderItemInfo<ItemT, SectionT = DefaultSectionT> ex
 export type SectionListRenderItem<ItemT, SectionT = DefaultSectionT> =
     (info: SectionListRenderItemInfo<ItemT, SectionT>) => React.ReactElement | null;
 
-export interface SectionListProps<ItemT, SectionT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
+export interface SectionListProps<ItemT, SectionT = DefaultSectionT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
     /**
      * Rendered in between adjacent Items within each section.
      */
