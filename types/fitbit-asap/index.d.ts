@@ -3,5 +3,5 @@
 // Definitions by: Jérémy Jeanson <https://github.com/JeremyJeanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from "./app";
-export { Asap, Options } from "./companion";
+export * as app from "./app";
+export * as companion from "./companion";
