@@ -98,5 +98,5 @@ export interface SplitterLayoutProps {
     /**
      * Placeholder of the panel(s) inside the splitter
      */
-    children: React.Children;
+    children: any;
 }
