@@ -41,6 +41,7 @@ function testExtendedOptions() {
             position: 'relative'
         },
         transitionDuration: '0.4s',
+        stagger: 30,
         resize: true,
         initLayout: true,
         horizontalOrder: true

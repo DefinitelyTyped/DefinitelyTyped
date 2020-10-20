@@ -55,6 +55,7 @@ declare namespace Masonry {
         // setup
         containerStyle?: {};
         transitionDuration?: any;
+        stagger?: string | number;
         resize?: boolean;
         initLayout?: boolean;
     }
