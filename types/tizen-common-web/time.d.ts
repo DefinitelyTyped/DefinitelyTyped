@@ -17,7 +17,7 @@ export interface TimeUtil {
     unsetTimezoneChangeListener(): void;
 }
 
-export declare class TZDate {
+export class TZDate {
     constructor(datetime?: Date, timezone?: string)
     constructor(year: number, month: number, day: number, hours?: number, minutes?: number, seconds?: number, milliseconds?: number, timezone?: string)
     getDate(): number;
@@ -71,7 +71,7 @@ export declare class TZDate {
     getNextDSTTransition(): TZDate | undefined;
 }
 
-export declare class TimeDuration {
+export class TimeDuration {
     constructor(length: number, unit: TimeDurationUnit)
     length: number;
     unit: TimeDurationUnit;
@@ -81,7 +81,7 @@ export declare class TimeDuration {
     greaterThan(other: TimeDuration): boolean;
 }
 
-declare enum TimeDurationUnit {
+export enum TimeDurationUnit {
     MSECS = "MSECS",
     SECS = "SECS",
     MINS = "MINS",

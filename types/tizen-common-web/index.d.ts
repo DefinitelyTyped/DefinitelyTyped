@@ -41,7 +41,7 @@ import { TVInputDeviceManager } from './tvinputdevice';
 import { TVWindowManager } from './tvwindow';
 import { PackageManager } from './package';
 import { TVInfoManager } from './tvinfo';
-import { TimeDuration, TimeUtil, TZDate } from './time';
+import { TimeUtil, TZDate, TimeDuration } from './time';
 
 declare const tizen: Tizen;
 

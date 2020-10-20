@@ -16,6 +16,6 @@
   },
   "include": [
     "index.d.ts",
-    "test",
+    "test"
   ]
 }
