@@ -22,7 +22,7 @@ type ExpressAndFeathersApplicationWithoutUse<T> = Omit<express.Application, 'use
 export type FeathersServiceOptions = any;
 
 export interface FeathersRouterMatcher<T extends OutgoingMessage> {
-    (path: PathParams, ...handlers: Array<(RequestHandler | StaticRequestHandler<OutgoingMessage> | RequestHandlerParams | Partial<ServiceMethods<any> & SetupMethod> | Application)>): T;
+    (path: PathParams, ...handlers: Array<(RequestHandler | StaticRequestHandler<T> | RequestHandlerParams | Partial<ServiceMethods<any> & SetupMethod> | Application)>): T;
 }
 
 type FeathersApplicationRequestHandler<T extends OutgoingMessage> = express.IRouterHandler<T> & FeathersRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
