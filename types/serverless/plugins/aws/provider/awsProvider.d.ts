@@ -293,7 +293,7 @@ declare namespace Aws {
         async?: boolean;
         authorizer?: HttpAuthorizer;
         request?: HttpRequestValidation;
-        integration?: "lambda" | "mock"
+        integration?: "lambda" | "mock";
     }
 
     interface NamedHttpApiEventAuthorizer {
