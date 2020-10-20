@@ -285,7 +285,7 @@ export interface Client {
    */
   cross_origin_auth?: boolean;
   /**
-   * Url fo the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
+   * Url of the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
    */
   cross_origin_loc?: string;
   /**

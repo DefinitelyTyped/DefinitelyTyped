@@ -1,4 +1,4 @@
-import { connect, ObjectId, UpdateQuery } from 'mongodb';
+import { connect, Decimal128, Double, Int32, Long, ObjectId, UpdateQuery } from 'mongodb';
 import { connectionString } from '../index';
 
 // collection.updateX tests
@@ -18,6 +18,10 @@ async function run() {
     interface TestModel {
         stringField: string;
         numberField: number;
+        decimal128Field: Decimal128;
+        doubleField: Double;
+        int32Field: Int32;
+        longField: Long;
         optionalNumberField?: number;
         dateField: Date;
         otherDateField: Date;
@@ -46,6 +50,10 @@ async function run() {
     // buildUpdateQuery({ $currentDate: { stringField: true } }); // stringField is not a date Field
 
     buildUpdateQuery({ $inc: { numberField: 1 } });
+    buildUpdateQuery({ $inc: { decimal128Field: Decimal128.fromString('1.23') } });
+    buildUpdateQuery({ $inc: { doubleField: new Double(1.23) } });
+    buildUpdateQuery({ $inc: { int32Field: new Int32(10) } });
+    buildUpdateQuery({ $inc: { longField: Long.fromString('999') } });
     buildUpdateQuery({ $inc: { optionalNumberField: 1 } });
     buildUpdateQuery({ $inc: { 'dot.notation': 2 } });
     buildUpdateQuery({ $inc: { 'subInterfaceArray.$': -10 } });
@@ -53,6 +61,10 @@ async function run() {
     buildUpdateQuery({ $inc: { 'subInterfaceArray.$[]': 1000.2 } });
 
     buildUpdateQuery({ $min: { numberField: 1 } });
+    buildUpdateQuery({ $min: { decimal128Field: Decimal128.fromString('1.23') } });
+    buildUpdateQuery({ $min: { doubleField: new Double(1.23) } });
+    buildUpdateQuery({ $min: { int32Field: new Int32(10) } });
+    buildUpdateQuery({ $min: { longField: Long.fromString('999') } });
     buildUpdateQuery({ $min: { stringField: 'a' } });
     buildUpdateQuery({ $min: { 'dot.notation': 2 } });
     buildUpdateQuery({ $min: { 'subInterfaceArray.$': 'string' } });
@@ -62,6 +74,10 @@ async function run() {
     // buildUpdateQuery({ $min: { numberField: 'a' } }); // Matches the type of the keys
 
     buildUpdateQuery({ $max: { numberField: 1 } });
+    buildUpdateQuery({ $max: { decimal128Field: Decimal128.fromString('1.23') } });
+    buildUpdateQuery({ $max: { doubleField: new Double(1.23) } });
+    buildUpdateQuery({ $max: { int32Field: new Int32(10) } });
+    buildUpdateQuery({ $max: { longField: Long.fromString('999') } });
     buildUpdateQuery({ $max: { stringField: 'a' } });
     buildUpdateQuery({ $max: { 'dot.notation': 2 } });
     buildUpdateQuery({ $max: { 'subInterfaceArray.$': -10 } });
@@ -71,6 +87,10 @@ async function run() {
     // buildUpdateQuery({ $min: { numberField: 'a' } }); // Matches the type of the keys
 
     buildUpdateQuery({ $mul: { numberField: 1 } });
+    buildUpdateQuery({ $mul: { decimal128Field: Decimal128.fromString('1.23') } });
+    buildUpdateQuery({ $mul: { doubleField: new Double(1.23) } });
+    buildUpdateQuery({ $mul: { int32Field: new Int32(10) } });
+    buildUpdateQuery({ $mul: { longField: Long.fromString('999') } });
     buildUpdateQuery({ $mul: { optionalNumberField: 1 } });
     buildUpdateQuery({ $mul: { 'dot.notation': 2 } });
     buildUpdateQuery({ $mul: { 'subInterfaceArray.$': -10 } });
@@ -78,6 +98,10 @@ async function run() {
     buildUpdateQuery({ $mul: { 'subInterfaceArray.$[]': 1000.2 } });
 
     buildUpdateQuery({ $set: { numberField: 1 } });
+    buildUpdateQuery({ $set: { decimal128Field: Decimal128.fromString('1.23') } });
+    buildUpdateQuery({ $set: { doubleField: new Double(1.23) } });
+    buildUpdateQuery({ $set: { int32Field: new Int32(10) } });
+    buildUpdateQuery({ $set: { longField: Long.fromString('999') } });
     buildUpdateQuery({ $set: { stringField: 'a' } });
     // $ExpectError
     buildUpdateQuery({ $set: { stringField: 123 } });
@@ -87,6 +111,10 @@ async function run() {
     buildUpdateQuery({ $set: { 'subInterfaceArray.$[]': 1000.2 } });
 
     buildUpdateQuery({ $setOnInsert: { numberField: 1 } });
+    buildUpdateQuery({ $setOnInsert: { decimal128Field: Decimal128.fromString('1.23') } });
+    buildUpdateQuery({ $setOnInsert: { doubleField: new Double(1.23) } });
+    buildUpdateQuery({ $setOnInsert: { int32Field: new Int32(10) } });
+    buildUpdateQuery({ $setOnInsert: { longField: Long.fromString('999') } });
     buildUpdateQuery({ $setOnInsert: { stringField: 'a' } });
     // $ExpectError
     buildUpdateQuery({ $setOnInsert: { stringField: 123 } });
@@ -96,6 +124,10 @@ async function run() {
     buildUpdateQuery({ $setOnInsert: { 'subInterfaceArray.$[]': 1000.2 } });
 
     buildUpdateQuery({ $unset: { numberField: '' } });
+    buildUpdateQuery({ $unset: { decimal128Field: '' } });
+    buildUpdateQuery({ $unset: { doubleField: '' } });
+    buildUpdateQuery({ $unset: { int32Field: '' } });
+    buildUpdateQuery({ $unset: { longField: '' } });
     buildUpdateQuery({ $unset: { dateField: '' } });
     buildUpdateQuery({ $unset: { 'dot.notation': '' } });
     buildUpdateQuery({ $unset: { 'subInterfaceArray.$': '' } });
@@ -103,6 +135,10 @@ async function run() {
     buildUpdateQuery({ $unset: { 'subInterfaceArray.$[]': '' } });
 
     buildUpdateQuery({ $unset: { numberField: 1 } });
+    buildUpdateQuery({ $unset: { decimal128Field: 1 } });
+    buildUpdateQuery({ $unset: { doubleField: 1 } });
+    buildUpdateQuery({ $unset: { int32Field: 1 } });
+    buildUpdateQuery({ $unset: { longField: 1 } });
     buildUpdateQuery({ $unset: { dateField: 1 } });
     buildUpdateQuery({ $unset: { 'dot.notation': 1 } });
     buildUpdateQuery({ $unset: { 'subInterfaceArray.$': 1 } });

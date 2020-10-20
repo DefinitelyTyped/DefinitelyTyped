@@ -629,8 +629,8 @@ declare namespace IORedis {
         zrevrank(key: KeyType, member: string, callback: Callback<number | null>): void;
         zrevrank(key: KeyType, member: string): Promise<number | null>;
 
-        hset(key: KeyType, field: string, value: ValueType, callback: Callback<BooleanResponse>): void;
-        hset(key: KeyType, field: string, value: ValueType): Promise<BooleanResponse>;
+        hset: OverloadedKeyedHashCommand<ValueType, Ok>;
+
         hsetBuffer(key: KeyType, field: string, value: ValueType, callback: Callback<BooleanResponse>): void;
         hsetBuffer(key: KeyType, field: string, value: ValueType): Promise<Buffer>;
 
@@ -1195,6 +1195,8 @@ declare namespace IORedis {
 
         zrevrank(key: KeyType, member: string, callback?: Callback<number>): Pipeline;
 
+        hset(key: KeyType, ...args: ValueType[]): Pipeline;
+        hset(key: KeyType, data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;
         hset(key: KeyType, field: string, value: ValueType, callback?: Callback<BooleanResponse>): Pipeline;
         hsetBuffer(key: KeyType, field: string, value: ValueType, callback?: Callback<Buffer>): Pipeline;
 

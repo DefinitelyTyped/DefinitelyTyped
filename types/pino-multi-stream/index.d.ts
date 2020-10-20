@@ -1,6 +1,7 @@
-// Type definitions for pino-multi-stream 5.0
+// Type definitions for pino-multi-stream 5.1
 // Project: https://github.com/pinojs/pino-multi-stream#readme
 // Definitions by: Jake Ginnivan <https://github.com/JakeGinnivan>
+//                 Slava Obukhov <https://github.com/vyobukhov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 import {
@@ -25,10 +26,13 @@ declare namespace pinoms {
         prettifier?: any;
         dest?: PinoDestinationStream | NodeJS.WritableStream;
     }
+    interface MultiStreamOptions {
+        dedupe?: boolean;
+    }
 
     const stdSerializers: typeof pinoStdSerializers;
 
-    function multistream(streams: Streams): stream.Writable;
+    function multistream(streams: Streams, opts?: MultiStreamOptions): stream.Writable;
     function prettyStream(opts?: PrettyStreamOptions): PinoDestinationStream;
     type Level = PinoLevel;
     type Logger = PinoLogger;

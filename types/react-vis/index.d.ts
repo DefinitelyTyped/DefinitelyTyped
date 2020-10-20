@@ -561,7 +561,12 @@ export interface XAxisProps {
     top?: number;
     left?: number;
     title?: string;
-    style?: CSSProperties;
+    style?: CSSProperties & {
+        line?: CSSProperties;
+        ticks?: CSSProperties;
+        text?: CSSProperties;
+        title?: CSSProperties;
+    };
     className?: string;
     hideTicks?: boolean;
     hideLine?: boolean;
@@ -592,7 +597,12 @@ export interface YAxisProps {
     top?: number;
     left?: number;
     title?: string;
-    style?: CSSProperties;
+    style?: CSSProperties & {
+        line?: CSSProperties;
+        ticks?: CSSProperties;
+        text?: CSSProperties;
+        title?: CSSProperties;
+    };
     className?: string;
     hideTicks?: boolean;
     hideLine?: boolean;

@@ -173,7 +173,7 @@ declare namespace jasmine {
          *
          * Debe recibir al menos una clase, a menos que se esté afirmando que un elemento no tiene clases.
          */
-        toHaveClass(...classNames: string[]): boolean;
+        toHaveClassName(...classNames: string[]): boolean;
         /**
          * @description
          * 🇬🇧
