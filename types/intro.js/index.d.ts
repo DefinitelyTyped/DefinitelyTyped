@@ -1,4 +1,4 @@
-// Type definitions for intro.js 2.4
+// Type definitions for intro.js 3.0
 // Project: https://github.com/usablica/intro.js
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen>
 //                 Leon Montealegre <https://github.com/LeonMontealegre>
@@ -67,6 +67,7 @@ declare namespace introJs {
         exit(force?: boolean): IntroJs;
         clone(): IntroJs;
 
+        currentStep(): number | undefined;
         goToStepNumber(stepId: number): IntroJs;
         goToStep(step: number): IntroJs;
         nextStep(): IntroJs;

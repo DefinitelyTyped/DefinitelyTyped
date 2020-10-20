@@ -107,6 +107,8 @@ intro
     .hideHints()
     .clone();
 
+const currentStep: number | undefined = intro.currentStep();
+
 introWithElement
     .start()
     .exit()
