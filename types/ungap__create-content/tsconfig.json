@@ -13,7 +13,12 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ungap/*": [
+                "ungap__*"
+            ]
+        }
     },
     "files": [
         "test/create-content.cjs.test.ts",

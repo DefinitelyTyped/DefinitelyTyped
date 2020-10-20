@@ -3,12 +3,10 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
-        "no-redundant-jsdoc": false,
         "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
@@ -16,7 +14,6 @@
         "one-line": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "prefer-template": false,
         "trim-file": false,
         "whitespace": false

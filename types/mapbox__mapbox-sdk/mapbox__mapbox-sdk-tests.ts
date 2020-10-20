@@ -74,3 +74,44 @@ staticMapService.getStaticImage({
         }
     ]
 });
+
+staticMapService.getStaticImage({
+    ownerId: 'owner-id',
+    styleId: 'some-style',
+    width: 16,
+    height: 16,
+    position: 'auto',
+    overlays: [
+        {
+            path: {
+                coordinates: [
+                    [8.1298828125, 10.098670120603392],
+                    [9.4921875, 15.792253570362446],
+                    [11.77734375, 14.179186142354181],
+                    [11.513671874999998, 11.6522364041154]
+                ],
+                strokeColor: 'ff0000',
+                strokeWidth: 10,
+                strokeOpacity: 0.4,
+                fillColor: '000',
+                fillOpacity: 0.75
+            }
+        },
+        {
+            marker: {
+                coordinates: [0, 1],
+                color: 'yellow',
+                size: 'large',
+            }
+        },
+        {
+            marker: {
+                coordinates: [0, 1],
+                url: 'http://example.net'
+            }
+        },
+        {
+            geoJson: geoOverlay
+        }
+    ]
+});

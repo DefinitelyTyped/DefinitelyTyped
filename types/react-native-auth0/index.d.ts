@@ -127,6 +127,8 @@ export interface LoginWithSMSParams {
 export type UserInfo<CustomClaims = {}> = {
     email: string;
     emailVerified: boolean;
+    familyName: string;
+    givenName: string;
     name: string;
     nickname: string;
     picture: string;

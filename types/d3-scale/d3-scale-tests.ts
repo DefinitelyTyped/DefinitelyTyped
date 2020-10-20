@@ -479,6 +479,18 @@ outputNumber = identityScale(10);
 const copiedIdentityScale: d3Scale.ScaleIdentity = identityScale.copy();
 
 // -------------------------------------------------------------------------------
+// Radial Scale Factory
+// -------------------------------------------------------------------------------
+
+// scaleRadial() ---------------------------------------------------------------------
+
+let radialScaleNumber: d3Scale.ScaleContinuousNumeric<number, number>;
+
+radialScaleNumber = d3Scale.scaleRadial();
+radialScaleNumber = d3Scale.scaleRadial([0, 5]);
+radialScaleNumber = d3Scale.scaleRadial([0, 5], [0, 5]);
+
+// -------------------------------------------------------------------------------
 // Time Scale Factories
 // -------------------------------------------------------------------------------
 
@@ -557,7 +569,6 @@ localTimeScaleNumString = localTimeScaleNumString.interpolate((a, b) => {
 localTimeScaleNumber = localTimeScaleNumber.nice();
 localTimeScaleNumber = localTimeScaleNumber.nice(5);
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour);
-localTimeScaleNumber = localTimeScaleNumber.nice(timeHour, 5);
 
 // $ExpectError
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour.every(5)); // fails, requires CountableTimeInterval
@@ -610,6 +621,7 @@ sequentialScaleColorString = d3Scale.scaleSequentialQuantile<string>();
 sequentialScaleColorString = d3Scale.scaleSequential<string>(interpolateRainbow);
 sequentialScaleColorString = d3Scale.scaleSequential(interpolateCool); // inferred Output type string
 sequentialScaleColorString = d3Scale.scaleSequential([0, 5], interpolateRainbow);
+sequentialScaleColorString = d3Scale.scaleSequential([0, 5], ['#000000', '#ffffff']);
 
 // ScaleSequential Interface ========================================================
 
@@ -631,6 +643,15 @@ sequentialScaleColorString = sequentialScaleColorString.interpolator(interpolate
 let sequentialInterpolator: (t: number) => string;
 sequentialInterpolator = sequentialScaleColorString.interpolator();
 
+// range(...) ----------------------------------------------------------------
+
+const rangeSequential: [string, string] = sequentialScaleColorString.range()();
+sequentialScaleColorString = sequentialScaleColorString.range(['#000000', '#ffffff']);
+
+// rangeRound(...) ----------------------------------------------------------------
+
+sequentialScaleColorString = sequentialScaleColorString.rangeRound([0, 1]);
+
 // (...) value mapping from domain to output -----------------------------------
 
 outputString = sequentialScaleColorString(10);
@@ -638,6 +659,13 @@ outputString = sequentialScaleColorString(10);
 // copy(...) -----------------------------------------------------------------
 
 const copiedSequentialScale: d3Scale.ScaleSequential<string> = sequentialScaleColorString.copy();
+
+// ScaleSequential Interface ========================================================
+
+// quantiles(...) -----------------------------------------------------------------
+
+const sequentialQuantileScale = d3Scale.scaleSequentialQuantile();
+const quantilesFromSequential: number[] = sequentialQuantileScale.quantiles();
 
 // -------------------------------------------------------------------------------
 // Diverging Scale Factory
@@ -657,6 +685,7 @@ divergingScaleNumber = d3Scale.scaleDivergingSymlog();
 divergingScaleNumber = d3Scale.scaleDiverging(interpolateRound(0, 1));
 divergingScaleNumber = d3Scale.scaleDiverging(interpolateDouble);
 divergingScaleString = d3Scale.scaleDiverging<string>(interpolateSpectral);
+divergingScaleString = d3Scale.scaleDiverging<string>(['#000000', '#ffffff']);
 divergingScaleNumber = d3Scale.scaleDiverging<number>([0, 5, 10], interpolateRound(0, 1));
 
 // ScaleDiverging Interface =======================================================
@@ -674,19 +703,9 @@ divergingScaleNumber = divergingScaleNumber.domain([0, 0.5, 1]);
 divergingScaleNumber = divergingScaleNumber.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
 domainDivergingScale = divergingScaleNumber.domain();
 
-// $ExpectError
-divergingScaleNumber.domain([0, 1]);
-// $ExpectError
-divergingScaleNumber.domain([new NumCoercible(0), new NumCoercible(0.5)]);
-
 divergingScaleString = divergingScaleString.domain([0, 0.5, 1]);
 divergingScaleString = divergingScaleString.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
 domainDivergingScale = divergingScaleString.domain();
-
-// $ExpectError
-divergingScaleString.domain([0, 1]);
-// $ExpectError
-divergingScaleString.domain([new NumCoercible(0), new NumCoercible(0.5)]);
 
 // clamp(...) -----------------------------------------------------------------
 
@@ -704,6 +723,15 @@ const istr: (t: number) => string = divergingScaleString.interpolator();
 divergingScaleNumber = divergingScaleNumber.interpolator((t) => t + 2);
 divergingScaleNumber = divergingScaleNumber.interpolator(interpolateRound(2, 3));
 divergingScaleString = divergingScaleString.interpolator(sequentialInterpolator);
+
+// range(...) ----------------------------------------------------------------
+
+domainDivergingScale = divergingScaleNumber.range()();
+divergingScaleNumber = divergingScaleNumber.range([0, 0.5, 1]);
+
+// rangeRound(...) ----------------------------------------------------------------
+
+divergingScaleNumber = divergingScaleNumber.rangeRound([0, 0.5, 1]);
 
 // copy(...) -----------------------------------------------------------------
 

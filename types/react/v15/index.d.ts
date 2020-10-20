@@ -2328,7 +2328,7 @@ declare namespace React {
         whiteSpaceTreatment?: CSSWideKeyword | any;
 
         /**
-         * In paged media, this property defines the mimimum number of lines
+         * In paged media, this property defines the minimum number of lines
          * that must be left at the top of the second page.
          * See CSS 3 orphans, widows properties https://drafts.csswg.org/css-break-3/#widows-orphans
          */

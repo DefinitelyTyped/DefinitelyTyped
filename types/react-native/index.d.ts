@@ -962,6 +962,12 @@ export interface TextPropsAndroid {
      * default is `highQuality`.
      */
     textBreakStrategy?: 'simple' | 'highQuality' | 'balanced';
+
+    /**
+     * Determines the types of data converted to clickable URLs in the text element.
+     * By default no data types are detected.
+     */
+    dataDetectorType?: null |'phoneNumber' | 'link' | 'email' | 'none' | 'all';
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
@@ -1069,7 +1075,7 @@ type DataDetectorTypes = 'phoneNumber' | 'link' | 'address' | 'calendarEvent' | 
  *
  * It is intended for use by AbstractTextEditor-based components for
  * identifying the appropriate start/end positions to modify the
- * DocumentContent, and for programatically setting browser selection when
+ * DocumentContent, and for programmatically setting browser selection when
  * components re-render.
  */
 export interface DocumentSelectionState extends EventEmitter {
@@ -4321,7 +4327,7 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     scrollToOffset: (params: { animated?: boolean | null; offset: number }) => void;
 
     /**
-     * Tells the list an interaction has occured, which should trigger viewability calculations,
+     * Tells the list an interaction has occurred, which should trigger viewability calculations,
      * e.g. if waitForInteractions is true and the user has not scrolled. This is typically called
      * by taps on items or by navigation actions.
      */
@@ -5478,7 +5484,7 @@ export namespace StyleSheet {
      * > **NOTE**: Exercise caution as abusing this can tax you in terms of
      * > optimizations.
      * >
-     * > IDs enable optimizations through the bridge and memory in general. Refering
+     * > IDs enable optimizations through the bridge and memory in general. Referring
      * > to style objects directly will deprive you of these optimizations.
      *
      * Example:
@@ -5691,7 +5697,7 @@ export interface ListViewDataSource {
     /**
      * Clones this `ListViewDataSource` with the specified `dataBlob` and
      * `rowIdentities`. The `dataBlob` is just an aribitrary blob of data. At
-     * construction an extractor to get the interesting informatoin was defined
+     * construction an extractor to get the interesting information was defined
      * (or the default was used).
      *
      * The `rowIdentities` is is a 2D array of identifiers for rows.
@@ -5816,7 +5822,7 @@ export interface TabBarIOSItemProps extends ViewProps {
 
     /**
      * Items comes with a few predefined system icons.
-     * Note that if you are using them, the title and selectedIcon will be overriden with the system ones.
+     * Note that if you are using them, the title and selectedIcon will be overridden with the system ones.
      *
      *  enum('bookmarks', 'contacts', 'downloads', 'favorites', 'featured', 'history', 'more', 'most-recent', 'most-viewed', 'recents', 'search', 'top-rated')
      */
@@ -6797,14 +6803,14 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     snapToOffsets?: number[];
 
     /**
-     * Use in conjuction with `snapToOffsets`. By default, the beginning of the list counts as a
+     * Use in conjunction with `snapToOffsets`. By default, the beginning of the list counts as a
      * snap offset. Set `snapToStart` to false to disable this behavior and allow the list to scroll
      * freely between its start and the first `snapToOffsets` offset. The default value is true.
      */
     snapToStart?: boolean;
 
     /**
-     * Use in conjuction with `snapToOffsets`. By default, the end of the list counts as a snap
+     * Use in conjunction with `snapToOffsets`. By default, the end of the list counts as a snap
      * offset. Set `snapToEnd` to false to disable this behavior and allow the list to scroll freely
      * between its end and the last `snapToOffsets` offset. The default value is true.
      */
@@ -7532,7 +7538,7 @@ export interface CameraRollStatic {
      * On iOS, the tag can be one of the following:
      *      local URI
      *      assets-library tag
-     *      a tag not maching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
+     *      a tag not matching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
      *
      * @deprecated use saveToCameraRoll instead
      */
@@ -8372,6 +8378,8 @@ export interface ToastAndroidStatic {
     show(message: string, duration: number): void;
     /** `gravity` may be ToastAndroid.TOP, ToastAndroid.BOTTOM, ToastAndroid.CENTER */
     showWithGravity(message: string, duration: number, gravity: number): void;
+
+    showWithGravityAndOffset(message: string, duration: number, gravity: number, xOffset: number, yOffset: number): void;
     // Toast duration constants
     SHORT: number;
     LONG: number;

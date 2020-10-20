@@ -4,7 +4,15 @@ import Loader from 'react-loader-spinner';
 const App = () => {
     return (
         <div>
-            <Loader type="Audio" color="#8000FF" timeout={3000} height={80} width={80} visible={true} />
+            <Loader
+                color="#8000FF"
+                height={80}
+                secondaryColor="#ffffff"
+                timeout={3000}
+                type="Audio"
+                visible={true}
+                width={80}
+            />
         </div>
     );
 };

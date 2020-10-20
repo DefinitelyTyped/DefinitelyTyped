@@ -56,6 +56,9 @@
             "d3-hierarchy": [
                 "d3-hierarchy/v1"
             ],
+            "d3-interpolate": [
+                "d3-interpolate/v1"
+            ],
             "d3-path": [
                 "d3-path/v1"
             ],
@@ -80,8 +83,17 @@
             "d3-time": [
                 "d3-time/v1"
             ],
+            "d3-time-format": [
+                "d3-time-format/v2"
+            ],
             "d3-timer": [
                 "d3-timer/v1"
+            ],
+            "d3-transition": [
+                "d3-transition/v1"
+            ],
+            "d3-zoom": [
+                "d3-zoom/v1"
             ]
         },
         "types": [],

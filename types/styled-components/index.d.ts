@@ -41,6 +41,7 @@ export interface ThemeProps<T> {
 
 export type ThemedStyledProps<P, T> = P & ThemeProps<T>;
 export type StyledProps<P> = ThemedStyledProps<P, AnyIfEmpty<DefaultTheme>>;
+export type IntrinsicElementsKeys = keyof JSX.IntrinsicElements;
 
 // Any prop that has a default prop becomes optional, but its type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
@@ -59,7 +60,7 @@ type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D; }
 
 export type StyledComponentProps<
     // The Component from whose props are derived
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends string | React.ComponentType<any>,
     // The Theme from the current context
     T extends object,
     // The other props added by the template
@@ -70,9 +71,9 @@ export type StyledComponentProps<
     // Distribute O if O is a union type
     O extends object
     ? WithOptionalTheme<
-          Omit<ReactDefaultizedProps<C, React.ComponentPropsWithRef<C>> & O, A> &
-              Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
-          T
+        Omit<ReactDefaultizedProps<C, React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never>> & O, A> &
+            Partial<Pick<React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never> & O, A>>,
+T
       > &
           WithChildrenIfReactComponentClass<C>
     : never;
@@ -82,11 +83,11 @@ export type StyledComponentProps<
 // See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/31945
 // and https://github.com/DefinitelyTyped/DefinitelyTyped/pull/32843
 type WithChildrenIfReactComponentClass<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
+    C extends string | React.ComponentType<any>
 > = C extends React.ComponentClass<any> ? { children?: React.ReactNode } : {};
 
 type StyledComponentPropsWithAs<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends string | React.ComponentType<any>,
     T extends object,
     O extends object,
     A extends keyof any
@@ -157,7 +158,7 @@ export type AnyStyledComponent =
     | StyledComponent<any, any, any>;
 
 export type StyledComponent<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends string | React.ComponentType<any>,
     T extends object,
     O extends object = {},
     A extends keyof any = never
@@ -166,7 +167,7 @@ export type StyledComponent<
     string & StyledComponentBase<C, T, O, A> & hoistNonReactStatics.NonReactStatics<C extends React.ComponentType<any> ? C : never>;
 
 export interface StyledComponentBase<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends string | React.ComponentType<any>,
     T extends object,
     O extends object = {},
     A extends keyof any = never
@@ -175,7 +176,7 @@ export interface StyledComponentBase<
     (
         props: StyledComponentProps<C, T, O, A> & { as?: never, forwardedAs?: never }
       ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
-    <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
+    <AsC extends string | React.ComponentType<any> = C>(
       props: StyledComponentPropsWithAs<AsC, T, O, A>
     ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>;
 

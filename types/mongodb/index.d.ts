@@ -2183,6 +2183,7 @@ export interface FindOneOptions<T> {
     snapshot?: boolean;
     timeout?: boolean;
     tailable?: boolean;
+    awaitData?: boolean;
     batchSize?: number;
     returnKey?: boolean;
     maxScan?: number;

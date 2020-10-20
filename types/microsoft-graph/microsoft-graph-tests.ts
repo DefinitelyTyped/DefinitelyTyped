@@ -116,3 +116,8 @@ const permission: Permission = {
     link: null,
     id: "string"
 };
+
+const userFeedback: CallRecords.UserFeedback = {
+    rating: "notRated",
+    text: null
+};

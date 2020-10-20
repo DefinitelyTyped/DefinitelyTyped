@@ -1,4 +1,4 @@
-// Type definitions for d3JS d3-time-format module 2.3
+// Type definitions for d3JS d3-time-format module 3.0
 // Project: https://github.com/d3/d3-time-format/, https://d3js.org/d3-time-format
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,7 +6,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.3.0
+// Last module patch version validated against: 3.0.0
 
 /**
  * Specification of time locale to use when creating a new TimeLocaleObject
