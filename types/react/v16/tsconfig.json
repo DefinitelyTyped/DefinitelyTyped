@@ -6,8 +6,7 @@
         "test/cssProperties.tsx",
         "test/elementAttributes.tsx",
         "test/managedAttributes.tsx",
-        "test/hooks.tsx",
-        "test/experimental.tsx"
+        "test/hooks.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
