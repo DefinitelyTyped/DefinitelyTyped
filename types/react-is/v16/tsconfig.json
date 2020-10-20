@@ -15,7 +15,7 @@
         "paths": {
             "react": ["react/v16"],
             "react-dom": ["react-dom/v16"],
-            "react-is": ["react-is/v16"],
+            "react-is": ["react-is/v16"]
         },
         "types": [],
         "noEmit": true,
