@@ -13,7 +13,7 @@ function handleSAAgent(agents: SAAgent[]): void {
     }
 }
 function handleSAAgentError(e: Error): void {
-    const errorMessage = 'requestSAAgent Error' + 'Error name : ' + e.name + 'Error message : ' + e.message;
+    const errorMessage = `requestSAAgent Error name : ${e.name} Error message : ${e.message}`;
 }
 
 declare const peer: SAPeerAgent;
