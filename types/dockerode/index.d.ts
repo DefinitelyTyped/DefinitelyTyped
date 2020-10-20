@@ -407,15 +407,7 @@ declare namespace Dockerode {
         ConfigFrom?: { Network: string; };
         ConfigOnly: boolean;
         Containers?: { [id: string]: NetworkContainer };
-        Options?: {
-            'com.docker.network.bridge.default_bridge'?: string;
-            'com.docker.network.bridge.enable_icc'?: string;
-            'com.docker.network.bridge.enable_ip_masquerade'?: string;
-            'com.docker.network.bridge.host_binding_ipv4'?: string;
-            'com.docker.network.bridge.name'?: string;
-            'com.docker.network.driver.mtu'?: string;
-            [key: string]: string;
-        };
+        Options?: { [key: string]: string };
         Labels?: { [key: string]: string };
     }
 
