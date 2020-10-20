@@ -1314,7 +1314,7 @@ export interface CollectionViewOptions<
     /**
      * Prevent some of the underlying children from being attached to the DOM.
      */
-    viewFilter?: ((view?: typeof Backbone.View, index?: number, children?: any) => boolean) | Backbone.ObjectHash | string;
+    viewFilter?: ((view?: typeof Backbone.View, index?: number, children?: Backbone.View[]) => boolean) | Backbone.ObjectHash | string;
 
     /**
      * Specify a view to use if the collection has no children.
