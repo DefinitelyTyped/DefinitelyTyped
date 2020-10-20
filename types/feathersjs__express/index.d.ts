@@ -8,9 +8,11 @@
 import { Application as FeathersApplication, ServiceMethods, SetupMethod } from '@feathersjs/feathers';
 import * as express from 'express';
 import * as self from '@feathersjs/express';
-import { IRouterHandler, PathParams, RequestHandler, RequestHandlerParams } from 'express-serve-static-core';
+import { RequestHandler as StaticRequestHandler } from 'serve-static';
+import { PathParams, RequestHandler, RequestHandlerParams } from 'express-serve-static-core';
+import { OutgoingMessage } from 'http';
 
-declare const feathersExpress: (<T>(app: FeathersApplication<T>) => Application<T>) & typeof self;
+declare const feathersExpress: (<T extends OutgoingMessage>(app: FeathersApplication<T>) => Application<T>) & typeof self;
 export default feathersExpress;
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
@@ -19,13 +21,13 @@ type ExpressAndFeathersApplicationWithoutUse<T> = Omit<express.Application, 'use
 // Give the "any" type for the feathers options object a more precise name.
 export type FeathersServiceOptions = any;
 
-export interface FeathersRouterMatcher<T> {
-    (path: PathParams, ...handlers: Array<(RequestHandler | RequestHandlerParams | Partial<ServiceMethods<any> & SetupMethod> | Application)>): T;
+export interface FeathersRouterMatcher<T extends OutgoingMessage> {
+    (path: PathParams, ...handlers: Array<(RequestHandler | StaticRequestHandler<OutgoingMessage> | RequestHandlerParams | Partial<ServiceMethods<any> & SetupMethod> | Application)>): T;
 }
 
-type FeathersApplicationRequestHandler<T> = express.IRouterHandler<T> & FeathersRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
+type FeathersApplicationRequestHandler<T extends OutgoingMessage> = express.IRouterHandler<T> & FeathersRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
 
-export interface Application<T = any> extends ExpressAndFeathersApplicationWithoutUse<T> {
+export interface Application<T extends OutgoingMessage = OutgoingMessage> extends ExpressAndFeathersApplicationWithoutUse<T> {
     use: FeathersApplicationRequestHandler<T>;
 }
 
