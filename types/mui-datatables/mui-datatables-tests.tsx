@@ -1,8 +1,4 @@
-import MUIDataTable, {
-    MUIDataTableColumn,
-    MUIDataTableOptions,
-    MUIDataTableProps,
-} from 'mui-datatables';
+import MUIDataTable, { ExpandButton, MUIDataTableColumn, MUIDataTableOptions, MUIDataTableProps } from 'mui-datatables';
 import * as React from 'react';
 
 interface Props extends Omit<MUIDataTableProps, 'columns'> {
@@ -206,6 +202,7 @@ const todoOptions: MUIDataTableOptions = {
 <MuiCustomTable title="Todo Table" data={Todos} options={todoOptions} />;
 
 const customComponents: MUIDataTableProps['components'] = {
+    ExpandButton: ({ dataIndex }) => (dataIndex == 1 ? <>expand button</> : null),
     TableFooter: props => <>table footer</>,
 };
 
