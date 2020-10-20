@@ -4,6 +4,30 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
+export {};
+
+declare class BaseFileSystemHandle {
+    protected constructor();
+
+    readonly kind: FileSystemHandleKind;
+    readonly name: string;
+
+    isSameEntry(other: FileSystemHandle): Promise<boolean>;
+    queryPermission(descriptor?: FileSystemHandlePermissionDescriptor): Promise<PermissionState>;
+    requestPermission(descriptor?: FileSystemHandlePermissionDescriptor): Promise<PermissionState>;
+
+    /**
+     * @deprecated Old property just for Chromium <=85. Use `kind` property in the new API.
+     */
+    readonly isFile: this['kind'] extends 'file' ? true : false;
+
+    /**
+     * @deprecated Old property just for Chromium <=85. Use `kind` property in the new API.
+     */
+    readonly isDirectory: this['kind'] extends 'directory' ? true : false;
+}
+
+declare global {
 interface FilePickerAcceptType {
     description?: string;
     accept: Record<string, string | string[]>;
@@ -66,31 +90,23 @@ interface WritableStream {
     close(): Promise<void>;
 }
 
-declare class FileSystemWritableFileStream extends WritableStream {
+class FileSystemWritableFileStream extends WritableStream {
     write(data: FileSystemWriteChunkType): Promise<void>;
     seek(position: number): Promise<void>;
     truncate(size: number): Promise<void>;
 }
 
-declare class BaseFileSystemHandle {
-    protected constructor();
+const FileSystemHandle: typeof BaseFileSystemHandle;
+type FileSystemHandle = FileSystemFileHandle | FileSystemDirectoryHandle;
 
-    readonly kind: FileSystemHandleKind;
-    readonly name: string;
-
-    isSameEntry(other: FileSystemHandle): Promise<boolean>;
-    queryPermission(descriptor?: FileSystemHandlePermissionDescriptor): Promise<PermissionState>;
-    requestPermission(descriptor?: FileSystemHandlePermissionDescriptor): Promise<PermissionState>;
-}
-
-declare class FileSystemFileHandle extends BaseFileSystemHandle {
+class FileSystemFileHandle extends FileSystemHandle {
     readonly kind: 'file';
 
     getFile(): Promise<File>;
     createWritable(options?: FileSystemCreateWritableOptions): Promise<FileSystemWritableFileStream>;
 }
 
-declare class FileSystemDirectoryHandle extends BaseFileSystemHandle {
+class FileSystemDirectoryHandle extends BaseFileSystemHandle {
     readonly kind: 'directory';
 
     getFileHandle(name: string, options?: FileSystemGetFileOptions): Promise<FileSystemFileHandle>;
@@ -103,7 +119,9 @@ declare class FileSystemDirectoryHandle extends BaseFileSystemHandle {
     entries(): AsyncIterableIterator<[string, FileSystemHandle]>;
     [Symbol.asyncIterator]: FileSystemDirectoryHandle['entries'];
 
-    // Old method available on stable Chrome instead of `navigator.storage.getDirectory`.
+    /**
+     * @deprecated Old method just for Chromium <=85. Use `navigator.storage.getDirectory()` in the new API.
+     */
     static getSystemDirectory(options: GetSystemDirectoryOptions): Promise<FileSystemDirectoryHandle>;
 }
 
@@ -115,16 +133,14 @@ interface StorageManager {
     getDirectory(): Promise<FileSystemDirectoryHandle>;
 }
 
-type FileSystemHandle = FileSystemFileHandle | FileSystemDirectoryHandle;
-
-declare function showOpenFilePicker(
+function showOpenFilePicker(
     options?: OpenFilePickerOptions & { multiple?: false },
 ): Promise<[FileSystemFileHandle]>;
-declare function showOpenFilePicker(options?: OpenFilePickerOptions): Promise<FileSystemFileHandle[]>;
-declare function showSaveFilePicker(options?: SaveFilePickerOptions): Promise<FileSystemFileHandle>;
-declare function showDirectoryPicker(options?: DirectoryPickerOptions): Promise<FileSystemDirectoryHandle>;
+function showOpenFilePicker(options?: OpenFilePickerOptions): Promise<FileSystemFileHandle[]>;
+function showSaveFilePicker(options?: SaveFilePickerOptions): Promise<FileSystemFileHandle>;
+function showDirectoryPicker(options?: DirectoryPickerOptions): Promise<FileSystemDirectoryHandle>;
 
-// Old methods available on stable Chrome instead of the ones above.
+// Old methods available on Chromium 85 instead of the ones above.
 
 interface ChooseFileSystemEntriesOptionsAccepts {
     description?: string;
@@ -137,40 +153,62 @@ interface ChooseFileSystemEntriesFileOptions {
     excludeAcceptAllOption?: boolean;
 }
 
-declare function chooseFileSystemEntries(
+/**
+ * @deprecated Old method just for Chromium <=85. Use `showOpenFilePicker()` in the new API.
+ */
+function chooseFileSystemEntries(
     options?: ChooseFileSystemEntriesFileOptions & {
         type?: 'open-file';
         multiple?: false;
     },
 ): Promise<FileSystemFileHandle>;
-declare function chooseFileSystemEntries(
+/**
+ * @deprecated Old method just for Chromium <=85. Use `showOpenFilePicker()` in the new API.
+ */
+function chooseFileSystemEntries(
     options: ChooseFileSystemEntriesFileOptions & {
         type?: 'open-file';
         multiple: true;
     },
 ): Promise<FileSystemFileHandle[]>;
-declare function chooseFileSystemEntries(
+/**
+ * @deprecated Old method just for Chromium <=85. Use `showSaveFilePicker()` in the new API.
+ */
+function chooseFileSystemEntries(
     options: ChooseFileSystemEntriesFileOptions & {
         type: 'save-file';
     },
 ): Promise<FileSystemFileHandle>;
-declare function chooseFileSystemEntries(options: { type: 'open-directory' }): Promise<FileSystemDirectoryHandle>;
+/**
+ * @deprecated Old method just for Chromium <=85. Use `showDirectoryPicker()` in the new API.
+ */
+function chooseFileSystemEntries(options: { type: 'open-directory' }): Promise<FileSystemDirectoryHandle>;
 
 interface GetSystemDirectoryOptions {
     type: 'sandbox';
 }
 
-interface BaseFileSystemHandle {
-    readonly isFile: this['kind'] extends 'file' ? true : false;
-    readonly isDirectory: this['kind'] extends 'directory' ? true : false;
-}
-
 interface FileSystemDirectoryHandle {
+    /**
+     * @deprecated Old property just for Chromium <=85. Use `.getFileHandle()` in the new API.
+     */
     getFile: FileSystemDirectoryHandle['getFileHandle'];
+
+    /**
+     * @deprecated Old property just for Chromium <=85. Use `.getDirectoryHandle()` in the new API.
+     */
     getDirectory: FileSystemDirectoryHandle['getDirectoryHandle'];
+
+    /**
+     * @deprecated Old property just for Chromium <=85. Use `.keys()`, `.values()`, `.entries()`, or the directory itself as an async iterable in the new API.
+     */
     getEntries: FileSystemDirectoryHandle['values'];
 }
 
 interface FileSystemHandlePermissionDescriptor {
+    /**
+     * @deprecated Old property just for Chromium <=85. Use `mode: ...` in the new API.
+     */
     writable?: boolean;
+}
 }

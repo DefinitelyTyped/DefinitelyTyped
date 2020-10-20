@@ -31,7 +31,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-heatmap
          */
         interface SeriesHeatmap {
-
             /**
              * @default
              * "heatmap"
@@ -171,7 +170,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-heatmap.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -302,7 +300,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -587,12 +585,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -638,7 +634,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -926,7 +922,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-heatmap.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color.
                  *
@@ -1027,12 +1022,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -1133,7 +1126,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1264,7 +1256,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -1550,12 +1542,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1601,7 +1591,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -2015,10 +2005,9 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-heatmap.data
              */
-            data?: (
-                (void | number | string | SeriesHeatmap.DataObject)[]
-                | (void | number | string | SeriesHeatmap.DataObject)[][]
-            );
+            data?:
+                | (void | number | string | SeriesHeatmap.DataObject)[]
+                | (void | number | string | SeriesHeatmap.DataObject)[][];
 
             /**
              * Mark point in a chart.
@@ -2027,7 +2016,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -2157,7 +2145,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2332,7 +2319,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -2618,12 +2605,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2669,7 +2654,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -2953,7 +2938,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3128,7 +3112,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -3418,12 +3402,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3469,7 +3451,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -3770,7 +3752,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -3870,7 +3851,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -3991,7 +3971,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -4128,7 +4107,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4230,7 +4208,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -4337,7 +4314,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -4466,7 +4442,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -4756,12 +4732,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4807,7 +4781,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -5103,7 +5077,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -5232,7 +5205,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -5524,12 +5497,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -5575,7 +5546,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -5987,7 +5958,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -6040,7 +6010,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -6114,7 +6083,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -6195,7 +6163,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -6301,7 +6268,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -6420,7 +6386,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -6428,7 +6393,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -6568,7 +6532,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -6678,7 +6641,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -6796,7 +6758,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -6872,7 +6833,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -6954,7 +6914,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -7094,7 +7053,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7204,7 +7162,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7322,7 +7279,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -7398,7 +7354,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -7589,7 +7544,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -7607,7 +7561,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -7736,7 +7689,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -8022,12 +7975,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8073,7 +8024,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -8357,7 +8308,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -8486,7 +8436,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -8776,12 +8726,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -8827,7 +8775,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -9128,7 +9076,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -9228,7 +9175,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -9352,7 +9298,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -9360,7 +9305,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -9404,7 +9348,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -9509,7 +9452,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -9623,7 +9565,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -9752,7 +9693,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -10044,12 +9985,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -10095,7 +10034,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -10392,7 +10331,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -10523,7 +10461,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -10827,12 +10765,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -10879,7 +10815,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -11189,7 +11125,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -11233,7 +11168,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -11338,7 +11272,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -11452,7 +11385,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -11581,7 +11513,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -11873,12 +11805,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -11924,7 +11854,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -12221,7 +12151,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -12352,7 +12281,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -12656,12 +12585,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -12708,7 +12635,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -13175,7 +13102,6 @@ declare namespace echarts {
 
         namespace SeriesHeatmap {
             interface DataObject {
-
                 /**
                  * Name of data item.
                  *
@@ -13201,7 +13127,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -13332,7 +13257,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -13618,12 +13543,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -13669,7 +13592,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -13959,7 +13882,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -14060,12 +13982,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -14168,7 +14088,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -14299,7 +14218,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -14589,12 +14508,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -14640,7 +14557,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family

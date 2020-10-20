@@ -94,7 +94,7 @@ declare var SlowBuffer: {
     prototype: Buffer;
     isBuffer(obj: any): boolean;
     byteLength(string: string, encoding?: string): number;
-    concat(list: Buffer[], totalLength?: number): Buffer;
+    concat(list: ReadonlyArray<Buffer>, totalLength?: number): Buffer;
 };
 
 
@@ -165,7 +165,7 @@ declare var Buffer: {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    concat(list: Buffer[], totalLength?: number): Buffer;
+    concat(list: ReadonlyArray<Buffer>, totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
@@ -298,7 +298,7 @@ declare namespace NodeJS {
         nextTick(callback: Function): void;
         umask(mask?: number): number;
         uptime(): number;
-        hrtime(time?:number[]): number[];
+        hrtime(time?:ReadonlyArray<number>): number[];
 
         // Worker
         send?(message: any, sendHandle?: any): void;
@@ -810,7 +810,7 @@ declare module "punycode" {
     export var ucs2: ucs2;
     interface ucs2 {
         decode(string: string): string;
-        encode(codePoints: number[]): string;
+        encode(codePoints: ReadonlyArray<number>): string;
     }
     export var version: any;
 }
@@ -905,9 +905,9 @@ declare module "child_process" {
     export function exec(command: string, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function execFile(file: string,
         callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string, args?: string[],
+    export function execFile(file: string, args?: ReadonlyArray<string>,
         callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: {
+    export function execFile(file: string, args?: ReadonlyArray<string>, options?: {
         cwd?: string;
         stdio?: any;
         customFds?: any;
@@ -917,12 +917,12 @@ declare module "child_process" {
         maxBuffer?: number;
         killSignal?: string;
     }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function fork(modulePath: string, args?: string[], options?: {
+    export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: {
         cwd?: string;
         env?: any;
         encoding?: string;
     }): ChildProcess;
-    export function spawnSync(command: string, args?: string[], options?: {
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: {
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
@@ -954,7 +954,7 @@ declare module "child_process" {
         killSignal?: string;
         encoding?: string;
     }): string | Buffer;
-    export function execFileSync(command: string, args?: string[], options?: {
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: {
         cwd?: string;
         input?: string|Buffer;
         stdio?: any;

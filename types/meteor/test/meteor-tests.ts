@@ -23,6 +23,8 @@ import { ReactiveVar } from "meteor/reactive-var";
 import { Accounts } from "meteor/accounts-base";
 import { BrowserPolicy } from "meteor/browser-policy-common";
 import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
+import { Random } from "meteor/random"
+import { EJSON } from "meteor/ejson";
 
 declare module 'meteor/meteor' {
     namespace Meteor {
@@ -419,6 +421,7 @@ var handle = query.observeChanges({
         console.log("Lost one. We're now down to " + count1 + " admins.");
     }
 });
+query.observeChanges({}, { nonMutatingCallbacks: true }); // $ExpectType LiveQueryHandle
 
 let cursor: Mongo.Cursor<Object>;
 
@@ -830,7 +833,7 @@ reactiveDict1.destroy();
 
 
 var reactiveVar1 = new ReactiveVar<string>('test value');
-var reactiveVar2 = new ReactiveVar<string>('test value', function (oldVal: any) { return true; });
+var reactiveVar2 = new ReactiveVar<string>('test value', (oldVal, newVal) => oldVal.length === newVal.length);
 
 var varValue: string = reactiveVar1.get();
 reactiveVar1.set('new value');
@@ -986,6 +989,19 @@ Meteor.absoluteUrl.defaultOptions = {
   rootUrl: 'http://123.com',
   secure: false
 };
+
+Random.choice([1, 2, 3]); // $ExpectType number
+Random.choice("String"); // $ExpectType string
+
+EJSON.newBinary(5); // $ExpectType Uint8Array
+
+// Connection
+Meteor.onConnection(connection => {
+    connection.id; // $ExpectType string
+    connection.clientAddress; // $ExpectType string
+    connection.onClose(() => {});
+    connection.close();
+});
 
 // EnvironmentVariable
 const scopedCounter = new Meteor.EnvironmentVariable<number>();

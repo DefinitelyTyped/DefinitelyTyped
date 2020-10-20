@@ -282,7 +282,7 @@ You can remove it by running `npm run not-needed -- typingsPackageName asOfVersi
 - `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
 
 Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
-You can get this list by looking at the errors from `npm run test`.
+You can get this list by looking at the errors from `npm run test-all`.
 To fix the errors, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
 For example:
 

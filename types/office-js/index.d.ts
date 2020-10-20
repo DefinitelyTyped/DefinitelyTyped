@@ -550,7 +550,7 @@ declare namespace Office {
         /**
          * Adds a listener for the `onVisbilityModeChanged` event.
          * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
-         * @returns A promise that resolves when the listener is added.
+         * @returns A promise that resolves to a function when the listener is added. The `RemoveEventListener` type is defined with `type RemoveEventListener = () => Promise<void>`. Calling it removes the listener.
          */
         onVisibilityModeChanged(
             listener: (message: VisibilityModeChangedMessage) => void,
@@ -1487,7 +1487,7 @@ declare namespace Office {
      */
     interface RemoveHandlerOptions {
         /**
-         * The handler to be removed. If not specified all handlers for the specified event type are removed.
+         * The handler to be removed. If a particular handler is not specified, then all handlers for the specified event type are removed. The `BindingEventHandler` type is defined with `type BindingEventHandler = (eventArgs?: Office.BindingDataChangedEventArgs | Office.BindingSelectionChangedEventArgs) => any`.
          */
         handler?: BindingEventHandler
         /**
@@ -17744,8 +17744,10 @@ declare namespace Excel {
         fiveBoxes: FiveBoxesSet;
     }
     var icons: IconCollections;
+    
     interface Session {
     }
+    
     /**
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
      */
@@ -19392,7 +19394,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the comment(s) that raised the Added event.
+     * Provides information about the comments that raised the Added event.
      *
      * [Api set: ExcelApi 1.12]
      */
@@ -19428,7 +19430,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the comment(s) that raised the Deleted event.
+     * Provides information about the comments that raised the Deleted event.
      *
      * [Api set: ExcelApi 1.12]
      */
@@ -21738,6 +21740,12 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         getLastRow(): Excel.Range;
+        /**
+         * Returns a RangeAreas object that represents the merged areas in this range. Note that if the merged areas count in this range is more than 512, the API will fail to return the result.
+         *
+         * [Api set: ExcelApiOnline 1.1]
+         */
+        getMergedAreas(): Excel.RangeAreas;
         /**
          * Gets an object which represents a range that's offset from the specified range. The dimension of the returned range will match this range. If the resulting range is forced outside the bounds of the worksheet grid, an error will be thrown.
          *
@@ -31510,9 +31518,9 @@ declare namespace Excel {
          *
          * @param axis The axis from which to get the PivotItems. Must be either "row" or "column."
          * @param cell A single cell within the PivotTable's data body.
-         * @returns A collection of PivotItems that are used to calculate the values in the specified row.
+         * @returns A PivotItemCollection of the PivotItems that are used to calculate the values in the specified row.
          */
-        getPivotItems(axis: Excel.PivotAxis, cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
+        getPivotItems(axis: Excel.PivotAxis, cell: Range | string): Excel.PivotItemCollection;
         /**
          * Gets the PivotItems from an axis that make up the value in a specified range within the PivotTable.
          *
@@ -31520,9 +31528,9 @@ declare namespace Excel {
          *
          * @param axis The axis from which to get the PivotItems. Must be either "row" or "column."
          * @param cell A single cell within the PivotTable's data body.
-         * @returns A collection of PivotItems that are used to calculate the values in the specified row.
+         * @returns A PivotItemCollection of the PivotItems that are used to calculate the values in the specified row.
          */
-        getPivotItems(axis: "Unknown" | "Row" | "Column" | "Data" | "Filter", cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
+        getPivotItems(axis: "Unknown" | "Row" | "Column" | "Data" | "Filter", cell: Range | string): Excel.PivotItemCollection;
         /**
          * Returns the range the PivotTable exists on, excluding the filter area.
          *
@@ -45225,6 +45233,7 @@ declare namespace Excel {
         itemNotFound = "ItemNotFound",
         nonBlankCellOffSheet = "NonBlankCellOffSheet",
         notImplemented = "NotImplemented",
+        pivotTableRangeConflict = "PivotTableRangeConflict",
         rangeExceedsLimit = "RangeExceedsLimit",
         requestAborted = "RequestAborted",
         unsupportedOperation = "UnsupportedOperation",
@@ -45621,13 +45630,6 @@ declare namespace Excel {
         }
         /** An interface for updating data on the Table object, for use in `table.set({ ... })`. */
         interface TableUpdateData {
-            /**
-            *
-            * The style applied to the Table.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            tableStyle?: Excel.Interfaces.TableStyleUpdateData;
             /**
              *
              * Specifies if the first column contains special formatting.
@@ -48064,13 +48066,6 @@ declare namespace Excel {
         /** An interface for updating data on the PivotLayout object, for use in `pivotLayout.set({ ... })`. */
         interface PivotLayoutUpdateData {
             /**
-            *
-            * The style applied to the PivotTable.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            pivotStyle?: Excel.Interfaces.PivotTableStyleUpdateData;
-            /**
              *
              * Specifies if formatting will be automatically formatted when it’s refreshed or when fields are moved.
              *
@@ -49800,13 +49795,6 @@ declare namespace Excel {
         interface SlicerUpdateData {
             /**
             *
-            * The style applied to the Slicer.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            slicerStyle?: Excel.Interfaces.SlicerStyleUpdateData;
-            /**
-            *
             * Represents the worksheet containing the slicer.
             *
             * [Api set: ExcelApi 1.10]
@@ -50964,13 +50952,6 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.2]
             */
             sort?: Excel.Interfaces.TableSortData;
-            /**
-            *
-            * The style applied to the Table.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            tableStyle?: Excel.Interfaces.TableStyleData;
             /**
              *
              * Specifies if the first column contains special formatting.
@@ -53852,13 +53833,6 @@ declare namespace Excel {
         /** An interface describing the data returned by calling `pivotLayout.toJSON()`. */
         interface PivotLayoutData {
             /**
-            *
-            * The style applied to the PivotTable.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            pivotStyle?: Excel.Interfaces.PivotTableStyleData;
-            /**
              *
              * Specifies if formatting will be automatically formatted when it’s refreshed or when fields are moved.
              *
@@ -56006,13 +55980,6 @@ declare namespace Excel {
             slicerItems?: Excel.Interfaces.SlicerItemData[];
             /**
             *
-            * The style applied to the Slicer.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            slicerStyle?: Excel.Interfaces.SlicerStyleData;
-            /**
-            *
             * Represents the worksheet containing the slicer.
             *
             * [Api set: ExcelApi 1.10]
@@ -57539,13 +57506,6 @@ declare namespace Excel {
             sort?: Excel.Interfaces.TableSortLoadOptions;
             /**
             *
-            * For EACH ITEM in the collection: The style applied to the Table.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
-            /**
-            *
             * For EACH ITEM in the collection: The worksheet containing the current table.
             *
             * [Api set: ExcelApi 1.2]
@@ -57670,13 +57630,6 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.2]
             */
             sort?: Excel.Interfaces.TableSortLoadOptions;
-            /**
-            *
-            * For EACH ITEM in the collection: The style applied to the Table.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
             *
             * For EACH ITEM in the collection: The worksheet containing the current table.
@@ -57804,13 +57757,6 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.2]
             */
             sort?: Excel.Interfaces.TableSortLoadOptions;
-            /**
-            *
-            * The style applied to the Table.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
             *
             * The worksheet containing the current table.
@@ -62167,13 +62113,6 @@ declare namespace Excel {
              */
             $all?: boolean;
             /**
-            *
-            * The style applied to the PivotTable.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            pivotStyle?: Excel.Interfaces.PivotTableStyleLoadOptions;
-            /**
              *
              * Specifies if formatting will be automatically formatted when it’s refreshed or when fields are moved.
              *
@@ -66343,13 +66282,6 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
-            * The style applied to the Slicer.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            slicerStyle?: Excel.Interfaces.SlicerStyleLoadOptions;
-            /**
-            *
             * Represents the worksheet containing the slicer.
             *
             * [Api set: ExcelApi 1.10]
@@ -66441,13 +66373,6 @@ declare namespace Excel {
               Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
              */
             $all?: boolean;
-            /**
-            *
-            * For EACH ITEM in the collection: The style applied to the Slicer.
-            *
-            * [Api set: ExcelApi 1.12]
-            */
-            slicerStyle?: Excel.Interfaces.SlicerStyleLoadOptions;
             /**
             *
             * For EACH ITEM in the collection: Represents the worksheet containing the slicer.
@@ -86284,9 +86209,122 @@ declare namespace Visio {
 
 
 ////////////////////////////////////////////////////////////////
-///////////////////// Begin PowerPoint APIs ////////////////////
+//////////////////// Begin PowerPoint APIs /////////////////////
 ////////////////////////////////////////////////////////////////
 
+declare namespace PowerPoint {
+    /**
+     * [Api set: PowerPointApi 1.0]
+     */
+    class Application extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * Create a new instance of PowerPoint.Application object
+         */
+        static newObject(context: OfficeExtension.ClientRequestContext): PowerPoint.Application;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original PowerPoint.Application object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): {
+            [key: string]: string;
+        };
+    }
+    /**
+     * [Api set: PowerPointApi 1.0]
+     */
+    class Presentation extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        readonly title: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: PowerPoint.Interfaces.PresentationLoadOptions): PowerPoint.Presentation;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): PowerPoint.Presentation;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): PowerPoint.Presentation;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original PowerPoint.Presentation object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.PresentationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): PowerPoint.Interfaces.PresentationData;
+    }
+    enum ErrorCodes {
+        generalException = "GeneralException",
+    }
+    module Interfaces {
+        /**
+        * Provides ways to load properties of only a subset of members of a collection.
+        */
+        interface CollectionLoadOptions {
+            /**
+            * Specify the number of items in the queried collection to be included in the result.
+            */
+            $top?: number;
+            /**
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
+            */
+            $skip?: number;
+        }
+        /** An interface describing the data returned by calling `presentation.toJSON()`. */
+        interface PresentationData {
+            title?: string;
+        }
+        /**
+         * [Api set: PowerPointApi 1.0]
+         */
+        interface PresentationLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            title?: boolean;
+        }
+    }
+}
+declare namespace PowerPoint {
+    /**
+     * The RequestContext object facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the request context is required to get access to the PowerPoint object model from the add-in.
+     */
+    class RequestContext extends OfficeCore.RequestContext {
+        constructor(url?: string);
+        readonly presentation: Presentation;
+        readonly application: Application;
+    }
+    /**
+     * Executes a batch script that performs actions on the PowerPoint object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the RequestContext is required to get access to the PowerPoint object model from the add-in.
+     */
+    function run<T>(batch: (context: PowerPoint.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the PowerPoint object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the RequestContext is required to get access to the PowerPoint object model from the add-in.
+     */
+    function run<T>(object: OfficeExtension.ClientObject, batch: (context: PowerPoint.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the PowerPoint object model, using the RequestContext of previously-created API objects.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the RequestContext is required to get access to the PowerPoint object model from the add-in.
+     */
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: PowerPoint.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+}
 declare namespace PowerPoint {
     /**
      * Creates and opens a new presentation. Optionally, the presentation can be pre-populated with a base64-encoded .pptx file.
@@ -86298,6 +86336,7 @@ declare namespace PowerPoint {
     function createPresentation(base64File?: string): Promise<void>;
 }
 
+
 ////////////////////////////////////////////////////////////////
-////////////////////// End PowerPoint APIs /////////////////////
+///////////////////// End PowerPoint APIs //////////////////////
 ////////////////////////////////////////////////////////////////

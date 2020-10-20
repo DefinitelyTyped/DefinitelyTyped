@@ -1916,12 +1916,12 @@ declare module "fs" {
      */
     function writev(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
     function writev(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
@@ -1932,13 +1932,13 @@ declare module "fs" {
     }
 
     namespace writev {
-        function __promisify__(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
+        function __promisify__(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
     }
 
     /**
      * See `writev`.
      */
-    function writevSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
+    function writevSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
 
     interface OpenDirOptions {
         encoding?: BufferEncoding;
@@ -2082,7 +2082,7 @@ declare module "fs" {
             /**
              * See `fs.writev` promisified version.
              */
-            writev(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
+            writev(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
 
             /**
              * Asynchronous close(2) - close a `FileHandle`.

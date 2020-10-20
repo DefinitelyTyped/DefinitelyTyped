@@ -147,18 +147,18 @@ export interface DataTableCustomRenderProps<
         data: ShapeOf<DataTableCustomHeaderData<H>, E>
     ): ShapeOf<DataTableCustomHeaderProps<H>, E>;
     getRowProps<E extends object = ReactAttr<HTMLTableRowElement>>(
-        data: ShapeOf<DataTableCustomRowData<R>, E>
+        data: ShapeOf<DataTableCustomRowData, E>
     ): ShapeOf<DataTableCustomRowProps<R>, E>;
     getSelectionProps<E extends object = {}>(
-        data?: ShapeOf<DataTableCustomSelectionData<R>, E>
+        data?: ShapeOf<DataTableCustomSelectionData, E>
     ): ShapeOf<DataTableCustomSelectionProps<R>, E> | ShapeOf<DataTableCustomSelectionProps<never>, E>;
     getTableProps(): TableCarbonProps;
     headers: DataTableProps<R, H>['headers'];
     onInputChange(event: React.SyntheticEvent<HTMLInputElement>): void;
     radio?: DataTableProps<R, H>['radio'];
-    rows: ReadonlyArray<DenormalizedRow<R>>;
+    rows: ReadonlyArray<DenormalizedRow>;
     selectAll(): void;
-    selectedRows: ReadonlyArray<DenormalizedRow<R>>;
+    selectedRows: ReadonlyArray<DenormalizedRow>;
     selectRow(rowId: R['id']): void;
     sortBy(headerKey: H['key']): void;
 }

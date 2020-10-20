@@ -164,6 +164,8 @@ declare namespace Mailgun {
 
         interface Member {
             update(data: MemberUpdateData, callback?: (err: Error, data: any) => void): Promise<any>;
+
+            delete(callback?: (err: Error, data: any) => void): Promise<any>;
         }
     }
 

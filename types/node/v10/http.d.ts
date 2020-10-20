@@ -134,13 +134,13 @@ declare module "http" {
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        addTrailers(headers: OutgoingHttpHeaders | Array<[string, string]>): void;
+        addTrailers(headers: OutgoingHttpHeaders | ReadonlyArray<[string, string]>): void;
         flushHeaders(): void;
     }
 

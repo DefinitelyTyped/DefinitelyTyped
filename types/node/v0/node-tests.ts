@@ -111,8 +111,8 @@ function bufferTests() {
     console.log(Buffer.isEncoding('utf8'));
     console.log(Buffer.byteLength('xyz123'));
     console.log(Buffer.byteLength('xyz123', 'ascii'));
-    var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
-    var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+    var result1 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Buffer>);
+    var result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Buffer>, 9999999);
 
     // Test that TS 1.6 works with the 'as Buffer' annotation
     // on isBuffer.

@@ -65,7 +65,7 @@ import * as net from 'net';
         ['x-foO', 'OxOxOxO'],
         ['X-fOo', 'xOxOxOx'],
         ['X-foO', 'OxOxOxO']
-    ]);
+    ] as ReadonlyArray<[string, string]>);
     res.addTrailers({ 'x-foo': 'bar' });
 
     // writeHead
@@ -115,7 +115,11 @@ import * as net from 'net';
     req.abort();
 
     // connection
-    req.connection.on('pause', () => { });
+    req.connection?.on('pause', () => { });
+
+    if (req.socket) {
+        req.socket.on("connect", () => {});
+    }
 
     // event
     req.on('data', () => { });

@@ -70,6 +70,7 @@ nova.clipboard.readText();
 const completionItem = new CompletionItem("label", CompletionItemKind.Struct);
 completionItem.insertTextFormat = InsertTextFormat.Snippet;
 completionItem.insertText = "text to insert";
+completionItem.commitChars = new Charset("-");
 
 /// https://novadocs.panic.com/api-reference/emitter/
 

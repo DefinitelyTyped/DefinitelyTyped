@@ -95,6 +95,7 @@ export namespace CRS {
     const EPSG3395: CRS;
     const EPSG3857: CRS;
     const EPSG4326: CRS;
+    const EPSG900913: CRS;
     const Earth: CRS;
     const Simple: CRS;
 }
@@ -1770,7 +1771,7 @@ export class Map extends Evented {
     getBounds(): LatLngBounds;
     getMinZoom(): number;
     getMaxZoom(): number;
-    getBoundsZoom(bounds: LatLngBoundsExpression, inside?: boolean): number;
+    getBoundsZoom(bounds: LatLngBoundsExpression, inside?: boolean, padding?: Point): number;
     getSize(): Point;
     getPixelBounds(): Bounds;
     getPixelOrigin(): Point;

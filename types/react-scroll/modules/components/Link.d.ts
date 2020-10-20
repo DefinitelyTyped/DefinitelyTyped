@@ -11,7 +11,7 @@ export interface ReactScrollLinkProps {
     delay?: number;
     isDynamic?: boolean;
     onClick?(): void;
-    duration?: number | string;
+    duration?: number | string | ((distance: number) => number);
     absolute?: boolean;
     onSetActive?(to: string): void;
     onSetInactive?(): void;

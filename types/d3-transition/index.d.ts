@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-transition module 1.3
+// Type definitions for D3JS d3-transition module 2.0
 // Project: https://github.com/d3/d3-transition/, https://d3js.org/d3-transition
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.3.2
+// Last module patch version validated against: 2.0.0
 
 import { ArrayLike, BaseType, Selection, ValueFn } from 'd3-selection';
 
@@ -598,6 +598,15 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * A good easing function should return 0 if t = 0 and 1 if t = 1.
      */
     ease(easingFn: (normalizedTime: number) => number): this;
+
+    /**
+     * Specifies a factory for the transition easing function.
+     *
+     * @param factory The factory must be a function.
+     * It is invoked for each node of the selection, being passed the current datum (d), the current index (i), and the current group (nodes), with this as the current DOM element.
+     * It must return an easing function.
+     */
+    easeVarying(factory: ValueFn<GElement, Datum, (normalizedTime: number) => number>): this;
 }
 
 /**

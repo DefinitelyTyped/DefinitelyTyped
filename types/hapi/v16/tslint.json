@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
         "jsdoc-format": false,
         "max-line-length": false,
@@ -14,7 +13,6 @@
         "no-empty-interface": false,
         "no-object-literal-type-assertion": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-type-assertion": false,
         "no-var-keyword": false,
@@ -24,7 +22,6 @@
         "one-line": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "prefer-template": false,
         "semicolon": false,
         "space-before-function-paren": false,
