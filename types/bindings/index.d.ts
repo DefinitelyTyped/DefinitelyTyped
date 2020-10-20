@@ -6,52 +6,52 @@
 /// <reference types="node" />
 
 export interface BindingOptions {
-	/**
-	 * Arrow symbol used in error text on failed loading (default: process.env.NODE_BINDINGS_ARROW || ' → ').
-	 */
-	arrow?: string;
+    /**
+     * Arrow symbol used in error text on failed loading (default: process.env.NODE_BINDINGS_ARROW || ' → ').
+     */
+    arrow?: string;
 
-	/**
-	 * Name of directory with compiled modules (default: process.env.NODE_BINDINGS_COMPILED_DIR || 'compiled').
-	 */
-	compiled?: string;
+    /**
+     * Name of directory with compiled modules (default: process.env.NODE_BINDINGS_COMPILED_DIR || 'compiled').
+     */
+    compiled?: string;
 
-	/**
-	 * Platform of running process (default: process.platform).
-	 */
-	platform?: NodeJS.Platform;
+    /**
+     * Platform of running process (default: process.platform).
+     */
+    platform?: NodeJS.Platform;
 
-	/**
-	 * Architectore of the process (default: process.arch).
-	 */
-	arch?: string;
+    /**
+     * Architectore of the process (default: process.arch).
+     */
+    arch?: string;
 
-	/**
-	 * Name of directory used by NodeGyp (default: 'node-v' + process.versions.modules + '-' + process.platform + '-' + process.arch).
-	 */
-	nodePreGyp?: string;
+    /**
+     * Name of directory used by NodeGyp (default: 'node-v' + process.versions.modules + '-' + process.platform + '-' + process.arch).
+     */
+    nodePreGyp?: string;
 
-	/**
-	 * Version of NodeJS running script (default: process.versions.node).
-	 */
-	version?: string;
+    /**
+     * Version of NodeJS running script (default: process.versions.node).
+     */
+    version?: string;
 
-	/**
-	 * Name of native module to be loaded (default: 'bindings.node').
-	 */
-	bindings?: string;
+    /**
+     * Name of native module to be loaded (default: 'bindings.node').
+     */
+    bindings?: string;
 
-	/**
-	 * Array of arrays of strings with path components. Used to build full paths to modules to be loaded.
-	 * Can contain keywords, that will be translated during build of result path:
-	 * - module_root - root directory of current module
-	 * - bindings - BindingOptions.bindings
-	 * - compiled - BindingOptions.compiled
-	 * - platform - BindingOptions.platform
-	 * - arch - BindingOptions.arch
-	 * - nodePreGyp - BindingOptions.nodePreGyp
-	 * - version - BindingOptions.version
-	 */
+    /**
+     * Array of arrays of strings with path components. Used to build full paths to modules to be loaded.
+     * Can contain keywords, that will be translated during build of result path:
+     * - module_root - root directory of current module
+     * - bindings - BindingOptions.bindings
+     * - compiled - BindingOptions.compiled
+     * - platform - BindingOptions.platform
+     * - arch - BindingOptions.arch
+     * - nodePreGyp - BindingOptions.nodePreGyp
+     * - version - BindingOptions.version
+     */
     try?: string[][];
 }
 
