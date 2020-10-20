@@ -111,6 +111,7 @@ import {
     requireNativeComponent,
     useColorScheme,
     useWindowDimensions,
+    ToastAndroid,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1539,6 +1540,10 @@ const DataDetectorTypeTest = () => {
             <Text dataDetectorType={null}>Must allow null value</Text>
         </>
     )
+}
+
+const ToastAndroidTest = () => {
+    ToastAndroid.showWithGravityAndOffset('My Toast', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 0, 50);
 }
 
 const I18nManagerTest = () => {

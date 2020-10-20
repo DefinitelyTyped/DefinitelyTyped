@@ -10,7 +10,7 @@ function helmetTest() {
     app.use(helmet());
     app.use(helmet({}));
     app.use(helmet({ frameguard: false }));
-    app.use(helmet({ frameguard: true }));
+    app.use(helmet({ frameguard: { action: 'SAMEORIGIN' } }));
     app.use(
         helmet({
             frameguard: {
@@ -50,8 +50,6 @@ function contentSecurityPolicyTest() {
             styleSrc: ['css.example.com'],
         },
         reportOnly: false,
-        setAllHeaders: false,
-        disableAndroid: false,
     };
 
     app.use(helmet.contentSecurityPolicy());
@@ -62,7 +60,6 @@ function contentSecurityPolicyTest() {
             directives: {
                 defaultSrc: ["'self'"],
             },
-            setAllHeaders: true,
         }),
     );
 }
@@ -87,7 +84,6 @@ function frameguardTest() {
     app.use(
         helmet.frameguard({
             action: 'allow-from',
-            domain: 'http://example.com',
         }),
     );
 }
@@ -123,14 +119,12 @@ function hstsTest() {
     app.use(
         helmet.hsts({
             maxAge: 7776000000,
-            force: true,
         }),
     );
 
     app.use(
         helmet.hsts({
             maxAge: 7776000000,
-            setIf: (req, res) => true,
         }),
     );
 }
@@ -140,15 +134,6 @@ function hstsTest() {
  */
 function ieNoOpenTest() {
     app.use(helmet.ieNoOpen());
-}
-
-/**
- * @summary Test for {@see helmet#noCache} function.
- */
-function noCacheTest() {
-    app.use(helmet.noCache());
-    app.use(helmet.noCache({}));
-    app.use(helmet.noCache({ noEtag: true }));
 }
 
 /**
@@ -170,9 +155,7 @@ function referrerPolicyTest() {
  */
 function xssFilterTest() {
     app.use(helmet.xssFilter());
-    app.use(helmet.xssFilter({}));
-    app.use(helmet.xssFilter({ setOnOldIE: false }));
-    app.use(helmet.xssFilter({ setOnOldIE: true }));
+    app.use(helmet.xssFilter(false));
 }
 
 /**
@@ -180,8 +163,7 @@ function xssFilterTest() {
  */
 function hidePoweredByTest() {
     app.use(helmet.hidePoweredBy());
-    app.use(helmet.hidePoweredBy({}));
-    app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
+    app.use(helmet.hidePoweredBy(false));
 }
 
 /**
@@ -194,50 +176,6 @@ function permittedCrossDomainPoliciesTest() {
     app.use(helmet.permittedCrossDomainPolicies({ permittedPolicies: 'master-only' }));
     app.use(helmet.permittedCrossDomainPolicies({ permittedPolicies: 'by-content-type' }));
     app.use(helmet.permittedCrossDomainPolicies({ permittedPolicies: 'all' }));
-}
-
-/**
- * @summary Test for {@see helmet#featurePolicy} function.
- */
-function featurePolicyTest() {
-    const features = {
-        accelerometer: ["'none'"],
-        ambientLightSensor: ["'none'"],
-        autoplay: ["'none'"],
-        camera: ["'none'"],
-        documentDomain: ["'none'"],
-        documentWrite: ["'self'"],
-        encryptedMedia: ["'none'"],
-        fontDisplayLateSwap: ["'none'"],
-        fullscreen: ["'none'"],
-        geolocation: ["'none'"],
-        gyroscope: ["'none'"],
-        layoutAnimations: ["'none'"],
-        legacyImageFormats: ["'none'"],
-        loadingFrameDefaultEager: ["'none'"],
-        magnetometer: ["'none'"],
-        microphone: ["'none'"],
-        midi: ["'none'"],
-        oversizedImages: ["'none'"],
-        payment: ["'none'"],
-        pictureInPicture: ["'none'"],
-        serial: ["'none'"],
-        speaker: ["'none'"],
-        syncScript: ["'none'"],
-        syncXhr: ["'none'"],
-        unoptimizedImages: ["'none'"],
-        unoptimizedLosslessImages: ["'none'"],
-        unoptimizedLossyImages: ["'none'"],
-        unsizedMedia: ["'none'"],
-        usb: ["'none'"],
-        verticalScroll: ["'none'"],
-        vibrate: ["'none'"],
-        vr: ["'none'"],
-        wakeLock: ["'none'"],
-        xr: ["'none'"],
-    };
-    app.use(helmet.featurePolicy({ features: {} }));
-    app.use(helmet.featurePolicy({ features }));
 }
 
 /**

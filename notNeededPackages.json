@@ -1729,6 +1729,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "@google-cloud/text-to-speech",
+            "typingsPackageName": "google-cloud__text-to-speech",
+            "sourceRepoURL": "https://github.com/googleapis/nodejs-text-to-speech",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "google-maps-react",
             "typingsPackageName": "google-maps-react",
             "sourceRepoURL": "https://github.com/fullstackreact/google-maps-react",
@@ -1900,6 +1906,12 @@
             "libraryName": "hasha",
             "typingsPackageName": "hasha",
             "sourceRepoURL": "https://github.com/sindresorhus/hasha",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "helmet",
+            "typingsPackageName": "helmet",
+            "sourceRepoURL": "https://github.com/helmetjs/helmet",
             "asOfVersion": "4.0.0"
         },
         {

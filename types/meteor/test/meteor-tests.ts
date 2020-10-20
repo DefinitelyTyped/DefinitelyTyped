@@ -833,7 +833,7 @@ reactiveDict1.destroy();
 
 
 var reactiveVar1 = new ReactiveVar<string>('test value');
-var reactiveVar2 = new ReactiveVar<string>('test value', function (oldVal: any) { return true; });
+var reactiveVar2 = new ReactiveVar<string>('test value', (oldVal, newVal) => oldVal.length === newVal.length);
 
 var varValue: string = reactiveVar1.get();
 reactiveVar1.set('new value');
