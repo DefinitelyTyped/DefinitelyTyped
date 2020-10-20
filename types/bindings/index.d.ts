@@ -1,4 +1,4 @@
-// Type definitions for bindings 1.5.0
+// Type definitions for bindings 1.5
 // Project: https://github.com/TooTallNate/node-bindings
 // Definitions by: Daniel Perez Alvarez <https://github.com/unindented>, Boris Gulay <https://github.com/BoresXP>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
