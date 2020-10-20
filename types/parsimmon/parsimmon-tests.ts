@@ -117,6 +117,13 @@ barPar = strPar.promap((f) => {
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
+let constStrPar: P.Parser<"foo">;
+
+constStrPar = P.string("foo");
+constStrPar = P.string("bar"); // $ExpectError
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
 fooPar = fooPar.skip(barPar);
 
 fooPar = fooPar.wrap(barPar, strPar);
