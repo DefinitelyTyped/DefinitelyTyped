@@ -199,7 +199,7 @@ function TestAnimatedAPI() {
                      * Skip until original is adjusted and type can be asserted
                      */
                     info; // Should expect SectionListRenderItemInfo<number>
-                    info.section.title; // $ExpectType string
+                    info.section.title; // Should be string as of TS@3.4
                     return <View testID={info.item.toFixed(1)} />;
                 }}
             />
