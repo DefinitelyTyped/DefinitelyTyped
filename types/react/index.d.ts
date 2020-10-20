@@ -1,4 +1,4 @@
-// Type definitions for React 16.9
+// Type definitions for React 17.0
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -1213,6 +1213,7 @@ declare namespace React {
         /** @deprecated */
         charCode: number;
         ctrlKey: boolean;
+        code: string;
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
          */
@@ -2094,6 +2095,7 @@ declare namespace React {
         checked?: boolean;
         crossOrigin?: string;
         disabled?: boolean;
+        enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send';
         form?: string;
         formAction?: string;
         formEncType?: string;
@@ -2355,6 +2357,7 @@ declare namespace React {
         poster?: string;
         width?: number | string;
         disablePictureInPicture?: boolean;
+        disableRemotePlayback?: boolean;
     }
 
     // this list is "complete" in that it contains every SVG attribute
