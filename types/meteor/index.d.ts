@@ -43,6 +43,7 @@
 /// <reference path="./globals/meteor.d.ts" />
 /// <reference path="./mongo.d.ts" />
 /// <reference path="./globals/mongo.d.ts" />
+/// <reference path="./promise.d.ts" />
 /// <reference path="./random.d.ts" />
 /// <reference path="./globals/random.d.ts" />
 /// <reference path="./reactive-dict.d.ts" />
