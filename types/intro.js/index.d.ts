@@ -2,6 +2,7 @@
 // Project: https://github.com/usablica/intro.js
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen>
 //                 Leon Montealegre <https://github.com/LeonMontealegre>
+//                 Veniamin Krol <https://github.com/vkrol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function introJs(): introJs.IntroJs;
@@ -63,7 +64,7 @@ declare namespace introJs {
     }
     interface IntroJs {
         start(): IntroJs;
-        exit(): IntroJs;
+        exit(force?: boolean): IntroJs;
         clone(): IntroJs;
 
         goToStepNumber(stepId: number): IntroJs;
