@@ -210,20 +210,6 @@ declare module "async_hooks" {
         exit(callback: (...args: any[]) => void, ...args: any[]): void;
 
         /**
-         * This methods runs a function synchronously within a context and return its
-         * return value. The store is not accessible outside of the callback function or
-         * the asynchronous operations created within the callback.
-         *
-         * Optionally, arguments can be passed to the function. They will be passed to
-         * the callback function.
-         *
-         * If the callback function throws an error, it will be thrown by
-         * `runSyncAndReturn` too. The stacktrace will not be impacted by this call and
-         * the context will be exited.
-         */
-        runSyncAndReturn<R>(store: T, callback: (...args: any[]) => R, ...args: any[]): R;
-
-        /**
          * This methods runs a function synchronously outside of a context and return its
          * return value. The store is not accessible within the callback function or
          * the asynchronous operations created within the callback.
