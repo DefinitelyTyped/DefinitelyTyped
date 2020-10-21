@@ -13,9 +13,9 @@ declare function mount(element: Element, component: Mithril.ComponentTypes<any, 
 declare function mount(element: Element, component: null): void; // tslint:disable-line unified-signatures
 
 /** Makes an XHR request and returns a promise. */
-declare function request <T>(options: Mithril.RequestOptions<T> & { url: string }): Promise<T>;
+declare function request<T>(options: Mithril.RequestOptions<T> & { url: string }): Promise<T>;
 /** Makes an XHR request and returns a promise. */
-declare function request <T>(url: string, options?: Mithril.RequestOptions<T>): Promise<T>;
+declare function request<T>(url: string, options?: Mithril.RequestOptions<T>): Promise<T>;
 
 /** Makes a JSON-P request and returns a promise. */
 declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>; // tslint:disable-line:no-unnecessary-generics
@@ -48,7 +48,11 @@ declare namespace Mithril {
         /** Creates a virtual element (Vnode). */
         <Attrs, State>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
         /** Creates a virtual element (Vnode). */
-        <Attrs, State>(component: ComponentTypes<Attrs, State>, attributes: Attrs & Lifecycle<Attrs, State> & { key?: string | number }, ...args: Children[]): Vnode<Attrs, State>;
+        <Attrs, State>(
+            component: ComponentTypes<Attrs, State>,
+            attributes: Attrs & Lifecycle<Attrs, State> & { key?: string | number },
+            ...args: Children[]
+        ): Vnode<Attrs, State>;
         /** Creates a fragment virtual element (Vnode). */
         fragment(attrs: Lifecycle<any, any> & { [key: string]: any }, children: ChildArrayOrPrimitive): Vnode<any, any>;
         /** Turns an HTML string into a virtual element (Vnode). Do not use trust on unsanitized user input. */
@@ -111,8 +115,7 @@ declare namespace Mithril {
         /** The data to be interpolated into the URL and serialized into the querystring. */
         params?: { [key: string]: any };
         /** The data to be serialized into the request body. */
-        body?: (XMLHttpRequest["send"] extends (x: infer R) => any ? R : never)
-            | (object & { [id: string]: any });
+        body?: (XMLHttpRequest['send'] extends (x: infer R) => any ? R : never) | (object & { [id: string]: any });
         /** Whether the request should be asynchronous. Defaults to true. */
         async?: boolean;
         /** A username for HTTP authorization. */
@@ -144,7 +147,7 @@ declare namespace Mithril {
         /** Milliseconds a request can take before automatically being terminated. */
         timeout?: number;
         /** The expected type of the response, as a legal value of XMLHttpRequest.responseType. */
-        responseType?: "" | "arraybuffer" | "blob" | "document" | "json" | "text";
+        responseType?: '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
     }
 
     interface JsonpOptions {
@@ -189,14 +192,14 @@ declare namespace Mithril {
         /** Turns the key/value pairs of an object into a string of the form: a=1&b=2 */
         buildQueryString(values: Params): string;
         /** Parse path name */
-        parsePathname(url: string): { path: string, params: Params };
+        parsePathname(url: string): { path: string; params: Params };
         /** Build path name */
         buildPathname(template: string, params?: Params): string;
     }
 
     // Vnode children types
     type Child = Vnode<any, any> | string | number | boolean | null | undefined;
-    interface ChildArray extends Array<Children> { }
+    interface ChildArray extends Array<Children> {}
     type Children = Child | ChildArray;
     type ChildArrayOrPrimitive = ChildArray | string | number | boolean;
 
@@ -229,9 +232,9 @@ declare namespace Mithril {
         domSize?: number;
     }
 
-    interface CVnode<A = {}> extends Vnode<A, ClassComponent<A>> { }
+    interface CVnode<A = {}> extends Vnode<A, ClassComponent<A>> {}
 
-    interface CVnodeDOM<A = {}> extends VnodeDOM<A, ClassComponent<A>> { }
+    interface CVnodeDOM<A = {}> extends VnodeDOM<A, ClassComponent<A>> {}
 
     /**
      * Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse.
@@ -286,7 +289,10 @@ declare namespace Mithril {
     type Comp<Attrs = {}, State extends Lifecycle<Attrs, State> = {}> = Component<Attrs, State> & State;
 
     /** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Components can be consumed via the m() utility. */
-    type ComponentTypes<A = {}, S extends Lifecycle<A, S> = {}> = Component<A, S> | { new (vnode: CVnode<A>): ClassComponent<A> } | FactoryComponent<A>;
+    type ComponentTypes<A = {}, S extends Lifecycle<A, S> = {}> =
+        | Component<A, S>
+        | { new (vnode: CVnode<A>): ClassComponent<A> }
+        | FactoryComponent<A>;
 
     /** This represents the attributes available for configuring virtual elements, beyond the applicable DOM attributes. */
     interface Attributes extends Lifecycle<any, any> {
@@ -304,12 +310,12 @@ declare namespace Mithril {
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
-        interface Element extends Mithril.Vnode { }
+        interface Element extends Mithril.Vnode {}
 
         // tslint:disable-next-line:no-empty-interface
-        interface IntrinsicAttributes extends Mithril.Attributes { }
+        interface IntrinsicAttributes extends Mithril.Attributes {}
         // tslint:disable-next-line:no-empty-interface
-        interface IntrinsicClassAttributes extends Mithril.Attributes { }
+        interface IntrinsicClassAttributes extends Mithril.Attributes {}
 
         interface IntrinsicElements {
             // HTML
@@ -425,7 +431,7 @@ declare global {
             track: Mithril.Attributes;
             u: Mithril.Attributes;
             ul: Mithril.Attributes;
-            "var": Mithril.Attributes;
+            var: Mithril.Attributes;
             video: Mithril.Attributes;
             wbr: Mithril.Attributes;
             webview: Mithril.Attributes;
