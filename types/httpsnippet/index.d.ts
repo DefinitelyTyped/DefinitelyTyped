@@ -1,6 +1,6 @@
 // Type definitions for httpsnippet 1.23
 // Project: https://github.com/Mashape/httpsnippet
-// Definitions by: Marcell Toth <https://github.com/me>
+// Definitions by: Marcell Toth <https://github.com/marcelltoth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Har, Request } from 'har-format';
@@ -47,7 +47,7 @@ declare namespace HTTPSnippet {
     interface TargetInfo<C extends string> {
         key: string;
         title: string;
-        extName: string;
+        extname: string;
         default: C;
     }
 
