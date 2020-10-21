@@ -1,6 +1,26 @@
-import D = require('date-fp');
+import * as D from 'date-fp';
 
 const date: Date = D.of([2000]);
 const dateFromTime: Date = D.fromTime(Date.now());
 const dateInFuture: Date = D.add('seconds', 20, date);
-const seconds: number = D.convertTo('seconds', date);
+const dateInFutureCurried1: Date = D.add('seconds', 20)(date);
+const dateInFutureCurried2: Date = D.add('seconds')(20)(date);
+const convertDate: number = D.convertTo('minutes', date);
+const convertDateCurried: number = D.convertTo('minutes')(date);
+const diff: number = D.diff('minutes', date, date);
+const diffCurried1: number = D.diff('minutes', date)(date);
+const diffCurried2: number = D.diff('minutes')(date)(date);
+const equals: boolean = D.equals(date, date);
+const equalsCurried: boolean = D.equals(date)(date);
+const format: string = D.format('YYYY', date);
+const formatCurried: string = D.format('YYYY')(date);
+const get: number = D.get('minutes', date);
+const getCurried: number = D.get('minutes')(date);
+const parse: Date = D.parse('YYYY', '1900:01:12');
+const parseCurried: Date = D.parse('YYYY')('1900:01:12');
+const set: Date = D.set('minutes', 10, date);
+const setCurried1: Date = D.set('minutes', 10)(date);
+const setCurried2: Date = D.set('minutes')(10)(date);
+const sub: Date = D.sub('minutes', 10, date);
+const subCurried1: Date = D.sub('minutes', 10)(date);
+const subCurried2: Date = D.sub('minutes')(10)(date);
