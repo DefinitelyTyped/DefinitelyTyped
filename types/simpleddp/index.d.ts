@@ -8,6 +8,20 @@ import { ddpEventListener } from './classes/ddpEventListener';
 import { ddpSubscription } from './classes/ddpSubscription';
 import { ddpCollection } from './classes/ddpCollection';
 
+export interface SocketProvider {
+    new (url: string): SocketProviderInstance;
+}
+
+export interface SocketProviderInstance {
+    readonly readyState: number;
+    send(data: any): void;
+    close(code?: number, reason?: string): void;
+    onopen: ((this: any, event: any) => unknown) | null;
+    onmessage: ((this: any, event: any) => unknown) | null;
+    onerror: ((this: any, event: any) => unknown) | null;
+    onclose: ((this: any, event: any) => unknown) | null;
+}
+
 export interface simpleDDPOptions {
     /**
      * The location of the websocket server. Its format depends on the type of socket you are using. If you are using https connection you have to use wss:// protocol.
@@ -19,7 +33,7 @@ export interface simpleDDPOptions {
      * So, practically speaking, this means that on the browser you can use either the browser's native WebSocket constructor or the SockJS constructor provided by the SockJS library.
      * On the server you can use whichever library implements the websocket protocol (e.g. faye-websocket).
      */
-    SocketConstructor: () => void;
+    SocketConstructor: SocketProvider;
     /**
      * Whether to establish the connection to the server upon instantiation. When false, one can manually establish the connection with the connect method.
      * @defaultValue true
