@@ -1,4 +1,5 @@
 import jsonexport = require('jsonexport');
+import jsonexportDist = require('jsonexport/dist');
 import { Transform } from 'stream';
 import { createReadStream, createWriteStream, ReadStream, WriteStream } from 'fs';
 
@@ -32,3 +33,12 @@ const optWithHandlers: jsonexport.UserOptionsWithHandlers = {
     },
 };
 const e: Promise<string> = jsonexport({ key: 'value' }, optWithHandlers);
+
+// Test for dist import
+const f: Promise<string> = jsonexportDist({ key: 'value' });
+// $ExpectType void
+jsonexportDist({ key: 'value' }, (err: Error, csv: string) => undefined);
+
+// Will throw Error at runtime
+const g: never = jsonexportDist();
+const h: never = jsonexportDist(userOptions);
