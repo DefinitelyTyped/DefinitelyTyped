@@ -75,7 +75,7 @@ if (module.hot) {
         // ...
     });
 
-    var status: string = module.hot.status();
+    let status: string = module.hot.status();
     let statusHandler: ((status: string) => void) = status => {
         // ...
     };
@@ -125,7 +125,7 @@ if (importMeta.webpack >= 5 && importMeta.webpackHot) {
         // ...
     });
 
-    var status: string = importMeta.webpackHot.status();
+    let status: string = importMeta.webpackHot.status();
     let statusHandler: ((status: string) => void) = status => {
         // ...
     };
