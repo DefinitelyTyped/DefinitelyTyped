@@ -147,3 +147,10 @@ client.users.findByWorkspace('foobar', {opt_fields: 'id,name'}).then();
 // https://github.com/Asana/node-asana/blob/master/test/resources/workspaces_spec.js
 client.workspaces.update('foobar', { name: 'Test' }).then();
 client.workspaces.typeahead('baz', {type: 'task', query: 'foobar'}).then();
+
+// Workspaces have a boolean property "is_organization"
+// https://developers.asana.com/docs/workspace
+let workspaceShort: asana.resources.Workspaces.ShortType;
+workspaceShort.is_organization = true;
+let workspace: asana.resources.Workspaces.Type;
+workspace.is_organization = true;

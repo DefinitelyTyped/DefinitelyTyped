@@ -2422,11 +2422,11 @@ declare namespace asana {
 
         namespace Workspaces {
             interface ShortType extends Resource {
-                id_organization?: boolean;
+                is_organization?: boolean;
             }
 
             interface Type extends Resource {
-                id_organization: boolean;
+                is_organization: boolean;
                 email_domains: string[];
             }
 
