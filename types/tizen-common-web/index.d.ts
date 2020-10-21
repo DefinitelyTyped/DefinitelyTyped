@@ -1,10 +1,11 @@
 // Type definitions for tizen-common-web 1.0
-// Project: https://docs.tizen.org/application/web/api/5.5/device_api/tv/index.html
+// Project: https://docs.tizen.org/application/web/api/
 // Definitions by: SejoongDeJang <https://github.com/SejoongDeJang>
 //                 Dongkeun Nam <https://github.com/capscrom>
 //                 Woosik Park <https://github.com/pwsses>
 //                 Dayoung Kim <https://github.com/darangkim>
 //                 Hyojin Kim <https://github.com/prozanne>
+//                 Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./filesystem.d.ts" />
@@ -20,6 +21,7 @@
 /// <reference path="./tizen.d.ts" />
 /// <reference path="./package.d.ts" />
 /// <reference path="./time.d.ts" />
+/// <reference path="./humanactivity.d.ts" />
 
 import {
     WebAPIException,
@@ -42,6 +44,7 @@ import { TVWindowManager } from './tvwindow';
 import { PackageManager } from './package';
 import { TVInfoManager } from './tvinfo';
 import { TimeUtil, TZDateConstructor, TimeDurationConstructor } from './time';
+import { HumanActivityMonitorManager } from './humanactivity';
 
 declare const tizen: Tizen;
 
@@ -78,6 +81,7 @@ interface Tizen {
     time: TimeUtil;
     TZDate: TZDateConstructor;
     TimeDuration: TimeDurationConstructor;
+    humanactivitymonitor: HumanActivityMonitorManager;
 }
 
 export = tizen;
