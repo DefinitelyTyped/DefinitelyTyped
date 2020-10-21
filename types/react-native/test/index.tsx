@@ -3,10 +3,10 @@ The content of index.io.js could be something like
 
     'use strict';
 
-     import { AppRegistry } from 'react-native'
-     import Welcome from './gen/Welcome'
+    import { AppRegistry } from 'react-native'
+    import Welcome from './gen/Welcome'
 
-     AppRegistry.registerComponent('MopNative', () => Welcome);
+    AppRegistry.registerComponent('MopNative', () => Welcome);
 
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
 */
@@ -14,7 +14,9 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+    ART,
     AccessibilityInfo,
+    AsyncStorage,
     Alert,
     AppState,
     AppStateStatus,
@@ -62,10 +64,12 @@ import {
     NativeSyntheticEvent,
     PermissionsAndroid,
     Picker,
+    PickerIOS,
     Platform,
     PlatformColor,
     Pressable,
     ProgressBarAndroid,
+    ProgressViewIOS,
     PushNotificationIOS,
     RefreshControl,
     RegisteredStyle,
@@ -82,6 +86,7 @@ import {
     StyleProp,
     StyleSheet,
     Switch,
+    SwitchIOS,
     Systrace,
     TabBarIOS,
     Text,
@@ -110,6 +115,7 @@ import {
     requireNativeComponent,
     useColorScheme,
     useWindowDimensions,
+    ToastAndroid,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1538,4 +1544,8 @@ const DataDetectorTypeTest = () => {
             <Text dataDetectorType={null}>Must allow null value</Text>
         </>
     )
+}
+
+const ToastAndroidTest = () => {
+    ToastAndroid.showWithGravityAndOffset('My Toast', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 0, 50);
 }

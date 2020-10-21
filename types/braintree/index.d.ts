@@ -1346,7 +1346,7 @@ declare namespace braintree {
         shippingAmount?: string;
         shipsFromPostalCode?: string;
         status: TransactionStatus;
-        statusHistory?: TransactionStatusHistory;
+        statusHistory?: TransactionStatusHistory[];
         subscription?: {
             billingPeriodEndDate: Date;
             billingPeriodStartDate: Date;

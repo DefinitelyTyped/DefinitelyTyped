@@ -281,7 +281,7 @@ export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => nu
  * - applying g to zero or more arguments will give false if applying the same arguments to f gives
  *   a logical true value.
  */
-export function complement(pred: (...args: readonly any[]) => boolean): (...args: readonly any[]) => boolean;
+export function complement<As extends any[]>(pred: (...args: As) => boolean): (...args: As) => boolean;
 
 /**
  * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
@@ -1953,7 +1953,7 @@ export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T): (catc
  * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
  * all as 'Object'.
  */
-export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined';
+export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined' | 'Symbol';
 
 /**
  * Takes a function fn, which takes a single array argument, and returns a function which:

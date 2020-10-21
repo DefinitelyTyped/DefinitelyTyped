@@ -596,7 +596,7 @@ function test_ChartsLoadWithPromise() {
             chart.draw(data, {});
         }
     }
-    
+
     google.charts.load('current', {packages: ['corechart', 'table', 'sankey']}).then(drawChart);
 }
 

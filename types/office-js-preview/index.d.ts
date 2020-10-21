@@ -1741,7 +1741,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **Requirement set**: TBD
+         * **Requirement set**: DialogApi 1.2
          *
          * @param message Accepts a message from the host page to deliver to the dialog. Anything that can be serialized to a string, including JSON and XML, can be sent.
          */
@@ -11024,7 +11024,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -11038,8 +11038,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayReplyAllFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -11076,7 +11074,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -11090,8 +11088,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayReplyFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -11701,7 +11697,7 @@ declare namespace Office {
          *
          * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -11721,8 +11717,6 @@ declare namespace Office {
          *        `coercionType`: The desired format for the data to be appended. The string in the `data` parameter will be converted to this format.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
          *                             of type `Office.AsyncResult`. Any errors encountered will be provided in the `asyncResult.error` property.
-         *
-         * @beta
          */
         appendOnSendAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -11739,7 +11733,7 @@ declare namespace Office {
          *
          * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -11756,8 +11750,6 @@ declare namespace Office {
          * @param data - The string to be added to the end of the body. The string is limited to 5,000 characters.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
          *                             of type `Office.AsyncResult`. Any errors encountered will be provided in the `asyncResult.error` property.
-         *
-         * @beta
          */
         appendOnSendAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -12320,7 +12312,7 @@ declare namespace Office {
          *
          * You can iterate through the dictionary object to discover all `names` and `values`.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @returns An object with all custom properties in a collection of name/value pairs.
          *
@@ -12329,8 +12321,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadItem`
          *
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
-         *
-         * @beta
          */
         getAll(): any;
         /**
@@ -13440,7 +13430,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -13453,8 +13443,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayAppointmentFormAsync(itemId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -13497,7 +13485,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -13510,8 +13498,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayMessageFormAsync(itemId: string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -13559,7 +13545,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -13572,8 +13558,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayNewAppointmentFormAsync(parameters: AppointmentForm, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -13630,7 +13614,7 @@ declare namespace Office {
          *
          * If any of the parameters exceed the specified size limits, or if an unknown parameter name is specified, an exception is thrown.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -13670,8 +13654,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayNewMessageFormAsync(parameters: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -15734,7 +15716,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -15748,8 +15730,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayReplyAllFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -15786,7 +15766,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in Outlook on iOS or Android.
          *
-         * [Api set: Mailbox Preview]
+         * [Api set: Mailbox 1.9]
          *
          * @remarks
          *
@@ -15800,8 +15780,6 @@ declare namespace Office {
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
-         *
-         * @beta
          */
         displayReplyFormAsync(formData: string | ReplyFormData, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
@@ -19228,7 +19206,7 @@ declare namespace Excel {
         fiveBoxes: FiveBoxesSet;
     }
     var icons: IconCollections;
-
+    
     interface Session {
     }
 
@@ -24188,8 +24166,7 @@ declare namespace Excel {
         /**
          * Returns a `RangeAreas` object that represents the merged areas in this range. Note that if the merged areas count in this range is more than 512, the API will fail to return the result.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         * @beta
+         * [Api set: ExcelApiOnline 1.1]
          */
         getMergedAreas(): Excel.RangeAreas;
         /**
@@ -26535,6 +26512,7 @@ declare namespace Excel {
          * The style applied to the Table.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
          */
         readonly tableStyle: Excel.TableStyle;
         /**
@@ -33930,6 +33908,7 @@ declare namespace Excel {
          * The style applied to the PivotTable.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
          */
         readonly pivotStyle: Excel.PivotTableStyle;
         /**
@@ -34102,9 +34081,9 @@ declare namespace Excel {
          *
          * @param axis The axis from which to get the PivotItems. Must be either "row" or "column."
          * @param cell A single cell within the PivotTable's data body.
-         * @returns A collection of PivotItems that are used to calculate the values in the specified row.
+         * @returns A PivotItemCollection of the PivotItems that are used to calculate the values in the specified row.
          */
-        getPivotItems(axis: Excel.PivotAxis, cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
+        getPivotItems(axis: Excel.PivotAxis, cell: Range | string): Excel.PivotItemCollection;
         /**
          * Gets the PivotItems from an axis that make up the value in a specified range within the PivotTable.
          *
@@ -34112,9 +34091,9 @@ declare namespace Excel {
          *
          * @param axis The axis from which to get the PivotItems. Must be either "row" or "column."
          * @param cell A single cell within the PivotTable's data body.
-         * @returns A collection of PivotItems that are used to calculate the values in the specified row.
+         * @returns A PivotItemCollection of the PivotItems that are used to calculate the values in the specified row.
          */
-        getPivotItems(axis: "Unknown" | "Row" | "Column" | "Data" | "Filter", cell: Range | string): OfficeExtension.ClientResult<Excel.PivotItem[]>;
+        getPivotItems(axis: "Unknown" | "Row" | "Column" | "Data" | "Filter", cell: Range | string): Excel.PivotItemCollection;
         /**
          * Returns the range the PivotTable exists on, excluding the filter area.
          *
@@ -48402,6 +48381,7 @@ declare namespace Excel {
         itemNotFound = "ItemNotFound",
         nonBlankCellOffSheet = "NonBlankCellOffSheet",
         notImplemented = "NotImplemented",
+        pivotTableRangeConflict = "PivotTableRangeConflict",
         rangeExceedsLimit = "RangeExceedsLimit",
         requestAborted = "RequestAborted",
         unsupportedOperation = "UnsupportedOperation",
@@ -48819,6 +48799,7 @@ declare namespace Excel {
             * The style applied to the Table.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             tableStyle?: Excel.Interfaces.TableStyleUpdateData;
             /**
@@ -51269,6 +51250,7 @@ declare namespace Excel {
             * The style applied to the PivotTable.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             pivotStyle?: Excel.Interfaces.PivotTableStyleUpdateData;
             /**
@@ -53054,7 +53036,8 @@ declare namespace Excel {
             *
             * The style applied to the Slicer.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             slicerStyle?: Excel.Interfaces.SlicerStyleUpdateData;
             /**
@@ -54264,7 +54247,8 @@ declare namespace Excel {
             *
             * The style applied to the Table.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             tableStyle?: Excel.Interfaces.TableStyleData;
             /**
@@ -59363,7 +59347,8 @@ declare namespace Excel {
             *
             * The style applied to the Slicer.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             slicerStyle?: Excel.Interfaces.SlicerStyleData;
             /**
@@ -61008,7 +60993,8 @@ declare namespace Excel {
             *
             * For EACH ITEM in the collection: The style applied to the Table.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
@@ -61141,7 +61127,8 @@ declare namespace Excel {
             *
             * For EACH ITEM in the collection: The style applied to the Table.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
@@ -61275,7 +61262,8 @@ declare namespace Excel {
             *
             * The style applied to the Table.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             tableStyle?: Excel.Interfaces.TableStyleLoadOptions;
             /**
@@ -69887,7 +69875,8 @@ declare namespace Excel {
             *
             * The style applied to the Slicer.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             slicerStyle?: Excel.Interfaces.SlicerStyleLoadOptions;
             /**
@@ -69995,7 +69984,8 @@ declare namespace Excel {
             *
             * For EACH ITEM in the collection: The style applied to the Slicer.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             slicerStyle?: Excel.Interfaces.SlicerStyleLoadOptions;
             /**
@@ -91209,9 +91199,386 @@ declare namespace Visio {
 
 
 ////////////////////////////////////////////////////////////////
-///////////////////// Begin PowerPoint APIs ////////////////////
+//////////////////// Begin PowerPoint APIs /////////////////////
 ////////////////////////////////////////////////////////////////
 
+declare namespace PowerPoint {
+    /**
+     * [Api set: PowerPointApi 1.0]
+     */
+    class Application extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * Create a new instance of PowerPoint.Application object
+         */
+        static newObject(context: OfficeExtension.ClientRequestContext): PowerPoint.Application;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original PowerPoint.Application object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): {
+            [key: string]: string;
+        };
+    }
+    /**
+     * [Api set: PowerPointApi 1.0]
+     */
+    class Presentation extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Returns an ordered collection of slides in the presentation.
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly slides: PowerPoint.SlideCollection;
+        readonly title: string;
+        /**
+         * Inserts the specified slides from a presentation into the current presentation.
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param base64File The base64-encoded string representing the source presentation file.
+         * @param options The options that define which slides will be inserted, where the new slides will go, and which presentation's formatting will be used.
+         */
+        insertSlidesFromBase64(base64File: string, options?: PowerPoint.InsertSlideOptions): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: PowerPoint.Interfaces.PresentationLoadOptions): PowerPoint.Presentation;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): PowerPoint.Presentation;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): PowerPoint.Presentation;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original PowerPoint.Presentation object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.PresentationData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): PowerPoint.Interfaces.PresentationData;
+    }
+    /**
+     *
+     * Specifies the formatting options for when slides are inserted.
+     *
+     * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum InsertSlideFormatting {
+        /**
+         * Copy the source theme into the target presentation and use that theme.
+         *
+         */
+        keepSourceFormatting = "KeepSourceFormatting",
+        /**
+         * Use the existing theme in the target presentation.
+         *
+         */
+        useDestinationTheme = "UseDestinationTheme",
+    }
+    /**
+     *
+     * Represents the available options when inserting slides.
+     *
+     * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface InsertSlideOptions {
+        /**
+         *
+         * Specifies which formatting to use during slide insertion.
+                    The default option is to use "KeepSourceFormatting".
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        formatting?: PowerPoint.InsertSlideFormatting | "KeepSourceFormatting" | "UseDestinationTheme";
+        /**
+         *
+         * Specifies the slides from the source presentation that will be inserted into the current presentation. These slides are represented by their IDs which can be retrieved from a `Slide` object.
+                    The order of these slides is preserved during the insertion.
+                    If any of the source slides are not found, or if the IDs are invalid, the operation throws a `SlideNotFound` exception and no slides will be inserted.
+                    All of the source slides will be inserted when `sourceSlideIds` is not provided (this is the default behavior).
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        sourceSlideIds?: string[];
+        /**
+         *
+         * Specifies where in the presentation the new slides will be inserted. The new slides will be inserted after the slide with the given slide ID.
+                    If `targetSlideId` is not provided, the slides will be inserted at the beginning of the presentation.
+                    If `targetSlideId` is invalid or if it is pointing to a non-existing slide, the operation throws a `SlideNotFound` exception and no slides will be inserted.
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        targetSlideId?: string;
+    }
+    /**
+     *
+     * Represents a single slide of a presentation.
+     *
+     * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class Slide extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Gets the unique ID of the slide.
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly id: string;
+        /**
+         * Deletes the slide from the presentation. Does nothing if the slide does not exist.
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        delete(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: PowerPoint.Interfaces.SlideLoadOptions): PowerPoint.Slide;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): PowerPoint.Slide;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): PowerPoint.Slide;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original PowerPoint.Slide object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.SlideData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): PowerPoint.Interfaces.SlideData;
+    }
+    /**
+     *
+     * Represents the collection of slides in the presentation.
+     *
+     * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SlideCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: PowerPoint.Slide[];
+        /**
+         * Gets the number of slides in the collection.
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The number of slides in the collection.
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         * Gets a slide using its unique ID. An exception is thrown if the slide does not exist.
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param key The ID of the slide.
+         * @returns The slide with the unique ID. If such a slide does not exist, an exception is thrown.
+         */
+        getItem(key: string): PowerPoint.Slide;
+        /**
+         * Gets a slide using its zero-based index in the collection. Slides are stored in the same order as they
+                    are shown in the presentation. An exception is thrown if index is out of range.
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param index The index of the slide in the collection.
+         * @returns The slide at the given index. An exception is thrown if index is out of range.
+         */
+        getItemAt(index: number): PowerPoint.Slide;
+        /**
+         * Gets a slide using its unique ID. Returns an object whose `isNullObject` property is set to `true` if the slide does not exist.
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param id The ID of the slide.
+         * @returns The slide with the unique ID. If such a slide does not exist, an object whose `isNullObject` property is set to `true` is returned.
+         */
+        getItemOrNullObject(id: string): PowerPoint.Slide;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: PowerPoint.Interfaces.SlideCollectionLoadOptions & PowerPoint.Interfaces.CollectionLoadOptions): PowerPoint.SlideCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): PowerPoint.SlideCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): PowerPoint.SlideCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `PowerPoint.SlideCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.SlideCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): PowerPoint.Interfaces.SlideCollectionData;
+    }
+    enum ErrorCodes {
+        generalException = "GeneralException",
+    }
+    module Interfaces {
+        /**
+        * Provides ways to load properties of only a subset of members of a collection.
+        */
+        interface CollectionLoadOptions {
+            /**
+            * Specify the number of items in the queried collection to be included in the result.
+            */
+            $top?: number;
+            /**
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
+            */
+            $skip?: number;
+        }
+        /** An interface for updating data on the SlideCollection object, for use in `slideCollection.set({ ... })`. */
+        interface SlideCollectionUpdateData {
+            items?: PowerPoint.Interfaces.SlideData[];
+        }
+        /** An interface describing the data returned by calling `presentation.toJSON()`. */
+        interface PresentationData {
+            title?: string;
+        }
+        /** An interface describing the data returned by calling `slide.toJSON()`. */
+        interface SlideData {
+            /**
+             *
+             * Gets the unique ID of the slide.
+             *
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: string;
+        }
+        /** An interface describing the data returned by calling `slideCollection.toJSON()`. */
+        interface SlideCollectionData {
+            items?: PowerPoint.Interfaces.SlideData[];
+        }
+        /**
+         * [Api set: PowerPointApi 1.0]
+         */
+        interface PresentationLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            title?: boolean;
+        }
+        /**
+         *
+         * Represents a single slide of a presentation.
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SlideLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Gets the unique ID of the slide.
+             *
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+        }
+        /**
+         *
+         * Represents the collection of slides in the presentation.
+         *
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SlideCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the unique ID of the slide.
+             *
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+        }
+    }
+}
+declare namespace PowerPoint {
+    /**
+     * The RequestContext object facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the request context is required to get access to the PowerPoint object model from the add-in.
+     */
+    class RequestContext extends OfficeCore.RequestContext {
+        constructor(url?: string);
+        readonly presentation: Presentation;
+        readonly application: Application;
+    }
+    /**
+     * Executes a batch script that performs actions on the PowerPoint object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the RequestContext is required to get access to the PowerPoint object model from the add-in.
+     */
+    function run<T>(batch: (context: PowerPoint.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the PowerPoint object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the RequestContext is required to get access to the PowerPoint object model from the add-in.
+     */
+    function run<T>(object: OfficeExtension.ClientObject, batch: (context: PowerPoint.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+    /**
+     * Executes a batch script that performs actions on the PowerPoint object model, using the RequestContext of previously-created API objects.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the PowerPoint application. Since the Office add-in and the PowerPoint application run in two different processes, the RequestContext is required to get access to the PowerPoint object model from the add-in.
+     */
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: PowerPoint.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
+}
 declare namespace PowerPoint {
     /**
      * Creates and opens a new presentation. Optionally, the presentation can be pre-populated with a base64-encoded .pptx file.
@@ -91223,6 +91590,7 @@ declare namespace PowerPoint {
     function createPresentation(base64File?: string): Promise<void>;
 }
 
+
 ////////////////////////////////////////////////////////////////
-////////////////////// End PowerPoint APIs /////////////////////
+///////////////////// End PowerPoint APIs //////////////////////
 ////////////////////////////////////////////////////////////////

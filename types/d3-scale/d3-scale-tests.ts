@@ -621,6 +621,7 @@ sequentialScaleColorString = d3Scale.scaleSequentialQuantile<string>();
 sequentialScaleColorString = d3Scale.scaleSequential<string>(interpolateRainbow);
 sequentialScaleColorString = d3Scale.scaleSequential(interpolateCool); // inferred Output type string
 sequentialScaleColorString = d3Scale.scaleSequential([0, 5], interpolateRainbow);
+sequentialScaleColorString = d3Scale.scaleSequential([0, 5], ['#000000', '#ffffff']);
 
 // ScaleSequential Interface ========================================================
 
@@ -645,6 +646,11 @@ sequentialInterpolator = sequentialScaleColorString.interpolator();
 // range(...) ----------------------------------------------------------------
 
 const rangeSequential: [string, string] = sequentialScaleColorString.range()();
+sequentialScaleColorString = sequentialScaleColorString.range(['#000000', '#ffffff']);
+
+// rangeRound(...) ----------------------------------------------------------------
+
+sequentialScaleColorString = sequentialScaleColorString.rangeRound([0, 1]);
 
 // (...) value mapping from domain to output -----------------------------------
 
@@ -653,6 +659,13 @@ outputString = sequentialScaleColorString(10);
 // copy(...) -----------------------------------------------------------------
 
 const copiedSequentialScale: d3Scale.ScaleSequential<string> = sequentialScaleColorString.copy();
+
+// ScaleSequential Interface ========================================================
+
+// quantiles(...) -----------------------------------------------------------------
+
+const sequentialQuantileScale = d3Scale.scaleSequentialQuantile();
+const quantilesFromSequential: number[] = sequentialQuantileScale.quantiles();
 
 // -------------------------------------------------------------------------------
 // Diverging Scale Factory
@@ -672,6 +685,7 @@ divergingScaleNumber = d3Scale.scaleDivergingSymlog();
 divergingScaleNumber = d3Scale.scaleDiverging(interpolateRound(0, 1));
 divergingScaleNumber = d3Scale.scaleDiverging(interpolateDouble);
 divergingScaleString = d3Scale.scaleDiverging<string>(interpolateSpectral);
+divergingScaleString = d3Scale.scaleDiverging<string>(['#000000', '#ffffff']);
 divergingScaleNumber = d3Scale.scaleDiverging<number>([0, 5, 10], interpolateRound(0, 1));
 
 // ScaleDiverging Interface =======================================================
@@ -713,6 +727,11 @@ divergingScaleString = divergingScaleString.interpolator(sequentialInterpolator)
 // range(...) ----------------------------------------------------------------
 
 domainDivergingScale = divergingScaleNumber.range()();
+divergingScaleNumber = divergingScaleNumber.range([0, 0.5, 1]);
+
+// rangeRound(...) ----------------------------------------------------------------
+
+divergingScaleNumber = divergingScaleNumber.rangeRound([0, 0.5, 1]);
 
 // copy(...) -----------------------------------------------------------------
 

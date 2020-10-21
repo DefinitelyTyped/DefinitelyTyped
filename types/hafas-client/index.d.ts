@@ -1,4 +1,4 @@
-// Type definitions for hafas-client 5.7
+// Type definitions for hafas-client 5.8
 // Project: https://github.com/public-transport/hafas-client
 // Definitions by: Jürgen Bergmann <https://github.com/bergmannjg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -101,9 +101,8 @@ declare namespace createClient {
      */
     interface Stop {
         type: 'stop';
-        id: string;
+        id?: string;
         name?: string;
-        station?: Station;
         location?: Location;
         products?: Products;
         lines?: ReadonlyArray<Line>;

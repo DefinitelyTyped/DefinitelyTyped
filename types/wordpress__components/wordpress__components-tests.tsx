@@ -180,6 +180,19 @@ let record: Value = {
 <C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} />;
 
 //
+// custom-select-control
+//
+<C.CustomSelectControl
+    label="Fruit"
+    options={[
+        { key: 'apple', name: 'Apple', style: { color: 'red' } },
+        { key: 'banana', name: 'Banana', style: { backgroundColor: 'yellow' }, className: 'my-favorite-fruit' },
+        { key: 'papaya', name: 'Papaya', style: { color: 'orange', backgroundColor: 'green' } },
+    ]}
+    onChange={v => console.log(v.selectedItem && v.selectedItem.name)}
+/>;
+
+//
 // dashicon
 //
 <C.Dashicon icon="editor-code" size={50} />;
