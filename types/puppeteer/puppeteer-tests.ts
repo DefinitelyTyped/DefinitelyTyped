@@ -514,6 +514,13 @@ puppeteer.launch().then(async browser => {
   }, 'asd');
 })();
 
+// Test waitForTimeout
+(async () => {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.waitForTimeout(1000); // $ExpectType void
+})();
+
 // Permission tests
 (async () => {
   const browser = await puppeteer.launch();

@@ -1229,23 +1229,35 @@ export interface FrameBase extends Evalable, JSEvalable {
 
   /**
    * Waits for a certain amount of time before resolving.
+   * @deprecated
    * @param duration The time to wait for.
    */
   waitFor(duration: number): Promise<void>;
   /**
    * Shortcut for waitForSelector and waitForXPath
+   * @deprecated
    */
   waitFor(selector: string, options: WaitForSelectorOptionsHidden): Promise<ElementHandle | null>;
+  /**
+   * @deprecated
+   */
   waitFor(selector: string, options?: WaitForSelectorOptions): Promise<ElementHandle>;
 
   /**
    * Shortcut for waitForFunction.
+   * @deprecated
    */
   waitFor(
     selector: EvaluateFn,
     options?: WaitForSelectorOptions,
     ...args: SerializableOrJSHandle[]
   ): Promise<JSHandle>;
+
+  /**
+   * Waits for a certain amount of time before resolving.
+   * @param duration The time to wait for.
+   */
+  waitForTimeout(duration: number): Promise<void>;
 
   /**
    * Allows waiting for various conditions.
