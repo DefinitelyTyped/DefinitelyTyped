@@ -772,4 +772,25 @@ declare module "crypto" {
         privateKey: KeyObject;
         publicKey: KeyObject
     }): Buffer;
+
+    /**
+     * HKDF is a simple key derivation function defined in RFC 5869.
+     * The given `key`, `salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
+     *
+     * The supplied `callback` function is called with two arguments: `err` and `derivedKey`.
+     * If an errors occurs while deriving the key, `err` will be set; otherwise `err` will be `null`.
+     * The successfully generated `derivedKey` will be passed to the callback as an [`ArrayBuffer`][].
+     * An error will be thrown if any of the input aguments specify invalid values or types.
+     */
+    function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => any): void;
+
+    /**
+     * Provides a synchronous HKDF key derivation function as defined in RFC 5869.
+     * The given `key`, `salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
+     *
+     * The successfully generated `derivedKey` will be returned as an [`ArrayBuffer`][].
+     * An error will be thrown if any of the input aguments specify invalid values or types,
+     * or if the derived key cannot be generated.
+     */
+    function hkdfSync(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number): ArrayBuffer;
 }
