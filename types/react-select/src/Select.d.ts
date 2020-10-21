@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { Option } from './filters';
 import {
   InstructionsContext,
   ValueEventContext,
@@ -103,7 +102,7 @@ export interface NamedProps<OptionType extends OptionTypeBase = { label: string;
   escapeClearsValue?: boolean;
   /* Custom method to filter whether an option should be displayed in the menu */
   filterOption?: ((
-    option: Option,
+    option: OptionType,
     rawInput: string
   ) => boolean) | null;
   /* Formats group labels in the menu as React components */
