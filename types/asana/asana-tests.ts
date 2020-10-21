@@ -102,3 +102,48 @@ client.users.me()
 
 let dispatcher = new asana.Dispatcher({retryOnRateLimit: true});
 client = new asana.Client(dispatcher);
+
+// GIDs should handle both strings and numbers
+// https://github.com/Asana/node-asana/blob/master/test/resources/attachments_spec.js
+client.attachments.findById('foobar', {opt_fields: 'id,name'}).then();
+client.attachments.findByTask('foobar', {opt_fields: 'id,name'}).then();
+// https://github.com/Asana/node-asana/blob/master/test/resources/projects_spec.js
+client.projects.createInWorkspace('foobar', { name: 'test' }).then();
+client.projects.findById('foobar', {opt_fields: 'id,name'}).then();
+client.projects.findByWorkspace('foobar', {opt_fields: 'id,name'}).then();
+client.projects.update('foobar', { name: 'test' }).then();
+client.projects.delete('foobar').then();
+// https://github.com/Asana/node-asana/blob/master/test/resources/stories_spec.js
+client.stories.findById('foobar', {opt_fields: 'id,name'}).then();
+client.stories.findByTask('foobar', {opt_fields: 'id,name'}).then();
+client.stories.createOnTask('foobar', { name: 'test' }).then();
+// https://github.com/Asana/node-asana/blob/master/test/resources/tasks_spec.js
+client.tasks.createInWorkspace('foobar', { name: 'Test' }).then();
+client.tasks.findById('foobar', {opt_fields: 'id,name'}).then();
+client.tasks.findByProject('foobar', {opt_fields: 'id,name'}).then();
+client.tasks.findByTag('foobar', {opt_fields: 'id,name'}).then();
+client.tasks.update('foobar', { name: 'Test' }).then();
+client.tasks.delete('foobar').then();
+client.tasks.addFollowers('foobar', {followers: [1]}).then();
+client.tasks.removeFollowers('foobar', {followers: [1]}).then();
+client.tasks.projects('foobar').then();
+client.tasks.addProject('foobar', {project: 1}).then();
+client.tasks.removeProject('foobar', {project: 1}).then();
+client.tasks.tags('foobar').then();
+client.tasks.addTag('foobar', {tag: 1}).then();
+client.tasks.removeTag('foobar', {tag: 1}).then();
+client.tasks.subtasks('foobar').then();
+client.tasks.addSubtask('foobar', {name: 'foo'}).then();
+// client.tasks.setParent('foobar', {parent: 'fizzbuzz'}).then(); TODO: add declaration for this
+// https://github.com/Asana/node-asana/blob/master/test/resources/teams_spec.js
+client.teams.findById('foobar', {opt_fields: 'id,name'}).then();
+client.teams.findByOrganization('foobar', {opt_fields: 'id,name'}).then();
+client.teams.users('foobar', {opt_fields: 'id,name'}).then();
+client.teams.addUser('foobar', {user: 'foo'}).then();
+client.teams.removeUser('foobar', {user: 'foo'}).then();
+// https://github.com/Asana/node-asana/blob/master/test/resources/users_spec.js
+client.users.findById('foobar', {opt_fields: 'id,name'}).then();
+client.users.findByWorkspace('foobar', {opt_fields: 'id,name'}).then();
+// https://github.com/Asana/node-asana/blob/master/test/resources/workspaces_spec.js
+client.workspaces.update('foobar', { name: 'Test' }).then();
+client.workspaces.typeahead('baz', {type: 'task', query: 'foobar'}).then();

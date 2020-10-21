@@ -824,7 +824,7 @@ declare namespace asana {
         interface Attachments extends Resource {
             /**
              * * Returns the full record for a single attachment.
-             *   * @param {Number} attachment Globally unique identifier for the attachment.
+             *   * @param {String} attachment Globally unique identifier for the attachment.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The requested resource
@@ -833,11 +833,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findById(attachment: number, params?: Params, dispatchOptions?: any): Promise<Attachments.Type>;
+            findById(attachment: string | number, params?: Params, dispatchOptions?: any): Promise<Attachments.Type>;
 
             /**
              * * Returns the compact records for all attachments on the task.
-             *   * @param {Number} task Globally unique identifier for the task.
+             *   * @param {String} task Globally unique identifier for the task.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -969,7 +969,7 @@ declare namespace asana {
 
             interface CreateParams {
                 name?: string;
-                team?: number;
+                team?: string | number;
                 public?: boolean;
                 due_date?: string;
                 notes?: string;
@@ -993,7 +993,7 @@ declare namespace asana {
             }
 
             interface FindAllParams extends PaginationParams {
-                team?: number;
+                team?: string | number;
                 archived?: boolean;
             }
 
@@ -1039,14 +1039,17 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            create(data: Projects.CreateParams & { workspace: number }, dispatchOptions?: any): Promise<Projects.Type>;
+            create(
+                data: Projects.CreateParams & { workspace: string | number },
+                dispatchOptions?: any
+            ): Promise<Projects.Type>;
 
             /**
              * * If the workspace for your project _is_ an organization, you must also
              * * supply a `team` to share the project with.
              * *
              * * Returns the full record of the newly created project.
-             *   * @param {Number} workspace The workspace or organization to create the project in.
+             *   * @param {String} workspace The workspace or organization to create the project in.
              *   * @param {Object} data Data for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1056,7 +1059,7 @@ declare namespace asana {
              * @return
              */
             createInWorkspace(
-                workspace: number,
+                workspace: string | number,
                 data: Projects.CreateParams,
                 dispatchOptions?: any,
             ): Promise<Projects.Type>;
@@ -1065,7 +1068,7 @@ declare namespace asana {
              * * Creates a project shared with the given team.
              * *
              * * Returns the full record of the newly created project.
-             *   * @param {Number} team The team to create the project in.
+             *   * @param {String} team The team to create the project in.
              *   * @param {Object} data Data for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1074,11 +1077,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            createInTeam(team: number, data: Projects.CreateParams, dispatchOptions?: any): Promise<Projects.Type>;
+            createInTeam(team: string | number, data: Projects.CreateParams, dispatchOptions?: any): Promise<Projects.Type>;
 
             /**
              * * Returns the complete project record for a single project.
-             *   * @param {Number} project The project to get.
+             *   * @param {String} project The project to get.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The requested resource
@@ -1099,7 +1102,7 @@ declare namespace asana {
              * * you last retrieved the task.
              * *
              * * Returns the complete updated project record.
-             *   * @param {Number} project The project to update.
+             *   * @param {String} project The project to update.
              *   * @param {Object} data Data for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1119,7 +1122,7 @@ declare namespace asana {
              * * on the URL for that project.
              * *
              * * Returns an empty data record.
-             *   * @param {Number} project The project to delete.
+             *   * @param {String} project The project to delete.
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
              * @param project
@@ -1146,7 +1149,7 @@ declare namespace asana {
 
             /**
              * * Returns the compact project records for all projects in the workspace.
-             *   * @param {Number} workspace The workspace or organization to find projects in.
+             *   * @param {String} workspace The workspace or organization to find projects in.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Boolean} [params.archived] Only return projects whose `archived` field takes on the value of
              *   * this parameter.
@@ -1158,14 +1161,14 @@ declare namespace asana {
              * @return
              */
             findByWorkspace(
-                workspace: number,
+                workspace: string | number,
                 params?: Projects.FindByParams,
                 dispatchOptions?: any,
             ): Promise<ResourceList<Projects.Type>>;
 
             /**
              * * Returns the compact project records for all projects in the team.
-             *   * @param {Number} team The team to find projects in.
+             *   * @param {String} team The team to find projects in.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Boolean} [params.archived] Only return projects whose `archived` field takes on the value of
              *   * this parameter.
@@ -1177,7 +1180,7 @@ declare namespace asana {
              * @return
              */
             findByTeam(
-                team: number,
+                team: string | number,
                 params?: Projects.FindByParams,
                 dispatchOptions?: any,
             ): Promise<ResourceList<Projects.Type>>;
@@ -1332,7 +1335,7 @@ declare namespace asana {
         interface Stories extends Resource {
             /**
              * * Returns the compact records for all stories on the task.
-             *   * @param {Number} task Globally unique identifier for the task.
+             *   * @param {String} task Globally unique identifier for the task.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1349,7 +1352,7 @@ declare namespace asana {
 
             /**
              * * Returns the full record for a single story.
-             *   * @param {Number} story Globally unique identifier for the story.
+             *   * @param {String} story Globally unique identifier for the story.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The requested resource
@@ -1358,7 +1361,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findById(story: number, params?: Params, dispatchOptions?: any): Promise<Stories.Type>;
+            findById(story: string | number, params?: Params, dispatchOptions?: any): Promise<Stories.Type>;
 
             /**
              * * Adds a comment to a task. The comment will be authored by the
@@ -1366,7 +1369,7 @@ declare namespace asana {
              * * the request.
              * *
              * * Returns the full record for the new story added to the task.
-             *   * @param {Number} task Globally unique identifier for the task.
+             *   * @param {String} task Globally unique identifier for the task.
              *   * @param {Object} data Data for the request
              *   * @param {String} data.text The plain text of the comment to add.
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1400,7 +1403,7 @@ declare namespace asana {
             }
 
             interface FindAllParams extends PaginationParams {
-                team?: number;
+                team?: string | number;
                 archived?: boolean;
             }
         }
@@ -1447,7 +1450,7 @@ declare namespace asana {
              * * organization.
              * *
              * * Returns the full record of the newly created tag.
-             *   * @param {Number} workspace The workspace or organization to create the tag in.
+             *   * @param {String} workspace The workspace or organization to create the tag in.
              *   * @param {Object} data Data for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1456,11 +1459,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            createInWorkspace(workspace: number, data: Tags.Type, dispatchOptions?: any): Promise<Tags.Type>;
+            createInWorkspace(workspace: string | number, data: Tags.Type, dispatchOptions?: any): Promise<Tags.Type>;
 
             /**
              * * Returns the complete tag record for a single tag.
-             *   * @param {Number} tag The tag to get.
+             *   * @param {String} tag The tag to get.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The requested resource
@@ -1469,7 +1472,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findById(tag: number, params?: Params, dispatchOptions?: any): Promise<Tags.Type>;
+            findById(tag: string | number, params?: Params, dispatchOptions?: any): Promise<Tags.Type>;
 
             /**
              * * Updates the properties of a tag. Only the fields provided in the `data`
@@ -1480,7 +1483,7 @@ declare namespace asana {
              * * you last retrieved the task.
              * *
              * * Returns the complete updated tag record.
-             *   * @param {Number} tag The tag to update.
+             *   * @param {String} tag The tag to update.
              *   * @param {Object} data Data for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1489,21 +1492,21 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            update(tag: number, data: Tags.Type, dispatchOptions?: any): Promise<Tags.Type>;
+            update(tag: string | number, data: Tags.Type, dispatchOptions?: any): Promise<Tags.Type>;
 
             /**
              * * A specific, existing tag can be deleted by making a DELETE request
              * * on the URL for that tag.
              * *
              * * Returns an empty data record.
-             *   * @param {Number} tag The tag to delete.
+             *   * @param {String} tag The tag to delete.
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
              * @param tag
              * @param dispatchOptions?
              * @return
              */
-            delete(tag: number, dispatchOptions?: any): Promise<void>;
+            delete(tag: string | number, dispatchOptions?: any): Promise<void>;
 
             /**
              * * Returns the compact tag records for some filtered set of tags.
@@ -1523,7 +1526,7 @@ declare namespace asana {
 
             /**
              * * Returns the compact tag records for all tags in the workspace.
-             *   * @param {Number} workspace The workspace or organization to find tags in.
+             *   * @param {String} workspace The workspace or organization to find tags in.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1533,7 +1536,7 @@ declare namespace asana {
              * @return
              */
             findByWorkspace(
-                workspace: number,
+                workspace: string | number,
                 params?: PaginationParams,
                 dispatchOptions?: any,
             ): Promise<ResourceList<Tags.Type>>;
@@ -1541,7 +1544,7 @@ declare namespace asana {
             /**
              * * Returns the compact task records for all tasks with the given tag.
              * * Tasks can have more than one tag at a time.
-             *   * @param {Number} tag The tag to fetch tasks from.
+             *   * @param {String} tag The tag to fetch tasks from.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1551,7 +1554,7 @@ declare namespace asana {
              * @return
              */
             getTasksWithTag(
-                tag: number,
+                tag: string | number,
                 params?: PaginationParams,
                 dispatchOptions?: any,
             ): Promise<ResourceList<Tasks.Type>>;
@@ -1610,7 +1613,7 @@ declare namespace asana {
             }
 
             interface TagParams {
-                tag: string;
+                tag: string | number;
             }
 
             interface CommentParams {
@@ -1620,7 +1623,7 @@ declare namespace asana {
 
             interface FindAllParams extends PaginationParams {
                 assignee?: number;
-                workspace: number;
+                workspace: string | number;
                 completed_since?: string;
                 modified_since?: string;
             }
@@ -1663,7 +1666,7 @@ declare namespace asana {
              * * Every task is required to be created in a specific workspace, and this
              * * workspace cannot be changed once set. The workspace need not be set
              * * explicitly if you specify a `project` or a `parent` task instead.
-             *   * @param {Number} workspace The workspace to create a task in.
+             *   * @param {String} workspace The workspace to create a task in.
              *   * @param {Object} data Data for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1680,7 +1683,7 @@ declare namespace asana {
 
             /**
              * * Returns the complete task record for a single task.
-             *   * @param {Number} task The task to get.
+             *   * @param {String} task The task to get.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The requested resource
@@ -1695,11 +1698,11 @@ declare namespace asana {
              * * The search endpoint allows you to build complex queries to find and fetch exactly the data you need from Asana.
              * * For a more comprehensive description of all the query parameters and limitations of this endpoint, see our
              * * [long-form documentation](/developers/documentation/getting-started/search-api) for this feature.
-             *   * @param {Number} workspace The workspace to search in for tasks.
+             *   * @param {String} workspace The workspace to search in for tasks.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
-             * @param task
+             * @param workspace
              * @param params?
              * @param dispatchOptions?
              * @return
@@ -1720,7 +1723,7 @@ declare namespace asana {
              * * you last retrieved the task.
              * *
              * * Returns the complete updated task record.
-             *   * @param {Number} task The task to update.
+             *   * @param {String} task The task to update.
              *   * @param {Object} data Data for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1738,7 +1741,7 @@ declare namespace asana {
              * * of 30 days; afterward they are completely removed from the system.
              * *
              * * Returns an empty data record.
-             *   * @param {Number} task The task to delete.
+             *   * @param {String} task The task to delete.
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
              * @param task
@@ -1750,7 +1753,7 @@ declare namespace asana {
             /**
              * * Returns the compact task records for all tasks within the given project,
              * * ordered by their priority within the project.
-             *   * @param {Number} projectId The project in which to search for tasks.
+             *   * @param {String} projectId The project in which to search for tasks.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1767,7 +1770,7 @@ declare namespace asana {
 
             /**
              * * Returns the compact task records for all tasks with the given tag.
-             *   * @param {Number} tag The tag in which to search for tasks.
+             *   * @param {String} tag The tag in which to search for tasks.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1776,7 +1779,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByTag(tag: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
+            findByTag(
+                tag: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Tasks.Type>>;
 
             /**
              * * Returns the compact task records for some filtered set of tasks. Use one
@@ -1798,7 +1805,7 @@ declare namespace asana {
             /**
              * * Adds each of the specified followers to the task, if they are not already
              * * following. Returns the complete, updated record for the affected task.
-             *   * @param {Number} task The task to add followers to.
+             *   * @param {String} task The task to add followers to.
              *   * @param {Object} data Data for the request
              *   * @param {Array} data.followers An array of followers to add to the task.
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1817,7 +1824,7 @@ declare namespace asana {
             /**
              * * Removes each of the specified followers from the task if they are
              * * following. Returns the complete, updated record for the affected task.
-             *   * @param {Number} task The task to remove followers from.
+             *   * @param {String} task The task to remove followers from.
              *   * @param {Object} data Data for the request
              *   * @param {Array} data.followers An array of followers to remove from the task.
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1835,7 +1842,7 @@ declare namespace asana {
 
             /**
              * * Returns a compact representation of all of the projects the task is in.
-             *   * @param {Number} task The task to get projects on.
+             *   * @param {String} task The task to get projects on.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1859,7 +1866,7 @@ declare namespace asana {
              * * already contains it.
              * *
              * * Returns an empty data block.
-             *   * @param {Number} task The task to add to a project.
+             *   * @param {String} task The task to add to a project.
              *   * @param {Object} data Data for the request
              *   * @param {Number} data.project The project to add the task to.
              *   * @param {Number} [data.insertAfter] A task in the project to insert the task after, or `null` to
@@ -1882,7 +1889,7 @@ declare namespace asana {
              * * in the system, but it will not be in the project anymore.
              * *
              * * Returns an empty data block.
-             *   * @param {Number} task The task to remove from a project.
+             *   * @param {String} task The task to remove from a project.
              *   * @param {Object} data Data for the request
              *   * @param {Number} data.project The project to remove the task from.
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1896,7 +1903,7 @@ declare namespace asana {
 
             /**
              * * Returns a compact representation of all of the tags the task has.
-             *   * @param {Number} task The task to get tags on.
+             *   * @param {String} task The task to get tags on.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1913,9 +1920,9 @@ declare namespace asana {
 
             /**
              * * Adds a tag to a task. Returns an empty data block.
-             *   * @param {Number} task The task to add a tag to.
+             *   * @param {String} task The task to add a tag to.
              *   * @param {Object} data Data for the request
-             *   * @param {Number} data.tag The tag to add to the task.
+             *   * @param {String} data.tag The tag to add to the task.
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
              * @param task
@@ -1927,7 +1934,7 @@ declare namespace asana {
 
             /**
              * * Removes a tag from the task. Returns an empty data block.
-             *   * @param {Number} task The task to remove a tag from.
+             *   * @param {String} task The task to remove a tag from.
              *   * @param {Object} data Data for the request
              *   * @param {String} data.tag The tag to remove from the task.
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -1941,7 +1948,7 @@ declare namespace asana {
 
             /**
              * * Returns a compact representation of all of the subtasks of a task.
-             *   * @param {Number} task The task to get the subtasks of.
+             *   * @param {String} task The task to get the subtasks of.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1959,7 +1966,7 @@ declare namespace asana {
             /**
              * * Creates a new subtask and adds it to the parent task. Returns the full record
              * * for the newly created subtask.
-             *   * @param {Number} task The task to add a subtask to.
+             *   * @param {String} task The task to add a subtask to.
              *   * @param {Object} data Data for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -2083,7 +2090,7 @@ declare namespace asana {
         interface Teams extends Resource {
             /**
              * * Returns the full record for a single team.
-             *   * @param {Number} team Globally unique identifier for the team.
+             *   * @param {String} team Globally unique identifier for the team.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The requested resource
@@ -2092,12 +2099,12 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findById(team: number, params?: Params, dispatchOptions?: any): Promise<Teams.Type>;
+            findById(team: string | number, params?: Params, dispatchOptions?: any): Promise<Teams.Type>;
 
             /**
              * * Returns the compact records for all teams in the organization visible to
              * * the authorized user.
-             *   * @param {Number} organization Globally unique identifier for the workspace or organization.
+             *   * @param {String} organization Globally unique identifier for the workspace or organization.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -2107,14 +2114,14 @@ declare namespace asana {
              * @return
              */
             findByOrganization(
-                organization: number,
+                organization: string | number,
                 params?: Params,
                 dispatchOptions?: any,
             ): Promise<SimpleResourceList>;
 
             /**
              * * Returns the compact records for all users that are members of the team.
-             *   * @param {Number} team Globally unique identifier for the team.
+             *   * @param {String} team Globally unique identifier for the team.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -2123,14 +2130,14 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            users(team: number, params?: Params, dispatchOptions?: any): Promise<SimpleResourceList>;
+            users(team: string | number, params?: Params, dispatchOptions?: any): Promise<SimpleResourceList>;
 
             /**
              * * The user making this call must be a member of the team in order to add others.
              * * The user to add must exist in the same organization as the team in order to be added.
              * * The user to add can be referenced by their globally unique user ID or their email address.
              * * Returns the full user record for the added user.
-             *   * @param {Number} team Globally unique identifier for the team.
+             *   * @param {String} team Globally unique identifier for the team.
              *   * @param {Object} data Data for the request
              *   * @param {Number|String} data.user An identifier for the user. Can be one of an email address,
              *   * the globally unique identifier for the user, or the keyword `me`
@@ -2142,12 +2149,12 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addUser(team: number, data: UserParams, dispatchOptions?: any): Promise<any>;
+            addUser(team: string | number, data: UserParams, dispatchOptions?: any): Promise<any>;
 
             /**
              * * The user to remove can be referenced by their globally unique user ID or their email address.
              * * Removes the user from the specified team. Returns an empty data record.
-             *   * @param {Number} team Globally unique identifier for the team.
+             *   * @param {String} team Globally unique identifier for the team.
              *   * @param {Object} data Data for the request
              *   * @param {Number|String} data.user An identifier for the user. Can be one of an email address,
              *   * the globally unique identifier for the user, or the keyword `me`
@@ -2159,7 +2166,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            removeUser(team: number, data: UserParams, dispatchOptions?: any): Promise<any>;
+            removeUser(team: string | number, data: UserParams, dispatchOptions?: any): Promise<any>;
         }
 
         interface UsersStatic {
@@ -2171,7 +2178,7 @@ declare namespace asana {
 
         namespace Users {
             interface FindAllParams extends PaginationParams {
-                workspace: number;
+                workspace: string | number;
             }
 
             interface ShortType extends Resource {
@@ -2226,7 +2233,7 @@ declare namespace asana {
             /**
              * * Returns the user records for all users in the specified workspace or
              * * organization.
-             *   * @param {Number} workspace The workspace in which to get users.
+             *   * @param {String} workspace The workspace in which to get users.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -2453,7 +2460,7 @@ declare namespace asana {
         interface Workspaces extends Resource {
             /**
              * * Returns the full workspace record for a single workspace.
-             *   * @param {Number} workspace Globally unique identifier for the workspace or organization.
+             *   * @param {String} workspace Globally unique identifier for the workspace or organization.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The requested resource
@@ -2462,7 +2469,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findById(workspace: number, params?: Params, dispatchOptions?: any): Promise<Workspaces.Type>;
+            findById(workspace: string | number, params?: Params, dispatchOptions?: any): Promise<Workspaces.Type>;
 
             /**
              * * Returns the compact records for all workspaces visible to the authorized user.
@@ -2483,7 +2490,7 @@ declare namespace asana {
              * * Currently the only field that can be modified for a workspace is its `name`.
              * *
              * * Returns the complete, updated workspace record.
-             *   * @param {Number} workspace The workspace to update.
+             *   * @param {String} workspace The workspace to update.
              *   * @param {Object} data Data for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -2492,7 +2499,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            update(workspace: number, data: { name?: string }, dispatchOptions?: any): Promise<Workspaces.Type>;
+            update(
+                workspace: string | number,
+                data: { name?: string },
+                dispatchOptions?: any
+            ): Promise<Workspaces.Type>;
 
             /**
              * * Retrieves objects in the workspace based on an auto-completion/typeahead
@@ -2500,7 +2511,7 @@ declare namespace asana {
              * * not rely on this API to provide extremely accurate search results. The
              * * result set is limited to a single page of results with a maximum size,
              * * so you won't be able to fetch large numbers of results.
-             *   * @param {Number} workspace The workspace to fetch objects from.
+             *   * @param {String} workspace The workspace to fetch objects from.
              *   * @param {Object} [params] Parameters for the request
              *   * @param {String} params.type The type of values the typeahead should return.
              *   * Note that unlike in the names of endpoints, the types listed here are
@@ -2519,7 +2530,7 @@ declare namespace asana {
              * @return
              */
             typeahead(
-                workspace: number,
+                workspace: string | number,
                 params?: Workspaces.TypeaheadParams,
                 dispatchOptions?: any,
             ): Promise<SimpleResourceList>;
@@ -2527,7 +2538,7 @@ declare namespace asana {
             /**
              * * The user can be referenced by their globally unique user ID or their email address.
              * * Returns the full user record for the invited user.
-             *   * @param {Number} workspace The workspace or organization to invite the user to.
+             *   * @param {String} workspace The workspace or organization to invite the user to.
              *   * @param {Object} data Data for the request
              *   * @param {Number|String} data.user An identifier for the user. Can be one of an email address,
              *   * the globally unique identifier for the user, or the keyword `me`
@@ -2539,12 +2550,12 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addUser(workspace: number, data: UserParams, dispatchOptions?: any): Promise<Users.Type>;
+            addUser(workspace: string | number, data: UserParams, dispatchOptions?: any): Promise<Users.Type>;
 
             /**
              * * The user making this call must be an admin in the workspace.
              * * Returns an empty data record.
-             *   * @param {Number} workspace The workspace or organization to invite the user to.
+             *   * @param {String} workspace The workspace or organization to invite the user to.
              *   * @param {Object} data Data for the request
              *   * @param {Number|String} data.user An identifier for the user. Can be one of an email address,
              *   * the globally unique identifier for the user, or the keyword `me`
@@ -2556,7 +2567,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            removeUser(workspace: number, data: UserParams, dispatchOptions?: any): Promise<any>;
+            removeUser(workspace: string | number, data: UserParams, dispatchOptions?: any): Promise<any>;
         }
 
         interface UserTaskListsStatic {
