@@ -20,6 +20,7 @@ declare module "zlib" {
         strategy?: number; // compression only
         dictionary?: NodeJS.ArrayBufferView | ArrayBuffer; // deflate/inflate only, empty dictionary by default
         info?: boolean;
+        maxOutputLength?: number;
     }
 
     interface BrotliOptions {
@@ -41,6 +42,7 @@ declare module "zlib" {
              */
             [key: number]: boolean | number;
         };
+        maxOutputLength?: number;
     }
 
     interface Zlib {
