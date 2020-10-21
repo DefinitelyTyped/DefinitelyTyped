@@ -611,6 +611,7 @@ export interface PasswordGrantOptions {
   password: string;
   realm?: string;
   scope?: string;
+  audience?: string;
 }
 
 export interface AuthorizationCodeGrantOptions {
