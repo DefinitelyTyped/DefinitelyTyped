@@ -28,7 +28,7 @@ async function run() {
     createdAt: Date;       // date field
     schools: string[];     // array of string
     scores: number[];      // array of number
-    friends?: UserModel[]; // array of objects
+    friends?: ReadonlyArray<UserModel>; // readonly array of objects
   }
 
   const sampleUser: UserModel = {

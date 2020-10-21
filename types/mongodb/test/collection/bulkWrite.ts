@@ -22,6 +22,7 @@ async function run() {
         dateField: Date;
         fruitTags: string[];
         maybeFruitTags?: FruitTypes[];
+        readonlyFruitTags: ReadonlyArray<string>;
         subInterfaceField: SubTestSchema;
         subInterfaceArray: SubTestSchema[];
     }
@@ -33,6 +34,7 @@ async function run() {
         numberField: 123,
         dateField: new Date(),
         fruitTags: ['apple'],
+        readonlyFruitTags: ['pear'],
         subInterfaceField: {
             field1: 'foo',
             field2: 'bar'
