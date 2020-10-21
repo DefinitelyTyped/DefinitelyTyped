@@ -13,7 +13,7 @@
             "asOfVersion": "5.3.2"
         },
         {
-            "libraryName": "Ably Realtime and Rest client library",
+            "libraryName": "ably",
             "typingsPackageName": "ably",
             "sourceRepoURL": "https://www.ably.io/",
             "asOfVersion": "1.0.0"
@@ -151,13 +151,13 @@
             "asOfVersion": "2.1.2"
         },
         {
-            "libraryName": "Application Insights",
+            "libraryName": "applicationinsights",
             "typingsPackageName": "applicationinsights",
             "sourceRepoURL": "https://github.com/Microsoft/ApplicationInsights-node.js",
             "asOfVersion": "0.20.0"
         },
         {
-            "libraryName": "Argon2",
+            "libraryName": "argon2",
             "typingsPackageName": "argon2",
             "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
             "asOfVersion": "0.15.0"
@@ -277,7 +277,7 @@
             "asOfVersion": "7.1.0"
         },
         {
-            "libraryName": "BabylonJS",
+            "libraryName": "babylonjs",
             "typingsPackageName": "babylonjs",
             "sourceRepoURL": "http://www.babylonjs.com/",
             "asOfVersion": "2.4.1"
@@ -331,7 +331,7 @@
             "asOfVersion": "2.1.0"
         },
         {
-            "libraryName": "BigInteger.js",
+            "libraryName": "big-integer",
             "typingsPackageName": "big-integer",
             "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
             "asOfVersion": "0.0.31"
@@ -397,7 +397,7 @@
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "Bowser",
+            "libraryName": "bowser",
             "typingsPackageName": "bowser",
             "sourceRepoURL": "https://github.com/ded/bowser",
             "asOfVersion": "1.1.1"
@@ -427,7 +427,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "Bugsnag Browser",
+            "libraryName": "bugsnag-js",
             "typingsPackageName": "bugsnag-js",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
             "asOfVersion": "3.1.0"
@@ -451,7 +451,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "CacheFactory",
+            "libraryName": "cachefactory",
             "typingsPackageName": "cachefactory",
             "sourceRepoURL": "https://github.com/jmdobry/CacheFactory",
             "asOfVersion": "3.0.0"
@@ -613,7 +613,7 @@
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "colors.js (colors)",
+            "libraryName": "colors",
             "typingsPackageName": "colors",
             "sourceRepoURL": "https://github.com/Marak/colors.js",
             "asOfVersion": "1.2.1"
@@ -721,7 +721,7 @@
             "asOfVersion": "1.2.4"
         },
         {
-            "libraryName": "Apache Cordova Device Orientation plugin",
+            "libraryName": "cordova-plugin-device-orientation",
             "typingsPackageName": "cordova-plugin-device-orientation",
             "sourceRepoURL": "https://github.com/apache/cordova-plugin-device-orientation",
             "asOfVersion": "1.0.6"
@@ -733,7 +733,7 @@
             "asOfVersion": "1.3.2"
         },
         {
-            "libraryName": "Apache Cordova File System plugin",
+            "libraryName": "cordova-plugin-file",
             "typingsPackageName": "cordova-plugin-file",
             "sourceRepoURL": "https://github.com/apache/cordova-plugin-file",
             "asOfVersion": "4.3.2"
@@ -781,13 +781,13 @@
             "asOfVersion": "4.0.2"
         },
         {
-            "libraryName": "Apache Cordova StatusBar plugin",
+            "libraryName": "cordova-plugin-statusbar",
             "typingsPackageName": "cordova-plugin-statusbar",
             "sourceRepoURL": "https://github.com/apache/cordova-plugin-statusbar",
             "asOfVersion": "2.2.2"
         },
         {
-            "libraryName": "Apache Cordova Vibration plugin",
+            "libraryName": "cordova-plugin-vibration",
             "typingsPackageName": "cordova-plugin-vibration",
             "sourceRepoURL": "https://github.com/apache/cordova-plugin-vibration",
             "asOfVersion": "2.1.4"
@@ -805,7 +805,7 @@
             "asOfVersion": "3.7.0"
         },
         {
-            "libraryName": "core-decorators.js",
+            "libraryName": "core-decorators",
             "typingsPackageName": "core-decorators",
             "sourceRepoURL": "https://github.com/jayphelps/core-decorators.js",
             "asOfVersion": "0.20.0"
@@ -1003,7 +1003,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "DevExtreme",
+            "libraryName": "devextreme",
             "typingsPackageName": "devextreme",
             "sourceRepoURL": "http://js.devexpress.com/",
             "asOfVersion": "16.2.1"
@@ -1015,7 +1015,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "Dexie.js",
+            "libraryName": "dexie",
             "typingsPackageName": "dexie",
             "sourceRepoURL": "https://github.com/dfahlander/Dexie.js",
             "asOfVersion": "1.3.1"
@@ -1099,7 +1099,7 @@
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "EasyStar.js",
+            "libraryName": "easystarjs",
             "typingsPackageName": "easystarjs",
             "sourceRepoURL": "http://easystarjs.com/",
             "asOfVersion": "0.3.1"
@@ -1111,7 +1111,7 @@
             "asOfVersion": "3.4.0"
         },
         {
-            "libraryName": "Egg",
+            "libraryName": "egg",
             "typingsPackageName": "egg",
             "sourceRepoURL": "https://github.com/eggjs/egg",
             "asOfVersion": "1.5.0"
@@ -1279,7 +1279,7 @@
             "asOfVersion": "4.1.0"
         },
         {
-            "libraryName": "EventEmitter3",
+            "libraryName": "eventemitter3",
             "typingsPackageName": "eventemitter3",
             "sourceRepoURL": "https://github.com/primus/eventemitter3",
             "asOfVersion": "2.0.2"
@@ -1387,13 +1387,13 @@
             "asOfVersion": "1.2.0"
         },
         {
-            "libraryName": "JSON-Patch",
+            "libraryName": "fast-json-patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
             "asOfVersion": "1.1.5"
         },
         {
-            "libraryName": "FastSimplexNoise",
+            "libraryName": "fast-simplex-noise",
             "typingsPackageName": "fast-simplex-noise",
             "sourceRepoURL": "https://www.npmjs.com/package/fast-simplex-noise",
             "asOfVersion": "3.0.0"
@@ -1405,7 +1405,7 @@
             "asOfVersion": "2.1.0"
         },
         {
-            "libraryName": "Fastify-JWT",
+            "libraryName": "fastify-jwt",
             "typingsPackageName": "fastify-jwt",
             "sourceRepoURL": "https://github.com/fastify/fastify-jwt",
             "asOfVersion": "0.8.1"
@@ -1507,13 +1507,13 @@
             "asOfVersion": "3.1.0"
         },
         {
-            "libraryName": "FineUploader",
+            "libraryName": "fine-uploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
             "asOfVersion": "5.14.0"
         },
         {
-            "libraryName": "Firebase API",
+            "libraryName": "firebase",
             "typingsPackageName": "firebase",
             "sourceRepoURL": "https://www.firebase.com/docs/javascript/firebase",
             "asOfVersion": "3.2.1"
@@ -1567,7 +1567,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "Foundation Sites",
+            "libraryName": "foundation-sites",
             "typingsPackageName": "foundation-sites",
             "sourceRepoURL": "http://foundation.zurb.com/",
             "asOfVersion": "6.4.3"
@@ -1597,7 +1597,7 @@
             "asOfVersion": "2.1.2"
         },
         {
-            "libraryName": "FullCalendar",
+            "libraryName": "fullcalendar",
             "typingsPackageName": "fullcalendar",
             "sourceRepoURL": "http://arshaw.com/fullcalendar/",
             "asOfVersion": "3.8.0"
@@ -1723,7 +1723,7 @@
             "asOfVersion": "0.26.0"
         },
         {
-            "libraryName": "Google Cloud Storage",
+            "libraryName": "@google-cloud/storage",
             "typingsPackageName": "google-cloud__storage",
             "sourceRepoURL": "https://github.com/googleapis/nodejs-storage",
             "asOfVersion": "2.3.0"
@@ -2047,7 +2047,7 @@
             "asOfVersion": "2.6.3"
         },
         {
-            "libraryName": "Facebook's Immutable",
+            "libraryName": "immutable",
             "typingsPackageName": "immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
             "asOfVersion": "3.8.7"
@@ -2149,7 +2149,7 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "Ionic",
+            "libraryName": "ionic",
             "typingsPackageName": "ionic",
             "sourceRepoURL": "http://ionicframework.com",
             "asOfVersion": "3.19.0"
@@ -2443,13 +2443,13 @@
             "asOfVersion": "0.2.28"
         },
         {
-            "libraryName": "joData",
+            "libraryName": "jodata",
             "typingsPackageName": "jodata",
             "sourceRepoURL": "https://github.com/mccow002/joData",
             "asOfVersion": "1.0.13"
         },
         {
-            "libraryName": "JointJS",
+            "libraryName": "jointjs",
             "typingsPackageName": "jointjs",
             "sourceRepoURL": "http://www.jointjs.com/",
             "asOfVersion": "2.0.0"
@@ -2485,7 +2485,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "JSData Http Adapter",
+            "libraryName": "js-data-http",
             "typingsPackageName": "js-data-http",
             "sourceRepoURL": "https://github.com/js-data/js-data-http",
             "asOfVersion": "3.0.0"
@@ -2497,7 +2497,7 @@
             "asOfVersion": "2.1.0"
         },
         {
-            "libraryName": "JSNLog",
+            "libraryName": "jsnlog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
             "asOfVersion": "2.17.2"
@@ -2713,19 +2713,19 @@
             "asOfVersion": "3.1.0"
         },
         {
-            "libraryName": "Linq.JS",
+            "libraryName": "linq",
             "typingsPackageName": "linq",
             "sourceRepoURL": "https://linqjs.codeplex.com/",
             "asOfVersion": "2.2.33"
         },
         {
-            "libraryName": "Linq4JS",
+            "libraryName": "linq4js",
             "typingsPackageName": "linq4js",
             "sourceRepoURL": "https://github.com/morrisjdev/Linq4JS",
             "asOfVersion": "2.1.8"
         },
         {
-            "libraryName": "LinqSharp",
+            "libraryName": "linqsharp",
             "typingsPackageName": "linqsharp",
             "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
             "asOfVersion": "1.0.0"
@@ -3085,7 +3085,7 @@
             "asOfVersion": "6.0.0"
         },
         {
-            "libraryName": "metisMenu",
+            "libraryName": "metismenu",
             "typingsPackageName": "metismenu",
             "sourceRepoURL": "https://github.com/onokumus/metisMenu",
             "asOfVersion": "2.7.1"
@@ -3121,7 +3121,7 @@
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "Mobx Cookie",
+            "libraryName": "mobx-cookie",
             "typingsPackageName": "mobx-cookie",
             "sourceRepoURL": "https://github.com/will-stone/mobx-cookie",
             "asOfVersion": "1.1.1"
@@ -3145,7 +3145,7 @@
             "asOfVersion": "2.13.0"
         },
         {
-            "libraryName": "Moment",
+            "libraryName": "moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
             "asOfVersion": "2.13.0"
@@ -3169,7 +3169,7 @@
             "asOfVersion": "2.3.0"
         },
         {
-            "libraryName": "Monk",
+            "libraryName": "monk",
             "typingsPackageName": "monk",
             "sourceRepoURL": "https://github.com/LearnBoost/monk.git",
             "asOfVersion": "6.0.0"
@@ -3193,7 +3193,7 @@
             "asOfVersion": "1.1.0"
         },
         {
-            "libraryName": "MQTT",
+            "libraryName": "mqtt",
             "typingsPackageName": "mqtt",
             "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
             "asOfVersion": "2.5.0"
@@ -3373,7 +3373,7 @@
             "asOfVersion": "4.2.0"
         },
         {
-            "libraryName": "Normalizr",
+            "libraryName": "normalizr",
             "typingsPackageName": "normalizr",
             "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
             "asOfVersion": "2.0.18"
@@ -3415,13 +3415,13 @@
             "asOfVersion": "4.0.0"
         },
         {
-            "libraryName": "Nuka Carousel",
+            "libraryName": "nuka-carousel",
             "typingsPackageName": "nuka-carousel",
             "sourceRepoURL": "https://github.com/FormidableLabs/nuka-carousel/",
             "asOfVersion": "4.4.6"
         },
         {
-            "libraryName": "Numbro",
+            "libraryName": "numbro",
             "typingsPackageName": "numbro",
             "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
             "asOfVersion": "1.9.3"
@@ -3463,7 +3463,7 @@
             "asOfVersion": "4.1.0"
         },
         {
-            "libraryName": "Onsen UI",
+            "libraryName": "onsenui",
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
             "asOfVersion": "2.0.0"
@@ -3955,7 +3955,7 @@
             "asOfVersion": "0.9.4"
         },
         {
-            "libraryName": "poly2tri.js",
+            "libraryName": "poly2tri",
             "typingsPackageName": "poly2tri",
             "sourceRepoURL": "https://github.com/r3mi/poly2tri.js",
             "asOfVersion": "1.4.0"
@@ -3985,7 +3985,7 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "Prando",
+            "libraryName": "prando",
             "typingsPackageName": "prando",
             "sourceRepoURL": "https://github.com/zeh/prando",
             "asOfVersion": "1.0.0"
@@ -4021,13 +4021,13 @@
             "asOfVersion": "0.9.1"
         },
         {
-            "libraryName": "ProtoBuf.js",
+            "libraryName": "protobufjs",
             "typingsPackageName": "protobufjs",
             "sourceRepoURL": "https://github.com/dcodeIO/ProtoBuf.js",
             "asOfVersion": "6.0.0"
         },
         {
-            "libraryName": "Protractor",
+            "libraryName": "protractor",
             "typingsPackageName": "protractor",
             "sourceRepoURL": "https://github.com/angular/protractor",
             "asOfVersion": "4.0.0"
@@ -4135,7 +4135,7 @@
             "asOfVersion": "5.3.0"
         },
         {
-            "libraryName": "Raven JS",
+            "libraryName": "raven-js",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
             "asOfVersion": "3.10.0"
@@ -4291,7 +4291,7 @@
             "asOfVersion": "8.1.0"
         },
         {
-            "libraryName": "React Icons",
+            "libraryName": "react-icons",
             "typingsPackageName": "react-icons",
             "sourceRepoURL": "https://www.npmjs.com/package/react-icons",
             "asOfVersion": "3.0.0"
@@ -4573,7 +4573,7 @@
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "Redux",
+            "libraryName": "redux",
             "typingsPackageName": "redux",
             "sourceRepoURL": "https://github.com/reactjs/redux",
             "asOfVersion": "3.6.0"
@@ -4627,7 +4627,7 @@
             "asOfVersion": "0.10.5"
         },
         {
-            "libraryName": "Redux Thunk",
+            "libraryName": "redux-thunk",
             "typingsPackageName": "redux-thunk",
             "sourceRepoURL": "https://github.com/gaearon/redux-thunk",
             "asOfVersion": "2.1.0"
@@ -4843,7 +4843,7 @@
             "asOfVersion": "0.1.3"
         },
         {
-            "libraryName": "node-scanf",
+            "libraryName": "scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
             "asOfVersion": "0.7.3"
@@ -4915,13 +4915,13 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "Shopify Prime",
+            "libraryName": "shopify-prime",
             "typingsPackageName": "shopify-prime",
             "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "should.js",
+            "libraryName": "should",
             "typingsPackageName": "should",
             "sourceRepoURL": "https://github.com/shouldjs/should.js",
             "asOfVersion": "13.0.0"
@@ -4933,7 +4933,7 @@
             "asOfVersion": "1.7.0"
         },
         {
-            "libraryName": "SimpleSignal",
+            "libraryName": "simplesignal",
             "typingsPackageName": "simplesignal",
             "sourceRepoURL": "https://github.com/zeh/simplesignal",
             "asOfVersion": "1.0.0"
@@ -5005,7 +5005,7 @@
             "asOfVersion": "8.2.5"
         },
         {
-            "libraryName": "Smoothie Charts",
+            "libraryName": "smoothie",
             "typingsPackageName": "smoothie",
             "sourceRepoURL": "https://github.com/joewalnes/smoothie",
             "asOfVersion": "1.29.1"
@@ -5065,13 +5065,13 @@
             "asOfVersion": "5.0.0"
         },
         {
-            "libraryName": "Spectacle",
+            "libraryName": "spectacle",
             "typingsPackageName": "spectacle",
             "sourceRepoURL": "http://github.com/FormidableLabs/spectacle/",
             "asOfVersion": "5.2.3"
         },
         {
-            "libraryName": "Spin.js",
+            "libraryName": "spin.js",
             "typingsPackageName": "spin.js",
             "sourceRepoURL": "http://fgnass.github.com/spin.js/",
             "asOfVersion": "3.0.0"
@@ -5101,7 +5101,7 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "ServiceStack Utils",
+            "libraryName": "ss-utils",
             "typingsPackageName": "ss-utils",
             "sourceRepoURL": "https://servicestack.net/",
             "asOfVersion": "0.1.5"
@@ -5317,7 +5317,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "Sugar",
+            "libraryName": "sugar",
             "typingsPackageName": "sugar",
             "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
             "asOfVersion": "2.0.2"
@@ -5359,7 +5359,7 @@
             "asOfVersion": "1.1.2"
         },
         {
-            "libraryName": "SweetAlert",
+            "libraryName": "sweetalert",
             "typingsPackageName": "sweetalert",
             "sourceRepoURL": "https://github.com/t4t5/sweetalert/",
             "asOfVersion": "2.0.4"
@@ -5371,7 +5371,7 @@
             "asOfVersion": "3.54.0"
         },
         {
-            "libraryName": "Tabris.js",
+            "libraryName": "tabris",
             "typingsPackageName": "tabris",
             "sourceRepoURL": "http://tabrisjs.com",
             "asOfVersion": "1.8.0"
@@ -5533,7 +5533,7 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "TsMonad",
+            "libraryName": "tsmonad",
             "typingsPackageName": "tsmonad",
             "sourceRepoURL": "https://github.com/cbowdon/TsMonad",
             "asOfVersion": "0.5.0"
@@ -5557,13 +5557,13 @@
             "asOfVersion": "2.0.9"
         },
         {
-            "libraryName": "TypeScript",
+            "libraryName": "typescript",
             "typingsPackageName": "typescript",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "TypeScript",
+            "libraryName": "typescript-services",
             "typingsPackageName": "typescript-services",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
             "asOfVersion": "2.0.0"
@@ -5617,7 +5617,7 @@
             "asOfVersion": "4.0.0"
         },
         {
-            "libraryName": "Universal Router",
+            "libraryName": "universal-router",
             "typingsPackageName": "universal-router",
             "sourceRepoURL": "https://github.com/kriasoft/universal-router",
             "asOfVersion": "8.0.0"
@@ -5671,7 +5671,7 @@
             "asOfVersion": "5.0.0"
         },
         {
-            "libraryName": "UUID.js",
+            "libraryName": "uuidjs",
             "typingsPackageName": "uuidjs",
             "sourceRepoURL": "https://github.com/LiosK/UUID.js",
             "asOfVersion": "3.6.0"
@@ -5683,7 +5683,7 @@
             "asOfVersion": "5.0.0"
         },
         {
-            "libraryName": "Validate.js",
+            "libraryName": "validate.js",
             "typingsPackageName": "validate.js",
             "sourceRepoURL": "https://github.com/ansman/validate.js",
             "asOfVersion": "0.11.0"
@@ -5821,7 +5821,7 @@
             "asOfVersion": "3.2.0"
         },
         {
-            "libraryName": "WebdriverIO",
+            "libraryName": "webdriverio",
             "typingsPackageName": "webdriverio",
             "sourceRepoURL": "git@github.com:webdriverio/webdriverio.git",
             "asOfVersion": "5.0.0"
@@ -5833,7 +5833,7 @@
             "asOfVersion": "2.11.0"
         },
         {
-            "libraryName": "Webix UI",
+            "libraryName": "webix",
             "typingsPackageName": "webix",
             "sourceRepoURL": "http://webix.com",
             "asOfVersion": "5.1.1"
@@ -6049,7 +6049,7 @@
             "asOfVersion": "11.0.1"
         },
         {
-            "libraryName": "xterm.js",
+            "libraryName": "xterm",
             "typingsPackageName": "xterm",
             "sourceRepoURL": "https://github.com/sourcelair/xterm.js/",
             "asOfVersion": "3.0.0"
@@ -6073,7 +6073,7 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "yFiles for HTML",
+            "libraryName": "yfiles",
             "typingsPackageName": "yfiles",
             "sourceRepoURL": "none",
             "asOfVersion": "2.1.0"
@@ -6115,7 +6115,7 @@
             "asOfVersion": "0.12.0"
         },
         {
-            "libraryName": "Zone.js",
+            "libraryName": "zone.js",
             "typingsPackageName": "zone.js",
             "sourceRepoURL": "https://github.com/angular/zone.js",
             "asOfVersion": "0.5.12"
