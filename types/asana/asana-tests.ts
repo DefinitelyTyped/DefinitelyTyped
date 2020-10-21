@@ -97,3 +97,8 @@ client.users.me()
     console.log(list);
   });
 
+// Client should be a constructor and accept a dispatcher (e.g. for rate limiting)
+// see: https://github.com/Asana/node-asana/blob/e8400cb386710bf9d310b9a538e291ce908f1291/test/client_spec.js#L33-L37
+
+let dispatcher = new asana.Dispatcher({retryOnRateLimit: true});
+client = new asana.Client(dispatcher);
