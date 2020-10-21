@@ -42,6 +42,7 @@
         "test/examples/CreatableMulti.tsx",
         "test/examples/CreatableSingle.tsx",
         "test/examples/CreateFilter.tsx",
+        "test/examples/CustomFilterOption.tsx",
         "test/examples/CustomClearIndicator.tsx",
         "test/examples/CustomControl.tsx",
         "test/examples/CustomDropdownIndicator.tsx",
