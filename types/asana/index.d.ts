@@ -993,6 +993,7 @@ declare namespace asana {
             }
 
             interface FindAllParams extends PaginationParams {
+                workspace?: string | number;
                 team?: string | number;
                 archived?: boolean;
             }
@@ -1623,7 +1624,9 @@ declare namespace asana {
 
             interface FindAllParams extends PaginationParams {
                 assignee?: number;
-                workspace: string | number;
+                project?: string | number;
+                section?: string | number;
+                workspace?: string | number;
                 completed_since?: string;
                 modified_since?: string;
             }

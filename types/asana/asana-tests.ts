@@ -154,3 +154,13 @@ let workspaceShort: asana.resources.Workspaces.ShortType;
 workspaceShort.is_organization = true;
 let workspace: asana.resources.Workspaces.Type;
 workspace.is_organization = true;
+
+// Tasks.FindAllParams should accept a project gid and/or a section gid, and the workspace gid should be optional
+// https://developers.asana.com/docs/get-multiple-tasks
+client.tasks.findAll({workspace: 'foobar'}).then();
+client.tasks.findAll({project: 'foobar'}).then();
+client.tasks.findAll({section: 'foobar'}).then();
+
+// Projects.FindAllParams should accept a workspace gid
+// https://developers.asana.com/docs/get-multiple-projects
+client.projects.findAll({workspace: 'foobar'}).then();
