@@ -47,7 +47,7 @@ import { checkServerIdentity } from 'tls';
 // We can use TypeScript Omit once minimum required TypeScript Version is above 3.5
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-type FlattenIfArray<T> = T extends Array<infer R> ? R : T;
+type FlattenIfArray<T> = T extends ReadonlyArray<infer R> ? R : T;
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
@@ -1346,7 +1346,7 @@ export type OnlyFieldsOfType<TSchema, FieldType = any, AssignableType = FieldTyp
 
 export type MatchKeysAndValues<TSchema> = ReadonlyPartial<TSchema> & DotAndArrayNotation<any>;
 
-type Unpacked<Type> = Type extends Array<infer Element> ? Element : Type;
+type Unpacked<Type> = Type extends ReadonlyArray<infer Element> ? Element : Type;
 
 type UpdateOptionalId<T> = T extends { _id?: any } ? OptionalId<T> : T;
 
@@ -1377,30 +1377,30 @@ export type ArrayOperator<Type> = {
 };
 
 export type SetFields<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[] | undefined>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | AddToSetOperators<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
+    readonly [key in KeysOfAType<TSchema, ReadonlyArray<any> | undefined>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | AddToSetOperators<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
 } &
-    NotAcceptedFields<TSchema, any[] | undefined>) & {
+    NotAcceptedFields<TSchema, ReadonlyArray<any> | undefined>) & {
     readonly [key: string]: AddToSetOperators<any> | any;
 };
 
 export type PushOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[]>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | ArrayOperator<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
+    readonly [key in KeysOfAType<TSchema, ReadonlyArray<any>>]?: UpdateOptionalId<Unpacked<TSchema[key]>> | ArrayOperator<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
 } &
-    NotAcceptedFields<TSchema, any[]>) & {
+    NotAcceptedFields<TSchema, ReadonlyArray<any>>) & {
     readonly [key: string]: ArrayOperator<any> | any;
 };
 
 export type PullOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[]>]?: Partial<Unpacked<TSchema[key]>> | ObjectQuerySelector<Unpacked<TSchema[key]>>;
+    readonly [key in KeysOfAType<TSchema, ReadonlyArray<any>>]?: Partial<Unpacked<TSchema[key]>> | ObjectQuerySelector<Unpacked<TSchema[key]>>;
 } &
-    NotAcceptedFields<TSchema, any[]>) & {
+    NotAcceptedFields<TSchema, ReadonlyArray<any>>) & {
     readonly [key: string]: QuerySelector<any> | any;
 };
 
 export type PullAllOperator<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[]>]?: TSchema[key];
+    readonly [key in KeysOfAType<TSchema, ReadonlyArray<any>>]?: TSchema[key];
 } &
-    NotAcceptedFields<TSchema, any[]>) & {
+    NotAcceptedFields<TSchema, ReadonlyArray<any>>) & {
     readonly [key: string]: any[];
 };
 
@@ -1419,7 +1419,7 @@ export type UpdateQuery<TSchema> = {
 
     /** https://docs.mongodb.com/manual/reference/operator/update-array/ */
     $addToSet?: SetFields<TSchema>;
-    $pop?: OnlyFieldsOfType<TSchema, any[], 1 | -1>;
+    $pop?: OnlyFieldsOfType<TSchema, ReadonlyArray<any>, 1 | -1>;
     $pull?: PullOperator<TSchema>;
     $push?: PushOperator<TSchema>;
     $pullAll?: PullAllOperator<TSchema>;
@@ -1477,7 +1477,7 @@ type BitwiseQuery =
 // array types can be searched using their element type
 type RegExpForString<T> = T extends string ? (RegExp | T): T;
 type MongoAltQuery<T> =
-    T extends Array<infer U> ? (T | RegExpForString<U>):
+    T extends ReadonlyArray<infer U> ? (T | RegExpForString<U>):
     RegExpForString<T>;
 
 /** https://docs.mongodb.com/manual/reference/operator/query/#query-selectors */
@@ -1515,9 +1515,9 @@ export type QuerySelector<T> = {
     $maxDistance?: number;
     // Array
     // TODO: define better types for $all and $elemMatch
-    $all?: T extends Array<infer U> ? any[] : never;
-    $elemMatch?: T extends Array<infer U> ? object : never;
-    $size?: T extends Array<infer U> ? number : never;
+    $all?: T extends ReadonlyArray<infer U> ? any[] : never;
+    $elemMatch?: T extends ReadonlyArray<infer U> ? object : never;
+    $size?: T extends ReadonlyArray<infer U> ? number : never;
     // Bitwise
     $bitsAllClear?: BitwiseQuery;
     $bitsAllSet?: BitwiseQuery;

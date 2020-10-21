@@ -27,6 +27,7 @@ async function run() {
         otherDateField: Date;
         oneMoreDateField: Date;
         fruitTags: string[];
+        readonlyFruitTags: ReadonlyArray<string>;
         maybeFruitTags?: FruitTypes[];
         subInterfaceField: SubTestModel;
         subInterfaceArray: SubTestModel[];
@@ -151,6 +152,8 @@ async function run() {
     // $ExpectError
     buildUpdateQuery({ $addToSet: { fruitTags: 123 } });
     buildUpdateQuery({ $addToSet: { fruitTags: { $each: ['stringField'] } } });
+    buildUpdateQuery({$addToSet: {readonlyFruitTags: 'apple'}});
+    buildUpdateQuery({$addToSet: {readonlyFruitTags: { $each: ['apple'] }}});
     buildUpdateQuery({ $addToSet: { maybeFruitTags: 'apple' } });
     buildUpdateQuery({ $addToSet: { 'dot.notation': 'stringField' } });
     buildUpdateQuery({ $addToSet: { 'dot.notation': { $each: ['stringfield'] } } });
