@@ -4,7 +4,7 @@
 import {
     User, Event, DateTimeTimeZone, ItemBody, ServicePrincipal,
     Invitation, Application, CallTranscriptionInfo, CancelMediaProcessingOperation, ResultInfo, CallRecords,
-    IdentitySet, Identity, RiskLevel, EventMessageResponse, PermissionClassificationType, DelegatedPermissionClassification, Permission
+    IdentitySet, Identity, RiskLevel, EventMessageResponse, PermissionClassificationType, DelegatedPermissionClassification, Permission, Group
 } from "microsoft-graph";
 
 const user: User = {
@@ -120,4 +120,10 @@ const permission: Permission = {
 const userFeedback: CallRecords.UserFeedback = {
     rating: "notRated",
     text: null
+};
+
+const group: Group = {
+    mailEnabled: true,
+    classification: null,
+    onPremisesDomainName: "test"
 };
