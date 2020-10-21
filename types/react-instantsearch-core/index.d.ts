@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch-core 6.3
+// Type definitions for react-instantsearch-core 6.8
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
@@ -20,6 +20,7 @@ export interface InstantSearchProps {
   refresh?: boolean;
   onSearchStateChange?: (...args: any[]) => any;
   onSearchParameters?: (...args: any[]) => any;
+  widgetsCollector?: (...args: any[]) => any;
   resultsState?: any;
   stalledSearchDelay?: number;
 }

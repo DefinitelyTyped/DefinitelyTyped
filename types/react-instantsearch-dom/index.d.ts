@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch 6.3
+// Type definitions for react-instantsearch 6.8
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react, https://community.algolia.com/react-instantsearch/
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
