@@ -1,6 +1,6 @@
 import dompurify = require('dompurify');
 
-dompurify.sanitize('<script>alert("hi")</script>');
+dompurify.sanitize('<script>alert("hi")</script>'); // $ExpectType string
 dompurify.addHook('beforeSanitizeElements', (el, data, config) => undefined);
 
 // examples from the DOMPurify README
