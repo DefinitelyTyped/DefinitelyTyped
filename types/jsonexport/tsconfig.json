@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "dist.d.ts", "jsonexport-tests.ts"]
+    "files": ["index.d.ts", "jsonexport-tests.ts"]
 }
