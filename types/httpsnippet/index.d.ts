@@ -30,9 +30,7 @@ declare class HTTPSnippet {
 declare namespace HTTPSnippet {
     type Data = Har | Request;
 
-    interface Options {
-        [key: string]: any;
-    }
+    type Options = object;
 
     interface TargetClientInfo {
         key: string;
