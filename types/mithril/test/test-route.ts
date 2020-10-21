@@ -64,6 +64,21 @@ const routeResolver: m.RouteResolver<Attrs, RRState> & RRState = {
     }
 };
 
+// Stateful RouteResolver example using Attrs type and this context
+const routeResolverWithRouteParam: m.RouteResolver<Attrs, RRState> & RRState = {
+    message: "",
+    onmatch(attrs, path, route) {
+        this.message = route;
+        const id: string = attrs.id;
+        return component3;
+    },
+    render(vnode) {
+        this.message = "Render";
+        vnode.key = vnode.attrs.id;
+        return vnode;
+    }
+};
+
 m.route(document.body, '/', {
     '/': component1,
     '/test1': {

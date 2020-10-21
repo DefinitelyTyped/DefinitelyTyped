@@ -57,7 +57,12 @@ declare namespace Mithril {
 
     interface RouteResolver<Attrs = {}, State = {}> {
         /** The onmatch hook is called when the router needs to find a component to render. */
-        onmatch?(this: this, args: Attrs, requestedPath: string): ComponentTypes<any, any> | Promise<any> | void;
+        onmatch?(
+            this: this,
+            args: Attrs,
+            requestedPath: string,
+            route: string,
+        ): ComponentTypes<any, any> | Promise<any> | void;
         /** The render method is called on every redraw for a matching route. */
         render?(this: this, vnode: Vnode<Attrs, State>): Children;
     }
