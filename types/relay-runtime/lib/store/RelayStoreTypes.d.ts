@@ -824,7 +824,7 @@ export type RequiredFieldLogger = (
           owner: string,
           fieldPath: string,
         }>
-  ) => void;  
+  ) => void;
 
 /**
  * The results of normalizing a query.
