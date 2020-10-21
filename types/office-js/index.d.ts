@@ -894,7 +894,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **Requirement set**: DialogApi 1.2
+         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi 1.2}
          *
          * You can add multiple event handlers for the specified event type as long as the name of each event handler function is unique.
          *
@@ -908,16 +908,16 @@ declare namespace Office {
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
         * @remarks
-        * 
-        * **Hosts**: Word, Excel, Outlook, PowerPoint
-        * 
+        *
+        * **Hosts**: Excel, Outlook, PowerPoint, Word
+        *
         * **Requirement sets**: 
-        * 
+        *
         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
-        * 
+        *
         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.4}
-        * 
-        * This method is available in the DialogApi requirement set for Word, Excel, or PowerPoint add-ins, and in the Mailbox requirement set 1.4 
+        *
+        * This method is available in the DialogApi requirement set for Excel, PowerPoint, or Word add-ins, and in the Mailbox requirement set 1.4
         * for Outlook. For more on how to specify a requirement set in your manifest, see 
         * {@link https://docs.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | Specify Office hosts and API requirements}.
         *
@@ -925,7 +925,7 @@ declare namespace Office {
         * other domains.
         *
         * Any page calling `Office.context.ui.messageParent` must also be on the same domain as the parent page.
-        * 
+        *
         * **Design considerations**:
         *
         * The following design considerations apply to dialog boxes:
@@ -1018,7 +1018,7 @@ declare namespace Office {
         * 
         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.4}
         * 
-        * This method is available in the DialogApi requirement set for Word, Excel, or PowerPoint add-ins, and in the Mailbox requirement set 1.4 
+        * This method is available in the DialogApi requirement set for Excel, PowerPoint, or Word add-ins, and in the Mailbox requirement set 1.4
         * for Outlook. For more on how to specify a requirement set in your manifest, see 
         * {@link https://docs.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | Specify Office hosts and API requirements}.
         *
@@ -1120,9 +1120,13 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * **Hosts**: Excel, Word, PowerPoint, Outlook (Minimum requirement set: Mailbox 1.5)
+         * **Hosts**: Excel, Outlook (Minimum requirement set: Mailbox 1.5), PowerPoint, Word
          * 
-         * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
+        * **Requirement sets**:
+        *
+        * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi}
+        *
+        * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.5}
          * 
          * The behavior of this method is specified by the following:
          *
@@ -1731,7 +1735,13 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **Requirement set**: DialogApi 1.2
+         * **Hosts**: Excel, Outlook (Minimum requirement set: Mailbox 1.9), PowerPoint, Word
+         *
+         * **Requirement sets**:
+         *
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/dialog-api-requirement-sets | DialogApi 1.2}
+         *
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/outlook-api-requirement-sets | Mailbox 1.9}
          *
          * @param message Accepts a message from the host page to deliver to the dialog. Anything that can be serialized to a string, including JSON and XML, can be sent.
          */
