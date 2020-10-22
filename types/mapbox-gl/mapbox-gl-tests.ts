@@ -124,6 +124,7 @@ map.on('load', function () {
         clusterMinPoints: 8,
         clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
         clusterProperties: { sum: ['+', ['get', 'property']] },
+        filter: 'something',
     });
 
     map.addLayer({
@@ -268,6 +269,14 @@ map.flyTo({
 const features = map.queryRenderedFeatures([0, 0], { layers: ['custom'], validate: false });
 features; // $ExpectType MapboxGeoJSONFeature[]
 
+// querySourceFeatures
+const features2 = map.querySourceFeatures('some_source', {
+    sourceLayer: 'source_layer',
+    filter: ['all'],
+    validate: null,
+});
+features2; // $ExpectType MapboxGeoJSONFeature[]
+
 /**
  * GeoJSONSource
  */
@@ -335,6 +344,15 @@ var videoSourceObj = new mapboxgl.VideoSource({
 });
 map.addSource('some id', videoSourceObj); // add
 map.removeSource('some id'); // remove
+
+/**
+ * Vector Source
+ */
+const vectorSource = map.getSource('tile-source') as mapboxgl.VectorSourceImpl;
+// $ExpectType VectorSourceImpl
+vectorSource.setTiles(['a', 'b']);
+// $ExpectType VectorSourceImpl
+vectorSource.setUrl('https://github.com');
 
 /**
  * Add Raster Source /// made URL optional to allow only tiles.
@@ -823,6 +841,12 @@ map.showPadding = false;
 expectType<mapboxgl.Map>(map.setFilter('layerId', true));
 expectType<mapboxgl.Map>(map.setFilter('layerId', false));
 
+map.setFilter('layerId', true, { validate: true });
+map.setFilter('layerId', true, { validate: null });
+map.setFilter('layerId', true, {});
+// $ExpectError
+map.setFilter('layerId', true, { some_option: 'some_string' });
+
 // $ExpectType Map
 map.setMinZoom(5);
 // $ExpectType Map
@@ -853,6 +877,8 @@ map.setMinPitch();
 map.setMaxPitch(null);
 // $ExpectType Map
 map.setMaxPitch();
+// $ExpectType Map
+map.resetNorthPitch(animOpts);
 
 // $ExpectType number
 map.getMinPitch();
@@ -871,6 +897,10 @@ expectType<mapboxgl.Map>(
         expectType<undefined>(ev.originalEvent);
     }),
 );
+// $ExpectType Map
+map.on('idle', ev => {
+    ev; // $ExpectType MapboxEvent<undefined> & EventData
+});
 expectType<mapboxgl.Map>(
     map.on('remove', ev => {
         expectType<mapboxgl.MapboxEvent>(ev);
@@ -1489,11 +1519,11 @@ const rasterPaint: mapboxgl.RasterPaint = {
     'raster-contrast-transition': transition,
     'raster-fade-duration': eitherType(0, expression),
     'raster-resampling': eitherType('linear', 'nearest'),
-    'circle-sort-key': 0,
 };
 
 const circleLayout: mapboxgl.CircleLayout = {
     visibility: eitherType('visible', 'none'),
+    'circle-sort-key': 0,
 };
 
 const circlePaint: mapboxgl.CirclePaint = {

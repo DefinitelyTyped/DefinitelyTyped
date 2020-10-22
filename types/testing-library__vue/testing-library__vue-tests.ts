@@ -31,6 +31,8 @@ const component = lib.render(SomeComponent, {
         isThisFake() { return true; }
     },
     // options for vue-testing-library render()
+    container: elem,
+    baseElement: elem,
     props: {
         foo: 9,
         bar: "x",
@@ -58,9 +60,10 @@ const componentWithConfigCallback = lib.render(SomeComponent, {}, (localVue, sto
 });
 
 component.container; // $ExpectType HTMLElement
-component.baseElement; // $ExpectType HTMLBodyElement
+component.baseElement; // $ExpectType HTMLElement
 component.debug(); // $ExpectType void
 component.debug(elem); // $ExpectType void
+component.debug([elem, input, select]); // $ExpectType void
 component.unmount(); // $ExpectType void
 component.isUnmounted(); // $ExpectType boolean
 component.html(); // $ExpectType string

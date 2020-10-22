@@ -5,8 +5,6 @@
 //                 Saeid Rezaei <https://github.com/moeinio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 declare namespace loadImage {
     type LoadImageCallback = (eventOrImage: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
 

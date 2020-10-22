@@ -161,15 +161,15 @@ declare var $: (arg?: any) => JQuery;
     */
     uri = new URI("?hello=world&hello=mars&foo=bar");
     uri.removeSearch("hello");
-    uri.search(true) === "?foo=bar";
+    test(uri.search(), "?foo=bar");
 
     uri.search("?hello=world&hello=mars&foo=bar");
     uri.removeSearch("hello", "world");
-    uri.search(true) === "?hello=mars&foo=bar";
+    test(uri.search(), "?hello=mars&foo=bar");
 
     uri.search("?hello=world&hello=mars&foo=bar&mine=true");
     uri.removeSearch(["hello", "foo"]);
-    uri.search(true) === "?mine=true";
+    test(uri.search(), "?mine=true");
 
     /*
     Tests for is()
@@ -214,10 +214,47 @@ declare var $: (arg?: any) => JQuery;
     parts.urn === true;
 
     /*
+    Tests for URI.buildQuery()
+    From: https://medialize.github.io/URI.js/docs.html#static-buildQuery
+    */
+    const buildQueryData = {
+      foo: 'bar',
+      hello: ['world', 'mars', 'mars'],
+      bam: '',
+      yup: null,
+      removed: undefined,
+    };
+    test(URI.buildQuery(buildQueryData), 'foo=bar&hello=world&hello=mars&bam=&yup');
+    test(URI.buildQuery(buildQueryData, true), 'foo=bar&hello=world&hello=mars&hello=mars&bam=&yup');
+
+    /*
+    Tests for URI.parseQuery()
+    From: https://medialize.github.io/URI.js/docs.html#static-parseQuery
+    */
+    test(URI.parseQuery('?foo=bar&hello=world&hello=mars&bam=&yup'), {
+      foo: 'bar',
+      hello: ['world', 'mars'],
+      bam: '',
+      yup: null,
+    });
+    test(URI.parseQuery('akey=1&v=alue&akey=two&akey=&akey'), {
+      v: 'alue',
+      akey: ['1', 'two', '', null],
+    });
+
+    /*
     Tests for URI.search(), URI.query()
     From: https://medialize.github.io/URI.js/docs.html#accessors-search
     */
     const u = new URI('mailto:mail@example.org');
     u.query(qs => qs);
     u.search(qs => qs);
+    u.query(() => undefined);
+    u.search(() => undefined);
+    u.query(() => {
+        // Return nothing
+    });
+    u.search(() => {
+        // Return nothing
+    });
 }

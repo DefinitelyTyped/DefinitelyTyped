@@ -2,6 +2,7 @@
 // Project: https://github.com/sonicsnes/node-gamedig
 // Definitions by: Ivan Sieder <https://github.com/ivansieder>
 //                 Marco Vockner <https://github.com/marcopixel>
+//                 Pascal Sthamer <https://github.com/p4sca1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type Type =
@@ -292,6 +293,7 @@ export interface QueryOptions {
     maxAttempts?: number;
     socketTimeout?: number;
     attemptTimeout?: number;
+    givenPortOnly?: boolean;
     debug?: boolean;
 }
 

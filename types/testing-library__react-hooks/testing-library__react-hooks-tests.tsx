@@ -1,5 +1,5 @@
+import { act, cleanup, renderHook } from '@testing-library/react-hooks';
 import * as React from 'react';
-import { renderHook, act, cleanup } from '@testing-library/react-hooks';
 
 const { useState, createContext, useContext } = React;
 
@@ -114,4 +114,26 @@ function checkTypesWithPromiseResult() {
 
 function checkTypesForCleanup() {
     cleanup(); // $ExpectType Promise<void>
+}
+
+async function checkWatchOptions() {
+    // arrange
+    const { wait, waitFor, waitForNextUpdate, waitForValueToChange } = renderHook(() => {});
+
+    // assert : check types
+    // https://github.com/testing-library/react-hooks-testing-library/blob/master/docs/api-reference.md#wait
+    await wait(() => {});
+    await wait(() => {}, { timeout: 10000, suppressErrors: true });
+
+    // https://github.com/testing-library/react-hooks-testing-library/blob/master/docs/api-reference.md#waitfor
+    await waitFor(() => {});
+    await waitFor(() => {}, { interval: 1000, timeout: 10000, suppressErrors: true });
+
+    // https://github.com/testing-library/react-hooks-testing-library/blob/master/docs/api-reference.md#waitfornextupdate
+    await waitForNextUpdate();
+    await waitForNextUpdate({ timeout: 10000 });
+
+    // https://github.com/testing-library/react-hooks-testing-library/blob/master/docs/api-reference.md#waitforvaluetochange
+    await waitForValueToChange(() => null);
+    await waitForValueToChange(() => null, { interval: 1000, timeout: 10000, suppressErrors: true });
 }

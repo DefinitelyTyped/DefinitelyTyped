@@ -1,4 +1,4 @@
-// Type definitions for ssh2-sftp-client 5.1
+// Type definitions for ssh2-sftp-client 5.3
 // Project: https://github.com/theophilusx/ssh2-sftp-client
 // Definitions by: igrayson <https://github.com/igrayson>
 //                 Ascari Andrea <https://github.com/ascariandrea>
@@ -9,15 +9,15 @@
 //                 Lorenzo Adinolfi <https://github.com/loru88>
 //                 Sam Galizia <https://github.com/sgalizia>
 //                 Tom Xu <https://github.com/hengkx>
+//                 Joseph Burger <https://github.com/candyapplecorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as ssh2 from 'ssh2';
-import * as ssh2Stream from 'ssh2-streams';
 
 export = sftp;
 
 declare class sftp {
-    connect(options: ssh2.ConnectConfig): Promise<ssh2.SFTPWrapper>;
+    connect(options: sftp.ConnectOptions): Promise<ssh2.SFTPWrapper>;
 
     list(remoteFilePath: string, pattern?: string | RegExp): Promise<sftp.FileInfo[]>;
 
@@ -30,18 +30,18 @@ declare class sftp {
     get(
         path: string,
         dst?: string | NodeJS.WritableStream,
-        options?: ssh2Stream.TransferOptions,
+        options?: sftp.GetTransferOptions,
     ): Promise<string | NodeJS.WritableStream | Buffer>;
 
-    fastGet(remoteFilePath: string, localPath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
+    fastGet(remoteFilePath: string, localPath: string, options?: sftp.FastGetTransferOptions): Promise<string>;
 
     put(
         input: string | Buffer | NodeJS.ReadableStream,
         remoteFilePath: string,
-        options?: ssh2Stream.TransferOptions,
+        options?: sftp.TransferOptions,
     ): Promise<string>;
 
-    fastPut(localPath: string, remoteFilePath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
+    fastPut(localPath: string, remoteFilePath: string, options?: sftp.FastPutTransferOptions): Promise<string>;
 
     cwd(): Promise<string>;
 
@@ -58,7 +58,7 @@ declare class sftp {
     append(
         input: Buffer | NodeJS.ReadableStream,
         remotePath: string,
-        options?: ssh2Stream.TransferOptions,
+        options?: sftp.TransferOptions,
     ): Promise<string>;
 
     uploadDir(srcDir: string, destDir: string): Promise<string>;
@@ -70,9 +70,39 @@ declare class sftp {
     on(event: string, callback: (...args: any[]) => void): void;
 
     removeListener(event: string, callback: (...args: any[]) => void): void;
+
+    posixRename(fromPath: string, toPath: string): Promise<string>;
 }
 
 declare namespace sftp {
+    interface ConnectOptions extends ssh2.ConnectConfig {
+        retries?: number;
+        retry_factor?: number;
+        retry_minTimeout?: number;
+    }
+
+    interface ModeOption {
+        mode?: number;
+    }
+
+    interface TransferOptions extends ModeOption {
+        flags?: 'w' | 'a';
+        encoding?: null | string;
+        autoClose?: true | boolean;
+    }
+
+    interface GetTransferOptions extends TransferOptions {
+        handle?: null | string;
+    }
+
+    interface FastGetTransferOptions {
+        concurrency?: number;
+        chunkSize?: number;
+        step?: (totalTransferred: number, chunk: number, total: number) => void;
+    }
+
+    interface FastPutTransferOptions extends FastGetTransferOptions, ModeOption {}
+
     interface FileInfo {
         type: string;
         name: string;

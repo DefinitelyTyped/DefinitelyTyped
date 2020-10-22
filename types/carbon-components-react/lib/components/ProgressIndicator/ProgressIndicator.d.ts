@@ -42,6 +42,7 @@ export interface ProgressIndicatorProps extends ProgressIndicatorInheritedProps 
     currentIndex?: number,
     onChange?(index: number): void,
     vertical?: boolean,
+    spaceEqually?: boolean,
 }
 
 export declare class ProgressIndicator extends React.Component<ProgressIndicatorProps> { }

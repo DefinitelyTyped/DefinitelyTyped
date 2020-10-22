@@ -7,7 +7,7 @@ export interface EventsKey {
     type: string;
 }
 export type Listener = ListenerFunction | ListenerObject;
-export type ListenerFunction = (p0: Event | BaseEvent) => void | boolean;
+export type ListenerFunction = (p0: Event | BaseEvent) => boolean;
 export interface ListenerObject {
     handleEvent: ListenerFunction;
 }

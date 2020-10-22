@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import LineString from '../geom/LineString';
@@ -43,7 +43,7 @@ export default class Graticule extends VectorLayer {
     getParallels(): LineString[];
     loaderFunction(extent: Extent, resolution: number, projection: Projection): void;
     strategyFunction(extent: Extent, resolution: number): Extent[];
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

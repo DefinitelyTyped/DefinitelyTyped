@@ -14,7 +14,7 @@
 
 declare const SocketIO: SocketIOStatic;
 import engine = require('engine.io');
-import { Server as HttpServer } from 'http';
+import { Server as HttpServer, IncomingMessage } from 'http';
 import { Server as HttpsServer } from 'https';
 import { EventEmitter } from 'events';
 export = SocketIO;
@@ -81,7 +81,7 @@ interface SocketIOStatic {
 
 declare namespace SocketIO {
     interface Server {
-        engine: { ws: any };
+        engine: { ws: any, generateId: (id: IncomingMessage) => string };
 
         /**
          * A dictionary of all the namespaces currently on this Server

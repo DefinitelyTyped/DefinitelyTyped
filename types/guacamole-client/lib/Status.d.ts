@@ -143,6 +143,23 @@ export class Status {
      */
     constructor(code: Status.Code, message?: string);
 
-    readonly code: Status.Code;
-    readonly message?: string;
+    /**
+     * The Guacamole status code.
+     * @see Guacamole.Status.Code
+     */
+    code: Status.Code;
+
+    /**
+     * An arbitrary human-readable message associated with this status, if any.
+     * The human-readable message is not required, and is generally provided
+     * for debugging purposes only. For user feedback, it is better to translate
+     * the Guacamole status code into a message.
+     */
+    message?: string;
+
+    /**
+     * Returns whether this status represents an error.
+     * @returns true if this status represents an error, false otherwise.
+     */
+    isError(): boolean;
 }

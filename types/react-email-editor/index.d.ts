@@ -71,6 +71,15 @@ export interface Features {
     readonly preview?: boolean;
     readonly imageEditor?: boolean;
     readonly undoRedo?: boolean;
+    readonly stockImages?: boolean;
+    readonly textEditor?: TextEditor;
+}
+
+export interface TextEditor {
+    readonly spellChecker?: boolean;
+    readonly tables?: boolean;
+    readonly cleanPaste?: boolean;
+    readonly emojis?: boolean;
 }
 
 export type Translations = Record<string, Record<string, string>>;

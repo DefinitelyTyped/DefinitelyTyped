@@ -11,7 +11,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-funnel
          */
         interface SeriesFunnel {
-
             /**
              * @default
              * "funnel"
@@ -148,7 +147,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-funnel.label
              */
             label?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-funnel.label.show
                  */
@@ -274,7 +272,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-funnel.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -550,12 +548,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-funnel.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -598,7 +594,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -877,7 +873,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-funnel.labelLine
              */
             labelLine?: {
-
                 /**
                  * Whether to show visual guide line.
                  *
@@ -898,7 +893,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.labelLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -999,7 +993,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.labelLine.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * Whether to show visual guide line.
                      *
@@ -1012,7 +1005,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.labelLine.emphasis.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *
@@ -1117,7 +1109,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-funnel.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -1230,12 +1221,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.label
                  */
                 label?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.label.show
                      */
@@ -1328,7 +1317,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -1605,12 +1594,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1653,7 +1640,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -1929,7 +1916,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2030,7 +2016,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.labelLine
                  */
                 labelLine?: {
-
                     /**
                      * Whether to show visual guide line.
                      *
@@ -2051,7 +2036,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.labelLine.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *
@@ -2153,7 +2137,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.labelLine.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show visual guide line.
                          *
@@ -2166,7 +2149,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.labelLine.emphasis.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -2337,11 +2319,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-funnel.data
              */
-            data?: (
-                number[]
-                | number[][]
-                | SeriesFunnel.DataObject[]
-            );
+            data?: number[] | number[][] | SeriesFunnel.DataObject[];
 
             /**
              * Mark point in a chart.
@@ -2350,7 +2328,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -2480,7 +2457,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2655,7 +2631,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -2941,12 +2917,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2992,7 +2966,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -3276,7 +3250,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3451,7 +3424,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -3741,12 +3714,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3792,7 +3763,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -4093,7 +4064,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -4193,7 +4163,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -4314,7 +4283,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -4451,7 +4419,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4553,7 +4520,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -4660,7 +4626,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -4789,7 +4754,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -5079,12 +5044,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -5130,7 +5093,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -5426,7 +5389,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -5555,7 +5517,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.label.emphasis.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -5847,12 +5809,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -5898,7 +5858,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -6310,7 +6270,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-funnel.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -6363,7 +6322,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -6437,7 +6395,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -6518,7 +6475,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -6624,7 +6580,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -6743,7 +6698,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -6751,7 +6705,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -6891,7 +6844,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7001,7 +6953,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7119,7 +7070,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -7195,7 +7145,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -7277,7 +7226,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -7417,7 +7365,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7527,7 +7474,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7645,7 +7591,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -7721,7 +7666,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -7912,7 +7856,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -7930,7 +7873,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -8059,7 +8001,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -8345,12 +8287,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8396,7 +8336,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -8680,7 +8620,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -8809,7 +8748,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -9099,12 +9038,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -9150,7 +9087,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -9451,7 +9388,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -9551,7 +9487,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -9675,7 +9610,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -9683,7 +9617,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -9727,7 +9660,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -9832,7 +9764,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -9946,7 +9877,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -10075,7 +10005,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -10367,12 +10297,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -10418,7 +10346,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -10715,7 +10643,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -10846,7 +10773,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -11150,12 +11077,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -11202,7 +11127,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -11512,7 +11437,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -11556,7 +11480,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -11661,7 +11584,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -11775,7 +11697,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -11904,7 +11825,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -12196,12 +12117,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -12247,7 +12166,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -12544,7 +12463,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -12675,7 +12593,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -12979,12 +12897,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -13031,7 +12947,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -13558,7 +13474,6 @@ declare namespace echarts {
 
         namespace SeriesFunnel {
             interface DataObject {
-
                 /**
                  * the name of data item.
                  *
@@ -13583,7 +13498,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -13687,7 +13601,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.data.label
                  */
                 label?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-funnel.data.label.show
                      */
@@ -13769,7 +13682,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-funnel.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -14046,12 +13959,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -14094,7 +14005,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -14370,7 +14281,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.data.labelLine
                  */
                 labelLine?: {
-
                     /**
                      * Whether to show visual guide line.
                      *
@@ -14391,7 +14301,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.data.labelLine.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *
@@ -14493,7 +14402,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.data.labelLine.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show visual guide line.
                          *
@@ -14506,7 +14414,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.labelLine.emphasis.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -14609,12 +14516,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -14717,7 +14622,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.label.show
                          */
@@ -14765,7 +14669,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -15046,12 +14950,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -15094,7 +14996,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -15382,7 +15284,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.labelLine
                      */
                     labelLine?: {
-
                         /**
                          * Whether to show visual guide line.
                          *
@@ -15403,7 +15304,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.labelLine.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -15507,7 +15407,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.labelLine.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show visual guide line.
                              *
@@ -15520,7 +15419,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.labelLine.emphasis.lineStyle
                              */
                             lineStyle?: {
-
                                 /**
                                  * Line color.
                                  *

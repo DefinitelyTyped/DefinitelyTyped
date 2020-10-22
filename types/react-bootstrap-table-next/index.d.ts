@@ -378,10 +378,15 @@ export interface SelectRowProps<T> {
     nonSelectable?: number[];
     nonSelectableStyle?: ((row: T, rowIndex: number) => CSSProperties | undefined) | CSSProperties;
     nonSelectableClasses?: ((row: T, rowIndex: number) => string | undefined) | string;
-    bgColor?: string;
+    bgColor?: (row: T, rowIndex: number) => string | string;
     hideSelectColumn?: boolean;
-    selectionRenderer?: (options: { checked: boolean; disabled: boolean, mode: string; rowIndex: number }) => JSX.Element;
-    selectionHeaderRenderer?: (options: { mode: string, checked: boolean, indeterminate: boolean }) => JSX.Element;
+    selectionRenderer?: (options: {
+        checked: boolean;
+        disabled: boolean;
+        mode: string;
+        rowIndex: number;
+    }) => JSX.Element;
+    selectionHeaderRenderer?: (options: { mode: string; checked: boolean; indeterminate: boolean }) => JSX.Element;
     headerColumnStyle?: ((status: TableCheckboxStatus) => CSSProperties | undefined) | CSSProperties;
     selectColumnStyle?:
         | ((props: {
@@ -426,7 +431,7 @@ export interface BootstrapTableRef<T extends object = any> {
     };
 }
 
-export interface BootstrapTableProps<T extends object = any> {
+export interface BootstrapTableProps<T extends object = any, K = number> {
     /**
      * Tells react-bootstrap-table2 which column is unique.
      */
@@ -437,8 +442,10 @@ export interface BootstrapTableProps<T extends object = any> {
     data: any[];
     columns: ColumnDescription[];
     bootstrap4?: boolean;
-    remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
-    noDataIndication?: () => JSX.Element | JSX.Element | string;
+    remote?:
+        | boolean
+        | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
+    noDataIndication?: (() => JSX.Element | string) | JSX.Element | string;
     striped?: boolean;
     bordered?: boolean;
     hover?: boolean;
@@ -458,7 +465,7 @@ export interface BootstrapTableProps<T extends object = any> {
     filter?: unknown;
     cellEdit?: any;
     selectRow?: SelectRowProps<T>;
-    expandRow?: ExpandRowProps<T>;
+    expandRow?: ExpandRowProps<T, K>;
     parentClassName?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
     rowStyle?: ((row: T, rowIndex: number) => CSSProperties) | CSSProperties;
     rowEvents?: RowEventHandlerProps;
@@ -486,7 +493,7 @@ export interface BootstrapTableProps<T extends object = any> {
     search?: SearchProps<T> | boolean;
 }
 
-declare class BootstrapTable<T extends object = any> extends Component<BootstrapTableProps<T>> {}
+declare class BootstrapTable<T extends object = any, K = number> extends Component<BootstrapTableProps<T, K>> {}
 export default BootstrapTable;
 
 /**
@@ -512,17 +519,17 @@ export interface ExpandHeaderColumnRenderer {
     isAnyExpands: boolean;
 }
 
-export interface ExpandRowProps<T> {
+export interface ExpandRowProps<T, K = number> {
     renderer: (row: T, rowIndex: number) => JSX.Element;
-    expanded?: any[];
+    expanded?: K[];
     onExpand?: (row: T, isExpand: boolean, rowIndex: number, e: SyntheticEvent) => void;
-    onExpandAll?: (isExpandAll: boolean, results: number[], e: SyntheticEvent) => void;
-    nonExpandable?: number[];
+    onExpandAll?: (isExpandAll: boolean, results: T[], e: SyntheticEvent) => void;
+    nonExpandable?: K[];
     showExpandColumn?: boolean;
     onlyOneExpanding?: boolean;
     expandByColumnOnly?: boolean;
-    expandColumnRenderer?: ReactElement<ExpandColumnRendererProps>;
-    expandHeaderColumnRenderer?: ReactElement<ExpandHeaderColumnRenderer>;
+    expandColumnRenderer?: (props: ExpandColumnRendererProps) => JSX.Element;
+    expandHeaderColumnRenderer?: (props: ExpandHeaderColumnRenderer) => JSX.Element;
     expandColumnPosition?: 'left' | 'right';
     className?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
 }

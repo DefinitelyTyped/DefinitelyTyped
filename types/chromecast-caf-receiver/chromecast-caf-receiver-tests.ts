@@ -3,10 +3,8 @@ import {
     LoadRequestData,
     StreamType,
     HlsSegmentFormat,
-    Track,
     TrackType,
     MessageType,
-    RequestData,
 } from 'chromecast-caf-receiver/cast.framework.messages';
 import { DetailedErrorCode, EventType } from 'chromecast-caf-receiver/cast.framework.events';
 
@@ -145,12 +143,10 @@ cast.framework.CastReceiverContext.getInstance().addEventListener(
 );
 
 // send custom message to specific sender
-cast.framework.CastReceiverContext.getInstance()
-    .sendCustomMessage('custom-namespace', 'sender-id', {});
+cast.framework.CastReceiverContext.getInstance().sendCustomMessage('custom-namespace', 'sender-id', {});
 
 // broadcast custom message to all connected senders
-cast.framework.CastReceiverContext.getInstance()
-    .sendCustomMessage('custom-namespace', undefined, {});
+cast.framework.CastReceiverContext.getInstance().sendCustomMessage('custom-namespace', undefined, {});
 
 const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, 'Loading failed!');
 
@@ -186,3 +182,25 @@ cast.framework.CastReceiverContext.getInstance()
     .addEventListener(cast.framework.events.EventType.BITRATE_CHANGED, bitrateChangedEvent => {
         const bitrate = bitrateChangedEvent.totalBitrate;
     });
+
+// CastDebugLogger
+const debugLogger = cast.debug.CastDebugLogger.getInstance();
+
+debugLogger.loggerLevelByEvents = {
+    'cast.framework.events.category.CORE': cast.framework.LoggerLevel.WARNING,
+};
+
+debugLogger.setEnabled(true);
+
+debugLogger.showDebugLogs(true);
+
+debugLogger.error(
+    'REPORTING',
+    'Track could not be reported',
+    cast.framework.CastReceiverContext.getInstance().getPlayerManager().getMediaInformation(),
+);
+
+const controls = cast.framework.ui.Controls.getInstance();
+
+controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_1, cast.framework.ui.ControlsButton.LIKE);
+controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_2, cast.framework.ui.ControlsButton.DISLIKE);

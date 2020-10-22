@@ -210,10 +210,8 @@ function cssUtility() {
 
     // test: text and background are required
 
-    // $ExpectType string
-    colorMode.text;
-    // $ExpectType string
-    colorMode.background;
+    colorMode.text = '';
+    colorMode.background = '';
 
     // test: arbitrary keys can hold colors or color scales
 
@@ -224,6 +222,5 @@ function cssUtility() {
 
     // test: interoperable base colors don't contain nested scales
 
-    // $ExpectType (string | undefined)[]
-    const baseColors = [colorMode.primary, colorMode.secondary, colorMode.muted, colorMode.highlight, colorMode.accent];
+    const baseColors: Array<string | undefined> = [colorMode.primary, colorMode.secondary, colorMode.muted, colorMode.highlight, colorMode.accent];
 }

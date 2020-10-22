@@ -434,6 +434,7 @@ export interface Layout {
     polar8: Partial<PolarLayout>;
     polar9: Partial<PolarLayout>;
     transition: Transition;
+    template: Template;
 }
 
 export interface Legend extends Label {
@@ -740,25 +741,11 @@ export type Calendar =
     | 'thai'
     | 'ummalqura';
 
-export type AxisName =
-    | 'x'
-    | 'x2'
-    | 'x3'
-    | 'x4'
-    | 'x5'
-    | 'x6'
-    | 'x7'
-    | 'x8'
-    | 'x9'
-    | 'y'
-    | 'y2'
-    | 'y3'
-    | 'y4'
-    | 'y5'
-    | 'y6'
-    | 'y7'
-    | 'y8'
-    | 'y9';
+export type XAxisName =
+    | 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9' | 'x10' | 'x11';
+export type YAxisName =
+    | 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9' | 'y10' | 'y11';
+export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
     fixedrange: boolean;
@@ -797,12 +784,10 @@ export interface Shape {
     layer: 'below' | 'above';
     type: 'rect' | 'circle' | 'line' | 'path';
     path: string;
-    // x-reference is assigned to the x-values
-    xref: 'x' | 'paper';
+    xref: 'paper' | XAxisName;
     xsizemode: 'scaled' | 'pixel';
     xanchor: number | string;
-    // y-reference is assigned to the plot paper [0,1]
-    yref: 'paper' | 'y';
+    yref: 'paper' | YAxisName;
     ysizemode: 'scaled' | 'pixel';
     yanchor: number | string;
     x0: Datum;
@@ -950,6 +935,7 @@ export interface Delta {
 export interface DataTitle {
     text: string;
     font: Partial<Font>;
+    standoff: number;
     position:
         | 'top left'
         | 'top center'
@@ -965,6 +951,11 @@ export interface PlotNumber {
     font: Partial<Font>;
     prefix: string;
     suffix: string;
+}
+
+export interface Template {
+    data?: { [type in PlotType]?: Partial<PlotData> };
+    layout?: Partial<Layout>;
 }
 
 // Data
@@ -1049,6 +1040,9 @@ export interface PlotData {
     x: Datum[] | Datum[][] | TypedArray;
     y: Datum[] | Datum[][] | TypedArray;
     z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+    i: TypedArray;
+    j: TypedArray;
+    k: TypedArray;
     xy: Float32Array;
     error_x: ErrorBar;
     error_y: ErrorBar;
@@ -1169,7 +1163,9 @@ export interface PlotData {
         | 'bottom center'
         | 'bottom right'
         | 'inside'
-        | 'outside';
+        | 'outside'
+        | 'auto'
+        | 'none';
     textfont: Partial<Font>;
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
@@ -1178,6 +1174,8 @@ export interface PlotData {
     parents: string[];
     name: string;
     stackgroup: string;
+    groupnorm: '' | 'fraction' | 'percent';
+    stackgaps: 'infer zero' | 'interpolate';
     connectgaps: boolean;
     visible: boolean | 'legendonly';
     delta: Partial<Delta>;
@@ -1187,6 +1185,9 @@ export interface PlotData {
     orientation: 'v' | 'h';
     width: number | number[];
     boxmean: boolean | 'sd';
+    boxpoints: 'all' | 'outliers' | 'suspectedoutliers' | false;
+    jitter: number;
+    pointpos: number;
     opacity: number;
     showscale: boolean;
     colorscale: ColorScale;
@@ -1209,6 +1210,7 @@ export interface PlotData {
     theta: Datum[];
     r: Datum[];
     customdata: Datum[];
+    selectedpoints: Datum[];
     domain: Partial<{
         rows: number;
         columns: number;
@@ -1718,7 +1720,7 @@ export interface Annotations extends Label {
      * for trendline annotations which should continue to indicate
      * the correct trend when zoomed.
      */
-    axref: 'pixel';
+    axref: 'pixel' | XAxisName;
 
     /**
      * Indicates in what terms the tail of the annotation (ax,ay)
@@ -1728,7 +1730,7 @@ export interface Annotations extends Label {
      * for trendline annotations which should continue to indicate
      * the correct trend when zoomed.
      */
-    ayref: 'pixel';
+    ayref: 'pixel' | YAxisName;
 
     /**
      * Sets the annotation's x coordinate axis.
@@ -1737,7 +1739,7 @@ export interface Annotations extends Label {
      * the left side of the plotting area in normalized coordinates
      * where 0 (1) corresponds to the left (right) side.
      */
-    xref: 'paper' | 'x';
+    xref: 'paper' | XAxisName;
 
     /**
      * Sets the annotation's x position.
@@ -1772,7 +1774,7 @@ export interface Annotations extends Label {
      * the bottom of the plotting area in normalized coordinates
      * where 0 (1) corresponds to the bottom (top).
      */
-    yref: 'paper' | 'y';
+    yref: 'paper' | YAxisName;
 
     /**
      * Sets the annotation's y position.
@@ -1855,8 +1857,8 @@ export interface Image {
     y: number | string;
     xanchor: 'left' | 'center' | 'right';
     yanchor: 'top' | 'middle' | 'bottom';
-    xref: 'paper' | 'x';
-    yref: 'paper' | 'y';
+    xref: 'paper' | XAxisName;
+    yref: 'paper' | YAxisName;
 }
 
 export interface Scene {

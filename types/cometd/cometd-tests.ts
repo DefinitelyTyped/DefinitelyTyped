@@ -65,6 +65,7 @@ const timeSyncSubscription = cometd.addListener("/foo/bar", () => {
 });
 
 cometd.unregisterTransport("websocket");
+const transportTypes = cometd.getTransportTypes();
 
 // Handshaking
 // ===========

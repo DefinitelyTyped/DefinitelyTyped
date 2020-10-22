@@ -1,9 +1,8 @@
-// Type definitions for terser-webpack-plugin 3.0
+// Type definitions for terser-webpack-plugin 5.0
 // Project: https://github.com/webpack-contrib/terser-webpack-plugin
 // Definitions by: Daniel Schopf <https://github.com/Danscho>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 import { Plugin } from 'webpack';
 import { MinifyOptions } from 'terser';
@@ -13,10 +12,8 @@ import { MinifyOptions } from 'terser';
  */
 declare namespace TerserPlugin {
     interface MinifyResult {
-        error: any;
         map: any;
         code: any;
-        warnings: any;
         extractedComments: any;
     }
 
@@ -59,20 +56,6 @@ declare namespace TerserPlugin {
         exclude?: string | RegExp | Array<string | RegExp>;
 
         /**
-         * ⚠ Ignored in webpack 5! Please use {@link webpack.js.org/configuration/other-options/#cache.}
-         * Enable/disable file caching.
-         * Default path to cache directory: `node_modules/.cache/terser-webpack-plugin`.
-         * @default true
-         */
-        cache?: boolean | string;
-
-        /**
-         * ⚠ Ignored in webpack 5! Please use {@link webpack.js.org/configuration/other-options/#cache}.
-         * Allows you to override default cache keys.
-         */
-        cacheKeys?: (defaultCacheKeys: any, file: any) => object;
-
-        /**
          * Enable/disable multi-process parallel running.
          * Use multi-process parallel running to improve the build speed. Default number of concurrent runs: os.cpus().length - 1.
          * @default true
@@ -80,18 +63,11 @@ declare namespace TerserPlugin {
         parallel?: boolean | number;
 
         /**
-         * Use source maps to map error message locations to modules (this slows down the compilation).
-         * If you use your own minify function please read the minify section for handling source maps correctly.
-         * @default false
-         */
-        sourceMap?: boolean;
-
-        /**
          * Allows you to override default minify function.
          * By default plugin uses terser package. Useful for using and testing unpublished versions or forks
          * @default undefined
          */
-        minify?: (file: any, sourceMap: any) => MinifyResult;
+        minify?: (file: any, sourceMap: any, minimizerOptions?: MinifyOptions) => MinifyResult;
 
         /**
          * Terser minify {@link https://github.com/terser/terser#minify-options|options}.
@@ -107,13 +83,6 @@ declare namespace TerserPlugin {
          * @default true
          */
         extractComments?: boolean | string | RegExp | ExtractCommentFn | ExtractCommentOptions;
-
-        /**
-         * Allow to filter terser warnings.
-         * ⚠️ The source argument will contain undefined if you don't use source maps.
-         * @default () => true
-         */
-        warningsFilter?: (warning: string, file: string, source?: string) => boolean | null | undefined;
     }
 }
 

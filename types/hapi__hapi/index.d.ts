@@ -1,4 +1,4 @@
-// Type definitions for @hapi/hapi 19.0
+// Type definitions for @hapi/hapi 20.0
 // Project: https://github.com/hapijs/hapi, https://hapijs.com
 // Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
@@ -30,7 +30,7 @@ import * as zlib from 'zlib';
 
 import { MimosOptions } from '@hapi/mimos';
 import { SealOptions, SealOptionsSub } from '@hapi/iron';
-import { ValidationOptions, SchemaMap, Schema, Root } from '@hapi/joi';
+import { ValidationOptions, SchemaMap, Schema, Root } from 'joi';
 import Podium = require('@hapi/podium');
 import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy, ClientApi, ClientOptions } from '@hapi/catbox';
 
@@ -390,7 +390,7 @@ export interface RequestLog {
 }
 
 export interface RequestQuery {
-    [key: string]: string | string[];
+    [key: string]: any;
 }
 
 /**
@@ -478,7 +478,7 @@ export interface Request extends Podium {
     /**
      * An object where each key is a path parameter name with matching value as described in [Path parameters](https://github.com/hapijs/hapi/blob/master/API.md#path-parameters).
      */
-    readonly params: Util.Dictionary<string>;
+    readonly params: Util.Dictionary<any>;
 
     /**
      * An array containing all the path params values in the order they appeared in the path.

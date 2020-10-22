@@ -1,3 +1,17 @@
+/* Basic matchers */
+
+describe('', () => {
+    it('', () => {
+        expect(BigInt(0)).toBeGreaterThan(BigInt(1));
+
+        expect(BigInt(0)).toBeGreaterThanOrEqual(BigInt(1));
+
+        expect(BigInt(0)).toBeLessThan(BigInt(1));
+
+        expect(BigInt(0)).toBeLessThanOrEqual(BigInt(1));
+    });
+});
+
 /* Lifecycle events */
 
 beforeAll(() => {});
@@ -228,35 +242,9 @@ describe('', () => {
     });
 });
 
-/* NodeRequire interface (require extensions) */
-
-declare const nodeRequire: NodeRequire;
-
-// $ExpectType any
-nodeRequire.requireActual('moduleName');
-
-// $ExpectType any
-nodeRequire.requireMock('moduleName');
-
 /* Top-level jest namespace functions */
 
-interface FakeModule {
-    import1: { property: string };
-    import2: { method(): void };
-}
-
-interface FakeModuleWithDefault {
-    default: { property: number };
-    import1: { property: string };
-}
-
-type FakeRequiredFunction = () => string;
-
 const customMatcherFactories: jasmine.CustomMatcherFactories = {};
-const fakeDefault = { property: 42 };
-const fakeImport1 = { property: 'Hello World' };
-const fakeImport2 = { method() {} };
-const fakeFunction = jest.fn<ReturnType<FakeRequiredFunction>, Parameters<FakeRequiredFunction>>();
 
 jest.addMatchers(customMatcherFactories)
     .addMatchers({})
@@ -274,20 +262,12 @@ jest.addMatchers(customMatcherFactories)
     .doMock('moduleName', jest.fn())
     .doMock('moduleName', jest.fn(), {})
     .doMock('moduleName', jest.fn(), { virtual: true })
-    .doMock<FakeRequiredFunction>('moduleName', () => fakeFunction)
-    .doMock<FakeModule>('moduleName', () => ({ import1: fakeImport1, import2: fakeImport2 }))
-    .doMock<FakeModule>('moduleName', () => ({ import1: fakeImport1, import2: fakeImport2 }), { virtual: true })
-    .doMock<FakeModuleWithDefault>('moduleName', () => ({ __esModule: true, default: fakeDefault, import1: fakeImport1 }))
     .dontMock('moduleName')
     .enableAutomock()
     .mock('moduleName')
     .mock('moduleName', jest.fn())
     .mock('moduleName', jest.fn(), {})
     .mock('moduleName', jest.fn(), { virtual: true })
-    .mock<FakeRequiredFunction>('moduleName', () => fakeFunction)
-    .mock<FakeModule>('moduleName', () => ({ import1: fakeImport1, import2: fakeImport2 }))
-    .mock<FakeModule>('moduleName', () => ({ import1: fakeImport1, import2: fakeImport2 }), { virtual: true })
-    .mock<FakeModuleWithDefault>('moduleName', () => ({ __esModule: true, default: fakeDefault, import1: fakeImport1 }))
     .resetModuleRegistry()
     .resetModules()
     .isolateModules(() => {})
@@ -305,23 +285,6 @@ jest.addMatchers(customMatcherFactories)
     .unmock('moduleName')
     .useFakeTimers()
     .useRealTimers();
-
-// $ExpectError
-jest.doMock<FakeModuleWithDefault>('moduleName', () => ({ default: fakeDefault, import1: fakeImport1 }));
-// $ExpectError
-jest.doMock<FakeModuleWithDefault>('moduleName', () => ({ __esModue: false, default: fakeDefault, import1: fakeImport1 }));
-// $ExpectError
-jest.doMock<FakeModuleWithDefault>('moduleName', () => ({ __esModule: true, import1: fakeImport1 }));
-// $ExpectError
-jest.doMock<FakeModule>('moduleName', () => ({ import1: fakeImport1 }));
-// $ExpectError
-jest.mock<FakeModuleWithDefault>('moduleName', () => ({ default: fakeDefault, import1: fakeImport1 }));
-// $ExpectError
-jest.mock<FakeModuleWithDefault>('moduleName', () => ({ __esModue: false, default: fakeDefault, import1: fakeImport1 }));
-// $ExpectError
-jest.mock<FakeModuleWithDefault>('moduleName', () => ({ __esModule: true, import1: fakeImport1 }));
-// $ExpectError
-jest.mock<FakeModule>('moduleName', () => ({ import1: fakeImport1 }));
 
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
@@ -378,7 +341,7 @@ const mock6 = jest.fn((arg: {}) => arg);
 const mock7 = jest.fn((arg: number) => arg);
 // $ExpectType Mock<number, [number]> || Mock<number, [arg: number]>
 const mock8: jest.Mock = jest.fn((arg: number) => arg);
-// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]> || Mock<Promise<boolean>, [a: number, _b: string, _c: {}, [], _makeItStop: boolean]>
+// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]> || Mock<Promise<boolean>, [a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean]>
 const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) =>
     Promise.resolve(_makeItStop)
 );
@@ -408,6 +371,9 @@ mock8.mockImplementation((arg: string) => 1);
 
 // mockImplementation not required to declare all arguments
 mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
+
+const createMockFromModule1: {} = jest.createMockFromModule('moduleName');
+const createMockFromModule2: { a: 'b' } = jest.createMockFromModule<{ a: 'b' }>('moduleName');
 
 const genMockModule1: {} = jest.genMockFromModule('moduleName');
 const genMockModule2: { a: 'b' } = jest.genMockFromModule<{ a: 'b' }>('moduleName');
@@ -1058,9 +1024,13 @@ describe('', () => {
         expect(jest.fn(willThrow)).toThrow(/foo/);
 
         expect(() => {}).toThrowErrorMatchingSnapshot();
+        expect(() => {}).toThrowErrorMatchingSnapshot('snapshotName');
         expect(willThrow).toThrowErrorMatchingSnapshot();
+        expect(willThrow).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn()).toThrowErrorMatchingSnapshot();
+        expect(jest.fn()).toThrowErrorMatchingSnapshot('snapshotName');
         expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot('snapshotName');
 
         expect(() => {}).toThrowErrorMatchingInlineSnapshot();
         expect(() => {}).toThrowErrorMatchingInlineSnapshot('Error Message');

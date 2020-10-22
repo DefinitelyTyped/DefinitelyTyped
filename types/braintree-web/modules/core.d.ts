@@ -3,7 +3,7 @@
  */
 export const VERSION: string;
 
-export type callback = (err?: BraintreeError, data?: any) => void;
+export type callback<T = any> = (err?: BraintreeError, data?: T) => void;
 
 /**
  * Enum for {@link BraintreeError} types.

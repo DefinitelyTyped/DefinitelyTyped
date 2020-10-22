@@ -195,6 +195,7 @@ declare class Dropzone {
 
     element: HTMLElement;
     files: Dropzone.DropzoneFile[];
+    hiddenFileInput?: HTMLInputElement;
     listeners: Dropzone.DropzoneListener[];
     defaultOptions: Dropzone.DropzoneOptions;
     options: Dropzone.DropzoneOptions;

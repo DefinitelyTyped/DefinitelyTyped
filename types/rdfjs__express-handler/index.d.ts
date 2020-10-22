@@ -7,7 +7,7 @@ import { Stream, DatasetCore, DatasetCoreFactory } from 'rdf-js';
 import { Request, Response, RequestHandler } from 'express';
 import formats = require('@rdfjs/formats-common');
 
-declare module 'express' {
+declare module 'express-serve-static-core' {
     interface Request {
         dataset(parserOptions?: any): Promise<DatasetCore>;
         quadStream(parserOptions?: any): Stream;

@@ -2,7 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "no-empty-interface": false,
-        "no-unnecessary-qualifier": false,
-        "prefer-method-signature": false
+        "no-unnecessary-qualifier": false
     }
 }

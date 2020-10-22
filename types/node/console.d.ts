@@ -66,7 +66,7 @@ declare module "console" {
              * This method does not display anything unless used in the inspector.
              *  Prints to `stdout` the array `array` formatted as a table.
              */
-            table(tabularData: any, properties?: string[]): void;
+            table(tabularData: any, properties?: ReadonlyArray<string>): void;
             /**
              * Starts a timer that can be used to compute the duration of an operation. Timers are identified by a unique `label`.
              */

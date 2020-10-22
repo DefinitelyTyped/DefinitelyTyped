@@ -22,12 +22,12 @@ export default abstract class MapRenderer extends Disposable {
         layerFilter: (this: U, p0: Layer<Source>) => boolean,
         thisArg2: U,
     ): T;
-    abstract forEachLayerAtPixel<S, T, U>(
+    abstract forEachLayerAtPixel<T>(
         pixel: Pixel,
         frameState: FrameState,
         hitTolerance: number,
-        callback: (this: S, p0: Layer<Source>, p1: Uint8ClampedArray | Uint8Array) => T,
-        layerFilter: (this: U, p0: Layer<Source>) => boolean,
+        callback: (p0: Layer<Source>, p1: Uint8ClampedArray | Uint8Array) => T,
+        layerFilter: (p0: Layer<Source>) => boolean,
     ): T;
     getMap(): PluggableMap;
     hasFeatureAtCoordinate<U>(

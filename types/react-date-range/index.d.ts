@@ -6,7 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
-import * as moment from "moment-timezone";
+import * as moment from "moment";
 
 export type AnyDate = string | moment.Moment;
 export type DateFunc = (now: moment.Moment) => AnyDate;

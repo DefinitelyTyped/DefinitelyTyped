@@ -2,6 +2,7 @@
 // Project: https://probablyup.github.io/markdown-to-jsx
 // Definitions by: Elizabeth Craig <https://github.com/ecraig12345>
 //                 Sun Knudsen <https://github.com/sunknudsen>
+//                 Lasse Kuechler <https://github.com/lkuechler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -80,6 +81,12 @@ export interface MarkdownOptions {
 
     /** Custom function to generate an HTML id from headings. */
     slugify?: (text: string) => string;
+
+    /** Override named html codes that should be converted to unicode characters. */
+    namedCodesToUnicode?: Record<string, string>;
+
+    /** By default, raw HTML is parsed to JSX. This behavior can be disabled with this option. */
+    disableParsingRawHTML?: boolean;
 }
 
 export function compiler(markdown: string, options?: MarkdownOptions): JSX.Element;

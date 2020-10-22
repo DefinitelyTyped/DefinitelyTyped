@@ -9,5 +9,6 @@ import { Readable } from "stream";
 declare class JsonStreamStringify extends Readable {
     constructor(value: any, replacer?: ((key: any, value: any) => any) | any[], spaces?: string | number, cycle?: boolean);
     path(): [string, number];
+    stack: string[];
 }
 export = JsonStreamStringify;

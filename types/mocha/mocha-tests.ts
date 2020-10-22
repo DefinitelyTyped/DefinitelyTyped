@@ -801,6 +801,11 @@ function test_browser_mocha_setup_grep_regex_literal_option() {
     mocha.setup({ grep: /(expect|should)/i });
 }
 
+function test_browser_mocha_setup_check_leaks() {
+    // $ExpectType BrowserMocha
+    mocha.setup({ checkLeaks: true });
+}
+
 function test_browser_mocha_setup_all_options() {
     // $ExpectType BrowserMocha
     mocha.setup({
@@ -810,7 +815,8 @@ function test_browser_mocha_setup_all_options() {
         globals: ['mocha'],
         reporter: 'html',
         bail: true,
-        grep: 'test'
+        grep: 'test',
+        checkLeaks: true
     });
 }
 
@@ -820,6 +826,15 @@ function testLoadFilesAsync() {
 
 function testParallelMode() {
     mocha.parallelMode();
+}
+
+function testRootHooks() {
+    mocha.rootHooks({
+        beforeAll(done) {
+            done();
+        },
+        afterEach: [done => done()],
+    });
 }
 
 function testUnloadFiles() {
@@ -876,6 +891,21 @@ function test_constructor_parallel_option() {
 
 function test_constructor_jobs_option() {
     const m: Mocha = new LocalMocha({ jobs: 4 });
+}
+
+function test_constructor_root_hooks() {
+    const m: Mocha = new LocalMocha({
+        rootHooks: {
+            beforeEach(done) {
+                done();
+            },
+            afterEach(done) {
+                done();
+            },
+            afterAll: [done => done()],
+            beforeAll: [done => done()],
+        },
+    });
 }
 
 function test_constructor_all_options() {

@@ -3,10 +3,6 @@
     "rules": {
         "adjacent-overload-signatures": false,
         "array-type": false,
-        "callable-types": false,
-        "no-outside-dependencies": false,
-        "no-redundant-jsdoc": false,
-        "prefer-method-signature": false,
         "unified-signatures": false
     }
 }

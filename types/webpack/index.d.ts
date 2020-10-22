@@ -391,6 +391,13 @@ declare namespace webpack {
          * This addresses a performance regression.
          */
         cacheWithContext?: boolean;
+
+        /**
+         * A list of directories where requests of server-relative URLs
+         * (starting with '/') are resolved, defaults to context configuration option.
+         * On non-Windows systems these requests are resolved as an absolute path first.
+         */
+        roots?: string[];
     }
 
     interface ResolveLoader extends Resolve {
@@ -1439,6 +1446,11 @@ declare namespace webpack {
     abstract class Plugin implements Tapable.Plugin {
         apply(compiler: Compiler): void;
     }
+
+    // Compatibility with webpack@5's own types
+    // See https://github.com/webpack/webpack/issues/11630
+    // tslint:disable-next-line no-empty-interface
+    interface WebpackPluginInstance extends Plugin {}
 
     abstract class ResolvePlugin implements Tapable.Plugin {
         apply(resolver: any /* EnhancedResolve.Resolver */): void;

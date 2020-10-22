@@ -36,4 +36,5 @@ new Gantt('#gantt', tasks, {
         </div>
       `;
     },
+    language: 'es',
 });

@@ -1,10 +1,8 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
-import Projection from '../proj/Projection';
 import { LoadFunction } from '../Tile';
-import { TileCoord } from '../tilecoord';
 import TileGrid from '../tilegrid/TileGrid';
 import { AttributionLike } from './Source';
 import { TileSourceEvent } from './Tile';
@@ -14,6 +12,7 @@ export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
     crossOrigin?: string;
+    imageSmoothing?: boolean;
     params?: { [key: string]: any };
     hidpi?: boolean;
     tileGrid?: TileGrid;
@@ -28,8 +27,9 @@ export interface Options {
 export default class TileArcGISRest extends TileImage {
     constructor(opt_options?: Options);
     getParams(): any;
+    getTilePixelRatio(pixelRatio: number): number;
     updateParams(params: any): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

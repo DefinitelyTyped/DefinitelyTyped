@@ -30,7 +30,7 @@ export default class VectorContext {
     drawMultiPolygon(multiPolygonGeometry: MultiPolygon, feature: FeatureLike): void;
     drawPoint(pointGeometry: Point | RenderFeature, feature: FeatureLike): void;
     drawPolygon(polygonGeometry: Polygon | RenderFeature, feature: FeatureLike): void;
-    drawText(geometry: Geometry | RenderFeature, feature: FeatureLike): void;
+    drawText(geometry: SimpleGeometry | RenderFeature, feature: FeatureLike): void;
     setFillStrokeStyle(fillStyle: Fill, strokeStyle: Stroke): void;
     setImageStyle(imageStyle: ImageStyle, opt_declutterGroup?: DeclutterGroup): void;
     setStyle(style: Style): void;

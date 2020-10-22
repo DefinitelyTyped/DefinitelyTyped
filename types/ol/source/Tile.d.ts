@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
@@ -42,7 +42,7 @@ export default abstract class TileSource extends Source {
         projection: Projection,
         z: number,
         tileRange: TileRange,
-        callback: (p0: Tile) => boolean | void,
+        callback: (p0: Tile) => boolean,
     ): boolean;
     getGutterForProjection(projection: Projection): number;
     getOpaque(projection: Projection): boolean;
@@ -53,8 +53,9 @@ export default abstract class TileSource extends Source {
     getTileGridForProjection(projection: Projection): TileGrid;
     getTilePixelRatio(pixelRatio: number): number;
     getTilePixelSize(z: number, pixelRatio: number, projection: Projection): Size;
+    updateCacheSize(tileCount: number, projection: Projection): void;
     abstract useTile(z: number, x: number, y: number, projection: Projection): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

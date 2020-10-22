@@ -1,5 +1,5 @@
 // Type definitions for jsTimezoneDetect 1.0
-// Project: https://bitbucket.org/pellepim/jstimezonedetect
+// Project: https://github.com/pellepim/jstimezonedetect
 // Definitions by: Olivier Lamothe <https://github.com/olamothe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

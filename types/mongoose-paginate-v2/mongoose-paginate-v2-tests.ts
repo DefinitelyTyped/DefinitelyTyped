@@ -3,7 +3,7 @@
  */
 
 import { Schema, model, PaginateModel, PaginateOptions, PaginateResult, Document } from 'mongoose';
-import mongoosePaginate = require('mongoose-paginate');
+import mongoosePaginate = require('mongoose-paginate-v2');
 import { Router, Request, Response } from 'express';
 
 //#region Test Models
@@ -21,7 +21,7 @@ const UserSchema: Schema = new Schema({
 
 UserSchema.plugin(mongoosePaginate);
 
-interface UserModel<T extends Document> extends PaginateModel<T> {}
+interface UserModel<T extends Document> extends PaginateModel<T> { }
 
 const UserModel: UserModel<User> = model<User>('User', UserSchema) as UserModel<User>;
 //#endregion
@@ -54,6 +54,8 @@ router.get('/users.json', (req: Request, res: Response) => {
         nextPage: 'nextPageCustom',
         prevPage: 'prevPageCustom',
     };
+    options.projection = { _id: 0 };
+    options.options = { batchSize: 200 };
 
     UserModel.paginate({}, options, (err: any, value: PaginateResult<User>) => {
         if (err) {

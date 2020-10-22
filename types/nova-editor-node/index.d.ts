@@ -1,20 +1,18 @@
-// Type definitions for non-npm package nova-editor-node 1.0
-// Project: https://novadocs.panic.com
+// Type definitions for non-npm package nova-editor-node 1.2
+// Project: https://docs.nova.app/api-reference/
 // Definitions by: Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.3
 
-// Currently at beta 10
-
-/// https://novadocs.panic.com/extensions/
+/// https://novadocs.panic.com/extensions/#javascript-runtime
 
 // This runs in an extension of Apple's JavaScriptCore, manually set libs
 
 /// <reference no-default-lib="true"/>
-/// <reference lib="es2015" />
+/// <reference lib="es7" />
 
-type ReadableStream = unknown;
-type WritableStream = unknown;
+type ReadableStream<T = any> = unknown;
+type WritableStream<T = any> = unknown;
 
 /// https://novadocs.panic.com/api-reference/assistants-registry/
 
@@ -23,7 +21,11 @@ type AssistantsRegistrySelector = string | { syntax: string };
 interface AssistantsRegistry {
     registerColorAssistant(selector: AssistantsRegistrySelector, object: ColorAssistant): Disposable;
     registerCompletionAssistant(selector: AssistantsRegistrySelector, object: CompletionAssistant): Disposable;
-    registerIssueAssistant(selector: AssistantsRegistrySelector, object: IssueAssistant): Disposable;
+    registerIssueAssistant(
+        selector: AssistantsRegistrySelector,
+        object: IssueAssistant,
+        options?: { event: "onChange" | "onSave" }
+    ): Disposable;
 }
 
 interface ColorAssistant {
@@ -31,11 +33,37 @@ interface ColorAssistant {
 }
 
 interface CompletionAssistant {
-    provideCompletionItems(editor: TextEditor, context: CompletionContext): CompletionItem[];
+    provideCompletionItems(editor: TextEditor, context: CompletionContext): CompletionItem[] | Promise<CompletionItem[]>;
 }
 
 interface IssueAssistant {
-    provideIssues(editor: TextEditor): Issue[];
+    provideIssues(editor: TextEditor): Issue[] | Promise<Issue[]>;
+}
+
+/// https://novadocs.panic.com/api-reference/charset/
+
+declare class Charset {
+    constructor(characters?: string);
+
+    static alphanumeric: Charset;
+    static digits: Charset;
+    static letters: Charset;
+    static lower: Charset;
+    static newlines: Charset;
+    static symbols: Charset;
+    static upper: Charset;
+    static whitespace: Charset;
+    static whitespaceAndNewlines: Charset;
+
+    concat(...charsets: Array<Charset>): Charset;
+    intersect(...charsets: Array<Charset>): Charset;
+}
+
+/// https://docs.nova.app/api-reference/clipboard/
+
+declare interface Clipboard {
+    readText(): Promise<string>;
+    writeText(text: string): Promise<void>;
 }
 
 /// https://novadocs.panic.com/api-reference/color/
@@ -79,13 +107,14 @@ declare class CompletionItem {
 
     label: string;
     kind: CompletionItemKind;
+    color?: Color;
     detail?: string;
     documentation?: string;
     filterText?: string;
     insertText?: string;
+    insertTextFormat?: InsertTextFormat;
     range?: Range;
-    commitCharacters?: string[];
-    tokenize: boolean; // default false
+    commitChars?: Charset;
 }
 
 declare enum CompletionItemKind {
@@ -117,6 +146,11 @@ declare enum CompletionItemKind {
     StyleDirective,
     StyleID,
     StyleClass,
+}
+
+declare enum InsertTextFormat {
+    PlainText,
+    Snippet,
 }
 
 /// https://novadocs.panic.com/api-reference/composite-disposable/
@@ -202,6 +236,7 @@ interface Environment {
     readonly versionString: string;
     readonly systemVersion: [number, number, number];
     readonly locales: string[];
+    readonly clipboard: Clipboard;
     readonly config: Configuration;
     readonly credentials: Credentials;
     readonly extension: Extension;
@@ -251,11 +286,11 @@ interface File {
 }
 
 interface FileBinaryMode extends File {
-    read(size?: string): ArrayBuffer | null;
+    read(size?: number): ArrayBuffer | null;
 }
 
 interface FileTextMode extends File {
-    read(size?: string): string | null;
+    read(size?: number): string | null;
     readline(): string;
     readlines(): string[];
 }
@@ -293,13 +328,15 @@ type Encoding =
 declare class FileSystem {
     private constructor();
 
-    static F_OK: FileSystemBitField;
-    static R_OK: FileSystemBitField;
-    static W_OK: FileSystemBitField;
-    static X_OK: FileSystemBitField;
-    static START: FileSystemBitField;
-    static CURRENT: FileSystemBitField;
-    static END: FileSystemBitField;
+    constants: {
+        F_OK: FileSystemBitField;
+        R_OK: FileSystemBitField;
+        W_OK: FileSystemBitField;
+        X_OK: FileSystemBitField;
+        START: FileSystemBitField;
+        CURRENT: FileSystemBitField;
+        END: FileSystemBitField;
+    }
 
     F_OK: FileSystemBitField;
     R_OK: FileSystemBitField;
@@ -338,6 +375,7 @@ interface FileSystemWatcher extends Disposable {
 declare class Issue {
     constructor();
     code: number | string;
+    message: string;
     severity: IssueSeverity;
     source: string | null;
     textRange?: Range;
@@ -364,10 +402,21 @@ declare class IssueCollection {
     append(uri: string, issues: Issue[]): void;
     dispose(): void;
     clear(): void;
-    has(uri: string): void;
-    get(uri: string): void;
+    has(uri: string): boolean;
+    get(uri: string): ReadonlyArray<Issue>;
     set(uri: string, issues: Issue[]): void;
     remove(uri: string): void;
+}
+
+/// https://novadocs.panic.com/api-reference/issue-parser/
+
+declare class IssueParser {
+    constructor(matcherNames?: string | Array<string>);
+
+    readonly issues: ReadonlyArray<Issue>;
+
+    pushLine(line: string): void;
+    clear(): void;
 }
 
 /// https://novadocs.panic.com/api-reference/language-client/
@@ -435,7 +484,7 @@ interface Path {
     splitext(path: string): [string, string];
     expanduser(path: string): string;
     isAbsolute(path: string): boolean;
-    join(path: string, ...paths: string[]): string;
+    join(...paths: string[]): string;
     normalize(path: string): string;
     split(path: string): string[];
 }
@@ -453,7 +502,7 @@ declare class Process {
             args?: string[];
             env?: { [key: string]: string };
             cwd?: string;
-            stdio?: ['pipe' | 'ignore', 'pipe' | 'ignore', 'pipe' | 'ignore'] | 'pipe' | 'ignore' | 'jsonrpc';
+            stdio?: ['pipe' | 'ignore', 'pipe' | 'ignore', 'pipe' | 'ignore'] | 'pipe' | 'ignore' | 'jsonrpc' | number;
             shell?: true | string;
         },
     );
@@ -471,9 +520,9 @@ declare class Process {
     readonly stdout?: ReadableStream | WritableStream | null;
     readonly stderr?: ReadableStream | WritableStream | null;
 
-    onStdout(callback: (line: string) => void): void;
-    onStderr(callback: (line: string) => void): void;
-    onDidExit(callback: (status: number) => void): void;
+    onStdout(callback: (line: string) => void): Disposable;
+    onStderr(callback: (line: string) => void): Disposable;
+    onDidExit(callback: (status: number) => void): Disposable;
     start(): void;
     signal(signal: string | number): void;
     kill(): void;
@@ -481,8 +530,8 @@ declare class Process {
     // see no-unnecessary-generics for why these aren't stricter
     notify(methodName: string, params?: any): void;
     request(methodName: string, params?: any): Promise<any>;
-    onNotify(methodName: string, callback: (message: ProcessMessage<any, any, any>) => void): void;
-    onRequest(methodName: string, callback: (message: ProcessMessage<any, any, any>) => any): void;
+    onNotify(methodName: string, callback: (message: ProcessMessage<any, any, any>) => void): Disposable;
+    onRequest(methodName: string, callback: (message: ProcessMessage<any, any, any>) => any): Disposable;
 }
 
 /// https://novadocs.panic.com/api-reference/process-message/
@@ -515,24 +564,100 @@ declare class Range {
     intersectsRange(other: Range): boolean;
 }
 
+/// https://novadocs.panic.com/api-reference/scanner/
+
+declare class Scanner {
+    constructor(string: string);
+
+    readonly string: string;
+    location: number;
+    readonly atEnd: boolean;
+    skipChars: Charset;
+    caseSensitive: boolean;
+
+    scanString(string: string): string | null;
+    scanUpToString(string: string): string | null;
+    scanChars(charset: Charset): string | null;
+    scanUpToChars(charset: Charset): string | null;
+    scanInt(): number | null;
+    scanFloat(): number | null;
+    scanHexInt(): number | null;
+    scanHexFloat(): number | null;
+}
+
 /// https://novadocs.panic.com/api-reference/symbol/
 
 type NovaSymbolType =
-    | 'function'
-    | 'method'
-    | 'property'
-    | 'class'
+    // Types
     | 'type'
-    | 'interface'
-    | 'constant'
-    | 'variable'
+    | 'class'
     | 'category'
-    | 'package'
+    | 'interface'
     | 'enum'
     | 'union'
     | 'struct'
+
+    // Callables
+    | 'function'
+    | 'method'
+    | 'closure'
+    | 'constructor'
+    | 'getter'
+    | 'setter'
+    | 'destructor'
+
+    // Values
+    | 'constant'
+    | 'variable'
+    | 'property'
+    | 'argument'
+    | 'color'
+    | 'enum-member'
+
+    // Expressions
+    | 'expression'
+    | 'statement'
+    | 'block'
     | 'heading'
-    | 'bookmark';
+    | 'comment'
+    | 'package'
+    | 'file'
+    | 'reference'
+    | 'keyword'
+    | 'bookmark'
+    | 'separator'
+    | 'todo'
+
+    // Stylesets
+    | 'style-ruleset'
+    | 'style-directive'
+    | 'style-id'
+    | 'style-class'
+    | 'style-pseudoclass'
+    | 'style-pseudoelement'
+
+    // Tags
+    | 'tag'
+    | 'tag-head'
+    | 'tag-title'
+    | 'tag-meta'
+    | 'tag-link'
+    | 'tag-body'
+    | 'tag-script'
+    | 'tag-style'
+    | 'tag-heading'
+    | 'tag-section'
+    | 'tag-container'
+    | 'tag-ul'
+    | 'tag-ol'
+    | 'tag-li'
+    | 'tag-anchor'
+    | 'tag-image'
+    | 'tag-media'
+    | 'tag-form'
+    | 'tag-form-field'
+    | 'tag-framework'
+    ;
 
 // name change to avoid conflict with base ecmascript Symbol
 
@@ -562,8 +687,8 @@ interface TextDocument {
 
     getTextInRange(range: Range): string;
     getLineRangeForRange(range: Range): Range;
-    onDidChangePath(callback: (document: TextDocument, path: string | null) => void): void;
-    onDidChangeSyntax(callback: (document: TextDocument, syntax: string | null) => void): void;
+    onDidChangePath(callback: (document: TextDocument, path: string | null) => void): Disposable;
+    onDidChangeSyntax(callback: (document: TextDocument, syntax: string | null) => void): Disposable;
 }
 
 /// https://novadocs.panic.com/api-reference/text-editor/
@@ -574,24 +699,24 @@ declare class TextEditor {
     static isTextEditor(object: any): object is TextEditor;
 
     readonly document: TextDocument;
-    readonly selectedRange: Range;
-    readonly selectedRanges: Range[];
+    selectedRange: Range;
+    selectedRanges: Range[];
     readonly selectedText: string;
-    readonly softTabs: boolean;
-    readonly tabLength: number;
+    softTabs: boolean;
+    tabLength: number;
     readonly tabText: string;
 
     edit(callback: (edit: TextEditorEdit) => void, options?: unknown): Promise<void>;
-    insert(string: string): Promise<void>;
+    insert(string: string, format?: InsertTextFormat): Promise<void>;
     save(): void;
     getTextInRange(range: Range): string;
-    getLineRangeForRange(range: Range): string;
-    onDidChange(callback: (textEditor: TextEditor) => void): void;
-    onDidStopChanging(callback: (textEditor: TextEditor) => void): void;
-    onWillSave(callback: (textEditor: TextEditor) => void): void;
-    onDidSave(callback: (textEditor: TextEditor) => void): void;
-    onDidChangeSelection(callback: (textEditor: TextEditor) => void): void;
-    onDidDestroy(callback: (textEditor: TextEditor) => void): void;
+    getLineRangeForRange(range: Range): Range;
+    onDidChange(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidStopChanging(callback: (textEditor: TextEditor) => void): Disposable;
+    onWillSave(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidSave(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidChangeSelection(callback: (textEditor: TextEditor) => void): Disposable;
+    onDidDestroy(callback: (textEditor: TextEditor) => void): Disposable;
     addSelectionForRange(range: Range): void;
     selectToPosition(position: number): void;
     selectUp(rowCount: number): void;
@@ -634,9 +759,10 @@ interface TreeDataProvider<E> {
 declare class TreeItem {
     constructor(name: string, collapsibleState?: TreeItemCollapsibleState);
 
-    readonly name: string;
-    readonly collapsibleState: TreeItemCollapsibleState;
+    name: string;
+    collapsibleState: TreeItemCollapsibleState;
     command?: unknown; // https://dev.panic.com/panic/nova-issues/-/issues/909
+    color?: Color;
     contextValue?: string;
     descriptiveText?: string;
     identifier?: string;
@@ -676,9 +802,9 @@ interface Workspace {
     readonly textEditors: ReadonlyArray<TextEditor>;
     readonly activeTextEditor: TextEditor;
 
-    onDidAddTextEditor(callback: (editor: TextEditor) => void): void;
-    onDidChangePath(callback: (newPath: TextEditor) => void): void;
-    onDidOpenTextDocument(callback: (textDocument: TextDocument) => void): void;
+    onDidAddTextEditor(callback: (editor: TextEditor) => void): Disposable;
+    onDidChangePath(callback: (newPath: TextEditor) => void): Disposable;
+    onDidOpenTextDocument(callback: (textDocument: TextDocument) => void): Disposable;
     contains(path: string): boolean;
     relativizePath(path: string): string;
     openConfig(identifier?: string): void;

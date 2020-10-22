@@ -1,6 +1,6 @@
 import Collection from '../Collection';
 import { Coordinate } from '../coordinate';
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import { Condition } from '../events/condition';
 import BaseEvent from '../events/Event';
 import Feature from '../Feature';
@@ -9,7 +9,9 @@ import GeometryType from '../geom/GeometryType';
 import LineString from '../geom/LineString';
 import SimpleGeometry from '../geom/SimpleGeometry';
 import VectorLayer from '../layer/Vector';
+import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
+import PluggableMap from '../PluggableMap';
 import Projection from '../proj/Projection';
 import VectorSource from '../source/Vector';
 import { StyleFunction, StyleLike } from '../style/Style';
@@ -39,7 +41,7 @@ export interface Options {
 export type PointCoordType = Coordinate;
 export type PolyCoordType = Coordinate[][];
 export type SketchCoordType = PointCoordType | LineCoordType | PolyCoordType;
-export enum DrawEventType {
+declare enum DrawEventType {
     DRAWSTART = 'drawstart',
     DRAWEND = 'drawend',
     DRAWABORT = 'drawabort',
@@ -51,8 +53,12 @@ export default class Draw extends PointerInteraction {
     extend(feature: Feature<LineString>): void;
     finishDrawing(): void;
     getOverlay(): VectorLayer;
+    handleDownEvent(event: MapBrowserEvent<UIEvent>): boolean;
+    handleEvent(event: MapBrowserEvent<UIEvent>): boolean;
+    handleUpEvent(event: MapBrowserEvent<UIEvent>): boolean;
     removeLastPoint(): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    setMap(map: PluggableMap): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
@@ -77,7 +83,7 @@ export default class Draw extends PointerInteraction {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-export class DrawEvent extends BaseEvent {
+declare class DrawEvent extends BaseEvent {
     constructor(type: DrawEventType, feature: Feature<Geometry>);
     feature: Feature<Geometry>;
 }

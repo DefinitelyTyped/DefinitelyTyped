@@ -18,8 +18,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/compose": [
-                "wordpress__compose"
+            "@wordpress/*": [
+                "wordpress__*"
             ]
         }
     },

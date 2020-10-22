@@ -1,4 +1,4 @@
-// Type definitions for yeoman-generator 3.1
+// Type definitions for yeoman-generator 4.11
 // Project: https://github.com/yeoman/generator, http://yeoman.io
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
@@ -7,131 +7,799 @@
 //                 Arthur Corenzan <https://github.com/haggen>
 //                 Richard Lea <https://github.com/chigix>
 //                 Devid Farinelli <https://github.com/misterdev>
+//                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
+import { SpawnOptions, SpawnSyncOptions } from 'child_process';
+import { Debugger } from 'debug';
+import { Data as TemplateData, Options as TemplateOptions } from 'ejs';
 import { EventEmitter } from 'events';
-import * as inquirer from 'inquirer';
+import { Answers as InquirerAnswers, DistinctQuestion } from 'inquirer';
+import { Editor, CopyOptions } from 'mem-fs-editor';
 import { Observable } from 'rxjs';
-
-type Callback = (err: any) => void;
+import { Transform } from 'stream';
+import Environment = require('yeoman-environment');
+import Storage = require('./lib/util/storage');
+import Logger = Environment.Logger;
 
 declare namespace Generator {
-    type Question<T extends Answers = Answers> = inquirer.DistinctQuestion<T> & {
+    /**
+     * Provides a priority-specification for a custom queue.
+     */
+    interface Priority {
         /**
-         * whether to store the user's previous answer
+         * The name for identifying the queue.
+         */
+        queueName?: string;
+
+        /**
+         * The name of the method to execute.
+         */
+        priorityName: string;
+
+        /**
+         * The name of the queue which this priority should be added before.
+         */
+        before: string;
+    }
+
+    /**
+     * Provides options for generators.
+     */
+    interface GeneratorOptions {
+        /**
+         * Gets or sets additional properties.
+         */
+        [name: string]: any;
+
+        /**
+         * Gets or sets a collection of custom priorities.
+         */
+        customPriorities?: Priority[];
+    }
+
+    /**
+     * Provides the functionality to handle callbacks.
+     */
+    type Callback =
+        /**
+         * Handles a callback.
+         *
+         * @param err The error that occurred.
+         */
+        (err: any) => void;
+
+    /**
+     * Represents a question.
+     */
+    type Question<T extends Answers = Answers> = DistinctQuestion<T> & {
+        /**
+         * A value indicating whether to store the user's previous answer.
          */
         store?: boolean;
     };
-    type Answers = inquirer.Answers;
 
-    type Questions<A extends Answers = Answers> = (
-        | Question<A>
-        | Array<Question<A>>
-        | Observable<Question<A>>
-    );
+    /**
+     * Provides options for registering a prompt.
+     */
+    type QuestionRegistrationOptions<T extends Answers = Answers> = Question<T> & {
+        /**
+         * The storage to store the answers.
+         */
+        storage?: Storage;
 
-    class Storage {
-        constructor(name: string, fs: MemFsEditor, configPath: string);
+        /**
+         * A value indicating whether an option should be exported for this question.
+         */
+        exportOption?: boolean | object;
+    };
 
-        defaults(defaults: {}): {};
-        delete(key: string): void;
-        get(key: string): any;
-        getAll(): { [key: string]: any };
-        save(): void;
-        set(key: string, value: any): any;
-    }
+    /**
+     * Represents an answer-hash.
+     */
+    type Answers = InquirerAnswers;
+
+    /**
+     * Provides a set of questions.
+     */
+    type Questions<A extends Answers = Answers> = Question<A> | Array<Question<A>> | Observable<Question<A>>;
+
+    /**
+     * Provides options for performing installations.
+     */
     interface InstallOptions {
         /**
-         * whether to run `npm install` or can be options to pass to `dargs` as arguments
+         * A value indicating whether to run `npm install` or options to pass to `dargs` as arguments.
          */
         npm?: boolean | object;
+
         /**
-         * whether to run `bower install` or can be options to pass to `dargs` as arguments
+         * A value indicating whether to run `bower install` or options to pass to `dargs` as arguments.
          */
         bower?: boolean | object;
+
         /**
-         * whether to run `yarn install` or can be options to pass to `dargs` as arguments
+         * A value indicating whether to run `yarn install` or options to pass to `dargs` as arguments.
          */
         yarn?: boolean | object;
+
         /**
-         * whether to log the used commands
+         * A value indicating whether messages should be logged.
          */
         skipMessage?: boolean;
     }
+
+    /**
+     * Provides options for creating a new argument.
+     */
     interface ArgumentConfig {
+        /**
+         * Description for the argument.
+         */
         description?: string;
+
+        /**
+         * A value indicating whether the argument is required.
+         */
         required?: boolean;
+
+        /**
+         * A value indicating whether the argument is optional.
+         */
         optional?: boolean;
-        type?: typeof String|typeof Number|typeof Array|typeof Object;
+
+        /**
+         * The type of the argument.
+         */
+        type?: typeof String | typeof Number | typeof Array | typeof Object;
+
+        /**
+         * The default value of the argument.
+         */
         default?: any;
     }
+
+    /**
+     * Provides settings for creating a new generator-option.
+     */
     interface OptionConfig {
+        /**
+         * The type of the option.
+         */
+        type: typeof Boolean | typeof String | typeof Number;
+
+        /**
+         * The option name alias (example `-h` and --help`).
+         */
         alias?: string;
+
+        /**
+         * The default value.
+         */
         default?: any;
+
+        /**
+         * The description for the option.
+         */
         description?: string;
+
+        /**
+         * A value indicating whether the option should be hidden from the help output.
+         */
         hide?: boolean;
-        type?: typeof Boolean|typeof String|typeof Number;
+
+        /**
+         * The storage to persist the option
+         */
+        storage?: Storage;
     }
-    interface MemFsEditor {
-        read(filepath: string, options?: {}): string;
-        readJSON(filepath: string, defaults?: {}): any;
-        write(filepath: string, contents: string): void;
-        writeJSON(filepath: string, contents: {}, replacer?: (key: string, value: any) => any, space?: number): void;
-        extendJSON(filepath: string, contents: {}, replacer?: (key: string, value: any) => any, space?: number): void;
-        delete(filepath: string, options?: {}): void;
-        copy(from: string, to: string, options?: {}, context?: {}, templateOptions?: {}): void;
-        copyTpl(from: string, to: string, context: {}, templateOptions?: {}, copyOptions?: {}): void;
-        move(from: string, to: string, options?: {}): void;
-        exists(filepath: string): boolean;
-        commit(callback: Callback): void;
-        commit(filters: any[], callback: Callback): void;
+
+    /**
+     * Represents a generator-constructor.
+     */
+    interface GeneratorConstructor {
+        new (...args: any[]): Generator<any>;
+    }
+
+    /**
+     * Represents options for composing a generator.
+     */
+    interface CompositionOptions {
+        /**
+         * The constructor of the generator.
+         */
+        Generator: GeneratorConstructor;
+
+        /**
+         * The path to the file containing the generator.
+         */
+        path: string;
+    }
+
+    /**
+     * Provides options for queues.
+     */
+    interface QueueOptions {
+        /**
+         * The name of the queue.
+         */
+        queueName?: string;
+
+        /**
+         * A value indicating whether the queue should be executed only once per namespace and task-name.
+         */
+        once?: boolean;
+
+        /**
+         * A value indicating whether the queue should be executed if not running yet.
+         */
+        run?: boolean;
+    }
+
+    /**
+     * Provides options for tasks.
+     */
+    interface TaskOptions extends QueueOptions {
+        /**
+         * A method for handling errors.
+         */
+        reject?: Callback;
+    }
+
+    /**
+     * Represents a task.
+     */
+    interface Task extends TaskOptions {
+        /**
+         * The function to queue.
+         */
+        method: (...args: any) => any;
+
+        /**
+         * The name of the task.
+         */
+        taskName: string;
+    }
+
+    /**
+     * Provides settings for rendering a template.
+     */
+    interface TemplateRenderOptions<T extends Generator<any>> {
+        /**
+         * A method for determining whether the template should be rendered.
+         */
+        when?: (templateData: TemplateData, generator: T) => boolean;
+
+        /**
+         * The template file, absolute or relative to `templatePath()`.
+         */
+        source: string | string[];
+
+        /**
+         * The destination, absolute or relative to `destinationPath()`.
+         */
+        destination?: string | string[];
+
+        /**
+         * The `ejs` options.
+         */
+        templateOptions?: TemplateOptions;
+
+        /**
+         * The `mem-fs-editor` copy-options.
+         */
+        copyOptions?: CopyOptions;
     }
 }
 
-declare class Generator extends EventEmitter {
-    constructor(args: string|string[], options: {});
+/**
+ * The `Generator` class provides the common API shared by all generators.
+ * It define options, arguments, file, prompt, log, API, etc.
+ *
+ * Every generator should extend this base class.
+ */
+declare class Generator<T extends Generator.GeneratorOptions = Generator.GeneratorOptions> extends EventEmitter {
+    constructor(args: string | string[], options: T);
 
-    env: {
-        error(...e: Error[]): void;
-        adapter: {
-            promptModule: inquirer.PromptModule;
-        };
-    };
+    /**
+     * The current Environment being run.
+     */
+    env: Environment;
+
+    /**
+     * Provides arguments at initialization.
+     */
     args: {};
-    resolved: string;
-    description: string;
-    appname: string;
-    config: Generator.Storage;
-    fs: Generator.MemFsEditor;
-    options: { [name: string]: any };
-    log(message?: string, context?: any): void;
 
+    /**
+     * The path to the current generator.
+     */
+    resolved: string;
+
+    /**
+     * The description to display in the `--help` output.
+     */
+    description: string;
+
+    /**
+     * The application name.
+     */
+    appname: string;
+
+    /**
+     * The `.yo-rc` config file manager.
+     */
+    config: Storage;
+
+    /**
+     * An instance of [`mem-fs-editor`](https://github.com/SBoudrias/mem-fs-editor).
+     */
+    fs: Editor;
+
+    /**
+     * Provides options at initialization.
+     */
+    options: T;
+
+    /**
+     * Provides the functionality to log messages.
+     */
+    log: Logger;
+
+    /**
+     * The path from where the user is running `yo`
+     */
+    contextRoot: string;
+
+    /**
+     * Reads the options or a single option at the specified property-path from the `.yo-rc` config-store.
+     *
+     * @param path The property-path of the option to get.
+     */
+    _templateData(path?: string): any;
+
+    /**
+     * Adds an argument to the class and creates an attribute getter for it.
+     *
+     * Arguments are different from options in several aspects. The first one
+     * is how they are parsed from the command line, arguments are retrieved
+     * based on their position.
+     *
+     * Besides, arguments are used inside your code as a property (`this.argument`),
+     * while options are all kept in a hash (`this.options`).
+     *
+     *
+     * @param name Argument name.
+     * @param config Argument options.
+     * @return This generator.
+     */
     argument(name: string, config: Generator.ArgumentConfig): this;
-    composeWith(namespace: string, options: { [name: string]: any }, settings?: { local: string, link: 'weak'|'strong' }): this;
+
+    /**
+     * Cancels all cancellable tasks.
+     */
+    cancelCancellableTasks(): void;
+
+    /**
+     * Compose this generator with another one.
+     *
+     * @param generator The path to the generator module or an object (see examples).
+     * @param options The options passed to the Generator.
+     * @param returnNewGenerator Returns the created generator instead of returning this.
+     * @return This generator or the composed generator when `returnNewGenerator` is `true`.
+     *
+     * @example
+     * this.composeWith('bootstrap', { sass: true });
+     *
+     * @example
+     * this.composeWith(require.resolve('generator-bootstrap/app/main.js'), { sass: true });
+     *
+     * @example
+     * this.composeWith({ Generator: MyGenerator, path: '../generator-bootstrap/app/main.js' }, { sass: true });
+     *
+     * @returns
+     * Either returns this generator or the newly created generator.
+     */
+    composeWith(
+        generators: Array<Generator.CompositionOptions | string> | Generator.CompositionOptions | string,
+        options?: Generator.GeneratorOptions,
+        returnNewGenerator?: false,
+    ): this;
+
+    /**
+     * Compose this generator with another one.
+     *
+     * @param generator The path to the generator module or an object (see examples).
+     * @param options The options passed to the Generator.
+     * @param returnNewGenerator Returns the created generator instead of returning this.
+     * @return This generator or the composed generator when returnNewGenerator=true
+     *
+     * @example
+     * this.composeWith('bootstrap', { sass: true });
+     *
+     * @example
+     * this.composeWith(require.resolve('generator-bootstrap/app/main.js'), { sass: true });
+     *
+     * @example
+     * this.composeWith({ Generator: MyGenerator, path: '../generator-bootstrap/app/main.js' }, { sass: true });
+     *
+     * @returns
+     * Either returns this generator or the newly created generator.
+     */
+    composeWith(
+        generators: Generator.CompositionOptions | string,
+        options: Generator.GeneratorOptions,
+        returnNewGenerator: true,
+    ): Generator;
+
+    /**
+     * Compose this generator with another one.
+     *
+     * @param generator The path to the generator module or an object (see examples).
+     * @param options The options passed to the Generator.
+     * @param returnNewGenerator Returns the created generator instead of returning this.
+     * @return This generator or the composed generator when returnNewGenerator=true
+     *
+     * @example
+     * this.composeWith('bootstrap', { sass: true });
+     *
+     * @example
+     * this.composeWith(require.resolve('generator-bootstrap/app/main.js'), { sass: true });
+     *
+     * @example
+     * this.composeWith({ Generator: MyGenerator, path: '../generator-bootstrap/app/main.js' }, { sass: true });
+     *
+     * @returns
+     * Either returns this generator or the newly created generator.
+     */
+    composeWith(
+        generators: Array<Generator.CompositionOptions | string>,
+        options: Generator.GeneratorOptions,
+        returnNewGenerator: true,
+    ): Generator[];
+
+    /**
+     * Creates a new storage.
+     *
+     * @param storagePath The path to the `json`-file of the storage.
+     * @param key The key in which the options are stored inside the `json`.
+     * @param lodashPath A value indicating whether the `key` argument should be treated as a lodash path.
+     */
+    createStorage(storagePath: string, key?: string, lodashPath?: boolean): Storage;
+
+    /**
+     * Convenience debug method.
+     */
+    debug: (...args: Parameters<Debugger>) => void;
+
+    /**
+     * Joins a path to the destination root.
+     *
+     * @param path The path parts.
+     */
     destinationPath(...path: string[]): string;
-    destinationRoot(rootPath?: string): string;
+
+    /**
+     * Changes the generator destination root directory.
+     *
+     * This path is used to find storage, when using file system helper methods (such as `this.writeDestination` and `this.copyDestination`).
+     *
+     * @param rootPath The new destination root path.
+     * @param skipEnvironment A value indicating whether `this.env.cwd` and the current working directory shouldn't be changed.
+     */
+    destinationRoot(rootPath?: string, skipEnvironment?: boolean): string;
+
+    /**
+     * Determines the name of the application.
+     *
+     * First checks for the name in `bower.json`, then checks for the name in `package.json`.
+     * Finally defaults to the name of the current directory.
+     *
+     * @returns The name of the application.
+     */
     determineAppname(): string;
+
+    /**
+     * Adds an option to the set of generator expected options, only used to generate generator usage.
+     * By default, generators get all the cli options parsed by nopt as a `this.options` hash object.
+     *
+     * @param name The name of the option.
+     * @param config The configuration of the option.
+     * @returns This generator
+     */
     option(name: string, config: Generator.OptionConfig): this;
-    prompt<A extends Generator.Answers = Generator.Answers>(questions: Generator.Questions<A>): Promise<A>;
-    registerTransformStream(stream: {}|Array<{}>): this;
+
+    /**
+     * Prompt user to answer questions.
+     */
+    prompt<T>(questions: Generator.Questions<T>): Promise<T>;
+
+    /**
+     * Queues the basic tasks of the generator.
+     */
+    queueBasicTasks(): void;
+
+    /**
+     * Schedules methods on a run queue.
+     *
+     * @param method The method or an object containing function properties to schedule.
+     * @param methodName The name of the method to be scheduled.
+     * @param queueName The name of the queue to schedule on.
+     * @param reject A callback for handling rejections.
+     */
+    queueMethod(
+        method: ((...args: any[]) => any) | Record<string, (...args: any[]) => any>,
+        methodName?: string,
+        queueName?: string,
+        reject?: Generator.Callback,
+    ): void;
+
+    /**
+     * Schedules a task on a run queue.
+     *
+     * @param task The task to queue.
+     */
+    queueTask(task: Generator.Task): void;
+
+    /**
+     * Schedules methods on a run queue.
+     *
+     * @param taskGroup An object containing tasks.
+     * @param taskOptions The options for creating the tasks.
+     */
+    queueTaskGroup(taskGroup: Record<string, (...args: any[]) => any>, taskOptions?: Generator.TaskOptions): void;
+
+    /**
+     * Registers stored config prompts and optional option alternatives.
+     *
+     * @param questions
+     * The questions to register.
+     */
+    registerConfigPrompts<TAnswers>(
+        questions:
+            | Generator.QuestionRegistrationOptions<TAnswers>
+            | Array<Generator.QuestionRegistrationOptions<TAnswers>>,
+    ): void;
+
+    /**
+     * Adds a transform stream to the commit stream.
+     *
+     * @param stream An array of transform streams or a single one.
+     */
+    registerTransformStream(stream: Transform | Transform[]): this;
+
+    /**
+     * Determines the root generator name (the one who's extending this generator).
+     */
     rootGeneratorName(): string;
+
+    /**
+     * Determines the root generator version (the one who's extending this generator).
+     */
     rootGeneratorVersion(): string;
-    run(cb?: Callback): this;
+
+    /**
+     * Runs the generator, scheduling prototype methods on a run queue.
+     * Method names will determine the order each method is run.
+     * Methods without special names will run in default queue.
+     *
+     * Any method named `constructor` and any methods prefixed by a `_` won't be scheduled.
+     */
+    run(): Promise<void>;
+
+    /**
+     * Runs the generator, scheduling prototype methods on a run queue.
+     * Method names will determine the order each method is run.
+     * Methods without special names will run in default queue.
+     *
+     * Any method named `constructor` and any methods prefixed by a `_` won't be scheduled.
+     *
+     * @param cb The callback.
+     * @deprecated
+     */
+    // tslint:disable-next-line:unified-signatures
+    run(cb: Generator.Callback): Promise<void>;
+
+    /**
+     * Changes the generator source root directory.
+     * This path is used by multiple file system methods.
+     *
+     * @param rootPath The new source root path.
+     */
     sourceRoot(rootPath?: string): string;
+
+    /**
+     * Joins a path to the source root.
+     *
+     * @param path The path parts.
+     */
     templatePath(...path: string[]): string;
 
+    /**
+     * Starts the generator again.
+     *
+     * @param The options to assign.
+     */
+    startOver(options?: T): void;
+
+    // actions/fs mixin
+    /**
+     * Copy file from destination folder to another destination folder.
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.copy(this.destinationPath(from), this.destinationPath(to))
+     * ```
+     */
+    copyDestination: Editor['copy'];
+
+    /**
+     * Copy file from templates folder to destination folder.
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.copy(this.templatePath(from), this.destinationPath(to))
+     * ```
+     */
+    copyTemplate: Editor['copy'];
+
+    /**
+     * Deletes file from destination folder.
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.delete(this.destinationPath(filepath))
+     * ```
+     */
+    deleteDestination: Editor['delete'];
+
+    /**
+     * Checks whether a file exists in the destination folder.
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.exists(this.destinationPath(filepath))
+     * ```
+     */
+    existsDestination: Editor['exists'];
+
+    /**
+     * Move file from destination folder to another destination folder.
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.move(this.destinationPath(from), this.destinationPath(to))
+     * ```
+     */
+    moveDestination: Editor['move'];
+
+    /**
+     * Read file from destination folder.
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.read(this.destinationPath(filepath))
+     * ```
+     */
+    readDestination: Editor['read'];
+
+    /**
+     * Read JSON file from destination folder.
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.readJSON(this.destinationPath(filepath))
+     * ```
+     */
+    readDestinationJSON: Editor['readJSON'];
+
+    /**
+     * Read file from templates folder.
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.read(this.templatePath(filepath))
+     * ```
+     */
+    readTemplate: Editor['read'];
+
+    /**
+     * Copies a template from templates folder to the destination.
+     *
+     * @param source The template file, absolute or relative to `templatePath()`.
+     * @param destination The destination, absolute or relative to `destinationPath()`.
+     * @param templateData The `ejs`-data or the name of the storage-key to get the data from.
+     * @param templateOptions The `ejs`-options.
+     * @param copyOptions The `mem-fs-editor` copy options.
+     */
+    renderTemplate(
+        source: string | string[],
+        destination?: string | string[],
+        templateData?: TemplateData | string,
+        templateOptions?: TemplateOptions | string,
+        copyOptions?: CopyOptions,
+    ): void;
+
+    /**
+     * Copies templates from the `templates` folder to the destination.
+     *
+     * @param templates The template files to copy.
+     * @param templateData The ejs data or the name of the storage-key to get the data from.
+     */
+    renderTemplates(
+        templates: Array<Generator.TemplateRenderOptions<this>>,
+        templateData?: TemplateData | string,
+    ): void;
+
+    /**
+     * Write file to destination folder
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.write(this.destinationPath(filepath))
+     * ```
+     */
+    writeDestination: Editor['write'];
+
+    /**
+     * Write json file to destination folder
+     * `mem-fs-editor` method's shortcut, for more information see [mem-fs-editor](https://github.com/SBoudrias/mem-fs-editor).
+     * Shortcut for:
+     * ```js
+     * this.fs.writeJSON(this.destinationPath(filepath))
+     * ```
+     */
+    writeDestinationJSON: Editor['writeJSON'];
+
     // actions/help mixin
+    /**
+     * Generates a help-text for the arguments.
+     *
+     * @returns A help-text for the arguments.
+     */
     argumentsHelp(): string;
-    async(): () => {};
+
+    /**
+     * Sets a custom `description` for the help output.
+     *
+     * @param description The new description.
+     */
     desc(description: string): this;
+
+    /**
+     * Tries to get the description from a `USAGE` file one folder above the source root, otherwise uses a default description.
+     */
     help(): string;
+
+    /**
+     * Gets help text for options.
+     */
     optionsHelp(): string;
+
+    /**
+     * Gets usage information for this generator, depending on its arguments or options.
+     */
     usage(): string;
 
     // actions/spawn_command mixin
-    spawnCommand(command: string, args: string[], opt?: {}): any;
-    spawnCommandSync(command: string, args: string[], opt?: {}): any;
+    /**
+     * Normalizes a command across OS and spawns it (asynchronously).
+     *
+     * @param command The program to execute.
+     * @param args A list of arguments to pass to the program.
+     * @param opt Any cross-spawn options.
+     */
+    spawnCommand(command: string, args: string[], opt?: SpawnOptions): any;
+
+    /**
+     * Normalizes a command across the OS and spawns it (synchronously).
+     *
+     * @param command The program to execute.
+     * @param args A list of arguments to pass to the program
+     * @param opt Any cross-spawn options.
+     */
+    spawnCommandSync(command: string, args: string[], opt?: SpawnSyncOptions): any;
 
     // actions/install mixin
     /**
@@ -143,7 +811,8 @@ declare class Generator extends EventEmitter {
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    bowerInstall(component?: string|string[], options?: object, spawnOptions?: object): void;
+    bowerInstall(component?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
+
     /**
      * Runs `npm` and `bower`, in sequence, in the generated directory and prints a
      * message to let the user know.
@@ -162,6 +831,7 @@ declare class Generator extends EventEmitter {
      *
      */
     installDependencies(options?: Generator.InstallOptions): void;
+
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -171,7 +841,8 @@ declare class Generator extends EventEmitter {
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    npmInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
+    npmInstall(pkgs?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
+
     /**
      * Combine package manager cmd line arguments and run the `install` command.
      *
@@ -181,10 +852,15 @@ declare class Generator extends EventEmitter {
      * @param installer Which package manager to use
      * @param paths Packages to install. Use an empty string for `npm install`
      * @param options Options to pass to `dargs` as arguments
-     * @param spawnOptions Options to pass `child_process.spawn`. ref
-     *                     https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
+     * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    scheduleInstallTask(installer: string, paths?: string|string[], options?: object, spawnOptions?: object): void;
+    scheduleInstallTask(
+        installer: string,
+        paths?: string | string[],
+        options?: object,
+        spawnOptions?: SpawnOptions,
+    ): void;
+
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -194,7 +870,7 @@ declare class Generator extends EventEmitter {
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
-    yarnInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
+    yarnInstall(pkgs?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
 
     // actions/user mixin
     readonly user: {
@@ -205,6 +881,7 @@ declare class Generator extends EventEmitter {
              * @return configured git email or undefined
              */
             email(): string;
+
             /**
              * Retrieves user's name from Git in the global scope or the project scope
              * (it'll take what Git will use in the current context)
@@ -219,7 +896,7 @@ declare class Generator extends EventEmitter {
              *         get the information
              */
             username(): Promise<string>;
-        }
+        };
     };
 }
 export = Generator;

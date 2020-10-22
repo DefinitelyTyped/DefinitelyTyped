@@ -85,7 +85,7 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            bottom? :string | number;
+            bottom?: string | number;
             /**
              * Width of legend component. Adaptive by default.
              *

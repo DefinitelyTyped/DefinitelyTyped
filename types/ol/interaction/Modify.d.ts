@@ -1,6 +1,6 @@
 import Collection from '../Collection';
 import { Coordinate } from '../coordinate';
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import { Condition } from '../events/condition';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
@@ -10,6 +10,7 @@ import SimpleGeometry from '../geom/SimpleGeometry';
 import VectorLayer from '../layer/Vector';
 import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
+import PluggableMap from '../PluggableMap';
 import Projection from '../proj/Projection';
 import VectorSource from '../source/Vector';
 import { StyleFunction, StyleLike } from '../style/Style';
@@ -36,8 +37,14 @@ export interface SegmentData {
 export default class Modify extends PointerInteraction {
     constructor(options: Options);
     getOverlay(): VectorLayer;
+    handleDownEvent(evt: MapBrowserEvent<UIEvent>): boolean;
+    handleDragEvent(evt: MapBrowserEvent<UIEvent>): void;
+    handleEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    handleUpEvent(evt: MapBrowserEvent<UIEvent>): boolean;
     removePoint(): boolean;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    setActive(active: boolean): void;
+    setMap(map: PluggableMap): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
@@ -62,5 +69,5 @@ export default class Modify extends PointerInteraction {
 export class ModifyEvent extends BaseEvent {
     constructor();
     features: Collection<Feature<Geometry>>;
-    mapBrowserEvent: MapBrowserEvent;
+    mapBrowserEvent: MapBrowserEvent<UIEvent>;
 }

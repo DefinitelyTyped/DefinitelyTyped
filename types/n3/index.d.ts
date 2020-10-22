@@ -21,10 +21,10 @@ export interface Prefixes<I = RDF.NamedNode> {
 export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
 export type PrefixedToIri = (suffix: string) => NamedNode;
 
-export class NamedNode implements RDF.NamedNode {
+export class NamedNode<Iri extends string = string> implements RDF.NamedNode<Iri> {
     readonly termType: "NamedNode";
-    readonly value: string;
-    constructor(iri: string);
+    readonly value: Iri;
+    constructor(iri: Iri);
     readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
@@ -83,6 +83,8 @@ export type Quad_Graph = DefaultGraph | NamedNode | BlankNode | Variable;
 
 export class BaseQuad implements RDF.BaseQuad {
     constructor(subject: Term, predicate: Term, object: Term, graph?: Term);
+    termType: 'Quad';
+    value: '';
     subject: Term;
     predicate: Term;
     object: Term;
@@ -104,7 +106,7 @@ export class Quad extends BaseQuad implements RDF.Quad {
 export class Triple extends Quad implements RDF.Quad {}
 
 export namespace DataFactory {
-    function namedNode(value: string): NamedNode;
+    function namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri>;
     function blankNode(value?: string): BlankNode;
     function literal(value: string | number, languageOrDatatype?: string | RDF.NamedNode): Literal;
     function variable(value: string): Variable;

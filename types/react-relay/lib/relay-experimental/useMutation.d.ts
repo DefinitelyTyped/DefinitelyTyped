@@ -9,8 +9,8 @@ export interface UseMutationConfig<TMutation extends MutationParameters> {
     ) => void;
     onUnsubscribe?: () => void;
     optimisticResponse?: TMutation["rawResponse"];
-    optimisticUpdater?: SelectorStoreUpdater;
-    updater?: SelectorStoreUpdater;
+    optimisticUpdater?: SelectorStoreUpdater<TMutation["response"]>;
+    updater?: SelectorStoreUpdater<TMutation["response"]>;
     uploadables?: UploadableMap;
     variables: TMutation["variables"];
 }

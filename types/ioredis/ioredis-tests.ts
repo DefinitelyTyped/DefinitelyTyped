@@ -17,6 +17,9 @@ const cbNumber = (err: Error | null, result: any) => {
 redis.set('foo', 'bar');
 redis.get('foo', cb);
 
+redis.getrangeBuffer("foo", 0, 1, cb);
+redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
+
 // Static check that returned value is always a number
 redis.del('foo', 'bar').then(result => result * 1);
 
@@ -126,6 +129,12 @@ redis.zpopmax('myset', cb);
 redis.zpopmax('myset', 1, cb);
 redis.zpopmax('myset', 1).then(console.log);
 redis.zpopmax('myset').then(console.log);
+redis.bzpopmin('myset', 0).then(console.log);
+redis.bzpopmin('mysetA', 'mysetB', 0).then(console.log);
+redis.bzpopmin(['mysetA', 'mysetB', 0]).then(console.log);
+redis.bzpopmin('myset', 0, cb);
+redis.bzpopmin('mysetA', 'mysetB', 0, cb);
+redis.bzpopmin(['mysetA', 'mysetB', 0], cb);
 redis.sort('list').then(console.log);
 redis.sort('list', cb);
 redis.sort('list', 'LIMIT', 0, 10).then(console.log);
@@ -143,7 +152,18 @@ redis.zscan('key', 0, 'MATCH', '*foo*', 'COUNT', 100, cb);
 redis.pfadd('key', 'a', 'b', 'c').then(console.log);
 redis.pfadd('key', 'a', 'b', 'c', cbNumber);
 
-// Test OverloadedKeyedHashCommand
+// Test OverloadedKeyedHashCommand for hset
+redis.hset('foo', '1', '2', '3', 4, '5', new Buffer([])).then(console.log);
+redis.hset('foo', '1', '2', '3', 4, '5', new Buffer([]), cb);
+redis.hset('foo', '1', '2', '3', 4).then(console.log);
+redis.hset('foo', '1', '2', '3', 4);
+redis.hset('foo', '1', '2').then(console.log);
+redis.hset('foo', '1', ['1', 2]);
+redis.hset('foo', { a: 'b', c: 4 }).then(console.log);
+redis.hset('foo', { a: 'b', c: 4 }, cb);
+redis.hset('foo', new Map<string, number>(), cb);
+
+// Test OverloadedKeyedHashCommand for hmset
 redis.hmset('foo', '1', '2', '3', 4, '5', new Buffer([])).then(console.log);
 redis.hmset('foo', '1', '2', '3', 4, '5', new Buffer([]), cb);
 redis.hmset('foo', '1', '2', '3', 4).then(console.log);
@@ -313,6 +333,7 @@ pipeline.hset('hash', 'foo', 4);
 pipeline.hget('hash', 'foo');
 pipeline.hsetBuffer('hash', 'fooBuffer', 4);
 pipeline.hgetBuffer('hash', 'fooBuffer');
+pipeline.getrangeBuffer('foo', 0, 1);
 pipeline.exec((err, results) => {
     // `err` is always null, and `results` is an array of responses
     // corresponding to the sequence of queued commands.
@@ -390,9 +411,18 @@ redis
     .get('foo', (err, result) => {
         // result === 'QUEUED'
     })
+    .sscan('set', 0)
+    .sscan('set', '0')
+    .hscan('hash', 0)
+    .hscan('hash', '0')
+    .zscan('zset', 0)
+    .zscan('zset', '0')
     .exec((err, results) => {
         // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
     });
+
+redis.multi().options;
+redis.multi().redis;
 
 redis
     .multi([

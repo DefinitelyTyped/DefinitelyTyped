@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "bee-queue": "^1.2.3",
+        "bullmq": "^1.9.0"
+    }
+}
