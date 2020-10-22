@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export default function Clock(props: ClockProps): JSX.Element;
-
-export interface ClockProps {
+export type ClockValue = string | Date;
+export interface ClockProps<T = ClockValue> {
     /**
      * Class name(s) that will be added along with "react-clock" to the main React-Clock <time> element.
      */
@@ -108,5 +108,5 @@ export interface ClockProps {
     /**
      * Clock value. Must be provided.
      */
-    value: Date;
+    value: T;
 }
