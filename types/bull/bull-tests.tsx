@@ -150,8 +150,7 @@ const pdfQueue = new Queue<number>('pdf transcoding', {
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-// @ts-expect-error promise function must respect the queue's job data type
-pdfQueue.process((job: Queue.Job<string>) => {
+pdfQueue.process((job: Queue.Job<string>) => { // $ExpectError
     // Processors can also return promises instead of using the done callback
     return Promise.resolve('pdf url');
 });
@@ -166,8 +165,7 @@ const pfdPromise: Queue.ProcessPromiseFunction<number, string> = async (job: Que
 }
 
 
-// @ts-expect-error promise function must return specified return value type
-const errorPdfPromise: Queue.ProcessPromiseFunction<number, string> = async (job: Queue.Job<number>) => {
+const errorPdfPromise: Queue.ProcessPromiseFunction<number, string> = async (job: Queue.Job<number>) => { // $ExpectError
     return Promise.resolve(3);
 }
 
