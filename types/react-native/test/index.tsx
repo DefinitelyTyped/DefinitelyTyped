@@ -39,6 +39,7 @@ import {
     FlatListProps,
     GestureResponderEvent,
     HostComponent,
+    I18nManager,
     Image,
     ImageBackground,
     ImageErrorEventData,
@@ -1548,4 +1549,15 @@ const DataDetectorTypeTest = () => {
 
 const ToastAndroidTest = () => {
     ToastAndroid.showWithGravityAndOffset('My Toast', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 0, 50);
+}
+
+const I18nManagerTest = () => {
+    I18nManager.allowRTL(true);
+    I18nManager.forceRTL(true);
+    I18nManager.swapLeftAndRightInRTL(true);
+    const { isRTL, doLeftAndRightSwapInRTL } = I18nManager.getConstants();
+    const isRtlFlag = I18nManager.isRTL;
+    const doLeftAndRightSwapInRtlFlag = I18nManager.doLeftAndRightSwapInRTL;
+
+    console.log(isRTL, isRtlFlag, doLeftAndRightSwapInRTL, doLeftAndRightSwapInRtlFlag);
 }
