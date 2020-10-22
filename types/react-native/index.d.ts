@@ -42,7 +42,7 @@
 //                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
-//                 Arafat Zahan <kuasha420@gmail.com>
+//                 Arafat Zahan <https://github.com/kuasha420>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
