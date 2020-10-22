@@ -9,7 +9,7 @@ import { DataFactory, NamedNode } from 'rdf-js';
 declare function namespace<TermNames extends string = string>(baseIRI: string, options?: namespace.BuilderOptions): namespace.NamespaceBuilder<TermNames>;
 
 declare namespace namespace {
-    type NamespaceBuilder<TermNames extends string = string> = Record<TermNames, NamedNode> & {
+    type NamespaceBuilder<TermNames extends string = any> = Record<TermNames, NamedNode> & {
         (property?: TemplateStringsArray | TermNames): NamedNode;
     };
 
