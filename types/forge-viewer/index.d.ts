@@ -589,7 +589,7 @@ declare namespace Autodesk {
             modelId: number;
             radius: number;
             snapNode: number;
-            snapPoint: null;
+            snapPoint: THREE.Vector3;
             viewportIndex2d: number;
 
             applyMatrix4(matrix: THREE.Matrix4): void;
