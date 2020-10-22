@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.5
+// Type definitions for Jasmine 3.6
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -16,6 +16,7 @@
 //                 Dominik Ehrenberg <https://github.com/djungowski>
 //                 Chives <https://github.com/chivesrs>
 //                 kirjs <https://github.com/kirjs>
+//                 Md. Enzam Hossain <https://github.com/ienzam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -77,6 +78,20 @@ declare function xit(expectation: string, assertion?: jasmine.ImplementationCall
  * @param reason Reason the spec is pending.
  */
 declare function pending(reason?: string): void;
+
+/**
+ * Sets a user-defined property that will be provided to reporters as
+ * part of the properties field of SpecResult.
+ * @since 3.6.0
+ */
+declare function setSpecProperty(key: string, value: unknown): void;
+
+/**
+ * Sets a user-defined property that will be provided to reporters as
+ * part of the properties field of SuiteResult.
+ * @since 3.6.0
+ */
+declare function setSuiteProperty(key: string, value: unknown): void;
 
 /**
  * Run some shared setup before each of the specs in the describe in which it is called.
@@ -285,6 +300,14 @@ declare namespace jasmine {
 
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
 
+    /**
+     * Add a custom object formatter for the current scope of specs.
+     * Note: This is only callable from within a beforeEach, it, or beforeAll.
+     * @since 3.6.0
+     * @see https://jasmine.github.io/tutorials/custom_object_formatters
+     */
+    function addCustomObjectFormatter(formatter: CustomObjectFormatter): void;
+
     function addMatchers(matchers: CustomMatcherFactories): void;
     function addAsyncMatchers(matchers: CustomAsyncMatcherFactories): void;
 
@@ -347,6 +370,8 @@ declare namespace jasmine {
 
     type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
+    type CustomObjectFormatter = (value: unknown) => string|undefined;
+
     interface CustomMatcher {
         compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
         compare(actual: any, ...expected: any[]): CustomMatcherResult;
@@ -382,6 +407,16 @@ declare namespace jasmine {
         equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
         contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
         buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
+
+        /**
+         * Formats a value for use in matcher failure messages and similar
+         * contexts, taking into account the current set of custom value
+         * formatters.
+         * @since 3.6.0
+         * @param value - The value to pretty-print
+         * @return - The pretty-printed value
+         */
+        pp(value: unknown): string;
     }
 
     interface Env {
@@ -424,6 +459,21 @@ declare namespace jasmine {
          * @deprecated Use seed option in {@link jasmine.Env.configure} instead.
          */
         seed(seed: string | number): string | number;
+
+        /**
+         * Sets a user-defined property that will be provided to reporters as
+         * part of the properties field of SpecResult.
+         * @since 3.6.0
+         */
+        setSpecProperty(key: string, value: unknown): void;
+
+        /**
+         * Sets a user-defined property that will be provided to reporters as
+         * part of the properties field of SuiteResult.
+         * @since 3.6.0
+         */
+        setSuiteProperty(key: string, value: unknown): void;
+
         provideFallbackReporter(reporter: Reporter): void;
         throwingExpectationFailures(): boolean;
         allowRespy(allow: boolean): void;
@@ -597,6 +647,7 @@ declare namespace jasmine {
         toHaveBeenCalled(): boolean;
         toHaveBeenCalledBefore(expected: Func): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
+        toHaveBeenCalledOnceWith(...params: any[]): boolean;
         toHaveBeenCalledTimes(expected: number): boolean;
         toContain(expected: any, expectationFailOutput?: any): boolean;
         toBeLessThan(expected: number, expectationFailOutput?: any): boolean;
@@ -622,6 +673,17 @@ declare namespace jasmine {
          * expect(el).toHaveClass('bar');
          */
         toHaveClass(expected: string, expectationFailOutput?: any): boolean;
+
+        /**
+         * Expect the actual size to be equal to the expected, using array-like
+         * length or object keys size.
+         * @since 3.6.0
+         * @param expected - The expected size
+         * @example
+         * array = [1,2];
+         * expect(array).toHaveSize(2);
+         */
+        toHaveSize(expected: number): boolean;
 
         /**
          * Add some context for an expect.
