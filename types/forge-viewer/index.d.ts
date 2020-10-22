@@ -571,7 +571,7 @@ declare namespace Autodesk {
         }
 
         namespace MeasureCommon {
-          function getSnapResultPosition(pick: SnapResult, viewer: Autodesk.Viewing.Viewer3D): THREE.Vector3;
+          function getSnapResultPosition(pick: SnapResult, viewer: Viewer3D): THREE.Vector3;
 
           class SnapResult {
             circularArcCenter: THREE.Vector3;
@@ -1029,7 +1029,7 @@ declare namespace Autodesk {
 
           namespace Snapping {
             class Snapper {
-              constructor(viewer: Autodesk.Viewing.Viewer3D, options?: {
+              constructor(viewer: Viewer3D, options?: {
                 forceSnapEdges?: boolean;
                 forceSnapVertices?: boolean;
                 markupMode?: boolean;
@@ -1048,13 +1048,13 @@ declare namespace Autodesk {
               copyResults(destiny: any): void;
               getGeometry(): any;
               getEdge(): any;
-              getSnapResult(): Autodesk.Viewing.MeasureCommon.SnapResult;
+              getSnapResult(): MeasureCommon.SnapResult;
               getVertex(): any;
               onMouseMove(mousePosition: { x: number, y: number }): boolean;
             }
 
             class SnapperIndicator {
-              constructor(viewer: Autodesk.Viewing.Viewer3D, snapper: Snapper);
+              constructor(viewer: Viewer3D, snapper: Snapper);
 
               clearOverlays(): void;
               onCameraChange(): void;
