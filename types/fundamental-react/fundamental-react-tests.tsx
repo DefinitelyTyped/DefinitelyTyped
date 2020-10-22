@@ -1654,6 +1654,7 @@ const selects = (
             <List>
                 <List.Item>
                     <List.Text>List Item 1</List.Text>
+                    <List.Selection checkBoxAriaLabel="checkedLabel">List Item 2</List.Selection>
                 </List.Item>
             </List>
         </Select>

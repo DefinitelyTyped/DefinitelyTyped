@@ -62,7 +62,7 @@ interface Console {
      * This method does not display anything unless used in the inspector.
      *  Prints to `stdout` the array `array` formatted as a table.
      */
-    table(tabularData: any, properties?: string[]): void;
+    table(tabularData: any, properties?: ReadonlyArray<string>): void;
     /**
      * Starts a timer that can be used to compute the duration of an operation. Timers are identified by a unique `label`.
      */
@@ -305,7 +305,7 @@ declare class Buffer extends Uint8Array {
      * @param array The octets to store.
      * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
-    constructor(array: any[]);
+    constructor(array: ReadonlyArray<any>);
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
@@ -326,7 +326,7 @@ declare class Buffer extends Uint8Array {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    static from(data: number[]): Buffer;
+    static from(data: ReadonlyArray<number>): Buffer;
     static from(data: Uint8Array): Buffer;
     /**
      * Creates a new buffer containing the coerced value of an object
@@ -380,7 +380,7 @@ declare class Buffer extends Uint8Array {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    static concat(list: Uint8Array[], totalLength?: number): Buffer;
+    static concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
@@ -882,7 +882,7 @@ declare namespace NodeJS {
         getegid(): number;
         setegid(id: number | string): void;
         getgroups(): number[];
-        setgroups(groups: Array<string | number>): void;
+        setgroups(groups: ReadonlyArray<string | number>): void;
         setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
         hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
@@ -935,9 +935,15 @@ declare namespace NodeJS {
             tls: boolean;
         };
         /**
+         * @deprecated since v12.19.0 - Calling process.umask() with no argument causes
+         * the process-wide umask to be written twice. This introduces a race condition between threads,
+         * and is a potential security vulnerability. There is no safe, cross-platform alternative API.
+         */
+        umask(): number;
+        /**
          * Can only be set if not in worker thread.
          */
-        umask(mask?: number): number;
+        umask(mask: string | number): number;
         uptime(): number;
         hrtime: HRTime;
         domain: Domain;
@@ -1140,6 +1146,7 @@ declare namespace NodeJS {
         ref(): this;
         refresh(): this;
         unref(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     class Immediate {
@@ -1154,6 +1161,7 @@ declare namespace NodeJS {
         ref(): this;
         refresh(): this;
         unref(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     class Module {
@@ -1174,7 +1182,8 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        parent: Module | null;
+        /** @deprecated since 12.19.0 Please use `require.main` and `module.children` instead. */
+        parent: Module | null | undefined;
         children: Module[];
         /**
          * @since 11.14.0

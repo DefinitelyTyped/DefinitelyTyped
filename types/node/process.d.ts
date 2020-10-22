@@ -209,7 +209,7 @@ declare module "process" {
                 getegid(): number;
                 setegid(id: number | string): void;
                 getgroups(): number[];
-                setgroups(groups: Array<string | number>): void;
+                setgroups(groups: ReadonlyArray<string | number>): void;
                 setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
                 hasUncaughtExceptionCaptureCallback(): boolean;
                 version: string;
@@ -271,7 +271,7 @@ declare module "process" {
                 /**
                  * Can only be set if not in worker thread.
                  */
-                umask(mask: number): number;
+                umask(mask: string | number): number;
                 uptime(): number;
                 hrtime: HRTime;
                 domain: Domain;

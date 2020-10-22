@@ -334,6 +334,22 @@ const customTooltipsPieChart = new Chart(ctx, {
     },
 });
 
+// chart with right-to-left (rtl) legend and tooltip
+const rtlTooltipsLegendsLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {},
+    options: {
+        legend: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+        tooltips: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+    },
+});
+
 // platform global values
 Chart.platform.disableCSSInjection = true;
 
@@ -530,3 +546,9 @@ const chartWithNumberArrayData: Chart = new Chart(ctx, {
         }
     }
 });
+
+// Category axes
+const categoryXAxe: Chart.ChartXAxe = {
+    type: 'category',
+    labels: ['label1', 'label2'],
+};

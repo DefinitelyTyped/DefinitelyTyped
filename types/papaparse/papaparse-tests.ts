@@ -107,8 +107,10 @@ Papa.unparse({
     data: [],
 });
 
+Papa.unparse([{ a: 1, b: 1, c: 1 }], {});
 Papa.unparse([{ a: 1, b: 1, c: 1 }], { quotes: false });
 Papa.unparse([{ a: 1, b: 1, c: 1 }], { quotes: [false, true, true] });
+Papa.unparse([{ a: 1, b: 1, c: 1 }], { escapeFormulae: false });
 Papa.unparse(
     [
         [1, 2, 3],

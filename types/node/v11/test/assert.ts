@@ -53,3 +53,13 @@ assert.doesNotReject(async () => 1);
 assert.doesNotReject(Promise.resolve(1));
 
 assert.strict.strict.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, '3']], 4, 5]);
+
+assert.strict.strict.strict.ok(1);
+assert.strict.strict.ok(1);
+assert.strict.ok(1);
+assert.ok(1);
+
+assert.strict.strict.strict(1);
+assert.strict.strict(1);
+assert.strict(1);
+assert(1);

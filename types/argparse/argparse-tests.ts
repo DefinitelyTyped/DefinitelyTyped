@@ -347,3 +347,8 @@ console.log('-----------');
 args = constExample.parse_args('--foo x --bar --baz y --qux z a b c d e'.split(' '));
 console.dir(args);
 console.log('-----------');
+
+const versionExample = new ArgumentParser({description: 'Add version'});
+versionExample.add_argument('-v', '--v', {action: 'version', version: '1.0.0'});
+versionExample.print_help();
+console.log('-----------');

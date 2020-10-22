@@ -1678,7 +1678,20 @@ declare namespace echarts {
                     margin?: number;
                     color?: string;
                     fontStyle?: 'normal' | 'italic' | 'oblique';
-                    fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | '100' | '200' | '300' | '400';
+                    fontWeight?:
+                        | 'normal'
+                        | 'bold'
+                        | 'bolder'
+                        | 'lighter'
+                        | 100
+                        | 200
+                        | 300
+                        | 400
+                        | 500
+                        | 600
+                        | 700
+                        | 800
+                        | 900;
                     fontFamily?: string;
                     fontSize?: number;
                     lineHeight?: number;

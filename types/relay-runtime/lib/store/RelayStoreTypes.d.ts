@@ -809,6 +809,24 @@ export type MissingFieldHandler =
       };
 
 /**
+ * A handler for events related to @required fields. Currently reports missing
+ * fields with either `action: LOG` or `action: THROW`.
+ */
+export type RequiredFieldLogger = (
+    arg:
+      | Readonly<{
+          kind: "missing_field.log",
+          owner: string,
+          fieldPath: string,
+        }>
+      | Readonly<{
+          kind: "missing_field.throw",
+          owner: string,
+          fieldPath: string,
+        }>
+  ) => void;
+
+/**
  * The results of normalizing a query.
  */
 export interface RelayResponsePayload {

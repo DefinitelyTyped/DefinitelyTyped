@@ -408,7 +408,7 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
    * `preventDefault` yourself (or not, if you want to allow the
    * default behavior).
    */
-  handleDOMEvents?: { [name: string]: (this: ThisT, view: EditorView<S>, event: Event) => boolean } | null;
+  handleDOMEvents?: HandleDOMEventsProp<ThisT, S> | null;
   /**
    * Called when the editor receives a `keydown` event.
    */
@@ -627,6 +627,16 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
    */
   scrollMargin?: number | { top: number, right: number, bottom: number, left: number } | null;
 }
+/**
+ * A mapping of dom events.
+ */
+export type HandleDOMEventsProp<ThisT = unknown, S extends Schema = any> = Partial<
+  {
+    [K in keyof DocumentEventMap]: (this: ThisT, view: EditorView<S>, event: DocumentEventMap[K]) => boolean;
+  }
+> & {
+  [key: string]: (this: ThisT, view: EditorView<S>, event: any) => boolean;
+};
 /**
  * The props object given directly to the editor view supports two
  * fields that can't be used in plugins:

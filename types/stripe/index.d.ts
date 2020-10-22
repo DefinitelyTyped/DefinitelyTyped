@@ -8,7 +8,6 @@
 //                 Kyle Kamperschroer <https://github.com/kkamperschroer>
 //                 Kensuke Hoshikawa <https://github.com/starhoshi>
 //                 Gal Talmor <https://github.com/galtalmor>
-//                 Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Tyler Jones <https://github.com/squirly>
 //                 Troy Zarger <https://github.com/tzarger>
 //                 Slava Yultyyev <https://github.com/yultyyev>

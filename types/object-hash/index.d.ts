@@ -7,7 +7,7 @@ interface IStream {
     update?(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
     write?(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
 }
-
+type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
 import HashStatic = ObjectHash.HashStatic;
 export = HashStatic;
 export as namespace objectHash;
