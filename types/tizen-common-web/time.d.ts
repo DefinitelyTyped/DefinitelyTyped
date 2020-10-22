@@ -551,17 +551,6 @@ export class TZDate {
      */
     toString(): string;
     /**
-     * Determines the time zone abbreviation to be used at a particular date in the time zone.
-     *
-     * For example, in Toronto this is currently "EST" during the winter months and "EDT" during the
-     * summer months when daylight savings time is in effect.
-     * @note `deprecated` 2.1 Deprecated since 2.1.
-     * @return DOMString The abbreviation of the time zone (such as "EST") <br>
-     *                   If TZDate is invalid, it will return 'Invalid Date'.
-     * @throw WebAPIException with error type UnknownError, if the call failed due to an unknown error.
-     */
-    getTimezoneAbbreviation(): string;
-    /**
      * Gets the number of seconds from Coordinated Universal Time (UTC) offset for the timezone.
      *
      * Returns the offset (in seconds) from UTC of the timezone, accounting for daylight
