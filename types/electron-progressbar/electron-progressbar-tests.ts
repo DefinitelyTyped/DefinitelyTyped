@@ -1,6 +1,6 @@
-import * as progressbar from "electron-progressbar";
+import ProgressBar from "electron-progressbar";
 
-const progressBar = new progressbar.ProgressBar({
+const progressBar = new ProgressBar({
     title: 'Test'
 });
 

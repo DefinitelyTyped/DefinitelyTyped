@@ -5,7 +5,7 @@
 
 import { BrowserWindow, app } from 'electron';
 
-export class ProgressBar {
+declare class ProgressBar {
     constructor(options: ProgressBarOptions, electronApp?: typeof app)
 
     getOptions(): ProgressBarOptions;
@@ -25,7 +25,7 @@ export class ProgressBar {
     detail: string;
 }
 
-export interface ProgressBarOptions {
+interface ProgressBarOptions {
     abortOnError?: boolean;
     indeterminate?: boolean;
     initialValue?: number;
@@ -38,14 +38,14 @@ export interface ProgressBarOptions {
     browserWindow?: BrowserWindowOptions;
 }
 
-export interface StyleOptions {
+interface StyleOptions {
     text?: object;
     detail?: object;
     bar?: object;
     value?: object;
 }
 
-export interface BrowserWindowOptions {
+interface BrowserWindowOptions {
     parent?: BrowserWindow;
     modal?: boolean;
     resizable?: boolean;
@@ -55,3 +55,5 @@ export interface BrowserWindowOptions {
     width?: number;
     height?: number;
 }
+
+export = ProgressBar;
