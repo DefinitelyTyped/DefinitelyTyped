@@ -1,5 +1,6 @@
 {
     "private": true,
+    "license": "MIT",
     "dependencies": {
         "electron": "^10.1.4"
     }
