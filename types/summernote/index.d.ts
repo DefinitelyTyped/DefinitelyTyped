@@ -27,6 +27,7 @@ declare global {
             focus?: boolean;
             fontNames?: string[];
             fontNamesIgnoreCheck?: string[];
+            fontSizes?: string[];
             height?: number;
             hint?: HintOptions;
             icons?: IconsOptions;
