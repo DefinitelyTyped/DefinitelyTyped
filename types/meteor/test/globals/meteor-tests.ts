@@ -230,25 +230,39 @@ Posts.insert({ title: "Hello world", body: "First post" });
  assert(Scratchpad.find({number: {$lt: 9}}).count() === 5);
  **/
 
+type DBAnimal = {
+    _id?: string;
+    name: string;
+    sound: string;
+}
+interface Animal extends DBAnimal {}
+
 class Animal {
     constructor(public doc: any) {}
+    makeNoise() {
+        return 'roar';
+    }
 }
 
 interface AnimalDAO {
     _id?: string;
     name: string;
     sound: string;
-    makeNoise?: () => void;
+    makeNoise: () => void;
 }
 
 // Define a Collection that uses Animal as its document
-var Animals = new Mongo.Collection<AnimalDAO>("Animals", {
+var Animals = new Mongo.Collection<DBAnimal, AnimalDAO>("Animals", {
     transform: function (doc: any): Animal { return new Animal(doc); }
 });
 
 // Create an Animal and call its makeNoise method
 Animals.insert({ name: "raptor", sound: "roar" });
-Animals.findOne({ name: "raptor" }).makeNoise(); // prints "roar"
+var animal = Animals.findOne({ name: "raptor" });
+
+if (animal) {
+    animal.makeNoise(); // prints "roar"
+}
 
 /**
  * From Collections, Collection.insert section
@@ -342,7 +356,7 @@ Posts = new Mongo.Collection<iPost>("posts");
 Posts.allow({
     insert: function (userId: string, doc: iPost) {
         // the user must be logged in, and the document must be owned by the user
-        return (userId && doc.owner === userId);
+        return Boolean(userId && doc.owner === userId);
     },
     update: function (userId: string, doc: iPost, fields: string[], modifier: any) {
         // can only change your own documents
@@ -482,7 +496,7 @@ Session.set("enemy", "Eurasia");
 /**
  * From Sessions, Session.equals section
  */
-var value: string;
+var value = '';
 Session.get("key") === value;
 Session.equals("key", value);
 
@@ -638,7 +652,7 @@ Meteor.methods({
         message.text;
         // $ExpectType Date
         message.timestamp;
-        // $ExpectType "Test String"
+        // $ExpectType "Test String" | undefined
         message.tags;
     }
 });
@@ -893,7 +907,8 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-    const check = Accounts._checkPassword(Meteor.users.findOne({}), 'abc123');
+    const user = Meteor.users.findOne({}) ?? {} as Meteor.User;
+    const check = Accounts._checkPassword(user, 'abc123');
     if (check.error) {
         console.error('incorrect password');
     }
