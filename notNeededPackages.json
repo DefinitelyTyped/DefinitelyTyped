@@ -25,6 +25,12 @@
             "asOfVersion": "5.0.1"
         },
         {
+            "libraryName": "ace",
+            "typingsPackageName": "ace",
+            "sourceRepoURL": "https://github.com/ajaxorg/ace",
+            "asOfVersion": "1.3.2"
+        },
+        {
             "libraryName": "acme-client",
             "typingsPackageName": "acme-client",
             "sourceRepoURL": "https://github.com/publishlab/node-acme-client",
