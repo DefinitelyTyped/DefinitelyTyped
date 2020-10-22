@@ -2,7 +2,7 @@
 // Project: https://github.com/shellscape/webpack-plugin-serve
 // Definitions by: Matheus Gonçalves da Silva <https://github.com/PlayMa256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 3.8
 /// <reference types="node" />
 
 import { Config as HttpProxyMiddlewareConfig, Proxy } from 'http-proxy-middleware';
@@ -12,7 +12,7 @@ import { ServerOptions as HttpsServerOptions } from 'https';
 import { Options as HistoryApiFallbackOptions } from 'connect-history-api-fallback';
 import { CompressOptions } from 'koa-compress';
 import { Options as KoaStaticOptions } from 'koa-static';
-import { GlobbyOptions } from 'globby';
+import type { GlobbyOptions } from 'globby';
 
 export interface Builtins {
     proxy: (args: HttpProxyMiddlewareConfig) => Proxy;
