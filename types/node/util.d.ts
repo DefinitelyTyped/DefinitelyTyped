@@ -204,4 +204,13 @@ declare module "util" {
         encode(input?: string): Uint8Array;
         encodeInto(input: string, output: Uint8Array): EncodeIntoResult;
     }
+
+    global {
+        namespace NodeJS {
+            interface Global {
+                TextDecoder: TextDecoder;
+                TextEncoder: TextEncoder;
+            }
+        }
+    }
 }

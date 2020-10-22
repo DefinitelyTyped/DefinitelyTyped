@@ -324,3 +324,8 @@ function testUtilTypes(
         object; // $ExpectType WeakSet<any>
     }
 }
+
+{
+    const td = new global.TextDecoder();
+    const te = new global.TextEncoder();
+}

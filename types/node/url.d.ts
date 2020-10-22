@@ -107,4 +107,13 @@ declare module "url" {
         values(): IterableIterator<string>;
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
+
+    global {
+        namespace NodeJS {
+            interface Global {
+                URL: URL;
+                URLSearchParams: URLSearchParams;
+            }
+        }
+    }
 }

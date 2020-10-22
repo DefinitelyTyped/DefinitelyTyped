@@ -149,3 +149,8 @@ import * as url from 'url';
 {
     const path: url.URL = url.pathToFileURL('file://test');
 }
+
+{
+    const URL = new global.URL('https://example.org/');
+    const searchParams = new global.URLSearchParams();
+}
