@@ -1,10 +1,11 @@
 // Author: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 
-import * as temp from "temp";
+import * as temp from 'temp';
 
-function testCleanup() {
+async function testCleanup() {
+    await temp.cleanup();
     temp.cleanup(result => {
-        if (typeof result === "boolean") {
+        if (typeof result === 'boolean') {
             const x = result;
         } else {
             const { files, dirs } = result;
@@ -16,7 +17,7 @@ function testCleanup() {
 
 function testCleanupSync() {
     const cleanupResult: boolean | temp.Stats = temp.cleanupSync();
-    if (typeof cleanupResult === "boolean") {
+    if (typeof cleanupResult === 'boolean') {
         const x = cleanupResult;
     } else {
         const { dirs, files } = cleanupResult;
@@ -25,14 +26,15 @@ function testCleanupSync() {
     }
 }
 
-function testOpen() {
-    temp.open({ dir: "tempDir", prefix: "pref", suffix: "suff" }, (err, result) => {
+async function testOpen() {
+    await temp.open({ dir: 'tempDir', prefix: 'pref', suffix: 'suff' });
+    temp.open({ dir: 'tempDir', prefix: 'pref', suffix: 'suff' }, (err, result) => {
         const { path, fd } = result;
         path.length;
         fd.toPrecision(5);
     });
 
-    temp.open("strPrefix", (err, result) => {
+    temp.open('strPrefix', (err, result) => {
         const { path, fd } = result;
         path.length;
         fd.toPrecision(5);
@@ -40,32 +42,33 @@ function testOpen() {
 }
 
 function testOpenSync() {
-    const f1: temp.OpenFile = temp.openSync({ dir: "tempDir", prefix: "pref", suffix: "suff" });
-    const f2: temp.OpenFile = temp.openSync("str");
+    const f1: temp.OpenFile = temp.openSync({ dir: 'tempDir', prefix: 'pref', suffix: 'suff' });
+    const f2: temp.OpenFile = temp.openSync('str');
 }
 
 function testCreateWriteStream() {
-    const stream = temp.createWriteStream("HelloStreamAffix");
-    stream.write("data");
+    const stream = temp.createWriteStream('HelloStreamAffix');
+    stream.write('data');
     const stream2 = temp.createWriteStream();
 }
 
-function testMkdir() {
-    temp.mkdir("prefix", (err, dirPath) => {
+async function testMkdir() {
+    await temp.mkdir('prefix');
+    temp.mkdir('prefix', (err, dirPath) => {
         dirPath.length;
     });
 }
 
 function testMkdirSync() {
-    const result = temp.mkdirSync("prefix");
+    const result = temp.mkdirSync('prefix');
     result.length;
 }
 
 function testPath() {
-    const p = temp.path({ suffix: "justSuffix" }, "defaultPrefix");
+    const p = temp.path({ suffix: 'justSuffix' }, 'defaultPrefix');
     p.length;
-    const p2: string = temp.path("prefix");
-    const p3: string = temp.path({ prefix: "prefix" });
+    const p2: string = temp.path('prefix');
+    const p3: string = temp.path({ prefix: 'prefix' });
 }
 
 function testTrack() {
