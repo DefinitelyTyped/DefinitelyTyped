@@ -131,7 +131,7 @@ const clusterQueue = new Queue('queue on redis cluster', {
 const client = new Redis();
 const subscriber = new Redis();
 
-const pdfQueue = new Queue('pdf transcoding', {
+const pdfQueue = new Queue<number>('pdf transcoding', {
     createClient: (type: string, options: Redis.RedisOptions) => {
         switch (type) {
             case 'client':
@@ -150,13 +150,25 @@ const pdfQueue = new Queue('pdf transcoding', {
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-pdfQueue.process((job: Queue.Job) => {
+// @ts-expect-error promise function must respect the queue's job data type
+pdfQueue.process((job: Queue.Job<string>) => {
     // Processors can also return promises instead of using the done callback
-    return Promise.resolve();
+    return Promise.resolve('pdf url');
 });
 
-async function pfdPromise(job: Queue.Job) {
-    return Promise.resolve();
+pdfQueue.process((job: Queue.Job<number>) => {
+    // Processors can also return promises instead of using the done callback
+    return Promise.resolve('pdf url');
+});
+
+const pfdPromise: Queue.ProcessPromiseFunction<number, string> = async (job: Queue.Job<number>) => {
+    return Promise.resolve('pdf url');
+}
+
+
+// @ts-expect-error promise function must return specified return value type
+const errorPdfPromise: Queue.ProcessPromiseFunction<number, string> = async (job: Queue.Job<number>) => {
+    return Promise.resolve(3);
 }
 
 pdfQueue.process(1, pfdPromise);

@@ -124,7 +124,7 @@ declare namespace Bull {
   type JobId = number | string;
 
   type ProcessCallbackFunction<T> = (job: Job<T>, done: DoneCallback) => void;
-  type ProcessPromiseFunction<T> = (job: Job<T>) => Promise<void>;
+  type ProcessPromiseFunction<T, ReturnValue = void> = (job: Job<T>) => Promise<ReturnValue>;
 
   interface Job<T = any> {
     id: JobId;
