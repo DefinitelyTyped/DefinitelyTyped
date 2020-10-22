@@ -1,4 +1,4 @@
-// Type definitions for webpack-plugin-serve 1.2.0
+// Type definitions for webpack-plugin-serve 1.2
 // Project: https://github.com/shellscape/webpack-plugin-serve
 // Definitions by: Matheus Gonçalves da Silva <https://github.com/PlayMa256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
