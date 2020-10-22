@@ -289,8 +289,10 @@ resultStr = faker.system.directoryPath();
 resultStr = faker.system.filePath();
 resultStr = faker.system.semver();
 
-resultDate = faker.time.recent();
-resultDate = faker.time.recent('foo');
+resultNum = faker.time.recent();
+resultNum = faker.time.recent('unix');
+resultStr = faker.time.recent('abbr');
+resultStr = faker.time.recent('wide');
 
 resultStr = faker.vehicle.vehicle();
 resultStr = faker.vehicle.manufacturer();

@@ -152,34 +152,34 @@ async function run() {
     // $ExpectError
     buildUpdateQuery({ $addToSet: { fruitTags: 123 } });
     buildUpdateQuery({ $addToSet: { fruitTags: { $each: ['stringField'] } } });
-    buildUpdateQuery({$addToSet: {readonlyFruitTags: 'apple'}});
-    buildUpdateQuery({$addToSet: {readonlyFruitTags: { $each: ['apple'] }}});
+    buildUpdateQuery({ $addToSet: { readonlyFruitTags: 'apple' } });
+    buildUpdateQuery({ $addToSet: { readonlyFruitTags: { $each: ['apple'] } } });
     buildUpdateQuery({ $addToSet: { maybeFruitTags: 'apple' } });
     buildUpdateQuery({ $addToSet: { 'dot.notation': 'stringField' } });
     buildUpdateQuery({ $addToSet: { 'dot.notation': { $each: ['stringfield'] } } });
     buildUpdateQuery({
         $addToSet: {
-            subInterfaceArray: { field1: 'foo' }
-        }
+            subInterfaceArray: { field1: 'foo' },
+        },
     });
     buildUpdateQuery({
         $addToSet: {
             subInterfaceArray: {
                 _id: new ObjectId(),
-                field1: 'foo'
-            }
-        }
+                field1: 'foo',
+            },
+        },
     });
     buildUpdateQuery({
         $addToSet: {
             subInterfaceArray: {
-                $each: [{ field1: 'foo' }]
-            }
-        }
+                $each: [{ field1: 'foo' }],
+            },
+        },
     });
     buildUpdateQuery({
         // $ExpectError
-        $addToSet: { subInterfaceArray: { field1: 123 } }
+        $addToSet: { subInterfaceArray: { field1: 123 } },
     });
 
     buildUpdateQuery({ $pop: { fruitTags: 1 } });
@@ -194,9 +194,9 @@ async function run() {
     buildUpdateQuery({ $pull: { maybeFruitTags: 'apple' } });
     buildUpdateQuery({ $pull: { 'dot.notation': 1 } });
     buildUpdateQuery({ $pull: { 'subInterfaceArray.$[]': { $in: ['a'] } } });
-    buildUpdateQuery({ $pull: { subInterfaceArray: { field1: 'a' } }});
-    buildUpdateQuery({ $pull: { subInterfaceArray: { _id: { $in: [new ObjectId()] } }  }});
-    buildUpdateQuery({ $pull: { subInterfaceArray: { field1: { $in: ['a'] } }  }});
+    buildUpdateQuery({ $pull: { subInterfaceArray: { field1: 'a' } } });
+    buildUpdateQuery({ $pull: { subInterfaceArray: { _id: { $in: [new ObjectId()] } } } });
+    buildUpdateQuery({ $pull: { subInterfaceArray: { field1: { $in: ['a'] } } } });
 
     buildUpdateQuery({ $push: { fruitTags: 'a' } });
     // $ExpectError
@@ -211,30 +211,32 @@ async function run() {
     buildUpdateQuery({ $push: { maybeFruitTags: 'apple' } });
     buildUpdateQuery({
         $push: {
-            subInterfaceArray: { field1: 'foo' }
-        }
+            subInterfaceArray: { field1: 'foo' },
+        },
     });
     buildUpdateQuery({
         $push: {
             subInterfaceArray: {
                 _id: new ObjectId(),
-                field1: 'foo'
-            }
-        }
+                field1: 'foo',
+            },
+        },
     });
     buildUpdateQuery({
         $push: {
             subInterfaceArray: {
-                $each: [{
-                    field1: 'foo',
-                    field2: 'bar'
-                }]
-            }
-        }
+                $each: [
+                    {
+                        field1: 'foo',
+                        field2: 'bar',
+                    },
+                ],
+            },
+        },
     });
     buildUpdateQuery({
         // $ExpectError
-        $push: { subInterfaceArray: { field1: 123 } }
+        $push: { subInterfaceArray: { field1: 123 } },
     });
     // buildUpdateQuery({ $push: { 'dot.notation': 1 } });
     // buildUpdateQuery({ $push: { 'subInterfaceArray.$[]': { $in: ['a'] } } });

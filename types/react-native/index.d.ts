@@ -4365,33 +4365,37 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
 /**
  * @see https://facebook.github.io/react-native/docs/sectionlist.html
  */
-export interface SectionBase<ItemT> {
+
+type DefaultSectionT = {
+    [key: string]: any
+}
+
+export interface SectionBase<ItemT, SectionT = DefaultSectionT> {
     data: ReadonlyArray<ItemT>;
 
     key?: string;
 
-    renderItem?: SectionListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT, SectionT>;
 
     ItemSeparatorComponent?: React.ComponentType<any> | null;
 
     keyExtractor?: (item: ItemT, index: number) => string;
 }
 
-export interface SectionListData<ItemT> extends SectionBase<ItemT> {
-    [key: string]: any;
-}
+export type SectionListData<ItemT, SectionT = DefaultSectionT> = SectionBase<ItemT, SectionT> & SectionT;
 
 /**
  * @see https://facebook.github.io/react-native/docs/sectionlist.html#props
  */
 
-export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<ItemT> {
-    section: SectionListData<ItemT>;
+export interface SectionListRenderItemInfo<ItemT, SectionT = DefaultSectionT> extends ListRenderItemInfo<ItemT> {
+    section: SectionListData<ItemT, SectionT>;
 }
 
-export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement | null;
+export type SectionListRenderItem<ItemT, SectionT = DefaultSectionT> =
+    (info: SectionListRenderItemInfo<ItemT, SectionT>) => React.ReactElement | null;
 
-export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
+export interface SectionListProps<ItemT, SectionT = DefaultSectionT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -4435,7 +4439,7 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
      * ```
      */
     getItemLayout?: (
-        data: SectionListData<ItemT>[] | null,
+        data: SectionListData<ItemT, SectionT>[] | null,
         index: number,
     ) => { length: number; offset: number; index: number };
 
@@ -4494,22 +4498,22 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: SectionListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT, SectionT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
      */
-    renderSectionHeader?: (info: { section: SectionListData<ItemT> }) => React.ReactElement | null;
+    renderSectionHeader?: (info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null;
 
     /**
      * Rendered at the bottom of each section.
      */
-    renderSectionFooter?: (info: { section: SectionListData<ItemT> }) => React.ReactElement | null;
+    renderSectionFooter?: (info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null;
 
     /**
      * An array of objects with data for each section.
      */
-    sections: ReadonlyArray<SectionListData<ItemT>>;
+    sections: ReadonlyArray<SectionListData<ItemT, SectionT>>;
 
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
@@ -4543,7 +4547,8 @@ export interface SectionListScrollParams {
     viewPosition?: number;
 }
 
-export class SectionList<SectionT = any> extends React.Component<SectionListProps<SectionT>> {
+export class SectionList<ItemT = any, SectionT = DefaultSectionT> extends React.Component<SectionListProps<ItemT,
+    SectionT>> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -4577,7 +4582,7 @@ export class SectionList<SectionT = any> extends React.Component<SectionListProp
 }
 
 /* This definition is deprecated because it extends the wrong base type */
-export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProps<SectionT>> {
+export interface SectionListStatic<ItemT, SectionT = DefaultSectionT> extends React.ComponentClass<SectionListProps<ItemT, SectionT>> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -9109,14 +9114,20 @@ export namespace Animated {
      * FlatList and SectionList infer generic Type defined under their `data` and `section` props.
      */
     export class FlatList<ItemT = any> extends React.Component<AnimatedProps<FlatListProps<ItemT>>> {}
-    export class SectionList<SectionT = any> extends React.Component<AnimatedProps<SectionListProps<SectionT>>> {}
+    export class SectionList<ItemT = any, SectionT = DefaultSectionT> extends React.Component<AnimatedProps<SectionListProps<ItemT, SectionT>>> {}
 }
 
 // tslint:disable-next-line:interface-name
 export interface I18nManagerStatic {
+    getConstants: () => {
+        isRTL: boolean;
+        doLeftAndRightSwapInRTL: boolean;
+    };
+    allowRTL: (allowRTL: boolean) => void;
+    forceRTL: (forceRTL: boolean) => void;
+    swapLeftAndRightInRTL: (swapLeftAndRight: boolean) => void;
     isRTL: boolean;
-    allowRTL: (allowRTL: boolean) => {};
-    forceRTL: (forceRTL: boolean) => {};
+    doLeftAndRightSwapInRTL: boolean;
 }
 
 export interface OpenCameraDialogOptions {

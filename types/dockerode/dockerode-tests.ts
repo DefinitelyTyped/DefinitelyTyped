@@ -165,6 +165,31 @@ docker.pruneVolumes((err, response) => {
     // NOOP
 });
 
+docker.createService({
+    Name: 'network-name',
+    Networks: [{
+        Target: "network-target",
+        Aliases: [],
+    }],
+    TaskTemplate: {
+        ContainerSpec: {
+            Image: `my-image`,
+            Env: ['my-env']
+        }
+    },
+    Mode: {
+        Replicated: {
+            Replicas: 1
+        }
+    },
+    EndpointSpec: {
+        Ports: [{
+            Protocol: "tcp",
+            TargetPort: 80
+        }]
+    }
+}, (err, response) => { /* NOOP */ });
+
 const plugin = docker.getPlugin('pluginName', 'remoteName');
 plugin.configure((err, response) => {
     // NOOP;
