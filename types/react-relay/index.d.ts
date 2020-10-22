@@ -1,7 +1,6 @@
 // Type definitions for react-relay 7.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Matt Krick <https://github.com/mattkrick>
 //                 Marais Rossouw <https://github.com/maraisr>
 //                 Edvin Erikson <https://github.com/edvinerikson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
