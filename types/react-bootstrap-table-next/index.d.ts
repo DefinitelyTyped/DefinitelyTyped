@@ -431,7 +431,7 @@ export interface BootstrapTableRef<T extends object = any> {
     };
 }
 
-export interface BootstrapTableProps<T extends object = any> {
+export interface BootstrapTableProps<T extends object = any, K = number> {
     /**
      * Tells react-bootstrap-table2 which column is unique.
      */
@@ -445,7 +445,7 @@ export interface BootstrapTableProps<T extends object = any> {
     remote?:
         | boolean
         | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean; search: boolean }>;
-    noDataIndication?: () => JSX.Element | JSX.Element | string;
+    noDataIndication?: (() => JSX.Element | string) | JSX.Element | string;
     striped?: boolean;
     bordered?: boolean;
     hover?: boolean;
@@ -465,7 +465,7 @@ export interface BootstrapTableProps<T extends object = any> {
     filter?: unknown;
     cellEdit?: any;
     selectRow?: SelectRowProps<T>;
-    expandRow?: ExpandRowProps<T>;
+    expandRow?: ExpandRowProps<T, K>;
     parentClassName?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
     rowStyle?: ((row: T, rowIndex: number) => CSSProperties) | CSSProperties;
     rowEvents?: RowEventHandlerProps;
@@ -493,7 +493,7 @@ export interface BootstrapTableProps<T extends object = any> {
     search?: SearchProps<T> | boolean;
 }
 
-declare class BootstrapTable<T extends object = any> extends Component<BootstrapTableProps<T>> {}
+declare class BootstrapTable<T extends object = any, K = number> extends Component<BootstrapTableProps<T, K>> {}
 export default BootstrapTable;
 
 /**
@@ -519,12 +519,12 @@ export interface ExpandHeaderColumnRenderer {
     isAnyExpands: boolean;
 }
 
-export interface ExpandRowProps<T> {
+export interface ExpandRowProps<T, K = number> {
     renderer: (row: T, rowIndex: number) => JSX.Element;
-    expanded?: any[];
+    expanded?: K[];
     onExpand?: (row: T, isExpand: boolean, rowIndex: number, e: SyntheticEvent) => void;
     onExpandAll?: (isExpandAll: boolean, results: T[], e: SyntheticEvent) => void;
-    nonExpandable?: number[];
+    nonExpandable?: K[];
     showExpandColumn?: boolean;
     onlyOneExpanding?: boolean;
     expandByColumnOnly?: boolean;

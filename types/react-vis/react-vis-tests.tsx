@@ -23,8 +23,31 @@ export function Example() {
         <XYPlot width={300} height={300}>
             <VerticalGridLines />
             <HorizontalGridLines />
-            <XAxis />
-            <YAxis />
+            <XAxis
+                style={{
+                    strokeWidth: '3px',
+                    line: { stroke: 'red' },
+                    ticks: { stroke: 'green' },
+                    title: { textTransform: 'uppercase' },
+                    text: {
+                        stroke: 'none',
+                        fill: 'blue',
+                        fontWeight: 600
+                    },
+                }}
+            />
+            <YAxis
+                style={{
+                    strokeWidth: '3px',
+                    line: { stroke: 'purple' },
+                    ticks: { stroke: 'orange' },
+                    title: { textTransform: 'capitalize' },
+                    text: {
+                        stroke: 'none',
+                        fill: 'rgb(70%, 80%, 54%)',
+                        fontWeight: 600
+                    },
+                }}/>
             <LineMarkSeries
                 className="linemark-series-example"
                 style={{

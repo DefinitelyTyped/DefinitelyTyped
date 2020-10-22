@@ -12,6 +12,7 @@ const repo = new Git.Repository();
 const id = new Git.Oid();
 const ref = new Git.Reference();
 const tree = new Git.Tree();
+const fetchOptions = new Git.FetchOptions();
 
 tree.walk().start();
 tree.getEntry('/').then(entry => {

@@ -1,7 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-single-declare-module": false,
-        "no-unnecessary-generics": false
-    }
-}
+{ "extends": "dtslint/dt.json" }

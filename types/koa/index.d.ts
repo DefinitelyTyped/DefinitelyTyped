@@ -403,7 +403,7 @@ declare interface ContextDelegatedResponse {
      *    this.set('Accept', 'application/json');
      *    this.set({ Accept: 'text/plain', 'X-API-Key': 'tobi' });
      */
-    set(field: { [key: string]: string }): void;
+    set(field: { [key: string]: string | string[] }): void;
     set(field: string, val: string | string[]): void;
 
     /**

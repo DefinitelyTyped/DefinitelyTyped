@@ -84,6 +84,13 @@ client.once(str, messageHandler);
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
+// set
+client.set('key', 'value', resCallback);
+client.set('key', 'value', 'NX', resCallback);
+client.set('key', 'value', 'EX', 1000, resCallback);
+client.set('key', 'value', 'NX', 'EX', 1000, resCallback);
+client.set('key', 'value', 'EX', 1000, 'NX', resCallback);
+
 // some of the bulk methods
 client.get('test');
 client.get('test', resCallback);

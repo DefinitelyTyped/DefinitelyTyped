@@ -50,32 +50,33 @@ export type IMP_PAY_METHOD =
 
 export type IMP_CURRENCY = 'KRW' | 'USD' | 'EUR' | 'JPY';
 
-// Property Note : https://docs.iamport.kr/tech/imp?lang=ko#callback
+// Property Note : https://docs.iamport.kr/tech/imp?lang=en#callback
 export interface CallbackRsp {
-    success: boolean;
-    error_code: string;
-    error_msg: string;
-    imp_uid: string;
-    merchant_uid: string;
-    pay_method: string;
-    paid_amount: string;
-    status: string;
-    name: string;
-    pg_provider: string;
-    pg_tid: string;
-    buyer_name: string;
-    buyer_email: string;
-    buyer_tel: string;
-    buyer_addr: string;
-    buyer_postcode: string;
-    custom_data: object;
-    paid_at: number;
-    receipt_url: string;
+    success?: boolean;
+    error_code?: string;
+    error_msg?: string;
+    imp_uid?: string;
+    merchant_uid?: string;
+    pay_method?: string;
+    paid_amount?: string;
+    status?: string;
+    name?: string;
+    pg_provider?: string;
+    pg_tid?: string;
+    buyer_name?: string;
+    buyer_email?: string;
+    buyer_tel?: string;
+    buyer_addr?: string;
+    buyer_postcode?: string;
+    custom_data?: object;
+    paid_at?: number;
+    receipt_url?: string;
     apply_num?: string;
     vbank_num?: string;
     vbank_name?: string;
     vbank_holder?: string;
     vbank_date?: number;
+    imp_success?: string;
 }
 
 export interface CertificationData {
@@ -121,7 +122,7 @@ export interface CertificationProps {
     loading?: object;
 }
 
-// Property Note : https://docs.iamport.kr/tech/imp?lang=ko#param
+// Property Note : https://docs.iamport.kr/tech/imp?lang=en#param
 export interface PaymentProps {
     userCode: string;
     tierCode?: string;

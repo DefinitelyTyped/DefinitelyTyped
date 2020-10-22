@@ -16,6 +16,7 @@ export interface SearchProps extends InheritedProps {
     placeHolderText?: string,
     size?: CarbonInputSize,
     value?: string | number,
+    light?: boolean,
 }
 
 declare class Search extends React.Component<SearchProps> { }

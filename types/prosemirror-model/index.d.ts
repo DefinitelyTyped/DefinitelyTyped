@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-model 1.7
+// Type definitions for prosemirror-model 1.11
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -631,10 +631,10 @@ declare class ProsemirrorNode<S extends Schema = any> {
    */
   resolve(pos: number): ResolvedPos<S>;
   /**
-   * Test whether a mark of the given type occurs in this document
+   * Test whether a given mark or mark type occurs in this document
    * between the two given positions.
    */
-  rangeHasMark(from: number, to: number, type: MarkType<S>): boolean;
+  rangeHasMark(from: number, to: number, type: Mark<S> | MarkType<S>): boolean;
   /**
    * True when this is a block (non-inline node)
    */
@@ -877,6 +877,11 @@ export class ResolvedPos<S extends Schema = any> {
    * before the position is returned.
    */
   nodeBefore?: ProsemirrorNode<S> | null;
+  /**
+   * Get the position at the given index in the parent node at the
+   * given depth (which defaults to this.depth).
+   */
+  posAtIndex(index: number, depth?: number): number;
   /**
    * Get the marks at this position, factoring in the surrounding
    * marks' [`inclusive`](#model.MarkSpec.inclusive) property. If the
@@ -1390,7 +1395,7 @@ export class Schema<N extends string = any, M extends string = any> {
 }
 export interface DOMOutputSpecArray {
   0: string;
-  1?: DOMOutputSpec | 0 | { [attr: string]: string };
+  1?: DOMOutputSpec | 0 | { [attr: string]: string | null | undefined };
   2?: DOMOutputSpec | 0;
   3?: DOMOutputSpec | 0;
   4?: DOMOutputSpec | 0;

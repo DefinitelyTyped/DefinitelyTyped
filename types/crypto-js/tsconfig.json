@@ -19,7 +19,8 @@
     },
     "files": [
         "index.d.ts",
-        "crypto-js-tests.ts",
+        "test/crypto-js-global.tests.ts",
+        "test/crypto-js-module.tests.ts",
         "test/submodule-tests.ts"
     ]
 }

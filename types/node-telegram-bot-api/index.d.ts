@@ -1365,7 +1365,7 @@ declare class TelegramBot extends EventEmitter {
     off(event: 'polling_error' | 'webhook_error' | 'error', listener: (error: Error) => void): this;
 
     removeAllListeners(
-        event:
+        event?:
             TelegramBot.MessageType |
             'message' |
             'callback_query' |

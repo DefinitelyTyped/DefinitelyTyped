@@ -47,6 +47,7 @@ export * from "./trigger/alb";
 // TODO: export * from "./trigger/alexa";
 export * from "./trigger/api-gateway-authorizer";
 export * from "./trigger/api-gateway-proxy";
+export * from "./trigger/appsync-resolver";
 // CloudTrail section just describes using S3 to trigger on cloudtrail changes.
 export * from "./trigger/cloudformation-custom-resource";
 export * from "./trigger/cloudfront-request";
@@ -78,5 +79,6 @@ export * from "./trigger/s3-batch";
 export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
+export * from './trigger/msk';
 
 export as namespace AWSLambda;

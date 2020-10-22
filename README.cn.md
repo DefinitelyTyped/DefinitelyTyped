@@ -31,9 +31,7 @@
 * 所有的包都会在1小时内 [发布到 npm](https://github.com/Microsoft/types-publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) 在 Definitely Typed 一直处于活跃状态 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
-如果这里面的任何内容出现问题或者失败的情况，请在 [the Definitely Typed Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped) 提出问题。
-
-[![Join the chat at https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+如果这里面的任何内容出现问题或者失败的情况，请在 [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) 提出问题。
 
 ## 什么是声明文件？
 
@@ -285,7 +283,7 @@ f("one");
 
 #### 我的 PR 被合并了，什么时候 `@types` 的 NPM 包会被更新？
 
-NPM 包应该会在几分钟内更新。如果已经超过了一小时，请在 [the Definitely Typed Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped) 上提及 PR 的编号，当前维护者会让团队成员去调查。
+NPM 包应该会在几分钟内更新。如果已经超过了一小时，请在 [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) 上提及 PR 的编号，当前维护者会让团队成员去调查。
 
 #### 我正在编写一个依赖其他类型定义的类型定义。我应该使用 `<reference types="" />` 还是导入？
 
@@ -476,7 +474,7 @@ TypeScript 手册包含了优秀的 [关于编写类型定义的概括信息](ht
 ```json
 {
     "paths":{
-      "@foo/bar": ["foo__bar"]
+      "@foo/*": ["foo__*"]
     }
 }
 ```

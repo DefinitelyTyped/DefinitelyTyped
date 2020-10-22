@@ -1,4 +1,5 @@
 import { IncomingMessage, ServerResponse } from 'http';
+import { User } from './index';
 
 interface GenericObject {
     [key: string]: any;
@@ -22,4 +23,10 @@ interface NextApiResponse<T = any> extends ServerResponse, GenericObject {
 
 type Send<T> = (body: T) => void;
 
-export { GenericObject, NextApiRequest, NextApiResponse };
+interface SessionBase {
+    user: User;
+    accessToken?: string;
+    expires: string;
+}
+
+export { GenericObject, SessionBase, NextApiRequest, NextApiResponse };

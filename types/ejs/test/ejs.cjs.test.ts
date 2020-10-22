@@ -21,6 +21,9 @@ const SimpleCallback = (err: any, html: string) => {
     return html;
 };
 
+ejs.VERSION; // $ExpectType string
+ejs.name; // $ExpectType "ejs"
+
 result = ejs.render(template);
 result = ejs.render(template, data);
 result = ejs.render(template, data, options);

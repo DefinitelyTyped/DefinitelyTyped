@@ -22,7 +22,7 @@ export interface Env extends EventEmitter {
 }
 
 /**
- * Dependecies can be path (autodiscovery) or an array [<generator>, <name>]
+ * Dependencies can be path (autodiscovery) or an array [<generator>, <name>]
  */
 export type Dependency = string | [Generator, string];
 
@@ -88,7 +88,7 @@ export function createDummyGenerator(): Generator;
 
 /**
  * Create a generator, using the given dependencies and controller arguments
- * Dependecies can be path (autodiscovery) or an array [<generator>, <name>]
+ * Dependencies can be path (autodiscovery) or an array [<generator>, <name>]
  *
  * @param name - the name of the generator
  * @param dependencies - paths to the generators dependencies
@@ -108,7 +108,7 @@ export function createGenerator(name: string, dependencies: Dependency[], args?:
 
 /**
  * Register a list of dependent generators into the provided env.
- * Dependecies can be path (autodiscovery) or an array [<generator>, <name>]
+ * Dependencies can be path (autodiscovery) or an array [<generator>, <name>]
  *
  * @param dependencies - paths to the generators dependencies
  */
@@ -199,7 +199,7 @@ export interface RunContext extends RunContextConstructor, EventEmitter {
     cd(dirPath: string): this;
 
     /**
-     * Cleanup a temporary directy and change the CWD into it
+     * Cleanup a temporary directory and change the CWD into it
      *
      * This method is called automatically when creating a RunContext. Only use it if you need
      * to use the callback.

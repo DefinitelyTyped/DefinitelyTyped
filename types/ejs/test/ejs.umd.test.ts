@@ -6,6 +6,9 @@
  */
 declare function expectType<T>(value: T): T;
 
+ejs.VERSION; // $ExpectType string
+ejs.name; // $ExpectType "ejs"
+
 // $ExpectType PromiseConstructorLike | undefined
 ejs.promiseImpl;
 

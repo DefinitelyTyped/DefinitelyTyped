@@ -4077,7 +4077,7 @@ declare namespace math {
         /**
          * Filter the items in an array or one dimensional matrix.
          */
-        filter(test: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)| RegExp): MathJsChain;
+        filter(test: ((value: any, index: any, matrix: Matrix | MathArray) => boolean)| RegExp): MathJsChain;
 
         /**
          * Flatten a multi dimensional matrix into a single dimensional matrix.
