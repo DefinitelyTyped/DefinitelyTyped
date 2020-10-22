@@ -549,6 +549,7 @@ const fileUploaderItem = (
         iconDescription="Clear file"
         name="README.md"
         onDelete={(event, content) => {}}
+        size="field"
         status="edit"
         uuid="id1"
     />
