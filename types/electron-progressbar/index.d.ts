@@ -3,7 +3,7 @@
 // Definitions by: Samuel Corsi-House <https://github.com/xenfo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {BrowserWindow, app} from 'electron';
+import { BrowserWindow, app } from 'electron';
 
 export class ProgressBar {
     constructor(options: ProgressBarOptions, electronApp?: typeof app)
