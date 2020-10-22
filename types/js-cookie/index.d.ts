@@ -112,5 +112,5 @@ declare namespace Cookies {
 
 declare const Cookies: Cookies.CookiesStatic;
 
-export = Cookies;
+export default Cookies;
 export as namespace Cookies;
