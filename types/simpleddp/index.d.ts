@@ -102,7 +102,7 @@ export default class simpleDDP {
     /**
      * Calls a remote method with arguments passed after the first argument. Syntactic sugar for `apply`.
      */
-    call(method: string, args?: object | unknown[]): Promise<unknown>;
+    call(method: string, ...args: unknown[]): Promise<unknown>;
     /**
      * Removes all documents like if it was removed by the server publication.
      */
