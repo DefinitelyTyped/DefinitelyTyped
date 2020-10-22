@@ -26,6 +26,7 @@ import {
 
 import {
     commitMutation,
+    ConcreteRequest,
     Environment,
     FragmentRefs,
     GraphQLSubscriptionConfig,
@@ -1023,10 +1024,10 @@ function EntryPointTests() {
                 name
             }
         }
-    `;
+    ` as ConcreteRequest;
 
     // RootEntrypoint.entrypoint
-    const RootEntrypointComponent: EntryPointComponent<{ someQueryRef: SomeQuery }, {}, { onClick: () => void }> = ({
+    const RootEntryPointComponent: EntryPointComponent<{ someQueryRef: SomeQuery }, {}, { onClick: () => void }> = ({
         queries,
         props,
     }) => {
@@ -1039,8 +1040,8 @@ function EntryPointTests() {
         slug: string;
     }
 
-    const entrypoint: EntryPoint<typeof RootEntrypointComponent, Params> = {
-        root: JSResource<typeof RootEntrypointComponent>(),
+    const entrypoint: EntryPoint<typeof RootEntryPointComponent, Params> = {
+        root: JSResource<typeof RootEntryPointComponent>(),
         getPreloadProps(
             // $ExpectType Params
             params,
@@ -1048,7 +1049,7 @@ function EntryPointTests() {
             return {
                 queries: {
                     someQueryRef: {
-                        parameters: query as any,
+                        parameters: query,
                         variables: {
                             slug: params.slug,
                         },
@@ -1083,13 +1084,13 @@ function EntryPointTests() {
     EntryPointContainerNested Tests
      */
     function EntryPointContainerNested() {
-        const entrypointA: EntryPoint<typeof RootEntrypointComponent, Params> = {
+        const entrypointA: EntryPoint<typeof RootEntryPointComponent, Params> = {
             root: JSResource(),
             getPreloadProps(params) {
                 return {
                     queries: {
                         someQueryRef: {
-                            parameters: query as any,
+                            parameters: query,
                             variables: {
                                 slug: params.slug,
                             },
@@ -1099,14 +1100,14 @@ function EntryPointTests() {
             },
         };
 
-        const entrypointB: EntryPoint<typeof RootEntrypointComponent, { author: string }> = {
+        const entrypointB: EntryPoint<typeof RootEntryPointComponent, { author: string }> = {
             root: JSResource(),
             getPreloadProps(params) {
                 console.log(params.author);
                 return {
                     queries: {
                         someQueryRef: {
-                            parameters: query as any,
+                            parameters: query,
                             variables: {
                                 slug: '/test',
                             },
