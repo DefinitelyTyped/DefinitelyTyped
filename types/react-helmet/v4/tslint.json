@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "no-reference-import": false,
+        "no-unnecessary-qualifier": false,
+        "no-void-expression": false,
+        "semicolon": false
+    }
+}

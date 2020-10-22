@@ -1,0 +1,11 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "max-line-length": false,
+        "no-var-keyword": false,
+        "npm-naming": false,
+        "prefer-const": false,
+        "unified-signatures": false
+    }
+}

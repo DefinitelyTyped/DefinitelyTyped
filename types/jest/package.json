@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "jest-diff": "^26.0.0",
+        "pretty-format": "^26.0.0"
+    }
+}

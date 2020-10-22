@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "postcss": "^7.0.0",
+        "cosmiconfig": "^6.0.0"
+    }
+}

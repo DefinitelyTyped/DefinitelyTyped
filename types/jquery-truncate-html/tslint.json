@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "npm-naming": false,
+        "one-line": false,
+        "space-before-function-paren": false,
+        "typedef-whitespace": false
+    }
+}

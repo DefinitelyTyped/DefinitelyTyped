@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "max-line-length": false,
+        "no-consecutive-blank-lines": false,
+        "no-padding": false,
+        "semicolon": false,
+        "strict-export-declare-modifiers": false
+    }
+}

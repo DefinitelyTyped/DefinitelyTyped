@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "lib": [
+        "es6"
+    ],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "baseUrl": "../",
+    "typeRoots": [
+        "../"
+    ],
+    "paths": {
+        "@hapi/*": [
+            "hapi__*"
+        ]
+    },
+    "types": [],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true
+  },
+  "files": [
+    "index.d.ts",
+    "hapi__glue-tests.ts"
+  ]
+}

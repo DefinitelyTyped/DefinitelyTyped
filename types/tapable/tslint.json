@@ -1,0 +1,18 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "ban-types": false,
+        "dt-header": false,
+        "interface-over-type-literal": false,
+        "no-padding": false,
+        "no-unnecessary-class": false,
+        "no-unnecessary-type-assertion": false,
+        "only-arrow-functions": false,
+        "prefer-const": false,
+        "semicolon": false,
+        "space-before-function-paren": false,
+        "strict-export-declare-modifiers": false,
+        "unified-signatures": false
+    }
+}

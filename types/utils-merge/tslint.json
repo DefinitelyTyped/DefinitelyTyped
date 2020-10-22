@@ -1,0 +1,16 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "interface-over-type-literal": false,
+        "no-consecutive-blank-lines": false,
+        "no-unnecessary-generics": false,
+        "npm-naming": [
+            true,
+            {
+                "mode": "name-only"
+            }
+        ],
+        "trim-file": false
+    }
+}

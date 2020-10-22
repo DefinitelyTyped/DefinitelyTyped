@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/reference/map-tests.ts",
+        "test/reference/event-tests.ts",
+        "test/reference/info-window-tests.ts",
+        "test/reference/max-zoom-tests.ts",
+        "test/reference/distance-matrix-tests.ts",
+        "googlemaps-tests.ts"
+    ]
+}

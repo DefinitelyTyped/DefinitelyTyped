@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es2015"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true
+    },
+    "files": [
+        "index.d.ts",
+        "k6-tests.ts",
+        "test/crypto.ts",
+        "test/encoding.ts",
+        "test/global.ts",
+        "test/html.ts",
+        "test/http.ts",
+        "test/index.ts",
+        "test/metrics.ts",
+        "test/options.ts",
+        "test/ws.ts"
+    ]
+}

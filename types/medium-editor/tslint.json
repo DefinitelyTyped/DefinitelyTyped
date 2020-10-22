@@ -1,0 +1,9 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-declare-current-package": false,
+        "no-misused-new": false,
+        "no-single-declare-module": false,
+        "strict-export-declare-modifiers": false
+    }
+}

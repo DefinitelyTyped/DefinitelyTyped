@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "popper.js": "^1.14.1",
+        "date-fns": "^2.0.1"
+    }
+}

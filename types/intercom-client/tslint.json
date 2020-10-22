@@ -1,0 +1,13 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "comment-format": false,
+        "no-consecutive-blank-lines": false,
+        "no-padding": false,
+        "no-trailing-whitespace": false,
+        "semicolon": false,
+        "strict-export-declare-modifiers": false,
+        "trim-file": false
+    }
+}

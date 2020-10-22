@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "egg": "^2.1.0"
+    }
+}
