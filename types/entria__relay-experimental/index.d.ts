@@ -2,7 +2,7 @@
 // Project: https://github.com/facebook/relay
 // Definitions by: Renan Machado <https://github.com/renanmav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 3.7
 
 export { fetchQuery } from './lib/fetchQuery';
 export { RelayEnvironmentProvider } from './lib/RelayEnvironmentProvider';

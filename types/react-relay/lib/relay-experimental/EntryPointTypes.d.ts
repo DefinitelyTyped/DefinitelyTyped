@@ -1,83 +1,72 @@
+import { ComponentType } from 'react';
 import {
-    OperationType,
+    CacheConfig,
     ConcreteRequest,
-    RequestParameters,
+    DisposeFn,
+    GraphQLResponse,
     IEnvironment,
     Observable,
-    GraphQLResponse,
-    CacheConfig,
+    OperationType,
+    RequestParameters,
+    VariablesOf,
 } from 'relay-runtime';
+import { GetEntryPointComponentFromEntryPoint, GetEntryPointParamsFromEntryPoint } from './helpers';
 
-import { Component } from 'react';
+export { VariablesOf } from 'relay-runtime';
+
+export interface JSResourceReference<TModule> {
+    getModuleId(): string;
+
+    getModuleIfRequired(): TModule | null;
+
+    load(): Promise<TModule>;
+}
 
 export type PreloadFetchPolicy = 'store-or-network' | 'store-and-network' | 'network-only';
 
-export interface PreloadOptions {
-    readonly fetchKey?: string | number;
-    readonly fetchPolicy?: PreloadFetchPolicy;
-    readonly networkCacheConfig?: CacheConfig;
-}
+export type PreloadOptions = Readonly<{
+    fetchKey?: string | number;
+    fetchPolicy?: PreloadFetchPolicy | null;
+    networkCacheConfig?: CacheConfig | null;
+}>;
 
-export interface LoadQueryOptions {
-    fetchPolicy?: PreloadFetchPolicy;
+export type LoadQueryOptions = Readonly<{
+    fetchPolicy?: PreloadFetchPolicy | null;
     networkCacheConfig?: CacheConfig | null;
     onQueryAstLoadTimeout?: (() => void) | null;
-}
+}>;
 
 // Note: the phantom type parameter here helps ensures that the
 // $Parameters.js value matches the type param provided to preloadQuery.
 // tslint:disable-next-line interface-over-type-literal
-export type PreloadableConcreteRequest<TQuery extends OperationType> = {};
+export type PreloadableConcreteRequest<TQuery extends OperationType> = {
+    kind: 'PreloadableConcreteRequest';
+    params: RequestParameters;
+};
 
-export interface EnvironmentProviderOptions {
-    [key: string]: unknown;
-}
+export type EnvironmentProviderOptions<T extends Record<string, unknown> = Record<string, unknown>> = T;
 
-export type PreloadedQuery<
+export interface PreloadedQuery<
     TQuery extends OperationType,
     TEnvironmentProviderOptions = EnvironmentProviderOptions
-> =
-    | PreloadedQueryInner_DEPRECATED<TQuery, TEnvironmentProviderOptions>
-    | PreloadedQueryInner<TQuery, TEnvironmentProviderOptions>;
-
-export type PreloadedQueryInner_DEPRECATED<
-    TQuery extends OperationType,
-    TEnvironmentProviderOptions = EnvironmentProviderOptions
-> = Readonly<{
-    kind: 'PreloadedQuery_DEPRECATED',
-    environment: IEnvironment;
-    environmentProviderOptions?: TEnvironmentProviderOptions | null;
-    fetchKey?: string | number | null;
-    fetchPolicy: PreloadFetchPolicy;
-    networkCacheConfig?: CacheConfig | null,
-    id?: string | null
-    name: string;
-    source?: Observable<GraphQLResponse> | null;
-    variables: TQuery['variables'];
-    status: PreloadQueryStatus
-}>;
-
-export type PreloadedQueryInner<
-    TQuery extends OperationType,
-    TEnvironmentProviderOptions = EnvironmentProviderOptions
-> = Readonly<{
-    dispose: () => void;
-    environment: IEnvironment;
-    environmentProviderOptions?: TEnvironmentProviderOptions | null;
-    fetchPolicy: PreloadFetchPolicy;
-    id?: string | null;
-    isDisposed: boolean;
-    name: string;
-    networkCacheConfig?: CacheConfig | null;
-    source?: Observable<GraphQLResponse> | null;
-    kind: 'PreloadedQuery';
-    variables: TQuery['variables']
-}>;
+> extends Readonly<{
+        kind: 'PreloadedQuery';
+        environment: IEnvironment;
+        environmentProviderOptions?: TEnvironmentProviderOptions | null;
+        fetchPolicy: PreloadFetchPolicy;
+        networkCacheConfig?: CacheConfig | null;
+        id?: string | null;
+        name: string;
+        source?: Observable<GraphQLResponse> | null;
+        variables: VariablesOf<TQuery>;
+        dispose: DisposeFn;
+        isDisposed: boolean;
+    }> {}
 
 export type PreloadQueryStatus = Readonly<{
-    cacheConfig?: CacheConfig | null,
-    source: 'cache' | 'network',
-    fetchTime?: number | null,
+    cacheConfig?: CacheConfig | null;
+    source: 'cache' | 'network';
+    fetchTime?: number | null;
 }>;
 
 /**
@@ -102,90 +91,150 @@ export type PreloadQueryStatus = Readonly<{
  * TExtraProps - a bag of extra props that you may define in `entrypoint` file
  * and they will be passed to the EntryPointComponent as `extraProps`
  */
-export type InternalEntryPointRepresentation<
-    TEntryPointParams,
-    TPreloadedQueries,
-    TPreloadedEntryPoints,
-    TRuntimeProps,
+interface InternalEntryPointRepresentation<
+    /**
+     * object that contains all necessary information to execute the preloaders (routeParams, query variables)
+     */
+    TEntryPointParams extends {},
+    /**
+     * queries, defined in the root components
+     */
+    TPreloadedQueries extends Record<string, OperationType>,
+    /**
+     * nested entry points, defined in the root components
+     */
+    TPreloadedEntryPoints extends {},
+    /**
+     * the type of additional props that you may pass to the component (like `onClick` handler, etc) during runtime.
+     * Values for them defined during component runtime
+     */
+    TRuntimeProps extends {},
+    /**
+     * a bag of extra props that you may define in `entrypoint` file and they will be passed to the EntryPointComponent
+     * as `extraProps`
+     */
     TExtraProps
-> = Readonly<{
-    getPreloadProps: (
-        entryPointParams: TEntryPointParams,
-    ) => PreloadProps<TEntryPointParams, TPreloadedQueries, TPreloadedEntryPoints, TExtraProps>;
-    root: unknown;
-}>;
+> extends Readonly<{
+        root: JSResourceReference<
+            EntryPointComponent<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>
+        >;
+        getPreloadProps: (
+            entryPointParams: TEntryPointParams,
+        ) => PreloadProps<TEntryPointParams, TPreloadedQueries, TPreloadedEntryPoints, TExtraProps>;
+    }> {}
+
+type ThinQueryParamsObject<TPreloadedQueries extends Record<string, OperationType> = {}> = {
+    [K in keyof TPreloadedQueries]: ThinQueryParams<TPreloadedQueries[K]>;
+};
+
+type ThinNestedEntryPointParamsObject<
+    TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined> = {}
+> = {
+    [K in keyof TPreloadedEntryPoints]: ThinNestedEntryPointParams<TPreloadedEntryPoints[K]>;
+};
+
+type PreloadedQueries<TPreloadedQueries> = TPreloadedQueries extends Record<string, OperationType>
+    ? {
+          [T in keyof TPreloadedQueries]: PreloadedQuery<TPreloadedQueries[T]>;
+      }
+    : never;
+
+type PreloadedEntryPoints<TPreloadedEntryPoints> = TPreloadedEntryPoints extends Record<
+    string,
+    InternalEntryPointRepresentation<any, any, any, any, any> | undefined
+>
+    ? {
+          [T in keyof TPreloadedEntryPoints]: PreloadedEntryPoint<
+              GetEntryPointComponentFromEntryPoint<TPreloadedEntryPoints[T]>
+          >;
+      }
+    : never;
+
+// Return type of the `getPreloadProps(...)` of the entry point
+export interface PreloadProps<
+    TPreloadParams extends {},
+    TPreloadedQueries extends Record<string, OperationType>,
+    TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined>,
+    TExtraProps extends {} | null
+> extends Readonly<{
+        entryPoints?: ThinNestedEntryPointParamsObject<TPreloadedEntryPoints>;
+        extraProps?: TExtraProps;
+        queries?: ThinQueryParamsObject<TPreloadedQueries>;
+    }> {}
 
 // The shape of the props of the entry point `root` component
-export type EntryPointProps<
-    TPreloadedQueries,
-    TPreloadedEntryPoints = {},
-    TRuntimeProps = {},
-    TExtraProps = null
-> = Readonly<{
-    entryPoints: TPreloadedEntryPoints;
-    extraProps: TExtraProps | null;
-    props: TRuntimeProps;
-    queries: TPreloadedQueries;
-}>;
+export interface EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>
+    extends Readonly<{
+        entryPoints: PreloadedEntryPoints<TPreloadedEntryPoints>;
+        extraProps: TExtraProps;
+        props: TRuntimeProps;
+        queries: PreloadedQueries<TPreloadedQueries>;
+    }> {}
 
 // Type of the entry point `root` component
 export type EntryPointComponent<
-    TPreloadedQueries,
-    TPreloadedEntryPoints = {},
-    TRuntimeProps = {},
-    TExtraProps = null
-> = Component<EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>>;
+    TPreloadedQueries extends Record<string, OperationType>,
+    TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined>,
+    TRuntimeProps extends {} = {},
+    TExtraProps extends {} | null = {}
+> = ComponentType<EntryPointProps<TPreloadedQueries, TPreloadedEntryPoints, TRuntimeProps, TExtraProps>>;
 
-// Return type of the `getPreloadProps(...)` of the entry point
-export type PreloadProps<
-    TPreloadParams,
-    TPreloadedQueries extends {},
-    TPreloadedEntryPoints extends {},
-    TExtraProps = null,
-    TEnvironmentProviderOptions = EnvironmentProviderOptions
-> = Readonly<{
-    entryPoints?: { [T in keyof TPreloadedEntryPoints]: ExtractEntryPointTypeHelper<TPreloadParams> };
-    extraProps?: TExtraProps;
-    queries?: { [T in keyof TPreloadedQueries]: ExtractQueryTypeHelper<TEnvironmentProviderOptions> };
-}>;
+// Return type of `loadEntryPoint(...)`
+export type PreloadedEntryPoint<TEntryPointComponent> = TEntryPointComponent extends EntryPointComponent<
+    infer TPreloadedQueries,
+    infer TPreloadedEntryPoints,
+    infer TRuntimeProps,
+    infer TExtraProps
+>
+    ? Readonly<{
+          dispose: DisposeFn;
+          entryPoints: TPreloadedEntryPoints;
+          extraProps: TExtraProps;
+          getComponent: () => TEntryPointComponent;
+          isDisposed: boolean;
+          queries: PreloadedQueries<TPreloadedQueries>;
+          rootModuleID: string;
+      }>
+    : never;
 
-// Return type of the `prepareEntryPoint(...)` function
-export type PreloadedEntryPoint<TEntryPointComponent> = Readonly<{
-    entryPoints: JSX.LibraryManagedAttributes<TEntryPointComponent, 'entryPoints'>;
-    extraProps: JSX.LibraryManagedAttributes<TEntryPointComponent, 'extraProps'>;
-    getComponent: () => TEntryPointComponent;
-    queries: JSX.LibraryManagedAttributes<TEntryPointComponent, 'queries'>;
-}>;
+export interface ThinQueryParams<
+    TQuery extends OperationType,
+    TEnvironmentProviderOptions extends EnvironmentProviderOptions = EnvironmentProviderOptions
+> extends Readonly<{
+        /**
+         * A reference to the $Parameters file that matches the type param provided to preloadQuery type.
+         *
+         * NOTE: For now, since OSS relay-compiler doesnt support generating the $Parameters file, you must give the query
+         * wou would have given to usePreloadedQuery
+         */
+        parameters: ConcreteRequest | PreloadableConcreteRequest<TQuery>;
+        /**
+         * Variables to give to the query
+         */
+        variables: VariablesOf<TQuery>;
+        /**
+         * Any execution options to apply during network
+         */
+        options?: PreloadOptions | null;
+        environmentProviderOptions?: TEnvironmentProviderOptions | null;
+    }> {}
 
-export type ThinQueryParams<TQuery extends OperationType, TEnvironmentProviderOptions> = Readonly<{
-    environmentProviderOptions?: TEnvironmentProviderOptions | null;
-    options?: PreloadOptions | null;
-    parameters: PreloadableConcreteRequest<TQuery>;
-    variables: TQuery['variables'];
-}>;
+export interface ThinNestedEntryPointParams<TEntryPoint>
+    extends Readonly<{
+        entryPoint: TEntryPoint;
+        entryPointParams: GetEntryPointParamsFromEntryPoint<TEntryPoint>;
+    }> {}
 
-export type ThinNestedEntryPointParams<TEntryPointParams, TEntryPoint> = Readonly<{
-    entryPoint: TEntryPoint;
-    entryPointParams: TEntryPointParams;
-}>;
-
-export type ExtractQueryTypeHelper<TEnvironmentProviderOptions> = <TQuery extends OperationType>(
-    query: PreloadedQuery<TQuery>,
-) => ThinQueryParams<TQuery, TEnvironmentProviderOptions>;
-
-export type ExtractEntryPointTypeHelper<TEntryPointParams> = <TEntryPointComponent>(
-    entryPoint: PreloadedEntryPoint<TEntryPointComponent> | null | undefined,
-) =>
-    | ThinNestedEntryPointParams<TEntryPointParams, EntryPoint<TEntryPointParams, TEntryPointComponent>>
-    | null
-    | undefined;
-
-export type EntryPoint<TEntryPointParams, TEntryPointComponent> = InternalEntryPointRepresentation<
+export type EntryPoint<TEntryPointComponent, TEntryPointParams extends {} = {}> = InternalEntryPointRepresentation<
     TEntryPointParams,
-    JSX.LibraryManagedAttributes<TEntryPointComponent, 'queries'>,
-    JSX.LibraryManagedAttributes<TEntryPointComponent, 'entryPoints'>,
-    JSX.LibraryManagedAttributes<TEntryPointComponent, 'props'>,
-    JSX.LibraryManagedAttributes<TEntryPointComponent, 'extraProps'>
+    TEntryPointComponent extends EntryPointComponent<infer TPreloadedQueries, any, any, any>
+        ? TPreloadedQueries
+        : never,
+    TEntryPointComponent extends EntryPointComponent<any, infer TPreloadedEntryPoints, any, any>
+        ? TPreloadedEntryPoints
+        : never,
+    TEntryPointComponent extends EntryPointComponent<any, any, infer TRuntimeProps, any> ? TRuntimeProps : never,
+    TEntryPointComponent extends EntryPointComponent<any, any, any, infer TExtraProps> ? TExtraProps : never
 >;
 
 // tslint:disable-next-line interface-name
