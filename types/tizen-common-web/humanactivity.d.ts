@@ -141,21 +141,70 @@ export interface HumanActivityMonitorOption {
     sampleInterval?: number;
 }
 
-export type HumanActivityType = "PEDOMETER" | "HRM" | "GPS" | "SLEEP_MONITOR" | "SLEEP_DETECTOR";
+export enum HumanActivityType {
+    PEDOMETER = "PEDOMETER",
+    HRM = "HRM",
+    GPS = "GPS",
+    SLEEP_MONITOR = "SLEEP_MONITOR",
+    SLEEP_DETECTOR = "SLEEP_DETECTOR"
+}
 
-export type HumanActivityRecorderType = "PEDOMETER" | "HRM" | "SLEEP_MONITOR" | "PRESSURE";
+export enum HumanActivityRecorderType {
+    PEDOMETER = "PEDOMETER",
+    HRM = "HRM",
+    SLEEP_MONITOR = "SLEEP_MONITOR",
+    PRESSURE = "PRESSURE"
+}
 
-export type PedometerStepStatus = "NOT_MOVING" | "WALKING" | "RUNNING" | "UNKNOWN";
+export enum PedometerStepStatus {
+    NOT_MOVING = "NOT_MOVING",
+    WALKING = "WALKING",
+    RUNNING = "RUNNING",
+    UNKNOWN = "UNKNOWN"
+}
 
-export type ActivityRecognitionType = "STATIONARY" | "WALKING" | "RUNNING" | "IN_VEHICLE";
+export enum ActivityRecognitionType {
+    STATIONARY = "STATIONARY",
+    WALKING = "WALKING",
+    RUNNING = "RUNNING",
+    IN_VEHICLE = "IN_VEHICLE"
+}
 
-export type ActivityAccuracy = "LOW" | "MEDIUM" | "HIGH";
+export enum ActivityAccuracy {
+    LOW = "LOW",
+    MEDIUM = "MEDIUM",
+    HIGH = "HIGH"
+}
 
-export type SleepStatus = "ASLEEP" | "AWAKE" | "UNKNOWN";
+export enum SleepStatus {
+    ASLEEP = "ASLEEP",
+    AWAKE = "AWAKE",
+    UNKNOWN = "UNKNOWN"
+}
 
-export type GestureType = "GESTURE_DOUBLE_TAP" | "GESTURE_MOVE_TO_EAR" | "GESTURE_NO_MOVE" | "GESTURE_PICK_UP" | "GESTURE_SHAKE" | "GESTURE_SNAP" | "GESTURE_TILT" | "GESTURE_TURN_FACE_DOWN" | "GESTURE_WRIST_UP";
+export enum GestureType {
+    GESTURE_DOUBLE_TAP = "GESTURE_DOUBLE_TAP",
+    GESTURE_MOVE_TO_EAR = "GESTURE_MOVE_TO_EAR",
+    GESTURE_NO_MOVE = "GESTURE_NO_MOVE",
+    GESTURE_PICK_UP = "GESTURE_PICK_UP",
+    GESTURE_SHAKE = "GESTURE_SHAKE",
+    GESTURE_SNAP = "GESTURE_SNAP",
+    GESTURE_TILT = "GESTURE_TILT",
+    GESTURE_TURN_FACE_DOWN = "GESTURE_TURN_FACE_DOWN",
+    GESTURE_WRIST_UP = "GESTURE_WRIST_UP"
+}
 
-export type GestureEvent = "GESTURE_EVENT_DETECTED" | "GESTURE_SHAKE_DETECTED" | "GESTURE_SHAKE_FINISHED" | "GESTURE_SNAP_X_NEGATIVE" | "GESTURE_SNAP_X_POSITIVE" | "GESTURE_SNAP_Y_NEGATIVE" | "GESTURE_SNAP_Y_POSITIVE" | "GESTURE_SNAP_Z_NEGATIVE" | "GESTURE_SNAP_Z_POSITIVE";
+export enum GestureEvent {
+    GESTURE_EVENT_DETECTED = "GESTURE_EVENT_DETECTED",
+    GESTURE_SHAKE_DETECTED = "GESTURE_SHAKE_DETECTED",
+    GESTURE_SHAKE_FINISHED = "GESTURE_SHAKE_FINISHED",
+    GESTURE_SNAP_X_NEGATIVE = "GESTURE_SNAP_X_NEGATIVE",
+    GESTURE_SNAP_X_POSITIVE = "GESTURE_SNAP_X_POSITIVE",
+    GESTURE_SNAP_Y_NEGATIVE = "GESTURE_SNAP_Y_NEGATIVE",
+    GESTURE_SNAP_Y_POSITIVE = "GESTURE_SNAP_Y_POSITIVE",
+    GESTURE_SNAP_Z_NEGATIVE = "GESTURE_SNAP_Z_NEGATIVE",
+    GESTURE_SNAP_Z_POSITIVE = "GESTURE_SNAP_Z_POSITIVE"
+}
 
 export interface HumanActivityMonitorSuccessCallback<T extends HumanActivityData> {
     (humanactivitydata?: T): void;
