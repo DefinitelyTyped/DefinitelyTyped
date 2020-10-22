@@ -611,3 +611,51 @@ const test4point1 = async (): Promise<void> => {
     connection.clientInfo = '12345';
     connection.dbOp = '12345';
 };
+
+export const v5Tests = async (): Promise<void> => {
+    console.log(oracledb.SYSPRELIM);
+    defaultOracledb.queueRequests = 0;
+    defaultOracledb.prefetchRows = 5;
+    defaultOracledb.queueMax = 0;
+    defaultOracledb.createPool({
+        queueRequests: 0,
+        queueMax: 5,
+    });
+    defaultOracledb.initOracleClient({
+        configDir: '',
+        driverName: '',
+        errorUrl: '',
+        libDir: '',
+    });
+
+    const creds = {
+        user: 'test',
+        password: 'test',
+        connectionString: 'test',
+        externalAuth: true,
+    };
+
+    await defaultOracledb.startup(creds);
+
+    await defaultOracledb.startup(creds, {
+        force: true,
+        restrict: true,
+        pfile: ''
+    });
+
+    await defaultOracledb.shutdown(creds, defaultOracledb.SHUTDOWN_MODE_ABORT);
+
+    const conn = await defaultOracledb.getConnection();
+
+    await conn.startup({
+        force: true,
+        restrict: true,
+        pfile: '',
+    });
+
+    await conn.shutdown(defaultOracledb.SHUTDOWN_MODE_ABORT);
+
+    await conn.execute('', {}, {
+        prefetchRows: 5,
+    });
+}

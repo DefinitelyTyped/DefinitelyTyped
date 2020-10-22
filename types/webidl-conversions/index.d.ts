@@ -1,4 +1,4 @@
-// Type definitions for webidl-conversions 6.0
+// Type definitions for webidl-conversions 6.1
 // Project: https://github.com/jsdom/webidl-conversions#readme
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,6 +27,10 @@ declare namespace WebIDLConversions {
 
     interface StringOptions extends Options {
         treatNullAsEmptyString?: boolean;
+    }
+
+    interface BufferSourceOptions extends Options {
+        allowShared?: boolean;
     }
 
     type IntegerConversion = (V: any, opts?: IntegerOptions) => number;
@@ -62,27 +66,33 @@ declare const WebIDLConversions: {
     USVString(V: any, opts?: WebIDLConversions.StringOptions): string;
 
     object<V>(V: V, opts?: WebIDLConversions.Options): V extends object ? V : V & object;
-    ArrayBuffer(V: any, opts?: WebIDLConversions.Options): ArrayBuffer;
-    DataView(V: any, opts?: WebIDLConversions.Options): DataView;
+    ArrayBuffer(V: any, opts?: WebIDLConversions.BufferSourceOptions & { allowShared?: false }): ArrayBuffer;
+    ArrayBuffer(V: any, opts?: WebIDLConversions.BufferSourceOptions): ArrayBufferLike;
+    DataView(V: any, opts?: WebIDLConversions.BufferSourceOptions): DataView;
 
-    Int8Array(V: any, opts?: WebIDLConversions.Options): Int8Array;
-    Int16Array(V: any, opts?: WebIDLConversions.Options): Int16Array;
-    Int32Array(V: any, opts?: WebIDLConversions.Options): Int32Array;
+    Int8Array(V: any, opts?: WebIDLConversions.BufferSourceOptions): Int8Array;
+    Int16Array(V: any, opts?: WebIDLConversions.BufferSourceOptions): Int16Array;
+    Int32Array(V: any, opts?: WebIDLConversions.BufferSourceOptions): Int32Array;
 
-    Uint8Array(V: any, opts?: WebIDLConversions.Options): Uint8Array;
-    Uint16Array(V: any, opts?: WebIDLConversions.Options): Uint16Array;
-    Uint32Array(V: any, opts?: WebIDLConversions.Options): Uint32Array;
-    Uint8ClampedArray(V: any, opts?: WebIDLConversions.Options): Uint8ClampedArray;
+    Uint8Array(V: any, opts?: WebIDLConversions.BufferSourceOptions): Uint8Array;
+    Uint16Array(V: any, opts?: WebIDLConversions.BufferSourceOptions): Uint16Array;
+    Uint32Array(V: any, opts?: WebIDLConversions.BufferSourceOptions): Uint32Array;
+    Uint8ClampedArray(V: any, opts?: WebIDLConversions.BufferSourceOptions): Uint8ClampedArray;
 
-    Float32Array(V: any, opts?: WebIDLConversions.Options): Float32Array;
-    Float64Array(V: any, opts?: WebIDLConversions.Options): Float64Array;
+    Float32Array(V: any, opts?: WebIDLConversions.BufferSourceOptions): Float32Array;
+    Float64Array(V: any, opts?: WebIDLConversions.BufferSourceOptions): Float64Array;
 
-    ArrayBufferView(V: any, opts?: WebIDLConversions.Options): ArrayBufferView;
-    BufferSource(V: any, opts?: WebIDLConversions.Options): ArrayBuffer | ArrayBufferView;
+    ArrayBufferView(V: any, opts?: WebIDLConversions.BufferSourceOptions): ArrayBufferView;
+    BufferSource(V: any, opts?: WebIDLConversions.BufferSourceOptions & { allowShared?: false }): ArrayBuffer | ArrayBufferView;
+    BufferSource(V: any, opts?: WebIDLConversions.BufferSourceOptions): ArrayBufferLike | ArrayBufferView;
 
     DOMTimeStamp(V: any, opts?: WebIDLConversions.Options): number;
+
     // tslint:disable:ban-types
+    /** @deprecated Will be removed in v7.0 */
     Function<V>(V: V, opts?: WebIDLConversions.Options): V extends (...args: any[]) => any ? V : Function;
+
+    /** @deprecated Will be removed in v7.0 */
     VoidFunction<V>(
         V: V,
         opts?: WebIDLConversions.Options,

@@ -9,7 +9,8 @@ import {
     MjmlSection,
     MjmlColumn,
     MjmlButton,
-    MjmlImage
+    MjmlImage,
+    MjmlText
 } from 'mjml-react';
 
 import {
@@ -48,6 +49,10 @@ function renderOutTestEmail() {
                         <MjmlButton padding="20px" backgroundColor="#346DB7" href="https://www.wix.com/">
                             I like it!
                     </MjmlButton>
+                    </MjmlColumn>
+                    <MjmlColumn>
+                        <MjmlText/>
+                        <MjmlText>text</MjmlText>
                     </MjmlColumn>
                 </MjmlSection>
             </MjmlBody>

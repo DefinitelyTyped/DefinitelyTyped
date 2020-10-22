@@ -12,6 +12,8 @@ export interface DataTableSkeletonProps extends InheritedProps {
     columnCount?: number;
     // headers?: ReadonlyArray<string> | ReadonlyArray<ShapeOf<HeaderType>>; // doesn't seem to be used anymore but prop type is still there so leaving this commented out.
     rowCount?: number;
+    showHeader?: boolean;
+    showToolbar?: boolean;
     zebra?: boolean;
 }
 

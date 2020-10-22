@@ -11,13 +11,16 @@ export default abstract class JSONFeature extends FeatureFormat {
     protected abstract readGeometryFromObject(object: any, opt_options?: ReadOptions): Geometry;
     protected abstract readProjectionFromObject(object: any): Projection;
     getType(): FormatType;
-    readFeature(source: ArrayBuffer | Document | Node | object | string, opt_options?: ReadOptions): Feature<Geometry>;
+    readFeature(
+        source: ArrayBuffer | Document | Element | object | string,
+        opt_options?: ReadOptions,
+    ): Feature<Geometry>;
     readFeatures(
-        source: ArrayBuffer | Document | Node | object | string,
+        source: ArrayBuffer | Document | Element | object | string,
         opt_options?: ReadOptions,
     ): Feature<Geometry>[];
-    readGeometry(source: ArrayBuffer | Document | Node | object | string, opt_options?: ReadOptions): Geometry;
-    readProjection(source: ArrayBuffer | Document | Node | object | string): Projection;
+    readGeometry(source: ArrayBuffer | Document | Element | object | string, opt_options?: ReadOptions): Geometry;
+    readProjection(source: ArrayBuffer | Document | Element | object | string): Projection;
     writeFeature(feature: Feature<Geometry>, opt_options?: WriteOptions): string;
     abstract writeFeatureObject(feature: Feature<Geometry>, opt_options?: WriteOptions): any;
     writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string;

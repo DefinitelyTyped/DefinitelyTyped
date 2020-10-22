@@ -29,6 +29,25 @@ const options: sms.Options = {
 
 sms.install(options);
 
+sms.install({
+    ...options,
+    retrieveSourceMap(source) {
+        return source
+            ? {
+                  url: 'http://foo',
+                  map: {
+                      version: '3',
+                      sources: ['/path/to/foo.js'],
+                      sourcesContent: ["module.exports = 'foo'"],
+                      names: ['module', 'exports'],
+                      mappings: 'AAAA,a',
+                      file: '/path/to/foo.js',
+                  },
+              }
+            : null;
+    },
+});
+
 let stackFrame: any; // TODO: this should be a StackFrame, but it seems this would need to be defined elsewhere (in e.g. lib.d.ts)
 stackFrame = sms.wrapCallSite(stackFrame);
 

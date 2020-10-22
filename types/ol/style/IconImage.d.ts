@@ -12,9 +12,10 @@ export default class IconImage extends Target {
         imageState: ImageState,
         color: Color,
     );
-    getHitDetectionImage(pixelRatio: number): HTMLImageElement | HTMLCanvasElement;
+    getHitDetectionImage(): HTMLImageElement | HTMLCanvasElement;
     getImage(pixelRatio: number): HTMLImageElement | HTMLCanvasElement;
     getImageState(): ImageState;
+    getPixelRatio(pixelRatio: number): number;
     getSize(): Size;
     getSrc(): string;
     load(): void;

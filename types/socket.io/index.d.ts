@@ -14,6 +14,8 @@
 
 declare const SocketIO: SocketIOStatic;
 import engine = require('engine.io');
+import { Server as HttpServer, IncomingMessage } from 'http';
+import { Server as HttpsServer } from 'https';
 import { EventEmitter } from 'events';
 export = SocketIO;
 /** @deprecated Available as a global for backwards-compatibility. */
@@ -30,7 +32,7 @@ interface SocketIOStatic {
      * @param srv The HTTP server that we're going to bind to
      * @param opts An optional parameters object
      */
-    (srv: any, opts?: SocketIO.ServerOptions): SocketIO.Server;
+    (srv: HttpServer | HttpsServer, opts?: SocketIO.ServerOptions): SocketIO.Server;
 
     /**
      * Creates a new Server
@@ -46,6 +48,31 @@ interface SocketIOStatic {
     (opts: SocketIO.ServerOptions): SocketIO.Server;
 
     /**
+     * Default Server constructor
+     */
+    new (): SocketIO.Server;
+
+    /**
+     * Creates a new Server
+     * @param srv The HTTP server that we're going to bind to
+     * @param opts An optional parameters object
+     */
+    new (srv: HttpServer | HttpsServer, opts?: SocketIO.ServerOptions): SocketIO.Server;
+
+    /**
+     * Creates a new Server
+     * @param port A port to bind to, as a number, or a string
+     * @param An optional parameters object
+     */
+    new (port: string | number, opts?: SocketIO.ServerOptions): SocketIO.Server;
+
+    /**
+     * Creates a new Server
+     * @param A parameters object
+     */
+    new (opts: SocketIO.ServerOptions): SocketIO.Server;
+
+    /**
      * Backwards compatibility
      * @see io().listen()
      */
@@ -54,7 +81,7 @@ interface SocketIOStatic {
 
 declare namespace SocketIO {
     interface Server {
-        engine: { ws: any };
+        engine: { ws: any, generateId: (id: IncomingMessage) => string };
 
         /**
          * A dictionary of all the namespaces currently on this Server
@@ -163,7 +190,7 @@ declare namespace SocketIO {
          * @param opts An optional parameters object
          * @return This Server
          */
-        attach(srv: any, opts?: ServerOptions): Server;
+        attach(srv: HttpServer | HttpsServer, opts?: ServerOptions): Server;
 
         /**
          * Attaches socket.io to a port
@@ -176,7 +203,7 @@ declare namespace SocketIO {
         /**
          * @see attach( srv, opts )
          */
-        listen(srv: any, opts?: ServerOptions): Server;
+        listen(srv: HttpServer | HttpsServer, opts?: ServerOptions): Server;
 
         /**
          * @see attach( port, opts )

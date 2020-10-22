@@ -963,3 +963,14 @@ Meteor.absoluteUrl.defaultOptions = {
   rootUrl: 'http://123.com',
   secure: false
 };
+
+// EnvironmentVariable
+const scopedCounter = new Meteor.EnvironmentVariable<number>();
+// $ExpectType number
+scopedCounter.getOrNullIfOutsideFiber();
+// $ExpectType string
+scopedCounter.withValue(42, () => {
+    // $ExpectType number
+    scopedCounter.get();
+    return '';
+});

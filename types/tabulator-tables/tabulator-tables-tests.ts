@@ -252,6 +252,7 @@ let autoComplete: Tabulator.AutoCompleteParams = {
     values: true, // create list of values from all values contained in this column,
     sortValuesList: 'asc', // sort the values by ascending order,
 };
+
 colDef.editorParams = autoComplete;
 
 colDef.editorParams = {
@@ -353,11 +354,6 @@ let options = <Tabulator.Options>{};
 options.keybindings = {
     navPrev: 'ctrl + 1',
     navNext: false,
-};
-
-options.downloadDataFormatter = data => {
-    //  data.forEach(function(row){
-    //    row.age = row.age >= 18 ? "adult" : "child";
 };
 
 options.downloadConfig = {
@@ -598,7 +594,7 @@ table = new Tabulator('#test', {});
 table.blockRedraw();
 table.restoreRedraw();
 
-table = Tabulator.prototype.findTable('#example-table');
+table = Tabulator.prototype.findTable('#example-table')[0];
 
 table.getRows('visible');
 table.deleteRow([15, 7, 9]);
@@ -753,3 +749,180 @@ const filterVal = table.getHeaderFilterValue('name');
 table.recalc();
 const columns = table.getColumns(true);
 columns.forEach(col => col.getDefinition());
+
+// 4.7 updates
+
+table = new Tabulator('#example-table', {
+    movableRowsElementDrop: (e, element, row) => {},
+    downloadRowRange: 'selected',
+    layout: 'fitDataTable',
+    validationMode: 'highlight',
+    paginationSizeSelector: [10, 25, 50, 100, true],
+    groupHeader: (value, count, data, group) => {
+        return '';
+    },
+    groupHeaderPrint: (value, count, data, group) => {
+        return '';
+    },
+    groupHeaderClipboard: (value, count, data, group) => {
+        return '';
+    },
+    groupHeaderHtmlOutput: (value, count, data, group) => {
+        return '';
+    },
+    langs: {
+        en: {
+            pagination: {
+                all: 'All',
+                page_title: 'Show Page',
+            },
+        },
+    },
+    groupContextMenu: [
+        {
+            label: 'Hide Group',
+            action: (e, group) => {
+                group.hide();
+            },
+        },
+    ],
+});
+table.clearCellEdited();
+cell.clearEdited();
+table.getEditedCells();
+table.setFilter('colors', 'keywords', 'red green blue', { matchAll: true });
+row.addTreeChild({ name: 'Billy Bob', age: '12', gender: 'male', height: 1 }, true);
+column.isVisible();
+column.setWidth(true);
+table.getInvalidCells();
+cell.isValid();
+cell.clearValidation();
+table.clearCellValidation();
+table.validate();
+row.validate();
+column.validate();
+cell.validate();
+table.addColumn({
+    title: 'Example',
+    field: 'example',
+    validator: 'starts:bob',
+    titlePrint: 'Example',
+    titleHtmlOutput: 'User Age',
+});
+table.addColumn({
+    title: 'Example',
+    field: 'example',
+    formatter: 'datetime',
+    formatterParams: {
+        outputFormat: 'DD/MM/YY HH:ii',
+        timezone: 'America/Los_Angeles',
+    },
+});
+row.isFrozen();
+
+let autoComplete2: Tabulator.AutoCompleteParams = {
+    values: [
+        {
+            label: 'Steve Boberson',
+            value: 'steve',
+        },
+        {
+            label: 'Bob Jimmerson',
+            value: 'bob',
+        },
+        {
+            label: 'Jenny Jillerson',
+            value: 'jenny',
+        },
+        {
+            label: 'Jill Betterson',
+            value: 'jill',
+        },
+    ],
+};
+
+let select: Tabulator.SelectParams = {
+    multiselect: true,
+    values: [
+        {
+            label: 'Steve Boberson',
+            value: 'steve',
+            elementAttributes: {
+                class: 'primary-name',
+            },
+        },
+    ],
+};
+
+// 4.8
+
+table = new Tabulator('#example-table', {
+    textDirection: 'rtl',
+    virtualDomHoz: true,
+    autoColumnsDefinitions: () => {
+        const columnDefinitions: Tabulator.ColumnDefinition[] = [];
+        return columnDefinitions;
+    },
+});
+
+table = new Tabulator('#example-table', {
+    autoColumnsDefinitions: {
+        name: { editor: 'input' },
+        age: { headerFilter: true },
+        myProp: { title: 'my title' },
+    },
+});
+
+let colDefs: Tabulator.ColumnDefinition[] = [];
+colDefs.push({
+    field: 'name',
+    title: 'input',
+    clickMenu: contextMenu,
+    titleFormatterParams: { rowRange: 'active' },
+    accessor: (value, data, type, params, column, row) => {
+        return Math.floor(value);
+    },
+    accessorParams: (value, data, type, component, row) => {
+        return { param1: 'green' };
+    },
+});
+
+const groupContextMenu: Array<Tabulator.MenuObject<Tabulator.GroupComponent> | Tabulator.MenuSeparator> = [
+    { separator: true },
+];
+
+table = new Tabulator('#example-table', {
+    autoColumnsDefinitions: colDefs,
+
+    rowContextMenu: (component, e: MouseEvent) => {
+        component.delete();
+        return false;
+    },
+    rowClickMenu: rowContextMenu,
+    groupClickMenu: groupContextMenu,
+    headerHozAlign: 'right',
+    headerSortElement: "<i class='fas fa-arrow-up'></i>",
+    dataTreeFilter: false,
+    dataTreeSort: false,
+    groupUpdateOnCellEdit: true,
+    dataChanged: data => {},
+});
+
+table.setGroupValues([['male', 'female', 'smizmar']]);
+table.getData('all');
+table.getDataCount('all');
+table.getRows('all');
+table.selectRow('all');
+
+row.getData();
+row.getElement();
+row.getTable();
+row.getCells();
+row.getCell(column);
+
+let calcComponent = {} as Tabulator.CalculationComponent;
+calcComponent.getData();
+calcComponent.getElement();
+calcComponent.getTable();
+calcComponent.getCells();
+calcComponent.getCell(column);

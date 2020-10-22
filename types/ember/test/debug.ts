@@ -34,7 +34,17 @@ registerWarnHandler(() => {}); // $ExpectType void
 registerWarnHandler((message, { id }, next) => { // $ExpectType void
     message; // $ExpectType string
     id; // $ExpectType string
-    next; // $ExpectType () => void
+    next; // $ExpectType (message?: string | undefined, options?: { id: string; } | undefined) => void
+});
+registerWarnHandler((message, { id }, next) => { // $ExpectType void
+  message; // $ExpectType string
+  id; // $ExpectType string
+  next(); // $ExpectType void
+});
+registerWarnHandler((message, { id }, next) => { // $ExpectType void
+  message; // $ExpectType string
+  id; // $ExpectType string
+  next(message, { id }); // $ExpectType void
 });
 
 // next is not called, so no warnings get the default behavior

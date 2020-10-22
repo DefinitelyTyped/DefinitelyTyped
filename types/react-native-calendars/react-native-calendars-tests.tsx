@@ -9,6 +9,8 @@ declare const Arrow: React.SFC<unknown>;
 <Calendar
     // Initially visible month. Default = Date()
     current={'2012-03-01'}
+    // Enable the option to swipe between months. Default = false
+    enableSwipeMonths={true}
     // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
     minDate={'2012-05-10'}
     // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined

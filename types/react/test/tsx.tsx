@@ -23,6 +23,25 @@ FunctionComponent2.defaultProps = {
 };
 <FunctionComponent2>24</FunctionComponent2>;
 
+const VoidFunctionComponent: React.VoidFunctionComponent<SCProps> = ({ foo }: SCProps) => {
+    return <div>{foo}</div>;
+};
+VoidFunctionComponent.displayName = "VoidFunctionComponent1";
+VoidFunctionComponent.defaultProps = {
+    foo: 42
+};
+<VoidFunctionComponent />;
+
+// $ExpectError
+const VoidFunctionComponent2: React.VoidFunctionComponent<SCProps> = ({ foo, children }) => {
+    return <div>{foo}{children}</div>;
+};
+VoidFunctionComponent2.displayName = "VoidFunctionComponent2";
+VoidFunctionComponent2.defaultProps = {
+    foo: 42
+};
+<VoidFunctionComponent2>24</VoidFunctionComponent2>; // $ExpectError
+
 // svg sanity check
 <svg viewBox="0 0 1000 1000">
     <g>
@@ -438,3 +457,38 @@ type propTypesTest1 = typeof testPropTypes extends DeclaredPropTypes<TestPropTyp
 type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps2> ? true : false;
 // $ExpectType true
 type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
+function CustomSelect(props: {
+    children: Array<
+      React.ReactElement<
+        React.ComponentPropsWithoutRef<typeof CustomSelectOption>
+      >
+    >;
+  }): JSX.Element {
+    return (
+      <div>
+        <ul>{props.children}</ul>
+        <select>
+          {React.Children.map(props.children, child => (
+            // key should be mappable from children.
+            <option key={child.key} value={child.props.value}>
+              {child.props.children}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+}
+function CustomSelectOption(props: {
+    value: string;
+    children: React.ReactNode;
+}): JSX.Element {
+    return <li data-value={props.value}>{props.children}</li>;
+}
+function Example() {
+    return (
+        <CustomSelect>
+        <CustomSelectOption value="one">One</CustomSelectOption>
+        <CustomSelectOption value="two">Two</CustomSelectOption>
+        </CustomSelect>
+    );
+}

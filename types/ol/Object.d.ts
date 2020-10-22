@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from './events';
+import { EventsKey } from './events';
 import BaseEvent from './events/Event';
 import Observable from './Observable';
 
@@ -7,11 +7,12 @@ export default class BaseObject extends Observable {
     get(key: string): any;
     getKeys(): string[];
     getProperties(): { [key: string]: any };
+    hasProperties(): boolean;
     notify(key: string, oldValue: any): void;
     set(key: string, value: any, opt_silent?: boolean): void;
     setProperties(values: { [key: string]: any }, opt_silent?: boolean): void;
     unset(key: string, opt_silent?: boolean): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

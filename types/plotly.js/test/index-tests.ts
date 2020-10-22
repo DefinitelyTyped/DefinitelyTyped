@@ -1,54 +1,54 @@
 import * as Plotly from 'plotly.js';
-import { Datum, Layout, PlotData, PlotlyHTMLElement, newPlot } from 'plotly.js';
+import { Datum, Layout, PlotData, newPlot, Template } from 'plotly.js';
 
 const graphDiv = '#test';
 
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
-// combination of https://plot.ly/javascript/multiple-transforms/#all-transforms and
-// https://plot.ly/javascript/2d-density-plots/
+// combination of https://plotly.com/javascript/multiple-transforms/#all-transforms and
+// https://plotly.com/javascript/2d-density-plots/
 
 (() => {
     const testrows = [
         {
-            country: "Afghanistan",
+            country: 'Afghanistan',
             year: 2002,
             pop: 8425333,
-            continent: "Asia",
+            continent: 'Asia',
             lifeExp: 28.801,
-            gdpPercap: 779.4453145
+            gdpPercap: 779.4453145,
         },
         {
-            country: "Argentina",
+            country: 'Argentina',
             year: 2002,
             pop: 38331121,
-            continent: "Americas",
+            continent: 'Americas',
             lifeExp: 74.34,
-            gdpPercap: 8797.640716
+            gdpPercap: 8797.640716,
         },
         {
-            country: "Australia",
+            country: 'Australia',
             year: 2002,
             pop: 13177000,
-            continent: "Oceania",
+            continent: 'Oceania',
             lifeExp: 71.93,
-            gdpPercap: 16788.62948
+            gdpPercap: 16788.62948,
         },
         {
-            country: "Austria",
+            country: 'Austria',
             year: 2002,
             pop: 7914969,
-            continent: "Europe",
+            continent: 'Europe',
             lifeExp: 76.04,
-            gdpPercap: 27042.01868
+            gdpPercap: 27042.01868,
         },
         {
-            country: "Austria",
+            country: 'Austria',
             year: 2001,
             pop: 7914969,
-            continent: "Europe",
+            continent: 'Europe',
             lifeExp: 76.04,
-            gdpPercap: 27042.01868
+            gdpPercap: 27042.01868,
         },
     ];
 
@@ -67,8 +67,8 @@ const graphDiv = '#test';
         text: unpack(testrows, 'continent'),
         marker: {
             size: unpack(testrows, 'pop'),
-            sizemode: "area",
-            sizeref: 200000
+            sizemode: 'area',
+            sizeref: 200000,
         },
         type: 'scatter',
         transforms: [
@@ -76,8 +76,9 @@ const graphDiv = '#test';
                 type: 'filter',
                 target: unpack(testrows, 'year'),
                 operation: '=',
-                value: '2002'
-            }, {
+                value: '2002',
+            },
+            {
                 type: 'groupby',
                 nameformat: `%{group}`,
                 groups: unpack(testrows, 'continent'),
@@ -86,18 +87,20 @@ const graphDiv = '#test';
                     { target: 'Europe', value: { marker: { color: 'blue' } } },
                     { target: 'Americas', value: { marker: { color: 'orange' } } },
                     { target: 'Africa', value: { marker: { color: 'green' } } },
-                    { target: 'Oceania', value: { marker: { color: 'purple' } } }
-                ]
-            }, {
+                    { target: 'Oceania', value: { marker: { color: 'purple' } } },
+                ],
+            },
+            {
                 type: 'aggregate',
                 groups: unpack(testrows, 'continent'),
                 aggregations: [
                     { target: 'x', func: 'avg' },
                     { target: 'y', func: 'avg' },
-                    { target: 'marker.size', func: 'sum' }
-                ]
-            }],
-        width: 2
+                    { target: 'marker.size', func: 'sum' },
+                ],
+            },
+        ],
+        width: 2,
     } as PlotData;
     const trace2 = {
         yaxis: 'y2',
@@ -105,14 +108,14 @@ const graphDiv = '#test';
         name: 'x density',
         marker: { color: 'rgb(102,0,0)' },
         type: 'histogram',
-        width: [2]
+        width: [2],
     } as PlotData;
     const trace3 = {
         xaxis: 'x2',
         y: unpack(testrows, 'gdpPercap'),
         name: 'y density',
         marker: { color: 'rgb(102,0,0)' },
-        type: 'histogram'
+        type: 'histogram',
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
@@ -121,36 +124,38 @@ const graphDiv = '#test';
             title: 'Life Expectancy',
             domain: [0, 0.85],
             showgrid: false,
-            zeroline: false
+            zeroline: false,
         },
         yaxis: {
             title: 'GDP per Cap',
             showline: false,
             domain: [0, 0.85],
             showgrid: false,
-            zeroline: false
+            zeroline: false,
         },
         xaxis2: {
             domain: [0.85, 1],
             showgrid: false,
-            zeroline: false
+            zeroline: false,
         },
         yaxis2: {
             domain: [0.85, 1],
             showgrid: false,
-            zeroline: false
-        }
+            zeroline: false,
+        },
     };
     Plotly.newPlot(graphDiv, data, layout);
 })();
 (() => {
     // deprecated: calling plot again will add new trace(s) to the plot,
     // but will ignore new layout.
-    const data2 = [{
-        x: [1999, 2000, 2001, 2002],
-        y: [10, 9, 8, 7],
-        type: 'scatter'
-    } as PlotData];
+    const data2 = [
+        {
+            x: [1999, 2000, 2001, 2002],
+            y: [10, 9, 8, 7],
+            type: 'scatter',
+        } as PlotData,
+    ];
     const layout2 = { title: 'Revenue' };
     Plotly.newPlot(graphDiv, data2, layout2);
 })();
@@ -174,6 +179,78 @@ const graphDiv = '#test';
         showEditInChartStudio: true,
     });
 })();
+// Should create new plot with tickformatstop
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: ['2005-01', '2005-02', '2005-03', '2005-04', '2005-05', '2005-06', '2005-07'],
+            y: [-20, 10, -5, 0, 5, -10, 20],
+            type: 'scatter',
+        },
+    ];
+    const layout: Partial<Layout> = {
+        xaxis: {
+            tickformatstops: [
+                {
+                    dtickrange: [null, 1000],
+                    value: '%H:%M:%S.%L ms',
+                },
+                {
+                    dtickrange: [1000, 60000],
+                    value: '%H:%M:%S s',
+                },
+                {
+                    dtickrange: [60000, 3600000],
+                    value: '%H:%M m',
+                },
+                {
+                    dtickrange: [3600000, 86400000],
+                    value: '%H:%M h',
+                },
+                {
+                    dtickrange: [86400000, 604800000],
+                    value: '%e. %b d',
+                },
+                {
+                    dtickrange: [604800000, 'M1'],
+                    value: '%e. %b w',
+                },
+                {
+                    dtickrange: ['M1', 'M12'],
+                    value: "%b '%y M",
+                },
+                {
+                    dtickrange: ['M12', null],
+                    value: '%Y Y',
+                },
+            ],
+        },
+    };
+
+    Plotly.newPlot(graphDiv, data, layout);
+})();
+(() => {
+    // Test the template with practical types.
+    // https://plotly.com/javascript/layout-template/
+    const data: Array<Partial<PlotData>> = [{
+        type: 'bar', name: 'bar', text: ['2', '3', '1', '4'], x: ['Jan', 'Feb', 'Mar', 'Apr'], y: [2, 3, 1, 4]
+    }, {
+        type: 'scatter', name: 'scatter', x: [1, 2, 3, 4], y: [2, 4, 1, 5]
+    }];
+    const template: Template = {
+        data: {
+            bar: { marker: { color: '#3183BD', opacity: 0.7 }, textposition: 'auto' },
+            scatter: {
+                mode: 'lines+markers',
+                line: { color: 'red', width: 3 },
+                marker: { color: 'red', size: 8, symbol: 'circle-open' }
+            }
+        },
+        layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } }
+    };
+    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template };
+    Plotly.newPlot('myDiv', data, layout);
+})();
 
 //////////////////////////////////////////////////////////////////////
 
@@ -183,7 +260,7 @@ const graphDiv = '#test';
 (() => {
     const update = {
         opacity: 0.4,
-        'marker.color': 'red'
+        'marker.color': 'red',
     };
     Plotly.restyle(graphDiv, update, 0);
 })();
@@ -192,14 +269,14 @@ const graphDiv = '#test';
 (() => {
     const update = {
         opacity: 0.4,
-        'marker.color': 'red'
+        'marker.color': 'red',
     };
     Plotly.restyle(graphDiv, update);
 })();
 // restyle the first trace's marker color 'red' and the second's 'green'
 (() => {
     const update = {
-        'marker.color': ['red', 'green']
+        'marker.color': ['red', 'green'],
     };
     Plotly.restyle(graphDiv, update, [0, 1]);
 })();
@@ -207,7 +284,7 @@ const graphDiv = '#test';
 // alternate between red and green for all traces (note omission of traces)
 (() => {
     const update = {
-        'marker.color': ['red', 'green']
+        'marker.color': ['red', 'green'],
     };
     Plotly.restyle(graphDiv, update);
 })();
@@ -216,7 +293,7 @@ const graphDiv = '#test';
 (() => {
     const update = {
         opacity: 0.4,
-        'marker.color': 'red'
+        'marker.color': 'red',
     };
     Plotly.restyle(graphDiv, update, [1, 2]);
 })();
@@ -225,30 +302,47 @@ const graphDiv = '#test';
 // have different colors
 (() => {
     const update = {
-        'marker.color': [['red', 'green']]
+        'marker.color': [['red', 'green']],
     };
     Plotly.restyle(graphDiv, update, [0]);
 })();
 
 // update two traces with new z data
 (() => {
-    const update = { z: [[[1, 2, 3], [2, 1, 2], [1, 1, 1]], [[0, 1, 1], [0, 2, 1], [3, 2, 1]]] };
+    const update = {
+        z: [
+            [
+                [1, 2, 3],
+                [2, 1, 2],
+                [1, 1, 1],
+            ],
+            [
+                [0, 1, 1],
+                [0, 2, 1],
+                [3, 2, 1],
+            ],
+        ],
+    };
     Plotly.restyle(graphDiv, update, [1, 2]);
 })();
 
 // replace the entire marker object with the one provided
 (() => {
     const update = {
-        marker: { color: 'red' }
+        marker: { color: 'red' },
     };
     Plotly.restyle(graphDiv, update, [0]);
 })();
 
 // Set the first trace's line to red, the second to the default, and ignore the third
 (() => {
-    Plotly.restyle(graphDiv, {
-        'line.color': ['red', null, undefined]
-    }, [0, 1, 2]);
+    Plotly.restyle(
+        graphDiv,
+        {
+            'line.color': ['red', null, undefined],
+        },
+        [0, 1, 2],
+    );
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -258,15 +352,15 @@ const graphDiv = '#test';
 (() => {
     const update = {
         title: 'some new title', // updates the title
-        'xaxis.range': [0, 5],   // updates the xaxis range
-        'yaxis.range[1]': 15     // updates the end of the yaxis range
+        'xaxis.range': [0, 5], // updates the xaxis range
+        'yaxis.range[1]': 15, // updates the end of the yaxis range
     } as Layout;
     Plotly.relayout(graphDiv, update);
 })();
 
 (() => {
     const data_update = {
-        marker: { color: 'red' }
+        marker: { color: 'red' },
     };
     const layout_update = {
         title: 'some new title', // updates the title
@@ -283,11 +377,11 @@ const graphDiv = '#test';
             },
             x: 0.9,
             pad: {
-                t: 20
+                t: 20,
             },
         }, // updates the title
-        'xaxis.range': [0, 5],   // updates the xaxis range
-        'yaxis.range[1]': 15     // updates the end of the yaxis range
+        'xaxis.range': [0, 5], // updates the xaxis range
+        'yaxis.range[1]': 15, // updates the end of the yaxis range
     } as Layout;
     Plotly.relayout(graphDiv, update);
 })();
@@ -297,7 +391,7 @@ const graphDiv = '#test';
 // Plotly.update
 (() => {
     const data_update = {
-        marker: { color: 'red' }
+        marker: { color: 'red' },
     };
     const layout_update = {
         title: 'some new title', // updates the title
@@ -362,7 +456,7 @@ function rand() {
     Plotly.extendTraces(graphDiv, { y: [[rand()], [rand()]] }, [0, 1]);
 
     // extend multiple traces up to a maximum of 10 points per trace
-    Plotly.extendTraces(graphDiv, {y: [[rand()], [rand()]]}, [0, 1], 10);
+    Plotly.extendTraces(graphDiv, { y: [[rand()], [rand()]] }, [0, 1], 10);
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -390,7 +484,7 @@ function rand() {
 (() => {
     // Plotly.toImage will turn the plot in the given div into a data URL string
     // toImage takes the div as the first argument and an object specifying image properties as the other
-    Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600 }).then((dataUrl) => {
+    Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600 }).then(dataUrl => {
         // use the dataUrl
     });
 })();
@@ -409,13 +503,13 @@ function rand() {
 (() => {
     const n = 100;
     const frames = [
-        {name: 'sine', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
-        {name: 'cosine', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
-        {name: 'circle', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
+        { name: 'sine', data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
+        { name: 'cosine', data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
+        { name: 'circle', data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
     ];
 
     for (let i = 0; i < n; i++) {
-        const t = i / (n - 1) * 2 - 1;
+        const t = (i / (n - 1)) * 2 - 1;
 
         // A sine wave:
         frames[0].data[0].x[i] = t * Math.PI;
@@ -438,12 +532,14 @@ function rand() {
 //////////////////////////////////////////////////////////////////////
 // Using events
 (async () => {
-    const myPlot = await newPlot(graphDiv, [{
-        x: [1999, 2000, 2001, 2002],
-        y: [10, 9, 8, 7],
-        type: 'scatter'
-    }]);
-    myPlot.on('plotly_click', (data) => {
+    const myPlot = await newPlot(graphDiv, [
+        {
+            x: [1999, 2000, 2001, 2002],
+            y: [10, 9, 8, 7],
+            type: 'scatter',
+        },
+    ]);
+    myPlot.on('plotly_click', data => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -458,7 +554,7 @@ function rand() {
         Plotly.restyle('myDiv', update, [tn]);
     });
 
-    myPlot.on('plotly_hover', (data) => {
+    myPlot.on('plotly_hover', data => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -473,7 +569,7 @@ function rand() {
         Plotly.restyle('myDiv', update, [tn]);
     });
 
-    myPlot.on('plotly_unhover', (data) => {
+    myPlot.on('plotly_unhover', data => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -488,7 +584,7 @@ function rand() {
         Plotly.restyle('myDiv', update, [tn]);
     });
 
-    myPlot.on('plotly_selected', (data) => {
+    myPlot.on('plotly_selected', data => {
         const x = [] as Datum[];
         const y = [] as Datum[];
         const N = 1000;
@@ -498,51 +594,58 @@ function rand() {
         const colors = [] as string[];
         for (let i = 0; i < N; i++) colors.push(color1Light);
 
-        data.points.forEach((pt) => {
+        data.points.forEach(pt => {
             x.push(pt.x);
             y.push(pt.y);
             colors[pt.pointNumber] = color1;
         });
 
-        Plotly.restyle(myPlot, {
-            x: [x, y]
-        }, [1, 2]);
+        Plotly.restyle(
+            myPlot,
+            {
+                x: [x, y],
+            },
+            [1, 2],
+        );
 
-        Plotly.restyle(myPlot, {
-            'marker.color': [colors]
-        }, [0]);
+        Plotly.restyle(
+            myPlot,
+            {
+                'marker.color': [colors],
+            },
+            [0],
+        );
     });
 
     myPlot.on('plotly_relayout', eventdata => {
-        eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
-        eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
-        eventdata["xaxis.range[0]"]; // $ExpectType number | undefined
-        eventdata["xaxis.range[1]"]; // $ExpectType number | undefined
-        eventdata["yaxis.range[0]"]; // $ExpectType number | undefined
-        eventdata["yaxis.range[1]"]; // $ExpectType number | undefined
+        eventdata['xaxis.autorange']; // $ExpectType boolean | undefined
+        eventdata['xaxis.autorange']; // $ExpectType boolean | undefined
+        eventdata['xaxis.range[0]']; // $ExpectType number | undefined
+        eventdata['xaxis.range[1]']; // $ExpectType number | undefined
+        eventdata['yaxis.range[0]']; // $ExpectType number | undefined
+        eventdata['yaxis.range[1]']; // $ExpectType number | undefined
     });
 
-    myPlot.on('plotly_relayouting', (eventdata) => {
-        eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
-        eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
-        eventdata["xaxis.range[0]"]; // $ExpectType number | undefined
-        eventdata["xaxis.range[1]"]; // $ExpectType number | undefined
-        eventdata["yaxis.range[0]"]; // $ExpectType number | undefined
-        eventdata["yaxis.range[1]"]; // $ExpectType number | undefined
+    myPlot.on('plotly_relayouting', eventdata => {
+        eventdata['xaxis.autorange']; // $ExpectType boolean | undefined
+        eventdata['xaxis.autorange']; // $ExpectType boolean | undefined
+        eventdata['xaxis.range[0]']; // $ExpectType number | undefined
+        eventdata['xaxis.range[1]']; // $ExpectType number | undefined
+        eventdata['yaxis.range[0]']; // $ExpectType number | undefined
+        eventdata['yaxis.range[1]']; // $ExpectType number | undefined
     });
 
-    myPlot.on('plotly_restyle', (data) => {
+    myPlot.on('plotly_restyle', data => {
         console.log('restyling');
     });
 
     myPlot.on('plotly_doubleclick', () => {
-        const orgColors = ['#00000', '#00000', '#00000',
-            '#00000', '#00000', '#00000'];
+        const orgColors = ['#00000', '#00000', '#00000', '#00000', '#00000', '#00000'];
         const update = { marker: { color: orgColors, size: 16 } };
         Plotly.restyle('myDiv', update);
     });
 
-    myPlot.on('plotly_beforeplot', (event) => {
+    myPlot.on('plotly_beforeplot', event => {
         console.log('plotting');
         const okToPlot = true;
         return okToPlot;
@@ -552,31 +655,31 @@ function rand() {
         console.log('done plotting');
     });
 
-    myPlot.on('plotly_animatingframe', (event) => {
+    myPlot.on('plotly_animatingframe', event => {
         console.log(`animating ${event.frame.name} with ${event.animation.transition.easing}`);
     });
 
-    myPlot.on('plotly_legendclick', (event) => {
+    myPlot.on('plotly_legendclick', event => {
         console.log('clicked on legend');
         const clickVal = true;
         return clickVal;
     });
 
-    myPlot.on('plotly_legenddoubleclick', (event) => {
+    myPlot.on('plotly_legenddoubleclick', event => {
         console.log('dbl clicked on legend');
         const dblClickVal = true;
         return dblClickVal;
     });
 
-    myPlot.on('plotly_sliderchange', (event) => {
+    myPlot.on('plotly_sliderchange', event => {
         console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
     });
 
-    myPlot.on('plotly_sliderstart', (event) => {
+    myPlot.on('plotly_sliderstart', event => {
         console.log(`Slider at [${event.slider.x},${event.slider.y}`);
     });
 
-    myPlot.on('plotly_sliderend', (event) => {
+    myPlot.on('plotly_sliderend', event => {
         console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
     });
 

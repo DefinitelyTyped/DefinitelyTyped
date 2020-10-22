@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { DescribeSObjectResult, DescribeGlobalResult } from './describe-result';
+import { BatchDescribeSObjectOptions, DescribeSObjectOptions, DescribeSObjectResult, DescribeGlobalResult } from './describe-result';
 import { Query, QueryResult, ExecuteOptions } from './query';
 import { Record } from './record';
 import { RecordResult } from './record-result';
@@ -21,6 +21,8 @@ export type Callback<T> = (err: Error | null, result: T) => void;
 // and search for options
 export interface RestApiOptions {
     headers?: { [x: string]: string }
+    allowRecursive?: boolean;
+    allOrNone?: boolean;
 }
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
@@ -198,10 +200,11 @@ export abstract class BaseConnection extends EventEmitter {
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     describe$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
-        (type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
+        (type: string|DescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
         clear(): void;
     }
-    describe(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    describe(type: string|DescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    batchDescribe(options: BatchDescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult[]) => void): Promise<DescribeSObjectResult[]>;
     describeGlobal$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describeGlobal */
         (callback?: (err: Error, result: DescribeGlobalResult) => void): DescribeGlobalResult;

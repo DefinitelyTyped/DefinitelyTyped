@@ -1,8 +1,7 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
-import { LoadFunction } from '../Image';
-import ImageBase from '../ImageBase';
+import ImageWrapper, { LoadFunction } from '../Image';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
@@ -20,16 +19,12 @@ export interface Options {
     ratio?: number;
     resolutions?: number[];
     imageLoadFunction?: LoadFunction;
+    imageSmoothing?: boolean;
     params?: any;
 }
 export default class ImageMapGuide extends ImageSource {
     constructor(options: Options);
-    protected getImageInternal(
-        extent: Extent,
-        resolution: number,
-        pixelRatio: number,
-        projection: Projection,
-    ): ImageBase;
+    getImageInternal(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageWrapper;
     getImageLoadFunction(): LoadFunction;
     getParams(): any;
     getUrl(
@@ -41,7 +36,7 @@ export default class ImageMapGuide extends ImageSource {
     ): string;
     setImageLoadFunction(imageLoadFunction: LoadFunction): void;
     updateParams(params: any): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

@@ -1,4 +1,14 @@
-import { Broker, BrokerAsPromised, BrokerConfig, AckOrNack, withDefaultConfig, PublicationSession, SubscriptionSession } from 'rascal';
+import {
+    Broker,
+    BrokerAsPromised,
+    BrokerConfig,
+    AckOrNack,
+    withDefaultConfig,
+    PublicationSession,
+    SubscriptionSession,
+    createBrokerAsPromised,
+    createBroker,
+} from 'rascal';
 import { Message } from 'amqplib';
 
 const config: BrokerConfig = {
@@ -45,7 +55,6 @@ const config: BrokerConfig = {
         const subscription = await broker.subscribe('demo_subscription');
         await broker.subscribe('s1', { prefetch: 10, retry: false });
         await subscription.cancel();
-        subscription.isCancelled();
         subscription
             .on('message', (message, content, ackOrNack) => {
                 ackOrNack();
@@ -69,6 +78,7 @@ const config: BrokerConfig = {
     }
 })();
 
+// $ExpectType void
 Broker.create(config, (err, broker) => {
     if (err) throw err;
 
@@ -91,3 +101,109 @@ Broker.create(config, (err, broker) => {
             .on('error', console.error);
     });
 });
+
+{
+    // $ExpectType Promise<BrokerAsPromised>
+    const b1 = createBrokerAsPromised(config);
+    // $ExpectType Promise<BrokerAsPromised>
+    const b2 = createBrokerAsPromised(config, {});
+}
+
+{
+    // $ExpectType void
+    createBroker(config, (err, broker) => {
+        err; // $ExpectType Error | null
+        broker; // $ExpectType Broker
+    });
+
+    // $ExpectType void
+    createBroker(config, {}, (err, broker) => {
+        err; // $ExpectType Error | null
+        broker; // $ExpectType Broker
+    });
+}
+
+{
+    // $ExpectType void
+    Broker.create(config, (err, broker) => {
+        err; // $ExpectType Error | null
+        broker; // $ExpectType Broker
+    });
+
+    // $ExpectType void
+    Broker.create(config, {}, (err, broker) => {
+        err; // $ExpectType Error | null
+        broker; // $ExpectType Broker
+    });
+}
+
+{
+    Broker.create(config, (err, broker) => {
+        broker.subscribeAll((err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType SubscriptionSession[]
+        });
+        broker.subscribeAll(
+            x => {
+                x; // $ExpectType SubscriptionConfig
+                return true;
+            },
+            (err, res) => {
+                err; // $ExpectType Error | null
+                res; // $ExpectType SubscriptionSession[]
+            },
+        );
+    });
+
+    (async () => {
+        const b = await BrokerAsPromised.create(config);
+        // $ExpectType SubscriberSessionAsPromised[]
+        const res = await b.subscribeAll(x => {
+            x; // $ExpectType SubscriptionConfig
+            return true;
+        });
+    })();
+}
+
+{
+    Broker.create(config, (err, broker) => {
+        if (err !== null) {
+            err; // $ExpectType Error
+            return;
+        }
+
+        err; // $ExpectType null
+        broker; // $ExpectType Broker
+
+        broker.connect('/', (err, conn) => {
+            err; // $ExpectType Error | null
+            conn; // $ExpectType Connection | null
+        });
+
+        broker.connect('/', (...x) => {
+            if (x[0] === null) {
+                const y = x[1]; // $ExpectType Connection
+            } else {
+                const y = x[1]; // $ExpectType Connection | null
+            }
+        });
+    });
+}
+
+{
+    Broker.create(config, (err, broker) => {
+        broker.publish('demo_publication', 'Hello World!', (err, publication) => {
+            publication
+                .on('error', (err, msgId) => {
+                    err; // $ExpectType Error
+                    msgId; // $ExpectType string
+                })
+                .on('return', msg => {
+                    msg; // $ExpectType Message
+                })
+                .on('success', msgId => {
+                    msgId; // $ExpectType string
+                });
+        });
+    });
+}

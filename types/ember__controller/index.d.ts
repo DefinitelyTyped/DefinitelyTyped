@@ -17,6 +17,13 @@ type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
 // tslint:disable-next-line strict-export-declare-modifiers
 type QueryParamScopeTypes = 'controller' | 'model';
 
+// tslint:disable-next-line strict-export-declare-modifiers
+interface QueryParamConfig {
+    type?: QueryParamTypes;
+    scope?: QueryParamScopeTypes;
+    as?: string;
+}
+
 /**
  * Additional methods for the Controller.
  */
@@ -25,11 +32,7 @@ export interface ControllerMixin extends ActionHandler {
     transitionToRoute(name: string, ...args: any[]): void;
     transitionToRoute(...args: any[]): void;
     model: any;
-    queryParams: string | string[] | Array<{ [key: string]: {
-        type?: QueryParamTypes,
-        scope?: QueryParamScopeTypes,
-        as?: string
-    }}>;
+    queryParams: Array<string | Record<string, QueryParamConfig | undefined>>;
     target: object;
 }
 export const ControllerMixin: Mixin<ControllerMixin>;

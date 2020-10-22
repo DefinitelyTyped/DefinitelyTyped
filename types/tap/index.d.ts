@@ -2,7 +2,7 @@
 // Project: https://github.com/tapjs/node-tap
 // Definitions by: Tomas Della Vedova <https://github.com/delvedor>
 //                 Ulf Winkelvos <https://github.com/uwinkelvos>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/tap
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TODO: can be removed as soon as https://github.com/tapjs/node-tap/pull/607 is merged
 

@@ -1,7 +1,8 @@
 import _ = require("../index");
+// tslint:disable-next-line:strict-export-declare-modifiers
+type GlobalFunction = Function;
 declare module "../index" {
-    // castArray
-
+    type FunctionBase = GlobalFunction;
     interface LoDashStatic {
         /**
          * Casts value as an array if it’s not one.
@@ -11,22 +12,72 @@ declare module "../index" {
          */
         castArray<T>(value?: Many<T>): T[];
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.castArray
          */
-        castArray<T>(this: LoDashImplicitWrapper<Many<T>>): LoDashImplicitWrapper<T[]>;
+        castArray(): Collection<T>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.castArray
          */
-        castArray<T>(this: LoDashExplicitWrapper<Many<T>>): LoDashExplicitWrapper<T[]>;
+        castArray(): Collection<string>;
     }
-
-    // clone
+    interface Object<T> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): Collection<T>;
+    }
+    interface Function<T extends (...args: any) => any> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): Collection<T>;
+    }
+    interface Primitive<T> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): Collection<T>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): CollectionChain<T>;
+    }
+    interface StringChain {
+        /**
+         * @see _.castArray
+         */
+        castArray(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.castArray
+         */
+        castArray(): CollectionChain<string | undefined>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): CollectionChain<T>;
+    }
+    interface FunctionChain<T extends (...args: any) => any> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): CollectionChain<T>;
+    }
+    interface PrimitiveChain<T> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): CollectionChain<T>;
+    }
 
     interface LoDashStatic {
         /**
@@ -48,16 +99,61 @@ declare module "../index" {
          * @see _.clone
          */
         clone(): TValue;
+        /**
+         * @see _.cloneDeep
+         */
+        cloneDeep(): TValue;
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<TValue>): any;
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith(): TValue;
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<TValue, TResult>): TResult;
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult>(customizer: CloneWithCustomizer<TValue, TResult | undefined>): TResult | TValue;
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith(): TValue;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.clone
          */
         clone(): this;
+        /**
+         * @see _.cloneDeep
+         */
+        cloneDeep(): this;
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith(customizer: CloneDeepWithCustomizer<TValue>): LoDashExplicitWrapper<any>;
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith(): this;
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult extends object | string | number | boolean | null>(customizer: CloneWithCustomizer<TValue, TResult>): ExpChain<TResult>;
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult>(customizer: CloneWithCustomizer<TValue, TResult | undefined>): ExpChain<TResult | TValue>;
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith(): this;
     }
-
-    // cloneDeep
 
     interface LoDashStatic {
         /**
@@ -68,25 +164,7 @@ declare module "../index" {
          */
         cloneDeep<T>(value: T): T;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
-        /**
-         * @see _.cloneDeep
-         */
-        cloneDeep(): TValue;
-    }
-
-    interface LoDashExplicitWrapper<TValue> {
-        /**
-         * @see _.cloneDeep
-         */
-        cloneDeep(): this;
-    }
-
-    // cloneDeepWith
-
     type CloneDeepWithCustomizer<TObject> = (value: any, key: number | string | undefined, object: TObject | undefined, stack: any) => any;
-
     interface LoDashStatic {
         /**
          * This method is like _.cloneWith except that it recursively clones value.
@@ -95,49 +173,13 @@ declare module "../index" {
          * @param customizer The function to customize cloning.
          * @return Returns the deep cloned value.
          */
-        cloneDeepWith<T>(
-            value: T,
-            customizer: CloneDeepWithCustomizer<T>
-        ): any;
-
+        cloneDeepWith<T>(value: T, customizer: CloneDeepWithCustomizer<T>): any;
         /**
          * @see _.cloneDeepWith
          */
         cloneDeepWith<T>(value: T): T;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith(
-            customizer: CloneDeepWithCustomizer<TValue>
-        ): any;
-
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith(): TValue;
-    }
-
-    interface LoDashExplicitWrapper<TValue> {
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith(
-            customizer: CloneDeepWithCustomizer<TValue>
-        ): LoDashExplicitWrapper<any>;
-
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith(): this;
-    }
-
-    // cloneWith
-
     type CloneWithCustomizer<TValue, TResult> = (value: TValue, key: number | string | undefined, object: any, stack: any) => TResult;
-
     interface LoDashStatic {
         /**
          * This method is like _.clone except that it accepts customizer which is invoked to produce the cloned value.
@@ -147,69 +189,16 @@ declare module "../index" {
          * @param customizer The function to customize cloning.
          * @return Returns the cloned value.
          */
-        cloneWith<T, TResult extends object | string | number | boolean | null>(
-            value: T,
-            customizer: CloneWithCustomizer<T, TResult>
-        ): TResult;
-
+        cloneWith<T, TResult extends object | string | number | boolean | null>(value: T, customizer: CloneWithCustomizer<T, TResult>): TResult;
         /**
          * @see _.cloneWith
          */
-        cloneWith<T, TResult>(
-            value: T,
-            customizer: CloneWithCustomizer<T, TResult | undefined>
-        ): TResult | T;
-
+        cloneWith<T, TResult>(value: T, customizer: CloneWithCustomizer<T, TResult | undefined>): TResult | T;
         /**
          * @see _.cloneWith
          */
         cloneWith<T>(value: T): T;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult extends object | string | number | boolean | null>(
-            customizer: CloneWithCustomizer<TValue, TResult>
-        ): TResult;
-
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult>(
-            customizer: CloneWithCustomizer<TValue, TResult | undefined>
-        ): TResult | TValue;
-
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith(): TValue;
-    }
-
-    interface LoDashExplicitWrapper<TValue> {
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult extends object | string | number | boolean | null>(
-            customizer: CloneWithCustomizer<TValue, TResult>
-        ): LoDashExplicitWrapper<TResult>;
-
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult>(
-            customizer: CloneWithCustomizer<TValue, TResult | undefined>
-        ): LoDashExplicitWrapper<TResult | TValue>;
-
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith(): this;
-    }
-
-    // conformsTo
-
     interface LoDashStatic {
         /**
          * Checks if object conforms to source by invoking the predicate properties of source with the
@@ -219,27 +208,19 @@ declare module "../index" {
          */
         conformsTo<T>(object: T, source: ConformsPredicateObject<T>): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.conformsTo
          */
-        conformsTo<T>(this: LoDashImplicitWrapper<T>, source: ConformsPredicateObject<T>): boolean;
-        // Note: we can't use TValue here,  because it generates a typescript error when strictFunctionTypes is enabled.
+        conformsTo(source: ConformsPredicateObject<TValue>): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.conformsTo
          */
-        conformsTo<T>(this: LoDashExplicitWrapper<T>, source: ConformsPredicateObject<T>): LoDashExplicitWrapper<boolean>;
-        // Note: we can't use TValue here,  because it generates a typescript error when strictFunctionTypes is enabled.
+        conformsTo(source: ConformsPredicateObject<TValue>): PrimitiveChain<boolean>;
     }
-
     type CondPair<T, R> = [(val: T) => boolean, (val: T) => R];
-
-    // eq
-
     interface LoDashStatic {
         /**
          * Performs a [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
@@ -269,31 +250,20 @@ declare module "../index" {
          * _.eq(NaN, NaN);
          * // => true
          */
-        eq(
-            value: any,
-            other: any
-        ): boolean;
+        eq(value: any, other: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.eq
          */
-        eq(
-            other: any
-        ): boolean;
+        eq(other: any): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.eq
          */
-        eq(
-            other: any
-        ): LoDashExplicitWrapper<boolean>;
+        eq(other: any): PrimitiveChain<boolean>;
     }
-
-    // gt
 
     interface LoDashStatic {
         /**
@@ -303,27 +273,20 @@ declare module "../index" {
          * @param other The other value to compare.
          * @return Returns true if value is greater than other, else false.
          */
-        gt(
-            value: any,
-            other: any
-        ): boolean;
+        gt(value: any, other: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.gt
          */
         gt(other: any): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.gt
          */
-        gt(other: any): LoDashExplicitWrapper<boolean>;
+        gt(other: any): PrimitiveChain<boolean>;
     }
-
-    // gte
 
     interface LoDashStatic {
         /**
@@ -333,27 +296,20 @@ declare module "../index" {
          * @param other The other value to compare.
          * @return Returns true if value is greater than or equal to other, else false.
          */
-        gte(
-            value: any,
-            other: any
-        ): boolean;
+        gte(value: any, other: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.gte
          */
         gte(other: any): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.gte
          */
-        gte(other: any): LoDashExplicitWrapper<boolean>;
+        gte(other: any): PrimitiveChain<boolean>;
     }
-
-    // isArguments
 
     interface LoDashStatic {
         /**
@@ -364,22 +320,18 @@ declare module "../index" {
          */
         isArguments(value?: any): value is IArguments;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isArguments
          */
         isArguments(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isArguments
          */
-        isArguments(): LoDashExplicitWrapper<boolean>;
+        isArguments(): PrimitiveChain<boolean>;
     }
-
-    // isArray
 
     interface LoDashStatic {
         /**
@@ -389,28 +341,23 @@ declare module "../index" {
          * @return Returns true if value is correctly classified, else false.
          */
         isArray(value?: any): value is any[];
-
         /**
-         * DEPRECATED
+         * @see _.isArray
          */
         isArray<T>(value?: any): value is any[];
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isArray
          */
         isArray(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isArray
          */
-        isArray(): LoDashExplicitWrapper<boolean>;
+        isArray(): PrimitiveChain<boolean>;
     }
-
-    // isArrayBuffer
 
     interface LoDashStatic {
         /**
@@ -421,22 +368,18 @@ declare module "../index" {
          */
         isArrayBuffer(value?: any): value is ArrayBuffer;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isArrayBuffer
          */
         isArrayBuffer(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isArrayBuffer
          */
-        isArrayBuffer(): LoDashExplicitWrapper<boolean>;
+        isArrayBuffer(): PrimitiveChain<boolean>;
     }
-
-    // isArrayLike
 
     interface LoDashStatic {
         /**
@@ -461,34 +404,28 @@ declare module "../index" {
          * _.isArrayLike(_.noop);
          * // => false
          */
-        isArrayLike<T>(value: T & string & number): boolean; // should only match if T = any
-
+        isArrayLike<T extends { __lodashAnyHack: any }>(t: T): boolean;
         /**
          * @see _.isArrayLike
          */
         isArrayLike(value: ((...args: any[]) => any) | null | undefined): value is never;
-
         /**
          * @see _.isArrayLike
          */
         isArrayLike(value: any): value is { length: number };
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isArrayLike
          */
         isArrayLike(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isArrayLike
          */
-        isArrayLike(): LoDashExplicitWrapper<boolean>;
+        isArrayLike(): PrimitiveChain<boolean>;
     }
-
-    // isArrayLikeObject
 
     interface LoDashStatic {
         /**
@@ -512,36 +449,29 @@ declare module "../index" {
          * _.isArrayLikeObject(_.noop);
          * // => false
          */
-        isArrayLikeObject<T>(value: T & string & number): boolean; // should only match if T = any
-
-        /**
-         * @see _.isArrayLike
-         */
+        isArrayLikeObject<T extends { __lodashAnyHack: any }>(value: T): boolean;
         // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
-        isArrayLikeObject(value: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
-
         /**
-         * @see _.isArrayLike
+         * @see _.isArrayLikeObject
          */
-        // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
-        isArrayLikeObject<T extends object>(value: T | ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is T & { length: number };
+        isArrayLikeObject(value: ((...args: any[]) => any) | FunctionBase | string | boolean | number | null | undefined): value is never;
+        /**
+         * @see _.isArrayLikeObject
+         */
+        isArrayLikeObject(value: any): value is object & { length: number };
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isArrayLikeObject
          */
         isArrayLikeObject(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isArrayLikeObject
          */
-        isArrayLikeObject(): LoDashExplicitWrapper<boolean>;
+        isArrayLikeObject(): PrimitiveChain<boolean>;
     }
-
-    // isBoolean
 
     interface LoDashStatic {
         /**
@@ -552,22 +482,18 @@ declare module "../index" {
          */
         isBoolean(value?: any): value is boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isBoolean
          */
         isBoolean(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isBoolean
          */
-        isBoolean(): LoDashExplicitWrapper<boolean>;
+        isBoolean(): PrimitiveChain<boolean>;
     }
-
-    // isBuffer
 
     interface LoDashStatic {
         /**
@@ -578,22 +504,18 @@ declare module "../index" {
          */
         isBuffer(value?: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isBuffer
          */
         isBuffer(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isBuffer
          */
-        isBuffer(): LoDashExplicitWrapper<boolean>;
+        isBuffer(): PrimitiveChain<boolean>;
     }
-
-    // isDate
 
     interface LoDashStatic {
         /**
@@ -604,22 +526,18 @@ declare module "../index" {
          */
         isDate(value?: any): value is Date;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isDate
          */
         isDate(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isDate
          */
-        isDate(): LoDashExplicitWrapper<boolean>;
+        isDate(): PrimitiveChain<boolean>;
     }
-
-    // isElement
 
     interface LoDashStatic {
         /**
@@ -630,22 +548,18 @@ declare module "../index" {
          */
         isElement(value?: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isElement
          */
         isElement(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isElement
          */
-        isElement(): LoDashExplicitWrapper<boolean>;
+        isElement(): PrimitiveChain<boolean>;
     }
-
-    // isEmpty
 
     interface LoDashStatic {
         /**
@@ -657,22 +571,18 @@ declare module "../index" {
          */
         isEmpty(value?: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isEmpty
          */
         isEmpty(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isEmpty
          */
-        isEmpty(): LoDashExplicitWrapper<boolean>;
+        isEmpty(): PrimitiveChain<boolean>;
     }
-
-    // isEqual
 
     interface LoDashStatic {
         /**
@@ -700,34 +610,22 @@ declare module "../index" {
          * object === other;
          * // => false
          */
-        isEqual(
-            value: any,
-            other: any
-        ): boolean;
+        isEqual(value: any, other: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isEqual
          */
-        isEqual(
-            other: any
-        ): boolean;
+        isEqual(other: any): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isEqual
          */
-        isEqual(
-            other: any
-        ): LoDashExplicitWrapper<boolean>;
+        isEqual(other: any): PrimitiveChain<boolean>;
     }
 
-    // isEqualWith
-
-    type IsEqualCustomizer = (value: any, other: any, indexOrKey: PropertyName | undefined, parent: any, otherParent: any, stack: any) => boolean|undefined;
-
+    type IsEqualCustomizer = (value: any, other: any, indexOrKey: PropertyName | undefined, parent: any, otherParent: any, stack: any) => boolean | undefined;
     interface LoDashStatic {
         /**
          * This method is like `_.isEqual` except that it accepts `customizer` which is
@@ -758,34 +656,20 @@ declare module "../index" {
          * _.isEqualWith(array, other, customizer);
          * // => true
          */
-        isEqualWith(
-            value: any,
-            other: any,
-            customizer?: IsEqualCustomizer
-        ): boolean;
+        isEqualWith(value: any, other: any, customizer?: IsEqualCustomizer): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isEqualWith
          */
-        isEqualWith(
-            other: any,
-            customizer?: IsEqualCustomizer
-        ): boolean;
+        isEqualWith(other: any, customizer?: IsEqualCustomizer): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isEqualWith
          */
-        isEqualWith(
-            other: any,
-            customizer?: IsEqualCustomizer
-        ): LoDashExplicitWrapper<boolean>;
+        isEqualWith(other: any, customizer?: IsEqualCustomizer): PrimitiveChain<boolean>;
     }
-
-    // isError
 
     interface LoDashStatic {
         /**
@@ -797,22 +681,18 @@ declare module "../index" {
          */
         isError(value: any): value is Error;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isError
          */
         isError(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isError
          */
-        isError(): LoDashExplicitWrapper<boolean>;
+        isError(): PrimitiveChain<boolean>;
     }
-
-    // isFinite
 
     interface LoDashStatic {
         /**
@@ -825,22 +705,18 @@ declare module "../index" {
          */
         isFinite(value?: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isFinite
          */
         isFinite(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isFinite
          */
-        isFinite(): LoDashExplicitWrapper<boolean>;
+        isFinite(): PrimitiveChain<boolean>;
     }
-
-    // isFunction
 
     interface LoDashStatic {
         /**
@@ -851,22 +727,18 @@ declare module "../index" {
          */
         isFunction(value: any): value is (...args: any[]) => any;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isFunction
          */
         isFunction(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isFunction
          */
-        isFunction(): LoDashExplicitWrapper<boolean>;
+        isFunction(): PrimitiveChain<boolean>;
     }
-
-    // isInteger
 
     interface LoDashStatic {
         /**
@@ -893,22 +765,18 @@ declare module "../index" {
          */
         isInteger(value?: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isInteger
          */
         isInteger(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isInteger
          */
-        isInteger(): LoDashExplicitWrapper<boolean>;
+        isInteger(): PrimitiveChain<boolean>;
     }
-
-    // isLength
 
     interface LoDashStatic {
         /**
@@ -935,22 +803,18 @@ declare module "../index" {
          */
         isLength(value?: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isLength
          */
         isLength(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isLength
          */
-        isLength(): LoDashExplicitWrapper<boolean>;
+        isLength(): PrimitiveChain<boolean>;
     }
-
-    // isMap
 
     interface LoDashStatic {
         /**
@@ -961,22 +825,18 @@ declare module "../index" {
          */
         isMap(value?: any): value is Map<any, any>;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isMap
          */
         isMap(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isMap
          */
-        isMap(): LoDashExplicitWrapper<boolean>;
+        isMap(): PrimitiveChain<boolean>;
     }
-
-    // isMatch
 
     interface LoDashStatic {
         /**
@@ -1001,25 +861,20 @@ declare module "../index" {
          */
         isMatch(object: object, source: object): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isMatch
          */
         isMatch(source: object): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isMatch
          */
-        isMatch(source: object): LoDashExplicitWrapper<boolean>;
+        isMatch(source: object): PrimitiveChain<boolean>;
     }
 
-    // isMatchWith
-
     type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean | undefined;
-
     interface LoDashStatic {
         /**
          * This method is like `_.isMatch` except that it accepts `customizer` which
@@ -1052,22 +907,18 @@ declare module "../index" {
          */
         isMatchWith(object: object, source: object, customizer: isMatchWithCustomizer): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isMatchWith
          */
         isMatchWith(source: object, customizer: isMatchWithCustomizer): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isMatchWith
          */
-        isMatchWith(source: object, customizer: isMatchWithCustomizer): LoDashExplicitWrapper<boolean>;
+        isMatchWith(source: object, customizer: isMatchWithCustomizer): PrimitiveChain<boolean>;
     }
-
-    // isNaN
 
     interface LoDashStatic {
         /**
@@ -1080,22 +931,18 @@ declare module "../index" {
          */
         isNaN(value?: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isNaN
          */
         isNaN(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isNaN
          */
-        isNaN(): LoDashExplicitWrapper<boolean>;
+        isNaN(): PrimitiveChain<boolean>;
     }
-
-    // isNative
 
     interface LoDashStatic {
         /**
@@ -1106,22 +953,18 @@ declare module "../index" {
          */
         isNative(value: any): value is (...args: any[]) => any;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isNative
+         * @see _.isNative
          */
         isNative(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isNative
+         * @see _.isNative
          */
-        isNative(): LoDashExplicitWrapper<boolean>;
+        isNative(): PrimitiveChain<boolean>;
     }
-
-    // isNil
 
     interface LoDashStatic {
         /**
@@ -1143,22 +986,18 @@ declare module "../index" {
          */
         isNil(value: any): value is null | undefined;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isNil
+         * @see _.isNil
          */
         isNil(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isNil
+         * @see _.isNil
          */
-        isNil(): LoDashExplicitWrapper<boolean>;
+        isNil(): PrimitiveChain<boolean>;
     }
-
-    // isNull
 
     interface LoDashStatic {
         /**
@@ -1169,22 +1008,18 @@ declare module "../index" {
          */
         isNull(value: any): value is null;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isNull
+         * @see _.isNull
          */
         isNull(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isNull
+         * @see _.isNull
          */
-        isNull(): LoDashExplicitWrapper<boolean>;
+        isNull(): PrimitiveChain<boolean>;
     }
-
-    // isNumber
 
     interface LoDashStatic {
         /**
@@ -1197,22 +1032,18 @@ declare module "../index" {
          */
         isNumber(value?: any): value is number;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isNumber
+         * @see _.isNumber
          */
         isNumber(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isNumber
+         * @see _.isNumber
          */
-        isNumber(): LoDashExplicitWrapper<boolean>;
+        isNumber(): PrimitiveChain<boolean>;
     }
-
-    // isObject
 
     interface LoDashStatic {
         /**
@@ -1224,22 +1055,18 @@ declare module "../index" {
          */
         isObject(value?: any): value is object;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isObject
+         * @see _.isObject
          */
         isObject(): this is LoDashImplicitWrapper<object>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isObject
+         * @see _.isObject
          */
-        isObject(): LoDashExplicitWrapper<boolean>;
+        isObject(): PrimitiveChain<boolean>;
     }
-
-    // isObjectLike
 
     interface LoDashStatic {
         /**
@@ -1265,22 +1092,18 @@ declare module "../index" {
          */
         isObjectLike(value?: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isObjectLike
+         * @see _.isObjectLike
          */
         isObjectLike(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isObjectLike
+         * @see _.isObjectLike
          */
-        isObjectLike(): LoDashExplicitWrapper<boolean>;
+        isObjectLike(): PrimitiveChain<boolean>;
     }
-
-    // isPlainObject
 
     interface LoDashStatic {
         /**
@@ -1294,22 +1117,18 @@ declare module "../index" {
          */
         isPlainObject(value?: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isPlainObject
+         * @see _.isPlainObject
          */
         isPlainObject(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isPlainObject
+         * @see _.isPlainObject
          */
-        isPlainObject(): LoDashExplicitWrapper<boolean>;
+        isPlainObject(): PrimitiveChain<boolean>;
     }
-
-    // isRegExp
 
     interface LoDashStatic {
         /**
@@ -1320,22 +1139,18 @@ declare module "../index" {
          */
         isRegExp(value?: any): value is RegExp;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isRegExp
+         * @see _.isRegExp
          */
         isRegExp(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isRegExp
+         * @see _.isRegExp
          */
-        isRegExp(): LoDashExplicitWrapper<boolean>;
+        isRegExp(): PrimitiveChain<boolean>;
     }
-
-    // isSafeInteger
 
     interface LoDashStatic {
         /**
@@ -1363,22 +1178,18 @@ declare module "../index" {
          */
         isSafeInteger(value: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isSafeInteger
+         * @see _.isSafeInteger
          */
         isSafeInteger(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isSafeInteger
+         * @see _.isSafeInteger
          */
-        isSafeInteger(): LoDashExplicitWrapper<boolean>;
+        isSafeInteger(): PrimitiveChain<boolean>;
     }
-
-    // isSet
 
     interface LoDashStatic {
         /**
@@ -1389,22 +1200,18 @@ declare module "../index" {
          */
         isSet(value?: any): value is Set<any>;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isSet
          */
         isSet(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isSet
          */
-        isSet(): LoDashExplicitWrapper<boolean>;
+        isSet(): PrimitiveChain<boolean>;
     }
-
-    // isString
 
     interface LoDashStatic {
         /**
@@ -1415,22 +1222,18 @@ declare module "../index" {
          */
         isString(value?: any): value is string;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isString
+         * @see _.isString
          */
         isString(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isString
+         * @see _.isString
          */
-        isString(): LoDashExplicitWrapper<boolean>;
+        isString(): PrimitiveChain<boolean>;
     }
-
-    // isSymbol
 
     interface LoDashStatic {
         /**
@@ -1447,24 +1250,20 @@ declare module "../index" {
          * _.isSymbol('abc');
          * // => false
          */
-        isSymbol(value: any): boolean;
+        isSymbol(value: any): value is symbol;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isSymbol
+         * @see _.isSymbol
          */
         isSymbol(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isSymbol
+         * @see _.isSymbol
          */
-        isSymbol(): LoDashExplicitWrapper<boolean>;
+        isSymbol(): PrimitiveChain<boolean>;
     }
-
-    // isTypedArray
 
     interface LoDashStatic {
         /**
@@ -1475,22 +1274,18 @@ declare module "../index" {
          */
         isTypedArray(value: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isTypedArray
+         * @see _.isTypedArray
          */
         isTypedArray(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isTypedArray
+         * @see _.isTypedArray
          */
-        isTypedArray(): LoDashExplicitWrapper<boolean>;
+        isTypedArray(): PrimitiveChain<boolean>;
     }
-
-    // isUndefined
 
     interface LoDashStatic {
         /**
@@ -1501,22 +1296,18 @@ declare module "../index" {
          */
         isUndefined(value: any): value is undefined;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * see _.isUndefined
+         * @see _.isUndefined
          */
         isUndefined(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * see _.isUndefined
+         * @see _.isUndefined
          */
-        isUndefined(): LoDashExplicitWrapper<boolean>;
+        isUndefined(): PrimitiveChain<boolean>;
     }
-
-    // isWeakMap
 
     interface LoDashStatic {
         /**
@@ -1527,22 +1318,18 @@ declare module "../index" {
          */
         isWeakMap(value?: any): value is WeakMap<object, any>;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * @see _.isSet
+         * @see _.isWeakMap
          */
         isWeakMap(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * @see _.isSet
+         * @see _.isWeakMap
          */
-        isWeakMap(): LoDashExplicitWrapper<boolean>;
+        isWeakMap(): PrimitiveChain<boolean>;
     }
-
-    // isWeakSet
 
     interface LoDashStatic {
         /**
@@ -1553,22 +1340,18 @@ declare module "../index" {
          */
         isWeakSet(value?: any): value is WeakSet<object>;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isWeakSet
          */
         isWeakSet(): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.isWeakSet
          */
-        isWeakSet(): LoDashExplicitWrapper<boolean>;
+        isWeakSet(): PrimitiveChain<boolean>;
     }
-
-    // lt
 
     interface LoDashStatic {
         /**
@@ -1578,27 +1361,20 @@ declare module "../index" {
          * @param other The other value to compare.
          * @return Returns true if value is less than other, else false.
          */
-        lt(
-            value: any,
-            other: any
-        ): boolean;
+        lt(value: any, other: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.lt
          */
         lt(other: any): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.lt
          */
-        lt(other: any): LoDashExplicitWrapper<boolean>;
+        lt(other: any): PrimitiveChain<boolean>;
     }
-
-    // lte
 
     interface LoDashStatic {
         /**
@@ -1608,27 +1384,20 @@ declare module "../index" {
          * @param other The other value to compare.
          * @return Returns true if value is less than or equal to other, else false.
          */
-        lte(
-            value: any,
-            other: any
-        ): boolean;
+        lte(value: any, other: any): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.lte
          */
         lte(other: any): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.lte
          */
-        lte(other: any): LoDashExplicitWrapper<boolean>;
+        lte(other: any): PrimitiveChain<boolean>;
     }
-
-    // toArray
 
     interface LoDashStatic {
         /**
@@ -1637,44 +1406,58 @@ declare module "../index" {
          * @param value The value to convert.
          * @return Returns the converted array.
          */
-        toArray<T>(value: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
-
+        toArray<T>(value:  Dictionary<T> | NumericDictionary<T> | null | undefined): T[];
         /**
          * @see _.toArray
          */
         toArray<T>(value: T): Array<T[keyof T]>;
-
         /**
          * @see _.toArray
          */
         toArray(): any[];
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.toArray
          */
-        toArray<T>(this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.toArray
-         */
-        toArray<T extends object>(this: LoDashImplicitWrapper<T>): LoDashImplicitWrapper<Array<T[keyof T]>>;
+        toArray(): Collection<string>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.toArray
          */
-        toArray<T>(this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.toArray
-         */
-        toArray<T extends object>(this: LoDashImplicitWrapper<T>): LoDashExplicitWrapper<Array<T[keyof T]>>;
+        toArray(): Collection<T>;
     }
-
-    // toFinite
+    interface Object<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray(): Collection<T[keyof T]>;
+    }
+    interface StringChain {
+        /**
+         * @see _.toArray
+         */
+        toArray(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.toArray
+         */
+        toArray(): CollectionChain<string>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray(): CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.toArray
+         */
+        toArray(): CollectionChain<T[keyof T]>;
+    }
 
     interface LoDashStatic {
         /**
@@ -1700,22 +1483,18 @@ declare module "../index" {
          */
         toFinite(value: any): number;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.toFinite
          */
         toFinite(): number;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toFinite
          */
-        toFinite(): LoDashExplicitWrapper<number>;
+        toFinite(): PrimitiveChain<number>;
     }
-
-    // toInteger
 
     interface LoDashStatic {
         /**
@@ -1742,22 +1521,18 @@ declare module "../index" {
          */
         toInteger(value: any): number;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.toInteger
          */
         toInteger(): number;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toInteger
          */
-        toInteger(): LoDashExplicitWrapper<number>;
+        toInteger(): PrimitiveChain<number>;
     }
-
-    // toLength
 
     interface LoDashStatic {
         /**
@@ -1785,22 +1560,18 @@ declare module "../index" {
          */
         toLength(value: any): number;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.toLength
          */
         toLength(): number;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toLength
          */
-        toLength(): LoDashExplicitWrapper<number>;
+        toLength(): PrimitiveChain<number>;
     }
-
-    // toNumber
 
     interface LoDashStatic {
         /**
@@ -1825,22 +1596,18 @@ declare module "../index" {
          */
         toNumber(value: any): number;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.toNumber
          */
         toNumber(): number;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toNumber
          */
-        toNumber(): LoDashExplicitWrapper<number>;
+        toNumber(): PrimitiveChain<number>;
     }
-
-    // toPlainObject
 
     interface LoDashStatic {
         /**
@@ -1852,22 +1619,18 @@ declare module "../index" {
          */
         toPlainObject(value?: any): any;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.toPlainObject
          */
-        toPlainObject(): LoDashImplicitWrapper<any>;
+        toPlainObject(): Object<any>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toPlainObject
          */
-        toPlainObject(): LoDashExplicitWrapper<any>;
+        toPlainObject(): ObjectChain<any>;
     }
-
-    // toSafeInteger
 
     interface LoDashStatic {
         /**
@@ -1893,22 +1656,18 @@ declare module "../index" {
          */
         toSafeInteger(value: any): number;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.toSafeInteger
          */
         toSafeInteger(): number;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toSafeInteger
          */
-        toSafeInteger(): LoDashExplicitWrapper<number>;
+        toSafeInteger(): PrimitiveChain<number>;
     }
-
-    // toString
 
     interface LoDashStatic {
         /**

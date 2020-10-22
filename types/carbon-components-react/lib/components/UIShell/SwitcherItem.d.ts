@@ -3,9 +3,8 @@ import {
     ReactAnchorAttr,
     RequiresChildrenProps,
     FCReturn,
-    ForwardRefRefType,
-    FCProps
-} from "../../../typings/shared";
+    ForwardRefProps,
+} from '../../../typings/shared';
 import { LinkProps } from "./Link";
 
 interface InheritedProps extends RequiresChildrenProps {
@@ -18,8 +17,8 @@ export interface SwitcherItemPropsBase extends InheritedProps {
 
 export type SwitcherItemProps<E extends object = ReactAnchorAttr> = Omit<LinkProps<E>, "tabIndex"> & SwitcherItemPropsBase;
 
-declare function SwitcherItem<E extends object = ReactAnchorAttr, R extends HTMLElement = HTMLElement>(
-    props: FCProps<SwitcherItemProps<E>>, ref: ForwardRefRefType<R>
+declare function SwitcherItem<E extends object = ReactAnchorAttr, R = HTMLElement>(
+    props: ForwardRefProps<R, SwitcherItemProps<E>>
 ): FCReturn;
 
 export default SwitcherItem;

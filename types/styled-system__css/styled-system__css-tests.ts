@@ -1,4 +1,4 @@
-import css, { Theme } from '@styled-system/css';
+import css, { CssFunctionReturnType, Theme } from '@styled-system/css';
 
 const theme = {
     colors: {
@@ -260,3 +260,5 @@ css({
         label: 'baz',
     },
 });
+
+const result: CssFunctionReturnType = css({});

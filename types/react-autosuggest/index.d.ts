@@ -1,4 +1,4 @@
-// Type definitions for react-autosuggest 9.3
+// Type definitions for react-autosuggest 10.0
 // Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 //                 Philip Ottesen <https://github.com/pjo256>
@@ -35,14 +35,25 @@ declare namespace Autosuggest {
     /** @internal */
     type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
+    type FetchRequestedReasons =
+        | 'input-changed'
+        | 'input-focused'
+        | 'escape-pressed'
+        | 'suggestions-revealed'
+        | 'suggestion-selected';
+
+    type ShouldRenderReasons =
+        | 'input-changed'
+        | 'input-focused'
+        | 'input-blurred'
+        | 'escape-pressed'
+        | 'suggestions-revealed'
+        | 'suggestions-updated'
+        | 'render';
+
     interface SuggestionsFetchRequestedParams {
         value: string;
-        reason:
-            | 'input-changed'
-            | 'input-focused'
-            | 'escape-pressed'
-            | 'suggestions-revealed'
-            | 'suggestion-selected';
+        reason: FetchRequestedReasons;
     }
 
     interface RenderSuggestionParams {
@@ -68,6 +79,7 @@ declare namespace Autosuggest {
         onChange(event: React.FormEvent<any>, params: ChangeEvent): void;
         onBlur?(event: React.FocusEvent<any>, params?: BlurEvent<TSuggestion>): void;
         value: string;
+        ref?: React.Ref<HTMLInputElement>;
     }
 
     interface SuggestionSelectedEventData<TSuggestion> {
@@ -127,7 +139,7 @@ declare namespace Autosuggest {
         suggestion: TSuggestion,
         params: RenderSuggestionParams,
     ) => React.ReactNode;
-    type ShouldRenderSuggestions = (value: string) => boolean;
+    type ShouldRenderSuggestions = (value: string, reason: ShouldRenderReasons) => boolean;
 
     interface AutosuggestPropsBase<TSuggestion> {
         /**

@@ -58,7 +58,7 @@ interface CustomValidationContext {
     addValidationErrors(errors: SimpleSchemaValidationError): any;
 }
 
-interface SchemaDefinition {
+export interface SchemaDefinition {
     type: any;
     label?: string | (() => string);
     optional?: boolean | (() => boolean);
@@ -141,7 +141,7 @@ interface SimpleSchemaStatic {
   objectKeys(keyPrefix: any): any[];
   validate(obj: any, options?: ValidationOption): void;
   validator(options?: ValidationOption): (obj: any) => boolean;
-  extend(otherSchema: SimpleSchemaStatic): SimpleSchemaStatic;
+  extend(otherSchema: SimpleSchemaStatic | SimpleSchemaDefinition): SimpleSchemaStatic;
   extendOptions(options: string[]): void;
   RegEx: {
       Email: RegExp;

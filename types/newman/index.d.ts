@@ -21,6 +21,12 @@ export interface NewmanRunOptions {
     environment?: VariableScope | VariableScopeDefinition | string;
     /** A globals JSON / file path for the current collection run. */
     globals?: VariableScope | VariableScopeDefinition | string;
+    /** The relative path to export the globals file from the current run to  */
+    exportGlobals?: string;
+    /** The relative path to export the environment file from the current run to */
+    exportEnvironment?: string;
+    /** The relative path to export the collection from the current run to */
+    exportCollection?: string;
     /**
      * Specify the number of iterations to run on the collection. This is
      * usually accompanied by providing a data file reference as
@@ -196,4 +202,7 @@ export interface NewmanRunFailure {
 export function run(
     options: NewmanRunOptions,
     callback?: (err: Error | null, summary: NewmanRunSummary) => void
+): EventEmitter;
+export function run(
+    callback: (err: Error | null, summary: NewmanRunSummary) => void
 ): EventEmitter;

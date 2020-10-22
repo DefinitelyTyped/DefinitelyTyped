@@ -1,5 +1,7 @@
 import glob = require("glob");
 const Glob = glob.Glob;
+// ExpectType glob
+const globAlias = glob.glob;
 
 (() => {
     const pattern = "test/a/**/[cg]/../[cg]";

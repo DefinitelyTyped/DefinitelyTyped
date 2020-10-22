@@ -1,6 +1,6 @@
-import * as utils from "ckeditor__ckeditor5-utils";
-import * as core from "ckeditor__ckeditor5-core";
-import * as engine from "ckeditor__ckeditor5-engine";
+import * as utils from "@ckeditor/ckeditor5-utils";
+import * as core from "@ckeditor/ckeditor5-core";
+import * as engine from "@ckeditor/ckeditor5-engine";
 
 declare let bool: boolean;
 declare let command: core.Command;

@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "hot-shots": "^6.3.0"
+  }
+}

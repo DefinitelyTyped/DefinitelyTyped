@@ -44,25 +44,16 @@ export interface WindowHiddenEvent<Topic, Type> extends WindowEvent<Topic, Type>
     reason: 'closing' | 'hide' | 'hide-on-close';
 }
 export interface PreloadScriptInfoRunning {
-    state: 'load-started' | // started loading preload script
-    'load-failed' | // preload script failed to load
-    'load-succeeded' | // preload script is loaded and ready to be eval'ed
-    'failed' | // preload script failed to eval
-    'succeeded';
+    state: 'load-started' | 'load-failed' | 'load-succeeded' | 'failed' | 'succeeded';
 }
 export interface PreloadScriptInfo {
-    state: 'load-failed' | // preload script failed to load
-    'failed' | // preload script failed to eval
-    'succeeded';
+    state: 'load-failed' | 'failed' | 'succeeded';
 }
 export interface WindowPreloadScriptsStateChangeEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     preloadScripts: (PreloadScriptInfoRunning & any)[];
 }
 export interface WindowPreloadScriptsStateChangedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     preloadScripts: (PreloadScriptInfoRunning & any)[];
-}
-export interface WindowPreloadScriptsStateChangedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
-    preloadScripts: (PreloadScriptInfo & any)[];
 }
 export interface WindowBeginBoundsChangingEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     height: number;
@@ -109,11 +100,7 @@ export interface WindowGroupChanged<Topic, Type> extends WindowEvent<Topic, Type
     targetWindowAppUuid: string;
     targetWindowName: string;
 }
-export interface WindowPerformanceReport<Topic, Type> extends WindowEvent<Topic, Type> {
-    timing: typeof window.performance.timing;
-    timeOrigin: typeof window.performance.timeOrigin;
-    navigation: typeof window.performance.navigation;
-}
+export declare type WindowPerformanceReport<Topic, Type> = Performance & WindowEvent<Topic, Type>;
 export interface ViewDetached<Topic, Type> extends WindowEvent<Topic, Type> {
     previousTarget: Identity;
     target: Identity;
@@ -122,7 +109,6 @@ export interface ViewDetached<Topic, Type> extends WindowEvent<Topic, Type> {
 export interface WindowEventMapping<Topic = string, Type = string> extends WebContentsEventMapping {
     'auth-requested': WindowAuthRequestedEvent<Topic, Type>;
     'begin-user-bounds-changing': WindowBeginBoundsChangingEvent<Topic, Type>;
-    'blurred': WindowEvent<Topic, Type>;
     'bounds-changed': WindowBoundsChange<Topic, Type>;
     'bounds-changing': WindowBoundsChange<Topic, Type>;
     'close-requested': WindowEvent<Topic, Type>;
@@ -134,7 +120,6 @@ export interface WindowEventMapping<Topic = string, Type = string> extends WebCo
     'end-user-bounds-changing': WindowEndBoundsChangingEvent<Topic, Type>;
     'external-process-exited': WindowExternalProcessExitedEvent<Topic, Type>;
     'external-process-started': WindowExternalProcessStartedEvent<Topic, Type>;
-    'focused': WindowEvent<Topic, Type>;
     'group-changed': WindowGroupChanged<Topic, Type>;
     'hidden': WindowHiddenEvent<Topic, Type>;
     'hotkey': InputEvent & WindowEvent<Topic, Type>;

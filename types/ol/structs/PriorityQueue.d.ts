@@ -1,3 +1,4 @@
+export const DROP: number;
 export default class PriorityQueue<T> {
     constructor(priorityFunction: (p0: T) => number, keyFunction: (p0: T) => string);
     clear(): void;

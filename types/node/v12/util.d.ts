@@ -7,6 +7,7 @@ declare module "util" {
     function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
     function inspect(object: any, options: InspectOptions): string;
     namespace inspect {
+        const custom: unique symbol;
         let colors: {
             [color: string]: [number, number] | undefined
         };
@@ -105,6 +106,9 @@ declare module "util" {
         fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: any) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     function promisify(fn: Function): Function;
+    namespace promisify {
+        const custom: unique symbol;
+    }
 
     namespace types {
         function isAnyArrayBuffer(object: any): boolean;
@@ -112,6 +116,8 @@ declare module "util" {
         function isArrayBuffer(object: any): object is ArrayBuffer;
         function isArrayBufferView(object: any): object is ArrayBufferView;
         function isAsyncFunction(object: any): boolean;
+        function isBigInt64Array(value: any): value is BigInt64Array;
+        function isBigUint64Array(value: any): value is BigUint64Array;
         function isBooleanObject(object: any): object is Boolean;
         function isBoxedPrimitive(object: any): object is (Number | Boolean | String | Symbol /* | Object(BigInt) | Object(Symbol) */);
         function isDataView(object: any): object is DataView;

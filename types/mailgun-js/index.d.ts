@@ -77,7 +77,8 @@ declare namespace Mailgun {
 
     interface MailgunRequest {
         (resource: string, data: any, callback: (error: Error, response: any) => void): void;
-        (resource: string, data: any): Promise<any>;
+        (resource: string, callback: (error: Error, response: any) => void): void;
+        (resource: string, data?: any): Promise<any>;
     }
 
     namespace messages {
@@ -112,7 +113,7 @@ declare namespace Mailgun {
         }
 
         interface BatchData extends SendData {
-            'recipient-variables'?: BatchSendRecipientVars;
+            'recipient-variables'?: string | BatchSendRecipientVars;
         }
 
         type SendTemplateData = SendData & {
@@ -121,10 +122,7 @@ declare namespace Mailgun {
         };
 
         interface BatchSendRecipientVars {
-            [email: string]: {
-                first: string;
-                id: number;
-            };
+            [email: string]: {[key: string]: any};
         }
 
         interface SendResponse {
@@ -141,6 +139,15 @@ declare namespace Mailgun {
             vars?: object;
         }
 
+        interface MemberAddMultipleData {
+            members: Array<{
+                name?: string;
+                address: string;
+                subscribed?: boolean;
+            }>;
+            upsert?: boolean;
+        }
+
         interface MemberUpdateData {
             subscribed: boolean;
             name: string;
@@ -150,13 +157,15 @@ declare namespace Mailgun {
         interface Members {
             create(data: MemberCreateData, callback?: (err: Error, data: any) => void): Promise<any>;
 
-            add(data: MemberCreateData[], callback?: (err: Error, data: any) => void): Promise<any>;
+            add(data: MemberAddMultipleData, callback?: (err: Error, data: any) => void): Promise<any>;
 
             list(callback?: (err: Error, data: any) => void): Promise<any>;
         }
 
         interface Member {
             update(data: MemberUpdateData, callback?: (err: Error, data: any) => void): Promise<any>;
+
+            delete(callback?: (err: Error, data: any) => void): Promise<any>;
         }
     }
 
@@ -240,10 +249,16 @@ declare namespace Mailgun {
         delete: MailgunRequest;
     }
 
+    interface DeleteResponse {
+        address: string;
+        message: string;
+    }
+
     interface Lists {
         info(callback?: (error: Error, data: any) => void): Promise<any>;
         members(): lists.Members;
         members(member: string): lists.Member;
+        delete(callback?: (error: Error, body: DeleteResponse) => void): Promise<DeleteResponse>;
     }
 
     interface Messages {

@@ -1,4 +1,4 @@
-// Type definitions for pubnub 4.27
+// Type definitions for pubnub 4.28
 // Project: https://github.com/pubnub/javascript
 // Definitions by:  bitbankinc <https://github.com/bitbankinc>,
 //                  rollymaduk <https://github.com/rollymaduk>,
@@ -7,10 +7,27 @@
 //                  danduh <https://github.com/danduh>,
 //                  ChristianBoehlke <https://github.com/ChristianBoehlke>,
 //                  divyun <https://github.com/divyun>
-//                  mohitpubnub <https://github.com/mohitpubnub>
+//                  elviswolcott <https://github.com/elviswolcott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
-// TypeScript Version: 2.2
+// TypeScript Version: 3.5
+
+// SDK callbacks all accept Pubnub.PubnubStatus as the first argument
+type Callback<ResponseType> = (status: Pubnub.PubnubStatus, response: ResponseType) => void;
+type StatusCallback = (status: Pubnub.PubnubStatus) => void;
+interface ObjectsResponse<DataType> {
+    status: number;
+    data: DataType;
+}
+interface PagedObjectsResponse<DataType> extends ObjectsResponse<DataType[]> {
+    prev?: string;
+    next?: string;
+    totalCount?: number;
+}
+// partial but everything can be null (even with strictNullChecks)
+type Nullable<T> = {
+    [P in keyof T]?: T[P] | null;
+};
 
 declare class Pubnub {
     constructor(config: Pubnub.PubnubConfig);
@@ -37,51 +54,39 @@ declare class Pubnub {
 
     getFilterExpression(): string;
 
-    publish(
-        params: Pubnub.PublishParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.PublishResponse) => void,
-    ): void;
+    // publish
+
+    publish(params: Pubnub.PublishParameters, callback: Callback<Pubnub.PublishResponse>): void;
 
     publish(params: Pubnub.PublishParameters): Promise<Pubnub.PublishResponse>;
 
-    fire(
-        params: Pubnub.FireParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.PublishResponse) => void,
-    ): void;
+    fire(params: Pubnub.FireParameters, callback: Callback<Pubnub.PublishResponse>): void;
 
     fire(params: Pubnub.FireParameters): Promise<Pubnub.PublishResponse>;
 
-    signal(
-        params: Pubnub.SignalParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.SignalResponse) => void,
-    ): void;
+    signal(params: Pubnub.SignalParameters, callback: Callback<Pubnub.SignalResponse>): void;
 
     signal(params: Pubnub.SignalParameters): Promise<Pubnub.SignalResponse>;
 
-    history(
-        params: Pubnub.HistoryParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.HistoryResponse) => void,
-    ): void;
+    // history
+
+    history(params: Pubnub.HistoryParameters, callback: Callback<Pubnub.HistoryResponse>): void;
 
     history(params: Pubnub.HistoryParameters): Promise<Pubnub.HistoryResponse>;
 
-    fetchMessages(
-        params: Pubnub.FetchMessagesParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.FetchMessagesResponse) => void,
-    ): void;
+    fetchMessages(params: Pubnub.FetchMessagesParameters, callback: Callback<Pubnub.FetchMessagesResponse>): void;
 
     fetchMessages(params: Pubnub.FetchMessagesParameters): Promise<Pubnub.FetchMessagesResponse>;
 
-    deleteMessages(params: Pubnub.DeleteMessagesParameters, callback: (status: Pubnub.PubnubStatus) => void): void;
+    deleteMessages(params: Pubnub.DeleteMessagesParameters, callback: StatusCallback): void;
 
     deleteMessages(params: Pubnub.DeleteMessagesParameters): Promise<void>;
 
-    messageCounts(
-        params: Pubnub.MessageCountsParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.MessageCountsResponse) => void,
-    ): void;
+    messageCounts(params: Pubnub.MessageCountsParameters, callback: Callback<Pubnub.MessageCountsResponse>): void;
 
     messageCounts(params: Pubnub.MessageCountsParameters): Promise<Pubnub.MessageCountsResponse>;
+
+    // subscriptions
 
     subscribe(params: Pubnub.SubscribeParameters): void;
 
@@ -97,184 +102,365 @@ declare class Pubnub {
 
     removeListener(params: Pubnub.ListenerParameters): void;
 
-    hereNow(
-        params: Pubnub.HereNowParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.HereNowResponse) => void,
-    ): void;
+    // presence
+
+    hereNow(params: Pubnub.HereNowParameters, callback: Callback<Pubnub.HereNowResponse>): void;
 
     hereNow(params: Pubnub.HereNowParameters): Promise<Pubnub.HereNowResponse>;
 
-    whereNow(
-        params: Pubnub.WhereNowParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.WhereNowResponse) => void,
-    ): void;
+    whereNow(params: Pubnub.WhereNowParameters, callback: Callback<Pubnub.WhereNowResponse>): void;
 
     whereNow(params: Pubnub.WhereNowParameters): Promise<Pubnub.WhereNowResponse>;
 
-    getState(
-        params: Pubnub.GetStateParameters,
-        callback: (status: Pubnub.PubnubStatus, state: Pubnub.GetStateResponse) => void,
-    ): void;
+    getState(params: Pubnub.GetStateParameters, callback: Callback<Pubnub.GetStateResponse>): void;
 
     getState(params: Pubnub.GetStateParameters): Promise<Pubnub.GetStateResponse>;
 
-    setState(
-        params: Pubnub.SetStateParameters,
-        callback: (status: Pubnub.PubnubStatus, state: Pubnub.SetStateResponse) => void,
-    ): void;
+    setState(params: Pubnub.SetStateParameters, callback: Callback<Pubnub.SetStateResponse>): void;
 
     setState(params: Pubnub.SetStateParameters): Promise<Pubnub.SetStateResponse>;
 
-    grant(params: Pubnub.GrantParameters, callback: (status: Pubnub.PubnubStatus, response: {}) => void): void;
+    // access manager
 
-    grant(params: Pubnub.GrantParameters): Promise<{}>;
+    grant(params: Pubnub.GrantParameters, callback: StatusCallback): void;
 
-    createUser(
-        params: Pubnub.UserInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUserResponse) => void,
-    ): void;
+    grant(params: Pubnub.GrantParameters): Promise<void>;
 
+    // objects v1
+
+    /**
+     * deprecated: For objects v2, use objects.setUUIDMetadata
+     */
+    createUser(params: Pubnub.UserInputParameters, callback: Callback<Pubnub.GetUserResponse>): void;
+
+    /**
+     * deprecated: For objects v2, use objects.setUUIDMetadata
+     */
     createUser(params: Pubnub.UserInputParameters): Promise<Pubnub.GetUserResponse>;
 
-    updateUser(
-        params: Pubnub.UserInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUserResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.setUUIDMetadata
+     */
+    updateUser(params: Pubnub.UserInputParameters, callback: Callback<Pubnub.GetUserResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.setUUIDMetadata
+     */
     updateUser(params: Pubnub.UserInputParameters): Promise<Pubnub.GetUserResponse>;
 
-    deleteUser(
-        userId: string,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.DeleteUserResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.removeUUIDMetadata
+     */
+    deleteUser(userId: string, callback: Callback<Pubnub.DeleteUserResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.removeUUIDMetadata
+     */
     deleteUser(userId: string): Promise<Pubnub.DeleteUserResponse>;
 
-    getUsers(
-        params: Pubnub.GetObjectsParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUsersResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.getAllUUIDMetadata
+     */
+    getUsers(params: Pubnub.GetObjectsParameters, callback: Callback<Pubnub.GetUsersResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.getAllUUIDMetadata
+     */
     getUsers(params: Pubnub.GetObjectsParameters): Promise<Pubnub.GetUsersResponse>;
 
-    getUser(
-        params: Pubnub.GetUserParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetUserResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.getUUIDMetadata
+     */
+    getUser(params: Pubnub.GetUserParameters, callback: Callback<Pubnub.GetUserResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.getUUIDMetadata
+     */
     getUser(params: Pubnub.GetUserParameters): Promise<Pubnub.GetUserResponse>;
 
-    createSpace(
-        params: Pubnub.SpaceInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpaceResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.setChannelMetadata
+     */
+    createSpace(params: Pubnub.SpaceInputParameters, callback: Callback<Pubnub.GetSpaceResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.setChannelMetadata
+     */
     createSpace(params: Pubnub.SpaceInputParameters): Promise<Pubnub.GetSpaceResponse>;
 
-    updateSpace(
-        params: Pubnub.SpaceInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpaceResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.setChannelMetadata
+     */
+    updateSpace(params: Pubnub.SpaceInputParameters, callback: Callback<Pubnub.GetSpaceResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.setChannelMetadata
+     */
     updateSpace(params: Pubnub.SpaceInputParameters): Promise<Pubnub.GetSpaceResponse>;
 
-    deleteSpace(
-        spaceId: string,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.DeleteSpaceResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.removeChannelMetadata
+     */
+    deleteSpace(spaceId: string, callback: Callback<Pubnub.DeleteSpaceResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.removeChannelMetadata
+     */
     deleteSpace(spaceId: string): Promise<Pubnub.DeleteSpaceResponse>;
 
-    getSpaces(
-        params: Pubnub.GetObjectsParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpacesResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.getAllChannelMetadata
+     */
+    getSpaces(params: Pubnub.GetObjectsParameters, callback: Callback<Pubnub.GetSpacesResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.getAllChannelMetadata
+     */
     getSpaces(params: Pubnub.GetObjectsParameters): Promise<Pubnub.GetSpacesResponse>;
 
-    getSpace(
-        params: Pubnub.GetSpaceParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetSpaceResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.getChannelMetadata
+     */
+    getSpace(params: Pubnub.GetSpaceParameters, callback: Callback<Pubnub.GetSpaceResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.getChannelMetadata
+     */
     getSpace(params: Pubnub.GetSpaceParameters): Promise<Pubnub.GetSpaceResponse>;
 
-    getMemberships(
-        params: Pubnub.GetMembershipsParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembershipsResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.getMemberships
+     */
+    getMemberships(params: Pubnub.GetMembershipsParameters, callback: Callback<Pubnub.GetMembershipsResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.getMemberships
+     */
     getMemberships(params: Pubnub.GetMembershipsParameters): Promise<Pubnub.GetMembershipsResponse>;
 
-    getMembers(
-        params: Pubnub.GetMembersParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.getChannelMembers
+     */
+    getMembers(params: Pubnub.GetMembersParameters, callback: Callback<Pubnub.GetMembersResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.getChannelMembers
+     */
     getMembers(params: Pubnub.GetMembersParameters): Promise<Pubnub.GetMembersResponse>;
 
-    joinSpaces(
-        params: Pubnub.MembershipsInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembershipsResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.setMemberships
+     */
+    joinSpaces(params: Pubnub.MembershipsInputParameters, callback: Callback<Pubnub.GetMembershipsResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.setMemberships
+     */
     joinSpaces(params: Pubnub.MembershipsInputParameters): Promise<Pubnub.GetMembershipsResponse>;
 
+    /**
+     * deprecated: removed in objects v2
+     */
     updateMemberships(
         params: Pubnub.MembershipsInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembershipsResponse) => void,
+        callback: Callback<Pubnub.GetMembershipsResponse>,
     ): void;
 
+    /**
+     * deprecated: removed in objects v2
+     */
     updateMemberships(params: Pubnub.MembershipsInputParameters): Promise<Pubnub.GetMembershipsResponse>;
 
-    leaveSpaces(
-        params: Pubnub.LeaveSpacesParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembershipsResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.removeMemberships
+     */
+    leaveSpaces(params: Pubnub.LeaveSpacesParameters, callback: Callback<Pubnub.GetMembershipsResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.removeMemberships
+     */
     leaveSpaces(params: Pubnub.LeaveSpacesParameters): Promise<Pubnub.GetMembershipsResponse>;
 
-    addMembers(
-        params: Pubnub.MembersInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.setChannelMembers
+     */
+    addMembers(params: Pubnub.MembersInputParameters, callback: Callback<Pubnub.GetMembersResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.setChannelMembers
+     */
     addMembers(params: Pubnub.MembersInputParameters): Promise<Pubnub.GetMembersResponse>;
 
-    updateMembers(
-        params: Pubnub.MembersInputParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
-    ): void;
+    /**
+     * deprecated: removed in objects v2
+     */
+    updateMembers(params: Pubnub.MembersInputParameters, callback: Callback<Pubnub.GetMembersResponse>): void;
 
+    /**
+     * deprecated: removed in objects v2
+     */
     updateMembers(params: Pubnub.MembersInputParameters): Promise<Pubnub.GetMembersResponse>;
 
-    removeMembers(
-        params: Pubnub.RemoveMembersParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMembersResponse) => void,
-    ): void;
+    /**
+     * deprecated: For objects v2, use objects.removeChannelMembers
+     */
+    removeMembers(params: Pubnub.RemoveMembersParameters, callback: Callback<Pubnub.GetMembersResponse>): void;
 
+    /**
+     * deprecated: For objects v2, use objects.removeChannelMembers
+     */
     removeMembers(params: Pubnub.RemoveMembersParameters): Promise<Pubnub.GetMembersResponse>;
+
+    // objects v2
+    objects: {
+        // UUID metadata
+        setUUIDMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params: Pubnub.SetUUIDMetadataParameters<Custom>,
+            callback: Callback<Pubnub.SetUUIDMetadataResponse<Custom>>,
+        ): void;
+        setUUIDMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params: Pubnub.SetUUIDMetadataParameters<Custom>,
+        ): Promise<Pubnub.SetUUIDMetadataResponse<Custom>>;
+
+        removeUUIDMetadata(callback: Callback<Pubnub.RemoveUUIDMetadataResponse>): void;
+        removeUUIDMetadata(params?: Pubnub.RemoveUUIDMetadataParameters): Promise<Pubnub.RemoveUUIDMetadataResponse>;
+        removeUUIDMetadata(
+            params: Pubnub.RemoveUUIDMetadataParameters,
+            callback: Callback<Pubnub.RemoveUUIDMetadataResponse>,
+        ): void;
+
+        getAllUUIDMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            callback: Callback<Pubnub.GetAllUUIDMetadataResponse<Custom>>,
+        ): void;
+        getAllUUIDMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params?: Pubnub.GetAllMetadataParameters,
+        ): Promise<Pubnub.GetAllUUIDMetadataResponse<Custom>>;
+        getAllUUIDMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params: Pubnub.GetAllMetadataParameters,
+            callback: Callback<Pubnub.GetAllUUIDMetadataResponse<Custom>>,
+        ): void;
+
+        getUUIDMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            callback: Callback<Pubnub.GetUUIDMetadataResponse<Custom>>,
+        ): void;
+        getUUIDMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params?: Pubnub.GetUUIDMetadataParameters,
+        ): Promise<Pubnub.GetUUIDMetadataResponse<Custom>>;
+        getUUIDMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params: Pubnub.GetUUIDMetadataParameters,
+            callback: Callback<Pubnub.GetUUIDMetadataResponse<Custom>>,
+        ): void;
+
+        // Channel Metadata
+        setChannelMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params: Pubnub.SetChannelMetadataParameters<Custom>,
+            callback: Callback<Pubnub.SetChannelMetadataResponse<Custom>>,
+        ): void;
+        setChannelMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params: Pubnub.SetChannelMetadataParameters<Custom>,
+        ): Promise<Pubnub.SetChannelMetadataResponse<Custom>>;
+
+        removeChannelMetadata(
+            params: Pubnub.RemoveChannelMetadataParameters,
+            callback: Callback<Pubnub.RemoveChannelMetadataResponse>,
+        ): void;
+        removeChannelMetadata(
+            params: Pubnub.RemoveChannelMetadataParameters,
+        ): Promise<Pubnub.RemoveChannelMetadataResponse>;
+
+        getAllChannelMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            callback: Callback<Pubnub.GetAllChannelMetadataResponse<Custom>>,
+        ): void;
+        getAllChannelMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params?: Pubnub.GetAllMetadataParameters,
+        ): Promise<Pubnub.GetAllChannelMetadataResponse<Custom>>;
+        getAllChannelMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params: Pubnub.GetAllMetadataParameters,
+            callback: Callback<Pubnub.GetAllChannelMetadataResponse<Custom>>,
+        ): void;
+
+        getChannelMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params: Pubnub.GetChannelMetadataParameters,
+            callback: Callback<Pubnub.GetChannelMetadataResponse<Custom>>,
+        ): void;
+        getChannelMetadata<Custom extends Pubnub.ObjectCustom = Pubnub.ObjectCustom>(
+            params: Pubnub.GetChannelMetadataParameters,
+        ): Promise<Pubnub.GetChannelMetadataResponse<Custom>>;
+
+        // Memberships
+        getMemberships<MembershipCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+            callback: Callback<Pubnub.ManageMembershipsResponse<MembershipCustom, ChannelCustom>>,
+        ): void;
+        getMemberships<MembershipCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+            params?: Pubnub.GetMembershipsParametersv2,
+        ): Promise<Pubnub.ManageMembershipsResponse<MembershipCustom, ChannelCustom>>;
+        getMemberships<MembershipCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+            params: Pubnub.GetMembershipsParametersv2,
+            callback: Callback<Pubnub.ManageMembershipsResponse<MembershipCustom, ChannelCustom>>,
+        ): void;
+
+        setMemberships<MembershipCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+            params: Pubnub.SetMembershipsParameters<ChannelCustom>,
+            callback: Callback<Pubnub.ManageMembershipsResponse<MembershipCustom, ChannelCustom>>,
+        ): void;
+        setMemberships<MembershipCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+            params: Pubnub.SetMembershipsParameters<ChannelCustom>,
+        ): Promise<Pubnub.ManageMembershipsResponse<MembershipCustom, ChannelCustom>>;
+
+        removeMemberships<MembershipCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+            params: Pubnub.RemoveMembershipsParameters,
+            callback: Callback<Pubnub.ManageMembershipsResponse<MembershipCustom, ChannelCustom>>,
+        ): void;
+        removeMemberships<MembershipCustom extends Pubnub.ObjectCustom, ChannelCustom extends Pubnub.ObjectCustom>(
+            params: Pubnub.RemoveMembershipsParameters,
+        ): Promise<Pubnub.ManageMembershipsResponse<MembershipCustom, ChannelCustom>>;
+
+        getChannelMembers<MembershipCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+            params: Pubnub.GetChannelMembersParameters,
+            callback: Callback<Pubnub.ManageChannelMembersResponse<MembershipCustom, UUIDCustom>>,
+        ): void;
+        getChannelMembers<MembershipCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+            params: Pubnub.GetChannelMembersParameters,
+        ): Promise<Pubnub.ManageChannelMembersResponse<MembershipCustom, UUIDCustom>>;
+
+        setChannelMembers<MembershipCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+            params: Pubnub.SetChannelMembersParameters<MembershipCustom>,
+            callback: Callback<Pubnub.ManageChannelMembersResponse<MembershipCustom, UUIDCustom>>,
+        ): void;
+        setChannelMembers<MembershipCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+            params: Pubnub.SetChannelMembersParameters<MembershipCustom>,
+        ): Promise<Pubnub.ManageChannelMembersResponse<MembershipCustom, UUIDCustom>>;
+
+        removeChannelMembers<MembershipCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+            params: Pubnub.RemoveChannelMembersParameters,
+            callback: Callback<Pubnub.ManageChannelMembersResponse<MembershipCustom, UUIDCustom>>,
+        ): void;
+        removeChannelMembers<MembershipCustom extends Pubnub.ObjectCustom, UUIDCustom extends Pubnub.ObjectCustom>(
+            params: Pubnub.RemoveChannelMembersParameters,
+        ): Promise<Pubnub.ManageChannelMembersResponse<MembershipCustom, UUIDCustom>>;
+    };
+
+    // message actions
 
     addMessageAction(
         params: Pubnub.AddMessageActionParameters,
-        callback: (status: Pubnub.PubnubStatus, response: { data: Pubnub.MessageAction }) => void,
+        callback: Callback<{ data: Pubnub.MessageAction }>,
     ): void;
 
     addMessageAction(params: Pubnub.AddMessageActionParameters): Promise<{ data: Pubnub.MessageAction }>;
 
-    removeMessageAction(
-        params: Pubnub.RemoveMessageActionParameters,
-        callback: (status: Pubnub.PubnubStatus, response: { data: {} }) => void,
-    ): void;
+    removeMessageAction(params: Pubnub.RemoveMessageActionParameters, callback: Callback<{ data: {} }>): void;
 
     removeMessageAction(params: Pubnub.RemoveMessageActionParameters): Promise<{ data: {} }>;
 
     getMessageActions(
         params: Pubnub.GetMessageActionsParameters,
-        callback: (status: Pubnub.PubnubStatus, response: Pubnub.GetMessageActionsResponse) => void,
+        callback: Callback<Pubnub.GetMessageActionsResponse>,
     ): void;
 
     getMessageActions(params: Pubnub.GetMessageActionsParameters): Promise<Pubnub.GetMessageActionsResponse>;
+
+    // utilities
 
     encrypt(data: string, customCipherKey?: string, options?: Pubnub.CryptoParameters): string;
 
@@ -282,7 +468,7 @@ declare class Pubnub {
 
     time(): Promise<Pubnub.FetchTimeResponse>;
 
-    time(callback: (status: Pubnub.PubnubStatus, response: Pubnub.FetchTimeResponse) => void): void;
+    time(callback: Callback<Pubnub.FetchTimeResponse>): void;
 }
 
 declare namespace Pubnub {
@@ -321,12 +507,12 @@ declare namespace Pubnub {
         publisher: string;
 
         /**
-         * @deprecated
+         * deprecated:
          */
         actualChannel: string;
 
         /**
-         * @deprecated
+         * deprecated:
          */
         subscribedChannel: string;
     }
@@ -355,11 +541,11 @@ declare namespace Pubnub {
         uuid: string;
 
         /**
-         * @deprecated
+         * deprecated:
          */
         actualChannel: string;
         /**
-         * @deprecated
+         * deprecated:
          */
         subscribedChannel: string;
     }
@@ -372,6 +558,9 @@ declare namespace Pubnub {
         publisher: string;
     }
 
+    /**
+     * deprecated: For objects v2, use objects.the ObjectsEvent
+     */
     interface UserEvent {
         channel: string;
         subscription: string;
@@ -384,6 +573,9 @@ declare namespace Pubnub {
         publisher: string;
     }
 
+    /**
+     * deprecated: For objects v2, use objects.the ObjectsEvent
+     */
     interface SpaceEvent {
         channel: string;
         subscription: string;
@@ -405,6 +597,9 @@ declare namespace Pubnub {
         custom?: object | null;
     }
 
+    /**
+     * deprecated: For objects v2, use objects.the ObjectsEvent
+     */
     interface MembershipEvent {
         channel: string;
         subscription: string;
@@ -427,6 +622,95 @@ declare namespace Pubnub {
             data: MessageAction;
         };
     }
+
+    interface BaseObjectsEvent {
+        channel: string;
+        message: {
+            event: 'set' | 'delete';
+            type: 'uuid' | 'channel' | 'membership';
+            data: object;
+        };
+        subscription: string | null;
+        publisher?: string;
+        timetoken: number;
+    }
+
+    interface SetUUIDMetadataEvent<UUIDCustom extends ObjectCustom> extends BaseObjectsEvent {
+        message: {
+            event: 'set';
+            type: 'uuid';
+            data: UUIDMetadataObject<UUIDCustom>;
+        };
+    }
+
+    interface RemoveUUIDMetadataEvent extends BaseObjectsEvent {
+        message: {
+            event: 'delete';
+            type: 'uuid';
+            data: { id: string };
+        };
+    }
+
+    interface SetChannelMetadataEvent<ChannelCustom extends ObjectCustom> extends BaseObjectsEvent {
+        message: {
+            event: 'set';
+            type: 'channel';
+            data: ChannelMetadataObject<ChannelCustom>;
+        };
+    }
+
+    interface RemoveChannelMetadataEvent extends BaseObjectsEvent {
+        message: {
+            event: 'delete',
+            type: 'channel',
+            data: { id: string };
+        };
+    }
+
+    interface SetMembershipEvent<MembershipCustom extends ObjectCustom> extends BaseObjectsEvent {
+        message: {
+            event: 'set';
+            type: 'membership';
+            data: {
+                channel: {
+                    id: string;
+                };
+                uuid: {
+                    id: string;
+                };
+                custom: MembershipCustom | null;
+                updated: string;
+                eTag: string;
+            };
+        };
+    }
+
+    interface RemoveMembershipEvent extends BaseObjectsEvent {
+        message: {
+            event: 'delete';
+            type: 'membership';
+            data: {
+                channel: {
+                    id: string;
+                };
+                uuid: {
+                    id: string;
+                };
+            };
+        };
+    }
+
+    type ObjectsEvent<
+        UUIDCustom extends ObjectCustom = ObjectCustom,
+        ChannelCustom extends ObjectCustom = ObjectCustom,
+        MembershipCustom extends ObjectCustom = ObjectCustom,
+        > =
+        SetUUIDMetadataEvent<UUIDCustom> |
+        RemoveUUIDMetadataEvent |
+        SetChannelMetadataEvent<ChannelCustom> |
+        RemoveChannelMetadataEvent |
+        SetMembershipEvent<MembershipCustom> |
+        RemoveMembershipEvent;
 
     // publish
     interface PublishParameters {
@@ -526,24 +810,21 @@ declare namespace Pubnub {
     }
 
     interface Push {
-        addChannels(params: PushChannelParameters, callback: (status: PubnubStatus) => void): void;
+        addChannels(params: PushChannelParameters, callback: StatusCallback): void;
 
-        addChannels(params: PushChannelParameters): Promise<{}>;
+        addChannels(params: PushChannelParameters): Promise<void>;
 
-        listChannels(
-            params: PushDeviceParameters,
-            callback: (status: PubnubStatus, response: PushListChannelsResponse) => void,
-        ): void;
+        listChannels(params: PushDeviceParameters, callback: Callback<PushListChannelsResponse>): void;
 
         listChannels(params: PushDeviceParameters): Promise<PushListChannelsResponse>;
 
-        removeChannels(params: PushChannelParameters, callback: (status: PubnubStatus) => void): void;
+        removeChannels(params: PushChannelParameters, callback: StatusCallback): void;
 
-        removeChannels(params: PushChannelParameters): Promise<{}>;
+        removeChannels(params: PushChannelParameters): Promise<void>;
 
-        deleteDevice(params: PushDeviceParameters, callback: (status: PubnubStatus) => void): void;
+        deleteDevice(params: PushDeviceParameters, callback: StatusCallback): void;
 
-        deleteDevice(params: PushDeviceParameters): Promise<{}>;
+        deleteDevice(params: PushDeviceParameters): Promise<void>;
     }
 
     interface PushChannelParameters {
@@ -593,26 +874,23 @@ declare namespace Pubnub {
 
     // channelGroups
     interface ChannelGroups {
-        addChannels(params: AddChannelParameters, callback: (status: PubnubStatus) => void): void;
+        addChannels(params: AddChannelParameters, callback: StatusCallback): void;
 
         addChannels(params: AddChannelParameters): Promise<{}>;
 
-        removeChannels(params: RemoveChannelParameters, callback: (status: PubnubStatus) => void): void;
+        removeChannels(params: RemoveChannelParameters, callback: StatusCallback): void;
 
         removeChannels(params: RemoveChannelParameters): Promise<{}>;
 
-        listChannels(
-            params: ListChannelsParameters,
-            callback: (status: PubnubStatus, response: ListChannelsResponse) => void,
-        ): void;
+        listChannels(params: ListChannelsParameters, callback: Callback<ListChannelsResponse>): void;
 
         listChannels(params: ListChannelsParameters): Promise<ListChannelsResponse>;
 
-        listGroups(callback: (status: PubnubStatus, response: ListAllGroupsResponse) => void): void;
+        listGroups(callback: Callback<ListAllGroupsResponse>): void;
 
         listGroups(): Promise<ListAllGroupsResponse>;
 
-        deleteGroup(params: DeleteGroupParameters, callback: (status: PubnubStatus) => void): void;
+        deleteGroup(params: DeleteGroupParameters, callback: StatusCallback): void;
 
         deleteGroup(params: DeleteGroupParameters): Promise<{}>;
     }
@@ -653,13 +931,24 @@ declare namespace Pubnub {
 
         signal?(signalEvent: SignalEvent): void;
 
+        /**
+         * deprecated: For objects v2, use objects.the objects listener
+         */
         user?(userEvent: UserEvent): void;
 
+        /**
+         * deprecated: For objects v2, use objects.the objects listener
+         */
         space?(spaceEvent: SpaceEvent): void;
 
+        /**
+         * deprecated: For objects v2, use objects.the objects listener
+         */
         membership?(membershipEvent: MembershipEvent): void;
 
         messageAction?(messageActionEvent: MessageActionEvent): void;
+
+        objects?(objectsEvent: ObjectsEvent): void;
     }
 
     // hereNow
@@ -729,6 +1018,7 @@ declare namespace Pubnub {
         manage?: boolean;
     }
 
+    // Objects v1
     // Object
 
     interface ObjectData {
@@ -752,10 +1042,7 @@ declare namespace Pubnub {
         };
     }
 
-    interface DeleteObjectResponse {
-        status: number;
-        data: null;
-    }
+    type DeleteObjectResponse = ObjectsResponse<null>;
 
     // User
     interface UserData extends ObjectData {
@@ -777,15 +1064,9 @@ declare namespace Pubnub {
         };
     }
 
-    interface GetUsersResponse {
-        data: UserData[];
-        status: number;
-    }
+    type GetUsersResponse = ObjectsResponse<UserData[]>;
 
-    interface DeleteUserResponse {
-        data: null;
-        status: number;
-    }
+    type DeleteUserResponse = ObjectsResponse<null>;
 
     interface GetUserParameters {
         userId: string;
@@ -794,10 +1075,7 @@ declare namespace Pubnub {
         };
     }
 
-    interface GetUserResponse {
-        data: UserData;
-        status: number;
-    }
+    type GetUserResponse = ObjectsResponse<UserData>;
 
     // Space
     interface SpaceData extends ObjectData {
@@ -816,16 +1094,9 @@ declare namespace Pubnub {
         };
     }
 
-    interface DeleteSpaceResponse {
-        status: number;
-    }
+    type DeleteSpaceResponse = ObjectsResponse<null>;
 
-    interface GetSpacesResponse {
-        data: SpaceData[];
-        prev?: string;
-        next?: string;
-        status: number;
-    }
+    type GetSpacesResponse = PagedObjectsResponse<SpaceData>;
 
     interface GetSpaceParameters {
         spaceId: string;
@@ -834,22 +1105,14 @@ declare namespace Pubnub {
         };
     }
 
-    interface GetSpaceResponse {
-        data: SpaceData;
-        status: number;
-    }
+    type GetSpaceResponse = ObjectsResponse<SpaceData>;
 
-    // Membership
+    // Memberships
     interface GetMembershipsParameters extends GetObjectsParameters {
         userId: string;
     }
 
-    interface GetMembershipsResponse {
-        data: ObjectData[];
-        prev?: string;
-        next?: string;
-        status: number;
-    }
+    type GetMembershipsResponse = PagedObjectsResponse<ObjectData>;
 
     interface MembershipsInputParameters extends GetObjectsParameters {
         userId: string;
@@ -869,12 +1132,7 @@ declare namespace Pubnub {
         spaceId: string;
     }
 
-    interface GetMembersResponse {
-        data: ObjectData[];
-        prev?: string;
-        next?: string;
-        status: number;
-    }
+    type GetMembersResponse = PagedObjectsResponse<ObjectData>;
 
     interface MembersInputParameters extends GetObjectsParameters {
         spaceId: string;
@@ -923,6 +1181,201 @@ declare namespace Pubnub {
         data: MessageAction[];
         start?: string;
         end?: string;
+    }
+
+    // Objects v2
+
+    // Object
+    interface ObjectCustom {
+        [key: string]: string | number | boolean;
+    }
+
+    interface v2ObjectData<Custom extends ObjectCustom> {
+        id: string;
+        eTag: string;
+        updated: string;
+        custom?: Custom | null;
+    }
+
+    interface v2ObjectParam<Custom extends ObjectCustom> {
+        custom?: Custom;
+    }
+
+    // UUID metadata
+    interface UUIDMetadataFields {
+        name: string;
+        externalId: string;
+        profileUrl: string;
+        email: string;
+    }
+
+    interface UUIDMetadata<Custom extends ObjectCustom> extends v2ObjectParam<Custom>, Partial<UUIDMetadataFields> { }
+
+    interface UUIDMetadataObject<Custom extends ObjectCustom> extends v2ObjectData<Custom>, Nullable<UUIDMetadataFields> { }
+
+    interface SetUUIDMetadataParameters<Custom extends ObjectCustom> {
+        uuid?: string;
+        data: UUIDMetadata<Custom>;
+        include?: {
+            customFields?: boolean;
+        };
+    }
+
+    type SetUUIDMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<UUIDMetadataObject<Custom>>;
+
+    interface RemoveUUIDMetadataParameters {
+        uuid?: string;
+    }
+
+    type RemoveUUIDMetadataResponse = ObjectsResponse<{}>;
+
+    interface GetAllMetadataParameters {
+        include?: {
+            totalCount?: boolean;
+            customFields?: boolean;
+        };
+        filter?: string;
+        sort?: object;
+        limit?: number;
+        page?: {
+            next?: string;
+            prev?: string;
+        };
+    }
+
+    type GetAllUUIDMetadataResponse<Custom extends ObjectCustom> = PagedObjectsResponse<UUIDMetadataObject<Custom>>;
+
+    interface GetUUIDMetadataParameters {
+        uuid?: string;
+        include?: {
+            customFields?: boolean;
+        };
+    }
+
+    type GetUUIDMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<UUIDMetadataObject<Custom>>;
+
+    // Channel Metadata
+
+    interface ChannelMetadataFields {
+        name: string;
+        description: string;
+    }
+
+    interface ChannelMetadata<Custom extends ObjectCustom> extends v2ObjectParam<Custom>, Partial<ChannelMetadataFields> { }
+
+    interface ChannelMetadataObject<Custom extends ObjectCustom> extends v2ObjectData<Custom>, Nullable<ChannelMetadataFields> { }
+
+    interface SetChannelMetadataParameters<Custom extends ObjectCustom> {
+        channel: string;
+        data: ChannelMetadata<Custom>;
+        include?: {
+            customFields?: boolean;
+        };
+    }
+
+    type SetChannelMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<ChannelMetadataObject<Custom>>;
+
+    interface RemoveChannelMetadataParameters {
+        channel: string;
+    }
+
+    type RemoveChannelMetadataResponse = ObjectsResponse<{}>;
+
+    type GetAllChannelMetadataResponse<Custom extends ObjectCustom> = PagedObjectsResponse<
+        ChannelMetadataObject<Custom>
+    >;
+
+    interface GetChannelMetadataParameters {
+        channel: string;
+        include?: {
+            customFields: boolean;
+        };
+    }
+
+    type GetChannelMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<ChannelMetadataObject<Custom>>;
+
+    // Memberships
+
+    interface UUIDMembershipObject<MembershipCustom extends ObjectCustom, UUIDCustom extends ObjectCustom> extends Omit<v2ObjectData<MembershipCustom>, "id"> {
+        uuid: UUIDMetadataObject<UUIDCustom> | { id: string };
+    }
+
+    interface ChannelMembershipObject<MembershipCustom extends ObjectCustom, ChannelCustom extends ObjectCustom> extends Omit<v2ObjectData<MembershipCustom>, "id"> {
+        channel: ChannelMetadataObject<ChannelCustom> | { id: string };
+    }
+
+    interface UUIDMembersParameters {
+        include?: {
+            totalCount?: boolean;
+            customFields?: boolean;
+            UUIDFields?: boolean;
+            customUUIDFields?: boolean;
+        };
+        filter?: string;
+        sort?: object;
+        limit?: number;
+        page?: {
+            next?: string;
+            prev?: string;
+        };
+    }
+
+    interface ChannelMembersParameters {
+        include?: {
+            totalCount?: boolean;
+            customFields?: boolean;
+            channelFields?: boolean;
+            customChannelFields?: boolean;
+        };
+        filter?: string;
+        sort?: object;
+        limit?: number;
+        page?: {
+            next?: string;
+            prev?: string;
+        };
+    }
+
+    interface GetChannelMembersParameters extends UUIDMembersParameters {
+        channel: string;
+    }
+
+    type ManageChannelMembersResponse<
+        MembershipCustom extends ObjectCustom,
+        UUIDCustom extends ObjectCustom,
+        > = PagedObjectsResponse<UUIDMembershipObject<MembershipCustom, UUIDCustom>>;
+    type ManageMembershipsResponse<
+        MembershipCustom extends ObjectCustom,
+        ChannelCustom extends ObjectCustom,
+        > = PagedObjectsResponse<ChannelMembershipObject<MembershipCustom, ChannelCustom>>;
+
+    interface GetMembershipsParametersv2 extends ChannelMembersParameters {
+        uuid?: string;
+    }
+
+    interface SetCustom<Custom extends ObjectCustom> {
+        id: string;
+        custom?: Custom;
+    }
+
+    interface SetMembershipsParameters<Custom extends ObjectCustom> extends ChannelMembersParameters {
+        uuid?: string;
+        channels?: Array<string | SetCustom<Custom>>;
+    }
+
+    interface RemoveMembershipsParameters extends ChannelMembersParameters {
+        uuid?: string;
+        channels: string[];
+    }
+
+    interface SetChannelMembersParameters<Custom extends ObjectCustom> extends UUIDMembersParameters {
+        channel: string;
+        uuids: Array<string | SetCustom<Custom>>;
+    }
+
+    interface RemoveChannelMembersParameters extends UUIDMembersParameters {
+        channel: string;
+        uuids: string[];
     }
 
     // encrypt & decrypt

@@ -184,6 +184,8 @@ const poolConfig = {
 
 let pool = mysql.createPool(poolConfig);
 
+console.log('Connection timezone config:', pool.config.connectionConfig.timezone);
+
 pool.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
     if (err) throw err;
 

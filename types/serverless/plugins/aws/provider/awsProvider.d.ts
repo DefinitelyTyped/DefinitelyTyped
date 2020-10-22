@@ -7,6 +7,7 @@ declare namespace Aws {
     interface Serverless {
         service: Service | string;
         frameworkVersion: string;
+        configValidationMode?: string;
         provider: Provider;
         package?: Package;
         functions?: Functions;
@@ -26,7 +27,7 @@ declare namespace Aws {
 
     interface Provider {
         name: 'aws';
-        runtime: string;
+        runtime?: string;
         stage?: string;
         region?: string;
         stackName?: string;
@@ -44,7 +45,7 @@ declare namespace Aws {
         rolePermissionsBoundary?: string;
         cfnRole?: string;
         versionFunctions?: boolean;
-        environment?: Environment;
+        environment?: Environment | string;
         endpointType?: 'regional' | 'edge' | 'private';
         apiKeys?: string[];
         apiGateway?: ApiGateway;
@@ -82,7 +83,7 @@ declare namespace Aws {
     }
 
     interface Environment {
-        [key: string]: string;
+        [key: string]: any;
     }
 
     interface ApiGateway {
@@ -195,7 +196,7 @@ declare namespace Aws {
 
     interface Vpc {
         securityGroupIds: string[];
-        subnetIds: string[];
+        subnetIds: string[]|string;
     }
 
     interface StackParameters {
@@ -239,7 +240,7 @@ declare namespace Aws {
     interface Logs {
         restApi?: RestApiLogs;
         websocket?: WebsocketLogs;
-        httpApi?: HttpApiLogs;
+        httpApi?: boolean | HttpApiLogs;
         frameworkLambda?: boolean;
     }
 
@@ -294,15 +295,20 @@ declare namespace Aws {
         request?: HttpRequestValidation;
     }
 
-    interface HttpApiEventAuthorizer {
+    interface NamedHttpApiEventAuthorizer {
         name: string;
+        scopes?: string[];
+    }
+
+    interface IdRefHttpApiEventAuthorizer {
+        id: string;
         scopes?: string[];
     }
 
     interface HttpApiEvent {
         method: string;
         path: string;
-        authorizer?: HttpApiEventAuthorizer;
+        authorizer?: NamedHttpApiEventAuthorizer | IdRefHttpApiEventAuthorizer;
     }
 
     interface WebsocketAuthorizer {
@@ -367,14 +373,14 @@ declare namespace Aws {
     }
 
     interface Sqs {
-        arn: string;
+        arn: string | { [key: string]: any };
         batchSize?: number | string;
         maximumRetryAttempts?: number | string;
         enabled?: boolean;
     }
 
     interface Stream {
-        arn: string;
+        arn: string | { [key: string]: any };
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;

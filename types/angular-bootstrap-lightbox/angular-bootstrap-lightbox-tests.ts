@@ -14,6 +14,7 @@ imageList.push({
 
 var lightBox:angular.bootstrap.lightbox.ILightbox = <any> {};
 lightBox.openModal(imageList, 0);
+lightBox.openModal(imageList, 0, {});
 
 var provider:angular.bootstrap.lightbox.ILightBoxProvider = <any> {};
 provider.templateUrl = 'templateUrl';

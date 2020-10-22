@@ -36,3 +36,5 @@ xmlRequest.addEventListener('load', ev => {
 });
 
 const test = new URLSearchParams();
+
+const url = new URL("path", "http://localhost/");

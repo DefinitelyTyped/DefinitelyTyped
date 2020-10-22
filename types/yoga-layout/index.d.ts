@@ -303,7 +303,7 @@ declare namespace Yoga {
         setHeightAuto(): void;
         setHeightPercent(height: number): void;
         setJustifyContent(justifyContent: YogaJustifyContent): void;
-        setMargin(edge: YogaEdge, margin: number): void;
+        setMargin(edge: YogaEdge, margin: number | string): void;
         setMarginAuto(edge: YogaEdge): void;
         setMarginPercent(edge: YogaEdge, margin: number): void;
         setMaxHeight(maxHeight: number | string): void;

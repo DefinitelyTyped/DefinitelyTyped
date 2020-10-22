@@ -1,4 +1,4 @@
-import { Intrinsics } from '../GetIntrinsic';
+import type { Intrinsics } from '../GetIntrinsic';
 
 type PrependThisParameter<T> = T extends (...args: infer A) => infer R
     ? (thisArg: ThisParameterType<T>, ...args: A) => R

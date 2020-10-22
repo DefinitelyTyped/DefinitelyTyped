@@ -2,13 +2,10 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "adjacent-overload-signatures": false,
-        "callable-types": false,
         "interface-name": false,
         "no-empty-interface": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-unnecessary-qualifier": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }

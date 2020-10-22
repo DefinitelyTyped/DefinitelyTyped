@@ -1,17 +1,17 @@
-console.log(`Running ${window.Twitch.ext.version} on ${window.Twitch.ext.environment}`);
+console.log(`Running ${Twitch.ext.version} on ${Twitch.ext.environment}`);
 
-window.Twitch.ext.onAuthorized(auth => {
+Twitch.ext.onAuthorized(auth => {
     console.log('The JWT that will be passed to the EBS is', auth.token);
     console.log('The channel ID is', auth.channelId);
 });
 
-window.Twitch.ext.onContext((context, changed) => {
+Twitch.ext.onContext((context, changed) => {
     for (const key of changed) {
         console.log(`Context changed ${context[key]}`);
     }
 });
 
-window.Twitch.ext.onVisibilityChanged((isVisible, context) => {
+Twitch.ext.onVisibilityChanged((isVisible, context) => {
     if (isVisible) {
         console.log('Extension became visible');
         if (context.game) {
@@ -22,7 +22,7 @@ window.Twitch.ext.onVisibilityChanged((isVisible, context) => {
     }
 });
 
-window.Twitch.ext.onHighlightChanged(isHighlighted => {
+Twitch.ext.onHighlightChanged(isHighlighted => {
     if (isHighlighted) {
         console.log('Extension was highlighted');
     } else {
@@ -30,55 +30,55 @@ window.Twitch.ext.onHighlightChanged(isHighlighted => {
     }
 });
 
-window.Twitch.ext.onPositionChanged(position => {
+Twitch.ext.onPositionChanged(position => {
     console.log(`Extension moved to x=${position.x}, y=${position.y}`);
 });
 
-window.Twitch.ext.onError(e => console.error(e));
+Twitch.ext.onError(e => console.error(e));
 
 // Twitch Extension Actions
-window.Twitch.ext.actions.onFollow((didFollow, channelName) => {
+Twitch.ext.actions.onFollow((didFollow, channelName) => {
     if (didFollow) {
         console.log(`You followed ${channelName}`);
     }
 });
-window.Twitch.ext.actions.minimize();
-window.Twitch.ext.actions.followChannel('hearthsim');
-window.Twitch.ext.actions.requestIdShare();
+Twitch.ext.actions.minimize();
+Twitch.ext.actions.followChannel('hearthsim');
+Twitch.ext.actions.requestIdShare();
 
 // Twitch Extension Configuration
-window.Twitch.ext.configuration.onChanged(() => {
+Twitch.ext.configuration.onChanged(() => {
     console.log('Configuration changed');
-    if (window.Twitch.ext.configuration.broadcaster) {
+    if (Twitch.ext.configuration.broadcaster) {
         console.log('Caster configuration');
-        console.log('version: ', window.Twitch.ext.configuration.broadcaster.version);
-        console.log('content: ', window.Twitch.ext.configuration.broadcaster.content);
+        console.log('version: ', Twitch.ext.configuration.broadcaster.version);
+        console.log('content: ', Twitch.ext.configuration.broadcaster.content);
     }
-    if (window.Twitch.ext.configuration.developer) {
+    if (Twitch.ext.configuration.developer) {
         console.log('Developer configuration');
-        console.log('version:', window.Twitch.ext.configuration.developer.version);
-        console.log('content: ', window.Twitch.ext.configuration.developer.content);
+        console.log('version:', Twitch.ext.configuration.developer.version);
+        console.log('content: ', Twitch.ext.configuration.developer.content);
     }
-    if (window.Twitch.ext.configuration.global) {
+    if (Twitch.ext.configuration.global) {
         console.log('Global configuration');
-        console.log('version: ', window.Twitch.ext.configuration.global.version);
-        console.log('content: ', window.Twitch.ext.configuration.global.content);
+        console.log('version: ', Twitch.ext.configuration.global.version);
+        console.log('content: ', Twitch.ext.configuration.global.content);
     }
 });
 
-window.Twitch.ext.configuration.set('broadcaster', '0.0.1', '{"test": "test"}');
+Twitch.ext.configuration.set('broadcaster', '0.0.1', '{"test": "test"}');
 
 // Twitch Extension Feature flags
-window.Twitch.ext.features.onChanged(changed => {
+Twitch.ext.features.onChanged(changed => {
     if (changed.indexOf('isChatEnabled') !== -1) {
-        if (window.Twitch.ext.features.isChatEnabled) {
+        if (Twitch.ext.features.isChatEnabled) {
             console.log('Chat is now enabled');
         }
     }
 });
 
 // Twitch Extension Bits
-window.Twitch.ext.bits
+Twitch.ext.bits
     .getProducts()
     .then(products => {
         console.log(`Got ${products.length} products`);
@@ -99,19 +99,19 @@ window.Twitch.ext.bits
     .catch(error => {
         console.error(`Got an error: ${error}`);
     });
-window.Twitch.ext.bits.onTransactionCancelled(() => console.log('Transaction cancelled'));
-window.Twitch.ext.bits.onTransactionComplete(transaction => {
+Twitch.ext.bits.onTransactionCancelled(() => console.log('Transaction cancelled'));
+Twitch.ext.bits.onTransactionComplete(transaction => {
     console.log(`${transaction.initiator} (${transaction.userId}) bought ${transaction.product.displayName}`);
     console.log(`Transaction id was ${transaction.transactionID}`);
 });
-window.Twitch.ext.bits.setUseLoopback(true);
-window.Twitch.ext.bits.showBitsBalance();
-window.Twitch.ext.bits.useBits('MY-PRODUCT');
+Twitch.ext.bits.setUseLoopback(true);
+Twitch.ext.bits.showBitsBalance();
+Twitch.ext.bits.useBits('MY-PRODUCT');
 
 // Twitch Viewer
-window.Twitch.ext.viewer.onChanged(() => {
-    console.log('Viewer id: ' + window.Twitch.ext.viewer.id);
+Twitch.ext.viewer.onChanged(() => {
+    console.log('Viewer id: ' + Twitch.ext.viewer.id);
 });
 
 // Developer Rig
-window.Twitch.ext.rig.log('Hello, world!');
+Twitch.ext.rig.log('Hello, world!');

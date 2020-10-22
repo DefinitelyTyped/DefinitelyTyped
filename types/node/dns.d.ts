@@ -60,7 +60,7 @@ declare module "dns" {
         ttl: number;
     }
 
-    /** @deprecated Use AnyARecord or AnyAaaaRecord instead. */
+    /** @deprecated Use `AnyARecord` or `AnyAaaaRecord` instead. */
     type AnyRecordWithTtl = AnyARecord | AnyAaaaRecord;
 
     interface AnyARecord extends RecordWithTtl {

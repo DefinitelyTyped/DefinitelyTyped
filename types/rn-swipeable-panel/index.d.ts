@@ -1,9 +1,12 @@
-// Type definitions for rn-swipeable-panel 1.1
+// Type definitions for rn-swipeable-panel 1.2
 // Project: https://github.com/enesozturk/rn-swipeable-panel
 // Definitions by: Enes Öztürk <https://github.com/enesozturk>
-// Definitions: https://github.com/DefinitelyTyped/types/rn-swipeable-panel
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
+
+declare var LARGE_PANEL_CONTENT_HEIGHT: number;
+declare var SMALL_PANEL_CONTENT_HEIGHT: number;
 
 export interface SwipeablePanelProps extends React.Props<SwipeablePanel> {
     /**
@@ -84,4 +87,6 @@ export interface SwipeablePanelProps extends React.Props<SwipeablePanel> {
     onClose: () => void;
 }
 
-export default class SwipeablePanel extends React.Component<SwipeablePanelProps, any> {}
+declare class SwipeablePanel extends React.Component<SwipeablePanelProps, any> {}
+
+export { SwipeablePanel, LARGE_PANEL_CONTENT_HEIGHT, SMALL_PANEL_CONTENT_HEIGHT };

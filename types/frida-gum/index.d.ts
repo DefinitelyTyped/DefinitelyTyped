@@ -1,6 +1,7 @@
-// Type definitions for non-npm package frida-gum 15.3
+// Type definitions for non-npm package frida-gum 16.2
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
+//                 Francesco Tamagni <https://github.com/mrmacete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -1465,6 +1466,11 @@ declare class NativePointer {
     toInt32(): number;
 
     /**
+     * Converts to an unsigned 32-bit integer.
+     */
+    toUInt32(): number;
+
+    /**
      * Converts to a “0x”-prefixed hexadecimal string, unless a `radix`
      * is specified.
      */
@@ -1596,7 +1602,7 @@ interface UnixSystemFunctionResult {
 }
 
 declare class NativeCallback extends NativePointer {
-    constructor(func: NativeCallbackImplementation, retType: NativeType, argTypes: NativeType[]);
+    constructor(func: NativeCallbackImplementation, retType: NativeType, argTypes: NativeType[], abi?: NativeABI);
 }
 
 type NativeCallbackImplementation = (this: InvocationContext | undefined, ...params: any[]) => any;
@@ -2381,6 +2387,11 @@ declare namespace Interceptor {
      * Reverts the previously replaced function at `target`.
      */
     function revert(target: NativePointerValue): void;
+
+    /**
+     * Ensure any pending changes have been committed to memory.
+     */
+    function flush(): void;
 }
 
 declare class InvocationListener {
@@ -2663,6 +2674,19 @@ interface StalkerOptions {
     onCallSummary?: (summary: StalkerCallSummary) => void;
 
     /**
+     * C callback that processes events as they occur, allowing synchronous
+     * processing of events in native code – typically implemented using
+     * CModule.
+     *
+     * This is useful when wanting to implement custom filtering and/or queuing
+     * logic to improve performance, or sacrifice performance in exchange for
+     * reliable event delivery.
+     *
+     * Note that this precludes usage of `onReceive()` and `onCallSummary()`.
+     */
+    onEvent?: StalkerNativeEventCallback;
+
+    /**
      * Callback that transforms each basic block compiled whenever Stalker
      * wants to recompile a basic block of the code that's about to be executed
      * by the stalked thread.
@@ -2670,7 +2694,7 @@ interface StalkerOptions {
     transform?: StalkerTransformCallback;
 
     /**
-     * User data to be passed to `StalkerNativeTransformCallback`.
+     * User data to be passed to `StalkerNativeEventCallback` and `StalkerNativeTransformCallback`.
      */
     data?: NativePointerValue;
 }
@@ -2736,6 +2760,11 @@ type StalkerBlockEventBare = [          NativePointer | string, NativePointer | 
 
 type StalkerCompileEventFull = [ "compile", NativePointer | string, NativePointer | string ];
 type StalkerCompileEventBare = [            NativePointer | string, NativePointer | string ];
+
+/**
+ * Signature: `void process (const GumEvent * event, GumCpuContext * cpu_context, gpointer user_data)`
+ */
+type StalkerNativeEventCallback = NativePointer;
 
 type StalkerTransformCallback =
     | StalkerX86TransformCallback
@@ -2809,7 +2838,8 @@ declare class ApiResolver {
     /**
      * Performs the resolver-specific query.
      *
-     * @param query Resolver-specific query.
+     * @param query Resolver-specific query, optionally suffixed with `/i` to
+     *              perform case-insensitive matching.
      */
     enumerateMatches(query: string): ApiResolverMatch[];
 }
@@ -2835,6 +2865,7 @@ type ApiResolverType =
      *
      * Example query: `"exports:*!open*"`
      * Which may resolve to: `"/usr/lib/libSystem.B.dylib!opendir$INODE64"`
+     * Suffix with `/i` to perform case-insensitive matching.
      */
     | "module"
 
@@ -2847,6 +2878,7 @@ type ApiResolverType =
      *
      * Example query: `"-[NSURL* *HTTP*]"`
      * Which may resolve to: `"-[NSURLRequest valueForHTTPHeaderField:]"`
+     * Suffix with `/i` to perform case-insensitive matching.
      */
     | "objc"
     ;
@@ -2913,6 +2945,13 @@ declare class DebugSymbol {
      * @param glob Glob matching functions to resolve the addresses of.
      */
     static findFunctionsMatching(glob: string): NativePointer[];
+
+    /**
+     * Loads debug symbols for a specific module.
+     *
+     * @param path Path of module to load symbols for.
+     */
+    static load(path: string): void;
 
     /**
      * Converts to a human-readable string.
@@ -3690,7 +3729,7 @@ declare namespace ObjC {
      * implementation.
      */
     class Block implements ObjectWrapper {
-        constructor(target: NativePointer | MethodSpec<BlockMethodImplementation>, options?: NativeFunctionOptions);
+        constructor(target: NativePointer | MethodSpec<BlockImplementation>, options?: NativeFunctionOptions);
 
         handle: NativePointer;
 
@@ -3703,9 +3742,39 @@ declare namespace ObjC {
          * Current implementation. You may replace it by assigning to this property.
          */
         implementation: AnyFunction;
+
+        /**
+         * Declares the signature of an externally defined block. This is needed
+         * when working with blocks without signature metadata, i.e. when
+         * `block.types === undefined`.
+         *
+         * @param signature Signature to use.
+         */
+        declare(signature: BlockSignature): void;
     }
 
-    type BlockMethodImplementation = (this: Block, ...args: any[]) => any;
+    type BlockImplementation = (this: Block, ...args: any[]) => any;
+
+    type BlockSignature = SimpleBlockSignature | DetailedBlockSignature;
+
+    interface SimpleBlockSignature {
+        /**
+         * Return type.
+         */
+        retType: string;
+
+        /**
+         * Argument types.
+         */
+        argTypes: string[];
+    }
+
+    interface DetailedBlockSignature {
+        /**
+         * Signature.
+         */
+        types: string;
+    }
 
     /**
      * Creates a JavaScript implementation compatible with the signature of `method`, where `fn` is used as the
@@ -4089,6 +4158,18 @@ declare namespace Java {
     function enumerateClassLoadersSync(): Wrapper[];
 
     /**
+     * Enumerates methods matching `query`.
+     *
+     * @param query Query specified as `class!method`, with globs permitted. May
+     *              also be suffixed with `/` and one or more modifiers:
+     *              - `i`: Case-insensitive matching.
+     *              - `s`: Include method signatures, so e.g. `"putInt"` becomes
+     *                `"putInt(java.lang.String, int): void"`.
+     *              - `u`: User-defined classes only, ignoring system classes.
+     */
+    function enumerateMethods(query: string): EnumerateMethodsMatchGroup[];
+
+    /**
      * Runs `fn` on the main thread of the VM.
      *
      * @param fn Function to run on the main thread of the VM.
@@ -4232,6 +4313,41 @@ declare namespace Java {
         onComplete: () => void;
     }
 
+    /**
+     * Matching methods grouped by class loader.
+     */
+    interface EnumerateMethodsMatchGroup {
+        /**
+         * Class loader, or `null` for the bootstrap class loader.
+         *
+         * Typically passed to `ClassFactory.get()` to interact with classes of
+         * interest.
+         */
+        loader: Wrapper | null;
+
+        /**
+         * One or more matching classes that have one or more methods matching
+         * the given query.
+         */
+        classes: [EnumerateMethodsMatchClass, ...EnumerateMethodsMatchClass[]];
+    }
+
+    /**
+     * Class matching query which has one or more matching methods.
+     */
+    interface EnumerateMethodsMatchClass {
+        /**
+         * Class name that matched the given query.
+         */
+        name: string;
+
+        /**
+         * One or more matching method names, each followed by signature when
+         * the `s` modifier is used.
+         */
+        methods: [string, ...string[]];
+    }
+
     interface ChooseCallbacks {
         /**
          * Called with each live instance found with a ready-to-use `instance`
@@ -4282,6 +4398,16 @@ declare namespace Java {
         $init: MethodDispatcher<T>;
 
         /**
+         * Eagerly deletes the underlying JNI global reference without having to
+         * wait for the object to become unreachable and the JavaScript
+         * runtime's garbage collector to kick in (or script to be unloaded).
+         *
+         * Useful when a lot of short-lived objects are created in a loop and
+         * there's a risk of running out of global handles.
+         */
+        $dispose(): void;
+
+        /**
          * Retrieves a `java.lang.Class` wrapper for the current class.
          */
         class: Wrapper;
@@ -4290,6 +4416,12 @@ declare namespace Java {
          * Canonical name of class being wrapped.
          */
         $className: string;
+
+        /**
+         * Method and field names exposed by this object’s class, not including
+         * parent classes.
+         */
+        $ownMembers: string[];
 
         /**
          * Instance used for chaining up to super-class method implementations.
@@ -4548,14 +4680,16 @@ declare namespace Java {
 
     class ClassFactory {
         /**
-         * Gets the class factory instance for a given class loader.
+         * Gets the class factory instance for a given class loader, or the
+         * default factory when passing `null`.
          *
          * The default class factory used behind the scenes only interacts
          * with the application's main class loader. Other class loaders
-         * can be discovered through `Java.enumerateClassLoaders()` and
-         * interacted with through this API.
+         * can be discovered through APIs such as `Java.enumerateMethods()` and
+         * `Java.enumerateClassLoaders()`, and subsequently interacted with
+         * through this API.
          */
-        static get(classLoader: Wrapper): ClassFactory;
+        static get(classLoader: Wrapper | null): ClassFactory;
 
         /**
          * Class loader currently being used. For the default class factory this

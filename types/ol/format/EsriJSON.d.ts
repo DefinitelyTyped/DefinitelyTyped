@@ -45,9 +45,13 @@ export interface Options {
 }
 export default class EsriJSON extends JSONFeature {
     constructor(opt_options?: Options);
-    protected readFeatureFromObject(object: any, opt_options?: ReadOptions): Feature_1<Geometry_1>;
+    protected readFeatureFromObject(
+        object: any,
+        opt_options?: ReadOptions,
+        opt_idField?: string,
+    ): Feature_1<Geometry_1>;
     protected readFeaturesFromObject(object: any, opt_options?: ReadOptions): Feature_1<Geometry_1>[];
-    protected readGeometryFromObject(object: any, opt_options?: ReadOptions): Geometry_1;
+    protected readGeometryFromObject(object: EsriJSONGeometry, opt_options?: ReadOptions): Geometry_1;
     protected readProjectionFromObject(object: any): Projection;
     writeFeatureObject(feature: Feature_1<Geometry_1>, opt_options?: WriteOptions): any;
     writeFeaturesObject(features: Feature_1<Geometry_1>[], opt_options?: WriteOptions): EsriJSONFeatureSet;

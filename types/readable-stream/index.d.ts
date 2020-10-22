@@ -1,6 +1,7 @@
 // Type definitions for readable-stream 2.3
 // Project: https://github.com/nodejs/readable-stream
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
+//                   markdreyer <https://github.com/markdreyer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,7 +9,12 @@
 
 import * as stream from "stream";
 import * as SafeBuffer from "safe-buffer";
-import { StringDecoder } from "string_decoder";
+
+declare class StringDecoder {
+    constructor(encoding?: BufferEncoding | string);
+    write(buffer: Buffer): string;
+    end(buffer?: Buffer): string;
+}
 
 declare class _Readable extends stream.Readable {
     // static ReadableState: _Readable.ReadableState;
@@ -71,9 +77,11 @@ declare namespace _Readable {
         readable: boolean;
         readonly readableEncoding: BufferEncoding | null;
         readonly readableEnded: boolean;
+        readonly readableFlowing: boolean | null;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         readonly readableObjectMode: boolean;
+        readonly writableObjectMode: boolean;
         _readableState: ReadableState;
 
         _read(size?: number): void;
@@ -103,7 +111,7 @@ declare namespace _Readable {
     class PassThrough extends Transform implements stream.PassThrough {
         constructor(options?: TransformOptions);
 
-        _transform<T>(chunk: T, encoding: BufferEncoding | null | undefined, callback: (error: any, data: T) => void): void;
+        _transform<T>(chunk: T, encoding: BufferEncoding | string | null | undefined, callback: (error?: Error, data?: T) => void): void;
     }
 
     // ==== _stream_readable ====
@@ -236,8 +244,8 @@ declare namespace _Readable {
     }
 
     type WritableOptions = WritableStateOptions & {
-        write?(this: Writable, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
-        writev?(this: Writable, chunk: ArrayLike<{ chunk: any; encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
+        write?(this: Writable, chunk: any, encoding: BufferEncoding | string, callback: (error?: Error | null) => void): void;
+        writev?(this: Writable, chunk: ArrayLike<{ chunk: any; encoding: BufferEncoding | string }>, callback: (error?: Error | null) => void): void;
         destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
         final?(this: Writable, callback: (error?: Error | null) => void): void;
     };

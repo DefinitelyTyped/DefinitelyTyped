@@ -34,13 +34,11 @@ _Вы также можете прочитать этот README на [англ�
 Это может быть полезно для участников, испытывающих любые проблемы с PR'ами и пакетами.
 
 -   Самая последняя сборка [прошла проверку-типов/линтинг](https://github.com/Microsoft/dtslint) полностью: [![Статус сборки](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
--   Все пакеты проходят проверку-типов/линтинг полностью на `typescript@next`: [![Статус сборки](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
+-   Все пакеты проходят проверку-типов/линтинг полностью на `typescript@next`: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 -   Все пакеты [публикуются на npm](https://github.com/Microsoft/types-publisher) в течении часа: [![Статус публикации](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 -   [typescript-bot](https://github.com/typescript-bot) проявляет активность на Definitely Typed [![Статус активности](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
-Если что-то здесь кажется неправильным или что-либо из вышеперечисленного не работает, пожалуйста, поднимите проблему на [канале DefiniteTyped Gitter](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
-
-[![Присоединяйтесь к чату на https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Если что-то здесь кажется неправильным или что-либо из вышеперечисленного не работает, пожалуйста, поднимите проблему на [канале DefiniteTyped Discord](https://discord.gg/typescript).
 
 ## Что такое файлы декларации (файлы описания/объявления типов)?
 
@@ -71,10 +69,10 @@ npm install --save-dev @types/node
 Если вы все еще не можете найти его, проверьте [включает](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) ли пакет собственную типизацию.
 Обычно это отражается в поле `"types"` или `"typings"` файла `package.json`, или просто ищите любые файлы «.d.ts» в пакете и вручную включайте их с помощью `/// <reference path="" />`.
 
-#### Typescript 2.9 и старее
+#### Typescript 3.1 и старее
 
 Начиная с ноября 2019 года, Definitely Typed тестирует пакеты только на версиях Typescript, которым меньше двух лет.
-Если вы используете Typescript от 2.0 до 2.9, вы все равно можете попробовать установить пакеты `@types` - большинство пакетов не используют новые функции Typescript.
+Если вы используете Typescript от 2.0 до 3.1, вы все равно можете попробовать установить пакеты `@types` - большинство пакетов не используют новые функции Typescript.
 Но нет гарантии, что они будут работать.
 
 График обновлений:
@@ -93,6 +91,7 @@ npm install --save-dev @types/node
 3.7 | Ноябрь 2019 | Ноябрь 2021
 3.8 | Февраль 2020 | Февраль 2022
 3.9 | Май 2020 | Май 2022
+4.0 | Август 2020 | Август 2022
 
 
 Пакеты, которые существовали до ноября 2019 года, могут иметь более старые версии, которые явно помечены как совместимые с более старыми версиями Typescript; используйте тег "ts2.6" для Typescript 2.6, например.
@@ -322,9 +321,9 @@ f('one');
 Не меняйте определение типа, если оно точное.
 Для пакета NPM, `export =` является точным, если `node -p 'require("foo")'` является экспортом, а `export default` является точным, если `node -p 'require("foo").default'` является экспортом.
 
-#### Я хочу использовать функции из TypeScript 3.1 или выше.
+#### Я хочу использовать функции из TypeScript 3.3 или выше.
 
-В таком случае вам нужно будет добавить комментарий к последней строке заголовка вашего определения (после `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 3.1`.
+В таком случае вам нужно будет добавить комментарий к последней строке заголовка вашего определения (после `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: 3.3`.
 
 #### Я хочу добавить DOM API, отсутствующий в TypeScript по умолчанию.
 
@@ -380,7 +379,7 @@ f('one');
 ```json
 {
     "paths": {
-        "@foo/bar": ["foo__bar"]
+        "@foo/*": ["foo__*"]
     }
 }
 ```

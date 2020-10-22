@@ -9,6 +9,8 @@ declare let strOrNull: string | null;
 declare let strOrUndefined: string | undefined;
 declare let strOrUndefinedOrNull: string | undefined | null;
 declare let date: Date;
+declare let obj: {};
+declare let array: any[];
 declare let anyObj: any;
 declare let num: number;
 declare let error: Error;
@@ -17,6 +19,8 @@ declare let boolOrUndefined: boolean | undefined;
 declare let boolOrNumOrStr: boolean | number | string;
 declare let numOrUndefined: number | undefined;
 declare let strArrayOrUndefined: string[] | undefined;
+declare let nullOrUndefined: null | undefined;
+declare let objectOrUndefined: {} | undefined;
 
 // handler.d.ts types
 declare let context: AWSLambda.Context;

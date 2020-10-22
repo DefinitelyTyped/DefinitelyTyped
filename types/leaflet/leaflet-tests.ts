@@ -75,6 +75,16 @@ points = L.PolyUtil.clipPolygon(points, bounds);
 points = L.PolyUtil.clipPolygon(points, bounds, true);
 
 let mapOptions: L.MapOptions = {};
+
+const crs: L.CRS[] = [
+    L.CRS.EPSG3395,
+    L.CRS.EPSG3857,
+    L.CRS.EPSG4326,
+    L.CRS.EPSG900913,
+    L.CRS.Earth,
+    L.CRS.Simple,
+];
+
 mapOptions = {
     preferCanvas: true,
     attributionControl: false,
@@ -147,6 +157,16 @@ zoomPanOptions = {
     noMoveStart: true
 };
 
+let invalidateSizeOptions: L.InvalidateSizeOptions = {};
+invalidateSizeOptions = {
+    animate: false,
+    debounceMoveend: true,
+    duration: 0.5,
+    easeLinearity: 0.6,
+    noMoveStart: true,
+    pan: false,
+};
+
 const zoomOptions: L.ZoomOptions = {};
 
 const panOptions: L.PanOptions = {};
@@ -212,6 +232,7 @@ zoom = map.getBoundsZoom(latLngBounds);
 zoom = map.getBoundsZoom(latLngBounds, true);
 zoom = map.getBoundsZoom(latLngBoundsLiteral);
 zoom = map.getBoundsZoom(latLngBoundsLiteral, true);
+zoom = map.getBoundsZoom(latLngBoundsLiteral, true, point);
 
 let mapLatLngBounds: L.LatLngBounds;
 mapLatLngBounds = map.getBounds();
@@ -451,8 +472,9 @@ map = map
     .panInsideBounds(latLngBounds, panOptions)
     .panInsideBounds(latLngBoundsLiteral)
     .panInsideBounds(latLngBoundsLiteral, panOptions)
-    .invalidateSize(zoomPanOptions)
+    .invalidateSize(invalidateSizeOptions)
     .invalidateSize(false)
+    .invalidateSize({ debounceMoveend: true, pan: false })
     .stop()
     .flyTo(latLng)
     .flyTo(latLng, 12)
@@ -497,6 +519,9 @@ const style: L.PathOptions = {
 const styler: L.StyleFunction<MyProperties> = () => style;
 geojson.setStyle(style);
 geojson.setStyle(styler);
+
+geojson.resetStyle();
+geojson.resetStyle(layer);
 
 class MyMarker extends L.Marker {
     constructor() {

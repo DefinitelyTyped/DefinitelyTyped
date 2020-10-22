@@ -2,7 +2,6 @@
 // Project: https://github.com/plotly/react-cytoscapejs
 // Definitions by:  Emmanuel COunasse <https://github.com/manuc66/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 import cytoscape = require('cytoscape');
 import { Component, CSSProperties } from 'react';
@@ -16,7 +15,7 @@ interface CytoscapeComponentProps {
     stylesheet?: cytoscape.Stylesheet | cytoscape.Stylesheet[] | string;
     className?: string;
     zoom?: number;
-    pan?: Position;
+    pan?: cytoscape.Position;
     minZoom?: number;
     maxZoom?: number;
     zoomingEnabled?: boolean;

@@ -2838,7 +2838,7 @@ declare namespace Matter {
          * @param {vector} vectorB
          * @return {number} The dot product of the two vectors
          */
-        static dot(vectorA: Vector, vectorB: Vector): Number;
+        static dot(vectorA: Vector, vectorB: Vector): number;
 
         /**
          * Returns the magnitude (length) of a vector.

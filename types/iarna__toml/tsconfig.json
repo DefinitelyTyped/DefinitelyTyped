@@ -16,11 +16,8 @@
         "forceConsistentCasingInFileNames": true,
         "strictFunctionTypes": true,
         "paths": {
-            "@iarna/toml": [
-                "iarna__toml"
-            ],
-            "@iarna/toml/*": [
-                "iarna__toml/*"
+            "@iarna/*": [
+                "iarna__*"
             ]
         }
     },

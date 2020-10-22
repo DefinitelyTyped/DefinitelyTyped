@@ -1,9 +1,11 @@
 export default function threeDSecure() {
   const risk = window.recurly.Risk();
   const threeDSecure = risk.ThreeDSecure({
-    actionTokenId: 'token',
+    actionTokenId: 'token'
   });
 
+  // $ExpectError
+  threeDSecure.on('fake-event', () => {});
   threeDSecure.on('token', () => {});
   threeDSecure.on('error', () => {});
 

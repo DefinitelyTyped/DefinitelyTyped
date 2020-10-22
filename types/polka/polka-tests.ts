@@ -11,7 +11,7 @@ const middleware: Polka.Middleware<any, MyResponse, any, any> = async (req, res,
 
     res.send({ foo: 'bar' });
 
-    await new Promise((resolve, reject) => resolve());
+    await new Promise<void>((resolve, reject) => resolve());
     next();
 };
 

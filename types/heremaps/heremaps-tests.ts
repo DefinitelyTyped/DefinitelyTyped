@@ -206,3 +206,7 @@ const engineListener = (e: Event) => {
 };
 engine.addEventListener('tap', engineListener);
 engine.removeEventListener('tap', engineListener);
+
+// Get group bounds
+const group = new H.map.Group();
+const bounds = group.getBoundingBox();

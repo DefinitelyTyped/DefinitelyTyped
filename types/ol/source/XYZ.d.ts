@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
@@ -14,6 +14,7 @@ export interface Options {
     attributionsCollapsible?: boolean;
     cacheSize?: number;
     crossOrigin?: string;
+    imageSmoothing?: boolean;
     opaque?: boolean;
     projection?: ProjectionLike;
     reprojectionErrorThreshold?: number;
@@ -33,7 +34,7 @@ export interface Options {
 }
 export default class XYZ extends TileImage {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

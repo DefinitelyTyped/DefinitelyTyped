@@ -165,7 +165,7 @@ Updates the metadate for a shared drive.
 await gapi.client.drive.drives.update({ driveId: "driveId",  });
 
 /*
-Creates a copy of a file and applies any requested updates with patch semantics.
+Creates a copy of a file and applies any requested updates with patch semantics. Folders cannot be copied.
 */
 await gapi.client.drive.files.copy({ fileId: "fileId",  });
 
@@ -205,7 +205,7 @@ Lists or searches files.
 await gapi.client.drive.files.list({  });
 
 /*
-Updates a file's metadata and/or content with patch semantics.
+Updates a file's metadata and/or content. This method supports patch semantics.
 */
 await gapi.client.drive.files.update({ fileId: "fileId",  });
 

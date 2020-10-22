@@ -198,6 +198,8 @@ export interface ContentColumns extends ContentBase {
 }
 
 export interface ContentStack extends ContentBase {
+    /** if true, ensures that the contents of the stack are always on the same page */
+    unbreakable?: boolean;
     stack: Content[];
 }
 

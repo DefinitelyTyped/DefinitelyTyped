@@ -1,13 +1,13 @@
-// Type definitions for relay-runtime 9.1
+// Type definitions for relay-runtime 10.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Renan Machado <https://github.com/renanmav>
 //                 Stephen Pittman <https://github.com/Stephen2>
-//                 Martin Zlámal <https://github.com/mrtnzlml>
 //                 Christian Ivicevic <https://github.com/ChristianIvicevic>
 //                 Lorenzo Di Giacomo <https://github.com/morrys>
+//                 Marais Rossouw <https://github.com/maraisr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -191,6 +191,17 @@ export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
 export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
 export { default as deepFreeze } from './lib/util/deepFreeze';
 export { default as isPromise } from './lib/util/isPromise';
+
+import * as fetchQueryInternal from './lib/query/fetchQueryInternal';
+
+interface Internal {
+    fetchQuery: typeof fetchQueryInternal.fetchQuery;
+    fetchQueryDeduped: typeof fetchQueryInternal.fetchQueryDeduped;
+    getPromiseForActiveRequest: typeof fetchQueryInternal.getPromiseForActiveRequest;
+    getObservableForActiveRequest: typeof fetchQueryInternal.getObservableForActiveRequest;
+}
+
+export const __internal: Internal;
 
 /**
  * relay-compiler-language-typescript support for fragment references

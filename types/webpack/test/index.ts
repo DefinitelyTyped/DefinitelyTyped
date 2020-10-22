@@ -534,6 +534,12 @@ plugin = new webpack.DefinePlugin({
         ["value.txt"]
     )
 });
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        () => JSON.stringify("TEST_VALUE"),
+        true
+    )
+});
 plugin = new webpack.ProvidePlugin(definitions);
 plugin = new webpack.ProvidePlugin({
     $: "jquery"
@@ -1054,6 +1060,7 @@ configuration = {
                 exclude: path => path.startsWith('/foo'),
                 resourceQuery: ['foo', 'bar'],
                 resolve: {
+                    roots: [process.cwd()],
                     mainFields: ['foo'],
                     aliasFields: [['bar']],
                 },
@@ -1096,14 +1103,19 @@ compiler.hooks.done.tap('foo', stats => {
 
 const multiCompiler = webpack([{}, {}]);
 
-multiCompiler.hooks.done.tap('foo', ({ stats: multiStats, hash }) => {
-    const stats = multiStats[0];
+multiCompiler.hooks.done.tap('foo', (multiStats) => {
+    const [firstStat] = multiStats.stats;
 
-    if (stats.startTime === undefined || stats.endTime === undefined) {
+    if (multiStats.hasWarnings() || multiStats.hasErrors()) {
+        throw new Error(multiStats.toString('errors-warnings'));
+    }
+    multiStats.toJson(); // $ExpectType ToJsonOutput
+
+    if (firstStat.startTime === undefined || firstStat.endTime === undefined) {
         throw new Error('Well, this is odd');
     }
 
-    console.log(`Compiled in ${stats.endTime - stats.startTime}ms`, hash);
+    console.log(`Compiled in ${firstStat.endTime - firstStat.startTime}ms`, multiStats.hash);
 });
 
 webpack.Template.getFunctionContent(() => undefined).trimLeft();
@@ -1228,3 +1240,13 @@ compiler.hooks.compilation.tap('SomePlugin', compilation => {
     stats.normalizeFieldKey('field'); // $ExpectType string
     stats.sortOrderRegular('!field'); // $ExpectType boolean
 });
+
+const config1: webpack.ConfigurationFactory = (env) => {
+    env; // $ExpectType string | Record<string, string | number | boolean> | undefined
+    return {};
+};
+
+const config2: webpack.MultiConfigurationFactory = (env) => {
+    env; // $ExpectType string | Record<string, string | number | boolean> | undefined
+    return [];
+};

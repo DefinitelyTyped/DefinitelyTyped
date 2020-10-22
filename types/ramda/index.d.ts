@@ -23,14 +23,15 @@
 //                 Nitesh Phadatare <https://github.com/minitesh>
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
-//                 Brekk Bockrath <https://github.com/brekk>
 //                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
+//                 Mike Deverell <https://github.com/devrelm>
+//                 Jorge Santana <https://github.com/LORDBABUINO>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.7
 
 import * as _ from "ts-toolbelt";
 import {
@@ -58,6 +59,7 @@ import {
     Reduced,
     SafePred,
     ValueOfRecord,
+    ValueOfUnion
 } from "./tools";
 
 export * from './tools';
@@ -179,8 +181,8 @@ export function apply<T, TResult>(fn: (arg0: T, ...args: readonly T[]) => TResul
 export function applySpec<Obj extends Record<string, (...args: readonly any[]) => any>>(
     obj: Obj
 ): (
-    ...args: Parameters<ValueOfRecord<Obj>>
-) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
+        ...args: Parameters<ValueOfRecord<Obj>>
+    ) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
 export function applySpec<T>(obj: any): (...args: readonly any[]) => T;
 
 /**
@@ -219,13 +221,14 @@ export function assocPath<T, U>(path: Path): _.F.Curry<(a: T, b: U) => U>;
  * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
  * parameters. Any extraneous parameters will not be passed to the supplied function.
  */
-export function binary(fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
+export function binary<T extends (...arg: any) => any>(fn: T): (...arg: _.T.Take<Parameters<T>, '2'>) => ReturnType<T>;
 
 /**
  * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
  * capabilities of Function.prototype.bind.
  */
-export function bind<T>(fn: (...args: readonly any[]) => any, thisObj: T): (...args: readonly any[]) => any;
+export function bind<F extends (...args: readonly any[]) => any, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends (...args: readonly any[]) => any, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 
 /**
  * A function wrapping calls to the two functions in an && operation, returning the result of the first function
@@ -248,7 +251,7 @@ export function call(fn: (...args: readonly any[]) => (...args: readonly any[]) 
  */
 export function chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[];
 export function chain<T, U>(fn: (n: T) => readonly U[]): (list: readonly T[]) => U[];
-export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
+export function chain<X0, X1, R>(fn: (x0: X0) => (x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
 /**
  * Restricts a number to be within a range.
@@ -278,7 +281,7 @@ export function comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => nu
  * - applying g to zero or more arguments will give false if applying the same arguments to f gives
  *   a logical true value.
  */
-export function complement(pred: (...args: readonly any[]) => boolean): (...args: readonly any[]) => boolean;
+export function complement<As extends any[]>(pred: (...args: As) => boolean): (...args: As) => boolean;
 
 /**
  * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
@@ -356,15 +359,15 @@ export function composeP<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => Promise<T6>
  * Performs right-to-left function composition using transforming function.
  * With the current typings, all functions must be unary.
  */
-export function composeWith<V0, T>(composer: (a: any) => any, fns: ComposeWithFns<V0, T>): (x0: V0) => T;
-export function composeWith(composer: (a: any) => any): <V0, T>(fns: ComposeWithFns<V0, T>) => (x: V0) => T;
+export function composeWith<V0, T>(composer: (...args: any[]) => any, fns: ComposeWithFns<V0, T>): (x0: V0) => T;
+export function composeWith(composer: (...args: any[]) => any): <V0, T>(fns: ComposeWithFns<V0, T>) => (x: V0) => T;
 
 /**
- * Returns a new list consisting of the elements of the first list followed by the elements
- * of the second.
+ * Returns the result of concatenating the given lists or strings.
  */
-export function concat<T>(placeholder: Placeholder): (list2: readonly T[], list1: readonly T[]) => T[];
+export function concat<T extends string | readonly any[]>(placeholder: Placeholder): (list2: T, list1: T) => T;
 export function concat<T>(placeholder: Placeholder, list2: readonly T[]): (list1: readonly T[]) => T[];
+export function concat(placeholder: Placeholder, list2: string): (list1: string) => string;
 export function concat<T>(list1: readonly T[], list2: readonly T[]): T[];
 export function concat<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
 export function concat(list1: string, list2: string): string;
@@ -433,7 +436,8 @@ export function curry<F extends (...args: any) => any>(f: F): _.F.Curry<F>;
  * Returns a curried equivalent of the provided function, with the specified arity. The curried function has
  * two unusual capabilities. First, its arguments needn't be provided one at a time.
  */
-export function curryN(length: number, fn: (...args: readonly any[]) => any): (...a: readonly any[]) => any;
+export function curryN<N extends number, F extends (...args: any) => any>(length: N, fn: F): _.F.Curry<(...a: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
+export function curryN<N extends number>(length: N): <F extends (...args: any) => any>(fn: F) => _.F.Curry<(...a: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
 
 /**
  * Decrements its argument.
@@ -748,8 +752,12 @@ export function inc(n: number): number;
  * Given a string, this function checks for the string in another string or list and returns
  * a boolean.
  */
+export function includes(__: Placeholder, list: readonly string[] | string): (s: string) => boolean;
+export function includes<T>(__: Placeholder, list: readonly T[]): (target: T) => boolean;
+export function includes(__: Placeholder): (list: readonly string[] | string, s: string) => boolean;
+export function includes<T>(__: Placeholder): (list: readonly T[], target: T) => boolean;
 export function includes(s: string, list: readonly string[] | string): boolean;
-export function includes(s: string): (list: readonly string[] | string)  => boolean;
+export function includes(s: string): (list: readonly string[] | string) => boolean;
 export function includes<T>(target: T, list: readonly T[]): boolean;
 export function includes<T>(target: T): (list: readonly T[]) => boolean;
 
@@ -757,8 +765,10 @@ export function includes<T>(target: T): (list: readonly T[]) => boolean;
  * Given a function that generates a key, turns a list of objects into an object indexing the objects
  * by the given key.
  */
-export function indexBy<T>(fn: (a: T) => string, list: readonly T[]): { [key: string]: T };
-export function indexBy<T>(fn: (a: T) => string): (list: readonly T[]) => { [key: string]: T };
+export function indexBy<T, K extends string | number = string>(fn: (a: T) => K, list: readonly T[]): { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(fn: (a: T) => K, list: readonly T[]): { [key in NonNullable<K>]?: T };
+export function indexBy<T, K extends string | number = string>(fn: (a: T) => K): (list: readonly T[]) => { [key in K]: T };
+export function indexBy<T, K extends string | number | undefined = string>(fn: (a: T) => K | undefined): (list: readonly T[]) => { [key in NonNullable<K>]?: T };
 
 /**
  * Returns the position of the first occurrence of an item in an array
@@ -812,14 +822,6 @@ export function insertAll(index: number): <T>(elts: readonly T[], list: readonly
  */
 export function intersection<T>(list1: readonly T[], list2: readonly T[]): T[];
 export function intersection<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
-
-/**
- * Combines two lists into a set (i.e. no duplicates) composed of those
- * elements common to both lists.  Duplication is determined according
- * to the value returned by applying the supplied predicate to two list
- * elements.
- */
-export function intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: readonly T[], list2: readonly T[]): T[];
 
 /**
  * Creates a new list with the separator interposed between elements.
@@ -979,8 +981,8 @@ export function lte(a: number): (b: number) => boolean;
  */
 export function map<T, U>(fn: (x: T) => U, list: readonly T[]): U[];
 export function map<T, U>(fn: (x: T) => U): (list: readonly T[]) => U[];
-export function map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U], list: T): U;
-export function map<T, U>(fn: (x: T[keyof T & keyof U]) => U[keyof T & keyof U]): (list: T) => U;
+export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U], list: T): U;
+export function map<T, U>(fn: (x: T[keyof T & keyof U] | ValueOfUnion<T>) => U[keyof T & keyof U]): (list: T) => U;
 export function map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
 export function map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // used in functors
 
@@ -1007,7 +1009,7 @@ export function mapObjIndexed<T, TResult, TKey extends string>(
 ): Record<TKey, TResult>;
 export function mapObjIndexed<T, TResult, TKey extends string>(
     fn: (value: T, key: TKey, obj?: Record<TKey, T>) => TResult
-): (obj: Record<TKey, T>) =>  Record<TKey, TResult>;
+): (obj: Record<TKey, T>) => Record<TKey, TResult>;
 export function mapObjIndexed<T, TResult>(
     fn: (value: T, key: string, obj?: {
         [key: string]: T
@@ -1203,8 +1205,8 @@ export function move(from: number): {
  * Wraps a function of any arity (including nullary) in a function that accepts exactly n parameters.
  * Any extraneous parameters will not be passed to the supplied function.
  */
-export function nAry(n: number, fn: (...arg: readonly any[]) => any): (...a: readonly any[]) => any;
-export function nAry(n: number): (fn: (...arg: readonly any[]) => any) => (...a: readonly any[]) => any;
+export function nAry<N extends number, T extends (...arg: any) => any>(n: N, fn: T): (...arg: _.T.Take<Parameters<T>, _.N.NumberOf<N>>) => ReturnType<T>;
+export function nAry<N extends number>(n: N): <T extends (...arg: any) => any>(fn: T) => (...arg: _.T.Take<Parameters<T>, _.N.NumberOf<N>>) => ReturnType<T>;
 
 /**
  * Negates its argument.
@@ -1271,8 +1273,7 @@ export function omit<K extends string>(names: readonly K[]): <T>(obj: T) => Omit
  * called once, no matter how many times the returned function is invoked. The first value calculated is
  * returned in subsequent invocations.
  */
-export function once(fn: (...a: readonly any[]) => any): (...a: readonly any[]) => any;
-export function once<T>(fn: (...a: readonly any[]) => T): (...a: readonly any[]) => T;
+export function once<F extends (...a: readonly any[]) => any>(fn: F): F;
 
 /**
  * A function that returns the first truthy of two arguments otherwise the last argument. Note that this is
@@ -1306,6 +1307,7 @@ export function over(lens: Lens): <T>(fn: Arity1Fn, value: readonly T[]) => T[];
  * Takes two arguments, fst and snd, and returns [fst, snd].
  */
 export function pair<F, S>(fst: F, snd: S): [F, S];
+export function pair<F>(fst: F): <S>(snd: S) => [F, S];
 
 /**
  * Takes a function `f` and a list of arguments, and returns a function `g`.
@@ -1373,8 +1375,8 @@ export function pathOr<T>(defaultValue: T): _.F.Curry<(a: Path, b: any) => T>;
 /**
  * Retrieves the values at given paths of an object.
  */
-export function paths<T>(paths: Path[], obj: any): T[] | undefined;
-export function paths<T>(paths: Path[]): (obj: any) => T[] | undefined;
+export function paths<T>(paths: Path[], obj: any): Array<T | undefined>;
+export function paths<T>(paths: Path[]): (obj: any) => Array<T | undefined>;
 
 /**
  * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
@@ -1399,8 +1401,8 @@ export function pickAll(names: readonly string[]): <T, U>(obj: T) => U;
 /**
  * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
  */
-export function pickBy<T, U>(pred: ObjPred, obj: T): U;
-export function pickBy(pred: ObjPred): <T, U>(obj: T) => U;
+export function pickBy<T, U>(pred: ObjPred<T>, obj: T): U;
+export function pickBy<T>(pred: ObjPred<T>): <U, V extends T>(obj: V) => U;
 
 /**
  * Creates a new function that runs each of the functions supplied as parameters in turn,
@@ -1545,11 +1547,11 @@ export function prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
  * value according to strict equality (`===`).  Most likely used to
  * filter a list.
  */
-export function propEq<K extends string | number, V>(name: K, val: V, obj: Record<K, V>): boolean;
-export function propEq<K extends string | number, V>(name: K, val: V): (obj: Record<K, V>) => boolean;
+export function propEq<K extends string | number>(name: K, val: any, obj: Record<K, any>): boolean;
+export function propEq<K extends string | number>(name: K, val: any): (obj: Record<K, any>) => boolean;
 export function propEq<K extends string | number>(name: K): {
-    <V>(val: V, obj: Record<K, V>): boolean;
-    <V>(val: V): (obj: Record<K, V>) => boolean;
+    (val: any, obj: Record<K, any>): boolean;
+    (val: any): (obj: Record<K, any>) => boolean;
 };
 
 /**
@@ -1943,14 +1945,15 @@ export function trim(str: string): string;
  * function and returns its result. Note that for effective composition with this function, both the tryer and
  * catcher functions must return the same type of results.
  */
-export function tryCatch<T>(tryer: (...args: readonly any[]) => T, catcher: (...args: readonly any[]) => T): (...args: readonly any[]) => T;
+export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T, catcher: (...args: readonly A[]) => T): (...args: readonly A[]) => T;
+export function tryCatch<T, A = any>(tryer: (...args: readonly A[]) => T): (catcher: (...args: readonly A[]) => T) => (...args: readonly A[]) => T;
 
 /**
  * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
  * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
  * all as 'Object'.
  */
-export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined';
+export function type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined' | 'Symbol';
 
 /**
  * Takes a function fn, which takes a single array argument, and returns a function which:
@@ -1966,7 +1969,7 @@ export function unapply<T>(fn: (args: readonly any[]) => T): (...args: readonly 
  * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
  * Any extraneous parameters will not be passed to the supplied function.
  */
-export function unary<T>(fn: (a: T, ...args: readonly any[]) => any): (a: T) => any;
+export function unary<T, R>(fn: (a: T, ...args: readonly any[]) => R): (a: T) => R;
 
 /**
  * Returns a function of arity n from a (manually) curried function.
@@ -2061,7 +2064,7 @@ export function useWith(fn: ((...a: readonly any[]) => any), transformers: Array
  * Note that the order of the output array is not guaranteed across
  * different JS platforms.
  */
-export function values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
+export function values<T extends object, K extends keyof T>(obj: T): Array<T[K] | ValueOfUnion<T>>;
 
 /**
  * Returns a list of all the properties, including prototype properties, of the supplied
@@ -2081,8 +2084,8 @@ export function view<T, U>(lens: Lens, obj: T): U;
  * will return the result of calling the whenTrueFn function with the same argument. If the predicate is not satisfied,
  * the argument is returned as is.
  */
-export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, obj: T): U;
-export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (obj: T) => U;
+export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, obj: T): T | U;
+export function when<T, U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (obj: T) => T | U;
 
 /**
  * Takes a spec object and a test object and returns true if the test satisfies the spec.
@@ -2117,6 +2120,14 @@ export function without<T>(list1: readonly T[], list2: readonly T[]): T[];
 export function without<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
 
 /**
+ * Exclusive disjunction logical operation.
+ * Returns `true` if one of the arguments is truthy and the other is falsy.
+ * Otherwise, it returns `false`.
+ */
+export function xor(a: any, b: any): boolean;
+export function xor(a: any): (b: any) => boolean;
+
+/**
  * Creates a new list out of the two supplied by creating each possible pair from the lists.
  */
 export function xprod<K, V>(as: readonly K[], bs: readonly V[]): Array<KeyValuePair<K, V>>;
@@ -2133,10 +2144,10 @@ export function zip<K>(list1: readonly K[]): <V>(list2: readonly V[]) => Array<K
  * Creates a new object out of a list of keys and a list of values.
  */
 // TODO: Dictionary<T> as a return value is to specific, any seems to loose
-export function zipObj<T>(keys: readonly string[], values: readonly T[]): { [index: string]: T };
-export function zipObj(keys: readonly string[]): <T>(values: readonly T[]) => { [index: string]: T };
-export function zipObj<T>(keys: readonly number[], values: readonly T[]): { [index: number]: T };
-export function zipObj(keys: readonly number[]): <T>(values: readonly T[]) => { [index: number]: T };
+export function zipObj<T, K extends string>(keys: readonly K[], values: readonly T[]): { [P in K]: T };
+export function zipObj<K extends string>(keys: readonly K[]): <T>(values: readonly T[]) => { [P in K]: T };
+export function zipObj<T, K extends number>(keys: readonly K[], values: readonly T[]): { [P in K]: T };
+export function zipObj<K extends number>(keys: readonly K[]): <T>(values: readonly T[]) => { [P in K]: T };
 
 /**
  * Creates a new list out of the two supplied by applying the function to each

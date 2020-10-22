@@ -159,12 +159,30 @@ declare namespace stripe {
     }
 
     interface BankAccountTokenOptions {
+        /**
+         * Two character country code (e.g., US).
+         */
         country: string;
+        /**
+         * Three character currency code (e.g., usd).
+         */
         currency: string;
-        routing_number: string;
+        /**
+         * The bank routing number (e.g., 111000025). Optional if the currency is eur, as the account number is an IBAN.
+         */
+        routing_number?: string;
+        /**
+         * The bank account number (e.g., 000123456789).
+         */
         account_number: string;
+        /**
+         * The name of the account holder.
+         */
         account_holder_name: string;
-        account_holder_type: string;
+        /**
+         * The type of entity that holds the account. Can be either individual or company.
+         */
+        account_holder_type: 'individual' | 'company';
     }
 
     interface PiiTokenOptions {
@@ -958,6 +976,7 @@ declare namespace stripe {
             };
             hidePostalCode?: boolean;
             hideIcon?: boolean;
+            showIcon?: boolean;
             iconStyle?: 'solid' | 'default';
             placeholder?: string;
             placeholderCountry?: string;

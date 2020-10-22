@@ -21,6 +21,7 @@
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Dion Shi <https://github.com/dionshihk>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Michał Grzegorzewski <https://github.com/spamshaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -151,12 +152,12 @@ declare namespace webpack {
     }
 
     type ConfigurationFactory = ((
-        env: string | Record<string, boolean | number | string>,
+        env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
     ) => Configuration | Promise<Configuration>);
 
     type MultiConfigurationFactory = ((
-        env: string | Record<string, boolean | number | string>,
+        env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
     ) => Configuration[] | Promise<Configuration[]>);
 
@@ -390,6 +391,13 @@ declare namespace webpack {
          * This addresses a performance regression.
          */
         cacheWithContext?: boolean;
+
+        /**
+         * A list of directories where requests of server-relative URLs
+         * (starting with '/') are resolved, defaults to context configuration option.
+         * On non-Windows systems these requests are resolved as an absolute path first.
+         */
+        roots?: string[];
     }
 
     interface ResolveLoader extends Resolve {
@@ -1304,6 +1312,14 @@ declare namespace webpack {
         interface MultiStats {
             stats: Stats[];
             hash: string;
+            /** Returns true if there were errors while compiling. */
+            hasErrors(): boolean;
+            /** Returns true if there were warnings while compiling. */
+            hasWarnings(): boolean;
+            /** Returns compilation information as a JSON object. */
+            toJson(options?: Stats.ToJsonOptions): Stats.ToJsonOutput;
+            /** Returns a formatted string of the compilation information (similar to CLI output). */
+            toString(options?: Stats.ToStringOptions): string;
         }
 
         interface MultiCompilerHooks {
@@ -1316,13 +1332,14 @@ declare namespace webpack {
     }
     // tslint:disable-next-line:interface-name
     interface ICompiler {
-        run(handler: ICompiler.Handler): void;
-        watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler): Watching;
+        run(handler: ICompiler.Handler | ICompiler.MultiHandler): void;
+        watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler | ICompiler.MultiHandler): Watching;
     }
 
     namespace ICompiler {
+        import MultiStats = compilation.MultiStats;
         type Handler = (err: Error, stats: Stats) => void;
-
+        type MultiHandler = (err: Error, stats: MultiStats) => void;
         interface WatchOptions {
             /**
              * Add a delay before rebuilding once the first file changed. This allows webpack to aggregate any other
@@ -1417,7 +1434,7 @@ declare namespace webpack {
     }
 
     namespace MultiCompiler {
-        type Handler = ICompiler.Handler;
+        type Handler = ICompiler.MultiHandler;
         type WatchOptions = ICompiler.WatchOptions;
     }
 
@@ -1429,6 +1446,11 @@ declare namespace webpack {
     abstract class Plugin implements Tapable.Plugin {
         apply(compiler: Compiler): void;
     }
+
+    // Compatibility with webpack@5's own types
+    // See https://github.com/webpack/webpack/issues/11630
+    // tslint:disable-next-line no-empty-interface
+    interface WebpackPluginInstance extends Plugin {}
 
     abstract class ResolvePlugin implements Tapable.Plugin {
         apply(resolver: any /* EnhancedResolve.Resolver */): void;
@@ -1750,7 +1772,7 @@ declare namespace webpack {
         constructor(definitions: {[key: string]: DefinePlugin.CodeValueObject});
         static runtimeValue(
             fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
-            fileDependencies?: string[]
+            fileDependencies?: true | string[]
         ): DefinePlugin.RuntimeValue;
     }
 

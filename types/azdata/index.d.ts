@@ -1,6 +1,7 @@
-// Type definitions for Azure Data Studio 1.15
+// Type definitions for Azure Data Studio 1.21
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
+//                 Alan Ren: <https://github.com/alanrenmsft>
 //                 Anthony Dresser: <https://github.com/anthonydresser>
 //                 Karl Burtram: <https://github.com/kburtram>
 //                 Ken Van Hyning: <https://github.com/kenvanhyning>
@@ -13,7 +14,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.15 Extension API
+ * Type Definition for Azure Data Studio 1.21 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -60,7 +61,7 @@ declare module 'azdata' {
          * @param providerId The ID that the provider was registered with
          * @param providerType The type of the provider
          */
-        export function getProvider<T extends DataProvider>(providerId: string, providerType: DataProviderType): DataProvider;
+        export function getProvider<T extends DataProvider>(providerId: string, providerType: DataProviderType): T;
 
         /**
          * Get all registered providers of the given type
@@ -146,7 +147,7 @@ declare module 'azdata' {
         export function getConnectionString(connectionId: string, includePassword: boolean): Thenable<string>;
 
         /**
-         * Get the credentials for an active connection
+         * Get the credentials for a connection
          * @param connectionId The id of the connection
          * @returns A dictionary containing the credentials as they would be included in the connection's options dictionary
          */
@@ -342,7 +343,7 @@ declare module 'azdata' {
         authenticationType: string;
         savePassword: boolean;
         groupFullName?: string;
-        groupId: string;
+        groupId?: string;
         providerName: string;
         saveProfile: boolean;
         id: string;
@@ -613,6 +614,7 @@ declare module 'azdata' {
     // List Databases Request ----------------------------------------------------------------------
     export interface ListDatabasesResult {
         databaseNames: Array<string>;
+        databases?: Array<DatabaseInfo>;
     }
 
     /**
@@ -739,7 +741,7 @@ declare module 'azdata' {
     export interface MetadataProvider extends DataProvider {
         getMetadata(connectionUri: string): Thenable<ProviderMetadata>;
 
-        getDatabases(connectionUri: string): Thenable<string[]>;
+        getDatabases(connectionUri: string): Thenable<string[] | DatabaseInfo[]>;
 
         getTableInfo(connectionUri: string, metadata: ObjectMetadata): Thenable<ColumnMetadata[]>;
 
@@ -1317,7 +1319,7 @@ declare module 'azdata' {
 
     // Admin Services interfaces  -----------------------------------------------------------------------
     export interface DatabaseInfo {
-        options: {};
+        options: { [key: string]: any };
     }
 
     export interface LoginInfo {
@@ -1812,7 +1814,6 @@ declare module 'azdata' {
 
         registerOnUpdated(handler: () => any): void;
     }
-
     // DacFx interfaces  -----------------------------------------------------------------------
 
     // Security service interfaces ------------------------------------------------------------------------
@@ -2142,8 +2143,17 @@ declare module 'azdata' {
          * @param account Account to generate security token for (defaults to
          * AzureResource.ResourceManagement if not given)
          * @return Promise to return the security token
+         * @deprecated use getAccountSecurityToken
          */
-        export function getSecurityToken(account: Account, resource?: AzureResource): Thenable<{}>;
+        export function getSecurityToken(account: Account, resource?: AzureResource): Thenable<{ [key: string]: any }>;
+
+        /**
+         * Generates a security token by asking the account's provider
+         * @param account
+         * @param tenant
+         * @param resource
+         */
+        export function getAccountSecurityToken(account: Account, tenant: string, resource: AzureResource): Thenable<{ token: string, tokenType?: string } | undefined>;
 
         /**
          * An [event](#Event) which fires when the accounts have changed.
@@ -2171,7 +2181,7 @@ declare module 'azdata' {
         displayName: string;
 
         /**
-         * User id that identifies the account, such as "user@contoso.com".
+         * Unique user id that identifies the account.
          */
         userId: string;
     }
@@ -2223,7 +2233,12 @@ declare module 'azdata' {
 
     export enum AzureResource {
         ResourceManagement = 0,
-        Sql = 1
+        Sql = 1,
+        OssRdbms = 2,
+        AzureKeyVault = 3,
+        Graph = 4,
+        MicrosoftResourceManagement = 5,
+        AzureDevOps = 6
     }
 
     export interface DidChangeAccountsParams {
@@ -2285,8 +2300,9 @@ declare module 'azdata' {
          * @param account The account to generate a security token for
          * @param resource The resource to get the token for
          * @return Promise to return a security token object
+         * @deprecated use getAccountSecurityToken
          */
-        getSecurityToken(account: Account, resource: AzureResource): Thenable<{}>;
+        getSecurityToken(account: Account, resource: AzureResource): Thenable<{} | undefined>;
 
         /**
          * Prompts the user to enter account information.
@@ -2314,6 +2330,11 @@ declare module 'azdata' {
          * and call the end OAuth method.
          */
         autoOAuthCancelled(): Thenable<void>;
+
+        /**
+         * Clears token cache
+         */
+        clearTokenCache(): Thenable<void>;
     }
 
     // Resource provider interfaces  -----------------------------------------------------------------------
@@ -3206,9 +3227,9 @@ declare module 'azdata' {
     }
 
     export enum ColumnSizingMode {
-        ForceFit = 0,    // all columns will be sized to fit in viewable space, no horiz scroll bar
+        ForceFit = 0,   // all columns will be sized to fit in viewable space, no horiz scroll bar
         AutoFit = 1,    // columns will be ForceFit up to a certain number; currently 3.  At 4 or more the behavior will switch to NO force fit
-        DataFit = 2        // columns use sizing based on cell data, horiz scroll bar present if more cells than visible in view area
+        DataFit = 2     // columns use sizing based on cell data, horiz scroll bar present if more cells than visible in view area
     }
 
     export interface TableComponentProperties extends ComponentProperties {
@@ -3661,6 +3682,7 @@ declare module 'azdata' {
         export function createWebViewDialog(title: string): ModalDialog;
 
         /**
+         * @deprecated please use the method createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth) instead.
          * Create a dialog with the given title
          * @param title The title of the dialog, displayed at the top
          * @param isWide Indicates whether the dialog is wide or normal
@@ -4106,7 +4128,8 @@ declare module 'azdata' {
         CapabilitiesProvider = 'CapabilitiesProvider',
         ObjectExplorerNodeProvider = 'ObjectExplorerNodeProvider',
         IconProvider = 'IconProvider',
-        SerializationProvider = 'SerializationProvider'
+        SerializationProvider = 'SerializationProvider',
+        SqlAssessmentServicesProvider = 'SqlAssessmentServicesProvider'
     }
 
     /**
@@ -4529,12 +4552,12 @@ declare module 'azdata' {
          * provider are defined in the `package.json:
          * ```json
          * {
-         *     "contributes": {
-         *         "notebook.providers": [{
-         *             "provider": "providername",
-         *             "fileExtensions": ["FILEEXT"]
-         *         }]
-         *     }
+         *  "contributes": {
+         *      "notebook.providers": [{
+         *          "provider": "providername",
+         *          "fileExtensions": ["FILEEXT"]
+         *      }]
+         *  }
          * }
          * ```
          * @param notebook provider
@@ -4550,6 +4573,10 @@ declare module 'azdata' {
 
         export interface NotebookProvider {
             readonly providerId: string;
+            /**
+             * @deprecated standardKernels will be removed in an upcoming release. Standard kernel contribution
+             * should happen via JSON for extensions. Until this is removed, notebook providers can safely return an empty array.
+             */
             readonly standardKernels: IStandardKernel[];
             getNotebookManager(notebookUri: vscode.Uri): Thenable<NotebookManager>;
             handleNotebookClosed(notebookUri: vscode.Uri): void;
@@ -4594,7 +4621,7 @@ declare module 'azdata' {
              * Starts the server. Some server types may not support or require this.
              * Should no-op if server is already started
              */
-            startServer(): Thenable<void>;
+            startServer(kernelSpec: IKernelSpec): Thenable<void>;
 
             /**
              * Stops the server. Some server types may not support or require this
@@ -4684,6 +4711,9 @@ declare module 'azdata' {
 
         export interface ICellOutput {
             output_type: OutputTypeName;
+            metadata?: {
+                azdata_chartOptions?: any;
+            };
         }
 
         /**

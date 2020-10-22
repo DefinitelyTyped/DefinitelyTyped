@@ -486,7 +486,7 @@ export interface JSONSchema6 {
     enum?: JSONSchema6Type[]
 
     /**
-     * More readible form of a one-element "enum"
+     * More readable form of a one-element "enum"
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.24
      */
     const?: JSONSchema6Type

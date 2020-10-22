@@ -1,4 +1,4 @@
-// Type definitions for Auth0.js 9.13
+// Type definitions for Auth0.js 9.14
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
@@ -7,7 +7,7 @@
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Tyler Lindell <https://github.com/tylerlindell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+/// <reference lib="dom" />
 export as namespace auth0;
 
 export class Authentication {
@@ -59,13 +59,13 @@ export class Authentication {
      * Makes a call to the `/ssodata` endpoint
      *
      */
-    getSSOData(callback?: Auth0Callback<any>): void;
+    getSSOData(callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
      *
      */
-    getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<any>): void;
+    getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/userinfo` endpoint and returns the user profile
@@ -267,7 +267,7 @@ export class WebAuth {
      * - If the client_id parameter is included, the returnTo URL must be listed in the Allowed Logout URLs set at the client level (see Setting Allowed Logout URLs at the App Level).
      * - If the client_id parameter is NOT included, the returnTo URL must be listed in the Allowed Logout URLs set at the account level (see Setting Allowed Logout URLs at the Account Level).
      *
-     * @see   {@link https://auth0.com/docs/api/authentication#logout}
+     * @see {@link https://auth0.com/docs/api/authentication#logout}
      */
     logout(options: LogoutOptions): void;
 
@@ -296,9 +296,21 @@ export class WebAuth {
      * Renews an existing session on Auth0's servers using `response_mode=web_message` (i.e. Auth0's hosted login page)
      *
      * @param options options used in {@link authorize} call
-     * @param callback: any(err, token_payload)
+     * @param cb
+     * @see {@link https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-tokens}
      */
-    checkSession(options: CheckSessionOptions, callback: Auth0Callback<any>): void;
+    checkSession(options: CheckSessionOptions, cb: Auth0Callback<any>): void;
+
+    /**
+     * Renders the captcha challenge in the provided element.
+     * This function can only be used in the context of a Classic Universal Login Page.
+     * @param element The element where the captcha needs to be rendered
+     * @param [options] The configuration options for the captcha
+     * @param [callback] An optional completion callback
+     *
+     * @see {@link https://auth0.github.io/auth0.js/WebAuth.html#renderCaptcha}
+     */
+    renderCaptcha(element: HTMLElement, options?: CatpchaConfiguration, callback?: Auth0Callback<any>): void;
 }
 
 export class Redirect {
@@ -536,11 +548,64 @@ export interface AuthOptions {
      */
     maxAge?: number;
     leeway?: number;
-    plugins?: any[];
+    jwksURI?: string;
+    overrides?: {
+      __tenant?: string;
+      __token_issuer?: string;
+      __jwks_uri?: string;
+    };
+    plugins?: any;
+    popupOrigin?: string;
+    protocol?: string;
+    response_type?: string;
+    state?: string;
+    tenant?: string;
+    universalLoginPage?: boolean;
+    _csrf?: string;
+    _intstate?: string;
+    _timesToRetryFailedRequests?: number;
     _disableDeprecationWarnings?: boolean;
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
     __tryLocalStorageFirst?: boolean;
+}
+
+export interface CatpchaConfiguration {
+    /**
+     *  An object containaing templates for each captcha provider
+     */
+    templates?: CaptchaTemplates;
+
+    /**
+     * The ISO code of the language for recaptcha
+     * @default 'en'
+     */
+    lang?: string;
+}
+
+/**
+ * An object containing templates for a captcha provider
+ */
+export interface CaptchaTemplates {
+    /**
+     * Template function receiving the challenge and returning an string
+     */
+    auth0?: (challenge: Auth0Challenge) => string;
+
+    /**
+     * Template function receiving the challenge and returning an string
+     */
+    recaptcha_v2?: (challenge: Auth0Challenge) => string;
+
+    error: (error: Error) => string;
+}
+
+export interface Auth0Challenge {
+    type: 'code';
+    image: string;
+    required: boolean;
+    provider: 'auth0' | 'recaptcha_v2';
+    [other: string]: unknown;
 }
 
 export interface PasswordlessAuthOptions {
@@ -925,7 +990,7 @@ export interface RenewAuthOptions {
      */
     timeout?: number;
     /**
-     * use postMessage to comunicate between the silent callback and the SPA.
+     * use postMessage to communicate between the silent callback and the SPA.
      * When false the SDK will attempt to parse the url hash should ignore the url hash
      * and no extra behaviour is needed
      * @default false
@@ -953,6 +1018,24 @@ export interface AuthorizeOptions {
     approvalPrompt?: string;
     appState?: any;
     connection_scope?: string | string[];
+}
+
+export type SsoDataResult = SsoSessionFoundResult | SsoSessionNotFoundResult;
+
+export interface SsoSessionFoundResult {
+    lastUsedClientID: string;
+    lastUsedConnection: {
+        name: string;
+        strategy?: string;
+    };
+    lastUsedUserID: string;
+    lastUsedUsername: string;
+    sessionClients: string[];
+    sso: true;
+}
+
+export interface SsoSessionNotFoundResult {
+    sso: false;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {
