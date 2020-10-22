@@ -111,7 +111,7 @@ import {
     useColorScheme,
     useWindowDimensions,
     SectionListData,
-    ToastAndroid
+    ToastAndroid,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -625,18 +625,27 @@ export class SectionListTypedSectionTest extends React.Component<SectionListProp
                 <SectionList
                     ref={this.myList}
                     sections={sections}
-                    renderSectionHeader={({ section }) =>
-                        section.displayTitle ? (
+                    renderSectionHeader={({ section }) => {
+                        section; // $ExpectType SectionListData<string, SectionT>
+
+                        return section.displayTitle ? (
                             <View>
                                 <Text>{section.title}</Text>
                             </View>
-                        ) : null
-                    }
-                    renderItem={(info: SectionListRenderItemInfo<string>) => (
-                        <View>
-                            <Text>{`${info.section.title} - ${info.item}`}</Text>
-                        </View>
-                    )}
+                        ) : null;
+                    }}
+                    renderItem={info => {
+                        info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
+
+                        return (
+                            <View>
+                                <Text>
+                                    {info.section.displayTitle ? <Text>{`${info.section.title} - `}</Text> : null}
+                                    <Text>{info.item}</Text>
+                                </Text>
+                            </View>
+                        );
+                    }}
                     CellRendererComponent={cellRenderer}
                     maxToRenderPerBatch={5}
                 />
@@ -1606,4 +1615,4 @@ const DataDetectorTypeTest = () => {
 
 const ToastAndroidTest = () => {
     ToastAndroid.showWithGravityAndOffset('My Toast', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 0, 50);
-}
+};
