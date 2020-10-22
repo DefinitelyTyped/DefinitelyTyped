@@ -60,17 +60,17 @@ declare class WebSocket extends events.EventEmitter {
         data: any;
         type: string;
         target: WebSocket
-    }, options?: WebSocket.EventListenerOptions) => void): void;
+    }) => void, options?: WebSocket.EventListenerOptions): void;
     addEventListener(method: 'close', cb: (event: {
         wasClean: boolean; code: number;
         reason: string; target: WebSocket
-    }, options?: WebSocket.EventListenerOptions) => void): void;
+    }) => void, options?: WebSocket.EventListenerOptions): void;
     addEventListener(method: 'error', cb: (event: {
         error: any,
         message: any,
         type: string,
         target: WebSocket
-    }, options?: WebSocket.EventListenerOptions) => void): void;
+    }) => void, options?: WebSocket.EventListenerOptions): void;
     addEventListener(method: 'open', cb: (event: { target: WebSocket }) => void, options?: WebSocket.EventListenerOptions): void;
     addEventListener(method: string, listener: () => void, options?: WebSocket.EventListenerOptions): void;
 
