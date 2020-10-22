@@ -25,7 +25,7 @@ declare namespace asana {
          * @param {String} [redirectUri]  Default redirect URI for this client
          * @param {String} [asanaBaseUrl] Base URL for Asana, for debugging
          */
-        new (dispatcher: Dispatcher, options?: ClientOptions): asana.Client;
+        new (dispatcher: Dispatcher, options?: ClientOptions): Client;
         /**
          * Creates a new client.
          * @param {Object} options Options for specifying the client, see constructor.
