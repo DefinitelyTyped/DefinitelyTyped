@@ -3,25 +3,25 @@ import { ErrorCallback } from './tizen';
 export interface HumanActivityMonitorManager {
     // tslint:disable-next-line no-unnecessary-generics as parameter types are contravariant, and use of generics allows to infer type for callback parameter
     getHumanActivityData<T extends HumanActivityData>(type: HumanActivityType, successCallback: HumanActivityMonitorSuccessCallback<T>,
-        errorCallback?: ErrorCallback): void;
+        errorCallback?: ErrorCallback | null): void;
     // tslint:disable-next-line no-unnecessary-generics
-    start<T extends HumanActivityData>(type: HumanActivityType, changedCallback?: HumanActivityMonitorSuccessCallback<T>,
-        errorCallback?: ErrorCallback, option?: HumanActivityMonitorOption): void;
+    start<T extends HumanActivityData>(type: HumanActivityType, changedCallback?: HumanActivityMonitorSuccessCallback<T> | null,
+        errorCallback?: ErrorCallback | null, option?: HumanActivityMonitorOption | null): void;
     stop(type: HumanActivityType): void;
     // tslint:disable-next-line no-unnecessary-generics
     setAccumulativePedometerListener<T extends HumanActivityData>(changeCallback: HumanActivityMonitorSuccessCallback<T>): void;
     unsetAccumulativePedometerListener(): void;
     // tslint:disable-next-line no-unnecessary-generics
     addActivityRecognitionListener<T extends HumanActivityData>(type: ActivityRecognitionType, listener: HumanActivityMonitorSuccessCallback<T>,
-        errorCallback?: ErrorCallback): number;
-    removeActivityRecognitionListener(listenerId: number, errorCallback?: ErrorCallback): void;
+        errorCallback?: ErrorCallback | null): number;
+    removeActivityRecognitionListener(listenerId: number, errorCallback?: ErrorCallback | null): void;
     startRecorder(type: HumanActivityRecorderType, option?: HumanActivityRecorderOption): void;
     stopRecorder(type: HumanActivityRecorderType): void;
-    readRecorderData(type: HumanActivityRecorderType, query: HumanActivityRecorderQuery | undefined,
-        successCallback: HumanActivityReadRecorderSuccessCallback, errorCallback?: ErrorCallback): void;
+    readRecorderData(type: HumanActivityRecorderType, query: HumanActivityRecorderQuery | null,
+        successCallback: HumanActivityReadRecorderSuccessCallback, errorCallback?: ErrorCallback | null): void;
     isGestureSupported(type: GestureType): boolean;
     addGestureRecognitionListener(type: GestureType, listener: GestureRecognitionCallback,
-        errorCallback?: ErrorCallback, alwaysOn?: boolean): number;
+        errorCallback?: ErrorCallback | null, alwaysOn?: boolean | null): number;
     removeGestureRecognitionListener(watchId: number): void;
 }
 
