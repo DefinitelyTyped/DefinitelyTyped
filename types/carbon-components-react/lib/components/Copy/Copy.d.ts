@@ -7,7 +7,7 @@ export interface FeedbackProps {
 }
 
 interface InheritedProps extends
-    Omit<ReactButtonAttr, "aria-live" | "type">,
+    Omit<ReactButtonAttr, "aria-live">,
     FeedbackProps
 { }
 
