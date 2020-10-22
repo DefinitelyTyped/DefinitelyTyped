@@ -9,7 +9,7 @@ import { WebAPIError } from "tizen-common-web/tizen";
         }
     }
 
-    tizen.humanactivitymonitor.start(HumanActivityType.SLEEP_MONITOR, onchangedCB);
+    tizen.humanactivitymonitor.start("SLEEP_MONITOR", onchangedCB);
 }
 
 {
@@ -27,10 +27,10 @@ import { WebAPIError } from "tizen-common-web/tizen";
     function onchangedCB(pedometerdata?: HumanActivityPedometerData) {
         console.log("From now on, you will be notified when the pedometer data changes");
         /* To get the current data information. */
-        tizen.humanactivitymonitor.getHumanActivityData(HumanActivityType.PEDOMETER, onsuccessCB, onerrorCB);
+        tizen.humanactivitymonitor.getHumanActivityData("PEDOMETER", onsuccessCB, onerrorCB);
     }
 
-    tizen.humanactivitymonitor.start(HumanActivityType.PEDOMETER, onchangedCB, onerrorCB, { callbackInterval: 150000, sampleInterval: 1000 });
+    tizen.humanactivitymonitor.start("PEDOMETER", onchangedCB, onerrorCB, { callbackInterval: 150000, sampleInterval: 1000 });
 }
 
 {
