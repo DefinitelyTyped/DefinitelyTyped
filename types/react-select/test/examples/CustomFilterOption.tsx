@@ -1,16 +1,27 @@
 import * as React from 'react';
 
 import Select from 'react-select';
-import { ColourOption, colourOptions } from '../data';
 
-function filterOption(arg: ColourOption, rawInput: string): boolean {
-    return true;
+interface GroupOption {
+  label: string;
+  value: {
+    email: string
+    name: string
+  };
 }
 
+function filterOption(option: GroupOption, rawInput: string): boolean {
+  return (option.value.email + option.value.name).includes(rawInput);
+}
+
+const values: GroupOption[] = [
+    { label: "", value: { email: "", name: "" }}
+];
+
 export default () => (
-  <Select<ColourOption>
-    defaultValue={colourOptions[1]}
-    options={colourOptions}
+  <Select<GroupOption>
+    defaultValue={values[0]}
+    options={values}
     filterOption={filterOption}
   />
 );
