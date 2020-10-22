@@ -3,10 +3,10 @@ The content of index.io.js could be something like
 
     'use strict';
 
-     import { AppRegistry } from 'react-native'
-     import Welcome from './gen/Welcome'
+    import { AppRegistry } from 'react-native'
+    import Welcome from './gen/Welcome'
 
-     AppRegistry.registerComponent('MopNative', () => Welcome);
+    AppRegistry.registerComponent('MopNative', () => Welcome);
 
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
 */
@@ -14,7 +14,9 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+    ART,
     AccessibilityInfo,
+    AsyncStorage,
     Alert,
     AppState,
     AppStateStatus,
@@ -37,6 +39,7 @@ import {
     FlatListProps,
     GestureResponderEvent,
     HostComponent,
+    I18nManager,
     Image,
     ImageBackground,
     ImageErrorEventData,
@@ -62,10 +65,12 @@ import {
     NativeSyntheticEvent,
     PermissionsAndroid,
     Picker,
+    PickerIOS,
     Platform,
     PlatformColor,
     Pressable,
     ProgressBarAndroid,
+    ProgressViewIOS,
     PushNotificationIOS,
     RefreshControl,
     RegisteredStyle,
@@ -82,6 +87,7 @@ import {
     StyleProp,
     StyleSheet,
     Switch,
+    SwitchIOS,
     Systrace,
     TabBarIOS,
     Text,
@@ -1615,4 +1621,15 @@ const DataDetectorTypeTest = () => {
 
 const ToastAndroidTest = () => {
     ToastAndroid.showWithGravityAndOffset('My Toast', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 0, 50);
+};
+
+const I18nManagerTest = () => {
+    I18nManager.allowRTL(true);
+    I18nManager.forceRTL(true);
+    I18nManager.swapLeftAndRightInRTL(true);
+    const { isRTL, doLeftAndRightSwapInRTL } = I18nManager.getConstants();
+    const isRtlFlag = I18nManager.isRTL;
+    const doLeftAndRightSwapInRtlFlag = I18nManager.doLeftAndRightSwapInRTL;
+
+    console.log(isRTL, isRtlFlag, doLeftAndRightSwapInRTL, doLeftAndRightSwapInRtlFlag);
 };

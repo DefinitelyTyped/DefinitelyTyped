@@ -120,6 +120,14 @@ const environment = new Environment({
                 break;
         }
     },
+    requiredFieldLogger: (arg) => {
+        if (arg.kind === 'missing_field.log') {
+            console.log(arg.fieldPath, arg.owner);
+        } else {
+            arg.kind; // $ExpectType "missing_field.throw"
+            console.log(arg.fieldPath, arg.owner);
+        }
+    }
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~

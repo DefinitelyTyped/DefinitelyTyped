@@ -316,6 +316,11 @@ async function testPromisify() {
         await fs.promises.rmdir('some/test/path');
         await fs.promises.rmdir('some/test/path', { recursive: true, maxRetries: 123, retryDelay: 123 });
     } catch (e) {}
+
+    try {
+        await fs.promises.rmdir('some/test/file');
+        await fs.promises.rmdir('some/test/file', { recursive: true, maxRetries: 123, retryDelay: 123 });
+    } catch (e) {}
 })();
 
 {

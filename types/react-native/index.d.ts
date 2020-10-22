@@ -827,8 +827,7 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform
-        | MatrixTransform
-    )[];
+        | MatrixTransform)[];
     /**
      * @deprecated Use matrix in transform prop instead.
      */
@@ -967,7 +966,7 @@ export interface TextPropsAndroid {
      * Determines the types of data converted to clickable URLs in the text element.
      * By default no data types are detected.
      */
-    dataDetectorType?: null |'phoneNumber' | 'link' | 'email' | 'none' | 'all';
+    dataDetectorType?: null | 'phoneNumber' | 'link' | 'email' | 'none' | 'all';
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
@@ -3336,6 +3335,12 @@ export interface ProgressBarAndroidProps extends ViewProps {
  */
 declare class ProgressBarAndroidComponent extends React.Component<ProgressBarAndroidProps> {}
 declare const ProgressBarAndroidBase: Constructor<NativeMethodsMixinType> & typeof ProgressBarAndroidComponent;
+/**
+ * ProgressBarAndroid has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/progress-bar-android` instead of 'react-native'.
+ * @see https://github.com/react-native-progress-view/progress-bar-android
+ * @deprecated
+ */
 export class ProgressBarAndroid extends ProgressBarAndroidBase {}
 
 /**
@@ -3601,14 +3606,21 @@ declare const SliderBase: Constructor<NativeMethodsMixinType> & typeof SliderCom
 /**
  * Slider has been extracted from react-native core and will be removed in a future release.
  * It can now be installed and imported from `@react-native-community/slider` instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-slider
+ * @see https://github.com/callstack/react-native-slider
  * @deprecated
  */
 export class Slider extends SliderBase {}
+/**  SliderIOS has been removed from react-native.
+ * It can now be installed and imported from `@react-native-community/slider` instead of 'react-native'.
+ * @see https://github.com/callstack/react-native-slider
+ * @deprecated
+ */
 export type SliderIOS = Slider;
 
 /**
- * https://facebook.github.io/react-native/docs/switchios.html#props
+ * SwitchIOS Component has been removed from react-native in favor of Switch Component
+ * https://github.com/facebook/react-native/pull/9891/files
+ * @deprecated see SwitchProps
  */
 export interface SwitchIOSProps extends ViewProps {
     /**
@@ -3643,13 +3655,9 @@ export interface SwitchIOSProps extends ViewProps {
 }
 
 /**
- *
- * Use SwitchIOS to render a boolean input on iOS.
- *
- * This is a controlled component, so you must hook in to the onValueChange callback and update the value prop in order for the component to update,
- * otherwise the user's change will be reverted immediately to reflect props.value as the source of truth.
- *
- * @see https://facebook.github.io/react-native/docs/switchios.html
+ * SwitchIOS component has been removed from react-native in favor of Switch component
+ * https://github.com/facebook/react-native/pull/9891/files
+ * @deprecated see Switch
  */
 export class SwitchIOS extends React.Component<SwitchIOSProps> {}
 
@@ -5894,6 +5902,10 @@ export interface TabBarIOSProps extends ViewProps {
     unselectedItemTintColor?: ColorValue;
 }
 
+/**
+ * TabBarIOS has been removed from react-native
+ * @deprecated
+ */
 export class TabBarIOS extends React.Component<TabBarIOSProps> {
     static Item: typeof TabBarIOSItem;
 }
@@ -6682,7 +6694,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      *  - `'normal'`: 0.998 on iOS, 0.985 on Android (the default)
      *  - `'fast'`: 0.99 on iOS, 0.9 on Android
      */
-    decelerationRate?: 'fast' | 'normal' | number,
+    decelerationRate?: 'fast' | 'normal' | number;
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
@@ -9107,9 +9119,15 @@ export namespace Animated {
 
 // tslint:disable-next-line:interface-name
 export interface I18nManagerStatic {
+    getConstants: () => {
+        isRTL: boolean;
+        doLeftAndRightSwapInRTL: boolean;
+    };
+    allowRTL: (allowRTL: boolean) => void;
+    forceRTL: (forceRTL: boolean) => void;
+    swapLeftAndRightInRTL: (swapLeftAndRight: boolean) => void;
     isRTL: boolean;
-    allowRTL: (allowRTL: boolean) => {};
-    forceRTL: (forceRTL: boolean) => {};
+    doLeftAndRightSwapInRTL: boolean;
 }
 
 export interface OpenCameraDialogOptions {
@@ -9391,6 +9409,12 @@ export const DevSettings: DevSettingsStatic;
  * @deprecated
  */
 export const ART: ARTStatic;
+/**
+ * ART has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/art` instead of 'react-native'.
+ * @see https://github.com/react-native-community/art
+ * @deprecated
+ */
 export type ART = ARTStatic;
 
 //////////// APIS //////////////
@@ -9413,6 +9437,12 @@ export type AppState = AppStateStatic;
  * @deprecated
  */
 export const AsyncStorage: AsyncStorageStatic;
+/**
+ * AsyncStorage has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/async-storage` instead of 'react-native'.
+ * @see https://github.com/react-native-community/async-storage
+ * @deprecated
+ */
 export type AsyncStorage = AsyncStorageStatic;
 
 export const BackHandler: BackHandlerStatic;
@@ -9425,6 +9455,12 @@ export type BackHandler = BackHandlerStatic;
  * @deprecated
  */
 export const CameraRoll: CameraRollStatic;
+/**
+ * CameraRoll has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/cameraroll` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-cameraroll
+ * @deprecated
+ */
 export type CameraRoll = CameraRollStatic;
 
 /**
@@ -9434,6 +9470,12 @@ export type CameraRoll = CameraRollStatic;
  * @deprecated
  */
 export const Clipboard: ClipboardStatic;
+/**
+ * Clipboard has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/clipboard` instead of 'react-native'.
+ * @see https://github.com/react-native-community/clipboard
+ * @deprecated
+ */
 export type Clipboard = ClipboardStatic;
 
 /**
@@ -9443,6 +9485,12 @@ export type Clipboard = ClipboardStatic;
  * @deprecated
  */
 export const DatePickerAndroid: DatePickerAndroidStatic;
+/**
+ * DatePickerAndroid has been merged with DatePickerIOS and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/datetimepicker
+ * @deprecated
+ */
 export type DatePickerAndroid = DatePickerAndroidStatic;
 
 export const Dimensions: Dimensions;
@@ -9509,6 +9557,12 @@ export type PermissionsAndroid = PermissionsAndroidStatic;
  * @deprecated
  */
 export const PushNotificationIOS: PushNotificationIOSStatic;
+/**
+ * PushNotificationIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/push-notification-ios` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-push-notification-ios
+ * @deprecated
+ */
 export type PushNotificationIOS = PushNotificationIOSStatic;
 
 export const Settings: SettingsStatic;
@@ -9533,6 +9587,12 @@ export type Systrace = SystraceStatic;
  * @deprecated
  */
 export const TimePickerAndroid: TimePickerAndroidStatic;
+/**
+ * TimePickerAndroid has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/datetimepicker
+ * @deprecated
+ */
 export type TimePickerAndroid = TimePickerAndroidStatic;
 
 export const ToastAndroid: ToastAndroidStatic;
@@ -9610,6 +9670,11 @@ export function findNodeHandle(
 
 export function processColor(color?: number | ColorValue): ProcessedColorValue | null | undefined;
 
+/**
+ * YellowBox has been replaced with LogBox.
+ * @see LogBox
+ * @deprecated
+ */
 export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
 /**
