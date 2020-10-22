@@ -529,6 +529,7 @@ Session.equals("key", value);
  * From Accounts, Meteor.users section
  */
 Meteor.publish("userData", function () {
+    if (this.userId === null) return;
     return Meteor.users.find({ _id: this.userId },
         { fields: { 'other': 1, 'things': 1 } });
 });
@@ -1005,7 +1006,7 @@ Meteor.absoluteUrl.defaultOptions = {
   secure: false
 };
 
-Random.choice([1, 2, 3]); // $ExpectType number
+Random.choice([1, 2, 3]); // $ExpectType number | undefined
 Random.choice("String"); // $ExpectType string
 
 EJSON.newBinary(5); // $ExpectType Uint8Array
@@ -1020,7 +1021,7 @@ Meteor.onConnection(connection => {
 
 // EnvironmentVariable
 const scopedCounter = new Meteor.EnvironmentVariable<number>();
-// $ExpectType number
+// $ExpectType number | null
 scopedCounter.getOrNullIfOutsideFiber();
 // $ExpectType string
 scopedCounter.withValue(42, () => {
