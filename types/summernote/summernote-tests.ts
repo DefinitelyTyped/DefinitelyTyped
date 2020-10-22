@@ -22,6 +22,7 @@ const config: Summernote.Options = {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times'],
     fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36', '48' , '64', '82', '150'],
+    fontSizeUnits: ['px', 'pt'],
 };
 
 $('#testElement').summernote('code', '<p> hello </p>');

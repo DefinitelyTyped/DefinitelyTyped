@@ -10,6 +10,8 @@
 
 declare global {
     namespace Summernote {
+        type fontSizeUnitOptions = 'px' | 'pt';
+
         interface Options {
             airMode?: boolean;
             tabDisable?: boolean;
@@ -28,6 +30,7 @@ declare global {
             fontNames?: string[];
             fontNamesIgnoreCheck?: string[];
             fontSizes?: string[];
+            fontSizeUnits?: fontSizeUnitOptions[];
             height?: number;
             hint?: HintOptions;
             icons?: IconsOptions;
