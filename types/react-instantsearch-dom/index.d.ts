@@ -160,3 +160,5 @@ export interface VoiceSearchHelper {
 }
 
 export function createVoiceSearchHelper(params: VoiceSearchHelperParams): VoiceSearchHelper;
+
+export function createInfiniteHitsSessionStorageCache(...args: any[]): any
