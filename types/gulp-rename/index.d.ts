@@ -22,7 +22,5 @@ declare namespace rename {
     }
 }
 
-declare function rename(name: string): NodeJS.ReadWriteStream;
-declare function rename(callback: (path: rename.ParsedPath, file: File) => rename.ParsedPath|void): NodeJS.ReadWriteStream;
-declare function rename(opts: rename.Options): NodeJS.ReadWriteStream;
+declare function rename(obj: string|rename.Options|((path: rename.ParsedPath, file: File) => rename.ParsedPath|void)): NodeJS.ReadWriteStream;
 export = rename;
