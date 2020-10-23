@@ -619,6 +619,15 @@ export interface AuthorizationCodeGrantOptions {
   redirect_uri: string;
 }
 
+export interface AuthenticationClientRefreshTokenOptions {
+  refresh_token:string;
+  client_id?: string;
+}
+
+export interface RefreshTokenOptions {
+  refresh_token:string;
+}
+
 export interface TokenResponse {
     access_token: string;
     token_type: string;
@@ -951,6 +960,11 @@ export class AuthenticationClient {
   passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
   passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
+  refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<any>;
+  refreshToken(
+      options: AuthenticationClientRefreshTokenOptions,
+      cb: (err: Error, response: TokenResponse) => void,
+  ): void;
 }
 
 
@@ -1313,6 +1327,12 @@ export class OAuthAuthenticator {
 
   authorizationCodeGrant(data: AuthorizationCodeGrantOptions): Promise<SignInToken>;
   authorizationCodeGrant(data: AuthorizationCodeGrantOptions, cb: (err: Error, data: SignInToken) => void): void;
+    
+  refreshToken(options: RefreshTokenOptions): Promise<any>;
+  refreshToken(
+      options: RefreshTokenOptions,
+      cb: (err: Error, response: TokenResponse) => void,
+  ): void;
 }
 
 export class PasswordlessAuthenticator {
