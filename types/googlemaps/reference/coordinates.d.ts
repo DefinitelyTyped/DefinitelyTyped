@@ -163,20 +163,38 @@ declare namespace google.maps {
         west: number;
     }
 
+    /**
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Point Maps JavaScript API}
+     */
     class Point {
-        /** A point on a two-dimensional plane. */
+        /**
+         * A point on a two-dimensional plane.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Point.constructor Maps JavaScript API}
+         */
         constructor(x: number, y: number);
 
-        /** The X coordinate */
+        /**
+         * The X coordinate
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Point.x Maps JavaScript API}
+         */
         x: number;
 
-        /** The Y coordinate */
+        /**
+         * The Y coordinate
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Point.y Maps JavaScript API}
+         */
         y: number;
 
-        /** Compares two Points */
+        /**
+         * Compares two Points
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Point.equals Maps JavaScript API}
+         */
         equals(other: Point): boolean;
 
-        /** Returns a string representation of this Point. */
+        /**
+         * Returns a string representation of this Point.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Point.toString Maps JavaScript API}
+         */
         toString(): string;
     }
 
