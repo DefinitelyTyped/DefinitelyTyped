@@ -180,15 +180,38 @@ declare namespace google.maps {
         toString(): string;
     }
 
+    /**
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Size Maps JavaScript API}
+     */
     class Size {
+        /**
+         * Two-dimensional size, where width is the distance on the x-axis, and height is the distance on the y-axis.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Size.constructor Maps JavaScript API}
+         */
         constructor(width: number, height: number, widthUnit?: string, heightUnit?: string);
 
+        /**
+         * The height along the y-axis, in pixels.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Size.height Maps JavaScript API}
+         */
         height: number;
 
+        /**
+         * The width along the x-axis, in pixels.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Size.width Maps JavaScript API}
+         */
         width: number;
 
+        /**
+         * Compares two Sizes.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Size.equals Maps JavaScript API}
+         */
         equals(other: Size): boolean;
 
+        /**
+         * Returns a string representation of this Size.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Size.toString Maps JavaScript API}
+         */
         toString(): string;
     }
 
