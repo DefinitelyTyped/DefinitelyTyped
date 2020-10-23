@@ -5,6 +5,8 @@ const dropzoneRenameFunction = (name: string): string => {
 };
 
 Dropzone.createElement('<div id="divTest"></div>');
+const dropzoneForSelector: Dropzone = Dropzone.forElement('#selector');
+const dropzoneForElement: Dropzone = Dropzone.forElement(document.getElementById('test'));
 Dropzone.isBrowserSupported();
 Dropzone.options['divTest'] = { clickable: true };
 Dropzone.options['noDiscover'] = false;

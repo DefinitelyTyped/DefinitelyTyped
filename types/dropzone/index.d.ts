@@ -10,6 +10,7 @@
 //                 PikachuEXE <https://github.com/PikachuEXE>
 //                 Arne Deruwe <https://github.com/arnederuwe>
 //                 Chris Macklin <https://github.com/macklin-10x>
+//                 Michał Lipiński <https://github.com/falsyvalues>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -181,6 +182,7 @@ declare class Dropzone {
     static options: { [key: string]: Dropzone.DropzoneOptions | false };
     static confirm: (question: string, accepted: () => void, rejected?: () => void) => void;
     static createElement(string: string): HTMLElement;
+    static forElement(element: string | HTMLElement): Dropzone;
     static isBrowserSupported(): boolean;
     static instances: Dropzone[];
 
