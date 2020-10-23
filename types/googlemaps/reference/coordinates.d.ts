@@ -274,7 +274,11 @@ declare namespace google.maps {
      */
     class Size {
         /**
-         * Two-dimensional size, where width is the distance on the x-axis, and height is the distance on the y-axis.
+         * Two-dimensional size.
+         * @param width the distance on the x-axis
+         * @param height the distance on the y-axis
+         * @param widthUnit
+         * @param heightUnit
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Size.constructor Maps JavaScript API}
          */
         constructor(width: number, height: number, widthUnit?: string, heightUnit?: string);
