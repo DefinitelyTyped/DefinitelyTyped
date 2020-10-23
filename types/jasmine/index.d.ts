@@ -155,7 +155,7 @@ declare function expect(): jasmine.NothingMatcher;
  * which must be either returned from the spec or waited for using `await`
  * in order for Jasmine to associate them with the correct spec.
  * @checkReturnValue see https://tsetse.info/check-return-value
- * @param actual - Actual computed value to test expectations against.
+ * @param actual Actual computed value to test expectations against.
  */
 declare function expectAsync<T, U>(actual: T|Promise<T>): jasmine.AsyncMatchers<T, U>;
 
@@ -413,8 +413,8 @@ declare namespace jasmine {
          * contexts, taking into account the current set of custom value
          * formatters.
          * @since 3.6.0
-         * @param value - The value to pretty-print
-         * @return - The pretty-printed value
+         * @param value The value to pretty-print
+         * @return The pretty-printed value
          */
         pp(value: unknown): string;
     }
@@ -611,7 +611,7 @@ declare namespace jasmine {
         /**
          * Expect the actual value to be `===` to the expected value.
          *
-         * @param expected - The expected value to compare against.
+         * @param expected The expected value to compare against.
          * @param expectationFailOutput
          * @example
          * expect(thing).toBe(realThing);
@@ -620,7 +620,7 @@ declare namespace jasmine {
 
         /**
          * Expect the actual value to be equal to the expected, using deep equality comparison.
-         * @param expected - Expected value.
+         * @param expected Expected value.
          * @param expectationFailOutput
          * @example
          * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
@@ -629,7 +629,7 @@ declare namespace jasmine {
 
         /**
          * Expect the actual value to match a regular expression.
-         * @param expected - Value to look for in the string.
+         * @param expected Value to look for in the string.
          * @example
          * expect("my string").toMatch(/string$/);
          * expect("other string").toMatch("her");
@@ -666,7 +666,7 @@ declare namespace jasmine {
         /**
          * Expect the actual value to be a DOM element that has the expected class.
          * @since 3.0.0
-         * @param expected - The class name to test for.
+         * @param expected The class name to test for.
          * @example
          * var el = document.createElement('div');
          * el.className = 'foo bar baz';
@@ -678,7 +678,7 @@ declare namespace jasmine {
          * Expect the actual size to be equal to the expected, using array-like
          * length or object keys size.
          * @since 3.6.0
-         * @param expected - The expected size
+         * @param expected The expected size
          * @example
          * array = [1,2];
          * expect(array).toHaveSize(2);
@@ -687,7 +687,7 @@ declare namespace jasmine {
 
         /**
          * Add some context for an expect.
-         * @param message - Additional context to show when the matcher fails
+         * @param message Additional context to show when the matcher fails
          */
         withContext(message: string): Matchers<T>;
 
@@ -701,7 +701,7 @@ declare namespace jasmine {
         /**
          * Expect the actual value to be `===` to the expected value.
          *
-         * @param expected - The expected value to compare against.
+         * @param expected The expected value to compare against.
          * @param expectationFailOutput
          * @example
          * expect(thing).toBe(realThing);
@@ -710,7 +710,7 @@ declare namespace jasmine {
 
         /**
          * Expect the actual value to be equal to the expected, using deep equality comparison.
-         * @param expected - Expected value.
+         * @param expected Expected value.
          * @param expectationFailOutput
          * @example
          * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
@@ -721,7 +721,7 @@ declare namespace jasmine {
 
         /**
          * Add some context for an expect.
-         * @param message - Additional context to show when the matcher fails.
+         * @param message Additional context to show when the matcher fails.
          */
         withContext(message: string): ArrayLikeMatchers<T>;
 
@@ -738,7 +738,7 @@ declare namespace jasmine {
 
         /**
          * Add some context for an expect.
-         * @param message - Additional context to show when the matcher fails.
+         * @param message Additional context to show when the matcher fails.
          */
         withContext(message: string): FunctionMatchers<Fn>;
 
@@ -773,32 +773,32 @@ declare namespace jasmine {
 
         /**
          * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
-         * @param expected - Value that the promise is expected to resolve to.
+         * @param expected Value that the promise is expected to resolve to.
          */
         toBeResolvedTo(expected: Expected<T>): Promise<void>;
 
         /**
          * Expect a promise to be rejected with a value equal to the expected, using deep equality comparison.
-         * @param expected - Value that the promise is expected to be rejected with.
+         * @param expected Value that the promise is expected to be rejected with.
          */
         toBeRejectedWith(expected: Expected<U>): Promise<void>;
 
         /**
          * Expect a promise to be rejected with a value matched to the expected.
-         * @param expected - Error constructor the object that was thrown needs to be an instance of. If not provided, Error will be used.
-         * @param message - The message that should be set on the thrown Error.
+         * @param expected Error constructor the object that was thrown needs to be an instance of. If not provided, Error will be used.
+         * @param message The message that should be set on the thrown Error.
          */
         toBeRejectedWithError(expected?: new (...args: any[]) => Error, message?: string | RegExp): Promise<void>;
 
         /**
          * Expect a promise to be rejected with a value matched to the expected.
-         * @param message - The message that should be set on the thrown Error.
+         * @param message The message that should be set on the thrown Error.
          */
         toBeRejectedWithError(message?: string | RegExp): Promise<void>;
 
         /**
          * Add some context for an expect.
-         * @param message - Additional context to show when the matcher fails.
+         * @param message Additional context to show when the matcher fails.
          */
         withContext(message: string): AsyncMatchers<T, U>;
 
