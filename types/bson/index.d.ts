@@ -405,6 +405,16 @@ export class ObjectId {
      * @return {string} return the 24 byte hex string representation.
      */
     toHexString(): string;
+    /**
+     * Returns the string representation of the ObjectId().
+     * @return {string} the string representation.
+     */
+    toString(): string;
+    /**
+     * Returns the value of the ObjectId() as a lowercase hexadecimal string. This value is the str attribute of the ObjectId() object.
+     * @return {string} the str representation.
+     */
+    valueOf(): string;
 }
 
 /**
