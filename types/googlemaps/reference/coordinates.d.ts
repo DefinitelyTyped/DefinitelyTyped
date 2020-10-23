@@ -3,11 +3,11 @@ declare namespace google.maps {
      * A LatLng is a point in geographical coordinates: latitude and longitude.
      *
      * * Latitude ranges between -90 and 90 degrees, inclusive. Values above or below this range will be clamped to the
-     * range [-90, 90]. This means that if the value specified is less than -90, it will be set to -90. And if the value
-     * is greater than 90, it will be set to 90.
+     *   range [-90, 90]. This means that if the value specified is less than -90, it will be set to -90. And if the
+     *   value is greater than 90, it will be set to 90.
      * * Longitude ranges between -180 and 180 degrees, inclusive. Values above or below this range will be wrapped so
-     * that they fall within the range. For example, a value of -190 will be converted to 170. A value of 190 will be
-     * converted to -170. This reflects the fact that longitudes wrap around the globe.
+     *   that they fall within the range. For example, a value of -190 will be converted to 170. A value of 190 will be
+     *   converted to -170. This reflects the fact that longitudes wrap around the globe.
      *
      * Although the default map projection associates longitude with the x-coordinate of the map, and latitude with the
      * y-coordinate, the latitude coordinate is always written first, followed by the longitude.
