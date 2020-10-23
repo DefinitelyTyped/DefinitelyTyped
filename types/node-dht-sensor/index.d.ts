@@ -5,25 +5,28 @@
 
 /// <reference types="node" />
 
-export function initialize(type: 22 | 11, pin: number): void;
+export interface SensorData {
+    temperature: number;
+    humidity: number;
+}
+
+export function initialize(type: 22 | 11, pin: number): boolean;
 // for faked test values only
-export function initialize(testOptions: { test: { fake: { temperature: number; humidity: number } } }): void;
+export function initialize(testOptions: { test: { fake: SensorData } }): void;
 
 export function read(
     type: 22 | 11,
     pin: number,
     callback: (err: NodeJS.ErrnoException | null, temperature: number, humidity: number) => void,
 ): void;
+export function read(type?: 22 | 11, pin?: number): SensorData;
 
 export function setMaxRetries(maxRetries: number): void;
 
 export namespace promises {
-    function initialize(type: 22 | 11, pin: number): void;
-    function readSync(
-        type: 22 | 11,
-        pin: number,
-        callback: (err: NodeJS.ErrnoException | null, temperature: number, humidity: number) => void,
-    ): void;
-    function read(type: 22 | 11, pin: number): Promise<{ temperature: number; humidity: number }>;
+    function initialize(type: 22 | 11, pin: number): boolean;
+    function initialize(testOptions: { test: { fake: SensorData } }): void;
+    function readSync(type?: 22 | 11, pin?: number): SensorData;
+    function read(type?: 22 | 11, pin?: number): Promise<SensorData>;
     function setMaxRetries(maxRetries: number): void;
 }
