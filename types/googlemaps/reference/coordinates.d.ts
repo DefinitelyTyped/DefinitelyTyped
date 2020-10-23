@@ -200,25 +200,25 @@ declare namespace google.maps {
          * Padding for the bottom, in pixels.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Padding.bottom Maps JavaScript API}
          */
-        bottom: number;
+        bottom?: number;
 
         /**
          * Padding for the left, in pixels.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Padding.left Maps JavaScript API}
          */
-        left: number;
+        left?: number;
 
         /**
          * Padding for the right, in pixels.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Padding.right Maps JavaScript API}
          */
-        right: number;
+        right?: number;
 
         /**
          * Padding for the top, in pixels.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Padding.top Maps JavaScript API}
          */
-        top: number;
+        top?: number;
     }
 
     interface CircleLiteral extends CircleOptions {
