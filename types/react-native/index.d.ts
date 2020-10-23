@@ -968,7 +968,7 @@ export interface TextPropsAndroid {
      * Determines the types of data converted to clickable URLs in the text element.
      * By default no data types are detected.
      */
-    dataDetectorType?: null |'phoneNumber' | 'link' | 'email' | 'none' | 'all';
+    dataDetectorType?: null | 'phoneNumber' | 'link' | 'email' | 'none' | 'all';
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
@@ -6678,7 +6678,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      *  - `'normal'`: 0.998 on iOS, 0.985 on Android (the default)
      *  - `'fast'`: 0.99 on iOS, 0.9 on Android
      */
-    decelerationRate?: 'fast' | 'normal' | number,
+    decelerationRate?: 'fast' | 'normal' | number;
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
@@ -9611,15 +9611,14 @@ export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warn
  * @deprecated
  */
 export function unstable_enableLogBox(): void;
-                                                                  
 
 /**
  * React Native also implements unstable_batchedUpdates
  */
 export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
 export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
-export function unstable_batchedUpdates(callback: () => any): void;                                                                  
-                                                                  
+export function unstable_batchedUpdates(callback: () => any): void;
+
 //////////////////////////////////////////////////////////////////////////
 //
 // Additional ( and controversial)
