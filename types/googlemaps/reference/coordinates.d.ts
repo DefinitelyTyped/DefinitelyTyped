@@ -192,13 +192,32 @@ declare namespace google.maps {
         toString(): string;
     }
 
+    /**
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Padding Maps JavaScript API}
+     */
     interface Padding {
+        /**
+         * Padding for the bottom, in pixels.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Padding.bottom Maps JavaScript API}
+         */
         bottom: number;
 
+        /**
+         * Padding for the left, in pixels.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Padding.left Maps JavaScript API}
+         */
         left: number;
 
+        /**
+         * Padding for the right, in pixels.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Padding.right Maps JavaScript API}
+         */
         right: number;
 
+        /**
+         * Padding for the top, in pixels.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#Padding.top Maps JavaScript API}
+         */
         top: number;
     }
 
