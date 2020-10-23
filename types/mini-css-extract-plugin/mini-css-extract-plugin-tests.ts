@@ -81,3 +81,15 @@ configuration = {
         }),
     ],
 };
+
+configuration = {
+    // `linkType`
+    plugins: [
+        new MiniCssExtractPlugin({
+            linkType: 'text/css',
+        }),
+        new MiniCssExtractPlugin({
+            linkType: false,
+        }),
+    ],
+};

@@ -1,4 +1,4 @@
-// Type definitions for mini-css-extract-plugin 1.0
+// Type definitions for mini-css-extract-plugin 1.2
 // Project: https://github.com/webpack-contrib/mini-css-extract-plugin
 // Definitions by: JounQin <https://github.com/JounQin>
 //                 Katsuya Hino <https://github.com/dobogo>
@@ -44,6 +44,12 @@ declare namespace MiniCssExtractPlugin {
          * @default true
          */
         esModule?: boolean;
+        /**
+         * This option allows loading asynchronous chunks with a custom link type, such as <link type="text/css" ...>.
+         * `false` disables the link `type` attribute
+         * @default `text/css`
+         */
+        linkType?: string | boolean;
     }
 }
 
