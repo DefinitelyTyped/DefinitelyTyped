@@ -1080,10 +1080,10 @@ declare namespace Mocha {
         private _timeout;
         private _timeoutError;
 
-        constructor(title: string, fn?: Func | AsyncFunc);
+        constructor(title: string, fn?: Func | AsyncFunc | SyncFunc);
 
         title: string;
-        fn: Func | AsyncFunc | undefined;
+        fn: Func | AsyncFunc | SyncFunc | undefined;
         body: string;
         async: boolean;
         sync: boolean;
@@ -1956,7 +1956,7 @@ declare namespace Mocha {
         /**
          * Generic hook-creator.
          */
-        protected _createHook(title: string, fn?: Func | AsyncFunc): Hook;
+        protected _createHook(title: string, fn?: Func | AsyncFunc | SyncFunc): Hook;
     }
 
     // #region Suite "beforeAll" event
@@ -2122,20 +2122,20 @@ declare namespace Mocha {
        * In serial mode, run after all tests end, once only.
        * In parallel mode, run after all tests end, for each file.
        */
-      afterAll?: Func | AsyncFunc | Func[] | AsyncFunc[];
+      afterAll?: Func | AsyncFunc | SyncFunc | Func[] | AsyncFunc[];
       /**
        * In serial mode (Mocha's default), before all tests begin, once only.
        * In parallel mode, run before all tests begin, for each file.
        */
-      beforeAll?: Func | AsyncFunc | Func[] | AsyncFunc[];
+      beforeAll?: Func | AsyncFunc | SyncFunc | Func[] | AsyncFunc[];
       /**
        * In both modes, run after every test.
        */
-      afterEach?: Func | AsyncFunc | Func[] | AsyncFunc[];
+      afterEach?: Func | AsyncFunc | SyncFunc | Func[] | AsyncFunc[];
       /**
        * In both modes, run before each test.
        */
-      beforeEach?: Func | AsyncFunc | Func[] | AsyncFunc[];
+      beforeEach?: Func | AsyncFunc | SyncFunc | Func[] | AsyncFunc[];
     }
 
     /**
@@ -2176,6 +2176,11 @@ declare namespace Mocha {
      * Callback function used for tests and hooks.
      */
     type Func = (this: Context, done: Done) => void;
+            
+    /**
+     * Sync Callback function that does not call done
+     */
+    type SyncFunc = (this: Context) => void;
 
     /**
      * Async callback function used for tests and hooks.
