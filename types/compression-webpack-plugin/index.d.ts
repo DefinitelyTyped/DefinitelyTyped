@@ -5,7 +5,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'webpack';
+import { Plugin, Compiler } from 'webpack';
 import { ZlibOptions as ZlibCompressionOptions } from 'zlib';
 
 export = CompressionPlugin;
@@ -16,6 +16,8 @@ export = CompressionPlugin;
 declare class CompressionPlugin<O = any> extends Plugin {
     static isWebpack4(): boolean;
     constructor(options?: CompressionPlugin.Options<O>);
+
+    apply(compiler: Compiler): void;
 }
 
 declare namespace CompressionPlugin {
