@@ -174,7 +174,7 @@ export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
 
 export interface MUIDataTableColumnOptions {
     customBodyRender?: (
-        value: string,
+        value: any,
         tableMeta: MUIDataTableMeta,
         updateValue: (value: string) => void,
     ) => string | React.ReactNode;
