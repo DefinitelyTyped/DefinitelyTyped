@@ -5,6 +5,7 @@
 //                 Woosik Park <https://github.com/pwsses>
 //                 Dayoung Kim <https://github.com/darangkim>
 //                 Hyojin Kim <https://github.com/prozanne>
+//                 Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./filesystem.d.ts" />
