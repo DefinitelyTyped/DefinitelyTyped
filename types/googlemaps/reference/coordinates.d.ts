@@ -84,12 +84,18 @@ declare namespace google.maps {
         lng: number;
     }
 
-    /** @see {@link LatLngLiteral}. */
+    /**
+     * @see {@link LatLngLiteral}.
+     */
     interface ReadonlyLatLngLiteral {
-        /** @see {@link LatLngLiteral#lat} */
+        /**
+         * @see {@link LatLngLiteral#lat}
+         */
         readonly lat: number;
 
-        /** @see {@link LatLngLiteral#lng} */
+        /**
+         * @see {@link LatLngLiteral#lng}
+         */
         readonly lng: number;
     }
 
