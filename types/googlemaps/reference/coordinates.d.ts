@@ -94,61 +94,93 @@ declare namespace google.maps {
     }
 
     /**
-     * A LatLngBounds instance represents a rectangle in geographical coordinates,
-     * including one that crosses the 180 degrees longitudinal meridian.
+     * A LatLngBounds instance represents a rectangle in geographical coordinates, including one that crosses the 180
+     * degrees longitudinal meridian.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds Maps JavaScript API}
      */
     class LatLngBounds {
         /**
-         * Constructs a rectangle from the points at its south-west and north-east
-         * corners.
+         * Constructs a rectangle from the points at its south-west and north-east corners.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.constructor Maps JavaScript API}
          */
         constructor(sw?: LatLng | LatLngLiteral, ne?: LatLng | LatLngLiteral);
 
-        /** Returns true if the given lat/lng is in this bounds. */
+        /**
+         * Returns true if the given lat/lng is in this bounds.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.contains Maps JavaScript API}
+         */
         contains(latLng: LatLng | LatLngLiteral): boolean;
 
-        /** Returns true if this bounds approximately equals the given bounds. */
+        /**
+         * Returns true if this bounds approximately equals the given bounds.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.equals Maps JavaScript API}
+         */
         equals(other: LatLngBounds | LatLngBoundsLiteral): boolean;
 
-        /** Extends this bounds to contain the given point. */
+        /**
+         * Extends this bounds to contain the given point.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.extend Maps JavaScript API}
+         */
         extend(point: LatLng | LatLngLiteral): LatLngBounds;
 
-        /** Computes the center of this LatLngBounds */
+        /**
+         * Computes the center of this LatLngBounds
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.getCenter Maps JavaScript API}
+         */
         getCenter(): LatLng;
 
-        /** Returns the north-east corner of this bounds. */
+        /**
+         * Returns the north-east corner of this bounds.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.getNorthEast Maps JavaScript API}
+         */
         getNorthEast(): LatLng;
 
-        /** Returns the south-west corner of this bounds. */
+        /**
+         * Returns the south-west corner of this bounds.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.getSouthWest Maps JavaScript API}
+         */
         getSouthWest(): LatLng;
 
-        /** Returns true if this bounds shares any points with the other bounds. */
+        /**
+         * Returns true if this bounds shares any points with the other bounds.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.intersects Maps JavaScript API}
+         */
         intersects(other: LatLngBounds | LatLngBoundsLiteral): boolean;
 
-        /** Returns if the bounds are empty. */
+        /**
+         * Returns if the bounds are empty.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.isEmpty Maps JavaScript API}
+         */
         isEmpty(): boolean;
 
         /**
-         * Converts to JSON representation. This function is intended to be used
-         * via JSON.stringify.
+         * Converts to JSON representation. This function is intended to be used via {@link JSON.stringify}.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.toJSON Maps JavaScript API}
          */
         toJSON(): LatLngBoundsLiteral;
 
-        /** Converts the given map bounds to a lat/lng span. */
+        /**
+         * Converts the given map bounds to a lat/lng span.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.toSpan Maps JavaScript API}
+         */
         toSpan(): LatLng;
 
-        /** Converts to string. */
+        /**
+         * Converts to string.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.toString Maps JavaScript API}
+         */
         toString(): string;
 
         /**
-         * Returns a string of the form "lat_lo,lng_lo,lat_hi,lng_hi" for this
-         * bounds, where "lo" corresponds to the southwest corner of the bounding
-         * box, while "hi" corresponds to the northeast corner of that box.
+         * Returns a string of the form "lat_lo,lng_lo,lat_hi,lng_hi" for this bounds, where "lo" corresponds to the
+         * southwest corner of the bounding box, while "hi" corresponds to the northeast corner of that box.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.toUrlValue Maps JavaScript API}
          */
         toUrlValue(precision?: number): string;
 
         /**
          * Extends this bounds to contain the union of this and the given bounds.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds.union Maps JavaScript API}
          */
         union(other: LatLngBounds | LatLngBoundsLiteral): LatLngBounds;
     }
