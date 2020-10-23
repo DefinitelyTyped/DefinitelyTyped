@@ -40,3 +40,12 @@ gulp.src("./src/main/text/hello.txt", { base: process.cwd() })
         extname: ".md"
     }))
     .pipe(gulp.dest("./dist")); // ./dist/main/text/ciao/bonjour-aloha-hola.md
+
+// rename with multi-ext
+gulp.src("./src/main/text/hello.min.js", { base: process.cwd() })
+    .pipe(rename({
+        suffix: "-v2"
+    }, {
+        multiExt: true
+    }))
+    .pipe(gulp.dest("./dist")); // ./dist/main/text/hello-v2.min.js

@@ -20,7 +20,11 @@ declare namespace rename {
         prefix?: string;
         suffix?: string;
     }
+
+    interface PluginOptions {
+        multiExt?: boolean;
+    }
 }
 
-declare function rename(obj: string|rename.Options|((path: rename.ParsedPath, file: File) => rename.ParsedPath|void)): NodeJS.ReadWriteStream;
+declare function rename(obj: string|rename.Options|((path: rename.ParsedPath, file: File) => rename.ParsedPath|void), options?: rename.PluginOptions): NodeJS.ReadWriteStream;
 export = rename;
