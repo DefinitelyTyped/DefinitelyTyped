@@ -23,12 +23,12 @@ interface AssistantsRegistry {
     registerIssueAssistant(
         selector: AssistantsRegistrySelector,
         object: IssueAssistant,
-        options?: { event: "onChange" | "onSave" }
+        options?: { event: 'onChange' | 'onSave' },
     ): Disposable;
-    registerTaskAssistant(object: TaskAssistant, options?: { identifer: string, name: string }): Disposable;
+    registerTaskAssistant(object: TaskAssistant, options?: { identifer: string; name: string }): Disposable;
 }
 
-type AssistantArray<T> = ReadonlyArray<T> | Promise<ReadonlyArray<T>>
+type AssistantArray<T> = ReadonlyArray<T> | Promise<ReadonlyArray<T>>;
 
 interface CompletionAssistant {
     provideCompletionItems(editor: TextEditor, context: CompletionContext): AssistantArray<CompletionItem>;
@@ -339,7 +339,7 @@ declare class FileSystem {
         START: FileSystemBitField;
         CURRENT: FileSystemBitField;
         END: FileSystemBitField;
-    }
+    };
 
     F_OK: FileSystemBitField;
     R_OK: FileSystemBitField;
@@ -434,7 +434,7 @@ declare class LanguageClient {
             args?: string[];
             env?: { [key: string]: string };
         },
-        clientOptions: { initializationOptions: any, syntaxes: string[] },
+        clientOptions: { initializationOptions: any; syntaxes: string[] },
     );
 
     readonly identifier: string;
@@ -660,8 +660,7 @@ type NovaSymbolType =
     | 'tag-media'
     | 'tag-form'
     | 'tag-form-field'
-    | 'tag-framework'
-    ;
+    | 'tag-framework';
 
 // name change to avoid conflict with base ecmascript Symbol
 
@@ -677,32 +676,35 @@ interface NovaSymbol {
 
 /// https://docs.nova.app/api-reference/task/
 
-declare type TaskName = string & { __type: "TaskName" }
+declare type TaskName = string & { __type: 'TaskName' };
 
 declare class Task {
-    static readonly Build: TaskName
-    static readonly Clean: TaskName
-    static readonly Run: TaskName
+    static readonly Build: TaskName;
+    static readonly Clean: TaskName;
+    static readonly Run: TaskName;
 
-    constructor(name:string);
+    constructor(name: string);
 
-    name:string;
+    name: string;
     image?: string;
 
-    getAction(name:string): TaskProcessAction | undefined;
-    setAction(name:string, action?: TaskProcessAction | null): void;
+    getAction(name: string): TaskProcessAction | undefined;
+    setAction(name: string, action?: TaskProcessAction | null): void;
 }
 
 /// https://docs.nova.app/api-reference/task-process-action/
 
 declare class TaskProcessAction {
-    constructor(command: string, options?: {
-        args?: string[];
-        env?: { [key: string]: string };
-        cwd?: string;
-        stdio?: ['pipe' | 'ignore', 'pipe' | 'ignore', 'pipe' | 'ignore'] | 'pipe' | 'ignore' | 'jsonrpc' | number;
-        matchers?: ReadonlyArray<string>;
-    })
+    constructor(
+        command: string,
+        options?: {
+            args?: string[];
+            env?: { [key: string]: string };
+            cwd?: string;
+            stdio?: ['pipe' | 'ignore', 'pipe' | 'ignore', 'pipe' | 'ignore'] | 'pipe' | 'ignore' | 'jsonrpc' | number;
+            matchers?: ReadonlyArray<string>;
+        },
+    );
 }
 
 /// https://novadocs.panic.com/api-reference/text-document/
@@ -897,7 +899,7 @@ interface Workspace {
         },
         callback?: (paths: string[] | null) => void,
     ): void;
-    reloadTasks(identifier: string):void;
+    reloadTasks(identifier: string): void;
 }
 
 /// https://novadocs.panic.com/api-reference/
