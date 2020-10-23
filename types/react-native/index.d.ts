@@ -42,6 +42,7 @@
 //                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
+//                 Arafat Zahan <https://github.com/kuasha420>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -9682,6 +9683,13 @@ export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warn
  * @deprecated
  */
 export function unstable_enableLogBox(): void;
+
+/**
+ * React Native also implements unstable_batchedUpdates
+ */
+export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
+export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
+export function unstable_batchedUpdates(callback: () => any): void;
 
 //////////////////////////////////////////////////////////////////////////
 //
