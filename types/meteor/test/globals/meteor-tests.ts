@@ -9,8 +9,6 @@
  * that was assumed to have been declared earlier)
  */
 
-import { HTTP } from "meteor/http";
-
 /*********************************** Begin setup for tests ******************************/
 
 declare namespace Meteor {
