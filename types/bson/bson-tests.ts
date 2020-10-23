@@ -57,3 +57,9 @@ o = EJSON.serialize(doc2);
 let o2 = EJSON.deserialize (o);
 console.log(o);
 console.log(o2);
+
+
+const id = new ObjectId("5f935f8a8f3bdf089aa0a36f")
+
+console.log('ObjectId("5f935f8a8f3bdf089aa0a36f")' === id.toString())
+console.log("5f935f8a8f3bdf089aa0a36f" === id.valueOf())
