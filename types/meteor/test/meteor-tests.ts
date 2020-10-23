@@ -767,8 +767,22 @@ Meteor.methods({
 
 HTTP.call("POST", "http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
-    function (error: Meteor.Error, result: any) {
-        if (result.statusCode === 200) {
+    function (error, result) {
+        // $ExpectType Meteor.Error | null
+        error;
+
+        if (result && result.statusCode === 200) {
+            Session.set("twizzled", true);
+        }
+    });
+
+HTTP.post("http://api.twitter.com/xyz",
+    { data: { some: "json", stuff: 1 } },
+    function (error, result) {
+        // $ExpectType Meteor.Error | null
+        error;
+
+        if (result && result.statusCode === 200) {
             Session.set("twizzled", true);
         }
     });
