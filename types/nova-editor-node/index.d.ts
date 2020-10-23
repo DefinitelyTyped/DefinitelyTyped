@@ -434,7 +434,7 @@ declare class LanguageClient {
             args?: string[];
             env?: { [key: string]: string };
         },
-        clientOptions: { initializationOptions: any; syntaxes: string[] },
+        clientOptions: { initializationOptions?: any; syntaxes: string[] },
     );
 
     readonly identifier: string;
