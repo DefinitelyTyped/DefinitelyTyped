@@ -3,12 +3,11 @@ import { CSSModule } from '../index';
 
 export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-    className?: string;
     listClassName?: string;
     cssModule?: CSSModule;
     size?: string;
-    tag?: string | React.ReactType;
-    listTag?: React.ReactType;
+    tag?: React.ElementType;
+    listTag?: React.ElementType;
     'aria-label'?: string;
 }
 

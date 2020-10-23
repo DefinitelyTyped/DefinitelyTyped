@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface CollapseProps extends React.HTMLProps<HTMLElement> {
+export interface CollapseProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
     isOpen?: boolean;
-    classNames?: string;
     cssModule?: CSSModule;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     navbar?: boolean;
     delay?: {
         show: number;
