@@ -262,11 +262,21 @@ declare namespace google.maps {
         top?: number;
     }
 
+    /**
+     * Object literal which represents a circle.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#CircleLiteral Maps JavaScript API}
+     */
     interface CircleLiteral extends CircleOptions {
-        /** The center of the Circle. */
+        /**
+         * The center of the Circle.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#CircleLiteral.center Maps JavaScript API}
+         */
         center?: LatLng | LatLngLiteral;
 
-        /** The radius in meters on the Earth's surface. */
+        /**
+         * The radius in meters on the Earth's surface.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#CircleLiteral.radius Maps JavaScript API}
+         */
         radius?: number;
     }
 }
