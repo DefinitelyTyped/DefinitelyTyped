@@ -1,4 +1,4 @@
-// Type definitions for compression-webpack-plugin 6.0.3
+// Type definitions for compression-webpack-plugin 6.0
 // Project: https://github.com/webpack-contrib/compression-webpack-plugin
 // Definitions by: Anton Kandybo <https://github.com/dublicator>
 //                 Rhys van der Waerden <https://github.com/rhys-vdw>
