@@ -238,6 +238,25 @@ scanner.atEnd; // => true
 
 scanner.location = 42;
 
+/// https://docs.nova.app/api-reference/task/
+
+const task = new Task("Say Example");
+
+task.setAction(Task.Build, new TaskProcessAction('/usr/bin/say', {
+    args: ["I'm Building!"],
+    env: {}
+}));
+
+task.setAction(Task.Run, new TaskProcessAction('/usr/bin/say', {
+    args: ["I'm Running!"],
+    env: {}
+}));
+
+task.setAction(Task.Clean, new TaskProcessAction('/usr/bin/say', {
+    args: ["I'm Cleaning!"],
+    env: {}
+}));
+
 /// https://novadocs.panic.com/api-reference/text-editor/
 
 // $ExpectError

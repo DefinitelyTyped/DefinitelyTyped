@@ -1,4 +1,4 @@
-// Type definitions for non-npm package nova-editor-node 1.2
+// Type definitions for non-npm package nova-editor-node 2.0
 // Project: https://docs.nova.app/api-reference/
 // Definitions by: Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,25 +19,27 @@ type WritableStream<T = any> = unknown;
 type AssistantsRegistrySelector = string | { syntax: string };
 
 interface AssistantsRegistry {
-    registerColorAssistant(selector: AssistantsRegistrySelector, object: ColorAssistant): Disposable;
     registerCompletionAssistant(selector: AssistantsRegistrySelector, object: CompletionAssistant): Disposable;
     registerIssueAssistant(
         selector: AssistantsRegistrySelector,
         object: IssueAssistant,
         options?: { event: "onChange" | "onSave" }
     ): Disposable;
+    registerTaskAssistant(object: TaskAssistant, options?: { identifer: string, name: string }): Disposable;
 }
 
-interface ColorAssistant {
-    parseColorStrings(colorStrings: ReadonlyArray<string>): ReadonlyArray<Color>;
-}
+type AssistantArray<T> = ReadonlyArray<T> | Promise<ReadonlyArray<T>>
 
 interface CompletionAssistant {
-    provideCompletionItems(editor: TextEditor, context: CompletionContext): CompletionItem[] | Promise<CompletionItem[]>;
+    provideCompletionItems(editor: TextEditor, context: CompletionContext): AssistantArray<CompletionItem>;
 }
 
 interface IssueAssistant {
-    provideIssues(editor: TextEditor): Issue[] | Promise<Issue[]>;
+    provideIssues(editor: TextEditor): AssistantArray<Issue>;
+}
+
+interface TaskAssistant {
+    provideTasks(): AssistantArray<Task>;
 }
 
 /// https://novadocs.panic.com/api-reference/charset/
@@ -105,16 +107,17 @@ declare enum CompletionReason {
 declare class CompletionItem {
     constructor(label: string, kind: CompletionItemKind);
 
-    label: string;
-    kind: CompletionItemKind;
+    additionalTextEdits?: TextEdit[];
     color?: Color;
+    commitChars?: Charset;
     detail?: string;
     documentation?: string;
     filterText?: string;
     insertText?: string;
     insertTextFormat?: InsertTextFormat;
+    kind: CompletionItemKind;
+    label: string;
     range?: Range;
-    commitChars?: Charset;
 }
 
 declare enum CompletionItemKind {
@@ -431,13 +434,14 @@ declare class LanguageClient {
             args?: string[];
             env?: { [key: string]: string };
         },
-        clientOptions: { syntaxes: string[] },
+        clientOptions: { initializationOptions: any, syntaxes: string[] },
     );
 
     readonly identifier: string;
     readonly name: string;
     readonly running: boolean;
 
+    onDidStop<T>(this: T, callback: (err?: Error) => void, thisValue?: T): Disposable;
     onNotification(method: string, callback: (parameters: any) => void): void;
     onRequest(method: string, callback: (parameters: any) => unknown | Promise<unknown>): void;
     sendRequest(method: string, parameters?: unknown): Promise<unknown>;
@@ -671,7 +675,37 @@ interface NovaSymbol {
     readonly parent: NovaSymbol | null;
 }
 
-// https://novadocs.panic.com/api-reference/text-document/
+/// https://docs.nova.app/api-reference/task/
+
+declare type TaskName = string & { __type: "TaskName" }
+
+declare class Task {
+    static readonly Build: TaskName
+    static readonly Clean: TaskName
+    static readonly Run: TaskName
+
+    constructor(name:string);
+
+    name:string;
+    image?: string;
+
+    getAction(name:string): TaskProcessAction | undefined;
+    setAction(name:string, action?: TaskProcessAction | null): void;
+}
+
+/// https://docs.nova.app/api-reference/task-process-action/
+
+declare class TaskProcessAction {
+    constructor(command: string, options?: {
+        args?: string[];
+        env?: { [key: string]: string };
+        cwd?: string;
+        stdio?: ['pipe' | 'ignore', 'pipe' | 'ignore', 'pipe' | 'ignore'] | 'pipe' | 'ignore' | 'jsonrpc' | number;
+        matchers?: ReadonlyArray<string>;
+    })
+}
+
+/// https://novadocs.panic.com/api-reference/text-document/
 
 interface TextDocument {
     readonly uri: string;
@@ -689,6 +723,19 @@ interface TextDocument {
     getLineRangeForRange(range: Range): Range;
     onDidChangePath(callback: (document: TextDocument, path: string | null) => void): Disposable;
     onDidChangeSyntax(callback: (document: TextDocument, syntax: string | null) => void): Disposable;
+}
+
+/// https://docs.nova.app/api-reference/text-edit/
+
+declare class TextEdit {
+    static delete(range: Range): TextEdit;
+    static insert(position: number, newText: string): TextEdit;
+    static replace(range: Range, newText: string): TextEdit;
+
+    constructor(range: Range, newText: string);
+
+    readonly newText: string;
+    readonly range: Range;
 }
 
 /// https://novadocs.panic.com/api-reference/text-editor/
@@ -850,6 +897,7 @@ interface Workspace {
         },
         callback?: (paths: string[] | null) => void,
     ): void;
+    reloadTasks(identifier: string):void;
 }
 
 /// https://novadocs.panic.com/api-reference/
