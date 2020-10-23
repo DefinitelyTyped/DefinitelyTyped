@@ -22,43 +22,57 @@ declare namespace google.maps {
      */
     class LatLng {
         /**
-         * Creates a LatLng object representing a geographic point.
+         * Creates a {@link LatLng} object representing a geographic point.
          * Note the ordering of latitude and longitude.
          * @param lat Latitude is specified in degrees within the range [-90, 90].
-         * @param lng Longitude is specified in degrees within the range [-180,
-         *     180].
+         * @param lng Longitude is specified in degrees within the range [-180, 180].
          * @param noWrap Set noWrap to true to enable values outside of this range.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLng.constructor Maps JavaScript API}
          */
         constructor(lat: number, lng: number, noWrap?: boolean);
 
         /**
-         * Creates a LatLng object representing a geographic point.
+         * Creates a {@link LatLng} object representing a geographic point.
          * @param literal Object literal.
          * @param noWrap Set noWrap to true to enable values outside of this range.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLng.constructor Maps JavaScript API}
          */
         constructor(literal: LatLngLiteral, noWrap?: boolean);
 
-        /** Comparison function. */
+        /**
+         * Comparison function.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLng.equals Maps JavaScript API}
+         */
         equals(other: LatLng): boolean;
 
-        /** Returns the latitude in degrees. */
+        /**
+         * Returns the latitude in degrees.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLng.lat Maps JavaScript API}
+         */
         lat(): number;
 
-        /** Returns the longitude in degrees. */
+        /**
+         * Returns the longitude in degrees.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLng.lng Maps JavaScript API}
+         */
         lng(): number;
 
         /**
-         * Converts to JSON representation. This function is intended to be used
-         * via JSON.stringify.
+         * Converts to JSON representation. This function is intended to be used via {@link JSON.stringify}.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLng.toJSON Maps JavaScript API}
          */
         toJSON(): LatLngLiteral;
 
-        /** Converts to string representation. */
+        /**
+         * Converts to string representation.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLng.toString Maps JavaScript API}
+         */
         toString(): string;
 
         /**
-         * Returns a string of the form "lat,lng". We round the lat/lng values to 6
-         * decimal places by default.
+         * Returns a string of the form "lat,lng" for this LatLng. We round the lat/lng values to 6 decimal places by
+         * default.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLng.toUrlValue Maps JavaScript API}
          */
         toUrlValue(precision?: number): string;
     }
