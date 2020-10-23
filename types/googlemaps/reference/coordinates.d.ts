@@ -47,6 +47,12 @@ declare namespace google.maps {
         /** Returns the longitude in degrees. */
         lng(): number;
 
+        /**
+         * Converts to JSON representation. This function is intended to be used
+         * via JSON.stringify.
+         */
+        toJSON(): LatLngLiteral;
+
         /** Converts to string representation. */
         toString(): string;
 
@@ -55,12 +61,6 @@ declare namespace google.maps {
          * decimal places by default.
          */
         toUrlValue(precision?: number): string;
-
-        /**
-         * Converts to JSON representation. This function is intended to be used
-         * via JSON.stringify.
-         */
-        toJSON(): LatLngLiteral;
     }
 
     /**
