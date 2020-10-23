@@ -6,7 +6,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ChunkData, Plugin } from 'webpack';
+import { ChunkData, Plugin, Compiler } from 'webpack';
 
 /**
  * Lightweight CSS extraction webpack plugin
@@ -18,6 +18,8 @@ declare class MiniCssExtractPlugin extends Plugin {
     static loader: string;
 
     constructor(options?: MiniCssExtractPlugin.PluginOptions);
+
+    apply(compiler: Compiler): void;
 }
 
 declare namespace MiniCssExtractPlugin {
