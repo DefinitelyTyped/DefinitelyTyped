@@ -146,6 +146,12 @@ declare namespace Sinon {
          * When the last argument in a call is a Function, then callback will reference that. Otherwise it will be undefined.
          */
         callback: Function | undefined;
+
+        /**
+         * This property is a convenience for the first argument of the call.
+         */
+        firstArg: any;
+
         /**
          * This property is a convenience for the last argument of the call.
          */
@@ -1182,9 +1188,18 @@ declare namespace Sinon {
         /**
          * Passes if spy was called with matching arguments.
          * This behaves the same way as sinon.assert.calledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
-         * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithMatch(spy.secondCall, arg1, arg2, ...);.
+         * It's possible to assert on a dedicated spy call: sinon.assert.calledWithMatch(spy.secondCall, arg1, arg2, ...);.
          */
         calledWithMatch<TArgs extends any[]>(
+            spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
+            ...args: TArgs
+        ): void;
+        /**
+         * Passes if spy was called once with matching arguments.
+         * This behaves the same way as calling both sinon.assert.calledOnce(spy) and
+         * sinon.assert.calledWithMatch(spy, ...).
+         */
+        calledOnceWithMatch<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
             ...args: TArgs
         ): void;

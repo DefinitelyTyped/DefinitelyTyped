@@ -1,4 +1,4 @@
-import { init, run, loadConfig } from 'react-native-community__cli';
+import { init, run, loadConfig } from '@react-native-community/cli';
 
 /*
  * init

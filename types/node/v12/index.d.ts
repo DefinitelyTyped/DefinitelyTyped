@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 12.12
+// Type definitions for non-npm package Node.js 12.19
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>

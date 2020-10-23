@@ -554,11 +554,10 @@ function test_formatter_PatternFormat() {
     }
 }
 
-function test_ChartsLoad() {
+function test_ChartsLoadWithCallback() {
     google.charts.load('current', {packages: ['corechart', 'table', 'sankey']});
 
     function drawChart() {
-        // Define the chart to be drawn.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Element');
         data.addColumn('number', 'Percentage');
@@ -579,6 +578,27 @@ function test_ChartsLoad() {
     google.charts.setOnLoadCallback(drawChart);
 }
 
+function test_ChartsLoadWithPromise() {
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Element');
+        data.addColumn('number', 'Percentage');
+        data.addRows([
+            ['Nitrogen', 0.78],
+            ['Oxygen', 0.21],
+            ['Other', 0.01]
+        ]);
+
+        // Instantiate and draw the chart.
+        var container = document.getElementById('myPieChart');
+        if (container) {
+            var chart = new google.visualization.PieChart(container);
+            chart.draw(data, {});
+        }
+    }
+
+    google.charts.load('current', {packages: ['corechart', 'table', 'sankey']}).then(drawChart);
+}
 
 function test_ChartAnnotations() {
     var annotations:google.visualization.ChartAnnotations = {

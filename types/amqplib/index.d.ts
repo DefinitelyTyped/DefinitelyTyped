@@ -41,7 +41,7 @@ export interface Channel extends events.EventEmitter {
     publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish): boolean;
     sendToQueue(queue: string, content: Buffer, options?: Options.Publish): boolean;
 
-    consume(queue: string, onMessage: (msg: ConsumeMessage | null) => any, options?: Options.Consume): Promise<Replies.Consume>;
+    consume(queue: string, onMessage: (msg: ConsumeMessage | null) => void, options?: Options.Consume): Promise<Replies.Consume>;
 
     cancel(consumerTag: string): Promise<Replies.Empty>;
     get(queue: string, options?: Options.Get): Promise<GetMessage | false>;

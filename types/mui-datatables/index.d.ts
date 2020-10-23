@@ -372,6 +372,7 @@ type RenderCustomComponent<P> = (props: P) => React.ReactNode;
 export interface MUIDataTableProps {
     columns: MUIDataTableColumnDef[];
     components?: Partial<{
+        ExpandButton: RenderCustomComponent<MUIDataTableExpandButton> | React.ReactNode;
         TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
         TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
         TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
@@ -384,6 +385,18 @@ export interface MUIDataTableProps {
     data: Array<object | number[] | string[]>;
     options?: MUIDataTableOptions;
     title: string | React.ReactNode;
+}
+
+export interface MUIDataTableExpandButton {
+    areAllRowsExpanded: () => boolean;
+    buttonClass: string;
+    dataIndex?: number;
+    expandableRowsHeader: boolean;
+    expandedRows?: any;
+    iconClass: string;
+    iconIndeterminateClass: string;
+    isHeaderCell: boolean;
+    onExpand?: (...args: any) => any;
 }
 
 export interface MUIDataTablePopover {
@@ -597,6 +610,7 @@ export interface MUIDataTableViewCol {
 
 export const MUIDataTable: React.ComponentType<MUIDataTableProps>;
 
+export const ExpandButton: React.ComponentType<MUIDataTableExpandButton>;
 export const Popover: React.ComponentType<MUIDataTablePopover>;
 export const TableBody: React.ComponentType<MUIDataTableBody>;
 export const TableBodyCell: React.ComponentType<MUIDataTableBodyCell>;

@@ -65,12 +65,13 @@ import * as net from 'net';
         ['x-foO', 'OxOxOxO'],
         ['X-fOo', 'xOxOxOx'],
         ['X-foO', 'OxOxOxO']
-    ]);
+    ] as ReadonlyArray<[string, string]>);
     res.addTrailers({ 'x-foo': 'bar' });
 
     // writeHead
     res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end();
     res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
+    res.writeHead(200, ['Transfer-Encoding', 'chunked']);
     res.writeHead(200);
 
     // writeProcessing
@@ -115,7 +116,11 @@ import * as net from 'net';
     req.abort();
 
     // connection
-    req.connection.on('pause', () => { });
+    req.connection?.on('pause', () => { });
+
+    if (req.socket) {
+        req.socket.on("connect", () => {});
+    }
 
     // event
     req.on('data', () => { });

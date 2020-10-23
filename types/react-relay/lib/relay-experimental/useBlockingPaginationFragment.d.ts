@@ -1,43 +1,28 @@
-import { GraphQLResponse, GraphQLTaggedNode, Observer, OperationType } from 'relay-runtime';
-
-import { LoadMoreFn, UseLoadMoreFunctionArgs } from './useLoadMoreFunction';
+import { GraphQLTaggedNode, OperationType } from 'relay-runtime';
+import { KeyType, KeyTypeData } from './helpers';
+import { LoadMoreFn } from './useLoadMoreFunction';
 import { RefetchFnDynamic } from './useRefetchableFragmentNode';
 
-export interface ReturnType<TQuery extends OperationType, TKey, TFragmentData> {
+export interface ReturnTypeNode<TQuery extends OperationType, TKey extends KeyType | null, TFragmentData> {
     data: TFragmentData;
-    loadNext: LoadMoreFn;
-    loadPrevious: LoadMoreFn;
+    loadNext: LoadMoreFn<TQuery>;
+    loadPrevious: LoadMoreFn<TQuery>;
     hasNext: boolean;
     hasPrevious: boolean;
     refetch: RefetchFnDynamic<TQuery, TKey>;
 }
 
-export type $Call<Fn extends (...args: any[]) => any> = Fn extends (arg: any) => infer RT ? RT : never;
-
-interface KeyType {
-    readonly ' $data'?: unknown;
-}
-
-type KeyReturnType<T extends KeyType> = (arg: T) => NonNullable<T[' $data']>;
-
-export function useBlockingPaginationFragment<
-    TQuery extends OperationType,
-    TKey extends KeyType
->(
+// tslint:disable-next-line no-unnecessary-generics
+export function useBlockingPaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
     componentDisplayName?: string,
 ): // tslint:disable-next-line no-unnecessary-generics
-ReturnType<TQuery, TKey, $Call<KeyReturnType<TKey>>>;
+ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey>>;
 
-export function useBlockingPaginationFragment<
-    TQuery extends OperationType,
-    TKey extends KeyType
->(
+export function useBlockingPaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey | null,
     componentDisplayName?: string,
 ): // tslint:disable-next-line no-unnecessary-generics
-ReturnType<TQuery, TKey | null, $Call<KeyReturnType<TKey>> | null>;
-
-export { };
+ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey> | null>;

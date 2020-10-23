@@ -52,6 +52,7 @@ const chart: Chart = new Chart(ctx, {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
             mode: 'index',
+            axis: 'x',
             itemSort: (a, b, data) => Math.random() - 0.5,
             position: 'average',
             caretPadding: 2,
@@ -333,6 +334,22 @@ const customTooltipsPieChart = new Chart(ctx, {
     },
 });
 
+// chart with right-to-left (rtl) legend and tooltip
+const rtlTooltipsLegendsLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {},
+    options: {
+        legend: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+        tooltips: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+    },
+});
+
 // platform global values
 Chart.platform.disableCSSInjection = true;
 
@@ -529,3 +546,9 @@ const chartWithNumberArrayData: Chart = new Chart(ctx, {
         }
     }
 });
+
+// Category axes
+const categoryXAxe: Chart.ChartXAxe = {
+    type: 'category',
+    labels: ['label1', 'label2'],
+};

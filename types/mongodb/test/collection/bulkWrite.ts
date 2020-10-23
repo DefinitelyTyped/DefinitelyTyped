@@ -22,6 +22,7 @@ async function run() {
         dateField: Date;
         fruitTags: string[];
         maybeFruitTags?: FruitTypes[];
+        readonlyFruitTags: ReadonlyArray<string>;
         subInterfaceField: SubTestSchema;
         subInterfaceArray: SubTestSchema[];
     }
@@ -33,9 +34,10 @@ async function run() {
         numberField: 123,
         dateField: new Date(),
         fruitTags: ['apple'],
+        readonlyFruitTags: ['pear'],
         subInterfaceField: {
             field1: 'foo',
-            field2: 'bar'
+            field2: 'bar',
         },
         subInterfaceArray: [],
     };
@@ -46,23 +48,23 @@ async function run() {
     collectionType.bulkWrite([
         {
             insertOne: {
-                document: testDocument
-            }
-        }
+                document: testDocument,
+            },
+        },
     ]);
     collectionType.bulkWrite([
         {
             insertOne: {
-                document: testDocumentWithoutId
-            }
-        }
+                document: testDocumentWithoutId,
+            },
+        },
     ]);
     collectionType.bulkWrite([
         // The following code is written all on one line due to
         // the difference of error lines reported by TS <3.9 and >=3.9
         // prettier-ignore
         // $ExpectError
-        { insertOne: { document: { ...testDocument, stringField: 123 } } }
+        { insertOne: { document: { ...testDocument, stringField: 123 } } },
     ]);
 
     // updateOne
@@ -74,11 +76,11 @@ async function run() {
                 update: {
                     $set: {
                         numberField: 123,
-                        'dot.notation': true
-                    }
-                }
-            }
-        }
+                        'dot.notation': true,
+                    },
+                },
+            },
+        },
     ]);
     collectionType.bulkWrite([
         {
@@ -88,33 +90,33 @@ async function run() {
                 update: {
                     $set: {
                         optionalNumberField: 123,
-                        fruitTags: ['apple']
-                    }
+                        fruitTags: ['apple'],
+                    },
                 },
                 upsert: true,
             },
-        }
+        },
     ]);
     collectionType.bulkWrite([
         // The following code is written all on one line due to
         // the difference of error lines reported by TS <3.9 and >=3.9
         // prettier-ignore
         // $ExpectError
-        { updateOne: { filter: { stringField: 123 }, update: { $set: { numberField: 123 } } } }
+        { updateOne: { filter: { stringField: 123 }, update: { $set: { numberField: 123 } } } },
     ]);
     collectionType.bulkWrite([
         // The following code is written all on one line due to
         // the difference of error lines reported by TS <3.9 and >=3.9
         // prettier-ignore
         // $ExpectError
-        { updateOne: { filter: { stringField: 'foo' }, update: { $set: { numberField: 'bar' } } } }
+        { updateOne: { filter: { stringField: 'foo' }, update: { $set: { numberField: 'bar' } } } },
     ]);
     collectionType.bulkWrite([
         // The following code is written all on one line due to
         // the difference of error lines reported by TS <3.9 and >=3.9
         // prettier-ignore
         // $ExpectError
-        { updateOne: { filter: { stringField: 'foo' }, update: { 'dot.notation': true } } }
+        { updateOne: { filter: { stringField: 'foo' }, update: { 'dot.notation': true } } },
     ]);
 
     // updateMany
@@ -126,11 +128,11 @@ async function run() {
                 update: {
                     $set: {
                         numberField: 123,
-                        'dot.notation': true
-                    }
-                }
-            }
-        }
+                        'dot.notation': true,
+                    },
+                },
+            },
+        },
     ]);
     collectionType.bulkWrite([
         {
@@ -140,33 +142,33 @@ async function run() {
                 update: {
                     $set: {
                         optionalNumberField: 123,
-                        fruitTags: ['apple']
-                    }
+                        fruitTags: ['apple'],
+                    },
                 },
                 upsert: true,
             },
-        }
+        },
     ]);
     collectionType.bulkWrite([
         // The following code is written all on one line due to
         // the difference of error lines reported by TS <3.9 and >=3.9
         // prettier-ignore
         // $ExpectError
-        { updateMany: { filter: { stringField: 123 }, update: { $set: { numberField: 123 } } } }
+        { updateMany: { filter: { stringField: 123 }, update: { $set: { numberField: 123 } } } },
     ]);
     collectionType.bulkWrite([
         // The following code is written all on one line due to
         // the difference of error lines reported by TS <3.9 and >=3.9
         // prettier-ignore
         // $ExpectError
-        { updateMany: { filter: { stringField: 'foo' }, update: { $set: { numberField: 'bar' } } } }
+        { updateMany: { filter: { stringField: 'foo' }, update: { $set: { numberField: 'bar' } } } },
     ]);
     collectionType.bulkWrite([
         // The following code is written all on one line due to
         // the difference of error lines reported by TS <3.9 and >=3.9
         // prettier-ignore
         // $ExpectError
-        { updateMany: { filter: { stringField: 'foo' }, update: { 'dot.notation': true } } }
+        { updateMany: { filter: { stringField: 'foo' }, update: { 'dot.notation': true } } },
     ]);
 
     // replaceOne
@@ -175,9 +177,9 @@ async function run() {
         {
             replaceOne: {
                 filter: { stringField: 'foo' },
-                replacement: testDocument
-            }
-        }
+                replacement: testDocument,
+            },
+        },
     ]);
     collectionType.bulkWrite([
         {
@@ -186,22 +188,22 @@ async function run() {
                 hint: 'foo-index',
                 replacement: testDocument,
                 upsert: true,
-            }
-        }
+            },
+        },
     ]);
     collectionType.bulkWrite([
         // The following code is written all on one line due to
         // the difference of error lines reported by TS <3.9 and >=3.9
         // prettier-ignore
         // $ExpectError
-        { replaceOne: { filter: { stringField: 123 }, replacement: testDocument } }
+        { replaceOne: { filter: { stringField: 123 }, replacement: testDocument } },
     ]);
     collectionType.bulkWrite([
         // The following code is written all on one line due to
         // the difference of error lines reported by TS <3.9 and >=3.9
         // prettier-ignore
         // $ExpectError
-        { replaceOne: { filter: { stringField: 'foo' }, replacement: { ...testDocument, stringField: 123 } } }
+        { replaceOne: { filter: { stringField: 'foo' }, replacement: { ...testDocument, stringField: 123 } } },
     ]);
 
     // deleteOne
@@ -210,15 +212,15 @@ async function run() {
         {
             deleteOne: {
                 filter: { stringField: 'foo' },
-            }
-        }
+            },
+        },
     ]);
     collectionType.bulkWrite([
         // The following code is written all on one line due to
         // the difference of error lines reported by TS <3.9 and >=3.9
         // prettier-ignore
         // $ExpectError
-        { deleteOne: { filter: { stringField: 123 } } }
+        { deleteOne: { filter: { stringField: 123 } } },
     ]);
 
     // deleteMany
@@ -227,15 +229,15 @@ async function run() {
         {
             deleteMany: {
                 filter: { stringField: 'foo' },
-            }
-        }
+            },
+        },
     ]);
     collectionType.bulkWrite([
         // The following code is written all on one line due to
         // the difference of error lines reported by TS <3.9 and >=3.9
         // prettier-ignore
         // $ExpectError
-        { deleteMany: { filter: { stringField: 123 } } }
+        { deleteMany: { filter: { stringField: 123 } } },
     ]);
 
     // combined
@@ -243,40 +245,40 @@ async function run() {
     collectionType.bulkWrite([
         {
             insertOne: {
-                document: testDocument
-            }
+                document: testDocument,
+            },
         },
         {
             updateMany: {
                 filter: { stringField: 'foo' },
                 update: {
-                    $set: { numberField: 123 }
-                }
-            }
+                    $set: { numberField: 123 },
+                },
+            },
         },
         {
             updateMany: {
                 filter: { stringField: 'foo' },
                 update: {
-                    $set: { numberField: 123 }
-                }
-            }
+                    $set: { numberField: 123 },
+                },
+            },
         },
         {
             replaceOne: {
                 filter: { stringField: 'foo' },
-                replacement: testDocument
-            }
+                replacement: testDocument,
+            },
         },
         {
             deleteOne: {
                 filter: { stringField: 'foo' },
-            }
+            },
         },
         {
             deleteMany: {
                 filter: { stringField: 'foo' },
-            }
-        }
+            },
+        },
     ]);
 }

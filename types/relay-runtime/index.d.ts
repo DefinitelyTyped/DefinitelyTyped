@@ -121,7 +121,7 @@ export {
     ReaderSelection,
 } from './lib/util/ReaderNode';
 export { ConcreteRequest, GeneratedNode, RequestParameters } from './lib/util/RelayConcreteNode';
-export { CacheConfig, DataID, Disposable, OperationType, Variables } from './lib/util/RelayRuntimeTypes';
+export * from './lib/util/RelayRuntimeTypes';
 
 // Core API
 export { default as Environment } from './lib/store/RelayModernEnvironment';

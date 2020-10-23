@@ -17,7 +17,7 @@ export interface NodeLevelNodeConfiguration {
     fontColor: string;
     opacity: number;
     renderLabel: boolean;
-    size: number;
+    size: number | { width: number; height: number; };
     strokeColor: string;
     strokeWidth: number;
     svg: string;
@@ -31,7 +31,7 @@ export interface GraphLevelNodeConfiguration<N extends GraphNode> {
     fontColor: string;
     opacity: number;
     renderLabel: boolean;
-    size: number;
+    size: number | { width: number; height: number; };
     strokeColor: string;
     strokeWidth: number;
     svg: string;

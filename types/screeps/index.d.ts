@@ -741,10 +741,10 @@ declare const BOOSTS: {
     };
 };
 
-declare const INTERSHARD_RESOURCES: [SUBSCRIPTION_TOKEN, CPU_UNLOCK, PIXEL, ACCESS_KEY];
+declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
 
 declare const COMMODITIES: Record<
-    CommodityConstant | MineralConstant | RESOURCE_GHODIUM,
+    CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY,
     {
         level?: number;
         amount: number;
@@ -2066,6 +2066,8 @@ type ExitKey = "1" | "3" | "5" | "7";
 
 type AnyCreep = Creep | PowerCreep;
 
+type FindClosestByPathAlgorithm = "astar" | "dijkstra";
+
 // Return Codes
 
 type ScreepsReturnCode =
@@ -2428,7 +2430,8 @@ type CommodityConstant =
     | RESOURCE_EMANATION
     | RESOURCE_ESSENCE;
 
-type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
+type InterShardResourceConstant = SUBSCRIPTION_TOKEN | CPU_UNLOCK | PIXEL | ACCESS_KEY;
+type MarketResourceConstant = ResourceConstant | InterShardResourceConstant;
 
 type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
@@ -2927,6 +2930,19 @@ interface MapVisual {
      * @returns The size of the visuals in bytes.
      */
     getSize(): number;
+
+    /**
+     * Returns a compact representation of all visuals added on the map in the current tick.
+     * @returns A string with visuals data. There's not much you can do with the string besides store them for later.
+     */
+    export(): string;
+
+    /**
+     * Add previously exported (with `Game.map.visual.export`) map visuals to the map visual data of the current tick.
+     * @param data The string returned from `Game.map.visual.export`.
+     * @returns The MapVisual object itself, so that you can chain calls.
+     */
+    import(data: string): MapVisual;
 }
 
 interface MapLineStyle {
@@ -3865,11 +3881,11 @@ interface RoomPosition {
      */
     findClosestByPath<K extends FindConstant>(
         type: K,
-        opts?: FindPathOpts & FilterOptions<K> & { algorithm?: string },
+        opts?: FindPathOpts & Partial<FilterOptions<K>> & { algorithm?: FindClosestByPathAlgorithm },
     ): FindTypes[K] | null;
     findClosestByPath<T extends Structure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & FilterOptions<FIND_STRUCTURES> & { algorithm?: string },
+        opts?: FindPathOpts & Partial<FilterOptions<FIND_STRUCTURES>> & { algorithm?: FindClosestByPathAlgorithm },
     ): T | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
@@ -3879,7 +3895,7 @@ interface RoomPosition {
      */
     findClosestByPath<T extends _HasRoomPosition | RoomPosition>(
         objects: T[],
-        opts?: FindPathOpts & { filter?: any | string; algorithm?: string },
+        opts?: FindPathOpts & { filter?: ((object: T) => boolean) | FilterObject | string; algorithm?: FindClosestByPathAlgorithm },
     ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
@@ -4141,6 +4157,19 @@ declare class RoomVisual {
      * @returns The size of the visuals in bytes.
      */
     getSize(): number;
+
+    /**
+     * Returns a compact representation of all visuals added in the room in the current tick.
+     * @returns A string with visuals data. There's not much you can do with the string besides store them for later.
+     */
+    export(): string;
+
+    /**
+     * Add previously exported (with `RoomVisual.export`) room visuals to the room visual data of the current tick.
+     * @param data The string returned from `RoomVisual.export`.
+     * @returns The RoomVisual object itself, so that you can chain calls.
+     */
+    import(data: string): RoomVisual;
 }
 
 interface LineStyle {

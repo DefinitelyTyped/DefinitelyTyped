@@ -6103,11 +6103,17 @@ function JQuery() {
         }
 
         function parents() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').parents('span');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').parents();
+
+            // $ExpectType JQuery<HTMLDivElement>
+            $(document).find('select').parents('div');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parents('.container');
         }
 
         function parentsUntil() {
