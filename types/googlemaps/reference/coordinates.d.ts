@@ -62,24 +62,28 @@ declare namespace google.maps {
     }
 
     /**
-     * Object literals are accepted in place of {@link LatLng} objects, as a
-     * convenience, in many places. These are converted to {@link LatLng} objects
-     * when the Maps API encounters them.
+     * Object literals are accepted in place of {@link LatLng} objects, as a convenience, in many places. These are
+     * converted to {@link LatLng} objects when the Maps API encounters them.
+     *
+     * **LatLng object literals are not supported in the Geometry library.**
+     * @example
+     * map.setCenter({lat: -34, lng: 151});
+     * new google.maps.Marker({position: {lat: -34, lng: 151}, map: map});
      * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngLiteral Maps JavaScript API}
      */
     interface LatLngLiteral {
         /**
-         * Latitude in degrees. Values will be clamped to the range [-90, 90]. This
-         * means that if the value specified is less than -90, it will be set to
-         * -90. And if the value is greater than 90, it will be set to 90.
+         * Latitude in degrees. Values will be clamped to the range [-90, 90]. This means that if the value specified is
+         * less than -90, it will be set to -90. And if the value is greater than 90, it will be set to 90.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngLiteral.lat Maps JavaScript API}
          */
         lat: number;
 
         /**
-         * Longitude in degrees. Values outside the range [-180, 180] will be
-         * wrapped so that they fall within the range. For example, a value of -190
-         * will be converted to 170. A value of 190 will be converted to -170. This
+         * Longitude in degrees. Values outside the range [-180, 180] will be wrapped so that they fall within the
+         * range. For example, a value of -190 will be converted to 170. A value of 190 will be converted to -170. This
          * reflects the fact that longitudes wrap around the globe.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngLiteral.lng Maps JavaScript API}
          */
         lng: number;
     }
