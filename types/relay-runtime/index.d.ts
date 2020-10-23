@@ -1,12 +1,7 @@
 // Type definitions for relay-runtime 10.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
-// Definitions by: Matt Martin <https://github.com/voxmatt>
-//                 Eloy Durán <https://github.com/alloy>
-//                 Cameron Knight <https://github.com/ckknight>
-//                 Renan Machado <https://github.com/renanmav>
+// Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Stephen Pittman <https://github.com/Stephen2>
-//                 Christian Ivicevic <https://github.com/ChristianIvicevic>
-//                 Lorenzo Di Giacomo <https://github.com/morrys>
 //                 Marais Rossouw <https://github.com/maraisr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
