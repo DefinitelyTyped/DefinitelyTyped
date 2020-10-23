@@ -768,15 +768,10 @@ Meteor.methods({
 HTTP.call("POST", "http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
     function (error, result) {
-        if (error) {
-            // $ExpectType Error
-            error;
-        } else {
-            // $ExpectType null
-            error;
-        }
+        error; // $ExpectType Error
+        result; // $ExpectType HTTPResponse
 
-        if (result && result.statusCode === 200) {
+        if (result.statusCode === 200) {
             Session.set("twizzled", true);
         }
     });
@@ -784,15 +779,10 @@ HTTP.call("POST", "http://api.twitter.com/xyz",
 HTTP.post("http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
     function (error, result) {
-        if (error) {
-            // $ExpectType Error
-            error;
-        } else {
-            // $ExpectType null
-            error;
-        }
+        error; // $ExpectType Error
+        result; // $ExpectType HTTPResponse
 
-        if (result && result.statusCode === 200) {
+        if (result.statusCode === 200) {
             Session.set("twizzled", true);
         }
     });
