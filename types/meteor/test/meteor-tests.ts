@@ -768,7 +768,7 @@ Meteor.methods({
 HTTP.call("POST", "http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
     function (error, result) {
-        // $ExpectType Meteor.Error | null
+        // $ExpectType Error | null
         error;
 
         if (result && result.statusCode === 200) {
@@ -779,7 +779,7 @@ HTTP.call("POST", "http://api.twitter.com/xyz",
 HTTP.post("http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
     function (error, result) {
-        // $ExpectType Meteor.Error | null
+        // $ExpectType Error | null
         error;
 
         if (result && result.statusCode === 200) {
