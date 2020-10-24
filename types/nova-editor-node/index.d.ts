@@ -441,7 +441,7 @@ declare class LanguageClient {
     readonly name: string;
     readonly running: boolean;
 
-    onDidStop<T>(this: T, callback: (err?: Error) => void, thisValue?: T): Disposable;
+    onDidStop<T>(callback: (this: T, err?: Error) => void, thisValue?: T): Disposable;
     onNotification(method: string, callback: (parameters: any) => void): void;
     onRequest(method: string, callback: (parameters: any) => unknown | Promise<unknown>): void;
     sendRequest(method: string, parameters?: unknown): Promise<unknown>;

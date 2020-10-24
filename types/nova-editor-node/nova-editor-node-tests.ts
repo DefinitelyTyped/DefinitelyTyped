@@ -14,6 +14,22 @@ const client = new LanguageClient(
     },
 );
 
+interface TestThisType {
+    __type: 'TestThisType';
+}
+declare const testThis: TestThisType;
+
+client.onDidStop(err => {
+    // $ExpectType Error | undefined
+    err;
+});
+client.onDidStop(function(err) {
+    // $ExpectType Error | undefined
+    err;
+    // $ExpectType TestThisType
+    this;
+}, testThis);
+
 export function activate() {
     client.start();
 }
