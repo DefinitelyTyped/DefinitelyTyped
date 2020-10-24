@@ -1053,3 +1053,8 @@ function sample12() {
   const x = position.left;
   const y = position.top;
 }
+
+function sample13() {
+  const rectangle = new fabric.Rect({top: 0, left: 0, width: 10, height: 10});
+  const rectangleAsHtmlCanvas: HTMLCanvasElement = rectangle.toCanvasElement();
+}

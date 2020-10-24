@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface SpinnerProps extends React.HTMLProps<HTMLElement> {
+export interface SpinnerProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     type?: string;
     size?: any;
     color?: string;
-    className?: string;
     cssModule?: CSSModule;
 }
 

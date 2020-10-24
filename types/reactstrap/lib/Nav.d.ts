@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface NavProps extends React.HTMLProps<HTMLUListElement> {
+export interface NavProps extends React.HTMLAttributes<HTMLUListElement> {
     [key: string]: any;
     tabs?: boolean;
     pills?: boolean;
@@ -11,8 +11,7 @@ export interface NavProps extends React.HTMLProps<HTMLUListElement> {
     fill?: boolean;
     navbar?: boolean;
     card?: boolean;
-    tag?: string | React.ReactType;
-    className?: string;
+    tag?: React.ElementType;
     cssModule?: CSSModule;
 }
 

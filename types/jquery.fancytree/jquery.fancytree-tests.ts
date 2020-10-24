@@ -61,6 +61,10 @@ $("#tree").fancytree(<Fancytree.FancytreeOptions>{
 
 var tree: Fancytree.Fancytree = $("#tree").fancytree("getTree");
 
+// test FancytreeStatic.getTree
+var otherTree: Fancytree.Fancytree = $.ui.fancytree.getTree('#tree');
+alert(tree === otherTree);
+
 var activeNode: Fancytree.FancytreeNode = tree.getRootNode();
 
 // Sort children of active node:
