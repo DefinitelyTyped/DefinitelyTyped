@@ -428,7 +428,7 @@
         },
         {
             "libraryName": "bugsnag-js",
-            "typingsPackageName": "bugsnag-js",
+            "typingsPackageName": "bugsnag",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
             "asOfVersion": "3.1.0"
         },
