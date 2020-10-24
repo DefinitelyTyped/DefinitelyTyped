@@ -3,7 +3,7 @@
 // Definitions by: Samuel Corsi-House <https://github.com/xenfo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { BrowserWindow, app } from 'electron';
+import { BrowserWindowConstructorOptions, app } from 'electron';
 
 declare class ProgressBar {
     constructor(options: ProgressBarOptions, electronApp?: typeof app)
@@ -35,7 +35,7 @@ interface ProgressBarOptions {
     text?: string;
     detail?: string;
     style?: StyleOptions;
-    browserWindow?: BrowserWindowOptions;
+    browserWindow?: BrowserWindowConstructorOptions;
 }
 
 interface StyleOptions {
@@ -43,17 +43,6 @@ interface StyleOptions {
     detail?: object;
     bar?: object;
     value?: object;
-}
-
-interface BrowserWindowOptions {
-    parent?: BrowserWindow;
-    modal?: boolean;
-    resizable?: boolean;
-    closable?: boolean;
-    minimizable?: boolean;
-    maximizable?: boolean;
-    width?: number;
-    height?: number;
 }
 
 export = ProgressBar;

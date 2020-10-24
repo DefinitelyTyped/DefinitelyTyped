@@ -1,7 +1,12 @@
 import ProgressBar = require('electron-progressbar');
 
 const progressBar = new ProgressBar({
-    title: 'Test'
+    title: 'Test',
+    browserWindow: {
+        webPreferences: {
+            nodeIntegration: false
+        }
+    }
 });
 
 progressBar.value = 10;
