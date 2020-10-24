@@ -52,6 +52,7 @@ export interface ConnectionOptions extends PartialOAuth2Options {
     maxRequest?: number;
     oauth2?: Partial<PartialOAuth2Options>;
     proxyUrl?: string;
+    httpProxy?: string;
     redirectUri?: string;
     refreshToken?: string;
     refreshFn?: (conn: Connection, callback: Callback<UserInfo>) => Promise<UserInfo>;
@@ -236,6 +237,7 @@ export class Connection extends BaseConnection {
     version: string;
     accessToken: string;
     refreshToken?: string;
+    userInfo?: UserInfo;
     initialize(options?: ConnectionOptions): void;
     queryAll<T>(soql: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     authorize(code: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
