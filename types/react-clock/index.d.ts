@@ -12,97 +12,97 @@ export interface ClockProps<T = ClockValue> {
     className?: string | string[];
     /**
      * Hour hand length, in %.
-     * Default: 50
+     * @default 50
      */
     hourHandLength?: number;
     /**
      * The length of the part of an hour hand on the opposite side the hand is pointing to, in %.
-     * Default: 10
+     * @default 10
      */
     hourHandOppositeLength?: number;
     /**
      * Hour hand width, in pixels.
-     * Default: 4
+     * @default 4
      */
     hourHandWidth?: number;
     /**
      * Hour marks length, in %.
-     * Default: 10
+     * @default 10
      */
     hourMarksLength?: number;
     /**
      * Hour marks width, in pixels.
-     * Default: 3
+     * @default 3
      */
     hourMarksWidth?: number;
     /**
      * Minute hand length, in %.
-     * Default: 70
+     * @default 70
      */
     minuteHandLength?: number;
     /**
      * The length of the part of a minute hand on the opposite side the hand is pointing to, in %.
-     * Default: 10
+     * @default 10
      */
     minuteHandOppositeLength?: number;
     /**
      * Minute hand width, in pixels.
-     * Default: 2
+     * @default 2
      */
     minuteHandWidth?: number;
     /**
      * Minute marks length, in %.
-     * Default: 6
+     * @default 6
      */
     minuteMarksLength?: number;
     /**
      * Minute marks width, in pixels.
-     * Default: 1
+     * @default 1
      */
     minuteMarksWidth?: number;
     /**
      * Whether hour marks shall be rendered.
-     * Default: true
+     * @default true
      */
     renderHourMarks?: boolean;
     /**
      * Whether minute hand shall be rendered.
-     * Default: true
+     * @default true
      */
     renderMinuteHand?: boolean;
     /**
      * Whether minute marks shall be rendered.
-     * Default: true
+     * @default true
      */
     renderMinuteMarks?: boolean;
     /**
      * Whether numbers shall be rendered.
-     * Default: false
+     * @default false
      */
     renderNumbers?: boolean;
     /**
      * Whether second hand shall be rendered.
-     * Default: true
+     * @default true
      */
     renderSecondHand?: boolean;
     /**
      * Second hand length, in %.
-     * Default: 90
+     * @default 90
      */
     secondHandLength?: number;
     /**
      * The length of the part of a second hand on the opposite side the hand is pointing to, in %.
-     * Default: 10
+     * @default 10
      */
     secondHandOppositeLength?: number;
     /**
      * Second hand width, in pixels.
-     * Default: 1
+     * @default 1
      */
     secondHandWidth?: number;
     /**
      * Clock size, in pixels.
-     * Default: 150
+     * @default 150
      */
     size?: number;
     /**

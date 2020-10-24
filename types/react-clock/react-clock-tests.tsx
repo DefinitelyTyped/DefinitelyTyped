@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Clock, { ClockProps } from 'react-clock';
+import Clock, { ClockValue } from 'react-clock';
 
 function MyApp() {
-    const [value] = React.useState<ClockProps['value']>(new Date());
+    const [value] = React.useState<ClockValue>(new Date());
 
     return (
         <div>
