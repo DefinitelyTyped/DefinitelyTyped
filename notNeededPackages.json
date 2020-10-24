@@ -3985,12 +3985,6 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "prando",
-            "typingsPackageName": "prando",
-            "sourceRepoURL": "https://github.com/zeh/prando",
-            "asOfVersion": "1.0.0"
-        },
-        {
             "libraryName": "pretty-bytes",
             "typingsPackageName": "pretty-bytes",
             "sourceRepoURL": "https://github.com/sindresorhus/pretty-bytes",
@@ -4915,12 +4909,6 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "shopify-prime",
-            "typingsPackageName": "shopify-prime",
-            "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
-            "asOfVersion": "2.0.0"
-        },
-        {
             "libraryName": "should",
             "typingsPackageName": "should",
             "sourceRepoURL": "https://github.com/shouldjs/should.js",
@@ -4931,12 +4919,6 @@
             "typingsPackageName": "simonwep__selection-js",
             "sourceRepoURL": "https://github.com/Simonwep/selection.git",
             "asOfVersion": "1.7.0"
-        },
-        {
-            "libraryName": "simplesignal",
-            "typingsPackageName": "simplesignal",
-            "sourceRepoURL": "https://github.com/zeh/simplesignal",
-            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "@sindresorhus/class-names",
