@@ -1079,6 +1079,10 @@ describe('', () => {
 
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});
+        interface Animal { type: string; }
+        interface Dog extends Animal { breed: string; }
+        const dog: Dog = { type: 'dog', breed: 'chihuahua' };
+        expect(dog as Animal).toStrictEqual({ type: 'dog', breed: 'chihuahua' });
         // $ExpectError
         expect('abc').toStrictEqual(2);
 
