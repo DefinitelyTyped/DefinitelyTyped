@@ -576,7 +576,7 @@ declare namespace jest {
          * This ensures that the object contains the desired structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        objectContaining<E = {}>(obj: Partial<E>): any;
+        objectContaining<E = {}>(obj: E): any;
         /**
          * `expect.not.stringMatching(string | regexp)` matches the received
          * string that does not match the expected regexp. It is the inverse of
@@ -679,7 +679,7 @@ declare namespace jest {
          * This ensures that the object contains the desired structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        objectContaining<E = {}>(obj: Partial<E>): any;
+        objectContaining<E = {}>(obj: E): any;
         /**
          * Matches any string that contains the exact provided string
          */

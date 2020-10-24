@@ -1137,6 +1137,7 @@ describe('', () => {
         expect(['abc']).toBe(expect.arrayContaining(['a', 'b']));
 
         expect.objectContaining({});
+        // $ExpectError
         expect.objectContaining<{ a: string, b: string }>({ a: '123' });
         // $ExpectError
         expect.objectContaining<{ a: string, b: string }>({ a: 123 });
