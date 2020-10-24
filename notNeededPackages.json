@@ -4915,12 +4915,6 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "shopify-prime",
-            "typingsPackageName": "shopify-prime",
-            "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
-            "asOfVersion": "2.0.0"
-        },
-        {
             "libraryName": "should",
             "typingsPackageName": "should",
             "sourceRepoURL": "https://github.com/shouldjs/should.js",
