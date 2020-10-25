@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/express": "^4.17.7"
+    }
+}
