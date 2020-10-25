@@ -49,7 +49,7 @@ declare namespace MiniCssExtractPlugin {
          * `false` disables the link `type` attribute
          * @default `text/css`
          */
-        linkType?: string | boolean;
+        linkType?: boolean | 'text/css';
     }
 }
 
