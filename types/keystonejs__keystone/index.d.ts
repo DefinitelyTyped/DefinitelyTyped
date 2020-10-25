@@ -1,4 +1,4 @@
-// Type definitions for @keystonejs/keystone 6.0
+// Type definitions for @keystonejs/keystone 7.0
 // Project: https://github.com/keystonejs/keystone
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
 //                 Timothee Clain <https://github.com/tclain>
