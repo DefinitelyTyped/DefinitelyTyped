@@ -27,9 +27,8 @@ connection.connect((err, conn) => {
             stmt.getNumUpdatedRows(); // $ExpectType number
             stmt.getRequestId(); // $ExpectType string
             stmt.getStatementId(); // $ExpectType string
-            var cols = stmt.getColumns();
-            var col1 = cols[0];
-            
+            const cols = stmt.getColumns();
+            const col1 = cols[0];
             const stream = stmt.streamRows();
 
             stream.on('data', data => {
