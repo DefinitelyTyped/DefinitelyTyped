@@ -14,4 +14,4 @@ declare const pd: {
     sqlmin: (data: string) => string,
 };
 
-export  = pd;
+export = pd;
