@@ -6055,12 +6055,6 @@
             "asOfVersion": "3.0.0"
         },
         {
-            "libraryName": "yfiles",
-            "typingsPackageName": "yfiles",
-            "sourceRepoURL": "none",
-            "asOfVersion": "2.1.0"
-        },
-        {
             "libraryName": "yn",
             "typingsPackageName": "yn",
             "sourceRepoURL": "https://github.com/sindresorhus/yn",
