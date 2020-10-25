@@ -220,7 +220,6 @@ declare namespace google.maps {
     /**
      * A single address component within a {@link GeocoderResult}. A full address may consist of multiple address
      * components.
-
      * @see {@link https://developers.google.com/maps/documentation/javascript/reference/geocoder#GeocoderAddressComponent Maps JavaScript API}
      */
     interface GeocoderAddressComponent {
