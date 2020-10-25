@@ -80,7 +80,6 @@ import * as R from 'ramda';
             return unreachableCase(key);
         }
 
-        const test1 = value.charAt(0);
         return returnValue;
     }, testObject);
 
