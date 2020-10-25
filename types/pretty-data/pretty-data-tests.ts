@@ -1,13 +1,13 @@
-import chalk = require('pretty-data');
+import pd = require('pretty-data');
 
-chalk.css('');
-chalk.cssmin('');
+pd.css('');
+pd.cssmin('');
 
-chalk.json('');
-chalk.jsonmin('');
+pd.json('');
+pd.jsonmin('');
 
-chalk.xml('');
-chalk.xmlmin('');
+pd.xml('');
+pd.xmlmin('');
 
-chalk.sql('');
-chalk.sqlmin('');
+pd.sql('');
+pd.sqlmin('');
