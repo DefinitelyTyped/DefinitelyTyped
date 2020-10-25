@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "three": "*"
+        "three": "^0.*"
     },
     "private": true
 }
