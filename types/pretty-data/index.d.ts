@@ -3,7 +3,7 @@
 // Definitions by: Zeeshan Ahmad <https://github.com/ziishaned>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const pd: {
+export const pd: {
     xml: (data: string) => string,
     json: (data: string) => string,
     css: (data: string, preserveComments?: boolean) => string,
@@ -13,5 +13,3 @@ declare const pd: {
     cssmin: (data: string) => string,
     sqlmin: (data: string) => string,
 };
-
-export = pd;
