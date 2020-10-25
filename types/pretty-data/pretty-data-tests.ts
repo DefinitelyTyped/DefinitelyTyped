@@ -1,4 +1,4 @@
-import { pd } = require('pretty-data');
+import { pd } from 'pretty-data';
 
 pd.css('');
 pd.cssmin('');
