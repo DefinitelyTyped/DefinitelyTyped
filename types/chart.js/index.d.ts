@@ -308,6 +308,7 @@ declare namespace Chart {
         rotation?: number;
         devicePixelRatio?: number;
         plugins?: ChartPluginsOptions;
+        annotation?: Object;
     }
 
     interface ChartFontOptions {
