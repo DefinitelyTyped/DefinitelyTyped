@@ -51,6 +51,11 @@ declare module "http" {
         'range'?: string;
         'referer'?: string;
         'retry-after'?: string;
+        'sec-websocket-accept'?: string;
+        'sec-websocket-extensions'?: string;
+        'sec-websocket-key'?: string;
+        'sec-websocket-protocol'?: string;
+        'sec-websocket-version'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
         'tk'?: string;
