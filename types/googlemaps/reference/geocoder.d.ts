@@ -5,6 +5,12 @@ declare namespace google.maps {
      */
     class Geocoder {
         /**
+         * Creates a new instance of a Geocoder that sends geocode requests to Google servers.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/geocoder#Geocoder.constructor Maps JavaScript API}
+         */
+        constructor();
+
+        /**
          * Geocode a request.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/geocoder#Geocoder.geocode Maps JavaScript API}
          */
