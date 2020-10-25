@@ -23,7 +23,13 @@ connection.connect((err, conn) => {
             });
 
             stmt.getSqlText(); // $ExpectType string
-
+            stmt.getNumRows(); // $ExpectType number
+            stmt.getNumUpdatedRows(); // $ExpectType number
+            stmt.getRequestId(); // $ExpectType string
+            stmt.getStatementId(); // $ExpectType string
+            var cols = stmt.getColumns();
+            var col1 = cols[0];
+            
             const stream = stmt.streamRows();
 
             stream.on('data', data => {
