@@ -1,4 +1,5 @@
 import * as assert from 'assert';
+import util = require('util');
 
 assert(true, "it's working");
 
@@ -56,4 +57,10 @@ assert['fail'](true, true, 'works like a charm');
     const a = { b: 2 } as any;
     assert.deepStrictEqual(a, { b: 2 });
     a; // $ExpectType { b: number; }
+}
+
+{
+    const o = {
+        [util.inspect.custom](): string { return "hi"; }
+    };
 }

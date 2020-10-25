@@ -38,7 +38,7 @@ extends InheritedProps<ItemType> {
     onChange?(data: { selectedItem?: ItemType | null }): void,
     onInputChange?(inputValue?: string): void,
     selectedItem?: ItemType | null,
-    shouldFilterItem?(item: ItemType, itemToString?: ComboBoxProps<ItemType>["itemToString"], inputValue?: string): void,
+    shouldFilterItem?(data: { item: ItemType, itemToString?: ComboBoxProps<ItemType>["itemToString"], inputValue?: string }): void,
     size?: ListBoxSize,
     titleText?: React.ReactNode,
 }

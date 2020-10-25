@@ -1,5 +1,5 @@
 import { Coordinate } from '../../coordinate';
-import { EventsKey, ListenerFunction } from '../../events';
+import { EventsKey } from '../../events';
 import BaseEvent from '../../events/Event';
 import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
@@ -58,13 +58,15 @@ export default class CanvasTileLayerRenderer extends CanvasLayerRenderer {
         hitTolerance: number,
         callback: (p0: FeatureLike, p1: Layer<Source>) => T,
         declutteredFeatures: FeatureLike[],
-    ): T | void;
+    ): T;
+    getImage(): HTMLCanvasElement;
     getLayer(): TileLayer | VectorTileLayer;
     getTile(z: number, x: number, y: number, frameState: FrameState): Tile;
     handleFontsChanged(): void;
+    loadedTileCallback(tiles: { [key: number]: { [key: string]: Tile } }, zoom: number, tile: Tile): boolean;
     prepareFrame(frameState: FrameState): boolean;
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

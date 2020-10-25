@@ -4,7 +4,7 @@
 * In case of any problems please post issue to https://github.com/Maxim-Mazurok/google-api-typings-generator
 **/
 
-// Revision: 20200902
+// Revision: 20201012
 
 gapi.load('client', () => {
     /** now we can use gapi.client */
@@ -31,6 +31,10 @@ gapi.load('client', () => {
             'https://www.googleapis.com/auth/classroom.coursework.students',
             /** View course work and grades for students in the Google Classroom classes you teach or administer */
             'https://www.googleapis.com/auth/classroom.coursework.students.readonly',
+            /** See, edit, and create classwork materials in Google Classroom */
+            'https://www.googleapis.com/auth/classroom.courseworkmaterials',
+            /** See all classwork materials for your Google Classroom classes */
+            'https://www.googleapis.com/auth/classroom.courseworkmaterials.readonly',
             /** View your Google Classroom guardians */
             'https://www.googleapis.com/auth/classroom.guardianlinks.me.readonly',
             /** View and manage guardians for students in your Google Classroom classes */
@@ -1594,6 +1598,148 @@ gapi.load('client', () => {
             courseWorkId: "Test string",
             id: "Test string",
         }, {
+        });
+        /**
+         * Creates a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course, create
+         * course work material in the requested course, share a Drive attachment, or for access errors. * `INVALID_ARGUMENT` if the request is malformed or if more than 20 * materials are
+         * provided. * `NOT_FOUND` if the requested course does not exist. * `FAILED_PRECONDITION` for the following request error: * AttachmentNotVisible
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.create({
+            courseId: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a course work material. This request must be made by the Developer Console project of the [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to create the
+         * corresponding course work material item. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project did not create the corresponding course
+         * work material, if the requesting user is not permitted to delete the requested course or for access errors. * `FAILED_PRECONDITION` if the requested course work material has already
+         * been deleted. * `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or course
+         * work material, or for access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course or course work material does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of course work material that the requester is permitted to view. Course students may only view `PUBLISHED` course work material. Course teachers and domain administrators
+         * may view all course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or for
+         * access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.list({
+            courseId: "Test string",
+            courseWorkMaterialStates: "Test string",
+            materialDriveId: "Test string",
+            materialLink: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project for access errors. *
+         * `INVALID_ARGUMENT` if the request is malformed. * `FAILED_PRECONDITION` if the requested course work material has already been deleted. * `NOT_FOUND` if the requested course or course
+         * work material does not exist
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
         });
         /**
          * Adds a user as a student of a course. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to create students in this course or
@@ -3232,6 +3378,148 @@ gapi.load('client', () => {
         }, {
         });
         /**
+         * Creates a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course, create
+         * course work material in the requested course, share a Drive attachment, or for access errors. * `INVALID_ARGUMENT` if the request is malformed or if more than 20 * materials are
+         * provided. * `NOT_FOUND` if the requested course does not exist. * `FAILED_PRECONDITION` for the following request error: * AttachmentNotVisible
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.create({
+            courseId: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a course work material. This request must be made by the Developer Console project of the [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to create the
+         * corresponding course work material item. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project did not create the corresponding course
+         * work material, if the requesting user is not permitted to delete the requested course or for access errors. * `FAILED_PRECONDITION` if the requested course work material has already
+         * been deleted. * `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or course
+         * work material, or for access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course or course work material does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of course work material that the requester is permitted to view. Course students may only view `PUBLISHED` course work material. Course teachers and domain administrators
+         * may view all course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or for
+         * access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.list({
+            courseId: "Test string",
+            courseWorkMaterialStates: "Test string",
+            materialDriveId: "Test string",
+            materialLink: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project for access errors. *
+         * `INVALID_ARGUMENT` if the request is malformed. * `FAILED_PRECONDITION` if the requested course work material has already been deleted. * `NOT_FOUND` if the requested course or course
+         * work material does not exist
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
          * Adds a user as a student of a course. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to create students in this course or
          * for access errors. * `NOT_FOUND` if the requested course ID does not exist. * `FAILED_PRECONDITION` if the requested user's account is disabled, for the following request errors: *
          * CourseMemberLimitReached * CourseNotModifiable * UserGroupsMembershipLimitReached * `ALREADY_EXISTS` if the user is already a student or teacher in the course.
@@ -4866,6 +5154,148 @@ gapi.load('client', () => {
             courseWorkId: "Test string",
             id: "Test string",
         }, {
+        });
+        /**
+         * Creates a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course, create
+         * course work material in the requested course, share a Drive attachment, or for access errors. * `INVALID_ARGUMENT` if the request is malformed or if more than 20 * materials are
+         * provided. * `NOT_FOUND` if the requested course does not exist. * `FAILED_PRECONDITION` for the following request error: * AttachmentNotVisible
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.create({
+            courseId: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a course work material. This request must be made by the Developer Console project of the [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to create the
+         * corresponding course work material item. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project did not create the corresponding course
+         * work material, if the requesting user is not permitted to delete the requested course or for access errors. * `FAILED_PRECONDITION` if the requested course work material has already
+         * been deleted. * `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or course
+         * work material, or for access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course or course work material does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of course work material that the requester is permitted to view. Course students may only view `PUBLISHED` course work material. Course teachers and domain administrators
+         * may view all course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or for
+         * access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.list({
+            courseId: "Test string",
+            courseWorkMaterialStates: "Test string",
+            materialDriveId: "Test string",
+            materialLink: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project for access errors. *
+         * `INVALID_ARGUMENT` if the request is malformed. * `FAILED_PRECONDITION` if the requested course work material has already been deleted. * `NOT_FOUND` if the requested course or course
+         * work material does not exist
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
         });
         /**
          * Adds a user as a student of a course. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to create students in this course or
@@ -6507,6 +6937,148 @@ gapi.load('client', () => {
             courseWorkId: "Test string",
             id: "Test string",
         }, {
+        });
+        /**
+         * Creates a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course, create
+         * course work material in the requested course, share a Drive attachment, or for access errors. * `INVALID_ARGUMENT` if the request is malformed or if more than 20 * materials are
+         * provided. * `NOT_FOUND` if the requested course does not exist. * `FAILED_PRECONDITION` for the following request error: * AttachmentNotVisible
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.create({
+            courseId: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a course work material. This request must be made by the Developer Console project of the [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to create the
+         * corresponding course work material item. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project did not create the corresponding course
+         * work material, if the requesting user is not permitted to delete the requested course or for access errors. * `FAILED_PRECONDITION` if the requested course work material has already
+         * been deleted. * `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or course
+         * work material, or for access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course or course work material does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of course work material that the requester is permitted to view. Course students may only view `PUBLISHED` course work material. Course teachers and domain administrators
+         * may view all course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or for
+         * access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.list({
+            courseId: "Test string",
+            courseWorkMaterialStates: "Test string",
+            materialDriveId: "Test string",
+            materialLink: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project for access errors. *
+         * `INVALID_ARGUMENT` if the request is malformed. * `FAILED_PRECONDITION` if the requested course work material has already been deleted. * `NOT_FOUND` if the requested course or course
+         * work material does not exist
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
         });
         /**
          * Adds a user as a student of a course. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to create students in this course or
@@ -8199,6 +8771,148 @@ gapi.load('client', () => {
         }, {
         });
         /**
+         * Creates a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course, create
+         * course work material in the requested course, share a Drive attachment, or for access errors. * `INVALID_ARGUMENT` if the request is malformed or if more than 20 * materials are
+         * provided. * `NOT_FOUND` if the requested course does not exist. * `FAILED_PRECONDITION` for the following request error: * AttachmentNotVisible
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.create({
+            courseId: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a course work material. This request must be made by the Developer Console project of the [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to create the
+         * corresponding course work material item. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project did not create the corresponding course
+         * work material, if the requesting user is not permitted to delete the requested course or for access errors. * `FAILED_PRECONDITION` if the requested course work material has already
+         * been deleted. * `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or course
+         * work material, or for access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course or course work material does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of course work material that the requester is permitted to view. Course students may only view `PUBLISHED` course work material. Course teachers and domain administrators
+         * may view all course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or for
+         * access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.list({
+            courseId: "Test string",
+            courseWorkMaterialStates: "Test string",
+            materialDriveId: "Test string",
+            materialLink: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project for access errors. *
+         * `INVALID_ARGUMENT` if the request is malformed. * `FAILED_PRECONDITION` if the requested course work material has already been deleted. * `NOT_FOUND` if the requested course or course
+         * work material does not exist
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
          * Adds a user as a student of a course. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to create students in this course or
          * for access errors. * `NOT_FOUND` if the requested course ID does not exist. * `FAILED_PRECONDITION` if the requested user's account is disabled, for the following request errors: *
          * CourseMemberLimitReached * CourseNotModifiable * UserGroupsMembershipLimitReached * `ALREADY_EXISTS` if the user is already a student or teacher in the course.
@@ -9885,6 +10599,148 @@ gapi.load('client', () => {
             courseWorkId: "Test string",
             id: "Test string",
         }, {
+        });
+        /**
+         * Creates a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course, create
+         * course work material in the requested course, share a Drive attachment, or for access errors. * `INVALID_ARGUMENT` if the request is malformed or if more than 20 * materials are
+         * provided. * `NOT_FOUND` if the requested course does not exist. * `FAILED_PRECONDITION` for the following request error: * AttachmentNotVisible
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.create({
+            courseId: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
+        });
+        /**
+         * Deletes a course work material. This request must be made by the Developer Console project of the [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to create the
+         * corresponding course work material item. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project did not create the corresponding course
+         * work material, if the requesting user is not permitted to delete the requested course or for access errors. * `FAILED_PRECONDITION` if the requested course work material has already
+         * been deleted. * `NOT_FOUND` if no course exists with the requested ID.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.delete({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or course
+         * work material, or for access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course or course work material does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.get({
+            courseId: "Test string",
+            id: "Test string",
+        });
+        /**
+         * Returns a list of course work material that the requester is permitted to view. Course students may only view `PUBLISHED` course work material. Course teachers and domain administrators
+         * may view all course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to access the requested course or for
+         * access errors. * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the requested course does not exist.
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.list({
+            courseId: "Test string",
+            courseWorkMaterialStates: "Test string",
+            materialDriveId: "Test string",
+            materialLink: "Test string",
+            orderBy: "Test string",
+            pageSize: 42,
+            pageToken: "Test string",
+        });
+        /**
+         * Updates one or more fields of a course work material. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting developer project for access errors. *
+         * `INVALID_ARGUMENT` if the request is malformed. * `FAILED_PRECONDITION` if the requested course work material has already been deleted. * `NOT_FOUND` if the requested course or course
+         * work material does not exist
+         */
+        await gapi.client.classroom.courses.courseWorkMaterials.patch({
+            courseId: "Test string",
+            id: "Test string",
+            updateMask: "Test string",
+        }, {
+            alternateLink: "Test string",
+            assigneeMode: "Test string",
+            courseId: "Test string",
+            creationTime: "Test string",
+            creatorUserId: "Test string",
+            description: "Test string",
+            id: "Test string",
+            individualStudentsOptions: {
+                studentIds: [
+                    "Test string"                ],
+            },
+            materials: [
+                {
+                    driveFile: {
+                        driveFile: {
+                            alternateLink: "Test string",
+                            id: "Test string",
+                            thumbnailUrl: "Test string",
+                            title: "Test string",
+                        },
+                        shareMode: "Test string",
+                    },
+                    form: {
+                        formUrl: "Test string",
+                        responseUrl: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                    link: {
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                        url: "Test string",
+                    },
+                    youtubeVideo: {
+                        alternateLink: "Test string",
+                        id: "Test string",
+                        thumbnailUrl: "Test string",
+                        title: "Test string",
+                    },
+                }            ],
+            scheduledTime: "Test string",
+            state: "Test string",
+            title: "Test string",
+            topicId: "Test string",
+            updateTime: "Test string",
         });
         /**
          * Adds a user as a student of a course. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to create students in this course or

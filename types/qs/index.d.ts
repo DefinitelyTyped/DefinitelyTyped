@@ -54,16 +54,9 @@ declare namespace QueryString {
         interpretNumericEntities?: boolean;
     }
 
-    // TODO: The value type here is a version of `unknown` which replicates with an acceptably lossy amount of accuracy.
-    // When these types support TypeScript 3.0+, we can replace this with `unknown`.
-    type UnknownFacade = {} | null | undefined;
-
-    /** @deprecated - UnknownFacade is more clear about what's going on */
-    type PoorMansUnknown = UnknownFacade
-
     interface ParsedQs { [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[] }
 
     function stringify(obj: any, options?: IStringifyOptions): string;
     function parse(str: string, options?: IParseOptions & { decoder?: never }): ParsedQs;
-    function parse(str: string, options?: IParseOptions): { [key: string]: UnknownFacade };
+    function parse(str: string, options?: IParseOptions): { [key: string]: unknown };
 }

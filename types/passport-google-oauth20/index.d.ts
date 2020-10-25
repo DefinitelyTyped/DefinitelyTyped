@@ -10,7 +10,6 @@
 import * as passport from "passport";
 import * as express from "express";
 import * as oauth2 from "passport-oauth2";
-import { OutgoingHttpHeaders } from "http";
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
     oauth2._StrategyOptionsBase,
@@ -55,11 +54,32 @@ export class Strategy extends oauth2.Strategy {
         ) => void
     );
     constructor(
+        options: StrategyOptions,
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            params: any,
+            profile: Profile,
+            done: VerifyCallback
+        ) => void
+    );
+    constructor(
         options: StrategyOptionsWithRequest,
         verify: (
             req: express.Request,
             accessToken: string,
             refreshToken: string,
+            profile: Profile,
+            done: VerifyCallback
+        ) => void
+    );
+    constructor(
+        options: StrategyOptionsWithRequest,
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            refreshToken: string,
+            params: any,
             profile: Profile,
             done: VerifyCallback
         ) => void

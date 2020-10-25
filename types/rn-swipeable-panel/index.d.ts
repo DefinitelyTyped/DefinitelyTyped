@@ -1,7 +1,7 @@
 // Type definitions for rn-swipeable-panel 1.2
 // Project: https://github.com/enesozturk/rn-swipeable-panel
 // Definitions by: Enes Öztürk <https://github.com/enesozturk>
-// Definitions: https://github.com/DefinitelyTyped/types/rn-swipeable-panel
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
 

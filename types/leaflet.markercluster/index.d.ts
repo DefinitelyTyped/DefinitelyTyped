@@ -130,11 +130,13 @@ declare module 'leaflet' {
     }
 
     class MarkerClusterGroup extends FeatureGroup {
+        constructor(options?: MarkerClusterGroupOptions);
+
         /*
         * Bulk methods for adding and removing markers and should be favoured over the
         * single versions when doing bulk addition/removal of markers.
         */
-        addLayers(layers: Layer[]): this;
+        addLayers(layers: Layer[], skipLayerAddEvent?: boolean): this;
         removeLayers(layers: Layer[]): this;
 
         clearLayers(): this;

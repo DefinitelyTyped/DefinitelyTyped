@@ -1,4 +1,4 @@
-// Type definitions for unl-core 2.0
+// Type definitions for unl-core 2.1
 // Project: https://github.com/u-n-l/core-js
 // Definitions by: UNL Network B.V. <https://github.com/u-n-l>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -49,6 +49,18 @@ export interface LocationIdWithElevation {
     locationId: string;
     elevation: number;
     elevationType: ElevationType;
+}
+
+export interface Address {
+    geohash: string;
+    words: string;
+    coordinates: PointWithElevation;
+    bounds: BoundsWithElevation;
+}
+
+export interface Polyhash {
+    precision: number;
+    data: string[];
 }
 
 /**
@@ -143,8 +155,86 @@ export function appendElevation(
  * SW/NE latitude/longitude bounds and precision. Each line is represented by an array of two
  * coordinates in the format: [[startLon, startLat], [endLon, endLat]].
  *
- * @param   bounds - The bound whithin to return the grid lines.
+ * @param   bounds - The bound within to return the grid lines.
  * @param   [precision] - Number of characters to consider for the locationId of a grid cell. Default value is 9.
  * @returns grid lines
  */
 export function gridLines(bounds: Bounds, precision?: number): Array<[[number, number], [number, number]]>;
+
+/**
+ * Returns the human-readable address of a given location (either coordinates or UNL cell id)
+ *
+ * @param location - the location (Id or lat-lon coordinates) of the point for which you would like the address
+ * @param apiKey - Your UNL API key used to access the location APIs
+ * @param langCode - 2 letter language code of response (default: en)
+ * @param count - the number of words in the returned address (only valid for coordinate calls)
+ */
+export function toWords(location: string, apiKey: string, langCode: string, count: number): Address;
+
+/**
+ * Returns the coordinates of a given address
+ *
+ * @param words - the words representing the point for which you would like the coordinates
+ * @param apiKey - Your UNL API key used to access the location APIs
+ * @param langCode - 2 letter language code of response (default: en)
+ */
+export function fromWords(words: string, apiKey: string, langCode: string): Address;
+
+// Polyhash
+
+/**
+ * Converts an array of points into a Polyhash, locationId-polygon
+ *
+ * @param points - An array of latitude longitude coordinates, making up a polygon
+ * @param locationIdPrecision - The precision of the output locationId polygon (Polyhash)
+ * @param shouldDeflate - if false, returned Polyhash will have full-length, inflated locationIds (default: false)
+ */
+export function toPolyhash(points: number[][], locationIdPrecision: number): Polyhash[];
+
+/**
+ * Returns an array of coordinates, the polygon represented by the given Polyhash
+ *
+ * @param polyhash - The Polyhash object to be turned back into coordinates
+ */
+export function toCoordinates(polyhash: string[]): number[][];
+
+/**
+ * Compress the given Polyhash object
+ *
+ * @param polyhash - The Polyhash object to be compressed
+ */
+export function compressPolyhash(polyhash: Polyhash[]): string;
+
+/**
+ * Return the Polyhash object represented by the compressed signature
+ *
+ * @param compressedPolyhash
+ */
+export function decompressPolyhash(compressedPolyhash: string): string[];
+
+/**
+ * Convert the given polygon into a cluster of locationIds
+ *
+ * @param points
+ * @param locationIdPrecision
+ */
+export function toCluster(points: number[][], locationIdPrecision: number): Polyhash[];
+
+/**
+ * Convert a list of deflated locationIds into its full-length equivalent
+ * @param deflatedList
+ */
+export function inflate(deflatedList: Polyhash[]): string[];
+
+/**
+ * Return a deflated list of locationIds
+ *
+ * @param locationIds
+ */
+export function deflate(locationIds: string[]): Polyhash[];
+
+/**
+ * Convert locationId array into Polyhash, removes the common prefix and group them by precision
+ * @param locationIds
+ */
+export function groupByPrefix(locationIds: string[]): string[][];

@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-declare-current-package": false,
         "only-arrow-functions": false
     }
 }

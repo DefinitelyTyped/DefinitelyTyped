@@ -15,7 +15,12 @@
         "types": [],
         "noEmit": true,
         "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@keep-network/*": [
+                "keep-network__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

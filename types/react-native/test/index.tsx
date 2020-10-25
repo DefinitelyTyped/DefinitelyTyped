@@ -3,10 +3,10 @@ The content of index.io.js could be something like
 
     'use strict';
 
-     import { AppRegistry } from 'react-native'
-     import Welcome from './gen/Welcome'
+    import { AppRegistry } from 'react-native'
+    import Welcome from './gen/Welcome'
 
-     AppRegistry.registerComponent('MopNative', () => Welcome);
+    AppRegistry.registerComponent('MopNative', () => Welcome);
 
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
 */
@@ -14,101 +14,110 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+    ART,
+    AccessibilityInfo,
+    AsyncStorage,
     Alert,
     AppState,
+    AppStateStatus,
+    Appearance,
     BackHandler,
     Button,
     CheckBox,
     ColorPropType,
+    ColorValue,
     DataSourceAssetCallback,
+    DatePickerAndroid,
+    DevSettings,
     DeviceEventEmitter,
     DeviceEventEmitterStatic,
-    NativeEventEmitter,
     Dimensions,
-    Image,
-    ImageStyle,
-    ImageResizeMode,
-    ImageLoadEventData,
-    ImageErrorEventData,
-    ImageResolvedAssetSource,
-    ImageBackground,
-    InteractionManager,
-    Linking,
-    ListView,
-    ListViewDataSource,
-    StyleSheet,
-    StyleProp,
-    Systrace,
-    Text,
-    TextStyle,
-    TextProps,
-    View,
-    ViewStyle,
-    ViewPagerAndroid,
+    DrawerLayoutAndroid,
+    DrawerSlideEvent,
+    DynamicColorIOS,
     FlatList,
     FlatListProps,
+    GestureResponderEvent,
+    HostComponent,
+    I18nManager,
+    Image,
+    ImageBackground,
+    ImageErrorEventData,
+    ImageLoadEventData,
+    ImageResizeMode,
+    ImageResolvedAssetSource,
+    ImageStyle,
+    InputAccessoryView,
+    InteractionManager,
+    Keyboard,
+    KeyboardAvoidingView,
+    LayoutChangeEvent,
+    Linking,
+    ListRenderItemInfo,
+    ListView,
+    ListViewDataSource,
+    LogBox,
+    MaskedViewIOS,
+    Modal,
+    NativeEventEmitter,
+    NativeModules,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    PermissionsAndroid,
+    Picker,
+    PickerIOS,
+    Platform,
+    PlatformColor,
+    Pressable,
+    ProgressBarAndroid,
+    ProgressViewIOS,
+    PushNotificationIOS,
+    RefreshControl,
+    RegisteredStyle,
     ScaledSize,
-    SectionList,
-    SectionListProps,
-    findNodeHandle,
     ScrollView,
     ScrollViewProps,
+    SectionList,
+    SectionListProps,
     SectionListRenderItemInfo,
     Share,
     ShareDismissedAction,
     ShareSharedAction,
-    Switch,
-    RefreshControl,
-    RegisteredStyle,
-    TabBarIOS,
-    NativeModules,
-    MaskedViewIOS,
-    TextInput,
-    TouchableNativeFeedback,
-    TextInputFocusEventData,
-    InputAccessoryView,
     StatusBar,
-    NativeSyntheticEvent,
-    NativeScrollEvent,
-    GestureResponderEvent,
-    TextInputScrollEventData,
-    TextInputSelectionChangeEventData,
-    TextInputKeyPressEventData,
+    StyleProp,
+    StyleSheet,
+    Switch,
+    SwitchIOS,
+    Systrace,
+    TabBarIOS,
+    Text,
+    TextInput,
     TextInputChangeEventData,
     TextInputContentSizeChangeEventData,
     TextInputEndEditingEventData,
+    TextInputFocusEventData,
+    TextInputKeyPressEventData,
+    TextInputScrollEventData,
+    TextInputSelectionChangeEventData,
     TextInputSubmitEditingEventData,
-    KeyboardAvoidingView,
-    Modal,
-    TimePickerAndroid,
-    DatePickerAndroid,
-    Picker,
-    ViewPropTypes,
-    requireNativeComponent,
-    Keyboard,
-    PermissionsAndroid,
-    Platform,
-    PlatformColor,
-    DynamicColorIOS,
-    ProgressBarAndroid,
-    PushNotificationIOS,
-    AccessibilityInfo,
-    YellowBox,
-    useWindowDimensions,
-    HostComponent,
-    Appearance,
-    useColorScheme,
-    DevSettings,
-    Pressable,
-    VirtualizedList,
-    ListRenderItemInfo,
-    LogBox,
-    ColorValue,
     TextLayoutEventData,
-    LayoutChangeEvent,
-    AppStateStatus,
-    DrawerLayoutAndroid,
-    DrawerSlideEvent,
+    TextProps,
+    TextStyle,
+    TimePickerAndroid,
+    TouchableNativeFeedback,
+    UIManager,
+    View,
+    ViewPagerAndroid,
+    ViewPropTypes,
+    ViewStyle,
+    VirtualizedList,
+    YellowBox,
+    findNodeHandle,
+    requireNativeComponent,
+    useColorScheme,
+    useWindowDimensions,
+    SectionListData,
+    ToastAndroid,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -243,11 +252,17 @@ const combinedStyle: StyleProp<TextStyle> = StyleSheet.compose(composeTextStyle,
 
 const combinedStyle1: StyleProp<ImageStyle> = StyleSheet.compose(composeImageStyle, composeImageStyle);
 
-const combinedStyle2: StyleProp<TextStyle> = StyleSheet.compose([composeTextStyle], [composeTextStyle]);
+const combinedStyle2: StyleProp<TextStyle | ConcatArray<TextStyle>> = StyleSheet.compose(
+    [composeTextStyle],
+    [composeTextStyle],
+);
 
-const combinedStyle3: StyleProp<TextStyle> = StyleSheet.compose(composeTextStyle, null);
+const combinedStyle3: StyleProp<TextStyle | null> = StyleSheet.compose(composeTextStyle, null);
 
-const combinedStyle4: StyleProp<TextStyle> = StyleSheet.compose([composeTextStyle], null);
+const combinedStyle4: StyleProp<TextStyle | ConcatArray<TextStyle> | null> = StyleSheet.compose(
+    [composeTextStyle],
+    null,
+);
 
 const combinedStyle5: StyleProp<TextStyle> = StyleSheet.compose(
     composeTextStyle,
@@ -573,6 +588,78 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
     }
 }
 
+type SectionT = { displayTitle: false } | { displayTitle: true; title: string };
+
+export class SectionListTypedSectionTest extends React.Component<SectionListProps<string, SectionT>, {}> {
+    myList: React.RefObject<SectionList<string, SectionT>>;
+
+    constructor(props: SectionListProps<string, SectionT>) {
+        super(props);
+        this.myList = React.createRef();
+    }
+
+    scrollMe = () => {
+        this.myList.current && this.myList.current.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
+    };
+
+    render() {
+        const sections: SectionListData<string, SectionT>[] = [
+            {
+                displayTitle: false,
+                data: ['A', 'B', 'C', 'D', 'E'],
+            },
+            {
+                displayTitle: true,
+                title: 'Section 2',
+                data: ['A2', 'B2', 'C2', 'D2', 'E2'],
+                renderItem: (info: { item: string }) => (
+                    <View>
+                        <Text>{info.item}</Text>
+                    </View>
+                ),
+            },
+        ];
+
+        const cellRenderer = ({ children }: any) => {
+            return <View>{children}</View>;
+        };
+
+        return (
+            <React.Fragment>
+                <Button title="Press" onPress={this.scrollMe} />
+
+                <SectionList
+                    ref={this.myList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => {
+                        section; // $ExpectType SectionListData<string, SectionT>
+
+                        return section.displayTitle ? (
+                            <View>
+                                <Text>{section.title}</Text>
+                            </View>
+                        ) : null;
+                    }}
+                    renderItem={info => {
+                        info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
+
+                        return (
+                            <View>
+                                <Text>
+                                    {info.section.displayTitle ? <Text>{`${info.section.title} - `}</Text> : null}
+                                    <Text>{info.item}</Text>
+                                </Text>
+                            </View>
+                        );
+                    }}
+                    CellRendererComponent={cellRenderer}
+                    maxToRenderPerBatch={5}
+                />
+            </React.Fragment>
+        );
+    }
+}
+
 export class CapsLockComponent extends React.Component<TextProps> {
     render() {
         const content = (this.props.children || '') as string;
@@ -601,7 +688,18 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
     scrollView: ScrollView | null = null;
 
     testNativeMethods() {
-        this.scrollView && this.scrollView.setNativeProps({ scrollEnabled: false });
+        if (this.scrollView) {
+            this.scrollView.setNativeProps({ scrollEnabled: false });
+
+            // Dummy values for scroll dimensions changes
+            this.scrollView.getScrollResponder().scrollResponderZoomTo({
+                x: 0,
+                y: 0,
+                width: 300,
+                height: 500,
+                animated: true,
+            });
+        }
     }
 
     render() {
@@ -949,9 +1047,18 @@ export class ImageTest extends React.Component {
             });
 
         Image.getSize(uri, (width, height) => console.log(width, height));
-        Image.getSize(uri, (width, height) => console.log(width, height), (error) => console.error(error));
+        Image.getSize(
+            uri,
+            (width, height) => console.log(width, height),
+            error => console.error(error),
+        );
         Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height));
-        Image.getSizeWithHeaders(uri, headers, (width, height) => console.log(width, height), (error) => console.error(error));
+        Image.getSizeWithHeaders(
+            uri,
+            headers,
+            (width, height) => console.log(width, height),
+            error => console.error(error),
+        );
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -1017,7 +1124,7 @@ class AccessibilityTest extends React.Component {
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityState={{ checked: true }}
-                accessibilityHint="Very importent header"
+                accessibilityHint="Very important header"
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
@@ -1079,6 +1186,7 @@ AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
 const ModalTest = () => <Modal hardwareAccelerated />;
+const ModalTest2 = () => <Modal hardwareAccelerated testID="modal-test-2" />;
 
 const TimePickerAndroidTest = () => {
     TimePickerAndroid.open({
@@ -1121,6 +1229,10 @@ class BridgedComponentTest extends React.Component {
 
     nativeComponentRef: React.ElementRef<typeof NativeBridgedComponent> | null;
 
+    callNativeMethod = () => {
+        UIManager.dispatchViewManagerCommand(findNodeHandle(this.nativeComponentRef), 'someNativeMethod', []);
+    };
+
     measureNativeComponent() {
         if (this.nativeComponentRef) {
             this.nativeComponentRef.measure(
@@ -1145,6 +1257,10 @@ const NativeIDTest = () => (
         <View nativeID={'nativeID'} />
         <Text nativeID={'nativeID'}>Text</Text>
     </ScrollView>
+);
+
+const ScrollViewMaintainVisibleContentPositionTest = () => (
+    <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}></ScrollView>
 );
 
 const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
@@ -1269,7 +1385,7 @@ const OpaqueTest2 = () => (
     />
 );
 
-// Test you cannot ammend opaque type
+// Test you cannot amend opaque type
 PlatformColor('?attr/colorControlNormal').resource_paths.push('foo'); // $ExpectError
 
 const someColorProp: ColorValue = PlatformColor('test');
@@ -1429,18 +1545,18 @@ export class DrawerLayoutAndroidTest extends React.Component {
     readonly styles = StyleSheet.create({
         container: {
             flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
+            alignItems: 'center',
+            justifyContent: 'center',
             paddingTop: 50,
-            backgroundColor: "#ecf0f1",
-            padding: 8
+            backgroundColor: '#ecf0f1',
+            padding: 8,
         },
         navigationContainer: {
             flex: 1,
             paddingTop: 50,
-            backgroundColor: "#fff",
-            padding: 8
-        }
+            backgroundColor: '#fff',
+            padding: 8,
+        },
     });
 
     readonly navigationView = (
@@ -1450,20 +1566,20 @@ export class DrawerLayoutAndroidTest extends React.Component {
     );
 
     handleDrawerClose = () => {
-        console.log("handleDrawerClose");
-    }
+        console.log('handleDrawerClose');
+    };
 
     handleDrawerOpen = () => {
-        console.log("handleDrawerOpen");
-    }
+        console.log('handleDrawerOpen');
+    };
 
     handleDrawerSlide = (event: DrawerSlideEvent) => {
-        console.log("handleDrawerSlide", event);
-    }
+        console.log('handleDrawerSlide', event);
+    };
 
-    handleDrawerStateChanged = (event: "Idle" | "Dragging" | "Settling") => {
-        console.log("handleDrawerStateChanged", event);
-    }
+    handleDrawerStateChanged = (event: 'Idle' | 'Dragging' | 'Settling') => {
+        console.log('handleDrawerStateChanged', event);
+    };
 
     render() {
         return (
@@ -1482,11 +1598,38 @@ export class DrawerLayoutAndroidTest extends React.Component {
                 statusBarBackgroundColor="yellow"
             >
                 <View style={this.styles.container}>
-                    <Text style={{ margin: 10, fontSize: 15 }}>
-                        DrawerLayoutAndroid example
-                    </Text>
+                    <Text style={{ margin: 10, fontSize: 15 }}>DrawerLayoutAndroid example</Text>
                 </View>
             </DrawerLayoutAndroid>
         );
     }
 }
+
+// DataDetectorType for Text component
+const DataDetectorTypeTest = () => {
+    return (
+        <>
+            <Text dataDetectorType={'all'}>http://test.com test@test.com +33123456789</Text>
+            <Text dataDetectorType={'email'}>test@test.com</Text>
+            <Text dataDetectorType={'link'}>http://test.com</Text>
+            <Text dataDetectorType={'none'}>Hi there !</Text>
+            <Text dataDetectorType={'phoneNumber'}>+33123456789</Text>
+            <Text dataDetectorType={null}>Must allow null value</Text>
+        </>
+    );
+};
+
+const ToastAndroidTest = () => {
+    ToastAndroid.showWithGravityAndOffset('My Toast', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 0, 50);
+};
+
+const I18nManagerTest = () => {
+    I18nManager.allowRTL(true);
+    I18nManager.forceRTL(true);
+    I18nManager.swapLeftAndRightInRTL(true);
+    const { isRTL, doLeftAndRightSwapInRTL } = I18nManager.getConstants();
+    const isRtlFlag = I18nManager.isRTL;
+    const doLeftAndRightSwapInRtlFlag = I18nManager.doLeftAndRightSwapInRTL;
+
+    console.log(isRTL, isRtlFlag, doLeftAndRightSwapInRTL, doLeftAndRightSwapInRtlFlag);
+};

@@ -18,7 +18,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@webscopeio/react-textarea-autocomplete": ["webscopeio__react-textarea-autocomplete"]
+            "@webscopeio/*": ["webscopeio__*"]
         }
     },
     "files": [

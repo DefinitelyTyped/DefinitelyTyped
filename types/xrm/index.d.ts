@@ -220,29 +220,29 @@ declare namespace Xrm {
      * Interface for UserSettings.dateFormattingInfo response
      */
     interface DateFormattingInfo {
-        amDesignator: string;
-        abbreviatedDayNames: string[];
-        abbreviatedMonthGenitiveNames: string[];
-        abbreviatedMonthNames: string[];
-        calendarWeekRule: number;
-        calendar: Calendar;
-        dateSeparator: string;
-        dayNames: string[];
-        firstDayOfWeek: number;
-        fullDateTimePattern: string;
-        longDatePattern: string;
-        longTimePattern: string;
-        monthDayPattern: string;
-        monthGenitiveNames: string[];
-        monthNames: string[];
-        pmDesignator: string;
-        shortDatePattern: string;
-        shortTimePattern: string;
-        shortestDayNames: string[];
-        sortableDateTimePattern: string;
-        timeSeparator: string;
-        universalSortableDateTimePattern: string;
-        yearMonthPattern: string;
+        AmDesignator: string;
+        AbbreviatedDayNames: string[];
+        AbbreviatedMonthGenitiveNames: string[];
+        AbbreviatedMonthNames: string[];
+        CalendarWeekRule: number;
+        Calendar: Calendar;
+        DateSeparator: string;
+        DayNames: string[];
+        FirstDayOfWeek: number;
+        FullDateTimePattern: string;
+        LongDatePattern: string;
+        LongTimePattern: string;
+        MonthDayPattern: string;
+        MonthGenitiveNames: string[];
+        MonthNames: string[];
+        PmDesignator: string;
+        ShortDatePattern: string;
+        ShortTimePattern: string;
+        ShortestDayNames: string[];
+        SortableDateTimePattern: string;
+        TimeSeparator: string;
+        UniversalSortableDateTimePattern: string;
+        YearMonthPattern: string;
     }
 
     /**
@@ -252,7 +252,7 @@ declare namespace Xrm {
         /**
          * Returns the date formatting information for the current user.
          */
-        dateFormattingInfo(): DateFormattingInfo;
+        dateFormattingInfo: DateFormattingInfo;
         /**
          * Returns the ID of the default dashboard for the current user.
          */
@@ -5225,10 +5225,10 @@ declare namespace XrmEnum {
     }
 
     const enum ClientFormFactor {
-        Unknown = 1,
-        Desktop = 2,
-        Tablet = 3,
-        Phone = 4
+        Unknown = 0,
+        Desktop = 1,
+        Tablet = 2,
+        Phone = 3
     }
 
     /**

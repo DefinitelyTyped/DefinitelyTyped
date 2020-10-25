@@ -1,4 +1,4 @@
-import SimpleSchema, { SimpleSchemaDefinition } from 'simpl-schema';
+import SimpleSchema, { SimpleSchemaDefinition, SchemaDefinition } from 'simpl-schema';
 
 const schema: SimpleSchemaDefinition = {
     basicString: {

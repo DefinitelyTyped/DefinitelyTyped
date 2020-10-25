@@ -19,6 +19,7 @@ export default class ExecutorGroup {
     clip(context: CanvasRenderingContext2D, transform: Transform): void;
     execute(
         context: CanvasRenderingContext2D,
+        contextScale: number,
         transform: Transform,
         viewRotation: number,
         snapToPixel: boolean,

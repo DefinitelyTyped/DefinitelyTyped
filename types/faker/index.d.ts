@@ -16,6 +16,7 @@ declare namespace Faker {
         setLocale(locale: string): void;
 
         address: {
+            zipCodeByState(state: string): string;
             zipCode(format?: string): string;
             city(format?: number): string;
             cityPrefix(): string;
@@ -27,11 +28,16 @@ declare namespace Faker {
             secondaryAddress(): string;
             county(): string;
             country(): string;
-            countryCode(): string;
+            countryCode(alphaCode?: string): string;
             state(useAbbr?: boolean): string;
             stateAbbr(): string;
-            latitude(): string;
-            longitude(): string;
+            latitude(max?: number, min?: number, precision?: number): string;
+            longitude(max?: number, min?: number, precision?: number): string;
+            direction(useAbbr?: boolean): string;
+            cardinalDirection(useAbbr?: boolean): string;
+            ordinalDirection(useAbbr?: boolean): string;
+            nearbyGPSCoordinate(coordinate?: string, radius?: number, isMetric?: boolean): string;
+            timeZone(): string;
         };
 
         commerce: {
@@ -42,6 +48,7 @@ declare namespace Faker {
             productAdjective(): string;
             productMaterial(): string;
             product(): string;
+            productDescription(): string;
         };
 
         company: {
@@ -66,12 +73,13 @@ declare namespace Faker {
         };
 
         date: {
-            past(years?: number, refDate?: string|Date): Date;
-            future(years?: number, refDate?: string|Date): Date;
-            between(from: string|number|Date, to: string|Date): Date;
-            recent(days?: number): Date;
-            month(options?: { abbr?: boolean, context?: boolean }): string;
-            weekday(options?: { abbr?: boolean, context?: boolean }): string;
+            past(years?: number, refDate?: string | Date): Date;
+            future(years?: number, refDate?: string | Date): Date;
+            between(from: string | number | Date, to: string | Date): Date;
+            recent(days?: number, refDate?: string | Date): Date;
+            soon(days?: number, refDate?: string | Date): Date;
+            month(options?: { abbr?: boolean; context?: boolean }): string;
+            weekday(options?: { abbr?: boolean; context?: boolean }): string;
         };
 
         fake(str: string): string;
@@ -87,13 +95,21 @@ declare namespace Faker {
             currencyName(): string;
             currencySymbol(): string;
             bitcoinAddress(): string;
+            iban(formatted?: boolean): string;
+            bic(): string;
             litecoinAddress(): string;
             creditCardNumber(provider?: string): string;
             creditCardCVV(): string;
             ethereumAddress(): string;
-            iban(formatted?: boolean): string;
-            bic(): string;
             transactionDescription(): string;
+        };
+
+        git: {
+            branch(): string;
+            commitEntry(options?: { merge: boolean }): string;
+            commitMessage(): string;
+            commitSha(): string;
+            shortSha(): string;
         };
 
         hacker: {
@@ -111,9 +127,15 @@ declare namespace Faker {
             slugify(string?: string): string;
             replaceSymbolWithNumber(string?: string, symbol?: string): string;
             replaceSymbols(string?: string): string;
+            replaceCreditCardSymbols(string?: string, symbol?: string): string;
+            repeatString(string: string, num?: number): string;
+            regexpStyleStringParse(string: string): string;
             shuffle<T>(o: T[]): T[];
             shuffle(): string[];
-            mustache(str: string, data: { [key: string]: string|((substring: string, ...args: any[]) => string) }): string;
+            mustache(
+                str: string,
+                data: { [key: string]: string | ((substring: string, ...args: any[]) => string) },
+            ): string;
             createCard(): Card;
             contextualCard(): ContextualCard;
             userCard(): UserCard;
@@ -137,7 +159,7 @@ declare namespace Faker {
             sports(width?: number, height?: number): string;
             technics(width?: number, height?: number): string;
             transport(width?: number, height?: number): string;
-            dataUri(width?: number, height?: number): string;
+            dataUri(width?: number, height?: number, color?: string): string;
         };
 
         internet: {
@@ -154,12 +176,12 @@ declare namespace Faker {
             ipv6(): string;
             userAgent(): string;
             color(baseRed255?: number, baseGreen255?: number, baseBlue255?: number): string;
-            mac(): string;
-            password(len?: number, memorable?: boolean, pattern?: string|RegExp, prefix?: string): string;
+            mac(sep?: string): string;
+            password(len?: number, memorable?: boolean, pattern?: string | RegExp, prefix?: string): string;
         };
 
         lorem: {
-            word(): string;
+            word(length?: number): string;
             words(num?: number): string;
             sentence(wordCount?: number, range?: number): string;
             slug(wordCount?: number): string;
@@ -173,6 +195,7 @@ declare namespace Faker {
         name: {
             firstName(gender?: number): string;
             lastName(gender?: number): string;
+            middleName(gender?: number): string;
             findName(firstName?: string, lastName?: string, gender?: number): string;
             jobTitle(): string;
             prefix(): string;
@@ -183,6 +206,10 @@ declare namespace Faker {
             jobType(): string;
         };
 
+        music: {
+            genre(): string;
+        };
+
         phone: {
             phoneNumber(format?: string): string;
             phoneNumberFormat(phoneFormatsArrayIndex?: number): string;
@@ -191,11 +218,16 @@ declare namespace Faker {
 
         random: {
             number(max?: number): number;
-            number(options?: { min?: number, max?: number, precision?: number }): number;
+            number(options?: { min?: number; max?: number; precision?: number }): number;
+            float(max?: number): number;
+            float(options?: { min?: number; max?: number; precision?: number }): number;
             arrayElement(): string;
             arrayElement<T>(array: T[]): T;
             arrayElement<T>(array: ReadonlyArray<T>): T;
-            objectElement(object?: { [key: string]: any }, field?: "key"): string;
+            arrayElements(count?: number): string[];
+            arrayElements<T>(array: T[], count?: number): T[];
+            arrayElements<T>(array: ReadonlyArray<T>, count?: number): ReadonlyArray<T>;
+            objectElement(object?: { [key: string]: any }, field?: 'key'): string;
             objectElement<T>(object?: { [key: string]: T }, field?: any): T;
             uuid(): string;
             boolean(): boolean;
@@ -203,7 +235,9 @@ declare namespace Faker {
             words(count?: number): string;
             image(): string;
             locale(): string;
+            alpha(options?: { count?: number; upcase?: boolean }): string;
             alphaNumeric(count?: number): string;
+            hexaDecimal(count?: number): string;
         };
 
         system: {
@@ -219,8 +253,24 @@ declare namespace Faker {
             semver(): string;
         };
 
+        time: {
+            recent(): number;
+            recent(outputType: 'unix'): number;
+            recent(outputType: 'abbr' | 'wide'): string;
+        };
+
         seed(value: number): void;
         seedValue?: number;
+
+        vehicle: {
+            vehicle(): string;
+            manufacturer(): string;
+            model(): string;
+            type(): string;
+            fuel(): string;
+            vin(): string;
+            color(): string;
+        };
     }
 
     interface Card {
@@ -306,154 +356,182 @@ declare namespace Faker {
     }
 }
 
-declare module "faker" {
+declare module 'faker' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/az" {
+declare module 'faker/locale/az' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/cz" {
+declare module 'faker/locale/ar' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/de" {
+declare module 'faker/locale/cz' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/de_AT" {
+declare module 'faker/locale/de' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/de_CH" {
+declare module 'faker/locale/de_AT' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/en" {
+declare module 'faker/locale/de_CH' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/en_AU" {
+declare module 'faker/locale/en' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/en_BORK" {
+declare module 'faker/locale/en_AU' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/en_CA" {
+declare module 'faker/locale/en_AU_ocker' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/en_GB" {
+declare module 'faker/locale/en_BORK' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/en_IE" {
+declare module 'faker/locale/en_CA' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/en_IND" {
+declare module 'faker/locale/en_GB' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/en_US" {
+declare module 'faker/locale/en_IE' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/en_au_ocker" {
+declare module 'faker/locale/en_IND' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/es" {
+declare module 'faker/locale/en_US' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/es_MX" {
+declare module 'faker/locale/en_ZA' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/fa" {
+declare module 'faker/locale/es' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/fr" {
+declare module 'faker/locale/es_MX' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/fr_CA" {
+declare module 'faker/locale/fa' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/ge" {
+declare module 'faker/locale/fi' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/id_ID" {
+declare module 'faker/locale/fr' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/it" {
+declare module 'faker/locale/fr_CA' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/ja" {
+declare module 'faker/locale/fr_CH' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/ko" {
+declare module 'faker/locale/ge' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/nb_NO" {
+declare module 'faker/locale/id_ID' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/nep" {
+declare module 'faker/locale/it' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/nl" {
+declare module 'faker/locale/ja' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/pl" {
+declare module 'faker/locale/ko' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/pt_BR" {
+declare module 'faker/locale/nb_NO' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/ru" {
+declare module 'faker/locale/nep' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/sk" {
+declare module 'faker/locale/nl' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/sv" {
+declare module 'faker/locale/nl_BE' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/tr" {
+declare module 'faker/locale/pl' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/uk" {
+declare module 'faker/locale/pt_BR' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/vi" {
+declare module 'faker/locale/pt_PT' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/zh_CN" {
+declare module 'faker/locale/ro' {
     export = fakerStatic;
 }
 
-declare module "faker/locale/zh_TW" {
+declare module 'faker/locale/ru' {
+    export = fakerStatic;
+}
+
+declare module 'faker/locale/sk' {
+    export = fakerStatic;
+}
+
+declare module 'faker/locale/sv' {
+    export = fakerStatic;
+}
+
+declare module 'faker/locale/tr' {
+    export = fakerStatic;
+}
+
+declare module 'faker/locale/uk' {
+    export = fakerStatic;
+}
+
+declare module 'faker/locale/vi' {
+    export = fakerStatic;
+}
+
+declare module 'faker/locale/zh_CN' {
+    export = fakerStatic;
+}
+
+declare module 'faker/locale/zh_TW' {
     export = fakerStatic;
 }

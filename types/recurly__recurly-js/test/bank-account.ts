@@ -1,4 +1,4 @@
-import { TokenHandler, BacsBillingInfo, BecsBillingInfo } from 'recurly__recurly-js';
+import { TokenHandler, BacsBillingInfo, BecsBillingInfo } from '@recurly/recurly-js';
 
 export default function bankAccount() {
   const handleToken: TokenHandler = (err, token) => {

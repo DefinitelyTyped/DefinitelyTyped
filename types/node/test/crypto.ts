@@ -603,6 +603,10 @@ import { promisify } from 'util';
 }
 
 {
+    const fips: 0 | 1 = crypto.getFips();
+}
+
+{
     crypto.createPrivateKey(Buffer.from('asdf'));
     crypto.createPrivateKey({
         key: 'asd',
@@ -655,7 +659,7 @@ import { promisify } from 'util';
 
 {
     // crypto.diffieHellman_test
-    const { privateKey, publicKey } = crypto.generateKeyPairSync('x25519', {
+    const x25519Keys1 = crypto.generateKeyPairSync('x25519', {
         publicKeyEncoding: {
             type: 'spki',
             format: 'pem',
@@ -665,32 +669,25 @@ import { promisify } from 'util';
             format: 'pem',
         },
     });
-    const privateKeyObject = crypto.createPrivateKey({ key: privateKey });
-    const publicKeyObject = crypto.createPublicKey({ key: publicKey });
+    const privateKeyObject1 = crypto.createPrivateKey({ key: x25519Keys1.privateKey });
+    const publicKeyObject1 = crypto.createPublicKey({ key: x25519Keys1.publicKey });
 
-    crypto.generateKeyPair(
-        'x25519',
-        {
-            publicKeyEncoding: {
-                type: 'spki',
-                format: 'pem',
-            },
-            privateKeyEncoding: {
-                type: 'pkcs8',
-                format: 'pem',
-            },
+    const x25519Keys2 = crypto.generateKeyPairSync('x25519', {
+        publicKeyEncoding: {
+            type: 'spki',
+            format: 'pem',
         },
-        (err, publicKey1, privateKey1) => {
-            if (err) console.log(err);
-
-            const privateKeyObject1 = crypto.createPrivateKey({ key: privateKey1 });
-            const publicKeyObject1 = crypto.createPublicKey({ key: publicKey1 });
-
-            const sharedSecret1 = crypto.diffieHellman({ privateKey: privateKeyObject, publicKey: publicKeyObject1 });
-            const sharedSecret2 = crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject });
-            assert.equal(sharedSecret1, sharedSecret2);
+        privateKeyEncoding: {
+            type: 'pkcs8',
+            format: 'pem',
         },
-    );
+    });
+    const privateKeyObject2 = crypto.createPrivateKey({ key: x25519Keys2.privateKey });
+    const publicKeyObject2 = crypto.createPublicKey({ key: x25519Keys2.publicKey });
+
+    const sharedSecret1 = crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject2 });
+    const sharedSecret2 = crypto.diffieHellman({ privateKey: privateKeyObject2, publicKey: publicKeyObject1 });
+    assert.equal(sharedSecret1, sharedSecret2);
 }
 
 {
@@ -782,4 +779,106 @@ import { promisify } from 'util';
 
     const bufP: Buffer = crypto.privateEncrypt(key, Buffer.from([]));
     const decp: Buffer = crypto.privateDecrypt(key, bufP);
+}
+
+// crypto.randomInt
+{
+    const callback = (error: Error|null, value: number): void => {};
+
+    const a: number = crypto.randomInt(10);
+    const b: number = crypto.randomInt(1, 10);
+    crypto.randomInt(10, callback);
+    crypto.randomInt(1, 10, callback);
+}
+
+{
+    const key = crypto.createPrivateKey('pkey');
+    crypto.sign('sha256', Buffer.from('asd'), {
+        key: Buffer.from('keylike'),
+        dsaEncoding: 'der'
+    });
+    crypto.createSign('sha256')
+        .update(Buffer.from('asd'))
+        .sign({
+            key: Buffer.from('keylike'),
+            dsaEncoding: 'der'
+        });
+    crypto.sign('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der'
+    });
+    crypto.createSign('sha256')
+        .update(Buffer.from('asd'))
+        .sign({
+            key,
+            dsaEncoding: 'der'
+        });
+}
+
+{
+    const key = crypto.createPublicKey('pkey');
+    crypto.verify('sha256', Buffer.from('asd'), {
+        key: Buffer.from('keylike'),
+        dsaEncoding: 'der'
+    }, Buffer.from('sig'));
+    crypto.createVerify('sha256')
+        .update(Buffer.from('asd'))
+        .verify({
+            key: Buffer.from('keylike'),
+            dsaEncoding: 'der'
+        }, Buffer.from('sig'));
+    crypto.verify('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der'
+    }, Buffer.from('sig'));
+    crypto.createVerify('sha256')
+        .update(Buffer.from('asd'))
+        .verify({
+            key,
+            dsaEncoding: 'der'
+        }, Buffer.from('sig'));
+}
+
+{
+    const cipher = crypto.createCipheriv('aes-256-gcm', Buffer.from('key'), Buffer.from('iv'), { authTagLength: 16 });
+    cipher.setAAD(Buffer.from('iv'));
+    cipher.setAAD(new Uint8Array());
+}
+
+{
+    crypto.generateKeyPairSync('x25519').privateKey; // $ExpectType KeyObject
+    crypto.generateKeyPairSync('x448').privateKey; // $ExpectType KeyObject
+    crypto.generateKeyPairSync('ed25519').privateKey; // $ExpectType KeyObject
+    crypto.generateKeyPairSync('ed448').privateKey; // $ExpectType KeyObject
+
+    [undefined, {}].forEach((opts) => {
+        crypto.generateKeyPair('x25519', opts, (err, publicKey, privateKey) => {
+            privateKey; // $ExpectType KeyObject
+            publicKey; // $ExpectType KeyObject
+        });
+        crypto.generateKeyPair('x448', opts, (err, publicKey, privateKey) => {
+            privateKey; // $ExpectType KeyObject
+            publicKey; // $ExpectType KeyObject
+        });
+        crypto.generateKeyPair('ed25519', opts, (err, publicKey, privateKey) => {
+            privateKey; // $ExpectType KeyObject
+            publicKey; // $ExpectType KeyObject
+        });
+        crypto.generateKeyPair('ed448', opts, (err, publicKey, privateKey) => {
+            privateKey; // $ExpectType KeyObject
+            publicKey; // $ExpectType KeyObject
+        });
+    });
+
+    const pGenerateKeyPair = promisify(crypto.generateKeyPair);
+    [undefined, {}].forEach(async (opts) => {
+        (await pGenerateKeyPair('x25519', opts)).privateKey; // $ExpectType KeyObject
+        (await pGenerateKeyPair('x448', opts)).privateKey; // $ExpectType KeyObject
+        (await pGenerateKeyPair('ed25519', opts)).privateKey; // $ExpectType KeyObject
+        (await pGenerateKeyPair('ed448', opts)).privateKey; // $ExpectType KeyObject
+    });
+}
+
+{
+    crypto.createSecretKey(new Uint8Array([0])); // $ExpectType KeyObject
 }

@@ -14,8 +14,8 @@
             "../"
         ],
         "paths": {
-            "@solid/react": [
-                "solid__react"
+            "@solid/*": [
+                "solid__*"
             ]
         },
         "types": [],

@@ -78,3 +78,55 @@ passport.use(
         }
     )
 );
+
+passport.use(
+    new google.Strategy(
+        {
+            callbackURL,
+            clientID,
+            clientSecret,
+            passReqToCallback: true
+        },
+        (
+            request: express.Request,
+            accessToken: string,
+            refreshToken: string,
+            params: any,
+            profile: google.Profile,
+            done: (error: any, user?: any) => void
+        ) => {
+            User.findOrCreate(profile.id, profile.provider, (err, user) => {
+                if (err) {
+                    done(err);
+                    return;
+                }
+                done(null, user);
+            });
+        }
+    )
+);
+
+passport.use(
+    new google.Strategy(
+        {
+            callbackURL,
+            clientID,
+            clientSecret,
+        },
+        (
+            accessToken: string,
+            refreshToken: string,
+            params: any,
+            profile: google.Profile,
+            done: (error: any, user?: any) => void
+        ) => {
+            User.findOrCreate(profile.id, profile.provider, (err, user) => {
+                if (err) {
+                    done(err);
+                    return;
+                }
+                done(null, user);
+            });
+        }
+    )
+);

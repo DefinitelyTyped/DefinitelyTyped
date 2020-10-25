@@ -29,6 +29,9 @@ PetSchema.plugin(mongoose_delete, {
   overrideMethods: 'all',
   deletedByType: String,
 });
+PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedBy: true, indexFields: ['deleted'] });
+PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedBy: true, indexFields: 'all' });
+PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedBy: true, indexFields: 'invalid' }); // $ExpectError
 
 const idUser = mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');
 

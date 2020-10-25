@@ -19,4 +19,5 @@ class MyCustomElement extends HTMLElement {
     }
 }
 
+const name = "name";
 customElements.define(name, MyCustomElement);

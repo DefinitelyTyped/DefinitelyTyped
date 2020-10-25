@@ -4,10 +4,8 @@
         "no-declare-current-package": false,
         "no-misused-new": false,
         "no-single-declare-module": false,
-        "no-var": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
-        "prefer-method-signature": false,
         "typedef-whitespace": false
     }
 }

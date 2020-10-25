@@ -15,8 +15,8 @@
         "jsx": "react",
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@nulogy/components": [
-                "nulogy__components"
+            "@nulogy/*": [
+                "nulogy__*"
             ]
         }
     },

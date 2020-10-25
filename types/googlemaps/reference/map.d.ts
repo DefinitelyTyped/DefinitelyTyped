@@ -1,5 +1,5 @@
 declare namespace google.maps {
-    interface MapHandlerMap {
+    interface MapHandlerMap<T extends Map> {
         /**
          * This event is fired when the viewport bounds have changed.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.bounds_changed Maps JavaScript API}
@@ -7,7 +7,7 @@ declare namespace google.maps {
          * @see {@link Map#fitBounds}
          * @see {@link Map#panToBounds}
          */
-        bounds_changed: [];
+        bounds_changed: (this: T) => void;
 
         /**
          * This event is fired when the map center property changes.
@@ -16,7 +16,7 @@ declare namespace google.maps {
          * @see {@link Map#getCenter}
          * @see {@link Map#setCenter}
          */
-        center_changed: [];
+        center_changed: (this: T) => void;
 
         /**
          * This event is fired when the user clicks on the map.
@@ -26,31 +26,31 @@ declare namespace google.maps {
          * The click event is not fired if a marker or infowindow was clicked.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.click Maps JavaScript API}
          */
-        click: [MouseEvent | IconMouseEvent];
+        click: (this: T, event: MouseEvent | IconMouseEvent) => void;
 
         /**
          * This event is fired when the user double-clicks on the map. Note that the click event will also fire, right before this one.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.dblclick Maps JavaScript API}
          */
-        dblclick: [MouseEvent];
+        dblclick: (this: T, event: MouseEvent) => void;
 
         /**
          * This event is repeatedly fired while the user drags the map.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.drag Maps JavaScript API}
          */
-        drag: [];
+        drag: (this: T) => void;
 
         /**
          * This event is fired when the user stops dragging the map.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.dragend Maps JavaScript API}
          */
-        dragend: [];
+        dragend: (this: T) => void;
 
         /**
          * This event is fired when the user starts dragging the map.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.dragstart Maps JavaScript API}
          */
-        dragstart: [];
+        dragstart: (this: T) => void;
 
         /**
          * This event is fired when the map heading property changes.
@@ -59,13 +59,13 @@ declare namespace google.maps {
          * @see {@link Map#getHeading}
          * @see {@link Map#setHeading}
          */
-        heading_changed: [];
+        heading_changed: (this: T) => void;
 
         /**
          * This event is fired when the map becomes idle after panning or zooming.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.idle Maps JavaScript API}
          */
-        idle: [];
+        idle: (this: T) => void;
 
         /**
          * This event is fired when the mapTypeId property changes.
@@ -74,44 +74,44 @@ declare namespace google.maps {
          * @see {@link Map#getMapTypeId}
          * @see {@link Map#setMapTypeId}
          */
-        maptypeid_changed: [];
+        maptypeid_changed: (this: T) => void;
 
         /**
          * This event is fired whenever the user's mouse moves over the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mousemove Maps JavaScript API}
          */
-        mousemove: [MouseEvent];
+        mousemove: (this: T, event: MouseEvent) => void;
 
         /**
          * This event is fired when the user's mouse exits the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mouseout Maps JavaScript API}
          */
-        mouseout: [MouseEvent];
+        mouseout: (this: T, event: MouseEvent) => void;
 
         /**
          * This event is fired when the user's mouse enters the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.mouseover Maps JavaScript API}
          */
-        mouseover: [MouseEvent];
+        mouseover: (this: T, event: MouseEvent) => void;
 
         /**
          * This event is fired when the projection has changed.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.projection_changed Maps JavaScript API}
          * @see {@link Map#getProjection}
          */
-        projection_changed: [];
+        projection_changed: (this: T) => void;
 
         /**
          * This event is fired when the DOM contextmenu event is fired on the map container.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.rightclick Maps JavaScript API}
          */
-        rightclick: [MouseEvent];
+        rightclick: (this: T, event: MouseEvent) => void;
 
         /**
          * This event is fired when the visible tiles have finished loading.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map.tilesloaded Maps JavaScript API}
          */
-        tilesloaded: [];
+        tilesloaded: (this: T) => void;
 
         /**
          * This event is fired when the map tilt property changes.
@@ -120,7 +120,7 @@ declare namespace google.maps {
          * @see {@link Map#getTilt}
          * @see {@link Map#setTilt}
          */
-        tilt_changed: [];
+        tilt_changed: (this: T) => void;
 
         /**
          * This event is fired when the map zoom property changes.
@@ -129,7 +129,7 @@ declare namespace google.maps {
          * @see {@link Map#getZoom}
          * @see {@link Map#setZoom}
          */
-        zoom_changed: [];
+        zoom_changed: (this: T) => void;
     }
 
     /** @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#Map Maps JavaScript API} */
@@ -160,13 +160,13 @@ declare namespace google.maps {
          * @see {@link MapHandlerMap#tilt_changed tilt_changed} event
          * @see {@link MapHandlerMap#zoom_changed zoom_changed} event
          */
-        addListener<N extends keyof MapHandlerMap>(
+        addListener<N extends keyof MapHandlerMap<this>>(
             eventName: N,
-            handler: MVCEventHandler<this, MapHandlerMap[N]>,
+            handler: MapHandlerMap<this>[N],
         ): MapsEventListener;
 
         /** @deprecated */
-        addListener(eventName: string, handler: MVCEventHandler<this, any[]>): MapsEventListener;
+        addListener(eventName: string, handler: (this: this, ...args: any[]) => void): MapsEventListener;
 
         /**
          * Sets the viewport to contain the given bounds.

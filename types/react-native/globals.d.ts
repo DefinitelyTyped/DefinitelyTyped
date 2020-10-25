@@ -259,7 +259,7 @@ declare type XMLHttpRequestResponseType = '' | 'arraybuffer' | 'blob' | 'documen
  * built into React Native (as of 0.63) does not implement all the properties.
  */
 declare class URL {
-    static createObjectURL(blob: Blob): URL;
+    static createObjectURL(blob: Blob): string;
     static revokeObjectURL(url: string): void;
 
     constructor(url: string, base?: string);

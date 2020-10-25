@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { DescribeSObjectResult, DescribeGlobalResult } from './describe-result';
+import { BatchDescribeSObjectOptions, DescribeSObjectOptions, DescribeSObjectResult, DescribeGlobalResult } from './describe-result';
 import { Query, QueryResult, ExecuteOptions } from './query';
 import { Record } from './record';
 import { RecordResult } from './record-result';
@@ -21,6 +21,8 @@ export type Callback<T> = (err: Error | null, result: T) => void;
 // and search for options
 export interface RestApiOptions {
     headers?: { [x: string]: string }
+    allowRecursive?: boolean;
+    allOrNone?: boolean;
 }
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
@@ -50,6 +52,7 @@ export interface ConnectionOptions extends PartialOAuth2Options {
     maxRequest?: number;
     oauth2?: Partial<PartialOAuth2Options>;
     proxyUrl?: string;
+    httpProxy?: string;
     redirectUri?: string;
     refreshToken?: string;
     refreshFn?: (conn: Connection, callback: Callback<UserInfo>) => Promise<UserInfo>;
@@ -198,10 +201,11 @@ export abstract class BaseConnection extends EventEmitter {
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     describe$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
-        (type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
+        (type: string|DescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
         clear(): void;
     }
-    describe(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    describe(type: string|DescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    batchDescribe(options: BatchDescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult[]) => void): Promise<DescribeSObjectResult[]>;
     describeGlobal$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describeGlobal */
         (callback?: (err: Error, result: DescribeGlobalResult) => void): DescribeGlobalResult;
@@ -233,6 +237,7 @@ export class Connection extends BaseConnection {
     version: string;
     accessToken: string;
     refreshToken?: string;
+    userInfo?: UserInfo;
     initialize(options?: ConnectionOptions): void;
     queryAll<T>(soql: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
     authorize(code: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;

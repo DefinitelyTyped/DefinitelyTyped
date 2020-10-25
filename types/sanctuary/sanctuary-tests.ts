@@ -62,3 +62,9 @@ S.intercalate(', ')([]);
 
 // $ExpectType number[]
 S.intercalate([0, 0, 0])([[1], [2, 3], [4, 5, 6], [7, 8], [9]]);
+
+// $ExpectType number
+S.fromLeft(1)(S.Right('a'));
+
+// $ExpectType number
+S.fromRight(1)(S.Left('a'));

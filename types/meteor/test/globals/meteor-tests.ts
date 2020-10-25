@@ -741,7 +741,21 @@ Meteor.methods({
 
 HTTP.call("POST", "http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
-    function (error: Meteor.Error, result: any) {
+    function (error, result) {
+        error; // $ExpectType Error
+        result; // $ExpectType HTTPResponse
+
+        if (result.statusCode === 200) {
+            Session.set("twizzled", true);
+        }
+    });
+
+HTTP.post("http://api.twitter.com/xyz",
+    { data: { some: "json", stuff: 1 } },
+    function (error, result) {
+        error; // $ExpectType Error
+        result; // $ExpectType HTTPResponse
+
         if (result.statusCode === 200) {
             Session.set("twizzled", true);
         }
@@ -963,3 +977,14 @@ Meteor.absoluteUrl.defaultOptions = {
   rootUrl: 'http://123.com',
   secure: false
 };
+
+// EnvironmentVariable
+const scopedCounter = new Meteor.EnvironmentVariable<number>();
+// $ExpectType number
+scopedCounter.getOrNullIfOutsideFiber();
+// $ExpectType string
+scopedCounter.withValue(42, () => {
+    // $ExpectType number
+    scopedCounter.get();
+    return '';
+});

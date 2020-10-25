@@ -1,12 +1,14 @@
-// Type definitions for mui-datatables 3.2
+// Type definitions for mui-datatables 3.4
 // Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 //                 Ankith Konda <https://github.com/ankithkonda>
 //                 Herman "Von" Waters IV <https://github.com/hwatersiv>
 //                 souppower <https://github.com/souppower>
 //                 Byron "Byrekt" Mitchell <https://github.com/byrekt>
+//                 Bohdan Yavorskyi <https://github.com/BohdanYavorskyi>
+//                 Patrick Erichsen <https://github.com/Patrick-Erichsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// Minimum TypeScript Version: 3.5
 
 import * as React from 'react';
 
@@ -46,7 +48,7 @@ export interface MUIDataTableState {
     data: any[];
     displayData: Array<{ dataIndex: number; data: any[] }>;
     expandedRows: MUIDataTableStateRows;
-    filterData: any[];
+    filterData: string[][];
     filterList: string[][];
     page: number;
     previousSelectedRow: null | { index: number; dataIndex: number };
@@ -137,7 +139,13 @@ export interface MUIDataTableFilterOptions {
      * `filterList` must be of the same type in the main column options, that is an array of arrays, where each array corresponds to the filter list for a given column.
      * {@link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js Example}
      */
-    display?: (filterList: string[], onChange: any, index: number, column: any) => void;
+    display?: (
+        filterList: MUIDataTableState['filterList'],
+        onChange: (val: string | string[], index: number, column: MUIDataTableColumn) => void,
+        index: number,
+        column: MUIDataTableColumn,
+        filterData: MUIDataTableState['filterData'],
+    ) => void;
     /**
      * custom filter logic.
      * {@link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js Example}
@@ -166,7 +174,7 @@ export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
 
 export interface MUIDataTableColumnOptions {
     customBodyRender?: (
-        value: any,
+        value: string,
         tableMeta: MUIDataTableMeta,
         updateValue: (value: string) => void,
     ) => string | React.ReactNode;
@@ -218,7 +226,10 @@ export type MUIDataTableOptions = Partial<{
     caseSensitive: boolean;
     confirmFilters: boolean;
     count: number;
-    customFilterDialogFooter: (filterList: any[], applyNewFilters?: (...args: any[]) => any) => React.ReactNode;
+    customFilterDialogFooter: (
+        filterList: MUIDataTableState['filterList'],
+        applyNewFilters?: (...args: any[]) => any,
+    ) => React.ReactNode;
     customFooter: (
         rowCount: number,
         page: number,
@@ -289,18 +300,22 @@ export type MUIDataTableOptions = Partial<{
         columns: any,
         data: any,
     ) => string | boolean;
-    onFilterChange: (changedColumn: string, filterList: any[], type: FilterType | 'chip' | 'reset') => void;
+    onFilterChange: (
+        changedColumn: string | MUIDataTableColumn | null,
+        filterList: MUIDataTableState['filterList'],
+        type: FilterType | 'chip' | 'reset',
+    ) => void;
     /**
      * Callback function that is triggered when a user clicks the "X" on a filter chip.
      * {@link https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js Example}
      */
-    onFilterChipClose: (index: number, removedFilter: string, filterList: any[]) => void;
+    onFilterChipClose: (index: number, removedFilter: string, filterList: MUIDataTableState['filterList']) => void;
     /**
      * Callback function that is triggered when a user presses the "confirm" button on the filter popover.
      * This occurs only if you've set `confirmFilters` option to `true`.
      * {@link https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js Example}
      */
-    onFilterConfirm: (filterList: any[]) => void;
+    onFilterConfirm: (filterList: MUIDataTableState['filterList']) => void;
     onFilterDialogClose: () => void;
     onFilterDialogOpen: () => void;
     onRowClick: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
@@ -310,7 +325,7 @@ export type MUIDataTableOptions = Partial<{
         data: Array<{ index: number; dataIndex: number }>;
     }) => void;
     onRowSelectionChange: (currentRowsSelected: any[], allRowsSelected: any[], rowsSelected?: any[]) => void;
-    onSearchChange: (searchText: string) => void;
+    onSearchChange: (searchText: string | null) => void;
     onSearchClose: () => void;
     onSearchOpen: () => void;
     onTableChange: (action: string, tableState: MUIDataTableState) => void;
@@ -352,21 +367,36 @@ export type MUIDataTableOptions = Partial<{
 
 export type MUIDataTableColumnDef = string | MUIDataTableColumn;
 
+type RenderCustomComponent<P> = (props: P) => React.ReactNode;
+
 export interface MUIDataTableProps {
     columns: MUIDataTableColumnDef[];
     components?: Partial<{
-        TableBody: React.ReactNode;
-        TableFooter: React.ReactNode;
-        TableHead: React.ReactNode;
-        TableResize: React.ReactNode;
-        TableToolbar: React.ReactNode;
-        TableToolbarSelect: React.ReactNode;
-        TableFilterList: React.ReactNode;
+        ExpandButton: RenderCustomComponent<MUIDataTableExpandButton> | React.ReactNode;
+        TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
+        TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
+        TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
+        TableResize: RenderCustomComponent<MUIDataTableResize> | React.ReactNode;
+        TableToolbar: RenderCustomComponent<MUIDataTableToolbar> | React.ReactNode;
+        TableToolbarSelect: RenderCustomComponent<MUIDataTableToolbarSelect> | React.ReactNode;
+        TableFilterList: RenderCustomComponent<MUIDataTableFilterList> | React.ReactNode;
         Tooltip: React.ReactNode;
     }>;
     data: Array<object | number[] | string[]>;
     options?: MUIDataTableOptions;
     title: string | React.ReactNode;
+}
+
+export interface MUIDataTableExpandButton {
+    areAllRowsExpanded: () => boolean;
+    buttonClass: string;
+    dataIndex?: number;
+    expandableRowsHeader: boolean;
+    expandedRows?: any;
+    iconClass: string;
+    iconIndeterminateClass: string;
+    isHeaderCell: boolean;
+    onExpand?: (...args: any) => any;
 }
 
 export interface MUIDataTablePopover {
@@ -383,16 +413,22 @@ export interface MUIDataTablePopover {
 
 export interface MUIDataTableBody {
     classes: object;
+    columnOrder?: number[];
     columns: MUIDataTableColumnDef[];
     count: number;
     data: Array<object | number[] | string[]>;
-    filterList?: string[][];
+    filterList?: MUIDataTableState['filterList'];
     onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
-    options: object;
+    options: MUIDataTableOptions;
     searchText?: string;
-    selectedRows?: object;
     selectRowUpdate?: (...args: any) => any;
     toggleExpandRow?: (...args: any) => any;
+    expandedRows?: MUIDataTableStateRows;
+    selectedRows?: MUIDataTableStateRows;
+    page?: number;
+    rowsPerPage?: number;
+    previousSelectedRow?: number | null;
+    tableId?: string;
 }
 
 export interface MUIDataTableChip {
@@ -408,7 +444,7 @@ export interface MUIDataTableBodyCell {
     colIndex?: number;
     columnHeader?: any;
     dataIndex?: number;
-    options?: object;
+    options?: MUIDataTableOptions;
     otherProps?: any;
     rowIndex?: number;
 }
@@ -417,29 +453,34 @@ export interface MUIDataTableBodyRow {
     classes?: object;
     className?: string;
     onClick?: (...args: any) => any;
-    options: object;
+    options: MUIDataTableOptions;
     rowSelected?: boolean;
 }
 
 export interface MUIDataTableFilter {
     classes?: object;
     filterData: any[];
-    filterList?: string[][];
+    filterList?: MUIDataTableState['filterList'];
     onFilterRest?: (...args: any) => any;
     onFilterUpdate?: (...args: any) => any;
-    options: object;
+    options: MUIDataTableOptions;
 }
 
 export interface MUIDataTableFilterList {
+    columnNames?: Array<{ name: string; filterType: FilterType }>;
+    customFilterListUpdate?: any[];
     classes?: object;
-    filterList: string[][];
-    onFilterUpdate?: (...args: any) => any;
+    filterList: MUIDataTableState['filterList'];
+    filterListRenderers?: (e: any) => any[];
+    filterUpdate?: (...args: any) => any;
+    options: MUIDataTableOptions;
+    serverSideFilterList?: any;
 }
 
 export interface MUIDataTableFooter {
-    changePage?: any;
-    changeRowsPerPage?: (...args: any) => any;
-    options?: object;
+    changePage?: (e: any) => any;
+    changeRowsPerPage?: (e: any) => any;
+    options?: MUIDataTableOptions;
     page?: number;
     rowCount?: number;
     rowsPerPage?: number;
@@ -451,21 +492,34 @@ export interface MUIDataTableDraggableColumns {
 }
 
 export interface MUIDataTableHead {
+    activeColumn?: any;
+    areAllRowsExpanded?: () => boolean;
+    selectRowUpdate?: (...args: any[]) => any;
+    columnOrder: number[];
     classes?: object;
     columns?: MUIDataTableColumnDef[];
+    draggableHeadCellRefs?: object;
     count?: number;
     data?: any[];
-    options?: object;
-    page?: any;
-    selectedRows?: any;
-    setCellRef?: any;
+    options?: MUIDataTableOptions;
+    page?: number;
+    rowsPerPage?: number;
+    selectedRows?: MUIDataTableStateRows;
+    expandedRows?: MUIDataTableStateRows;
+    setCellRef?: (...args: any[]) => any;
+    updateColumnOrder?: (...args: any[]) => any;
+    toggleSort?: (...args: any[]) => any;
+    tableRef?: () => any;
+    toggleAllExpandableRows?: () => any;
+    tabledId?: string;
+    timers?: object;
 }
 
 export interface MUIDataTableHeadCell {
     children?: any;
     classes?: object;
     hint: string;
-    options: object;
+    options: MUIDataTableOptions;
     sort: boolean;
     sortOrder?: MUISortOptions;
     toggleSort: (...args: any) => any;
@@ -478,14 +532,14 @@ export interface MUIDataTableHeadRow {
 export interface MUIDataTablePagination {
     changeRowsPerPage: (...args: any) => any;
     count: number;
-    options: object;
+    options: MUIDataTableOptions;
     page: number;
     rowsPerPage: number;
 }
 
 export interface MUIDataTableResize {
     classes?: object;
-    options?: object;
+    options?: MUIDataTableOptions;
     rowSelected?: boolean;
     setResizeable?: (...args: any) => any;
     updateDividers?: (...args: any) => any;
@@ -495,7 +549,7 @@ export interface MUIDataTableSearch {
     classes?: object;
     onHide?: (...args: any) => any;
     onSearch?: (...args: any) => any;
-    options?: object;
+    options?: MUIDataTableOptions;
     searchText?: string;
 }
 
@@ -518,26 +572,31 @@ export interface MUIDataTableSelectCell {
 }
 
 export interface MUIDataTableToolbar {
+    columnOrder?: number[];
     classes?: object;
     columns: MUIDataTableColumnDef[];
-    data?: any[];
-    filterData?: any;
-    filterList?: string[][];
-    filterUpdate?: any;
-    options?: object;
-    resetFilters?: any;
+    data?: MUIDataTableData[];
+    displayData?: Array<{ data: any[]; dataIndex: number }>;
+    filterData?: any[][];
+    filterList?: MUIDataTableState['filterList'];
+    filterUpdate?: (...args: any) => any;
+    updateFilterByType?: (...args: any) => any;
+    options?: MUIDataTableOptions;
+    resetFilters?: () => any;
+    searchClose?: () => any;
     searchTextUpdate?: (...args: any) => any;
     setTableActions?: (...args: any) => any;
     tableRef?: (...args: any) => any;
-    title?: any;
-    toggleViewColumn?: any;
+    title?: React.ReactNode;
+    toggleViewColumn?: (a: any) => any;
+    searchText?: React.ReactNode;
 }
 
 export interface MUIDataTableToolbarSelect {
     classes?: object;
     displayData?: any;
     onRowsDelete?: (...args: any) => any;
-    options: object;
+    options: MUIDataTableOptions;
     rowSelected?: boolean;
     selectRowUpdate?: (...args: any) => any;
 }
@@ -551,24 +610,25 @@ export interface MUIDataTableViewCol {
 
 export const MUIDataTable: React.ComponentType<MUIDataTableProps>;
 
-export const Popover: React.Component<MUIDataTablePopover>;
-export const TableBody: React.Component<MUIDataTableBody>;
-export const TableBodyCell: React.Component<MUIDataTableBodyCell>;
-export const TableBodyRow: React.Component<MUIDataTableBodyRow>;
-export const TableFilter: React.Component<MUIDataTableFilter>;
-export const TableFilterList: React.Component<MUIDataTableFilterList>;
-export const TableFooter: React.Component<MUIDataTableFooter>;
-export const TableHead: React.Component<MUIDataTableHead>;
-export const TableHeadCell: React.Component<MUIDataTableHeadCell>;
-export const TableHeadRow: React.Component<MUIDataTableHeadRow>;
-export const TablePagination: React.Component<MUIDataTablePagination>;
-export const TableResize: React.Component<MUIDataTableResize>;
-export const TableSearch: React.Component<MUIDataTableSearch>;
-export const TableSelectCell: React.Component<MUIDataTableSelectCell>;
-export const TableToolbar: React.Component<MUIDataTableToolbar>;
-export const TableToolbarSelect: React.Component<MUIDataTableToolbarSelect>;
-export const TableViewCol: React.Component<MUIDataTableViewCol>;
-export const DebounceTableSearch: React.Component<DebouncedMUIDataTableSearch>;
+export const ExpandButton: React.ComponentType<MUIDataTableExpandButton>;
+export const Popover: React.ComponentType<MUIDataTablePopover>;
+export const TableBody: React.ComponentType<MUIDataTableBody>;
+export const TableBodyCell: React.ComponentType<MUIDataTableBodyCell>;
+export const TableBodyRow: React.ComponentType<MUIDataTableBodyRow>;
+export const TableFilter: React.ComponentType<MUIDataTableFilter>;
+export const TableFilterList: React.ComponentType<MUIDataTableFilterList>;
+export const TableFooter: React.ComponentType<MUIDataTableFooter>;
+export const TableHead: React.ComponentType<MUIDataTableHead>;
+export const TableHeadCell: React.ComponentType<MUIDataTableHeadCell>;
+export const TableHeadRow: React.ComponentType<MUIDataTableHeadRow>;
+export const TablePagination: React.ComponentType<MUIDataTablePagination>;
+export const TableResize: React.ComponentType<MUIDataTableResize>;
+export const TableSearch: React.ComponentType<MUIDataTableSearch>;
+export const TableSelectCell: React.ComponentType<MUIDataTableSelectCell>;
+export const TableToolbar: React.ComponentType<MUIDataTableToolbar>;
+export const TableToolbarSelect: React.ComponentType<MUIDataTableToolbarSelect>;
+export const TableViewCol: React.ComponentType<MUIDataTableViewCol>;
+export const DebounceTableSearch: React.ComponentType<DebouncedMUIDataTableSearch>;
 
 // Plugins
 /**

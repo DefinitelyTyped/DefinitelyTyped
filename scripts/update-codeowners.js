@@ -13,7 +13,7 @@ async function main() {
 
     clean();
     const dt = await getDefinitelyTyped(options, log);
-    await parseDefinitions(dt, { nProcesses: os.cpus.length, definitelyTypedPath: "." }, log);
+    await parseDefinitions(dt, { nProcesses: os.cpus().length, definitelyTypedPath: "." }, log);
     const allPackages = await AllPackages.read(dt);
     const typings = allPackages.allTypings();
     const maxPathLen = Math.max(...typings.map(t => t.subDirectoryPath.length));

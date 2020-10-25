@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "dt-header": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
@@ -9,10 +8,8 @@
         "no-internal-module": false,
         "no-invalid-template-strings": false,
         "no-irregular-whitespace": false,
-        "no-redundant-jsdoc": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
-        "prefer-method-signature": false,
         "trim-file": false
     }
 }

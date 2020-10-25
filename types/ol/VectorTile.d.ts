@@ -18,6 +18,7 @@ export default class VectorTile extends Tile {
     );
     getFeatures(): FeatureLike[];
     getFormat(): FeatureFormat;
+    getKey(): string;
     load(): void;
     onError(): void;
     onLoad(features: Feature<Geometry>[], dataProjection: Projection): void;

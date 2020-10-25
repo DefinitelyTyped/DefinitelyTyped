@@ -1,26 +1,19 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
         "jsdoc-format": false,
         "max-line-length": false,
-        "no-angle-bracket-type-assertion": false,
         "no-any-union": false,
-        "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}],
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
-        "semicolon": false,
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
         "unified-signatures": false,
         "whitespace": false
     }

@@ -1,8 +1,8 @@
-// Type definitions for minify 5.1
+// Type definitions for minify 6.0
 // Project: http://coderaiser.github.io/minify
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import htmlMinifier = require('html-minifier');
+import htmlMinifier = require('html-minifier-terser');
 import cleanCSS = require('clean-css');
 import terser = require('terser');
 
@@ -19,19 +19,19 @@ declare namespace minify {
      */
     interface Options {
         /**
-         * @see {@link https://github.com/kangax/html-minifier}
+         * see {@link https://github.com/kangax/html-minifier}
          */
         html?: htmlMinifier.Options;
         /**
-         * @see {@link https://github.com/jakubpawlowicz/clean-css}
+         * see {@link https://github.com/jakubpawlowicz/clean-css}
          */
         css?: cleanCSS.Options;
         /**
-         * @see {@link https://github.com/terser/terser}
+         * see {@link https://github.com/terser/terser}
          */
         js?: terser.MinifyOptions;
         /**
-         * @see {@link https://github.com/Filirom1/css-base64-images}
+         * see {@link https://github.com/Filirom1/css-base64-images}
          */
         img?: {
             /**

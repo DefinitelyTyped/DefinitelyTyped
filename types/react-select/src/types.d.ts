@@ -33,6 +33,7 @@ export interface PropsWithStyles {
     See the `styles` object for the properties available.
   */
   getStyles: (name: string, props: any) => {};
+  theme: Theme;
 }
 
 export type ClassNameList = string[];

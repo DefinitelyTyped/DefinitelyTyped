@@ -73,8 +73,17 @@ type Credentials = (options: ProviderCredentialsOptions) => GenericReturnConfig;
 interface ProviderCredentialsOptions {
     id?: string;
     name: string;
-    credentials: unknown;
-    authorize(credentails: unknown): Promise<unknown | null>;
+    credentials: CredentialInput;
+    authorize(credentials: Record<string, string>): Promise<GenericReturnConfig | null>;
+}
+
+interface CredentialInput {
+    [key: string]: {
+        label?: string;
+        type?: string;
+        value?: string;
+        placeholder?: string;
+    };
 }
 
 /**
@@ -153,6 +162,7 @@ type Google = (options: ProviderGoogleOptions) => GenericReturnConfig;
 interface ProviderGoogleOptions {
     clientId: string;
     clientSecret: string;
+    authorizationUrl?: string;
 }
 
 /**

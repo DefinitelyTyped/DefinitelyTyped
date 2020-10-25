@@ -1,7 +1,7 @@
 // Type definitions for json-parse-helpfulerror 1.0
 // Project: https://github.com/smikes/json-parse-helpfulerror
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyp
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Converts a JavaScript Object Notation (JSON) string into an object.

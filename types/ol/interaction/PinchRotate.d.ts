@@ -1,5 +1,6 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
+import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import PointerInteraction from './Pointer';
 
@@ -9,7 +10,10 @@ export interface Options {
 }
 export default class PinchRotate extends PointerInteraction {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    handleDownEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    handleDragEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): void;
+    handleUpEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

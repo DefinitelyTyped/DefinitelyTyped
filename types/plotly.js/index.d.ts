@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.50
+// Type definitions for plotly.js 1.54
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -22,7 +22,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from 'd3';
+import { BoxPlotData } from './lib/traces/box';
+import { ViolinData } from './lib/traces/violin';
+
 export as namespace Plotly;
+export { BoxPlotData, ViolinData };
 
 export interface StaticPlots {
     resize(root: Root): void;
@@ -935,6 +939,7 @@ export interface Delta {
 export interface DataTitle {
     text: string;
     font: Partial<Font>;
+    standoff: number;
     position:
         | 'top left'
         | 'top center'
@@ -997,33 +1002,54 @@ export type ErrorBar = Partial<ErrorOptions> &
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 export type PlotType =
     | 'bar'
+    | 'barpolar'
     | 'box'
     | 'candlestick'
+    | 'carpet'
     | 'choropleth'
+    | 'choroplethmapbox'
+    | 'cone'
     | 'contour'
+    | 'contourcarpet'
+    | 'contourgl'
+    | 'densitymapbox'
+    | 'funnel'
+    | 'funnelarea'
     | 'heatmap'
+    | 'heatmapgl'
     | 'histogram'
+    | 'histogram2d'
+    | 'histogram2dcontour'
+    | 'image'
     | 'indicator'
+    | 'isosurface'
     | 'mesh3d'
     | 'ohlc'
+    | 'parcats'
     | 'parcoords'
     | 'pie'
     | 'pointcloud'
+    | 'sankey'
     | 'scatter'
     | 'scatter3d'
+    | 'scattercarpet'
     | 'scattergeo'
     | 'scattergl'
+    | 'scattermapbox'
     | 'scatterpolar'
+    | 'scatterpolargl'
     | 'scatterternary'
+    | 'splom'
+    | 'streamtube'
     | 'sunburst'
     | 'surface'
+    | 'table'
     | 'treemap'
-    | 'waterfall'
-    | 'funnel'
-    | 'funnelarea'
-    | 'scattermapbox';
+    | 'violin'
+    | 'volume'
+    | 'waterfall';
 
-export type Data = Partial<PlotData>;
+export type Data = Partial<PlotData> | Partial<BoxPlotData> | Partial<ViolinData>;
 export type Color =
     | string
     | number
@@ -1039,6 +1065,9 @@ export interface PlotData {
     x: Datum[] | Datum[][] | TypedArray;
     y: Datum[] | Datum[][] | TypedArray;
     z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+    i: TypedArray;
+    j: TypedArray;
+    k: TypedArray;
     xy: Float32Array;
     error_x: ErrorBar;
     error_y: ErrorBar;
@@ -1170,6 +1199,8 @@ export interface PlotData {
     parents: string[];
     name: string;
     stackgroup: string;
+    groupnorm: '' | 'fraction' | 'percent';
+    stackgaps: 'infer zero' | 'interpolate';
     connectgaps: boolean;
     visible: boolean | 'legendonly';
     delta: Partial<Delta>;
@@ -1179,6 +1210,9 @@ export interface PlotData {
     orientation: 'v' | 'h';
     width: number | number[];
     boxmean: boolean | 'sd';
+    boxpoints: 'all' | 'outliers' | 'suspectedoutliers' | false;
+    jitter: number;
+    pointpos: number;
     opacity: number;
     showscale: boolean;
     colorscale: ColorScale;
@@ -1201,6 +1235,7 @@ export interface PlotData {
     theta: Datum[];
     r: Datum[];
     customdata: Datum[];
+    selectedpoints: Datum[];
     domain: Partial<{
         rows: number;
         columns: number;

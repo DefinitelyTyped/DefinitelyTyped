@@ -3,7 +3,11 @@ import graygelf =  require('graygelf');
 import { join } from 'path';
 import * as fs from 'fs';
 
-let log = graygelf('graylog.server.local');
+graygelf.LOG_LEVELS;
+graygelf.CHUNK_LAN;
+graygelf.CHUNK_WAN;
+
+let log = new graygelf('graylog.server.local');
 log = graygelf({
     host: 'graylog.server.local',
     port: 12201,
