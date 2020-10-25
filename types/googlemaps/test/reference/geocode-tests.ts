@@ -4,7 +4,7 @@ const geocoder = new Geocoder();
 
 geocoder.geocode({}, (results, status) => {
     results; // $ExpectType GeocoderResult[]
-    status; // $ExpectType  GeocoderStatus
+    status; // $ExpectType GeocoderStatus
 });
 
 export {};
