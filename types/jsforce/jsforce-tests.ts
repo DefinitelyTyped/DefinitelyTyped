@@ -21,6 +21,19 @@ const salesforceConnection: sf.Connection = new sf.Connection({
     },
 });
 
+async function testProxyOptions() {
+    // send valid proxy values
+    // $ExpectType Connection
+    new sf.Connection({
+        proxyUrl: "http://127.0.0.1:8080/",
+        httpProxy: "127.0.0.1:8080",
+    });
+
+    // send invalid proxy values
+    // $ExpectError
+    new sf.Connection({ httpProxy: { host: "127.0.0.1:8080"} });
+}
+
 async function testIdentity(connection: sf.Connection) {
     // Callback style.
     connection.identity((err: Error | null, identityInfo: sf.IdentityInfo) => {
