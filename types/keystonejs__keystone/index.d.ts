@@ -23,25 +23,33 @@ declare module '@keystonejs/keystone' {
     }
 
     interface KeystoneOptions {
-        name: string;
         adapter: BaseKeystoneAdapter;
         adapters?: {
             [key: string]: BaseKeystoneAdapter;
         };
+        appVersion?: {
+            version?: string,
+            addVersionToHttpHeaders?: boolean,
+            access?: unknown,
+        };
+        cookie?: {
+            secure?: boolean;
+            maxAge?: number;
+            sameSite?: boolean;
+        };
+        cookieSecret?: string;
+        defaultAccess?: {
+            list?: boolean,
+            field?: boolean,
+            custom?: boolean
+        };
         defaultAdapter?: string;
         onConnect?: () => void;
-        cookieSecret?: string;
-        cookieMaxAge?: number;
-        secureCookies?: boolean;
-        sessionStore?: any; // TODO: bring in express session types
-        schemaNames?: string[];
-        defaultAcces?: {
-            list?: boolean;
-            field?: boolean;
-        };
         queryLimits?: {
             maxTotalResults?: number;
         };
+        sessionStore?: any; // TODO: bring in express session types
+        schemaNames?: string[];
     }
 
     interface KeystonePrepareResult {
