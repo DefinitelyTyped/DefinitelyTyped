@@ -1,5 +1,5 @@
 // Type definitions for pretty-data 0.40
-// Project: https://github.com/sidorares/json-bigint#readme
+// Project: https://github.com/vkiryukhin/pretty-data#readme
 // Definitions by: Zeeshan Ahmad <https://github.com/ziishaned>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
