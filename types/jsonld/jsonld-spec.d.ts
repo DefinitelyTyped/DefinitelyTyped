@@ -3,9 +3,10 @@
  * https://www.w3.org/TR/json-ld-api/
  *
  */
+import { NodeObject } from './jsonld.d';
 
 // Some aliases and placeholders for better readability
-export type JsonLdObj = object;
+export type JsonLdObj = NodeObject;
 export type JsonLdArray = [JsonLdObj];
 export type JsonLd = JsonLdObj|JsonLdArray;
 
