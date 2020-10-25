@@ -14,7 +14,7 @@ import { ConnectionOptions } from 'tls';
 
 export interface ClientConfig {
     user?: string;
-    database?: string;
+    database: string | null | undefined;
     password?: string;
     port?: number;
     host?: string;
