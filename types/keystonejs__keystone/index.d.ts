@@ -65,7 +65,7 @@ declare module '@keystonejs/keystone' {
                 isAdmin: boolean;
                 password: string;
             };
-            listKey: string;
+            listAuthKey: string;
             operation: string;
             originalInput?: any; // TODO: types
             gqlName: string;
@@ -240,27 +240,19 @@ declare module '@keystonejs/keystone' {
         mutations?: GraphQLExtension[];
     }
 
-    interface QueryExecutionSchema {
-        variables?: any;
-        context?: any;
-    }
-
     class Keystone<ListNames extends string = string> {
         constructor(options: KeystoneOptions);
 
-        createAuthStrategy(options: { type: BaseAuthStrategy; list: ListNames; config?: any }): any; // TODO
+        connect(): Promise<void>;
+        createAuthStrategy(options: { type: BaseAuthStrategy; list: ListNames; config?: any; hooks?: any; plugins?: any[] }): any; // TODO
         createList(name: string, schema: ListSchema): void;
+        disconnect(): Promise<void>;
         extendGraphQLSchema(schema: GraphQLExtensionSchema): void;
-
-        prepare(options: { apps?: BaseApp[]; dev?: boolean }): Promise<KeystonePrepareResult>;
-
+        prepare(options: { apps?: BaseApp[]; cors?: {origin?: boolean; credentials?: boolean}, dev?: boolean, distDir?: string, pinoOptions?: any }): Promise<KeystonePrepareResult>;
+        // tslint:disable-next-line:no-unnecessary-generics
+        createContext<Context = any>(context: { schemaName?: string, authentication?: AuthenticationContext, skipAccessControl?: boolean; }): Context;
         // The return type is actually important info here. I don't believe this generic is unnecessary.
         // tslint:disable-next-line:no-unnecessary-generics
-        executeQuery<Output = any>(query: string, config?: QueryExecutionSchema): Output;
-        connect(): Promise<void>;
-        disconnect(): Promise<void>;
-
-        // tslint:disable-next-line:no-unnecessary-generics
-        createItems<ItemType>(items: { [key in ListNames]: ItemType[] }): Promise<void>;
+        executeGraphQL<Output = any>(options: {context?: any; query?: any, variables?: any}): Output;
     }
 }
