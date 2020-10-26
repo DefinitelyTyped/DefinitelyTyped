@@ -880,7 +880,7 @@ Accounts.emailTemplates.enrollAccount.subject = function (user: Meteor.User) {
 Accounts.emailTemplates.enrollAccount.html = function (user: Meteor.User, url: string) {
     return "<h1>Some html here</h1>";
 };
-Accounts.emailTemplates.enrollAccount.from = function () {
+Accounts.emailTemplates.enrollAccount.from = function (user: Meteor.User) {
     return "asdf@asdf.com";
 };
 Accounts.emailTemplates.enrollAccount.text = function (user: Meteor.User, url: string) {
