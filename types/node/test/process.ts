@@ -85,3 +85,6 @@ import { EventEmitter } from "events";
     strDict = process.versions;
     strDict = p.versions;
 }
+{
+    process.traceDeprecation = true;
+}

@@ -295,6 +295,8 @@ declare module "process" {
 
                 resourceUsage(): ResourceUsage;
 
+                traceDeprecation: boolean;
+
                 /* EventEmitter */
                 addListener(event: "beforeExit", listener: BeforeExitListener): this;
                 addListener(event: "disconnect", listener: DisconnectListener): this;
