@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactAttr, ReactDivAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
 interface InheritedProps extends ReactDivAttr { }
 
