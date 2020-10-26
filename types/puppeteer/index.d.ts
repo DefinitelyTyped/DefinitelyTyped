@@ -2360,6 +2360,15 @@ export function launch(options?: LaunchOptions): Promise<Browser>;
 export function createBrowserFetcher(options?: FetcherOptions): BrowserFetcher;
 
 /**
+ * The name of the browser that is under automation (`"chrome"` or `"firefox"`)
+ *
+ * The product is set by the `PUPPETEER_PRODUCT` environment variable or the `product`
+ * option in `puppeteer.launch([options])` and defaults to `chrome`.
+ * Firefox support is experimental.
+ */
+export const product: Product;
+
+/**
  * Registers a {@link CustomQueryHandler | custom query handler}. After
  * registration, the handler can be used everywhere where a selector is
  * expected by prepending the selection string with `<name>/`. The name is
