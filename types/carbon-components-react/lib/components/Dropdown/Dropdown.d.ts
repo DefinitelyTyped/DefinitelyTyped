@@ -5,7 +5,7 @@ import {
     ReactInputAttr,
     RequiresIdProps,
     ThemeProps,
-    ValidityProps, ReactDivAttr
+    ValidityProps, ReactDivAttr, ForwardRefProps, FCReturn
 } from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
@@ -45,4 +45,7 @@ export interface DropdownProps<ItemType = string> extends InheritedProps<ItemTyp
     titleText: NonNullable<React.ReactNode>,
 }
 
-export default class Dropdown<ItemType = string> extends React.Component<DropdownProps<ItemType>> { }
+declare function Dropdown<ItemType = string>(props: ForwardRefProps<HTMLButtonElement, DropdownProps<ItemType>>): FCReturn;
+
+export default Dropdown;
+
