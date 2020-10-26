@@ -87,6 +87,8 @@ export * from "./lib/components/ToolbarSearch";
 export * from "./lib/components/Tooltip";
 export * from "./lib/components/TooltipDefinition";
 export * from "./lib/components/TooltipIcon";
+export * from "./lib/components/TreeView/TreeNode";
+export * from "./lib/components/TreeView/TreeView";
 export * from "./lib/components/UIShell";
 export * from "./lib/components/UnorderedList";
 
@@ -186,6 +188,8 @@ export { default as ToolbarSearch } from "./lib/components/ToolbarSearch";
 export { default as Tooltip } from "./lib/components/Tooltip";
 export { default as TooltipDefinition } from "./lib/components/TooltipDefinition";
 export { default as TooltipIcon } from "./lib/components/TooltipIcon";
+export { default as unstable_TreeView } from "./lib/components/TreeView";
+export { TreeNode as unstable_TreeNode } from "./lib/components/TreeView";
 export { default as UnorderedList } from "./lib/components/UnorderedList";
 export { default as SkeletonText } from "./lib/components/SkeletonText";
 export { default as SkeletonPlaceholder } from "./lib/components/SkeletonPlaceholder";
