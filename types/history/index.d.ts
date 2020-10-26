@@ -27,7 +27,7 @@ export interface History<HistoryLocationState = LocationState> {
 export interface Location<S = LocationState> {
     pathname: Pathname;
     search: Search;
-    state: S;
+    state?: S;
     hash: Hash;
     key?: LocationKey;
 }
