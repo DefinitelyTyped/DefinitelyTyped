@@ -212,13 +212,13 @@ Users.find({}, { transform: null }).observe({
 });
 
 // $ExpectType DBUser | undefined
-const userOne = Users.findOne({});
+Users.findOne({});
 // $ExpectType DBUser | undefined
-const userTwo = Users.findOne({}, {});
+Users.findOne({}, {});
 // $ExpectType DBUser | undefined
-const userThree = Users.findOne({}, { transform: null });
+Users.findOne({}, { transform: null });
 // $ExpectType string | undefined
-const userFour = Users.findOne({}, { transform: doc => 'null' });
+Users.findOne({}, { transform: doc => 'null' });
 
 // Test with default transform function
 type DBAttachment = {
@@ -240,7 +240,11 @@ class AttachmentDocument {
 
 // $ExpectType Collection<DBAttachment, AttachmentDocument>
 export const Attachment = new Mongo.Collection<DBAttachment, AttachmentDocument>('attachments', {
-    transform: doc => new AttachmentDocument(doc),
+    transform: doc => {
+        // $ExpectType DBAttachment
+        doc;
+        return new AttachmentDocument(doc);
+    },
 });
 
 Attachment.find({}).map(doc => {
@@ -258,7 +262,16 @@ Attachment.find({}, { transform: null }).map(doc => {
     doc;
     return doc;
 });
-Attachment.find({}, { transform: doc => 'null' }).map(doc => {
+Attachment.find(
+    {},
+    {
+        transform: doc => {
+            // $ExpectType DBAttachment
+            doc;
+            return 'null';
+        },
+    },
+).map(doc => {
     // $ExpectType string
     doc;
     return doc;
@@ -271,7 +284,16 @@ const attachTwo = Attachment.findOne({}, {});
 // $ExpectType DBAttachment | undefined
 const attachThree = Attachment.findOne({}, { transform: null });
 // $ExpectType string | undefined
-const attachFour = Attachment.findOne({}, { transform: doc => 'null' });
+const attachFour = Attachment.findOne(
+    {},
+    {
+        transform: doc => {
+            // $ExpectType DBAttachment
+            doc;
+            return 'null';
+        },
+    },
+);
 
 Attachment.deny({
     update: (userId, doc) => {
@@ -346,6 +368,7 @@ Attachment.deny({
     },
     transform: (doc: DBAttachment) => ({ foo: 'foo', size: doc.size }),
 });
+
 Attachment.allow({
     update: (userId, doc) => {
         // $ExpectType string
@@ -430,7 +453,16 @@ Attachment.find({}).observe({
     },
 });
 
-Attachment.find({}, { transform: (doc: DBAttachment) => 'null' }).observe({
+Attachment.find(
+    {},
+    {
+        transform: doc => {
+            // $ExpectType DBAttachment
+            doc;
+            return doc._id;
+        },
+    },
+).observe({
     changed: (newDoc, oldDoc) => {
         // $ExpectType string
         newDoc;
@@ -449,3 +481,19 @@ Attachment.find({}, { transform: null }).observe({
         return false;
     },
 });
+
+// Check Errors
+// $ExpectError
+Attachment.find({}, { transform: '' });
+
+// $ExpectError
+Attachment.findOne({}, { transform: '' });
+
+// $ExpectError
+Attachment.allow({ transform: '' });
+
+// $ExpectError
+Attachment.deny({ transform: '' });
+
+// $ExpectError
+new Mongo.Collection<DBAttachment, AttachmentDocument>('attachments', { transform: '' });
