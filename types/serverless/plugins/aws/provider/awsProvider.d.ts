@@ -368,7 +368,7 @@ declare namespace Aws {
     interface Sns {
         topicName: string;
         displayName?: string;
-        filterPolicy?: string[] | { [key: string]: string };
+        filterPolicy?: string[] | { [key: string]: string[] };
         redrivePolicy?: RedrivePolicy;
     }
 
