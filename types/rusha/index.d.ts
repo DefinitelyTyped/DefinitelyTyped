@@ -33,6 +33,6 @@ interface Rusha {
     disableWorkerBehaviour(): void;
 }
 
-declare const rusha: Rusha;
+declare const Rusha: Rusha;
 
-export = rusha;
+export = Rusha;
