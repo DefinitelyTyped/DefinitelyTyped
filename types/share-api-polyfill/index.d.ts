@@ -10,22 +10,22 @@ export interface ShareAPIPolyfillData extends ShareData {
 }
 
 export interface ShareAPIPolyfillOptions {
-    copy: boolean;
-    email: boolean;
-    print: boolean;
-    sms: boolean;
-    messenger: boolean;
-    facebook: boolean;
-    whatsapp: boolean;
-    twitter: boolean;
-    linkedin: boolean;
-    telegram: boolean;
-    skype: boolean;
-    language: string;
+    copy?: boolean;
+    email?: boolean;
+    print?: boolean;
+    sms?: boolean;
+    messenger?: boolean;
+    facebook?: boolean;
+    whatsapp?: boolean;
+    twitter?: boolean;
+    linkedin?: boolean;
+    telegram?: boolean;
+    skype?: boolean;
+    language?: string;
 }
 
 declare global {
     interface Navigator {
-        share(data?: ShareAPIPolyfillData, configuration?: Partial<ShareAPIPolyfillOptions>): Promise<void>;
+        share(data?: ShareAPIPolyfillData, configuration?: ShareAPIPolyfillOptions): Promise<void>;
     }
 }
