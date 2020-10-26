@@ -1,8 +1,6 @@
 import { ForwardRefReturn, ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr {}
-
-export interface ButtonSetProps extends InheritedProps {
+export interface ButtonSetProps extends ReactDivAttr  {
     stacked?: boolean;
 }
 

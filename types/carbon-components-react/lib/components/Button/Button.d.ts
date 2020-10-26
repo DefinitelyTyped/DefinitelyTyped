@@ -1,17 +1,15 @@
 import * as React from "react";
 import {
-    EmbeddedIconProps,
-    EmbeddedTooltipProps,
     ReactButtonAttr,
-    FCReturn, JSXIntrinsicElementProps, ReactAnchorAttr, ForwardRefProps,
-} from '../../../typings/shared';
+    FCReturn, JSXIntrinsicElementProps, ReactAnchorAttr, ForwardRefProps, TooltipAlignment, TooltipPosition,
+} from "../../../typings/shared";
 
 export type ButtonKind = "danger" | "danger--primary" | "ghost" | "primary" | "secondary" | "tertiary";
 export type ButtonSize = "default" | "field" | "small";
 
 export interface ButtonRenderIconRenderProps {
     "aria-hidden"?: boolean;
-    "aria-label"?: EmbeddedIconProps["iconDescription"];
+    "aria-label"?: string;
     className?: string;
 }
 
@@ -21,8 +19,9 @@ interface ButtonKindProps {
 }
 
 // these props are not passed to the general createElement call
-interface ButtonBaseIsolatedProps extends EmbeddedIconProps, EmbeddedTooltipProps {
+interface ButtonBaseIsolatedProps {
     hasIconOnly?: boolean;
+    iconDescription?: string;
     // trying to type this just causes problems around inference, overload selection, and anon fn vs typed component references.
     // if anon render props type is desired, import ButtonRenderIconRenderProps.
     renderIcon?: any;
@@ -31,6 +30,8 @@ interface ButtonBaseIsolatedProps extends EmbeddedIconProps, EmbeddedTooltipProp
      * @deprecated
      */
     small?: boolean;
+    tooltipAlignment?: TooltipAlignment;
+    tooltipPosition?: TooltipPosition;
 }
 type SafeProps<P> = Omit<P, 'as' | keyof ButtonBaseIsolatedProps>;
 

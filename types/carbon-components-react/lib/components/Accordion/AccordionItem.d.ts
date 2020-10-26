@@ -1,14 +1,12 @@
 import * as React from "react";
 import { ReactLIAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactLIAttr { }
-
 export interface HeadingClickData {
     event: React.MouseEvent<HTMLElement>;
     isOpen: boolean;
 }
 
-export interface AccordionItemProps extends Omit<InheritedProps, "title"> {
+export interface AccordionItemProps extends Omit<ReactLIAttr, "title"> {
     /**
      * @deprecated
      */

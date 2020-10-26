@@ -1,15 +1,16 @@
-import { ReactDivAttr, ThemeProps, FCProps, FCReturn } from "../../../typings/shared";
+import { ReactDivAttr, FCProps, FCReturn } from "../../../typings/shared";
 import { CopyProps } from "../Copy";
 
 interface InheritedDivProps extends Omit<ReactDivAttr, "children"> { }
-interface InheritedInlineProps extends Omit<CopyProps, "children"> { }
+interface InheritedInlineProps extends Omit<CopyProps, "children" | "type"> { }
 
-interface SharedProps extends ThemeProps {
+interface SharedProps {
     children?: string,
     copyLabel?: string,
     copyButtonDescription?: string,
     feedback?: CopyProps["feedback"],
     hideCopyButton?: boolean,
+    light?: boolean,
     showLessText?: string,
     showMoreText?: string,
 }
