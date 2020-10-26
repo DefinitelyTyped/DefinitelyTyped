@@ -817,12 +817,12 @@ export interface UseSortByInstanceProps<D extends object> {
     rows: Array<Row<D>>;
     preSortedRows: Array<Row<D>>;
     setSortBy: (sortBy: Array<SortingRule<D>>) => void;
-    toggleSortBy: (columnId: IdType<D>, descending: boolean, isMulti: boolean) => void;
+    toggleSortBy: (columnId: IdType<D>, descending?: boolean, isMulti: boolean) => void;
 }
 
 export interface UseSortByColumnProps<D extends object> {
     canSort: boolean;
-    toggleSortBy: (descending: boolean, multi: boolean) => void;
+    toggleSortBy: (descending?: boolean, multi: boolean) => void;
     getSortByToggleProps: (props?: Partial<TableSortByToggleProps>) => TableSortByToggleProps;
     clearSortBy: () => void;
     isSorted: boolean;
