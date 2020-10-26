@@ -30,6 +30,7 @@ export * from "./lib/components/DatePickerInput";
 export * from "./lib/components/Dropdown";
 export * from "./lib/components/ErrorBoundary";
 export * from "./lib/components/FileUploader";
+export * from "./lib/components/FluidForm/FluidForm"; // context is not exported from index
 export * from "./lib/components/Form";
 export * from "./lib/components/FormGroup";
 export * from "./lib/components/FormItem";
@@ -130,6 +131,7 @@ export { default as DatePickerInput } from "./lib/components/DatePickerInput";
 export { default as Dropdown } from "./lib/components/Dropdown";
 export { ErrorBoundary, ErrorBoundaryContext } from "./lib/components/ErrorBoundary";
 export { default as FileUploader, Filename, FileUploaderButton, FileUploaderDropContainer, FileUploaderItem } from "./lib/components/FileUploader";
+export { default as FluidForm } from "./lib/components/FluidForm";
 export { default as Form } from "./lib/components/Form";
 export { default as FormGroup } from "./lib/components/FormGroup";
 export { default as FormItem } from "./lib/components/FormItem";
