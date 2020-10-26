@@ -207,3 +207,12 @@ const customComponents: MUIDataTableProps['components'] = {
 };
 
 <MuiCustomTable title="Todo Table" data={Todos} options={todoOptions} components={customComponents} />;
+
+const disabledOptions: MUIDataTableOptions = {
+    print: 'true',
+    search: false,
+    viewColumns: 'disabled',
+    filter: true,
+};
+
+<MuiCustomTable title="Disabled Buttons" data={Todos} options={disabledOptions} />;
