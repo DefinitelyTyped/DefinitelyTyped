@@ -128,7 +128,7 @@ declare module "meteor/mongo" {
             [id: string]: Number;
         }
 
-        type TransformFn<T> = ((doc: T) => any) | null;
+        type TransformFn<T> = ((doc: T) => any) | null | undefined;
 
         type Options<T> = {
             sort?: SortSpecifier;
@@ -150,17 +150,17 @@ declare module "meteor/mongo" {
             }): Collection<T, U>;
         }
         interface Collection<T, U = T> {
-            allow<Fn extends TransformFn<T> | undefined = undefined, Doc = DispatchTransform<Fn, T, U>>(options: {
-                insert?: (userId: string, doc: Doc) => boolean;
-                update?: (userId: string, doc: Doc, fieldNames: string[], modifier: any) => boolean;
-                remove?: (userId: string, doc: Doc) => boolean;
+            allow<Fn extends TransformFn<T> = undefined>(options: {
+                insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
+                update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
+                remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
                 fetch?: string[];
                 transform?: Fn;
             }): boolean;
-            deny<Fn extends TransformFn<T> | undefined = undefined, Doc = DispatchTransform<Fn, T, U>>(options: {
-                insert?: (userId: string, doc: Doc) => boolean;
-                update?: (userId: string, doc: Doc, fieldNames: string[], modifier: any) => boolean;
-                remove?: (userId: string, doc: Doc) => boolean;
+            deny<Fn extends TransformFn<T> = undefined>(options: {
+                insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
+                update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
+                remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
                 fetch?: string[];
                 transform?: Fn;
             }): boolean;
