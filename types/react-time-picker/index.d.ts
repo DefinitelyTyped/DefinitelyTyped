@@ -2,6 +2,7 @@
 // Project: https://github.com/wojtekmaj/react-time-picker
 // Definitions by: Enmanuel Veras <https://github.com/everas7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.5
 
 import { ClockProps } from 'react-clock';
 
