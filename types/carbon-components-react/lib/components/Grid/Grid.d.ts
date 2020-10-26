@@ -4,6 +4,7 @@ import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from '../
 interface GridBaseIsolatedProps {
     condensed?: boolean;
     fullWidth?: boolean;
+    narrow?: boolean;
 }
 type SafeProps<P> = Omit<P, 'as' | keyof GridBaseIsolatedProps>;
 

@@ -3,6 +3,7 @@ import { ReactAttr, FCReturn, ReactDivAttr, JSXIntrinsicElementProps } from '../
 
 interface RowBaseIsolatedProps {
     condensed?: boolean;
+    narrow?: boolean;
 }
 type SafeProps<P> = Omit<P, 'as' | 'condensed'>;
 
