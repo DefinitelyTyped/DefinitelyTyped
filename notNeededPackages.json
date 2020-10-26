@@ -471,7 +471,7 @@
         {
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/camel-case#readme",
             "asOfVersion": "1.2.1"
         },
         {
@@ -675,7 +675,7 @@
         {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/constant-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -951,7 +951,7 @@
         {
             "libraryName": "deepmerge",
             "typingsPackageName": "deepmerge",
-            "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
+            "sourceRepoURL": "https://github.com/TehShrike/deepmerge",
             "asOfVersion": "2.2.0"
         },
         {
@@ -1065,7 +1065,7 @@
         {
             "libraryName": "dot-case",
             "typingsPackageName": "dot-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/dot-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/dot-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -2241,7 +2241,7 @@
         {
             "libraryName": "is-lower-case",
             "typingsPackageName": "is-lower-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/is-lower-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/is-lower-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -2349,7 +2349,7 @@
         {
             "libraryName": "is-upper-case",
             "typingsPackageName": "is-upper-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/is-upper-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -2823,13 +2823,13 @@
         {
             "libraryName": "lower-case",
             "typingsPackageName": "lower-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/lower-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/lower-case#readme",
             "asOfVersion": "1.1.3"
         },
         {
             "libraryName": "lower-case-first",
             "typingsPackageName": "lower-case-first",
-            "sourceRepoURL": "https://github.com/blakeembrey/lower-case-first",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/lower-case-first#readme",
             "asOfVersion": "1.0.1"
         },
         {
@@ -2943,7 +2943,7 @@
         {
             "libraryName": "@material/grid-list",
             "typingsPackageName": "material__grid-list",
-            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-grid-list",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web#readme",
             "asOfVersion": "1.0.0"
         },
         {
@@ -3027,7 +3027,7 @@
         {
             "libraryName": "@material/tabs",
             "typingsPackageName": "material__tabs",
-            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-tabs",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web#readme",
             "asOfVersion": "1.0.0"
         },
         {
@@ -3039,7 +3039,7 @@
         {
             "libraryName": "@material/toolbar",
             "typingsPackageName": "material__toolbar",
-            "sourceRepoURL": "https://github.com/material-components/material-components-web/tree/master/packages/mdc-toolbar",
+            "sourceRepoURL": "https://github.com/material-components/material-components-web#readme",
             "asOfVersion": "1.0.0"
         },
         {
@@ -3435,7 +3435,7 @@
         {
             "libraryName": "odata",
             "typingsPackageName": "odata",
-            "sourceRepoURL": "https://github.com/janhommes/odata",
+            "sourceRepoURL": "https://github.com/janhommes/o.js#readme",
             "asOfVersion": "1.0.3"
         },
         {
@@ -3783,7 +3783,7 @@
         {
             "libraryName": "param-case",
             "typingsPackageName": "param-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/param-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/param-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -3813,7 +3813,7 @@
         {
             "libraryName": "pascal-case",
             "typingsPackageName": "pascal-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/pascal-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/pascal-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -3825,7 +3825,7 @@
         {
             "libraryName": "path-case",
             "typingsPackageName": "path-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/path-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/path-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -4317,7 +4317,7 @@
         {
             "libraryName": "react-jss",
             "typingsPackageName": "react-jss",
-            "sourceRepoURL": "https://github.com/cssinjs/react-jss#readme",
+            "sourceRepoURL": "https://cssinjs.org/react-jss/",
             "asOfVersion": "10.0.0"
         },
         {
@@ -4701,7 +4701,7 @@
         {
             "libraryName": "rfc4648",
             "typingsPackageName": "rfc4648",
-            "sourceRepoURL": "https://github.com/swansontec/rfc4648",
+            "sourceRepoURL": "https://github.com/swansontec/rfc4648.js#readme",
             "asOfVersion": "1.3.0"
         },
         {
@@ -4887,7 +4887,7 @@
         {
             "libraryName": "sentence-case",
             "typingsPackageName": "sentence-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/sentence-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/sentence-case#readme",
             "asOfVersion": "1.1.3"
         },
         {
@@ -4995,13 +4995,13 @@
         {
             "libraryName": "snake-case",
             "typingsPackageName": "snake-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/snake-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/snake-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
             "libraryName": "snappy",
             "typingsPackageName": "snappy",
-            "sourceRepoURL": "https://github.com/jantimon/node-snappy",
+            "sourceRepoURL": "https://github.com/kesla/node-snappy",
             "asOfVersion": "6.3.2"
         },
         {
@@ -5331,13 +5331,13 @@
         {
             "libraryName": "swagger-parser",
             "typingsPackageName": "swagger-parser",
-            "sourceRepoURL": "https://apidevtools.org/swagger-parser/",
+            "sourceRepoURL": "https://apitools.dev/swagger-parser/",
             "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "swap-case",
             "typingsPackageName": "swap-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/swap-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/swap-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -5367,7 +5367,7 @@
         {
             "libraryName": "tcomb",
             "typingsPackageName": "tcomb",
-            "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
+            "sourceRepoURL": "https://github.com/gcanti/tcomb",
             "asOfVersion": "2.6.0"
         },
         {
@@ -5481,7 +5481,7 @@
         {
             "libraryName": "title-case",
             "typingsPackageName": "title-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/title-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/title-case#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -5619,13 +5619,13 @@
         {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
-            "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/upper-case#readme",
             "asOfVersion": "1.1.3"
         },
         {
             "libraryName": "upper-case-first",
             "typingsPackageName": "upper-case-first",
-            "sourceRepoURL": "https://github.com/blakeembrey/upper-case-first",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case/tree/master/packages/upper-case-first#readme",
             "asOfVersion": "1.1.2"
         },
         {
@@ -5805,7 +5805,7 @@
         {
             "libraryName": "webdriverio",
             "typingsPackageName": "webdriverio",
-            "sourceRepoURL": "git@github.com:webdriverio/webdriverio.git",
+            "sourceRepoURL": "https://webdriver.io/",
             "asOfVersion": "5.0.0"
         },
         {
