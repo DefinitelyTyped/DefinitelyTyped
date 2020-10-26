@@ -514,7 +514,7 @@ declare namespace Aws {
         tags?: Tags;
         vpc?: Vpc;
         package?: Package;
-        layers?: string[];
+        layers?: string[] | { [key: string]: string };
         tracing?: string;
         condition?: string;
         dependsOn?: string[];
