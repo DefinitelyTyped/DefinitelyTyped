@@ -574,7 +574,7 @@ const multiSelect = (
         items={['one', 'two']}
         light
         titleText="Choose an item"
-        itemToString={item => item}
+        itemToString={item => item || ""}
         onChange={({ selectedItems }) => {}}
     />
 );
@@ -587,7 +587,31 @@ const multiSelectFilterable = (
         light
         placeholder="Filter"
         titleText="Choose an item"
-        itemToString={item => item}
+        itemToString={item => item || ""}
+        onChange={({ selectedItems }) => {}}
+    />
+);
+
+const multiSelectFilterableObjs = [
+    {
+        id: "1",
+        name: "One"
+    },
+    {
+        id: "2",
+        name: "Two",
+        label: "label"
+    }
+];
+const multiSelectFilterableObj = (
+    <MultiSelect.Filterable
+        id="clusters"
+        initialSelectedItems={[multiSelectFilterableObjs[0]]}
+        items={multiSelectFilterableObjs}
+        light
+        placeholder="Filter"
+        titleText="Choose an item"
+        itemToString={item => item?.label || ""}
         onChange={({ selectedItems }) => {}}
     />
 );
