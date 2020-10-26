@@ -57,8 +57,8 @@ const WithRouterTestClass2 = () => <WithRouterComponentClass username="John" wra
     type SomethingToRead = (Book | Magazine) & RouteComponentProps<{}, StaticContext, State>;
 
     const Readable: React.SFC<SomethingToRead> = props => {
-        props.location.state; // $ExpectType State
-        props.history.location.state; // $ExpectType State
+        props.location.state; // $ExpectType State | undefined
+        props.history.location.state; // $ExpectType State | undefined
 
         if (props.kind === 'magazine') {
             return <div>magazine #{props.issue}</div>;
