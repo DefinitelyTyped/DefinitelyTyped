@@ -1,5 +1,5 @@
 // Type definitions for globalize-compiler v0.2.0
-// Project: https://github.com/jquery-support/globalize-compiler
+// Project: https://github.com/globalizejs/globalize-compiler
 // Definitions by: Ian Clanton-Thuon <https://github.com/iclanton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -42,7 +42,7 @@ interface CompileExtractsAttributes extends CompileOptions {
   /**
    * an Array of extracts obtained by @see{GlobalizeCompilerStatic.extract}
    */
-  extracts: ExtractFunction;
+  extracts: ExtractFunction | ExtractFunction[];
 
   /**
    * a locale to be used as Globalize.locale(defaultLocale) when generating the extracted formatters and parsers.

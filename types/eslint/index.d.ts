@@ -1,4 +1,4 @@
-// Type definitions for eslint 6.8
+// Type definitions for eslint 7.2
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -6,7 +6,8 @@
 //                 Jason Kwok <https://github.com/JasonHK>
 //                 Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+
+/// <reference path="helpers.d.ts" />
 
 import { JSONSchema4 } from 'json-schema';
 import * as ESTree from 'estree';
@@ -244,24 +245,97 @@ export namespace Rule {
     }
 
     type NodeTypes = ESTree.Node['type'];
-    type NodeListener = { [T in NodeTypes]?: (node: ESTree.Node) => void };
+    interface NodeListener {
+        ArrayExpression?: (node: ESTree.ArrayExpression & NodeParentExtension) => void;
+        ArrayPattern?: (node: ESTree.ArrayPattern & NodeParentExtension) => void;
+        ArrowFunctionExpression?: (node: ESTree.ArrowFunctionExpression & NodeParentExtension) => void;
+        AssignmentExpression?: (node: ESTree.AssignmentExpression & NodeParentExtension) => void;
+        AssignmentPattern?: (node: ESTree.AssignmentPattern & NodeParentExtension) => void;
+        AwaitExpression?: (node: ESTree.AwaitExpression & NodeParentExtension) => void;
+        BinaryExpression?: (node: ESTree.BinaryExpression & NodeParentExtension) => void;
+        BlockStatement?: (node: ESTree.BlockStatement & NodeParentExtension) => void;
+        BreakStatement?: (node: ESTree.BreakStatement & NodeParentExtension) => void;
+        CallExpression?: (node: ESTree.CallExpression & NodeParentExtension) => void;
+        CatchClause?: (node: ESTree.CatchClause & NodeParentExtension) => void;
+        ChainExpression?: (node: ESTree.ChainExpression & NodeParentExtension) => void;
+        ClassBody?: (node: ESTree.ClassBody & NodeParentExtension) => void;
+        ClassDeclaration?: (node: ESTree.ClassDeclaration & NodeParentExtension) => void;
+        ClassExpression?: (node: ESTree.ClassExpression & NodeParentExtension) => void;
+        ConditionalExpression?: (node: ESTree.ConditionalExpression & NodeParentExtension) => void;
+        ContinueStatement?: (node: ESTree.ContinueStatement & NodeParentExtension) => void;
+        DebuggerStatement?: (node: ESTree.DebuggerStatement & NodeParentExtension) => void;
+        DoWhileStatement?: (node: ESTree.DoWhileStatement & NodeParentExtension) => void;
+        EmptyStatement?: (node: ESTree.EmptyStatement & NodeParentExtension) => void;
+        ExportAllDeclaration?: (node: ESTree.ExportAllDeclaration & NodeParentExtension) => void;
+        ExportDefaultDeclaration?: (node: ESTree.ExportDefaultDeclaration & NodeParentExtension) => void;
+        ExportNamedDeclaration?: (node: ESTree.ExportNamedDeclaration & NodeParentExtension) => void;
+        ExportSpecifier?: (node: ESTree.ExportSpecifier & NodeParentExtension) => void;
+        ExpressionStatement?: (node: ESTree.ExpressionStatement & NodeParentExtension) => void;
+        ForInStatement?: (node: ESTree.ForInStatement & NodeParentExtension) => void;
+        ForOfStatement?: (node: ESTree.ForOfStatement & NodeParentExtension) => void;
+        ForStatement?: (node: ESTree.ForStatement & NodeParentExtension) => void;
+        FunctionDeclaration?: (node: ESTree.FunctionDeclaration & NodeParentExtension) => void;
+        FunctionExpression?: (node: ESTree.FunctionExpression & NodeParentExtension) => void;
+        Identifier?: (node: ESTree.Identifier & NodeParentExtension) => void;
+        IfStatement?: (node: ESTree.IfStatement & NodeParentExtension) => void;
+        ImportDeclaration?: (node: ESTree.ImportDeclaration & NodeParentExtension) => void;
+        ImportDefaultSpecifier?: (node: ESTree.ImportDefaultSpecifier & NodeParentExtension) => void;
+        ImportExpression?: (node: ESTree.ImportExpression & NodeParentExtension) => void;
+        ImportNamespaceSpecifier?: (node: ESTree.ImportNamespaceSpecifier & NodeParentExtension) => void;
+        ImportSpecifier?: (node: ESTree.ImportSpecifier & NodeParentExtension) => void;
+        LabeledStatement?: (node: ESTree.LabeledStatement & NodeParentExtension) => void;
+        Literal?: (node: ESTree.Literal & NodeParentExtension) => void;
+        LogicalExpression?: (node: ESTree.LogicalExpression & NodeParentExtension) => void;
+        MemberExpression?: (node: ESTree.MemberExpression & NodeParentExtension) => void;
+        MetaProperty?: (node: ESTree.MetaProperty & NodeParentExtension) => void;
+        MethodDefinition?: (node: ESTree.MethodDefinition & NodeParentExtension) => void;
+        NewExpression?: (node: ESTree.NewExpression & NodeParentExtension) => void;
+        ObjectExpression?: (node: ESTree.ObjectExpression & NodeParentExtension) => void;
+        ObjectPattern?: (node: ESTree.ObjectPattern & NodeParentExtension) => void;
+        Program?: (node: ESTree.Program) => void;
+        Property?: (node: ESTree.Property & NodeParentExtension) => void;
+        RestElement?: (node: ESTree.RestElement & NodeParentExtension) => void;
+        ReturnStatement?: (node: ESTree.ReturnStatement & NodeParentExtension) => void;
+        SequenceExpression?: (node: ESTree.SequenceExpression & NodeParentExtension) => void;
+        SpreadElement?: (node: ESTree.SpreadElement & NodeParentExtension) => void;
+        Super?: (node: ESTree.Super & NodeParentExtension) => void;
+        SwitchCase?: (node: ESTree.SwitchCase & NodeParentExtension) => void;
+        SwitchStatement?: (node: ESTree.SwitchStatement & NodeParentExtension) => void;
+        TaggedTemplateExpression?: (node: ESTree.TaggedTemplateExpression & NodeParentExtension) => void;
+        TemplateElement?: (node: ESTree.TemplateElement & NodeParentExtension) => void;
+        TemplateLiteral?: (node: ESTree.TemplateLiteral & NodeParentExtension) => void;
+        ThisExpression?: (node: ESTree.ThisExpression & NodeParentExtension) => void;
+        ThrowStatement?: (node: ESTree.ThrowStatement & NodeParentExtension) => void;
+        TryStatement?: (node: ESTree.TryStatement & NodeParentExtension) => void;
+        UnaryExpression?: (node: ESTree.UnaryExpression & NodeParentExtension) => void;
+        UpdateExpression?: (node: ESTree.UpdateExpression & NodeParentExtension) => void;
+        VariableDeclaration?: (node: ESTree.VariableDeclaration & NodeParentExtension) => void;
+        VariableDeclarator?: (node: ESTree.VariableDeclarator & NodeParentExtension) => void;
+        WhileStatement?: (node: ESTree.WhileStatement & NodeParentExtension) => void;
+        WithStatement?: (node: ESTree.WithStatement & NodeParentExtension) => void;
+        YieldExpression?: (node: ESTree.YieldExpression & NodeParentExtension) => void;
+    }
+
+    interface NodeParentExtension { parent: Node; }
+    type Node = ESTree.Node & NodeParentExtension;
 
     interface RuleListener extends NodeListener {
-        onCodePathStart?(codePath: CodePath, node: ESTree.Node): void;
+        onCodePathStart?(codePath: CodePath, node: Node): void;
 
-        onCodePathEnd?(codePath: CodePath, node: ESTree.Node): void;
+        onCodePathEnd?(codePath: CodePath, node: Node): void;
 
-        onCodePathSegmentStart?(segment: CodePathSegment, node: ESTree.Node): void;
+        onCodePathSegmentStart?(segment: CodePathSegment, node: Node): void;
 
-        onCodePathSegmentEnd?(segment: CodePathSegment, node: ESTree.Node): void;
+        onCodePathSegmentEnd?(segment: CodePathSegment, node: Node): void;
 
-        onCodePathSegmentLoop?(fromSegment: CodePathSegment, toSegment: CodePathSegment, node: ESTree.Node): void;
+        onCodePathSegmentLoop?(fromSegment: CodePathSegment, toSegment: CodePathSegment, node: Node): void;
 
         [key: string]:
-            | ((codePath: CodePath, node: ESTree.Node) => void)
-            | ((segment: CodePathSegment, node: ESTree.Node) => void)
-            | ((fromSegment: CodePathSegment, toSegment: CodePathSegment, node: ESTree.Node) => void)
-            | ((node: ESTree.Node) => void)
+            | ((codePath: CodePath, node: Node) => void)
+            | ((segment: CodePathSegment, node: Node) => void)
+            | ((fromSegment: CodePathSegment, toSegment: CodePathSegment, node: Node) => void)
+            | ((node: Node) => void)
+            | NodeListener[keyof NodeListener]
             | undefined;
     }
 
@@ -285,10 +359,16 @@ export namespace Rule {
 
     interface RuleMetaData {
         docs?: {
+            /** provides the short description of the rule in the [rules index](https://eslint.org/docs/rules/) */
             description?: string;
+            /** specifies the heading under which the rule is listed in the [rules index](https://eslint.org/docs/rules/) */
             category?: string;
+            /** is whether the `"extends": "eslint:recommended"` property in a [configuration file](https://eslint.org/docs/user-guide/configuring#extending-configuration-files) enables the rule */
             recommended?: boolean;
+            /** specifies the URL at which the full documentation can be accessed */
             url?: string;
+            /** specifies whether rules can return suggestions (defaults to false if omitted) */
+            suggestion?: boolean
         };
         messages?: { [messageId: string]: string };
         fixable?: 'code' | 'whitespace';
@@ -366,7 +446,11 @@ export namespace Rule {
 //#region Linter
 
 export class Linter {
+    static version: string;
+
     version: string;
+
+    constructor(options?: { cwd?: string });
 
     verify(code: SourceCode | string, config: Linter.Config, filename?: string): Linter.LintMessage[];
     verify(code: SourceCode | string, config: Linter.Config, options: Linter.LintOptions): Linter.LintMessage[];
@@ -389,21 +473,19 @@ export namespace Linter {
     type Severity = 0 | 1 | 2;
 
     type RuleLevel = Severity | 'off' | 'warn' | 'error';
-    interface RuleLevelAndOptions extends Array<any> {
-        0: RuleLevel;
-    }
+    type RuleLevelAndOptions<Options extends any[] = any[]> = Prepend<Partial<Options>, RuleLevel>;
 
-    type RuleEntry = RuleLevel | RuleLevelAndOptions;
+    type RuleEntry<Options extends any[] = any[]> = RuleLevel | RuleLevelAndOptions<Options>;
 
     interface RulesRecord {
         [rule: string]: RuleEntry;
     }
 
-    interface HasRules {
-        rules?: Partial<RulesRecord>;
+    interface HasRules<Rules extends RulesRecord = RulesRecord> {
+        rules?: Partial<Rules>;
     }
 
-    interface BaseConfig extends HasRules {
+    interface BaseConfig<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
         $schema?: string;
         env?: { [name: string]: boolean };
         extends?: string | string[];
@@ -418,13 +500,13 @@ export namespace Linter {
         settings?: { [name: string]: any };
     }
 
-    interface ConfigOverride extends BaseConfig {
+    interface ConfigOverride<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
         excludedFiles?: string | string[];
         files: string | string[];
     }
 
     // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
-    interface Config extends BaseConfig {
+    interface Config<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
         ignorePatterns?: string | string[];
         root?: boolean;
     }
@@ -446,6 +528,8 @@ export namespace Linter {
         filename?: string;
         preprocess?: (code: string) => string[];
         postprocess?: (problemLists: LintMessage[][]) => LintMessage[];
+        filterCodeBlock?: boolean;
+        disableFixes?: boolean;
         allowInlineConfig?: boolean;
         reportUnusedDisableDirectives?: boolean;
     }
@@ -464,11 +548,12 @@ export namespace Linter {
         ruleId: string | null;
         message: string;
         messageId?: string;
-        nodeType: string;
+        nodeType?: string;
         fatal?: true;
         severity: Severity;
         fix?: Rule.Fix;
-        source: string | null;
+        /** @deprecated Use `linter.getSourceCode()` */
+        source?: string | null;
         suggestions?: LintSuggestion[];
     }
 
@@ -500,8 +585,94 @@ export namespace Linter {
 
 //#endregion
 
+//#region ESLint
+
+export class ESLint {
+    static version: string;
+
+    static outputFixes(results: ESLint.LintResult[]): Promise<void>;
+
+    static getErrorResults(results: ESLint.LintResult[]): ESLint.LintResult[];
+
+    constructor(options: ESLint.Options);
+
+    lintFiles(patterns: string | string[]): Promise<ESLint.LintResult[]>;
+
+    lintText(code: string, options?: { filePath?: string; warnIgnored?: boolean }): Promise<ESLint.LintResult[]>;
+
+    calculateConfigForFile(filePath: string): Promise<any>;
+
+    isPathIgnored(filePath: string): Promise<boolean>;
+
+    loadFormatter(nameOrPath?: string): Promise<ESLint.Formatter>;
+}
+
+export namespace ESLint {
+    interface Options {
+        // File enumeration
+        cwd?: string;
+        errorOnUnmatchedPattern?: boolean;
+        extensions?: string[];
+        globInputPaths?: boolean;
+        ignore?: boolean;
+        ignorePath?: string;
+
+        // Linting
+        allowInlineConfig?: boolean;
+        baseConfig?: Linter.Config;
+        overrideConfig?: Linter.Config;
+        overrideConfigFile?: string;
+        plugins?: Record<string, any>;
+        reportUnusedDisableDirectives?: Linter.RuleLevel;
+        resolvePluginsRelativeTo?: string;
+        rulePaths?: string[];
+        useEslintrc?: boolean;
+
+        // Autofix
+        fix?: boolean | ((message: Linter.LintMessage) => boolean);
+        fixTypes?: Array<Rule.RuleMetaData['type']>;
+
+        // Cache-related
+        cache?: boolean;
+        cacheLocation?: string;
+    }
+
+    interface LintResult {
+        filePath: string;
+        messages: Linter.LintMessage[];
+        errorCount: number;
+        warningCount: number;
+        fixableErrorCount: number;
+        fixableWarningCount: number;
+        output?: string;
+        source?: string;
+        usedDeprecatedRules: DeprecatedRuleUse[];
+    }
+
+    interface LintResultData {
+        rulesMeta: {
+            [ruleId: string]: Rule.RuleMetaData;
+        };
+    }
+
+    interface DeprecatedRuleUse {
+        ruleId: string;
+        replacedBy: string[];
+    }
+
+    interface Formatter {
+        format(results: LintResult[], data?: LintResultData): string;
+    }
+
+    // Docs reference the type by this name
+    type EditInfo = Rule.Fix;
+}
+
+//#endregion
+
 //#region CLIEngine
 
+/** @deprecated Deprecated in favor of `ESLint` */
 export class CLIEngine {
     static version: string;
 
@@ -530,6 +701,7 @@ export class CLIEngine {
     static outputFixes(report: CLIEngine.LintReport): void;
 }
 
+/** @deprecated Deprecated in favor of `ESLint` */
 export namespace CLIEngine {
     class Options {
         allowInlineConfig?: boolean;
@@ -559,22 +731,9 @@ export namespace CLIEngine {
         reportUnusedDisableDirectives?: boolean;
     }
 
-    interface LintResult {
-        filePath: string;
-        messages: Linter.LintMessage[];
-        errorCount: number;
-        warningCount: number;
-        fixableErrorCount: number;
-        fixableWarningCount: number;
-        output?: string;
-        source?: string;
-    }
+    type LintResult = ESLint.LintResult;
 
-    interface LintResultData {
-        rulesMeta: {
-            [ruleId: string]: Rule.RuleMetaData;
-        };
-    }
+    type LintResultData = ESLint.LintResultData;
 
     interface LintReport {
         results: LintResult[];
@@ -585,10 +744,7 @@ export namespace CLIEngine {
         usedDeprecatedRules: DeprecatedRuleUse[];
     }
 
-    interface DeprecatedRuleUse {
-      ruleId: string;
-      replacedBy: string[];
-    }
+    type DeprecatedRuleUse = ESLint.DeprecatedRuleUse;
 
     type Formatter = (results: LintResult[], data?: LintResultData) => string;
 }
@@ -624,7 +780,7 @@ export namespace RuleTester {
     interface SuggestionOutput {
         messageId?: string;
         desc?: string;
-        data?: Record<string, any>;
+        data?: Record<string, unknown>;
         output: string;
     }
 

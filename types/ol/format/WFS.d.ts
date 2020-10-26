@@ -1,6 +1,7 @@
 import { Extent } from '../extent';
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
+import Projection from '../proj/Projection';
 import { ReadOptions } from './Feature';
 import Bbox from './filter/Bbox';
 import ComparisonBinary from './filter/ComparisonBinary';
@@ -63,11 +64,13 @@ export interface WriteTransactionOptions {
 }
 export default class WFS extends XMLFeature {
     constructor(opt_options?: Options);
-    protected readFeaturesFromNode(node: Node, opt_options?: ReadOptions): Feature<Geometry>[];
+    protected readFeaturesFromNode(node: Element, opt_options?: ReadOptions): Feature<Geometry>[];
     getFeatureType(): string[] | string;
     readFeatureCollectionMetadata(source: Document | Element | object | string): FeatureCollectionMetadata;
     readFeatureCollectionMetadataFromDocument(doc: Document): FeatureCollectionMetadata;
     readFeatureCollectionMetadataFromNode(node: Element): FeatureCollectionMetadata;
+    readProjectionFromDocument(doc: Document): Projection;
+    readProjectionFromNode(node: Element): Projection;
     readTransactionResponse(source: Document | Element | object | string): TransactionResponse;
     readTransactionResponseFromDocument(doc: Document): TransactionResponse;
     readTransactionResponseFromNode(node: Element): TransactionResponse;

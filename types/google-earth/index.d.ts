@@ -2504,7 +2504,7 @@ declare namespace google.earth {
     /**
      * Sets the latitude, longitude, altitude, altitudeMode, heading, tilt, and range for the camera.
      */
-    set	(
+    set    (
       latitude:     number,
       longitude:    number,
       altitude:     number,

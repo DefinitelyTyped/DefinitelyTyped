@@ -1,4 +1,4 @@
-// Type definitions for yup 0.28
+// Type definitions for yup 0.29
 // Project: https://github.com/jquense/yup
 // Definitions by: Dominik Hardtke <https://github.com/dhardtke>,
 //                 Vladyslav Tserman <https://github.com/vtserman>,
@@ -12,10 +12,12 @@
 //                 Maurice de Beijer <https://github.com/mauricedb>
 //                 Kalley Powell <https://github.com/kalley>
 //                 Elías García <https://github.com/elias-garcia>
+//                 Ian Sanders <https://github.com/iansan5653>
+//                 Jay Fong <https://github.com/fjc0k>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.6
 
-export function reach<T>(schema: Schema<T>, path: string, value?: any, context?: any): Schema<T>;
+export function reach<T, C = object>(schema: Schema<T, C>, path: string, value?: any, context?: any): Schema<T, C>;
 export function addMethod<T extends Schema<any>>(
     schemaCtor: AnySchemaConstructor,
     name: string,
@@ -48,7 +50,7 @@ export type TestOptionsMessage<Extra extends Record<string, any> = {}, R = any> 
     | string
     | ((params: Extra & Partial<TestMessageParams>) => R);
 
-export interface Schema<T> {
+export interface Schema<T, C = object> {
     type: string;
     clone(): this;
     label(label: string): this;
@@ -56,10 +58,10 @@ export interface Schema<T> {
     meta(): any;
     describe(): SchemaDescription;
     concat(schema: this): this;
-    validate(value: any, options?: ValidateOptions): Promise<T>;
-    validateSync(value: any, options?: ValidateOptions): T;
-    validateAt(path: string, value: T, options?: ValidateOptions): Promise<T>;
-    validateSyncAt(path: string, value: T, options?: ValidateOptions): T;
+    validate(value: any, options?: ValidateOptions<C>): Promise<T>;
+    validateSync(value: any, options?: ValidateOptions<C>): T;
+    validateAt(path: string, value: T, options?: ValidateOptions<C>): Promise<T>;
+    validateSyncAt(path: string, value: T, options?: ValidateOptions<C>): T;
     isValid(value: any, options?: any): Promise<boolean>;
     isValidSync(value: any, options?: any): value is T;
     cast(value?: any, options?: any): T;
@@ -70,167 +72,290 @@ export interface Schema<T> {
     default(value: any): this;
     default(): T;
     typeError(message?: TestOptionsMessage): this;
-    oneOf(arrayOfValues: Array<T | Ref | null>, message?: MixedLocale['oneOf']): this;
     notOneOf(arrayOfValues: any[], message?: MixedLocale['notOneOf']): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
-    test(
-        name: string,
-        message: TestOptionsMessage,
-        test: (this: TestContext, value?: any) => boolean | ValidationError | Promise<boolean | ValidationError>,
-        callbackStyleAsync?: boolean,
-    ): this;
-    // tslint:disable-next-line:no-unnecessary-generics
-    test<P>(options: TestOptions<P>): this;
     transform(fn: TransformFunction<this>): this;
 }
 
+// Note: Using `{} | null | undefined` allows excluding `null` & `undefined`
+// whereas using `any` as the default type would mean that `nullable(false)`,
+// `defined`, and `required` would all have no effect.
+
 export interface MixedSchemaConstructor {
     // tslint:disable-next-line:no-unnecessary-generics
-    <T = any>(): MixedSchema<T>;
+    <T = {} | null | undefined, C = object>(): MixedSchema<T, C>;
     // tslint:disable-next-line:no-unnecessary-generics
-    new <T = any>(options?: { type?: string; [key: string]: any }): MixedSchema<T>;
+    new <T = {} | null | undefined, C = object>(options?: { type?: string; [key: string]: any }): MixedSchema<T, C>;
 }
 
-export interface MixedSchema<T = any> extends Schema<T> {
-    nullable(isNullable?: true): MixedSchema<T | null>;
-    nullable(isNullable: false): MixedSchema<Exclude<T, null>>;
-    nullable(isNullable?: boolean): MixedSchema<T>;
-    required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined>>;
-    notRequired(): MixedSchema<T | undefined>;
+export interface MixedSchema<T extends any = {} | null | undefined, C = object> extends Schema<T, C> {
+    nullable(isNullable?: true): MixedSchema<T | null, C>;
+    nullable(isNullable: false): MixedSchema<Exclude<T, null>, C>;
+    nullable(isNullable?: boolean): MixedSchema<T, C>;
+    required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined | null>, C>;
+    defined(): MixedSchema<Exclude<T, undefined>, C>;
+    notRequired(): MixedSchema<T | undefined, C>;
+    optional(): MixedSchema<T | undefined, C>;
     concat(schema: this): this;
-    concat<U>(schema: MixedSchema<U>): MixedSchema<T | U>;
+    concat<U>(schema: Schema<U, C>): MixedSchema<T | U, C>;
+    oneOf<U extends T>(
+        arrayOfValues: ReadonlyArray<U | Ref>,
+        message?: MixedLocale['oneOf'],
+    ): MixedSchema<MaintainOptionality<T, U>, C>;
+    equals<U extends T>(
+        arrayOfValues: ReadonlyArray<U | Ref>,
+        message?: MixedLocale['oneOf'],
+    ): MixedSchema<MaintainOptionality<T, U>, C>;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U, C>,
+    ): MixedSchema<U, C>;
+    test(name: string, message: TestOptionsMessage, test: TestFunction<unknown, C>): this;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): MixedSchema<U, C>;
+    test(options: TestOptions<Record<string, any>, C>): this;
 }
 
 export interface StringSchemaConstructor {
-    <T extends string | null | undefined = string>(): T extends string ? StringSchema<T> : StringSchema;
-    new <T extends string | null | undefined = string>(): T extends string ? StringSchema<T> : StringSchema;
+    // tslint:disable-next-line:no-unnecessary-generics
+    <T extends string | null | undefined = string | undefined, C = object>(): StringSchema<T, C>;
+    // tslint:disable-next-line:no-unnecessary-generics
+    new <T extends string | null | undefined = string | undefined, C = object>(): StringSchema<T, C>;
 }
 
-export interface StringSchema<T extends string | null | undefined = string> extends Schema<T> {
-    length(limit: number | Ref, message?: StringLocale['length']): StringSchema<T>;
-    min(limit: number | Ref, message?: StringLocale['min']): StringSchema<T>;
-    max(limit: number | Ref, message?: StringLocale['max']): StringSchema<T>;
+export interface StringSchema<T extends string | null | undefined = string | undefined, C = object>
+    extends Schema<T, C> {
+    length(limit: number | Ref, message?: StringLocale['length']): StringSchema<T, C>;
+    min(limit: number | Ref, message?: StringLocale['min']): StringSchema<T, C>;
+    max(limit: number | Ref, message?: StringLocale['max']): StringSchema<T, C>;
     matches(
         regex: RegExp,
         messageOrOptions?:
             | StringLocale['matches']
             | { message?: StringLocale['matches']; excludeEmptyString?: boolean },
-    ): StringSchema<T>;
-    email(message?: StringLocale['email']): StringSchema<T>;
-    url(message?: StringLocale['url']): StringSchema<T>;
-    ensure(): StringSchema<T>;
-    trim(message?: StringLocale['trim']): StringSchema<T>;
-    lowercase(message?: StringLocale['lowercase']): StringSchema<T>;
-    uppercase(message?: StringLocale['uppercase']): StringSchema<T>;
-    nullable(isNullable?: true): StringSchema<T | null>;
-    nullable(isNullable: false): StringSchema<Exclude<T, null>>;
-    nullable(isNullable?: boolean): StringSchema<T>;
-    required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
-    notRequired(): StringSchema<T | undefined>;
+    ): StringSchema<T, C>;
+    email(message?: StringLocale['email']): StringSchema<T, C>;
+    url(message?: StringLocale['url']): StringSchema<T, C>;
+    uuid(message?: StringLocale['uuid']): StringSchema<T, C>;
+    ensure(): StringSchema<T, C>;
+    trim(message?: StringLocale['trim']): StringSchema<T, C>;
+    lowercase(message?: StringLocale['lowercase']): StringSchema<T, C>;
+    uppercase(message?: StringLocale['uppercase']): StringSchema<T, C>;
+    nullable(isNullable?: true): StringSchema<T | null, C>;
+    nullable(isNullable: false): StringSchema<Exclude<T, null>, C>;
+    nullable(isNullable?: boolean): StringSchema<T, C>;
+    required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined | null>, C>;
+    defined(): StringSchema<Exclude<T, undefined>, C>;
+    notRequired(): StringSchema<T | undefined, C>;
+    oneOf<U extends T>(
+        arrayOfValues: ReadonlyArray<U | Ref>,
+        message?: MixedLocale['oneOf'],
+    ): StringSchema<MaintainOptionality<T, U>, C>;
+    equals<U extends T>(
+        arrayOfValues: ReadonlyArray<U | Ref>,
+        message?: MixedLocale['oneOf'],
+    ): StringSchema<MaintainOptionality<T, U>, C>;
+    /*
+        All TestFunction generics are intentionally T with (undefined | null) as previous .required / .defined / .nullable
+        will narrow out those types, and tests run for (undefined | null) even if they're not allowed.
+    */
+    test(name: string, message: TestOptionsMessage, test: TestFunction<T | undefined | null, C>): this;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U, C>,
+    ): StringSchema<U, C>;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): StringSchema<U, C>;
+    test(options: TestOptions<Record<string, any>, C>): this;
+    optional(): StringSchema<T | undefined, C>;
 }
 
 export interface NumberSchemaConstructor {
-    (): NumberSchema;
-    new (): NumberSchema;
+    // tslint:disable-next-line:no-unnecessary-generics
+    <T extends number | null | undefined = number | undefined, C = object>(): NumberSchema<T, C>;
+    // tslint:disable-next-line:no-unnecessary-generics
+    new <T extends number | null | undefined = number | undefined, C = object>(): NumberSchema<T, C>;
 }
 
-export interface NumberSchema<T extends number | null | undefined = number> extends Schema<T> {
-    min(limit: number | Ref, message?: NumberLocale['min']): NumberSchema<T>;
-    max(limit: number | Ref, message?: NumberLocale['max']): NumberSchema<T>;
-    lessThan(limit: number | Ref, message?: NumberLocale['lessThan']): NumberSchema<T>;
-    moreThan(limit: number | Ref, message?: NumberLocale['moreThan']): NumberSchema<T>;
-    positive(message?: NumberLocale['positive']): NumberSchema<T>;
-    negative(message?: NumberLocale['negative']): NumberSchema<T>;
-    integer(message?: NumberLocale['integer']): NumberSchema<T>;
-    truncate(): NumberSchema<T>;
-    round(type: 'floor' | 'ceil' | 'trunc' | 'round'): NumberSchema<T>;
-    nullable(isNullable?: true): NumberSchema<T | null>;
-    nullable(isNullable: false): NumberSchema<Exclude<T, null>>;
-    nullable(isNullable?: boolean): NumberSchema<T>;
-    required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined>>;
-    notRequired(): NumberSchema<T | undefined>;
+export interface NumberSchema<T extends number | null | undefined = number | undefined, C = object>
+    extends Schema<T, C> {
+    min(limit: number | Ref, message?: NumberLocale['min']): NumberSchema<T, C>;
+    max(limit: number | Ref, message?: NumberLocale['max']): NumberSchema<T, C>;
+    lessThan(limit: number | Ref, message?: NumberLocale['lessThan']): NumberSchema<T, C>;
+    moreThan(limit: number | Ref, message?: NumberLocale['moreThan']): NumberSchema<T, C>;
+    positive(message?: NumberLocale['positive']): NumberSchema<T, C>;
+    negative(message?: NumberLocale['negative']): NumberSchema<T, C>;
+    integer(message?: NumberLocale['integer']): NumberSchema<T, C>;
+    truncate(): NumberSchema<T, C>;
+    round(type: 'floor' | 'ceil' | 'trunc' | 'round'): NumberSchema<T, C>;
+    nullable(isNullable?: true): NumberSchema<T | null, C>;
+    nullable(isNullable: false): NumberSchema<Exclude<T, null>, C>;
+    nullable(isNullable?: boolean): NumberSchema<T, C>;
+    required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined | null>, C>;
+    defined(): NumberSchema<Exclude<T, undefined>, C>;
+    notRequired(): NumberSchema<T | undefined, C>;
+    oneOf<U extends T>(
+        arrayOfValues: ReadonlyArray<U | Ref>,
+        message?: MixedLocale['oneOf'],
+    ): NumberSchema<MaintainOptionality<T, U>, C>;
+    equals<U extends T>(
+        arrayOfValues: ReadonlyArray<U | Ref>,
+        message?: MixedLocale['oneOf'],
+    ): NumberSchema<MaintainOptionality<T, U>, C>;
+    test(name: string, message: TestOptionsMessage, test: TestFunction<T | undefined | null, C>): this;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U, C>,
+    ): NumberSchema<U, C>;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): NumberSchema<U, C>;
+    test(options: TestOptions<Record<string, any>, C>): this;
+    optional(): NumberSchema<T | undefined, C>;
 }
 
 export interface BooleanSchemaConstructor {
-    (): BooleanSchema;
-    new (): BooleanSchema;
+    // tslint:disable-next-line:no-unnecessary-generics
+    <T extends boolean | null | undefined = boolean | undefined, C = object>(): BooleanSchema<T, C>;
+    // tslint:disable-next-line:no-unnecessary-generics
+    new <T extends boolean | null | undefined = boolean | undefined, C = object>(): BooleanSchema<T, C>;
 }
 
-export interface BooleanSchema<T extends boolean | null | undefined = boolean> extends Schema<T> {
-    nullable(isNullable?: true): BooleanSchema<T | null>;
-    nullable(isNullable: false): BooleanSchema<Exclude<T, null>>;
-    nullable(isNullable?: boolean): BooleanSchema<T>;
-    required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined>>;
-    notRequired(): BooleanSchema<T | undefined>;
+export interface BooleanSchema<T extends boolean | null | undefined = boolean | undefined, C = object>
+    extends Schema<T, C> {
+    nullable(isNullable?: true): BooleanSchema<T | null, C>;
+    nullable(isNullable: false): BooleanSchema<Exclude<T, null>, C>;
+    nullable(isNullable?: boolean): BooleanSchema<T, C>;
+    required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined | null>, C>;
+    defined(): BooleanSchema<Exclude<T, undefined>, C>;
+    notRequired(): BooleanSchema<T | undefined, C>;
+    oneOf<U extends T>(
+        arrayOfValues: ReadonlyArray<U | Ref>,
+        message?: MixedLocale['oneOf'],
+    ): BooleanSchema<MaintainOptionality<T, U>, C>;
+    equals<U extends T>(
+        arrayOfValues: ReadonlyArray<U | Ref>,
+        message?: MixedLocale['oneOf'],
+    ): BooleanSchema<MaintainOptionality<T, U>, C>;
+    test(name: string, message: TestOptionsMessage, test: TestFunction<T | undefined | null, C>): this;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U, C>,
+    ): BooleanSchema<U, C>;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): BooleanSchema<U, C>;
+    test(options: TestOptions<Record<string, any>, C>): this;
+    optional(): BooleanSchema<T | undefined, C>;
 }
 
 export interface DateSchemaConstructor {
-    (): DateSchema;
-    new (): DateSchema;
+    // tslint:disable-next-line:no-unnecessary-generics
+    <T extends Date | string | null | undefined = Date | undefined, C = object>(): DateSchema<T, C>;
+    // tslint:disable-next-line:no-unnecessary-generics
+    new <T extends Date | string | null | undefined = Date | undefined, C = object>(): DateSchema<T, C>;
 }
 
-export interface DateSchema<T extends Date | null | undefined = Date> extends Schema<T> {
-    min(limit: Date | string | Ref, message?: DateLocale['min']): DateSchema<T>;
-    max(limit: Date | string | Ref, message?: DateLocale['max']): DateSchema<T>;
-    nullable(isNullable?: true): DateSchema<T | null>;
-    nullable(isNullable: false): DateSchema<Exclude<T, null>>;
-    nullable(isNullable?: boolean): DateSchema<T>;
-    required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined>>;
-    notRequired(): DateSchema<T | undefined>;
+export interface DateSchema<T extends Date | string | null | undefined = Date | undefined, C = object> extends Schema<T, C> {
+    min(limit: Date | string | Ref, message?: DateLocale['min']): DateSchema<T, C>;
+    max(limit: Date | string | Ref, message?: DateLocale['max']): DateSchema<T, C>;
+    nullable(isNullable?: true): DateSchema<T | null, C>;
+    nullable(isNullable: false): DateSchema<Exclude<T, null>, C>;
+    nullable(isNullable?: boolean): DateSchema<T, C>;
+    required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined | null>, C>;
+    defined(): DateSchema<Exclude<T, undefined>, C>;
+    notRequired(): DateSchema<T | undefined, C>;
+    oneOf<U extends T>(
+        arrayOfValues: ReadonlyArray<U | Ref>,
+        message?: MixedLocale['oneOf'],
+    ): DateSchema<MaintainOptionality<T, U>, C>;
+    equals<U extends T>(
+        arrayOfValues: ReadonlyArray<U | Ref>,
+        message?: MixedLocale['oneOf'],
+    ): DateSchema<MaintainOptionality<T, U>, C>;
+    test(name: string, message: TestOptionsMessage, test: TestFunction<T | undefined | null, C>): this;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U, C>,
+    ): DateSchema<U, C>;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): DateSchema<U, C>;
+    test(options: TestOptions<Record<string, any>, C>): this;
+    optional(): DateSchema<T | undefined, C>;
 }
 
 export interface ArraySchemaConstructor {
-    <T>(schema?: Schema<T>): ArraySchema<T>;
-    new (): ArraySchema<{}>;
+    <T, C = object>(schema?: Schema<T, C>): NotRequiredArraySchema<T, C>;
+    // tslint:disable-next-line:no-unnecessary-generics
+    new <C = object>(): NotRequiredArraySchema<{}, C>;
 }
 
-interface BasicArraySchema<T extends any[] | null | undefined> extends Schema<T> {
+export interface BasicArraySchema<E, T extends E[] | null | undefined, C = object> extends Schema<T, C> {
     min(limit: number | Ref, message?: ArrayLocale['min']): this;
     max(limit: number | Ref, message?: ArrayLocale['max']): this;
     ensure(): this;
     compact(
         rejector?: (value: InferredArrayType<T>, index: number, array: Array<InferredArrayType<T>>) => boolean,
     ): this;
+
+    // This doesn't narrow the type of the schema like the more primitive oneOf calls
+    // it would be very complex to do that accurately with the subtypes, and it's not
+    // really worth it because the oneOf check is a shallow (==) comparison so it rarely
+    // applies to arrays anyway.
+    oneOf(arrayOfValues: ReadonlyArray<T | Ref | null>, message?: MixedLocale['oneOf']): this;
+    equals(arrayOfValues: ReadonlyArray<T | Ref | null>, message?: MixedLocale['oneOf']): this;
+    test(name: string, message: TestOptionsMessage, test: TestFunction<T | undefined | null, C>): this;
+    test(options: TestOptions<Record<string, any>, C>): this;
+    innerType: Schema<E, C>;
 }
 
-export interface NotRequiredNullableArraySchema<T> extends BasicArraySchema<T[] | null | undefined> {
-    of<U>(type: Schema<U>): NotRequiredNullableArraySchema<U>;
-    nullable(isNullable?: true): NotRequiredNullableArraySchema<T>;
-    nullable(isNullable: false): NotRequiredArraySchema<T>;
-    nullable(isNullable?: boolean): ArraySchema<T>;
-    required(message?: TestOptionsMessage): NullableArraySchema<T>;
-    notRequired(): NotRequiredNullableArraySchema<T>;
+export interface NotRequiredNullableArraySchema<T, C = object> extends BasicArraySchema<T, T[] | null | undefined, C> {
+    of<U>(type: Schema<U, C>): NotRequiredNullableArraySchema<U, C>;
+    nullable(isNullable?: true): NotRequiredNullableArraySchema<T, C>;
+    nullable(isNullable: false): NotRequiredArraySchema<T, C>;
+    nullable(isNullable?: boolean): ArraySchema<T, C>;
+    required(message?: TestOptionsMessage): ArraySchema<T, C>;
+    defined(): NullableArraySchema<T, C>;
+    notRequired(): NotRequiredNullableArraySchema<T, C>;
+    optional(): NotRequiredNullableArraySchema<T, C>;
 }
 
-export interface NullableArraySchema<T> extends BasicArraySchema<T[] | null> {
-    of<U>(type: Schema<U>): NullableArraySchema<U>;
-    nullable(isNullable?: true): NullableArraySchema<T>;
-    nullable(isNullable: false): ArraySchema<T>;
-    nullable(isNullable?: boolean): ArraySchema<T>;
-    required(message?: TestOptionsMessage): NullableArraySchema<T>;
-    notRequired(): NotRequiredNullableArraySchema<T>;
+export interface NullableArraySchema<T, C = object> extends BasicArraySchema<T, T[] | null, C> {
+    of<U>(type: Schema<U, C>): NullableArraySchema<U, C>;
+    nullable(isNullable?: true): NullableArraySchema<T, C>;
+    nullable(isNullable: false): ArraySchema<T, C>;
+    nullable(isNullable?: boolean): ArraySchema<T, C>;
+    required(message?: TestOptionsMessage): ArraySchema<T, C>;
+    defined(): NullableArraySchema<T, C>;
+    notRequired(): NotRequiredNullableArraySchema<T, C>;
+    optional(): NotRequiredNullableArraySchema<T, C>;
 }
 
-export interface NotRequiredArraySchema<T> extends BasicArraySchema<T[] | undefined> {
-    of<U>(type: Schema<U>): NotRequiredArraySchema<U>;
-    nullable(isNullable?: true): NotRequiredNullableArraySchema<T>;
-    nullable(isNullable: false): NotRequiredArraySchema<T>;
-    nullable(isNullable: boolean): ArraySchema<T>;
-    required(message?: TestOptionsMessage): ArraySchema<T>;
-    notRequired(): NotRequiredArraySchema<T>;
+export interface NotRequiredArraySchema<T, C = object> extends BasicArraySchema<T, T[] | undefined, C> {
+    of<U>(type: Schema<U, C>): NotRequiredArraySchema<U, C>;
+    nullable(isNullable?: true): NotRequiredNullableArraySchema<T, C>;
+    nullable(isNullable: false): NotRequiredArraySchema<T, C>;
+    nullable(isNullable: boolean): ArraySchema<T, C>;
+    required(message?: TestOptionsMessage): ArraySchema<T, C>;
+    defined(): ArraySchema<T, C>;
+    notRequired(): NotRequiredArraySchema<T, C>;
+    optional(): NotRequiredArraySchema<T, C>;
 }
 
-export interface ArraySchema<T> extends BasicArraySchema<T[]> {
-    innerType: Schema<T>;
-    of<U>(type: Schema<U>): ArraySchema<U>;
-    nullable(isNullable?: true): NullableArraySchema<T>;
-    nullable(isNullable: false | boolean): ArraySchema<T>;
-    required(message?: TestOptionsMessage): ArraySchema<T>;
-    notRequired(): NotRequiredArraySchema<T>;
+export interface ArraySchema<T, C = object> extends BasicArraySchema<T, T[], C> {
+    of<U>(type: Schema<U, C>): ArraySchema<U, C>;
+    nullable(isNullable?: true): NullableArraySchema<T, C>;
+    nullable(isNullable: false | boolean): ArraySchema<T, C>;
+    required(message?: TestOptionsMessage): ArraySchema<T, C>;
+    defined(): ArraySchema<T, C>;
+    notRequired(): NotRequiredArraySchema<T, C>;
+    optional(): NotRequiredArraySchema<T, C>;
 }
 
-export type ObjectSchemaDefinition<T extends object | null | undefined> = {
-    [field in keyof T]: Schema<T[field]> | Ref;
+export type ObjectSchemaDefinition<T extends object | null | undefined, C = object> = {
+    // This shouldn't be necessary because MixedSchema extends Schema, but type
+    // inference only works with it this way - otherwise when you use a mixed
+    // field in object schema, it will type as `unknown`. Not sure why that is -
+    // maybe some sort of inference depth limit?
+    [field in keyof T]: Schema<T[field], C> | MixedSchema<T[field], C> | Ref;
 };
 
 /**
@@ -239,36 +364,57 @@ export type ObjectSchemaDefinition<T extends object | null | undefined> = {
  * [yup's `object.shape()` method](https://www.npmjs.com/package/yup#objectshapefields-object-nosortedges-arraystring-string-schema).
  */
 export type Shape<T extends object | null | undefined, U extends object> =
-  | ({ [P in keyof T]: P extends keyof U ? U[P] : T[P]; } & U)
-  | PreserveOptionals<T>;
+    | ({ [P in keyof T]: P extends keyof U ? U[P] : T[P] } & U)
+    | PreserveOptionals<T>;
 
 export interface ObjectSchemaConstructor {
-    <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T>;
-    new (): ObjectSchema<{}>;
+    <T extends object, C = object>(fields?: ObjectSchemaDefinition<T, C>): ObjectSchema<T | undefined, C>;
+    // tslint:disable-next-line:no-unnecessary-generics
+    new <C = object>(): ObjectSchema<{}, C>;
 }
 
-export interface ObjectSchema<T extends object | null | undefined = object> extends Schema<T> {
+export interface ObjectSchema<T extends object | null | undefined = object | undefined, C = object>
+    extends Schema<T, C> {
     fields: {
-      [k in keyof T]: Schema<T[k]>
+        [k in keyof T]: Schema<T[k], C>;
     };
     shape<U extends object>(
-        fields: ObjectSchemaDefinition<U>,
+        fields: ObjectSchemaDefinition<U, C>,
         noSortEdges?: Array<[string, string]>,
-    ): ObjectSchema<Shape<T, U>>;
-    from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
-    noUnknown(onlyKnownKeys?: boolean, message?: ObjectLocale['noUnknown']): ObjectSchema<T>;
+    ): ObjectSchema<Shape<T, U>, C>;
+    from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T, C>;
+    noUnknown(onlyKnownKeys?: boolean, message?: ObjectLocale['noUnknown']): ObjectSchema<T, C>;
+    unknown(allow?: boolean, message?: ObjectLocale['noUnknown']): ObjectSchema<T, C>;
     transformKeys(callback: (key: any) => any): void;
-    camelCase(): ObjectSchema<T>;
-    snakeCase(): ObjectSchema<T>;
-    constantCase(): ObjectSchema<T>;
-    nullable(isNullable?: true): ObjectSchema<T | null>;
-    nullable(isNullable: false): ObjectSchema<Exclude<T, null>>;
-    nullable(isNullable?: boolean): ObjectSchema<T>;
-    required(message?: TestOptionsMessage): ObjectSchema<Exclude<T, undefined>>;
-    notRequired(): ObjectSchema<T | undefined>;
+    camelCase(): ObjectSchema<T, C>;
+    snakeCase(): ObjectSchema<T, C>;
+    constantCase(): ObjectSchema<T, C>;
+    nullable(isNullable?: true): ObjectSchema<T | null, C>;
+    nullable(isNullable: false): ObjectSchema<Exclude<T, null>, C>;
+    nullable(isNullable?: boolean): ObjectSchema<T, C>;
+    required(message?: TestOptionsMessage): ObjectSchema<Exclude<T, undefined | null>, C>;
+    defined(): ObjectSchema<Exclude<T, undefined>, C>;
+    notRequired(): ObjectSchema<T | undefined, C>;
+    optional(): ObjectSchema<T | undefined, C>;
     concat(schema: this): this;
-    concat<U extends object>(schema: ObjectSchema<U>): ObjectSchema<T & U>;
+    concat<U extends object>(schema: ObjectSchema<U, C>): ObjectSchema<T & U, C>;
+    oneOf<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): ObjectSchema<U, C>;
+    equals<U extends T>(arrayOfValues: ReadonlyArray<U | Ref>, message?: MixedLocale['oneOf']): ObjectSchema<U, C>;
+    test(name: string, message: TestOptionsMessage, test: TestFunction<T | undefined | null, C>): this;
+    test<U extends T = T>(
+        name: string,
+        message: TestOptionsMessage,
+        test: AssertingTestFunction<U, C>,
+    ): ObjectSchema<U, C>;
+    test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): ObjectSchema<U, C>;
+    test(options: TestOptions<Record<string, any>, C>): this;
 }
+
+export type TestFunction<T = unknown, C = object> = (
+    this: TestContext<C>,
+    value: T,
+) => boolean | ValidationError | Promise<boolean | ValidationError>;
+export type AssertingTestFunction<T, C> = (this: TestContext<C>, value: any) => value is T;
 
 export type TransformFunction<T> = (this: T, value: any, originalValue: any) => any;
 
@@ -291,16 +437,16 @@ export type WhenOptionsBuilderObject =
 
 export type WhenOptions<T> = WhenOptionsBuilderFunction<T> | WhenOptionsBuilderObject;
 
-export interface TestContext {
+export interface TestContext<C = object> {
     path: string;
-    options: ValidateOptions;
+    options: ValidateOptions<C>;
     parent: any;
-    schema: Schema<any>;
+    schema: Schema<any, C>;
     resolve: (value: any) => any;
-    createError: (params?: { path?: string; message?: string, params?: object }) => ValidationError;
+    createError: (params?: { path?: string; message?: string; params?: object }) => ValidationError;
 }
 
-export interface ValidateOptions {
+export interface ValidateOptions<C = object> {
     /**
      * Only validate the input, and skip and coercion or transformation. Default - false
      */
@@ -320,7 +466,7 @@ export interface ValidateOptions {
     /**
      * Any context needed for validating schema conditions (see: when())
      */
-    context?: object;
+    context?: C;
 }
 
 export interface TestMessageParams {
@@ -330,21 +476,21 @@ export interface TestMessageParams {
     label: string;
 }
 
-export interface TestOptions<P extends Record<string, any> = {}, R = any> {
+interface BaseTestOptions<P extends Record<string, any>, C = object> {
     /**
-     * Unique name identifying the test
+     * Unique name identifying the test. Required for exclusive tests.
      */
     name?: string;
 
     /**
      * Test function, determines schema validity
      */
-    test: (this: TestContext, value: any) => boolean | ValidationError | Promise<boolean | ValidationError>;
+    test: TestFunction<unknown, C>;
 
     /**
      * The validation error message
      */
-    message?: TestOptionsMessage<P, R>;
+    message?: TestOptionsMessage<P>;
 
     /**
      * Values passed to message for interpolation
@@ -357,21 +503,42 @@ export interface TestOptions<P extends Record<string, any> = {}, R = any> {
     exclusive?: boolean;
 }
 
+interface NonExclusiveTestOptions<P extends Record<string, any>, C> extends BaseTestOptions<P, C> {
+    exclusive?: false;
+}
+
+interface ExclusiveTestOptions<P extends Record<string, any>, C> extends BaseTestOptions<P, C> {
+    exclusive: true;
+    name: string;
+}
+
+interface NonExclusiveAssertingTestOptions<U, P extends Record<string, any>, C> extends NonExclusiveTestOptions<P, C> {
+    test: AssertingTestFunction<U, C>;
+}
+
+interface ExclusiveAssertingTestOptions<U, P extends Record<string, any>, C> extends ExclusiveTestOptions<P, C> {
+    test: AssertingTestFunction<U, C>;
+}
+
+export type TestOptions<P extends Record<string, any> = {}, C = object> =
+    | NonExclusiveTestOptions<P, C>
+    | ExclusiveTestOptions<P, C>;
+
+export type AssertingTestOptions<U, P extends Record<string, any> = {}, C = object> =
+    | NonExclusiveAssertingTestOptions<U, P, C>
+    | ExclusiveAssertingTestOptions<U, P, C>;
+
 export interface SchemaFieldRefDescription {
     type: 'ref';
     key: string;
 }
 
-export interface SchemaFieldInnerTypeDescription extends Pick<
-    SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>
-> {
+export interface SchemaFieldInnerTypeDescription
+    extends Pick<SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>> {
     innerType?: SchemaFieldDescription;
 }
 
-export type SchemaFieldDescription =
-    | SchemaDescription
-    | SchemaFieldRefDescription
-    | SchemaFieldInnerTypeDescription;
+export type SchemaFieldDescription = SchemaDescription | SchemaFieldRefDescription | SchemaFieldInnerTypeDescription;
 
 export interface SchemaDescription {
     type: string;
@@ -451,7 +618,7 @@ export interface FormatErrorParams {
 
 export type LocaleValue = string | ((params: FormatErrorParams) => string);
 
-interface MixedLocale {
+export interface MixedLocale {
     default?: TestOptionsMessage;
     required?: TestOptionsMessage;
     oneOf?: TestOptionsMessage<{ values: any }>;
@@ -459,19 +626,20 @@ interface MixedLocale {
     notType?: LocaleValue;
 }
 
-interface StringLocale {
+export interface StringLocale {
     length?: TestOptionsMessage<{ length: number }>;
     min?: TestOptionsMessage<{ min: number }>;
     max?: TestOptionsMessage<{ max: number }>;
     matches?: TestOptionsMessage<{ regex: RegExp }>;
     email?: TestOptionsMessage<{ regex: RegExp }>;
     url?: TestOptionsMessage<{ regex: RegExp }>;
+    uuid?: TestOptionsMessage<{ regex: RegExp }>;
     trim?: TestOptionsMessage;
     lowercase?: TestOptionsMessage;
     uppercase?: TestOptionsMessage;
 }
 
-interface NumberLocale {
+export interface NumberLocale {
     min?: TestOptionsMessage<{ min: number }>;
     max?: TestOptionsMessage<{ max: number }>;
     lessThan?: TestOptionsMessage<{ less: number }>;
@@ -481,16 +649,16 @@ interface NumberLocale {
     integer?: TestOptionsMessage;
 }
 
-interface DateLocale {
+export interface DateLocale {
     min?: TestOptionsMessage<{ min: Date | string }>;
     max?: TestOptionsMessage<{ max: Date | string }>;
 }
 
-interface ObjectLocale {
+export interface ObjectLocale {
     noUnknown?: TestOptionsMessage;
 }
 
-interface ArrayLocale {
+export interface ArrayLocale {
     min?: TestOptionsMessage<{ min: number }>;
     max?: TestOptionsMessage<{ max: number }>;
 }
@@ -517,10 +685,15 @@ type KeyOfUndefined<T> = {
 type PreserveNull<T> = T extends null ? null : never;
 type PreserveUndefined<T> = T extends undefined ? undefined : never;
 type PreserveOptionals<T> = PreserveNull<T> | PreserveUndefined<T>;
-type Id<T> = { [K in keyof T]: T[K] };
+type Id<T> = {
+    [K in keyof T]: T[K] extends object ? InnerInferType<T[K]> : T[K];
+};
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
 type InnerInferType<T> =
-    | (T extends Array<infer T> ? T[] : Id<NotRequiredProps<T> & RequiredProps<T>>)
+    | (T extends Array<infer T> ? InnerInferTypeArray<T> : Id<NotRequiredProps<T> & RequiredProps<T>>)
     | PreserveOptionals<T>;
+interface InnerInferTypeArray<T> extends Array<InnerInferType<T>> {}
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;
+/** If `T` is optional, returns optional `U`. */
+type MaintainOptionality<T, U> = T extends undefined ? U | undefined : U;

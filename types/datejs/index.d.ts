@@ -117,7 +117,7 @@ interface Date {
     hasDaylightSavingTime(): boolean;
     /** Indicates whether this Date instance is within the Daylight Saving Time range for the current time zone. */
     isDaylightSavingTime(): boolean;
-	/** Move to the next or previous dayOfWeek. Whether to move into the future (+1) or past(-1) is controlled by the optional direction parameter. */
+    /** Move to the next or previous dayOfWeek. Whether to move into the future (+1) or past(-1) is controlled by the optional direction parameter. */
     moveToDayOfWeek(dayOfWeek: number, direction: number): Date;
     /** Moves the date to the first day of the month. */
     moveToFirstDayOfMonth(): Date;

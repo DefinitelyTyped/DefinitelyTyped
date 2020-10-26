@@ -1,9 +1,11 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
+import { Extent } from '../extent';
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import Point from '../geom/Point';
 import { ObjectEvent } from '../Object';
+import Projection from '../proj/Projection';
 import { AttributionLike } from './Source';
 import VectorSource, { VectorSourceEvent } from './Vector';
 
@@ -22,12 +24,15 @@ export default class Cluster extends VectorSource {
     protected resolution: number;
     protected cluster(): void;
     protected createCluster(features: Feature<Geometry>[]): Feature<Geometry>;
+    clear(opt_fast?: boolean): void;
     getDistance(): number;
     getResolutions(): number[];
     getSource(): VectorSource<Geometry>;
+    loadFeatures(extent: Extent, resolution: number, projection: Projection): void;
+    refresh(): void;
     setDistance(distance: number): void;
     setSource(source: VectorSource<Geometry>): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'addfeature', listener: (evt: VectorSourceEvent<Geometry>) => void): EventsKey;

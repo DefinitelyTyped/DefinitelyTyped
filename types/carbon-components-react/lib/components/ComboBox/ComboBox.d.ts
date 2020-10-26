@@ -6,7 +6,7 @@ import {
     RequiresIdProps,
     ThemeProps,
     ValidityProps,
-    Direction
+    Direction, VerticalDirection
 } from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
@@ -29,7 +29,7 @@ interface InheritedProps<ItemType> extends
 
 export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<ItemType, object>>
 extends InheritedProps<ItemType> {
-    direction?: Extract<Direction, "bottom" | "top">,
+    direction?: VerticalDirection,
     downshiftProps?: any, // TODO
     helperText?: React.ReactNode,
     initialSelectedItem?: ItemType;
@@ -38,7 +38,7 @@ extends InheritedProps<ItemType> {
     onChange?(data: { selectedItem?: ItemType | null }): void,
     onInputChange?(inputValue?: string): void,
     selectedItem?: ItemType | null,
-    shouldFilterItem?(item: ItemType, itemToString?: ComboBoxProps<ItemType>["itemToString"], inputValue?: string): void,
+    shouldFilterItem?(data: { item: ItemType, itemToString?: ComboBoxProps<ItemType>["itemToString"], inputValue?: string }): void,
     size?: ListBoxSize,
     titleText?: React.ReactNode,
 }

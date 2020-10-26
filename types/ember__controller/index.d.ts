@@ -1,11 +1,11 @@
-// Type definitions for non-npm package @ember/controller 3.0
-// Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Fcontroller
+// Type definitions for non-npm package @ember/controller 3.16
+// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fcontroller
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import ActionHandler from '@ember/object/-private/action-handler';
 import Mixin from '@ember/object/mixin';
@@ -17,6 +17,13 @@ type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
 // tslint:disable-next-line strict-export-declare-modifiers
 type QueryParamScopeTypes = 'controller' | 'model';
 
+// tslint:disable-next-line strict-export-declare-modifiers
+interface QueryParamConfig {
+    type?: QueryParamTypes;
+    scope?: QueryParamScopeTypes;
+    as?: string;
+}
+
 /**
  * Additional methods for the Controller.
  */
@@ -25,11 +32,7 @@ export interface ControllerMixin extends ActionHandler {
     transitionToRoute(name: string, ...args: any[]): void;
     transitionToRoute(...args: any[]): void;
     model: any;
-    queryParams: string | string[] | Array<{ [key: string]: {
-        type?: QueryParamTypes,
-        scope?: QueryParamScopeTypes,
-        as?: string
-    }}>;
+    queryParams: Array<string | Record<string, QueryParamConfig | undefined>>;
     target: object;
 }
 export const ControllerMixin: Mixin<ControllerMixin>;

@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="node" />
-
 export interface DomToImage {
   toSvg(node: Node, options?: Options): Promise<string>;
   toPng(node: Node, options?: Options): Promise<string>;
@@ -22,7 +20,7 @@ export interface Options {
   style?: {};
   quality?: number;
   imagePlaceholder?: string;
-  cachebust?: boolean;
+  cacheBust?: boolean;
 }
 
 export const DomToImage: DomToImage;

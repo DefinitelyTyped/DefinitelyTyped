@@ -3,11 +3,10 @@ import { CSSModule } from '../index';
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-export interface RowProps extends Omit<React.HTMLProps<HTMLElement>, 'form'> {
+export interface RowProps extends Omit<React.HTMLAttributes<HTMLElement>, 'form'> {
     [key: string]: any;
-    className?: string;
     cssModule?: CSSModule;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     noGutters?: boolean;
     form?: boolean;
     xs?: number | string;

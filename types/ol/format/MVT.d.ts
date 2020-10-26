@@ -15,10 +15,10 @@ export interface Options {
 export default class MVT extends FeatureFormat {
     constructor(opt_options?: Options);
     getType(): FormatType;
-    readFeature(source: Document | Node | object | string, opt_options?: ReadOptions): FeatureLike;
+    readFeature(source: Document | Element | object | string, opt_options?: ReadOptions): FeatureLike;
     readFeatures(source: ArrayBuffer, opt_options?: ReadOptions): FeatureLike[];
-    readGeometry(source: Document | Node | object | string, opt_options?: ReadOptions): Geometry;
-    readProjection(source: Document | Node | object | string): Projection;
+    readGeometry(source: Document | Element | object | string, opt_options?: ReadOptions): Geometry;
+    readProjection(source: Document | Element | object | string): Projection;
     setLayers(layers: string[]): void;
     writeFeature(feature: Feature<Geometry>, opt_options?: WriteOptions): string;
     writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string;

@@ -5,6 +5,8 @@ const dropzoneRenameFunction = (name: string): string => {
 };
 
 Dropzone.createElement('<div id="divTest"></div>');
+const dropzoneForSelector: Dropzone = Dropzone.forElement('#selector');
+const dropzoneForElement: Dropzone = Dropzone.forElement(document.getElementById('test'));
 Dropzone.isBrowserSupported();
 Dropzone.options['divTest'] = { clickable: true };
 Dropzone.options['noDiscover'] = false;
@@ -174,9 +176,20 @@ dropzoneWithOptionsVariations = new Dropzone('.test', {
 
 const dropzone = new Dropzone('.test');
 
+dropzone.element;
+dropzone.hiddenFileInput;
+dropzone.previewsContainer;
+dropzone.version;
+
+dropzone.listeners;
+dropzone.listeners[0].element;
+dropzone.listeners[0].events;
+dropzone.listeners[0].events.click(new MouseEvent('click'));
+dropzone.listeners[0].events.dragstart(new DragEvent('drag'));
+
 dropzone.options.clickable = true;
 if (!dropzone.options.headers) {
-	dropzone.options.headers = {};
+    dropzone.options.headers = {};
 }
 dropzone.options.headers.test = 'test';
 dropzone.enable();
@@ -193,9 +206,20 @@ dropzone.files.forEach(f => {
     } else {
         console.log(f.status.toUpperCase());
     }
+    if (f.upload) {
+        console.log(f.upload.progress);
+        console.log(f.upload.bytesSent);
+        console.log(f.upload.total);
+        console.log(f.upload.uuid);
+        if (f.upload.totalChunkCount) {
+            console.log(f.upload.totalChunkCount);
+        }
+    }
 });
 
 const firstFile = dropzone.files[0];
+firstFile.dataURL;
+
 dropzone.removeFile(firstFile);
 dropzone.addFile(firstFile);
 dropzone.enqueueFile(firstFile);
@@ -228,6 +252,41 @@ dropzone.createThumbnail(
     () => {
         console.log('createThumbnail');
     },
+);
+
+const mockFile: Dropzone.DropzoneMockFile = {
+    name: 'Mock File',
+    size: 123456,
+    customProperty: 'additional data',
+};
+dropzone.displayExistingFile(mockFile, 'https://example.com/original.jpeg');
+dropzone.displayExistingFile(mockFile, 'https://example.com/original.jpeg', () => {
+    console.log('displayExistingFile');
+});
+dropzone.displayExistingFile(
+    mockFile,
+    'https://example.com/original.jpeg',
+    () => {
+        console.log('displayExistingFile');
+    },
+    undefined,
+);
+dropzone.displayExistingFile(
+    mockFile,
+    'https://example.com/original.jpeg',
+    () => {
+        console.log('displayExistingFile');
+    },
+    'anonymous',
+);
+dropzone.displayExistingFile(
+    mockFile,
+    'https://example.com/original.jpeg',
+    () => {
+        console.log('displayExistingFile');
+    },
+    'anonymous',
+    false,
 );
 
 dropzone.createThumbnailFromUrl(firstFile);

@@ -59,7 +59,7 @@ export interface LightboxProps {
     /**
      * Maximum width of the carousel; defaults to 1024px
      */
-    width?:	number;
+    width?: number;
 
     /**
      * Spinner component.
@@ -69,7 +69,7 @@ export interface LightboxProps {
     /**
      *  Color of spinner. Default value: 'white'
      */
-    spinnerColor?:	string;
+    spinnerColor?: string;
 
     /**
      * Size of spinner. Default value: 100
@@ -79,7 +79,7 @@ export interface LightboxProps {
     /**
      * Determines whether scrolling is prevented via react-scrolllock. Default value: true
      */
-    preventScroll?:	boolean;
+    preventScroll?: boolean;
 
     /**
      * Optionally display thumbnails beneath the Lightbox
@@ -104,7 +104,7 @@ export interface LightboxProps {
     /**
      * Custom close esc title. Default value: ' Close (Esc) '
      */
-    closeButtonTitle?:	string;
+    closeButtonTitle?: string;
 
     /**
      * Handle closing of the lightbox. Required.

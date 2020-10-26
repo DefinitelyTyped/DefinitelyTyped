@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { ConnectOptions } from "./connect";
+import { ConnectOptions, ConnectionListener } from "./connect";
 import { AddressInfo } from "./connect-failover/getAddressInfo";
 
 import Client = require("./Client");
@@ -42,7 +42,7 @@ declare namespace ConnectFailover {
         randomize?: boolean;
 
         // Override the connect function
-        connectFunction?: (options: ConnectOptions, connectionListener?: (err: Error | null, client: Client) => void) => Client;
+        connectFunction?: (options: ConnectOptions, connectionListener?: ConnectionListener) => Client;
     }
 
     interface Server {

@@ -3,14 +3,12 @@ import { CSSModule } from '../index';
 
 export interface CardProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     inverse?: boolean;
     color?: string;
     body?: boolean;
     outline?: boolean;
-    className?: string;
     cssModule?: CSSModule;
-    style?: React.CSSProperties;
 }
 
 declare class Card<T = {[key: string]: any}> extends React.Component<CardProps> {}

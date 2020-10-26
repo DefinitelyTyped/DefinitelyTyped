@@ -706,6 +706,17 @@ declare module "tls" {
          * shared between applications. Unused by clients.
          */
         sessionIdContext?: string;
+        /**
+         * 48-bytes of cryptographically strong pseudo-random data.
+         * See Session Resumption for more information.
+         */
+        ticketKeys?: Buffer;
+        /**
+         * The number of seconds after which a TLS session created by the
+         * server will no longer be resumable. See Session Resumption for more
+         * information. Default: 300.
+         */
+        sessionTimeout?: number;
     }
 
     interface SecureContext {
@@ -726,10 +737,10 @@ declare module "tls" {
     function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     /**
-     * @deprecated
+     * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
      */
     function createSecurePair(credentials?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
-    function createSecureContext(details: SecureContextOptions): SecureContext;
+    function createSecureContext(options?: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
     /**

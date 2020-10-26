@@ -115,7 +115,7 @@ declare namespace vCard {
 }
 
 type CardVersion =
-	"2.1" | "3.0" | "4.0";
+    "2.1" | "3.0" | "4.0";
 
 type jCardProperty = [
     string,

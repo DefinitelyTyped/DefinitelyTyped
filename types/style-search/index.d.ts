@@ -1,11 +1,15 @@
 // Type definitions for style-search 0.1
 // Project: https://github.com/davidtheclark/style-search#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function styleSearch(options: styleSearch.Options, callback: styleSearch.StyleSearchCallback): void;
 
 declare namespace styleSearch {
+    /**
+     * Syntax feature options.
+     * An error will be thrown if you use `only` more than once
+     */
     type SyntaxFeatureOption = 'skip' | 'check' | 'only';
 
     /**
@@ -69,6 +73,8 @@ declare namespace styleSearch {
          */
         functionArguments?: SyntaxFeatureOption;
         /**
+         * This designates anything inside parentheses, which includes standard functions,but also Sass maps and other non-standard constructs.
+         * `parentheticals` is a broader category than `functionArguments`
          * @default 'check'
          */
         parentheticals?: SyntaxFeatureOption;

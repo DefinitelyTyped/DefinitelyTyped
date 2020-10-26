@@ -18,6 +18,11 @@ I18n.t("some.missing.scope", { defaults: [{ scope: "some.existing.scope" }] });
 I18n.t("some.missing.scope", { defaults: [{ message: "Some message" }] });
 
 I18n.fallbacks = true;
+I18n.fallbacks = "de";
+I18n.fallbacks = {
+    de: "en",
+    "de-DE": [ "de", "en" ]
+};
 I18n.locales.no = ["nb", "en"];
 I18n.locales.no = "nb";
 I18n.locales.no = locale => ["nb"];

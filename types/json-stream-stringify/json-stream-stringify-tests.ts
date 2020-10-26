@@ -1,4 +1,4 @@
-import JsonStreamStringify from 'json-stream-stringify';
+import JsonStreamStringify = require('json-stream-stringify');
 import { Readable } from 'stream';
 
 function ReadableStream(...args: any[]) {
@@ -162,4 +162,5 @@ jsonStream = new JsonStreamStringify({}, undefined, undefined, true);
     const a = { foo: 'bar' };
     const arr = [a, a];
     jsonStream = new JsonStreamStringify(arr);
+    jsonStream.stack.join('');
 }

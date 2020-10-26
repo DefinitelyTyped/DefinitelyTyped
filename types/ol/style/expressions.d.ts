@@ -11,6 +11,7 @@ export interface ParsingContext {
     attributes: string[];
     stringLiteralsMap: { [key: string]: number };
 }
+export const Operators: { [key: string]: Operator };
 export enum ValueTypes {
     NUMBER = 1,
     STRING = 2,

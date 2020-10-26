@@ -24,7 +24,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-graph
          */
         interface SeriesGraph {
-
             /**
              * @default
              * "graph"
@@ -201,7 +200,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.circular
              */
             circular?: {
-
                 /**
                  * Whether to rotate the label automatically.
                  *
@@ -230,7 +228,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.force
              */
             force?: {
-
                 /**
                  * The initial layout before force-directed layout, which will
                  * influence on the result of force-directed layout.
@@ -311,6 +308,18 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.force.layoutAnimation
                  */
                 layoutAnimation?: boolean;
+
+                /**
+                 * It will slow down the nodes' movement. The value range is from 0 to 1.
+                 * But it is still an experimental option, see [#11024](https://github.com/apache/incubator-echarts/issues/11024).
+                 *
+                 * Since v4.5.0
+                 *
+                 * @default
+                 * 0.6
+                 * @see https://echarts.apache.org/en/option.html#series-graph.force.friction
+                 */
+                friction?: number;
             };
 
             /**
@@ -515,7 +524,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -634,7 +642,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * Line color.
                  *
@@ -753,7 +760,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -928,7 +934,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-graph.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -1213,12 +1219,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-graph.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -1264,7 +1268,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -1547,7 +1551,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.edgeLabel
              */
             edgeLabel?: {
-
                 /**
                  * If show label on edge.
                  *
@@ -1655,7 +1658,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-graph.edgeLabel.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -1931,12 +1934,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.edgeLabel.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-graph.edgeLabel.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -1979,7 +1980,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.edgeLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -2253,12 +2254,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2359,7 +2358,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -2457,7 +2455,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2586,7 +2583,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -2872,12 +2869,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2923,7 +2918,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -3208,7 +3203,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.edgeLabel
                  */
                 edgeLabel?: {
-
                     /**
                      * If show label on edge.
                      *
@@ -3317,7 +3311,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.edgeLabel.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -3594,12 +3588,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.edgeLabel.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.edgeLabel.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3642,7 +3634,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.emphasis.edgeLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -3976,7 +3968,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -4106,7 +4097,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -4281,7 +4271,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -4567,12 +4557,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -4618,7 +4606,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -4902,7 +4890,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -5077,7 +5064,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -5367,12 +5354,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -5418,7 +5403,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -5719,7 +5704,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -5819,7 +5803,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -5954,7 +5937,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -6177,7 +6159,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -6279,7 +6260,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -6386,7 +6366,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -6515,7 +6494,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -6805,12 +6784,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -6856,7 +6833,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -7152,7 +7129,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -7281,7 +7257,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.emphasis.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -7573,12 +7549,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -7624,7 +7598,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-graph.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -8036,7 +8010,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -8089,7 +8062,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -8163,7 +8135,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -8244,7 +8215,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -8350,7 +8320,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -8494,7 +8463,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -8502,7 +8470,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -8731,7 +8698,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -8841,7 +8807,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -8959,7 +8924,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -9035,7 +8999,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -9117,7 +9080,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -9346,7 +9308,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -9456,7 +9417,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -9574,7 +9534,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -9650,7 +9609,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -9841,7 +9799,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-graph.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -9859,7 +9816,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -9988,7 +9944,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -10274,12 +10230,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -10325,7 +10279,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -10609,7 +10563,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -10738,7 +10691,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -11028,12 +10981,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -11079,7 +11030,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -11380,7 +11331,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -11480,7 +11430,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -11627,7 +11576,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -11635,7 +11583,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -11734,7 +11681,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -11839,7 +11785,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -11953,7 +11898,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -12082,7 +12026,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -12374,12 +12318,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -12425,7 +12367,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -12722,7 +12664,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -12853,7 +12794,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -13157,12 +13098,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -13209,7 +13148,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -13519,7 +13458,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -13618,7 +13556,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -13723,7 +13660,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -13837,7 +13773,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -13966,7 +13901,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -14258,12 +14193,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -14309,7 +14242,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -14606,7 +14539,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -14737,7 +14669,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -15041,12 +14973,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -15093,7 +15023,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-graph.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -15744,460 +15674,11 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-graph.tooltip
              */
-            tooltip?: {
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The position of the tooltip's floating layer, which would
-                 * follow the position of mouse by default.
-                 *
-                 * Options:
-                 *
-                 * + `Array`
-                 *
-                 * Display the position of tooltip's floating layer through
-                 * array, which supports absolute position and relative percentage.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * + `Function`
-                 *
-                 * Callback function in the following form:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * **Parameters:**
-                 * point: Mouse position.
-                 * param: The same as formatter.
-                 * dom: The DOM object of tooltip.
-                 * rect: It is valid only when mouse is on graphic elements,
-                 * which stands for a bounding box with `x`, `y`, `width`, and
-                 * `height`.
-                 * size: The size of dom echarts container.
-                 * For example: `{contentSize: [width, height], viewSize: [width,
-                 * height]}`.
-                 *
-                 * **Return:**
-                 * Return value is an array standing for tooltip position, which
-                 * can be absolute pixels, or relative percentage.
-                 * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                 * '20%', bottom: 40}`.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * Or:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * + `'inside'`
-                 *
-                 * Center position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'top'`
-                 *
-                 * Top position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'left'`
-                 *
-                 * Left position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'right'`
-                 *
-                 * Right position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'bottom'`
-                 *
-                 * Bottom position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.position
-                 */
-                position?: any[] | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The content formatter of tooltip's floating layer which supports
-                 * string template and callback function.
-                 *
-                 * **1\. String template**
-                 *
-                 * The template variables are `{a}`, `{b}`, `{c}`, `{d}` and
-                 * `{e}`, which stands for series name, data name and data value
-                 * and ect. When
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is set to be `'axis'`, there may be data from multiple series.
-                 * In this time, series index can be refered as `{a0}`, `{a1}`,
-                 * or `{a2}`.
-                 *
-                 * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for different
-                 * series types:
-                 *
-                 * + Line (area) charts, bar (column) charts, K charts: `{a}`
-                 * for series name, `{b}` for category name, `{c}` for data
-                 * value, `{d}` for none;
-                 *
-                 * + Scatter (bubble) charts: `{a}` for series name, `{b}` for
-                 * data name, `{c}` for data value, `{d}` for none;
-                 *
-                 * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                 * for merging data, `{d}` for none;
-                 *
-                 * + Pie charts, gauge charts, funnel charts: `{a}` for series
-                 * name, `{b}` for data item name, `{c}` for data value, `{d}`
-                 * for percentage.
-                 *
-                 * **Example:**
-                 *
-                 * ```
-                 * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                 *
-                 * ```
-                 *
-                 * **2\. Callback function**
-                 *
-                 * The format of callback function:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * The first parameter `params` is the data that the formatter
-                 * needs. Its format is shown as follows:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * When
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'axis'`, or when tooltip is triggered by
-                 * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
-                 * , `params` is the data array of multiple series.
-                 * The content of each item of the array is the same as above.
-                 * Besides,
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 * **Note:** Using array to present all the parameters in ECharts
-                 * 2.x is not supported anymore.
-                 *
-                 * The second parameter `ticket` is the asynchronous callback
-                 * flag which should be used along with the third parameter
-                 * `callback` when it is used.
-                 *
-                 * The third parameter `callback` is asynchronous callback.
-                 * When the content of tooltip is acquired asynchronously, `ticket`
-                 * and `htm` as introduced above can be used to update tooltip
-                 * with callback.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.formatter
-                 */
-                formatter?: Function | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The background color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * "rgba(50,50,50,0.7)"
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.backgroundColor
-                 */
-                backgroundColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * '#333'
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.borderColor
-                 */
-                borderColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border width of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.borderWidth
-                 */
-                borderWidth?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The floating layer of tooltip space around content.
-                 * The unit is px.
-                 * Default values for each position are 5.
-                 * And they can be set to different values with left, right,
-                 * top, and bottom.
-                 *
-                 * Examples:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip)
-                 *
-                 *
-                 * @default
-                 * 5
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.padding
-                 */
-                padding?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The text syle of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle
-                 */
-                textStyle?: {
-
-                    /**
-                     * text color.
-                     *
-                     *
-                     * @default
-                     * "#fff"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 14
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.tooltip.textStyle)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.textStyle.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-                };
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * Extra CSS style for floating layer.
-                 * The following is an example for adding shadow.
-                 *
-                 * ```
-                 * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                 *
-                 * ```
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-graph.tooltip.extraCssText
-                 */
-                extraCssText?: string;
-            };
+            tooltip?: BaseTooltip;
         }
 
         namespace SeriesGraph {
             interface CategoryObject {
-
                 /**
                  * Name of category, which is used to correspond with
                  * [legend](https://echarts.apache.org/en/option.html#legend)
@@ -16313,7 +15794,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.categories.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -16419,7 +15899,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.categories.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -16595,7 +16074,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -16881,12 +16360,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -16932,7 +16409,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.categories.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -17217,12 +16694,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -17325,7 +16800,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -17454,7 +16928,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -17744,12 +17218,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -17795,7 +17267,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.categories.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -18091,7 +17563,6 @@ declare namespace echarts {
             }
 
             interface DataObject {
-
                 /**
                  * Name of data item.
                  *
@@ -18243,7 +17714,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -18349,7 +17819,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -18478,7 +17947,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -18764,12 +18233,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -18815,7 +18282,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -19100,12 +18567,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -19208,7 +18673,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -19337,7 +18801,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -19627,12 +19091,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -19678,7 +19140,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -19978,456 +19440,10 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip
                  */
-                tooltip?: {
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The position of the tooltip's floating layer, which would
-                     * follow the position of mouse by default.
-                     *
-                     * Options:
-                     *
-                     * + `Array`
-                     *
-                     * Display the position of tooltip's floating layer through
-                     * array, which supports absolute position and relative
-                     * percentage.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * + `Function`
-                     *
-                     * Callback function in the following form:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * **Parameters:**
-                     * point: Mouse position.
-                     * param: The same as formatter.
-                     * dom: The DOM object of tooltip.
-                     * rect: It is valid only when mouse is on graphic elements,
-                     * which stands for a bounding box with `x`, `y`, `width`,
-                     * and `height`.
-                     * size: The size of dom echarts container.
-                     * For example: `{contentSize: [width, height], viewSize:
-                     * [width, height]}`.
-                     *
-                     * **Return:**
-                     * Return value is an array standing for tooltip position,
-                     * which can be absolute pixels, or relative percentage.
-                     * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                     * '20%', bottom: 40}`.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * Or:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * + `'inside'`
-                     *
-                     * Center position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'top'`
-                     *
-                     * Top position of the graphic element where the mouse is
-                     * in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'left'`
-                     *
-                     * Left position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'right'`
-                     *
-                     * Right position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'bottom'`
-                     *
-                     * Bottom position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.position
-                     */
-                    position?: any[] | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The content formatter of tooltip's floating layer which
-                     * supports string template and callback function.
-                     *
-                     * **1\. String template**
-                     *
-                     * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
-                     * and `{e}`, which stands for series name, data name and
-                     * data value and ect. When
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is set to be `'axis'`, there may be data from multiple
-                     * series.
-                     * In this time, series index can be refered as `{a0}`,
-                     * `{a1}`, or `{a2}`.
-                     *
-                     * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for
-                     * different series types:
-                     *
-                     * + Line (area) charts, bar (column) charts, K charts:
-                     * `{a}` for series name, `{b}` for category name, `{c}`
-                     * for data value, `{d}` for none;
-                     *
-                     * + Scatter (bubble) charts: `{a}` for series name, `{b}`
-                     * for data name, `{c}` for data value, `{d}` for none;
-                     *
-                     * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                     * for merging data, `{d}` for none;
-                     *
-                     * + Pie charts, gauge charts, funnel charts: `{a}` for
-                     * series name, `{b}` for data item name, `{c}` for data
-                     * value, `{d}` for percentage.
-                     *
-                     * **Example:**
-                     *
-                     * ```
-                     * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                     *
-                     * ```
-                     *
-                     * **2\. Callback function**
-                     *
-                     * The format of callback function:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * The first parameter `params` is the data that the formatter
-                     * needs. Its format is shown as follows:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * When
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'axis'`, or when tooltip is triggered by
-                     * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
-                     * , `params` is the data array of multiple series.
-                     * The content of each item of the array is the same as
-                     * above. Besides,
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     * **Note:** Using array to present all the parameters in
-                     * ECharts 2.x is not supported anymore.
-                     *
-                     * The second parameter `ticket` is the asynchronous callback
-                     * flag which should be used along with the third parameter
-                     * `callback` when it is used.
-                     *
-                     * The third parameter `callback` is asynchronous callback.
-                     * When the content of tooltip is acquired asynchronously,
-                     * `ticket` and `htm` as introduced above can be used to
-                     * update tooltip with callback.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.formatter
-                     */
-                    formatter?: Function | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The background color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * "rgba(50,50,50,0.7)"
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.backgroundColor
-                     */
-                    backgroundColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * '#333'
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border width of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The floating layer of tooltip space around content.
-                     * The unit is px.
-                     * Default values for each position are 5.
-                     * And they can be set to different values with left, right,
-                     * top, and bottom.
-                     *
-                     * Examples:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip)
-                     *
-                     *
-                     * @default
-                     * 5
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.padding
-                     */
-                    padding?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The text syle of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle
-                     */
-                    textStyle?: {
-
-                        /**
-                         * text color.
-                         *
-                         *
-                         * @default
-                         * "#fff"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 14
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-graph.graph.data.tooltip.textStyle)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.textStyle.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-                    };
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * Extra CSS style for floating layer.
-                     * The following is an example for adding shadow.
-                     *
-                     * ```
-                     * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                     *
-                     * ```
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-graph.data.tooltip.extraCssText
-                     */
-                    extraCssText?: string;
-                };
+                tooltip?: BaseTooltip;
             }
 
             interface LinkObject {
-
                 /**
                  * [name of source node](https://echarts.apache.org/en/option.html#series-graph.data.name)
                  * on edge
@@ -20461,7 +19477,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.links.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -20568,7 +19583,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.links.label
                  */
                 label?: {
-
                     /**
                      * If show label on edge.
                      *
@@ -20677,7 +19691,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-graph.links.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -20954,12 +19968,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -21002,7 +20014,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-graph.links.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -21278,12 +20290,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label
                      */
                     label?: {
-
                         /**
                          * If show label on edge.
                          *
@@ -21394,7 +20404,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -21675,12 +20685,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -21723,7 +20731,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -22011,7 +21019,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-graph.links.emphasis.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *

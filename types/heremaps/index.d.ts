@@ -1835,7 +1835,7 @@ declare namespace H {
              * Method returns the bounding rectangle for the group. The rectangle is the smallest rectangle that covers all objects. If group doesn't contains objects method returns null.
              * @returns {H.geo.Rect} - geo ractangle that covers all objects in the group
              */
-            getBounds(): H.geo.Rect;
+            getBoundingBox(): H.geo.Rect;
 
             /**
              * To add an object to this group.

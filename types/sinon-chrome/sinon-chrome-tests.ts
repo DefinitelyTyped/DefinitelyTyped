@@ -81,3 +81,6 @@ chromeStub.registerPlugin(new chromeStub.plugins.CookiePlugin(
         }
     ]
 ));
+
+chromeStub.runtime.openOptionsPage();
+chromeStub.runtime.openOptionsPage(() => { });

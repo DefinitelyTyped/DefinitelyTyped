@@ -141,629 +141,685 @@ declare namespace ymaps {
             duration?: number;
         }
 
-		class RouteEditor implements IBehavior {
-			events: IEventManager;
-			options: IOptionManager;
+        class RouteEditor implements IBehavior {
+            events: IEventManager;
+            options: IOptionManager;
 
-			disable(): void;
+            disable(): void;
 
-			enable(): void;
+            enable(): void;
 
-			isEnabled(): boolean;
+            isEnabled(): boolean;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
+            setParent(parent: IControlParent): this;
 
-			getRoute(): router.Route;
+            getRoute(): router.Route;
 
-			getState(): string;
+            getState(): string;
 
-			setState(state: string | null): void;
-		}
+            setState(state: string | null): void;
+        }
 
-		class Ruler implements IBehavior {
-			constructor(options?: IRulerOptions)
+        class Ruler implements IBehavior {
+            constructor(options?: IRulerOptions)
 
-			events: IEventManager;
-			options: IOptionManager;
+            events: IEventManager;
+            options: IOptionManager;
 
-			disable(): void;
+            disable(): void;
 
-			enable(): void;
+            enable(): void;
 
-			isEnabled(): boolean;
+            isEnabled(): boolean;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
+            setParent(parent: IControlParent): this;
 
-			close(): boolean;
+            close(): boolean;
 
-			getState(): string;
+            getState(): string;
 
-			setState(state: string | null): void;
-		}
+            setState(state: string | null): void;
+        }
 
-		interface IRulerOptions {
-			balloonAutoPan?: boolean;
-		}
+        interface IRulerOptions {
+            balloonAutoPan?: boolean;
+        }
 
-		class ScrollZoom implements IBehavior {
-			constructor(options?: IScrollZoomOptions)
+        class ScrollZoom implements IBehavior {
+            constructor(options?: IScrollZoomOptions)
 
-			events: IEventManager;
-			options: IOptionManager;
+            events: IEventManager;
+            options: IOptionManager;
 
-			disable(): void;
+            disable(): void;
 
-			enable(): void;
+            enable(): void;
 
-			isEnabled(): boolean;
+            isEnabled(): boolean;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
-		}
+            setParent(parent: IControlParent): this;
+        }
 
-		interface IScrollZoomOptions {
-			maximumDelta?: number;
-			speed?: number;
-		}
+        interface IScrollZoomOptions {
+            maximumDelta?: number;
+            speed?: number;
+        }
 
-		const storage: util.Storage;
-	}
+        const storage: util.Storage;
+    }
 
-	namespace clusterer {
-		class Balloon implements IBalloonManager<Clusterer> { //tslint:disable-line no-shadowed-variable
-			constructor(clusterer: Clusterer);
+    namespace clusterer {
+        class Balloon implements IBalloonManager<Clusterer> { //tslint:disable-line no-shadowed-variable
+            constructor(clusterer: Clusterer);
 
-			events: IEventManager;
+            events: IEventManager;
 
-			autoPan(): Promise<Clusterer>;
+            autoPan(): Promise<Clusterer>;
 
-			close(force?: boolean): Promise<Clusterer>;
+            close(force?: boolean): Promise<Clusterer>;
 
-			destroy(): void;
+            destroy(): void;
 
-			getData(): object | null;
+            getData(): object | null;
 
-			getOptions(): IOptionManager | null;
+            getOptions(): IOptionManager | null;
 
-			getOverlay(): Promise<IOverlay | null>;
+            getOverlay(): Promise<IOverlay | null>;
 
-			getOverlaySync(): IOverlay | null;
+            getOverlaySync(): IOverlay | null;
 
-			getPosition(): number[] | null;
+            getPosition(): number[] | null;
 
-			isOpen(): boolean;
+            isOpen(): boolean;
 
-			open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<Clusterer>;
+            open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<Clusterer>;
 
-			setData(data: object | string | HTMLElement): Promise<Clusterer>;
+            setData(data: object | string | HTMLElement): Promise<Clusterer>;
 
-			setOptions(options: object): Promise<Clusterer>;
+            setOptions(options: object): Promise<Clusterer>;
 
-			setPosition(position: number[]): Promise<Clusterer>;
-		}
+            setPosition(position: number[]): Promise<Clusterer>;
+        }
 
-		class Hint implements IHintManager<Clusterer> {
-			constructor(clusterer: Clusterer);
+        class Hint implements IHintManager<Clusterer> {
+            constructor(clusterer: Clusterer);
 
-			events: IEventManager;
+            events: IEventManager;
 
-			close(force?: boolean): Promise<Clusterer>;
+            close(force?: boolean): Promise<Clusterer>;
 
-			destroy(): void;
+            destroy(): void;
 
-			getData(): object | null;
+            getData(): object | null;
 
-			getOptions(): IOptionManager | null;
+            getOptions(): IOptionManager | null;
 
-			getOverlay(): Promise<IOverlay | null>;
+            getOverlay(): Promise<IOverlay | null>;
 
-			getOverlaySync(): IOverlay | null;
+            getOverlaySync(): IOverlay | null;
 
-			getPosition(): number[] | null;
+            getPosition(): number[] | null;
 
-			isOpen(): boolean;
+            isOpen(): boolean;
 
-			open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<Clusterer>;
+            open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<Clusterer>;
 
-			setData(data: object | string | HTMLElement): Promise<Clusterer>;
+            setData(data: object | string | HTMLElement): Promise<Clusterer>;
 
-			setOptions(options: object): Promise<Clusterer>;
+            setOptions(options: object): Promise<Clusterer>;
 
-			setPosition(position: number[]): Promise<Clusterer>;
-		}
-	}
+            setPosition(position: number[]): Promise<Clusterer>;
+        }
+    }
 
-	namespace collection {
-		class Item implements IChildOnMap, ICustomizable, IEventEmitter, IParentOnMap {
-			constructor(options?: object);
+    namespace collection {
+        class Item implements IChildOnMap, ICustomizable, IEventEmitter, IParentOnMap {
+            constructor(options?: object);
 
-			events: IEventManager;
-			options: IOptionManager;
+            events: IEventManager;
+            options: IOptionManager;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
+            setParent(parent: IControlParent): this;
 
-			getMap(): Map;
+            getMap(): Map;
 
-			onAddToMap(map: Map): void;
+            onAddToMap(map: Map): void;
 
-			onRemoveFromMap(oldMap: Map): void;
-		}
-	}
+            onRemoveFromMap(oldMap: Map): void;
+        }
+    }
 
-	namespace control {
-		class Button implements ICustomizable, ISelectableControl {
-			constructor(parameters?: IButtonParameters | string);
+    namespace control {
+        class Button implements ICustomizable, ISelectableControl {
+            constructor(parameters?: IButtonParameters | string);
 
-			options: IOptionManager;
-			events: IEventManager;
-			data: data.Manager;
-			state: data.Manager;
+            options: IOptionManager;
+            events: IEventManager;
+            data: data.Manager;
+            state: data.Manager;
 
-			deselect(): void;
+            deselect(): void;
 
-			disable(): void;
+            disable(): void;
 
-			enable(): void;
+            enable(): void;
 
-			isEnabled(): boolean;
+            isEnabled(): boolean;
 
-			isSelected(): boolean;
+            isSelected(): boolean;
 
-			select(): void;
+            select(): void;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
-		}
+            setParent(parent: IControlParent): this;
+        }
 
-		interface IBaseButtonParametersOptions {
-			adjustMapMargin?: boolean;
-			float?: "none" | "left" | "right";
-			floatIndex?: number;
-			layout?: IClassConstructor<ISelectableControlLayout> | string;
-			maxWidth?: number[][] | number[] | number;
-			position?: {
-				bottom?: number | string;
-				left?: number | string;
-				right?: number | string;
-				top?: number | string;
-			};
-			visible?: boolean;
-		}
+        interface IBaseButtonParametersOptions {
+            adjustMapMargin?: boolean;
+            float?: "none" | "left" | "right";
+            floatIndex?: number;
+            layout?: IClassConstructor<ISelectableControlLayout> | string;
+            maxWidth?: number[][] | number[] | number;
+            position?: {
+                bottom?: number | string;
+                left?: number | string;
+                right?: number | string;
+                top?: number | string;
+            };
+            visible?: boolean;
+        }
 
-		interface IButtonParameters {
-			data?: {
-				content?: string;
-				image?: string;
-				title?: string;
-			};
-			options?: IBaseButtonParametersOptions & {
-				selectOnClick?: boolean;
-				size?: "auto" | "small" | "medium" | "large";
-			};
-			state?: {
-				enabled?: boolean;
-				selected?: boolean;
-			};
-		}
+        interface IButtonParameters {
+            data?: {
+                content?: string;
+                image?: string;
+                title?: string;
+            };
+            options?: IBaseButtonParametersOptions & {
+                selectOnClick?: boolean;
+                size?: "auto" | "small" | "medium" | "large";
+            };
+            state?: {
+                enabled?: boolean;
+                selected?: boolean;
+            };
+        }
 
-		class FullscreenControl extends Button {
-			constructor(parameters?: IFullscreenControlParameters);
+        class FullscreenControl extends Button {
+            constructor(parameters?: IFullscreenControlParameters);
 
-			enterFullscreen(): void;
+            enterFullscreen(): void;
 
-			exitFullscreen(): void;
-		}
+            exitFullscreen(): void;
+        }
 
-		interface IFullscreenControlParameters {
-			data?: {
-				title?: string;
-			};
-			options?: IBaseButtonParametersOptions & {
-				collapseOnBlur?: boolean;
-				expandOnClick?: boolean;
-				popupFloat?: "left" | "right";
-			};
-			state?: {
-				expanded?: boolean;
-			};
-		}
+        interface IFullscreenControlParameters {
+            data?: {
+                title?: string;
+            };
+            options?: IBaseButtonParametersOptions & {
+                collapseOnBlur?: boolean;
+                expandOnClick?: boolean;
+                popupFloat?: "left" | "right";
+            };
+            state?: {
+                expanded?: boolean;
+            };
+        }
 
-		class GeolocationControl extends Button {
-			constructor(parameters?: IGeolocationControlParameters);
-		}
+        class GeolocationControl extends Button {
+            constructor(parameters?: IGeolocationControlParameters);
+        }
 
-		interface IGeolocationControlParameters extends IButtonParameters {
-			data?: {
-				image?: string;
-				title?: string;
-			};
-			options?: IBaseButtonParametersOptions;
-		}
+        interface IGeolocationControlParameters extends IButtonParameters {
+            data?: {
+                image?: string;
+                title?: string;
+            };
+            options?: IBaseButtonParametersOptions;
+        }
 
-		class ListBox implements ICollection, IControl, ICustomizable {
-			constructor(parameters?: IListBoxParameters);
+        class ListBox implements ICollection, IControl, ICustomizable {
+            constructor(parameters?: IListBoxParameters);
 
-			events: IEventManager;
-			options: IOptionManager;
-			data: data.Manager;
-			state: data.Manager;
+            events: IEventManager;
+            options: IOptionManager;
+            data: data.Manager;
+            state: data.Manager;
 
-			add(object: object): this;
+            add(object: object): this;
 
-			getIterator(): IIterator;
+            getIterator(): IIterator;
 
-			remove(object: object): this;
+            remove(object: object): this;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
-		}
+            setParent(parent: IControlParent): this;
+        }
 
-		interface IListBoxParameters extends IButtonParameters {
-			options?: IBaseButtonParametersOptions & {
-				noPlacemark?: boolean;
-			};
-		}
+        interface IListBoxParameters extends IButtonParameters {
+            options?: IBaseButtonParametersOptions & {
+                noPlacemark?: boolean;
+            };
+        }
 
-		class ListBoxItem implements ICustomizable, ISelectableControl {
-			constructor(parameters?: IListBoxItemParameters);
+        class ListBoxItem implements ICustomizable, ISelectableControl {
+            constructor(parameters?: IListBoxItemParameters);
 
-			options: IOptionManager;
-			events: IEventManager;
-			data: data.Manager;
-			state: data.Manager;
+            options: IOptionManager;
+            events: IEventManager;
+            data: data.Manager;
+            state: data.Manager;
 
-			deselect(): void;
+            deselect(): void;
 
-			disable(): void;
+            disable(): void;
 
-			enable(): void;
+            enable(): void;
 
-			isEnabled(): boolean;
+            isEnabled(): boolean;
 
-			isSelected(): boolean;
+            isSelected(): boolean;
 
-			select(): void;
+            select(): void;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
+            setParent(parent: IControlParent): this;
 
-			getMap(): Map;
-		}
+            getMap(): Map;
+        }
 
-		interface IListBoxItemParameters {
-			data?: {
-				content?: string;
-			};
-			options?: {
-				layout?: string | IClassConstructor<ISelectableControlLayout>;
-				selectableLayout?: string | IClassConstructor<ISelectableControlLayout>;
-				selectOnClick?: boolean;
-				separatorLayout?: string | IClassConstructor<ISelectableControlLayout>;
-				type?: "selectable" | "separator";
-				visible?: boolean;
-			};
-			state?: {
-				selected?: boolean;
-			};
-		}
+        interface IListBoxItemParameters {
+            data?: {
+                content?: string;
+            };
+            options?: {
+                layout?: string | IClassConstructor<ISelectableControlLayout>;
+                selectableLayout?: string | IClassConstructor<ISelectableControlLayout>;
+                selectOnClick?: boolean;
+                separatorLayout?: string | IClassConstructor<ISelectableControlLayout>;
+                type?: "selectable" | "separator";
+                visible?: boolean;
+            };
+            state?: {
+                selected?: boolean;
+            };
+        }
 
-		class Manager {
-			constructor(map: Map, controls?: Array<string | IControl>, options?: IManagerOptions);
+        class Manager {
+            constructor(map: Map, controls?: Array<string | IControl>, options?: IManagerOptions);
 
-			events: event.Manager;
-			options: option.Manager;
-			state: data.Manager;
+            events: event.Manager;
+            options: option.Manager;
+            state: data.Manager;
 
-			add(control: IControl | ControlKey, options?: IManagerControlOptions): this;
+            add(control: IControl | ControlKey, options?: IManagerControlOptions): this;
 
-			each(callback: (control: IControl) => void, context?: object): this;
+            each(callback: (control: IControl) => void, context?: object): this;
 
-			get(index: number | string): IControl | null;
+            get(index: number | string): IControl | null;
 
-			getChildElement(control: IControl): Promise<HTMLElement>;
+            getChildElement(control: IControl): Promise<HTMLElement>;
 
-			getContainer(): HTMLElement;
+            getContainer(): HTMLElement;
 
-			getMap(): Map;
+            getMap(): Map;
 
-			indexOf(childToFind: IControl | string): number;
+            indexOf(childToFind: IControl | string): number;
 
-			remove(control: IControl | string): this;
-		}
+            remove(control: IControl | string): this;
+        }
 
-		interface IManagerOptions {
-			margin?: number;
-			pane?: IPane;
-			states?: string[];
-		}
+        interface IManagerOptions {
+            margin?: number;
+            pane?: IPane;
+            states?: string[];
+        }
 
-		interface IManagerControlOptions {
-			float?: "none" | "left" | "right";
-			floatIndex?: number;
-			position?: {
-				bottom?: number | string;
-				left?: number | string;
-				right?: number | string;
-				top?: number | string;
-			};
-		}
+        interface IManagerControlOptions {
+            float?: "none" | "left" | "right";
+            floatIndex?: number;
+            position?: {
+                bottom?: number | string;
+                left?: number | string;
+                right?: number | string;
+                top?: number | string;
+            };
+        }
 
-		class RouteButton implements IControl, ICustomizable {
-			constructor(parameters?: IRouteButtonParameters);
+        class RouteButton implements IControl, ICustomizable {
+            constructor(parameters?: IRouteButtonParameters);
 
-			events: IEventManager;
-			options: IOptionManager;
-			routePanel: IRoutePanel;
+            events: IEventManager;
+            options: IOptionManager;
+            routePanel: IRoutePanel;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
-		}
+            setParent(parent: IControlParent): this;
+        }
 
-		interface IRouteButtonParameters {
-			options?: {
-				adjustMapMargin?: boolean;
-				collapseOnBlur?: boolean;
-				float?: "none" | "left" | "right";
-				floatIndex?: number;
-				popupAnimate?: boolean;
-				popupFloat?: "auto" | "left" | "right";
-				popupWidth?: string;
-				position?: {
-					bottom?: number | string;
-					left?: number | string;
-					right?: number | string;
-					top?: number | string;
-				};
-				size?: "auto" | "small" | "medium" | "large";
-				visible?: boolean;
-			};
-			state?: {
-				expanded?: boolean;
-			};
-		}
+        interface IRouteButtonParameters {
+            options?: {
+                adjustMapMargin?: boolean;
+                collapseOnBlur?: boolean;
+                float?: "none" | "left" | "right";
+                floatIndex?: number;
+                popupAnimate?: boolean;
+                popupFloat?: "auto" | "left" | "right";
+                popupWidth?: string;
+                position?: {
+                    bottom?: number | string;
+                    left?: number | string;
+                    right?: number | string;
+                    top?: number | string;
+                };
+                size?: "auto" | "small" | "medium" | "large";
+                visible?: boolean;
+            };
+            state?: {
+                expanded?: boolean;
+            };
+        }
 
-		class RouteEditor extends Button {
-			constructor(parameters?: IRouteEditorParameters);
+        class RouteEditor extends Button {
+            constructor(parameters?: IRouteEditorParameters);
 
-			getRoute(): router.Route;
-		}
-
-		interface IRouteEditorParameters {
-			data?: {
-				image?: string;
-				title?: string;
-			};
-			options?: IBaseButtonParametersOptions;
-			state?: {};
-		}
+            getRoute(): router.Route;
+        }
+
+        interface IRouteEditorParameters {
+            data?: {
+                image?: string;
+                title?: string;
+            };
+            options?: IBaseButtonParametersOptions;
+            state?: {};
+        }
 
-		class RulerControl extends Button {
-			constructor(parameters?: IRulerControlParameters);
-		}
+        class RulerControl extends Button {
+            constructor(parameters?: IRulerControlParameters);
+        }
 
-		interface IRulerControlParameters {
-			data?: {};
-			options?: {
-				adjustMapMargin?: boolean;
-				position?: {
-					bottom?: number | string;
-					left?: number | string;
-					right?: number | string;
-					top?: number | string;
-				};
-				scaleLine?: boolean;
-				visible?: boolean;
-			};
-			state?: {};
-		}
+        interface IRulerControlParameters {
+            data?: {};
+            options?: {
+                adjustMapMargin?: boolean;
+                position?: {
+                    bottom?: number | string;
+                    left?: number | string;
+                    right?: number | string;
+                    top?: number | string;
+                };
+                scaleLine?: boolean;
+                visible?: boolean;
+            };
+            state?: {};
+        }
 
-		class SearchControl implements IControl, ICustomizable {
-			constructor(parameters?: ISearchControlParameters);
+        class SearchControl implements IControl, ICustomizable {
+            constructor(parameters?: ISearchControlParameters);
 
-			events: IEventManager;
-			options: IOptionManager;
-			state: data.Manager;
+            events: IEventManager;
+            options: IOptionManager;
+            state: data.Manager;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
+            setParent(parent: IControlParent): this;
 
-			clear(): void;
+            clear(): void;
 
-			getMap(): Map;
+            getMap(): Map;
 
-			getRequestString(): string;
+            getRequestString(): string;
 
-			getResponseMetaData(): object;
+            getResponseMetaData(): object;
 
-			getResult(index: number): Promise<object>;
+            getResult(index: number): Promise<object>;
 
-			getResultsArray(): object[];
+            getResultsArray(): object[];
 
-			getResultsCount(): number;
+            getResultsCount(): number;
 
-			getSelectedIndex(): number;
+            getSelectedIndex(): number;
 
-			hideResult(): void;
+            hideResult(): void;
 
-			search(request: string): Promise<void>;
+            search(request: string): Promise<void>;
 
-			showResult(index: number): this;
-		}
+            showResult(index: number): this;
+        }
 
-		interface ISearchControlParameters {
-			data?: {};
-			options?: {
-				adjustMapMargin?: boolean;
-				boundedBy?: number[][];
-				fitMaxWidth?: boolean;
-				float?: "none" | "left" | "right";
-				floatIndex?: number;
-				formLayout?: string | IClassConstructor<ILayout>;
-				kind?: "house" | "street" | "metro" | "district" | "locality";
-				layout?: string | IClassConstructor<ISearchControlLayout>;
-				maxWidth?: number[][] | number[] | number;
-				noCentering?: boolean;
-				noPlacemark?: boolean;
-				noPopup?: boolean;
-				noSelect?: boolean;
-				noSuggestPanel?: boolean;
-				placeholderContent?: string;
-				popupItemLayout?: string | IClassConstructor<ILayout>;
-				popupLayout?: string | IClassConstructor<ILayout>;
-				position?: {
-					bottom?: number | string;
-					left?: number | string;
-					right?: number | string;
-					top?: number | string;
-				};
-				provider?: IGeocodeProvider | "yandex#map" | "yandex#search";
-				searchCoordOrder?: "latlong" | "longlat";
-				size?: "auto" | "small" | "medium" | "large";
-				strictBounds?: boolean;
-				suppressYandexSearch?: boolean;
-				useMapBounds?: boolean;
-				zoomMargin?: number;
-				visible?: boolean;
-			};
-			state?: {};
-		}
-	}
+        interface ISearchControlParameters {
+            data?: {};
+            options?: {
+                adjustMapMargin?: boolean;
+                boundedBy?: number[][];
+                fitMaxWidth?: boolean;
+                float?: "none" | "left" | "right";
+                floatIndex?: number;
+                formLayout?: string | IClassConstructor<ILayout>;
+                kind?: "house" | "street" | "metro" | "district" | "locality";
+                layout?: string | IClassConstructor<ISearchControlLayout>;
+                maxWidth?: number[][] | number[] | number;
+                noCentering?: boolean;
+                noPlacemark?: boolean;
+                noPopup?: boolean;
+                noSelect?: boolean;
+                noSuggestPanel?: boolean;
+                placeholderContent?: string;
+                popupItemLayout?: string | IClassConstructor<ILayout>;
+                popupLayout?: string | IClassConstructor<ILayout>;
+                position?: {
+                    bottom?: number | string;
+                    left?: number | string;
+                    right?: number | string;
+                    top?: number | string;
+                };
+                provider?: IGeocodeProvider | "yandex#map" | "yandex#search";
+                searchCoordOrder?: "latlong" | "longlat";
+                size?: "auto" | "small" | "medium" | "large";
+                strictBounds?: boolean;
+                suppressYandexSearch?: boolean;
+                useMapBounds?: boolean;
+                zoomMargin?: number;
+                visible?: boolean;
+            };
+            state?: {};
+        }
 
-	namespace data {
-		class Manager implements IDataManager, IFreezable {
-			constructor(data?: object);
+        class ZoomControl implements IControl, ICustomizable {
+            constructor(parameters?: IZoomControlParameters);
 
-			events: IEventManager;
+            events: IEventManager;
+            options: IOptionManager;
+            state: data.Manager;
 
-			get(path: string, defaultValue: object): object;
+            getParent(): null | IControlParent;
 
-			getAll(): object;
+            setParent(parent: IControlParent): this;
 
-			set(path: object | string, value: object): this;
+            clear(): void;
 
-			setAll(): this;
+            getMap(): Map;
 
-			unset(path: object | string): this;
+            getRequestString(): string;
 
-			unsetAll(): this;
+            getResponseMetaData(): object;
 
-			freeze(): IFreezable;
+            getResult(index: number): Promise<object>;
 
-			isFrozen(): boolean;
+            getResultsArray(): object[];
 
-			unfreeze(): IFreezable;
+            getResultsCount(): number;
 
-			add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+            getSelectedIndex(): number;
 
-			getParent(): IEventManager | null;
+            hideResult(): void;
 
-			group(): IEventGroup;
+            search(request: string): Promise<void>;
 
-			remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+            showResult(index: number): this;
+        }
 
-			setParent(parent: IEventManager | null): this;
+        interface IZoomControlParameters {
+            options?: {
+                position?: {
+                    top?: number | string | 'auto';
+                    right?: number | string | 'auto';
+                    bottom?: number | string | 'auto';
+                    left?: number | string | 'auto';
+                }
+            };
+        }
 
-			fire(type: string, eventobject: object | IEvent): this;
-		}
-	}
+        class TypeSelector extends ListBox {
+            constructor(parameters?: ITypeSelectorParameters);
+        }
 
-	namespace event {
-		class Manager implements IEventManager {
-			constructor(params?: { context?: object; controllers?: IEventWorkflowController[]; parent?: IEventManager });
+        interface ITypeSelectorParameters {
+            options?: {
+                panoramasItemMode: 'on' | 'off' | 'ifMercator';
+            };
+        }
+    }
 
-			add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+    namespace data {
+        class Manager implements IDataManager, IFreezable {
+            constructor(data?: object);
 
-			getParent(): IEventManager | null;
+            events: IEventManager;
 
-			group(): IEventGroup;
+            get(path: string, defaultValue: object): object;
 
-			remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+            getAll(): object;
 
-			setParent(parent: IEventManager | null): this;
+            set(path: object | string, value: object | number | string | null | undefined): this;
 
-			fire(type: string, eventobject: object | IEvent): this;
+            setAll(): this;
 
-			createEventobject(type: string, event: object, target: object): Event;
+            unset(path: object | string): this;
 
-			once(types: string[][] | string[] | string, callback: (event: IEvent) => any, context?: object, priority?: number): this;
-		}
-	}
+            unsetAll(): this;
 
-	namespace geometry {
-		namespace base {
-			class LineString implements IBaseLineStringGeometry { //tslint:disable-line no-shadowed-variable
+            freeze(): IFreezable;
+
+            isFrozen(): boolean;
+
+            unfreeze(): IFreezable;
+
+            add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+
+            getParent(): IEventManager | null;
+
+            group(): IEventGroup;
+
+            remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+
+            setParent(parent: IEventManager | null): this;
+
+            fire(type: string, eventobject: object | IEvent): this;
+        }
+    }
+
+    namespace event {
+        class Manager<TargetGeometry = {}> implements IEventManager<TargetGeometry> {
+            constructor(params?: { context?: object; controllers?: IEventWorkflowController[]; parent?: IEventManager });
+
+            add(types: 'mousedown', callback: (event: (IEvent<MouseEvent, TargetGeometry>)) => void, context?: object, priority?: number): this;
+            add(types: string[][] | string[] | string, callback: (event: (IEvent<{}, TargetGeometry>)) => void, context?: object, priority?: number): this;
+
+            getParent(): IEventManager | null;
+
+            group(): IEventGroup;
+
+            remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+
+            setParent(parent: IEventManager | null): this;
+
+            fire(type: string, eventobject: object | IEvent): this;
+
+            createEventobject(type: string, event: object, target: object): Event;
+
+            once(types: string[][] | string[] | string, callback: (event: IEvent) => any, context?: object, priority?: number): this;
+        }
+    }
+
+    namespace geometry {
+        namespace base {
+            class LineString implements IBaseLineStringGeometry { //tslint:disable-line no-shadowed-variable
                 events: IEventManager;
 
-				static fromEncodedCoordinates(encodedCoordinates: string): geometry.LineString; //tslint:disable-line function-name
+                static fromEncodedCoordinates(encodedCoordinates: string): geometry.LineString; //tslint:disable-line function-name
 
-				static toEncodedCoordinates(geometry: geometry.LineString): string; //tslint:disable-line function-name
+                static toEncodedCoordinates(geometry: geometry.LineString): string; //tslint:disable-line function-name
 
-				getBounds(): number[][] | null;
+                getBounds(): number[][] | null;
 
-				getType(): string;
+                getType(): string;
 
-				get(index: number): number[];
+                get(index: number): number[];
 
-				getChildGeometry(index: number): IPointGeometryAccess;
+                getChildGeometry(index: number): IPointGeometryAccess;
 
-				getClosest(anchorPosition: number[]): object;
+                getClosest(anchorPosition: number[]): object;
 
-				getCoordinates(): number[][];
+                getCoordinates(): number[][];
 
-				getLength(): number;
+                getLength(): number;
 
-				insert(index: number, coordinates: number[][]): ILineStringGeometryAccess;
+                insert(index: number, coordinates: number[][]): ILineStringGeometryAccess;
 
-				remove(index: number): number[];
+                remove(index: number): number[];
 
-				remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+                remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-				set(index: number, coordinates: number[]): ILineStringGeometryAccess;
+                set(index: number, coordinates: number[]): ILineStringGeometryAccess;
 
-				setCoordinates(coordinates: number[]): ILineStringGeometryAccess;
+                setCoordinates(coordinates: number[][]): ILineStringGeometryAccess;
 
-				splice(index: number, length: number): number[][];
+                splice(index: number, length: number): number[][];
 
-				freeze(): IFreezable;
+                freeze(): IFreezable;
 
-				isFrozen(): boolean;
+                isFrozen(): boolean;
 
-				unfreeze(): IFreezable;
+                unfreeze(): IFreezable;
 
-				add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+                add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-				getParent(): object | null;
+                getParent(): object | null;
 
-				group(): IEventGroup;
+                group(): IEventGroup;
 
-				setParent(parent: IEventManager | null): this;
+                setParent(parent: IEventManager | null): this;
 
-				fire(type: string, eventobject: object | IEvent): this;
-			}
+                fire(type: string, eventobject: object | IEvent): this;
+            }
 
-			class Point implements IBasePointGeometry { //tslint:disable-line no-shadowed-variable
-				events: IEventManager;
+            class Point implements IBasePointGeometry { //tslint:disable-line no-shadowed-variable
+                events: IEventManager;
 
-				getBounds(): number[][] | null;
+                getBounds(): number[][] | null;
 
-				getType(): string;
+                getType(): string;
 
-				getCoordinates(): number[] | null;
+                getCoordinates(): number[] | null;
 
-				setCoordinates(coordinates: number[] | null): this;
-			}
+                setCoordinates(coordinates: number[] | null): this;
+            }
 
             class Polygon implements IBasePointGeometry {
                 constructor(coordinates?: number[][][], fillRule?: 'evenOdd' | 'nonZero');
@@ -787,7 +843,7 @@ declare namespace ymaps {
 
                 getCoordinates(): number[] | null;
 
-                getFillRule(): string;
+                getFillRule(): 'evenOdd' | 'nonZero';
 
                 getLength(): number;
 
@@ -803,95 +859,95 @@ declare namespace ymaps {
 
                 setCoordinates(coordinates: number[] | null): this;
 
-                setFillRule(fillRule: string): IPolygonGeometryAccess;
+                setFillRule(fillRule: 'evenOdd' | 'nonZero'): IPolygonGeometryAccess;
 
                 splice(index: number, number: number): ILinearRingGeometryAccess[];
 
                 unfreeze(): IFreezable;
             }
-		}
+        }
 
-		class LineString implements ILineStringGeometry {
-			constructor(coordinates?: number[][], options?: {
-				coordRendering?: "shortestPath" | "straightPath";
-				geodesic?: boolean;
-				pixelRendering?: "jumpy" | "static";
-				projection?: IProjection;
-				simplification?: boolean;
-			});
+        class LineString implements ILineStringGeometry {
+            constructor(coordinates?: number[][], options?: {
+                coordRendering?: "shortestPath" | "straightPath";
+                geodesic?: boolean;
+                pixelRendering?: "jumpy" | "static";
+                projection?: IProjection;
+                simplification?: boolean;
+            });
 
             events: IEventManager;
             options: IOptionManager;
 
-			static fromEncodedCoordinates(encodedCoordinates: string): LineString; //tslint:disable-line function-name
+            static fromEncodedCoordinates(encodedCoordinates: string): LineString; //tslint:disable-line function-name
             static toEncodedCoordinates(geometry: LineString): string; //tslint:disable-line function-name
 
-			getMap(): Map | null;
+            getMap(): Map | null;
 
-			getPixelGeometry(options?: object): IPixelGeometry;
+            getPixelGeometry(options?: object): IPixelGeometry;
 
-			setMap(map: Map): void;
+            setMap(map: Map): void;
 
-			getBounds(): number[][] | null;
+            getBounds(): number[][] | null;
 
-			getType(): string;
+            getType(): string;
 
-			get(index: number): number[];
+            get(index: number): number[];
 
-			getChildGeometry(index: number): IPointGeometryAccess;
+            getChildGeometry(index: number): IPointGeometryAccess;
 
-			getClosest(anchorPosition: number[]): object;
+            getClosest(anchorPosition: number[]): object;
 
-			getCoordinates(): number[][];
+            getCoordinates(): number[][];
 
-			getLength(): number;
+            getLength(): number;
 
-			insert(index: number, coordinates: number[][]): ILineStringGeometryAccess;
+            insert(index: number, coordinates: number[][]): ILineStringGeometryAccess;
 
-			remove(index: number): number[];
+            remove(index: number): number[];
 
-			remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+            remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-			set(index: number, coordinates: number[]): ILineStringGeometryAccess;
+            set(index: number, coordinates: number[]): ILineStringGeometryAccess;
 
-			setCoordinates(coordinates: number[]): ILineStringGeometryAccess;
+            setCoordinates(coordinates: number[][]): ILineStringGeometryAccess;
 
-			splice(index: number, length: number): number[][];
+            splice(index: number, length: number): number[][];
 
-			freeze(): IFreezable;
+            freeze(): IFreezable;
 
-			isFrozen(): boolean;
+            isFrozen(): boolean;
 
-			unfreeze(): IFreezable;
+            unfreeze(): IFreezable;
 
-			add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+            add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-			getParent(): object | null;
+            getParent(): object | null;
 
-			group(): IEventGroup;
+            group(): IEventGroup;
 
-			setParent(parent: IEventManager | null): this;
+            setParent(parent: IEventManager | null): this;
 
-			fire(type: string, eventobject: object | IEvent): this;
-		}
+            fire(type: string, eventobject: object | IEvent): this;
+        }
 
-		class Point implements IPointGeometry {
-			constructor(coordinates?: number[] | null);
+        class Point implements IPointGeometry {
+            constructor(coordinates?: number[] | null);
 
-			options: IOptionManager;
-			events: IEventManager;
+            options: IOptionManager;
+            events: IEventManager;
 
-			getMap(): Map | null;
+            getMap(): Map | null;
 
-			getPixelGeometry(options?: object): IPixelGeometry;
+            getPixelGeometry(options?: object): IPixelGeometry;
 
-			setMap(map: Map): void;
+            setMap(map: Map): void;
 
-			getBounds(): number[][] | null;
+            getBounds(): number[][] | null;
 
-			getType(): string;
+            getType(): string;
 
-			getCoordinates(): number[] | null;
+            getCoordinates(): number[] | null;
 
             setCoordinates(coordinates: number[] | null): this;
         }
@@ -923,7 +979,7 @@ declare namespace ymaps {
 
             getCoordinates(): number[][][];
 
-            getFillRule(): string;
+            getFillRule(): 'evenOdd' | 'nonZero';
 
             getLength(): number;
 
@@ -947,7 +1003,7 @@ declare namespace ymaps {
 
             setCoordinates(coordinates: number[][][]): IPolygonGeometryAccess;
 
-            setFillRule(fillRule: string): IPolygonGeometryAccess;
+            setFillRule(fillRule: 'evenOdd' | 'nonZero'): IPolygonGeometryAccess;
 
             setMap(map: Map): void;
 
@@ -957,11 +1013,193 @@ declare namespace ymaps {
 
             unfreeze(): IFreezable;
         }
+
+        namespace pixel {
+            class Circle implements IPixelCircleGeometry {
+                constructor(
+                    coordinates: number[] | null,
+                    radius: number,
+                    metaData?: object
+                );
+
+                events: IEventManager;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getCoordinates(): number[];
+
+                getMetaData(): object;
+
+                getRadius(): number;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class LineString implements IPixelLineStringGeometry {
+                constructor(coordinates: number[][], metaData?: object);
+
+                events: IEventManager;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[][];
+
+                getLength(): number;
+
+                getMetaData(): object;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class MultiLineString implements IPixelMultiLineGeometry {
+                constructor(coordinates: number[][][], metaData?: object);
+
+                events: IEventManager;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[][][];
+
+                getLength(): number;
+
+                getMetaData(): object;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class MultiPolygon implements IPixelMultiPolygonGeometry {
+                constructor(
+                    coordinates: number[][][][],
+                    fillRule: 'evenOdd' | 'nonZero',
+                    metaData?: object
+                );
+
+                events: IEventManager;
+
+                contains(position: number[]): boolean;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[][][][];
+
+                getFillRule(): 'evenOdd' | 'nonZero';
+
+                getLength(): number;
+
+                getMetaData(): object;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class Point implements IPixelPointGeometry {
+                constructor(position: number[] | null, metaData?: object);
+
+                events: IEventManager;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getCoordinates(): number[];
+
+                getMetaData(): object;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class Polygon implements IPixelPolygonGeometry {
+                constructor(
+                    coordinates: number[][][],
+                    fillRule: 'evenOdd' | 'nonZero',
+                    metaData?: object
+                );
+
+                events: IEventManager;
+
+                contains(position: number[]): boolean;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[][][];
+
+                getFillRule(): 'evenOdd' | 'nonZero';
+
+                getLength(): number;
+
+                getMetaData(): object;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+
+            class Rectangle implements IPixelRectangleGeometry {
+                constructor(coordinates: number[][] | null, metaData?: object);
+
+                events: IEventManager;
+
+                equals(geometry: IPixelGeometry): boolean;
+
+                getBounds(): number[][] | null;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[][];
+
+                getMetaData(): object;
+
+                getType(): string;
+
+                scale(factor: number): IPixelGeometry;
+
+                shift(offset: number[]): IPixelGeometry;
+            }
+        }
     }
 
-	namespace geometryEditor {
+    namespace geometryEditor {
         class Circle implements IGeometryEditor {
-	        constructor(geometry: ICircleGeometry, options?: object);
+            constructor(geometry: ICircleGeometry, options?: object);
 
             events: IEventManager;
             geometry: IGeometry;
@@ -1198,1499 +1436,1659 @@ declare namespace ymaps {
         }
     }
 
-	namespace geoObject {
-		class Balloon implements IBalloonManager<GeoObject> { //tslint:disable-line no-shadowed-variable
-			constructor(geoObject: GeoObject);
+    namespace geoObject {
+        class Balloon implements IBalloonManager<GeoObject> { //tslint:disable-line no-shadowed-variable
+            constructor(geoObject: GeoObject);
 
-			events: IEventManager;
+            events: IEventManager;
 
-			autoPan(): Promise<GeoObject>;
+            autoPan(): Promise<GeoObject>;
 
-			close(force?: boolean): Promise<GeoObject>;
+            close(force?: boolean): Promise<GeoObject>;
 
-			destroy(): void;
+            destroy(): void;
 
-			getData(): object | null;
+            getData(): object | null;
 
-			getOptions(): IOptionManager | null;
+            getOptions(): IOptionManager | null;
 
-			getOverlay(): Promise<IOverlay | null>;
+            getOverlay(): Promise<IOverlay | null>;
 
-			getOverlaySync(): IOverlay | null;
+            getOverlaySync(): IOverlay | null;
 
-			getPosition(): number[] | null;
+            getPosition(): number[] | null;
 
-			isOpen(): boolean;
+            isOpen(): boolean;
 
-			open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<GeoObject>;
+            open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<GeoObject>;
 
-			setData(data: object | string | HTMLElement): Promise<GeoObject>;
+            setData(data: object | string | HTMLElement): Promise<GeoObject>;
 
-			setOptions(options: object): Promise<GeoObject>;
+            setOptions(options: object): Promise<GeoObject>;
 
-			setPosition(position: number[]): Promise<GeoObject>;
-		}
+            setPosition(position: number[]): Promise<GeoObject>;
+        }
 
-		class Hint implements IHintManager<GeoObject> {
-			constructor(geoObject: GeoObject);
+        class Hint implements IHintManager<GeoObject> {
+            constructor(geoObject: GeoObject);
 
-			events: IEventManager;
+            events: IEventManager;
 
-			close(force?: boolean): Promise<GeoObject>;
+            close(force?: boolean): Promise<GeoObject>;
 
-			destroy(): void;
+            destroy(): void;
 
-			getData(): object | null;
+            getData(): object | null;
 
-			getOptions(): IOptionManager | null;
+            getOptions(): IOptionManager | null;
 
-			getOverlay(): Promise<IOverlay | null>;
+            getOverlay(): Promise<IOverlay | null>;
 
-			getOverlaySync(): IOverlay | null;
+            getOverlaySync(): IOverlay | null;
 
-			getPosition(): number[] | null;
+            getPosition(): number[] | null;
 
-			isOpen(): boolean;
+            isOpen(): boolean;
 
-			open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<GeoObject>;
+            open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<GeoObject>;
 
-			setData(data: object | string | HTMLElement): Promise<GeoObject>;
+            setData(data: object | string | HTMLElement): Promise<GeoObject>;
 
-			setOptions(options: object): Promise<GeoObject>;
+            setOptions(options: object): Promise<GeoObject>;
 
-			setPosition(position: number[]): Promise<GeoObject>;
-		}
+            setPosition(position: number[]): Promise<GeoObject>;
+        }
 
-		class Sequence implements IGeoObject, IGeoObjectSequence {
-			constructor(geoObject: GeoObject);
+        class Sequence implements IGeoObject, IGeoObjectSequence {
+            constructor(geoObject: GeoObject);
 
-			geometry: IGeometry | null;
-			properties: IDataManager;
-			state: IDataManager;
-			events: IEventManager;
-			options: IOptionManager;
+            geometry: IGeometry | null;
+            properties: IDataManager;
+            state: IDataManager;
+            events: IEventManager;
+            options: IOptionManager;
 
-			getOverlay(): Promise<IOverlay | null>;
+            getOverlay(): Promise<IOverlay | null>;
 
-			getOverlaySync(): IOverlay | null;
+            getOverlaySync(): IOverlay | null;
 
-			getParent(): null | IControlParent;
+            getParent(): null | IControlParent;
 
-			setParent(parent: IControlParent): this;
+            setParent(parent: IControlParent): this;
 
-			getMap(): Map;
+            getMap(): Map;
 
-			each(callback: (geoObject: IGeoObject) => void, context?: object): void;
+            each(callback: (geoObject: IGeoObject) => void, context?: object): void;
 
-			get(index: number): IGeoObject;
+            get(index: number): IGeoObject;
 
-			getBounds(): number[][] | null;
+            getBounds(): number[][] | null;
 
-			getIterator(): IIterator;
+            getIterator(): IIterator;
 
-			getLength(): number;
+            getLength(): number;
 
-			getPixelBounds(): number[][] | null;
+            getPixelBounds(): number[][] | null;
 
-			indexOf(geoObject: IGeoObject): number;
-		}
-	}
+            indexOf(geoObject: IGeoObject): number;
+        }
+    }
 
-	namespace layout {
-		namespace templateBased {
-			class Base implements ILayout {
-				constructor(data: object);
+    namespace layout {
+        namespace templateBased {
+            class Base implements ILayout {
+                constructor(data: object);
 
-				events: IEventManager;
+                events: IEventManager;
 
-				destroy(): void;
+                destroy(): void;
 
-				getData(): object;
+                getData(): object;
 
-				getParentElement(): HTMLElement;
+                getParentElement(): HTMLElement;
 
-				getShape(): IShape | null;
+                getShape(): IShape | null;
 
-				isEmpty(): boolean;
+                isEmpty(): boolean;
 
-				setData(data: object): void;
+                setData(data: object): void;
 
-				setParentElement(parent: HTMLElement | null): this;
+                setParentElement(parent: HTMLElement | null): this;
 
-				build(): void;
+                build(): void;
 
-				clear(): void;
+                clear(): void;
 
-				onSublayoutSizeChange(sublayoutInfo: object, nodeSizeByContent: object): void;
+                onSublayoutSizeChange(sublayoutInfo: object, nodeSizeByContent: object): void;
 
-				rebuild(): void;
-			}
-		}
-	}
+                rebuild(): void;
+            }
+        }
 
-	namespace map {
-		namespace action {
-			class Manager implements IEventEmitter {
-				constructor(map: Map);
+        const storage: util.Storage;
+    }
 
-				events: IEventManager;
+    namespace map {
+        namespace action {
+            class Manager implements IEventEmitter {
+                constructor(map: Map);
 
-				breakTick(): void;
+                events: IEventManager;
 
-				execute(action: IMapAction): void;
+                breakTick(): void;
 
-				getCurrentState(): object;
+                execute(action: IMapAction): void;
 
-				getMap(): Map;
+                getCurrentState(): object;
 
-				setCorrection(userFunction: () => void): void;
+                getMap(): Map;
 
-				stop(): void;
-			}
-		}
+                setCorrection(userFunction: () => void): void;
 
-		namespace behavior { //tslint:disable-line no-shadowed-variable
-			class Manager implements ICustomizable, IEventEmitter, IParentOnMap {
-				constructor(map: Map, behaviors?: string[][] | string[], options?: object);
+                stop(): void;
+            }
+        }
 
-				options: IOptionManager;
-				events: IEventManager;
+        namespace behavior { //tslint:disable-line no-shadowed-variable
+            class Manager implements ICustomizable, IEventEmitter, IParentOnMap {
+                constructor(map: Map, behaviors?: string[][] | string[], options?: object);
 
-				getMap(): Map;
+                options: IOptionManager;
+                events: IEventManager;
 
-				disable(behaviors: string[][] | string[] | string): this;
+                getMap(): Map;
 
-				enable(behaviors: string[][] | string[] | string): this;
+                disable(behaviors: string[][] | string[] | string): this;
 
-				get(behaviorName: string): IBehavior;
+                enable(behaviors: string[][] | string[] | string): this;
 
-				isEnabled(behaviorName: string): boolean;
-			}
-		}
+                get(behaviorName: string): IBehavior;
 
-		namespace layer {
-			class Manager implements ILayer, IMapObjectCollection {
-				constructor(map: Map, options?: {
-					trafficImageZIndex?: number;
-					trafficInfoZIndex?: number;
-					trafficJamZIndex?: number;
-				});
+                isEnabled(behaviorName: string): boolean;
+            }
+        }
 
-				events: IEventManager;
-				options: IOptionManager;
+        namespace layer {
+            class Manager implements ILayer, IMapObjectCollection {
+                constructor(map: Map, options?: {
+                    trafficImageZIndex?: number;
+                    trafficInfoZIndex?: number;
+                    trafficJamZIndex?: number;
+                });
 
-				getParent(): null | IControlParent;
+                events: IEventManager;
+                options: IOptionManager;
 
-				setParent(parent: IControlParent): this;
+                getParent(): null | IControlParent;
 
-				add(object: object): this;
+                setParent(parent: IControlParent): this;
 
-				each(callback: (layer: ILayer) => void, context?: object): void;
+                add(object: object): this;
 
-				getIterator(): IIterator;
+                each(callback: (layer: ILayer) => void, context?: object): void;
 
-				remove(object: object): this;
+                getIterator(): IIterator;
 
-				getMap(): Map;
-			}
-		}
+                remove(object: object): this;
 
-		namespace margin {
-			class Accessor {
-				constructor(screenArea: object);
+                getMap(): Map;
 
-				getArea(): object;
+                getAll(): Array<Collection<Layer>>;
+            }
+        }
 
-				remove(): this;
+        namespace margin {
+            class Accessor {
+                constructor(screenArea: object);
 
-				setArea(screenArea: object): this;
-			}
+                getArea(): object;
 
-			class Manager {
-				constructor(map: Map);
+                remove(): this;
 
-				addArea(screenArea: object): Accessor;
+                setArea(screenArea: object): this;
+            }
 
-				destroy(): this;
+            class Manager {
+                constructor(map: Map);
 
-				getMargin(): number[];
+                addArea(screenArea: object): Accessor;
 
-				getOffset(): number[];
+                destroy(): this;
 
-				setDefaultMargin(margin: number[][] | number[] | number): void;
-			}
-		}
+                getMargin(): number[];
 
-		namespace pane {
-			class Manager {
-				constructor(map: Map);
+                getOffset(): number[];
 
-				append(key: string, pane: IPane): void;
+                setDefaultMargin(margin: number[][] | number[] | number): void;
+            }
+        }
 
-				destroy(): void;
+        namespace pane {
+            class Manager {
+                constructor(map: Map);
 
-				get(key: string): IPane | null;
+                append(key: string, pane: IPane): void;
 
-				getLower(): string;
+                destroy(): void;
 
-				getUpper(): string;
+                get(key: string): IPane | null;
 
-				insertBefore(key: string, pane: IPane, referenceKey: string): void;
+                getLower(): string;
 
-				remove(pane: IPane): void;
-			}
-		}
+                getUpper(): string;
 
-		class Balloon implements IBalloonManager<Balloon>/*, IBalloonSharingManager*/ { //tslint:disable-line no-shadowed-variable
-			constructor(map: Map);
+                insertBefore(key: string, pane: IPane, referenceKey: string): void;
 
-			events: IEventManager;
+                remove(pane: IPane): void;
+            }
+        }
 
-			autoPan(): Promise<Balloon>;
+        class Balloon implements IBalloonManager<Balloon>/*, IBalloonSharingManager*/ { //tslint:disable-line no-shadowed-variable
+            constructor(map: Map);
 
-			close(force?: boolean): Promise<Balloon>;
+            events: IEventManager;
 
-			destroy(): void;
+            autoPan(): Promise<Balloon>;
 
-			getData(): object | null;
+            close(force?: boolean): Promise<Balloon>;
 
-			getOptions(): IOptionManager | null;
+            destroy(): void;
 
-			getOverlay(): Promise<IOverlay | null>;
+            getData(): object | null;
 
-			getOverlaySync(): IOverlay | null;
+            getOptions(): IOptionManager | null;
 
-			getPosition(): number[] | null;
+            getOverlay(): Promise<IOverlay | null>;
 
-			isOpen(): boolean;
+            getOverlaySync(): IOverlay | null;
 
-			open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<Balloon>;
+            getPosition(): number[] | null;
 
-			setData(data: object | string | HTMLElement): Promise<Balloon>;
+            isOpen(): boolean;
 
-			setOptions(options: object): Promise<Balloon>;
+            open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<Balloon>;
 
-			setPosition(position: number[]): Promise<Balloon>;
-		}
+            setData(data: object | string | HTMLElement): Promise<Balloon>;
 
-		class Container implements IDomEventEmitter {
-			constructor(parentElement: string | HTMLElement);
+            setOptions(options: object): Promise<Balloon>;
 
-			events: IEventManager;
+            setPosition(position: number[]): Promise<Balloon>;
+        }
 
-			enterFullscreen(): void;
+        class Container implements IDomEventEmitter {
+            constructor(parentElement: string | HTMLElement);
 
-			exitFullscreen(): void;
+            events: IEventManager;
 
-			fitToViewport(preservePixelPosition?: boolean): void;
+            enterFullscreen(): void;
 
-			getElement(): HTMLElement;
+            exitFullscreen(): void;
 
-			getOffset(): number[];
+            fitToViewport(preservePixelPosition?: boolean): void;
 
-			getParentElement(): HTMLElement;
+            getElement(): HTMLElement;
 
-			getSize(): number[];
+            getOffset(): number[];
 
-			isFullscreen(): boolean;
-		}
+            getParentElement(): HTMLElement;
 
-		class Converter {
-			constructor(map: Map);
+            getSize(): number[];
 
-			globalToPage(globalPixelPoint: number[]): number[];
+            isFullscreen(): boolean;
+        }
 
-			pageToGlobal(pagePixelPoint: number[]): number[];
-		}
+        class Converter {
+            constructor(map: Map);
 
-		class Copyrights {
-			constructor(map: Map);
+            globalToPage(globalPixelPoint: number[]): number[];
 
-			add(customCopyrights: string | HTMLElement | Array<string | HTMLElement>): ICopyrightsAccessor;
+            pageToGlobal(pagePixelPoint: number[]): number[];
+        }
 
-			addProvider(provider: ICopyrightsProvider): this;
+        class Copyrights {
+            constructor(map: Map);
 
-			get(point?: number[], zoom?: number): Promise<Array<string | HTMLElement>>;
+            add(customCopyrights: string | HTMLElement | Array<string | HTMLElement>): ICopyrightsAccessor;
 
-			getPromoLink(): string;
+            addProvider(provider: ICopyrightsProvider): this;
 
-			removeProvider(provider: ICopyrightsProvider): this;
-		}
+            get(point?: number[], zoom?: number): Promise<Array<string | HTMLElement>>;
 
-		class GeoObjects implements IGeoObjectCollection {
-			constructor(map: Map, options?: object);
+            getPromoLink(): string;
 
-			options: IOptionManager;
-			events: IEventManager;
+            removeProvider(provider: ICopyrightsProvider): this;
+        }
 
-			add(child: IGeoObject, index?: number): this;
+        class GeoObjects implements IGeoObjectCollection {
+            constructor(map: Map, options?: object);
 
-			each(callback: (object: IGeoObject) => void, context?: object): void;
+            options: IOptionManager;
+            events: IEventManager;
 
-			get(index: number): IGeoObject;
+            add(child: IGeoObject | ObjectManager, index?: number): this;
 
-			getBounds(): number[][] | null;
+            each(callback: (object: IGeoObject) => void, context?: object): void;
 
-			getIterator(): IIterator;
+            get(index: number): IGeoObject;
 
-			getLength(): number;
+            getBounds(): number[][] | null;
 
-			getPixelBounds(): number[][] | null;
+            getIterator(): IIterator;
 
-			indexOf(object: IGeoObject): number;
+            getLength(): number;
 
-			remove(child: IGeoObject): this;
+            getPixelBounds(): number[][] | null;
 
-			removeAll(): this;
+            indexOf(object: IGeoObject): number;
 
-			set(index: number, child: IGeoObject): this;
+            remove(child: IGeoObject | ObjectManager): this;
 
-			splice(index: number, length: number): this;
+            removeAll(): this;
 
-			getMap(): Map;
-		}
+            set(index: number, child: IGeoObject): this;
 
-		class Hint implements IHintManager<Hint>/*, IHintSharingManager*/ {
-			constructor(map: Map);
+            splice(index: number, length: number): this;
 
-			events: IEventManager;
+            getMap(): Map;
+        }
 
-			close(force?: boolean): Promise<Hint>;
+        class Hint implements IHintManager<Hint>/*, IHintSharingManager*/ {
+            constructor(map: Map);
 
-			destroy(): void;
+            events: IEventManager;
 
-			getData(): object | null;
+            close(force?: boolean): Promise<Hint>;
 
-			getOptions(): IOptionManager | null;
+            destroy(): void;
 
-			getOverlay(): Promise<IOverlay | null>;
+            getData(): object | null;
 
-			getOverlaySync(): IOverlay | null;
+            getOptions(): IOptionManager | null;
 
-			getPosition(): number[] | null;
+            getOverlay(): Promise<IOverlay | null>;
 
-			isOpen(): boolean;
+            getOverlaySync(): IOverlay | null;
 
-			open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<Hint>;
+            getPosition(): number[] | null;
 
-			setData(data: object | string | HTMLElement): Promise<Hint>;
+            isOpen(): boolean;
 
-			setOptions(options: object): Promise<Hint>;
+            open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<Hint>;
 
-			setPosition(position: number[]): Promise<Hint>;
-		}
+            setData(data: object | string | HTMLElement): Promise<Hint>;
 
-		class ZoomRange implements IEventEmitter {
-			constructor(map: Map, constraints: number[]);
+            setOptions(options: object): Promise<Hint>;
 
-			events: IEventManager;
+            setPosition(position: number[]): Promise<Hint>;
+        }
 
-			get(coords?: number[]): Promise<number[]>;
+        class ZoomRange implements IEventEmitter {
+            constructor(map: Map, constraints: number[]);
 
-			getCurrent(): number[];
-		}
-	}
+            events: IEventManager;
 
-	namespace multiRouter {
-		namespace driving {
-			class Path implements IGeoObject {
-				geometry: IGeometry | null;
-				properties: data.Manager;
-				state: IDataManager;
-				model: PathModel;
-				events: IEventManager;
-				options: IOptionManager;
+            get(coords?: number[]): Promise<number[]>;
 
-				getOverlay(): Promise<IOverlay | null>;
+            getCurrent(): number[];
+        }
+    }
 
-				getOverlaySync(): IOverlay | null;
+    namespace multiRouter {
+        namespace driving {
+            class Path implements IGeoObject {
+                geometry: IGeometry | null;
+                properties: data.Manager;
+                state: IDataManager;
+                model: PathModel;
+                events: IEventManager;
+                options: IOptionManager;
 
-				getParent(): object | null;
+                getOverlay(): Promise<IOverlay | null>;
 
-				setParent(parent: object): this;
+                getOverlaySync(): IOverlay | null;
 
-				getMap(): Map;
+                getParent(): object | null;
 
-				getSegments(): GeoObjectCollection;
-			}
+                setParent(parent: object): this;
 
-			class PathModel implements IEventEmitter {
-				events: IEventManager;
-				properties: data.Manager;
-				route: RouteModel;
+                getMap(): Map;
 
-				destroy(): void;
+                getSegments(): GeoObjectCollection;
+            }
 
-				getSegments(): SegmentModel[];
+            class PathModel implements IEventEmitter {
+                events: IEventManager;
+                properties: data.Manager;
+                route: RouteModel;
 
-				getType(): string;
+                destroy(): void;
 
-				update(pathJson: object): void;
-			}
+                getSegments(): SegmentModel[];
 
-			class Route implements IGeoObject {
-				geometry: IGeometry | null;
-				properties: IDataManager;
-				state: IDataManager;
-				events: IEventManager;
-				options: IOptionManager;
+                getType(): string;
 
-				getOverlay(): Promise<IOverlay | null>;
+                update(pathJson: object): void;
+            }
 
-				getOverlaySync(): IOverlay | null;
+            class Route implements IGeoObject {
+                geometry: IGeometry | null;
+                properties: IDataManager;
+                state: IDataManager;
+                events: IEventManager;
+                options: IOptionManager;
 
-				getParent(): object | null;
+                getOverlay(): Promise<IOverlay | null>;
 
-				setParent(parent: object): this;
+                getOverlaySync(): IOverlay | null;
 
-				getMap(): Map;
+                getParent(): object | null;
 
-				getPaths(): GeoObjectCollection;
-			}
+                setParent(parent: object): this;
 
-			class RouteModel implements IEventEmitter {
-				events: IEventManager;
-				multiRoute: MultiRouteModel;
-				properties: data.Manager;
+                getMap(): Map;
 
-				destroy(): void;
+                getPaths(): GeoObjectCollection;
+            }
 
-				getPaths(): PathModel[];
+            class RouteModel implements IEventEmitter {
+                events: IEventManager;
+                multiRoute: MultiRouteModel;
+                properties: data.Manager;
 
-				update(routeJson: object): void;
+                destroy(): void;
 
-				getType(): string;
-			}
+                getPaths(): PathModel[];
 
-			class Segment implements IGeoObject {
-				geometry: IGeometry | null;
-				properties: data.Manager;
-				state: IDataManager;
-				events: IEventManager;
-				options: IOptionManager;
+                update(routeJson: object): void;
 
-				getOverlay(): Promise<IOverlay | null>;
+                getType(): string;
+            }
 
-				getOverlaySync(): IOverlay | null;
+            class Segment implements IGeoObject {
+                geometry: IGeometry | null;
+                properties: data.Manager;
+                state: IDataManager;
+                events: IEventManager;
+                options: IOptionManager;
 
-				getParent(): object | null;
+                getOverlay(): Promise<IOverlay | null>;
 
-				setParent(parent: object): this;
+                getOverlaySync(): IOverlay | null;
 
-				getMap(): Map;
-			}
+                getParent(): object | null;
 
-			class SegmentModel implements IEventEmitter {
-				events: IEventManager;
-				geometry: geometry.base.LineString;
-				path: PathModel;
+                setParent(parent: object): this;
 
-				destroy(): void;
+                getMap(): Map;
+            }
 
-				getType(): string;
+            class SegmentModel implements IEventEmitter {
+                events: IEventManager;
+                geometry: geometry.base.LineString;
+                path: PathModel;
 
-				getViaPoints(): ViaPointModel[];
+                destroy(): void;
 
-				update(segmentJson: object): void;
-			}
-		}
+                getType(): string;
 
-		namespace masstransit {
-			class Path implements IGeoObject {
-				geometry: IGeometry | null;
-				properties: data.Manager;
-				state: IDataManager;
-				events: IEventManager;
-				options: IOptionManager;
-				model: PathModel;
+                getViaPoints(): ViaPointModel[];
 
-				getOverlay(): Promise<IOverlay | null>;
+                update(segmentJson: object): void;
+            }
+        }
 
-				getOverlaySync(): IOverlay | null;
+        namespace masstransit {
+            class Path implements IGeoObject {
+                geometry: IGeometry | null;
+                properties: data.Manager;
+                state: IDataManager;
+                events: IEventManager;
+                options: IOptionManager;
+                model: PathModel;
 
-				getParent(): object | null;
+                getOverlay(): Promise<IOverlay | null>;
 
-				setParent(parent: object): this;
+                getOverlaySync(): IOverlay | null;
 
-				getMap(): Map;
+                getParent(): object | null;
 
-				getSegmentMarkers(): GeoObjectCollection;
+                setParent(parent: object): this;
 
-				getSegments(): GeoObjectCollection;
-			}
+                getMap(): Map;
 
-			class PathModel implements IEventEmitter {
-				events: IEventManager;
-				properties: data.Manager;
-				route: RouteModel;
+                getSegmentMarkers(): GeoObjectCollection;
 
-				destroy(): void;
+                getSegments(): GeoObjectCollection;
+            }
 
-				getSegments(): Array<TransferSegmentModel | TransportSegmentModel | WalkSegmentModel>;
+            class PathModel implements IEventEmitter {
+                events: IEventManager;
+                properties: data.Manager;
+                route: RouteModel;
 
-				getType(): string;
+                destroy(): void;
 
-				update(pathJson: object): void;
-			}
+                getSegments(): Array<TransferSegmentModel | TransportSegmentModel | WalkSegmentModel>;
 
-			class Route implements IGeoObject {
-				geometry: IGeometry | null;
-				properties: data.Manager;
-				model: RouteModel;
-				state: IDataManager;
-				events: IEventManager;
-				options: IOptionManager;
+                getType(): string;
 
-				getOverlay(): Promise<IOverlay | null>;
+                update(pathJson: object): void;
+            }
 
-				getOverlaySync(): IOverlay | null;
+            class Route implements IGeoObject {
+                geometry: IGeometry | null;
+                properties: data.Manager;
+                model: RouteModel;
+                state: IDataManager;
+                events: IEventManager;
+                options: IOptionManager;
 
-				getParent(): object | null;
+                getOverlay(): Promise<IOverlay | null>;
 
-				setParent(parent: object): this;
+                getOverlaySync(): IOverlay | null;
 
-				getMap(): Map;
+                getParent(): object | null;
 
-				getPaths(): GeoObjectCollection;
-			}
+                setParent(parent: object): this;
 
-			class RouteModel implements IEventEmitter {
-				events: IEventManager;
-				multiRoute: MultiRouteModel;
-				properties: data.Manager;
+                getMap(): Map;
 
-				destroy(): void;
+                getPaths(): GeoObjectCollection;
+            }
 
-				getPaths(): PathModel[];
+            class RouteModel implements IEventEmitter {
+                events: IEventManager;
+                multiRoute: MultiRouteModel;
+                properties: data.Manager;
 
-				getType(): string;
+                destroy(): void;
 
-				update(routeJson: object): void;
-			}
+                getPaths(): PathModel[];
 
-			class StopModel implements IEventEmitter {
-				events: IEventManager;
-				geometry: geometry.base.Point;
-				properties: data.Manager;
-				segment: TransportSegmentModel;
+                getType(): string;
 
-				update(stopJson: object): void;
-			}
+                update(routeJson: object): void;
+            }
 
-			class TransferSegment implements IGeoObject {
-				geometry: IGeometry | null;
-				properties: data.Manager;
-				state: IDataManager;
-				events: IEventManager;
-				options: IOptionManager;
-				model: TransferSegmentModel;
+            class StopModel implements IEventEmitter {
+                events: IEventManager;
+                geometry: geometry.base.Point;
+                properties: data.Manager;
+                segment: TransportSegmentModel;
 
-				getOverlay(): Promise<IOverlay | null>;
+                update(stopJson: object): void;
+            }
 
-				getOverlaySync(): IOverlay | null;
+            class TransferSegment implements IGeoObject {
+                geometry: IGeometry | null;
+                properties: data.Manager;
+                state: IDataManager;
+                events: IEventManager;
+                options: IOptionManager;
+                model: TransferSegmentModel;
 
-				getParent(): object | null;
+                getOverlay(): Promise<IOverlay | null>;
 
-				setParent(parent: object): this;
+                getOverlaySync(): IOverlay | null;
 
-				getMap(): Map;
-			}
+                getParent(): object | null;
 
-			class TransferSegmentModel implements IEventEmitter {
-				events: IEventManager;
-				geometry: geometry.base.LineString;
-				path: PathModel;
-				properties: data.Manager;
+                setParent(parent: object): this;
 
-				destroy(segmentJson: object): void;
+                getMap(): Map;
+            }
 
-				getType(): string;
-			}
+            class TransferSegmentModel implements IEventEmitter {
+                events: IEventManager;
+                geometry: geometry.base.LineString;
+                path: PathModel;
+                properties: data.Manager;
 
-			class TransportSegment implements IGeoObject {
-				geometry: IGeometry | null;
-				properties: data.Manager;
-				state: IDataManager;
-				events: IEventManager;
-				options: IOptionManager;
-				model: TransportSegmentModel;
+                destroy(segmentJson: object): void;
 
-				getOverlay(): Promise<IOverlay | null>;
+                getType(): string;
+            }
 
-				getOverlaySync(): IOverlay | null;
+            class TransportSegment implements IGeoObject {
+                geometry: IGeometry | null;
+                properties: data.Manager;
+                state: IDataManager;
+                events: IEventManager;
+                options: IOptionManager;
+                model: TransportSegmentModel;
 
-				getParent(): object | null;
+                getOverlay(): Promise<IOverlay | null>;
 
-				setParent(parent: object): this;
+                getOverlaySync(): IOverlay | null;
 
-				getMap(): Map;
-			}
+                getParent(): object | null;
 
-			class TransportSegmentModel implements IEventEmitter {
-				events: IEventManager;
-				geometry: geometry.base.LineString;
-				path: PathModel;
-				properties: data.Manager;
+                setParent(parent: object): this;
 
-				destroy(): void;
+                getMap(): Map;
+            }
 
-				getStops(): StopModel[];
+            class TransportSegmentModel implements IEventEmitter {
+                events: IEventManager;
+                geometry: geometry.base.LineString;
+                path: PathModel;
+                properties: data.Manager;
 
-				getType(): string;
+                destroy(): void;
 
-				update(segmentJson: object): void;
-			}
+                getStops(): StopModel[];
 
-			class WalkSegment implements IGeoObject {
-				geometry: IGeometry | null;
-				properties: data.Manager;
-				state: IDataManager;
-				events: IEventManager;
-				options: IOptionManager;
-				model: WalkSegmentModel;
+                getType(): string;
 
-				getOverlay(): Promise<IOverlay | null>;
+                update(segmentJson: object): void;
+            }
 
-				getOverlaySync(): IOverlay | null;
+            class WalkSegment implements IGeoObject {
+                geometry: IGeometry | null;
+                properties: data.Manager;
+                state: IDataManager;
+                events: IEventManager;
+                options: IOptionManager;
+                model: WalkSegmentModel;
 
-				getParent(): object | null;
+                getOverlay(): Promise<IOverlay | null>;
 
-				setParent(parent: object): this;
+                getOverlaySync(): IOverlay | null;
 
-				getMap(): Map;
-			}
+                getParent(): object | null;
 
-			class WalkSegmentModel implements IEventEmitter {
-				events: IEventManager;
-				geometry: geometry.base.LineString;
-				path: PathModel;
-				properties: data.Manager;
+                setParent(parent: object): this;
 
-				destroy(): void;
+                getMap(): Map;
+            }
 
-				getType(): string;
-			}
-		}
+            class WalkSegmentModel implements IEventEmitter {
+                events: IEventManager;
+                geometry: geometry.base.LineString;
+                path: PathModel;
+                properties: data.Manager;
 
-		class EditorAddon implements ICustomizable, IEventEmitter {
-			options: IOptionManager;
-			events: IEventManager;
-			state: data.Manager;
+                destroy(): void;
 
-			isActive(): boolean;
+                getType(): string;
+            }
+        }
 
-			start(state: object): void;
+        class EditorAddon implements ICustomizable, IEventEmitter {
+            options: IOptionManager;
+            events: IEventManager;
+            state: data.Manager;
 
-			stop(): void;
-		}
+            isActive(): boolean;
 
-		class MultiRoute implements IGeoObject {
-			constructor(model: MultiRouteModel | IMultiRouteModelJson, options?: {
-				activeRouteAutoSelection?: boolean;
-				boundsAutoApply?: boolean;
-				dragUpdateInterval?: string | number;
-				preventDragUpdate?: boolean;
-				useMapMargin?: boolean;
-				zoomMargin?: number[][] | number[] | number;
-				[index: string]: any;
-			});
+            start(state: object): void;
 
-			editor: EditorAddon;
-			model: MultiRouteModel;
-			geometry: IGeometry | null;
-			properties: IDataManager;
-			state: IDataManager;
-			events: IEventManager;
-			options: IOptionManager;
+            stop(): void;
+        }
 
-			getOverlay(): Promise<IOverlay | null>;
+        class MultiRoute implements IGeoObject {
+            constructor(model: MultiRouteModel | IMultiRouteModelJson, options?: {
+                activeRouteAutoSelection?: boolean;
+                boundsAutoApply?: boolean;
+                dragUpdateInterval?: string | number;
+                preventDragUpdate?: boolean;
+                useMapMargin?: boolean;
+                zoomMargin?: number[][] | number[] | number;
+                [index: string]: any;
+            });
 
-			getOverlaySync(): IOverlay | null;
+            editor: EditorAddon;
+            model: MultiRouteModel;
+            geometry: IGeometry | null;
+            properties: IDataManager;
+            state: IDataManager;
+            events: IEventManager;
+            options: IOptionManager;
 
-			getParent(): object | null;
+            getOverlay(): Promise<IOverlay | null>;
 
-			setParent(parent: object): this;
+            getOverlaySync(): IOverlay | null;
 
-			getMap(): Map;
+            getParent(): object | null;
 
-			getActiveRoute(): driving.Route | masstransit.Route | null;
+            setParent(parent: object): this;
 
-			getBounds(): number[][] | null;
+            getMap(): Map;
 
-			getPixelBounds(): number[][] | null;
+            getActiveRoute(): driving.Route | masstransit.Route | null;
 
-			getRoutes(): GeoObjectCollection;
+            getBounds(): number[][] | null;
 
-			getViaPoints(): GeoObjectCollection;
+            getPixelBounds(): number[][] | null;
 
-			getWayPoints(): GeoObjectCollection;
+            getRoutes(): GeoObjectCollection;
 
-			setActiveRoute(route: driving.Route | masstransit.Route | null): void;
-		}
+            getViaPoints(): GeoObjectCollection;
 
-		class MultiRouteModel implements IEventEmitter {
-			constructor(referencePoints: IMultiRouteReferencePoint[], params?: IMultiRouteParams);
+            getWayPoints(): GeoObjectCollection;
 
-			events: IEventManager;
-			properties: data.Manager;
+            setActiveRoute(route: driving.Route | masstransit.Route | null): void;
+        }
 
-			destroy(): void;
+        class MultiRouteModel implements IEventEmitter {
+            constructor(referencePoints: IMultiRouteReferencePoint[], params?: IMultiRouteParams);
 
-			getAllPoints(): Array<WayPointModel | ViaPointModel>;
+            events: IEventManager;
+            properties: data.Manager;
 
-			getJson(): object;
+            destroy(): void;
 
-			getParams(): IMultiRouteParams;
+            getAllPoints(): Array<WayPointModel | ViaPointModel>;
 
-			getPoints(): Array<WayPointModel | ViaPointModel>;
+            getJson(): object;
 
-			getReferencePointIndexes(): object;
+            getParams(): IMultiRouteParams;
 
-			getReferencePoints(): IMultiRouteReferencePoint[];
+            getPoints(): Array<WayPointModel | ViaPointModel>;
 
-			getRoutes(): driving.RouteModel[] | masstransit.RouteModel[];
+            getReferencePointIndexes(): object;
 
-			getViaPoints(): ViaPointModel[];
+            getReferencePoints(): IMultiRouteReferencePoint[];
 
-			getWayPoints(): WayPointModel[];
+            getRoutes(): driving.RouteModel[] | masstransit.RouteModel[];
 
-			setParams(params: IMultiRouteParams, extend?: boolean, clearRequests?: boolean): void;
+            getViaPoints(): ViaPointModel[];
 
-			setReferencePoints(referencePoints: IMultiRouteReferencePoint[], viaIndexes?: number[], clearRequests?: boolean): void;
-		}
+            getWayPoints(): WayPointModel[];
 
-		class ViaPoint implements IGeoObject {
-			geometry: IGeometry | null;
-			properties: data.Manager;
-			state: IDataManager;
-			events: IEventManager;
-			options: IOptionManager;
+            setParams(params: IMultiRouteParams, extend?: boolean, clearRequests?: boolean): void;
 
-			getOverlay(): Promise<IOverlay | null>;
+            setReferencePoints(referencePoints: IMultiRouteReferencePoint[], viaIndexes?: number[], clearRequests?: boolean): void;
+        }
 
-			getOverlaySync(): IOverlay | null;
+        class ViaPoint implements IGeoObject {
+            geometry: IGeometry | null;
+            properties: data.Manager;
+            state: IDataManager;
+            events: IEventManager;
+            options: IOptionManager;
 
-			getParent(): object | null;
+            getOverlay(): Promise<IOverlay | null>;
 
-			setParent(parent: object): this;
+            getOverlaySync(): IOverlay | null;
 
-			getMap(): Map;
-		}
+            getParent(): object | null;
 
-		class ViaPointModel implements IEventEmitter {
-			events: IEventManager;
-			geometry: geometry.base.Point;
-			multiRoute: MultiRouteModel;
-			properties: data.Manager;
+            setParent(parent: object): this;
 
-			destroy(): void;
+            getMap(): Map;
+        }
 
-			getReferencePoint(): object;
+        class ViaPointModel implements IEventEmitter {
+            events: IEventManager;
+            geometry: geometry.base.Point;
+            multiRoute: MultiRouteModel;
+            properties: data.Manager;
 
-			getReferencePointIndex(): number;
+            destroy(): void;
 
-			setReferencePoint(referencePoint: object): void;
+            getReferencePoint(): object;
 
-			update(viaPointJson: object): void;
-		}
+            getReferencePointIndex(): number;
 
-		class WayPoint implements IGeoObject {
-			geometry: IGeometry | null;
-			properties: data.Manager;
-			state: IDataManager;
-			events: IEventManager;
-			options: IOptionManager;
-			model: WayPointModel;
+            setReferencePoint(referencePoint: object): void;
 
-			getOverlay(): Promise<IOverlay | null>;
+            update(viaPointJson: object): void;
+        }
 
-			getOverlaySync(): IOverlay | null;
+        class WayPoint implements IGeoObject {
+            geometry: IGeometry | null;
+            properties: data.Manager;
+            state: IDataManager;
+            events: IEventManager;
+            options: IOptionManager;
+            model: WayPointModel;
 
-			getParent(): object | null;
+            getOverlay(): Promise<IOverlay | null>;
 
-			setParent(parent: object): this;
+            getOverlaySync(): IOverlay | null;
 
-			getMap(): Map;
-		}
+            getParent(): object | null;
 
-		class WayPointModel implements IEventEmitter {
-			events: IEventManager;
-			geometry: geometry.base.Point;
-			multiRoute: MultiRouteModel;
-			properties: data.Manager;
+            setParent(parent: object): this;
 
-			destroy(): void;
+            getMap(): Map;
+        }
 
-			getReferencePoint(): object;
+        class WayPointModel implements IEventEmitter {
+            events: IEventManager;
+            geometry: geometry.base.Point;
+            multiRoute: MultiRouteModel;
+            properties: data.Manager;
 
-			getReferencePointIndex(): number;
+            destroy(): void;
 
-			setReferencePoint(referencePoint: object): void;
+            getReferencePoint(): object;
 
-			update(wayPointJson: object): void;
-		}
-	}
+            getReferencePointIndex(): number;
 
-	namespace option {
-		class Manager implements IOptionManager {
-			constructor(options?: object, parent?: IOptionManager, name?: string);
+            setReferencePoint(referencePoint: object): void;
 
-			events: IEventManager;
+            update(wayPointJson: object): void;
+        }
+    }
 
-			get(key: string, defaultValue: object): object;
+    namespace option {
+        class Manager implements IOptionManager {
+            constructor(options?: object, parent?: IOptionManager, name?: string);
 
-			getAll(): object;
+            events: IEventManager;
 
-			getName(): string;
+            get(key: string, defaultValue: object): object;
 
-			getNative(key: string): object;
+            getAll(): object;
 
-			resolve(key: string, name?: string): object;
+            getName(): string;
 
-			set(key: object | string, value?: object): this;
+            getNative(key: string): object;
 
-			unset(keys: string[][] | string[] | string): this;
+            resolve(key: string, name?: string): object;
 
-			unsetAll(): this;
+            set(key: object | string, value?: object | number | string | null): this;
 
-			setName(name: string): void;
+            unset(keys: string[][] | string[] | string): this;
 
-			getParent(): null | IOptionManager;
+            unsetAll(): this;
 
-			setParent(parent: IOptionManager): this;
+            setName(name: string): void;
 
-			freeze(): IFreezable;
+            getParent(): null | IOptionManager;
 
-			isFrozen(): boolean;
+            setParent(parent: IOptionManager): this;
 
-			unfreeze(): IFreezable;
+            freeze(): IFreezable;
 
-			add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+            isFrozen(): boolean;
 
-			group(): IEventGroup;
+            unfreeze(): IFreezable;
 
-			remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+            add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-			fire(type: string, eventobject: object | IEvent): this;
-		}
-	}
+            group(): IEventGroup;
 
-	namespace panorama {
-		class Manager implements IEventEmitter {
-			events: IEventManager;
+            remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-			closePlayer(): void;
+            fire(type: string, eventobject: object | IEvent): this;
+        }
 
-			disableLookup(): void;
+        const presetStorage: util.Storage;
+    }
 
-			enableLookup(): void;
+    namespace panorama {
+        class Manager implements IEventEmitter {
+            events: IEventManager;
 
-			getPlayer(): Player;
+            closePlayer(): void;
 
-			isLookupEnabled(): boolean;
+            disableLookup(): void;
 
-			openPlayer(panorama: IPanorama[] | number): Promise<void>;
-		}
+            enableLookup(): void;
 
-		class Player implements IEventEmitter {
-			constructor(element: HTMLElement | string, panorama: IPanorama, options?: {
-				autoFitToViewport?: "none" | "ifNull" | "always";
-				controls?: string[];
-				direction?: number[] | string;
-				hotkeysEnabled?: boolean;
-				scrollZoomBehavior?: boolean;
-				span?: number[] | string;
-				suppressMapOpenBlock?: boolean;
-			})
+            getPlayer(): Player;
 
-			events: IEventManager;
+            isLookupEnabled(): boolean;
 
-			destroy(): void;
+            openPlayer(panorama: IPanorama[] | number): Promise<void>;
+        }
 
-			fitToViewport(): void;
+        class Player implements IEventEmitter {
+            constructor(element: HTMLElement | string, panorama: IPanorama, options?: {
+                autoFitToViewport?: "none" | "ifNull" | "always";
+                controls?: string[];
+                direction?: number[] | string;
+                hotkeysEnabled?: boolean;
+                scrollZoomBehavior?: boolean;
+                span?: number[] | string;
+                suppressMapOpenBlock?: boolean;
+            })
 
-			getDirection(): number[];
+            events: IEventManager;
 
-			getPanorama(): IPanorama;
+            destroy(): void;
 
-			getSpan(): number[];
+            fitToViewport(): void;
 
-			lookAt(point: number[]): this;
+            getDirection(): number[];
 
-			moveTo(point: number[], options?: {
-				direction?: number[] | string;
-				layer?: "yandex#panorama" | "yandex#airPanorama";
-				span?: number[] | string;
-			}): Promise<void>;
+            getPanorama(): IPanorama;
 
-			setDirection(direction: number[] | string): this;
+            getSpan(): number[];
 
-			setPanorama(panorama: IPanorama): this;
+            lookAt(point: number[]): this;
 
-			setSpan(span: number[] | string): this;
-		}
-	}
+            moveTo(point: number[], options?: {
+                direction?: number[] | string;
+                layer?: "yandex#panorama" | "yandex#airPanorama";
+                span?: number[] | string;
+            }): Promise<void>;
 
-	namespace router {
-		class Editor implements ICustomizable, IEventEmitter {
-			options: IOptionManager;
-			events: IEventManager;
+            setDirection(direction: number[] | string): this;
 
-			start(options?: {
-				addViaPoints?: boolean;
-				addWayPoints?: boolean;
-				editViaPoints?: boolean;
-				editWayPoints?: boolean;
-				removeViaPoints?: boolean;
-				removeWayPoints?: boolean;
-			}): void;
+            setPanorama(panorama: IPanorama): this;
 
-			stop(): void;
-		}
+            setSpan(span: number[] | string): this;
+        }
+    }
 
-		abstract class Route implements IGeoObject {
-			geometry: IGeometry | null;
-			properties: IDataManager;
-			state: IDataManager;
-			events: IEventManager;
-			options: IOptionManager;
-			editor: Editor;
+    namespace router {
+        class Editor implements ICustomizable, IEventEmitter {
+            options: IOptionManager;
+            events: IEventManager;
 
-			getOverlay(): Promise<IOverlay | null>;
+            start(options?: {
+                addViaPoints?: boolean;
+                addWayPoints?: boolean;
+                editViaPoints?: boolean;
+                editWayPoints?: boolean;
+                removeViaPoints?: boolean;
+                removeWayPoints?: boolean;
+            }): void;
 
-			getOverlaySync(): IOverlay | null;
+            stop(): void;
+        }
 
-			getParent(): null | IControlParent;
+        abstract class Route implements IGeoObject {
+            geometry: IGeometry | null;
+            properties: IDataManager;
+            state: IDataManager;
+            events: IEventManager;
+            options: IOptionManager;
+            editor: Editor;
 
-			setParent(parent: IControlParent): this;
+            getOverlay(): Promise<IOverlay | null>;
 
-			getMap(): Map;
+            getOverlaySync(): IOverlay | null;
 
-			getHumanJamsTime(): string;
+            getParent(): null | IControlParent;
 
-			getHumanLength(): string;
+            setParent(parent: IControlParent): this;
 
-			getHumanTime(): string;
+            getMap(): Map;
 
-			getJamsTime(): number;
+            getHumanJamsTime(): string;
 
-			getLength(): number;
+            getHumanLength(): string;
 
-			getPaths(): GeoObjectCollection;
+            getHumanTime(): string;
 
-			getTime(): number;
+            getJamsTime(): number;
 
-			getViaPoints(): GeoObjectCollection;
+            getLength(): number;
 
-			getWayPoints(): GeoObjectCollection;
-		}
-	}
+            getPaths(): GeoObjectCollection;
 
-	class Balloon extends Popup<Balloon> implements IBaloon<Balloon> {
-		constructor(map: Map, options?: IBalloonOptions);
+            getTime(): number;
 
-		getData(): object;
+            getViaPoints(): GeoObjectCollection;
 
-		close(force?: boolean): Promise<Balloon>;
+            getWayPoints(): GeoObjectCollection;
+        }
+    }
 
-		getParent(): Balloon | null;
+    namespace shape {
+        class Circle implements IShape {
+            constructor(
+                pixelGeometry: IPixelCircleGeometry,
+                params?: {
+                    fill?: boolean;
+                    outline?: boolean;
+                    strokeWidth?: number;
+                }
+            );
 
-		setParent(parent: Balloon): this;
+            contains(position: number[]): boolean;
 
-		autoPan(): Promise<Balloon>;
+            equals(shape: IShape): boolean;
 
-		freeze(): IFreezable;
+            getBounds(): number[][] | null;
 
-		isFrozen(): boolean;
+            getGeometry(): IPixelGeometry;
 
-		unfreeze(): IFreezable;
+            getType(): string;
 
-		add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+            scale(factor: number): IShape;
 
-		group(): IEventGroup;
+            shift(offset: number[]): IShape;
+        }
 
-		remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+        class LineString implements IShape {
+            constructor(
+                pixelGeometry: IPixelLineStringGeometry,
+                params?: {
+                    strokeWidth?: number;
+                }
+            );
 
-		fire(type: string, eventobject: object | IEvent): this;
-	}
+            contains(position: number[]): boolean;
 
-	interface IBalloonOptions {
-		autoPan?: boolean;
-		autoPanCheckZoomRange?: boolean;
-		autoPanDuration?: number;
-		autoPanMargin?: number[][] | number[] | number;
-		autoPanUseMapMargin?: boolean;
-		closeButton?: boolean;
-		contentLayout?: IClassConstructor<ILayout> | string;
-		layout?: IClassConstructor<ILayout> | string;
-		maxHeight?: number;
-		maxWidth?: number;
-		minHeight?: number;
-		minWidth?: number;
-		offset?: number[];
-		pane?: string;
-		panelContentLayout?: IClassConstructor<ILayout> | string;
-		panelMaxHeightRatio?: number;
-		panelMaxMapArea?: number;
-		shadow?: boolean;
-		shadowLayout?: IClassConstructor<ILayout> | string;
-		shadowOffset?: number[];
-	}
+            equals(shape: IShape): boolean;
 
-	class Circle implements GeoObject {
-		constructor(geometry: ICircleGeometry[][][][] | number[][] | object, properties?: object | IDataManager, options?: ICircleOptions)
+            getBounds(): number[][] | null;
 
-		balloon: geoObject.Balloon;
-		editor: IGeometryEditor;
-		hint: geoObject.Hint;
-		events: event.Manager;
-		options: option.Manager;
-		properties: data.Manager;
-		state: data.Manager;
+            getGeometry(): IPixelGeometry;
 
-		geometry: IGeometry | null;
-		indices: ArrayBuffer;
-		vertices: ArrayBuffer;
+            getType(): string;
 
-		getOverlay(): Promise<IOverlay | null>;
+            scale(factor: number): IShape;
 
-		getOverlaySync(): IOverlay | null;
+            shift(offset: number[]): IShape;
+        }
 
-		getParent(): null | IControlParent;
+        class MultiPolygon implements IShape {
+            constructor(
+                pixelGeometry: IPixelMultiPolygonGeometry,
+                params?: {
+                    fill?: boolean;
+                    outline?: boolean;
+                    strokeWidth?: number;
+                }
+            );
 
-		setParent(parent: IControlParent): this;
+            contains(position: number[]): boolean;
 
-		getMap(): Map;
-	}
+            equals(shape: IShape): boolean;
 
-	interface ICircleOptions {
-		circleOverlay?: string | ((geometry: IPixelCircleGeometry, data: object, options: object) => Promise<IOverlay>);
-		cursor?: string;
-		draggable?: boolean;
-		fill?: boolean;
-		fillColor?: string;
-		fillImageHref?: string;
-		fillMethod?: "stretch" | "tile";
-		fillOpacity?: number;
-		hasBalloon?: boolean;
-		hasHint?: boolean;
-		hideIconOnBalloonOpen?: boolean;
-		interactiveZIndex?: boolean;
-		interactivityModel?: InteractivityModelKey;
-		opacity?: number;
-		openBalloonOnClick?: boolean;
-		openEmptyBalloon?: boolean;
-		openEmptyHint?: boolean;
-		openHintOnHover?: boolean;
-		outline?: boolean;
-		pane?: string;
-		strokeColor?: string[][] | string[] | string;
-		strokeOpacity?: number[][] | number[] | number;
-		strokeStyle?: string[][][] | object[][] | string[] | object[] | string | object;
-		strokeWidth?: number[][] | number[] | number;
-		syncOverlayInit?: boolean;
-		useMapMarginInDragging?: boolean;
-		visible?: boolean;
-		zIndex?: number;
-		zIndexActive?: number;
-		zIndexDrag?: number;
-		zIndexHover?: number;
-	}
+            getBounds(): number[][] | null;
 
-	class Clusterer implements IChildOnMap, ICustomizable, IEventEmitter, IParentOnMap {
-		constructor(options?: IClustererOptions);
+            getGeometry(): IPixelGeometry;
 
-		events: IEventManager;
-		options: IOptionManager;
-		balloon: clusterer.Balloon;
-		// 	balloonopen:
-		hint: clusterer.Hint;
+            getType(): string;
 
-		getParent(): null | IControlParent;
+            scale(factor: number): IShape;
 
-		setParent(parent: IControlParent): this;
+            shift(offset: number[]): IShape;
+        }
 
-		// balloonclose:
+        class Polygon implements IShape {
+            constructor(
+                pixelGeometry: IPixelPolygonGeometry,
+                params?: {
+                    fill?: boolean;
+                    outline?: boolean;
+                    strokeWidth?: number;
+                }
+            );
 
-		getMap(): Map;
-	}
+            contains(position: number[]): boolean;
 
-	interface IClustererOptions {
-		gridSize?: number;
-		groupByCoordinates?: boolean;
-		hasBalloon?: boolean;
-		hasHint?: boolean;
-		margin?: number[][] | number[] | number;
-		maxZoom?: number[] | number;
-		minClusterSize?: number;
-		preset?: PresetKey;
-		showInAlphabeticalOrder?: boolean;
-		useMapMargin?: boolean;
-		viewportMargin?: number[][] | number[] | number;
-		zoomMargin?: number[][] | number[] | number;
-	}
+            equals(shape: IShape): boolean;
 
-	class ClusterPlacemark implements IGeoObject, collection.Item {
-		constructor(geometry: number[] | object | IPointGeometry, properties: IClusterPlacemarkProperties, options?: IClusterPlacemarkOptions);
+            getBounds(): number[][] | null;
 
-		geometry: IGeometry | null;
-		properties: IDataManager;
-		events: IEventManager;
-		options: IOptionManager;
-		state: data.Manager;
+            getGeometry(): IPixelGeometry;
 
-		getOverlay(): Promise<IOverlay | null>;
+            getType(): string;
 
-		getOverlaySync(): IOverlay | null;
+            scale(factor: number): IShape;
 
-		getParent(): null | IControlParent;
+            shift(offset: number[]): IShape;
+        }
 
-		setParent(parent: IControlParent): this;
+        class Rectangle implements IShape {
+            constructor(
+                geometry: IPixelRectangleGeometry,
+                params?: {
+                    fill?: boolean;
+                    outline?: boolean;
+                    strokeWidth?: number;
+                }
+            );
 
-		getMap(): Map;
+            contains(position: number[]): boolean;
 
-		onAddToMap(map: Map): void;
+            equals(shape: IShape): boolean;
 
-		onRemoveFromMap(oldMap: Map): void;
+            getBounds(): number[][] | null;
 
-		getBounds(): number[][] | null;
+            getGeometry(): IPixelGeometry;
 
-		getGeoObjects(): IGeoObject[];
-	}
+            getType(): string;
 
-	interface IClusterPlacemarkProperties extends IDataManager {
-		geoObjects: IGeoObject[];
-	}
+            scale(factor: number): IShape;
 
-	interface IClusterPlacemarkOptions {
-		balloonContentLayout?: "cluster#balloonTwoColumns" | "cluster#balloonCarousel" | "cluster#balloonAccordion" | string | IClassConstructor<ILayout>;
-		balloonContentLayoutHeight?: number;
-		balloonContentLayoutWidth?: number;
-		balloonItemContentLayout?: ILayout | string;
-		balloonPanelContentLayout?: string | IClassConstructor<ILayout>;
-		cursor?: string;
-		disableClickZoom?: boolean;
-		hideIconOnBalloonOpen?: boolean;
-		iconColor?: string;
-		iconContentLayout?: string | IClassConstructor<ILayout>;
-		iconLayout?: string | IClassConstructor<ILayout>;
-		icons?: Array<{
-			href: string;
-			size: number[];
-			ooffset: number[];
-			shape?: IShape | IGeometryJson;
-		}>;
-		iconShape?: IGeometryJson;
-		interactivityModel?: InteractivityModelKey;
-		numbers?: number[];
-		openBalloonOnClick?: boolean;
-		openEmptyHint?: boolean;
-		openHintOnHover?: boolean;
-		zIndexHover?: number;
-	}
+            shift(offset: number[]): IShape;
+        }
+    }
 
-	class Collection implements ICollection, collection.Item {
-		constructor(options?: object);
+    class Balloon extends Popup<Balloon> implements IBaloon<Balloon>, IBalloonManager<Balloon> {
+        constructor(map: Map, options?: IBalloonOptions);
 
-		events: IEventManager;
-		options: IOptionManager;
+        getData(): object;
 
-		add(object: object): this;
+        close(force?: boolean): Promise<Balloon>;
 
-		getIterator(): IIterator;
+        getParent(): Balloon | null;
 
-		remove(object: object): this;
+        setParent(parent: Balloon): this;
 
-		getParent(): null | IControlParent;
+        autoPan(): Promise<Balloon>;
 
-		setParent(parent: IControlParent): this;
+        freeze(): IFreezable;
 
-		getMap(): Map;
+        isFrozen(): boolean;
 
-		onAddToMap(map: Map): void;
+        unfreeze(): IFreezable;
 
-		onRemoveFromMap(oldMap: Map): void;
+        add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-		filter(filterFunction: (object: object) => boolean): object[];
+        group(): IEventGroup;
 
-		get(index: number): object;
+        remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-		getAll(): object[];
+        fire(type: string, eventobject: object | IEvent): this;
 
-		getLength(): number;
+        destroy(): void;
 
-		indexOf(childToFind: object): number;
+        getOptions(): IOptionManager | null;
 
-		removeAll(): this;
-	}
+        setOptions(options: object): Promise<Balloon>;
+    }
 
-	class Event implements IEvent {
-		constructor(originalEvent: object, sourceEvent: IEvent);
+    interface IBalloonOptions {
+        autoPan?: boolean;
+        autoPanCheckZoomRange?: boolean;
+        autoPanDuration?: number;
+        autoPanMargin?: number[][] | number[] | number;
+        autoPanUseMapMargin?: boolean;
+        closeButton?: boolean;
+        contentLayout?: IClassConstructor<ILayout> | string;
+        layout?: IClassConstructor<ILayout> | string;
+        maxHeight?: number;
+        maxWidth?: number;
+        minHeight?: number;
+        minWidth?: number;
+        offset?: number[];
+        pane?: string;
+        panelContentLayout?: IClassConstructor<ILayout> | string;
+        panelMaxHeightRatio?: number;
+        panelMaxMapArea?: number;
+        shadow?: boolean;
+        shadowLayout?: IClassConstructor<ILayout> | string;
+        shadowOffset?: number[];
+    }
 
-		allowMapEvent(): void;
+    class Circle implements GeoObject<ICircleGeometry> {
+        constructor(geometry: ICircleGeometry[][][][] | number[][] | object, properties?: object | IDataManager, options?: ICircleOptions)
 
-		callMethod(name: string): void;
+        balloon: geoObject.Balloon;
+        editor: IGeometryEditor;
+        hint: geoObject.Hint;
+        events: event.Manager;
+        options: option.Manager;
+        properties: data.Manager;
+        state: data.Manager;
 
-		get(name: string): object;
+        geometry: ICircleGeometry | null;
+        indices: ArrayBuffer;
+        vertices: ArrayBuffer;
 
-		getSourceEvent(): IEvent | null;
+        getOverlay(): Promise<IOverlay | null>;
 
-		isDefaultPrevented(): boolean;
+        getOverlaySync(): IOverlay | null;
 
-		isImmediatePropagationStopped(): boolean;
+        getParent(): null | IControlParent;
 
-		isMapEventAllowed(): boolean;
+        setParent(parent: IControlParent): this;
 
-		isPropagationStopped(): boolean;
+        getMap(): Map;
+    }
 
-		preventDefault(): boolean;
+    interface ICircleOptions {
+        circleOverlay?: string | ((geometry: IPixelCircleGeometry, data: object, options: object) => Promise<IOverlay>);
+        cursor?: string;
+        draggable?: boolean;
+        fill?: boolean;
+        fillColor?: string;
+        fillImageHref?: string;
+        fillMethod?: "stretch" | "tile";
+        fillOpacity?: number;
+        hasBalloon?: boolean;
+        hasHint?: boolean;
+        hideIconOnBalloonOpen?: boolean;
+        interactiveZIndex?: boolean;
+        interactivityModel?: InteractivityModelKey;
+        opacity?: number;
+        openBalloonOnClick?: boolean;
+        openEmptyBalloon?: boolean;
+        openEmptyHint?: boolean;
+        openHintOnHover?: boolean;
+        outline?: boolean;
+        pane?: string;
+        strokeColor?: string[][] | string[] | string;
+        strokeOpacity?: number[][] | number[] | number;
+        strokeStyle?: string[][][] | object[][] | string[] | object[] | string | object;
+        strokeWidth?: number[][] | number[] | number;
+        syncOverlayInit?: boolean;
+        useMapMarginInDragging?: boolean;
+        visible?: boolean;
+        zIndex?: number;
+        zIndexActive?: number;
+        zIndexDrag?: number;
+        zIndexHover?: number;
+    }
 
-		stopImmediatePropagation(): boolean;
+    class Clusterer implements IChildOnMap, ICustomizable, IEventEmitter, IParentOnMap {
+        constructor(options?: IClustererOptions);
 
-		stopPropagation(): boolean;
-	}
+        events: IEventManager;
+        options: IOptionManager;
+        balloon: clusterer.Balloon;
+        //     balloonopen:
+        hint: clusterer.Hint;
 
-	class GeoObject implements IGeoObject {
-		constructor(feature?: IGeoObjectFeature, options?: IGeoObjectOptions);
+        getParent(): null | IControlParent;
 
-		geometry: IGeometry | null;
-		balloon: geoObject.Balloon;
-		editor: IGeometryEditor;
-		hint: geoObject.Hint;
-		events: event.Manager;
-		options: option.Manager;
-		properties: data.Manager;
-		state: data.Manager;
+        setParent(parent: IControlParent): this;
 
-		getOverlay(): Promise<IOverlay | null>;
+        // balloonclose:
 
-		getOverlaySync(): IOverlay | null;
+        getMap(): Map;
+    }
 
-		getParent(): null | IControlParent;
+    interface IClustererOptions {
+        gridSize?: number;
+        groupByCoordinates?: boolean;
+        hasBalloon?: boolean;
+        hasHint?: boolean;
+        margin?: number[][] | number[] | number;
+        maxZoom?: number[] | number;
+        minClusterSize?: number;
+        preset?: PresetKey;
+        showInAlphabeticalOrder?: boolean;
+        useMapMargin?: boolean;
+        viewportMargin?: number[][] | number[] | number;
+        zoomMargin?: number[][] | number[] | number;
+    }
 
-		setParent(parent: IControlParent): this;
+    class ClusterPlacemark implements IGeoObject, collection.Item {
+        constructor(geometry: number[] | object | IPointGeometry, properties: IClusterPlacemarkProperties, options?: IClusterPlacemarkOptions);
 
-		getMap(): Map;
-	}
+        geometry: IGeometry | null;
+        properties: IDataManager;
+        events: IEventManager;
+        options: IOptionManager;
+        state: data.Manager;
 
-	interface IGeoObjectFeature {
-		geometry?: IGeometry | IGeometryJson;
-		properties?: IDataManager | object;
-	}
+        getOverlay(): Promise<IOverlay | null>;
 
-	interface IGeoObjectOptions extends ICircleOptions {
-		iconCaptionMaxWidth?: number;
-		iconColor?: string;
-		iconContentLayout?: string | IClassConstructor<ILayout>;
-		iconContentOffset?: number[];
-		iconContentPadding?: number[];
-		iconContentSize?: number[];
-		iconImageClipRect?: number[][];
-		iconImageHref?: string;
-		iconImageOffset?: number[];
-		iconImageShape?: IShape | null;
-		iconImageSize?: number[];
-		iconLayout?: string | IClassConstructor<ILayout>;
-		iconMaxHeight?: number;
-		iconMaxWidth?: number;
-		iconOffset?: number[];
-		iconShadow?: boolean;
-		iconShadowImageClipRect?: number[][];
-		iconShadowImageHref?: string;
-		iconShadowImageOffset?: number[];
-		iconShadowImageSize?: number[];
-		iconShadowLayout?: string | IClassConstructor<ILayout>;
-		iconShadowOffset?: number[];
-		lineStringOverlay?: OverlayKey;
-		pointOverlay?: OverlayKey;
-		polygonOverlay?: OverlayKey;
-		preset?: string;
-		rectangleOverlay?: OverlayKey;
-		setMapCursorInDragging?: boolean;
-	}
+        getOverlaySync(): IOverlay | null;
 
-	class GeoObjectCollection implements IGeoObject, IGeoObjectCollection {
-		constructor(feature?: {
-			children?: IGeoObject[];
-			geometry?: IGeometry | object;
-			properties?: IDataManager | object;
-		}, options?: object);
+        getParent(): null | IControlParent;
 
-		geometry: IGeometry | null;
-		properties: IDataManager;
-		state: IDataManager;
-		events: IEventManager;
-		options: IOptionManager;
+        setParent(parent: IControlParent): this;
 
-		getOverlay(): Promise<IOverlay | null>;
+        getMap(): Map;
 
-		getOverlaySync(): IOverlay | null;
+        onAddToMap(map: Map): void;
 
-		getParent(): null | IControlParent;
+        onRemoveFromMap(oldMap: Map): void;
 
-		setParent(parent: IControlParent): this;
+        getBounds(): number[][] | null;
 
-		getMap(): Map;
+        getGeoObjects(): IGeoObject[];
+    }
 
-		add(child: IGeoObject, index?: number): this;
+    interface IClusterPlacemarkProperties extends IDataManager {
+        geoObjects: IGeoObject[];
+    }
 
-		each(callback: (object: IGeoObject) => void, context?: object): void;
+    interface IClusterPlacemarkOptions {
+        balloonContentLayout?: "cluster#balloonTwoColumns" | "cluster#balloonCarousel" | "cluster#balloonAccordion" | string | IClassConstructor<ILayout>;
+        balloonContentLayoutHeight?: number;
+        balloonContentLayoutWidth?: number;
+        balloonItemContentLayout?: ILayout | string;
+        balloonPanelContentLayout?: string | IClassConstructor<ILayout>;
+        cursor?: string;
+        disableClickZoom?: boolean;
+        hideIconOnBalloonOpen?: boolean;
+        iconColor?: string;
+        iconContentLayout?: string | IClassConstructor<ILayout>;
+        iconLayout?: string | IClassConstructor<ILayout>;
+        icons?: Array<{
+            href: string;
+            size: number[];
+            ooffset: number[];
+            shape?: IShape | IGeometryJson;
+        }>;
+        iconShape?: IGeometryJson;
+        interactivityModel?: InteractivityModelKey;
+        numbers?: number[];
+        openBalloonOnClick?: boolean;
+        openEmptyHint?: boolean;
+        openHintOnHover?: boolean;
+        zIndexHover?: number;
+    }
 
-		get(index: number): IGeoObject;
+    class Collection<T = {}> implements ICollection, collection.Item {
+        constructor(options?: object);
 
-		getBounds(): number[][] | null;
+        events: IEventManager;
+        options: IOptionManager;
 
-		getIterator(): IIterator;
+        add(object: object): this;
 
-		getLength(): number;
+        getIterator(): IIterator;
 
-		getPixelBounds(): number[][] | null;
+        remove(object: object): this;
 
-		indexOf(object: IGeoObject): number;
+        getParent(): null | IControlParent;
 
-		remove(child: IGeoObject): this;
+        setParent(parent: IControlParent): this;
 
-		removeAll(): this;
+        getMap(): Map;
 
-		set(index: number, child: IGeoObject): this;
+        onAddToMap(map: Map): void;
 
-		splice(index: number, length: number): this;
+        onRemoveFromMap(oldMap: Map): void;
 
-		toArray(): IGeoObject[];
-	}
+        filter(filterFunction: (object: object) => boolean): object[];
 
-	class Layer implements ILayer, IParentOnMap, IPositioningContext {
-		constructor(tileUrlTemplate: string | ((tileNumber: number[], tileZoom: number) => string));
+        get(index: number): object;
 
-		events: IEventManager;
-		options: IOptionManager;
+        getAll(): T[];
 
-		fromClientPixels(clientPixelPoint: number[]): number[];
+        getLength(): number;
 
-		getZoom(): number;
+        indexOf(childToFind: object): number;
 
-		toClientPixels(globalPixelPoint: number[]): number[];
+        removeAll(): this;
+    }
 
-		getParent(): null | IControlParent;
+    class Event<OriginalEvent = {}, TargetGeometry = {}> implements IEvent<OriginalEvent, TargetGeometry> {
+        constructor(originalEvent: object, sourceEvent: IEvent);
 
-		setParent(parent: IControlParent): this;
+        allowMapEvent(): void;
 
-		getMap(): Map;
-	}
+        callMethod(name: string): void;
 
-	class Map implements IDomEventEmitter {
-		constructor(parentElement: HTMLElement | string, state: IMapState, options?: IMapOptions)
+        get<T extends {}, K extends keyof T= keyof T>(name: K): T[K];
+        get(name: string): object;
 
-		action: map.action.Manager;
-		balloon: map.Balloon;
-		behaviors: map.behavior.Manager;
-		container: map.Container;
-		controls: control.Manager;
-		converter: map.Converter;
-		copyrights: map.Copyrights;
-		cursors: util.cursor.Manager;
-		events: event.Manager;
-		geoObjects: map.GeoObjects;
-		hint: map.Hint;
-		layers: map.layer.Manager;
-		margin: map.margin.Manager;
-		options: option.Manager;
-		panes: map.pane.Manager;
-		zoomRange: map.ZoomRange;
+        getSourceEvent(): IEvent<OriginalEvent> | null;
 
-		destroy(): void;
+        isDefaultPrevented(): boolean;
 
-		getBounds(options?: IMapMarginOptions): number[][];
+        isImmediatePropagationStopped(): boolean;
 
-		getCenter(options?: IMapMarginOptions): number[];
+        isMapEventAllowed(): boolean;
 
-		getGlobalPixelCenter(options?: IMapMarginOptions): number[];
+        isPropagationStopped(): boolean;
 
-		getPanoramaManager(): Promise<panorama.Manager>;
+        preventDefault(): boolean;
 
-		getType(): string | MapType;
+        stopImmediatePropagation(): boolean;
 
-		getZoom(): number;
+        stopPropagation(): boolean;
 
-		panTo(center: number[] | object[], options?: IMapPanOptions): Promise<void>;
+        originalEvent: {
+            domEvent: {
+                originalEvent: OriginalEvent;
+            }
+            target: {
+                geometry?: TargetGeometry;
+            };
+        };
+    }
 
-		setBounds(bounds: number[][], options?: IMapBoundsOptions): Promise<void>;
+    class GeoObject<T = IGeometry, TargetGeometry = {}> implements IGeoObject<T> {
+        constructor(feature?: IGeoObjectFeature, options?: IGeoObjectOptions);
 
-		setCenter(center: number[], zoom?: number, options?: IMapPositionOptions): Promise<void>;
+        geometry: T | null;
+        balloon: geoObject.Balloon;
+        editor: IGeometryEditor;
+        hint: geoObject.Hint;
+        events: event.Manager<TargetGeometry>;
+        options: option.Manager;
+        properties: data.Manager;
+        state: data.Manager;
 
-		setGlobalPixelCenter(globalPixelCenter: number[], zoom?: number, options?: IMapPositionOptions): Promise<void>;
+        getOverlay(): Promise<IOverlay | null>;
 
-		setType(type: string | MapType, options?: IMapCheckZoomRangeOptions): Promise<void>;
+        getOverlaySync(): IOverlay | null;
 
-		setZoom(zoom: number, options?: IMapZoomOptions): Promise<void>;
-	}
+        getParent(): null | IControlParent;
 
-	interface IMapMarginOptions {
-		useMapMargin?: boolean;
-	}
+        setParent(parent: IControlParent): this;
 
-	interface IMapCheckZoomRangeOptions {
-		checkZoomRange?: boolean;
-	}
+        getMap(): Map;
+    }
 
-	interface IMapZoomOptions extends IMapMarginOptions, IMapCheckZoomRangeOptions {
-		duration?: number;
-	}
+    interface IGeoObjectFeature {
+        geometry?: IGeometry | IGeometryJson;
+        properties?: IDataManager | object;
+    }
 
-	interface IMapPositionOptions extends IMapZoomOptions {
-		timingFunction?: string;
-	}
+    interface IGeoObjectOptions extends ICircleOptions {
+        iconCaptionMaxWidth?: number;
+        iconColor?: string;
+        iconContentLayout?: string | IClassConstructor<ILayout>;
+        iconContentOffset?: number[];
+        iconContentPadding?: number[];
+        iconContentSize?: number[];
+        iconImageClipRect?: number[][];
+        iconImageHref?: string;
+        iconImageOffset?: number[];
+        iconImageShape?: IShape | null;
+        iconImageSize?: number[];
+        iconLayout?: string | IClassConstructor<ILayout>;
+        iconMaxHeight?: number;
+        iconMaxWidth?: number;
+        iconOffset?: number[];
+        iconShadow?: boolean;
+        iconShadowImageClipRect?: number[][];
+        iconShadowImageHref?: string;
+        iconShadowImageOffset?: number[];
+        iconShadowImageSize?: number[];
+        iconShadowLayout?: string | IClassConstructor<ILayout>;
+        iconShadowOffset?: number[];
+        lineStringOverlay?: OverlayKey;
+        pointOverlay?: OverlayKey;
+        polygonOverlay?: OverlayKey;
+        preset?: string;
+        rectangleOverlay?: OverlayKey;
+        setMapCursorInDragging?: boolean;
+    }
 
-	interface IMapBoundsOptions extends IMapPositionOptions {
-		preciseZoom?: boolean;
-		zoomMargin?: number[][] | number[];
-	}
+    class GeoObjectCollection implements IGeoObject, IGeoObjectCollection {
+        constructor(feature?: {
+            children?: IGeoObject[];
+            geometry?: IGeometry | object;
+            properties?: IDataManager | object;
+        }, options?: object);
 
-	interface IMapPanOptions extends IMapPositionOptions {
-		delay?: number;
-		flying?: boolean;
-		safe?: boolean;
-	}
+        geometry: IGeometry | null;
+        properties: IDataManager;
+        state: IDataManager;
+        events: IEventManager;
+        options: IOptionManager;
 
-	class MapType {
-		constructor(name: string, layers: Array<IClassConstructor<Layer> | string>)
-	}
+        getOverlay(): Promise<IOverlay | null>;
 
-	interface IMapState {
-		behaviors?: string[];
-		bounds?: number[][];
-		center?: number[];
-		controls?: string[];
-		margin?: number[][] | number[];
-		type?: "yandex#map" | "yandex#satellite" | "yandex#hybrid";
-		zoom?: number;
-	}
+        getOverlaySync(): IOverlay | null;
 
-	interface IMapOptions {
-		autoFitToViewport?: "none" | "ifNull" | "always";
-		avoidFractionalZoom?: boolean;
-		exitFullscreenByEsc?: boolean;
-		fullscreenZIndex?: number;
-		mapAutoFocus?: boolean;
-		maxAnimationZoomDifference?: number;
-		maxZoom?: number;
-		minZoom?: number;
-		nativeFullscreen?: boolean;
-		projection?: IProjection;
-		restrictMapArea?: boolean;
-		suppressMapOpenBlock?: boolean;
-		suppressObsoleteBrowserNotifier?: boolean;
-		yandexMapAutoSwitch?: boolean;
-		yandexMapDisablePoiInteractivity?: boolean;
-	}
+        getParent(): null | IControlParent;
 
-	class Placemark extends GeoObject {
-		constructor(geometry: number[] | object | IPointGeometry, properties: object | IDataManager, options?: IPlacemarkOptions)
-	}
+        setParent(parent: IControlParent): this;
 
-	interface IPlacemarkOptions {
-		cursor?: string;
-		draggable?: boolean;
+        getMap(): Map;
+
+        add(child: IGeoObject, index?: number): this;
+
+        each(callback: (object: IGeoObject) => void, context?: object): void;
+
+        get(index: number): IGeoObject;
+
+        getBounds(): number[][] | null;
+
+        getIterator(): IIterator;
+
+        getLength(): number;
+
+        getPixelBounds(): number[][] | null;
+
+        indexOf(object: IGeoObject): number;
+
+        remove(child: IGeoObject): this;
+
+        removeAll(): this;
+
+        set(index: number, child: IGeoObject): this;
+
+        splice(index: number, length: number): this;
+
+        toArray(): IGeoObject[];
+    }
+
+    class Layer implements ILayer, IParentOnMap, IPositioningContext {
+        constructor(tileUrlTemplate: string | ((tileNumber: number[], tileZoom: number) => string));
+
+        events: IEventManager;
+        options: IOptionManager;
+
+        fromClientPixels(clientPixelPoint: number[]): number[];
+
+        getZoom(): number;
+
+        toClientPixels(globalPixelPoint: number[]): number[];
+
+        getParent(): null | IControlParent;
+
+        setParent(parent: IControlParent): this;
+
+        getMap(): Map;
+
+        getAlias(): string;
+
+        getElement(): HTMLElement;
+    }
+
+    class Map implements IDomEventEmitter {
+        constructor(parentElement: HTMLElement | string, state: IMapState, options?: IMapOptions)
+
+        action: map.action.Manager;
+        balloon: map.Balloon;
+        behaviors: map.behavior.Manager;
+        container: map.Container;
+        controls: control.Manager;
+        converter: map.Converter;
+        copyrights: map.Copyrights;
+        cursors: util.cursor.Manager;
+        events: event.Manager;
+        geoObjects: map.GeoObjects;
+        hint: map.Hint;
+        layers: map.layer.Manager;
+        margin: map.margin.Manager;
+        options: option.Manager;
+        panes: map.pane.Manager;
+        zoomRange: map.ZoomRange;
+
+        destroy(): void;
+
+        getBounds(options?: IMapMarginOptions): number[][];
+
+        getCenter(options?: IMapMarginOptions): number[];
+
+        getGlobalPixelCenter(options?: IMapMarginOptions): number[];
+
+        getPanoramaManager(): Promise<panorama.Manager>;
+
+        getType(): string | MapType;
+
+        getZoom(): number;
+
+        panTo(center: number[] | object[], options?: IMapPanOptions): Promise<void>;
+
+        setBounds(bounds: number[][], options?: IMapBoundsOptions): Promise<void>;
+
+        setCenter(center: number[], zoom?: number, options?: IMapPositionOptions): Promise<void>;
+
+        setGlobalPixelCenter(globalPixelCenter: number[], zoom?: number, options?: IMapPositionOptions): Promise<void>;
+
+        setType(type: string | MapType, options?: IMapCheckZoomRangeOptions): Promise<void>;
+
+        setZoom(zoom: number, options?: IMapZoomOptions): Promise<void>;
+    }
+
+    interface IMapMarginOptions {
+        useMapMargin?: boolean;
+    }
+
+    interface IMapCheckZoomRangeOptions {
+        checkZoomRange?: boolean;
+    }
+
+    interface IMapZoomOptions extends IMapMarginOptions, IMapCheckZoomRangeOptions {
+        duration?: number;
+    }
+
+    interface IMapPositionOptions extends IMapZoomOptions {
+        timingFunction?: string;
+    }
+
+    interface IMapBoundsOptions extends IMapPositionOptions {
+        preciseZoom?: boolean;
+        zoomMargin?: number[][] | number[];
+    }
+
+    interface IMapPanOptions extends IMapPositionOptions {
+        delay?: number;
+        flying?: boolean;
+        safe?: boolean;
+    }
+
+    class MapType {
+        constructor(name: string, layers: Array<IClassConstructor<Layer> | string>)
+    }
+
+    interface IMapState {
+        behaviors?: string[];
+        bounds?: number[][];
+        center?: number[];
+        controls?: Array<
+            string
+            | control.ZoomControl
+            | control.RulerControl
+            | control.TypeSelector
+        >;
+        margin?: number[][] | number[];
+        type?: "yandex#map" | "yandex#satellite" | "yandex#hybrid";
+        zoom?: number;
+    }
+
+    interface IMapOptions {
+        autoFitToViewport?: "none" | "ifNull" | "always";
+        avoidFractionalZoom?: boolean;
+        exitFullscreenByEsc?: boolean;
+        fullscreenZIndex?: number;
+        mapAutoFocus?: boolean;
+        maxAnimationZoomDifference?: number;
+        maxZoom?: number;
+        minZoom?: number;
+        nativeFullscreen?: boolean;
+        projection?: IProjection;
+        restrictMapArea?: boolean;
+        suppressMapOpenBlock?: boolean;
+        suppressObsoleteBrowserNotifier?: boolean;
+        yandexMapAutoSwitch?: boolean;
+        yandexMapDisablePoiInteractivity?: boolean;
+
+        copyrightLogoVisible?: boolean;
+        copyrightProvidersVisible?: boolean;
+        copyrightUaVisible?: boolean;
+    }
+
+    class Placemark extends GeoObject<IPointGeometry, geometry.Point> {
+        constructor(geometry: number[] | object | IPointGeometry, properties: object | IDataManager, options?: IPlacemarkOptions)
+    }
+
+    interface IPlacemarkOptions {
+        cursor?: string;
+        draggable?: boolean;
         hasBalloon?: boolean;
         hasHint?: boolean;
         hideIconOnBalloonOpen?: boolean;
@@ -2711,10 +3109,10 @@ declare namespace ymaps {
         zIndexActive?: number;
         zIndexDrag?: number;
         zIndexHover?: number;
-	}
+    }
 
-	class Polygon extends GeoObject {
-	    constructor(geometry: number[][][] | object| IPolygonGeometry, properties?: object | IDataManager, options?: IPolygonOptions)
+    class Polygon extends GeoObject<IPolygonGeometry> {
+        constructor(geometry: number[][][] | object| IPolygonGeometry, properties?: object | IDataManager, options?: IPolygonOptions)
     }
 
     interface IPolygonOptions {
@@ -2750,8 +3148,8 @@ declare namespace ymaps {
         zIndexHover?: number;
     }
 
-    class Polyline extends GeoObject {
-        constructor(geometry: number[][]| object | ILineStringGeometry, properties?: object | IDataManager, options?: IPolylineOptions)
+    class Polyline extends GeoObject<ILineStringGeometry> {
+        constructor(geometry: number[][]| object | ILineStringGeometry, properties?: object | IDataManager, options?: IPolylineOptions);
     }
 
     interface IPolylineOptions {
@@ -2781,82 +3179,82 @@ declare namespace ymaps {
         zIndexHover?: number;
     }
 
-	class Popup<T> implements IPopup<T> {
-		constructor(map: Map, options?: IPopupOptions);
+    class Popup<T> implements IPopup<T> {
+        constructor(map: Map, options?: IPopupOptions);
 
-		options: IOptionManager;
-		events: IEventManager;
+        options: IOptionManager;
+        events: IEventManager;
 
-		close(force?: boolean): Promise<T>;
+        close(force?: boolean): Promise<T>;
 
-		getData(): object;
+        getData(): object;
 
-		getOverlay(): Promise<IOverlay>;
+        getOverlay(): Promise<IOverlay>;
 
-		getOverlaySync(): IOverlay;
+        getOverlaySync(): IOverlay;
 
-		getPosition(): number[];
+        getPosition(): number[];
 
-		isOpen(): boolean;
+        isOpen(): boolean;
 
-		open(position: number[], data: object | string | HTMLElement): Promise<T>;
+        open(position: number[], data: object | string | HTMLElement): Promise<T>;
 
-		setData(data: object | string | HTMLElement): Promise<T>;
+        setData(data: object | string | HTMLElement): Promise<T>;
 
-		setPosition(position: number[]): Promise<T>;
-	}
+        setPosition(position: number[]): Promise<T>;
+    }
 
-	interface IPopupOptions {
-		closeTimeout?: number;
-		interactivityModel?: InteractivityModelKey;
-		openTimeout?: number;
-		pane?: IPane | string;
-		projection?: IProjection;
-		zIndex?: number;
-	}
+    interface IPopupOptions {
+        closeTimeout?: number;
+        interactivityModel?: InteractivityModelKey;
+        openTimeout?: number;
+        pane?: IPane | string;
+        projection?: IProjection;
+        zIndex?: number;
+    }
 
-	function ready(successCallback?: () => any | IReadyobject, errorCallback?: () => any, context?: object): Promise<void>;
+    function ready(successCallback?: () => any | IReadyobject, errorCallback?: () => any, context?: object): Promise<void>;
 
-	interface IReadyobject {
-		require?: string[];
-		context?: object;
+    interface IReadyobject {
+        require?: string[];
+        context?: object;
 
-		successCallback?(): void;
+        successCallback?(): void;
 
-		errorCallback?(): void;
-	}
+        errorCallback?(): void;
+    }
 
-	namespace templateLayoutFactory {
-		function createClass(template: string, overrides?: object, staticMethods?: object): IClassConstructor<layout.templateBased.Base>;
-	}
+    namespace templateLayoutFactory {
+        function createClass(template: string, overrides?: object, staticMethods?: object): IClassConstructor<layout.templateBased.Base>;
+    }
 
-	namespace util {
-		namespace cursor {
-			class Accessor {
-				constructor(key: string);
+    namespace util {
+        namespace cursor {
+            class Accessor {
+                constructor(key: string);
 
-				getKey(): string;
+                getKey(): string;
 
-				remove(): void;
+                remove(): void;
 
-				setKey(): void;
-			}
+                setKey(): void;
+            }
 
-			class Manager {
-				constructor(element: HTMLElement);
+            class Manager {
+                constructor(element: HTMLElement);
 
-				push(key: string): Accessor;
-			}
-		}
+                push(key: string): Accessor;
+            }
+        }
 
-		class Storage {
-			add(key: string, object: object): this;
+        class Storage {
+            add(key: string, object: object): this;
 
-			get(key: string | object): object | string;
+            get(key: string | object): object | string;
 
-			remove(key: string): object;
-		}
-	}
+            remove(key: string): object;
+        }
+    }
 
     namespace vow {
         class Deferred {
@@ -2880,210 +3278,226 @@ declare namespace ymaps {
         }
     }
 
-	/*Interfaces*/
+    /*Interfaces*/
 
-	interface IBaloon<T> extends IPopup<T>, ICustomizable, IChild<T>, IFreezable {
-		autoPan(): Promise<T>;
-	}
+    interface IBaloon<T> extends IPopup<T>, ICustomizable, IChild<T>, IFreezable {
+        autoPan(): Promise<T>;
+    }
 
-	interface IBalloonManager<T> extends IPopupManager<T> {
-		autoPan(): Promise<T>;
-	}
+    interface IBalloonManager<T> extends IPopupManager<T> {
+        autoPan(): Promise<T>;
+    }
 
-	interface IBaseGeometry extends IEventEmitter {
-		getBounds(): number[][] | null;
+    interface IBaseGeometry extends IEventEmitter {
+        getBounds(): number[][] | null;
 
-		getType(): string;
-	}
+        getType(): string;
+    }
 
-	interface IBaseLineStringGeometry extends IBaseGeometry, ILineStringGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface IBaseLineStringGeometry extends IBaseGeometry, ILineStringGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
-	interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
     interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
     }
 
-	interface IBehavior extends IChildOnMap, ICustomizable {
-		disable(): void;
+    interface IBehavior extends IChildOnMap, ICustomizable {
+        disable(): void;
 
-		enable(): void;
+        enable(): void;
 
-		isEnabled(): boolean;
-	}
+        isEnabled(): boolean;
+    }
 
-	interface IChild<T> extends IEventEmitter {
-		getParent(): object | null;
+    interface IChild<T> extends IEventEmitter {
+        getParent(): object | null;
 
-		setParent(parent: object | null): this;
-	}
+        setParent(parent: object | null): this;
+    }
 
-	interface IChildOnMap extends IChild<IControlParent> { //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface IChildOnMap extends IChild<IControlParent> { //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
-	interface ICircleGeometry extends ICircleGeometryAccess, IGeometry { //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface ICircleGeometry extends ICircleGeometryAccess, IGeometry { //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
-	interface ICircleGeometryAccess extends IFreezable {
-		contains(position: number[]): boolean;
+    interface ICircleGeometryAccess extends IFreezable {
+        contains(position: number[]): boolean;
 
-		getClosest(anchorPosition: number[]): object;
+        getClosest(anchorPosition: number[]): object;
 
-		getCoordinates(): number[] | null;
+        getCoordinates(): number[] | null;
 
-		getRadius(): number;
+        getRadius(): number;
 
-		setCoordinates(coordinates: number[] | null): this;
+        setCoordinates(coordinates: number[] | null): this;
 
-		setRadius(radius: number): this;
-	}
+        setRadius(radius: number): this;
+    }
 
-	interface ICollection extends IEventEmitter {
-		add(object: object): this;
+    interface ICollection extends IEventEmitter {
+        add(object: object): this;
 
-		getIterator(): IIterator;
+        getIterator(): IIterator;
 
-		remove(object: object): this;
-	}
+        remove(object: object): this;
+    }
 
-	interface IControl extends IChildOnMap { //tslint:disable-line no-empty-interface no-empty-interfaces
-		// new (options?: object);
-	}
+    interface IControl extends IChildOnMap { //tslint:disable-line no-empty-interface no-empty-interfaces
+        // new (options?: object);
+    }
 
-	interface IControlParent extends IParentOnMap {
-		getChildElement(child: IControl): Promise<HTMLElement>;
-	}
+    interface IControlParent extends IParentOnMap {
+        getChildElement(child: IControl): Promise<HTMLElement>;
+    }
 
-	interface ICoordSystem {
-		getDistance(point1: number[], point2: number[]): number;
+    interface ICoordSystem {
+        getDistance(point1: number[], point2: number[]): number;
 
-		solveDirectProblem(startPoint: number[], direction: number[], distance: number): object;
+        solveDirectProblem(startPoint: number[], direction: number[], distance: number): object;
 
-		solveInverseProblem(startPoint: number[], endPoint: number[], reverseDirection?: boolean): object;
-	}
+        solveInverseProblem(startPoint: number[], endPoint: number[], reverseDirection?: boolean): object;
+    }
 
-	interface ICopyrightsAccessor extends ICopyrightsProvider { //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface ICopyrightsAccessor extends ICopyrightsProvider { //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
-	interface ICopyrightsProvider extends IEventEmitter {
-		getCopyrights(coords: number[], zoom: number): Promise<Array<string | HTMLElement>>;
+    interface ICopyrightsProvider extends IEventEmitter {
+        getCopyrights(coords: number[], zoom: number): Promise<Array<string | HTMLElement>>;
 
-		remove(): void;
+        remove(): void;
 
-		setCopyrights(copyrights: string | HTMLElement | Array<string | HTMLElement>): void;
-	}
+        setCopyrights(copyrights: string | HTMLElement | Array<string | HTMLElement>): void;
+    }
 
-	interface ICustomizable extends IEventEmitter {
-		options: IOptionManager;
-	}
+    interface ICustomizable extends IEventEmitter {
+        options: IOptionManager;
+    }
 
-	interface IDataManager extends IEventEmitter {
-		get(path: string, defaultValue: object): object;
-	}
+    interface IDataManager extends IEventEmitter {
+        get(path: string, defaultValue: object): object;
+    }
 
-	interface IDomEventEmitter extends IEventEmitter { //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface IDomEventEmitter extends IEventEmitter { //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
-	interface IEvent {
-		allowMapEvent(): void;
+    interface IEvent<OriginalEvent = {}, TargetGeometry = {}> {
+        allowMapEvent(): void;
 
-		callMethod(name: string): void;
+        callMethod(name: string): void;
 
-		get(name: string): object;
+        get<T extends {}, K extends keyof T = keyof T>(name: K): T[K];
 
-		getSourceEvent(): IEvent | null;
+        get(name: 'type'): string;
+        get(name: 'objectId'): string | undefined;
+        get(name: 'newZoom' | 'oldZoom'): number | undefined;
 
-		isDefaultPrevented(): boolean;
+        get(name: string): object;
 
-		isImmediatePropagationStopped(): boolean;
+        getSourceEvent(): IEvent<OriginalEvent> | null;
 
-		isMapEventAllowed(): boolean;
+        isDefaultPrevented(): boolean;
 
-		isPropagationStopped(): boolean;
+        isImmediatePropagationStopped(): boolean;
 
-		preventDefault(): boolean;
+        isMapEventAllowed(): boolean;
 
-		stopImmediatePropagation(): boolean;
+        isPropagationStopped(): boolean;
 
-		stopPropagation(): boolean;
-	}
+        preventDefault(): boolean;
 
-	interface IEventController {
-		onStartListening?(events: IEventManager, type: string): void;
+        stopImmediatePropagation(): boolean;
 
-		onStopListening?(events: IEventManager, type: string): void;
-	}
+        stopPropagation(): boolean;
 
-	interface IEventEmitter {
-		events: IEventManager;
-	}
+        originalEvent: {
+            domEvent: {
+                originalEvent: OriginalEvent;
+            }
+            target: {
+                geometry?: TargetGeometry;
+            };
+        };
+    }
 
-	interface IEventGroup {
-		add(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
+    interface IEventController {
+        onStartListening?(events: IEventManager, type: string): void;
 
-		remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
+        onStopListening?(events: IEventManager, type: string): void;
+    }
 
-		removeAll(): this;
-	}
+    interface IEventEmitter {
+        events: IEventManager;
+    }
 
-	interface IEventManager extends IEventTrigger {
-		add(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
+    interface IEventGroup {
+        add(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
 
-		getParent(): object | null;
+        remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
 
-		group(): IEventGroup;
+        removeAll(): this;
+    }
 
-		remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
+    interface IEventManager<TargetGeometry = {}> extends IEventTrigger {
+        add(types: 'mousedown', callback: (event: IEvent<MouseEvent, TargetGeometry>) => void, context?: object, priority?: number): this;
+        add(types: string[][] | string[] | string, callback: (event: IEvent) => void, context?: object, priority?: number): this;
 
-		setParent(parent: object | null): this;
-	}
+        getParent(): object | null;
 
-	interface IEventTrigger {
-		fire(type: string, eventobject?: object | IEvent): this;
-	}
+        group(): IEventGroup;
 
-	interface IEventWorkflowController extends IEventController {
-		onAfterEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
+        remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
 
-		onBeforeEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
-	}
+        setParent(parent: object | null): this;
+    }
 
-	interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface IEventTrigger {
+        fire(type: string, eventobject?: object | IEvent): this;
+    }
 
-	interface IFreezable {
+    interface IEventWorkflowController extends IEventController {
+        onAfterEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
+
+        onBeforeEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
+    }
+
+    interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
+
+    interface IFreezable {
         events: IEventManager;
 
-		freeze(): IFreezable;
+        freeze(): IFreezable;
 
-		isFrozen(): boolean;
+        isFrozen(): boolean;
 
-		unfreeze(): IFreezable;
-	}
+        unfreeze(): IFreezable;
+    }
 
-	interface IGeocodeProvider {
-		geocode(request: string, options?: { boundedBy?: number[][], results?: number, skip?: number, strictBounds?: boolean }): Promise<object>;
+    interface IGeocodeProvider {
+        geocode(request: string, options?: { boundedBy?: number[][], results?: number, skip?: number, strictBounds?: boolean }): Promise<object>;
 
-		suggest(request: string, options?: { boundedBy?: number[][], results?: number, strictBounds?: boolean }): Promise<object>;
-	}
+        suggest(request: string, options?: { boundedBy?: number[][], results?: number, strictBounds?: boolean }): Promise<object>;
+    }
 
-	interface IGeometry extends IBaseGeometry, ICustomizable {
-		getMap(): Map | null;
+    interface IGeometry extends IBaseGeometry, ICustomizable {
+        getMap(): Map | null;
 
-		getPixelGeometry(options?: object): IPixelGeometry;
+        getPixelGeometry(options?: object): IPixelGeometry;
 
-		setMap(map: Map): void;
-	}
+        setMap(map: Map): void;
+    }
 
-	interface IGeometryEditor extends ICustomizable, IEventEmitter {
+    interface IGeometryEditor extends ICustomizable, IEventEmitter {
         geometry: IGeometry;
         state: IDataManager;
 
-		startEditing(): void;
+        startEditing(): void;
 
-		stopEditing(): void;
-	}
+        stopEditing(): void;
+    }
 
     interface IGeometryEditorChildModel extends IGeometryEditorModel {
         editor: IGeometryEditor;
@@ -3103,93 +3517,93 @@ declare namespace ymaps {
     interface IGeometryEditorRootModel extends IGeometryEditorModel { //tslint:disable-line no-empty-interface no-empty-interfaces
     }
 
-	interface IGeometryJson {
-		type: string;
-	}
+    interface IGeometryJson {
+        type: string;
+    }
 
-	interface IGeoObject extends IChildOnMap, ICustomizable, IDomEventEmitter, IParentOnMap {
-		geometry: IGeometry | null;
-		properties: IDataManager;
-		state: IDataManager;
+    interface IGeoObject<T = IGeometry> extends IChildOnMap, ICustomizable, IDomEventEmitter, IParentOnMap {
+        geometry: T | null;
+        properties: IDataManager;
+        state: IDataManager;
 
-		getOverlay(): Promise<IOverlay | null>;
+        getOverlay(): Promise<IOverlay | null>;
 
-		getOverlaySync(): IOverlay | null;
-	}
+        getOverlaySync(): IOverlay | null;
+    }
 
-	interface IGeoObjectCollection extends ICustomizable, IEventEmitter, IParentOnMap {
-		add(child: IGeoObject, index?: number): this;
+    interface IGeoObjectCollection extends ICustomizable, IEventEmitter, IParentOnMap {
+        add(child: IGeoObject, index?: number): this;
 
-		each(callback: (object: IGeoObject) => void, context?: object): void;
+        each(callback: (object: IGeoObject) => void, context?: object): void;
 
-		get(index: number): IGeoObject;
+        get(index: number): IGeoObject;
 
-		getBounds(): number[][] | null;
+        getBounds(): number[][] | null;
 
-		getIterator(): IIterator;
+        getIterator(): IIterator;
 
-		getLength(): number;
+        getLength(): number;
 
-		getPixelBounds(): number[][] | null;
+        getPixelBounds(): number[][] | null;
 
-		indexOf(object: IGeoObject): number;
+        indexOf(object: IGeoObject): number;
 
-		remove(child: IGeoObject): this;
+        remove(child: IGeoObject): this;
 
-		removeAll(): this;
+        removeAll(): this;
 
-		set(index: number, child: IGeoObject): this;
+        set(index: number, child: IGeoObject): this;
 
-		splice(index: number, length: number): this;
-	}
+        splice(index: number, length: number): this;
+    }
 
-	interface IGeoObjectSequence extends ICustomizable, IEventEmitter, IParentOnMap {
-		each(callback: (geoObject: IGeoObject) => void, context?: object): void;
+    interface IGeoObjectSequence extends ICustomizable, IEventEmitter, IParentOnMap {
+        each(callback: (geoObject: IGeoObject) => void, context?: object): void;
 
-		get(index: number): IGeoObject;
+        get(index: number): IGeoObject;
 
-		getBounds(): number[][] | null;
+        getBounds(): number[][] | null;
 
-		getIterator(): IIterator;
+        getIterator(): IIterator;
 
-		getLength(): number;
+        getLength(): number;
 
-		getPixelBounds(): number[][] | null;
+        getPixelBounds(): number[][] | null;
 
-		indexOf(geoObject: IGeoObject): number;
-	}
+        indexOf(geoObject: IGeoObject): number;
+    }
 
-	interface IHintManager<T> extends IPopupManager<T> { //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface IHintManager<T> extends IPopupManager<T> { //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
-	interface IIterator {
-		getNext(): object | null;
-	}
+    interface IIterator {
+        getNext(): object | null;
+    }
 
-	interface ILayer extends IChildOnMap, ICustomizable, IEventEmitter {
-		getBrightness?(): number;
+    interface ILayer extends IChildOnMap, ICustomizable, IEventEmitter {
+        getBrightness?(): number;
 
-		getCopyrights?(coords: number[], zoom: number): Promise<Array<string | HTMLElement>>;
+        getCopyrights?(coords: number[], zoom: number): Promise<Array<string | HTMLElement>>;
 
-		getZoomRange?(point: number[]): Promise<number[]>;
-	}
+        getZoomRange?(point: number[]): Promise<number[]>;
+    }
 
-	interface ILayout extends IDomEventEmitter {
-		// new (data: object);
-		destroy(): void;
+    interface ILayout extends IDomEventEmitter {
+        // new (data: object);
+        destroy(): void;
 
-		getData(): object;
+        getData(): object;
 
-		getParentElement(): HTMLElement;
+        getParentElement(): HTMLElement;
 
-		getShape(): IShape | null;
+        getShape(): IShape | null;
 
-		isEmpty(): boolean;
+        isEmpty(): boolean;
 
-		setData(data: object): void;
+        setData(data: object): void;
 
-		setParentElement(parent: HTMLElement | null): void;
-	}
+        setParentElement(parent: HTMLElement | null): void;
+    }
 
     interface ILinearRingGeometryAccess extends IFreezable {
         contain(position: number): boolean;
@@ -3225,224 +3639,266 @@ declare namespace ymaps {
         unfreeze(): IFreezable;
     }
 
-	interface ILineStringGeometry extends IGeometry, ILineStringGeometryAccess {  //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface ILineStringGeometry extends IGeometry, ILineStringGeometryAccess {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
-	interface ILineStringGeometryAccess extends IFreezable {
-		get(index: number): number[];
+    interface ILineStringGeometryAccess extends IFreezable {
+        get(index: number): number[];
 
-		getChildGeometry(index: number): IPointGeometryAccess;
+        getChildGeometry(index: number): IPointGeometryAccess;
 
-		getClosest(anchorPosition: number[]): object;
+        getClosest(anchorPosition: number[]): object;
 
-		getCoordinates(): number[][];
+        getCoordinates(): number[][];
 
-		getLength(): number;
+        getLength(): number;
 
-		insert(index: number, coordinates: number[][]): ILineStringGeometryAccess;
+        insert(index: number, coordinates: number[][]): ILineStringGeometryAccess;
 
-		remove(index: number): number[];
+        remove(index: number): number[];
 
-		set(index: number, coordinates: number[]): ILineStringGeometryAccess;
+        set(index: number, coordinates: number[]): ILineStringGeometryAccess;
 
-		setCoordinates(coordinates: number[]): ILineStringGeometryAccess;
+        setCoordinates(coordinates: number[][]): ILineStringGeometryAccess;
 
-		splice(index: number, length: number): number[][];
-	}
+        splice(index: number, length: number): number[][];
+    }
 
-	interface IMapAction extends IEventEmitter {
-		begin(mapActionManager: map.action.Manager): void;
+    interface IMapAction extends IEventEmitter {
+        begin(mapActionManager: map.action.Manager): void;
 
-		end(): void;
-	}
+        end(): void;
+    }
 
-	interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {  //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
-	interface IMultiRouteModelJson {
-		params: IMultiRouteParams;
-		referencePoints: IMultiRouteReferencePoint[];
-	}
+    interface IMultiRouteModelJson {
+        params: IMultiRouteParams;
+        referencePoints: IMultiRouteReferencePoint[];
+    }
 
-	interface IMultiRouteParams {
-		avoidTrafficJams?: boolean;
-		boundedBy?: number[][] | null;
-		requestSendInterval?: string | number;
-		results?: number;
-		reverseGeocoding?: boolean;
-		routingMode?: "auto" | "masstransit" | "pedestrian";
-		searchCoordOrder?: string;
-		strictBounds?: boolean;
-		viaIndexes?: number[];
-	}
+    interface IMultiRouteParams {
+        avoidTrafficJams?: boolean;
+        boundedBy?: number[][] | null;
+        requestSendInterval?: string | number;
+        results?: number;
+        reverseGeocoding?: boolean;
+        routingMode?: "auto" | "masstransit" | "pedestrian";
+        searchCoordOrder?: string;
+        strictBounds?: boolean;
+        viaIndexes?: number[];
+    }
 
-	type IMultiRouteReferencePoint = string | number[] | geometry.Point;
+    type IMultiRouteReferencePoint = string | number[] | geometry.Point;
 
-	interface IOptionManager extends IChild<IOptionManager>, IEventEmitter, IFreezable {
-		get(key: string, defaultValue: object): object;
+    interface IOptionManager extends IChild<IOptionManager>, IEventEmitter, IFreezable {
+        get(key: string, defaultValue: object): object;
 
-		getAll(): object;
+        getAll(): object;
 
-		getName(): string;
+        getName(): string;
 
-		getNative(key: string): object;
+        getNative(key: string): object;
 
-		resolve(key: string, name?: string): object;
+        resolve(key: string, name?: string): object;
 
-		setName(name: string): void;
-	}
+        setName(name: string): void;
+    }
 
-	interface IOverlay extends ICustomizable, IDomEventEmitter {
-		getData(): object;
+    interface IOverlay extends ICustomizable, IDomEventEmitter {
+        getData(): object;
 
-		getGeometry(): IPixelGeometry;
+        getGeometry(): IPixelGeometry;
 
-		getMap(): Map | null;
+        getMap(): Map | null;
 
-		getShape(): IShape | null;
+        getShape(): IShape | null;
 
-		isEmpty(): boolean;
+        isEmpty(): boolean;
 
-		setData(data: object): void;
+        setData(data: object): void;
 
-		setGeometry(geometry: IPixelGeometry): void;
+        setGeometry(geometry: IPixelGeometry): void;
 
-		setMap(map: Map | null): void;
-	}
+        setMap(map: Map | null): void;
+    }
 
-	interface IPane extends IEventEmitter {
-		destroy(): void;
+    interface IPane extends IEventEmitter {
+        destroy(): void;
 
-		getElement(): HTMLElement;
+        getElement(): HTMLElement;
 
-		getMap(): Map;
+        getMap(): Map;
 
-		getOverflow(): "visible" | "hidden";
+        getOverflow(): "visible" | "hidden";
 
-		getZIndex(): number;
-	}
+        getZIndex(): number;
+    }
 
-	interface IPanorama {
-		getAngularBBox(): number[];
+    interface IPanorama {
+        getAngularBBox(): number[];
 
-		getConnectionArrows(): IPanoramaConnectionArrow[];
+        getConnectionArrows(): IPanoramaConnectionArrow[];
 
-		getConnectionMarkers(): IPanoramaConnectionMarker[];
+        getConnectionMarkers(): IPanoramaConnectionMarker[];
 
-		getCoordSystem(): ICoordSystem;
+        getCoordSystem(): ICoordSystem;
 
-		getDefaultDirection(): number[];
+        getDefaultDirection(): number[];
 
-		getDefaultSpan(): number[];
+        getDefaultSpan(): number[];
 
-		getGraph(): IPanoramaGraph | null;
+        getGraph(): IPanoramaGraph | null;
 
-		getMarkers(): IPanoramaMarker[];
+        getMarkers(): IPanoramaMarker[];
 
-		getName(): string;
+        getName(): string;
 
-		getPosition(): number[];
+        getPosition(): number[];
 
-		getTileLevels(): IPanoramaTileLevel[];
+        getTileLevels(): IPanoramaTileLevel[];
 
-		getTileSize(): number[];
-	}
+        getTileSize(): number[];
+    }
 
-	interface IPanoramaConnection {
-		getConnectedPanorama(): Promise<IPanorama>;
-	}
+    interface IPanoramaConnection {
+        getConnectedPanorama(): Promise<IPanorama>;
+    }
 
-	interface IPanoramaConnectionArrow extends IPanoramaConnection {
-		properties: data.Manager;
+    interface IPanoramaConnectionArrow extends IPanoramaConnection {
+        properties: data.Manager;
 
-		getDirection(): number[];
+        getDirection(): number[];
 
-		getPanorama(): IPanorama;
-	}
+        getPanorama(): IPanorama;
+    }
 
-	interface IPanoramaConnectionMarker extends IPanoramaConnection, IPanoramaMarker {  //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface IPanoramaConnectionMarker extends IPanoramaConnection, IPanoramaMarker {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
-	interface IPanoramaGraph {
-		getEdges(): IPanoramaGraphEdge[];
+    interface IPanoramaGraph {
+        getEdges(): IPanoramaGraphEdge[];
 
-		getNodes(): IPanoramaGraphEdge[];
+        getNodes(): IPanoramaGraphEdge[];
 
-		getPanorama(): IPanorama;
-	}
+        getPanorama(): IPanorama;
+    }
 
-	interface IPanoramaGraphEdge {
-		getEndNodes(): IPanoramaGraphNode[];
-	}
+    interface IPanoramaGraphEdge {
+        getEndNodes(): IPanoramaGraphNode[];
+    }
 
-	interface IPanoramaGraphNode {
-		getConnectedPanorama(): Promise<IPanorama>;
-	}
+    interface IPanoramaGraphNode {
+        getConnectedPanorama(): Promise<IPanorama>;
+    }
 
-	interface IPanoramaMarker {
-		properties: data.Manager;
+    interface IPanoramaMarker {
+        properties: data.Manager;
 
-		getIconSet(): Promise<IPanoramaMarkerIconSet>;
+        getIconSet(): Promise<IPanoramaMarkerIconSet>;
 
-		getPanorama(): IPanorama;
+        getPanorama(): IPanorama;
 
-		getPosition(): number[];
-	}
+        getPosition(): number[];
+    }
 
-	interface IPanoramaMarkerIcon {
-		image: HTMLCanvasElement | HTMLImageElement;
-		offset: number[];
-	}
+    interface IPanoramaMarkerIcon {
+        image: HTMLCanvasElement | HTMLImageElement;
+        offset: number[];
+    }
 
-	interface IPanoramaMarkerIconSet {
-		default: IPanoramaMarkerIcon | null;
-		expanded: IPanoramaMarkerIcon | null;
-		expandedHovered: IPanoramaMarkerIcon | null;
-		hovered: IPanoramaMarkerIcon | null;
-	}
+    interface IPanoramaMarkerIconSet {
+        default: IPanoramaMarkerIcon | null;
+        expanded: IPanoramaMarkerIcon | null;
+        expandedHovered: IPanoramaMarkerIcon | null;
+        hovered: IPanoramaMarkerIcon | null;
+    }
 
-	interface IPanoramaTileLevel {
-		getImageSize(): number[];
+    interface IPanoramaTileLevel {
+        getImageSize(): number[];
 
-		getTileUrl(x: number, y: number): string;
-	}
+        getTileUrl(x: number, y: number): string;
+    }
 
-	interface IParentOnMap {
-		getMap(): Map;
-	}
+    interface IParentOnMap {
+        getMap(): Map;
+    }
 
-	interface IPixelCircleGeometry extends IPixelGeometry {
-		getCoordinates(): number[];
+    interface IPixelCircleGeometry extends IPixelGeometry {
+        getCoordinates(): number[];
 
-		getRadius(): number;
-	}
+        getRadius(): number;
+    }
 
-	interface IPixelLineStringGeometry extends IPixelGeometry {
-		getClosest(anchorPosition: number[]): object;
+    interface IPixelLineStringGeometry extends IPixelGeometry {
+        getClosest(anchorPosition: number[]): object;
 
-		getCoordinates(): number[][];
+        getCoordinates(): number[][];
 
-		getLength(): number;
-	}
+        getLength(): number;
+    }
 
-	interface IPixelGeometry extends IBaseGeometry {
-		equals(geometry: IPixelGeometry): boolean;
+    interface IPixelPointGeometry extends IPixelGeometry {
+        getCoordinates(): number[];
+      }
 
-		getMetaData(): object;
+    interface IPixelMultiLineGeometry extends IPixelGeometry {
+        getClosest(anchorPosition: number[]): object;
 
-		scale(factor: number): IPixelGeometry;
+        getCoordinates(): number[][][];
 
-		shift(offset: number[]): IPixelGeometry;
-	}
+        getLength(): number;
+    }
 
-	interface IPointGeometry extends IGeometry, IPointGeometryAccess { //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface IPixelMultiPolygonGeometry extends IPixelGeometry {
+        contains(position: number[]): boolean;
 
-	interface IPointGeometryAccess {
-		getCoordinates(): number[] | null;
+        getClosest(anchorPosition: number[]): object;
 
-		setCoordinates(coordinates: number[] | null): this;
-	}
+        getCoordinates(): number[][][][];
+
+        getFillRule(): 'evenOdd' | 'nonZero';
+
+        getLength(): number;
+    }
+
+    interface IPixelPolygonGeometry extends IPixelGeometry {
+        contains(position: number[]): boolean;
+
+        getClosest(anchorPosition: number[]): object;
+
+        getCoordinates(): number[][][];
+
+        getFillRule(): 'evenOdd' | 'nonZero';
+
+        getLength(): number;
+    }
+
+    interface IPixelRectangleGeometry extends IPixelGeometry {
+        getClosest(anchorPosition: number[]): object;
+
+        getCoordinates(): number[][];
+    }
+
+    interface IPixelGeometry extends IBaseGeometry {
+        equals(geometry: IPixelGeometry): boolean;
+
+        getMetaData(): object;
+
+        scale(factor: number): IPixelGeometry;
+
+        shift(offset: number[]): IPixelGeometry;
+    }
+
+    interface IPointGeometry extends IGeometry, IPointGeometryAccess { //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
+
+    interface IPointGeometryAccess {
+        getCoordinates(): number[] | null;
+
+        setCoordinates(coordinates: number[] | null): this;
+    }
 
     interface IPolygonGeometry extends IGeometry, IPolygonGeometryAccess { //tslint:disable-line no-empty-interface no-empty-interfaces
     }
@@ -3475,122 +3931,170 @@ declare namespace ymaps {
         splice(index: number, number: number): ILinearRingGeometryAccess[];
     }
 
-	interface IPopup<T> extends ICustomizable, IEventEmitter {
-		close(force?: boolean): Promise<T>;
+    interface IPopup<T> extends ICustomizable, IEventEmitter {
+        close(force?: boolean): Promise<T>;
 
-		getData(): object;
+        getData(): object;
 
-		getOverlay(): Promise<IOverlay>;
+        getOverlay(): Promise<IOverlay>;
 
-		getOverlaySync(): IOverlay;
+        getOverlaySync(): IOverlay;
 
-		getPosition(): number[];
+        getPosition(): number[];
 
-		isOpen(): boolean;
+        isOpen(): boolean;
 
-		open(position: number[], data: object | string | HTMLElement): Promise<T>;
+        open(position: number[], data: object | string | HTMLElement): Promise<T>;
 
-		setData(data: object | string | HTMLElement): Promise<T>;
+        setData(data: object | string | HTMLElement): Promise<T>;
 
-		setPosition(position: number[]): Promise<T>;
-	}
+        setPosition(position: number[]): Promise<T>;
+    }
 
-	interface IPopupManager<T> extends IEventEmitter {
-		close(force?: boolean): Promise<T>;
+    interface IPopupManager<T> extends IEventEmitter {
+        close(force?: boolean): Promise<T>;
 
-		destroy(): void;
+        destroy(): void;
 
-		getData(): object | null;
+        getData(): object | null;
 
-		getOptions(): IOptionManager | null;
+        getOptions(): IOptionManager | null;
 
-		getOverlay(): Promise<IOverlay | null>;
+        getOverlay(): Promise<IOverlay | null>;
 
-		getOverlaySync(): IOverlay | null;
+        getOverlaySync(): IOverlay | null;
 
-		getPosition(): number[] | null;
+        getPosition(): number[] | null;
 
-		isOpen(): boolean;
+        isOpen(): boolean;
 
-		open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<T>;
+        open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<T>;
 
-		setData(data: object | string | HTMLElement): Promise<T>;
+        setData(data: object | string | HTMLElement): Promise<T>;
 
-		setOptions(options: object): Promise<T>;
+        setOptions(options: object): Promise<T>;
 
-		setPosition(position: number[]): Promise<T>;
-	}
+        setPosition(position: number[]): Promise<T>;
+    }
 
-	interface IPositioningContext {
-		fromClientPixels(clientPixelPoint: number[]): number[];
+    interface IPositioningContext {
+        fromClientPixels(clientPixelPoint: number[]): number[];
 
-		getZoom(): number;
+        getZoom(): number;
 
-		toClientPixels(globalPixelPoint: number[]): number[];
-	}
+        toClientPixels(globalPixelPoint: number[]): number[];
+    }
 
-	interface IProjection {
-		fromGlobalPixels(globalPixelPoint: number[], zoom: number): number[];
+    interface IProjection {
+        fromGlobalPixels(globalPixelPoint: number[], zoom: number): number[];
 
-		getCoordSystem(): ICoordSystem;
+        getCoordSystem(): ICoordSystem;
 
-		isCycled(): boolean[];
+        isCycled(): boolean[];
 
-		toGlobalPixels(coordPoint: number[], zoom: number): number[];
-	}
+        toGlobalPixels(coordPoint: number[], zoom: number): number[];
+    }
 
-	interface IRoutePanel {
-		options: IOptionManager;
-		state: IDataManager;
+    interface IRoutePanel {
+        options: IOptionManager;
+        state: IDataManager;
 
-		getRoute(): multiRouter.MultiRoute;
+        getRoute(): multiRouter.MultiRoute;
 
-		switchPoints(): void;
-	}
+        switchPoints(): void;
+    }
 
-	interface ISearchControlLayout extends IExpandableControlLayout { //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface ISearchControlLayout extends IExpandableControlLayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
-	interface ISelectableControl extends IControl {
-		deselect(): void;
+    interface ISelectableControl extends IControl {
+        deselect(): void;
 
-		disable(): void;
+        disable(): void;
 
-		enable(): void;
+        enable(): void;
 
-		isEnabled(): boolean;
+        isEnabled(): boolean;
 
-		isSelected(): boolean;
+        isSelected(): boolean;
 
-		select(): void;
-	}
+        select(): void;
+    }
 
-	interface ISelectableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
-	}
+    interface ISelectableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
-	interface IShape {
-		contains(position: number[]): boolean;
+    interface IShape {
+        contains(position: number[]): boolean;
 
-		equals(shape: IShape): boolean;
+        equals(shape: IShape): boolean;
 
-		getBounds(): number[][] | null;
+        getBounds(): number[][] | null;
 
-		getGeometry(): IPixelGeometry;
+        getGeometry(): IPixelGeometry;
 
-		getType(): string;
+        getType(): string;
 
-		scale(factor: number): IShape;
+        scale(factor: number): IShape;
 
-		shift(offset: number[]): IShape;
-	}
-	class Monitor {
-    	constructor(dataManager: IDataManager | IOptionManager);
-   		add(name: string[] | string, changeCallback: (event: (object | IEvent)) => void, context?: any, params?: any): Monitor;
-    	forceChange(): Monitor;
-    	get(name: string): any;
-    	remove(name: string): Monitor;
-    	removeAll(): Monitor;
-	}
+        shift(offset: number[]): IShape;
+    }
+    class Monitor {
+        constructor(dataManager: IDataManager | IOptionManager);
+           add(name: string[] | string, changeCallback: (event: (object | IEvent)) => void, context?: any, params?: any): Monitor;
+        forceChange(): Monitor;
+        get(name: string): any;
+        remove(name: string): Monitor;
+        removeAll(): Monitor;
+    }
+
+    interface IObjectManagerOptions {
+        clusterize?: boolean;
+        syncOverlayInit?: boolean;
+        viewportMargin?: number | number[];
+        clusterHasBalloon?: boolean;
+        geoObjectOpenBalloonOnClick?: boolean;
+    }
+
+    class ObjectManager {
+        constructor(options: IObjectManagerOptions);
+
+        add(params: object): ObjectManager;
+
+        objects: objectManager.ObjectCollection;
+
+        removeAll(): this;
+    }
+
+    namespace objectManager {
+        class ObjectCollection implements ICollection, ICustomizable {
+            options: option.Manager;
+
+            events: IEventManager;
+
+            add(object: object): this;
+
+            getIterator(): IIterator;
+
+            remove(object: object): this;
+
+            getById(id: string | null | undefined): object | null;
+        }
+    }
+
+    namespace modules {
+        function require(modules: string | string[]): vow.Promise;
+    }
+
+    class Hotspot implements IHotspot {
+        constructor(shape: IShape, zIndex?: number);
+
+        events: IEventManager;
+    }
+
+    interface IHotspot extends IDomEventEmitter {
+        events: IEventManager;
+    }
 }
 
 export = ymaps;

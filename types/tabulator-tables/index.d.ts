@@ -1,8 +1,8 @@
-// Type definitions for tabulator-tables 4.6
+// Type definitions for tabulator-tables 4.8
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 // tslint:disable:max-line-length
 // tslint:disable:jsdoc-format
@@ -38,9 +38,9 @@ declare namespace Tabulator {
         dataTree?: boolean;
         /**  By default the toggle element will be inserted into the first column on the table. If you want the toggle element to be inserted in a different column you can pass the feild name of the column to the dataTreeElementColumn setup option*/
         dataTreeElementColumn?: boolean | string;
-        /** Show tree branch icon	 */
+        /** Show tree branch icon     */
         dataTreeBranchElement?: boolean | string;
-        /** Tree level indent in pixels	 */
+        /** Tree level indent in pixels     */
         dataTreeChildIndent?: number;
         /** By default Tabulator will look for child rows in the _children field of a row data object. You can change this to look in a different field using the dataTreeChildField property in your table constructor: */
         dataTreeChildField?: string;
@@ -55,6 +55,8 @@ declare namespace Tabulator {
         dataTreeStartExpanded?: boolean | boolean[] | ((row: RowComponent, level: number) => boolean);
         /**Propagte selection events from parent rows to children */
         dataTreeSelectPropagate?: boolean;
+        dataTreeFilter?: boolean;
+        dataTreeSort?: boolean;
     }
     interface OptionsClipboard {
         /** You can enable clipboard functionality using the clipboard config option. It can take one of four possible values:
@@ -103,18 +105,28 @@ declare namespace Tabulator {
         clipboardPasted?: () => void;
         /** The clipboardPasteError event is triggered whenever an atempt to paste data into the table has failed because it was rejected by the paste parser. */
         clipboardPasteError?: () => void;
+
+        /**When copying to clipboard you may want to apply a different group header from the one usualy used in the table. You can now do this using the groupHeaderClipboard table option, which takes the same inputs as the standard groupHeader property. */
+        groupHeaderClipboard?:
+            | ((value: any, count: number, data: any, group: GroupComponent) => string)
+            | Array<(value: any, count: number, data: any) => string>;
+
+        /**When the getHtml function is called you may want to apply a different group header from the one usualy used in the table. You can now do this using the groupHeaderHtmlOutput table option, which takes the same inputs as the standard groupHeader property. */
+        groupHeaderHtmlOutput?:
+            | ((value: any, count: number, data: any, group: GroupComponent) => string)
+            | Array<(value: any, count: number, data: any) => string>;
     }
 
     interface OptionsPersistentConfiguration {
-        /** ID tag used to identify persistent storage information	 */
+        /** ID tag used to identify persistent storage information     */
         persistenceID?: string;
         /**  Persistence information can either be stored in a cookie or in the localSotrage object, you can use the persistenceMode to choose which. It can take three possible values:
 
       local - (string) Store the persistence information in the localStorage object
       cookie - (string) Store the persistence information in a cookie
-      true - (boolean) check if localStorage is available and store persistence information, otherwise store in cookie (Default option)	*/
+      true - (boolean) check if localStorage is available and store persistence information, otherwise store in cookie (Default option)    */
         persistenceMode?: 'local' | 'cookie' | true;
-        /** Enable persistsnt storage of column layout information	 */
+        /** Enable persistsnt storage of column layout information     */
         persistentLayout?: boolean;
         /** You can ensure the data sorting is stored for the next page load by setting the persistentSort option to true */
         persistentSort?: boolean;
@@ -147,17 +159,17 @@ declare namespace Tabulator {
     }
 
     interface OptionsPagination {
-        /** Choose pagination method, "local" or "remote"	 */
+        /** Choose pagination method, "local" or "remote"     */
         pagination?: 'remote' | 'local';
-        /** Set the number of rows in each page	 */
+        /** Set the number of rows in each page     */
         paginationSize?: number;
         /**  Setting this option to true will cause Tabulator to create a list of page size options, that are multiples of the current page size. In the example below, the list will have the values of 5, 10, 15 and 20.
 
-    When using the page size selector like this, if you use the setPageSize function to set the page size to a value not in the list, the list will be regenerated using the new page size as the starting valuer	*/
-        paginationSizeSelector?: true | number[];
+    When using the page size selector like this, if you use the setPageSize function to set the page size to a value not in the list, the list will be regenerated using the new page size as the starting valuer    */
+        paginationSizeSelector?: true | number[] | any[];
         /**  By default the pagination controls are added to the footer of the table. If you wish the controls to be created in another element pass a DOM node or a CSS selector for that element to the paginationElement option.*/
         paginationElement?: HTMLElement | string;
-        /** Lookup list to link expected data feilds from the server to their function	* default* {
+        /** Lookup list to link expected data feilds from the server to their function    * default* {
         "current_page":"current_page",
         "last_page":"last_page",
         "data":"data",
@@ -170,7 +182,7 @@ declare namespace Tabulator {
         "sorters":"sorters",
         "filters":"filters",
         }
-    	 */
+         */
         paginationDataSent?: Record<string, string>;
         /** When using the addRow function on a paginated table, rows will be added relative to the current page (ie to the top or bottom of the current page), with overflowing rows being shifted onto the next page.
 
@@ -186,15 +198,20 @@ declare namespace Tabulator {
     }
 
     interface OptionsRowGrouping {
-        /** String/function to select field to group rows by	 */
+        /** String/function to select field to group rows by     */
         groupBy?: string | ((data: any) => any);
         /** By default Tabulator will create groups for rows based on the values contained in the row data. if you want to explicitly define which field values groups should be created for at each level, you can use the groupValues option.
 
-    This option takes an array of value arrays, each item in the first array should be a list of acceptable field values for groups at that level	 */
-        groupValues?: any[][];
+    This option takes an array of value arrays, each item in the first array should be a list of acceptable field values for groups at that level     */
+        groupValues?: GroupValuesArg;
 
-        /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option.	 */
+        /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option.     */
         groupHeader?:
+            | ((value: any, count: number, data: any, group: GroupComponent) => string)
+            | Array<(value: any, count: number, data: any) => string>;
+
+        /**When printing you may want to apply a different group header from the one usualy used in the table. You can now do this using the groupHeaderPrint table option, which takes the same inputs as the standard groupHeader property. */
+        groupHeaderPrint?:
             | ((value: any, count: number, data: any, group: GroupComponent) => string)
             | Array<(value: any, count: number, data: any) => string>;
 
@@ -215,7 +232,7 @@ declare namespace Tabulator {
      */
         groupToggleElement?: 'arrow' | 'header' | false;
 
-        /** show/hide column calculations when group is closed	 */
+        /** show/hide column calculations when group is closed     */
         groupClosedShowCalcs?: boolean;
 
         /** The dataGrouping callback is triggered whenever a data grouping event occurs, before grouping happens. */
@@ -239,6 +256,7 @@ declare namespace Tabulator {
         groupDblTap?: GroupEventCallback;
         /** The groupTapHold callback is triggered when a user taps on a group header on a touch display and holds their finger down for over 1 second */
         groupTapHold?: GroupEventCallback;
+        groupUpdateOnCellEdit?: boolean;
     }
 
     interface Filter {
@@ -247,13 +265,17 @@ declare namespace Tabulator {
         value: any;
     }
 
-    type FilterFunction = (field: string, type: FilterType, value: any) => void;
+    interface FilterParams {
+        separator?: string;
+        matchAll?: boolean;
+    }
+    type FilterFunction = (field: string, type: FilterType, value: any, filterParams?: FilterParams) => void;
 
     interface OptionsFiltering {
-        /** Array of filters to be applied on load.	 */
+        /** Array of filters to be applied on load.     */
         initialFilter?: Filter[];
 
-        /** array of initial values for header filters.	 */
+        /** array of initial values for header filters.     */
         initialHeaderFilter?: Array<Pick<Filter, 'field' | 'value'>>;
 
         /** The dataFiltering callback is triggered whenever a filter event occurs, before the filter happens. */
@@ -265,10 +287,10 @@ declare namespace Tabulator {
         headerFilterLiveFilterDelay?: number;
     }
     interface OptionsSorting {
-        /** Array of sorters to be applied on load.	 */
+        /** Array of sorters to be applied on load.     */
         initialSort?: Sorter[];
 
-        /** reverse the order that multiple sorters are applied to the table.	 */
+        /** reverse the order that multiple sorters are applied to the table.     */
         sortOrderReverse?: boolean;
     }
 
@@ -276,19 +298,27 @@ declare namespace Tabulator {
         column: string;
         dir: SortDirection;
     }
+    interface SorterFromTable {
+        /** The column component for the sorted column. */
+        column: ColumnComponent;
+        /** A string of the field name for the sorted column. */
+        field: string;
+        /** A string of either `asc` or `desc` indicating the direction of sort. */
+        dir: SortDirection;
+    }
     interface OptionsData {
         /** A unique index value should be present for each row of data if you want to be able to programatically alter that data at a later point, this should be either numeric or a string. By default Tabulator will look for this value in the id field for the data. If you wish to use a different field as the index, set this using the index option parameter. */
         index?: number | string;
-        /** Array to hold data that should be loaded on table creation	 */
+        /** Array to hold data that should be loaded on table creation     */
         data?: any[];
 
         /** If you wish to retrieve your data from a remote source you can set the URL for the request in the ajaxURL option. */
         ajaxURL?: string;
 
-        /** Parameters to be passed to remote Ajax data loading request	 */
+        /** Parameters to be passed to remote Ajax data loading request     */
         ajaxParams?: {};
 
-        /** The HTTP request type for Ajax requests or config object for the request	 */
+        /** The HTTP request type for Ajax requests or config object for the request     */
         ajaxConfig?: HttpMethod | AjaxConfig;
 
         /** When using a request method other than "GET" Tabulator will send any parameters with a content type of form data. You can change the content type with the ajaxContentType option. This will ensure parameters are sent in the format you expect, with the correct headers. * * The ajaxContentType option can take one of two values:
@@ -304,13 +334,13 @@ declare namespace Tabulator {
     The callback should return a string representing the URL to be requested. */
         ajaxURLGenerator?: (url: string, config: any, params: any) => string;
 
-        /** callback function to replace inbuilt ajax request functionality	 */
+        /** callback function to replace inbuilt ajax request functionality     */
         ajaxRequestFunc?: (url: string, config: any, params: any) => Promise<any>;
 
-        /** Send filter config to server instead of processing locally	 */
+        /** Send filter config to server instead of processing locally     */
         ajaxFiltering?: boolean;
 
-        /** Send sorter config to server instead of processing locally	 */
+        /** Send sorter config to server instead of processing locally     */
         ajaxSorting?: boolean;
 
         /** If you are loading a lot of data from a remote source into your table in one go, it can sometimes take a long time for the server to return the request, which can slow down the user experience.
@@ -319,19 +349,19 @@ declare namespace Tabulator {
 
       With this mode enabled, all of the settings outlined in the Ajax Documentation are still available
 
-      There are two different progressive loading modes, to give you a choice of how data is loaded into the table.	 */
+      There are two different progressive loading modes, to give you a choice of how data is loaded into the table.     */
         ajaxProgressiveLoad?: 'load' | 'scroll';
         /** By default tabulator will make the requests to fill the table as quickly as possible. On some servers these repeates requests from the same client may trigger rate limiting or security systems. In this case you can use the ajaxProgressiveLoadDelay option to add a delay in milliseconds between each page request. */
         ajaxProgressiveLoadDelay?: number;
         /** The ajaxProgressiveLoadScrollMargin property determines how close to the bottom of the table in pixels, the scroll bar must be before the next page worth of data is loaded, by default it is set to twice the height of the table. */
         ajaxProgressiveLoadScrollMargin?: number;
 
-        /** Show loader while data is loading, can also take a function that must return a boolean	 */
+        /** Show loader while data is loading, can also take a function that must return a boolean     */
         ajaxLoader?: boolean | (() => boolean);
 
-        /** html for loader element	 */
+        /** html for loader element     */
         ajaxLoaderLoading?: string;
-        /** html for the loader element in the event of an error	 */
+        /** html for the loader element in the event of an error     */
         ajaxLoaderError?: string;
 
         /** The ajaxRequesting callback is triggered when ever an ajax request is made. */
@@ -427,6 +457,11 @@ declare namespace Tabulator {
             | 'update'
             | 'replace'
             | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => any);
+
+        movableRowsConnectedElements?: string | HTMLElement;
+
+        /**When a row is dropped on element from from the movableRowsConnectedElements option the movableRowsElementDrop callback will be triggered. You can use this callback to trigger any changes as a result of the drop */
+        movableRowsElementDrop?: (e: MouseEvent, element: HTMLElement, row: RowComponent) => any;
 
         /** You can allow the user to manually resize rows by dragging the top or bottom border of a row. To enable this functionality, set the resizableRows property to true */
         resizableRows?: boolean;
@@ -529,9 +564,13 @@ declare namespace Tabulator {
          * If you set the autoColumns option to true, every time data is loaded into the table through the data option or through the setData function, Tabulator will examine the first row of the data and build columns to match that data.
          */
         autoColumns?: boolean;
+        autoColumnsDefinitions?:
+            | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
+            | ColumnDefinition[]
+            | Record<string, Partial<ColumnDefinition>>;
 
         /** By default Tabulator will use the fitData layout mode, which will resize the tables columns to fit the data held in each column, unless you specify a width or minWidth in the column constructor. If the width of all columns exceeds the width of the containing element, a scroll bar will appear. */
-        layout?: 'fitData' | 'fitColumns' | 'fitDataFill' | 'fitDataStretch';
+        layout?: 'fitData' | 'fitColumns' | 'fitDataFill' | 'fitDataStretch' | 'fitDataTable';
 
         /** To keep the layout of the columns consistent, once the column widths have been set on the first data load (either from the data property in the constructor or the setData function) they will not be changed when new data is loaded.
 
@@ -634,6 +673,7 @@ declare namespace Tabulator {
 
         /**By setting the headerVisible option to false you can hide the column headers and present the table as a simple list if needed. */
         headerVisible?: boolean;
+        headerHozAlign?: ColumnDefinitionAlign;
 
         /**If you don't want to show a particular column in the print table you can set the print property in its column definition object to false */
         print?: boolean;
@@ -643,6 +683,7 @@ declare namespace Tabulator {
 
         /** The headerSortTristate option can now be set in the table options to affect all columns as well as in column definitions.*/
         headerSortTristate?: boolean;
+        headerSortElement?: string;
     }
 
     interface OptionsCell {
@@ -666,30 +707,31 @@ declare namespace Tabulator {
     }
 
     interface OptionsGeneral {
-        /** Sets the height of the containing element, can be set to any valid height css value. If set to false (the default), the height of the table will resize to fit the table data.	 */
+        /** Sets the height of the containing element, can be set to any valid height css value. If set to false (the default), the height of the table will resize to fit the table data.     */
         height?: string | number | false;
         /** Can be set to any valid CSS value. By setting this you can allow your table to expand to fit the data, but not overflow its parent element. Whene there are too many rows to fit in the available space, the vertical scroll bar will be shown. This has the added benefit of improving load times on larger tables */
         maxHeight?: string | number;
         /** With a variable table height you can set the minimum height of the table either defined in the min-height CSS property for the element or set it using the minHeight option in the table constructor, this can be set to any valid CSS value  */
         minHeight?: string | number;
 
-        /** Enable rendering using the Virtual DOM engine	 */
+        /** Enable rendering using the Virtual DOM engine     */
         virtualDom?: boolean;
 
-        /** Manually set the size of the virtual DOM buffer	 */
+        /** Manually set the size of the virtual DOM buffer     */
         virtualDomBuffer?: boolean | number;
-        /** placeholder element to display on empty table	 */
+        virtualDomHoz?: boolean;
+        /** placeholder element to display on empty table     */
         placeholder?: string | HTMLElement;
 
-        /** Footer  element to display for the table	 */
+        /** Footer  element to display for the table     */
         footerElement?: string | HTMLElement;
 
-        /** Function to generate tooltips for cells	 */
+        /** Function to generate tooltips for cells     */
         tooltips?: GlobalTooltipOption;
-        /** When to regenerate cell tooltip value	 */
+        /** When to regenerate cell tooltip value     */
         tooltipGenerationMode?: 'load' | 'hover';
 
-        /** Keybinding configuration object	 */
+        /** Keybinding configuration object     */
         keybindings?: false | KeyBinding;
 
         /** * The reactivity systems allow Tabulator to watch arrays and objects passed into the table for changes and then automatically update the table.
@@ -735,8 +777,8 @@ declare namespace Tabulator {
         dataLoading?: (data: any) => void;
         /** The dataLoaded callback is triggered when a new set of data is loaded into the table. */
         dataLoaded?: (data: any) => void;
-        /** The dataEdited callback is triggered whenever the table data is changed by the user. Triggers for this include editing any cell in the table, adding a row and deleting a row. */
-        dataEdited?: (data: any) => void;
+        /** The dataChanged callback is triggered whenever the table data is changed by the user. Triggers for this include editing any cell in the table, adding a row and deleting a row. */
+        dataChanged?: (data: any) => void;
 
         /** Whenever a page has been loaded, the pageLoaded callback is called, passing the current page number as an argument. */
         pageLoaded?: (pageno: number) => void;
@@ -755,22 +797,38 @@ declare namespace Tabulator {
 
         /** Callback is triggered when the table is horizontally scrolled. */
         scrollHorizontal?: (left: any) => void;
+
+        /**There are now three different validation modes available to customise the validation experience:
+
+        blocking - if a user enters an invalid value while editing, they are blocked from leaving the cell until a valid value is entered (default)
+        
+        highlight - if a user enters an invalid value, then the edit will complete as usual and they are allowed to exit the cell but a highlight is applied to the cell using the tabulator-validation-fail class
+        
+        manual - no vaildation is automatically performed on edit, but it can be triggered by calling the validate funtion on the table or any Component Object */
+        validationMode?: 'blocking' | 'highlight' | 'manual';
+        textDirection?: TextDirection;
     }
 
     interface OptionsMenu {
-        rowContextMenu?:
-            | MenuObject[]
-            | MenuSeparator[]
-            | ((component: RowComponent | CellComponent | ColumnComponent) => MenuObject | false | any[]);
+        rowContextMenu?: RowContextMenuSignature;
+        rowClickMenu?: RowContextMenuSignature;
+        groupClickMenu?: GroupContextMenuSignature;
+
+        groupContextMenu?: Array<MenuObject<GroupComponent>>;
     }
 
-    interface MenuObject extends MenuSeparator {
-        label:
-            | string
-            | HTMLElement
-            | ((component: RowComponent | CellComponent | ColumnComponent) => string | HTMLElement);
-        action: (e: any, component: RowComponent | CellComponent | ColumnComponent) => any;
-        disabled?: boolean | ((component: RowComponent | CellComponent | ColumnComponent) => boolean);
+    type RowContextMenuSignature =
+        | Array<MenuObject<RowComponent> | MenuSeparator>
+        | ((component: RowComponent, e: MouseEvent) => MenuObject<RowComponent> | false | any[]);
+
+    type GroupContextMenuSignature =
+        | Array<MenuObject<GroupComponent> | MenuSeparator>
+        | ((component: GroupComponent, e: MouseEvent) => MenuObject<GroupComponent> | false | any[]);
+
+    interface MenuObject<T extends RowComponent | CellComponent | ColumnComponent | GroupComponent> {
+        label: string | HTMLElement | ((component: T) => string | HTMLElement);
+        action: (e: any, component: T) => any;
+        disabled?: boolean | ((component: T) => boolean);
     }
     interface MenuSeparator {
         separator?: boolean;
@@ -811,9 +869,6 @@ declare namespace Tabulator {
     }
 
     interface OptionsDownload {
-        /** If you want to make any bulk changes to the table data before it is parsed into the download file you can pass a mutator function to the downloadDataFormatter option in the table definition */
-        downloadDataFormatter?: (data: any[]) => any;
-
         /** The downloadReady callback allows you to intercept the download file data before the users is prompted to save the file.
 
     In order for the download to proceed the downloadReady callback is expected to return a blob of file to be downloaded.
@@ -829,6 +884,9 @@ declare namespace Tabulator {
     You can choose to remove column headers groups, row groups or column calculations from the output data by setting the values in the downloadConfig option in the table definition: */
 
         downloadConfig?: AddditionalExportOptions;
+
+        /**By deafault, only the active rows (rows that have passed filtering) will be included in the download the downloadRowRange option takes a Row Range Lookup value and allows you to choose which rows are included in the download output */
+        downloadRowRange?: RowRangeLookup;
     }
 
     interface OptionsHTML {
@@ -862,6 +920,10 @@ declare namespace Tabulator {
 
         /**The printFormatter table setup option allows you to carry out any manipulation of the print output before it is displayed to the user for printing*/
         printFormatter?: (tableHolderElement: any, tableElement: any) => any;
+
+        groupHeaderDownload?:
+            | ((value: any, count: number, data: any, group: GroupComponent) => string)
+            | Array<(value: any, count: number, data: any) => string>;
     }
 
     type StandardStringParam = string | HTMLElement | (() => string | HTMLElement);
@@ -893,7 +955,7 @@ declare namespace Tabulator {
 
     type HistoryAction = 'cellEdit' | 'rowAdd' | 'rowDelete' | 'rowMoved';
     interface OptionsHistory {
-        /** Enable user interaction history functionality	 */
+        /** Enable user interaction history functionality     */
         history?: boolean;
 
         /** The historyUndo event is triggered when the undo action is triggered. */
@@ -917,6 +979,7 @@ declare namespace Tabulator {
     interface ColumnDefinition extends ColumnLayout, CellCallbacks {
         /**If you want to set the horizontal alignment on a column by column basis, */
         hozAlign?: ColumnDefinitionAlign;
+        headerHozAlign?: ColumnDefinitionAlign;
         /**If you want to set the vertical alignment on a column by column basis */
         vertAlign?: VerticalAlign;
 
@@ -996,7 +1059,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         /** Validators are used to ensure that any user input into your editable cells matches your requirements.
 
     Validators can be applied by using the validator property in a columns definition object (see Define Columns for more details). */
-        validator?: StandardValidatorType | StandardValidatorType[] | Validator | Validator[];
+        validator?: StandardValidatorType | StandardValidatorType[] | Validator | Validator[] | string;
 
         /** Mutators are used to alter data as it is parsed into Tabulator. For example if you wanted to convert a numeric column into a boolean based on its value, before the data is used to build the table.
 
@@ -1037,7 +1100,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         /** show or hide column in downloaded data */
         download?: boolean;
         /** set custom title for column in download */
-        downloadTitle?: string;
+        titleDownload?: string;
 
         /**  the column calculation to be displayed at the top of this column(see Column Calculations for more details) */
         topCalc?: ColumnCalc;
@@ -1131,11 +1194,12 @@ You can pass an optional additional property with sorter, sorterParams that shou
         columns?: ColumnDefinition[];
 
         /**You can add a menu to any column by passing an array of menu items to the headerMenu option in that columns definition. */
-        headerMenu?: MenuObject[] | MenuSeparator[];
+        headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator>;
         /**You can add a right click context menu to any column by passing an array of menu items to the headerContextMenu option in that columns definition. */
-        headerContextMenu?: MenuObject[] | MenuSeparator[];
+        headerContextMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator>;
         /**You can add a right click context menu to any columns cells by passing an array of menu items to the contextMenu option in that columns definition. */
-        contextMenu?: MenuObject[] | MenuSeparator[];
+        contextMenu?: Array<MenuObject<CellComponent> | MenuSeparator>;
+        clickMenu?: Array<MenuObject<CellComponent> | MenuSeparator>;
         /**When copying to the clipboard you may want to apply a different formatter from the one usualy used to format the cell, you can do this using the formatterClipboard column definition option. You can use the formatterClipboardParams to pass in any additional params to the formatter */
         formatterClipboard?: Formatter | false;
         formatterClipboardParams?: FormatterParams;
@@ -1151,6 +1215,12 @@ You can pass an optional additional property with sorter, sorterParams that shou
         /**When the getHtml function is called you may want to apply a different formatter from the one usualy used to format the cell, you can do this using the formatterHtmlOutput column definition option */
         formatterHtmlOutput?: Formatter | false;
         formatterHtmlOutputParams?: FormatterParams;
+        /**When copying to clipboard you may want to apply a different columnheader title from the one usualy used in the table. You can now do this using the titleClipboard column definition option, which takes the same inputs as the standard title property. */
+        titleClipboard?: string;
+        /**When the getHtml function is called you may want to apply a different columnheader title from the one usualy used in the table. You can now do this using the titleHtmlOutput column definition option, which takes the same inputs as the standard title property. */
+        titleHtmlOutput?: string;
+        /**When printing you may want to apply a different columnheader title from the one usualy used in the table. You can now do this using the titlePrint column definition option, which takes the same inputs as the standard title property. */
+        titlePrint?: string;
     }
 
     interface CellCallbacks {
@@ -1200,6 +1270,8 @@ You can pass an optional additional property with sorter, sorterParams that shou
         type?: 'length' | 'sum' | 'max' | 'min' | 'avg';
     }
 
+    type GroupValuesArg = any[][];
+    type TextDirection = 'auto' | 'ltr' | 'rtl';
     type GlobalTooltipOption = boolean | ((cell: CellComponent) => string);
     type CustomMutator = (
         value: any,
@@ -1215,10 +1287,17 @@ You can pass an optional additional property with sorter, sorterParams that shou
         type: 'data' | 'download' | 'clipboard',
         AccessorParams: any,
         column?: ColumnComponent,
+        row?: RowComponent,
     ) => any;
     type CustomAccessorParams =
         | {}
-        | ((value: any, data: any, type: 'data' | 'download' | 'clipboard', column?: ColumnComponent) => any);
+        | ((
+              value: any,
+              data: any,
+              type: 'data' | 'download' | 'clipboard',
+              column?: ColumnComponent,
+              row?: RowComponent,
+          ) => any);
     type ColumnCalc =
         | 'avg'
         | 'max'
@@ -1259,6 +1338,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | TickCrossParams
         | TrafficParams
         | StarRatingParams
+        | RowSelectionParams
         | JSONRecord
         | ((cell: CellComponent) => {});
 
@@ -1323,6 +1403,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         inputFormat?: string;
         outputFormat?: string;
         invalidPlaceholder?: true | string | number | ValueStringCallback;
+        timezone?: string;
     }
 
     interface DateTimeDifferenceParams extends DateTimeParams {
@@ -1356,6 +1437,10 @@ You can pass an optional additional property with sorter, sorterParams that shou
     interface StarRatingParams {
         // Star Rating
         stars?: number;
+    }
+
+    interface RowSelectionParams {
+        rowRange?: RowRangeLookup;
     }
 
     interface SharedEditorParams {
@@ -1413,12 +1498,14 @@ You can pass an optional additional property with sorter, sorterParams that shou
         values: true | string[] | JSONRecord | SelectParamsGroup[] | string;
         listItemFormatter?: (value: string, text: string) => string;
         verticalNavigation?: 'editor' | 'table' | 'hybrid';
+        multiselect?: boolean | number;
     }
 
     interface SelectParamsGroup {
         label: string;
         value?: string | number | boolean;
         options?: SelectLabelValue[];
+        elementAttributes?: {};
     }
     interface SelectLabelValue {
         label: string;
@@ -1426,7 +1513,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
     }
 
     interface AutoCompleteParams extends SharedEditorParams, SharedSelectAutoCompleteEditorParams {
-        values: true | string[] | JSONRecord | string;
+        values: true | string[] | JSONRecord | string | any[];
         listItemFormatter?: (value: string, text: string) => string;
         searchFunc?: (term: string, values: string[]) => string[] | Promise<string[]>;
         allowEmpty?: boolean;
@@ -1444,15 +1531,15 @@ You can pass an optional additional property with sorter, sorterParams that shou
     type ValueBooleanCallback = (value: any) => boolean;
     type ValueVoidCallback = (value: any) => void;
     type EmptyCallback = (callback: () => void) => void;
-    type CellEventCallback = (e: any, cell: CellComponent) => void;
+    type CellEventCallback = (e: UIEvent, cell: CellComponent) => void;
     type CellEditEventCallback = (cell: CellComponent) => void;
-    type ColumnEventCallback = (e: any, column: ColumnComponent) => void;
-    type RowEventCallback = (e: any, row: RowComponent) => void;
+    type ColumnEventCallback = (e: UIEvent, column: ColumnComponent) => void;
+    type RowEventCallback = (e: UIEvent, row: RowComponent) => void;
     type RowChangedCallback = (row: RowComponent) => void;
-    type GroupEventCallback = (e: any, group: GroupComponent) => void;
+    type GroupEventCallback = (e: UIEvent, group: GroupComponent) => void;
 
     type SortDirection = 'asc' | 'desc';
-    type FilterType = '=' | '!=' | 'like' | '<' | '>' | '<=' | '>=' | 'in' | 'regex';
+    type FilterType = '=' | '!=' | 'like' | '<' | '>' | '<=' | '>=' | 'in' | 'regex' | 'starts' | 'ends';
     type Color = string | any[] | ValueStringCallback;
     type Align = 'center' | 'left' | 'right' | 'justify';
 
@@ -1468,7 +1555,6 @@ You can pass an optional additional property with sorter, sorterParams that shou
 
     type ColumnLookup = ColumnComponent | ColumnDefinition | HTMLElement | string;
     type RowLookup = RowComponent | HTMLElement | string | number | number[] | string[];
-    type VisibleRowRangeLookup = 'active' | 'visible';
     type RowRangeLookup = 'visible' | 'active' | 'selected' | 'all';
 
     interface KeyBinding {
@@ -1504,7 +1590,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         down: () => void;
     }
 
-    interface RowComponent {
+    interface CalculationComponent {
         /** The getData function returns the data object for the row.*/
         getData: () => any;
         /** The getElement function returns the DOM node for the row.*/
@@ -1512,16 +1598,18 @@ You can pass an optional additional property with sorter, sorterParams that shou
 
         /** The getTable function returns the Tabulator object for the table containing the row. */
         getTable: () => Tabulator;
+        /** The getCells function returns an array of CellComponent objects, one for each cell in the row.*/
+        getCells: () => CellComponent[];
+        /** The getCell function returns the CellComponent for the specified column from this row.*/
+        getCell: (column: ColumnComponent | HTMLElement | string) => CellComponent;
+    }
 
+    interface RowComponent extends CalculationComponent {
         /** The getNextRow function returns the Row Component for the next visible row in the table, if there is no next row it will return a value of false */
         getNextRow: () => RowComponent | false;
         /** The getNextRow function returns the Row Component for the previous visible row in the table, if there is no next row it will return a value of false */
         getPrevRow: () => RowComponent | false;
 
-        /** The getCells function returns an array of CellComponent objects, one for each cell in the row.*/
-        getCells: () => CellComponent[];
-        /** The getCell function returns the CellComponent for the specified column from this row.*/
-        getCell: (column: ColumnComponent | HTMLElement | string) => CellComponent;
         /** The getIndex function returns the index value for the row. (this is the value from the defined index column, NOT the row's position in the table)*/
         getIndex: () => any;
 
@@ -1586,6 +1674,22 @@ You can pass an optional additional property with sorter, sorterParams that shou
         getTreeParent: () => RowComponent | false;
         /** When the tree structure is enabled the getTreeChildren function will return an array of Row Components for this rows children. */
         getTreeChildren: () => RowComponent[];
+        /**Add child rows to a data tree row
+         *
+         * The first argument should be a row data object. If you do not pass data for a column, it will be left empty. To create a blank row (ie for a user to fill in), pass an empty object to the function.
+         *
+         * The second argument is optional and determines whether the row is added to the top or bottom of the array of child rows. A value of true will add the row to the top of the array, a value of false will add the row to the bottom of the array. If the parameter is not set the row will be placed according to the addRowPos global option.
+         *
+         * If you want to add the row next to an existing row you can pass an optional third argument to the function that will position the new row next to the specified row (above or below based on the value of the second argument). This argument will take any of the standard row component look up options. This must be a row that has the same parent as the row you want to add
+         **/
+        addTreeChild: (rowData: {}, position?: boolean, existingRow?: RowComponent) => void;
+
+        /**You can validate the whole table in one go by calling the validate method on the table instance.
+       *
+        This will return a value of true if every cell passes validation, if any cells fail, then it will return an array of Cell Components representing each cell in that row that has failed validation.     */
+        validate: () => true | CellComponent[];
+        /**The isFrozen function on a Row Component will return a boolean representing the current frozen state of the row. */
+        isFrozen: () => boolean;
     }
 
     interface GroupComponent {
@@ -1610,8 +1714,8 @@ You can pass an optional additional property with sorter, sorterParams that shou
         /** The getParentGroup function returns the GroupComponent for the parent group of this group. if no parent exists, this function will return false */
         getParentGroup: () => GroupComponent | false;
 
-        /**  The getVisibility function returns a boolean to show if the group is visible, a value of true means it is visible.*/
-        getVisibility: () => boolean;
+        /**  The isVisible function returns a boolean to show if the group is visible, a value of true means it is visible.*/
+        isVisible: () => boolean;
 
         /** The show function shows the group if it is hidden. */
         show: () => void;
@@ -1641,8 +1745,8 @@ You can pass an optional additional property with sorter, sorterParams that shou
         /**You can move a column component next to another column using the move function */
         move: (toColumn: ColumnLookup, after: boolean) => void;
 
-        /** The getVisibility function returns a boolean to show if the column is visible, a value of true means it is visible.*/
-        getVisibility: () => boolean;
+        /** The isVisible function returns a boolean to show if the column is visible, a value of true means it is visible.*/
+        isVisible: () => boolean;
         /** The show function shows the column if it is hidden.*/
         show: () => void;
         /** The hide function hides the column if it is visible.*/
@@ -1670,6 +1774,15 @@ You can pass an optional additional property with sorter, sorterParams that shou
 
         /** Update the definition of a column */
         updateDefinition: (definition: ColumnDefinition) => Promise<void>;
+        /**rRturns the width of the column in pixels */
+        getWidth: () => number;
+        /**You can set the width of a column using the setWidth function, passing the width of the column in pixes as an integer as the first argument.Passing a value of true to the function will resize the column to fit its contents */
+        setWidth: (width: number | true) => void;
+
+        /**You can validate a column
+       *
+        This will return a value of true if every cell passes validation, if any cells fail, then it will return an array of Cell Components representing each cell in that column that has failed validation.             */
+        validate: () => true | CellComponent[];
     }
 
     interface CellComponent {
@@ -1679,8 +1792,10 @@ You can pass an optional additional property with sorter, sorterParams that shou
         getOldValue: () => any;
         /** The restoreOldValue reverts the value of the cell back to its previous value, without triggering any of the cell edit callbacks. */
         restoreOldValue: () => any;
-        /** The getElement function returns the DOM node for the cell. */
+        getInitialValue: () => any;
+        restoreInitialValue: () => any;
 
+        /** The getElement function returns the DOM node for the cell. */
         getElement: () => HTMLElement;
         /** The getTable function returns the Tabulator object for the table containing the cell. */
         getTable: () => Tabulator;
@@ -1704,6 +1819,17 @@ You can pass an optional additional property with sorter, sorterParams that shou
         cancelEdit: () => void;
         /** When a cell is being edited it is possible to move the editor focus from the current cell to one if its neighbours. There are a number of functions that can be called on the nav function to move the focus in different directions. */
         nav: () => CellNavigation;
+        /**You can call the isEdited function on any Cell Component to see if it has been editied. it will return true if it has been edited or false if it has not. */
+        isEdited: () => boolean;
+        /**The clearEdited can be called on a Cell Component to clear the edited flag used by the isEdited function and mark the cell as unedited. */
+        clearEdited: () => void;
+
+        /**The isValid can be called on a Cell Component to check if a cell has previously passed a validation check without revalidating it. */
+        isValid: () => boolean;
+        /**The clearValidation can be called on a Cell Component to clear the invalid flag used by the isValid function and mark the cell as valid. */
+        clearValidation: () => void;
+        /**You can validate a cell by calling the validate method on any Cell Component */
+        validate: () => boolean;
     }
 }
 
@@ -1737,7 +1863,7 @@ declare class Tabulator {
             | ((columns: Tabulator.ColumnDefinition[], data: any, options: any, setFileContents: any) => any),
         fileName: string,
         params?: Tabulator.DownloadOptions,
-        filter?: 'active' | 'all' | 'visible',
+        filter?: Tabulator.RowRangeLookup,
     ) => void;
 
     /** If you want to open the generated file in a new browser tab rather than downloading it straight away, you can use the downloadToTab function. This is particularly useful with the PDF downloader, as it allows you to preview the resulting PDF in a new browser ta */
@@ -1766,6 +1892,13 @@ declare class Tabulator {
 
     /** You can use the getHistoryRedoSize function to get a count of the number of history redo actions available.*/
     getHistoryRedoSize: () => number | false;
+
+    /**You can get a list of all editited cells in the table using the getEditedCells function. this will return an array of Cell Components for each cell that has been edited. */
+    getEditedCells: () => Tabulator.CellComponent[];
+
+    /**Clear the edited flag on all cells in the table or some of them */
+    clearCellEdited: (clear?: Tabulator.CellComponent | Tabulator.CellComponent[]) => void;
+
     /** Deconstructor */
     destroy: () => void;
     /** By default Tabulator will only allow files with a .json extension to be loaded into the table.
@@ -1776,8 +1909,8 @@ declare class Tabulator {
     /** You can remove all data from the table using clearData */
     clearData: () => void;
     /** You can retrieve the data stored in the table using the getData function. */
-    getData: (activeOnly?: Tabulator.VisibleRowRangeLookup) => any[];
-    getDataCount: (activeOnly?: Tabulator.VisibleRowRangeLookup) => number;
+    getData: (activeOnly?: Tabulator.RowRangeLookup) => any[];
+    getDataCount: (activeOnly?: Tabulator.RowRangeLookup) => number;
     /** The searchRows function allows you to retreive an array of row components that match any filters you pass in. it accepts the same arguments as the setFilter function. */
     searchRows: (field: string, type: Tabulator.FilterType, value: any) => Tabulator.RowComponent[];
     /** The searchData function allows you to retreive an array of table row data that match any filters you pass in. it accepts the same arguments as the setFilter function. */
@@ -1844,7 +1977,7 @@ declare class Tabulator {
 
   The second argument should be the updated data object for the row. As with the updateData function, this will not replace the existing row data object, it will only update any of the provided parameters.
   
-  Once complete, this function will trigger the rowUpdated and dataEdited events.
+  Once complete, this function will trigger the rowUpdated and dataChanged events.
 
   This function will return true if the update was successful or false if the requested row could not be found. If the new data matches the existing row data, no update will be performed.
   */
@@ -1870,7 +2003,7 @@ declare class Tabulator {
     The third argument determines whether the row is moved to above or below the target row. A value of false will cause to the row to be placed below the target row, a value of true will result in the row being placed above the target */
     moveRow: (fromRow: Tabulator.RowLookup, toRow: Tabulator.RowLookup, placeAboveTarget?: boolean) => void;
     /** You can retrieve all the row components in the table using the getRows function.* By default getRows will return an array containing all the Row Component's held in the Tabulator. If you only want to access the currently filtered/sorted elements, you can pass a value of true to the first argument of the function.*/
-    getRows: (activeOnly?: Tabulator.VisibleRowRangeLookup) => Tabulator.RowComponent[];
+    getRows: (activeOnly?: Tabulator.RowRangeLookup) => Tabulator.RowComponent[];
     /** Use the getRowPosition function to retrieve the numerical position of a row in the table. By default this will return the position of the row in all data, including data currently filtered out of the table.
 
     The first argument is the row you are looking for, it will take any of the standard row component look up options. If you want to get the position of the row in the currently filtered/sorted data, you can pass a value of true to the optional second argument of the function.
@@ -1883,7 +2016,7 @@ declare class Tabulator {
     /** To get an array of Column Components for the current table setup, call the getColumns function. This will only return actual data columns not column groups.
      ** To get a structured array of Column Components that includes column groups, pass a value of true as an argument.
      */
-    getColumns: (includeColumnGroups?: boolean) => Tabulator.ColumnComponent[] | Tabulator.GroupComponent[];
+    getColumns: (includeColumnGroups?: boolean) => Tabulator.ColumnComponent[];
     /** Using the getColumn function you can retrieve the Column Component  */
     getColumn: (column: Tabulator.ColumnLookup) => Tabulator.ColumnComponent;
     /** To get the current column definition array (including any changes made through user actions, such as resizing or re-ordering columns), call the getColumnDefinitions function. this will return the current columns definition array. */
@@ -1953,7 +2086,8 @@ declare class Tabulator {
     setHeight: (height: number | string) => void;
     /** You can trigger sorting using the setSort function */
     setSort: (sortList: string | Tabulator.Sorter[], dir?: Tabulator.SortDirection) => void;
-    getSorters: () => void;
+    /** Retrieves the details of the currently sorted column. */
+    getSorters: () => Tabulator.SorterFromTable[];
     /** To remove all sorting from the table, call the clearSort function. */
     clearSort: () => void;
     /** To set a filter you need to call the setFilter method, passing the field you wish to filter, the comparison type and the value to filter for.
@@ -1966,6 +2100,7 @@ declare class Tabulator {
         p1: string | Tabulator.Filter[] | any[] | ((data: any, filterParams: any) => boolean),
         p2?: Tabulator.FilterType | {},
         value?: any,
+        filterParams?: Tabulator.FilterParams,
     ) => void;
     /** If you want to add another filter to the existing filters then you can call the addFilter function: */
     addFilter: Tabulator.FilterFunction;
@@ -1991,7 +2126,7 @@ declare class Tabulator {
     /** To programmatically select a row you can use the selectRow function.
 
     To select a specific row you can pass the any of the standard row component look up options into the first argument of the function. If you leave the argument blank you will select all rows (if you have set the selectable option to a numeric value, it will be ignored when selecting all rows). If lookup value is true you will selected all current filtered rows.*/
-    selectRow: (lookup?: Tabulator.RowLookup[] | 'all' | 'active' | 'visible' | true) => void;
+    selectRow: (lookup?: Tabulator.RowLookup[] | Tabulator.RowRangeLookup | true) => void;
     deselectRow: (row?: Tabulator.RowLookup) => void;
     toggleSelectRow: (row?: Tabulator.RowLookup) => void;
     /** To get the RowComponent's for the selected rows at any time you can use the getSelectedRows function.
@@ -2115,6 +2250,17 @@ declare class Tabulator {
     The function takes three arguments, the name of the module, the name of the property you want to extend, and an object containing the elements you want to add in your module. In the example below we extend the format module to add two new default formatters: */
     extendModule: (name: string, property: string, values: {}) => void;
 
-    /** Lookup the table object for any existing table using the element they were created on. */
-    findTable: (query: string) => Tabulator;
+    /** Lookup table objects for any existing table using the element they were created on. */
+    findTable: (query: string) => Tabulator[];
+
+    /**The getInvalidCells method returns an array of Cell Components for all cells flagged as invalid after a user edit. */
+    getInvalidCells: () => Tabulator.CellComponent[];
+    /** clear the invalid state on all cells in the table */
+    clearCellValidation: (clearType?: Tabulator.CellComponent | Tabulator.CellComponent[]) => void;
+    /**You can validate the whole table in one go by calling the validate method on the table instance.
+     *
+     * This will return a value of true if every cell passes validation, if any cells fail, then it will return an array of Cell Components representing each cell that has failed validation.
+     */
+    validate: () => true | Tabulator.CellComponent[];
+    setGroupValues: (data: Tabulator.GroupValuesArg) => void;
 }

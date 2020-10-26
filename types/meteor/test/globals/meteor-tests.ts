@@ -644,6 +644,30 @@ Meteor.methods({
 });
 
 /**
+ * From Match.test section
+ */
+
+var value2: unknown;
+
+// Will return true for `{ foo: 1, bar: 'hello' }` or similar.
+if (Match.test(value2, { foo: Match.Integer, bar: String })) {
+    // $ExpectType { foo: number; bar: string; }
+    value2;
+}
+
+// Will return true if `value` is a string.
+if (Match.test(value2, String)) {
+    // $ExpectType string
+    value2;
+}
+
+// Will return true if `value` is a string or an array of numbers.
+if (Match.test(value2, Match.OneOf(String, [Number]))) {
+    // $ExpectType string | number[]
+    value2;
+}
+
+/**
  * From Match patterns section
  */
 var pat = { name: Match.Optional('test') };
@@ -717,7 +741,21 @@ Meteor.methods({
 
 HTTP.call("POST", "http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
-    function (error: Meteor.Error, result: any) {
+    function (error, result) {
+        error; // $ExpectType Error
+        result; // $ExpectType HTTPResponse
+
+        if (result.statusCode === 200) {
+            Session.set("twizzled", true);
+        }
+    });
+
+HTTP.post("http://api.twitter.com/xyz",
+    { data: { some: "json", stuff: 1 } },
+    function (error, result) {
+        error; // $ExpectType Error
+        result; // $ExpectType HTTPResponse
+
         if (result.statusCode === 200) {
             Session.set("twizzled", true);
         }
@@ -939,3 +977,14 @@ Meteor.absoluteUrl.defaultOptions = {
   rootUrl: 'http://123.com',
   secure: false
 };
+
+// EnvironmentVariable
+const scopedCounter = new Meteor.EnvironmentVariable<number>();
+// $ExpectType number
+scopedCounter.getOrNullIfOutsideFiber();
+// $ExpectType string
+scopedCounter.withValue(42, () => {
+    // $ExpectType number
+    scopedCounter.get();
+    return '';
+});

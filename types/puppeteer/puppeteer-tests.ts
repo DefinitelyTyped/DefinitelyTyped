@@ -120,8 +120,10 @@ puppeteer.launch().then(async browser => {
     console.log(content);
   });
 
-  Devices.forEach(device => console.log(device.name));
-  puppeteer.devices.forEach(device => console.log(device.name));
+  Object.keys(Devices).forEach(name => console.log(name));
+  Object.keys(puppeteer.devices).forEach(name => console.log(name));
+  Object.values(Devices).forEach(device => console.log(device.name));
+  Object.values(puppeteer.devices).forEach(device => console.log(device.name));
 
   await page.emulateMediaType("screen");
   await page.emulate(Devices['test']);
@@ -211,6 +213,22 @@ puppeteer.launch().then(async browser => {
   await page.screenshot({ path: "example.png" });
 
   browser.close();
+})();
+
+// `product` support
+(async () => {
+    await puppeteer.launch({
+        product: 'chrome',
+    });
+    await puppeteer.launch({
+        product: 'firefox',
+    });
+    const options: puppeteer.FetcherOptions = {
+        product: 'firefox',
+      };
+      const browserFetcher = puppeteer.createBrowserFetcher(options);
+      browserFetcher.product(); // $ExpectType Product
+      browserFetcher.revisionInfo('revision').product; // $ExpectType Product
 })();
 
 // Launching with default viewport disabled
@@ -688,4 +706,18 @@ puppeteer.launch().then(async browser => {
   jsHandle.evaluateHandle(handle => {});
 
   const selected: string[] = await elementHandle.select('a', 'b', 'c');
+})();
+
+// .executionContext on Frame, and ExecutionContext.queryObjects
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const frame = page.mainFrame();
+  frame.executionContext().then(() => {});
+
+  const context = await frame.executionContext();
+
+  const queryObjectsRes = context.queryObjects(await context.evaluateHandle(() => {}));
+  queryObjectsRes.then(() => {});
 })();

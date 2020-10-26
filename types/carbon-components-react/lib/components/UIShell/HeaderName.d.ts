@@ -1,5 +1,4 @@
-import * as React from "react";
-import { ReactAnchorAttr, ReactAttr, RequiresChildrenProps } from "../../../typings/shared";
+import { ReactAnchorAttr, ReactAttr, RequiresChildrenProps, FCReturn, FCProps } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 
 interface InheritedProps extends RequiresChildrenProps {
@@ -13,6 +12,6 @@ export interface HeaderNamePropsBase extends InheritedProps {
 
 export type HeaderNameProps<E extends object = {}> = LinkProps<E> & HeaderNamePropsBase;
 
-declare function HeaderName<E extends object = {}>(props: React.PropsWithChildren<HeaderNameProps<E>>): React.ReactElement | null;
+declare function HeaderName<E extends object = {}>(props: FCProps<HeaderNameProps<E>>): FCReturn;
 
 export default HeaderName;

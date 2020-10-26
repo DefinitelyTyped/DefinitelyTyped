@@ -23,6 +23,8 @@ import { ReactiveVar } from "meteor/reactive-var";
 import { Accounts } from "meteor/accounts-base";
 import { BrowserPolicy } from "meteor/browser-policy-common";
 import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
+import { Random } from "meteor/random"
+import { EJSON } from "meteor/ejson";
 
 declare module 'meteor/meteor' {
     namespace Meteor {
@@ -419,6 +421,7 @@ var handle = query.observeChanges({
         console.log("Lost one. We're now down to " + count1 + " admins.");
     }
 });
+query.observeChanges({}, { nonMutatingCallbacks: true }); // $ExpectType LiveQueryHandle
 
 let cursor: Mongo.Cursor<Object>;
 
@@ -666,6 +669,30 @@ Meteor.methods({
 });
 
 /**
+ * From Match.test section
+ */
+
+var value2: unknown;
+
+// Will return true for `{ foo: 1, bar: 'hello' }` or similar.
+if (Match.test(value2, { foo: Match.Integer, bar: String })) {
+    // $ExpectType { foo: number; bar: string; }
+    value2;
+}
+
+// Will return true if `value` is a string.
+if (Match.test(value2, String)) {
+    // $ExpectType string
+    value2;
+}
+
+// Will return true if `value` is a string or an array of numbers.
+if (Match.test(value2, Match.OneOf(String, [Number]))) {
+    // $ExpectType string | number[]
+    value2;
+}
+
+/**
  * From Match patterns section
  */
 var pat = { name: Match.Optional('test') };
@@ -740,7 +767,21 @@ Meteor.methods({
 
 HTTP.call("POST", "http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
-    function (error: Meteor.Error, result: any) {
+    function (error, result) {
+        error; // $ExpectType Error
+        result; // $ExpectType HTTPResponse
+
+        if (result.statusCode === 200) {
+            Session.set("twizzled", true);
+        }
+    });
+
+HTTP.post("http://api.twitter.com/xyz",
+    { data: { some: "json", stuff: 1 } },
+    function (error, result) {
+        error; // $ExpectType Error
+        result; // $ExpectType HTTPResponse
+
         if (result.statusCode === 200) {
             Session.set("twizzled", true);
         }
@@ -806,7 +847,7 @@ reactiveDict1.destroy();
 
 
 var reactiveVar1 = new ReactiveVar<string>('test value');
-var reactiveVar2 = new ReactiveVar<string>('test value', function (oldVal: any) { return true; });
+var reactiveVar2 = new ReactiveVar<string>('test value', (oldVal, newVal) => oldVal.length === newVal.length);
 
 var varValue: string = reactiveVar1.get();
 reactiveVar1.set('new value');
@@ -962,3 +1003,27 @@ Meteor.absoluteUrl.defaultOptions = {
   rootUrl: 'http://123.com',
   secure: false
 };
+
+Random.choice([1, 2, 3]); // $ExpectType number
+Random.choice("String"); // $ExpectType string
+
+EJSON.newBinary(5); // $ExpectType Uint8Array
+
+// Connection
+Meteor.onConnection(connection => {
+    connection.id; // $ExpectType string
+    connection.clientAddress; // $ExpectType string
+    connection.onClose(() => {});
+    connection.close();
+});
+
+// EnvironmentVariable
+const scopedCounter = new Meteor.EnvironmentVariable<number>();
+// $ExpectType number
+scopedCounter.getOrNullIfOutsideFiber();
+// $ExpectType string
+scopedCounter.withValue(42, () => {
+    // $ExpectType number
+    scopedCounter.get();
+    return '';
+});

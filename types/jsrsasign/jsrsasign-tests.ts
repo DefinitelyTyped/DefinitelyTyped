@@ -1,4 +1,4 @@
-import { KJUR, KEYUTIL } from 'jsrsasign';
+import { KJUR, KEYUTIL, b64toBA, b64tohex } from 'jsrsasign';
 
 const ec = new KJUR.crypto.ECDSA({ curve: 'secp256r1' });
 ec.generateKeyPairHex();
@@ -21,3 +21,6 @@ new KJUR.asn1.x509.AuthorityKeyIdentifier({
 });
 
 KEYUTIL.getKey('pemPKCS1PrivateKey');
+
+b64toBA('ZXhhbXBsZQ=='); // $ExpectType number[]
+b64tohex('ZXhhbXBsZQ=='); // $ExpectType string

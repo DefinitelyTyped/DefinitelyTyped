@@ -1,5 +1,6 @@
 import * as C from '@wordpress/components';
 import { Component } from '@wordpress/element';
+import { Value } from '@wordpress/rich-text';
 import { MouseEvent as ReactMouseEvent } from 'react';
 
 //
@@ -7,6 +8,15 @@ import { MouseEvent as ReactMouseEvent } from 'react';
 //
 <C.Rect width={10} height={10} rx={5} />;
 <C.HorizontalRule />;
+
+//
+// angle-picker-control
+//
+<C.AnglePickerControl
+    value={350}
+    label="Test label"
+    onChange={value => console.log(value)}
+/>;
 
 //
 // animate
@@ -23,7 +33,16 @@ interface MyCompleteOption {
     name: string;
     id: number;
 }
+let record: Value = {
+    formats: [],
+    replacements: [],
+    text: '',
+};
 <C.Autocomplete<MyCompleteOption>
+    onReplace={(value) => (record = value)}
+    onChange={(value) => (record = value)}
+    record={record}
+    isSelected={false}
     completers={[
         {
             name: 'fruit',
@@ -51,7 +70,7 @@ interface MyCompleteOption {
         },
     ]}
 >
-    {({ isExpanded, listBoxId, activeId }) => (
+    {({ isExpanded, listBoxId, activeId, onKeyDown }) => (
         <div
             contentEditable
             suppressContentEditableWarning
@@ -59,6 +78,7 @@ interface MyCompleteOption {
             aria-expanded={isExpanded}
             aria-owns={listBoxId}
             aria-activedescendant={activeId}
+            onKeyDown={onKeyDown}
         ></div>
     )}
 </C.Autocomplete>;
@@ -76,7 +96,7 @@ interface MyCompleteOption {
 <C.Button href="#foo" download="foo.txt" isSmall>
     Anchor Button
 </C.Button>;
-<C.Button autoFocus isDestructive isLarge>
+<C.Button autoFocus isDestructive isLarge isSecondary>
     Button Button
 </C.Button>;
 
@@ -158,6 +178,19 @@ interface MyCompleteOption {
 // color-picker
 //
 <C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} />;
+
+//
+// custom-select-control
+//
+<C.CustomSelectControl
+    label="Fruit"
+    options={[
+        { key: 'apple', name: 'Apple', style: { color: 'red' } },
+        { key: 'banana', name: 'Banana', style: { backgroundColor: 'yellow' }, className: 'my-favorite-fruit' },
+        { key: 'papaya', name: 'Papaya', style: { color: 'orange', backgroundColor: 'green' } },
+    ]}
+    onChange={v => console.log(v.selectedItem && v.selectedItem.name)}
+/>;
 
 //
 // dashicon
@@ -255,6 +288,27 @@ interface MyCompleteOption {
 // external-link
 //
 <C.ExternalLink href="https://wordpress.org">WordPress.org</C.ExternalLink>;
+
+//
+// flex
+//
+<C.Flex
+    isReversed
+    gap={3}
+    align='bottom'
+    justify='left'
+    className="test-classname"
+>
+    <C.FlexBlock className="test-classname">Test Flex Block</C.FlexBlock>
+    <C.FlexItem className="test-classname">
+        Flex Item 1
+    </C.FlexItem>
+    <C.FlexItem>
+        Flex Item 2
+    </C.FlexItem>
+</C.Flex>;
+
+<C.Flex><div /></C.Flex>;
 
 //
 // focal-point-picker

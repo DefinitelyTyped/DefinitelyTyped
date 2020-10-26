@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@duosecurity/duo_web": ["duosecurity__duo_web"]
+            "@duosecurity/*": ["duosecurity__*"]
         }
     },
     "files": [

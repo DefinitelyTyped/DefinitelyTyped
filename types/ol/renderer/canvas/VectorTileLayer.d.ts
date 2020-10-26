@@ -1,14 +1,17 @@
 import { Coordinate } from '../../coordinate';
-import { EventsKey, ListenerFunction } from '../../events';
+import { EventsKey } from '../../events';
 import BaseEvent from '../../events/Event';
-import { FeatureLike } from '../../Feature';
+import Feature, { FeatureLike } from '../../Feature';
+import Geometry from '../../geom/Geometry';
 import Layer from '../../layer/Layer';
 import VectorTileLayer from '../../layer/VectorTile';
+import { Pixel } from '../../pixel';
 import { FrameState } from '../../PluggableMap';
 import Projection from '../../proj/Projection';
 import BuilderGroup from '../../render/canvas/BuilderGroup';
 import Source from '../../source/Source';
 import Style from '../../style/Style';
+import Tile from '../../Tile';
 import VectorRenderTile from '../../VectorRenderTile';
 import CanvasTileLayerRenderer from './TileLayer';
 
@@ -20,8 +23,12 @@ export default class CanvasVectorTileLayerRenderer extends CanvasTileLayerRender
         hitTolerance: number,
         callback: (p0: FeatureLike, p1: Layer<Source>) => T,
         declutteredFeatures: FeatureLike[],
-    ): T | void;
+    ): T;
+    getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]>;
+    getTile(z: number, x: number, y: number, frameState: FrameState): Tile;
     handleFontsChanged(): void;
+    isDrawableTile(tile: VectorRenderTile): boolean;
+    prepareFrame(frameState: FrameState): boolean;
     prepareTile(tile: VectorRenderTile, pixelRatio: number, projection: Projection, queue: boolean): boolean;
     renderFeature(
         feature: FeatureLike,
@@ -29,8 +36,9 @@ export default class CanvasVectorTileLayerRenderer extends CanvasTileLayerRender
         styles: Style | Style[],
         executorGroup: BuilderGroup,
     ): boolean;
+    renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
     renderQueuedTileImages_(hifi: boolean, frameState: FrameState): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

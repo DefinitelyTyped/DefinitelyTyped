@@ -18,7 +18,7 @@ export interface Options {
     displacement?: number[];
     offsetOrigin?: IconOrigin;
     opacity?: number;
-    scale?: number;
+    scale?: number | Size;
     rotateWithView?: boolean;
     rotation?: number;
     size?: Size;
@@ -30,16 +30,17 @@ export default class Icon extends ImageStyle {
     clone(): Icon;
     getAnchor(): number[];
     getColor(): Color;
-    getHitDetectionImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
+    getHitDetectionImage(): HTMLImageElement | HTMLCanvasElement;
     getHitDetectionImageSize(): Size;
     getImage(pixelRatio: number): HTMLImageElement | HTMLCanvasElement;
     getImageSize(): Size;
     getImageState(): ImageState;
     getOrigin(): number[];
+    getPixelRatio(pixelRatio: number): number;
     getSize(): Size;
     getSrc(): string;
-    listenImageChange<T>(listener: (p0: BaseEvent) => void): void;
+    listenImageChange(listener: (p0: BaseEvent) => void): void;
     load(): void;
     setAnchor(anchor: number[]): void;
-    unlistenImageChange<T>(listener: (p0: BaseEvent) => void): void;
+    unlistenImageChange(listener: (p0: BaseEvent) => void): void;
 }

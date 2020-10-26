@@ -35,6 +35,6 @@ wrap.remove(pointer);
 object = wrap.dict();
 
 wrap.walk((elem, key) => {
-	value = elem;
-	str = key;
+    value = elem;
+    str = key;
 });

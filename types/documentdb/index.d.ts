@@ -1,7 +1,7 @@
 // Type definitions for DocumentDB 1.10
 // Project: https://github.com/Azure/azure-documentdb-node
 // Definitions by: Noel Abrahams <https://github.com/NoelAbrahams>, Brett Gutstein <https://github.com/brettferdosi>, Chris Stone <https://github.com/ctstone>, Yifan Wu <https://github.com/yifanwu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/documentdb
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
@@ -725,7 +725,7 @@ export class DocumentClient {
      * @param documentsFeedOrDatabaseLink    - The self-link of the collection.
      * @param document          - Represents the body of the document. Can contain any number of user defined properties.
      * @param [options]         - The request options.
-     * @param callback 			- The callback for the request.
+     * @param callback             - The callback for the request.
      */
     createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument, options: DocumentOptions, callback: RequestCallback<RetrievedDocument>): void;
     createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument, callback: RequestCallback<RetrievedDocument>): void;

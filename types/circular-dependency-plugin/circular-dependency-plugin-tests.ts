@@ -1,5 +1,5 @@
-import * as CircularDependencyPlugin from 'circular-dependency-plugin';
-import * as webpack from 'webpack';
+import CircularDependencyPlugin = require('circular-dependency-plugin');
+import webpack = require('webpack');
 
 new CircularDependencyPlugin();
 new CircularDependencyPlugin({});
@@ -11,6 +11,7 @@ new CircularDependencyPlugin({
   allowAsyncCycles: false,
   cwd: process.cwd(),
   exclude: /a\.js|node_modules/,
+  include: /dir/,
   failOnError: true,
   onDetected({ module: webpackModuleRecord, paths, compilation }) {
     numCyclesDetected++;

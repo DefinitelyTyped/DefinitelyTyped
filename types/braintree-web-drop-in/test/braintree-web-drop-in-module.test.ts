@@ -68,16 +68,24 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
     myDropin.clearSelectedPaymentMethod();
     const myBool: boolean = myDropin.isPaymentMethodRequestable();
 
-    myDropin.on("noPaymentMethodRequestable", () => {
+    function onNoPaymentMethodRequestable() {
         return;
-    });
-    myDropin.on("paymentMethodRequestable", ({ type, paymentMethodIsSelected }) => {
+    }
+    function onPaymentMethodRequestable({ type, paymentMethodIsSelected }: dropin.PaymentMethodRequestablePayload) {
         const myType: "CreditCard" | "PayPalAccount" = type;
         const myBool: boolean = paymentMethodIsSelected;
-    });
-    myDropin.on("paymentOptionSelected", ({ paymentOption }) => {
+    }
+    function onPaymentOptionSelected({ paymentOption }: dropin.PaymentOptionSelectedPayload) {
         const myPaymentOption: "card" | "paypal" | "paypalCredit" = paymentOption;
-    });
+    }
+
+    myDropin.on("noPaymentMethodRequestable", onNoPaymentMethodRequestable);
+    myDropin.on("paymentMethodRequestable", onPaymentMethodRequestable);
+    myDropin.on("paymentOptionSelected", onPaymentOptionSelected);
+
+    myDropin.off("noPaymentMethodRequestable", onNoPaymentMethodRequestable);
+    myDropin.off("paymentMethodRequestable", onPaymentMethodRequestable);
+    myDropin.off("paymentOptionSelected", onPaymentOptionSelected);
 
     myDropin.requestPaymentMethod((error, payload) => {
         if (error) {

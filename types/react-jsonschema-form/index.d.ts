@@ -40,6 +40,7 @@ declare module 'react-jsonschema-form' {
         onBlur?: (id: string, value: boolean | number | string | null) => void;
         onChange?: (e: IChangeEvent<T>, es?: ErrorSchema) => any;
         onError?: (e: any) => any;
+        onFocus?: (id: string, value: boolean | number | string | null) => void;
         onSubmit?: (e: ISubmitEvent<T>) => any;
         liveValidate?: boolean;
         FieldTemplate?: React.StatelessComponent<FieldTemplateProps>;
@@ -309,13 +310,13 @@ declare module 'react-jsonschema-form/lib/utils' {
 
     export function getWidget(
         schema: JSONSchema6,
-        widget: Widget,
+        widget: Widget | string,
         registeredWidgets?: { [name: string]: Widget },
-    ): Widget | Error;
+    ): Widget;
 
     export function hasWidget(
         schema: JSONSchema6,
-        widget: Widget,
+        widget: Widget | string,
         registeredWidgets?: { [name: string]: Widget },
     ): boolean;
 

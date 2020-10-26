@@ -91,7 +91,6 @@ patterns/de-1901.d.ts
 patterns/de-ch-1901.d.ts
 patterns/el-monoton.d.ts
 patterns/el-polyton.d.ts
-patterns/en-gb.d.ts
 patterns/en-us.d.ts
 patterns/es.d.ts
 patterns/et.d.ts

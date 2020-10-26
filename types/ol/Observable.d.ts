@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from './events';
+import { EventsKey } from './events';
 import BaseEvent from './events/Event';
 import Target from './events/Target';
 
@@ -6,7 +6,7 @@ export default class Observable extends Target {
     constructor();
     changed(): void;
     getRevision(): number;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

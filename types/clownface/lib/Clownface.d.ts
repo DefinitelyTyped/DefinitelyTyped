@@ -1,6 +1,6 @@
 import { DatasetCore, Term } from 'rdf-js';
 import {
-    Clownface,
+    AnyPointer,
     ClownfaceInit,
     ClownfaceInitWithTerms,
     ClownfaceInitWithValue,
@@ -8,7 +8,7 @@ import {
     AnyContext,
 } from '..';
 
-interface ClownfaceImpl<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> extends Clownface<T, D> {}
+interface ClownfaceImpl<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> extends AnyPointer<T, D> {}
 
 // tslint:disable-next-line no-unnecessary-class
 declare class ClownfaceImpl<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> {

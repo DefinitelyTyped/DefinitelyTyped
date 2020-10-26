@@ -394,8 +394,8 @@ function bufferTests() {
     console.log(Buffer.isEncoding('utf8'));
     console.log(Buffer.byteLength('xyz123'));
     console.log(Buffer.byteLength('xyz123', 'ascii'));
-    var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
-    var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+    var result1 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Buffer>);
+    var result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Buffer>, 9999999);
 
     // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
     {
@@ -408,7 +408,7 @@ function bufferTests() {
     // Class Method: Buffer.from(data)
     {
         // Array
-        const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as ReadonlyArray<any>);
         // Buffer
         const buf2: Buffer = Buffer.from(buf1);
         // String
@@ -711,7 +711,7 @@ namespace url_tests {
     {
         const searchParams = new url.URLSearchParams({
             user: 'abc',
-            query: ['first', 'second']
+            query: ['first', 'second'] as ReadonlyArray<string>
         });
 
         assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
@@ -724,7 +724,7 @@ namespace url_tests {
             ['user', 'abc'],
             ['query', 'first'],
             ['query', 'second']
-        ]);
+        ] as ReadonlyArray<[string, string]>);
         assert.equal(params.toString(), 'user=abc&query=first&query=second');
     }
 }
@@ -1401,7 +1401,7 @@ namespace http_tests {
             ['x-foO', 'OxOxOxO'],
             ['X-fOo', 'xOxOxOx'],
             ['X-foO', 'OxOxOxO']
-        ]);
+        ] as ReadonlyArray<[string, string]>);
         res.addTrailers({ 'x-foo': 'bar' });
 
         // writeHead
@@ -2101,34 +2101,19 @@ namespace child_process_tests {
     {
         childProcess.execFile("npm", () => {});
         childProcess.execFile("npm", { windowsHide: true }, () => {});
-        childProcess.execFile("npm", ["-v"], () => {});
-        childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-        childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+        childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, () => {});
+        childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
         childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
-    }
-
-    {
-        const forked = childProcess.fork('./', ['asd'], {
-            windowsVerbatimArguments: true,
-            silent: false,
-            stdio: ["inherit"],
-            execPath: '',
-            execArgv: ['asda']
-        });
-        const ipc: stream.Pipe = forked.channel;
-        const hasRef: boolean = ipc.hasRef();
-        ipc.close();
-        ipc.unref();
-        ipc.ref();
     }
 
     async function testPromisify() {
         const execFile = util.promisify(childProcess.execFile);
         let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
-        r = await execFile("npm", ["-v"]);
-        r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
-        r = await execFile("npm", ["-v"], { encoding: 'buffer' });
+        r = await execFile("npm", ["-v"] as ReadonlyArray<string>);
+        r = await execFile("npm", ["-v"] as ReadonlyArray<string>, { encoding: 'utf-8' });
+        r = await execFile("npm", ["-v"] as ReadonlyArray<string>, { encoding: 'buffer' });
         r = await execFile("npm", { encoding: 'utf-8' });
         r = await execFile("npm", { encoding: 'buffer' });
     }
@@ -3223,7 +3208,7 @@ namespace dns_tests {
     }
     {
         const resolver = new dns.Resolver();
-        resolver.setServers(["4.4.4.4"]);
+        resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
         resolver.resolve("nodejs.org", (err, addresses) => {
             const _addresses: string[] = addresses;
         });
@@ -3423,7 +3408,7 @@ namespace perf_hooks_tests {
     };
     const obs = new perf_hooks.PerformanceObserver(performanceObserverCallback);
     obs.observe({
-        entryTypes: ['function'],
+        entryTypes: ['function'] as ReadonlyArray<string>,
         buffered: true,
     });
 }
@@ -3752,7 +3737,7 @@ namespace http2_tests {
             response.removeHeader(':method');
             response.setHeader(':method', 'GET');
             response.setHeader(':status', 200);
-            response.setHeader('some-list', ['', '']);
+            response.setHeader('some-list', ['', ''] as ReadonlyArray<string>);
             let headersSent: boolean = response.headersSent;
 
             response.setTimeout(0, () => {});
@@ -4058,7 +4043,7 @@ namespace inspector_tests {
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string | undefined = inspector.url();
+        const inspectorUrl: string = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

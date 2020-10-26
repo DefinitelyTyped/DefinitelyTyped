@@ -72,6 +72,9 @@ export interface Cache {
     del(key: string, callback: (error: any) => void): void;
     del(key: string): Promise<any>;
 
+    reset(): Promise<void>;
+    reset(cb: () => void): void;
+
     store: Store;
 }
 
@@ -95,6 +98,8 @@ export interface MultiCache {
 
     del(key: string, callback: (error: any) => void): void;
     del(key: string): Promise<any>;
+
+    reset(cb: () => void): void;
 }
 
 export function caching(IConfig: StoreConfig & CacheOptions): Cache;

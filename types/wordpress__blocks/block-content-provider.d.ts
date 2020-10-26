@@ -23,7 +23,7 @@ declare namespace BlockContentProvider {
  * @example
  * ```jsx
  * <BlockContentProvider innerBlocks={ innerBlocks }>
- * 	{ blockSaveElement }
+ *     { blockSaveElement }
  * </BlockContentProvider>
  * ```
  */

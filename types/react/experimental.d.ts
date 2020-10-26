@@ -92,7 +92,7 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist
      * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
-    export const SuspenseList: ExoticComponent<SuspenseListProps>;
+    export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
     export interface SuspenseConfig extends TimeoutConfig {
         busyDelayMs?: number;
@@ -143,7 +143,7 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usedeferredvalue
      */
-    export function useDeferredValue<T>(value: T, config?: TimeoutConfig | null): T;
+    export function unstable_useDeferredValue<T>(value: T, config?: TimeoutConfig | null): T;
 
     /**
      * Allows components to avoid undesirable loading states by waiting for content to load
@@ -162,5 +162,27 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
-    export function useTransition(config?: SuspenseConfig | null): [TransitionStartFunction, boolean];
+    export function unstable_useTransition(config?: SuspenseConfig | null): [TransitionStartFunction, boolean];
+
+    /**
+     * @private
+     */
+    const opaqueIdentifierBranding: unique symbol;
+    /**
+     * WARNING: Don't use this as a `string`.
+     *
+     * This is an opaque type that is not supposed to type-check structurally.
+     * It is only valid if returned from React methods and passed to React e.g. `<button aria-labelledby={opaqueIdentifier} />`
+     */
+    // We can't create a type that would be rejected for string concatenation or `.toString()` calls.
+    // So in order to not have to add `string | OpaqueIdentifier` to every react-dom host prop we intersect it with `string`.
+    type OpaqueIdentifier = string & {
+        readonly [opaqueIdentifierBranding]: unknown;
+        // While this would cause `const stringified: string = opaqueIdentifier.toString()` to not type-check it also adds completions while typing.
+        // It would also still allow string concatenation.
+        // Unsure which is better. Not type-checking or not suggesting.
+        // toString(): void;
+    };
+
+    export function unstable_useOpaqueIdentifier(): OpaqueIdentifier;
 }

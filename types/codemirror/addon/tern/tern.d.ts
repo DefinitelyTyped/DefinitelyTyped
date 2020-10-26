@@ -6,25 +6,27 @@
 // See docs https://codemirror.net/doc/manual.html#addon_tern and https://codemirror.net/addon/tern/tern.js (comments in the beginning of the file)
 // Docs for tern itself might also be helpful: http://ternjs.net/doc/manual.html
 
-import * as CodeMirror from "codemirror";
-import * as Tern from "tern";
+import * as CodeMirror from 'codemirror';
+import * as Tern from 'tern';
 
-declare module "codemirror" {
-
+declare module 'codemirror' {
     interface TernServer {
         readonly options: TernOptions;
         readonly docs: {
             readonly [key: string]: {
-                doc: CodeMirror.Doc,
-                name: string,
+                doc: CodeMirror.Doc;
+                name: string;
                 changed?: {
-                    from: CodeMirror.Position | number,
-                    to: CodeMirror.Position | number
-                }
-            }
+                    from: CodeMirror.Position | number;
+                    to: CodeMirror.Position | number;
+                };
+            };
         };
         readonly server: Tern.Server;
-        addDoc(name: string, doc: CodeMirror.Doc): { doc: CodeMirror.Doc, name: string, changed: { from: number, to: number } | null };
+        addDoc(
+            name: string,
+            doc: CodeMirror.Doc,
+        ): { doc: CodeMirror.Doc; name: string; changed: { from: number; to: number } | null };
         delDoc(id: string | CodeMirror.Editor | CodeMirror.Doc): void;
         hideDoc(id: string | CodeMirror.Editor | CodeMirror.Doc): void;
         complete(cm: CodeMirror.Doc): void;
@@ -35,19 +37,29 @@ declare module "codemirror" {
         jumpBack(cm: CodeMirror.Doc): void;
         rename(cm: CodeMirror.Doc): void;
         selectName(cm: CodeMirror.Doc): void;
-        request<Q extends Tern.Query>(cm: CodeMirror.Doc, query: Q, callback: (error?: Error, data?: Tern.QueryRegistry[Q["type"]]["result"]) => void, pos?: CodeMirror.Position): void;
-        request<Q extends Tern.Query["type"]>(cm: CodeMirror.Doc, query: Q, callback: (error?: Error, data?: Tern.QueryRegistry[Q]["result"]) => void, pos?: CodeMirror.Position): void;
+        request<Q extends Tern.Query>(
+            cm: CodeMirror.Doc,
+            query: Q,
+            callback: (error?: Error, data?: Tern.QueryRegistry[Q['type']]['result']) => void,
+            pos?: CodeMirror.Position,
+        ): void;
+        request<Q extends Tern.Query['type']>(
+            cm: CodeMirror.Doc,
+            query: Q,
+            callback: (error?: Error, data?: Tern.QueryRegistry[Q]['result']) => void,
+            pos?: CodeMirror.Position,
+        ): void;
         destroy(): void;
     }
 
     interface TernConstructor {
-        new(options?: TernOptions): TernServer;
+        new (options?: TernOptions): TernServer;
     }
     export const TernServer: TernConstructor;
 
     interface TernOptions {
         /** An object mapping plugin names to configuration options. */
-        plugins?: Tern.ConstructorOptions["plugins"];
+        plugins?: Tern.ConstructorOptions['plugins'];
         /** An array of JSON definition data structures. */
         defs?: Tern.Def[];
         /**
@@ -75,7 +87,13 @@ declare module "codemirror" {
         /** Like completionTip, but for the tooltips shown for type queries. */
         typeTip?(data: Tern.TypeQueryResult): string | HTMLElement | null;
         /** This function will be applied to the Tern responses before treating them */
-        responseFilter?(doc: CodeMirror.Doc, query: Tern.Query, request: Tern.Document, error: Error | undefined, data: Tern.QueryRegistry[Tern.Query["type"]]["result"] | undefined): any;
+        responseFilter?(
+            doc: CodeMirror.Doc,
+            query: Tern.Query,
+            request: Tern.Document,
+            error: Error | undefined,
+            data: Tern.QueryRegistry[Tern.Query['type']]['result'] | undefined,
+        ): any;
         /**
          * Set to true to enable web worker mode. You'll probably
          * want to feature detect the actual value you use here, for example
@@ -92,5 +110,4 @@ declare module "codemirror" {
          */
         workerDeps?: string[];
     }
-
 }

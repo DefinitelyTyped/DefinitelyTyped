@@ -1,5 +1,6 @@
 import express = require('express');
 import serveStatic = require('serve-static');
+import http = require('http');
 var app = express();
 
 app.use(serveStatic('/1'));
@@ -13,9 +14,14 @@ app.use(serveStatic('/3', {
     lastModified: true,
     maxAge: 0,
     redirect: true,
-    setHeaders: function(res: express.Response, path: string, stat: any) {
+    setHeaders: function(res, path: string, stat: any) {
+        // $ExpectType Response<any, number>
+        res;
         res.setHeader('Server', 'server-static middleware');
     }
+}));
+app.use(serveStatic('/4', {
+    extensions: false,
 }));
 
 serveStatic.mime.define({
@@ -23,3 +29,22 @@ serveStatic.mime.define({
     'application/babylonmeshdata': ['babylonmeshdata'],
     'application/fx': ['fx']
 });
+
+serveStatic('/does-not-assume-express', {
+    setHeaders: function(res) {
+        // $ExpectError
+        res.set("foo", "bar");
+    }
+});
+
+http.createServer((req, res) => {
+    serveStatic('/works-with-node-server')(req, res, () => {});
+});
+
+app.use(serveStatic('/infers-express-response-when-passed-to-express-use', {
+    setHeaders: function(res) {
+        // $ExpectType Response<any, number>
+        res;
+        res.set('foo', 'bar');
+    }
+}));

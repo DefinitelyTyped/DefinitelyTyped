@@ -94,7 +94,13 @@ import {
 const Examplea = (props: any) => {
   return (
     <div>
-      <Alert color="success">
+      <Alert
+        color="success"
+        closeClassName="close"
+        closeAriaLabel="close"
+        fade={false}
+        innerRef={React.createRef()}
+      >
         <strong>Well done!</strong> You successfully read this important alert message.
       </Alert>
       <Alert color="info">
@@ -2123,7 +2129,7 @@ class ModalExample72 extends React.Component<any, any> {
     return (
       <div>
         <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} container="#test">
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
@@ -2144,6 +2150,7 @@ class ModalExample72 extends React.Component<any, any> {
 
 class ModalExample73 extends React.Component<any, any> {
   state: any;
+  element: HTMLElement;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -2184,7 +2191,7 @@ class ModalExample73 extends React.Component<any, any> {
           {' '}
           <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         </Form>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop} container={this.element}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
@@ -3016,13 +3023,13 @@ const Example92 = (props: any) => {
   return (
     <div>
       <div className="text-center">1 of 5</div>
-      <Progress value="1" max="5" />
+      <Progress value="1" min="1" max="5" />
       <div className="text-center">50 of 135</div>
       <Progress value={50} max="135" />
       <div className="text-center">75 of 111</div>
-      <Progress value={75} max={111} />
+      <Progress value={75} min={1} max={111} />
       <div className="text-center">463 of 500</div>
-      <Progress value="463" max={500} />
+      <Progress value="463" max={500} barAriaValueText="test" barAriaLabelledBy="test" />
 
       <div className="text-center">Various (40) of 55</div>
       <Progress multi>
@@ -3261,7 +3268,7 @@ class Example98 extends React.Component {
 class Example99 extends React.Component {
   render() {
     return (
-      <Table responsive>
+      <Table responsive="md">
         <thead>
           <tr>
             <th>#</th>
@@ -4799,4 +4806,362 @@ const UtilTest = () => {
   Util.setGlobalCssModule({
     btn: 'btn2'
   });
+};
+
+const ScheduleUpdate = () => {
+  return (
+    <>
+      <UncontrolledPopover trigger="click" placement="top" target="ScheduleUpdateButton">
+        {({ scheduleUpdate }) => (
+          <div>test</div>
+        )}
+      </UncontrolledPopover>
+      <UncontrolledTooltip placement="top" target="ScheduleUpdateTooltip" trigger="click">
+        {({ scheduleUpdate }) => (
+          <div>test</div>
+        )}
+      </UncontrolledTooltip>
+    </>
+  );
+};
+
+const noop = () => {};
+
+const htmlProps: Pick<React.HTMLAttributes<HTMLElement>, 'id' | 'className' | 'style' | 'onClick'> = {
+  id: 'id',
+  className: 'className',
+  style: { backgroundColor: '#fff' },
+  onClick: noop
+};
+
+const MegaTest = () => {
+  return (
+    <>
+      <Alert
+        ref={React.createRef<Alert>()}
+        {...htmlProps}
+      />
+      <Badge
+        ref={React.createRef<Badge>()}
+        {...htmlProps}
+      />
+      <Breadcrumb
+        ref={React.createRef<Breadcrumb>()}
+        {...htmlProps}
+      />
+      <BreadcrumbItem
+        ref={React.createRef<BreadcrumbItem>()}
+        {...htmlProps}
+      />
+      <Button
+        ref={React.createRef<Button>()}
+        {...htmlProps}
+      />
+      <ButtonGroup
+        ref={React.createRef<ButtonGroup>()}
+        {...htmlProps}
+      />
+      <ButtonToggle
+        ref={React.createRef<ButtonToggle>()}
+        {...htmlProps}
+      />
+      <ButtonToolbar
+        ref={React.createRef<ButtonToolbar>()}
+        {...htmlProps}
+      />
+      <Card
+        ref={React.createRef<Card>()}
+        {...htmlProps}
+      />
+      <CardBody
+        ref={React.createRef<CardBody>()}
+        {...htmlProps}
+      />
+      <CardColumns
+        ref={React.createRef<CardColumns>()}
+        {...htmlProps}
+      />
+      <CardDeck
+        ref={React.createRef<CardDeck>()}
+        {...htmlProps}
+      />
+      <CardFooter
+        ref={React.createRef<CardFooter>()}
+        {...htmlProps}
+      />
+      <CardGroup
+        ref={React.createRef<CardGroup>()}
+        {...htmlProps}
+      />
+      <CardHeader
+        ref={React.createRef<CardHeader>()}
+        {...htmlProps}
+      />
+      <CardImg
+        ref={React.createRef<CardImg>()}
+        {...htmlProps}
+      />
+      <CardImgOverlay
+        ref={React.createRef<CardImgOverlay>()}
+        {...htmlProps}
+      />
+      <CardLink
+        ref={React.createRef<CardLink>()}
+        {...htmlProps}
+      />
+      <CardSubtitle
+        ref={React.createRef<CardSubtitle>()}
+        {...htmlProps}
+      />
+      <CardText
+        ref={React.createRef<CardText>()}
+        {...htmlProps}
+      />
+      <CardTitle
+        ref={React.createRef<CardTitle>()}
+        {...htmlProps}
+      />
+      <Carousel
+        ref={React.createRef<Carousel>()}
+        {...htmlProps}
+        previous={noop}
+        next={noop}
+      />
+      <CarouselCaption
+        ref={React.createRef<CarouselCaption>()}
+        {...htmlProps}
+        captionText="a"
+      />
+      <CarouselControl
+        ref={React.createRef<CarouselControl>()}
+        {...htmlProps}
+        direction="next"
+        onClickHandler={noop}
+      />
+      <CarouselIndicators
+        ref={React.createRef<CarouselIndicators>()}
+        {...htmlProps}
+        items={[]}
+        onClickHandler={noop}
+        activeIndex={1}
+      />
+      <CarouselItem
+        ref={React.createRef<CarouselItem>()}
+        {...htmlProps}
+      />
+      <Col
+        ref={React.createRef<Col>()}
+        {...htmlProps}
+      />
+      <Collapse
+        ref={React.createRef<Collapse>()}
+        {...htmlProps}
+      />
+      <Container
+        ref={React.createRef<Container>()}
+        {...htmlProps}
+      />
+      <CustomInput
+        ref={React.createRef<CustomInput>()}
+        {...htmlProps}
+        type="checkbox"
+      />
+      <Dropdown
+        ref={React.createRef<Dropdown>()}
+        {...htmlProps}
+      />
+      <DropdownItem
+        ref={React.createRef<DropdownItem<{}>>()}
+        {...htmlProps}
+      />
+      <DropdownMenu
+        ref={React.createRef<DropdownMenu>()}
+        {...htmlProps}
+      />
+      <DropdownToggle
+        ref={React.createRef<DropdownToggle<{}>>()}
+        {...htmlProps}
+      />
+      <Fade
+        ref={React.createRef<Fade>()}
+        {...htmlProps}
+      />
+      <Form
+        ref={React.createRef<Form<{}>>()}
+        {...htmlProps}
+      />
+      <FormFeedback
+        ref={React.createRef<FormFeedback>()}
+        {...htmlProps}
+      />
+      <FormGroup
+        ref={React.createRef<FormGroup>()}
+        {...htmlProps}
+      />
+      <FormText
+        ref={React.createRef<FormText>()}
+        {...htmlProps}
+      />
+      <Input
+        ref={React.createRef<Input<{}>>()}
+        {...htmlProps}
+      />
+      <InputGroup
+        ref={React.createRef<InputGroup>()}
+        {...htmlProps}
+      />
+      <InputGroupAddon
+        ref={React.createRef<InputGroupAddon>()}
+        {...htmlProps}
+        addonType="append"
+      />
+      <InputGroupText
+        ref={React.createRef<InputGroupText>()}
+        {...htmlProps}
+      />
+      <Jumbotron
+        ref={React.createRef<Jumbotron>()}
+        {...htmlProps}
+      />
+      <Label
+        ref={React.createRef<Label>()}
+        {...htmlProps}
+      />
+      <ListGroup
+        ref={React.createRef<ListGroup>()}
+        {...htmlProps}
+      />
+      <ListGroupItem
+        ref={React.createRef<ListGroupItem>()}
+        {...htmlProps}
+      />
+      <ListGroupItemHeading
+        ref={React.createRef<ListGroupItemHeading>()}
+        {...htmlProps}
+      />
+      <ListGroupItemText
+        ref={React.createRef<ListGroupItemText>()}
+        {...htmlProps}
+      />
+      <Media
+        ref={React.createRef<Media>()}
+        {...htmlProps}
+      />
+      <Modal
+        ref={React.createRef<Modal<{}>>()}
+        {...htmlProps}
+      />
+      <ModalBody
+        ref={React.createRef<ModalBody>()}
+        {...htmlProps}
+      />
+      <ModalFooter
+        ref={React.createRef<ModalFooter>()}
+        {...htmlProps}
+      />
+      <ModalHeader
+        ref={React.createRef<ModalHeader>()}
+        {...htmlProps}
+      />
+      <Nav
+        ref={React.createRef<Nav>()}
+        {...htmlProps}
+      />
+      <NavItem
+        ref={React.createRef<NavItem>()}
+        {...htmlProps}
+      />
+      <NavLink
+        ref={React.createRef<NavLink<{}>>()}
+        {...htmlProps}
+      />
+      <Navbar
+        ref={React.createRef<Navbar>()}
+        {...htmlProps}
+      />
+      <NavbarBrand
+        ref={React.createRef<NavbarBrand>()}
+        {...htmlProps}
+      />
+      <NavbarText
+        ref={React.createRef<NavbarText>()}
+        {...htmlProps}
+      />
+      <NavbarToggler
+        ref={React.createRef<NavbarToggler>()}
+        {...htmlProps}
+      />
+      <Pagination
+        ref={React.createRef<Pagination>()}
+        {...htmlProps}
+      />
+      <PaginationItem
+        ref={React.createRef<PaginationItem>()}
+        {...htmlProps}
+      />
+      <PaginationLink
+        ref={React.createRef<PaginationLink>()}
+        {...htmlProps}
+      />
+      <Popover
+        ref={React.createRef<Popover<{}>>()}
+        {...htmlProps}
+        target="a"
+      />
+      <PopoverBody
+        ref={React.createRef<PopoverBody>()}
+        {...htmlProps}
+      />
+      <PopoverHeader
+        ref={React.createRef<PopoverHeader>()}
+        {...htmlProps}
+      />
+      <Progress
+        ref={React.createRef<Progress>()}
+        {...htmlProps}
+      />
+      <Row
+        ref={React.createRef<Row>()}
+        {...htmlProps}
+      />
+      <Spinner
+        ref={React.createRef<Spinner>()}
+        {...htmlProps}
+      />
+      <TabContent
+        ref={React.createRef<TabContent<{}>>()}
+        {...htmlProps}
+      />
+      <TabPane
+        ref={React.createRef<TabPane>()}
+        {...htmlProps}
+      />
+      <Table
+        ref={React.createRef<Table>()}
+        {...htmlProps}
+      />
+      <Tag
+        ref={React.createRef<Tag>()}
+        {...htmlProps}
+      />
+      <Toast
+        ref={React.createRef<Toast<{}>>()}
+        {...htmlProps}
+        target="a"
+      />
+      <ToastBody
+        ref={React.createRef<ToastBody>()}
+        {...htmlProps}
+      />
+      <ToastHeader
+        ref={React.createRef<ToastHeader>()}
+        {...htmlProps}
+      />
+      <Tooltip
+        ref={React.createRef<Tooltip<{}>>()}
+        {...htmlProps}
+        target="a"
+      />
+    </>
+  );
 };

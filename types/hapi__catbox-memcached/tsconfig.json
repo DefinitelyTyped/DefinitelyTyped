@@ -9,13 +9,7 @@
         "baseUrl": "../",
         "typeRoots": ["../"],
         "paths": {
-            "@hapi/catbox": ["hapi__catbox"],
-            "@hapi/catbox-memcached": ["hapi__catbox-memcached"],
-            "@hapi/hapi": ["hapi__hapi"],
-            "@hapi/joi": ["hapi__joi"],
-            "@hapi/mimos": ["hapi__mimos"],
-            "@hapi/podium": ["hapi__podium"],
-            "@hapi/shot": ["hapi__shot"]
+            "@hapi/*": ["hapi__*"]
         },
         "types": [],
         "noEmit": true,

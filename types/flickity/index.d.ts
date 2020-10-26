@@ -4,6 +4,7 @@
 //                 Michael Wagner <https://github.com/wagich>
 //                 Anthony Heber <https://github.com/aheber>
 //                 Paul Crane <https://github.com/PabloDiablo>
+//                 Rui Lopes <https://github.com/Dashiing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -71,7 +72,11 @@ declare namespace Flickity {
         /**
          * Triggered after entering or exiting fullscreen view.
          */
-        "fullscreenChange";
+        "fullscreenChange" |
+        /**
+         * Triggered when the selected slide is changed.
+         */
+        "change";
     interface Options {
         /**
          * Specify selector for cell elements. cellSelector is useful if you have other elements in your gallery elements that are not cells.
@@ -198,6 +203,11 @@ declare namespace Flickity {
          * default: false
          */
         autoPlay?: boolean | number;
+
+        /**
+         * Auto-playing will pause when the user hovers over the carousel. Set pauseAutoPlayOnHover: false to disable this behavior.
+         */
+        pauseAutoPlayOnHover?: boolean;
 
         /**
          * Changes height of carousel to fit height of selected slide.
@@ -552,121 +562,121 @@ declare class Flickity {
 
     /**
      * bind event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     on(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
     /**
      * bind event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     on(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, moveVector?: { x: number, y: number }) => any): void;
     /**
      * bind event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     on(eventname: Flickity.FlickityEvents, callback: (event?: Event, cellElement?: Element) => any): void;
     /**
      * bind event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     on(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch) => any): void;
     /**
      * bind event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     on(eventname: Flickity.FlickityEvents, callback: (index?: number) => any): void;
     /**
      * bind event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     on(eventname: Flickity.FlickityEvents, callback: (isFullScreen?: boolean) => any): void;
 
     /**
      * Remove event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     off(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
 
     /**
      * Remove event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     off(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
 
     /**
      * Remove event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     off(eventname: Flickity.FlickityEvents, callback: (event?: Event, cellElement?: Element) => any): void;
 
     /**
      * Remove event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     off(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch) => any): void;
 
     /**
      * Remove event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     off(eventname: Flickity.FlickityEvents, callback: (index?: number) => any): void;
 
     /**
      * Remove event listener
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     off(eventname: Flickity.FlickityEvents, callback: (isFullScreen?: boolean) => any): void;
 
     /**
      * one time event handler
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
 
     /**
      * one time event handl`er
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
 
     /**
      * one time event handler
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     once(eventname: string, callback: (event?: Event, cellElement?: Element) => any): void;
 
     /**
      * one time event handler
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     once(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
 
     /**
      * one time event handler
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     once(eventname: Flickity.FlickityEvents, callback: (index?: number) => any): void;
 
     /**
      * one time event handler
-     * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
+     * @param eventName name of event  (@see Flickity.FlickityEvents class for flickity supported events)
      * @param callback callback funtion to execute when event fires
      */
     once(eventname: Flickity.FlickityEvents, callback: (isFullScreen?: boolean) => any): void;

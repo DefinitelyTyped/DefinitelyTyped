@@ -1,5 +1,5 @@
 import { Coordinate } from '../coordinate';
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import { ObjectEvent } from '../Object';
@@ -33,6 +33,7 @@ export class CustomTile extends Tile {
     forDataAtCoordinate(coordinate: Coordinate, callback: (p0: any) => void, opt_request?: boolean): void;
     getData(coordinate: Coordinate): any;
     getImage(): HTMLImageElement;
+    getKey(): string;
     load(): void;
 }
 export default class UTFGrid extends TileSource {
@@ -46,9 +47,9 @@ export default class UTFGrid extends TileSource {
         opt_request?: boolean,
     ): void;
     getTemplate(): string;
-    getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
-    useTile(z: number, x: number, y: number, projection: Projection): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): CustomTile;
+    useTile(z: number, x: number, y: number): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

@@ -1,7 +1,7 @@
 
 
 interface String {
-	reverse(): string;
+    reverse(): string;
 }
 
 var p = new Parallel<number[]>([1, 2, 3, 4, 5]);
@@ -11,23 +11,23 @@ var p2 = new Parallel('forwards');
 
 // Spawn a remote job (we'll see more on how to use then later)
 p2.spawn(function (data) {
-	data = data.reverse();
+    data = data.reverse();
 
-	console.log(data); // logs sdrawrof
+    console.log(data); // logs sdrawrof
 
-	return data;
+    return data;
 }).then(function (data) {
-		console.log(data) // logs sdrawrof
+        console.log(data) // logs sdrawrof
 });
 
 var p3 = new Parallel([0, 1, 2, 3, 4, 5, 6]),
-	log = function () { console.log(arguments); };
+    log = function () { console.log(arguments); };
 
 // One gotcha: anonymous functions cannot be serialzed
 // If you want to do recursion, make sure the function
 // is named appropriately
 function fib(n: number): number {
-	return n < 2 ? 1 : fib(n - 1) + fib(n - 2);
+    return n < 2 ? 1 : fib(n - 1) + fib(n - 2);
 };
 
 p3.map(fib).then(log);
@@ -47,7 +47,7 @@ var p5 = new Parallel([1, 2, 3]);
 function dbl(n: number) { return n * 2; }
 
 p5.map(dbl).map(dbl).map(dbl).then(function (data) {
-	console.log(data); // logs [8, 16, 24]
+    console.log(data); // logs [8, 16, 24]
 });
 
 // Approximate e^10

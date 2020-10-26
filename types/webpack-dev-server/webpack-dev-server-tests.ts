@@ -76,11 +76,16 @@ const config: WebpackDevServer.Configuration = {
     writeToDisk: true,
     // It's a required option.
     publicPath: "/assets/",
-    headers: { "X-Custom-Header": "yes" }
+    headers: { "X-Custom-Header": "yes" },
+    open: true,
 };
 
 const c2: WebpackDevServer.Configuration = {
+    contentBasePublicPath: ['/serve-content-base-at-this-url/1', '/serve-content-base-at-this-url/2'],
     stats: false,
+    open: {
+        app: ['Google Chrome', '--incognito', '--other-flag']
+    }
 };
 const c3: WebpackDevServer.Configuration = {
     stats: "verbose",

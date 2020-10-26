@@ -598,6 +598,7 @@ let panoramaOptions: google.maps.StreetViewPanoramaOptions = {
     visible: true,
     motionTracking: true,
     motionTrackingControl: true,
+    showRoadLabels: true,
 };
 let panorama = new google.maps.StreetViewPanorama(document.createElement('div'), panoramaOptions);
 
@@ -628,21 +629,6 @@ street_view_service.getPanorama(
         }
     },
 );
-
-/***** MVCArray *****/
-
-// MVCArray should be generic
-let mvcArrayStr = new google.maps.MVCArray<string>(['a', 'b', 'c']);
-mvcArrayStr.forEach((elem: string, i: number): void => {
-    elem.toUpperCase();
-});
-mvcArrayStr.getArray()[0].toUpperCase();
-mvcArrayStr.getAt(0).toUpperCase();
-mvcArrayStr.insertAt(2, 'x');
-mvcArrayStr.pop().toUpperCase();
-mvcArrayStr.push('y');
-mvcArrayStr.removeAt(0).toUpperCase();
-mvcArrayStr.setAt(0, 'z');
 
 /***** HeatMaps *****/
 
@@ -713,6 +699,10 @@ service.getDetails(
         }
 
         result.name; // $ExpectType string
+        result.reviews; // $ExpectType PlaceReview[] | undefined
+        if (result.reviews && result.reviews.length) {
+            result.reviews[0].rating; // $ExpectType number
+        }
     },
 );
 

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Button } from '../AtlaskitDummy';
 
-import Select from 'react-select';
-import { colors } from 'react-select/src/theme';
+import Select, { defaultTheme } from 'react-select';
 import { stateOptions } from '../data';
+
+const { colors } = defaultTheme;
 
 const selectStyles = {
   control: (provided: any) => ({ ...provided, minWidth: 240, margin: 8 }),

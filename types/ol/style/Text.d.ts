@@ -1,3 +1,4 @@
+import { Size } from '../size';
 import Fill from './Fill';
 import Stroke from './Stroke';
 import TextPlacement from './TextPlacement';
@@ -9,7 +10,7 @@ export interface Options {
     offsetY?: number;
     overflow?: boolean;
     placement?: TextPlacement | string;
-    scale?: number;
+    scale?: number | Size;
     rotateWithView?: boolean;
     rotation?: number;
     text?: string;
@@ -36,7 +37,8 @@ export default class Text {
     getPlacement(): TextPlacement | string;
     getRotateWithView(): boolean;
     getRotation(): number;
-    getScale(): number;
+    getScale(): number | Size;
+    getScaleArray(): Size;
     getStroke(): Stroke;
     getText(): string;
     getTextAlign(): string;
@@ -53,7 +55,7 @@ export default class Text {
     setPlacement(placement: TextPlacement | string): void;
     setRotateWithView(rotateWithView: boolean): void;
     setRotation(rotation: number | undefined): void;
-    setScale(scale: number | undefined): void;
+    setScale(scale: number | Size | undefined): void;
     setStroke(stroke: Stroke): void;
     setText(text: string | undefined): void;
     setTextAlign(textAlign: string | undefined): void;

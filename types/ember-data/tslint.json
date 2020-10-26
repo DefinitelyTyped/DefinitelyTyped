@@ -9,6 +9,7 @@
         "no-unnecessary-generics": false,
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,
-        "prefer-const": false
+        "prefer-const": false,
+        "npm-naming": [true, { "mode": "code", "errors": [["NoDefaultExport", false]] }]
     }
 }

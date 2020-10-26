@@ -4,7 +4,8 @@
 //                 sunetos <https://github.com/sunetos>,
 //                 jzarnikov <https://github.com/jzarnikov>,
 //                 alexburner <https://github.com/alexburner>,
-//                 olafurkarl <https://github.com/olafurkarl>
+//                 olafurkarl <https://github.com/olafurkarl>,
+//                 miltoncandelero <https://github.com/miltoncandelero>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace TWEEN {
@@ -22,7 +23,7 @@ declare namespace TWEEN {
         isPaused(): boolean;
         to(properties: any, duration: number): Tween;
         duration(d: number): Tween;
-        start(time?: number): Tween;
+        start(time?: number | string): Tween;
         stop(): Tween;
         end(): Tween;
         pause(time?: number): Tween;
@@ -38,7 +39,7 @@ declare namespace TWEEN {
         chain(...tweens: Tween[]): Tween;
         onStart(callback: (object?: any) => void): Tween;
         onStop(callback: (object?: any) => void): Tween;
-        onUpdate(callback: (object?: any) => void): Tween;
+        onUpdate(callback: (object?: any, elapsed?: number) => void): Tween;
         onRepeat(callback: (object?: any) => void): Tween;
         onComplete(callback: (object?: any) => void): Tween;
         update(time: number): boolean;

@@ -10,6 +10,7 @@ const StickyAllOptions: JSX.Element = (
         enableTransforms={true}
         activeClass="active"
         releasedClass="released"
+        innerClass="innerClass"
         onStateChange={s => s.status === Sticky.StatusCode.STATUS_ORIGINAL}
         shouldFreeze={() => false}
     >

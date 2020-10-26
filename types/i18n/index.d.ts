@@ -458,6 +458,6 @@ declare namespace Express {
     }
 
     interface Response extends i18nAPI {
-        locals: i18nAPI;
+        locals: Partial<i18nAPI>;
     }
 }

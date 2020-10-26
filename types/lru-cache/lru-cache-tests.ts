@@ -3,7 +3,7 @@ import LRUCache = require('lru-cache');
 const num = 1;
 
 interface Foo {
-	foo(): void;
+    foo(): void;
 }
 
 const foo = {
@@ -13,17 +13,17 @@ const foo = {
 const cache = new LRUCache<string, Foo>();
 cache; // $ExpectType LRUCache<string, Foo>
 new LRUCache<string, Foo>({ // $ExpectType LRUCache<string, Foo>
-	max: num,
-	maxAge: num,
-	length(value) {
+    max: num,
+    maxAge: num,
+    length(value) {
         value; // $ExpectType Foo
         return num;
-	},
-	dispose(key, value) {
+    },
+    dispose(key, value) {
         key; // $ExpectType string
         value; // $ExpectType Foo
-	},
-	stale: false,
+    },
+    stale: false,
     noDisposeOnSet: false,
 });
 new LRUCache<string, Foo>(num); // $ExpectType LRUCache<string, Foo>

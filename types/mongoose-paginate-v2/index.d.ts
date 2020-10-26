@@ -44,6 +44,8 @@ declare module 'mongoose' {
         read?: ReadOptions;
         /* If pagination is set to `false`, it will return all docs without adding limit condition. (Default: `true`) */
         pagination?: boolean;
+        projection?: any;
+        options?: QueryFindOptions;
     }
 
     interface QueryPopulateOptions {
@@ -73,7 +75,7 @@ declare module 'mongoose' {
         hasPrevPage: boolean;
         hasNextPage: boolean;
         meta?: any;
-        [customLabel: string]: T[] | number | boolean | undefined;
+        [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
     interface PaginateModel<T extends Document> extends Model<T> {

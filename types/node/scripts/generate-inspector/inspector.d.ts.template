@@ -84,5 +84,5 @@ declare module "inspector" {
      * `Runtime.runIfWaitingForDebugger` command.
      * An exception will be thrown if there is no active inspector.
      */
-    waitForDebugger();
+    function waitForDebugger(): void;
 }

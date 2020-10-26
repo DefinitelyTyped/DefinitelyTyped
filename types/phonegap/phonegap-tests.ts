@@ -654,7 +654,7 @@ function test_notification() {
         'Game Over',
         'Restart,Exit'
     );
-	navigator.notification.confirm(
+    navigator.notification.confirm(
         'You are the winner!',
         onConfirm,
         'Game Over',

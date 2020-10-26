@@ -8,7 +8,8 @@ const err: Error = new Error();
 const args: any[] = [];
 const resCallback: (err: Error | null, res: any) => void = () => {};
 const numCallback: (err: Error | null, res: number) => void = () => {};
-const strCallback: (err: Error | null, res: string | null) => void = () => {};
+const strCallback: (err: Error | null, res: string) => void = () => {};
+const nullableStrCallback: (err: Error | null, res: string | null) => void = () => {};
 const okCallback: (err: Error | null, res: 'OK') => void = () => {};
 const messageHandler: (channel: string, message: any) => void = () => {};
 
@@ -74,7 +75,7 @@ client.append(str, str, numCallback);
 client.bitcount(str, numCallback);
 client.bitcount(str, num, num, numCallback);
 client.set(str, str, okCallback);
-client.get(str, strCallback);
+client.get(str, nullableStrCallback);
 client.exists(str, numCallback);
 
 // Event handlers
@@ -82,6 +83,13 @@ client.on(str, messageHandler);
 client.once(str, messageHandler);
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+// set
+client.set('key', 'value', resCallback);
+client.set('key', 'value', 'NX', resCallback);
+client.set('key', 'value', 'EX', 1000, resCallback);
+client.set('key', 'value', 'NX', 'EX', 1000, resCallback);
+client.set('key', 'value', 'EX', 1000, 'NX', resCallback);
 
 // some of the bulk methods
 client.get('test');
@@ -92,12 +100,34 @@ client.mset(args, resCallback);
 
 client.incr(str, resCallback);
 
+// Test del and unlink with single and multiple parameters
+client.del('test');
+client.del('test', 'test2', 'test3');
+client.unlink('test', 'test2', 'test3');
+client.unlink('test');
+
+// Test del and unlink with single and multiple parameters and a callback
+client.del('test', numCallback);
+client.unlink('test', numCallback);
+client.del('test', 'test2', 'test3', numCallback);
+client.unlink('test', 'test2', 'test3', numCallback);
+
 // Friendlier hash commands
 client.hgetall(str, resCallback);
+// Deprecated commands
 client.hmset(str, value, okCallback);
 client.hmset(str, str, str, str, str, okCallback);
+client.hmset([str, str, str, str, str], okCallback);
+client.hmset([str, str, str, str, str]);
 client.hmset(str, [str, str, str, str]);
 client.hmset(str, [str, value, str, value], okCallback);
+// Redis 4 variadic HSET
+client.hset(str, value, numCallback);
+client.hset(str, str, str, str, str, numCallback);
+client.hset([str, str, str, str, str], numCallback);
+client.hset([str, str, str, str, str]);
+client.hset(str, [str, str, str, str]);
+client.hset(str, [str, value, str, value], numCallback);
 
 // Publish / Subscribe
 client.publish(str, value);

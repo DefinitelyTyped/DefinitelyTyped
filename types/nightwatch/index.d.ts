@@ -1,4 +1,4 @@
-// Type definitions for nightwatch 1.1
+// Type definitions for nightwatch 1.3
 // Project: http://nightwatchjs.org
 // Definitions by: Rahul Kavalapara <https://github.com/rkavalap>
 //                 Connor Schlesiger <https://github.com/schlesiger>
@@ -31,7 +31,7 @@ export interface ChromePerfLoggingPrefs {
 
 export interface ChromeOptions {
     /**
-     * 	List of command-line arguments to use when starting Chrome. Arguments with an associated value should be separated by a '=' sign
+     *     List of command-line arguments to use when starting Chrome. Arguments with an associated value should be separated by a '=' sign
      * (e.g., ['start-maximized', 'user-data-dir=/tmp/temp_profile']).
      */
     args?: string[];
@@ -213,6 +213,7 @@ export interface NightwatchTestRunner {
 export interface NightwatchTestWorker {
     enabled: boolean;
     workers: string;
+    node_options?: string | string[];
 }
 
 export interface NightwatchOptions {
@@ -444,7 +445,7 @@ export interface NightwatchTestSettingGeneric {
     /**
      * An object which will be made available within the test and can be overwritten per environment. Example:"globals" : {  "myGlobal" : "some_global" }
      */
-    globals?: NightwatchGlobals;
+    globals?: NightwatchTestHooks;
 
     /**
      * An array of folders or file patterns to be skipped (relative to the main source folder).
@@ -552,6 +553,10 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     contain(value: string): this;
     contains(value: string): this;
     match(value: string | RegExp): this;
+    startWith(value: string): this;
+    startsWith(value: string): this;
+    endWith(value: string): this;
+    endsWith(value: string): this;
 
     /**
      * Negates any of assertions following in the chain.
@@ -1046,15 +1051,19 @@ export interface NightwatchTestFunctions {
 }
 
 export type NightwatchTestHook =
-    | ((browser: NightwatchBrowser, done: (err?: any) => void) => void)
-    | ((done: (err?: any) => void) => void)
+    | GlobalNightwatchTestHookEach
+    | GlobalNightwatchTestHook
     ;
 
+export type GlobalNightwatchTestHookEach = ((browser: NightwatchBrowser, done: (err?: any) => void) => void);
+
+export type GlobalNightwatchTestHook = ((done: (err?: any) => void) => void);
+
 export interface NightwatchTestHooks extends NightwatchGlobals {
-    before?: NightwatchTestHook;
-    after?: NightwatchTestHook;
-    beforeEach?: NightwatchTestHook;
-    afterEach?: NightwatchTestHook;
+    before?: GlobalNightwatchTestHook;
+    after?: GlobalNightwatchTestHook;
+    beforeEach?: GlobalNightwatchTestHookEach;
+    afterEach?: GlobalNightwatchTestHookEach;
 }
 
 export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;

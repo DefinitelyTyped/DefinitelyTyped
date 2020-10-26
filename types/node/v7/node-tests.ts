@@ -1,3 +1,25 @@
+// NOTE: Disabled to preserve existing tests file
+// tslint:disable:array-type
+// tslint:disable:comment-format
+// tslint:disable:import-spacing
+// tslint:disable:interface-over-type-literal
+// tslint:disable:jsdoc-format
+// tslint:disable:max-line-length
+// tslint:disable:no-consecutive-blank-lines
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-duplicate-variable
+// tslint:disable:no-inferrable-types
+// tslint:disable:no-namespace
+// tslint:disable:no-padding
+// tslint:disable:no-string-throw
+// tslint:disable:no-var-keyword
+// tslint:disable:object-literal-shorthand
+// tslint:disable:one-line
+// tslint:disable:only-arrow-functions
+// tslint:disable:prefer-const
+// tslint:disable:semicolon
+// tslint:disable:typedef-whitespace
+// tslint:disable:whitespace
 import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
@@ -292,8 +314,8 @@ function bufferTests() {
     console.log(Buffer.isEncoding('utf8'));
     console.log(Buffer.byteLength('xyz123'));
     console.log(Buffer.byteLength('xyz123', 'ascii'));
-    var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
-    var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+    var result1 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Buffer>);
+    var result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Buffer>, 9999999);
 
     // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
     {
@@ -306,7 +328,7 @@ function bufferTests() {
     // Class Method: Buffer.from(data)
     {
         // Array
-        const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as ReadonlyArray<any>);
         // Buffer
         const buf2: Buffer = Buffer.from(buf1);
         // String
@@ -569,7 +591,7 @@ namespace url_tests {
     {
         const searchParams = new url.URLSearchParams({
             user: 'abc',
-            query: ['first', 'second']
+            query: ['first', 'second'] as ReadonlyArray<string>
         });
 
         assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
@@ -582,7 +604,7 @@ namespace url_tests {
             ['user', 'abc'],
             ['query', 'first'],
             ['query', 'second']
-        ]);
+        ] as ReadonlyArray<[string, string]>);
         assert.equal(params.toString(), 'user=abc&query=first&query=second');
     }
 }

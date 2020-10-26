@@ -9,6 +9,11 @@ const apiLimiter = rateLimit({
     headers: false,
     skipFailedRequests: false,
     skipSuccessfulRequests: true,
+    draft_polli_ratelimit_headers: true,
+    statusCode: 429,
+    skip(req, res) { return false; },
+    onLimitReached(req, res, options) { },
+    keyGenerator(req, res) { return req.ip; }
 });
 
 apiLimiter.resetKey('testKey'); // $ExpectType void

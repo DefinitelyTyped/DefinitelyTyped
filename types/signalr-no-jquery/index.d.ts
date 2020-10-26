@@ -2,7 +2,7 @@
 // Project: https://github.com/DVLP/signalr-no-jquery/
 // Definitions by: Martin Gjoshevski <https://github.com/gjoshevski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 4.0
 
 export function hubConnection(url?: string, options?: Options): Connection;
 
@@ -24,9 +24,13 @@ export interface Connection {
    */
   createHubProxy(hubName: string): Proxy;
 
-  start(options?: any, callback?: any): any;
+  start(options?: any, callback?: () => void): any;
 
   stop(async?: boolean, notifyServer?: boolean): void;
+
+  reconnecting(callback: () => void): void;
+
+  disconnected(callback: () => void): void;
 }
 
 export interface Proxy {
@@ -41,14 +45,14 @@ export interface Proxy {
     * @param eventName The name of the hub event to register the callback for.
     * @param callback The callback to be invoked.
     */
-    on(eventName: string, callback: (...msg: any[]) => void): Proxy;
+    on(eventName: string, callback?: (...msg: any[]) => void): Proxy;
    /**
     * Removes the callback invocation request from the server hub for the given event name.
     *
     * @param eventName The name of the hub event to unregister the callback for.
     * @param callback The callback to be invoked.
     */
-    off(eventName: string, callback: (...msg: any[]) => void): Proxy;
+    off(eventName: string, callback?: (...msg: any[]) => void): Proxy;
    /**
     * Invokes a server hub method with the given arguments.
     *

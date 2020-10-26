@@ -3,6 +3,7 @@
         "index.d.ts",
         "node-tests.ts",
         "test/assert.ts",
+        "test/async_hooks.ts",
         "test/buffer.ts",
         "test/child_process.ts",
         "test/cluster.ts",
@@ -11,6 +12,7 @@
         "test/events.ts",
         "test/fs.ts",
         "test/global.ts",
+        "test/globals.ts",
         "test/http.ts",
         "test/http2.ts",
         "test/net.ts",
@@ -28,6 +30,7 @@
         "test/util.ts",
         "test/v8.ts",
         "test/vm.ts",
+        "test/wasi.ts",
         "test/worker_threads.ts",
         "test/zlib.ts"
     ],

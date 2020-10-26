@@ -1,4 +1,4 @@
-// Type definitions for mapbox__polyline 1.0
+// Type definitions for @mapbox/polyline 1.0
 // Project: https://github.com/mapbox/polyline
 // Definitions by: Arseniy Maximov <https://github.com/Kern0>
 //                 Marko Klopets <https://github.com/mklopets>

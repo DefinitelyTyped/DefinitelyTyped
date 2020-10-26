@@ -3,9 +3,7 @@
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
-//                 Nicolas Voigt <https://github.com/octo-sniffle>
 //                 Chigozirim C. <https://github.com/smac89>
 //                 Flarna <https://github.com/Flarna>
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
@@ -26,44 +24,25 @@
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-// NOTE: These definitions support NodeJS and TypeScript 3.1.
+// NOTE: These definitions support NodeJS and TypeScript 3.2.
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
 //          - ~/index.d.ts        - Definitions specific to TypeScript 2.1
-//          - ~/ts3.1/index.d.ts  - Definitions specific to TypeScript 3.1
+//          - ~/ts3.2/index.d.ts  - Definitions specific to TypeScript 3.2
 
-// NOTE: Augmentations for TypeScript 3.1 and later should use individual files for overrides
-//       within the respective ~/ts3.1 (or later) folder. However, this is disallowed for versions
-//       prior to TypeScript 3.1, so the older definitions will be found here.
+// Reference required types from the default lib:
+/// <reference lib="es2017" />
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
 
-// TypeScript 2.1-specific augmentations:
-
-// Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
-interface MapConstructor { }
-interface WeakMapConstructor { }
-interface SetConstructor { }
-interface WeakSetConstructor { }
-interface IteratorResult<T> { }
-interface Iterable<T> { }
-interface Iterator<T> {
-    next(value?: any): IteratorResult<T>;
-}
-interface IterableIterator<T> { }
-interface SymbolConstructor {
-    readonly iterator: symbol;
-}
-declare var Symbol: SymbolConstructor;
-
+// TypeScript 3.2-specific augmentations:
 declare module "util" {
     namespace inspect {
-        const custom: symbol;
+        const custom: unique symbol;
     }
     namespace promisify {
-        const custom: symbol;
+        const custom: unique symbol;
     }
 }

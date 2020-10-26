@@ -14,10 +14,10 @@ export default abstract class TextFeature extends FeatureFormat {
     protected abstract writeFeatureText(feature: Feature<Geometry>, opt_options?: WriteOptions): string;
     protected abstract writeGeometryText(geometry: Geometry, opt_options?: WriteOptions): string;
     getType(): FormatType;
-    readFeature(source: Document | Node | object | string, opt_options?: ReadOptions): Feature<Geometry>;
-    readFeatures(source: Document | Node | object | string, opt_options?: ReadOptions): Feature<Geometry>[];
-    readGeometry(source: Document | Node | object | string, opt_options?: ReadOptions): Geometry;
-    readProjection(source: Document | Node | object | string): Projection;
+    readFeature(source: Document | Element | object | string, opt_options?: ReadOptions): Feature<Geometry>;
+    readFeatures(source: Document | Element | object | string, opt_options?: ReadOptions): Feature<Geometry>[];
+    readGeometry(source: Document | Element | object | string, opt_options?: ReadOptions): Geometry;
+    readProjection(source: Document | Element | object | string): Projection;
     writeFeature(feature: Feature<Geometry>, opt_options?: WriteOptions): string;
     writeFeatures(features: Feature<Geometry>[], opt_options?: WriteOptions): string;
     writeGeometry(geometry: Geometry, opt_options?: WriteOptions): string;

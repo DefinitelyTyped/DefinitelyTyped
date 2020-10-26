@@ -35,8 +35,13 @@ export interface MeydaAnalyzerOptions {
     source: AudioNode;
     bufferSize: number;
     hopSize?: number;
+    sampleRate?: number;
+    startImmediately?: boolean;
+    channel?: number;
     windowingFunction?: MeydaWindowingFunction;
-    featureExtractors?: MeydaAudioFeature | MeydaAudioFeature[];
+    featureExtractors?: MeydaAudioFeature | ReadonlyArray<MeydaAudioFeature>;
+    inputs?: number;
+    outputs?: number;
     numberOfMFCCCoefficients?: number;
     callback?: (features: Partial<MeydaFeaturesObject>) => void;
 }
@@ -76,13 +81,13 @@ export interface MeydaFeaturesObject {
 }
 
 export class MeydaAnalyzer {
-    start(features: MeydaAudioFeature[]): void;
+    start(features?: MeydaAudioFeature | ReadonlyArray<MeydaAudioFeature>): void;
 
     stop(): void;
 
     setSource(source: AudioNode): void;
 
-    get(features: MeydaAudioFeature[]): Partial<MeydaFeaturesObject> | null;
+    get(features?: MeydaAudioFeature | ReadonlyArray<MeydaAudioFeature>): Partial<MeydaFeaturesObject> | null;
 }
 
 export const audioContext: AudioContext | null;

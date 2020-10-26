@@ -62,7 +62,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-treemap
          */
         interface SeriesTreemap {
-
             /**
              * @default
              * "treemap"
@@ -399,7 +398,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-treemap.levels
              */
             levels?: {
-
                 /**
                  * `treemap` is able to map any dimensions of data to visual.
                  *
@@ -717,7 +715,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -892,7 +889,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -1178,12 +1175,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1229,7 +1224,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -1568,7 +1563,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel
                  */
                 upperLabel?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1743,7 +1737,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -2023,12 +2017,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2074,7 +2066,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -2388,7 +2380,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * The color of a node. It use global palette
                      * [option.color](https://echarts.apache.org/en/option.html#color)
@@ -2504,12 +2495,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -2686,7 +2675,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -2976,12 +2965,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3027,7 +3014,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -3335,7 +3322,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel
                      */
                     upperLabel?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3512,7 +3498,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -3802,12 +3788,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3853,7 +3837,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -4161,7 +4145,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * The color of a node. It use global palette
                          * [option.color](https://echarts.apache.org/en/option.html#color)
@@ -4184,7 +4167,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-treemap.silent
              */
             silent?: {
-
                 /**
                  * Enable hyperlink jump when clicking on node.
                  * It is avaliable when
@@ -4229,452 +4211,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip
                  */
-                tooltip?: {
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The position of the tooltip's floating layer, which would
-                     * follow the position of mouse by default.
-                     *
-                     * Options:
-                     *
-                     * + `Array`
-                     *
-                     * Display the position of tooltip's floating layer through
-                     * array, which supports absolute position and relative
-                     * percentage.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * + `Function`
-                     *
-                     * Callback function in the following form:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * **Parameters:**
-                     * point: Mouse position.
-                     * param: The same as formatter.
-                     * dom: The DOM object of tooltip.
-                     * rect: It is valid only when mouse is on graphic elements,
-                     * which stands for a bounding box with `x`, `y`, `width`,
-                     * and `height`.
-                     * size: The size of dom echarts container.
-                     * For example: `{contentSize: [width, height], viewSize:
-                     * [width, height]}`.
-                     *
-                     * **Return:**
-                     * Return value is an array standing for tooltip position,
-                     * which can be absolute pixels, or relative percentage.
-                     * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                     * '20%', bottom: 40}`.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * Or:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * + `'inside'`
-                     *
-                     * Center position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'top'`
-                     *
-                     * Top position of the graphic element where the mouse is
-                     * in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'left'`
-                     *
-                     * Left position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'right'`
-                     *
-                     * Right position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'bottom'`
-                     *
-                     * Bottom position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.position
-                     */
-                    position?: any[] | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The content formatter of tooltip's floating layer which
-                     * supports string template and callback function.
-                     *
-                     * **1\. String template**
-                     *
-                     * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
-                     * and `{e}`, which stands for series name, data name and
-                     * data value and ect. When
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is set to be `'axis'`, there may be data from multiple
-                     * series.
-                     * In this time, series index can be refered as `{a0}`,
-                     * `{a1}`, or `{a2}`.
-                     *
-                     * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for
-                     * different series types:
-                     *
-                     * + Line (area) charts, bar (column) charts, K charts:
-                     * `{a}` for series name, `{b}` for category name, `{c}`
-                     * for data value, `{d}` for none;
-                     *
-                     * + Scatter (bubble) charts: `{a}` for series name, `{b}`
-                     * for data name, `{c}` for data value, `{d}` for none;
-                     *
-                     * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                     * for merging data, `{d}` for none;
-                     *
-                     * + Pie charts, gauge charts, funnel charts: `{a}` for
-                     * series name, `{b}` for data item name, `{c}` for data
-                     * value, `{d}` for percentage.
-                     *
-                     * **Example:**
-                     *
-                     * ```
-                     * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                     *
-                     * ```
-                     *
-                     * **2\. Callback function**
-                     *
-                     * The format of callback function:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * The first parameter `params` is the data that the formatter
-                     * needs. Its format is shown as follows:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * When
-                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * is `'axis'`, or when tooltip is triggered by
-                     * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
-                     * , `params` is the data array of multiple series.
-                     * The content of each item of the array is the same as
-                     * above. Besides,
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * **Note:** Using array to present all the parameters in
-                     * ECharts 2.x is not supported anymore.
-                     *
-                     * The second parameter `ticket` is the asynchronous callback
-                     * flag which should be used along with the third parameter
-                     * `callback` when it is used.
-                     *
-                     * The third parameter `callback` is asynchronous callback.
-                     * When the content of tooltip is acquired asynchronously,
-                     * `ticket` and `htm` as introduced above can be used to
-                     * update tooltip with callback.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.formatter
-                     */
-                    formatter?: Function | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The background color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * "rgba(50,50,50,0.7)"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.backgroundColor
-                     */
-                    backgroundColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * '#333'
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border width of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The floating layer of tooltip space around content.
-                     * The unit is px.
-                     * Default values for each position are 5.
-                     * And they can be set to different values with left, right,
-                     * top, and bottom.
-                     *
-                     * Examples:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     *
-                     * @default
-                     * 5
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.padding
-                     */
-                    padding?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The text syle of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle
-                     */
-                    textStyle?: {
-
-                        /**
-                         * text color.
-                         *
-                         *
-                         * @default
-                         * "#fff"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 14
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.silent.tooltip.textStyle)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.textStyle.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-                    };
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * Extra CSS style for floating layer.
-                     * The following is an example for adding shadow.
-                     *
-                     * ```
-                     * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                     *
-                     * ```
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip.extraCssText
-                     */
-                    extraCssText?: string;
-                };
+                tooltip?: BaseTooltip;
             };
 
             /**
@@ -4963,7 +4500,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-treemap.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -5137,7 +4673,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -5422,12 +4958,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -5473,7 +5007,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -5809,7 +5343,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel
              */
             upperLabel?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -5983,7 +5516,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -6262,12 +5795,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -6313,7 +5844,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -6625,7 +6156,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * The color of a node. It use global palette
                  * [option.color](https://echarts.apache.org/en/option.html#color)
@@ -6740,12 +6270,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -6920,7 +6448,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -7206,12 +6734,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -7257,7 +6783,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -7553,7 +7079,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel
                  */
                 upperLabel?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -7728,7 +7253,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -8014,12 +7539,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8065,7 +7588,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -8361,7 +7884,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * The color of a node. It use global palette
                      * [option.color](https://echarts.apache.org/en/option.html#color)
@@ -8381,7 +7903,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb
              */
             breadcrumb?: {
-
                 /**
                  * Whether to show the breadcrumb.
                  *
@@ -8490,7 +8011,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * boxplot color.
                      *
@@ -8600,7 +8120,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *
@@ -8643,7 +8162,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -8924,12 +8443,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -8972,7 +8489,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -9261,12 +8778,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * boxplot color.
                          *
@@ -9377,7 +8892,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle
                          */
                         textStyle?: {
-
                             /**
                              * text color.
                              *
@@ -9420,7 +8934,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -9703,12 +9217,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -9751,7 +9263,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -10100,455 +9612,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip
              */
-            tooltip?: {
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The position of the tooltip's floating layer, which would
-                 * follow the position of mouse by default.
-                 *
-                 * Options:
-                 *
-                 * + `Array`
-                 *
-                 * Display the position of tooltip's floating layer through
-                 * array, which supports absolute position and relative percentage.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * + `Function`
-                 *
-                 * Callback function in the following form:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * **Parameters:**
-                 * point: Mouse position.
-                 * param: The same as formatter.
-                 * dom: The DOM object of tooltip.
-                 * rect: It is valid only when mouse is on graphic elements,
-                 * which stands for a bounding box with `x`, `y`, `width`, and
-                 * `height`.
-                 * size: The size of dom echarts container.
-                 * For example: `{contentSize: [width, height], viewSize: [width,
-                 * height]}`.
-                 *
-                 * **Return:**
-                 * Return value is an array standing for tooltip position, which
-                 * can be absolute pixels, or relative percentage.
-                 * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                 * '20%', bottom: 40}`.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * Or:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * + `'inside'`
-                 *
-                 * Center position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'top'`
-                 *
-                 * Top position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'left'`
-                 *
-                 * Left position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'right'`
-                 *
-                 * Right position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'bottom'`
-                 *
-                 * Bottom position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.position
-                 */
-                position?: any[] | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The content formatter of tooltip's floating layer which supports
-                 * string template and callback function.
-                 *
-                 * **1\. String template**
-                 *
-                 * The template variables are `{a}`, `{b}`, `{c}`, `{d}` and
-                 * `{e}`, which stands for series name, data name and data value
-                 * and ect. When
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is set to be `'axis'`, there may be data from multiple series.
-                 * In this time, series index can be refered as `{a0}`, `{a1}`,
-                 * or `{a2}`.
-                 *
-                 * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for different
-                 * series types:
-                 *
-                 * + Line (area) charts, bar (column) charts, K charts: `{a}`
-                 * for series name, `{b}` for category name, `{c}` for data
-                 * value, `{d}` for none;
-                 *
-                 * + Scatter (bubble) charts: `{a}` for series name, `{b}` for
-                 * data name, `{c}` for data value, `{d}` for none;
-                 *
-                 * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                 * for merging data, `{d}` for none;
-                 *
-                 * + Pie charts, gauge charts, funnel charts: `{a}` for series
-                 * name, `{b}` for data item name, `{c}` for data value, `{d}`
-                 * for percentage.
-                 *
-                 * **Example:**
-                 *
-                 * ```
-                 * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                 *
-                 * ```
-                 *
-                 * **2\. Callback function**
-                 *
-                 * The format of callback function:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * The first parameter `params` is the data that the formatter
-                 * needs. Its format is shown as follows:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * When
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'axis'`, or when tooltip is triggered by
-                 * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
-                 * , `params` is the data array of multiple series.
-                 * The content of each item of the array is the same as above.
-                 * Besides,
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * **Note:** Using array to present all the parameters in ECharts
-                 * 2.x is not supported anymore.
-                 *
-                 * The second parameter `ticket` is the asynchronous callback
-                 * flag which should be used along with the third parameter
-                 * `callback` when it is used.
-                 *
-                 * The third parameter `callback` is asynchronous callback.
-                 * When the content of tooltip is acquired asynchronously, `ticket`
-                 * and `htm` as introduced above can be used to update tooltip
-                 * with callback.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.formatter
-                 */
-                formatter?: Function | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The background color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * "rgba(50,50,50,0.7)"
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.backgroundColor
-                 */
-                backgroundColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * '#333'
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.borderColor
-                 */
-                borderColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border width of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.borderWidth
-                 */
-                borderWidth?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The floating layer of tooltip space around content.
-                 * The unit is px.
-                 * Default values for each position are 5.
-                 * And they can be set to different values with left, right,
-                 * top, and bottom.
-                 *
-                 * Examples:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 *
-                 * @default
-                 * 5
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.padding
-                 */
-                padding?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The text syle of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle
-                 */
-                textStyle?: {
-
-                    /**
-                     * text color.
-                     *
-                     *
-                     * @default
-                     * "#fff"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 14
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.tooltip.textStyle)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.textStyle.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-                };
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * Extra CSS style for floating layer.
-                 * The following is an example for adding shadow.
-                 *
-                 * ```
-                 * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                 *
-                 * ```
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip.extraCssText
-                 */
-                extraCssText?: string;
-            };
+            tooltip?: BaseTooltip;
         }
 
         namespace SeriesTreemap {
@@ -10903,7 +9967,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -11078,7 +10141,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -11364,12 +10427,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -11415,7 +10476,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -11754,7 +10815,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel
                  */
                 upperLabel?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -11929,7 +10989,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -12209,12 +11269,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -12260,7 +11318,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -12574,7 +11632,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * The color of a node. It use global palette
                      * [option.color](https://echarts.apache.org/en/option.html#color)
@@ -12690,12 +11747,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -12872,7 +11927,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -13162,12 +12217,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -13213,7 +12266,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -13521,7 +12574,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel
                      */
                     upperLabel?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -13698,7 +12750,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -13988,12 +13040,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -14039,7 +13089,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -14347,7 +13397,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * The color of a node. It use global palette
                          * [option.color](https://echarts.apache.org/en/option.html#color)

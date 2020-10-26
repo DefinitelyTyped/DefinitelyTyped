@@ -1,20 +1,20 @@
-var ec_ns = (a: number, b: string) => a.toString() == b;	//equality comparer on number,string
-var ec_nn = (a: number, b: number) => a === b;				//equality comparer on number,number
-var c_nn = (a: number, b: number) => a - b;					//comparer on number,number
+var ec_ns = (a: number, b: string) => a.toString() == b;    //equality comparer on number,string
+var ec_nn = (a: number, b: number) => a === b;                //equality comparer on number,number
+var c_nn = (a: number, b: number) => a - b;                    //comparer on number,number
 
 // static
 
 var ax = Ix.Enumerable.fromArray([0, 2, 7, 3, 4, 5]);
 
 var bx = Ix.Enumerable.create(() => {
-	var current = ".";
-	return Ix.Enumerator.create(
-		() => { current += "."; return true; },
-		() => current,
-		() => { });
+    var current = ".";
+    return Ix.Enumerator.create(
+        () => { current += "."; return true; },
+        () => current,
+        () => { });
 });
 
-Ix.Enumerator.create(() => true, () => 1);	// without dispose method
+Ix.Enumerator.create(() => true, () => 1);    // without dispose method
 
 var cx = Ix.Enumerable.empty<number>();
 
@@ -26,10 +26,10 @@ var fx = Ix.Enumerable.returnValue("42");
 var gx = Ix.Enumerable.range(-100, 200);
 
 Ix.Enumerable.repeat(42, 42);
-Ix.Enumerable.repeat(42);		// infinite
+Ix.Enumerable.repeat(42);        // infinite
 
 Ix.Enumerable.sequenceEqual(ax, fx, ec_ns);
-Ix.Enumerable.sequenceEqual(ax, ex);	// default comparer on same type
+Ix.Enumerable.sequenceEqual(ax, ex);    // default comparer on same type
 
 // instance
 
@@ -39,7 +39,7 @@ ax.aggregate("", (acc, i) => acc + i, acc=> acc.length);
 ax.aggregate("", (acc, i) => acc + i);
 ax.aggregate((acc, i) => acc + i);
 
-//ax.reduce((acc, i) => acc + i, 100);	// bug: https://typescript.codeplex.com/workitem/1960
+//ax.reduce((acc, i) => acc + i, 100);    // bug: https://typescript.codeplex.com/workitem/1960
 ax.reduce<number>((acc, i) => acc + i, 100);
 ax.reduce((acc, i) => acc + i);
 
@@ -161,60 +161,60 @@ ax.zip(bx, (a, b) => [a, b]);
 // Disposable
 
 {
-	var d: Ix.Disposable;
+    var d: Ix.Disposable;
 
-	d.dispose();
+    d.dispose();
 }
 
 // Enumerator
 
 {
-	var e: Ix.Enumerator<number>;
+    var e: Ix.Enumerator<number>;
 
-	try {
-		while (e.moveNext()) { var c = e.getCurrent(); }
-	}
-	finally {
-		e.dispose();
-	}
+    try {
+        while (e.moveNext()) { var c = e.getCurrent(); }
+    }
+    finally {
+        e.dispose();
+    }
 }
 
 // Dictionary
 
 {
-	var dic = new Ix.Dictionary<number, string>(0, ec_nn);
+    var dic = new Ix.Dictionary<number, string>(0, ec_nn);
 
-	var key = dic.toEnumerable().first().key;
-	var value = dic.toEnumerable().first().value;
+    var key = dic.toEnumerable().first().key;
+    var value = dic.toEnumerable().first().value;
 
-	dic.add(1, "1");
-	dic.remove(1);
-	dic.clear();
-	dic.length();
-	dic.tryGetValue(1);
-	dic.get(1);
-	dic.set(1, "1");
-	dic.getValues();
-	dic.has(1);
+    dic.add(1, "1");
+    dic.remove(1);
+    dic.clear();
+    dic.length();
+    dic.tryGetValue(1);
+    dic.get(1);
+    dic.set(1, "1");
+    dic.getValues();
+    dic.has(1);
 }
 
 // KeyValuePair
 
 {
-	var kv: Ix.KeyValuePair<number, string>;
-	var key = kv.key;
-	var value = kv.value;
+    var kv: Ix.KeyValuePair<number, string>;
+    var key = kv.key;
+    var value = kv.value;
 }
 
 // Lookup
 
 {
-	var lookup: Ix.Lookup<number, string>;
+    var lookup: Ix.Lookup<number, string>;
 
-	var key = lookup.toEnumerable().first().key;
-	lookup.toEnumerable().first().first();
+    var key = lookup.toEnumerable().first().key;
+    lookup.toEnumerable().first().first();
 
-	lookup.has(1);
-	lookup.length();
-	lookup.get(1).first();
+    lookup.has(1);
+    lookup.length();
+    lookup.get(1).first();
 }

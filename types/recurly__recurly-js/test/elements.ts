@@ -10,16 +10,16 @@ export default function elements() {
         fontWeight: 'bold',
         content: {
           number: 'Card number',
-          cvv: 'CVC',
-        },
+          cvv: 'CVC'
+        }
       },
       invalid: {
-        fontColor: 'red',
-      },
-    },
+        fontColor: 'red'
+      }
+    }
   });
 
-  const elementStyle = {
+  const elementOptions = {
     format: true,
     inputType: 'text',
     tabIndex: '1',
@@ -35,16 +35,16 @@ export default function elements() {
 
   const el = document.querySelector('div');
   if (el) {
-    cardElement.attach(el);
+    cardElement.attach(el).configure({}).focus().remove();
   }
 
   [
-    elements.CardNumberElement(elementStyle),
-    elements.CardMonthElement(elementStyle),
-    elements.CardYearElement(elementStyle),
-    elements.CardCvvElement(elementStyle),
+    elements.CardNumberElement(elementOptions),
+    elements.CardMonthElement(elementOptions),
+    elements.CardYearElement(elementOptions),
+    elements.CardCvvElement(elementOptions)
   ].forEach(element => {
-    element.attach('#recurly-elements');
+    element.attach('#recurly-elements').configure({}).focus().remove();
     element.on('attach', () => {});
     element.on('blur', () => {});
     element.on('change', () => {});

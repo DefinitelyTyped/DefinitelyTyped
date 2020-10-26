@@ -846,7 +846,7 @@ export interface ScrollbarOptions {
     lockClass?: string;
 
     /**
-     * 	Scrollbar draggable element CSS class
+     *     Scrollbar draggable element CSS class
      *
      * @default 'swiper-scrollbar-drag'
      */
@@ -998,7 +998,7 @@ export interface HashNavigationOptions {
      * Works in addition to hashnav to replace current url state with the
      * new one instead of adding it to history
      *
-     * @default 	false
+     * @default     false
      */
     replaceState?: boolean;
 }
@@ -1445,7 +1445,7 @@ export default class Swiper {
      *
      * @example removeSlide(0); // remove first slide
      * @example removeSlide([0, 1]); // remove first and second slides
-     * @example removeAllSlides();	// Remove all slides
+     * @example removeAllSlides();    // Remove all slides
      */
     removeSlide(slideIndex: number | number[]): void;
 

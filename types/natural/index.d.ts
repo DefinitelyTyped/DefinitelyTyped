@@ -1,4 +1,4 @@
-// Type definitions for Natural 0.6
+// Type definitions for Natural 2.1
 // Project: https://github.com/NaturalNode/natural
 // Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire>
 //                 Emily Marigold Klassen <https://github.com/forivall>
@@ -6,8 +6,7 @@
 
 /// <reference types="node"/>
 
-
-import events = require("events");
+import events = require('events');
 
 interface Tokenizer {
     tokenize(text: string): string[];
@@ -64,17 +63,17 @@ interface SubstringDistanceResult {
 export function DamerauLevenshteinDistance(
     source: string,
     target: string,
-    options: DamerauLevenshteinDistanceOptions & { search: true }
+    options: DamerauLevenshteinDistanceOptions & { search: true },
 ): SubstringDistanceResult;
 export function DamerauLevenshteinDistance(
     source: string,
     target: string,
-    options?: DamerauLevenshteinDistanceOptions & { search?: false }
+    options?: DamerauLevenshteinDistanceOptions & { search?: false },
 ): number;
 export function DamerauLevenshteinDistance(
     source: string,
     target: string,
-    options: DamerauLevenshteinDistanceOptions & { search: boolean }
+    options: DamerauLevenshteinDistanceOptions & { search: boolean },
 ): number | SubstringDistanceResult;
 declare function DiceCoefficient(str1: string, str2: string): number;
 
@@ -93,8 +92,13 @@ declare var PorterStemmerNo: Stemmer;
 declare var PorterStemmerPt: Stemmer;
 declare var LancasterStemmer: Stemmer;
 
-interface BayesClassifierClassification { label: string, value: number }
-interface BayesClassifierCallback { (err: any, classifier: any): void }
+interface BayesClassifierClassification {
+    label: string;
+    value: number;
+}
+interface BayesClassifierCallback {
+    (err: any, classifier: any): void;
+}
 declare class BayesClassifier {
     events: events.EventEmitter;
     addDocument(text: string, stem: string): void;
@@ -107,8 +111,13 @@ declare class BayesClassifier {
     static restore(classifier: any, stemmer?: Stemmer): BayesClassifier;
 }
 
-interface LogisticRegressionClassifierClassification { label: string, value: number }
-interface LogisticRegressionClassifierCallback { (err: any, classifier: any): void }
+interface LogisticRegressionClassifierClassification {
+    label: string;
+    value: number;
+}
+interface LogisticRegressionClassifierCallback {
+    (err: any, classifier: any): void;
+}
 declare class LogisticRegressionClassifier {
     events: events.EventEmitter;
     addDocument(text: string, stem: string): void;
@@ -119,6 +128,11 @@ declare class LogisticRegressionClassifier {
     save(filename: string, callback: LogisticRegressionClassifierCallback): void;
     static load(filename: string, stemmer: Stemmer, callback: LogisticRegressionClassifierCallback): void;
     static restore(classifier: any, stemmer?: Stemmer): LogisticRegressionClassifier;
+}
+
+declare class SentimentAnalyzer {
+    constructor(language: string, stemmer: Stemmer, vocabulary: string);
+    getSentiment(words: string[]): number;
 }
 
 interface Phonetic {
@@ -144,7 +158,7 @@ declare class NounInflector {
 }
 declare var CountInflector: {
     nth(i: number): string;
-}
+};
 declare class PresentVerbInflector {
     pluralize(token: string): string;
     singularize(token: string): string;
@@ -156,7 +170,7 @@ declare var NGrams: {
     trigrams(sequence: string[], startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string, n: number, startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string[], n: number, startSymbol?: string, endSymbol?: string): string[][];
-}
+};
 declare var NGramsZH: {
     bigrams(sequence: string, startSymbol?: string, endSymbol?: string): string[][];
     bigrams(sequence: string[], startSymbol?: string, endSymbol?: string): string[][];
@@ -164,9 +178,11 @@ declare var NGramsZH: {
     trigrams(sequence: string[], startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string, n: number, startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string[], n: number, startSymbol?: string, endSymbol?: string): string[][];
-}
+};
 
-interface TfIdfCallback { (i: number, measure: number): void }
+interface TfIdfCallback {
+    (i: number, measure: number): void;
+}
 interface TfIdfTerm {
     term: string;
     tfidf: number;
@@ -217,8 +233,12 @@ interface WordNetLookupResults {
     synonyms: string[];
     gloss: string;
 }
-interface WordNetLookupCallback { (results: WordNetLookupResults[]): void }
-interface WordNetGetCallback { (results: WordNetLookupResults): void }
+interface WordNetLookupCallback {
+    (results: WordNetLookupResults[]): void;
+}
+interface WordNetGetCallback {
+    (results: WordNetLookupResults): void;
+}
 declare class WordNet {
     constructor(filename?: string);
     lookup(word: string, callback: WordNetLookupCallback): void;

@@ -17,5 +17,6 @@ import SwaggerUI from 'swagger-ui-react';
             },
         },
     ]}
+    supportedSubmitMethods={[]}
   />
 </div>;

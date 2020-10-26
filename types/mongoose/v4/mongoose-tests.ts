@@ -933,6 +933,7 @@ schemaArray.checkRequired('hello').valueOf();
 mongoose.Schema.Types.Array.schemaName.toLowerCase();
 /** inherited properties */
 schemaArray.sparse(true);
+schemaArray.instance;
 
 /*
  * section schema/string.js
@@ -952,6 +953,7 @@ schemastring.uppercase().uppercase();
 mongoose.Schema.Types.String.schemaName.toLowerCase();
 /* inherited properties */
 schemastring.sparse(true);
+schemastring.instance;
 
 /*
  * section schema/documentarray.js
@@ -962,6 +964,7 @@ var documentarray: mongoose.Schema.Types.DocumentArray = new mongoose.Schema.Typ
 mongoose.Schema.Types.DocumentArray.schemaName.toLowerCase();
 /* inherited properties */
 documentarray.sparse(true);
+documentarray.instance;
 
 /*
  * section schema/number.js
@@ -975,6 +978,7 @@ schemanumber.min(999, 'error').min(999);
 mongoose.Schema.Types.Number.schemaName.toLowerCase();
 /* inherited properties */
 schemanumber.sparse(true);
+schemanumber.instance;
 
 /*
  * section schema/date.js
@@ -989,6 +993,7 @@ schemadate.min(new Date(), 'error').min(new Date(''));
 mongoose.Schema.Types.Date.schemaName.toLowerCase();
 /* inherited properties */
 schemadate.sparse(true);
+schemadate.instance;
 
 /*
  * section schema/buffer.js
@@ -1000,6 +1005,7 @@ schemabuffer.checkRequired(999, MongoDocument).valueOf();
 mongoose.Schema.Types.Buffer.schemaName.toLowerCase();
 /* inherited properties */
 schemabuffer.sparse(true);
+schemabuffer.instance;
 
 /*
  * section schema/boolean.js
@@ -1011,6 +1017,7 @@ schemaboolean.checkRequired(99).valueOf();
 mongoose.Schema.Types.Boolean.schemaName.toLowerCase();
 /* inherited properties */
 schemaboolean.sparse(true);
+schemaboolean.instance;
 
 /*
  * section schema/objectid.js
@@ -1023,6 +1030,7 @@ schemaobjectid.checkRequired(99, MongoDocument).valueOf();
 mongoose.Schema.Types.ObjectId.schemaName.toLowerCase();
 /* inherited properties */
 schemaobjectid.sparse(true);
+schemaobjectid.instance;
 
 /*
  * section schema/mixed.js
@@ -1033,6 +1041,7 @@ var schemamixed: mongoose.Schema.Types.Mixed = new mongoose.Schema.Types.Mixed('
 mongoose.Schema.Types.Mixed.schemaName.toLowerCase();
 /* inherited properties */
 schemamixed.sparse(true);
+schemamixed.instance;
 
 /*
  * section schema/embedded.js
@@ -1042,6 +1051,7 @@ var schemaembedded: mongoose.Schema.Types.Embedded =
   new mongoose.Schema.Types.Embedded(new mongoose.Schema(), '99');
 /* inherited properties */
 schemaembedded.sparse(true);
+schemaembedded.instance;
 
 /*
  * section aggregate.js
@@ -1156,6 +1166,13 @@ schematype.unique(true).unique(true);
 schematype.validate(/re/)
   .validate({}, 'error')
   .validate(cb, 'try', 'tri');
+schematype.defaultValue;
+schematype.instance;
+schematype.path;
+schematype.getters;
+schematype.setters;
+schematype.validators;
+schematype.options;
 
 /*
  * section promise.js
