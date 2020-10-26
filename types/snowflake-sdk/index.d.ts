@@ -92,26 +92,36 @@ export interface Column {
      * Returns the name of this column.
      */
     getName(): string;
+
     /**
      * Returns the index of this column.
      */
     getIndex(): number;
+
     /**
      * Returns the id of this column.
      */
     getId(): number;
+
     /**
      * Determines if this column is nullable.
      */
     isNullable(): boolean;
+
     /**
      * Returns the scale associated with this column.
      */
     getScale(): number;
+
     /**
      * Retuns the type associated with this column.
      */
     getType(): string;
+}
+
+export enum StatementStatus {
+    Fetching = 'fetching',
+    Complete = 'complete'
 }
 
 export interface Statement {
@@ -119,15 +129,17 @@ export interface Statement {
      * Returns this statement's SQL text.
      */
     getSqlText(): string;
+
     /**
      * Returns the current status of this statement.
-     * It will be either: {'fetching' or 'complete'}
      */
-    getStatus(): string;
+    getStatus(): StatementStatus;
+
     /**
      * Returns the columns produced by this statement.
      */
     getColumns(): Column[];
+
     /**
      * Given a column identifier, returns the corresponding column. The column
      * identifier can be either the column name (String) or the column index
@@ -135,6 +147,7 @@ export interface Statement {
      * that name, the first column with the specified name will be returned.
      */
     getColumn(columnIdentifier: string | number): Column;
+
     /**
      * Returns the number of rows returned by this statement.
      */
@@ -169,6 +182,7 @@ export interface Statement {
      * @param fn The callback to use.
      */
     cancel(fn: (err: Error, stmt: Statement) => void): void;
+
     streamRows(): NodeJS.ReadableStream;
 }
 

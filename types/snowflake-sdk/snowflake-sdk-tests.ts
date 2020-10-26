@@ -30,7 +30,6 @@ connection.connect((err, conn) => {
             const cols = stmt.getColumns();
             const col1 = cols[0];
             const stream = stmt.streamRows();
-
             stream.on('data', data => {
                 //
             });
