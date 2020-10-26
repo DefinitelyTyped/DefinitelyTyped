@@ -9,15 +9,13 @@ import {
 } from "../../../typings/shared";
 
 type ExcludedAttributes = "onBlur" | "onChange" | "onContextMenu" | "onFocus" | "onMouseOut" | "onMouseOver" | "role";
-interface InheritedProps extends
-    Omit<ReactDivAttr, ExcludedAttributes>,
-    EmbeddedIconProps
-{ }
-
 type TooltipOnChangeEvent<T extends Element> = React.FocusEvent<T> | React.KeyboardEvent<T> | React.MouseEvent<T>;
-export interface TooltipProps extends InheritedProps {
+
+export interface TooltipProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     defaultOpen?: boolean;
     direction?: Direction;
+    focusTrap?: boolean;
+    iconDescription?: string;
     iconName?: string;
     menuOffset?:
         MenuOffsetData
@@ -25,11 +23,12 @@ export interface TooltipProps extends InheritedProps {
     onChange?(event: TooltipOnChangeEvent<HTMLDivElement>, data: { open: boolean }): void; // optional/required depending on static carbon lib config
     open?: boolean;
     renderIcon?: ForwardRefReturn<unknown, unknown>;
+    selectorPrimaryFocus?: string;
     showIcon?: boolean;
-    tooltipBodyId?: ReactAttr['id'];
-    tooltipId?: ReactAttr['id'];
-    triggerClassName?: ReactAttr['className'];
-    triggerId?: ReactAttr['id'];
+    tooltipBodyId?: string;
+    tooltipId?: string;
+    triggerClassName?: string;
+    triggerId?: string;
     triggerText?: React.ReactNode;
 }
 
