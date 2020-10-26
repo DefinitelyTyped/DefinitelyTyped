@@ -1,4 +1,4 @@
-// Type definitions for snowflake-sdk 1.5.3
+// Type definitions for snowflake-sdk 1.5
 // Project: https://github.com/snowflakedb/snowflake-connector-nodejs#readme
 // Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Mauricio Rojas <https://github.com/orellabac>
