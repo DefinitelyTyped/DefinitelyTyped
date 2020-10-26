@@ -1599,7 +1599,7 @@ export interface Page extends EventEmitter, FrameBase {
     /**
      * @returns `true` if the page has JavaScript enabled, `false` otherwise.
      */
-    isJavaScriptEnabled();
+    isJavaScriptEnabled(): boolean;
 
     /** Page is guaranteed to have a main frame which persists during navigation's. */
     mainFrame(): Frame;
