@@ -4,6 +4,9 @@ import { ReactDivAttr } from "../../../typings/shared";
 interface InheritedProps extends ReactDivAttr { }
 
 export interface DropdownSkeletonProps extends InheritedProps {
+    /**
+     * @deprecated
+     */
     inline?: boolean,
 }
 

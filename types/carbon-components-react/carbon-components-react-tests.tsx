@@ -336,6 +336,8 @@ const t5 = (
     />
 );
 
+// Dropdown
+
 // UIShell - Link
 interface TestCompProps {
     someProp: number;
@@ -433,15 +435,25 @@ const datePickerInputWithHideLabel = (
 );
 
 // Dropdown
+const dropdownItems = [
+    {
+        id: "1",
+        name: "ASDF",
+    },
+    {
+        id: "2",
+        name: "QWERTY"
+    }
+];
 const dropdownItemCanBeElement = (
     <Dropdown
         id="my-dropdown"
-        items={['val1', 'val2', 'val3']}
+        items={dropdownItems}
         label="label"
         titleText=""
         ariaLabel=""
-        selectedItem="val2"
-        itemToElement={item => <div>This is my rich content</div>}
+        selectedItem={dropdownItems[1]}
+        itemToElement={item => <div>ID: {item.id}; Name: ${item.name}</div>}
         itemToString={item => 'Selected: ' + item}
     />
 );
