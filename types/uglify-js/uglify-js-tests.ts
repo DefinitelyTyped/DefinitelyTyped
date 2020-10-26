@@ -63,6 +63,7 @@ const compressOptions: CompressOptions = {
     negate_iife: true,
     side_effects: true,
     unused: true,
+    varify: true,
 };
 minify(code, {
     compress: compressOptions,
