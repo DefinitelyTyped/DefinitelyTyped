@@ -18,6 +18,7 @@ export interface OTPInputProps {
     focusStyle?: string | React.CSSProperties;
     disabledStyle?: string | React.CSSProperties;
     errorStyle?: string | React.CSSProperties;
+    placeholder?: string;
 }
 
 export default class extends React.Component<OTPInputProps> { }
