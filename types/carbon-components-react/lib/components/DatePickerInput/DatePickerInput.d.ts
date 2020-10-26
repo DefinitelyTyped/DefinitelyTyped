@@ -15,6 +15,7 @@ interface InheritedProps extends
 { }
 
 export interface DatePickerInputProps extends InheritedProps {
+    datePickerType?: "range" | "simple" | "single";
     hideLabel?: boolean,
     labelText: NonNullable<React.ReactNode>,
     openCalendar?: React.MouseEventHandler,
