@@ -789,3 +789,87 @@ function test_GaugeChart() {
         });
     }
 }
+
+function test_GanttChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Task ID');
+    data.addColumn('string', 'Task Name');
+    data.addColumn('date', 'Start Date');
+    data.addColumn('date', 'End Date');
+    data.addColumn('number', 'Duration');
+    data.addColumn('number', 'Percent Complete');
+    data.addColumn('string', 'Dependencies');
+
+    function daysToMilliseconds(days: number): number {
+        return days * 24 * 60 * 60 * 1000;
+    }
+
+    data.addRows([
+        ['Research', 'Find sources',
+            new Date(2015, 0, 1), new Date(2015, 0, 5), null, 100, null],
+        ['Write', 'Write paper',
+            null, new Date(2015, 0, 9), daysToMilliseconds(3), 25, 'Research,Outline'],
+        ['Cite', 'Create bibliography',
+            null, new Date(2015, 0, 7), daysToMilliseconds(1), 20, 'Research'],
+        ['Complete', 'Hand in paper',
+            null, new Date(2015, 0, 10), daysToMilliseconds(1), 0, 'Cite,Write'],
+        ['Outline', 'Outline paper',
+            null, new Date(2015, 0, 6), daysToMilliseconds(1), 100, 'Research']
+    ]);
+
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.Gantt(container);
+
+        chart.draw(data, {
+            height: 300,
+            backgroundColor: {
+                fill: 'white'
+            },
+            gantt: {
+                arrow: {
+                    angle: 45,
+                    color: 'blue',
+                    length: 8,
+                    radius: 30,
+                    spaceAfter: 8,
+                    width: 1.4
+                },
+                barCornerRadius: 5,
+                barHeight: 20,
+                criticalPathEnabled: true,
+                criticalPathStyle: {
+                    stroke: '#fe4444',
+                    strokeWidth: 1.4
+                },
+                defaultStartDate: new Date(2015, 0, 1),
+                innerGridHorizLine: {
+                    stroke: '#888',
+                    strokeWidth: 1
+                },
+                innerGridTrack: {
+                    fill: '#fefefe'
+                },
+                innerGridDarkTrack: {
+                    fill: '#efefef'
+                },
+                labelMaxWidth: 300,
+                labelStyle: {
+                    fontName: 'sans-serif',
+                    fontSize: 14,
+                    color: '#222'
+                },
+                percentEnabled: true,
+                percentStyle: {
+                    fill: '#fecccc'
+                },
+                shadowEnabled: true,
+                shadowStyle: {
+                    fill: '#666'
+                },
+                shadowOffset: 1,
+                trackHeight: 30
+            }
+        });
+    }
+}
