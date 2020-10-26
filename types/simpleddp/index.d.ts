@@ -122,7 +122,7 @@ export default class simpleDDP {
     /**
      * Tries to subscribe to a specific publication on server.
      */
-    sub(pubname: string, ...args: unknown[]): ddpSubscription;
+    sub(pubname: string, arguments: unknown[]): ddpSubscription;
     /**
      * Tries to subscribe to a specific publication on server. Syntactic sugar for `sub`.
      */
