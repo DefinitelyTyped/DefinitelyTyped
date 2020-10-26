@@ -27,7 +27,7 @@ runSequence([
 main().then(() => {
     runSequence([
         ["git", ["add", ".github/CODEOWNERS"]], // Add CODEOWNERS
-        ["git", ["commit", "-m", `"Update CODEOWNERS"`]], // Commit all changes
+        ["git", ["commit", "-m", `"🤖 Update CODEOWNERS"`]], // Commit all changes
         ["git", ["push"]] // push the branch
     ]);
     console.log(`Pushed new commit.`);
@@ -81,4 +81,3 @@ function mapDefined(arr, mapper) {
     }
     return out;
 }
-
