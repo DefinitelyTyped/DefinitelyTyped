@@ -1,9 +1,7 @@
 import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr { }
-
-export interface DatePickerSkeletonProps extends InheritedProps {
+export interface DatePickerSkeletonProps extends ReactDivAttr {
     range?: boolean,
 }
 

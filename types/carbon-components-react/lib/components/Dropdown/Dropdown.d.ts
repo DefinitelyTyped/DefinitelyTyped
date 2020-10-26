@@ -10,39 +10,37 @@ import {
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 
-interface InheritedProps<ItemType> extends
-    Omit<ReactDivAttr, "id" | "onChange">,
-    DownshiftTypedProps<ItemType>,
-    InternationalProps<ListBoxMenuIconTranslationKey>,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps
-{
-    ariaLabel: React.AriaAttributes["aria-label"],
-    disabled?: ReactInputAttr["disabled"],
-    size?: ListBoxProps["size"],
-    type?: ListBoxProps["type"],
-}
-
 export interface OnChangeData<ItemType = string> {
     selectedItem?: ItemType | null;
 }
 
-export interface DropdownProps<ItemType = string> extends InheritedProps<ItemType> {
+export interface DropdownProps<ItemType = string> extends
+    Omit<ReactDivAttr, "id" | "onChange">,
+    InternationalProps<ListBoxMenuIconTranslationKey>
+{
+    ariaLabel?: string,
     direction?: "bottom" | "top",
+    disabled?: boolean,
     downshiftProps?: any; // TODO
+    id: string,
     initialSelectedItem?: ItemType,
     /**
      * @deprecated
      */
     inline?: boolean,
+    invalid?: boolean;
+    invalidText?: string;
     helperText?: React.ReactNode,
     items: readonly ItemType[],
     itemToElement?: ItemType extends object ? React.ComponentType<ItemType> : never,
+    itemToString?(item: ItemType): string
     label: NonNullable<React.ReactNode>,
+    light?: boolean,
     onChange?(data: OnChangeData<ItemType>): void,
     selectedItem?: ItemType | null,
+    size?: ListBoxProps["size"],
     titleText: NonNullable<React.ReactNode>,
+    type?: ListBoxProps["type"],
 }
 
 declare function Dropdown<ItemType = string>(props: ForwardRefProps<HTMLButtonElement, DropdownProps<ItemType>>): FCReturn;
