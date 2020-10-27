@@ -2,34 +2,35 @@
 // Project: https://github.com/srijs/rusha#readme
 // Definitions by: Jacopo Scazzosi <https://github.com/jacoscaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.0
 
 /// <reference types="node" />
 
-interface Hash {
-    update(value: string|number[]|ArrayBuffer|Buffer): Hash;
+interface RushaHash {
+    update(value: string|number[]|ArrayBuffer|Buffer): RushaHash;
     digest(encoding?: undefined): ArrayBuffer;
     digest(encoding: 'hex'): string;
 }
 
-interface WorkerRequest {
+interface RushaWorkerRequest {
     id: string;
-    data: string|number[]|ArrayBuffer|Buffer;
+    data: string|number[]|ArrayBuffer|Buffer|Blob;
 }
 
-interface WorkerResponse {
+interface RushaWorkerResponse {
     id: string;
     hash: string;
 }
 
-interface Worker {
-    onmessage?: (res: WorkerResponse) => void;
-    postMessage(req: WorkerRequest): void;
-    terminate(): Worker;
+interface RushaWorker extends Worker {
+    onmessage: ((this: RushaWorker, res: MessageEvent<RushaWorkerResponse>) => void)|null;
+    postMessage(req: RushaWorkerRequest): void;
+    terminate(): void;
 }
 
 interface Rusha {
-    createHash(): Hash;
-    createWorker(): Worker;
+    createHash(): RushaHash;
+    createWorker(): RushaWorker;
     disableWorkerBehaviour(): void;
 }
 

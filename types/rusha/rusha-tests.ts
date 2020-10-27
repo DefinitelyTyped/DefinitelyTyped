@@ -1,17 +1,15 @@
-import rusha from 'rusha';
+import Rusha = require('rusha');
 
-rusha; // $$ExpectType Rusha
-
-const hash = rusha.createHash(); // $$ExpectType Hash
-hash.update('Hello, World'); // // $ExpectType Hash
+const hash = Rusha.createHash(); // $$ExpectType RushaHash
+hash.update('Hello, World'); // // $ExpectType RushaHash
 hash.digest('hex'); // $ExpectType string
-hash.digest(); // $ExpectType
+hash.digest(); // $ExpectType ArrayBuffer
 
-const worker = rusha.createWorker(); // $$ExpectType Worker
+const worker = Rusha.createWorker(); // $$ExpectType RushaWorker
 worker.onmessage = (res) => {
-    res; // $ExpectType WorkerResponse
-    res.id; // $ExpectType string
-    res.hash; // $ExpectType string
-    worker.terminate(); // $ExpectType Worker
+    res; // $ExpectType MessageEvent<RushaWorkerResponse>
+    res.data.id; // $ExpectType string
+    res.data.hash; // $ExpectType string
+    worker.terminate(); // $ExpectType void
 };
 worker.postMessage({ id: 'test', data: 'Hello, World' }); // $ExpectType void
