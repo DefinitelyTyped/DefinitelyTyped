@@ -9,7 +9,7 @@ export interface TreeViewProps extends Omit<ReactAttr<HTMLUListElement>, Exclude
     label: string;
     multiselect?: boolean;
     onSelect?: TreeNodeStandaloneProps["onSelect"];
-    selected: readonly (number | string)[];
+    selected: ReadonlyArray<number | string>;
     size?: "compact" | "default";
 }
 

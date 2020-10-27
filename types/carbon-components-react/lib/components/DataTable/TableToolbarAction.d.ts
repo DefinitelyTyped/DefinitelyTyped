@@ -19,6 +19,7 @@ export interface TableToolbarActionButtonProps extends
 export type AllTableToolbarActionProps = TableToolbarActionAnchorProps | TableToolbarActionButtonProps;
 
 declare function TableToolbarAction(props: ForwardRefProps<HTMLAnchorElement, TableToolbarActionAnchorProps>): FCReturn;
+// tslint:disable:unified-signatures
 declare function TableToolbarAction(props: ForwardRefProps<HTMLButtonElement, TableToolbarActionButtonProps>): FCReturn;
 
 export default TableToolbarAction;

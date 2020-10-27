@@ -26,7 +26,7 @@ export interface TreeNodeStandaloneProps extends Omit<ReactLIAttr, 'aria-expande
         node: { id: string; label: TreeNodeStandaloneProps['label']; value: TreeNodeStandaloneProps['value'] },
     ): void;
     renderIcon?: any;
-    selected?: readonly (number | string)[];
+    selected?: ReadonlyArray<number | string>;
     value?: string;
 }
 

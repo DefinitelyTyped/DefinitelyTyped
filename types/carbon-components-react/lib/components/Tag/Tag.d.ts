@@ -28,6 +28,7 @@ export interface ChipTagProps extends ReactAttr<HTMLSpanElement> {
 }
 
 declare function Tag(props: FCProps<FilterTagProps>): FCReturn;
+// tslint:disable:unified-signatures
 declare function Tag(props: FCProps<ChipTagProps>): FCReturn;
 
 export default Tag;

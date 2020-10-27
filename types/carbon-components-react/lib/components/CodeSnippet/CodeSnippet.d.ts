@@ -26,6 +26,7 @@ export interface CodeSnippetInlineProps extends SharedProps, InheritedInlineProp
 export type CodeSnippetType = CodeSnippetDivProps["type"] | CodeSnippetInlineProps["type"];
 
 declare function CodeSnippet(props: FCProps<CodeSnippetInlineProps>): FCReturn;
+// tslint:disable:unified-signatures
 declare function CodeSnippet(props: FCProps<CodeSnippetDivProps>): FCReturn;
 
 export default CodeSnippet;

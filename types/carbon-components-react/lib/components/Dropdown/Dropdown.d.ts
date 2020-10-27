@@ -46,4 +46,3 @@ export interface DropdownProps<ItemType = string> extends
 declare function Dropdown<ItemType = string>(props: ForwardRefProps<HTMLButtonElement, DropdownProps<ItemType>>): FCReturn;
 
 export default Dropdown;
-
