@@ -38,6 +38,7 @@ declare module '@keystonejs/app-graphql' {
         constructor(opts?: GraphQLAppOptions);
 
         build(): void;
+
         prepareMiddleware(options: PrepareMiddlewareOptions): Express;
     }
 
