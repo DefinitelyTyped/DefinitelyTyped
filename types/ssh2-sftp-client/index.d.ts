@@ -104,7 +104,7 @@ declare namespace sftp {
     interface FastPutTransferOptions extends FastGetTransferOptions, ModeOption {}
 
     interface FileInfo {
-        type: string;
+        type: 'd' | '-' | 'l';
         name: string;
         size: number;
         modifyTime: number;
