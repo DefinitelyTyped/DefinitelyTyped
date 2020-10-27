@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "3box-min-tests.ts"
+        "3box-tests.ts"
     ]
 }
