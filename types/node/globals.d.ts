@@ -13,6 +13,10 @@ interface ErrorConstructor {
     stackTraceLimit: number;
 }
 
+interface SymbolConstructor {
+    readonly observable: symbol;
+}
+
 // Node.js ESNEXT support
 interface String {
     /** Removes whitespace from the left end of a string. */
