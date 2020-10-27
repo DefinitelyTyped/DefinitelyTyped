@@ -1,5 +1,4 @@
 import {
-    ReactAttr,
     ReactAnchorAttr,
     RequiresChildrenProps,
     FCReturn,
@@ -7,11 +6,8 @@ import {
 } from '../../../typings/shared';
 import { LinkProps } from "./Link";
 
-interface InheritedProps extends RequiresChildrenProps {
-    className?: ReactAttr["className"],
-}
-
-export interface SwitcherItemPropsBase extends InheritedProps {
+export interface SwitcherItemPropsBase extends RequiresChildrenProps {
+    className?: string,
     isSelected?: boolean,
 }
 

@@ -7,9 +7,8 @@ import {
 import { LinkProps } from "./Link";
 
 type ExcludedAttributes = "children" | "ref" | "tabIndex";
-interface InheritedProps extends RequiresChildrenProps { }
 
-export interface HeaderMenuItemPropsBase extends InheritedProps {
+export interface HeaderMenuItemPropsBase extends RequiresChildrenProps {
     isCurrentPage?: boolean,
 }
 
