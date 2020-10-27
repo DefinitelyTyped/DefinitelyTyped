@@ -18,12 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "koa2-ratelimit-tests.ts",
-        "src/MemoryStore.d.ts",
-        "src/MongodbStore.d.ts",
-        "src/RateLimit.d.ts",
-        "src/RedisStore.d.ts",
-        "src/SequelizeStore.d.ts",
-        "src/Store.d.ts"
+        "koa2-ratelimit-tests.ts"
     ]
 }
