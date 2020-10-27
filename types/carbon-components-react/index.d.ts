@@ -6,6 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
+export as namespace CarbonReact;
+
 // This group is primarily for type exports but will cover non-default exports as well.
 export * from "./lib/components/Accordion";
 export * from "./lib/components/AccordionItem";
