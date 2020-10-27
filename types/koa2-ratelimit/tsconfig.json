@@ -16,9 +16,14 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": [
+    "files": [
         "index.d.ts",
-        "src/*",
-        "koa2-ratelimit-tests.ts"
+        "koa2-ratelimit-tests.ts",
+        "src/MemoryStore.d.ts",
+        "src/MongodbStore.d.ts",
+        "src/RateLimit.d.ts",
+        "src/RedisStore.d.ts",
+        "src/SequelizeStore.d.ts",
+        "src/Store.d.ts"
     ]
 }
