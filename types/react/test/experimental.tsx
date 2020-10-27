@@ -68,3 +68,14 @@ function InvalidOpaqueIdentifierUsage() {
 
     return null;
 }
+
+function startTransitionTest() {
+    function transitionToPage(page: string) {}
+
+    React.unstable_startTransition(() => {
+        transitionToPage('/');
+    });
+
+    // $ExpectError
+    React.unstable_startTransition(async () => {});
+}

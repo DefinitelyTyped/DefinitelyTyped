@@ -173,4 +173,11 @@ declare module '.' {
     };
 
     export function unstable_useOpaqueIdentifier(): OpaqueIdentifier;
+
+    /**
+     * Similar to `useTransition` but allows uses where hooks are not available.
+     *
+     * @param callback A _synchronous_ function which causes state updates that can be deferred.
+     */
+    export function unstable_startTransition(scope: TransitionFunction): void;
 }
