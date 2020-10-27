@@ -808,10 +808,10 @@ declare namespace sharp {
         reductionEffort?: number;
     }
 
-    /** 
+    /**
      * Requires libvips compiled with support for ImageMagick or GraphicsMagick.
      * The prebuilt binaries do not include this - see
-     * {@link https://sharp.pixelplumbing.com/install#custom-libvips installing a custom libvips}. 
+     * {@link https://sharp.pixelplumbing.com/install#custom-libvips installing a custom libvips}.
      */
     interface GifOptions extends OutputOptions, AnimationOptions {}
 
