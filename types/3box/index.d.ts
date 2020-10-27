@@ -6,76 +6,78 @@
 export = Box;
 export as namespace Box;
 
-interface ThreadPost<TMessage = string> {
-    author: string;
-    message: TMessage;
-    postId: string;
-    timestamp: number;
-}
+declare namespace Box {
+    interface ThreadPost<TMessage = string> {
+        author: string;
+        message: TMessage;
+        postId: string;
+        timestamp: number;
+    }
 
-interface StorageLog {
-    op: string;
-    key: string;
-    value: any;
-    timeStamp: number;
-}
+    interface StorageLog {
+        op: string;
+        key: string;
+        value: any;
+        timeStamp: number;
+    }
 
-declare class Storage {
-    all(opts?: { metadata?: boolean }): Promise<any[] | undefined>;
-    get(key: string): Promise<any>;
-    log(): StorageLog[];
-    getMetadata(key: string): Promise<any>;
-    set(key: string, value: any): Promise<boolean>;
-    setMultiple(keys: string[], values: any[]): Promise<boolean>;
-    remove(key: string): Promise<boolean>;
-}
+    interface Storage {
+        all(opts?: { metadata?: boolean }): Promise<any[] | undefined>;
+        get(key: string): Promise<any>;
+        log(): StorageLog[];
+        getMetadata(key: string): Promise<any>;
+        set(key: string, value: any): Promise<boolean>;
+        setMultiple(keys: string[], values: any[]): Promise<boolean>;
+        remove(key: string): Promise<boolean>;
+    }
 
-declare class Thread {
-    getPosts(): Promise<ThreadPost[]>;
-    onUpdate(): void;
+    interface Thread {
+        getPosts(): Promise<ThreadPost[]>;
+        onUpdate(): void;
 
-    post(message: any, to?: string): Promise<void>;
-    deletePost(id: string): Promise<void>;
+        post(message: any, to?: string): Promise<void>;
+        deletePost(id: string): Promise<void>;
 
-    addModerator(id: string): Promise<void>;
-    listModerators(): Promise<string[]>;
-    addMember(id: string): Promise<void>;
-    listMembers(): Promise<string[]>;
-    onNewCapabilities(updateFn: any): void;
-}
+        addModerator(id: string): Promise<void>;
+        listModerators(): Promise<string[]>;
+        addMember(id: string): Promise<void>;
+        listMembers(): Promise<string[]>;
+        onNewCapabilities(updateFn: any): void;
+    }
 
-declare class Space {
-    public: Storage;
-    private: Storage;
-    joinThread(
-        name: string,
-        opts?: {
-            firstModerator?: string;
-            members?: boolean;
-            noAutoSub?: boolean;
-            ghost?: boolean;
-            ghostBacklogLimit?: number;
-        },
-    ): Promise<Thread>;
-    joinThreadByAddress(address: string, name: string, opts?: { noAutoSub?: boolean }): Promise<Thread>;
-    createConfidentialThread(name: string): Promise<Thread>;
-    subscribeThread(
-        address: string,
-        config: object,
-        opts?: { name?: string; firstModerator?: string; members?: string },
-    ): Promise<Thread>;
-    unsubscribeThread(address?: string): void;
-    subscribedThreads(): void;
-}
+    interface Space {
+        public: Storage;
+        private: Storage;
+        joinThread(
+            name: string,
+            opts?: {
+                firstModerator?: string;
+                members?: boolean;
+                noAutoSub?: boolean;
+                ghost?: boolean;
+                ghostBacklogLimit?: number;
+            },
+        ): Promise<Thread>;
+        joinThreadByAddress(address: string, name: string, opts?: { noAutoSub?: boolean }): Promise<Thread>;
+        createConfidentialThread(name: string): Promise<Thread>;
+        subscribeThread(
+            address: string,
+            config: object,
+            opts?: { name?: string; firstModerator?: string; members?: string },
+        ): Promise<Thread>;
+        unsubscribeThread(address?: string): void;
+        subscribedThreads(): void;
+    }
 
-interface Link {
-    type: string;
-    proof: string;
-}
+    interface Link {
+        type: string;
+        proof: string;
+    }
 
-interface Query {
-    type: string;
-    address: string;
+    interface Query {
+        type: string;
+        address: string;
+    }
 }
 
 declare class Box {
@@ -90,9 +92,9 @@ declare class Box {
     _3id: {
         signJWT(claim: string): string;
     };
-    linkAddress(links: Link[]): void;
-    isAddressLinked(queries: Query[]): void;
-    listAddressLinks(): Link[];
+    linkAddress(links: Box.Link[]): void;
+    isAddressLinked(queries: Box.Query[]): void;
+    listAddressLinks(): Box.Link[];
     removeAddressLink(address: string): Promise<void>;
 
     static openBox(
@@ -108,9 +110,9 @@ declare class Box {
     static isLoggedIn(address: string): boolean;
     static create(ethereumProvider: any): Promise<Box>;
 
-    openSpace(name: string, opts?: { consentCallback?: any; onSyncDone?: any }): Promise<Space>;
+    openSpace(name: string, opts?: { consentCallback?: any; onSyncDone?: any }): Promise<Box.Space>;
     auth(space: string[], user: { address: string }): void;
-    syncDone: Promise<Space>;
+    syncDone: Promise<Box.Space>;
     onSyncDone(onSyncDone: any): void;
     logout(): void;
 
@@ -145,6 +147,6 @@ declare class Box {
         firstModerator: string,
         members: boolean,
         opts?: { profileServer?: string },
-    ): Promise<ThreadPost[]>;
-    static getThreadByAddress(address: string, opts?: { profileServer?: string }): Promise<ThreadPost[]>;
+    ): Promise<Box.ThreadPost[]>;
+    static getThreadByAddress(address: string, opts?: { profileServer?: string }): Promise<Box.ThreadPost[]>;
 }
