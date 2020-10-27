@@ -2,6 +2,8 @@
 // Project: https://developer.akamai.com/akamai-edgeworkers-overview
 // Definitions by: Evan Hughes <https://github.com/evan-hughes>
 //                 Will Bain <https://github.com/wabain>
+//                 Swathi Bala <https://github.com/swathimr>
+//                 Aman Nanner <https://github.com/ananner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace EW {
