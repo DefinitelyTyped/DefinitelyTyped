@@ -4,9 +4,8 @@ import { CSSModule } from '../index';
 export interface FormTextProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
     inline?: boolean;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     color?: string;
-    className?: string;
     cssModule?: CSSModule;
 }
 

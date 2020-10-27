@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@mapbox/geo-viewport": [
-                "mapbox__geo-viewport"
+            "@mapbox/*": [
+                "mapbox__*"
             ]
         },
         "types": [],

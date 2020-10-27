@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@terraformer/arcgis": ["terraformer__arcgis"]
+            "@terraformer/*": ["terraformer__*"]
         }
     },
     "files": [

@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@accedo/accedo-one": [
-                "accedo__accedo-one"
+            "@accedo/*": [
+                "accedo__*"
             ]
         },
         "types": [],

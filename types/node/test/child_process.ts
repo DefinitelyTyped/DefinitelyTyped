@@ -32,9 +32,9 @@ import { Writable, Readable, Pipe } from 'stream';
     childProcess.execFile("npm", { windowsHide: true }, () => {});
     childProcess.execFile("npm", { shell: true }, () => {});
     childProcess.execFile("npm", { shell: '/bin/sh' }, () => {});
-    childProcess.execFile("npm", ["-v"], () => {});
-    childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-    childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+    childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, () => {});
+    childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+    childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
     childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
 }
@@ -45,7 +45,7 @@ import { Writable, Readable, Pipe } from 'stream';
 }
 
 {
-    const forked = childProcess.fork('./', ['asd'], {
+    const forked = childProcess.fork('./', ['asd'] as ReadonlyArray<string>, {
         windowsVerbatimArguments: true,
         silent: false,
         stdio: "inherit",
@@ -76,9 +76,9 @@ import { Writable, Readable, Pipe } from 'stream';
 async function testPromisify() {
     const execFile = promisify(childProcess.execFile);
     let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
-    r = await execFile("npm", ["-v"]);
-    r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
-    r = await execFile("npm", ["-v"], { encoding: 'buffer' });
+    r = await execFile("npm", ["-v"] as ReadonlyArray<string>);
+    r = await execFile("npm", ["-v"] as ReadonlyArray<string>, { encoding: 'utf-8' });
+    r = await execFile("npm", ["-v"] as ReadonlyArray<string>, { encoding: 'buffer' });
     r = await execFile("npm", { encoding: 'utf-8' });
     r = await execFile("npm", { encoding: 'buffer' });
 

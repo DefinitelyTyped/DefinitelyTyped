@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@elastic/maki": [
-                "elastic__maki"
+            "@elastic/*": [
+                "elastic__*"
             ]
         },
         "types": [],

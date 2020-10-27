@@ -623,7 +623,7 @@ declare namespace braintree {
         referenceNumber: string;
         replyByDate: Date;
         status: DisputeStatus;
-        statusHistory: DisputeStatusHistory;
+        statusHistory: DisputeStatusHistory[];
         transaction: {
             amount: string;
             createdAt: Date;
@@ -1346,7 +1346,7 @@ declare namespace braintree {
         shippingAmount?: string;
         shipsFromPostalCode?: string;
         status: TransactionStatus;
-        statusHistory?: TransactionStatusHistory;
+        statusHistory?: TransactionStatusHistory[];
         subscription?: {
             billingPeriodEndDate: Date;
             billingPeriodStartDate: Date;

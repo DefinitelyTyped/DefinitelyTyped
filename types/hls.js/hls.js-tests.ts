@@ -83,6 +83,7 @@ if (Hls.isSupported()) {
 
     hls.on(Hls.Events.FRAG_LOAD_EMERGENCY_ABORTED, (event: "hlsFragLoadEmergencyAborted", data: Hls.fragLoadEmergencyAbortedData) => {
         console.log('frag: ', data.frag);
+        console.log(data.frag.programDateTime + 10);
     });
 
     hls.on(Hls.Events.ERROR, (event: "hlsError", data: Hls.errorData) => {

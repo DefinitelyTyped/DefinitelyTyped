@@ -1,5 +1,5 @@
 import passport = require('passport');
-import twitch = require('ottomated__passport-twitch');
+import twitch = require('@ottomated/passport-twitch');
 import { Request } from 'express';
 
 // just some test model

@@ -220,12 +220,12 @@ declare class ByteBuffer {
     /**
      * Switches (to) big endian byte order.
      */
-    BE(bigEndian?: boolean): ByteBuffer;
+    BE(bigEndian?: boolean): this;
 
     /**
      * Switches (to) little endian byte order.
      */
-    LE(bigEndian?: boolean): ByteBuffer;
+    LE(bigEndian?: boolean): this;
 
     /**
      * Appends some data to this ByteBuffer. This will overwrite any contents behind the specified offset up to the appended data's length.
@@ -234,17 +234,17 @@ declare class ByteBuffer {
         source: ByteBuffer | Buffer | ArrayBuffer | Uint8Array | string,
         encoding?: string | number,
         offset?: number,
-    ): ByteBuffer;
+    ): this;
 
     /**
      * Appends this ByteBuffer's contents to another ByteBuffer. This will overwrite any contents behind the specified offset up to the length of this ByteBuffer's data.
      */
-    appendTo(target: ByteBuffer, offset?: number): ByteBuffer;
+    appendTo(target: ByteBuffer, offset?: number): this;
 
     /**
      * Enables or disables assertions of argument types and offsets. Assertions are enabled by default but you can opt to disable them if your code already makes sure that everything is valid.
      */
-    assert(assert: boolean): ByteBuffer;
+    assert(assert: boolean): this;
 
     /**
      * Gets the capacity of this ByteBuffer's backing buffer.
@@ -255,7 +255,7 @@ declare class ByteBuffer {
      * Clears this ByteBuffer's offsets by setting ByteBuffer#offset to 0 and
      * ByteBuffer#limit to the backing buffer's capacity. Discards ByteBuffer#markedOffset.
      */
-    clear(): ByteBuffer;
+    clear(): this;
 
     /**
      * Creates a cloned instance of this ByteBuffer, preset with this ByteBuffer's values for ByteBuffer#offset, ByteBuffer#markedOffset and ByteBuffer#limit.
@@ -265,7 +265,7 @@ declare class ByteBuffer {
     /**
      * Compacts this ByteBuffer to be backed by a ByteBuffer#buffer of its contents' length. Contents are the bytes between ByteBuffer#offset and ByteBuffer#limit. Will set offset = 0 and limit = capacity and adapt ByteBuffer#markedOffset to the same relative position if set.
      */
-    compact(begin?: number, end?: number): ByteBuffer;
+    compact(begin?: number, end?: number): this;
 
     /**
      * Creates a copy of this ByteBuffer's contents. Contents are the bytes between ByteBuffer#offset and ByteBuffer#limit.
@@ -275,32 +275,32 @@ declare class ByteBuffer {
     /**
      * Copies this ByteBuffer's contents to another ByteBuffer. Contents are the bytes between ByteBuffer#offset and ByteBuffer#limit.
      */
-    copyTo(target: ByteBuffer, targetOffset?: number, sourceOffset?: number, sourceLimit?: number): ByteBuffer;
+    copyTo(target: ByteBuffer, targetOffset?: number, sourceOffset?: number, sourceLimit?: number): this;
 
     /**
      * Makes sure that this ByteBuffer is backed by a ByteBuffer#buffer of at least the specified capacity. If the current capacity is exceeded, it will be doubled. If double the current capacity is less than the required capacity, the required capacity will be used instead.
      */
-    ensureCapacity(capacity: number): ByteBuffer;
+    ensureCapacity(capacity: number): this;
 
     /**
      * Overwrites this ByteBuffer's contents with the specified value. Contents are the bytes between ByteBuffer#offset and ByteBuffer#limit.
      */
-    fill(value: number | string, begin?: number, end?: number): ByteBuffer;
+    fill(value: number | string, begin?: number, end?: number): this;
 
     /**
      * Makes this ByteBuffer ready for a new sequence of write or relative read operations. Sets limit = offset and offset = 0. Make sure always to flip a ByteBuffer when all relative read or write operations are complete.
      */
-    flip(): ByteBuffer;
+    flip(): this;
 
     /**
      * Marks an offset on this ByteBuffer to be used later.
      */
-    mark(offset?: number): ByteBuffer;
+    mark(offset?: number): this;
 
     /**
      * Sets the byte order.
      */
-    order(littleEndian: boolean): ByteBuffer;
+    order(littleEndian: boolean): this;
 
     /**
      * Prepends some data to this ByteBuffer. This will overwrite any contents before the specified offset up to the prepended data's length. If there is not enough space available before the specified offset, the backing buffer will be resized and its contents moved accordingly.
@@ -309,12 +309,12 @@ declare class ByteBuffer {
         source: ByteBuffer | string | ArrayBuffer | Buffer,
         encoding?: string | number,
         offset?: number,
-    ): ByteBuffer;
+    ): this;
 
     /**
      * Prepends this ByteBuffer to another ByteBuffer. This will overwrite any contents before the specified offset up to the prepended data's length. If there is not enough space available before the specified offset, the backing buffer will be resized and its contents moved accordingly.
      */
-    prependTo(target: ByteBuffer, offset?: number): ByteBuffer;
+    prependTo(target: ByteBuffer, offset?: number): this;
 
     /**
      * Prints debug information about this ByteBuffer's contents.
@@ -467,22 +467,22 @@ declare class ByteBuffer {
     /**
      * Resets this ByteBuffer's ByteBuffer#offset. If an offset has been marked through ByteBuffer#mark before, offset will be set to ByteBuffer#markedOffset, which will then be discarded. If no offset has been marked, sets offset = 0.
      */
-    reset(): ByteBuffer;
+    reset(): this;
 
     /**
      * Resizes this ByteBuffer to be backed by a buffer of at least the given capacity. Will do nothing if already that large or larger.
      */
-    resize(capacity: number): ByteBuffer;
+    resize(capacity: number): this;
 
     /**
      * Reverses this ByteBuffer's contents
      */
-    reverse(begin?: number, end?: number): ByteBuffer;
+    reverse(begin?: number, end?: number): this;
 
     /**
      * Skips the next length bytes. This will just advance
      */
-    skip(length: number): ByteBuffer;
+    skip(length: number): this;
 
     /**
      * Slices this ByteBuffer by creating a cloned instance with offset = begin and limit = end.
@@ -539,7 +539,7 @@ declare class ByteBuffer {
     /**
      * Writes an 8bit signed integer. This is an alias of ByteBuffer#writeInt8.
      */
-    writeByte(value: number, offset?: number): ByteBuffer;
+    writeByte(value: number, offset?: number): this;
 
     /**
      * Writes an array of bytes. This is an alias for append
@@ -548,132 +548,132 @@ declare class ByteBuffer {
         source: ByteBuffer | Buffer | ArrayBuffer | Uint8Array | string,
         encoding?: string | number,
         offset?: number,
-    ): ByteBuffer;
+    ): this;
 
     /**
      * Writes a NULL-terminated UTF8 encoded string. For this to work the specified string must not contain any NULL characters itself.
      */
-    writeCString(str: string, offset?: number): ByteBuffer;
+    writeCString(str: string, offset?: number): this;
 
     /**
      * Writes a 64bit float. This is an alias of ByteBuffer#writeFloat64.
      */
-    writeDouble(value: number, offset?: number): ByteBuffer;
+    writeDouble(value: number, offset?: number): this;
 
     /**
      * Writes a 32bit float. This is an alias of ByteBuffer#writeFloat32.
      */
-    writeFloat(value: number, offset?: number): ByteBuffer;
+    writeFloat(value: number, offset?: number): this;
 
     /**
      * Writes a 32bit float.
      */
-    writeFloat32(value: number, offset?: number): ByteBuffer;
+    writeFloat32(value: number, offset?: number): this;
 
     /**
      * Writes a 64bit float.
      */
-    writeFloat64(value: number, offset?: number): ByteBuffer;
+    writeFloat64(value: number, offset?: number): this;
 
     /**
      * Writes a length as uint32 prefixed UTF8 encoded string.
      */
-    writeIString(str: string, offset?: number): ByteBuffer;
+    writeIString(str: string, offset?: number): this;
 
     /**
      * Writes a 32bit signed integer. This is an alias of ByteBuffer#writeInt32.
      */
-    writeInt(value: number, offset?: number): ByteBuffer;
+    writeInt(value: number, offset?: number): this;
 
     /**
      * Writes a 16bit signed integer.
      */
-    writeInt16(value: number, offset?: number): ByteBuffer;
+    writeInt16(value: number, offset?: number): this;
 
     /**
      * Writes a 32bit signed integer.
      */
-    writeInt32(value: number, offset?: number): ByteBuffer;
+    writeInt32(value: number, offset?: number): this;
 
     /**
      * Writes a 64bit signed integer.
      */
-    writeInt64(value: number | Long, offset?: number): ByteBuffer;
+    writeInt64(value: number | Long, offset?: number): this;
 
     /**
      * Writes an 8bit signed integer.
      */
-    writeInt8(value: number, offset?: number): ByteBuffer;
+    writeInt8(value: number, offset?: number): this;
 
     /**
      * Write a 64bit signed integer. This is an alias of ByteBuffer#writeInt64.
      */
-    writeLong(value: number | Long, offset?: number): ByteBuffer;
+    writeLong(value: number | Long, offset?: number): this;
 
     /**
      * Writes a 16bit signed integer. This is an alias of ByteBuffer#writeInt16.
      */
-    writeShort(value: number, offset?: number): ByteBuffer;
+    writeShort(value: number, offset?: number): this;
 
     /**
      * Writes an UTF8 encoded string. This is an alias of ByteBuffer#writeUTF8String.
      */
-    writeString(str: string): ByteBuffer;
+    writeString(str: string): this;
     writeString(str: string, offset: number): number;
 
     /**
      * Writes an UTF8 encoded string.
      */
-    writeUTF8String(str: string): ByteBuffer;
+    writeUTF8String(str: string): this;
     writeUTF8String(str: string, offset?: number): number;
 
     /**
      * Writes a 16bit unsigned integer.
      */
-    writeUint16(value: number, offset?: number): ByteBuffer;
+    writeUint16(value: number, offset?: number): this;
 
     /**
      * Writes a 32bit unsigned integer.
      */
-    writeUint32(value: number, offset?: number): ByteBuffer;
+    writeUint32(value: number, offset?: number): this;
 
     /**
      * Writes a 64bit unsigned integer.
      */
-    writeUint64(value: number | Long, offset?: number): ByteBuffer;
+    writeUint64(value: number | Long, offset?: number): this;
 
     /**
      * Writes an 8bit unsigned integer.
      */
-    writeUint8(value: number, offset?: number): ByteBuffer;
+    writeUint8(value: number, offset?: number): this;
 
     /**
      * Writes a length as varint32 prefixed UTF8 encoded string.
      */
-    writeVString(str: string): ByteBuffer;
+    writeVString(str: string): this;
     writeVString(str: string, offset: number): number;
 
     /**
      * Writes a 32bit base 128 variable-length integer.
      */
-    writeVarint32(value: number): ByteBuffer;
+    writeVarint32(value: number): this;
     writeVarint32(value: number, offset: number): number;
 
     /**
      * Writes a zig-zag encoded 32bit base 128 variable-length integer.
      */
-    writeVarint32ZigZag(value: number): ByteBuffer;
+    writeVarint32ZigZag(value: number): this;
     writeVarint32ZigZag(value: number, offset: number): number;
 
     /**
      * Writes a 64bit base 128 variable-length integer.
      */
-    writeVarint64(value: number | Long): ByteBuffer;
+    writeVarint64(value: number | Long): this;
     writeVarint64(value: number | Long, offset: number): number;
 
     /**
      * Writes a zig-zag encoded 64bit base 128 variable-length integer.
      */
-    writeVarint64ZigZag(value: number | Long): ByteBuffer;
+    writeVarint64ZigZag(value: number | Long): this;
     writeVarint64ZigZag(value: number | Long, offset: number): number;
 }

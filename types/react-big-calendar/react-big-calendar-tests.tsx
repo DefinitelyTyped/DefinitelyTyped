@@ -19,7 +19,10 @@ import {
     NavigateAction,
     Culture, DayLayoutAlgorithm, DayLayoutFunction,
     stringOrDate,
-    ViewProps
+    ViewProps,
+    Day,
+    TimeGrid,
+    Week
 } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
@@ -424,4 +427,55 @@ class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResour
     const localizer = momentLocalizer(moment);
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}
+
+// Test Week and TimeGrid types
+class MyWorkWeek extends Week {
+    render() {
+        const { date } = this.props;
+        const range = MyWorkWeek.range(date);
+        return <TimeGrid {...this.props} range={range} eventOffset={15} />;
+    }
+}
+
+MyWorkWeek.range = date => {
+    const start = date;
+    return [start, new Date(start.setDate(start.getDate() + 1))];
+};
+
+MyWorkWeek.navigate = (date, action) => {
+    return date;
+};
+
+MyWorkWeek.title = date => {
+    return `My awesome week: ${date.toLocaleDateString()}`;
+};
+
+class MyWeek extends Week {
+    render() {
+        const { date } = this.props;
+        const range = MyWeek.range(date);
+        return <TimeGrid {...this.props} range={range} eventOffset={15} />;
+    }
+}
+
+MyWeek.range = date => {
+    const start = date;
+    return [start, new Date(start.setDate(start.getDate() + 1))];
+};
+
+MyWeek.navigate = (date, action) => {
+    return date;
+};
+
+MyWeek.title = date => {
+    return `My awesome week: ${date.toLocaleDateString()}`;
+};
+
+// Test Day types
+class MyDay extends Day {
+    render() {
+        const { date } = this.props;
+        return date.toString();
+    }
 }

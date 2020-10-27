@@ -12,6 +12,7 @@ const repo = new Git.Repository();
 const id = new Git.Oid();
 const ref = new Git.Reference();
 const tree = new Git.Tree();
+const fetchOptions = new Git.FetchOptions();
 
 tree.walk().start();
 tree.getEntry('/').then(entry => {
@@ -93,3 +94,9 @@ repo.getHeadCommit().then(async commit => {
 
 Git.version; // $ExpectType string
 Git.Promise; // $ExpectType PromiseConstructor
+
+const revwalk = Git.Revwalk.create(repo);
+revwalk.push(id);
+const commitList: Promise<Git.Commit[]> = revwalk.getCommitsUntil((commit: Git.Commit) => {
+    return true;
+});

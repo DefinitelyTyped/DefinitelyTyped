@@ -2,23 +2,44 @@
 // Project: https://github.com/nfriedly/set-cookie-parser
 // Definitions by: Nick Paddock <https://github.com/nickp10>
 //                 Ilya Zaytsev <https://github.com/ilyaztsv>
+//                 Singlebyted <https://github.com/singlebyted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-declare module "set-cookie-parser" {
-    import http = require("http");
+declare module 'set-cookie-parser' {
+    import http = require('http');
 
-    function SetCookieParser(input: string | ReadonlyArray<string> | http.IncomingMessage, options: SetCookieParser.Options & { map: true }): SetCookieParser.CookieMap;
-    function SetCookieParser(input: string | ReadonlyArray<string> | http.IncomingMessage, options?: SetCookieParser.Options & { map?: false }): SetCookieParser.Cookie[];
-    function SetCookieParser(input: string | ReadonlyArray<string> | http.IncomingMessage, options?: SetCookieParser.Options): SetCookieParser.Cookie[] | SetCookieParser.CookieMap;
+    function SetCookieParser(
+        input: string | ReadonlyArray<string> | http.IncomingMessage,
+        options: SetCookieParser.Options & { map: true },
+    ): SetCookieParser.CookieMap;
+    function SetCookieParser(
+        input: string | ReadonlyArray<string> | http.IncomingMessage,
+        options?: SetCookieParser.Options & { map?: false },
+    ): SetCookieParser.Cookie[];
+    function SetCookieParser(
+        input: string | ReadonlyArray<string> | http.IncomingMessage,
+        options?: SetCookieParser.Options,
+    ): SetCookieParser.Cookie[] | SetCookieParser.CookieMap;
 
     namespace SetCookieParser {
-        function parse(input: string | ReadonlyArray<string> | http.IncomingMessage, options: Options & { map: true }): CookieMap;
-        function parse(input: string | ReadonlyArray<string> | http.IncomingMessage, options?: Options & { map?: false }): Cookie[];
-        function parse(input: string | ReadonlyArray<string> | http.IncomingMessage, options?: Options): Cookie[] | CookieMap;
+        function parse(
+            input: string | ReadonlyArray<string> | http.IncomingMessage,
+            options: Options & { map: true },
+        ): CookieMap;
+        function parse(
+            input: string | ReadonlyArray<string> | http.IncomingMessage,
+            options?: Options & { map?: false },
+        ): Cookie[];
+        function parse(
+            input: string | ReadonlyArray<string> | http.IncomingMessage,
+            options?: Options,
+        ): Cookie[] | CookieMap;
 
         function splitCookiesString(input: string | ReadonlyArray<string> | void): string[];
+
+        function parseString(individualSetCookieHeader: string, options?: Options): Cookie;
 
         interface Cookie {
             name: string;
@@ -33,13 +54,14 @@ declare module "set-cookie-parser" {
         }
 
         interface CookieMap {
-          [name: string]: Cookie;
+            [name: string]: Cookie;
         }
 
         type Options = {
             decodeValues?: boolean;
             map?: boolean;
-        }
+            silent?: boolean;
+        };
     }
 
     export = SetCookieParser;

@@ -16,11 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@rdfjs/to-ntriples": [
-                "rdfjs__to-ntriples"
-            ],
-            "@rdfjs/to-ntriples/*": [
-                "rdfjs__to-ntriples/*"
+            "@rdfjs/*": [
+                "rdfjs__*"
             ]
         }
     },

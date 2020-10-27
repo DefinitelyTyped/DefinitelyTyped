@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@keyv/sqlite": [
-                "keyv__sqlite"
+            "@keyv/*": [
+                "keyv__*"
             ]
         },
         "types": [],

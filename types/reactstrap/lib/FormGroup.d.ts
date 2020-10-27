@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
+export interface FormGroupProps extends React.HTMLAttributes<HTMLDivElement> {
     [key: string]: any;
     row?: boolean;
     check?: boolean;
     inline?: boolean;
     disabled?: boolean;
-    tag?: string | React.ReactType;
-    className?: string;
+    tag?: React.ElementType;
     cssModule?: CSSModule;
 }
 

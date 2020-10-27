@@ -14,7 +14,7 @@
             "../"
         ],
         "paths": {
-            "@pusher/chatkit-client": ["pusher__chatkit-client"]
+            "@pusher/*": ["pusher__*"]
         },
         "types": [],
         "noEmit": true,

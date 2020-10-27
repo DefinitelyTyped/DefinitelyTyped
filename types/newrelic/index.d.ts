@@ -7,6 +7,7 @@
 //                 Kenneth Aasan <https://github.com/kennethaasan>
 //                 Jon Flaishans <https://github.com/funkswing>
 //                 Dylan Smith <https://github.com/dylansmith>
+//                 BlueJeans by Verizon <https://github.com/bluejeans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
@@ -356,12 +357,12 @@ export function getLinkingMetadata(omitSupportability?: boolean): LinkingMetadat
 export function getTraceMetadata(): TraceMetadata;
 
 /**
- * Wraps an AWS Lambda function with NewRelic instrumentation and returns the value of the handler
+ * Wraps an AWS Lambda function with NewRelic instrumentation and returns the wrapped function.
  *
- * The handler is a callback function whose value is returned from setLambdaHandler
- * Returns the value returned by handler
+ * The handler should be an AWS Lambda handler function.
+ * Returns a function with identical signature to the provided handler function.
  */
-export function setLambdaHandler<T>(handler: (...args: any[]) => T): T;
+export function setLambdaHandler<T extends (...args: any[]) => any>(handler: T): T;
 
 export interface Instrument {
     (opts: { moduleName: string; onRequire: () => void; onError?: (err: Error) => void }): void;

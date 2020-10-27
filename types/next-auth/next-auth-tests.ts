@@ -10,7 +10,7 @@ import Adapters from 'next-auth/adapters';
 import * as client from 'next-auth/client';
 import * as JWT from 'next-auth/jwt';
 import NextAuth, * as NextAuthTypes from 'next-auth';
-import { GenericObject, NextApiRequest, NextApiResponse } from 'next-auth/_utils';
+import { GenericObject, SessionBase, NextApiRequest, NextApiResponse } from 'next-auth/_utils';
 import { IncomingMessage, ServerResponse } from 'http';
 import { Socket } from 'net';
 
@@ -75,12 +75,12 @@ const allConfig = {
     },
     pages: pageOptions,
     callbacks: {
-        signIgn: (user: GenericObject, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
+        signIgn: (user: NextAuthTypes.User, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
-        session: (session: NextAuthTypes.Session, user: GenericObject) => Promise.resolve<any>(user),
+        session: (session: SessionBase, user: NextAuthTypes.User) => Promise.resolve<any>(user),
         jwt: (
             token: GenericObject,
-            user: GenericObject,
+            user: NextAuthTypes.User,
             account: GenericObject,
             profile: GenericObject,
             isNewUser: boolean,
@@ -190,7 +190,7 @@ const session = {
     expires: '1234',
 };
 
-// $ExpectType [Session, boolean]
+// $ExpectType [Session | null | undefined, boolean]
 client.useSession();
 
 // $ExpectType Promise<Session | null>
@@ -227,6 +227,28 @@ client.Provider({
         baseUrl: 'https://foo.com',
         basePath: '/',
         clientMaxAge: 1234,
+    },
+});
+
+// $ExpectType ReactElement<any, any> | null
+client.Provider({
+    session,
+});
+
+// $ExpectType ReactElement<any, any> | null
+client.Provider({
+    session: undefined,
+    options: {},
+});
+
+// $ExpectType ReactElement<any, any> | null
+client.Provider({
+    session: null,
+    options: {
+        baseUrl: 'https://foo.com',
+        basePath: '/',
+        clientMaxAge: 1234,
+        keepAlive: 4321,
     },
 });
 

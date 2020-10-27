@@ -1,4 +1,4 @@
-import TBTC from 'keep-network__tbtc.js';
+import TBTC from '@keep-network/tbtc.js';
 
 const tbtc = TBTC.withConfig({
     web3: {} as any,

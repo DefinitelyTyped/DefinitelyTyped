@@ -342,9 +342,9 @@ QUnit.test( "a test", function( assert ) {
 // declare var Promise: any;
 QUnit.test( "a Promise-returning test", function( assert ) {
   assert.expect( 0 );
-  var thenable = new Promise(function( resolve: any, reject: any ) {
+  var thenable = new Promise<void>(function( resolve: any, reject: any ) {
     setTimeout(function() {
-      resolve( "result" );
+      resolve();
     }, 500 );
   });
   return thenable;
@@ -664,4 +664,95 @@ QUnit.test('steps', assert => {
   assert.step('two');
   assert.step('three');
   assert.verifySteps(['one', 'two', 'three'], 'Counting to three correctly');
+});
+
+async function timeout() {
+  return new Promise(resolve => setTimeout(resolve, 1));
+}
+
+// These async tests are intended to ensure the appropriate behavior for @typescript-eslint/no-misused-promises.
+// However, we don't actually use typescript-eslint in this project and tslint has no equivalent,
+// so we can't properly test it.
+QUnit.begin(async function() {
+  await timeout();
+});
+
+QUnit.done(async function() {
+  await timeout();
+});
+
+QUnit.moduleDone(async function() {
+  await timeout();
+});
+
+QUnit.moduleStart(async function() {
+  await timeout();
+});
+
+QUnit.testDone(async function() {
+  await timeout();
+});
+
+QUnit.testStart(async function() {
+  await timeout();
+});
+
+QUnit.test( "async test", async function( assert ) {
+  await timeout();
+  assert.ok(true);
+});
+
+QUnit.only( "async only", async function( assert ) {
+  await timeout();
+  assert.ok(true);
+});
+
+
+QUnit.skip( "async skip", async function( assert ) {
+  await timeout();
+  assert.ok(true);
+});
+
+QUnit.module( "async", {
+  async after( assert ) {
+    await timeout();
+    assert.ok( true, "async after called" );
+  },
+
+  async before( assert ) {
+    await timeout();
+    assert.ok( true, "async before called" );
+  },
+
+  async beforeEach( assert ) {
+    await timeout();
+    assert.ok( true, "async beforeEach called" );
+  },
+
+  async afterEach( assert ) {
+    await timeout();
+    assert.ok( true, "async afterEach called" );
+  }
+});
+
+QUnit.module( "async nested hooks", function( hooks ) {
+  hooks.after( async function( assert ) {
+    await timeout();
+    assert.ok( true, "async after called" );
+  } );
+
+  hooks.before( async function( assert ) {
+    await timeout();
+    assert.ok( true, "async before called" );
+  } );
+
+  hooks.beforeEach( async function( assert ) {
+    await timeout();
+    assert.ok( true, "async beforeEach called" );
+  } );
+
+  hooks.afterEach( async function( assert ) {
+    await timeout();
+    assert.ok( true, "async afterEach called" );
+  } );
 });

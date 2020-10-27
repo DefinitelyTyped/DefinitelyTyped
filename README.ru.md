@@ -379,7 +379,7 @@ f('one');
 ```json
 {
     "paths": {
-        "@foo/bar": ["foo__bar"]
+        "@foo/*": ["foo__*"]
     }
 }
 ```

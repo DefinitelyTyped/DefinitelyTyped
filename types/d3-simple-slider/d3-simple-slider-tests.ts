@@ -34,7 +34,7 @@ containerElement = canvas; // fails, incompatible type
 // --------------------------------------------------------------------------
 
 let topSlider: d3SimpleSlider.Slider<number> = d3SimpleSlider.sliderTop(scaleLinear());
-let leftSlider: d3SimpleSlider.Slider<number> = d3SimpleSlider.sliderLeft(scaleLinear<number>());
+let leftSlider: d3SimpleSlider.Slider<number> = d3SimpleSlider.sliderLeft(scaleLinear());
 
 // --------------------------------------------------------------------------
 // Test Configure Slider

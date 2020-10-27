@@ -14,8 +14,8 @@
             "../"
         ],
         "paths": {
-            "@lucasmogari/react-pagination": [
-                "lucasmogari__react-pagination"
+            "@lucasmogari/*": [
+                "lucasmogari__*"
             ]
         },
         "types": [],

@@ -10,14 +10,14 @@
 
 * [Current status](#current-status)
 * [How can I contribute?](#how-can-i-contribute)
-    * [Testing](#testing)
-    * [Make a pull request](#make-a-pull-request)
-        * [Edit an existing package](#edit-an-existing-package)
-        * [Create a new package](#create-a-new-package)
-        * [Common mistakes](#common-mistakes)
-        * [Removing a package](#removing-a-package)
-        * [Linter](#linter)
-        * [Verifying](#verifying)
+  - [Testing](#testing)
+  - [Make a pull request](#make-a-pull-request)
+    - [Edit an existing package](#edit-an-existing-package)
+    - [Create a new package](#create-a-new-package)
+    - [Common mistakes](#common-mistakes)
+    - [Removing a package](#removing-a-package)
+    - [Linter](#linter)
+    - [Verifying](#verifying)
 * [FAQ](#faq)
 
 ## Current status
@@ -71,35 +71,34 @@ If you're using TypeScript 2.0 to 3.1, you can still try installing `@types` pac
 But there's no guarantee that they'll work.
 Here is the support window:
 
-Version | Released | End of Support
--- | -- | --
-2.8 | March 2018 | March 2020
-2.9 | May 2018 | May 2020
-3.0 | July 2018 | August 2020
-3.1 | September 2018 | September 2020
-3.2 | November 2018 | November 2020
-3.3 | January 2019 | January 2021
-3.4 | March 2019 | March 2021
-3.5 | May 2019 | May 2021
-3.6 | August 2019 | August 2021
-3.7 | November 2019 | November 2021
-3.8 | February 2020 | February 2022
-3.9 | May 2020 | May 2022
-4.0 | August 2020 | August 2022
+| Version | Released       | End of Support |
+| ------- | -------------- | -------------- |
+| 2.8     | March 2018     | March 2020     |
+| 2.9     | May 2018       | May 2020       |
+| 3.0     | July 2018      | August 2020    |
+| 3.1     | September 2018 | September 2020 |
+| 3.2     | November 2018  | November 2020  |
+| 3.3     | January 2019   | January 2021   |
+| 3.4     | March 2019     | March 2021     |
+| 3.5     | May 2019       | May 2021       |
+| 3.6     | August 2019    | August 2021    |
+| 3.7     | November 2019  | November 2021  |
+| 3.8     | February 2020  | February 2022  |
+| 3.9     | May 2020       | May 2022       |
+| 4.0     | August 2020    | August 2022    |
 
 `@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
 For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
 
-|Tag | Version|
-|----|---------|
-|latest| 16.9.23|
-|ts2.0| 15.0.1|
-| ... | ... |
-|ts2.5| 16.0.36|
-|ts2.6| 16.4.7|
-|ts2.7| 16.4.7|
-| ... | ... |
-
+| Tag    | Version |
+| ------ | ------- |
+| latest | 16.9.23 |
+| ts2.0  | 15.0.1  |
+| ...    | ...     |
+| ts2.5  | 16.0.36 |
+| ts2.6  | 16.4.7  |
+| ts2.7  | 16.4.7  |
+| ...    | ...     |
 
 #### TypeScript 1.*
 
@@ -141,7 +140,6 @@ Once you've tested your definitions with real code, make a [PR](#make-a-pull-req
 then follow the instructions to [edit an existing package](#edit-an-existing-package) or
 [create a new package](#create-a-new-package).
 
-
 ### Make a pull request
 
 Once you've tested your package, you can share it on Definitely Typed.
@@ -182,6 +180,7 @@ For example, this change to a function in a `.d.ts` file adding a new param to a
 ```
 
 `index-tests.ts`:
+
 ```diff
 import {twoslash} from "./"
 
@@ -207,12 +206,12 @@ If the package you are adding typings for is not on NPM, make sure the name you 
 
 Your package should have this structure:
 
-| File | Purpose |
-| --- | --- |
-| index.d.ts | This contains the typings for the package. |
-| foo-tests.ts | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
+| File          | Purpose |
+| ------------- | ------- |
+| index.d.ts    | This contains the typings for the package. |
+| foo-tests.ts  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | tsconfig.json | This allows you to run `tsc` within the package. |
-| tslint.json | Enables linting. |
+| tslint.json   | Enables linting. |
 
 Generate these by running `npx dts-gen --dt --name my-package-name --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name my-package-name --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -229,14 +228,14 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 
-  - Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
-  - Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
-  - The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
+* Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
+* Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
+* The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
 
- To Add yourself as a Definition Owner:
+To Add yourself as a Definition Owner:
 
-  - Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-  - Or if there are more people, it can be multiline
+* Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+* Or if there are more people, it can be multiline
   ```typescript
   // Definitions by: Alice <https://github.com/alice>
   //                 Bob <https://github.com/bob>
@@ -249,40 +248,39 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
-    ```tsx
-    // prettier-ignore
-    const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
-    ```
+* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier — --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
+  ```tsx
+  // prettier-ignore
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  ```
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
 * `interface Foo { new(): Foo; }`:
-    This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
+  This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
 * `const Class: { new(): IClass; }`:
-    Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
+  Prefer to use a class declaration `class Class { constructor(); }` instead of a new-able constant.
 * `getMeAT<T>(): T`:
-    If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
-    Prefer to use a real type assertion, e.g. `getMeAT() as number`.
-    Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
-    Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
-    Exception: `new Map<string, number>()` is OK.
+  If a type parameter does not appear in the types of any parameters, you don't really have a generic function, you just have a disguised type assertion.
+  Prefer to use a real type assertion, e.g. `getMeAT() as number`.
+  Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
+  Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
+  Exception: `new Map<string, number>()` is OK.
 * Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
 * `var foo: string | any`:
-    When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
-    Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
-
+  When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
+  Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 #### Removing a package
 
 When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
 
-You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
-- `typingsPackageName`: This is the name of the directory to delete.
-- `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
-- `sourceRepoURL`: This should point to the repository that contains the typings.
-- `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
+You can remove it by running `npm run not-needed — typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
+* `typingsPackageName`: This is the name of the directory to delete.
+* `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
+* `sourceRepoURL`: This should point to the repository that contains the typings.
+* `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
 
 Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
-You can get this list by looking at the errors from `npm run test`.
+You can get this list by looking at the errors from `npm run test-all`.
 To fix the errors, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
 For example:
 
@@ -295,16 +293,17 @@ For example:
 }
 ```
 
-When you add a `package.json` to dependents of `foo`, you will also need to open a PR to add `foo` [to dependenciesWhitelist.txt in types-publisher](https://github.com/Microsoft/types-publisher/blob/master/dependenciesWhitelist.txt).
+When you add a `package.json` to dependents of `foo`, you will also need to open a PR to add `foo` [to allowedPackageJsonDependencies.txt in DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
 #### Linter
 
 All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
+
 ```js
 {
-    "extends": "dtslint/dt.json"
+  "extends": "dtslint/dt.json"
 }
 ```
 
@@ -312,11 +311,11 @@ This should be the only content in a finished project's `tslint.json` file. If a
 
 ```js
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // This package uses the Function type, and it will take effort to fix.
-        "ban-types": false
-    }
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // This package uses the Function type, and it will take effort to fix.
+    "ban-types": false
+  }
 }
 ```
 
@@ -426,35 +425,35 @@ Here's a short example to get you started:
 
 1. You'll have to add a `package.json` file to your package definition, with the following contents:
 
-```json
-{
-    "private": true,
-    "types": "index",
-    "typesVersions": {
-        "<=3.6": { "*": ["ts3.6/*"] }
-    }
-}
-```
+   ```json
+   {
+     "private": true,
+     "types": "index",
+     "typesVersions": {
+       "<=3.6": { "*": ["ts3.6/*"] }
+     }
+   }
+   ```
 
 2. Create the sub-directory mentioned in the `typesVersions` field inside your types directory (`ts3.6/` in this example).
-`ts3.6/` will support TypeScript versions 3.6 and below, so copy the existing types and tests there.
+   `ts3.6/` will support TypeScript versions 3.6 and below, so copy the existing types and tests there.
 
-You'll need to delete the definition header from `ts3.6/index.d.ts` since only the root `index.d.ts` is supposed to have it.
+   You'll need to delete the definition header from `ts3.6/index.d.ts` since only the root `index.d.ts` is supposed to have it.
 
 3. Set the `baseUrl` and `typeRoots` options in `ts3.6/tsconfig.json` to the correct paths, which should look something like this:
-```json
-{
-    "compilerOptions": {
-        "baseUrl": "../../",
-        "typeRoots": ["../../"]
-    }
-}
-```
+   ```json
+   {
+     "compilerOptions": {
+       "baseUrl": "../../",
+       "typeRoots": ["../../"]
+     }
+   }
+   ```
 
 4. Back in the root of the package, add the TypeScript 3.7 features you want to use.
-When people install the package, TypeScript 3.6 and below will start from `ts3.6/index.d.ts`, whereas TypeScript 3.7 and above will start from `index.d.ts`.
+   When people install the package, TypeScript 3.6 and below will start from `ts3.6/index.d.ts`, whereas TypeScript 3.7 and above will start from `index.d.ts`.
 
-You can look at [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components).
+   You can look at [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) for an example.
 
 #### I want to add a DOM API not present in TypeScript by default.
 
@@ -465,7 +464,7 @@ When it graduates draft mode, we may remove it from Definitely Typed and depreca
 
 #### How do Definitely Typed package versions relate to versions of the corresponding library?
 
-_NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)_
+*NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)*
 
 Each Definitely Typed package is versioned when published to NPM.
 The [types-publisher](https://github.com/Microsoft/types-publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor` version number listed in the first line of its `index.d.ts` file.
@@ -520,17 +519,17 @@ At the time of writing, the [history v2 `tsconfig.json`](https://github.com/Defi
 
 ```json
 {
-    "compilerOptions": {
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
-        "paths": {
-            "history": [ "history/v2" ]
-        },
-    },
-    "files": [
-        "index.d.ts",
-        "history-tests.ts"
-    ]
+  "compilerOptions": {
+    "baseUrl": "../../",
+    "typeRoots": ["../../"],
+    "paths": {
+      "history": [ "history/v2" ]
+    }
+  },
+  "files": [
+    "index.d.ts",
+    "history-tests.ts"
+  ]
 }
 ```
 
@@ -554,17 +553,15 @@ Please note that it is not required to fully exercise the definition in each tes
 
 Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the double underscore.
 
-When `dts-gen` is used to scaffold a scoped package, the `paths` property has to be manually adapted in the generated
-`tsconfig.json` to correctly reference the scoped package:
+When `dts-gen` is used to scaffold a scoped package, the `paths` property has to be manually adapted in the generated `tsconfig.json` to correctly reference the scoped package:
 
 ```json
 {
-    "paths":{
-      "@foo/bar": ["foo__bar"]
-    }
+  "paths": {
+    "@foo/*": ["foo__*"]
+  }
 }
 ```
-
 
 #### The file history in GitHub looks incomplete.
 

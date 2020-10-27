@@ -6,8 +6,7 @@ export interface FadeProps extends React.HTMLAttributes<HTMLElement> {
     in?: boolean;
     baseClass?: string;
     baseClassIn?: string;
-    tag?: string | React.ReactType;
-    className?: string;
+    tag?: React.ElementType;
     cssModule?: CSSModule;
     transitionAppearTimeout?: number;
     transitionEnterTimeout?: number;
