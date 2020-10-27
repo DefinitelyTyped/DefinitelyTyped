@@ -27,7 +27,7 @@ const deprecationTest = autoprefixer({
 });
 
 autoprefixer.info(); // $ExpectedType () => void
-autoprefixer.data; // $ExpectType { browsers: any; prefixes: any; }
+autoprefixer.data; // $ExpectType any
 autoprefixer.defaults; // $ExpectedType string
 
 // Using environment map in "overrideBrowserslist"

@@ -1,8 +1,10 @@
 {
+    "extends": "@tsconfig/recommended/tsconfig.json",
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es2015",
+            "es2018.promise"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
