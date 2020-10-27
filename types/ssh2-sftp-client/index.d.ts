@@ -16,12 +16,14 @@ import * as ssh2Stream from 'ssh2-streams';
 
 export = sftp;
 
+type FileInfoType = 'd' | '-' | 'l';
+
 declare class sftp {
     connect(options: ssh2.ConnectConfig): Promise<ssh2.SFTPWrapper>;
 
     list(remoteFilePath: string, pattern?: string | RegExp): Promise<sftp.FileInfo[]>;
 
-    exists(remotePath: string): Promise<false | 'd' | '-' | 'l'>;
+    exists(remotePath: string): Promise<false | FileInfoType>;
 
     stat(remotePath: string): Promise<sftp.FileStats>;
 
@@ -70,7 +72,7 @@ declare class sftp {
 
 declare namespace sftp {
     interface FileInfo {
-        type: string;
+        type: FileInfoType;
         name: string;
         size: number;
         modifyTime: number;
