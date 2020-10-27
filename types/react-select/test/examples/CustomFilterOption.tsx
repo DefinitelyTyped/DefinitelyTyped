@@ -4,18 +4,19 @@ import Select from 'react-select';
 
 interface GroupOption {
   label: string;
-  value: {
+  value: string;
+  data: {
     email: string
     name: string
   };
 }
 
 function filterOption(option: GroupOption, rawInput: string): boolean {
-  return (option.value.email + option.value.name).includes(rawInput);
+  return (option.data.email + option.data.name).includes(rawInput);
 }
 
 const values: GroupOption[] = [
-    { label: "", value: { email: "", name: "" }}
+    { label: "", value: "", data: { email: "", name: "" }}
 ];
 
 export default () => (
