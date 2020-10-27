@@ -20,7 +20,7 @@ export interface SelectProps {
         state?: 'error' | 'warning' | 'information' | 'success';
         text?: string;
     };
-    options?: { key: string; text: string }[];
+    options?: Array<{ key: string; text: string }>;
     onClick?: (...args: any[]) => any;
     onBlur?: (...args: any[]) => any;
     onSelect?: (...args: any[]) => any;
