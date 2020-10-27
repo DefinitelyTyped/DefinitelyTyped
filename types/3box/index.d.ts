@@ -1,0 +1,150 @@
+// Type definitions for 3box 1.22
+// Project: https://github.com/3box/3box-js#readme
+// Definitions by: Shikanime Deva <https://github.com/me>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export = Box;
+export as namespace Box;
+
+interface ThreadPost<TMessage = string> {
+    author: string;
+    message: TMessage;
+    postId: string;
+    timestamp: number;
+}
+
+interface StorageLog {
+    op: string;
+    key: string;
+    value: any;
+    timeStamp: number;
+}
+
+declare class Storage {
+    all(opts?: { metadata?: boolean }): Promise<any[] | undefined>;
+    get(key: string): Promise<any>;
+    log(): StorageLog[];
+    getMetadata(key: string): Promise<any>;
+    set(key: string, value: any): Promise<boolean>;
+    setMultiple(keys: string[], values: any[]): Promise<boolean>;
+    remove(key: string): Promise<boolean>;
+}
+
+declare class Thread {
+    getPosts(): Promise<ThreadPost[]>;
+    onUpdate(): void;
+
+    post(message: any, to?: string): Promise<void>;
+    deletePost(id: string): Promise<void>;
+
+    addModerator(id: string): Promise<void>;
+    listModerators(): Promise<string[]>;
+    addMember(id: string): Promise<void>;
+    listMembers(): Promise<string[]>;
+    onNewCapabilities(updateFn: any): void;
+}
+
+declare class Space {
+    public: Storage;
+    private: Storage;
+    joinThread(
+        name: string,
+        opts?: {
+            firstModerator?: string;
+            members?: boolean;
+            noAutoSub?: boolean;
+            ghost?: boolean;
+            ghostBacklogLimit?: number;
+        },
+    ): Promise<Thread>;
+    joinThreadByAddress(address: string, name: string, opts?: { noAutoSub?: boolean }): Promise<Thread>;
+    createConfidentialThread(name: string): Promise<Thread>;
+    subscribeThread(
+        address: string,
+        config: object,
+        opts?: { name?: string; firstModerator?: string; members?: string },
+    ): Promise<Thread>;
+    unsubscribeThread(address?: string): void;
+    subscribedThreads(): void;
+}
+
+interface Link {
+    type: string;
+    proof: string;
+}
+
+interface Query {
+    type: string;
+    address: string;
+}
+
+declare class Box {
+    static getConfig(address: string, opts?: { profileServer?: string }): Promise<object>;
+    static idUtils: {
+        verifyClaim(claim: string, opts?: { audience?: string }): Promise<any>;
+        isMuportDID(address: string): Promise<boolean>;
+        isClaim(claim: string, opts?: { audience?: string }): Promise<boolean>;
+    };
+
+    DID: string;
+    _3id: {
+        signJWT(claim: string): string;
+    };
+    linkAddress(links: Link[]): void;
+    isAddressLinked(queries: Query[]): void;
+    listAddressLinks(): Link[];
+    removeAddressLink(address: string): Promise<void>;
+
+    static openBox(
+        address: string,
+        ethereumProvider: any,
+        opts?: {
+            consentCallback?: any;
+            pinningNode?: string;
+            ipfs?: any;
+            addressServer?: string;
+        },
+    ): Promise<Box>;
+    static isLoggedIn(address: string): boolean;
+    static create(ethereumProvider: any): Promise<Box>;
+
+    openSpace(name: string, opts?: { consentCallback?: any; onSyncDone?: any }): Promise<Space>;
+    auth(space: string[], user: { address: string }): void;
+    syncDone: Promise<Space>;
+    onSyncDone(onSyncDone: any): void;
+    logout(): void;
+
+    static getProfile(
+        address: string,
+        opts?: {
+            blocklist?: any;
+            metadata?: string;
+            addressServer?: string;
+            ipfs?: any;
+            useCacheService?: boolean;
+            profileServer?: string;
+        },
+    ): Promise<any>;
+    static getProfiles(address: string, opts?: { profileServer?: string }): Promise<object>;
+    static profileGraphQL(query: object, opts?: { graphqlServer?: string }): Promise<object>;
+    static getVerifiedAccounts(profile: object): Promise<object>;
+
+    static getSpace(
+        address: string,
+        name: string,
+        opts?: { blocklist?: any; metadata?: string; profileServer?: string },
+    ): Promise<object>;
+    static listSpaces(address: string, opts?: { profileServer?: string }): Promise<object>;
+
+    public: Storage;
+    private: Storage;
+
+    static getThread(
+        space: string,
+        name: string,
+        firstModerator: string,
+        members: boolean,
+        opts?: { profileServer?: string },
+    ): Promise<ThreadPost[]>;
+    static getThreadByAddress(address: string, opts?: { profileServer?: string }): Promise<ThreadPost[]>;
+}
