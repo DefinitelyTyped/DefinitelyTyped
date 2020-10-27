@@ -11,7 +11,7 @@ export namespace Mailer {
         recipients?: [string];
         ccRecipients?: [string];
         bccRecipients?: [string];
-        attachment?: {
+        attachments?: [{
             /**
              * The absolute path of the file from which to read data.
              */
@@ -19,12 +19,16 @@ export namespace Mailer {
             /**
              * Mime Type: jpg, png, doc, ppt, html, pdf, csv
              */
-            type: string;
+            type?: string;
             /**
              * Optional: Custom filename for attachment
              */
             name?: string;
-        };
+            /**
+             * Optional: Use this if type does not work
+             */
+            mimeType: string;
+        }];
     }, callback: (
         error: string,
         /**
