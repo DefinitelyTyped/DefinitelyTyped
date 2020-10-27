@@ -51,6 +51,8 @@ declare namespace Masonry {
         originLeft?: boolean;
         originTop?: boolean;
         horizontalOrder?: boolean;
+        hiddenStyle?: CSSStyleDeclaration;
+        visibleStyle?: CSSStyleDeclaration;
 
         // setup
         containerStyle?: {};
