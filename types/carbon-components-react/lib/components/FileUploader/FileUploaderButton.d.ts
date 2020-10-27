@@ -1,5 +1,5 @@
 import { ReactLabelAttr } from "../../../typings/shared";
-import * as React from "../../../../react/index";
+import * as React from "react";
 import { FileUploaderSize } from "./shared";
 import { ButtonKind } from "../Button";
 
