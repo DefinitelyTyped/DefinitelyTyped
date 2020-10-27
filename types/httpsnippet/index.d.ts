@@ -1,5 +1,5 @@
 // Type definitions for httpsnippet 1.23
-// Project: https://github.com/Mashape/httpsnippet
+// Project: https://github.com/Kong/httpsnippet
 // Definitions by: Marcell Toth <https://github.com/marcelltoth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
