@@ -10,5 +10,5 @@ declare global {
     const box = await Box.openBox('foo', window.ethereum);
     const space = await box.openSpace('bar');
     const thread = await space.joinThread('baz');
-    await thread.post('heelo 3box');
+    await thread.post('hello 3box');
 })();
