@@ -12,9 +12,9 @@ export type ColumnProps
     order?: string | number
   };
 
-export interface ColProps extends React.HTMLProps<HTMLDivElement> {
+export interface ColProps extends React.HTMLAttributes<HTMLDivElement> {
     [key: string]: any;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     xs?: ColumnProps;
     sm?: ColumnProps;
     md?: ColumnProps;

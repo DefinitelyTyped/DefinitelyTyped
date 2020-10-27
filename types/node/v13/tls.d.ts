@@ -729,7 +729,7 @@ declare module "tls" {
      * @deprecated
      */
     function createSecurePair(credentials?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
-    function createSecureContext(details: SecureContextOptions): SecureContext;
+    function createSecureContext(options?: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
     /**

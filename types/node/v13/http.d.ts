@@ -200,9 +200,12 @@ declare module "http" {
 
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
     class ClientRequest extends OutgoingMessage {
+        /**
+         * @deprecate Use `socket` instead.
+         */
         connection: Socket;
         socket: Socket;
-        aborted: number;
+        aborted: boolean;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 

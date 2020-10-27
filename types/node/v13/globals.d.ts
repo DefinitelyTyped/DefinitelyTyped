@@ -870,7 +870,7 @@ declare namespace NodeJS {
         /**
          * Can only be set if not in worker thread.
          */
-        umask(mask?: number): number;
+        umask(mask?: string | number): number;
         uptime(): number;
         hrtime: HRTime;
         domain: Domain;

@@ -1,7 +1,7 @@
 import LinkHeader = require('http-link-header');
 
 function isLinkHeader(l: LinkHeader): null {
-  return null;
+    return null;
 }
 
 function isBool(bool: boolean): null {
@@ -41,3 +41,13 @@ const str = link.toString();
 isString(str);
 
 const constructedLink = new LinkHeader();
+
+LinkHeader.isCompatibleEncoding('utf-8'); // $ExpectType boolean
+LinkHeader.isSingleOccurenceAttr('src'); // $ExpectType boolean
+LinkHeader.isTokenAttr('rel'); // $ExpectType boolean
+LinkHeader.escapeQuotes('"Quote text"'); // $ExpectType string
+LinkHeader.formatExtendedAttribute('title', {
+    value: Buffer.from('Unicode value'),
+    encoding: 'utf-8',
+    language: 'en',
+});

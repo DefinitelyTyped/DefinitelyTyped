@@ -201,7 +201,7 @@ class Tests {
 
             let settings: MockJaxSettings = {
                 url: '/custom-logging-function',
-                logging: true,
+                logging: 2,
                 logger: {
                     error: logFunction,
                     warn: logFunction,
@@ -231,7 +231,7 @@ class Tests {
 
             let settings: MockJaxSettings = {
                 url: '/custom-logging-function',
-                logging: true,
+                logging: 2,
                 logger: {
                     customName: logFunction
                 },

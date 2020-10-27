@@ -4,7 +4,6 @@
 //                 Matt Silverlock <https://github.com/elithrar>
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
-//                 Orblazer <https://github.com/orblazer>
 //                 reduckted <https://github.com/reduckted>
 //                 teidesu <https://github.com/teidesu>
 //                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>

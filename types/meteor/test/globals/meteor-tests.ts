@@ -741,7 +741,21 @@ Meteor.methods({
 
 HTTP.call("POST", "http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
-    function (error: Meteor.Error, result: any) {
+    function (error, result) {
+        error; // $ExpectType Error
+        result; // $ExpectType HTTPResponse
+
+        if (result.statusCode === 200) {
+            Session.set("twizzled", true);
+        }
+    });
+
+HTTP.post("http://api.twitter.com/xyz",
+    { data: { some: "json", stuff: 1 } },
+    function (error, result) {
+        error; // $ExpectType Error
+        result; // $ExpectType HTTPResponse
+
         if (result.statusCode === 200) {
             Session.set("twizzled", true);
         }
@@ -840,7 +854,7 @@ Accounts.emailTemplates.enrollAccount.subject = function (user: Meteor.User) {
 Accounts.emailTemplates.enrollAccount.html = function (user: Meteor.User, url: string) {
     return "<h1>Some html here</h1>";
 };
-Accounts.emailTemplates.enrollAccount.from = function () {
+Accounts.emailTemplates.enrollAccount.from = function (user: Meteor.User) {
     return "asdf@asdf.com";
 };
 Accounts.emailTemplates.enrollAccount.text = function (user: Meteor.User, url: string) {

@@ -1131,6 +1131,8 @@ declare namespace Fancytree {
         getNode(el: Event): FancytreeNode;
         getNode(el: Element): FancytreeNode;
 
+        getTree(el: Element | JQuery | Event | number | string): Fancytree;
+
         info(msg: string): void;
 
         /** Convert a keydown event to a string like 'ctrl+a', 'ctrl+shift+f2'.  */
