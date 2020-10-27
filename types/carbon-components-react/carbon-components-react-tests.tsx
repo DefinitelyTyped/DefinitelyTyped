@@ -268,7 +268,7 @@ const t4 = (
                 </TableHeader>
             ));
             data.rows.map(row => (
-                <TableRow {...data.getRowProps({ row, extra1: 'qwerty' })}>
+                <TableRow {...data.getRowProps({ row })}>
                     {row.cells.map(cell => (
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                     ))}
@@ -299,16 +299,66 @@ const t5Headers: DataTableHeader[] = [
     { key: 'col1', header: 'First column' },
     { key: 'col2', header: 'Second column' },
 ];
+const renderIconProp = <div/>;
 const t5 = (
     <DataTable
         rows={t5RowItems}
         headers={t5Headers}
         render={(renderProps: DataTableCustomRenderProps<T5RowType>) => (
-            <DataTable.TableContainer>
+            <DataTable.TableContainer {...renderProps.getTableContainerProps()}>
+                <DataTable.TableToolbar {...renderProps.getToolbarProps()}>
+                    <DataTable.TableBatchActions {...renderProps.getBatchActionProps()}>
+                        <DataTable.TableBatchAction
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? 0 : -1}
+                            renderIcon={renderIconProp}
+                            onClick={() => {}}>
+                            Delete
+                        </DataTable.TableBatchAction>
+                        <DataTable.TableBatchAction
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? 0 : -1}
+                            renderIcon={renderIconProp}
+                            onClick={() => {}}>
+                            Save
+                        </DataTable.TableBatchAction>
+                        <DataTable.TableBatchAction
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? 0 : -1}
+                            renderIcon={renderIconProp}
+                            onClick={() => {}}>
+                            Download
+                        </DataTable.TableBatchAction>
+                    </DataTable.TableBatchActions>
+                    <DataTable.TableToolbarContent>
+                        <DataTable.TableToolbarSearch
+                            defaultExpanded
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? -1 : 0}
+                            onChange={renderProps.onInputChange}
+                        />
+                        <DataTable.TableToolbarMenu
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? -1 : 0}>
+                            <DataTable.TableToolbarAction primaryFocus onClick={() => alert('Alert 1')}>
+                                Action 1
+                            </DataTable.TableToolbarAction>
+                            <DataTable.TableToolbarAction onClick={() => alert('Alert 2')}>
+                                Action 2
+                            </DataTable.TableToolbarAction>
+                            <DataTable.TableToolbarAction onClick={() => alert('Alert 3')}>
+                                Action 3
+                            </DataTable.TableToolbarAction>
+                        </DataTable.TableToolbarMenu>
+                        <Button
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? -1 : 0}
+                            onClick={() => {}}
+                            size="small"
+                            kind="primary">
+                            Add new
+                        </Button>
+                    </DataTable.TableToolbarContent>
+                </DataTable.TableToolbar>
                 <DataTable.Table {...renderProps.getTableProps()}>
                     <DataTable.TableHead>
                         <DataTable.TableRow>
                             <DataTable.TableSelectAll {...renderProps.getSelectionProps()} />
+                            <DataTable.TableExpandHeader {...renderProps.getExpandHeaderProps()} />
                             {renderProps.headers.map(header => (
                                 <DataTable.TableHeader {...renderProps.getHeaderProps({ header })}>
                                     {header.header}
@@ -327,6 +377,17 @@ const t5 = (
                                     ))}
                                     <DataTable.TableCell key={`options${row.id}`} />
                                 </DataTable.TableRow>
+                            </React.Fragment>
+                        ))}
+                        {renderProps.rows.map(row => (
+                            <React.Fragment key={row.id}>
+                                <DataTable.TableExpandRow {...renderProps.getRowProps({ row })}>
+                                    <DataTable.TableSelectRow {...renderProps.getSelectionProps({ row })} />
+                                    {row.cells.map(cell => (
+                                        <DataTable.TableCell key={cell.id}>{cell.value}</DataTable.TableCell>
+                                    ))}
+                                    <DataTable.TableCell key={`options${row.id}`} />
+                                </DataTable.TableExpandRow>
                             </React.Fragment>
                         ))}
                     </DataTable.TableBody>
