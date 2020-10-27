@@ -18,7 +18,7 @@ interface SharedProps {
 }
 
 export interface OverflowMenuItemButtonProps extends Omit<ReactButtonAttr, ExcludedAttributes>, SharedProps {
-    href?: null | undefined
+    href?: null,
 }
 
 export interface OverflowMenuItemAnchorProps extends Omit<ReactAnchorAttr, ExcludedAttributes>, SharedProps {

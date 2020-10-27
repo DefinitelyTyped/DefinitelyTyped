@@ -672,7 +672,7 @@ const multiSelectFilterableObj = (
         light
         placeholder="Filter"
         titleText="Choose an item"
-        itemToString={item => item?.label || ""}
+        itemToString={item => item && item.label ? item.label : ""}
         onChange={({ selectedItems }) => {}}
     />
 );

@@ -33,7 +33,7 @@ export declare class StructuredListInput extends React.Component<StructuredListI
 
 export interface StructuredListDivRowProps extends Omit<ReactDivAttr, "onKeyDown" | "tabIndex"> {
     head?: boolean,
-    label?: false | undefined,
+    label?: false,
 }
 export interface StructuredListLabelRowProps extends ReactLabelAttr {
     head?: boolean,
