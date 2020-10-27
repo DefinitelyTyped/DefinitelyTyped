@@ -1,6 +1,7 @@
 // Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
 // Project: https://developer.akamai.com/akamai-edgeworkers-overview
 // Definitions by: Evan Hughes <https://github.com/evan-hughes>
+//                 Will Bain <https://github.com/wabain>:
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace EW {
