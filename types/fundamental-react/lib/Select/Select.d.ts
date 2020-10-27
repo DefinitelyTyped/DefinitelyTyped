@@ -1,7 +1,13 @@
 import * as React from 'react';
 
+export type Option = { key: string; text: string; };
 export interface SelectProps {
     className?: string;
+    formMessageProps?: Record<string, any>;
+    innerRefClassName?: string;
+    popperClassName?: string;
+    referenceClassName?: string;
+    wrapperProps?: Record<string, any>;
     compact?: boolean;
     disabled?: boolean;
     disableStyles?: boolean;
@@ -20,10 +26,10 @@ export interface SelectProps {
         state?: 'error' | 'warning' | 'information' | 'success';
         text?: string;
     };
-    options?: Array<{ key: string; text: string }>;
+    options?: Array<Option>;
     onClick?: (...args: any[]) => any;
-    onBlur?: (...args: any[]) => any;
-    onSelect?: (...args: any[]) => any;
+    onBlur?: (event: React.FocusEvent<HTMLDivElement>) => void;
+    onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>, selectedOption: Option) => void
 }
 
 declare const Select: React.FunctionComponent<SelectProps> & {
