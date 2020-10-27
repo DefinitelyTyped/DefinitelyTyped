@@ -189,4 +189,44 @@ module('engine foo component', function (hooks) {
     });
 });
 
+module('all the hooks', function (hooks) {
+    setupTest(hooks);
+
+    hooks.after(function () {
+        this.owner.lookup('service:store');
+    });
+
+    hooks.afterEach(function () {
+        this.owner.lookup('service:store');
+    });
+
+    hooks.before(function () {
+        this.owner.lookup('service:store');
+    });
+
+    hooks.beforeEach(function () {
+        this.owner.lookup('service:store');
+    });
+});
+
+module.only('exclusive module with hooks', function (hooks) {
+    setupTest(hooks);
+
+    hooks.after(function () {
+        this.owner.lookup('service:store');
+    });
+
+    hooks.afterEach(function () {
+        this.owner.lookup('service:store');
+    });
+
+    hooks.before(function () {
+        this.owner.lookup('service:store');
+    });
+
+    hooks.beforeEach(function () {
+        this.owner.lookup('service:store');
+    });
+});
+
 start();
