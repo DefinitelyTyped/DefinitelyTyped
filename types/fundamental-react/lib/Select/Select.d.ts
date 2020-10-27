@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export type Option = { key: string; text: string; };
+export interface Option { key: string; text: string; }
 export interface SelectProps {
     className?: string;
     formMessageProps?: Record<string, any>;
@@ -26,10 +26,10 @@ export interface SelectProps {
         state?: 'error' | 'warning' | 'information' | 'success';
         text?: string;
     };
-    options?: Array<Option>;
+    options?: Option[];
     onClick?: (...args: any[]) => any;
     onBlur?: (event: React.FocusEvent<HTMLDivElement>) => void;
-    onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>, selectedOption: Option) => void
+    onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>, selectedOption: Option) => void;
 }
 
 declare const Select: React.FunctionComponent<SelectProps> & {
