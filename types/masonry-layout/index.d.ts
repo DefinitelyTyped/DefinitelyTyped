@@ -40,6 +40,12 @@ declare class Masonry {
 }
 
 declare namespace Masonry {
+
+    type hiddenOrVisibleStyle = {
+        transform?: string;
+        opacity?: number;
+    }
+
     interface Options {
         // layout
         itemSelector?: string;
@@ -51,8 +57,8 @@ declare namespace Masonry {
         originLeft?: boolean;
         originTop?: boolean;
         horizontalOrder?: boolean;
-        hiddenStyle?: CSSStyleDeclaration;
-        visibleStyle?: CSSStyleDeclaration;
+        hiddenStyle?: hiddenOrVisibleStyle;
+        visibleStyle?: hiddenOrVisibleStyle;
 
         // setup
         containerStyle?: {};
