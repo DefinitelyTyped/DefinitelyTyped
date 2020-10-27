@@ -152,6 +152,29 @@ interface QUnitStartOptions {
 export function start(options?: QUnitStartOptions): void;
 
 declare global {
+    interface NestedHooks {
+        /**
+         * Runs after the last test. If additional tests are defined after the
+         * module's queue has emptied, it will not run this hook again.
+         */
+        after(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+
+        /**
+         * Runs after each test.
+         */
+        afterEach(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+
+        /**
+         * Runs before the first test.
+         */
+        before(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+
+        /**
+         * Runs before each test.
+         */
+        beforeEach(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+    }
+
     interface QUnit {
         /**
          * Add a test to run.

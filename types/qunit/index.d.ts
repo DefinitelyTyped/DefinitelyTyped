@@ -342,22 +342,22 @@ declare global {
          * Runs after the last test. If additional tests are defined after the
          * module's queue has emptied, it will not run this hook again.
          */
-        after: (fn: (assert: Assert) => void | Promise<void>) => void;
+        after(fn: (assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs after each test.
          */
-        afterEach: (fn: (assert: Assert) => void | Promise<void>) => void;
+        afterEach(fn: (assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before the first test.
          */
-        before: (fn: (assert: Assert) => void | Promise<void>) => void;
+        before(fn: (assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before each test.
          */
-        beforeEach: (fn: (assert: Assert) => void | Promise<void>) => void;
+        beforeEach(fn: (assert: Assert) => void | Promise<void>): void;
     }
 
     type moduleFunc1 = (name: string, hooks?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
