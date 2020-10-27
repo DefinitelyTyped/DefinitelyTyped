@@ -12,7 +12,7 @@
 /// <reference types="qunit" />
 
 import Ember from 'ember';
-import { ModuleCallbacks, TestContext } from "ember-test-helpers";
+import { ModuleCallbacks, TestContext } from 'ember-test-helpers';
 
 interface QUnitModuleCallbacks extends ModuleCallbacks, Hooks {
     beforeSetup?(assert: Assert): void;
@@ -105,7 +105,7 @@ export function setupRenderingTest(hooks: NestedHooks, options?: SetupTestOption
  */
 export function setupTest(hooks: NestedHooks, options?: SetupTestOptions): void;
 
-export class QUnitAdapter extends Ember.Test.Adapter { }
+export class QUnitAdapter extends Ember.Test.Adapter {}
 
 export { module, test, skip, only, todo } from 'qunit';
 
