@@ -5,14 +5,23 @@ import Sequelize = require('sequelize');
 
 const { RateLimit, Stores } = Koa2Ratelimit;
 
+const getId = (ctx: Koa.Context) => ctx.state.userId ?? ctx.ip;
+
 RateLimit.defaultOptions({
     message: 'Get out.',
-    interval: { sec: 30 },
+    interval: { sec: 30, hour: 1, ms: 200 },
+    delayAfter: 9,
     max: 3,
     timeWait: 500,
-    getUserId(ctx) {
-        return ctx.state.userId ?? ctx.ip;
+    getUserId: getId,
+    keyGenerator: getId,
+    async handler(ctx) {
+        ctx.status = 420;
+        ctx.body = { status: 420, message: 'Enhance Your Calm' };
     },
+    headers: false,
+    weight: async () => 5,
+    onLimitReached: async () => console.log('limit reached'),
 });
 
 const rate1 = RateLimit.middleware();
