@@ -94,7 +94,7 @@ declare module '.' {
      */
     export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    export interface SuspenseConfig extends TimeoutConfig {
+    export interface SuspenseConfig {
         busyDelayMs?: number;
         busyMinDurationMs?: number;
     }
@@ -104,17 +104,6 @@ declare module '.' {
         scope: () => void | undefined,
         config: SuspenseConfig | null | undefined,
     ): void;
-
-    export interface TimeoutConfig {
-        /**
-         * This timeout (in milliseconds) tells React how long to wait before showing the next state.
-         *
-         * React will always try to use a shorter lag when network and device allows it.
-         *
-         * **NOTE: We recommend that you share Suspense Config between different modules.**
-         */
-        timeoutMs: number;
-    }
 
     // must be synchronous
     export type TransitionFunction = () => void | undefined;
@@ -139,11 +128,10 @@ declare module '.' {
      * A good example of this is a text input.
      *
      * @param value The value that is going to be deferred
-     * @param config An optional object with `timeoutMs`
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usedeferredvalue
      */
-    export function unstable_useDeferredValue<T>(value: T, config?: TimeoutConfig | null): T;
+    export function unstable_useDeferredValue<T>(value: T): T;
 
     /**
      * Allows components to avoid undesirable loading states by waiting for content to load
