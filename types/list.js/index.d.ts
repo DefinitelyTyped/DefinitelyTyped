@@ -28,7 +28,7 @@ declare class List {
     update(): void;
     reIndex(): void;
     fuzzySearch(searchString: string, columns?: string[]): void;
-    on(event: List.Events, callback: (list: List) => void): List;
+    on(event: List.Event, callback: (list: List) => void): List;
 }
 
 declare namespace List {
@@ -71,7 +71,7 @@ declare namespace List {
         sortFunction?: (a: object, b: object) => number | undefined;
     }
 
-    type Events =
+    type Event =
         | 'updated'
         | 'filterStart'
         | 'filterComplete'
