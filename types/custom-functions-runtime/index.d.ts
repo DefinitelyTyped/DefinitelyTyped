@@ -31,17 +31,17 @@ declare namespace CustomFunctions {
      * [Api set: CustomFunctionsRuntime 1.2]
      */
     class Error {
-        constructor(errorCode: ErrorCode, errorMessage?: string);
+        constructor(code: ErrorCode, message?: string);
          /**
           * The error code returned by your custom function.
           * [Api set: CustomFunctionsRuntime 1.2]
           */
-        errorCode: ErrorCode;
+        code: ErrorCode;
          /**
           * Your custom error message, such as "This stock price is unavailable". Custom messages are only available with certain error codes.
           * [Api set: CustomFunctionsRuntime 1.2]
           */
-        errorMessage?: string;
+        message?: string;
     }
 
     /**
