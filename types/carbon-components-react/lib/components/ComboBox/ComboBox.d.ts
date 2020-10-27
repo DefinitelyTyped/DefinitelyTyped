@@ -1,8 +1,5 @@
 import * as React from "react";
-import {
-    InternationalProps,
-    ReactInputAttr, VerticalDirection
-} from "../../../typings/shared";
+import { InternationalProps, ReactInputAttr, VerticalDirection } from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 import { ListBoxSelectionTranslationKey } from "../ListBox/ListBoxSelection";

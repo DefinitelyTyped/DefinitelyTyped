@@ -1,7 +1,12 @@
 import * as React from "react";
 import {
     ReactButtonAttr,
-    FCReturn, JSXIntrinsicElementProps, ReactAnchorAttr, ForwardRefProps, TooltipAlignment, TooltipPosition,
+    FCReturn,
+    JSXIntrinsicElementProps,
+    ReactAnchorAttr,
+    ForwardRefProps,
+    TooltipAlignment,
+    TooltipPosition,
 } from "../../../typings/shared";
 
 export type ButtonKind = "danger" | "danger--primary" | "ghost" | "primary" | "secondary" | "tertiary";

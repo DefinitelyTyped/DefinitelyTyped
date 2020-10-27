@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { ReactLIAttr } from '../../../typings/shared';
+import * as React from "react";
+import { ReactLIAttr } from "../../../typings/shared";
 
 export interface TreeNodeStandaloneProps extends Omit<ReactLIAttr, 'aria-expanded' | 'onClick' | 'onSelect'> {
     active?: number | string;

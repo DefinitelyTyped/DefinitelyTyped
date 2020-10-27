@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RequiresChildrenProps, ForwardRefReturn, ForwardRefProps, FCReturn } from "../../../typings/shared";
+import { RequiresChildrenProps, ForwardRefProps, FCReturn } from "../../../typings/shared";
 import { OverflowMenuItemAnchorProps, OverflowMenuItemButtonProps } from "../OverflowMenuItem";
 
 export interface TableToolbarActionAnchorProps extends

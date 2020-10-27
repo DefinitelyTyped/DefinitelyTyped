@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SideNavSharedProps } from '../../../typings/shared';
+import { SideNavSharedProps } from "../../../typings/shared";
 
 export interface SideNavFooterProps extends SideNavSharedProps {
     assistiveText?: string, // required but has default value

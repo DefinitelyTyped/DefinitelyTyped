@@ -1,12 +1,10 @@
 import * as React from "react";
 import {
-    DownshiftTypedProps,
     InternationalProps,
     ListBoxBaseItemType,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps,
-    VerticalDirection, ForwardRefReturn, ForwardRefProps, FCReturn
+    VerticalDirection,
+    ForwardRefProps,
+    FCReturn
 } from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";

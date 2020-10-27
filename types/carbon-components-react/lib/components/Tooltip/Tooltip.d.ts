@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-    Direction,
-    EmbeddedIconProps,
-    MenuOffsetData,
-    ReactAttr,
-    ReactDivAttr,
-    ForwardRefReturn
-} from "../../../typings/shared";
+import { Direction, MenuOffsetData, ReactDivAttr, ForwardRefReturn } from "../../../typings/shared";
 
 type ExcludedAttributes = "onBlur" | "onChange" | "onContextMenu" | "onFocus" | "onMouseOut" | "onMouseOver" | "role";
 type TooltipOnChangeEvent<T extends Element> = React.FocusEvent<T> | React.KeyboardEvent<T> | React.MouseEvent<T>;

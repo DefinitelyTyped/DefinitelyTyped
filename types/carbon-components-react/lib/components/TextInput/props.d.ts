@@ -1,7 +1,5 @@
 import * as React from "react";
-import {
-    ReactInputAttr,
-} from "../../../typings/shared";
+import { ReactInputAttr, } from "../../../typings/shared";
 
 type ExcludedAttributes = "defaultValue" | "id" | "size" | "value";
 

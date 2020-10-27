@@ -1,8 +1,6 @@
 import * as React from "react";
 import {
-    ValidityProps,
     ReactAttr,
-    EmbeddedIconProps
 } from "../../../typings/shared";
 import { FileStatus, FileUploaderSize } from "./shared";
 

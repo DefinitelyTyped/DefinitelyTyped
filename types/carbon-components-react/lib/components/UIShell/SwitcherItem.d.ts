@@ -1,9 +1,4 @@
-import {
-    ReactAnchorAttr,
-    RequiresChildrenProps,
-    FCReturn,
-    ForwardRefProps,
-} from '../../../typings/shared';
+import { ReactAnchorAttr, RequiresChildrenProps, FCReturn, ForwardRefProps, } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 
 export interface SwitcherItemPropsBase extends RequiresChildrenProps {

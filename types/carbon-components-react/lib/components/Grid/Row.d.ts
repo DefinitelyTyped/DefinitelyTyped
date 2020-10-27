@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { ReactAttr, FCReturn, ReactDivAttr, JSXIntrinsicElementProps } from '../../../typings/shared';
+import * as React from "react";
+import { ReactAttr, FCReturn, ReactDivAttr, JSXIntrinsicElementProps } from "../../../typings/shared";
 
 interface RowBaseIsolatedProps {
     condensed?: boolean;

@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-    ReactAnchorAttr,
-    FCReturn,
-    ForwardRefProps,
-} from '../../../typings/shared';
+import { ReactAnchorAttr, FCReturn, ForwardRefProps, } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 
 export interface SideNavMenuItemPropsBase {

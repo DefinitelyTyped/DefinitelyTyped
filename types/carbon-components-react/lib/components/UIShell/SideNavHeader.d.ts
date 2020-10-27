@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SideNavSharedProps } from '../../../typings/shared';
+import { SideNavSharedProps } from "../../../typings/shared";
 
 export interface SideNavHeaderProps extends SideNavSharedProps {
     children?: React.ReactNode,

@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-    RenderIconProps,
-    SideNavSharedProps,
-    SideNavSizingProps,
-    ForwardRefReturn
-} from "../../../typings/shared";
+import { RenderIconProps, SideNavSharedProps, SideNavSizingProps, ForwardRefReturn } from "../../../typings/shared";
 
 export interface SideNavMenuProps extends RenderIconProps, SideNavSharedProps, SideNavSizingProps {
     children?: React.ReactNode,

@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-    DownshiftTypedProps,
-    InternationalProps,
-    ReactInputAttr,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps, ReactDivAttr, ForwardRefProps, FCReturn
-} from "../../../typings/shared";
+import { InternationalProps, ReactDivAttr, ForwardRefProps, FCReturn } from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 

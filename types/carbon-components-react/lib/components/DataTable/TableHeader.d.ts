@@ -1,6 +1,6 @@
 import * as React from "react";
 import { InternationalProps, ReactButtonAttr, ForwardRefReturn } from "../../../typings/shared";
-import { DataTableSortState } from './state/sorting';
+import { DataTableSortState } from "./state/sorting";
 
 export type TableHeaderTranslationKey = "carbon.table.header.icon.description";
 

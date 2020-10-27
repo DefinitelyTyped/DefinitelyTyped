@@ -1,8 +1,5 @@
 import * as React from "react";
-import {
-    ForwardRefReturn,
-    CarbonInputSize
-} from "../../../typings/shared";
+import { ForwardRefReturn, CarbonInputSize } from "../../../typings/shared";
 
 type ExcludedAttributes = "aria-invalid" | "id" | "ref" | "size";
 

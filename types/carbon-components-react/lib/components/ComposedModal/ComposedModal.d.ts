@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactDivAttr, CarbonSize } from "../../../typings/shared";
+import { ReactDivAttr, CarbonSize } from "../../../typings/shared";
 import { ButtonProps } from "../Button";
 
 // ComposedModal

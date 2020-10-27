@@ -4,7 +4,9 @@ import {
     RenderIconProps,
     RequiresChildrenProps,
     SideNavSharedProps,
-    SideNavSizingProps, FCReturn, FCProps,
+    SideNavSizingProps,
+    FCReturn,
+    FCProps,
 } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 

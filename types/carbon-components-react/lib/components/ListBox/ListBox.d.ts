@@ -1,4 +1,3 @@
-import * as React from "react";
 import { ReactDivAttr, ForwardRefReturn } from "../../../typings/shared";
 import { ListBoxFieldComponent } from "./ListBoxField";
 import { ListBoxMenuComponent } from "./ListBoxMenu";

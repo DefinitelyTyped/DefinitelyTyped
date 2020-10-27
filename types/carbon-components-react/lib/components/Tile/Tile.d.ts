@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-    EmbeddedIconProps,
-    ReactAnchorAttr,
-    ReactDivAttr,
-    ReactLabelAttr,
-    ThemeProps, ReactButtonAttr
-} from "../../../typings/shared";
+import { ReactAnchorAttr, ReactDivAttr, ReactLabelAttr, ReactButtonAttr } from "../../../typings/shared";
 
 // Tile
 

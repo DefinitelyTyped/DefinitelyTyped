@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RequiresChildrenProps, SideNavSizingProps } from '../../../typings/shared';
+import { RequiresChildrenProps, SideNavSizingProps } from "../../../typings/shared";
 
 export interface SideNavItemProps extends RequiresChildrenProps, SideNavSizingProps {
     className?: string,

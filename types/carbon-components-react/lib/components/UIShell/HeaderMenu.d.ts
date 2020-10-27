@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FCReturn } from '../../../typings/shared';
+import { FCReturn } from "../../../typings/shared";
 
 export interface HeaderMenuProps<RP = {}> {
     "aria-label"?: string,
