@@ -21,7 +21,7 @@ declare namespace objectInspect {
         /**
          * Must be 0, a positive integer, Infinity, or null, if present. Default Infinity.
          */
-        maxStringLength?: number;
+        maxStringLength?: number | null;
         /**
          * When true, a custom inspect method function will be invoked. Default true.
          */
