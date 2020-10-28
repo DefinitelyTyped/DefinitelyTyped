@@ -35,6 +35,8 @@ export interface InterpolatorFactory<T, U> {
 
 export type NumberValue = number | { valueOf(): number };
 
+export type UnknownReturnType<Unknown, DefaultUnknown> = [Unknown] extends [never] ? DefaultUnknown : Unknown;
+
 /**
  * A helper interface for a continuous scale defined over a numeric domain.
  */
@@ -123,17 +125,6 @@ export interface ScaleContinuousNumeric<Range, Output, Unknown> {
      * @param clamp A flag to enable (true) or disable (false) clamping.
      */
     clamp(clamp: boolean): this;
-
-    /**
-     * Returns the current unknown value, which defaults to undefined.
-     */
-    unknown(): Unknown extends never ? undefined : Unknown;
-    /**
-     * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
-     *
-     * @param value The output value of the scale for undefined (or NaN) input values.
-     */
-    unknown<NewUnknown>(value: NewUnknown): ScaleContinuousNumeric<Range, Output, NewUnknown>;
 
     /**
      * Returns approximately count representative values from the scale’s domain.
@@ -253,7 +244,7 @@ export interface ScaleLinear<Range, Output, Unknown> extends ScaleContinuousNume
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -375,7 +366,7 @@ export interface ScalePower<Range, Output, Unknown> extends ScaleContinuousNumer
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -609,7 +600,7 @@ export interface ScaleLogarithmic<Range, Output, Unknown> extends ScaleContinuou
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -711,7 +702,7 @@ export interface ScaleSymLog<Range, Output, Unknown> extends ScaleContinuousNume
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -876,7 +867,7 @@ export interface ScaleIdentity<Unknown> {
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -901,7 +892,7 @@ export interface ScaleRadial<Range, Output, Unknown> extends ScaleContinuousNume
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -1195,7 +1186,7 @@ export interface ScaleTime<Range, Output, Unknown> {
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -1383,7 +1374,7 @@ export interface ScaleSequential<Output, Unknown> extends ScaleSequentialBase<Ou
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -1544,7 +1535,7 @@ export interface ScaleSequentialQuantile<Output, Unknown> extends ScaleSequentia
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -1664,7 +1655,7 @@ export interface ScaleDiverging<Output, Unknown> {
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -1895,7 +1886,7 @@ export interface ScaleQuantize<Range, Unknown> {
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -2006,7 +1997,7 @@ export interface ScaleQuantile<Range, Unknown> {
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -2107,7 +2098,7 @@ export interface ScaleThreshold<Domain extends number | string | Date, Range, Un
     /**
      * Returns the current unknown value, which defaults to undefined.
      */
-    unknown(): Unknown extends never ? undefined : Unknown;
+    unknown(): UnknownReturnType<Unknown, undefined>;
     /**
      * Sets the output value of the scale for undefined (or NaN) input values and returns this scale.
      *
@@ -2209,7 +2200,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range, Unkn
     /**
      * Returns the current unknown value, which defaults to "implicit".
      */
-    unknown(): Unknown extends never ? { name: 'implicit' } : Unknown;
+    unknown(): UnknownReturnType<Unknown, { name: 'implicit' }>;
     /**
      * Sets the output value of the scale for unknown input values and returns this scale.
      * The implicit value enables implicit domain construction. scaleImplicit can be used as a convenience to set the implicit value.
