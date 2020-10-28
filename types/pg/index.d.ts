@@ -259,7 +259,8 @@ export interface PoolClient extends ClientBase {
     release(err?: Error | boolean): void;
 }
 
-export class Query<R extends QueryResultRow = any, I extends any[] = any> extends events.EventEmitter
+export class Query<R extends QueryResultRow = any, I extends any[] = any>
+    extends events.EventEmitter
     implements Submittable {
     constructor(queryTextOrConfig?: string | QueryConfig<I>, values?: I);
     submit: (connection: Connection) => void;
@@ -279,3 +280,5 @@ export const defaults: Defaults & ClientConfig;
 import * as Pg from '.';
 
 export const native: typeof Pg | null;
+
+export { DatabaseError } from 'pg-protocol';

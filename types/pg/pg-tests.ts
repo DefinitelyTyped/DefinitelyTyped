@@ -1,4 +1,4 @@
-import { types, Client, QueryArrayConfig, Pool } from 'pg';
+import { types, Client, QueryArrayConfig, Pool, DatabaseError } from 'pg';
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
@@ -196,7 +196,11 @@ pool.on('error', (err, client) => {
 
 pool.query('SELECT $1::text as name', ['brianc'], (err, result) => {
     if (err) {
-        console.error('Error executing query', err.stack);
+        if (err instanceof DatabaseError) {
+            console.error('Error executing query, postgress error code', err.code);
+        } else {
+            console.error('Error executing query', err.stack);
+        }
         return;
     }
     console.log(result.rows[0].name);
