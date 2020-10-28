@@ -16,7 +16,7 @@ const config: Summernote.Options = {
     toolbar: [
         ['misc', ['undo', 'redo']],
         ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['font', ['fontname', 'fontsize', 'color']],
+        ['font', ['fontname', 'fontsize', 'fontsizeunit', 'color']],
         ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
         ['insert', ['picture', 'video']],
     ],
