@@ -1234,7 +1234,7 @@ export interface PlotData {
     rotation: number;
     theta: Datum[];
     r: Datum[];
-    customdata: Datum[];
+    customdata: Datum[] | Datum[][];
     selectedpoints: Datum[];
     domain: Partial<{
         rows: number;
