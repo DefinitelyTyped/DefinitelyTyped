@@ -230,12 +230,12 @@ Posts.insert({ title: "Hello world", body: "First post" });
  assert(Scratchpad.find({number: {$lt: 9}}).count() === 5);
  **/
 
-type DBAnimal = {
+type AnimalPOD = {
     _id?: string;
     name: string;
     sound: string;
 }
-interface Animal extends DBAnimal {}
+interface Animal extends AnimalPOD {}
 
 class Animal {
     constructor(public doc: any) {}
@@ -252,8 +252,8 @@ interface AnimalDAO {
 }
 
 // Define a Collection that uses Animal as its document
-var Animals = new Mongo.Collection<DBAnimal, AnimalDAO>("Animals", {
-    transform: function (doc: any): Animal { return new Animal(doc); }
+var Animals = new Mongo.Collection<AnimalPOD, AnimalDAO>("Animals", {
+    transform: function (doc: AnimalPOD): Animal { return new Animal(doc); }
 });
 
 // Create an Animal and call its makeNoise method

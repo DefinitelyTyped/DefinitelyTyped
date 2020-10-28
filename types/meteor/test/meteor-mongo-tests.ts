@@ -27,8 +27,17 @@ Users.find({}, { transform: null }).map(doc => {
     doc;
     return doc;
 });
-Users.find({}, { transform: doc => 'null' }).map(doc => {
-    // $ExpectType string
+Users.find(
+    {},
+    {
+        transform: doc => {
+            // $ExpectType DBUser
+            doc;
+            return { fullName: `${doc.surname} ${doc.name}` };
+        },
+    },
+).map(doc => {
+    // $ExpectType { fullName: string; }
     doc;
     return doc;
 });
@@ -79,6 +88,7 @@ Users.deny({
         doc;
         return true;
     },
+
     transform: null,
 });
 
@@ -86,25 +96,27 @@ Users.deny({
     update: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; name: string; }
+        // $ExpectType { fullName: string; }
         doc;
         return true;
     },
     remove: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; name: string; }
+        // $ExpectType { fullName: string; }
         doc;
         return true;
     },
     insert: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; name: string; }
+        // $ExpectType { fullName: string; }
         doc;
         return true;
     },
-    transform: (doc: DBUser) => ({ foo: 'foo', name: doc.name }),
+
+    // Can not figure out why we should define manually type of document
+    transform: (doc: DBUser) => ({ fullName: `${doc.surname} ${doc.name}` }),
 });
 
 Users.allow({
@@ -153,6 +165,7 @@ Users.allow({
         doc;
         return true;
     },
+
     transform: null,
 });
 
@@ -160,25 +173,27 @@ Users.allow({
     update: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; name: string; }
+        // $ExpectType { fullName: string; }
         doc;
         return true;
     },
     remove: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; name: string; }
+        // $ExpectType { fullName: string; }
         doc;
         return true;
     },
     insert: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; name: string; }
+        // $ExpectType { fullName: string; }
         doc;
         return true;
     },
-    transform: (doc: DBUser) => ({ foo: 'foo', name: doc.name }),
+
+    // Can not figure out why we should define manually type of document
+    transform: (doc: DBUser) => ({ fullName: `${doc.surname} ${doc.name}` }),
 });
 
 Users.find({}).observe({
@@ -191,11 +206,20 @@ Users.find({}).observe({
     },
 });
 
-Users.find({}, { transform: (doc: DBUser) => 'null' }).observe({
+Users.find(
+    {},
+    {
+        transform: doc => {
+            // $ExpectType DBUser
+            doc;
+            return { fullName: `${doc.surname} ${doc.name}` };
+        },
+    },
+).observe({
     changed: (newDoc, oldDoc) => {
-        // $ExpectType string
+        // $ExpectType { fullName: string; }
         newDoc;
-        // $ExpectType string
+        // $ExpectType { fullName: string; }
         oldDoc;
         return false;
     },
@@ -217,8 +241,17 @@ Users.findOne({});
 Users.findOne({}, {});
 // $ExpectType DBUser | undefined
 Users.findOne({}, { transform: null });
-// $ExpectType string | undefined
-Users.findOne({}, { transform: doc => 'null' });
+// $ExpectType { fullName: string; } | undefined
+Users.findOne(
+    {},
+    {
+        transform: doc => {
+            // $ExpectType DBUser
+            doc;
+            return { fullName: `${doc.surname} ${doc.name}` };
+        },
+    },
+);
 
 // Test with default transform function
 type DBAttachment = {
@@ -230,7 +263,7 @@ interface AttachmentDocument extends DBAttachment {}
 
 class AttachmentDocument {
     constructor(doc: DBAttachment) {
-        return Object.assign(this, doc);
+        Object.assign(this, doc);
     }
 
     getSize() {
@@ -268,29 +301,29 @@ Attachment.find(
         transform: doc => {
             // $ExpectType DBAttachment
             doc;
-            return 'null';
+            return { fileSize: doc.size };
         },
     },
 ).map(doc => {
-    // $ExpectType string
+    // $ExpectType { fileSize: number; }
     doc;
     return doc;
 });
 
 // $ExpectType AttachmentDocument | undefined
-const attachOne = Attachment.findOne({});
+Attachment.findOne({});
 // $ExpectType AttachmentDocument | undefined
-const attachTwo = Attachment.findOne({}, {});
+Attachment.findOne({}, {});
 // $ExpectType DBAttachment | undefined
-const attachThree = Attachment.findOne({}, { transform: null });
-// $ExpectType string | undefined
-const attachFour = Attachment.findOne(
+Attachment.findOne({}, { transform: null });
+// $ExpectType { fileSize: number; } | undefined
+Attachment.findOne(
     {},
     {
         transform: doc => {
             // $ExpectType DBAttachment
             doc;
-            return 'null';
+            return { fileSize: doc.size };
         },
     },
 );
@@ -341,6 +374,7 @@ Attachment.deny({
         doc;
         return true;
     },
+
     transform: null,
 });
 
@@ -348,25 +382,27 @@ Attachment.deny({
     update: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; size: number; }
+        // $ExpectType { fileSize: number; }
         doc;
         return true;
     },
     remove: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; size: number; }
+        // $ExpectType { fileSize: number; }
         doc;
         return true;
     },
     insert: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; size: number; }
+        // $ExpectType { fileSize: number; }
         doc;
         return true;
     },
-    transform: (doc: DBAttachment) => ({ foo: 'foo', size: doc.size }),
+
+    // Can not figure out why we should define manually type of document
+    transform: (doc: DBAttachment) => ({ fileSize: doc.size }),
 });
 
 Attachment.allow({
@@ -415,6 +451,7 @@ Attachment.allow({
         doc;
         return true;
     },
+
     transform: null,
 });
 
@@ -422,25 +459,27 @@ Attachment.allow({
     update: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; size: number; }
+        // $ExpectType { fileSize: number; }
         doc;
         return true;
     },
     remove: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; size: number; }
+        // $ExpectType { fileSize: number; }
         doc;
         return true;
     },
     insert: (userId, doc) => {
         // $ExpectType string
         userId;
-        // $ExpectType { foo: string; size: number; }
+        // $ExpectType { fileSize: number; }
         doc;
         return true;
     },
-    transform: (doc: DBAttachment) => ({ foo: 'foo', size: doc.size }),
+
+    // Can not figure out why we should define manually type of document
+    transform: (doc: DBAttachment) => ({ fileSize: doc.size }),
 });
 
 Attachment.find({}).observe({
@@ -459,14 +498,14 @@ Attachment.find(
         transform: doc => {
             // $ExpectType DBAttachment
             doc;
-            return doc._id;
+            return { fileSize: doc.size };
         },
     },
 ).observe({
     changed: (newDoc, oldDoc) => {
-        // $ExpectType string
+        // $ExpectType { fileSize: number; }
         newDoc;
-        // $ExpectType string
+        // $ExpectType { fileSize: number; }
         oldDoc;
         return false;
     },
@@ -487,13 +526,16 @@ Attachment.find({}, { transform: null }).observe({
 Attachment.find({}, { transform: '' });
 
 // $ExpectError
-Attachment.findOne({}, { transform: '' });
+Attachment.find({}, { transform: (foo: { foo: string }) => foo });
 
 // $ExpectError
-Attachment.allow({ transform: '' });
+Attachment.findOne({}, { transform: 123 });
 
 // $ExpectError
-Attachment.deny({ transform: '' });
+Attachment.allow({ transform: { foo: 'foo' } });
+
+// $ExpectError
+Attachment.deny({ transform: [] });
 
 // $ExpectError
 new Mongo.Collection<DBAttachment, AttachmentDocument>('attachments', { transform: '' });

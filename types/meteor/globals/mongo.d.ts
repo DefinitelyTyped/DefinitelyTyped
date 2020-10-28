@@ -125,7 +125,7 @@ declare module Mongo {
         [id: string]: Number;
     }
 
-    type TransformFn<T> = ((doc: T) => any) | null | undefined;
+    type Transform<T> = ((doc: T) => any) | null | undefined;
 
     type Options<T> = {
         sort?: SortSpecifier;
@@ -133,10 +133,10 @@ declare module Mongo {
         limit?: number;
         fields?: FieldSpecifier;
         reactive?: boolean;
-        transform?: TransformFn<T>;
+        transform?: Transform<T>;
     }
 
-    type DispatchTransform<Transf, DefType, U> = Transf extends (...args: any) => any ? ReturnType<Transf> : Transf extends null ? DefType : U;
+    type DispatchTransform<Transform, T, U> = Transform extends (...args: any) => any ? ReturnType<Transform> : Transform extends null ? T : U;
 
     var Collection: CollectionStatic;
     interface CollectionStatic {
@@ -147,14 +147,14 @@ declare module Mongo {
         }): Collection<T, U>;
     }
     interface Collection<T, U = T> {
-        allow<Fn extends TransformFn<T> = undefined>(options: {
+        allow<Fn extends Transform<T> = undefined>(options: {
             insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
             update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
             remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
             fetch?: string[];
             transform?: Fn;
         }): boolean;
-        deny<Fn extends TransformFn<T> = undefined>(options: {
+        deny<Fn extends Transform<T> = undefined>(options: {
             insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
             update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
             remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
