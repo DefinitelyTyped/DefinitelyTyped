@@ -857,7 +857,6 @@ interface Workspace {
 declare function atob(data: string): string;
 declare function btoa(data: string): string;
 
-// tslint:disable-next-line:ban-types
 type TimerHandler = string | Function;
 
 declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;

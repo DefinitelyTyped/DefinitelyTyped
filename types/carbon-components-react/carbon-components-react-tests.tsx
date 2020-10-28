@@ -2,6 +2,8 @@ import * as React from 'react';
 import {
     AccordionItem,
     Button,
+    CodeSnippet,
+    CodeSnippetType,
     Column,
     DataTable,
     DataTableCustomRenderProps,
@@ -137,6 +139,13 @@ const secondaryButtonT3 = (
     </SecondaryButton>
 );
 
+// CodeSnippet
+
+let codeSnippetType: CodeSnippetType = "inline";
+const inlineCodeSnippet = (<CodeSnippet type="inline" onClick={(e) => e.preventDefault()}>code</CodeSnippet>);
+const multiCodeSnippet = (<CodeSnippet type="multi" onBlur={(e) => e.preventDefault()}>code</CodeSnippet>)
+const codeSnippetTypeIsVariable = (<CodeSnippet type={codeSnippetType} onClick={(e) => e.preventDefault()}>code</CodeSnippet>);
+
 interface Row1 extends DataTableRow {
     rowProp: string;
 }
@@ -259,7 +268,7 @@ const t4 = (
                 </TableHeader>
             ));
             data.rows.map(row => (
-                <TableRow {...data.getRowProps({ row, extra1: 'qwerty' })}>
+                <TableRow {...data.getRowProps({ row })}>
                     {row.cells.map(cell => (
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                     ))}
@@ -290,16 +299,66 @@ const t5Headers: DataTableHeader[] = [
     { key: 'col1', header: 'First column' },
     { key: 'col2', header: 'Second column' },
 ];
+const renderIconProp = <div/>;
 const t5 = (
     <DataTable
         rows={t5RowItems}
         headers={t5Headers}
         render={(renderProps: DataTableCustomRenderProps<T5RowType>) => (
-            <DataTable.TableContainer>
+            <DataTable.TableContainer {...renderProps.getTableContainerProps()}>
+                <DataTable.TableToolbar {...renderProps.getToolbarProps()}>
+                    <DataTable.TableBatchActions {...renderProps.getBatchActionProps()}>
+                        <DataTable.TableBatchAction
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? 0 : -1}
+                            renderIcon={renderIconProp}
+                            onClick={() => {}}>
+                            Delete
+                        </DataTable.TableBatchAction>
+                        <DataTable.TableBatchAction
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? 0 : -1}
+                            renderIcon={renderIconProp}
+                            onClick={() => {}}>
+                            Save
+                        </DataTable.TableBatchAction>
+                        <DataTable.TableBatchAction
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? 0 : -1}
+                            renderIcon={renderIconProp}
+                            onClick={() => {}}>
+                            Download
+                        </DataTable.TableBatchAction>
+                    </DataTable.TableBatchActions>
+                    <DataTable.TableToolbarContent>
+                        <DataTable.TableToolbarSearch
+                            defaultExpanded
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? -1 : 0}
+                            onChange={renderProps.onInputChange}
+                        />
+                        <DataTable.TableToolbarMenu
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? -1 : 0}>
+                            <DataTable.TableToolbarAction primaryFocus onClick={() => alert('Alert 1')}>
+                                Action 1
+                            </DataTable.TableToolbarAction>
+                            <DataTable.TableToolbarAction onClick={() => alert('Alert 2')}>
+                                Action 2
+                            </DataTable.TableToolbarAction>
+                            <DataTable.TableToolbarAction onClick={() => alert('Alert 3')}>
+                                Action 3
+                            </DataTable.TableToolbarAction>
+                        </DataTable.TableToolbarMenu>
+                        <Button
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? -1 : 0}
+                            onClick={() => {}}
+                            size="small"
+                            kind="primary">
+                            Add new
+                        </Button>
+                    </DataTable.TableToolbarContent>
+                </DataTable.TableToolbar>
                 <DataTable.Table {...renderProps.getTableProps()}>
                     <DataTable.TableHead>
                         <DataTable.TableRow>
                             <DataTable.TableSelectAll {...renderProps.getSelectionProps()} />
+                            <DataTable.TableExpandHeader {...renderProps.getExpandHeaderProps()} />
                             {renderProps.headers.map(header => (
                                 <DataTable.TableHeader {...renderProps.getHeaderProps({ header })}>
                                     {header.header}
@@ -320,12 +379,25 @@ const t5 = (
                                 </DataTable.TableRow>
                             </React.Fragment>
                         ))}
+                        {renderProps.rows.map(row => (
+                            <React.Fragment key={row.id}>
+                                <DataTable.TableExpandRow {...renderProps.getRowProps({ row })}>
+                                    <DataTable.TableSelectRow {...renderProps.getSelectionProps({ row })} />
+                                    {row.cells.map(cell => (
+                                        <DataTable.TableCell key={cell.id}>{cell.value}</DataTable.TableCell>
+                                    ))}
+                                    <DataTable.TableCell key={`options${row.id}`} />
+                                </DataTable.TableExpandRow>
+                            </React.Fragment>
+                        ))}
                     </DataTable.TableBody>
                 </DataTable.Table>
             </DataTable.TableContainer>
         )}
     />
 );
+
+// Dropdown
 
 // UIShell - Link
 interface TestCompProps {
@@ -424,15 +496,25 @@ const datePickerInputWithHideLabel = (
 );
 
 // Dropdown
+const dropdownItems = [
+    {
+        id: "1",
+        name: "ASDF",
+    },
+    {
+        id: "2",
+        name: "QWERTY"
+    }
+];
 const dropdownItemCanBeElement = (
     <Dropdown
         id="my-dropdown"
-        items={['val1', 'val2', 'val3']}
+        items={dropdownItems}
         label="label"
         titleText=""
         ariaLabel=""
-        selectedItem="val2"
-        itemToElement={item => <div>This is my rich content</div>}
+        selectedItem={dropdownItems[1]}
+        itemToElement={item => <div>ID: {item.id}; Name: ${item.name}</div>}
         itemToString={item => 'Selected: ' + item}
     />
 );
@@ -540,6 +622,7 @@ const fileUploaderItem = (
         iconDescription="Clear file"
         name="README.md"
         onDelete={(event, content) => {}}
+        size="field"
         status="edit"
         uuid="id1"
     />
@@ -552,7 +635,7 @@ const multiSelect = (
         items={['one', 'two']}
         light
         titleText="Choose an item"
-        itemToString={item => item}
+        itemToString={item => item || ""}
         onChange={({ selectedItems }) => {}}
     />
 );
@@ -565,7 +648,31 @@ const multiSelectFilterable = (
         light
         placeholder="Filter"
         titleText="Choose an item"
-        itemToString={item => item}
+        itemToString={item => item || ""}
+        onChange={({ selectedItems }) => {}}
+    />
+);
+
+const multiSelectFilterableObjs = [
+    {
+        id: "1",
+        name: "One"
+    },
+    {
+        id: "2",
+        name: "Two",
+        label: "label"
+    }
+];
+const multiSelectFilterableObj = (
+    <MultiSelect.Filterable
+        id="clusters"
+        initialSelectedItems={[multiSelectFilterableObjs[0]]}
+        items={multiSelectFilterableObjs}
+        light
+        placeholder="Filter"
+        titleText="Choose an item"
+        itemToString={item => item && item.label ? item.label : ""}
         onChange={({ selectedItems }) => {}}
     />
 );

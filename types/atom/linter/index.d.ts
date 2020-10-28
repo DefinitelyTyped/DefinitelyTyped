@@ -21,7 +21,6 @@ export interface CallbackSolution {
     title?: string;
     position: Range;
     priority?: number;
-    // tslint:disable-next-line:no-any
     apply(): any;
 }
 

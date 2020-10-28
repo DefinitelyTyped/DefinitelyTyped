@@ -870,7 +870,7 @@ declare namespace NodeJS {
         /**
          * Can only be set if not in worker thread.
          */
-        umask(mask?: number): number;
+        umask(mask?: string | number): number;
         uptime(): number;
         hrtime: HRTime;
         domain: Domain;
@@ -1089,7 +1089,6 @@ declare namespace NodeJS {
     type ArrayBufferView = TypedArray | DataView;
 
     interface Require {
-        /* tslint:disable-next-line:callable-types */
         (id: string): any;
         resolve: RequireResolve;
         cache: Dict<NodeModule>;

@@ -3,9 +3,8 @@ import { CSSModule } from '../index';
 
 export interface InputGroupProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     size?: string;
-    className?: string;
     cssModule?: CSSModule;
 }
 

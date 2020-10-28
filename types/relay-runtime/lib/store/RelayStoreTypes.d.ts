@@ -1,6 +1,6 @@
 import { ReaderFragment } from '../util/ReaderNode';
-import { Variables, Disposable, DataID, CacheConfig } from '../util/RelayRuntimeTypes';
-import { ConcreteRequest } from '../util/RelayConcreteNode';
+import { Variables, Disposable, DataID, CacheConfig, FetchPolicy, RenderPolicy } from '../util/RelayRuntimeTypes';
+import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
 import { RequestIdentifier } from '../util/getRequestIdentifier';
 import {
     NormalizationSelectableNode,
@@ -379,7 +379,7 @@ export interface ReadOnlyRecordProxy {
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    // tslint:disable-next-line
+    // tslint:disable-next-line:no-unnecessary-generics
     get<T = {}>(dataID: DataID): RecordProxy<T> | null | undefined;
     getRoot(): RecordProxy;
 }
@@ -407,65 +407,83 @@ interface OperationDescriptor {
     readonly root: NormalizationSelector;
 }
 
-interface LogEventQueryResourceFetch {
-    readonly name: 'queryresource.fetch';
-    readonly operation: OperationDescriptor;
-    // FetchPolicy from relay-experimental
-    readonly fetchPolicy: string;
-    // RenderPolicy from relay-experimental
-    readonly renderPolicy: string;
-    readonly queryAvailability: OperationAvailability;
-    readonly shouldFetch: boolean;
-}
-
-interface LogEventExecuteInfo {
-    readonly name: 'execute.info';
-    readonly transactionID: number;
-    readonly info: unknown;
-}
-
-interface LogEventExecuteStart {
-    readonly name: 'execute.start';
-    readonly transactionID: number;
-    readonly params: {
-        // RequestParameters type
-        readonly name: string;
-        readonly operationKind: string;
-        readonly text: string;
-    };
-    readonly variables: object;
-}
-
-interface LogEventExecuteNext {
-    readonly name: 'execute.next';
-    readonly transactionID: number;
-    readonly response: unknown;
-}
-
-interface LogEventExecuteError {
-    readonly name: 'execute.error';
-    readonly transactionID: number;
-    readonly error: Error;
-}
-
-interface LogEventExecuteComplete {
-    readonly name: 'execute.complete';
-    readonly transactionID: number;
-}
-
-interface LogEventExecuteUnsubscribe {
-    readonly name: 'execute.unsubscribe';
-    readonly transactionID: number;
-}
-
 type LogEvent =
-    | LogEventQueryResourceFetch
-    | LogEventExecuteInfo
-    | LogEventExecuteStart
-    | LogEventExecuteNext
-    | LogEventExecuteError
-    | LogEventExecuteComplete
-    | LogEventExecuteUnsubscribe;
+    | Readonly<{
+          name: 'queryresource.fetch';
+          /**
+           * ID of this query resource request and will be the same if there is an associated queryresource.retain event.
+           */
+          resourceID: number;
+          operation: OperationDescriptor;
+          profilerContext: any;
+          fetchPolicy: FetchPolicy;
+          renderPolicy: RenderPolicy;
+          queryAvailability: OperationAvailability;
+          shouldFetch: boolean;
+      }>
+    | Readonly<{
+          name: 'queryresource.retain';
+          resourceID: number;
+          // value from ProfilerContext
+          profilerContext: any;
+      }>
+    | Readonly<{
+          name: 'execute.info';
+          transactionID: number;
+          info: any;
+      }>
+    | Readonly<{
+          name: 'execute.start';
+          transactionID: number;
+          params: RequestParameters;
+          variables: Variables;
+      }>
+    | Readonly<{
+          name: 'execute.next';
+          transactionID: number;
+          response: GraphQLResponse;
+      }>
+    | Readonly<{
+          name: 'execute.error';
+          transactionID: number;
+          error: Error;
+      }>
+    | Readonly<{
+          name: 'execute.complete';
+          transactionID: number;
+      }>
+    | Readonly<{
+          name: 'execute.unsubscribe';
+          transactionID: number;
+      }>
+    | Readonly<{
+          name: 'store.publish';
+          source: RecordSource;
+          optimistic: boolean;
+      }>
+    | Readonly<{
+          name: 'store.snapshot';
+      }>
+    | Readonly<{
+          name: 'store.restore';
+      }>
+    | Readonly<{
+          name: 'store.gc';
+          references: Set<DataID>;
+      }>
+    | Readonly<{
+          name: 'store.notify.start';
+      }>
+    | Readonly<{
+          name: 'store.notify.complete';
+          updatedRecordIDs: UpdatedRecords;
+          invalidatedRecordIDs: Set<DataID>;
+      }>
+    | Readonly<{
+          name: 'entrypoint.root.consume';
+          profilerContext: any;
+          rootModuleID: string;
+      }>;
 
 export type LogFunction = (logEvent: LogEvent) => void;
 
@@ -807,6 +825,24 @@ export type MissingFieldHandler =
               store: ReadOnlyRecordSourceProxy,
           ) => Array<DataID | null | undefined> | null | undefined;
       };
+
+/**
+ * A handler for events related to @required fields. Currently reports missing
+ * fields with either `action: LOG` or `action: THROW`.
+ */
+export type RequiredFieldLogger = (
+    arg:
+      | Readonly<{
+          kind: "missing_field.log",
+          owner: string,
+          fieldPath: string,
+        }>
+      | Readonly<{
+          kind: "missing_field.throw",
+          owner: string,
+          fieldPath: string,
+        }>
+  ) => void;
 
 /**
  * The results of normalizing a query.

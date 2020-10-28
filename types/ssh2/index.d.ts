@@ -458,6 +458,8 @@ export interface ConnectConfig {
     compress?: boolean | 'force';
     /** A function that receives a single string argument to get detailed (local) debug information. */
     debug?: (information: string) => any;
+    /** Function with parameters (methodsLeft, partialSuccess, callback) where methodsLeft and partialSuccess are null on the first authentication attempt, otherwise are an array and boolean respectively. Return or call callback() with the name of the authentication method to try next (pass false to signal no more methods to try). Valid method names are: 'none', 'password', 'publickey', 'agent', 'keyboard-interactive', 'hostbased'. Default: function that follows a set method order: None -> Password -> Private Key -> Agent (-> keyboard-interactive if tryKeyboard is true) -> Hostbased. */
+    authHandler?: (methodsLeft: Array<string> | null, partialSuccess: boolean | null, callback: Function) => any;
 }
 
 export interface TcpConnectionDetails {

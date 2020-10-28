@@ -25,7 +25,6 @@ declare namespace connectPgSimple {
       schemaName?: string;
       tableName?: string;
       pruneSessionInterval?: false | number;
-      // tslint:disable-next-line:prefer-method-signature
       errorLog?: (...args: any[]) => void;
   }
 }
