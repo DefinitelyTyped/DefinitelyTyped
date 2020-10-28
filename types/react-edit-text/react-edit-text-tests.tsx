@@ -15,3 +15,4 @@ const onSaveTest = ({name, value}: onSaveProps) => {
 <EditText type="email" name="email" onSave={onSaveTest}/>;
 <EditText inline/>;
 <EditText style={{margin: 0}}/>;
+<EditText readonly/>;

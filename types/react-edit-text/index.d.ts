@@ -1,4 +1,4 @@
-// Type definitions for react-edit-text 1.0
+// Type definitions for react-edit-text 1.1.0
 // Project: https://github.com/bymi15/react-edit-text#readme
 // Definitions by: Brian Min <https://github.com/bymi15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -63,6 +63,11 @@ export interface EditTextProps {
      * Sets the css styling for both input and div elements
      */
     style?: React.CSSProperties;
+    /**
+     * Displays only the view element when set to true,
+     * default: false
+     */
+    readonly?: boolean;
 }
 
 export default class EditText extends React.Component<EditTextProps> {
