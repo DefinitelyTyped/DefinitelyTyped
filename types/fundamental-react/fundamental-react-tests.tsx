@@ -1650,21 +1650,13 @@ const searchInputs = (
 
 const selects = (
     <div>
-        <Select placeholder='Select'>
-            <List>
-                <List.Item>
-                    <List.Text>List Item 1</List.Text>
-                    <List.Selection checkBoxAriaLabel="checkedLabel">List Item 2</List.Selection>
-                </List.Item>
-            </List>
+        <Select placeholder='Select' options={[
+            {text: "List Item 1", key: "1"},
+            {text: "List Item 2", key: "2"}
+        ]} selectedKey={"2"}>
         </Select>
 
         <Select compact validationState={{state: 'warning', text: 'Validated'}}>
-            <List>
-                <List.Item>
-                    <List.Text>List Item 1</List.Text>
-                </List.Item>
-            </List>
         </Select>
     </div>
 );
