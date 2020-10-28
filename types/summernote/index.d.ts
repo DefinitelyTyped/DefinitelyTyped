@@ -55,7 +55,8 @@ declare global {
         }
 
         type toolbarStyleGroupOptions = 'style' | 'bold' | 'italic' | 'underline' | 'clear';
-        type toolbarFontGroupOptions = 'fontname' | 'fontsize' | 'fontsizeunit' | 'color' | 'forecolor' | 'backcolor' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'superscript' | 'subscript' | 'clear';
+        type toolbarFontGroupOptions = 'fontname' | 'fontsize' | 'fontsizeunit' | 'color' | 'forecolor' | 'backcolor' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'superscript' |
+            'subscript' | 'clear';
         type toolbarFontsizeGroupOptions = 'fontsize' | 'fontname' | 'color';
         type toolbarColorGroupOptions = 'color';
         type toolbarParaGroupOptions = 'ul' | 'ol' | 'paragraph' | 'style' | 'height';
