@@ -81,6 +81,7 @@ const client = new mongodb.MongoClient(url, {
     tlsCertificateKeyFile: `${__dirname}/certs/x509/client.pem`,
     tlsCertificateKeyFilePassword: '10gen',
 });
+console.log(client.readPreference.mode, client.writeConcern.w);
 
 // Test other error classes
 new mongodb.MongoNetworkError('network error');
