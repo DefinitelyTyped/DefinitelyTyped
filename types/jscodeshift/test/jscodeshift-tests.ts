@@ -82,6 +82,11 @@ const transformWithRecastParseOptions: Transform = (file, { j }) => {
     }
 }
 
+// Can define a collection
+function getFileDefaultImport(file: FileInfo, j: JSCodeshift): Collection<ImportDeclaration> {
+    return j(file.source).find(j.ImportDeclaration);
+}
+
 // Can define a test
 testUtils.defineTest(
     "directory",
