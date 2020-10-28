@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@tsconfig/recommended": "^1.0.1",
         "postcss": "8.x.x"
     }
 }

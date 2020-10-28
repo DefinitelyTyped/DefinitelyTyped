@@ -1,11 +1,12 @@
 {
-    "extends": "@tsconfig/recommended/tsconfig.json",
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
             "es2015",
             "es2018.promise"
         ],
+        "target": "es2015",
+        "skipLibCheck": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -21,5 +22,6 @@
     "files": [
         "index.d.ts",
         "autoprefixer-tests.ts"
-    ]
+    ],
+    "$schema": "https://json.schemastore.org/tsconfig"
 }
