@@ -3,4 +3,6 @@
 // Definitions by: Michael Strobel <https://github.com/kryops>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function polyfill(): void;
+declare module 'smoothscroll-polyfill' {
+  export function polyfill(): void;
+}
