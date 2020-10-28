@@ -25,5 +25,6 @@ const config: Summernote.Options = {
     fontSizeUnits: ['px', 'pt'],
 };
 
-$('#testElement').summernote('code', '<p> hello </p>');
-$('#testElement').summernote('code');
+const code = '<p> hello </p>';
+$('#testElement').summernote('code', code);
+alert(code === $('#testElement').summernote('code'));
