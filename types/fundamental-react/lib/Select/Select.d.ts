@@ -27,7 +27,7 @@ export interface SelectProps {
         text?: string;
     };
     options?: Option[];
-    onClick?: (...args: any[]) => any;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     onBlur?: (event: React.FocusEvent<HTMLDivElement>) => void;
     onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>, selectedOption: Option) => void;
 }
