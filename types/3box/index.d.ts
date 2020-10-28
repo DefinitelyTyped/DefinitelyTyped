@@ -33,7 +33,7 @@ declare namespace Box {
 
     interface Thread {
         getPosts(): Promise<ThreadPost[]>;
-        onUpdate(): void;
+        onUpdate(updateFn: any): void;
 
         post(message: any, to?: string): Promise<void>;
         deletePost(id: string): Promise<void>;
@@ -113,7 +113,7 @@ declare class Box {
     openSpace(name: string, opts?: { consentCallback?: any; onSyncDone?: any }): Promise<Box.Space>;
     auth(space: string[], user: { address: string }): void;
     syncDone: Promise<Box.Space>;
-    onSyncDone(onSyncDone: any): void;
+    onSyncDone(syncDoneFn: any): void;
     logout(): void;
 
     static getProfile(
