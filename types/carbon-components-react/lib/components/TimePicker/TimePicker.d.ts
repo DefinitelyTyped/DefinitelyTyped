@@ -5,7 +5,7 @@ export interface TimePickerProps extends Omit<ReactInputAttr, "id"> {
     hideLabel?: boolean,
     id: string,
     invalid?: boolean,
-    invalidText?: string,
+    invalidText?: React.ReactNode,
     labelText?: React.ReactNode,
     light?: boolean,
 }

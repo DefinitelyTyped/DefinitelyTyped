@@ -26,7 +26,7 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extend
     itemToString?(item: T | null | undefined): string;
     inline?: boolean,
     invalid?: boolean,
-    invalidText?: string,
+    invalidText?: React.ReactNode,
     label?: React.ReactNode,
     light?: boolean,
     locale?: string,

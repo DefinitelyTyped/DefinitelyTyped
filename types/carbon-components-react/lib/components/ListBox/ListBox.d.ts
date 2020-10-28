@@ -12,7 +12,7 @@ type ExcludedAttributes = "onKeyDown" | "onKeyPress" | "ref";
 export interface ListBoxProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     disabled?: boolean, // required but has default value
     invalid?: boolean,
-    invalidText?: string,
+    invalidText?: React.ReactNode,
     isOpen?: boolean,
     light?: boolean,
     size?: ListBoxSize,
