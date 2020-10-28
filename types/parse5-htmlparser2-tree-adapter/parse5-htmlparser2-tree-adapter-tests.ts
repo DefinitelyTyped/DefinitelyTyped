@@ -2,7 +2,7 @@ import * as parse5 from "parse5";
 import treeAdapter = require('parse5-htmlparser2-tree-adapter');
 
 // htmlparser2 AST
-const htmlparser2Document = parse5.parse<typeof treeAdapter>("<html>", {
+const htmlparser2Document = parse5.parse("<html>", {
     treeAdapter
 });
 

@@ -213,15 +213,15 @@ declare namespace treeAdapter {
 }
 
 interface TreeAdapterMap extends parse5.TreeAdapterMap {
-    document: treeAdapter.Document;
-    element: treeAdapter.Element;
-    parentNode: treeAdapter.ParentNode;
-    commentNode: treeAdapter.CommentNode;
     attribute: parse5.Attribute;
-    node: treeAdapter.Node;
-    documentFragment: treeAdapter.DocumentFragment;
     childNode: treeAdapter.Node;
+    commentNode: treeAdapter.CommentNode;
+    document: treeAdapter.Document;
+    documentFragment: treeAdapter.DocumentFragment;
     documentType: treeAdapter.DocumentType;
+    element: treeAdapter.Element;
+    node: treeAdapter.Node;
+    parentNode: treeAdapter.ParentNode;
     textNode: treeAdapter.TextNode;
 }
 
