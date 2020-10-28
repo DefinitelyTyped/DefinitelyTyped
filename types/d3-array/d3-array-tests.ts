@@ -272,6 +272,22 @@ numOrUndefined = d3Array.median(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.median(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.median(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// cumsum() --------------------------------------------------------------------
+
+let float64Array: Float64Array;
+float64Array = d3Array.cumsum(numbersArray);
+float64Array = d3Array.cumsum(numericArray);
+float64Array = d3Array.cumsum(numbersOrUndefinedArray);
+
+float64Array = d3Array.cumsum(typedArray);
+float64Array = d3Array.cumsum(readonlyNumbersArray);
+float64Array = d3Array.cumsum(readonlyNumericArray);
+float64Array = d3Array.cumsum(readonlyNumbersOrUndefinedArray);
+
+float64Array = d3Array.cumsum(mixedObjectArray, accessorMixedObjectToNum);
+float64Array = d3Array.cumsum(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+float64Array = d3Array.cumsum(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
 // quantile() ------------------------------------------------------------------
 
 numOrUndefined = d3Array.quantile(numbersArray, 0.5);
