@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-interface RushaHash {
-    update(value: string|number[]|ArrayBuffer|Buffer): RushaHash;
+interface Hash {
+    update(value: string|number[]|ArrayBuffer|Buffer): Hash;
     digest(encoding?: undefined): ArrayBuffer;
     digest(encoding: 'hex'): string;
 }
@@ -29,7 +29,7 @@ interface RushaWorker extends Worker {
 }
 
 interface Rusha {
-    createHash(): RushaHash;
+    createHash(): Hash;
     createWorker(): RushaWorker;
     disableWorkerBehaviour(): void;
 }
