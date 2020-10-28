@@ -1,9 +1,7 @@
 import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr { }
-
-export interface ListBoxMenuItemProps extends InheritedProps {
+export interface ListBoxMenuItemProps extends ReactDivAttr {
     isActive?: boolean, // required but has default value
     isHighlighted?: boolean, // required but has default value
 }

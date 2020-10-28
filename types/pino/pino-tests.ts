@@ -17,6 +17,10 @@ error(new Error('an error'));
 
 const writeSym = pino.symbols.writeSym;
 
+const testUniqSymbol = {
+    [pino.symbols.needsMetadataGsym]: true
+}[pino.symbols.needsMetadataGsym];
+
 const log2: pino.Logger = pino({
     name: 'myapp',
     safe: true,

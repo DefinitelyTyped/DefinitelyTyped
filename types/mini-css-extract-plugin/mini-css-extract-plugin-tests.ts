@@ -49,14 +49,14 @@ configuration = {
 
 configuration = {
     // ...
-    plugins: [new MiniCssExtractPlugin()],
+    plugins: [new MiniCssExtractPlugin(), new MiniCssExtractPlugin({})],
 };
 
 configuration = {
     // ...
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'styles.css',
+            filename: ({ chunk }) => `${chunk.name.replace('/js/', '/css/')}.css`,
             chunkFilename: 'style.css',
         }),
     ],
@@ -83,10 +83,13 @@ configuration = {
 };
 
 configuration = {
-    // ...
+    // `linkType`
     plugins: [
         new MiniCssExtractPlugin({
-            moduleFilename: ({ name }) => `${name.replace('/js/', '/css/')}.css`,
+            linkType: 'text/css',
+        }),
+        new MiniCssExtractPlugin({
+            linkType: false,
         }),
     ],
 };

@@ -3,11 +3,7 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "no-duplicate-imports": false,
-        "no-redundant-jsdoc": false,
-        "prefer-declare-function": false,
-        "prefer-method-signature": false,
-        "strict-export-declare-modifiers": false
+        "prefer-declare-function": false
     }
 }

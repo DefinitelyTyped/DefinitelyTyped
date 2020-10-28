@@ -1,18 +1,26 @@
-import { GraphQLTaggedNode, Disposable, MutationConfig, MutationParameters, IEnvironment, PayloadError, DeclarativeMutationConfig, SelectorStoreUpdater, UploadableMap } from "relay-runtime";
+import {
+    DeclarativeMutationConfig,
+    Disposable,
+    GraphQLTaggedNode,
+    IEnvironment,
+    MutationConfig,
+    MutationParameters,
+    PayloadError,
+    SelectorStoreUpdater,
+    UploadableMap,
+    VariablesOf,
+} from 'relay-runtime';
 
 export interface UseMutationConfig<TMutation extends MutationParameters> {
-    configs?: DeclarativeMutationConfig[];
-    onError?: (error: Error) => void;
-    onCompleted?: (
-        response: TMutation["response"],
-        errors: PayloadError[],
-    ) => void;
-    onUnsubscribe?: () => void;
-    optimisticResponse?: TMutation["rawResponse"];
-    optimisticUpdater?: SelectorStoreUpdater<TMutation["response"]>;
-    updater?: SelectorStoreUpdater<TMutation["response"]>;
+    variables: VariablesOf<TMutation>;
+    updater?: SelectorStoreUpdater<TMutation['response']> | null;
     uploadables?: UploadableMap;
-    variables: TMutation["variables"];
+    optimisticUpdater?: SelectorStoreUpdater<TMutation['response']> | null;
+    optimisticResponse?: TMutation['rawResponse'];
+    configs?: DeclarativeMutationConfig[];
+    onError?: (error: Error) => void | null;
+    onCompleted?: (response: TMutation['response'], errors: PayloadError[]) => void | null;
+    onUnsubscribe?: () => void | null;
 }
 
 // tslint:disable-next-line no-unnecessary-generics

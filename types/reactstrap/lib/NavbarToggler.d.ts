@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface NavbarTogglerProps extends React.HTMLProps<HTMLAnchorElement> {
+export interface NavbarTogglerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     [key: string]: any;
-    tag?: string | React.ReactType;
-    type?: string;
-    className?: string;
+    tag?: React.ElementType;
     cssModule?: CSSModule;
 }
 

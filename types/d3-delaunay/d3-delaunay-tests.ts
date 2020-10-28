@@ -99,10 +99,12 @@ const ymin: number = v.ymin;
 const xmax: number = v.xmax;
 const ymax: number = v.ymax;
 const contains: boolean = v.contains(0, 0.5, 0.5);
+const neighbors: Iterable<number> = v.neighbors(2);
 const vrender: string = v.render();
 const vrenderBounds: string = v.renderBounds();
 const renderCell: string = v.renderCell(0);
 for (const poly of v.cellPolygons()) {
+    const index: number = poly.index;
     for (const p of poly) {
         const x = p[0];
         const y = p[1];

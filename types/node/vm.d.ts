@@ -125,7 +125,7 @@ declare module "vm" {
     function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions | string): any;
     function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
     function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
-    function compileFunction(code: string, params?: string[], options?: CompileFunctionOptions): Function;
+    function compileFunction(code: string, params?: ReadonlyArray<string>, options?: CompileFunctionOptions): Function;
 
     /**
      * Measure the memory known to V8 and used by the current execution context or a specified context.

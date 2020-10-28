@@ -66,7 +66,7 @@ interface Cookies {
 
 interface Cookie {
     name: string;
-    options: CookieOptions;
+    options?: CookieOptions;
 }
 
 interface CookieOptions {
@@ -93,6 +93,12 @@ interface Session {
     updateAge?: number;
 }
 
+interface User {
+    name: string;
+    email: string;
+    image: string;
+}
+
 interface JWTOptions {
     secret?: string;
     maxAge?: number;
@@ -103,12 +109,12 @@ interface JWTOptions {
 
 // TODO: Improve callback typings
 interface Callbacks {
-    signIn?(user: GenericObject, account: GenericObject, profile: GenericObject): Promise<boolean>;
+    signIn?(user: User, account: GenericObject, profile: GenericObject): Promise<boolean>;
     redirect?(url: string, baseUrl: string): Promise<string>;
-    session?(session: SessionBase, user: GenericObject): Promise<GenericObject>;
+    session?(session: SessionBase, user: User): Promise<GenericObject>;
     jwt?(
         token: GenericObject,
-        user: GenericObject,
+        user: User,
         account: GenericObject,
         profile: GenericObject,
         isNewUser: boolean,
@@ -117,4 +123,4 @@ interface Callbacks {
 
 declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
 export default NextAuth;
-export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, Callbacks };
+export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, User, Callbacks };

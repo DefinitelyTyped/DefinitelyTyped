@@ -3,16 +3,9 @@ import { ReactInputAttr, RequiresIdProps, ForwardRefReturn } from "../../../typi
 
 type ExcludedAttributes = "aria-label" | "className" | "id" | "onChange" | "ref" | "type";
 
-interface InheritedProps extends
-    Omit<ReactInputAttr, ExcludedAttributes>,
-    RequiresIdProps
-{
+export interface InlineCheckboxProps extends Omit<ReactInputAttr, ExcludedAttributes>, RequiresIdProps {
     ariaLabel?: ReactInputAttr["aria-label"],
-}
-
-export interface InlineCheckboxProps extends InheritedProps {
     indeterminate?: boolean,
-    innerRef?: React.Ref<HTMLInputElement>;
     onChange?(checked: boolean, id: string, event: React.ChangeEvent<HTMLInputElement>): void,
 }
 

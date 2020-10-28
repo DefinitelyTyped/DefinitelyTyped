@@ -2,33 +2,29 @@
 // Project: https://github.com/expressjs/serve-static
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik>
 //                 Linus Unnebäck <https://github.com/LinusU>
+//                 Devansh Jethmalani <https://github.com/devanshj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/* =================== USAGE ===================
-
-    import * as serveStatic from "serve-static";
-    app.use(serveStatic("public/ftp", {"index": ["default.html", "default.htm"]}))
-
- =============================================== */
-
-/// <reference types="express-serve-static-core" />
-
-import * as express from "express-serve-static-core";
+/// <reference types="node" />
 import * as m from "mime";
+import * as http from "http";
 
 /**
  * Create a new middleware function to serve files from within a given root directory.
  * The file to serve will be determined by combining req.url with the provided root directory.
  * When a file is not found, instead of sending a 404 response, this module will instead call next() to move on to the next middleware, allowing for stacking and fall-backs.
  */
-declare function serveStatic(root: string, options?: serveStatic.ServeStaticOptions): express.Handler;
+declare function serveStatic<R extends http.OutgoingMessage>(
+    root: string,
+    options?: serveStatic.ServeStaticOptions<R>
+): serveStatic.RequestHandler<R>;
 
 declare namespace serveStatic {
     var mime: typeof m;
-    interface ServeStaticOptions {
+    interface ServeStaticOptions<R extends http.OutgoingMessage = http.OutgoingMessage> {
         /**
-         * Enable or disable setting Cache-Control response header, defaults to true. 
+         * Enable or disable setting Cache-Control response header, defaults to true.
          * Disabling this will ignore the immutable and maxAge options.
          */
         cacheControl?: boolean;
@@ -96,9 +92,12 @@ declare namespace serveStatic {
          * path the file path that is being sent
          * stat the stat object of the file that is being sent
          */
-        setHeaders?: (res: express.Response, path: string, stat: any) => any;
+        setHeaders?: (res: R, path: string, stat: any) => any;
     }
-    function serveStatic(root: string, options?: ServeStaticOptions): express.Handler;
+
+    interface RequestHandler<R extends http.OutgoingMessage> {
+        (request: http.IncomingMessage, response: R, next: () => void): any;
+    }
 }
 
 export = serveStatic;

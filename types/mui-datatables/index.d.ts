@@ -18,6 +18,7 @@ export type Responsive = 'vertical' | 'standard' | 'simple';
 export type SelectableRows = 'multiple' | 'single' | 'none';
 export type ChipVariant = 'outlined' | 'default';
 export type ChipColor = 'primary' | 'secondary' | 'default';
+export type ToolbarButton = boolean | 'true' | 'false' | 'disabled';
 
 export interface MUISortOptions {
     name: string;
@@ -256,7 +257,7 @@ export type MUIDataTableOptions = Partial<{
     /** @deprecated use `selectToolbarPlacement` instead */
     disableToolbarSelect: boolean;
     draggableColumns: MUIDataTableDraggableColumns;
-    download: boolean;
+    download: ToolbarButton;
     downloadOptions: Partial<{
         filename: string;
         separator: string;
@@ -267,7 +268,7 @@ export type MUIDataTableOptions = Partial<{
     expandableRows: boolean;
     expandableRowsHeader: boolean;
     expandableRowsOnClick: boolean;
-    filter: boolean;
+    filter: ToolbarButton;
     filterType: FilterType;
     fixedHeader: boolean;
     /** @deprecated use `fixedHeader` for **X** axis and `fixedSelectColumn` for **Y** axis */
@@ -333,7 +334,7 @@ export type MUIDataTableOptions = Partial<{
     onViewColumnsChange: (changedColumn: string, action: string) => void;
     page: number;
     pagination: boolean;
-    print: boolean;
+    print: ToolbarButton;
     renderExpandableRow: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => React.ReactNode;
     resizableColumns: boolean;
     responsive: Responsive;
@@ -342,7 +343,7 @@ export type MUIDataTableOptions = Partial<{
     rowsPerPage: number;
     rowsPerPageOptions: number[];
     rowsSelected: any[];
-    search: boolean;
+    search: ToolbarButton;
     searchOpen: boolean;
     searchProps: React.HTMLAttributes<HTMLInputElement>;
     searchPlaceholder: string;
@@ -362,7 +363,7 @@ export type MUIDataTableOptions = Partial<{
     tableBodyHeight: string;
     tableBodyMaxHeight: string;
     textLabels: Partial<MUIDataTableTextLabels>;
-    viewColumns: boolean;
+    viewColumns: ToolbarButton;
 }>;
 
 export type MUIDataTableColumnDef = string | MUIDataTableColumn;
@@ -372,6 +373,7 @@ type RenderCustomComponent<P> = (props: P) => React.ReactNode;
 export interface MUIDataTableProps {
     columns: MUIDataTableColumnDef[];
     components?: Partial<{
+        ExpandButton: RenderCustomComponent<MUIDataTableExpandButton> | React.ReactNode;
         TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
         TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
         TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
@@ -384,6 +386,18 @@ export interface MUIDataTableProps {
     data: Array<object | number[] | string[]>;
     options?: MUIDataTableOptions;
     title: string | React.ReactNode;
+}
+
+export interface MUIDataTableExpandButton {
+    areAllRowsExpanded: () => boolean;
+    buttonClass: string;
+    dataIndex?: number;
+    expandableRowsHeader: boolean;
+    expandedRows?: any;
+    iconClass: string;
+    iconIndeterminateClass: string;
+    isHeaderCell: boolean;
+    onExpand?: (...args: any) => any;
 }
 
 export interface MUIDataTablePopover {
@@ -597,6 +611,7 @@ export interface MUIDataTableViewCol {
 
 export const MUIDataTable: React.ComponentType<MUIDataTableProps>;
 
+export const ExpandButton: React.ComponentType<MUIDataTableExpandButton>;
 export const Popover: React.ComponentType<MUIDataTablePopover>;
 export const TableBody: React.ComponentType<MUIDataTableBody>;
 export const TableBodyCell: React.ComponentType<MUIDataTableBodyCell>;

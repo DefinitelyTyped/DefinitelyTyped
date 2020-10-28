@@ -71,8 +71,6 @@ declare namespace google.maps {
         remove(): void;
     }
 
-    type MVCEventHandler<T extends MVCObject, A extends any[]> = (this: T, ...args: A) => void;
-
     class MVCObject {
         /**
          * The MVCObject constructor is guaranteed to be an empty function, and so
@@ -88,7 +86,7 @@ declare namespace google.maps {
          * identifier for this listener that can be used with
          * google.maps.event.removeListener.
          */
-        addListener(eventName: string, handler: MVCEventHandler<this, any[]>): MapsEventListener;
+        addListener(eventName: string, handler: (this: this, ...args: any[]) => void): MapsEventListener;
 
         /** Binds a View to a Model. */
         bindTo(key: string, target: MVCObject, targetKey?: string, noNotify?: boolean): void;
@@ -121,48 +119,143 @@ declare namespace google.maps {
         unbindAll(): void;
     }
 
-    /** This class extends MVCObject. */
+    interface MVCArrayHandlerMap<C extends MVCArray<T>, T> {
+        /**
+         * This event is fired when {@link MVCArray.insertAt insertAt}() is called. The event passes the index that was
+         * passed to {@link MVCArray.insertAt insertAt}().
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.insert_at Maps JavaScript API}
+         */
+        insert_at: (this: C, index: number) => void;
+
+        /**
+         * This event is fired when {@link MVCArray.removeAt removeAt}() is called. The event passes the index that was
+         * passed to {@link MVCArray.removeAt removeAt}() and the element that was removed from the array.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.remove_at Maps JavaScript API}
+         */
+        remove_at: (this: C, index: number, removed: T) => void;
+
+        /**
+         * This event is fired when {@link MVCArray.setAt setAt}() is called. The event passes the index that was passed
+         * to {@link MVCArray.setAt setAt}() and the element that was previously in the array at that index.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.set_at Maps JavaScript API}
+         */
+        set_at: (this: C, index: number, previous: T) => void;
+    }
+
+    /**
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray Maps JavaScript API}
+     */
     class MVCArray<T> extends MVCObject {
-        /** A mutable MVC Array. */
+        /**
+         * A mutable MVC Array.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.constructor Maps JavaScript API}
+         */
         constructor(array?: T[]);
 
-        /** Removes all elements from the array. */
+        /**
+         * @see {@link MVCArrayHandlerMap#insert_at insert_at} event
+         * @see {@link MVCArrayHandlerMap#remove_at remove_at} event
+         * @see {@link MVCArrayHandlerMap#set_at set_at} event
+         */
+        addListener<N extends keyof MVCArrayHandlerMap<this, T>>(
+            eventName: N,
+            handler: MVCArrayHandlerMap<this, T>[N],
+        ): MapsEventListener;
+
+        /** @deprecated */
+        addListener(eventName: string, handler: (this: this, ...args: any[]) => void): MapsEventListener;
+
+        /**
+         * Removes all elements from the array.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.clear Maps JavaScript API}
+         * @see {@link pop}
+         * @see {@link removeAt}
+         */
         clear(): void;
 
         /**
-         * Iterate over each element, calling the provided callback.
-         * The callback is called for each element like: callback(element, index).
+         * Iterate over each element, calling the provided callback. The callback is called for each element like:
+         * `callback(element, index)`.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.forEach Maps JavaScript API}
+         * @see {@link getArray}
+         * @see {@link getAt}
          */
         forEach(callback: (elem: T, i: number) => void): void;
 
         /**
-         * Returns a reference to the underlying Array.
-         * Warning: if the Array is mutated, no events will be fired by this object.
+         * Returns a reference to the underlying Array. Warning: if the Array is mutated, no events will be fired by
+         * this object.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.getArray Maps JavaScript API}
+         * @see {@link forEach}
+         * @see {@link getAt}
          */
         getArray(): T[];
 
-        /** Returns the element at the specified index. */
+        /**
+         * Returns the element at the specified index.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.getAt Maps JavaScript API}
+         * @see {@link forEach}
+         * @see {@link getArray}
+         * @see {@link insertAt}
+         * @see {@link removeAt}
+         * @see {@link setAt}
+         */
         getAt(i: number): T;
 
-        /** Returns the number of elements in this array. */
+        /**
+         * Returns the number of elements in this array.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.getLength Maps JavaScript API}
+         */
         getLength(): number;
 
-        /** Inserts an element at the specified index. */
+        /**
+         * Inserts an element at the specified index.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.insertAt Maps JavaScript API}
+         * @see {@link getAt}
+         * @see {@link push}
+         * @see {@link removeAt}
+         * @see {@link setAt}
+         * @see {@link MVCArrayHandlerMap#insert_at insert_at} event
+         */
         insertAt(i: number, elem: T): void;
 
-        /** Removes the last element of the array and returns that element. */
+        /**
+         * Removes the last element of the array and returns that element.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.pop Maps JavaScript API}
+         * @see {@link clear}
+         * @see {@link removeAt}
+         */
         pop(): T;
 
         /**
-         * Adds one element to the end of the array and returns the new length of
-         * the array.
+         * Adds one element to the end of the array and returns the new length of the array.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.push Maps JavaScript API}
+         * @see {@link insertAt}
+         * @see {@link setAt}
          */
         push(elem: T): number;
 
-        /** Removes an element from the specified index. */
+        /**
+         * Removes an element from the specified index.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.removeAt Maps JavaScript API}
+         * @see {@link clear}
+         * @see {@link getAt}
+         * @see {@link insertAt}
+         * @see {@link pop}
+         * @see {@link setAt}
+         * @see {@link MVCArrayHandlerMap#remove_at remove_at} event
+         */
         removeAt(i: number): T;
 
-        /** Sets an element at the specified index. */
+        /**
+         * Sets an element at the specified index.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/event#MVCArray.setAt Maps JavaScript API}
+         * @see {@link getAt}
+         * @see {@link insertAt}
+         * @see {@link push}
+         * @see {@link removeAt}
+         * @see {@link MVCArrayHandlerMap#set_at set_at} event
+         */
         setAt(i: number, elem: T): void;
     }
 }

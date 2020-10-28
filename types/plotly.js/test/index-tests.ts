@@ -746,3 +746,31 @@ function rand() {
 
     myPlot.removeAllListeners('plotly_restyle');
 })();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Sunburst specific properties and events
+(async () => {
+    const sunburst = await newPlot(graphDiv, [
+        {
+            type: "sunburst",
+            ids: ["root", "child1", "child2"],
+            branchvalues: "total",
+            level: "child1",
+            parents: ["", "root", "root"],
+        },
+    ]);
+
+    sunburst.on('plotly_sunburstclick', (event) => {
+        console.log(`Clicked button ${event.event.button} to navigate to ${event.nextLevel}`);
+
+        const point = event.points[0];
+        console.log(`Clicked id ${point.id} with label ${point.label} and parent label ${point.parent}`);
+        console.log(`Point is number ${point.pointNumber} on trace ${point.curveNumber}`);
+        console.log(`Click happened while at level *labelled* ${point.entry}, and root *labelled* ${point.root}`);
+        console.log(`Point has value ${point.value}`);
+        console.log(`Point takes up proportions of (previous level, parent, root): (${point.percentEntry}, ${point.percentParent}, ${point.percentRoot})`);
+        console.log(`Colored ${point.color} and hover ${point.hovertext}`);
+        console.log(`Can access trace data ${point.data.name} and full data ${point.fullData.name}`);
+    });
+})();

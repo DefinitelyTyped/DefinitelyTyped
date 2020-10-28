@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 1.22
+// Type definitions for non-npm package microsoft-graph 1.25
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -1543,6 +1543,7 @@ export interface User extends DirectoryObject {
     activities?: NullableOption<UserActivity[]>;
     onlineMeetings?: NullableOption<OnlineMeeting[]>;
     joinedTeams?: NullableOption<Team[]>;
+    teamwork?: NullableOption<UserTeamwork>;
 }
 export interface AppRoleAssignment extends DirectoryObject {
     /**
@@ -1663,6 +1664,7 @@ export interface Calendar extends Entity {
      * skypeForBusiness, skypeForConsumer, teamsForBusiness.
      */
     defaultOnlineMeetingProvider?: NullableOption<OnlineMeetingProviderType>;
+    hexColor?: NullableOption<string>;
     // Indicates whether this user calendar can be deleted from the user mailbox.
     isRemovable?: NullableOption<boolean>;
     /**
@@ -1737,7 +1739,10 @@ export interface Event extends OutlookItem {
     end?: NullableOption<DateTimeTimeZone>;
     // Set to true if the event has attachments.
     hasAttachments?: NullableOption<boolean>;
-    // A unique identifier that is shared by all instances of an event across different calendars. Read-only.
+    /**
+     * A unique identifier for an event across calendars. This ID is different for each occurrence in a recurring series.
+     * Read-only.
+     */
     iCalUId?: NullableOption<string>;
     // The importance of the event. The possible values are: low, normal, high.
     importance?: NullableOption<Importance>;
@@ -1745,6 +1750,7 @@ export interface Event extends OutlookItem {
     isAllDay?: NullableOption<boolean>;
     // Set to true if the event has been canceled.
     isCancelled?: NullableOption<boolean>;
+    isDraft?: NullableOption<boolean>;
     // True if this event has online meeting information, false otherwise. Default is false. Optional.
     isOnlineMeeting?: NullableOption<boolean>;
     /**
@@ -2536,6 +2542,10 @@ export interface Team extends Entity {
     // The template this team was created from. See available templates.
     template?: NullableOption<TeamsTemplate>;
 }
+export interface UserTeamwork extends Entity {
+    // The apps installed in the personal scope of this user.
+    installedApps?: NullableOption<UserScopeTeamsAppInstallation[]>;
+}
 export interface Application extends DirectoryObject {
     /**
      * Defines custom behavior that a consuming service can use to call an app in specific contexts. For example, applications
@@ -2616,8 +2626,8 @@ export interface Application extends DirectoryObject {
      * Specifies the Microsoft accounts that are supported for the current application. Supported values are:AzureADMyOrg:
      * Users with a Microsoft work or school account in my organization’s Azure AD tenant (single tenant)AzureADMultipleOrgs:
      * Users with a Microsoft work or school account in any organization’s Azure AD tenant
-     * (multi-tenant)AzureADandPersonalMicrosoftAccount: Users with a personal Microsoft account, or a work or school account
-     * in any organization’s Azure AD tenant.
+     * (multi-tenant).AzureADandPersonalMicrosoftAccount: Users with a personal Microsoft account, or a work or school account
+     * in any organization’s Azure AD tenant.PersonalMicrosoftAccount: Users with a personal Microsoft account only.
      */
     signInAudience?: NullableOption<string>;
     // Custom strings that can be used to categorize and identify the application. Not nullable.
@@ -3070,10 +3080,6 @@ export interface Group extends DirectoryObject {
     mail?: NullableOption<string>;
     // Specifies whether the group is mail-enabled. Returned by default.
     mailEnabled?: NullableOption<boolean>;
-    /**
-     * The mail alias for the group, unique in the organization. This property must be specified when a group is created.
-     * Returned by default. Supports $filter.
-     */
     mailNickname?: NullableOption<string>;
     /**
      * The rule that determines members for this group if the group is a dynamic group (groupTypes contains
@@ -3086,25 +3092,9 @@ export interface Group extends DirectoryObject {
      * default.
      */
     membershipRuleProcessingState?: NullableOption<string>;
-    /**
-     * Contains the on-premises domain FQDN, also called dnsDomainName synchronized from the on-premises directory. The
-     * property is only populated for customers who are synchronizing their on-premises directory to Azure Active Directory
-     * via Azure AD Connect.Returned by default. Read-only.
-     */
     onPremisesDomainName?: NullableOption<string>;
-    /**
-     * Indicates the last time at which the group was synced with the on-premises directory.The Timestamp type represents date
-     * and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would
-     * look like this: '2014-01-01T00:00:00Z'. Returned by default. Read-only. Supports $filter.
-     */
     onPremisesLastSyncDateTime?: NullableOption<string>;
-    /**
-     * Contains the on-premises netBios name synchronized from the on-premises directory. The property is only populated for
-     * customers who are synchronizing their on-premises directory to Azure Active Directory via Azure AD Connect.Returned by
-     * default. Read-only.
-     */
     onPremisesNetBiosName?: NullableOption<string>;
-    // Errors when using Microsoft synchronization product during provisioning. Returned by default.
     onPremisesProvisioningErrors?: NullableOption<OnPremisesProvisioningError[]>;
     /**
      * Contains the on-premises SAM account name synchronized from the on-premises directory. The property is only populated
@@ -4005,6 +3995,15 @@ export interface Subscription extends Entity {
     expirationDateTime?: string;
     // When set to true, change notifications include resource data (such as content of a chat message). Optional.
     includeResourceData?: NullableOption<boolean>;
+    /**
+     * Specifies the latest version of Transport Layer Security (TLS) that the notification endpoint, specified by
+     * notificationUrl, supports. The possible values are: v1_0, v1_1, v1_2, v1_3. For subscribers whose notification endpoint
+     * supports a version lower than the currently recommended version (TLS 1.2), specifying this property by a set timeline
+     * allows them to temporarily use their deprecated version of TLS before completing their upgrade to TLS 1.2. For these
+     * subscribers, not setting this property per the timeline would result in subscription operations failing. For
+     * subscribers whose notification endpoint already supports TLS 1.2, setting this property is optional. In such cases,
+     * Microsoft Graph defaults the property to v1_2.
+     */
     latestSupportedTlsVersion?: NullableOption<string>;
     lifecycleNotificationUrl?: NullableOption<string>;
     /**
@@ -9475,9 +9474,9 @@ export interface Channel extends Entity {
     email?: NullableOption<string>;
     membershipType?: NullableOption<ChannelMembershipType>;
     /**
-     * A hyperlink that will navigate to the channel in Microsoft Teams. This is the URL that you get when you right-click a
-     * channel in Microsoft Teams and select Get link to channel. This URL should be treated as an opaque blob, and not
-     * parsed. Read-only.
+     * A hyperlink that will go to the channel in Microsoft Teams. This is the URL that you get when you right-click a channel
+     * in Microsoft Teams and select Get link to channel. This URL should be treated as an opaque blob, and not parsed.
+     * Read-only.
      */
     webUrl?: NullableOption<string>;
     // Metadata for the location where the channel's files are stored.
@@ -9522,6 +9521,7 @@ export interface ChatMessage extends Entity {
     mentions?: NullableOption<ChatMessageMention[]>;
     // The type of chat message. The possible values are: message.
     messageType?: ChatMessageType;
+    // Defines the properties of a policy violation set by a data loss prevention (DLP) application.
     policyViolation?: NullableOption<ChatMessagePolicyViolation>;
     reactions?: NullableOption<ChatMessageReaction[]>;
     /**
@@ -9645,6 +9645,9 @@ export interface WorkforceIntegration extends ChangeTrackedEntity {
     supportedEntities?: NullableOption<WorkforceIntegrationSupportedEntities>;
     // Workforce Integration URL for callbacks from the Shifts service.
     url?: NullableOption<string>;
+}
+export interface UserScopeTeamsAppInstallation extends TeamsAppInstallation {
+    chat?: NullableOption<Chat>;
 }
 export interface ScheduleChangeRequest extends ChangeTrackedEntity {
     assignedTo?: NullableOption<ScheduleChangeRequestActor>;
@@ -10258,8 +10261,9 @@ export interface PreAuthorizedApplication {
 export interface AppRole {
     /**
      * Specifies whether this app role can be assigned to users and groups (by setting to ['User']), to other application's
-     * (by setting to ['Application'], or both (by setting to ['User', 'Application']). App roles supporting assignment of
-     * other applications' service principals are also known as application permissions.
+     * (by setting to ['Application'], or both (by setting to ['User', 'Application']). App roles supporting assignment to
+     * other applications' service principals are also known as application permissions. The 'Application' value is only
+     * supported for app roles defined on application entities.
      */
     allowedMemberTypes?: string[];
     /**
@@ -14027,15 +14031,47 @@ export interface ChatMessageMention {
     mentionText?: NullableOption<string>;
 }
 export interface ChatMessagePolicyViolation {
+    /**
+     * The action taken by the DLP provider on the message with sensitive content. Supported values are: NoneNotifySender --
+     * Inform the sender of the violation but allow readers to read the message.BlockAccess -- Block readers from reading the
+     * message.BlockAccessExternal -- Block users outside the organization from reading the message, while allowing users
+     * within the organization to read the message.
+     */
     dlpAction?: NullableOption<ChatMessagePolicyViolationDlpActionTypes>;
+    // Justification text provided by the sender of the message when overriding a policy violation.
     justificationText?: NullableOption<string>;
+    // Information to display to the message sender about why the message was flagged as a violation.
     policyTip?: NullableOption<ChatMessagePolicyViolationPolicyTip>;
+    /**
+     * Indicates the action taken by the user on a message blocked by the DLP provider. Supported values are:
+     * NoneOverrideReportFalsePositiveWhen the DLP provider is updating the message for blocking sensitive content, userAction
+     * is not required.
+     */
     userAction?: NullableOption<ChatMessagePolicyViolationUserActionTypes>;
+    /**
+     * Indicates what actions the sender may take in response to the policy violation. Supported values are:
+     * NoneAllowFalsePositiveOverride -- Allows the sender to declare the policyViolation to be an error in the DLP app and
+     * its rules, and allow readers to see the message again if the dlpAction had hidden it.AllowOverrideWithoutJustification
+     * -- Allows the sender to overriide the DLP violation and allow readers to see the message again if the dlpAction had
+     * hidden it, without needing to provide an explanation for doing so. AllowOverrideWithJustification -- Allows the sender
+     * to overriide the DLP violation and allow readers to see the message again if the dlpAction had hidden it, after
+     * providing an explanation for doing so.AllowOverrideWithoutJustification and AllowOverrideWithJustification are mutually
+     * exclusive.
+     */
     verdictDetails?: NullableOption<ChatMessagePolicyViolationVerdictDetailsTypes>;
 }
 export interface ChatMessagePolicyViolationPolicyTip {
+    /**
+     * The URL a user can visit to read about the data loss prevention policies for the organization. (ie, policies about what
+     * users shouldn't say in chats)
+     */
     complianceUrl?: NullableOption<string>;
+    // Explanatory text shown to the sender of the message.
     generalText?: NullableOption<string>;
+    /**
+     * The list of improper data in the message that was detected by the data loss prevention app. Each DLP app defines its
+     * own conditions, examples include 'Credit Card Number' and 'Social Security Number'.
+     */
     matchedConditionDescriptions?: NullableOption<string[]>;
 }
 export interface ChatMessageReaction {

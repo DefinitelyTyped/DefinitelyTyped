@@ -48,6 +48,7 @@ declare namespace clownface {
     readonly dataset: D;
     readonly datasets: D[];
     readonly _context: Array<Context<D, Term>>;
+    any(): AnyPointer<AnyContext, D>;
     list(): Iterable<Iteratee<T, D>> | null;
     toArray(): Array<AnyPointer<T extends undefined ? never : T extends any[] ? T[0] : T, D>>;
     filter(cb: (quad: Iteratee<T, D>) => boolean): AnyPointer<T, D>;
@@ -82,9 +83,11 @@ declare namespace clownface {
     has(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<Term>): AnyPointer<Array<NamedNode | BlankNode>, D>;
 
     addIn(predicates: SingleOrArrayOfTerms<Term>, callback?: AddCallback<D, BlankNode>): AnyPointer<T, D>;
+    addIn(predicates: SingleOrArrayOfTerms<Term>, bnode: SingleOrOneElementArray<null | undefined>, callback?: AddCallback<D, BlankNode>): AnyPointer<T, D>;
     addIn<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, subjects: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): AnyPointer<T, D>;
 
     addOut(predicates: SingleOrArrayOfTerms<Term>, callback?: AddCallback<D, BlankNode>): AnyPointer<T, D>;
+    addOut(predicates: SingleOrArrayOfTerms<Term>, bnode: SingleOrOneElementArray<null | undefined>, callback?: AddCallback<D, BlankNode>): AnyPointer<T, D>;
     addOut<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): AnyPointer<T, D>;
 
     addList<X extends Term = Term>(predicates: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTermsOrLiterals<X>, callback?: AddCallback<D, X>): AnyPointer<T, D>;

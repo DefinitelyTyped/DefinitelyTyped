@@ -1,4 +1,4 @@
-import * as utils from "ckeditor__ckeditor5-utils";
+import * as utils from "@ckeditor/ckeditor5-utils";
 
 declare const document: Document;
 declare const locale: utils.Locale;
