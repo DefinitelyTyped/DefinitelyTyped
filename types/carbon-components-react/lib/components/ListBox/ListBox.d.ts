@@ -1,3 +1,4 @@
+import * as React from "react";
 import { ReactDivAttr, ForwardRefReturn } from "../../../typings/shared";
 import { ListBoxFieldComponent } from "./ListBoxField";
 import { ListBoxMenuComponent } from "./ListBoxMenu";
@@ -16,6 +17,8 @@ export interface ListBoxProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     light?: boolean,
     size?: ListBoxSize,
     type?: ListBoxType, // required but has default value
+    warn?: boolean,
+    warnText?: React.ReactNode,
 }
 
 export interface ListBoxComponent extends ForwardRefReturn<HTMLDivElement, ListBoxProps> {

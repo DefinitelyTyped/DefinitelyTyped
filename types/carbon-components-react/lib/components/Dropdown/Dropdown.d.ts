@@ -35,7 +35,7 @@ export interface DropdownProps<ItemType = string> extends
     titleText: NonNullable<React.ReactNode>,
     type?: ListBoxProps["type"],
     warn?: boolean,
-    warnText?: string,
+    warnText?: React.ReactNode,
 }
 
 declare function Dropdown<ItemType = string>(props: ForwardRefProps<HTMLButtonElement, DropdownProps<ItemType>>): FCReturn;
