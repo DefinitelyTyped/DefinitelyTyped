@@ -20,7 +20,6 @@
 //                 Jessica Blizzard <https://github.com/blizzardjessica>
 //                 Oleg Shilov <https://github.com/olegshilov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
 
 import * as _d3 from 'd3';
 import { BoxPlotData } from './lib/traces/box';
@@ -1358,26 +1357,26 @@ export type MarkerSymbol = string | number | Array<string | number>;
 export interface PlotMarker {
     symbol: MarkerSymbol;
     color: Color | Color[];
-    colors: Color[];
-    colorscale: ColorScale;
-    cauto: boolean;
-    cmax: number;
-    cmin: number;
-    autocolorscale: boolean;
-    reversescale: boolean;
+    colors?: Color[];
+    colorscale?: ColorScale;
+    cauto?: boolean;
+    cmax?: number;
+    cmin?: number;
+    autocolorscale?: boolean;
+    reversescale?: boolean;
     opacity: number | number[];
     size: number | number[];
-    maxdisplayed: number;
-    sizeref: number;
-    sizemax: number;
-    sizemin: number;
-    sizemode: 'diameter' | 'area';
-    showscale: boolean;
+    maxdisplayed?: number;
+    sizeref?: number;
+    sizemax?: number;
+    sizemin?: number;
+    sizemode?: 'diameter' | 'area';
+    showscale?: boolean;
     line: Partial<ScatterMarkerLine>;
-    pad: Partial<Padding>;
-    width: number;
-    colorbar: Partial<ColorBar>;
-    gradient: {
+    pad?: Partial<Padding>;
+    width?: number;
+    colorbar?: Partial<ColorBar>;
+    gradient?: {
         type: 'radial' | 'horizontal' | 'vertical' | 'none';
         color: Color;
         typesrc: any;
@@ -1390,12 +1389,14 @@ export type ScatterMarker = PlotMarker;
 export interface ScatterMarkerLine {
     width: number | number[];
     color: Color;
-    colorscale: ColorScale;
-    cauto: boolean;
-    cmax: number;
-    cmin: number;
-    autocolorscale: boolean;
-    reversescale: boolean;
+    cauto?: boolean;
+    cmax?: number;
+    cmin?: number;
+    cmid?: number;
+    colorscale?: ColorScale;
+    autocolorscale?: boolean;
+    reversescale?: boolean;
+    coloraxis?: string;
 }
 
 export interface ScatterLine {
