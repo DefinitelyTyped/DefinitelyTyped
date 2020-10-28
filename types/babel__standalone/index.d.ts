@@ -28,4 +28,6 @@ export function transformScriptTags(scriptTags?: HTMLCollection): void;
 
 export function disableScriptTags(): void;
 
+export const version: string;
+
 export as namespace babel;
