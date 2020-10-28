@@ -1,4 +1,4 @@
-// Type definitions for react-edit-text 1.1.0
+// Type definitions for react-edit-text 1.1
 // Project: https://github.com/bymi15/react-edit-text#readme
 // Definitions by: Brian Min <https://github.com/bymi15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -70,5 +70,4 @@ export interface EditTextProps {
     readonly?: boolean;
 }
 
-export default class EditText extends React.Component<EditTextProps> {
-}
+export default class EditText extends React.Component<EditTextProps> {}
