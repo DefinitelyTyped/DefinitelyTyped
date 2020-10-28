@@ -4,6 +4,7 @@ import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
 export interface DatePickerProps extends Omit<ReactDivAttr, "onChange"> {
+    allowInput?: boolean,
     appendTo?: string | HTMLElement,
     dateFormat?: string,
     datePickerType?: "range" | "single" | "simple",
