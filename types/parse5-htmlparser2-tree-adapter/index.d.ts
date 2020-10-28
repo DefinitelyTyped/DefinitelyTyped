@@ -7,10 +7,7 @@
 import * as parse5 from "parse5";
 
 declare namespace treeAdapter {
-    /**
-     * htmlparser2 tree adapter Node interface.
-     */
-    interface Node {
+    interface BaseNode {
         /**
          * The type of the node. E.g. {@link Document} will have `type` equal to 'root'`.
          */
@@ -45,42 +42,83 @@ declare namespace treeAdapter {
         nextSibling: Node;
     }
 
-    /**
-     * htmlparser2 tree adapter ChildNode interface.
-     */
-    interface ChildNode extends Node {
-        /**
-         * Parent node.
-         */
-        parentNode: ParentNode;
-    }
-
-    /**
-     * htmlparser2 tree adapter ParentNode interface.
-     */
-    interface ParentNode extends Node {
+    interface BaseParentNode extends BaseNode {
         /**
          * Child nodes.
          */
-        children: ChildNode[];
+        childNodes: Node[];
         /**
-         * Same as {@link children}. [DOM spec](https://dom.spec.whatwg.org)-compatible alias.
+         * Child nodes.
          */
-        childNodes: ChildNode[];
+        children: Node[];
         /**
-         * First child of the node.
+         * First child.
          */
-        firstChild: ChildNode;
+        firstChild: Node;
         /**
-         * Last child of the node.
+         * Last child.
          */
-        lastChild: ChildNode;
+        lastChild: Node;
+    }
+
+    /**
+     * htmlparser2 tree adapter CommentNode interface.
+     */
+    interface CommentNode extends BaseNode {
+        /**
+         * The name of the node.
+         */
+        name: "comment";
+        /**
+         * Comment text.
+         */
+        data: string;
+        /**
+         * Same as {@link data}. [DOM spec](https://dom.spec.whatwg.org)-compatible alias.
+         */
+        nodeValue: string;
+        /**
+         * Comment source code location info. Available if location info is enabled via ParserOptions.
+         */
+        sourceCodeLocation?: parse5.Location;
+    }
+
+    /**
+     * htmlparser2 tree adapter Document interface.
+     */
+    interface Document extends BaseParentNode {
+        /**
+         * The type of the node.
+         */
+        type: "root";
+        /**
+         * The name of the node.
+         */
+        name: "root";
+        /**
+         * [Document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
+         */
+        "x-mode": parse5.DocumentMode;
+    }
+
+    /**
+     * htmlparser2 tree adapter DocumentFragment interface.
+     */
+    interface DocumentFragment extends BaseParentNode {
+        /**
+         * The type of the node.
+         */
+        type: "root";
+        /**
+         * The name of the node.
+         */
+        name: "root";
     }
 
     /**
      * htmlparser2 tree adapter DocumentType interface.
      */
-    interface DocumentType extends Node {
+    interface DocumentType extends BaseNode {
         /**
          * The type of the node.
          */
@@ -108,41 +146,9 @@ declare namespace treeAdapter {
     }
 
     /**
-     * htmlparser2 tree adapter Document interface.
-     */
-    interface Document extends ParentNode {
-        /**
-         * The type of the node.
-         */
-        type: "root";
-        /**
-         * The name of the node.
-         */
-        name: "root";
-        /**
-         * [Document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
-         */
-        "x-mode": parse5.DocumentMode;
-    }
-
-    /**
-     * htmlparser2 tree adapter DocumentFragment interface.
-     */
-    interface DocumentFragment extends ParentNode {
-        /**
-         * The type of the node.
-         */
-        type: "root";
-        /**
-         * The name of the node.
-         */
-        name: "root";
-    }
-
-    /**
      * htmlparser2 tree adapter Element interface.
      */
-    interface Element extends ChildNode, ParentNode {
+    interface Element extends BaseParentNode {
         /**
          * The name of the node. Equals to element {@link tagName}.
          */
@@ -174,31 +180,9 @@ declare namespace treeAdapter {
     }
 
     /**
-     * htmlparser2 tree adapter CommentNode interface.
-     */
-    interface CommentNode extends ChildNode {
-        /**
-         * The name of the node.
-         */
-        name: "comment";
-        /**
-         * Comment text.
-         */
-        data: string;
-        /**
-         * Same as {@link data}. [DOM spec](https://dom.spec.whatwg.org)-compatible alias.
-         */
-        nodeValue: string;
-        /**
-         * Comment source code location info. Available if location info is enabled via ParserOptions.
-         */
-        sourceCodeLocation?: parse5.Location;
-    }
-
-    /**
      * htmlparser2 tree adapter TextNode interface.
      */
-    interface TextNode extends ChildNode {
+    interface TextNode extends BaseNode {
         /**
          * The name of the node.
          */
@@ -216,6 +200,16 @@ declare namespace treeAdapter {
          */
         sourceCodeLocation?: parse5.Location;
     }
+
+    /**
+     * htmlparser2 tree adapter Node type.
+     */
+    type Node = CommentNode | Document | DocumentFragment | DocumentType | Element | TextNode;
+
+    /**
+     * htmlparser2 tree adapter ParentNode interface.
+     */
+    type ParentNode = Document | DocumentFragment | Element;
 }
 
 interface TreeAdapterMap extends parse5.TreeAdapterMap {
@@ -226,7 +220,7 @@ interface TreeAdapterMap extends parse5.TreeAdapterMap {
     attribute: parse5.Attribute;
     node: treeAdapter.Node;
     documentFragment: treeAdapter.DocumentFragment;
-    childNode: treeAdapter.ChildNode;
+    childNode: treeAdapter.Node;
     documentType: treeAdapter.DocumentType;
     textNode: treeAdapter.TextNode;
 }

@@ -25,10 +25,10 @@ htmlparser2Node.type; // $ExpectType string
 const htmlparser2ParentNode = htmlparser2Document as treeAdapter.ParentNode;
 
 htmlparser2ParentNode; // $ExpectType ParentNode
-htmlparser2ParentNode.childNodes[0]; // $ExpectType ChildNode
-htmlparser2ParentNode.children[0]; // $ExpectType ChildNode
-htmlparser2ParentNode.firstChild; // $ExpectType ChildNode
-htmlparser2ParentNode.lastChild; // $ExpectType ChildNode
+htmlparser2ParentNode.childNodes[0]; // $ExpectType Node
+htmlparser2ParentNode.children[0]; // $ExpectType Node
+htmlparser2ParentNode.firstChild; // $ExpectType Node
+htmlparser2ParentNode.lastChild; // $ExpectType Node
 
 const htmlparser2Doctype = htmlparser2Document.childNodes[0] as treeAdapter.DocumentType;
 

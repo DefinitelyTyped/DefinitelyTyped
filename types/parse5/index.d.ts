@@ -131,29 +131,24 @@ export interface Attribute {
 }
 
 /**
- * Default tree adapter Node interface.
+ * Default tree adapter CommentNode interface.
  */
-export interface Node {
+export interface CommentNode {
     /**
-     * The name of the node. E.g. {@link Document} will have `nodeName` equal to '#document'`.
+     * The name of the node.
      */
-    nodeName: string;
-}
+    nodeName: "#comment";
 
-/**
- * Default tree adapter ParentNode interface.
- */
-export interface ParentNode extends Node {
     /**
-     * Child nodes.
+     * Comment text.
      */
-    childNodes: ChildNode[];
-}
+    data: string;
 
-/**
- * Default tree adapter ChildNode interface.
- */
-export interface ChildNode extends Node {
+    /**
+     * Comment source code location info. Available if location info is enabled via {@link ParserOptions}.
+     */
+    sourceCodeLocation?: Location;
+
     /**
      * Parent node.
      */
@@ -161,9 +156,44 @@ export interface ChildNode extends Node {
 }
 
 /**
+ * Default tree adapter Document interface.
+ */
+export interface Document {
+    /**
+     * The name of the node.
+     */
+    nodeName: "#document";
+
+    /**
+     * [Document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
+     */
+    mode: DocumentMode;
+
+    /**
+     * Child nodes.
+     */
+    childNodes: ChildNode[];
+}
+
+/**
+ * Default tree adapter DocumentFragment interface.
+ */
+export interface DocumentFragment {
+    /**
+     * The name of the node.
+     */
+    nodeName: "#document-fragment";
+
+    /**
+     * Child nodes.
+     */
+    childNodes: ChildNode[];
+}
+
+/**
  * Default tree adapter DocumentType interface.
  */
-export interface DocumentType extends Node {
+export interface DocumentType {
     /**
      * The name of the node.
      */
@@ -186,34 +216,9 @@ export interface DocumentType extends Node {
 }
 
 /**
- * Default tree adapter Document interface.
- */
-export interface Document extends ParentNode {
-    /**
-     * The name of the node.
-     */
-    nodeName: "#document";
-
-    /**
-     * [Document mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks).
-     */
-    mode: DocumentMode;
-}
-
-/**
- * Default tree adapter DocumentFragment interface.
- */
-export interface DocumentFragment extends ParentNode {
-    /**
-     * The name of the node.
-     */
-    nodeName: "#document-fragment";
-}
-
-/**
  * Default tree adapter Element interface.
  */
-export interface Element extends ChildNode, ParentNode {
+export interface Element {
     /**
      * The name of the node. Equals to element {@link tagName}.
      */
@@ -238,32 +243,22 @@ export interface Element extends ChildNode, ParentNode {
      * Element source code location info. Available if location info is enabled via {@link ParserOptions}.
      */
     sourceCodeLocation?: ElementLocation;
-}
-
-/**
- * Default tree adapter CommentNode interface.
- */
-export interface CommentNode extends ChildNode {
-    /**
-     * The name of the node.
-     */
-    nodeName: "#comment";
 
     /**
-     * Comment text.
+     * Child nodes.
      */
-    data: string;
+    childNodes: ChildNode[];
 
     /**
-     * Comment source code location info. Available if location info is enabled via {@link ParserOptions}.
+     * Parent node.
      */
-    sourceCodeLocation?: Location;
+    parentNode: ParentNode;
 }
 
 /**
  * Default tree adapter TextNode interface.
  */
-export interface TextNode extends ChildNode {
+export interface TextNode {
     /**
      * The name of the node.
      */
@@ -278,19 +273,39 @@ export interface TextNode extends ChildNode {
      * Text node source code location info. Available if location info is enabled via {@link ParserOptions}.
      */
     sourceCodeLocation?: Location;
+
+    /**
+     * Parent node.
+     */
+    parentNode: ParentNode;
 }
+
+/**
+ * Default tree adapter ChildNode type.
+ */
+export type ChildNode = TextNode | Element | CommentNode;
+
+/**
+ * Default tree adapter ParentNode type.
+ */
+export type ParentNode = Document | DocumentFragment | Element;
+
+/**
+ * Default tree adapter Node interface.
+ */
+export type Node = CommentNode | Document | DocumentFragment | DocumentType | Element | TextNode;
 
 export interface TreeAdapterMap {
     document: any;
     element: any;
-    parentNode: any;
     commentNode: any;
     attribute: any;
     node: any;
     documentFragment: any;
-    childNode: any;
     documentType: any;
     textNode: any;
+    parentNode: any;
+    childNode: any;
 }
 
 export interface TreeAdapterLike {
@@ -464,7 +479,7 @@ export interface TreeAdapter<T extends TreeAdapterMap> extends TreeAdapterLike {
      *
      * @param node - Node.
      */
-    getFirstChild(node: T['parentNode']): T['childNode'];
+    getFirstChild(node: T['parentNode']): T['childNode']|undefined;
 
     /**
      * Returns the given element's namespace.
@@ -518,7 +533,7 @@ export interface TreeAdapter<T extends TreeAdapterMap> extends TreeAdapterLike {
     insertBefore(
         parentNode: T['parentNode'],
         newNode: T['node'],
-        referenceNode: T['childNode']
+        referenceNode: T['node']
     ): void;
 
     /**

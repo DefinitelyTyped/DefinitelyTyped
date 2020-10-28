@@ -176,7 +176,7 @@ adapter.insertText(element, "text");
 adapter.insertTextBefore(document, "text", element);
 adapter.adoptAttributes(element, [{ name: "someAttr", value: "42" }]);
 
-adapter.getFirstChild(element); // $ExpectType ChildNode
+adapter.getFirstChild(element); // $ExpectType Element | CommentNode | TextNode | undefined
 adapter.getChildNodes(element)[0]; // $ExpectType ChildNode
 adapter.getParentNode(element); // $ExpectType ParentNode
 adapter.getAttrList(element)[0]; // $ExpectType Attribute
