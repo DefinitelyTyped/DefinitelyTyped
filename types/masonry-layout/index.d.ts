@@ -56,7 +56,7 @@ declare namespace Masonry {
         originLeft?: boolean;
         originTop?: boolean;
         horizontalOrder?: boolean;
-        hiddenStyle?: hiddenOrVisibleStyleOption;
+        hiddenStyle?: HiddenOrVisibleStyleOption;
         visibleStyle?: hiddenOrVisibleStyleOption;
 
         // setup
