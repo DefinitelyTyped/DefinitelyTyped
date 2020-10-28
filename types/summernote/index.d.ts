@@ -180,7 +180,8 @@ declare global {
         summernote(command: string, url: string, filename?: (string | Summernote.EditImageCallback)): JQuery;
 
         summernote(command: 'destroy'): JQuery;
-        summernote(command: 'code', markupStr?: string): JQuery;
+        summernote(command: 'code'): string;
+        summernote(command: 'code', markupStr: string): undefined;
         summernote(command: 'editor.pasteHTML' | 'pasteHTML', markup: string): JQuery;
 
         // Basic API
