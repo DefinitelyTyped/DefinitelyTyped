@@ -17,9 +17,6 @@
             "d3-interpolate": [
                 "d3-interpolate/v1"
             ],
-            "d3-scale": [
-                "d3-scale/v2"
-            ],
             "d3-selection": [
                 "d3-selection/v1"
             ],
