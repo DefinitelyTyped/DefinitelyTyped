@@ -13,6 +13,7 @@ export interface JWTEncodeParams {
 }
 
 export interface JWTDecodeParams {
+    token?: string;
     maxAge?: number;
     secret: string | Buffer;
     signingKey?: string;

@@ -630,21 +630,6 @@ street_view_service.getPanorama(
     },
 );
 
-/***** MVCArray *****/
-
-// MVCArray should be generic
-let mvcArrayStr = new google.maps.MVCArray<string>(['a', 'b', 'c']);
-mvcArrayStr.forEach((elem: string, i: number): void => {
-    elem.toUpperCase();
-});
-mvcArrayStr.getArray()[0].toUpperCase();
-mvcArrayStr.getAt(0).toUpperCase();
-mvcArrayStr.insertAt(2, 'x');
-mvcArrayStr.pop().toUpperCase();
-mvcArrayStr.push('y');
-mvcArrayStr.removeAt(0).toUpperCase();
-mvcArrayStr.setAt(0, 'z');
-
 /***** HeatMaps *****/
 
 let heatmap = new google.maps.visualization.HeatmapLayer({

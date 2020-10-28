@@ -42,6 +42,7 @@
 //                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
+//                 Arafat Zahan <https://github.com/kuasha420>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -827,8 +828,7 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform
-        | MatrixTransform
-    )[];
+        | MatrixTransform)[];
     /**
      * @deprecated Use matrix in transform prop instead.
      */
@@ -962,6 +962,12 @@ export interface TextPropsAndroid {
      * default is `highQuality`.
      */
     textBreakStrategy?: 'simple' | 'highQuality' | 'balanced';
+
+    /**
+     * Determines the types of data converted to clickable URLs in the text element.
+     * By default no data types are detected.
+     */
+    dataDetectorType?: null | 'phoneNumber' | 'link' | 'email' | 'none' | 'all';
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
@@ -1069,7 +1075,7 @@ type DataDetectorTypes = 'phoneNumber' | 'link' | 'address' | 'calendarEvent' | 
  *
  * It is intended for use by AbstractTextEditor-based components for
  * identifying the appropriate start/end positions to modify the
- * DocumentContent, and for programatically setting browser selection when
+ * DocumentContent, and for programmatically setting browser selection when
  * components re-render.
  */
 export interface DocumentSelectionState extends EventEmitter {
@@ -3330,6 +3336,12 @@ export interface ProgressBarAndroidProps extends ViewProps {
  */
 declare class ProgressBarAndroidComponent extends React.Component<ProgressBarAndroidProps> {}
 declare const ProgressBarAndroidBase: Constructor<NativeMethodsMixinType> & typeof ProgressBarAndroidComponent;
+/**
+ * ProgressBarAndroid has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/progress-bar-android` instead of 'react-native'.
+ * @see https://github.com/react-native-progress-view/progress-bar-android
+ * @deprecated
+ */
 export class ProgressBarAndroid extends ProgressBarAndroidBase {}
 
 /**
@@ -3595,14 +3607,21 @@ declare const SliderBase: Constructor<NativeMethodsMixinType> & typeof SliderCom
 /**
  * Slider has been extracted from react-native core and will be removed in a future release.
  * It can now be installed and imported from `@react-native-community/slider` instead of 'react-native'.
- * @see https://github.com/react-native-community/react-native-slider
+ * @see https://github.com/callstack/react-native-slider
  * @deprecated
  */
 export class Slider extends SliderBase {}
+/**  SliderIOS has been removed from react-native.
+ * It can now be installed and imported from `@react-native-community/slider` instead of 'react-native'.
+ * @see https://github.com/callstack/react-native-slider
+ * @deprecated
+ */
 export type SliderIOS = Slider;
 
 /**
- * https://facebook.github.io/react-native/docs/switchios.html#props
+ * SwitchIOS Component has been removed from react-native in favor of Switch Component
+ * https://github.com/facebook/react-native/pull/9891/files
+ * @deprecated see SwitchProps
  */
 export interface SwitchIOSProps extends ViewProps {
     /**
@@ -3637,13 +3656,9 @@ export interface SwitchIOSProps extends ViewProps {
 }
 
 /**
- *
- * Use SwitchIOS to render a boolean input on iOS.
- *
- * This is a controlled component, so you must hook in to the onValueChange callback and update the value prop in order for the component to update,
- * otherwise the user's change will be reverted immediately to reflect props.value as the source of truth.
- *
- * @see https://facebook.github.io/react-native/docs/switchios.html
+ * SwitchIOS component has been removed from react-native in favor of Switch component
+ * https://github.com/facebook/react-native/pull/9891/files
+ * @deprecated see Switch
  */
 export class SwitchIOS extends React.Component<SwitchIOSProps> {}
 
@@ -4321,7 +4336,7 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     scrollToOffset: (params: { animated?: boolean | null; offset: number }) => void;
 
     /**
-     * Tells the list an interaction has occured, which should trigger viewability calculations,
+     * Tells the list an interaction has occurred, which should trigger viewability calculations,
      * e.g. if waitForInteractions is true and the user has not scrolled. This is typically called
      * by taps on items or by navigation actions.
      */
@@ -4351,33 +4366,37 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
 /**
  * @see https://facebook.github.io/react-native/docs/sectionlist.html
  */
-export interface SectionBase<ItemT> {
+
+type DefaultSectionT = {
+    [key: string]: any
+}
+
+export interface SectionBase<ItemT, SectionT = DefaultSectionT> {
     data: ReadonlyArray<ItemT>;
 
     key?: string;
 
-    renderItem?: SectionListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT, SectionT>;
 
     ItemSeparatorComponent?: React.ComponentType<any> | null;
 
     keyExtractor?: (item: ItemT, index: number) => string;
 }
 
-export interface SectionListData<ItemT> extends SectionBase<ItemT> {
-    [key: string]: any;
-}
+export type SectionListData<ItemT, SectionT = DefaultSectionT> = SectionBase<ItemT, SectionT> & SectionT;
 
 /**
  * @see https://facebook.github.io/react-native/docs/sectionlist.html#props
  */
 
-export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<ItemT> {
-    section: SectionListData<ItemT>;
+export interface SectionListRenderItemInfo<ItemT, SectionT = DefaultSectionT> extends ListRenderItemInfo<ItemT> {
+    section: SectionListData<ItemT, SectionT>;
 }
 
-export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement | null;
+export type SectionListRenderItem<ItemT, SectionT = DefaultSectionT> =
+    (info: SectionListRenderItemInfo<ItemT, SectionT>) => React.ReactElement | null;
 
-export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
+export interface SectionListProps<ItemT, SectionT = DefaultSectionT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -4421,7 +4440,7 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
      * ```
      */
     getItemLayout?: (
-        data: SectionListData<ItemT>[] | null,
+        data: SectionListData<ItemT, SectionT>[] | null,
         index: number,
     ) => { length: number; offset: number; index: number };
 
@@ -4480,22 +4499,22 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: SectionListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT, SectionT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
      */
-    renderSectionHeader?: (info: { section: SectionListData<ItemT> }) => React.ReactElement | null;
+    renderSectionHeader?: (info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null;
 
     /**
      * Rendered at the bottom of each section.
      */
-    renderSectionFooter?: (info: { section: SectionListData<ItemT> }) => React.ReactElement | null;
+    renderSectionFooter?: (info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null;
 
     /**
      * An array of objects with data for each section.
      */
-    sections: ReadonlyArray<SectionListData<ItemT>>;
+    sections: ReadonlyArray<SectionListData<ItemT, SectionT>>;
 
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
@@ -4529,7 +4548,8 @@ export interface SectionListScrollParams {
     viewPosition?: number;
 }
 
-export class SectionList<SectionT = any> extends React.Component<SectionListProps<SectionT>> {
+export class SectionList<ItemT = any, SectionT = DefaultSectionT> extends React.Component<SectionListProps<ItemT,
+    SectionT>> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -4563,7 +4583,7 @@ export class SectionList<SectionT = any> extends React.Component<SectionListProp
 }
 
 /* This definition is deprecated because it extends the wrong base type */
-export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProps<SectionT>> {
+export interface SectionListStatic<ItemT, SectionT = DefaultSectionT> extends React.ComponentClass<SectionListProps<ItemT, SectionT>> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -5478,7 +5498,7 @@ export namespace StyleSheet {
      * > **NOTE**: Exercise caution as abusing this can tax you in terms of
      * > optimizations.
      * >
-     * > IDs enable optimizations through the bridge and memory in general. Refering
+     * > IDs enable optimizations through the bridge and memory in general. Referring
      * > to style objects directly will deprive you of these optimizations.
      *
      * Example:
@@ -5691,7 +5711,7 @@ export interface ListViewDataSource {
     /**
      * Clones this `ListViewDataSource` with the specified `dataBlob` and
      * `rowIdentities`. The `dataBlob` is just an aribitrary blob of data. At
-     * construction an extractor to get the interesting informatoin was defined
+     * construction an extractor to get the interesting information was defined
      * (or the default was used).
      *
      * The `rowIdentities` is is a 2D array of identifiers for rows.
@@ -5816,7 +5836,7 @@ export interface TabBarIOSItemProps extends ViewProps {
 
     /**
      * Items comes with a few predefined system icons.
-     * Note that if you are using them, the title and selectedIcon will be overriden with the system ones.
+     * Note that if you are using them, the title and selectedIcon will be overridden with the system ones.
      *
      *  enum('bookmarks', 'contacts', 'downloads', 'favorites', 'featured', 'history', 'more', 'most-recent', 'most-viewed', 'recents', 'search', 'top-rated')
      */
@@ -5883,6 +5903,10 @@ export interface TabBarIOSProps extends ViewProps {
     unselectedItemTintColor?: ColorValue;
 }
 
+/**
+ * TabBarIOS has been removed from react-native
+ * @deprecated
+ */
 export class TabBarIOS extends React.Component<TabBarIOSProps> {
     static Item: typeof TabBarIOSItem;
 }
@@ -6671,7 +6695,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      *  - `'normal'`: 0.998 on iOS, 0.985 on Android (the default)
      *  - `'fast'`: 0.99 on iOS, 0.9 on Android
      */
-    decelerationRate?: 'fast' | 'normal' | number,
+    decelerationRate?: 'fast' | 'normal' | number;
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
@@ -6797,14 +6821,14 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     snapToOffsets?: number[];
 
     /**
-     * Use in conjuction with `snapToOffsets`. By default, the beginning of the list counts as a
+     * Use in conjunction with `snapToOffsets`. By default, the beginning of the list counts as a
      * snap offset. Set `snapToStart` to false to disable this behavior and allow the list to scroll
      * freely between its start and the first `snapToOffsets` offset. The default value is true.
      */
     snapToStart?: boolean;
 
     /**
-     * Use in conjuction with `snapToOffsets`. By default, the end of the list counts as a snap
+     * Use in conjunction with `snapToOffsets`. By default, the end of the list counts as a snap
      * offset. Set `snapToEnd` to false to disable this behavior and allow the list to scroll freely
      * between its end and the last `snapToOffsets` offset. The default value is true.
      */
@@ -7532,7 +7556,7 @@ export interface CameraRollStatic {
      * On iOS, the tag can be one of the following:
      *      local URI
      *      assets-library tag
-     *      a tag not maching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
+     *      a tag not matching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
      *
      * @deprecated use saveToCameraRoll instead
      */
@@ -8372,6 +8396,8 @@ export interface ToastAndroidStatic {
     show(message: string, duration: number): void;
     /** `gravity` may be ToastAndroid.TOP, ToastAndroid.BOTTOM, ToastAndroid.CENTER */
     showWithGravity(message: string, duration: number, gravity: number): void;
+
+    showWithGravityAndOffset(message: string, duration: number, gravity: number, xOffset: number, yOffset: number): void;
     // Toast duration constants
     SHORT: number;
     LONG: number;
@@ -9089,14 +9115,20 @@ export namespace Animated {
      * FlatList and SectionList infer generic Type defined under their `data` and `section` props.
      */
     export class FlatList<ItemT = any> extends React.Component<AnimatedProps<FlatListProps<ItemT>>> {}
-    export class SectionList<SectionT = any> extends React.Component<AnimatedProps<SectionListProps<SectionT>>> {}
+    export class SectionList<ItemT = any, SectionT = DefaultSectionT> extends React.Component<AnimatedProps<SectionListProps<ItemT, SectionT>>> {}
 }
 
 // tslint:disable-next-line:interface-name
 export interface I18nManagerStatic {
+    getConstants: () => {
+        isRTL: boolean;
+        doLeftAndRightSwapInRTL: boolean;
+    };
+    allowRTL: (allowRTL: boolean) => void;
+    forceRTL: (forceRTL: boolean) => void;
+    swapLeftAndRightInRTL: (swapLeftAndRight: boolean) => void;
     isRTL: boolean;
-    allowRTL: (allowRTL: boolean) => {};
-    forceRTL: (forceRTL: boolean) => {};
+    doLeftAndRightSwapInRTL: boolean;
 }
 
 export interface OpenCameraDialogOptions {
@@ -9378,6 +9410,12 @@ export const DevSettings: DevSettingsStatic;
  * @deprecated
  */
 export const ART: ARTStatic;
+/**
+ * ART has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/art` instead of 'react-native'.
+ * @see https://github.com/react-native-community/art
+ * @deprecated
+ */
 export type ART = ARTStatic;
 
 //////////// APIS //////////////
@@ -9400,6 +9438,12 @@ export type AppState = AppStateStatic;
  * @deprecated
  */
 export const AsyncStorage: AsyncStorageStatic;
+/**
+ * AsyncStorage has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/async-storage` instead of 'react-native'.
+ * @see https://github.com/react-native-community/async-storage
+ * @deprecated
+ */
 export type AsyncStorage = AsyncStorageStatic;
 
 export const BackHandler: BackHandlerStatic;
@@ -9412,6 +9456,12 @@ export type BackHandler = BackHandlerStatic;
  * @deprecated
  */
 export const CameraRoll: CameraRollStatic;
+/**
+ * CameraRoll has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/cameraroll` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-cameraroll
+ * @deprecated
+ */
 export type CameraRoll = CameraRollStatic;
 
 /**
@@ -9421,6 +9471,12 @@ export type CameraRoll = CameraRollStatic;
  * @deprecated
  */
 export const Clipboard: ClipboardStatic;
+/**
+ * Clipboard has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/clipboard` instead of 'react-native'.
+ * @see https://github.com/react-native-community/clipboard
+ * @deprecated
+ */
 export type Clipboard = ClipboardStatic;
 
 /**
@@ -9430,6 +9486,12 @@ export type Clipboard = ClipboardStatic;
  * @deprecated
  */
 export const DatePickerAndroid: DatePickerAndroidStatic;
+/**
+ * DatePickerAndroid has been merged with DatePickerIOS and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/datetimepicker
+ * @deprecated
+ */
 export type DatePickerAndroid = DatePickerAndroidStatic;
 
 export const Dimensions: Dimensions;
@@ -9496,6 +9558,12 @@ export type PermissionsAndroid = PermissionsAndroidStatic;
  * @deprecated
  */
 export const PushNotificationIOS: PushNotificationIOSStatic;
+/**
+ * PushNotificationIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/push-notification-ios` instead of 'react-native'.
+ * @see https://github.com/react-native-community/react-native-push-notification-ios
+ * @deprecated
+ */
 export type PushNotificationIOS = PushNotificationIOSStatic;
 
 export const Settings: SettingsStatic;
@@ -9520,6 +9588,12 @@ export type Systrace = SystraceStatic;
  * @deprecated
  */
 export const TimePickerAndroid: TimePickerAndroidStatic;
+/**
+ * TimePickerAndroid has been removed from React Native.
+ * It can now be installed and imported from `@react-native-community/datetimepicker` instead of 'react-native'.
+ * @see https://github.com/react-native-community/datetimepicker
+ * @deprecated
+ */
 export type TimePickerAndroid = TimePickerAndroidStatic;
 
 export const ToastAndroid: ToastAndroidStatic;
@@ -9597,6 +9671,11 @@ export function findNodeHandle(
 
 export function processColor(color?: number | ColorValue): ProcessedColorValue | null | undefined;
 
+/**
+ * YellowBox has been replaced with LogBox.
+ * @see LogBox
+ * @deprecated
+ */
 export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warnings: string[]) => void };
 
 /**
@@ -9604,6 +9683,13 @@ export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warn
  * @deprecated
  */
 export function unstable_enableLogBox(): void;
+
+/**
+ * React Native also implements unstable_batchedUpdates
+ */
+export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
+export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
+export function unstable_batchedUpdates(callback: () => any): void;
 
 //////////////////////////////////////////////////////////////////////////
 //

@@ -26,7 +26,7 @@ declare namespace VersionCheck {
          * App ID
          */
         appID?: string;
-        appName?: string;
+        packageName?: string;
         /**
          * @default true
          */
@@ -40,7 +40,6 @@ declare namespace VersionCheck {
          * App ID
          */
         appID?: string;
-        appName?: string;
         /**
          * @default true
          */

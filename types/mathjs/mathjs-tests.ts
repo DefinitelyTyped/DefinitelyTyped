@@ -94,6 +94,13 @@ Chaining examples
         .subset(math.index(0, 0), 8)
         .multiply(3)
         .done();
+
+    // filtering
+    math.chain([-1, 0, 1.1, 2, 3, 1000])
+        .filter(math.isPositive)
+        .filter(math.isInteger)
+        .filter(n => n !== 1000)
+        .done(); // [2, 3]
 }
 
 /*

@@ -5,6 +5,7 @@ if (stdout) {
 }
 
 if (stdout.hasBasic) {
+    stdout.level; // $ExpectType number
     // Terminal standard output supports color
 }
 
@@ -21,6 +22,7 @@ if (stderr) {
 }
 
 if (stderr.hasBasic) {
+    stderr.level; // $ExpectType number
     // Terminal standard error supports color
 }
 

@@ -19,6 +19,7 @@ declare module "zlib" {
         memLevel?: number; // compression only
         strategy?: number; // compression only
         dictionary?: NodeJS.ArrayBufferView | ArrayBuffer; // deflate/inflate only, empty dictionary by default
+        info?: boolean;
     }
 
     interface BrotliOptions {

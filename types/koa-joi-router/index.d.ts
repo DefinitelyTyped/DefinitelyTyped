@@ -4,6 +4,7 @@
 //                 Dave Welsh <https://github.com/move-zig>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Tiger Oakes <https://github.com/NotWoods>
+//                 Jeremy Hull <https://github.com/sourrust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -61,6 +62,7 @@ declare namespace createRouter {
     interface Router {
         routes: Spec[];
         route(spec: Spec|Spec[]): Router;
+        router: KoaRouter;
         middleware(): Koa.Middleware;
 
         prefix: KoaRouter['prefix'];

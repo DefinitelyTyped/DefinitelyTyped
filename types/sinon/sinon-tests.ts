@@ -289,6 +289,8 @@ function testAssert() {
     sinon.assert.alwaysCalledWithExactly(spy, 'a', 'b', 'c');
     sinon.assert.calledWithMatch(spy, 'a', 'b', 'c');
     sinon.assert.calledWithMatch(spy.firstCall, 'a', 'b', 'c');
+    sinon.assert.calledOnceWithMatch(spy, 'a', 'b', 'c');
+    sinon.assert.calledOnceWithMatch(spy.firstCall, 'a', 'b', 'c');
     sinon.assert.alwaysCalledWithMatch(spy, 'a', 'b', 'c');
     sinon.assert.neverCalledWithMatch(spy, 'a', 'b', 'c');
     sinon.assert.calledWithNew(spy);
@@ -501,6 +503,10 @@ function testSpy() {
     call = spy.lastCall;
     call = spy.getCall(1);
     call = spy.getCalls()[0];
+
+    let arg: any;
+    arg = call.firstArg;
+    arg = call.lastArg;
 
     call.calledBefore(call);
     call.calledAfter(call);
