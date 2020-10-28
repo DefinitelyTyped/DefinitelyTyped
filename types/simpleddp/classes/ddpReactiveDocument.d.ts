@@ -8,8 +8,8 @@ export interface ddpReactiveDocumentSettings {
     preserve: boolean;
 }
 
-export class ddpReactiveDocument {
-    constructor(ddpReactiveCollectionInstance: ddpReactiveCollection, settings?: ddpReactiveDocumentSettings);
+export class ddpReactiveDocument<T> {
+    constructor(ddpReactiveCollectionInstance: ddpReactiveCollection<T>, settings?: ddpReactiveDocumentSettings);
     /**
      * Returns reactive reduce.
      */

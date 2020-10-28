@@ -8,11 +8,15 @@ import { ddpEventListener } from './classes/ddpEventListener';
 import { ddpSubscription } from './classes/ddpSubscription';
 import { ddpCollection } from './classes/ddpCollection';
 
-export interface SocketProvider {
+export {};
+
+type OptionalSpread<ST> = ST extends undefined ? [] : [ST];
+
+interface SocketProvider {
     new (url: string): SocketProviderInstance;
 }
 
-export interface SocketProviderInstance {
+interface SocketProviderInstance {
     readonly readyState: number;
     send(data: any): void;
     close(code?: number, reason?: string): void;
@@ -68,7 +72,7 @@ export default class simpleDDP {
     /**
      * All collections data recieved from server.
      */
-    readonly collections: ddpCollection[];
+    readonly collections: Array<ddpCollection<unknown>>;
     /**
      * Whether the client is connected to server.
      */
@@ -102,7 +106,7 @@ export default class simpleDDP {
     /**
      * Calls a remote method with arguments passed after the first argument. Syntactic sugar for `apply`.
      */
-    call(method: string, ...args: unknown[]): Promise<unknown>;
+    call(method: string, ...args: any): Promise<unknown>;
     /**
      * Removes all documents like if it was removed by the server publication.
      */
@@ -110,7 +114,7 @@ export default class simpleDDP {
     /**
      * Use this for fetching the subscribed data and for reactivity inside the collection.
      */
-    collection(name: string): ddpCollection;
+    collection(name: string): ddpCollection<unknown>;
     /**
      * Marks every passed `ddpSubscription` object as ready like if it was done by the server publication.
      */
