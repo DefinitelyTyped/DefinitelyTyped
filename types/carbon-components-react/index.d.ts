@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.21
+// Type definitions for carbon-components-react 7.22
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
@@ -156,6 +156,7 @@ export { default as OrderedList } from "./lib/components/OrderedList";
 export { default as OverflowMenu } from "./lib/components/OverflowMenu";
 export { default as OverflowMenuItem } from "./lib/components/OverflowMenuItem";
 export { default as Pagination } from "./lib/components/Pagination";
+export { default as PaginationSkeleton } from "./lib/components/Pagination/Pagination.Skeleton";
 export { default as PaginationNav } from "./lib/components/PaginationNav";
 export { PageSelector as unstable_PageSelector } from "./lib/components/Pagination/experimental";
 export { Pagination as unstable_Pagination } from "./lib/components/Pagination/experimental";

@@ -18,7 +18,7 @@ export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<I
     id: string;
     initialSelectedItem?: ItemType;
     invalid?: boolean;
-    invalidText?: string;
+    invalidText?: React.ReactNode;
     items: readonly ItemType[],
     itemToElement?: CustomElementProps extends object ? React.ComponentType<CustomElementProps> : never,
     itemToString?(item: ItemType | null | undefined): string;

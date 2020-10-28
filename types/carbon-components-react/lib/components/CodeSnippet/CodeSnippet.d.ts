@@ -13,6 +13,7 @@ interface SharedProps {
     light?: boolean,
     showLessText?: string,
     showMoreText?: string,
+    wrapText?: boolean,
 }
 
 export interface CodeSnippetDivProps extends SharedProps, InheritedDivProps {

@@ -9,7 +9,7 @@ export interface TextInputSharedProps extends Omit<ReactInputAttr, ExcludedAttri
     hideLabel?: boolean,
     id: string,
     invalid?: boolean,
-    invalidText?: string,
+    invalidText?: React.ReactNode,
     labelText: NonNullable<React.ReactNode>,
     light?: boolean,
     value?: string | number,

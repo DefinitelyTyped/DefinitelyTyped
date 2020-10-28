@@ -11,7 +11,7 @@ export interface DatePickerInputProps extends Omit<ReactInputAttr, ExcludedAttri
     id: string,
     iconDescription?: string,
     invalid?: boolean,
-    invalidText?: string,
+    invalidText?: React.ReactNode,
     labelText: NonNullable<React.ReactNode>,
     openCalendar?: React.MouseEventHandler,
     pattern?: string,

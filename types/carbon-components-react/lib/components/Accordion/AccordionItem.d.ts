@@ -7,6 +7,7 @@ export interface HeadingClickData {
 }
 
 export interface AccordionItemProps extends Omit<ReactLIAttr, "title"> {
+    disabled?: boolean;
     /**
      * @deprecated
      */
