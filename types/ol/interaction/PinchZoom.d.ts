@@ -9,8 +9,17 @@ export interface Options {
 }
 export default class PinchZoom extends PointerInteraction {
     constructor(opt_options?: Options);
+    /**
+     * Handle pointer down events.
+     */
     handleDownEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Handle pointer drag events.
+     */
     handleDragEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): void;
+    /**
+     * Handle pointer up events.
+     */
     handleUpEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
