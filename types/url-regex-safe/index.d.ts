@@ -19,4 +19,6 @@ type Options = Partial<{
 
 declare function createUrlRegExp(options?: Options): RegExp;
 
+export as namespace urlRegexSafe;
+
 export = createUrlRegExp;
