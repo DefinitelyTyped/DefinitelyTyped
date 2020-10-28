@@ -108,7 +108,6 @@ function printIntrinsic(
         }
 
         if (
-            // tslint:disable-next-line: strict-comparisons
             value === RegExp &&
             intrinsicName.startsWith('$')
         ) {

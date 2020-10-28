@@ -28,7 +28,6 @@ readable.push(buffer);
 readable.push(null);
 
 const writable = new Writable({
-    // tslint:disable-next-line: variable-name
     write(chunk, _encoding, callback) {
         console.log(chunk.toString());
         callback();

@@ -11,15 +11,10 @@ import Mixin from "@ember/object/mixin";
  * in as the only argument.
  */
 interface TextSupport extends TargetActionSupport {
-    // tslint:disable-next-line:ban-types
     cancel(event: Function): void;
-    // tslint:disable-next-line:ban-types
     focusIn(event: Function): void;
-    // tslint:disable-next-line:ban-types
     focusOut(event: Function): void;
-    // tslint:disable-next-line:ban-types
     insertNewLine(event: Function): void;
-    // tslint:disable-next-line:ban-types
     keyPress(event: Function): void;
     action: string;
     bubbles: boolean;

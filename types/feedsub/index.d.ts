@@ -46,8 +46,8 @@ declare class TypedEventEmitter<Events> {
 
     emit<E extends keyof Events>(event: E, ...args: EventArguments<Events[E]>): boolean;
     eventNames(): Array<keyof Events>;
-    rawListeners<E extends keyof Events>(event: E): Function[]; // tslint:disable-line
-    listeners<E extends keyof Events>(event: E): Function[]; // tslint:disable-line
+    rawListeners<E extends keyof Events>(event: E): Function[]; // tslint:disable-line:ban-types no-unnecessary-generics
+    listeners<E extends keyof Events>(event: E): Function[]; // tslint:disable-line:ban-types no-unnecessary-generics
     listenerCount<E extends keyof Events>(event: E): number; // tslint:disable-line no-unnecessary-generics
 
     getMaxListeners(): number;

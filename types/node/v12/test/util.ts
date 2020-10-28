@@ -179,7 +179,7 @@ import { readFile } from 'fs';
         }
     };
 
-    // tslint:disable-next-line:no-construct ban-types
+    // tslint:disable-next-line:no-construct
     const maybeBoxed: number | Number = new Number(1);
     if (util.types.isBoxedPrimitive(maybeBoxed)) {
         const boxed: Number = maybeBoxed;

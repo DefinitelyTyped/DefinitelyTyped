@@ -1176,7 +1176,6 @@ export interface SignIn extends Entity {
 export interface RestrictedSignIn extends SignIn {
     targetTenantId?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface Invitation extends Entity {
     // The display name of the user being invited.
     invitedUserDisplayName?: NullableOption<string>;
@@ -1944,7 +1943,6 @@ export interface Contact extends OutlookItem {
     // The collection of single-value extended properties defined for the contact. Read-only. Nullable.
     singleValueExtendedProperties?: NullableOption<SingleValueLegacyExtendedProperty[]>;
 }
-// tslint:disable-next-line: interface-name
 export interface InferenceClassification extends Entity {
     /**
      * A set of overrides for a user to always classify messages from specific senders in certain ways: focused, or other.
@@ -2694,7 +2692,6 @@ export interface HomeRealmDiscoveryPolicy extends StsPolicy {}
 export interface TokenIssuancePolicy extends StsPolicy {}
 // tslint:disable-next-line: no-empty-interface
 export interface TokenLifetimePolicy extends StsPolicy {}
-// tslint:disable-next-line: interface-name
 export interface IdentityContainer extends Entity {
     conditionalAccess?: NullableOption<ConditionalAccessRoot>;
 }
@@ -2702,7 +2699,6 @@ export interface ConditionalAccessRoot extends Entity {
     namedLocations?: NullableOption<NamedLocation[]>;
     policies?: NullableOption<ConditionalAccessPolicy[]>;
 }
-// tslint:disable-next-line: interface-name
 export interface IdentityProvider extends Entity {
     clientId?: NullableOption<string>;
     clientSecret?: NullableOption<string>;
@@ -3454,7 +3450,6 @@ export interface ConditionalAccessPolicy extends Entity {
      */
     state?: ConditionalAccessPolicyState;
 }
-// tslint:disable-next-line: interface-name
 export interface IdentitySecurityDefaultsEnforcementPolicy extends PolicyBase {
     // If set to true, Azure Active Directory security defaults is enabled for the tenant.
     isEnabled?: boolean;
@@ -3911,7 +3906,6 @@ export interface Workbook extends Entity {
     // Represents a collection of worksheets associated with the workbook. Read-only.
     worksheets?: NullableOption<WorkbookWorksheet[]>;
 }
-// tslint:disable-next-line: interface-name
 export interface ItemAnalytics extends Entity {
     allTime?: NullableOption<ItemActivityStat>;
     itemActivityStats?: NullableOption<ItemActivityStat[]>;
@@ -4852,7 +4846,6 @@ export interface FileAttachment extends Attachment {
     // Do not use this property as it is not supported.
     contentLocation?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface InferenceClassificationOverride extends Entity {
     /**
      * Specifies how incoming messages from a specific sender should always be classified as. The possible values are:
@@ -4862,7 +4855,6 @@ export interface InferenceClassificationOverride extends Entity {
     // The email address information of the sender for whom the override is created.
     senderEmailAddress?: NullableOption<EmailAddress>;
 }
-// tslint:disable-next-line: interface-name
 export interface ItemAttachment extends Attachment {
     // The attached message or event. Navigation property.
     item?: NullableOption<OutlookItem>;
@@ -4923,7 +4915,6 @@ export interface ColumnLink extends Entity {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface FieldValueSet extends Entity {}
-// tslint:disable-next-line: interface-name
 export interface ItemActivity extends Entity {
     // An item was accessed.
     access?: NullableOption<AccessAction>;
@@ -4934,7 +4925,6 @@ export interface ItemActivity extends Entity {
     // Exposes the driveItem that was the target of this activity.
     driveItem?: NullableOption<DriveItem>;
 }
-// tslint:disable-next-line: interface-name
 export interface ItemActivityStat extends Entity {
     // Statistics about the access actions in this interval. Read-only.
     access?: NullableOption<ItemActionStat>;
@@ -5064,7 +5054,6 @@ export interface CountryNamedLocation extends NamedLocation {
     // True if IP addresses that don't map to a country or region should be included in the named location.
     includeUnknownCountriesAndRegions?: boolean;
 }
-// tslint:disable-next-line: interface-name
 export interface IpNamedLocation extends NamedLocation {
     // List of IP address ranges in IPv4 CIDR format (e.g. 1.2.3.4/32) or any allowable IPv6 format from IETF RFC596.
     ipRanges?: IpRange[];
@@ -5418,7 +5407,6 @@ export interface DefaultManagedAppProtection extends ManagedAppProtection {
     // Navigation property to deployment summary of the configuration.
     deploymentSummary?: NullableOption<ManagedAppPolicyDeploymentSummary>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosManagedAppProtection extends TargetedManagedAppProtection {
     /**
      * Type of encryption which should be used for data in a managed app. Possible values are: useDeviceSettings,
@@ -5627,7 +5615,6 @@ export interface WindowsInformationProtectionPolicy extends WindowsInformationPr
     // Boolean value that sets Windows Hello for Business as a method for signing into Windows.
     windowsHelloForBusinessBlocked?: boolean;
 }
-// tslint:disable-next-line: interface-name
 export interface IosLobApp extends MobileLobApp {
     // The iOS architecture for which this app can run on.
     applicableDeviceType?: IosDeviceType;
@@ -5642,14 +5629,12 @@ export interface IosLobApp extends MobileLobApp {
     // The version number of iOS Line of Business (LoB) app.
     versionNumber?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosMobileAppConfiguration extends ManagedDeviceMobileAppConfiguration {
     // mdm app configuration Base64 binary.
     encodedSettingXml?: NullableOption<number>;
     // app configuration setting items.
     settings?: NullableOption<AppConfigurationSettingItem[]>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosStoreApp extends MobileApp {
     // The iOS architecture for which this app can run on.
     applicableDeviceType?: IosDeviceType;
@@ -5660,7 +5645,6 @@ export interface IosStoreApp extends MobileApp {
     // The value for the minimum applicable operating system.
     minimumSupportedOperatingSystem?: NullableOption<IosMinimumOperatingSystem>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosVppApp extends MobileApp {
     // The applicable iOS Device Type.
     applicableDeviceType?: NullableOption<IosDeviceType>;
@@ -5972,7 +5956,6 @@ export interface EBookInstallSummary extends Entity {
     // Number of Users that did not install this book.
     notInstalledUserCount?: number;
 }
-// tslint:disable-next-line: interface-name
 export interface IosVppEBook extends ManagedEBook {
     // The Apple ID associated with Vpp token.
     appleId?: NullableOption<string>;
@@ -5997,7 +5980,7 @@ export interface ManagedEBookAssignment extends Entity {
     // The assignment target for eBook.
     target?: NullableOption<DeviceAndAppManagementAssignmentTarget>;
 }
-// tslint:disable-next-line: interface-name no-empty-interface
+// tslint:disable-next-line: no-empty-interface
 export interface IosVppEBookAssignment extends ManagedEBookAssignment {}
 export interface UserInstallStateSummary extends Entity {
     // Failed Device Count.
@@ -6233,7 +6216,6 @@ export interface DeviceConfiguration extends Entity {
     // Device Configuration users status overview
     userStatusOverview?: NullableOption<DeviceConfigurationUserOverview>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosUpdateDeviceStatus extends Entity {
     // The DateTime when device compliance grace period expires
     complianceGracePeriodExpirationDateTime?: string;
@@ -7116,9 +7098,8 @@ export interface EditionUpgradeConfiguration extends DeviceConfiguration {
      */
     targetEdition?: Windows10EditionType;
 }
-// tslint:disable-next-line: interface-name no-empty-interface
+// tslint:disable-next-line: no-empty-interface
 export interface IosCertificateProfile extends DeviceConfiguration {}
-// tslint:disable-next-line: interface-name
 export interface IosCompliancePolicy extends DeviceCompliancePolicy {
     // Require that devices have enabled device threat protection .
     deviceThreatProtectionEnabled?: boolean;
@@ -7152,7 +7133,6 @@ export interface IosCompliancePolicy extends DeviceCompliancePolicy {
     // Devices must not be jailbroken or rooted.
     securityBlockJailbrokenDevices?: boolean;
 }
-// tslint:disable-next-line: interface-name
 export interface IosCustomConfiguration extends DeviceConfiguration {
     // Payload. (UTF8 encoded byte array)
     payload?: number;
@@ -7161,7 +7141,6 @@ export interface IosCustomConfiguration extends DeviceConfiguration {
     // Name that is displayed to the user.
     payloadName?: string;
 }
-// tslint:disable-next-line: interface-name
 export interface IosDeviceFeaturesConfiguration extends AppleDeviceFeaturesConfigurationBase {
     // Asset tag information for the device, displayed on the login window and lock screen.
     assetTagTemplate?: NullableOption<string>;
@@ -7177,7 +7156,6 @@ export interface IosDeviceFeaturesConfiguration extends AppleDeviceFeaturesConfi
      */
     notificationSettings?: NullableOption<IosNotificationSettings[]>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosGeneralDeviceConfiguration extends DeviceConfiguration {
     // Indicates whether or not to allow account modification when the device is in supervised mode.
     accountBlockModification?: boolean;
@@ -7508,7 +7486,6 @@ export interface IosGeneralDeviceConfiguration extends DeviceConfiguration {
      */
     wiFiConnectOnlyToConfiguredNetworks?: boolean;
 }
-// tslint:disable-next-line: interface-name
 export interface IosUpdateConfiguration extends DeviceConfiguration {
     // Active Hours End (active hours mean the time window when updates install should not happen)
     activeHoursEnd?: string;
@@ -8742,7 +8719,7 @@ export interface ManagedAppPolicyDeploymentSummary extends Entity {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface AndroidManagedAppRegistration extends ManagedAppRegistration {}
-// tslint:disable-next-line: interface-name no-empty-interface
+// tslint:disable-next-line: no-empty-interface
 export interface IosManagedAppRegistration extends ManagedAppRegistration {}
 export interface ManagedAppOperation extends Entity {
     // The operation name.
@@ -9418,7 +9395,6 @@ export interface Participant extends Entity {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface CancelMediaProcessingOperation extends CommsOperation {}
-// tslint:disable-next-line: interface-name
 export interface InviteParticipantsOperation extends CommsOperation {
     // The participants to invite.
     participants?: InvitationParticipantInfo[];
@@ -9781,7 +9757,6 @@ export interface FileAssessmentRequest extends ThreatAssessmentRequest {
     // The file name.
     fileName?: string;
 }
-// tslint:disable-next-line: interface-name
 export interface InformationProtection extends Entity {
     threatAssessmentRequests?: NullableOption<ThreatAssessmentRequest[]>;
 }
@@ -9953,7 +9928,6 @@ export interface EmailAddress {
     // The display name of the person or entity.
     name?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface InvitedUserMessageInfo {
     // Additional recipients the invitation message should be sent to. Currently only 1 additional recipient is supported.
     ccRecipients?: NullableOption<Recipient[]>;
@@ -10296,7 +10270,6 @@ export interface AppRole {
      */
     value?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface InformationalUrl {
     // CDN URL to the application's logo, Read-only.
     logoUrl?: NullableOption<string>;
@@ -10447,7 +10420,6 @@ export interface WebApplication {
      */
     redirectUris?: string[];
 }
-// tslint:disable-next-line: interface-name
 export interface ImplicitGrantSettings {
     // Specifies whether this web application can request an access token using the OAuth 2.0 implicit flow.
     enableAccessTokenIssuance?: NullableOption<boolean>;
@@ -10504,7 +10476,6 @@ export interface DomainState {
      */
     status?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface Identity {
     /**
      * The identity's display name. Note that this may not always be available or up to date. For example, if a user changes
@@ -10641,7 +10612,6 @@ export interface EducationTerm {
     // Start of the term.
     startDate?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface IdentitySet {
     // Optional. The application associated with this action.
     application?: NullableOption<Identity>;
@@ -10863,7 +10833,6 @@ export interface FolderView {
     // The type of view that should be used to represent the folder.
     viewType?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface Image {
     // Optional. Height of the image, in pixels. Read-only.
     height?: NullableOption<number>;
@@ -10960,7 +10929,6 @@ export interface RemoteItem {
     // URL that displays the resource in the browser. Read-only.
     webUrl?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface ItemReference {
     // Unique identifier of the drive instance that contains the item. Read-only.
     driveId?: NullableOption<string>;
@@ -11292,14 +11260,12 @@ export interface FreeBusyError {
     // The response code from querying for the availability of the user, distribution list, or resource.
     responseCode?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface InternetMessageHeader {
     // Represents the key in a key-value pair.
     name?: NullableOption<string>;
     // The value in a key-value pair.
     value?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface ItemBody {
     // The content of the item.
     content?: NullableOption<string>;
@@ -11750,21 +11716,18 @@ export interface DriveRecipient {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface GeolocationColumn {}
-// tslint:disable-next-line: interface-name
 export interface IncompleteData {
     // The service does not have source data before the specified time.
     missingDataBeforeDateTime?: NullableOption<string>;
     // Some data was not recorded due to excessive activity.
     wasThrottled?: NullableOption<boolean>;
 }
-// tslint:disable-next-line: interface-name
 export interface ItemActionStat {
     // The number of times the action took place. Read-only.
     actionCount?: NullableOption<number>;
     // The number of distinct actors that performed the action. Read-only.
     actorCount?: NullableOption<number>;
 }
-// tslint:disable-next-line: interface-name
 export interface ItemPreviewInfo {
     getUrl?: NullableOption<string>;
     postParameters?: NullableOption<string>;
@@ -11980,7 +11943,7 @@ export interface SignInFrequencySessionControl extends ConditionalAccessSessionC
     // The number of days or hours.
     value?: NullableOption<number>;
 }
-// tslint:disable-next-line: interface-name no-empty-interface
+// tslint:disable-next-line: no-empty-interface
 export interface IpRange {}
 // tslint:disable-next-line: interface-name
 export interface IPv4CidrRange extends IpRange {
@@ -12046,7 +12009,6 @@ export interface FileEncryptionInfo {
     // The profile identifier.
     profileIdentifier?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosDeviceType {
     // Whether the app should run on iPads.
     iPad?: boolean;
@@ -12055,12 +12017,10 @@ export interface IosDeviceType {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface MobileAppAssignmentSettings {}
-// tslint:disable-next-line: interface-name
 export interface IosLobAppAssignmentSettings extends MobileAppAssignmentSettings {
     // The VPN Configuration Id to apply for this app.
     vpnConfigurationId?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosMinimumOperatingSystem {
     // Version 10.0 or later.
     v10_0?: boolean;
@@ -12075,12 +12035,10 @@ export interface IosMinimumOperatingSystem {
     // Version 9.0 or later.
     v9_0?: boolean;
 }
-// tslint:disable-next-line: interface-name
 export interface IosStoreAppAssignmentSettings extends MobileAppAssignmentSettings {
     // The VPN Configuration Id to apply for this app.
     vpnConfigurationId?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosVppAppAssignmentSettings extends MobileAppAssignmentSettings {
     // Whether or not to use device licensing.
     useDeviceLicensing?: boolean;
@@ -12250,7 +12208,6 @@ export interface DeviceManagementSettings {
     // Device should be noncompliant when there is no compliance policy targeted when this is true
     secureByDefault?: boolean;
 }
-// tslint:disable-next-line: interface-name
 export interface IntuneBrand {
     // Email address of the person/organization responsible for IT support.
     contactITEmailAddress?: NullableOption<string>;
@@ -12415,17 +12372,14 @@ export interface EdgeSearchEngineCustom extends EdgeSearchEngineBase {
      */
     edgeSearchEngineOpenSearchXmlUrl?: string;
 }
-// tslint:disable-next-line: interface-name
 export interface IosHomeScreenItem {
     // Name of the app
     displayName?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosHomeScreenApp extends IosHomeScreenItem {
     // BundleID of app
     bundleID?: string;
 }
-// tslint:disable-next-line: interface-name
 export interface IosHomeScreenFolder extends IosHomeScreenItem {
     /**
      * Pages of Home Screen Layout Icons which must be Application Type. This collection can contain a maximum of 500
@@ -12433,21 +12387,18 @@ export interface IosHomeScreenFolder extends IosHomeScreenItem {
      */
     pages?: IosHomeScreenFolderPage[];
 }
-// tslint:disable-next-line: interface-name
 export interface IosHomeScreenFolderPage {
     // A list of apps to appear on a page within a folder. This collection can contain a maximum of 500 elements.
     apps?: IosHomeScreenApp[];
     // Name of the folder page
     displayName?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosHomeScreenPage {
     // Name of the page
     displayName?: NullableOption<string>;
     // A list of apps and folders to appear on a page. This collection can contain a maximum of 500 elements.
     icons?: IosHomeScreenItem[];
 }
-// tslint:disable-next-line: interface-name
 export interface IosNetworkUsageRule {
     // If set to true, corresponding managed apps will not be allowed to use cellular data at any time.
     cellularDataBlocked?: boolean;
@@ -12459,7 +12410,6 @@ export interface IosNetworkUsageRule {
      */
     managedApps?: NullableOption<AppListItem[]>;
 }
-// tslint:disable-next-line: interface-name
 export interface IosNotificationSettings {
     // Indicates the type of alert for notifications for this app. Possible values are: deviceDefault, banner, modal, none.
     alertType?: IosNotificationAlertType;
@@ -12952,7 +12902,6 @@ export interface AndroidMobileAppIdentifier extends MobileAppIdentifier {
     // The identifier for an app, as specified in the play store.
     packageId?: string;
 }
-// tslint:disable-next-line: interface-name
 export interface IosMobileAppIdentifier extends MobileAppIdentifier {
     // The identifier for an app, as specified in the app store.
     bundleId?: string;
@@ -13126,7 +13075,6 @@ export interface PlannerExternalReferences {}
 export interface PlannerOrderHintsByAssignee {}
 // tslint:disable-next-line: no-empty-interface
 export interface PlannerUserIds {}
-// tslint:disable-next-line: interface-name
 export interface InsightIdentity {
     // The email address of the user who shared the item.
     address?: NullableOption<string>;
@@ -13297,7 +13245,6 @@ export interface SectionLinks {
     // Opens the section in OneNote on the web.
     oneNoteWebUrl?: NullableOption<ExternalLink>;
 }
-// tslint:disable-next-line: interface-name
 export interface ImageInfo {
     /**
      * Optional; parameter used to indicate the server is able to render image dynamically in response to parameterization.
@@ -13694,7 +13641,6 @@ export interface CommsNotifications {
     // The notification of a change in the resource.
     value?: NullableOption<CommsNotification[]>;
 }
-// tslint:disable-next-line: interface-name
 export interface IncomingContext {
     // The ID of the participant that is under observation. Read-only.
     observedParticipantId?: NullableOption<string>;
@@ -13705,7 +13651,6 @@ export interface IncomingContext {
     // The identity that transferred the call.
     transferor?: NullableOption<IdentitySet>;
 }
-// tslint:disable-next-line: interface-name
 export interface InvitationParticipantInfo {
     // The identitySet associated with this invitation.
     identity?: IdentitySet;

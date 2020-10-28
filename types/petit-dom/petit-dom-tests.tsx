@@ -1,6 +1,4 @@
 /* @jsx h */
-// tslint:disable:no-empty
-// tslint:disable:no-null-keyword
 
 import { h, mount, patch, PetitDom, unmount } from "petit-dom";
 

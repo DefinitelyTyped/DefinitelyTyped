@@ -1511,7 +1511,6 @@ describe("Custom async matcher: 'toBeEight'", () => {
         jasmine.addAsyncMatchers({
             toBeEight: () => {
                 return {
-                    // tslint:disable-next-line:no-any
                     compare: async (input: any) => {
                         return {
                             pass: input === 8,
@@ -1636,7 +1635,6 @@ var myReporter: jasmine.CustomReporter = {
 
     specDone: (result: jasmine.CustomReporterResult) => {
         console.log(`Spec: ${result.description} was ${result.status}`);
-        // tslint:disable-next-line:prefer-for-of
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log("Failure: " + result.failedExpectations[i].message);
             console.log("Actual: " + result.failedExpectations[i].actual);
@@ -1648,7 +1646,6 @@ var myReporter: jasmine.CustomReporter = {
 
     suiteDone: (result: jasmine.CustomReporterResult) => {
         console.log(`Suite: ${result.description} was ${result.status}`);
-        // tslint:disable-next-line:prefer-for-of
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);

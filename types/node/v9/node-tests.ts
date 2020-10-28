@@ -2,10 +2,8 @@
 // tslint:disable:no-namespace
 // tslint:disable:no-duplicate-variable
 // tslint:disable:no-duplicate-imports
-// tslint:disable:no-var-keyword
 // tslint:disable:no-inferrable-types
 // tslint:disable:prefer-const
-// tslint:disable:max-line-length
 import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
@@ -2653,7 +2651,7 @@ namespace timers_tests {
         let s: string = await setTimeout(100, "");
 
         const setImmediate = util.promisify(timers.setImmediate);
-        v = await setImmediate(); // tslint:disable-line no-void-expression
+        v = await setImmediate();
         s = await setImmediate("");
     }
 }
