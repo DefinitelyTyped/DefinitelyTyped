@@ -3,15 +3,14 @@ import { KnexAdapter } from '@keystonejs/adapter-knex';
 import { GraphQLApp, validation } from '@keystonejs/app-graphql';
 
 const keystone = new Keystone({
-    name: 'test',
     adapter: new KnexAdapter(),
 });
 
 new GraphQLApp();
 const app = new GraphQLApp({
-    apiPath: 'anything',
-    graphiqlPath: 'anything',
-    schemaName: 'anything',
+    apiPath: '/admin/api',
+    graphiqlPath: '/admin/graphiql',
+    schemaName: 'public',
     apollo: {
         validationRules: [],
         introspection: true,
