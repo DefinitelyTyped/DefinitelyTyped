@@ -1,44 +1,41 @@
 import * as React from "react";
-import {
-    DownshiftTypedProps,
-    InternationalProps,
-    ReactInputAttr,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps
-} from "../../../typings/shared";
+import { InternationalProps, ReactDivAttr, ForwardRefProps, FCReturn } from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 
-interface InheritedProps<ItemType> extends
-    DownshiftTypedProps<ItemType>,
-    InternationalProps<ListBoxMenuIconTranslationKey>,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps
+export interface OnChangeData<ItemType = string> {
+    selectedItem?: ItemType | null;
+}
+
+export interface DropdownProps<ItemType = string> extends
+    Omit<ReactDivAttr, "id" | "onChange">,
+    InternationalProps<ListBoxMenuIconTranslationKey>
 {
-    ariaLabel: React.AriaAttributes["aria-label"],
-    disabled?: ReactInputAttr["disabled"],
+    ariaLabel?: string,
+    direction?: "bottom" | "top",
+    disabled?: boolean,
+    downshiftProps?: any; // TODO
+    id: string,
+    initialSelectedItem?: ItemType,
+    /**
+     * @deprecated
+     */
+    inline?: boolean,
+    invalid?: boolean;
+    invalidText?: string;
+    helperText?: React.ReactNode,
+    items: readonly ItemType[],
+    itemToElement?: ItemType extends object ? React.ComponentType<ItemType> : never,
+    itemToString?(item: ItemType): string
+    label: NonNullable<React.ReactNode>,
+    light?: boolean,
+    onChange?(data: OnChangeData<ItemType>): void,
+    selectedItem?: ItemType | null,
     size?: ListBoxProps["size"],
+    titleText: NonNullable<React.ReactNode>,
     type?: ListBoxProps["type"],
 }
 
-export interface OnChangeData<ItemType = string> {
-    selectedItem?: ItemType;
-}
+declare function Dropdown<ItemType = string>(props: ForwardRefProps<HTMLButtonElement, DropdownProps<ItemType>>): FCReturn;
 
-export interface DropdownProps<ItemType = string> extends InheritedProps<ItemType> {
-    direction?: "bottom" | "top",
-    downshiftProps?: any; // TODO
-    initialSelectedItem?: ItemType,
-    inline?: boolean,
-    helperText?: React.ReactNode,
-    items: ItemType[],
-    itemToElement?(item: ItemType): NonNullable<React.ReactElement>,
-    label: NonNullable<React.ReactNode>,
-    onChange?(data: OnChangeData<ItemType>): void,
-    selectedItem?: ItemType,
-    titleText: NonNullable<React.ReactNode>,
-}
-
-export default class Dropdown<ItemType = string> extends React.Component<DropdownProps<ItemType>> { }
+export default Dropdown;

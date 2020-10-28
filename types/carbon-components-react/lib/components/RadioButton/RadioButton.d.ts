@@ -1,12 +1,11 @@
 import * as React from "react";
 import { ReactInputAttr, ForwardRefReturn } from "../../../typings/shared";
 
-type ExcludedAttributes = "onChange" | "ref" | "type";
-interface InheritedProps extends Omit<ReactInputAttr, ExcludedAttributes> { }
-
 export type RadioButtonValue = string | number;
 
-export interface RadioButtonProps extends InheritedProps {
+type ExcludedAttributes = "onChange" | "ref" | "type" | "value";
+
+export interface RadioButtonProps extends Omit<ReactInputAttr, ExcludedAttributes>  {
     defaultChecked?: boolean,
     hideLabel?: boolean,
     /**
