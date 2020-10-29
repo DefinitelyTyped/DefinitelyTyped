@@ -1,4 +1,4 @@
-// Type definitions for non-npm package custom-functions-runtime 1.3
+// Type definitions for non-npm package custom-functions-runtime 1.6
 // Project: https://github.com/OfficeDev/office-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,
 //                 Adam Krantz <https://github.com/akrantz>,
