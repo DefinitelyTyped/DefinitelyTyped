@@ -403,3 +403,12 @@ export declare class PreparedStatementError implements Error {
     public message: string;
     public code: string;
 }
+
+type GlobalConnection = any;
+
+export declare function connect(config: config | string, callback?: (err: any) => void): Promise<ConnectionPool>;
+export declare function close(callback?: (err: any) => void): void;
+export declare function on(event: string, handler: (e: Event) => void): GlobalConnection;
+export declare function removeListener (event: string, handler: (e: Event) => void): GlobalConnection;
+export declare function query(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+export declare function batch(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
