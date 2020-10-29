@@ -1,4 +1,4 @@
-import { ASTNode, FileInfo, API, Transform, Parser } from "jscodeshift";
+import { ASTNode, FileInfo, API, Transform, Parser, JSCodeshift, Collection, ImportDeclaration } from "jscodeshift";
 import * as testUtils from "jscodeshift/src/testUtils";
 
 // Can define transform with `function`.
