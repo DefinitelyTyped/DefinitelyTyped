@@ -1,5 +1,5 @@
-import * as React from '../../../../react/index';
-import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from '../../../typings/shared';
+import * as React from 'react';
+import { ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from '../../../typings/shared';
 
 export type AspectRatio = '16x9' | '9x16' | '2x1' | '1x2' | '4x3' | '3x4' | '1x1';
 
