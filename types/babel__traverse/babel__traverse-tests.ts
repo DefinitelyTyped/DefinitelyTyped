@@ -285,6 +285,11 @@ const VisitorStateTest: Visitor<SomeVisitorState> = {
             this;
         },
     },
+    denylist: [
+        'TypeAnnotation',
+        // $ExpectError
+        'SomethingRandom',
+    ],
 };
 
 traverse(ast, VisitorStateTest, undefined, { someState: 'test' });
