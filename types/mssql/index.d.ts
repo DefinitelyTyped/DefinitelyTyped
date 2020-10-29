@@ -9,7 +9,7 @@
 //                 Jeff Wooden <https://github.com/woodenconsulting>
 //                 Cahil Foley <https://github.com/cahilfoley>
 //                 Rifa Achrinza <https://github.com/achrinza>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+//                 Dengju Deng <https://github.com/Turkyden>
 // TypeScript Version: 2.9
 
 /// <reference types="node" />
