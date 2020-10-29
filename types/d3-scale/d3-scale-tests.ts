@@ -138,7 +138,7 @@ clampFlag = linearScaleNumber.clamp();
 linearScaleNumberUnknownNumber = linearScaleNumber.unknown(5);
 linearScaleNumberUnknownString = linearScaleNumber.unknown('test');
 const numOrString: number | string = linearScaleNumberUnknownString(3);
-const linearScaleNumberUnknownValue = linearScaleNumber.unknown();
+const linearScaleNumberUnknownValue: undefined = linearScaleNumber.unknown();
 
 // interpolate(...) -----------------------------------------------------------------
 
