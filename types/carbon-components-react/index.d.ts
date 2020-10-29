@@ -96,6 +96,7 @@ export * from "./lib/components/UnorderedList";
 
 export { default as Accordion } from "./lib/components/Accordion";
 export { default as AccordionItem } from "./lib/components/AccordionItem";
+export { AspectRatio } from "./lib/components/AspectRatio";
 export { Breadcrumb, BreadcrumbItem } from "./lib/components/Breadcrumb";
 export { default as Button } from "./lib/components/Button";
 export { default as ButtonSet } from "./lib/components/ButtonSet";
