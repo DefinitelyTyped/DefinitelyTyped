@@ -3,6 +3,8 @@
 // Definitions by: sly <https://github.com/SlyBouhafs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace belter;
+
 // Device.js function definitions
 export function getUserAgent(): string;
 export function isDevice(userAgent: string): boolean;
