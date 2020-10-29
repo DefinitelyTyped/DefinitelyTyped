@@ -120,7 +120,7 @@ declare namespace WechatMiniprogram {
      *
      * 最低基础库: 2.1.0
      */
-    type CoverImageError = CustomEvent<WechatMiniprogram.GeneralCallbackResult>
+    type CoverImageError = CustomEvent<GeneralCallbackResult>
 
     /**
      * 拖动过程中触发的事件，event.detail = {x, y, source}
@@ -381,8 +381,7 @@ declare namespace WechatMiniprogram {
      * 最低基础库: 1.3.0
      */
     type ButtonGetUserInfo = CustomEvent<
-        WechatMiniprogram.GeneralCallbackResult &
-            WechatMiniprogram.GetUserInfoSuccessCallbackResult
+        GeneralCallbackResult & GetUserInfoSuccessCallbackResult
     >
 
     /**
@@ -390,7 +389,7 @@ declare namespace WechatMiniprogram {
      *
      * 最低基础库: 1.5.0
      */
-    type ButtonContact = CustomEvent<WechatMiniprogram.GeneralCallbackResult>
+    type ButtonContact = CustomEvent<GeneralCallbackResult>
 
     /**
      * 获取用户手机号回调，`open-type=getPhoneNumber` 时有效
@@ -398,8 +397,7 @@ declare namespace WechatMiniprogram {
      * 最低基础库: 1.2.0
      */
     type ButtonGetPhoneNumber = CustomEvent<
-        WechatMiniprogram.GeneralCallbackResult &
-            Partial<WechatMiniprogram.GetWeRunDataSuccessCallbackResult>
+        GeneralCallbackResult & Partial<GetWeRunDataSuccessCallbackResult>
     >
 
     /**
@@ -407,7 +405,7 @@ declare namespace WechatMiniprogram {
      *
      * 最低基础库: 1.9.5
      */
-    type ButtonError = CustomEvent<WechatMiniprogram.GeneralCallbackResult>
+    type ButtonError = CustomEvent<GeneralCallbackResult>
 
     /**
      * 在打开授权设置页后回调，`open-type=openSetting` 时有效
@@ -415,8 +413,7 @@ declare namespace WechatMiniprogram {
      * 最低基础库: 2.0.7
      */
     type ButtonOpenSetting = CustomEvent<
-        WechatMiniprogram.GeneralCallbackResult &
-            WechatMiniprogram.OpenSettingSuccessCallbackResult
+        GeneralCallbackResult & OpenSettingSuccessCallbackResult
     >
 
     /**
@@ -424,7 +421,7 @@ declare namespace WechatMiniprogram {
      *
      * 最低基础库: 2.4.4
      */
-    type ButtonLaunchApp = CustomEvent<WechatMiniprogram.GeneralCallbackResult>
+    type ButtonLaunchApp = CustomEvent<GeneralCallbackResult>
 
     /**
      * checkbox-group 中选中项发生改变时触发 change 事件

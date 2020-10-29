@@ -56,6 +56,18 @@ declare namespace WechatMiniprogram {
         cardList: AddCardResponseInfo[]
         errMsg: string
     }
+    interface AddMarkersOption {
+        /** 同传入 map 组件的 marker 属性 */
+        markers: any[]
+        /** 是否先清空地图上所有 marker */
+        clear?: boolean
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: AddMarkersCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: AddMarkersFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: AddMarkersSuccessCallback
+    }
     interface AddPhoneContactOption {
         /** 名字 */
         firstName: string
@@ -2765,6 +2777,20 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 接口调用成功的回调函数 */
         success?: IncludePointsSuccessCallback
     }
+    interface InitMarkerClusterOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: InitMarkerClusterCompleteCallback
+        /** 启用默认的聚合样式 */
+        enableDefaultStyle?: boolean
+        /** 接口调用失败的回调函数 */
+        fail?: InitMarkerClusterFailCallback
+        /** 聚合算法的可聚合距离，即距离小于该值的点会聚合至一起，以像素为单位 */
+        gridSize?: boolean
+        /** 接口调用成功的回调函数 */
+        success?: InitMarkerClusterSuccessCallback
+        /** 点击已经聚合的标记点时是否实现聚合分离 */
+        zoomOnClick?: boolean
+    }
     /** InnerAudioContext 实例，可通过 [wx.createInnerAudioContext](https://developers.weixin.qq.com/miniprogram/dev/api/media/audio/wx.createInnerAudioContext.html) 接口获取实例。
 *
 * **支持格式**
@@ -4138,6 +4164,16 @@ innerAudioContext.onError((res) => {
         /** 接口调用成功的回调函数 */
         success?: RemoveFormatSuccessCallback
     }
+    interface RemoveMarkersOption {
+        /** marker 的 id 集合。 */
+        markerIds: any[]
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: RemoveMarkersCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: RemoveMarkersFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: RemoveMarkersSuccessCallback
+    }
     interface RemoveSavedFileFailCallbackResult {
         /** 错误信息
          *
@@ -4915,16 +4951,6 @@ innerAudioContext.onError((res) => {
         /** 实际设置的缩放级别。由于系统限制，某些机型可能无法设置成指定值，会改用最接近的可设值。 */
         zoom: number
         errMsg: string
-    }
-    interface ShareToWeRunOption {
-        /** 运动数据列表 */
-        recordList: WxaSportRecord[]
-        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-        complete?: ShareToWeRunCompleteCallback
-        /** 接口调用失败的回调函数 */
-        fail?: ShareToWeRunFailCallback
-        /** 接口调用成功的回调函数 */
-        success?: ShareToWeRunSuccessCallback
     }
     interface ShowActionSheetOption {
         /** 按钮的文字数组，数组长度最大为 6 */
@@ -6106,19 +6132,6 @@ innerAudioContext.onError((res) => {
         fail?: StopRecordFailCallback
         /** 接口调用成功的回调函数 */
         success?: WxStopRecordSuccessCallback
-    }
-    /** 运动数据列表 */
-    interface WxaSportRecord {
-        /** 消耗卡路里 */
-        calorie: number
-        /** 运动距离 */
-        distance: number
-        /** 运动时长 */
-        time: number
-        /** 运动项目id */
-        typeId: string
-        /** 小程序app内跳转url */
-        url: string
     }
     interface Animation {
         /** [Object Animation.export()](https://developers.weixin.qq.com/miniprogram/dev/api/ui/animation/Animation.export.html)
@@ -9390,6 +9403,12 @@ Page({
         ): void
     }
     interface MapContext {
+        /** [MapContext.addMarkers(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.addMarkers.html)
+         *
+         * 添加 marker。
+         *
+         * 最低基础库： `2.13.0` */
+        addMarkers(option: AddMarkersOption): void
         /** [MapContext.getCenterLocation(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.getCenterLocation.html)
          *
          * 获取当前地图中心的经纬度。返回的是 gcj02 坐标系，可以用于 [wx.openLocation()](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.openLocation.html) */
@@ -9424,6 +9443,12 @@ Page({
          *
          * 最低基础库： `1.2.0` */
         includePoints(option: IncludePointsOption): void
+        /** [MapContext.initMarkerCluster(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.initMarkerCluster.html)
+         *
+         * 初始化点聚合的配置，未调用时采用默认配置。
+         *
+         * 最低基础库： `2.13.0` */
+        initMarkerCluster(option: InitMarkerClusterOption): void
         /** [MapContext.moveAlong(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.moveAlong.html)
          *
          * 沿指定路径移动 `marker`，用于轨迹回放等场景。动画完成时触发回调事件，若动画进行中，对同一 `marker` 再次调用 `moveAlong` 方法，前一次的动画将被打断。
@@ -9436,6 +9461,56 @@ Page({
          *
          * 最低基础库： `1.2.0` */
         moveToLocation(option?: MoveToLocationOption): void
+        /** [MapContext.on()](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.on.html)
+*
+* 监听地图事件。
+*
+* ### markerClusterCreate
+*
+* 缩放或拖动导致新的聚合簇产生时触发，仅返回新创建的聚合簇信息。
+*
+* #### 返回参数
+*
+* | 参数      | 类型   | 说明      |
+* | --------- | ------ | --------- |
+* | clusters | `Array&lt;ClusterInfo&gt;` | 聚合簇数据 |
+*
+* ### markerClusterClick
+*
+* 聚合簇的点击事件。
+*
+* #### 返回参数
+*
+* | 参数      | 类型          | 说明      |
+* | --------- | ------------- | --------- |
+* | cluster   | ClusterInfo   | 聚合簇    |
+*
+*
+* #### ClusterInfo 结构
+*
+* | 参数       | 类型                 | 说明                       |
+* | ---------- | -------------------- | -------------------------- |
+* | clusterId  | Number               | 聚合簇的 id               |
+* | center     | LatLng               | 聚合簇的坐标             |
+* | markerIds | `Array&lt;Number&gt;` | 该聚合簇内的点标记数据数组 |
+*
+* **示例代码**
+*
+*
+*
+* ```js
+  MapContext.on('markerClusterCreate', (res) => {})
+  MapContext.on('markerClusterClick', (res) => {})
+```
+*
+* 最低基础库： `2.13.0` */
+        on(): void
+        /** [MapContext.removeMarkers(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.removeMarkers.html)
+         *
+         * 移除 marker。
+         *
+         * 最低基础库： `2.13.0` */
+        removeMarkers(option: RemoveMarkersOption): void
         /** [MapContext.setCenterOffset(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.setCenterOffset.html)
          *
          * 设置地图中心点偏移，向后向下为增长，屏幕比例范围(0.25~0.75)，默认偏移为[0.5, 0.5]
@@ -15379,12 +15454,6 @@ wx.getWifiList()
          * @deprecated 基础库版本 [2.11.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) 起已废弃
          *  */
         setWindowSize(option: SetWindowSizeOption): void
-        /** [wx.shareToWeRun(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/werun/wx.shareToWeRun.html)
-         *
-         * 分享数据到微信运动。 */
-        shareToWeRun<TOption extends ShareToWeRunOption>(
-            option: TOption
-        ): PromisifySuccessResult<TOption, ShareToWeRunOption>
         /** [wx.showActionSheet(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showActionSheet.html)
 *
 * 显示操作菜单
@@ -16202,6 +16271,12 @@ wx.writeBLECharacteristicValue({
     type AddCardFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type AddCardSuccessCallback = (result: AddCardSuccessCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type AddMarkersCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type AddMarkersFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type AddMarkersSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type AddPhoneContactCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -17024,6 +17099,14 @@ wx.writeBLECharacteristicValue({
     type IncludePointsFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type IncludePointsSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type InitMarkerClusterCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type InitMarkerClusterFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type InitMarkerClusterSuccessCallback = (res: GeneralCallbackResult) => void
     /** 音频播放错误事件的回调函数 */
     type InnerAudioContextOffErrorCallback = (
         result: InnerAudioContextOnErrorCallbackResult
@@ -17657,6 +17740,12 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type RemoveFormatSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type RemoveMarkersCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type RemoveMarkersFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type RemoveMarkersSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type RemoveSavedFileCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type RemoveSavedFileSuccessCallback = (res: GeneralCallbackResult) => void
@@ -18008,12 +18097,6 @@ wx.writeBLECharacteristicValue({
     type SetZoomFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type SetZoomSuccessCallback = (result: SetZoomSuccessCallbackResult) => void
-    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type ShareToWeRunCompleteCallback = (res: GeneralCallbackResult) => void
-    /** 接口调用失败的回调函数 */
-    type ShareToWeRunFailCallback = (res: GeneralCallbackResult) => void
-    /** 接口调用成功的回调函数 */
-    type ShareToWeRunSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ShowActionSheetCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
