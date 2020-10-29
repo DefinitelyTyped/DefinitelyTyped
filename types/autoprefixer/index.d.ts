@@ -1,4 +1,4 @@
-// Type definitions for autoprefixer 10.0.1
+// Type definitions for autoprefixer 10.0
 // Project: https://github.com/postcss/autoprefixer
 // Definitions by: Armando Meziat <https://github.com/odnamrataizem>
 //                 murt <https://github.com/murt>
