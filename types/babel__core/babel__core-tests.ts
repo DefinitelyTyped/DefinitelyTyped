@@ -1,4 +1,5 @@
 import * as babel from '@babel/core';
+import * as t from '@babel/types';
 
 const options: babel.TransformOptions = {
     ast: true,
@@ -134,3 +135,12 @@ if (partialConfig) {
 function withPluginPass(state: babel.PluginPass) {
     state.file.hub.addHelper('something');
 }
+
+const plugin: babel.PluginObj = {
+    pre({ path }) {
+        visitBlock(path);
+
+        function visitBlock(block: babel.NodePath<t.Program>) {}
+    },
+    visitor: {},
+};
