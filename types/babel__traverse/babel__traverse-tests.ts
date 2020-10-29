@@ -337,9 +337,9 @@ function testNullishPath(
 
 const visitorWithDenylist: Visitor = {
     denylist: ['TypeAnnotation'],
-}
+};
 
 const visitorWithInvalidDenylist: Visitor = {
     // $ExpectError
     denylist: ['SomeRandomType'],
-}
+};
