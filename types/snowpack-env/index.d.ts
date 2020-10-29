@@ -37,6 +37,7 @@ interface ImportMetaHot {
 
 interface ImportMeta {
     readonly url: string;
+    readonly SSR?: boolean;
     readonly hot?: ImportMetaHot;
     readonly env: {
         readonly [key: string]: any;
