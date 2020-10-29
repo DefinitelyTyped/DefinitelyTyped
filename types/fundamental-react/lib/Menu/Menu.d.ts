@@ -20,6 +20,7 @@ export type MenuItemProps = {
     className?: string;
     isLink?: boolean;
     onclick?: (...args: any[]) => any;
+    separator?: boolean;
     url?: string;
     urlProps?: any;
 } & React.HTMLAttributes<HTMLLIElement>;

@@ -7,6 +7,7 @@ export type SideNavProps = {
     condensed?: boolean;
     disableStyles?: boolean;
     selectedId?: string;
+    skipLink?: { href: string, label: string }
     onItemSelect?: (e: any, id: any) => void;
 } & React.HTMLAttributes<Element>;
 
