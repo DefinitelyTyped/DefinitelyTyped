@@ -1,6 +1,5 @@
 import belter = require('belter');
 
-// Devices.js tests
 belter.getUserAgent();
 belter.isDevice('userAgent');
 belter.isWebView();
