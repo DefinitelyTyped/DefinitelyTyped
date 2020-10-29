@@ -658,6 +658,33 @@ const forwardedAsTest = (
     </>
 );
 
+type ExternalAsComponentProps = {
+  as?: string | React.ComponentType<any>;
+  type: "primitive" | "complex";
+};
+const ExternalAsComponent: React.FC<ExternalAsComponentProps> = () => null;
+const WrappedExternalAsComponent = styled(ExternalAsComponent)``;
+const ForwardedAsWithWrappedExternalTest = (
+  <>
+    <WrappedExternalAsComponent forwardedAs="h2" type="primitive" />
+    <WrappedExternalAsComponent forwardedAs={WithComponentH2} type="complex" />
+  </>
+)
+const ForwardedAsWithNestedAsExternalTest = (
+  <>
+    <ForwardedAsNestedComponent
+      as={ExternalAsComponent}
+      forwardedAs="h2"
+      type="primitive"
+    />
+    <ForwardedAsNestedComponent
+      as={ExternalAsComponent}
+      forwardedAs={WithComponentH2}
+      type="complex"
+    />
+  </>
+);
+
 interface TestContainerProps {
     size: "big" | "small";
     test?: boolean;

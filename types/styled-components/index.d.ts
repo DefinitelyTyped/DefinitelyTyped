@@ -88,10 +88,11 @@ type WithChildrenIfReactComponentClass<
 
 type StyledComponentPropsWithAs<
     C extends string | React.ComponentType<any>,
+    F extends string | React.ComponentType<any>,
     T extends object,
     O extends object,
     A extends keyof any
-> = StyledComponentProps<C, T, O, A> & { as?: C, forwardedAs?: C };
+> = StyledComponentProps<C, T, O, A> & { as?: C, forwardedAs?: F };
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> =
@@ -176,9 +177,9 @@ export interface StyledComponentBase<
     (
         props: StyledComponentProps<C, T, O, A> & { as?: never, forwardedAs?: never }
       ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
-    <AsC extends string | React.ComponentType<any> = C>(
-      props: StyledComponentPropsWithAs<AsC, T, O, A>
-    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>;
+    <AsC extends string | React.ComponentType<any> = C, FAsC extends string | React.ComponentType<any> = AsC>(
+      props: StyledComponentPropsWithAs<AsC, FAsC, T, O, A>
+    ): React.ReactElement<StyledComponentPropsWithAs<AsC, FAsC, T, O, A>>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC
