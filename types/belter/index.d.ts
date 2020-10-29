@@ -3,6 +3,4 @@
 // Definitions by: sly <https://github.com/SlyBouhafs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export {};
-
 export function getUserAgent(): string;
