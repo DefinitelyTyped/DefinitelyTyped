@@ -78,11 +78,11 @@ tickFormatNumberFn = d3Scale.tickFormat(0, 10, 5, '+%');
 
 // scaleLinear() -----------------------------------------------------------------
 
-let linearScaleNumber: d3Scale.ScaleLinear<number, number, never>;
+let linearScaleNumber: d3Scale.ScaleLinear<number, number>;
 let linearScaleNumberUnknownNumber: d3Scale.ScaleLinear<number, number, number>;
 let linearScaleNumberUnknownString: d3Scale.ScaleLinear<number, number, string>;
-let linearScaleString: d3Scale.ScaleLinear<string, string, never>;
-let linearScaleNumString: d3Scale.ScaleLinear<number, string, never>;
+let linearScaleString: d3Scale.ScaleLinear<string, string>;
+let linearScaleNumString: d3Scale.ScaleLinear<number, string>;
 
 linearScaleNumber = d3Scale.scaleLinear();
 linearScaleString = d3Scale.scaleLinear<string>();
@@ -182,7 +182,7 @@ outputString = linearScaleNumString(10);
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedLinearScale: d3Scale.ScaleLinear<number, string, never> = linearScaleNumString.copy();
+const copiedLinearScale: d3Scale.ScaleLinear<number, string> = linearScaleNumString.copy();
 
 // -------------------------------------------------------------------------------
 // Power Scale Factories
@@ -190,18 +190,18 @@ const copiedLinearScale: d3Scale.ScaleLinear<number, string, never> = linearScal
 
 // scalePow() and scaleSqrt() ----------------------------------------------------
 
-let powerScaleNumber: d3Scale.ScalePower<number, number, never>;
-let powerScaleString: d3Scale.ScalePower<string, string, never>;
-let powerScaleNumString: d3Scale.ScalePower<number, string, never>;
+let powerScaleNumber: d3Scale.ScalePower<number, number>;
+let powerScaleString: d3Scale.ScalePower<string, string>;
+let powerScaleNumString: d3Scale.ScalePower<number, string>;
 
 powerScaleNumber = d3Scale.scalePow();
 powerScaleString = d3Scale.scalePow<string>();
 powerScaleNumString = d3Scale.scalePow<number, string>();
 powerScaleNumber = d3Scale.scalePow([0, 5], [0, 5]);
 
-let squarerootScaleNumber: d3Scale.ScalePower<number, number, never>;
-let squarerootScaleString: d3Scale.ScalePower<string, string, never>;
-let squarerootScaleNumString: d3Scale.ScalePower<number, string, never>;
+let squarerootScaleNumber: d3Scale.ScalePower<number, number>;
+let squarerootScaleString: d3Scale.ScalePower<string, string>;
+let squarerootScaleNumString: d3Scale.ScalePower<number, string>;
 
 squarerootScaleNumber = d3Scale.scaleSqrt();
 squarerootScaleString = d3Scale.scaleSqrt<string>();
@@ -294,7 +294,7 @@ outputString = powerScaleNumString(10);
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedPowerScale: d3Scale.ScalePower<number, string, never> = powerScaleNumString.copy();
+const copiedPowerScale: d3Scale.ScalePower<number, string> = powerScaleNumString.copy();
 
 // -------------------------------------------------------------------------------
 // Logarithmic Scale Factory
@@ -302,9 +302,9 @@ const copiedPowerScale: d3Scale.ScalePower<number, string, never> = powerScaleNu
 
 // scaleLog() ---------------------------------------------------------------------
 
-let logScaleNumber: d3Scale.ScaleLogarithmic<number, number, never>;
-let logScaleString: d3Scale.ScaleLogarithmic<string, string, never>;
-let logScaleNumString: d3Scale.ScaleLogarithmic<number, string, never>;
+let logScaleNumber: d3Scale.ScaleLogarithmic<number, number>;
+let logScaleString: d3Scale.ScaleLogarithmic<string, string>;
+let logScaleNumString: d3Scale.ScaleLogarithmic<number, string>;
 
 logScaleNumber = d3Scale.scaleLog();
 logScaleString = d3Scale.scaleLog<string>();
@@ -398,7 +398,7 @@ outputString = logScaleNumString(10);
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedLogScale: d3Scale.ScaleLogarithmic<number, string, never> = logScaleNumString.copy();
+const copiedLogScale: d3Scale.ScaleLogarithmic<number, string> = logScaleNumString.copy();
 
 // -------------------------------------------------------------------------------
 // SymLog Scale Factory
@@ -406,9 +406,9 @@ const copiedLogScale: d3Scale.ScaleLogarithmic<number, string, never> = logScale
 
 // scaleLog() ---------------------------------------------------------------------
 
-let symLogScaleNumber: d3Scale.ScaleSymLog<number, number, never>;
-let symLogScaleString: d3Scale.ScaleSymLog<string, string, never>;
-let symLogScaleNumString: d3Scale.ScaleSymLog<number, string, never>;
+let symLogScaleNumber: d3Scale.ScaleSymLog<number, number>;
+let symLogScaleString: d3Scale.ScaleSymLog<string, string>;
+let symLogScaleNumString: d3Scale.ScaleSymLog<number, string>;
 
 symLogScaleNumber = d3Scale.scaleSymlog();
 symLogScaleString = d3Scale.scaleSymlog<string>();
@@ -434,7 +434,7 @@ tickFormatNumberFn = symLogScaleNumber.tickFormat(5, '+%');
 
 // scaleIdentity -----------------------------------------------------------------
 
-let identityScale: d3Scale.ScaleIdentity<never>;
+let identityScale: d3Scale.ScaleIdentity;
 
 identityScale = d3Scale.scaleIdentity();
 identityScale = d3Scale.scaleIdentity([0, 5]);
@@ -480,7 +480,7 @@ outputNumber = identityScale(10);
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedIdentityScale: d3Scale.ScaleIdentity<never> = identityScale.copy();
+const copiedIdentityScale: d3Scale.ScaleIdentity = identityScale.copy();
 
 // -------------------------------------------------------------------------------
 // Radial Scale Factory
@@ -488,7 +488,7 @@ const copiedIdentityScale: d3Scale.ScaleIdentity<never> = identityScale.copy();
 
 // scaleRadial() ---------------------------------------------------------------------
 
-let radialScaleNumber: d3Scale.ScaleRadial<number, number, never>;
+let radialScaleNumber: d3Scale.ScaleRadial<number, number>;
 
 radialScaleNumber = d3Scale.scaleRadial();
 radialScaleNumber = d3Scale.scaleRadial([0, 5]);
@@ -500,18 +500,18 @@ radialScaleNumber = d3Scale.scaleRadial([0, 5], [0, 5]);
 
 // scaleTime() and scaleUtc() ----------------------------------------------------
 
-let localTimeScaleNumber: d3Scale.ScaleTime<number, number, never>;
-let localTimeScaleString: d3Scale.ScaleTime<string, string, never>;
-let localTimeScaleNumString: d3Scale.ScaleTime<number, string, never>;
+let localTimeScaleNumber: d3Scale.ScaleTime<number, number>;
+let localTimeScaleString: d3Scale.ScaleTime<string, string>;
+let localTimeScaleNumString: d3Scale.ScaleTime<number, string>;
 
 localTimeScaleNumber = d3Scale.scaleTime();
 localTimeScaleString = d3Scale.scaleTime<string>();
 localTimeScaleNumString = d3Scale.scaleTime<number, string>();
 localTimeScaleNumber = d3Scale.scaleTime([0, 5], [0, 5]);
 
-let utcScaleNumber: d3Scale.ScaleTime<number, number, never>;
-let utcScaleString: d3Scale.ScaleTime<string, string, never>;
-let utcScaleNumString: d3Scale.ScaleTime<number, string, never>;
+let utcScaleNumber: d3Scale.ScaleTime<number, number>;
+let utcScaleString: d3Scale.ScaleTime<string, string>;
+let utcScaleNumString: d3Scale.ScaleTime<number, string>;
 
 utcScaleNumber = d3Scale.scaleUtc();
 utcScaleString = d3Scale.scaleUtc<string>();
@@ -606,7 +606,7 @@ outputString = localTimeScaleNumString(new Date(2016, 6, 4));
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedTimeScale: d3Scale.ScaleTime<number, string, never> = localTimeScaleNumString.copy();
+const copiedTimeScale: d3Scale.ScaleTime<number, string> = localTimeScaleNumString.copy();
 
 // -------------------------------------------------------------------------------
 // Sequential Scale Factory
@@ -614,7 +614,7 @@ const copiedTimeScale: d3Scale.ScaleTime<number, string, never> = localTimeScale
 
 // scaleSequential() -----------------------------------------------------------------
 
-let sequentialScaleColorString: d3Scale.ScaleSequential<string, never>;
+let sequentialScaleColorString: d3Scale.ScaleSequential<string>;
 
 sequentialScaleColorString = d3Scale.scaleSequential<string>();
 sequentialScaleColorString = d3Scale.scaleSequentialLog<string>();
@@ -662,7 +662,7 @@ outputString = sequentialScaleColorString(10);
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedSequentialScale: d3Scale.ScaleSequential<string, never> = sequentialScaleColorString.copy();
+const copiedSequentialScale: d3Scale.ScaleSequential<string> = sequentialScaleColorString.copy();
 
 // ScaleSequential Interface ========================================================
 
@@ -678,8 +678,8 @@ const quantilesFromSequential: number[] = sequentialQuantileScale.quantiles();
 // scaleQuantize() -----------------------------------------------------------------
 
 const interpolateDouble = (t: number) => t * 2;
-let divergingScaleNumber: d3Scale.ScaleDiverging<number, never>;
-let divergingScaleString: d3Scale.ScaleDiverging<string, never>;
+let divergingScaleNumber: d3Scale.ScaleDiverging<number>;
+let divergingScaleString: d3Scale.ScaleDiverging<string>;
 
 divergingScaleNumber = d3Scale.scaleDiverging();
 divergingScaleNumber = d3Scale.scaleDivergingLog();
@@ -739,8 +739,8 @@ divergingScaleNumber = divergingScaleNumber.rangeRound([0, 0.5, 1]);
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedDivergingScaleNumber: d3Scale.ScaleDiverging<number, never> = divergingScaleNumber.copy();
-const copiedDivergingScaleString: d3Scale.ScaleDiverging<string, never> = divergingScaleString.copy();
+const copiedDivergingScaleNumber: d3Scale.ScaleDiverging<number> = divergingScaleNumber.copy();
+const copiedDivergingScaleString: d3Scale.ScaleDiverging<string> = divergingScaleString.copy();
 
 // -------------------------------------------------------------------------------
 // Quantize Scale Factory
@@ -748,8 +748,8 @@ const copiedDivergingScaleString: d3Scale.ScaleDiverging<string, never> = diverg
 
 // scaleQuantize() -----------------------------------------------------------------
 
-let quantizeScaleNumber: d3Scale.ScaleQuantize<number, never>;
-let quantizeScaleString: d3Scale.ScaleQuantize<string, never>;
+let quantizeScaleNumber: d3Scale.ScaleQuantize<number>;
+let quantizeScaleString: d3Scale.ScaleQuantize<string>;
 
 quantizeScaleNumber = d3Scale.scaleQuantize();
 quantizeScaleString = d3Scale.scaleQuantize<string>();
@@ -800,7 +800,7 @@ outputNumber = quantizeScaleNumber(0.51);
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedQuantizeScale: d3Scale.ScaleQuantize<number, never> = quantizeScaleNumber.copy();
+const copiedQuantizeScale: d3Scale.ScaleQuantize<number> = quantizeScaleNumber.copy();
 
 // -------------------------------------------------------------------------------
 // Quantile Scale Factory
@@ -808,8 +808,8 @@ const copiedQuantizeScale: d3Scale.ScaleQuantize<number, never> = quantizeScaleN
 
 // scaleQuantile() -----------------------------------------------------------------
 
-let quantileScaleNumber: d3Scale.ScaleQuantile<number, never>;
-let quantileScaleString: d3Scale.ScaleQuantile<string, never>;
+let quantileScaleNumber: d3Scale.ScaleQuantile<number>;
+let quantileScaleString: d3Scale.ScaleQuantile<string>;
 
 quantileScaleNumber = d3Scale.scaleQuantile();
 quantileScaleString = d3Scale.scaleQuantile<string>();
@@ -849,7 +849,7 @@ outputNumber = quantileScaleNumber(0.51);
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedQuantileScale: d3Scale.ScaleQuantile<number, never> = quantileScaleNumber.copy();
+const copiedQuantileScale: d3Scale.ScaleQuantile<number> = quantileScaleNumber.copy();
 
 // -------------------------------------------------------------------------------
 // Threshold Scale Factory
@@ -857,8 +857,8 @@ const copiedQuantileScale: d3Scale.ScaleQuantile<number, never> = quantileScaleN
 
 // scaleThreshold() -----------------------------------------------------------------
 
-let thresholdScaleNumberNumber: d3Scale.ScaleThreshold<number, number, never>;
-let thresholdScaleNumberString: d3Scale.ScaleThreshold<number, string, never>;
+let thresholdScaleNumberNumber: d3Scale.ScaleThreshold<number, number>;
+let thresholdScaleNumberString: d3Scale.ScaleThreshold<number, string>;
 
 thresholdScaleNumberNumber = d3Scale.scaleThreshold();
 thresholdScaleNumberString = d3Scale.scaleThreshold<number, string>();
@@ -895,7 +895,7 @@ outputString = thresholdScaleNumberString(0.9);
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedThresholdScale: d3Scale.ScaleThreshold<number, string, never> = thresholdScaleNumberString.copy();
+const copiedThresholdScale: d3Scale.ScaleThreshold<number, string> = thresholdScaleNumberString.copy();
 
 // -------------------------------------------------------------------------------
 // Ordinal Scale Factory
@@ -903,8 +903,8 @@ const copiedThresholdScale: d3Scale.ScaleThreshold<number, string, never> = thre
 
 // scaleOrdinal() -----------------------------------------------------------------
 
-let ordinalScaleStringString: d3Scale.ScaleOrdinal<string, string, never>;
-let ordinalScaleStringNumber: d3Scale.ScaleOrdinal<string, number, never>;
+let ordinalScaleStringString: d3Scale.ScaleOrdinal<string, string>;
+let ordinalScaleStringNumber: d3Scale.ScaleOrdinal<string, number>;
 let ordinalScaleStringNumberNumber: d3Scale.ScaleOrdinal<string, number, number>;
 
 ordinalScaleStringString = d3Scale.scaleOrdinal<string>();
@@ -955,7 +955,7 @@ const ordinalOutputNumber: number = ordinalScaleStringNumber('negative');
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedOrdinalScale: d3Scale.ScaleOrdinal<string, number, never> = ordinalScaleStringNumber.copy();
+const copiedOrdinalScale: d3Scale.ScaleOrdinal<string, number> = ordinalScaleStringNumber.copy();
 
 // -------------------------------------------------------------------------------
 // Band Scale Factory

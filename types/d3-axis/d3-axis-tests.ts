@@ -78,14 +78,14 @@ let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scal
 // scale(...) ----------------------------------------------------------------
 
 leftAxis = leftAxis.scale(scalePow());
-const powerScale: ScalePower<number, number, never> = leftAxis.scale<ScalePower<number, number, never>>();
+const powerScale: ScalePower<number, number> = leftAxis.scale<ScalePower<number, number>>();
 
 bottomAxis = bottomAxis.scale(scaleOrdinal<number>());
 // $ExpectError
 bottomAxis = bottomAxis.scale(scalePow()); // fails, domain of scale incompatible with domain of axis
 
 const axisScale: d3Axis.AxisScale<string> = bottomAxis.scale();
-const ordinalScale: ScaleOrdinal<string, number, never> = bottomAxis.scale<ScaleOrdinal<string, number, never>>();
+const ordinalScale: ScaleOrdinal<string, number> = bottomAxis.scale<ScaleOrdinal<string, number>>();
 
 // ticks(...) ----------------------------------------------------------------
 

@@ -2281,7 +2281,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range, Unkn
     unknown<NewUnknown>(
         value: NewUnknown
     ): NewUnknown extends { name: "implicit" }
-        ? ScaleOrdinal<Domain, Range, never>
+        ? ScaleOrdinal<Domain, Range>
         : ScaleOrdinal<Domain, Range, NewUnknown>;
 
     /**
@@ -2299,7 +2299,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range, Unkn
  *
  * @param range An optional array of range values to initialize the scale with.
  */
-export function scaleOrdinal<Range>(range?: Iterable<Range>): ScaleOrdinal<string, Range, never>;
+export function scaleOrdinal<Range>(range?: Iterable<Range>): ScaleOrdinal<string, Range>;
 /**
  * Constructs a new ordinal scale with the specified range.
  * The domain defaults to the empty array.

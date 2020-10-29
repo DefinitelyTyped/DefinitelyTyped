@@ -623,8 +623,8 @@ const invertedPoint: [number, number] = zTransform.invert([150, 240]);
 const invertedX: number = zTransform.invertX(150);
 const invertedY: number = zTransform.invertY(240);
 
-let linearScale: ScaleLinear<number, number, never> = scaleLinear();
-let timeScale: ScaleTime<number, number, never> = scaleTime();
+let linearScale: ScaleLinear<number, number> = scaleLinear();
+let timeScale: ScaleTime<number, number> = scaleTime();
 
 linearScale = zTransform.rescaleX(linearScale);
 linearScale = zTransform.rescaleY(linearScale);
