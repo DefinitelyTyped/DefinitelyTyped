@@ -55606,7 +55606,8 @@ declare namespace Excel {
             *
             * The style applied to the PivotTable.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             pivotStyle?: Excel.Interfaces.PivotTableStyleData;
             /**
@@ -64112,7 +64113,8 @@ declare namespace Excel {
             *
             * The style applied to the PivotTable.
             *
-            * [Api set: ExcelApi 1.12]
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
             */
             pivotStyle?: Excel.Interfaces.PivotTableStyleLoadOptions;
             /**
