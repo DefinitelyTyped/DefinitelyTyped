@@ -60,7 +60,7 @@ export interface ElementLocation extends StartTagLocation {
     endTag: Location;
 }
 
-export interface ParserOptions<T extends TreeAdapterLike = TreeAdapterLike> {
+export interface ParserOptions<T extends TreeAdapter = TreeAdapter> {
     /**
      * The [scripting flag](https://html.spec.whatwg.org/multipage/parsing.html#scripting-flag). If set
      * to `true`, `noscript` element content will be parsed as text.
@@ -95,7 +95,7 @@ export interface SerializerOptions {
      *
      * **Default:** `treeAdapters.default`
      */
-    treeAdapter?: TreeAdapterLike;
+    treeAdapter?: TreeAdapter;
 }
 
 /**
@@ -295,7 +295,7 @@ export type ParentNode = Document | DocumentFragment | Element;
  */
 export type Node = CommentNode | Document | DocumentFragment | DocumentType | Element | TextNode;
 
-export interface TreeAdapterMap {
+export interface TreeAdapterTypeMap {
     attribute: any;
     childNode: any;
     commentNode: any;
@@ -308,7 +308,7 @@ export interface TreeAdapterMap {
     textNode: any;
 }
 
-export interface TreeAdapterLike {
+export interface TreeAdapter {
     adoptAttributes(recipient: unknown, attrs: unknown[]): void;
     appendChild(parentNode: unknown, newNode: unknown): void;
     createCommentNode(data: string): unknown;
@@ -370,7 +370,7 @@ export interface TreeAdapterLike {
  *
  * @see [default implementation](https://github.com/inikulin/parse5/blob/master/packages/parse5/lib/tree-adapters/default.js)
  */
-export interface TreeAdapter<T extends TreeAdapterMap> extends TreeAdapterLike {
+export interface TypedTreeAdapter<T extends TreeAdapterTypeMap> extends TreeAdapter {
     /**
      * Copies attributes to the given element. Only attributes that are not yet present in the element are copied.
      *
@@ -648,9 +648,9 @@ export interface TreeAdapter<T extends TreeAdapterMap> extends TreeAdapterLike {
  * console.log(document.childNodes[1].tagName); //> 'html'
  * ```
  */
-export function parse<T extends TreeAdapterLike = TreeAdapterLike>(
+export function parse<T extends TreeAdapter = TreeAdapter>(
     html: string,
-    options?: ParserOptions<T>): T extends TreeAdapter<infer TMap> ? TMap['document'] : Document;
+    options?: ParserOptions<T>): T extends TypedTreeAdapter<infer TMap> ? TMap['document'] : Document;
 
 /**
  * Parses an HTML fragment.
@@ -674,14 +674,14 @@ export function parse<T extends TreeAdapterLike = TreeAdapterLike>(
  * console.log(trFragment.childNodes[0].childNodes[0].tagName); //> 'td'
  * ```
  */
-export function parseFragment<T extends TreeAdapterLike = TreeAdapterLike>(
+export function parseFragment<T extends TreeAdapter = TreeAdapter>(
     html: string,
     options?: ParserOptions<T>
-): T extends TreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
-export function parseFragment<T extends TreeAdapterLike = TreeAdapterLike>(
+): T extends TypedTreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
+export function parseFragment<T extends TreeAdapter = TreeAdapter>(
     fragmentContext: Element,
     html: string,
-    options?: ParserOptions<T>): T extends TreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
+    options?: ParserOptions<T>): T extends TypedTreeAdapter<infer TMap> ? TMap['documentFragment'] : DocumentFragment;
 
 /**
  * Serializes an AST node to an HTML string.

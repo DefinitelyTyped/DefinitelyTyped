@@ -212,7 +212,7 @@ declare namespace treeAdapter {
     type ParentNode = Document | DocumentFragment | Element;
 }
 
-interface TreeAdapterMap extends parse5.TreeAdapterMap {
+interface TreeAdapterTypeMap extends parse5.TreeAdapterTypeMap {
     attribute: parse5.Attribute;
     childNode: treeAdapter.Node;
     commentNode: treeAdapter.CommentNode;
@@ -225,6 +225,6 @@ interface TreeAdapterMap extends parse5.TreeAdapterMap {
     textNode: treeAdapter.TextNode;
 }
 
-declare const treeAdapter: parse5.TreeAdapter<TreeAdapterMap>;
+declare const treeAdapter: parse5.TypedTreeAdapter<TreeAdapterTypeMap>;
 
 export = treeAdapter;

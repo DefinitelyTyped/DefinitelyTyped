@@ -1,6 +1,6 @@
 import * as parse5 from '../../';
 
-interface DefaultTreeAdapterMap extends parse5.TreeAdapterMap {
+interface TreeAdapterTypeMap extends parse5.TreeAdapterTypeMap {
     attribute: parse5.Attribute;
     childNode: parse5.ChildNode;
     commentNode: parse5.CommentNode;
@@ -13,6 +13,6 @@ interface DefaultTreeAdapterMap extends parse5.TreeAdapterMap {
     textNode: parse5.TextNode;
 }
 
-declare const treeAdapter: parse5.TreeAdapter<DefaultTreeAdapterMap>;
+declare const treeAdapter: parse5.TypedTreeAdapter<TreeAdapterTypeMap>;
 
 export = treeAdapter;
