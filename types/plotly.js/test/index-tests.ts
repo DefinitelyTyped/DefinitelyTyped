@@ -232,21 +232,31 @@ const graphDiv = '#test';
 (() => {
     // Test the template with practical types.
     // https://plotly.com/javascript/layout-template/
-    const data: Array<Partial<PlotData>> = [{
-        type: 'bar', name: 'bar', text: ['2', '3', '1', '4'], x: ['Jan', 'Feb', 'Mar', 'Apr'], y: [2, 3, 1, 4]
-    }, {
-        type: 'scatter', name: 'scatter', x: [1, 2, 3, 4], y: [2, 4, 1, 5]
-    }];
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: 'bar',
+            name: 'bar',
+            text: ['2', '3', '1', '4'],
+            x: ['Jan', 'Feb', 'Mar', 'Apr'],
+            y: [2, 3, 1, 4],
+        },
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+        },
+    ];
     const template: Template = {
         data: {
             bar: { marker: { color: '#3183BD', opacity: 0.7 }, textposition: 'auto' },
             scatter: {
                 mode: 'lines+markers',
                 line: { color: 'red', width: 3 },
-                marker: { color: 'red', size: 8, symbol: 'circle-open' }
-            }
+                marker: { color: 'red', size: 8, symbol: 'circle-open' },
+            },
         },
-        layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } }
+        layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } },
     };
     const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template };
     Plotly.newPlot('myDiv', data, layout);
@@ -712,4 +722,32 @@ function rand() {
     });
 
     myPlot.removeAllListeners('plotly_restyle');
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Sunburst specific properties and events
+(async () => {
+    const sunburst = await newPlot(graphDiv, [
+        {
+            type: "sunburst",
+            ids: ["root", "child1", "child2"],
+            branchvalues: "total",
+            level: "child1",
+            parents: ["", "root", "root"],
+        },
+    ]);
+
+    sunburst.on('plotly_sunburstclick', (event) => {
+        console.log(`Clicked button ${event.event.button} to navigate to ${event.nextLevel}`);
+
+        const point = event.points[0];
+        console.log(`Clicked id ${point.id} with label ${point.label} and parent label ${point.parent}`);
+        console.log(`Point is number ${point.pointNumber} on trace ${point.curveNumber}`);
+        console.log(`Click happened while at level *labelled* ${point.entry}, and root *labelled* ${point.root}`);
+        console.log(`Point has value ${point.value}`);
+        console.log(`Point takes up proportions of (previous level, parent, root): (${point.percentEntry}, ${point.percentParent}, ${point.percentRoot})`);
+        console.log(`Colored ${point.color} and hover ${point.hovertext}`);
+        console.log(`Can access trace data ${point.data.name} and full data ${point.fullData.name}`);
+    });
 })();

@@ -546,3 +546,9 @@ const chartWithNumberArrayData: Chart = new Chart(ctx, {
         }
     }
 });
+
+// Category axes
+const categoryXAxe: Chart.ChartXAxe = {
+    type: 'category',
+    labels: ['label1', 'label2'],
+};

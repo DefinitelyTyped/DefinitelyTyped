@@ -180,7 +180,6 @@ declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
-    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 

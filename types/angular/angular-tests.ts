@@ -235,7 +235,7 @@ mod.service('name', ($scope: ng.IScope) => {});
 mod.service('name', ['$scope', ($scope: ng.IScope) => {}]);
 mod.service({
     MyCtrl: class {},
-    MyCtrl2: () => {}, // tslint:disable-line:object-literal-shorthand
+    MyCtrl2: () => {},
     MyCtrl3: ['$fooService', ($fooService: any) => {}]
 });
 mod.constant('name', 23);

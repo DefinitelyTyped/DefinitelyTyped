@@ -541,6 +541,7 @@ declare namespace NodeJS {
     interface Timer extends RefCounted {
         hasRef(): boolean;
         refresh(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     interface Immediate extends RefCounted {
@@ -551,13 +552,13 @@ declare namespace NodeJS {
     interface Timeout extends Timer {
         hasRef(): boolean;
         refresh(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
     type ArrayBufferView = TypedArray | DataView;
 
     interface Require {
-        /* tslint:disable-next-line:callable-types */
         (id: string): any;
         resolve: RequireResolve;
         cache: Dict<NodeModule>;

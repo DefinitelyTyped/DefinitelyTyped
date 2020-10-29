@@ -254,7 +254,9 @@ declare namespace Faker {
         };
 
         time: {
-            recent(outputType?: string): Date;
+            recent(): number;
+            recent(outputType: 'unix'): number;
+            recent(outputType: 'abbr' | 'wide'): string;
         };
 
         seed(value: number): void;

@@ -74,7 +74,7 @@ interface ProviderCredentialsOptions {
     id?: string;
     name: string;
     credentials: CredentialInput;
-    authorize(credentails: CredentialInput): Promise<GenericReturnConfig | null>;
+    authorize(credentials: Record<string, string>): Promise<GenericReturnConfig | null>;
 }
 
 interface CredentialInput {

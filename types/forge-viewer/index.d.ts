@@ -532,6 +532,7 @@ declare namespace Autodesk {
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
+            getPageToModelTransform(vpId: number): THREE.Matrix4;
             getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             geomPolyCount(): number;
@@ -543,6 +544,7 @@ declare namespace Autodesk {
             getFragmentMap(): any;
             getInstanceTree(): InstanceTree;
             getLayersRoot(): object;
+            getLayerToNodeIdMapping(onSuccessCallback: (mapping: { [key: string]: number[]; }) => void, onErrorCallback: () => void): void;
             getMetadata(itemName: string, subitemName?: string, defaultValue?: any): any;
             getRoot(): object;
             getRootId(): number;
@@ -566,6 +568,40 @@ declare namespace Autodesk {
             setData(data: object): void;
             setThemingColor(dbId: number, color: THREE.Vector4, recursive?: boolean): void;
             setUUID(urn: string): void;
+        }
+
+        namespace MeasureCommon {
+          function getSnapResultPosition(pick: SnapResult, viewer: Viewer3D): THREE.Vector3;
+
+          class SnapResult {
+            circularArcCenter: THREE.Vector3;
+            circularArcRadius: number;
+            faceNormal: THREE.Vector3;
+            fromTopology: boolean;
+            geomEdge: THREE.Geometry;
+            geomFace: THREE.Geometry;
+            geomType: number;
+            geomVertex: THREE.Vector3;
+            hasTopology: boolean;
+            intersectPoint: THREE.Vector3;
+            isMidpoint: boolean;
+            isPerpendicular: boolean;
+            modelId: number;
+            radius: number;
+            snapNode: number;
+            snapPoint: THREE.Vector3;
+            viewportIndex2d: number;
+
+            applyMatrix4(matrix: THREE.Matrix4): void;
+            clear(): void;
+            clone(): SnapResult;
+            copyTo(destiny: SnapResult): void;
+            getEdge(): THREE.Geometry;
+            getFace(): THREE.Geometry;
+            getGeometry(): THREE.Geometry;
+            getVertex(): THREE.Vector3;
+            isEmpty(): boolean;
+          }
         }
 
         interface PropertyResult {
@@ -634,7 +670,10 @@ declare namespace Autodesk {
             getActiveTool(): ToolInterface;
             getActiveToolName(): string;
             getDefaultTool(): ToolInterface;
+            getIsLocked(): boolean;
+            getTool(name: string): ToolInterface;
             getToolNames(): string[];
+            setIsLocked(state: boolean): boolean;
         }
 
         interface ToolInterface {
@@ -987,18 +1026,52 @@ declare namespace Autodesk {
             constructor(viewer: GuiViewer3D);
             currentNodeIds: object[];
           }
+
+          namespace Snapping {
+            class Snapper {
+              constructor(viewer: Viewer3D, options?: {
+                forceSnapEdges?: boolean;
+                forceSnapVertices?: boolean;
+                markupMode?: boolean;
+                renderSnappedGeometry?: boolean;
+                renderSnappedTopology?: boolean;
+                toolName?: string;
+              });
+
+              indicator: SnapperIndicator;
+
+              activate(): void;
+              deactivate(): void;
+              isActive(): boolean;
+              isSnapped(): boolean;
+              clearSnapped(): void;
+              copyResults(destiny: any): void;
+              getGeometry(): any;
+              getEdge(): any;
+              getSnapResult(): MeasureCommon.SnapResult;
+              getVertex(): any;
+              onMouseMove(mousePosition: { x: number, y: number }): boolean;
+            }
+
+            class SnapperIndicator {
+              constructor(viewer: Viewer3D, snapper: Snapper);
+
+              clearOverlays(): void;
+              onCameraChange(): void;
+              render(): void;
+            }
+          }
         }
 
         namespace Private {
-            function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
-
             const env: string;
 
-            function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
-            function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number,
-                                  d: number, type: string): number;
             function calculatePrecision(value: string|number): number;
-
+            function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
+            function fadeValue(startValue: number, endValue: number, duration: number, setParam: (value: number) => void, onFinished?: () => void): any;
+            function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
+            function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
+            function lerp(x: number, y: number, t: number): number;
             interface PreferencesOptions {
               localStorage?: boolean;
               prefix?: string;
@@ -1020,6 +1093,17 @@ declare namespace Autodesk {
               untag(tag: string, names?: string[]|string): void;
             }
 
+            class BoundsCallback {
+              constructor(bounds: THREE.Box3);
+
+              onCircularArc(cx: number, cy: number, start: number, end: number, radius: number, vpId: number): void;
+              onEllipticalArc(cx: number, cy: number, start: number, end: number, major: number, minor: number, tilt: number, vpId: number): void;
+              onLineSegment(x1: number, y1: number, x2: number, y2: number, vpId: number): void;
+              onOneTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, vpId: number): void;
+              onTexQuad(centerX: number, centerY: number, width: number, height: number, rotation: number, vpId: number): void;
+              onVertex(cx: number, cy: number, vpId: number): void;
+            }
+
             class VertexBufferReader {
               constructor(geometry: any, use2dInstancing?: boolean);
 
@@ -1039,10 +1123,14 @@ declare namespace Autodesk {
 
             interface HitTestResult {
                 dbId: number;
+                distance: number;
                 face: THREE.Face3;
+                faceIndex: number;
                 fragId: number;
                 intersectPoint: THREE.Vector3;
                 model: Model;
+                object: any;
+                point: THREE.Vector3;
             }
 
             interface Dimensions {
@@ -1077,11 +1165,14 @@ declare namespace Autodesk {
                 visibilityManager: VisibilityManager;
 
                 addOverlay(overlayName: string, mesh: any): void;
+                clearOverlay(name: string): void;
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
                 clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
                 createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any): void;
+                disableHighlight(disable: boolean): void;
+                disableSelection(disable: boolean): void;
                 getCanvasBoundingClientRect(): DOMRect;
-                hitTest(clientX: number, clientY: number, ignoreTransparent: boolean): HitTestResult;
+                hitTest(clientX: number, clientY: number, ignoreTransparent?: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
                 intersectGround(clientX: number, clientY: number): THREE.Vector3;
@@ -1092,6 +1183,7 @@ declare namespace Autodesk {
                 matman(): any;
                 getMaterials(): any;
                 getScreenShotProgressive(w: number, h: number, onFinished?: () => void, options?: any): any;
+                pauseHighlight(disable: boolean): void;
                 removeOverlayScene(name: string): any;
                 removeOverlay(name: string, mesh: any): any;
                 getFitBounds(p: boolean): THREE.Box3;
@@ -1101,8 +1193,9 @@ declare namespace Autodesk {
                 setPlacementTransform(model: Model, matrix: THREE.Matrix4): void;
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
                 syncCamera(syncWorldUp?: boolean): void;
-                viewportToRay(vpVec: THREE.Vector3, ray: THREE.Ray): THREE.Ray;
+                viewportToRay(vpVec: THREE.Vector3, ray?: THREE.Ray, camera?: any): THREE.Ray;
                 worldToClient(pos: THREE.Vector3): THREE.Vector3;
+                worldUp(): THREE.Vector3;
                 worldUpName(): string;
             }
 

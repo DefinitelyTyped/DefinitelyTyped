@@ -1,15 +1,12 @@
 import * as React from "react";
-import { ReactInputAttr, RequiresIdProps } from "../../../typings/shared";
+import { ReactInputAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "id" | "onChange" | "type";
-interface InheritedProps extends
-    Omit<ReactInputAttr, ExcludedAttributes>,
-    RequiresIdProps
-{ }
 
-export interface CheckboxProps extends InheritedProps {
+export interface CheckboxProps extends Omit<ReactInputAttr, ExcludedAttributes> {
     defaultChecked?: boolean,
     hideLabel?: boolean,
+    id: string,
     indeterminate?: boolean,
     labelText: NonNullable<React.ReactNode>,
     onChange?(checked: boolean, id: string, event: React.ChangeEvent<HTMLInputElement>): void,

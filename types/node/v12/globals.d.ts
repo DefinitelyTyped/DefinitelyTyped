@@ -193,7 +193,6 @@ declare function queueMicrotask(callback: () => void): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
-    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -231,7 +230,8 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: NodeModule | null;
+    /** @deprecated since 12.19.0 Please use `require.main` and `module.children` instead. */
+    parent: NodeModule | null | undefined;
     children: NodeModule[];
     /**
      * @since 11.14.0
@@ -935,9 +935,15 @@ declare namespace NodeJS {
             tls: boolean;
         };
         /**
+         * @deprecated since v12.19.0 - Calling process.umask() with no argument causes
+         * the process-wide umask to be written twice. This introduces a race condition between threads,
+         * and is a potential security vulnerability. There is no safe, cross-platform alternative API.
+         */
+        umask(): number;
+        /**
          * Can only be set if not in worker thread.
          */
-        umask(mask?: number): number;
+        umask(mask: string | number): number;
         uptime(): number;
         hrtime: HRTime;
         domain: Domain;
@@ -1140,6 +1146,7 @@ declare namespace NodeJS {
         ref(): this;
         refresh(): this;
         unref(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     class Immediate {
@@ -1154,6 +1161,7 @@ declare namespace NodeJS {
         ref(): this;
         refresh(): this;
         unref(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     class Module {
@@ -1174,7 +1182,8 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        parent: Module | null;
+        /** @deprecated since 12.19.0 Please use `require.main` and `module.children` instead. */
+        parent: Module | null | undefined;
         children: Module[];
         /**
          * @since 11.14.0

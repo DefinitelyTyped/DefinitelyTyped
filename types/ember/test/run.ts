@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import RSVP from 'rsvp';
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 
 assertType<string[]>(Ember.run.queues);
 
@@ -13,7 +13,7 @@ function testRun() {
 
     function destroyApp(application: Ember.Application) {
         Ember.run(application, 'destroy');
-        Ember.run(application, function() {
+        Ember.run(application, function () {
             this.destroy();
         });
     }
@@ -30,7 +30,7 @@ function testBind() {
 
         setupEditor(editor: string) {
             this.set('editor', editor);
-        }
+        },
     });
 }
 
@@ -43,9 +43,13 @@ function testCancel() {
 
     Ember.run.cancel(runNext);
 
-    const runLater = Ember.run.later(myContext, () => {
-        // will not be executed
-    }, 500);
+    const runLater = Ember.run.later(
+        myContext,
+        () => {
+            // will not be executed
+        },
+        500,
+    );
 
     Ember.run.cancel(runLater);
 
@@ -61,29 +65,42 @@ function testCancel() {
 
     Ember.run.cancel(runOnce);
 
-    const throttle = Ember.run.throttle(myContext, () => {
-        // will not be executed
-    }, 1, false);
+    const throttle = Ember.run.throttle(
+        myContext,
+        () => {
+            // will not be executed
+        },
+        1,
+        false,
+    );
 
     Ember.run.cancel(throttle);
 
-    const debounce = Ember.run.debounce(myContext, () => {
-        // will not be executed
-    }, 1);
+    const debounce = Ember.run.debounce(
+        myContext,
+        () => {
+            // will not be executed
+        },
+        1,
+    );
 
     Ember.run.cancel(debounce);
 
-    const debounceImmediate = Ember.run.debounce(myContext, () => {
-        // will be executed since we passed in true (immediate)
-    }, 100, true);
+    const debounceImmediate = Ember.run.debounce(
+        myContext,
+        () => {
+            // will be executed since we passed in true (immediate)
+        },
+        100,
+        true,
+    );
 
     // the 100ms delay until this method can be called again will be canceled
     Ember.run.cancel(debounceImmediate);
 }
 
 function testDebounce() {
-    function runIt() {
-    }
+    function runIt() {}
 
     const myContext = { name: 'debounce' };
 
@@ -99,8 +116,8 @@ function testDebounce() {
             handleTyping() {
                 // the fetchResults function is passed into the component from its parent
                 Ember.run.debounce(this, this.get('fetchResults'), this.get('searchValue'), 250);
-            }
-        }
+            },
+        },
     });
 }
 
@@ -123,7 +140,7 @@ function testJoin() {
         });
     });
 
-    new RSVP.Promise((resolve) => {
+    new RSVP.Promise(resolve => {
         Ember.run.later(() => {
             resolve({ msg: 'Hold Your Horses' });
         }, 3000);
@@ -132,9 +149,13 @@ function testJoin() {
 
 function testLater() {
     const myContext = {};
-    Ember.run.later(myContext, () => {
-        // code here will execute within a RunLoop in about 500ms with this == myContext
-    }, 500);
+    Ember.run.later(
+        myContext,
+        () => {
+            // code here will execute within a RunLoop in about 500ms with this == myContext
+        },
+        500,
+    );
 }
 
 function testNext() {
@@ -151,8 +172,7 @@ function testOnce() {
             Ember.run.once(this, 'processFullName');
         },
 
-        processFullName() {
-        }
+        processFullName() {},
     });
 }
 
@@ -168,7 +188,7 @@ function testSchedule() {
                 // this will be executed in the 'actions' queue, after bindings have synced.
                 console.log('scheduled on actions queue');
             });
-        }
+        },
     });
 
     Ember.run.schedule('actions', () => {
@@ -193,8 +213,7 @@ function testScheduleOnce() {
 }
 
 function testThrottle() {
-    function runIt() {
-    }
+    function runIt() {}
 
     const myContext = { name: 'throttle' };
 
