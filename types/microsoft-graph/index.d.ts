@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 1.25
+// Type definitions for non-npm package microsoft-graph 1.26
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -1042,6 +1042,8 @@ export type ThreatAssessmentResultType = "checkPolicy" | "rescan" | "unknownFutu
 export type ThreatAssessmentStatus = "pending" | "completed";
 export type ThreatCategory = "undefined" | "spam" | "phishing" | "malware" | "unknownFutureValue";
 export type ThreatExpectedAssessment = "block" | "unblock";
+export type TaskStatus = "notStarted" | "inProgress" | "completed" | "waitingOnOthers" | "deferred";
+export type WellknownListName = "none" | "defaultList" | "flaggedEmails" | "unknownFutureValue";
 export interface Entity {
     // Read-only.
     id?: string;
@@ -1176,6 +1178,7 @@ export interface SignIn extends Entity {
 export interface RestrictedSignIn extends SignIn {
     targetTenantId?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface Invitation extends Entity {
     // The display name of the user being invited.
     invitedUserDisplayName?: NullableOption<string>;
@@ -1259,7 +1262,7 @@ export interface User extends DirectoryObject {
      * Supports $filter and $orderby.
      */
     displayName?: NullableOption<string>;
-    // The employee identifier assigned to the user by the organization. Supports $filter.
+    // The employee identifier assigned to the user by the organization. Returned only on $select. Supports $filter.
     employeeId?: NullableOption<string>;
     /**
      * For an external user invited to the tenant using the invitation API, this property represents the invited user's
@@ -1284,7 +1287,7 @@ export interface User extends DirectoryObject {
     imAddresses?: NullableOption<string[]>;
     // Do not use – reserved for future use.
     isResourceAccount?: NullableOption<boolean>;
-    // The user’s job title. Supports $filter.
+    // The user's job title. Supports $filter.
     jobTitle?: NullableOption<string>;
     /**
      * The time when this Azure AD user last changed their password. The date and time information uses ISO 8601 format and is
@@ -1329,7 +1332,7 @@ export interface User extends DirectoryObject {
     /**
      * This property is used to associate an on-premises Active Directory user account to their Azure AD user object. This
      * property must be specified when creating a new user account in the Graph if you are using a federated domain for the
-     * user’s userPrincipalName (UPN) property. Important: The $ and _ characters cannot be used when specifying this
+     * user's userPrincipalName (UPN) property. Important: The $ and _ characters cannot be used when specifying this
      * property. Supports $filter.
      */
     onPremisesImmutableId?: NullableOption<string>;
@@ -1376,7 +1379,7 @@ export interface User extends DirectoryObject {
      */
     passwordPolicies?: NullableOption<string>;
     /**
-     * Specifies the password profile for the user. The profile contains the user’s password. This property is required when a
+     * Specifies the password profile for the user. The profile contains the user's password. This property is required when a
      * user is created. The password in the profile must satisfy minimum requirements as specified by the passwordPolicies
      * property. By default, a strong password is required.
      */
@@ -1422,7 +1425,7 @@ export interface User extends DirectoryObject {
     /**
      * The user principal name (UPN) of the user. The UPN is an Internet-style login name for the user based on the Internet
      * standard RFC 822. By convention, this should map to the user's email name. The general format is alias@domain, where
-     * domain must be present in the tenant’s collection of verified domains. This property is required when a user is
+     * domain must be present in the tenant's collection of verified domains. This property is required when a user is
      * created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.
      * Supports $filter and $orderby.
      */
@@ -1448,7 +1451,9 @@ export interface User extends DirectoryObject {
     birthday?: string;
     /**
      * The hire date of the user. The Timestamp type represents date and time information using ISO 8601 format and is always
-     * in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
+     * in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Returned only on
+     * $select. Note: This property is specific to SharePoint Online. We recommend using the native employeeHireDate property
+     * to set and update hire date values using Microsoft Graph APIs.
      */
     hireDate?: string;
     // A list for the user to describe their interests.
@@ -1475,7 +1480,7 @@ export interface User extends DirectoryObject {
     directReports?: NullableOption<DirectoryObject[]>;
     // A collection of this user's license details. Read-only.
     licenseDetails?: NullableOption<LicenseDetails[]>;
-    // The user or contact that is this user’s manager. Read-only. (HTTP Methods: GET, PUT, DELETE.)
+    // The user or contact that is this user's manager. Read-only. (HTTP Methods: GET, PUT, DELETE.)
     manager?: NullableOption<DirectoryObject>;
     // The groups and directory roles that the user is a member of. Read-only. Nullable.
     memberOf?: NullableOption<DirectoryObject[]>;
@@ -1543,6 +1548,7 @@ export interface User extends DirectoryObject {
     onlineMeetings?: NullableOption<OnlineMeeting[]>;
     joinedTeams?: NullableOption<Team[]>;
     teamwork?: NullableOption<UserTeamwork>;
+    todo?: NullableOption<Todo>;
 }
 export interface AppRoleAssignment extends DirectoryObject {
     /**
@@ -1664,6 +1670,7 @@ export interface Calendar extends Entity {
      */
     defaultOnlineMeetingProvider?: NullableOption<OnlineMeetingProviderType>;
     hexColor?: NullableOption<string>;
+    isDefaultCalendar?: NullableOption<boolean>;
     // Indicates whether this user calendar can be deleted from the user mailbox.
     isRemovable?: NullableOption<boolean>;
     /**
@@ -1943,6 +1950,7 @@ export interface Contact extends OutlookItem {
     // The collection of single-value extended properties defined for the contact. Read-only. Nullable.
     singleValueExtendedProperties?: NullableOption<SingleValueLegacyExtendedProperty[]>;
 }
+// tslint:disable-next-line: interface-name
 export interface InferenceClassification extends Entity {
     /**
      * A set of overrides for a user to always classify messages from specific senders in certain ways: focused, or other.
@@ -2047,11 +2055,11 @@ export interface Message extends OutlookItem {
      */
     uniqueBody?: NullableOption<ItemBody>;
     /**
-     * The URL to open the message in Outlook Web App.You can append an ispopout argument to the end of the URL to change how
-     * the message is displayed. If ispopout is not present or if it is set to 1, then the message is shown in a popout
-     * window. If ispopout is set to 0, then the browser will show the message in the Outlook Web App review pane.The message
-     * will open in the browser if you are logged in to your mailbox via Outlook Web App. You will be prompted to login if you
-     * are not already logged in with the browser.This URL can be accessed from within an iFrame.
+     * The URL to open the message in Outlook on the web.You can append an ispopout argument to the end of the URL to change
+     * how the message is displayed. If ispopout is not present or if it is set to 1, then the message is shown in a popout
+     * window. If ispopout is set to 0, then the browser will show the message in the Outlook on the web review pane.The
+     * message will open in the browser if you are logged in to your mailbox via Outlook on the web. You will be prompted to
+     * login if you are not already logged in with the browser.This URL cannot be accessed from within an iFrame.
      */
     webLink?: NullableOption<string>;
     // The fileAttachment and itemAttachment attachments for the message.
@@ -2544,6 +2552,9 @@ export interface UserTeamwork extends Entity {
     // The apps installed in the personal scope of this user.
     installedApps?: NullableOption<UserScopeTeamsAppInstallation[]>;
 }
+export interface Todo extends Entity {
+    lists?: NullableOption<TodoTaskList[]>;
+}
 export interface Application extends DirectoryObject {
     /**
      * Defines custom behavior that a consuming service can use to call an app in specific contexts. For example, applications
@@ -2692,6 +2703,7 @@ export interface HomeRealmDiscoveryPolicy extends StsPolicy {}
 export interface TokenIssuancePolicy extends StsPolicy {}
 // tslint:disable-next-line: no-empty-interface
 export interface TokenLifetimePolicy extends StsPolicy {}
+// tslint:disable-next-line: interface-name
 export interface IdentityContainer extends Entity {
     conditionalAccess?: NullableOption<ConditionalAccessRoot>;
 }
@@ -2699,6 +2711,7 @@ export interface ConditionalAccessRoot extends Entity {
     namedLocations?: NullableOption<NamedLocation[]>;
     policies?: NullableOption<ConditionalAccessPolicy[]>;
 }
+// tslint:disable-next-line: interface-name
 export interface IdentityProvider extends Entity {
     clientId?: NullableOption<string>;
     clientSecret?: NullableOption<string>;
@@ -2713,9 +2726,9 @@ export interface AdministrativeUnit extends DirectoryObject {
     // Display name for the administrative unit.
     displayName?: NullableOption<string>;
     /**
-     * Controls whether the adminstrative unit and its members are hidden or public. Can be set to HiddenMembership or Public.
-     * If not set, default behavior is Public. When set to HiddenMembership, only members of the administrative unit can list
-     * other members of the adminstrative unit.
+     * Controls whether the administrative unit and its members are hidden or public. Can be set to HiddenMembership or
+     * Public. If not set, default behavior is Public. When set to HiddenMembership, only members of the administrative unit
+     * can list other members of the adminstrative unit.
      */
     visibility?: NullableOption<string>;
     /**
@@ -2784,9 +2797,9 @@ export interface Device extends DirectoryObject {
     complianceExpirationDateTime?: NullableOption<string>;
     // Unique identifier set by Azure Device Registration Service at the time of registration.
     deviceId?: NullableOption<string>;
-    // For interal use only. Set to null.
+    // For internal use only. Set to null.
     deviceMetadata?: NullableOption<string>;
-    // For interal use only.
+    // For internal use only.
     deviceVersion?: NullableOption<number>;
     // The display name for the device. Required.
     displayName?: NullableOption<string>;
@@ -2803,9 +2816,9 @@ export interface Device extends DirectoryObject {
     // Application identifier used to register device into MDM. Read-only. Supports $filter.
     mdmAppId?: NullableOption<string>;
     /**
-     * The last time at which the object was synced with the on-premises directory.The Timestamp type represents date and time
-     * information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like
-     * this: '2014-01-01T00:00:00Z' Read-only.
+     * The last time at which the object was synced with the on-premises directory. The Timestamp type represents date and
+     * time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look
+     * like this: '2014-01-01T00:00:00Z' Read-only.
      */
     onPremisesLastSyncDateTime?: NullableOption<string>;
     /**
@@ -2818,7 +2831,7 @@ export interface Device extends DirectoryObject {
     operatingSystem?: NullableOption<string>;
     // The version of the operating system on the device. Required.
     operatingSystemVersion?: NullableOption<string>;
-    // For interal use only. Not nullable.
+    // For internal use only. Not nullable.
     physicalIds?: string[];
     // The profile type of the device. Possible values:RegisteredDevice (default)SecureVMPrinterSharedIoT
     profileType?: NullableOption<string>;
@@ -3450,6 +3463,7 @@ export interface ConditionalAccessPolicy extends Entity {
      */
     state?: ConditionalAccessPolicyState;
 }
+// tslint:disable-next-line: interface-name
 export interface IdentitySecurityDefaultsEnforcementPolicy extends PolicyBase {
     // If set to true, Azure Active Directory security defaults is enabled for the tenant.
     isEnabled?: boolean;
@@ -3573,6 +3587,7 @@ export interface ServicePrincipal extends DirectoryObject {
     claimsMappingPolicies?: NullableOption<ClaimsMappingPolicy[]>;
     // Directory objects created by this service principal. Read-only. Nullable.
     createdObjects?: NullableOption<DirectoryObject[]>;
+    delegatedPermissionClassifications?: NullableOption<DelegatedPermissionClassification[]>;
     /**
      * Endpoints available for discovery. Services like Sharepoint populate this property with a tenant specific SharePoint
      * endpoints that other applications can discover and use in their experiences.
@@ -3906,6 +3921,7 @@ export interface Workbook extends Entity {
     // Represents a collection of worksheets associated with the workbook. Read-only.
     worksheets?: NullableOption<WorkbookWorksheet[]>;
 }
+// tslint:disable-next-line: interface-name
 export interface ItemAnalytics extends Entity {
     allTime?: NullableOption<ItemActivityStat>;
     itemActivityStats?: NullableOption<ItemActivityStat[]>;
@@ -3999,6 +4015,11 @@ export interface Subscription extends Entity {
      * Microsoft Graph defaults the property to v1_2.
      */
     latestSupportedTlsVersion?: NullableOption<string>;
+    /**
+     * The URL of the endpoint that receives lifecycle notifications, including subscriptionRemoved and missed notifications.
+     * This URL must make use of the HTTPS protocol. Optional. Read more about how Outlook resources use lifecycle
+     * notifications.
+     */
     lifecycleNotificationUrl?: NullableOption<string>;
     /**
      * Required. The URL of the endpoint that will receive the change notifications. This URL must make use of the HTTPS
@@ -4846,6 +4867,7 @@ export interface FileAttachment extends Attachment {
     // Do not use this property as it is not supported.
     contentLocation?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface InferenceClassificationOverride extends Entity {
     /**
      * Specifies how incoming messages from a specific sender should always be classified as. The possible values are:
@@ -4855,6 +4877,7 @@ export interface InferenceClassificationOverride extends Entity {
     // The email address information of the sender for whom the override is created.
     senderEmailAddress?: NullableOption<EmailAddress>;
 }
+// tslint:disable-next-line: interface-name
 export interface ItemAttachment extends Attachment {
     // The attached message or event. Navigation property.
     item?: NullableOption<OutlookItem>;
@@ -4915,6 +4938,7 @@ export interface ColumnLink extends Entity {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface FieldValueSet extends Entity {}
+// tslint:disable-next-line: interface-name
 export interface ItemActivity extends Entity {
     // An item was accessed.
     access?: NullableOption<AccessAction>;
@@ -4925,6 +4949,7 @@ export interface ItemActivity extends Entity {
     // Exposes the driveItem that was the target of this activity.
     driveItem?: NullableOption<DriveItem>;
 }
+// tslint:disable-next-line: interface-name
 export interface ItemActivityStat extends Entity {
     // Statistics about the access actions in this interval. Read-only.
     access?: NullableOption<ItemActionStat>;
@@ -5054,6 +5079,7 @@ export interface CountryNamedLocation extends NamedLocation {
     // True if IP addresses that don't map to a country or region should be included in the named location.
     includeUnknownCountriesAndRegions?: boolean;
 }
+// tslint:disable-next-line: interface-name
 export interface IpNamedLocation extends NamedLocation {
     // List of IP address ranges in IPv4 CIDR format (e.g. 1.2.3.4/32) or any allowable IPv6 format from IETF RFC596.
     ipRanges?: IpRange[];
@@ -5407,6 +5433,7 @@ export interface DefaultManagedAppProtection extends ManagedAppProtection {
     // Navigation property to deployment summary of the configuration.
     deploymentSummary?: NullableOption<ManagedAppPolicyDeploymentSummary>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosManagedAppProtection extends TargetedManagedAppProtection {
     /**
      * Type of encryption which should be used for data in a managed app. Possible values are: useDeviceSettings,
@@ -5615,6 +5642,7 @@ export interface WindowsInformationProtectionPolicy extends WindowsInformationPr
     // Boolean value that sets Windows Hello for Business as a method for signing into Windows.
     windowsHelloForBusinessBlocked?: boolean;
 }
+// tslint:disable-next-line: interface-name
 export interface IosLobApp extends MobileLobApp {
     // The iOS architecture for which this app can run on.
     applicableDeviceType?: IosDeviceType;
@@ -5629,12 +5657,14 @@ export interface IosLobApp extends MobileLobApp {
     // The version number of iOS Line of Business (LoB) app.
     versionNumber?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosMobileAppConfiguration extends ManagedDeviceMobileAppConfiguration {
     // mdm app configuration Base64 binary.
     encodedSettingXml?: NullableOption<number>;
     // app configuration setting items.
     settings?: NullableOption<AppConfigurationSettingItem[]>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosStoreApp extends MobileApp {
     // The iOS architecture for which this app can run on.
     applicableDeviceType?: IosDeviceType;
@@ -5645,6 +5675,7 @@ export interface IosStoreApp extends MobileApp {
     // The value for the minimum applicable operating system.
     minimumSupportedOperatingSystem?: NullableOption<IosMinimumOperatingSystem>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosVppApp extends MobileApp {
     // The applicable iOS Device Type.
     applicableDeviceType?: NullableOption<IosDeviceType>;
@@ -5956,6 +5987,7 @@ export interface EBookInstallSummary extends Entity {
     // Number of Users that did not install this book.
     notInstalledUserCount?: number;
 }
+// tslint:disable-next-line: interface-name
 export interface IosVppEBook extends ManagedEBook {
     // The Apple ID associated with Vpp token.
     appleId?: NullableOption<string>;
@@ -5980,7 +6012,7 @@ export interface ManagedEBookAssignment extends Entity {
     // The assignment target for eBook.
     target?: NullableOption<DeviceAndAppManagementAssignmentTarget>;
 }
-// tslint:disable-next-line: no-empty-interface
+// tslint:disable-next-line: interface-name no-empty-interface
 export interface IosVppEBookAssignment extends ManagedEBookAssignment {}
 export interface UserInstallStateSummary extends Entity {
     // Failed Device Count.
@@ -6216,6 +6248,7 @@ export interface DeviceConfiguration extends Entity {
     // Device Configuration users status overview
     userStatusOverview?: NullableOption<DeviceConfigurationUserOverview>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosUpdateDeviceStatus extends Entity {
     // The DateTime when device compliance grace period expires
     complianceGracePeriodExpirationDateTime?: string;
@@ -7098,8 +7131,9 @@ export interface EditionUpgradeConfiguration extends DeviceConfiguration {
      */
     targetEdition?: Windows10EditionType;
 }
-// tslint:disable-next-line: no-empty-interface
+// tslint:disable-next-line: interface-name no-empty-interface
 export interface IosCertificateProfile extends DeviceConfiguration {}
+// tslint:disable-next-line: interface-name
 export interface IosCompliancePolicy extends DeviceCompliancePolicy {
     // Require that devices have enabled device threat protection .
     deviceThreatProtectionEnabled?: boolean;
@@ -7133,6 +7167,7 @@ export interface IosCompliancePolicy extends DeviceCompliancePolicy {
     // Devices must not be jailbroken or rooted.
     securityBlockJailbrokenDevices?: boolean;
 }
+// tslint:disable-next-line: interface-name
 export interface IosCustomConfiguration extends DeviceConfiguration {
     // Payload. (UTF8 encoded byte array)
     payload?: number;
@@ -7141,6 +7176,7 @@ export interface IosCustomConfiguration extends DeviceConfiguration {
     // Name that is displayed to the user.
     payloadName?: string;
 }
+// tslint:disable-next-line: interface-name
 export interface IosDeviceFeaturesConfiguration extends AppleDeviceFeaturesConfigurationBase {
     // Asset tag information for the device, displayed on the login window and lock screen.
     assetTagTemplate?: NullableOption<string>;
@@ -7156,6 +7192,7 @@ export interface IosDeviceFeaturesConfiguration extends AppleDeviceFeaturesConfi
      */
     notificationSettings?: NullableOption<IosNotificationSettings[]>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosGeneralDeviceConfiguration extends DeviceConfiguration {
     // Indicates whether or not to allow account modification when the device is in supervised mode.
     accountBlockModification?: boolean;
@@ -7486,6 +7523,7 @@ export interface IosGeneralDeviceConfiguration extends DeviceConfiguration {
      */
     wiFiConnectOnlyToConfiguredNetworks?: boolean;
 }
+// tslint:disable-next-line: interface-name
 export interface IosUpdateConfiguration extends DeviceConfiguration {
     // Active Hours End (active hours mean the time window when updates install should not happen)
     activeHoursEnd?: string;
@@ -8719,7 +8757,7 @@ export interface ManagedAppPolicyDeploymentSummary extends Entity {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface AndroidManagedAppRegistration extends ManagedAppRegistration {}
-// tslint:disable-next-line: no-empty-interface
+// tslint:disable-next-line: interface-name no-empty-interface
 export interface IosManagedAppRegistration extends ManagedAppRegistration {}
 export interface ManagedAppOperation extends Entity {
     // The operation name.
@@ -9395,6 +9433,7 @@ export interface Participant extends Entity {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface CancelMediaProcessingOperation extends CommsOperation {}
+// tslint:disable-next-line: interface-name
 export interface InviteParticipantsOperation extends CommsOperation {
     // The participants to invite.
     participants?: InvitationParticipantInfo[];
@@ -9757,6 +9796,7 @@ export interface FileAssessmentRequest extends ThreatAssessmentRequest {
     // The file name.
     fileName?: string;
 }
+// tslint:disable-next-line: interface-name
 export interface InformationProtection extends Entity {
     threatAssessmentRequests?: NullableOption<ThreatAssessmentRequest[]>;
 }
@@ -9786,6 +9826,36 @@ export interface ThreatAssessmentResult extends Entity {
 export interface UrlAssessmentRequest extends ThreatAssessmentRequest {
     // The URL string.
     url?: string;
+}
+export interface LinkedResource extends Entity {
+    applicationName?: NullableOption<string>;
+    displayName?: NullableOption<string>;
+    externalId?: NullableOption<string>;
+    webUrl?: NullableOption<string>;
+}
+export interface TodoTaskList extends Entity {
+    displayName?: NullableOption<string>;
+    isOwner?: boolean;
+    isShared?: boolean;
+    wellknownListName?: WellknownListName;
+    extensions?: NullableOption<Extension[]>;
+    tasks?: NullableOption<TodoTask[]>;
+}
+export interface TodoTask extends Entity {
+    body?: NullableOption<ItemBody>;
+    bodyLastModifiedDateTime?: string;
+    completedDateTime?: NullableOption<DateTimeTimeZone>;
+    createdDateTime?: string;
+    dueDateTime?: NullableOption<DateTimeTimeZone>;
+    importance?: Importance;
+    isReminderOn?: boolean;
+    lastModifiedDateTime?: string;
+    recurrence?: NullableOption<PatternedRecurrence>;
+    reminderDateTime?: NullableOption<DateTimeTimeZone>;
+    status?: TaskStatus;
+    title?: NullableOption<string>;
+    extensions?: NullableOption<Extension[]>;
+    linkedResources?: NullableOption<LinkedResource[]>;
 }
 export interface AppIdentity {
     // Refers to the Unique GUID representing Application Id in the Azure Active Directory.
@@ -9928,6 +9998,7 @@ export interface EmailAddress {
     // The display name of the person or entity.
     name?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface InvitedUserMessageInfo {
     // Additional recipients the invitation message should be sent to. Currently only 1 additional recipient is supported.
     ccRecipients?: NullableOption<Recipient[]>;
@@ -10270,6 +10341,7 @@ export interface AppRole {
      */
     value?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface InformationalUrl {
     // CDN URL to the application's logo, Read-only.
     logoUrl?: NullableOption<string>;
@@ -10420,6 +10492,7 @@ export interface WebApplication {
      */
     redirectUris?: string[];
 }
+// tslint:disable-next-line: interface-name
 export interface ImplicitGrantSettings {
     // Specifies whether this web application can request an access token using the OAuth 2.0 implicit flow.
     enableAccessTokenIssuance?: NullableOption<boolean>;
@@ -10476,6 +10549,7 @@ export interface DomainState {
      */
     status?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface Identity {
     /**
      * The identity's display name. Note that this may not always be available or up to date. For example, if a user changes
@@ -10612,6 +10686,7 @@ export interface EducationTerm {
     // Start of the term.
     startDate?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface IdentitySet {
     // Optional. The application associated with this action.
     application?: NullableOption<Identity>;
@@ -10833,6 +10908,7 @@ export interface FolderView {
     // The type of view that should be used to represent the folder.
     viewType?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface Image {
     // Optional. Height of the image, in pixels. Read-only.
     height?: NullableOption<number>;
@@ -10929,6 +11005,7 @@ export interface RemoteItem {
     // URL that displays the resource in the browser. Read-only.
     webUrl?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface ItemReference {
     // Unique identifier of the drive instance that contains the item. Read-only.
     driveId?: NullableOption<string>;
@@ -11260,12 +11337,14 @@ export interface FreeBusyError {
     // The response code from querying for the availability of the user, distribution list, or resource.
     responseCode?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface InternetMessageHeader {
     // Represents the key in a key-value pair.
     name?: NullableOption<string>;
     // The value in a key-value pair.
     value?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface ItemBody {
     // The content of the item.
     content?: NullableOption<string>;
@@ -11716,18 +11795,21 @@ export interface DriveRecipient {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface GeolocationColumn {}
+// tslint:disable-next-line: interface-name
 export interface IncompleteData {
     // The service does not have source data before the specified time.
     missingDataBeforeDateTime?: NullableOption<string>;
     // Some data was not recorded due to excessive activity.
     wasThrottled?: NullableOption<boolean>;
 }
+// tslint:disable-next-line: interface-name
 export interface ItemActionStat {
     // The number of times the action took place. Read-only.
     actionCount?: NullableOption<number>;
     // The number of distinct actors that performed the action. Read-only.
     actorCount?: NullableOption<number>;
 }
+// tslint:disable-next-line: interface-name
 export interface ItemPreviewInfo {
     getUrl?: NullableOption<string>;
     postParameters?: NullableOption<string>;
@@ -11943,7 +12025,7 @@ export interface SignInFrequencySessionControl extends ConditionalAccessSessionC
     // The number of days or hours.
     value?: NullableOption<number>;
 }
-// tslint:disable-next-line: no-empty-interface
+// tslint:disable-next-line: interface-name no-empty-interface
 export interface IpRange {}
 // tslint:disable-next-line: interface-name
 export interface IPv4CidrRange extends IpRange {
@@ -12009,6 +12091,7 @@ export interface FileEncryptionInfo {
     // The profile identifier.
     profileIdentifier?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosDeviceType {
     // Whether the app should run on iPads.
     iPad?: boolean;
@@ -12017,10 +12100,12 @@ export interface IosDeviceType {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface MobileAppAssignmentSettings {}
+// tslint:disable-next-line: interface-name
 export interface IosLobAppAssignmentSettings extends MobileAppAssignmentSettings {
     // The VPN Configuration Id to apply for this app.
     vpnConfigurationId?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosMinimumOperatingSystem {
     // Version 10.0 or later.
     v10_0?: boolean;
@@ -12035,10 +12120,12 @@ export interface IosMinimumOperatingSystem {
     // Version 9.0 or later.
     v9_0?: boolean;
 }
+// tslint:disable-next-line: interface-name
 export interface IosStoreAppAssignmentSettings extends MobileAppAssignmentSettings {
     // The VPN Configuration Id to apply for this app.
     vpnConfigurationId?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosVppAppAssignmentSettings extends MobileAppAssignmentSettings {
     // Whether or not to use device licensing.
     useDeviceLicensing?: boolean;
@@ -12208,6 +12295,7 @@ export interface DeviceManagementSettings {
     // Device should be noncompliant when there is no compliance policy targeted when this is true
     secureByDefault?: boolean;
 }
+// tslint:disable-next-line: interface-name
 export interface IntuneBrand {
     // Email address of the person/organization responsible for IT support.
     contactITEmailAddress?: NullableOption<string>;
@@ -12372,14 +12460,17 @@ export interface EdgeSearchEngineCustom extends EdgeSearchEngineBase {
      */
     edgeSearchEngineOpenSearchXmlUrl?: string;
 }
+// tslint:disable-next-line: interface-name
 export interface IosHomeScreenItem {
     // Name of the app
     displayName?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosHomeScreenApp extends IosHomeScreenItem {
     // BundleID of app
     bundleID?: string;
 }
+// tslint:disable-next-line: interface-name
 export interface IosHomeScreenFolder extends IosHomeScreenItem {
     /**
      * Pages of Home Screen Layout Icons which must be Application Type. This collection can contain a maximum of 500
@@ -12387,18 +12478,21 @@ export interface IosHomeScreenFolder extends IosHomeScreenItem {
      */
     pages?: IosHomeScreenFolderPage[];
 }
+// tslint:disable-next-line: interface-name
 export interface IosHomeScreenFolderPage {
     // A list of apps to appear on a page within a folder. This collection can contain a maximum of 500 elements.
     apps?: IosHomeScreenApp[];
     // Name of the folder page
     displayName?: NullableOption<string>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosHomeScreenPage {
     // Name of the page
     displayName?: NullableOption<string>;
     // A list of apps and folders to appear on a page. This collection can contain a maximum of 500 elements.
     icons?: IosHomeScreenItem[];
 }
+// tslint:disable-next-line: interface-name
 export interface IosNetworkUsageRule {
     // If set to true, corresponding managed apps will not be allowed to use cellular data at any time.
     cellularDataBlocked?: boolean;
@@ -12410,6 +12504,7 @@ export interface IosNetworkUsageRule {
      */
     managedApps?: NullableOption<AppListItem[]>;
 }
+// tslint:disable-next-line: interface-name
 export interface IosNotificationSettings {
     // Indicates the type of alert for notifications for this app. Possible values are: deviceDefault, banner, modal, none.
     alertType?: IosNotificationAlertType;
@@ -12902,6 +12997,7 @@ export interface AndroidMobileAppIdentifier extends MobileAppIdentifier {
     // The identifier for an app, as specified in the play store.
     packageId?: string;
 }
+// tslint:disable-next-line: interface-name
 export interface IosMobileAppIdentifier extends MobileAppIdentifier {
     // The identifier for an app, as specified in the app store.
     bundleId?: string;
@@ -13075,6 +13171,7 @@ export interface PlannerExternalReferences {}
 export interface PlannerOrderHintsByAssignee {}
 // tslint:disable-next-line: no-empty-interface
 export interface PlannerUserIds {}
+// tslint:disable-next-line: interface-name
 export interface InsightIdentity {
     // The email address of the user who shared the item.
     address?: NullableOption<string>;
@@ -13245,6 +13342,7 @@ export interface SectionLinks {
     // Opens the section in OneNote on the web.
     oneNoteWebUrl?: NullableOption<ExternalLink>;
 }
+// tslint:disable-next-line: interface-name
 export interface ImageInfo {
     /**
      * Optional; parameter used to indicate the server is able to render image dynamically in response to parameterization.
@@ -13641,6 +13739,7 @@ export interface CommsNotifications {
     // The notification of a change in the resource.
     value?: NullableOption<CommsNotification[]>;
 }
+// tslint:disable-next-line: interface-name
 export interface IncomingContext {
     // The ID of the participant that is under observation. Read-only.
     observedParticipantId?: NullableOption<string>;
@@ -13651,6 +13750,7 @@ export interface IncomingContext {
     // The identity that transferred the call.
     transferor?: NullableOption<IdentitySet>;
 }
+// tslint:disable-next-line: interface-name
 export interface InvitationParticipantInfo {
     // The identitySet associated with this invitation.
     identity?: IdentitySet;
@@ -13875,6 +13975,10 @@ export interface ChangeNotification {
     encryptedContent?: NullableOption<ChangeNotificationEncryptedContent>;
     // Unique ID for the notification. Optional.
     id?: NullableOption<string>;
+    /**
+     * The type of lifecycle notification if the current notification is a lifecycle notification. Optional. Supported values
+     * are missed, removed, reauthorizationRequired.
+     */
     lifecycleEvent?: NullableOption<LifecycleEventType>;
     // The URI of the resource that emitted the change notification relative to https://graph.microsoft.com. Required.
     resource?: string;
