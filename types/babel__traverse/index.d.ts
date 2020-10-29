@@ -210,7 +210,7 @@ export interface VisitNodeObject<S, P extends Node> {
     enter?: VisitNodeFunction<S, P>;
     exit?: VisitNodeFunction<S, P>;
     denylist?: NodeType[];
-    /** 
+    /**
      * @deprecated will be removed in Babel 8
      */
     blacklist?: NodeType[];
