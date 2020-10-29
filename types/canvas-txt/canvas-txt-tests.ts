@@ -1,9 +1,5 @@
 import canvasTxt = require('canvas-txt');
-import { createCanvas } from 'canvas';
-
-// Create canvas and context to draw upon
-const canvas = createCanvas(600, 600);
-const ctx = canvas.getContext('2d');
+declare const ctx: CanvasRenderingContext2D;
 
 // TESTS
 canvasTxt.drawText(ctx, 'Hello world', 50, 50, 500, 500);
