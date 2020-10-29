@@ -1,15 +1,15 @@
-// Type definitions for react-date-range 1.0
+// Type definitions for react-date-range 0.95
 // Project: https://github.com/Adphorus/react-date-range/
 // Definitions by: Junbong Lee <https://github.com/Junbong>
 //                 John Demetriou <https://github.com/DevsAnon>
-//                 Minseok Choi <https://github.com/Curzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
+// TypeScript Version: 2.8
 
 import * as React from "react";
+import * as moment from "moment";
 
-export type AnyDate = string | Date;
-export type DateFunc = (now: Date) => AnyDate;
+export type AnyDate = string | moment.Moment;
+export type DateFunc = (now: moment.Moment) => AnyDate;
 export type DateInputType = AnyDate | DateFunc;
 export type LanguageType =
     | "cn"
@@ -24,7 +24,7 @@ export type LanguageType =
 export type SizeType = number;
 
 export interface DateContainerType {
-    date: Date;
+    date: moment.Moment;
 }
 
 export interface CalendarTheme {
@@ -54,14 +54,15 @@ export interface CalendarTheme {
 
 export interface Range {
     /** default: today */
-    startDate?: Date;
+    startDate?: moment.Moment;
     /** default: today */
-    endDate?: Date;
+    endDate?: moment.Moment;
 }
 
 export interface CommonCalendarProps {
     /** default: DD/MM/YYY */
     format?: string;
+    /** default: moment.localeData().firstDayOfWeek() */
     firstDayOfWeek?: number;
     theme?: CalendarTheme;
     /** default: none */
@@ -156,8 +157,8 @@ export type DateRangeIndex =
     | "Last 30 Days";
 
 export interface DateRangeObject {
-    startDate: (now: Date) => Date;
-    endDate: (now: Date) => Date;
+    startDate: (now: moment.Moment) => moment.Moment;
+    endDate: (now: moment.Moment) => moment.Moment;
 }
 export const defaultRanges: {
     [measure: string]: DateRangeObject;
