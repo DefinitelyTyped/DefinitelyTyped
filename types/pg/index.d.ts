@@ -15,7 +15,7 @@ import { ConnectionOptions } from 'tls';
 export interface ClientConfig {
     user?: string;
     database?: string;
-    password?: string;
+    password?: string | (() => string | Promise<string>);
     port?: number;
     host?: string;
     connectionString?: string;
