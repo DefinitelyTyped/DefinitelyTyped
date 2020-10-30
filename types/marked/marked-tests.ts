@@ -89,4 +89,8 @@ console.log(marked.InlineLexer.output('http://', links));
 console.log(marked.InlineLexer.rules);
 const inlineLexerOptions: marked.MarkedOptions = inlineLexer.options;
 
+const slugger = new marked.Slugger();
+console.log(slugger.slug('Test Slug'));
+console.log(slugger.slug('Test Slug', { dryrun: true }));
+
 marked.use({ renderer });
