@@ -4,7 +4,7 @@
 //                 John Demetriou <https://github.com/DevsAnon>
 //                 Minseok Choi <https://github.com/Curzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
