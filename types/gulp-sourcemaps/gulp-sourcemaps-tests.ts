@@ -141,6 +141,6 @@ gulp.task('javascript', function() {
         .pipe(sourcemaps.init())
         .pipe(plugin1())
         .pipe(plugin2())
-        .pipe(sourcemaps.mapSources((sourcePah, file) => sourcePah ?? file.cwd))
+        .pipe(sourcemaps.mapSources((sourcePah, file) => sourcePah || file.cwd))
         .pipe(gulp.dest('public/scripts'));
 });
