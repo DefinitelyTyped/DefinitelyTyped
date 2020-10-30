@@ -1,4 +1,4 @@
-// Type definitions for trusted-types 1.0
+// Type definitions for trusted-types 1.2.1
 // Project: https://github.com/WICG/trusted-types
 // Definitions by: Jakub Vrana <https://github.com/vrana>
 //                 Damien Engels <https://github.com/engelsdamien>
@@ -68,8 +68,30 @@ declare global {
     }
 }
 
-// This is not available in global scope. It's only used for the export. This is
-// necessary to be able to use these types from nodejs (for SSR).
-declare const trustedTypes: TrustedTypePolicyFactory;
+interface InternalTrustedTypePolicyFactory extends TrustedTypePolicyFactory {
+  TrustedHTML: TrustedHTML;
+  TrustedScript: TrustedScript;
+  TrustedScriptURL: TrustedScriptURL;
+}
 
-export default trustedTypes;
+declare const trustedTypes: InternalTrustedTypePolicyFactory;
+
+declare class TrustedTypesEnforcer {
+    constructor(config: TrustedTypeConfig);
+    install: () => void
+    uninstall: () => void
+}
+
+declare class TrustedTypeConfig {
+  constructor(
+    isLoggingEnabled: boolean,
+    isEnforcementEnabled: boolean,
+    allowedPolicyNames: string[],
+    allowDuplicates: boolean,
+    cspString?: string | null,
+    windowObject?: Window
+  )
+}
+
+// These are the available exports when using the polyfill as npm package (e.g. in nodejs)
+export {trustedTypes, TrustedTypesEnforcer, TrustedTypeConfig, TrustedTypePolicy, TrustedTypePolicyFactory};

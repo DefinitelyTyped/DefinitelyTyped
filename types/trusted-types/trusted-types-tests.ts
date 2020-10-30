@@ -1,9 +1,6 @@
-import TT from 'trusted-types';
+import { trustedTypes, TrustedTypesEnforcer, TrustedTypeConfig } from 'trusted-types';
 
-// $ExpectType TrustedTypePolicyFactory
-TT;
-
-// $ExpectError
+// $ExpectType InternalTrustedTypePolicyFactory
 trustedTypes;
 
 // $ExpectType TrustedTypePolicyFactory | undefined
@@ -15,7 +12,7 @@ const rules = {
     createScriptURL: (s: string) => s,
 };
 
-const createPolicy = TT.createPolicy;
+const createPolicy = trustedTypes.createPolicy;
 const policy = createPolicy('test', rules);
 
 // $ExpectType string
@@ -27,7 +24,7 @@ policy.createScript('');
 // $ExpectType TrustedScriptURL
 policy.createScriptURL('');
 
-const htmlOnlyPolicy = TT.createPolicy('htmlOnly', {
+const htmlOnlyPolicy = trustedTypes.createPolicy('htmlOnly', {
     createHTML: (html: string) => {
         return html;
     },
@@ -41,13 +38,13 @@ const html = htmlOnlyPolicy.createHTML('');
 htmlOnlyPolicy.createScript('');
 
 // $ExpectType boolean
-TT.isHTML(html);
+trustedTypes.isHTML(html);
 // $ExpectType boolean
-TT.isScript(html);
+trustedTypes.isScript(html);
 // $ExpectType boolean
-TT.isScriptURL(html);
+trustedTypes.isScriptURL(html);
 
-const policyWithArgs = TT.createPolicy('withArgs', {
+const policyWithArgs = trustedTypes.createPolicy('withArgs', {
     createHTML: (val: string, option1: number, option2: boolean) => val,
     createScriptURL: (val: string) => val,
 });
@@ -65,7 +62,7 @@ policyWithArgs.createScript('');
 // $ExpectError
 policyWithArgs.createScriptURL('', 1, true);
 
-const genericPolicy = TT.defaultPolicy!;
+const genericPolicy = trustedTypes.defaultPolicy!;
 
 // $ExpectType TrustedHTML
 genericPolicy.createHTML('', true, {});
@@ -75,7 +72,7 @@ genericPolicy.createScript('', true, {});
 genericPolicy.createScriptURL('', true, {});
 
 const genericOptions: TrustedTypePolicyOptions = {};
-const genericPolicy2 = TT.createPolicy('generic', genericOptions);
+const genericPolicy2 = trustedTypes.createPolicy('generic', genericOptions);
 
 // $ExpectType TrustedHTML
 genericPolicy2.createHTML('', true, {});
@@ -84,7 +81,7 @@ genericPolicy2.createScript('', true, {});
 // $ExpectType TrustedScriptURL
 genericPolicy2.createScriptURL('', true, {});
 
-const castedAsGenericPolicy: TrustedTypePolicy = TT.createPolicy('castedAsGeneric', {
+const castedAsGenericPolicy: TrustedTypePolicy = trustedTypes.createPolicy('castedAsGeneric', {
     createHTML: (val: string, option1: number, option2: boolean) => val,
     createScriptURL: (val: string) => val,
     createScript: (val: string) => val,
@@ -106,3 +103,32 @@ trustedHTML = trustedScript;
 
 // $ExpectError
 new TrustedHTML();
+
+// $ExpectType TrustedHTML
+TrustedHTML;
+// $ExpectType TrustedScript
+TrustedScript;
+// $ExpectType TrustedScriptURL
+TrustedScriptURL;
+
+// $ExpectType TrustedHTML
+trustedTypes.TrustedHTML;
+// $ExpectType TrustedScript
+trustedTypes.TrustedScript;
+// $ExpectType TrustedScriptURL
+trustedTypes.TrustedScriptURL;
+
+// $ExpectError
+window.trustedTypes?.TrustedHTML;
+// $ExpectError
+window.trustedTypes?.TrustedScript;
+// $ExpectError
+window.trustedTypes?.TrustedScriptURL;
+
+const config = new TrustedTypeConfig(false, false, ['foo'], false);
+// $ExpectType TrustedTypesEnforcer
+new TrustedTypesEnforcer(config);
+
+const config2 = new TrustedTypeConfig(false, false, ['foo'], false, null, window);
+// $ExpectType TrustedTypesEnforcer
+new TrustedTypesEnforcer(config);
