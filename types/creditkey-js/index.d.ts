@@ -1,3 +1,5 @@
+// Type definitions for creditkey-js
+
 declare namespace _default {
     type Platform = 'production' | 'staging' | 'development';
     type Mode = 'modal' | 'redirect';
