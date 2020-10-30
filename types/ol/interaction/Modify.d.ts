@@ -1,5 +1,4 @@
 import Collection from '../Collection';
-import { Coordinate } from '../coordinate';
 import { EventsKey } from '../events';
 import { Condition } from '../events/condition';
 import BaseEvent from '../events/Event';
@@ -11,9 +10,8 @@ import VectorLayer from '../layer/Vector';
 import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
-import Projection from '../proj/Projection';
 import VectorSource from '../source/Vector';
-import { StyleFunction, StyleLike } from '../style/Style';
+import { StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
 export interface Options {
@@ -34,15 +32,45 @@ export interface SegmentData {
     segment: Extent[];
     featureSegments?: SegmentData[];
 }
+declare enum ModifyEventType {
+    MODIFYSTART = 'modifystart',
+    MODIFYEND = 'modifyend',
+}
 export default class Modify extends PointerInteraction {
     constructor(options: Options);
+    /**
+     * Get the overlay layer that this interaction renders sketch features to.
+     */
     getOverlay(): VectorLayer;
+    /**
+     * Handle pointer down events.
+     */
     handleDownEvent(evt: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Handle pointer drag events.
+     */
     handleDragEvent(evt: MapBrowserEvent<UIEvent>): void;
+    /**
+     * Handles the {@link module:ol/MapBrowserEvent map browser event} and may modify the geometry.
+     */
     handleEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Handle pointer up events.
+     */
     handleUpEvent(evt: MapBrowserEvent<UIEvent>): boolean;
+    /**
+     * Removes the vertex currently being pointed.
+     */
     removePoint(): boolean;
+    /**
+     * Activate or deactivate the interaction.
+     */
     setActive(active: boolean): void;
+    /**
+     * Remove the interaction from its current map and attach it to the new map.
+     * Subclasses may set up event handlers to get notified about changes to
+     * the map here.
+     */
     setMap(map: PluggableMap): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
@@ -67,7 +95,17 @@ export default class Modify extends PointerInteraction {
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
 export class ModifyEvent extends BaseEvent {
-    constructor();
+    constructor(
+        type: ModifyEventType,
+        features: Collection<Feature<Geometry>>,
+        MapBrowserEvent: MapBrowserEvent<UIEvent>,
+    );
+    /**
+     * The features being modified.
+     */
     features: Collection<Feature<Geometry>>;
+    /**
+     * Associated {@link module:ol/MapBrowserEvent}.
+     */
     mapBrowserEvent: MapBrowserEvent<UIEvent>;
 }

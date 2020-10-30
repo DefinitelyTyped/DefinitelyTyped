@@ -32,6 +32,10 @@ export interface DeclutterItems {
     items: any[];
     opacity: number;
 }
+/**
+ * State of the current frame. Only pixelRatio, time and viewState should
+ * be used in applications.
+ */
 export interface FrameState {
     pixelRatio: number;
     time: number;
@@ -51,6 +55,9 @@ export interface FrameState {
     viewHints: number[];
     wantedTiles: { [key: string]: { [key: string]: boolean } };
 }
+/**
+ * Object literal with config options for the map.
+ */
 export interface MapOptions {
     controls?: Collection<Control> | Control[];
     pixelRatio?: number;
@@ -76,61 +83,222 @@ export default class PluggableMap extends BaseObject {
     protected controls: Collection<Control>;
     protected interactions: Collection<Interaction>;
     protected handlePostRender(): void;
+    /**
+     * Add the given control to the map.
+     */
     addControl(control: Control): void;
+    /**
+     * Add the given interaction to the map. If you want to add an interaction
+     * at another point of the collection use getInteraction() and the methods
+     * available on {@link module:ol/Collection~Collection}. This can be used to
+     * stop the event propagation from the handleEvent function. The interactions
+     * get to handle the events in the reverse order of this collection.
+     */
     addInteraction(interaction: Interaction): void;
+    /**
+     * Adds the given layer to the top of this map. If you want to add a layer
+     * elsewhere in the stack, use getLayers() and the methods available on
+     * {@link module:ol/Collection~Collection}.
+     */
     addLayer(layer: BaseLayer): void;
+    /**
+     * Add the given overlay to the map.
+     */
     addOverlay(overlay: Overlay): void;
     createRenderer(): MapRenderer;
+    /**
+     * Clean up.
+     */
     disposeInternal(): void;
+    /**
+     * Detect features that intersect a pixel on the viewport, and execute a
+     * callback with each intersecting feature. Layers included in the detection can
+     * be configured through the layerFilter option in opt_options.
+     */
     forEachFeatureAtPixel<S, T>(
         pixel: Pixel,
         callback: (this: S, p0: FeatureLike, p1: Layer<Source>) => T,
         opt_options?: AtPixelOptions,
-    ): T;
+    ): T | undefined;
+    /**
+     * Detect layers that have a color value at a pixel on the viewport, and
+     * execute a callback with each matching layer. Layers included in the
+     * detection can be configured through opt_layerFilter.
+     * Note: this may give false positives unless the map layers have had different className
+     * properties assigned to them.
+     */
     forEachLayerAtPixel<S, T>(
         pixel: Pixel,
         callback: (this: S, p0: Layer<Source>, p1: Uint8ClampedArray | Uint8Array) => T,
         opt_options?: AtPixelOptions,
-    ): T;
+    ): T | undefined;
+    /**
+     * Get the map controls. Modifying this collection changes the controls
+     * associated with the map.
+     */
     getControls(): Collection<Control>;
+    /**
+     * Get the coordinate for a given pixel.  This returns a coordinate in the
+     * user projection.
+     */
     getCoordinateFromPixel(pixel: Pixel): Coordinate;
+    /**
+     * Get the coordinate for a given pixel.  This returns a coordinate in the
+     * map view projection.
+     */
     getCoordinateFromPixelInternal(pixel: Pixel): Coordinate;
+    /**
+     * Returns the coordinate in user projection for a browser event.
+     */
     getEventCoordinate(event: MouseEvent): Coordinate;
+    /**
+     * Returns the coordinate in view projection for a browser event.
+     */
     getEventCoordinateInternal(event: MouseEvent): Coordinate;
+    /**
+     * Returns the map pixel position for a browser event relative to the viewport.
+     */
     getEventPixel(event: UIEvent): Pixel;
+    /**
+     * Get all features that intersect a pixel on the viewport.
+     */
     getFeaturesAtPixel(pixel: Pixel, opt_options?: AtPixelOptions): FeatureLike[];
+    /**
+     * Get the map interactions. Modifying this collection changes the interactions
+     * associated with the map.
+     * Interactions are used for e.g. pan, zoom and rotate.
+     */
     getInteractions(): Collection<Interaction>;
+    /**
+     * Get the layergroup associated with this map.
+     */
     getLayerGroup(): LayerGroup;
+    /**
+     * Get the collection of layers associated with this map.
+     */
     getLayers(): Collection<BaseLayer>;
     getLoading(): boolean;
+    /**
+     * Get an overlay by its identifier (the value returned by overlay.getId()).
+     * Note that the index treats string and numeric identifiers as the same. So
+     * map.getOverlayById(2) will return an overlay with id '2' or 2.
+     */
     getOverlayById(id: string | number): Overlay;
+    /**
+     * Get the element that serves as the container for overlays.  Elements added to
+     * this container will let mousedown and touchstart events through to the map,
+     * so clicks and gestures on an overlay will trigger {@link module:ol/MapBrowserEvent~MapBrowserEvent}
+     * events.
+     */
     getOverlayContainer(): HTMLElement;
+    /**
+     * Get the element that serves as a container for overlays that don't allow
+     * event propagation. Elements added to this container won't let mousedown and
+     * touchstart events through to the map, so clicks and gestures on an overlay
+     * don't trigger any {@link module:ol/MapBrowserEvent~MapBrowserEvent}.
+     */
     getOverlayContainerStopEvent(): HTMLElement;
+    /**
+     * Get the map overlays. Modifying this collection changes the overlays
+     * associated with the map.
+     */
     getOverlays(): Collection<Overlay>;
+    /**
+     * Get the pixel for a coordinate.  This takes a coordinate in the user
+     * projection and returns the corresponding pixel.
+     */
     getPixelFromCoordinate(coordinate: Coordinate): Pixel;
+    /**
+     * Get the pixel for a coordinate.  This takes a coordinate in the map view
+     * projection and returns the corresponding pixel.
+     */
     getPixelFromCoordinateInternal(coordinate: Coordinate): Pixel;
+    /**
+     * Get the map renderer.
+     */
     getRenderer(): MapRenderer;
-    getSize(): Size;
-    getTarget(): HTMLElement | string;
+    /**
+     * Get the size of this map.
+     */
+    getSize(): Size | undefined;
+    /**
+     * Get the target in which this map is rendered.
+     * Note that this returns what is entered as an option or in setTarget:
+     * if that was an element, it returns an element; if a string, it returns that.
+     */
+    getTarget(): HTMLElement | string | undefined;
+    /**
+     * Get the DOM element into which this map is rendered. In contrast to
+     * getTarget this method always return an Element, or null if the
+     * map has no target.
+     */
     getTargetElement(): HTMLElement;
     getTilePriority(tile: Tile, tileSourceKey: string, tileCenter: Coordinate, tileResolution: number): number;
+    /**
+     * Get the view associated with this map. A view manages properties such as
+     * center and resolution.
+     */
     getView(): View;
+    /**
+     * Get the element that serves as the map viewport.
+     */
     getViewport(): HTMLElement;
     handleBrowserEvent(browserEvent: UIEvent, opt_type?: string): void;
     handleMapBrowserEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): void;
+    /**
+     * Detect if features intersect a pixel on the viewport. Layers included in the
+     * detection can be configured through opt_layerFilter.
+     */
     hasFeatureAtPixel(pixel: Pixel, opt_options?: AtPixelOptions): boolean;
     isRendered(): boolean;
+    /**
+     * Redraws all text after new fonts have loaded
+     */
     redrawText(): void;
-    removeControl(control: Control): Control;
-    removeInteraction(interaction: Interaction): Interaction;
-    removeLayer(layer: BaseLayer): BaseLayer;
-    removeOverlay(overlay: Overlay): Overlay;
+    /**
+     * Remove the given control from the map.
+     */
+    removeControl(control: Control): Control | undefined;
+    /**
+     * Remove the given interaction from the map.
+     */
+    removeInteraction(interaction: Interaction): Interaction | undefined;
+    /**
+     * Removes the given layer from the map.
+     */
+    removeLayer(layer: BaseLayer): BaseLayer | undefined;
+    /**
+     * Remove the given overlay from the map.
+     */
+    removeOverlay(overlay: Overlay): Overlay | undefined;
+    /**
+     * Request a map rendering (at the next animation frame).
+     */
     render(): void;
+    /**
+     * Requests an immediate render in a synchronous manner.
+     */
     renderSync(): void;
+    /**
+     * Sets the layergroup of this map.
+     */
     setLayerGroup(layerGroup: LayerGroup): void;
+    /**
+     * Set the size of this map.
+     */
     setSize(size: Size | undefined): void;
+    /**
+     * Set the target element to render this map into.
+     */
     setTarget(target: HTMLElement | string | undefined): void;
+    /**
+     * Set the view for this map.
+     */
     setView(view: View): void;
+    /**
+     * Force a recalculation of the map viewport size.  This should be called when
+     * third-party code changes the size of the map viewport.
+     */
     updateSize(): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

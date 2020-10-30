@@ -14,8 +14,8 @@ export default class GML2 extends GMLBase {
     constructor(opt_options?: Options);
     innerBoundaryIsParser(node: Element, objectStack: any[]): void;
     outerBoundaryIsParser(node: Element, objectStack: any[]): void;
-    readBox(node: Element, objectStack: any[]): Extent;
-    readFlatCoordinates(node: Node, objectStack: any[]): number[];
+    readBox(node: Element, objectStack: any[]): Extent | undefined;
+    readFlatCoordinates(node: Node, objectStack: any[]): number[] | undefined;
     writeCurveOrLineString(node: Element, geometry: LineString, objectStack: any[]): void;
     writeEnvelope(node: Element, extent: Extent, objectStack: any[]): void;
     writeFeatureElement(node: Element, feature: Feature<Geometry>, objectStack: any[]): void;

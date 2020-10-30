@@ -41,7 +41,7 @@ export default class Executor {
         viewRotation: number,
         opt_featureCallback?: () => void,
         opt_hitExtent?: Extent,
-    ): T;
+    ): T | undefined;
     renderDeclutter(declutterGroup: DeclutterGroup, feature: FeatureLike, opacity: number, declutterTree: any): any;
     replayTextBackground_(
         context: CanvasRenderingContext2D,
