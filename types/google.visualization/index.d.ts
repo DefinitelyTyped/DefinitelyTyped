@@ -1618,5 +1618,38 @@ declare namespace google {
         }
 
         //#endregion
+        //#region Gauge
+
+        // https://developers.google.com/chart/interactive/docs/gallery/gauge
+        // Note: can't extend ChartBaseClearable because Gauge doesn't have getSelection(), setSelection()
+        export class Gauge {
+            constructor(element: Element);
+            getContainer(): Element;
+            clearChart(): void;
+            draw(data: DataTable | DataView, options: GaugeChartOptions): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/gauge#configuration-options
+        export interface GaugeChartOptions {
+            animation?: TransitionAnimation;
+            forceIFrame?: boolean;
+            width?: number;
+            height?: number;
+            max?: number;
+            min?: number;
+            majorTicks?: string[];
+            minorTicks?: number;
+            greenColor?: string;
+            greenFrom?: number;
+            greenTo?: number;
+            redColor?: string;
+            redFrom?: number;
+            redTo?: number;
+            yellowColor?: string;
+            yellowFrom?: number;
+            yellowTo?: number;
+        }
+
+        //#endregion
     }
 }
