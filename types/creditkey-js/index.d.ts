@@ -1,6 +1,6 @@
 // Type definitions for creditkey-js 1.0
 // Project: https://github.com/creditkey/creditkey-js
-// Definitions by: Mike Bennett and Tristan Smith <https://github.com/Entroper and https://github.com/TristanTaradel>
+// Definitions by: Mike Bennett <https://github.com/Entroper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace _default {
