@@ -8,6 +8,8 @@ declare module "fs" {
      */
     type PathLike = string | Buffer | URL;
 
+    type NoParamCallback = (err: NodeJS.ErrnoException | null) => void;
+
     type BinaryData = Buffer | DataView | NodeJS.TypedArray;
     class Stats {
         isFile(): boolean;
@@ -78,7 +80,7 @@ declare module "fs" {
     }
 
     class ReadStream extends stream.Readable {
-        close(): void;
+        close(cb?: NoParamCallback): void;
         bytesRead: number;
         path: string | Buffer;
 
@@ -109,7 +111,7 @@ declare module "fs" {
     }
 
     class WriteStream extends stream.Writable {
-        close(): void;
+        close(cb?: NoParamCallback): void;
         bytesWritten: number;
         path: string | Buffer;
 

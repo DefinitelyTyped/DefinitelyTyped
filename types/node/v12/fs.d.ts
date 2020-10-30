@@ -131,7 +131,7 @@ declare module "fs" {
     }
 
     class ReadStream extends stream.Readable {
-        close(): void;
+        close(cb?: NoParamCallback): void;
         bytesRead: number;
         path: string | Buffer;
 
@@ -162,7 +162,7 @@ declare module "fs" {
     }
 
     class WriteStream extends stream.Writable {
-        close(): void;
+        close(cb?: NoParamCallback): void;
         bytesWritten: number;
         path: string | Buffer;
 
