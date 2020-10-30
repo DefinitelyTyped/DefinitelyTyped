@@ -207,7 +207,9 @@ controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_2, cast.fram
 
 const playerManager = cast.framework.CastReceiverContext.getInstance().getPlayerManager();
 
-const interceptor = <T>() => (messageData: T) => {
+playerManager.setMessageInterceptor(MessageType.CLOUD_STATUS, (messageData: messages.CloudMediaStatus):
+    | messages.CloudMediaStatus
+    | messages.ErrorData => {
     if (Math.random() > 0.5) {
         const errorData = new cast.framework.messages.ErrorData(cast.framework.messages.ErrorType.INVALID_REQUEST);
         errorData.reason = cast.framework.messages.ErrorReason.NOT_SUPPORTED;
@@ -215,7 +217,15 @@ const interceptor = <T>() => (messageData: T) => {
     }
 
     return messageData;
-};
+});
+playerManager.setMessageInterceptor(MessageType.DISPLAY_STATUS, (messageData: messages.DisplayStatusRequestData):
+    | messages.DisplayStatusRequestData
+    | messages.ErrorData => {
+    if (Math.random() > 0.5) {
+        const errorData = new cast.framework.messages.ErrorData(cast.framework.messages.ErrorType.INVALID_REQUEST);
+        errorData.reason = cast.framework.messages.ErrorReason.NOT_SUPPORTED;
+        return errorData;
+    }
 
-playerManager.setMessageInterceptor(MessageType.CLOUD_STATUS, interceptor<messages.CloudMediaStatus>());
-playerManager.setMessageInterceptor(MessageType.DISPLAY_STATUS, interceptor<messages.DisplayStatusRequestData>());
+    return messageData;
+});

@@ -194,6 +194,8 @@ export class QueueBase {
     shuffle(): messages.QueueItem[] | Promise<messages.QueueItem[]>;
 }
 
+// So we can have some auxiliary private types.
+export {};
 type MessageInterceptor<MessageType> =
     | ((data: MessageType) => MessageType | messages.ErrorData)
     | ((data: MessageType) => Promise<MessageType | messages.ErrorData>)
