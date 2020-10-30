@@ -1,4 +1,4 @@
-// Type definitions for react-hint 3.2.0
+// Type definitions for react-hint 3.2
 // Project: https://github.com/slmgc/react-hint
 // Definitions by: Lucas Ghizoni <https://github.com/lucasghizoni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
