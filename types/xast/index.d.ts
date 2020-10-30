@@ -23,15 +23,8 @@ export interface Parent extends UnistParent {
 /**
  * Union Of All primitive JavaScript Types
  */
-export type Primitive =
-	| null
-	| undefined
-	| string
-	| number
-	| boolean
-	| symbol
-    | bigint;
-    
+export type Primitive = null | undefined | string | number | boolean | symbol | bigint;
+
 /**
  * Node in xast containing a value.
  */
