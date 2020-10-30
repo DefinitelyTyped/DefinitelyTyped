@@ -4,6 +4,7 @@
 //                 Titus Wormer <https://github.com/wooorm>
 //                 Christian Murphy <https://github.com/ChristianMurphy>
 //                 Junyoung Choi <https://github.com/rokt33r>
+//                 Malav Shah <https://github.com/malav2110>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -19,6 +20,18 @@ export interface Parent extends UnistParent {
     children: Array<Element | Text | Comment | Doctype | Instruction | Cdata>;
 }
 
+/**
+ * Union Of All primitive JavaScript Types
+ */
+export type Primitive =
+	| null
+	| undefined
+	| string
+	| number
+	| boolean
+	| symbol
+    | bigint;
+    
 /**
  * Node in xast containing a value.
  */
@@ -58,7 +71,7 @@ export interface Element extends Parent {
  * Information associated with an element.
  */
 export interface Attributes {
-    [name: string]: string | null | undefined;
+    [name: string]: Primitive;
 }
 
 /**

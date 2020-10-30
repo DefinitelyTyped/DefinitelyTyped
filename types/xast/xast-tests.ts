@@ -89,6 +89,7 @@ const attributes: Attributes = {
     attributeName1: 'attributeValue',
     attributeName2: null,
     attributeName3: undefined,
+    attributeName4: 100
 };
 
 function getElement(): Element {
