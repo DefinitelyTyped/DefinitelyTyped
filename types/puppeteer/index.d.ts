@@ -1271,6 +1271,27 @@ export interface FrameBase extends Evalable, JSEvalable {
       options?: WaitForSelectorOptionsHidden,
   ): Promise<ElementHandle | null>;
 
+  /**
+   * Causes your script to wait for the given number of milliseconds.
+   *
+   * @remarks
+   *
+   * It's generally recommended to not wait for a number of seconds, but instead
+   * use {@link Page.waitForSelector}, {@link Page.waitForXPath} or
+   * {@link Page.waitForFunction} to wait for exactly the conditions you want.
+   *
+   * @example
+   *
+   * Wait for 1 second:
+   *
+   * ```
+   * await page.waitForTimeout(1000);
+   * ```
+   *
+   * @param milliseconds - the number of milliseconds to wait.
+   */
+  waitForTimeout(milliseconds: number): Promise<void>;
+
   waitForXPath(
     xpath: string,
     options?: WaitForSelectorOptions,
