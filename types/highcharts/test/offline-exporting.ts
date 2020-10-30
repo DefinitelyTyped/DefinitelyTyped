@@ -1,1 +1,0 @@
-HighchartsExporting(Highcharts);

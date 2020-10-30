@@ -33,6 +33,7 @@ export interface PropsWithStyles {
     See the `styles` object for the properties available.
   */
   getStyles: (name: string, props: any) => {};
+  theme: Theme;
 }
 
 export type ClassNameList = string[];
@@ -41,7 +42,7 @@ export type ClassNamesState = { [key: string]: boolean } | undefined;
 export interface CommonProps<OptionType extends OptionTypeBase> {
   clearValue: () => void;
   className?: string;
-  cx: (a: string | null, b: ClassNamesState | undefined, c: string | undefined) => string | void;
+  cx: (state: ClassNamesState | undefined, className: string | undefined) => string;
   /*
     Get the styles of a particular part of the select. Pass in the name of the
     property as the first argument, and the current props as the second argument.
@@ -66,8 +67,11 @@ export type ActionTypes =
   | 'clear'
   | 'create-option';
 
-export interface ActionMeta {
+export interface ActionMeta<OptionType extends OptionTypeBase> {
   action: ActionTypes;
+  name?: string;
+  option?: OptionType;
+  removedValue?: OptionType;
 }
 
 export type InputActionTypes =

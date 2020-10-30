@@ -4,21 +4,46 @@
 //                 Cyrille Tuzi <https://github.com/cyrilletuzi>
 //                 Lucian Buzzo <https://github.com/lucianbuzzo>
 //                 Roland Groza <https://github.com/rolandjitsu>
+//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/* JSON Schema 4 */
+//==================================================================================================
+// JSON Schema Draft 04
+//==================================================================================================
 
 /**
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1
  */
-export type JSONSchema4TypeName = 'string' | 'number' | 'integer' | 'boolean'
-    | 'object' | 'array' | 'null' | 'any'
+export type JSONSchema4TypeName =
+    | 'string'
+    | 'number'
+    | 'integer'
+    | 'boolean'
+    | 'object'
+    | 'array'
+    | 'null'
+    | 'any';
 
 /**
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-04#section-3.5
  */
-export type JSONSchema4Type = any[] | boolean | number | null | object | string
+export type JSONSchema4Type =
+    | string
+    | number
+    | boolean
+    | JSONSchema4Object
+    | JSONSchema4Array
+    | null;
+
+// Workaround for infinite type recursion
+export interface JSONSchema4Object {
+    [key: string]: JSONSchema4Type;
+}
+
+// Workaround for infinite type recursion
+// https://github.com/Microsoft/TypeScript/issues/3496#issuecomment-128553540
+export interface JSONSchema4Array extends Array<JSONSchema4Type> {}
 
 /**
  * Meta schema
@@ -216,11 +241,36 @@ export interface JSONSchema4 {
     format?: string
 }
 
-/* JSON Schema 6 */
+//==================================================================================================
+// JSON Schema Draft 06
+//==================================================================================================
 
-export type JSONSchema6TypeName = 'string' | 'number' | 'integer' | 'boolean' | 'object' | 'array' | 'null' | 'any'
+export type JSONSchema6TypeName =
+    | 'string'
+    | 'number'
+    | 'integer'
+    | 'boolean'
+    | 'object'
+    | 'array'
+    | 'null'
+    | 'any';
 
-export type JSONSchema6Type = any[] | boolean | number | null | object | string
+export type JSONSchema6Type =
+    | string
+    | number
+    | boolean
+    | JSONSchema6Object
+    | JSONSchema6Array
+    | null;
+
+// Workaround for infinite type recursion
+export interface JSONSchema6Object {
+    [key: string]: JSONSchema6Type;
+}
+
+// Workaround for infinite type recursion
+// https://github.com/Microsoft/TypeScript/issues/3496#issuecomment-128553540
+export interface JSONSchema6Array extends Array<JSONSchema6Type> {}
 
 /**
  * Meta schema
@@ -436,7 +486,7 @@ export interface JSONSchema6 {
     enum?: JSONSchema6Type[]
 
     /**
-     * More readible form of a one-element "enum"
+     * More readable form of a one-element "enum"
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.24
      */
     const?: JSONSchema6Type
@@ -507,18 +557,41 @@ export interface JSONSchema6 {
     format?: string
 }
 
-/**
- * JSON Schema 7
- * Draft 07
- * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01
- */
+//==================================================================================================
+// JSON Schema Draft 07
+//==================================================================================================
+// https://tools.ietf.org/html/draft-handrews-json-schema-validation-01
+//--------------------------------------------------------------------------------------------------
 
 /**
  * Primitive type
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.1.1
  */
-export type JSONSchema7TypeName = 'string' | 'number' | 'integer' | 'boolean' | 'object' | 'array' | 'null';
-export type JSONSchema7Type = JSONSchema7Array[] | boolean | number | null | object | string;
+export type JSONSchema7TypeName =
+    | 'string'
+    | 'number'
+    | 'integer'
+    | 'boolean'
+    | 'object'
+    | 'array'
+    | 'null';
+
+/**
+ * Primitive type
+ * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.1.1
+ */
+export type JSONSchema7Type =
+    | string
+    | number
+    | boolean
+    | JSONSchema7Object
+    | JSONSchema7Array
+    | null;
+
+// Workaround for infinite type recursion
+export interface JSONSchema7Object {
+    [key: string]: JSONSchema7Type;
+}
 
 // Workaround for infinite type recursion
 // https://github.com/Microsoft/TypeScript/issues/3496#issuecomment-128553540
@@ -642,3 +715,33 @@ export interface JSONSchema7 {
     writeOnly?: boolean;
     examples?: JSONSchema7Type;
 }
+
+export interface ValidationResult {
+    valid: boolean;
+    errors: ValidationError[];
+}
+
+export interface ValidationError {
+    property: string;
+    message: string;
+}
+
+/**
+ * To use the validator call JSONSchema.validate with an instance object and an optional schema object.
+ * If a schema is provided, it will be used to validate. If the instance object refers to a schema (self-validating),
+ * that schema will be used to validate and the schema parameter is not necessary (if both exist,
+ * both validations will occur).
+ */
+export function validate(instance: {}, schema: JSONSchema4 | JSONSchema6 | JSONSchema7): ValidationResult;
+
+/**
+ * The checkPropertyChange method will check to see if an value can legally be in property with the given schema
+ * This is slightly different than the validate method in that it will fail if the schema is readonly and it will
+ * not check for self-validation, it is assumed that the passed in value is already internally valid.
+ */
+export function checkPropertyChange(value: any, schema: JSONSchema4 | JSONSchema6 | JSONSchema7, property: string): ValidationResult;
+
+/**
+ * This checks to ensure that the result is valid and will throw an appropriate error message if it is not.
+ */
+export function mustBeValid(result: ValidationResult): void;

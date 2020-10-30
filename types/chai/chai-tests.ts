@@ -4,6 +4,7 @@ import * as chai from 'chai';
 const expect = chai.expect;
 const assert = chai.assert;
 const should = chai.should();
+const util = chai.util;
 
 function chaiVersion(): string {
     return chai.version;
@@ -158,6 +159,10 @@ function _typeof() {
 
     expect(5).to.not.be.a('number', 'blah');
     (5).should.not.be.a('number', 'blah');
+}
+
+function finite() {
+    expect(1).to.be.finite;
 }
 
 class Foo {
@@ -476,6 +481,12 @@ function deepEqual3() {
 function deepInclude() {
     expect(['foo', 'bar']).to.deep.include(['bar', 'foo']);
     ['foo', 'bar'].should.deep.include(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.includes(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.includes(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.contain(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.contain(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.contains(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.contains(['bar', 'foo']);
     expect(['foo', 'bar']).not.to.deep.equal(['foo', 'baz']);
     ['foo', 'bar'].should.not.deep.equal(['foo', 'baz']);
 }
@@ -622,6 +633,10 @@ function ownProperty() {
     'test'.should.haveOwnProperty('length');
     expect({length: 12}).to.have.ownProperty('length');
     ({length: 12}).should.have.ownProperty('length');
+    expect({length: 12}).to.have.ownProperty('length', 12);
+    ({length: 12}).should.have.ownProperty('length', 12);
+    expect({length: 12}).to.have.ownProperty('length', 12, 'blah');
+    ({length: 12}).should.have.ownProperty('length', 12, 'blah');
 
     expect({length: 12}).to.not.have.ownProperty('length', 'blah');
     ({length: 12}).should.not.have.ownProperty('length', 'blah');
@@ -782,6 +797,14 @@ function keys() {
 
     expect({foo: 1}).to.contain.keys('foo', 'bar');
     ({foo: 1}).should.contain.keys('foo', 'bar');
+}
+
+function deepKeys() {
+    expect(new Set([{a: 1}])).to.have.deep.keys([{a: 1}]);
+    (new Set([{a: 1}])).should.have.deep.keys([{a: 1}]);
+
+    expect(new Set([{a: 1}])).not.to.have.deep.keys([{b: 1}]);
+    (new Set([{a: 1}])).should.not.have.deep.keys([{b: 1}]);
 }
 
 function chaining() {
@@ -1299,6 +1322,11 @@ function oneOf() {
     expect(obj).to.not.be.oneOf([{z: 3}]);
 }
 
+function testInspectType() {
+    const x: string = util.inspect([1, 2, 3], false, 4, false);
+    expect(x).to.be.equal('[ 1, 2, 3 ]');
+}
+
 // tdd
 declare function suite(description: string, action: Function): void;
 
@@ -1357,6 +1385,10 @@ suite('assert', () => {
         assert.isFalse(false);
         assert.isFalse(true);
         assert.isFalse(0);
+    });
+
+    test('finite', () => {
+        assert.isFinite(1);
     });
 
     test('equal', () => {
@@ -1684,15 +1716,15 @@ suite('assert', () => {
         assert.deepProperty(obj, 'foo.bar');
         assert.notDeepProperty(obj, 'foo.baz');
         assert.deepPropertyVal(obj, 'foo.bar', 'baz');
-        assert.deepPropertyNotVal(simpleObj, 'foo.bar', 'flow');
+        assert.notDeepPropertyVal(simpleObj, 'foo.bar', 'flow');
         assert.property(simpleObj, 'baz');
         assert.deepProperty(obj, 'foo.baz');
         assert.notProperty(obj, 'foo');
         assert.notDeepProperty(obj, 'foo.bar');
         assert.propertyVal(simpleObj, 'foo', 'ball');
         assert.deepPropertyVal(obj, 'foo.bar', 'ball');
-        assert.propertyNotVal(simpleObj, 'foo', 'bar');
-        assert.deepPropertyNotVal(simpleObj, 'foo.bar', 'baz');
+        assert.notPropertyVal(simpleObj, 'foo', 'bar');
+        assert.notDeepPropertyVal(simpleObj, 'foo.bar', 'baz');
     });
 
     test('throws', () => {

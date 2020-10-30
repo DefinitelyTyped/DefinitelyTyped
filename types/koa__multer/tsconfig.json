@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@koa/multer": [
-                "koa__multer"
+            "@koa/*": [
+                "koa__*"
             ]
         }
     },

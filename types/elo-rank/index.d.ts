@@ -5,11 +5,11 @@
 // TypeScript Version: 2.7
 
 declare class EloRank {
-	constructor(kFactor?: number);
-	setKFactor(kFactor: number): void;
-	getKFactor(): number;
-	getExpected(a: number, b: number): number;
-	updateRating(expected: number, actual: number, current: number): number;
+    constructor(kFactor?: number);
+    setKFactor(kFactor: number): void;
+    getKFactor(): number;
+    getExpected(a: number, b: number): number;
+    updateRating(expected: number, actual: number, current: number): number;
 }
 
 export = EloRank;

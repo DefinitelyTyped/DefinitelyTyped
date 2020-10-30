@@ -1,8 +1,10 @@
-// Type definitions for jexl 2.1
+// Type definitions for jexl 2.2
 // Project: https://github.com/TomFrost/Jexl
 // Definitions by: Marcin Tomczyk <https://github.com/m-tomczyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+import Expression, { Context } from './Expression';
 
 type TransformFunction = (value: any, ...args: any[]) => any;
 
@@ -73,21 +75,45 @@ declare class Jexl {
     /**
      * Asynchronously evaluates a Jexl string within an optional context.
      * @param expression The Jexl expression to be evaluated
-     * @param [context] A mapping of variables to values, which will be
+     * @param context A mapping of variables to values, which will be
      *      made accessible to the Jexl expression when evaluating it
      * @returns resolves with the result of the evaluation.
      */
-    eval(expression: string, context?: object): Promise<any>;
+    eval(expression: string, context?: Context): Promise<any>;
 
     /**
      * Synchronously evaluates a Jexl string within an optional context.
      * @param expression The Jexl expression to be evaluated
-     * @param [context] A mapping of variables to values, which will be
+     * @param context A mapping of variables to values, which will be
      *      made accessible to the Jexl expression when evaluating it
      * @returns the result of the evaluation.
      * @throws on error
      */
-    evalSync(expression: string, context?: object): any;
+    evalSync(expression: string, context?: Context): any;
+
+    /**
+     * Creates an Expression object from the given Jexl expression string, and
+     * immediately compiles it. The returned Expression object can then be
+     * evaluated multiple times with new contexts, without generating any
+     * additional string processing overhead.
+     * @param expression The Jexl expression to be compiled
+     * @returns The compiled Expression object
+     */
+    compile(expression: string): Expression;
+
+    /**
+     * Constructs an Expression object from a Jexl expression string.
+     * @param expression The Jexl expression to be wrapped in an
+     *    Expression object
+     * @returns The Expression object representing the given string
+     */
+    createExpression(expression: string): Expression;
+
+    /**
+     * Removes a binary or unary operator from the Jexl grammar.
+     * @param operator The operator string to be removed
+     */
+    removeOp(operator: string): void;
 }
 
 /**

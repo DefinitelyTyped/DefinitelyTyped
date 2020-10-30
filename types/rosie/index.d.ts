@@ -39,7 +39,7 @@ declare namespace rosie {
      * @param {object=} options
      * @return {Array.<*>}
      */
-    buildList(name: string, size: number, attributes?: any, options?: any): any[];
+    buildList<T>(name: string, size: number, attributes?: { [k in keyof T]?: T[k] | boolean }, options?: any): T[];
 
     /**
      * Locates a factory by name and calls #attributes on it.
@@ -116,7 +116,7 @@ declare namespace rosie {
       * @param {object} attributes
       * @return {Factory}
       */
-    attrs(attributes: { [K in keyof T]: T[K] | ((opts?: any) => T[K]) }): IFactory<T>;
+    attrs<Keys extends keyof T>(attributes: { [K in Keys]: T[K] | ((opts?: any) => T[K]) }): IFactory<T>;
 
     /**
      * Define an option for this factory. Options are values that may inform

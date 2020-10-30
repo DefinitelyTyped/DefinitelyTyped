@@ -5,12 +5,14 @@
 //                 Andrew Brown <https://github.com/AGBrown>,
 //                 Olivier Chevet <https://github.com/olivr70>,
 //                 Matt Wistrand <https://github.com/mwistrand>,
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>
-//                 Shaun Luttin <https://github.com/shaunluttin>
-//                 Gintautas Miselis <https://github.com/Naktibalda>
-//                 Satana Charuwichitratana <https://github.com/micksatana>
-//                 Erik Schierboom <https://github.com/ErikSchierboom>
-//                 Rebecca Turner <https://github.com/9999years>
+//                 Josh Goldberg <https://github.com/joshuakgoldberg>,
+//                 Shaun Luttin <https://github.com/shaunluttin>,
+//                 Gintautas Miselis <https://github.com/Naktibalda>,
+//                 Satana Charuwichitratana <https://github.com/micksatana>,
+//                 Erik Schierboom <https://github.com/ErikSchierboom>,
+//                 Bogdan Paranytsia <https://github.com/bparan>,
+//                 CXuesong <https://github.com/CXuesong>,
+//                 Joey Kilpatrick <https://github.com/joeykilpatrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -65,7 +67,7 @@ declare namespace Chai {
         getOwnEnumerableProperties(obj: object): Array<string | symbol>;
         getMessage(errorLike: Error | string): string;
         getMessage(obj: any, args: AssertionArgs): string;
-        inspect(obj: any, showHidden?: boolean, depth?: number, colors?: boolean): void;
+        inspect(obj: any, showHidden?: boolean, depth?: number, colors?: boolean): string;
         isProxyEnabled(): boolean;
         objDisplay(obj: object): void;
         proxify(obj: object, nonChainableMethodName: string): object;
@@ -102,7 +104,8 @@ declare namespace Chai {
 
     export interface ExpectStatic {
         (val: any, message?: string): Assertion;
-        fail(actual?: any, expected?: any, message?: string, operator?: Operator): void;
+        fail(message?: string): never;
+        fail(actual: any, expected: any, message?: string, operator?: Operator): never;
     }
 
     export interface AssertStatic extends Assert {
@@ -130,7 +133,7 @@ declare namespace Chai {
     export interface AssertionStatic extends AssertionPrototype {
         prototype: AssertionPrototype;
 
-        new (target: any, message?: string, ssfi?: Function, lockSsfi?: boolean): Assertion;
+        new(target: any, message?: string, ssfi?: Function, lockSsfi?: boolean): Assertion;
 
         // Deprecated properties:
         includeStack: boolean;
@@ -166,12 +169,13 @@ declare namespace Chai {
 
     interface Should extends ShouldAssertion {
         not: ShouldAssertion;
-        fail(actual: any, expected: any, message?: string, operator?: Operator): void;
+        fail(message?: string): never;
+        fail(actual: any, expected: any, message?: string, operator?: Operator): never;
     }
 
     interface ShouldThrow {
-        (actual: Function, expected?: string|RegExp, message?: string): void;
-        (actual: Function, constructor: Error|Function, expected?: string|RegExp, message?: string): void;
+        (actual: Function, expected?: string | RegExp, message?: string): void;
+        (actual: Function, constructor: Error | Function, expected?: string | RegExp, message?: string): void;
     }
 
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
@@ -198,14 +202,15 @@ declare namespace Chai {
         empty: Assertion;
         arguments: Assertion;
         Arguments: Assertion;
+        finite: Assertion;
         equal: Equal;
         equals: Equal;
         eq: Equal;
         eql: Equal;
         eqls: Equal;
         property: Property;
-        ownProperty: OwnProperty;
-        haveOwnProperty: OwnProperty;
+        ownProperty: Property;
+        haveOwnProperty: Property;
         ownPropertyDescriptor: OwnPropertyDescriptor;
         haveOwnPropertyDescriptor: OwnPropertyDescriptor;
         length: Length;
@@ -290,23 +295,31 @@ declare namespace Chai {
     }
 
     interface Nested {
-      include: Include;
-      property: Property;
-      members: Members;
+        include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
+        property: Property;
+        members: Members;
     }
 
     interface Own {
         include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
         property: Property;
     }
 
-    interface Deep {
+    interface Deep extends KeyFilter {
         equal: Equal;
         equals: Equal;
         eq: Equal;
         include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
         property: Property;
-        members: Members;
         ordered: Ordered;
         nested: Nested;
         own: Own;
@@ -326,10 +339,7 @@ declare namespace Chai {
     }
 
     interface Property {
-        (name: string, value?: any, message?: string): Assertion;
-    }
-
-    interface OwnProperty {
+        (name: string, value: any, message?: string): Assertion;
         (name: string, message?: string): Assertion;
     }
 
@@ -358,12 +368,12 @@ declare namespace Chai {
 
     interface Keys {
         (...keys: string[]): Assertion;
-        (keys: ReadonlyArray<any>|Object): Assertion;
+        (keys: ReadonlyArray<any> | Object): Assertion;
     }
 
     interface Throw {
-        (expected?: string|RegExp, message?: string): Assertion;
-        (constructor: Error|Function, expected?: string|RegExp, message?: string): Assertion;
+        (expected?: string | RegExp, message?: string): Assertion;
+        (constructor: Error | Function, expected?: string | RegExp, message?: string): Assertion;
     }
 
     interface RespondTo {
@@ -392,6 +402,14 @@ declare namespace Chai {
         /**
          * Throws a failure.
          *
+         * @param message    Message to display on error.
+         * @remarks Node.js assert module-compatible.
+         */
+        fail(message?: string): never;
+
+        /**
+         * Throws a failure.
+         *
          * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
@@ -399,7 +417,7 @@ declare namespace Chai {
          * @param operator   Comparison operator, if not strict equality.
          * @remarks Node.js assert module-compatible.
          */
-        fail<T>(actual?: T, expected?: T, message?: string, operator?: Operator): void;
+        fail<T>(actual: T, expected: T, message?: string, operator?: Operator): never;
 
         /**
          * Asserts that object is truthy.
@@ -598,7 +616,7 @@ declare namespace Chai {
         isNotNull<T>(value: T, message?: string): void;
 
         /**
-         * Asserts that value is not null.
+         * Asserts that value is NaN.
          *
          * @type T   Type of value.
          * @param value   Actual value.
@@ -607,7 +625,7 @@ declare namespace Chai {
         isNaN<T>(value: T, message?: string): void;
 
         /**
-         * Asserts that value is not null.
+         * Asserts that value is not NaN.
          *
          * @type T   Type of value.
          * @param value   Actual value.
@@ -743,6 +761,16 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         isNotNumber<T>(value: T, message?: string): void;
+
+        /**
+         * Asserts that value is a finite number.
+         * Unlike `.isNumber`, this will fail for `NaN` and `Infinity`.
+         *
+         * @type T   Type of value
+         * @param value    Actual value
+         * @param message   Message to display on error.
+         */
+        isFinite<T>(value: T, message?: string): void;
 
         /**
          * Asserts that value is a boolean.
@@ -1120,7 +1148,7 @@ declare namespace Chai {
          * @param value   Potential expected property value.
          * @param message   Message to display on error.
          */
-        propertyNotVal<T, V>(object: T, property: string /* keyof T */, value: V, message?: string): void;
+        notPropertyVal<T, V>(object: T, property: string /* keyof T */, value: V, message?: string): void;
 
         /**
          * Asserts that object has a property named by property, which can be a string
@@ -1146,7 +1174,7 @@ declare namespace Chai {
          * @param value   Potential expected property value.
          * @param message   Message to display on error.
          */
-        deepPropertyNotVal<T, V>(object: T, property: string, value: V, message?: string): void;
+        notDeepPropertyVal<T, V>(object: T, property: string, value: V, message?: string): void;
 
         /**
          * Asserts that object has a length property with the expected value.
@@ -1164,7 +1192,7 @@ declare namespace Chai {
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
-        throw(fn: Function, message?: string): void;
+        throw(fn: () => void, message?: string): void;
 
         /**
          * Asserts that function will throw an error with message matching regexp.
@@ -1173,7 +1201,7 @@ declare namespace Chai {
          * @param regExp   Potential expected message match.
          * @param message   Message to display on error.
          */
-        throw(fn: Function, regExp: RegExp): void;
+        throw(fn: () => void, regExp: RegExp): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor.
@@ -1182,7 +1210,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        throw(fn: Function, constructor: Function, message?: string): void;
+        throw(fn: () => void, constructor: ErrorConstructor, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
@@ -1192,7 +1220,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        throw(fn: Function, constructor: Function, regExp: RegExp): void;
+        throw(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -1200,7 +1228,7 @@ declare namespace Chai {
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
-        throws(fn: Function, message?: string): void;
+        throws(fn: () => void, message?: string): void;
 
         /**
          * Asserts that function will throw an error with message matching regexp.
@@ -1209,7 +1237,7 @@ declare namespace Chai {
          * @param errType  Potential expected message match or error constructor.
          * @param message   Message to display on error.
          */
-        throws(fn: Function, errType: RegExp|Function, message?: string): void;
+        throws(fn: () => void, errType: RegExp | ErrorConstructor, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
@@ -1219,7 +1247,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        throws(fn: Function, errType: Function, regExp: RegExp): void;
+        throws(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -1227,7 +1255,7 @@ declare namespace Chai {
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
-        Throw(fn: Function, message?: string): void;
+        Throw(fn: () => void, message?: string): void;
 
         /**
          * Asserts that function will throw an error with message matching regexp.
@@ -1236,7 +1264,7 @@ declare namespace Chai {
          * @param regExp   Potential expected message match.
          * @param message   Message to display on error.
          */
-        Throw(fn: Function, regExp: RegExp): void;
+        Throw(fn: () => void, regExp: RegExp): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor.
@@ -1245,7 +1273,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        Throw(fn: Function, errType: Function, message?: string): void;
+        Throw(fn: () => void, constructor: ErrorConstructor, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
@@ -1255,7 +1283,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        Throw(fn: Function, errType: Function, regExp: RegExp): void;
+        Throw(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
 
         /**
          * Asserts that fn will not throw an error.
@@ -1263,7 +1291,7 @@ declare namespace Chai {
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
-        doesNotThrow(fn: Function, message?: string): void;
+        doesNotThrow(fn: () => void, message?: string): void;
 
         /**
          * Asserts that function will throw an error with message matching regexp.
@@ -1272,7 +1300,7 @@ declare namespace Chai {
          * @param regExp   Potential expected message match.
          * @param message   Message to display on error.
          */
-        doesNotThrow(fn: Function, regExp: RegExp): void;
+        doesNotThrow(fn: () => void, regExp: RegExp): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor.
@@ -1281,7 +1309,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        doesNotThrow(fn: Function, errType: Function, message?: string): void;
+        doesNotThrow(fn: () => void, constructor: ErrorConstructor, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
@@ -1291,7 +1319,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        doesNotThrow(fn: Function, errType: Function, regExp: RegExp): void;
+        doesNotThrow(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
 
         /**
          * Compares two values using operator.

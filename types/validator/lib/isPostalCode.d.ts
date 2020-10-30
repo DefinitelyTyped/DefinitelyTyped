@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isPostalCode: typeof validator.isPostalCode;
-export = isPostalCode;
+import validator from '../';
+export type PostalCodeLocale = validator.PostalCodeLocale;
+export default validator.isPostalCode;

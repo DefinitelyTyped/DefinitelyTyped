@@ -311,6 +311,18 @@ blocks.registerBlockType('my/foo', {
     category: 'common',
 });
 
+// $ExpectType Block<{}> | undefined
+blocks.registerBlockType('my/foo', {
+    attributes: {},
+    icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="none" d="M0 0h24v24H0V0z" />
+        </svg>
+    ),
+    title: 'Foo',
+    category: 'common',
+});
+
 // $ExpectType Block<{ foo: string; }> | undefined
 blocks.registerBlockType<{ foo: string }>('my/foo', {
     attributes: {

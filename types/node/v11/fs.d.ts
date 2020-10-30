@@ -442,7 +442,7 @@ declare module "fs" {
          * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
+        function __promisify__(existingPath: PathLike, newPath: PathLike): Promise<void>;
     }
 
     /**
@@ -710,7 +710,7 @@ declare module "fs" {
          * A file mode. If a string is passed, it is parsed as an octal integer. If not specified
          * @default 0o777.
          */
-        mode?: number;
+        mode?: number | string;
     }
 
     /**

@@ -1,7 +1,8 @@
 import * as React from "react";
+import { ReactDivAttr } from "../../../typings/shared";
 
-export interface FileUploaderSkeletonProps { }
+export interface FileUploaderSkeletonProps extends ReactDivAttr { }
 
-declare class FileUploaderSkeleton extends React.Component<FileUploaderSkeletonProps> { }
+declare const FileUploaderSkeleton: React.FC<FileUploaderSkeletonProps>;
 
 export default FileUploaderSkeleton;

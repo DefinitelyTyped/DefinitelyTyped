@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.0.4
+// Last module patch version validated against: 1.0.7
 
 /**
  * Reference type things that can be coerced to string implicitly
@@ -290,7 +290,6 @@ export function set<T>(array: T[], key: (value: T, index: number, array: T[]) =>
  * The use of the rollup function, or lack thereof, also determines whether NestedArray has the 'values' property
  * with an array of type Datum at leaf level, or has a rolled-up 'value' property.
  */
-// tslint:disable-next-line:no-empty-interface
 export interface NestedArray<Datum, RollupType> extends Array<{ key: string, values: NestedArray<Datum, RollupType> | Datum[] | undefined, value: RollupType | undefined }> { }
 
 /**
@@ -300,7 +299,6 @@ export interface NestedArray<Datum, RollupType> extends Array<{ key: string, val
  * of the nesting level (number of key(...) operations) and whether the data were rolled-up, this data structure becomes cumbersome
  * to use in practice.
  */
-// tslint:disable-next-line:no-empty-interface
 export interface NestedMap<Datum, RollupType> extends Map<NestedMap<Datum, RollupType> | Datum[] | RollupType> { }
 
 /**

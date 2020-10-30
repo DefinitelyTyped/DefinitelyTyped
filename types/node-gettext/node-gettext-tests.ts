@@ -4,7 +4,7 @@ import Gettext from 'node-gettext';
 // import Gettext = require('node-getttext');
 
 const translations = {};
-const gt = new Gettext({ debug: true });
+const gt = new Gettext({ debug: true, sourceLocale: 'en' });
 const msgid = 'Get translation';
 const msgidPlural = 'Get translations';
 const domain = 'domain';
@@ -26,7 +26,7 @@ gt.npgettext(msgctxt, msgid, msgidPlural, count);
 gt.pgettext(msgctxt, msgid);
 Gettext.getLanguageCode('en-US');
 gt.warn('warning');
-const errorListener = (error: string) => {
+const errorListener = (error: any) => {
     // do something;
 };
 gt.on('error', errorListener);

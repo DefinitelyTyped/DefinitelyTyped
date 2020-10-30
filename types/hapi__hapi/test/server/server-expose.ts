@@ -2,14 +2,14 @@
 import { Plugin, Server, ServerRegisterOptions } from "@hapi/hapi";
 
 declare module '@hapi/hapi' {
-	interface PluginProperties {
-		example1: {
-			util(): void;
-		};
-		example2: {
-			util(): void;
-		};
-	}
+    interface PluginProperties {
+        example1: {
+            util(): void;
+        };
+        example2: {
+            util(): void;
+        };
+    }
 }
 
 const plugin1: Plugin<any> = {

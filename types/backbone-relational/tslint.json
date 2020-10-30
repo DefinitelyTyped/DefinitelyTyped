@@ -1,14 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "array-type": false,
         "comment-format": false,
-        "dt-header": false,
-        "npm-naming": false,
-        "eofline": false,
         "jsdoc-format": false,
-        "max-line-length": false,
-        "member-access": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
         "no-var-keyword": false,
@@ -16,7 +10,6 @@
         "one-line": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-template": false,
         "space-before-function-paren": false,
         "typedef-whitespace": false,
         "unified-signatures": false,

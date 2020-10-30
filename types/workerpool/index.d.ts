@@ -1,9 +1,10 @@
-// Type definitions for workerpool 5.0
+// Type definitions for workerpool 6.0
 // Project: https://github.com/josdejong/workerpool
 // Definitions by: Alorel <https://github.com/Alorel>
 //                 Seulgi Kim <https://github.com/sgkim126>
+//                 Emily M Klassen <https://github.com/forivall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.1
 
 /// <reference types="node" />
 
@@ -17,6 +18,10 @@ export interface WorkerPoolStats {
     activeTasks: number;
 }
 
+export type Proxy<T extends {[k: string]: (...args: any[]) => any}> = {
+    [M in keyof T]: (...args: Parameters<T[M]>) => Promise<ReturnType<T[M]>>;
+};
+
 export interface WorkerPool {
     /**
      * Execute a function on a worker with given arguments.
@@ -27,14 +32,15 @@ export interface WorkerPool {
      * and executed there with the provided parameters. The provided function must be static,
      * it must not depend on variables in a surrounding scope.
      */
-    exec(method: ((...args: any[]) => any) | string, params: any[] | null): Promise<any>;
+    exec<T extends (...args: any[]) => any>(method: T | string, params: Parameters<T> | null): Promise<ReturnType<T>>;
 
     /**
      * Create a proxy for the worker pool.
      * The proxy contains a proxy for all methods available on the worker.
      * All methods return promises resolving the methods result.
      */
-    proxy(): Promise<any>;
+    // tslint:disable-next-line: no-unnecessary-generics
+    proxy<T extends {[k: string]: (...args: any[]) => any}>(): Promise<Proxy<T>>;
 
     /** Retrieve statistics on workers, and active and pending tasks. */
     stats(): WorkerPoolStats;
@@ -45,14 +51,6 @@ export interface WorkerPool {
      * If timeout is provided, worker will be forced to terminal when the timeout expires and the worker has not finished.
      */
     terminate(force?: boolean, timeout?: number): Promise<any[]>;
-
-    /**
-     * Clear all workers from the pool.
-     * If parameter force is false (default), workers will finish the tasks they are working on before terminating themselves.
-     * When force is true, all workers are terminated immediately without finishing running tasks.
-     * @deprecated
-     */
-    clear(force?: boolean): Promise<any[]>;
 }
 
 export class Promise<T, E = Error> {
@@ -61,8 +59,8 @@ export class Promise<T, E = Error> {
     readonly pending: boolean;
 
     always<TT>(handler: () => Promise<TT>): Promise<TT>;
-    then<TT, EE = Error>(result: (r: T) => TT, err?: (r: E) => EE): Promise<TT, EE>;
-    catch<TT>(err: (error: E) => TT): Promise<TT>;
+    then<TT, TE = never>(result: (r: T) => TT, err?: (r: E) => TE): Promise<TT | TE, any>;
+    catch<TT>(err: (error: E) => TT): Promise<T | TT>;
     cancel(): this;
     timeout(delay: number): this;
 
@@ -92,13 +90,6 @@ export interface WorkerPoolOptions {
      * When the number of CPU's could not be determined (for example in older browsers), maxWorkers is set to 3.
      */
     maxWorkers?: number;
-    /**
-     * In case of 'process' (default), child_process will be used.
-     * In case of 'thread', worker_threads will be used. If worker_threads are not available, an error is thrown.
-     * In case of 'auto', worker_threads will be used if available (Node.js >= 11.7.0), else child_process will be used as fallback.
-     * @deprecated
-     */
-    nodeWorker?: 'process' | 'thread' | 'auto';
 
     /**
      * - In case of `'auto'` (default), workerpool will automatically pick a suitable type of worker:

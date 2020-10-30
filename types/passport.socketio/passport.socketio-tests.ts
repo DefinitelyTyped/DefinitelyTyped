@@ -14,7 +14,7 @@ const middleware = passportSocketIo.authorize({
     secret: 'session_secret',
     store: sessionStore,
     success: (data, accept) => accept(),
-    fail: (data, message, error, accept) => {
+    fail: (data, message, error: boolean, accept) => {
         if (error) {
             accept(new Error(message));
         }

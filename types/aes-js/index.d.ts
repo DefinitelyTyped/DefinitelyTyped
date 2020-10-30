@@ -19,7 +19,7 @@ export class AES {
  * @param initialValue The Counter initial value.
  */
 export class Counter {
-    constructor(initialValue: number)
+    constructor(initialValue: number | ByteSource)
     setValue(value: number): void;
     setBytes(bytes: ByteSource): void;
     increment(): void;

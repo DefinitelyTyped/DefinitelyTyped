@@ -24,7 +24,8 @@ function test_getAuthInstance() {
 function test_signIn() {
   gapi.auth2.getAuthInstance().signIn({
     scope: 'email profile',
-    prompt: 'content'
+    prompt: 'content',
+    login_hint: 'example@example.com'
   });
 }
 
@@ -34,6 +35,7 @@ function test_signInOptionsBuild() {
   options.setFetchBasicProfile(true);
   options.setPrompt('select_account');
   options.setScope('profile').setScope('email');
+  options.setLoginHint('example@example.com');
   gapi.auth2.getAuthInstance().signIn(options);
 }
 

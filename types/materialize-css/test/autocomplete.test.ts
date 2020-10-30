@@ -38,6 +38,10 @@ const autocomplete = new materialize.Autocomplete(elem, {
 // $ExpectType void
 autocomplete.updateData({ Microsoft: null });
 // $ExpectType void
+autocomplete.open();
+// $ExpectType void
+autocomplete.close();
+// $ExpectType void
 autocomplete.destroy();
 // $ExpectType AutocompleteOptions
 autocomplete.options;

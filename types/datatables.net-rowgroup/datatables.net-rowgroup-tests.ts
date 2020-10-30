@@ -1,26 +1,26 @@
 let config_1: DataTables.Settings = {
-	// RowGroup extension options
-	rowGroup: {
-		className: 'className',
-		enable: true,
-		dataSrc: 'data',
-		endClassName: 'endClassName',
-		endRender: (rows, group) => {
-			return `${ group } (${ rows.count() } rows)`;
-		},
-		startRender: (rows, group) => {
-			return `${ group } (${ rows.count() } rows)`;
-		}
-	}
+    // RowGroup extension options
+    rowGroup: {
+        className: 'className',
+        enable: true,
+        dataSrc: 'data',
+        endClassName: 'endClassName',
+        endRender: (rows, group) => {
+            return `${ group } (${ rows.count() } rows)`;
+        },
+        startRender: (rows, group) => {
+            return `${ group } (${ rows.count() } rows)`;
+        }
+    }
 };
 
 let dt: DataTables.Api = $("selector").DataTable({
-	rowGroup: true
+    rowGroup: true
 });
 
 // Statics
 let fixed_1 = new $.fn.dataTable.RowGroup(dt, {
-	enable: true,
+    enable: true,
 });
 
 let fixed_2 = new $.fn.dataTable.RowGroup(dt, true);
@@ -36,5 +36,5 @@ dt.rowGroup().enable(true);
 
 // Chaining
 dt.rowGroup().dataSrc(12)
-	.rowGroup().disable()
-	.rowGroup().enable();
+    .rowGroup().disable()
+    .rowGroup().enable();

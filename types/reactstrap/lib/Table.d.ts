@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface TableProps extends React.HTMLAttributes<HTMLElement> {
+export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
     [key: string]: any;
-    className?: string;
     cssModule?: CSSModule;
     size?: string;
     bordered?: boolean;
@@ -12,9 +11,9 @@ export interface TableProps extends React.HTMLAttributes<HTMLElement> {
     inverse?: boolean;
     hover?: boolean;
     reflow?: boolean;
-    responsive?: boolean;
-    tag?: string | React.ReactType;
-    responsiveTag?: React.ReactType;
+    responsive?: boolean | string;
+    tag?: React.ElementType;
+    responsiveTag?: React.ElementType;
 }
 
 declare class Table<T = {[key: string]: any}> extends React.Component<TableProps> {}

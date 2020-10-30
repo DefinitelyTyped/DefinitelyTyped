@@ -1,12 +1,13 @@
-// Type definitions for D3JS d3-scale-chromatic module 1.3
+// Type definitions for D3JS d3-scale-chromatic module 2.0
 // Project: https://github.com/d3/d3-scale-chromatic/, https://d3js.org/d3-scale-chromatic
-// Definitions by: Hugues Stefanski <https://github.com/Ledragon>,
-//                 Alex Ford <https://github.com/gustavderdrache>,
-//                 Boris Yankov <https://github.com/borisyankov>,
+// Definitions by: Hugues Stefanski <https://github.com/Ledragon>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
 //                 Henrique Machado <https://github.com/henriquefm>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.3.2
+// Last module patch version validated against: 2.0.0
 
 // -----------------------------------------------------------------------
 // Categorical
@@ -47,6 +48,10 @@ export const schemeSet2: ReadonlyArray<string>;
  * An array of twelve categorical colors represented as RGB hexadecimal strings.
  */
 export const schemeSet3: ReadonlyArray<string>;
+/**
+ * An array of ten categorical colors authored by Tableau as part of Tableau 10 represented as RGB hexadecimal strings.
+ */
+export const schemeTableau10: ReadonlyArray<string>;
 
 // -----------------------------------------------------------------------
 // Diverging
@@ -269,6 +274,13 @@ export const schemeReds: ReadonlyArray<ReadonlyArray<string>>;
 // -----------------------------------------------------------------------
 
 /**
+ * Given a number t in the range [0,1], returns the corresponding color from the “turbo” color scheme by Anton Mikhailov.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateTurbo(t: number): string;
+
+/**
  * Given a number t in the range [0,1], returns the corresponding color from the “viridis” perceptually-uniform color scheme designed by van der Walt, Smith and Firing for matplotlib,
  * represented as an RGB string.
  *
@@ -299,6 +311,14 @@ export function interpolateMagma(t: number): string;
  * @param t A number in the interval [0, 1].
  */
 export function interpolatePlasma(t: number): string;
+
+/**
+ * Given a number t in the range [0,1], returns the corresponding color from the “plasma” perceptually-uniform color scheme designed by van der Walt and Smith for matplotlib,
+ * represented as an RGB string.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateCividis(t: number): string;
 
 /**
  * Given a number t in the range [0,1], returns the corresponding color from a 180° rotation of Niccoli’s perceptual rainbow, represented as an RGB string.

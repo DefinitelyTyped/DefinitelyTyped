@@ -2,6 +2,7 @@
 // Project: https://github.com/mapbox/mapbox-sdk-js
 // Definitions by: Jeff Dye <https://github.com/jeffbdye>
 //                 Mike O'Meara <https://github.com/mikeomeara1>
+//                 chachan <https://github.com/chachan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1004,7 +1005,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * The ISO 3166-1 country and ISO 3166-2 region code for the returned feature.
          */
-        short_coide: string;
+        short_code: string;
     }
 }
 
@@ -1026,7 +1027,7 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
     export default function MapMatching(config: SdkConfig | MapiClient): MapMatchingService;
 
     interface MapMatchingService {
-        getMatching(request: MapMatchingRequest): MapiRequest;
+        getMatch(request: MapMatchingRequest): MapiRequest;
     }
 
     interface MapMatchingRequest {
@@ -1300,7 +1301,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
             pitch?: number;
         }
         | 'auto';
-        overlays?: CustomMarkerOverlay[] | PathOverlay[] | GeoJsonOverlay[];
+        overlays?: Array<CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay>;
         highRes?: boolean;
         insertOverlayBeforeLayer?: string;
         attribution?: boolean;
@@ -1316,7 +1317,22 @@ declare module '@mapbox/mapbox-sdk/services/static' {
         url: string;
     }
 
+    interface SimpleMarkerOverlay {
+        marker: SimpleMarker;
+    }
+
+    interface SimpleMarker {
+        coordinates: LngLatLike;
+        label?: string;
+        color?: string;
+        size?: 'large' | 'small';
+    }
+
     interface PathOverlay {
+        path: Path;
+    }
+
+    interface Path {
         /**
          * An array of coordinates describing the path.
          */

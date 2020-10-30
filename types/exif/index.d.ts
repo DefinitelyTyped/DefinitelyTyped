@@ -69,15 +69,42 @@ declare namespace Exif {
             UserComment?: Buffer;
             WhiteBalance?: number;
         };
+        /**
+         * Entire GPS Tags from https://exiftool.org/TagNames/GPS.html are listed.
+         * And their types are determined from http://www.exif.org/Exif2-2.PDF.
+         */
         gps: {
             GPSAltitude?: number;
             GPSAltitudeRef?: number;
+            GPSAreaInformation?: Buffer;
             GPSDateStamp?: string;
+            GPSDestBearing?: number;
+            GPSDestBearingRef?: string;
+            GPSDestDistance?: number;
+            GPSDestDistanceRef?: string;
+            GPSDestLatitude?: number[];
+            GPSDestLatitudeRef?: string;
+            GPSDestLongitude?: number[];
+            GPSDestLongitudeRef?: string;
+            GPSDifferential?: number;
+            GPSDOP?: number;
+            GPSHPositioningError?: number;
+            GPSImgDirection?: number;
+            GPSImgDirectionRef?: string;
             GPSLatitude?: number[];
             GPSLatitudeRef?: string;
             GPSLongitude?: number[];
             GPSLongitudeRef?: string;
+            GPSMapDatum?: string;
+            GPSMeasureMode?: string;
+            GPSProcessingMethod?: Buffer;
             GPSTimeStamp?: number[];
+            GPSSatellites?: string;
+            GPSSpeed?: number;
+            GPSSpeedRef?: string;
+            GPSStatus?: string;
+            GPSTrack?: number;
+            GPSTrackRef?: string;
             GPSVersionId?: number[];
         };
         interoperability: {

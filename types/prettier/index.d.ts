@@ -1,18 +1,29 @@
-// Type definitions for prettier 1.18
+// Type definitions for prettier 2.1
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
 //                 Florian Keller <https://github.com/ffflorian>,
-//                 Sosuke Suzuki <https://github.com/sosukesuzuki>
+//                 Sosuke Suzuki <https://github.com/sosukesuzuki>,
+//                 Christopher Quadflieg <https://github.com/Shinigami92>
+//                 Kevin Deisz <https://github.com/kddeisz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+// This utility is here to handle the case where you have an explicit union
+// between string literals and the generic string type. It would normally
+// resolve out to just the string type, but this generic LiteralUnion maintains
+// the intellisense of the original union.
+//
+// It comes from this issue: microsoft/TypeScript#29729:
+//   https://github.com/microsoft/TypeScript/issues/29729#issuecomment-700527227
+export type LiteralUnion<T extends U, U = string> = T | (Pick<U, never> & { _?: never });
 
 export type AST = any;
 export type Doc = doc.builders.Doc;
 
 // https://github.com/prettier/prettier/blob/master/src/common/fast-path.js
 export interface FastPath<T = any> {
-    stack: any[];
+    stack: T[];
     getName(): null | PropertyKey;
     getValue(): T;
     getNode(count?: number): null | T;
@@ -24,12 +35,11 @@ export interface FastPath<T = any> {
 
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
-    | 'babylon' // deprecated
     | 'babel'
     | 'babel-flow'
+    | 'babel-ts'
     | 'flow'
     | 'typescript'
-    | 'postcss' // deprecated
     | 'css'
     | 'less'
     | 'scss'
@@ -44,47 +54,56 @@ export type BuiltInParserName =
     | 'mdx'
     | 'yaml'
     | 'lwc';
+export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
-export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
+export type CustomParser = (text: string, parsers: BuiltInParsers, options: Options) => AST;
 
 export interface Options extends Partial<RequiredOptions> {}
 export interface RequiredOptions extends doc.printer.Options {
     /**
      * Print semicolons at the ends of statements.
+     * @default true
      */
     semi: boolean;
     /**
      * Use single quotes instead of double quotes.
+     * @default false
      */
     singleQuote: boolean;
     /**
      * Use single quotes in JSX.
+     * @default false
      */
     jsxSingleQuote: boolean;
     /**
      * Print trailing commas wherever possible.
+     * @default 'es5'
      */
     trailingComma: 'none' | 'es5' | 'all';
     /**
      * Print spaces between brackets in object literals.
+     * @default true
      */
     bracketSpacing: boolean;
     /**
      * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+     * @default false
      */
     jsxBracketSameLine: boolean;
     /**
      * Format only a segment of a file.
+     * @default 0
      */
     rangeStart: number;
     /**
      * Format only a segment of a file.
+     * @default Infinity
      */
     rangeEnd: number;
     /**
      * Specify which parser to use.
      */
-    parser: BuiltInParserName | CustomParser;
+    parser: LiteralUnion<BuiltInParserName> | CustomParser;
     /**
      * Specify the input filepath. This will be used to do parser inference.
      */
@@ -92,6 +111,7 @@ export interface RequiredOptions extends doc.printer.Options {
     /**
      * Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file.
      * This is very useful when gradually transitioning large, unformatted codebases to prettier.
+     * @default false
      */
     requirePragma: boolean;
     /**
@@ -99,19 +119,18 @@ export interface RequiredOptions extends doc.printer.Options {
      * the file has been formatted with prettier. This works well when used in tandem with
      * the --require-pragma option. If there is already a docblock at the top of
      * the file then this option will add a newline to it with the @format marker.
+     * @default false
      */
     insertPragma: boolean;
     /**
      * By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer.
      * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
+     * @default 'preserve'
      */
-    proseWrap:
-        | boolean // deprecated
-        | 'always'
-        | 'never'
-        | 'preserve';
+    proseWrap: 'always' | 'never' | 'preserve';
     /**
      * Include parentheses around a sole arrow function parameter.
+     * @default 'always'
      */
     arrowParens: 'avoid' | 'always';
     /**
@@ -120,52 +139,61 @@ export interface RequiredOptions extends doc.printer.Options {
     plugins: Array<string | Plugin>;
     /**
      * How to handle whitespaces in HTML.
+     * @default 'css'
      */
     htmlWhitespaceSensitivity: 'css' | 'strict' | 'ignore';
     /**
      * Which end of line characters to apply.
+     * @default 'lf'
      */
     endOfLine: 'auto' | 'lf' | 'crlf' | 'cr';
     /**
      * Change when properties in objects are quoted.
+     * @default 'as-needed'
      */
     quoteProps: 'as-needed' | 'consistent' | 'preserve';
+    /**
+     * Whether or not to indent the code inside <script> and <style> tags in Vue files.
+     * @default false
+     */
+    vueIndentScriptAndStyle: boolean;
+    /**
+     * Control whether Prettier formats quoted code embedded in the file.
+     * @default 'auto'
+     */
+    embeddedLanguageFormatting: 'auto' | 'off';
 }
 
-export interface ParserOptions extends RequiredOptions {
-    locStart: (node: any) => number;
-    locEnd: (node: any) => number;
+export interface ParserOptions<T = any> extends RequiredOptions {
+    locStart: (node: T) => number;
+    locEnd: (node: T) => number;
     originalText: string;
 }
 
-export interface Plugin {
+export interface Plugin<T = any> {
     languages?: SupportLanguage[];
-    parsers?: { [parserName: string]: Parser };
-    printers?: { [astFormat: string]: Printer };
-    options?: SupportOption[];
+    parsers?: { [parserName: string]: Parser<T> };
+    printers?: { [astFormat: string]: Printer<T> };
+    options?: SupportOptions;
     defaultOptions?: Partial<RequiredOptions>;
 }
 
-export interface Parser {
-    parse: (text: string, parsers: { [parserName: string]: Parser }, options: ParserOptions) => AST;
+export interface Parser<T = any> {
+    parse: (text: string, parsers: { [parserName: string]: Parser }, options: ParserOptions<T>) => T;
     astFormat: string;
     hasPragma?: (text: string) => boolean;
-    locStart: (node: any) => number;
-    locEnd: (node: any) => number;
-    preprocess?: (text: string, options: ParserOptions) => string;
+    locStart: (node: T) => number;
+    locEnd: (node: T) => number;
+    preprocess?: (text: string, options: ParserOptions<T>) => string;
 }
 
-export interface Printer {
-    print(
-        path: FastPath,
-        options: ParserOptions,
-        print: (path: FastPath) => Doc,
-    ): Doc;
+export interface Printer<T = any> {
+    print(path: FastPath<T>, options: ParserOptions<T>, print: (path: FastPath<T>) => Doc): Doc;
     embed?: (
-        path: FastPath,
-        print: (path: FastPath) => Doc,
+        path: FastPath<T>,
+        print: (path: FastPath<T>) => Doc,
         textToDoc: (text: string, options: Options) => Doc,
-        options: ParserOptions,
+        options: ParserOptions<T>,
     ) => Doc | null;
     insertPragma?: (text: string) => string;
     /**
@@ -174,14 +202,26 @@ export interface Printer {
      * @returns anything if you want to replace the node with it
      */
     massageAstNode?: (node: any, newNode: any, parent: any) => any;
-    hasPrettierIgnore?: (path: FastPath) => boolean;
-    canAttachComment?: (node: any) => boolean;
-    willPrintOwnComments?: (path: FastPath) => boolean;
-    printComments?: (path: FastPath, print: (path: FastPath) => Doc, options: ParserOptions, needsSemi: boolean) => Doc;
+    hasPrettierIgnore?: (path: FastPath<T>) => boolean;
+    canAttachComment?: (node: T) => boolean;
+    willPrintOwnComments?: (path: FastPath<T>) => boolean;
+    printComments?: (path: FastPath<T>, print: (path: FastPath<T>) => Doc, options: ParserOptions<T>, needsSemi: boolean) => Doc;
     handleComments?: {
-        ownLine?: (commentNode: any, text: string, options: ParserOptions, ast: any, isLastComment: boolean) => boolean;
-        endOfLine?: (commentNode: any, text: string, options: ParserOptions, ast: any, isLastComment: boolean) => boolean;
-        remaining?: (commentNode: any, text: string, options: ParserOptions, ast: any, isLastComment: boolean) => boolean;
+        ownLine?: (commentNode: any, text: string, options: ParserOptions<T>, ast: T, isLastComment: boolean) => boolean;
+        endOfLine?: (
+            commentNode: any,
+            text: string,
+            options: ParserOptions<T>,
+            ast: T,
+            isLastComment: boolean,
+        ) => boolean;
+        remaining?: (
+            commentNode: any,
+            text: string,
+            options: ParserOptions<T>,
+            ast: T,
+            isLastComment: boolean,
+        ) => boolean;
     };
 }
 
@@ -295,45 +335,92 @@ export interface SupportLanguage {
     vscodeLanguageIds?: string[];
 }
 
-export interface SupportOptionDefault {
-    since: string;
-    value: SupportOptionValue;
-}
-
-export interface SupportOption {
-    since?: string;
-    type: 'int' | 'boolean' | 'choice' | 'path';
-    array?: boolean;
-    deprecated?: string;
-    redirect?: SupportOptionRedirect;
-    description: string;
-    oppositeDescription?: string;
-    default: SupportOptionValue | SupportOptionDefault[];
-    range?: SupportOptionRange;
-    choices?: SupportOptionChoice[];
-    category: string;
-}
-
-export interface SupportOptionRedirect {
-    options: string;
-    value: SupportOptionValue;
-}
-
 export interface SupportOptionRange {
     start: number;
     end: number;
     step: number;
 }
 
-export interface SupportOptionChoice {
-    value: boolean | string;
+export type SupportOptionType = 'int' | 'boolean' | 'choice' | 'path';
+
+export interface BaseSupportOption<Type extends SupportOptionType> {
+    since: string;
+    category: string;
+    /**
+     * The type of the option.
+     *
+     * When passing a type other than the ones listed below, the option is
+     * treated as taking any string as argument, and `--option <${type}>` will
+     * be displayed in --help.
+     */
+    type: Type;
+    /**
+     * Indicate that the option is deprecated.
+     *
+     * Use a string to add an extra message to --help for the option,
+     * for example to suggest a replacement option.
+     */
+    deprecated?: true | string;
+    /**
+     * Description to be displayed in --help. If omitted, the option won't be
+     * shown at all in --help.
+     */
     description?: string;
-    since?: string;
-    deprecated?: string;
-    redirect?: SupportOptionValue;
 }
 
-export type SupportOptionValue = number | boolean | string;
+export interface IntSupportOption extends BaseSupportOption<'int'> {
+    default: number;
+    array?: false;
+    range?: SupportOptionRange;
+}
+
+export interface IntArraySupportOption extends BaseSupportOption<'int'> {
+    default: Array<{ value: number[] }>;
+    array: true;
+}
+
+export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
+    default: boolean;
+    array?: false;
+    description: string;
+    oppositeDescription?: boolean;
+}
+
+export interface BooleanArraySupportOption extends BaseSupportOption<'boolean'> {
+    default: Array<{ value: boolean[] }>;
+    array: true;
+}
+
+export interface ChoiceSupportOption<Value = any> extends BaseSupportOption<'choice'> {
+    default: Value | Array<{ since: string; value: Value }>;
+    description: string;
+    choices: Array<{
+        since?: string;
+        value: Value;
+        description: string;
+    }>;
+}
+
+export interface PathSupportOption extends BaseSupportOption<'path'> {
+    default: string;
+    array?: false;
+}
+
+export interface PathArraySupportOption extends BaseSupportOption<'path'> {
+    default: Array<{ value: string[] }>;
+    array: true;
+}
+
+export type SupportOption =
+    | IntSupportOption
+    | IntArraySupportOption
+    | BooleanSupportOption
+    | BooleanArraySupportOption
+    | ChoiceSupportOption
+    | PathSupportOption
+    | PathArraySupportOption;
+
+export interface SupportOptions extends Record<string, SupportOption> {}
 
 export interface SupportInfo {
     languages: SupportLanguage[];
@@ -344,6 +431,7 @@ export interface FileInfoOptions {
     ignorePath?: string;
     withNodeModules?: boolean;
     plugins?: string[];
+    resolveConfig?: boolean;
 }
 
 export interface FileInfoResult {
@@ -358,11 +446,9 @@ export namespace getFileInfo {
 }
 
 /**
- * Returns an object representing the parsers, languages and file types Prettier supports.
- * If `version` is provided (e.g. `"1.5.0"`), information for that version will be returned,
- * otherwise information for the current version will be returned.
+ * Returns an object representing the parsers, languages and file types Prettier supports for the current version.
  */
-export function getSupportInfo(version?: string): SupportInfo;
+export function getSupportInfo(): SupportInfo;
 
 /**
  * `version` field in `package.json`
@@ -371,8 +457,9 @@ export const version: string;
 
 // https://github.com/prettier/prettier/blob/master/src/common/util-shared.js
 export namespace util {
-    function isNextLineEmpty(text: string, node: any, options: ParserOptions): boolean;
+    function isNextLineEmpty(text: string, node: any, locEnd: (node: any) => number): boolean;
     function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
+    function isPreviousLineEmpty(text: string, node: any, locStart: (node: any) => number): boolean;
     function getNextNonSpaceNonCommentCharacterIndex(text: string, node: any, options: ParserOptions): number;
     function makeString(rawContent: string, enclosingQuote: "'" | '"', unescapeUnnecessaryEscapes: boolean): string;
     function addLeadingComment(node: any, commentNode: any): void;
@@ -394,7 +481,9 @@ export namespace doc {
             | Indent
             | Line
             | LineSuffix
-            | LineSuffixBoundary;
+            | LineSuffixBoundary
+            | Trim
+            | Cursor;
 
         interface Align {
             type: 'align';
@@ -450,6 +539,15 @@ export namespace doc {
             type: 'line-suffix-boundary';
         }
 
+        interface Trim {
+            type: 'trim';
+        }
+
+        interface Cursor {
+            type: 'cursor';
+            placeholder: symbol;
+        }
+
         function addAlignmentToDoc(doc: Doc, size: number, tabWidth: number): Doc;
         function align(n: Align['n'], contents: Doc): Align;
         const breakParent: BreakParent;
@@ -469,12 +567,17 @@ export namespace doc {
         const literalline: Concat;
         function markAsRoot(contents: Doc): Align;
         const softline: Line;
+        const trim: Trim;
+        const cursor: Cursor;
     }
     namespace debug {
         function printDocToDebug(doc: Doc): string;
     }
     namespace printer {
-        function printDocToString(doc: Doc, options: Options): {
+        function printDocToString(
+            doc: Doc,
+            options: Options,
+        ): {
             formatted: string;
             cursorNodeStart?: number;
             cursorNodeText?: string;
@@ -482,23 +585,33 @@ export namespace doc {
         interface Options {
             /**
              * Specify the line length that the printer will wrap on.
+             * @default 80
              */
             printWidth: number;
             /**
              * Specify the number of spaces per indentation-level.
+             * @default 2
              */
             tabWidth: number;
             /**
              * Indent lines with tabs instead of spaces
+             * @default false
              */
             useTabs: boolean;
+            parentParser?: string;
+            embeddedInHtml: boolean;
         }
     }
     namespace utils {
         function isEmpty(doc: Doc): boolean;
         function isLineNext(doc: Doc): boolean;
         function willBreak(doc: Doc): boolean;
-        function traverseDoc(doc: Doc, onEnter?: (doc: Doc) => void | boolean, onExit?: (doc: Doc) => void, shouldTraverseConditionalGroups?: boolean): void;
+        function traverseDoc(
+            doc: Doc,
+            onEnter?: (doc: Doc) => void | boolean,
+            onExit?: (doc: Doc) => void,
+            shouldTraverseConditionalGroups?: boolean,
+        ): void;
         function mapDoc<T>(doc: Doc, callback: (doc: Doc) => T): T;
         function propagateBreaks(doc: Doc): void;
         function removeLines(doc: Doc): Doc;

@@ -48,3 +48,38 @@ memoryCache.wrap<{ id: number, name: string }>(key, (cb: any) => {
 
     });
 });
+
+if (memoryCache.store.keys) {
+    memoryCache.store.keys().then((result) => {
+        //console.log(result);
+    });
+}
+
+memoryCache.reset().then(() => {
+    // console.log('reset with promise');
+});
+memoryCache.reset(() => {
+    // console.log('reset with callback');
+});
+
+const multiCache = cacheManager.multiCaching([memoryCache]);
+
+multiCache.set('foo', 'bar', { ttl: ttl }, (err) => {
+
+    if (err) {
+        throw err;
+    }
+
+    multiCache.get('foo', (err, result) => {
+
+        // console.log(result);
+
+        multiCache.del('foo', (err) => {
+        });
+
+    });
+});
+
+multiCache.reset(() => {
+    // console.log('multiCache reset');
+});

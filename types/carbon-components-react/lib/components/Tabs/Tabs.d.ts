@@ -1,15 +1,15 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactAttr, ReactDivAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr, EmbeddedIconProps {
-    ariaLabel?: React.AriaAttributes["aria-label"],
-}
-
-export interface TabsProps extends InheritedProps {
+export interface TabsProps extends Omit<ReactDivAttr, "onScroll"> {
+    ariaLabel?: string,
+    iconDescription?: string,
+    light?: boolean,
     onSelectionChange?(index: number): void,
     selected?: number,
-    tabContentClassName?: ReactAttr["className"],
-    triggerHref: string,
+    selectionMode?: "automatic" | "manual",
+    tabContentClassName?: string,
+    type?: "container" | "default";
 }
 
 declare class Tabs extends React.Component<TabsProps> { }

@@ -7,7 +7,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
@@ -21,12 +21,7 @@
     },
     "files": [
         "index.d.ts",
-        "lib/utils/capitalize.d.ts",
         "test/react-bootstrap-tests.tsx",
-        "test/react-bootstrap-individual-components-tests.tsx",
-        "lib/utils/deprecationWarning.d.ts",
-        "lib/utils/PropTypes.d.ts",
-        "lib/utils/splitComponentProps.d.ts",
-        "lib/utils/StyleConfig.d.ts"
+        "test/react-bootstrap-individual-components-tests.tsx"
     ]
 }

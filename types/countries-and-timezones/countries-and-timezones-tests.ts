@@ -4,5 +4,5 @@ const country = lib.getCountry('IT');
 const timezone = lib.getTimezone('Europe/Warsaw');
 const countries = lib.getAllCountries();
 const timezones = lib.getAllTimezones();
-lib.getCountryForTimezone(timezones[timezone.name].name);
-lib.getTimezonesForCountry(countries[country.id].id);
+timezone && lib.getCountryForTimezone(timezones[timezone.name].name);
+country && lib.getTimezonesForCountry(countries[country.id].id);

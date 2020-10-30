@@ -5,41 +5,41 @@ import BaseStore = require('fluxible/addons/BaseStore');
 import * as React from 'react';
 
 interface HomeProps {
-	stringValue: string;
+    stringValue: string;
 }
 
 class Home extends React.Component<HomeProps, any> {
-	constructor(props: HomeProps) {
-		super(props);
-	}
+    constructor(props: HomeProps) {
+        super(props);
+    }
 }
 
 class ExtendedStore extends BaseStore {
-	constructor(public dispatcher: DispatcherInterface) {
+    constructor(public dispatcher: DispatcherInterface) {
         super(dispatcher);
 
         this.data = "";
     }
 
-	static storeName = 'ExtendedStore';
+    static storeName = 'ExtendedStore';
 
-	static handlers = {
+    static handlers = {
         ACTION_NAME: 'actionHandler'
     };
 
-	private data: string;
+    private data: string;
 
     actionHandler() {
         this.emitChange();
     }
 
-	setData(data: string): void {
-		this.data = data;
-	}
+    setData(data: string): void {
+        this.data = data;
+    }
 
-	getData(): string {
-		return this.data;
-	}
+    getData(): string {
+        return this.data;
+    }
 }
 
 // connecting Home react component to ExtendedStore

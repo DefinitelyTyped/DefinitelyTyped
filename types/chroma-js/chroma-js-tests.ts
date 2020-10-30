@@ -11,6 +11,7 @@ function test_chroma() {
     chroma.valid({});
     chroma.valid(null);
     chroma.valid(undefined);
+    chroma.valid('000', 'hex');
 
     chroma(0xff3399);
     chroma(0xff, 0x33, 0x99);
@@ -37,6 +38,7 @@ function test_chroma() {
     chroma.blend('4CBBFC', 'EEEE22', 'multiply');
     chroma.blend('4CBBFC', 'EEEE22', 'darken');
     chroma.blend('4CBBFC', 'EEEE22', 'lighten');
+    chroma.average(['4CBBFC', 'yellow'], 'lch', [1, 1, 2, 1]);
     chroma.random();
     chroma.contrast('pink', 'hotpink');
     chroma.contrast('pink', 'purple');
@@ -130,6 +132,8 @@ function test_scale() {
     f(0.25);
     f(0.5);
     f(0.75);
+    f(null);
+    f(undefined);
     chroma.scale(['yellow', '008ae5']);
     chroma.scale(['yellow', 'red', 'black']);
     // default domain is [0,1]

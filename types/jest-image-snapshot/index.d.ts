@@ -1,27 +1,31 @@
-// Type definitions for jest-image-snapshot 2.11
+// Type definitions for jest-image-snapshot 4.1
 // Project: https://github.com/americanexpress/jest-image-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 //                 erbridge <https://github.com/erbridge>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
-
-/**
- * Options to be passed to the 'pixelmatch' image diffing function.
- */
-export interface PixelmatchOptions {
-    /** Matching threshold, ranges from 0 to 1. Smaller values make the comparison more sensitive. 0.1 by default. */
-    readonly threshold?: number;
-    /** If true, disables detecting and ignoring anti-aliased pixels. false by default. */
-    readonly includeAA?: boolean;
-}
+import { PixelmatchOptions } from 'pixelmatch';
+import { Options as SSIMOptions } from 'ssim.js';
 
 export interface MatchImageSnapshotOptions {
     /**
-     * Custom config passed to 'pixelmatch'
+     * If set to true, the build will not fail when the screenshots to compare have different sizes.
+     * @default false
      */
-    customDiffConfig?: PixelmatchOptions;
+    allowSizeMismatch?: boolean;
+    /**
+     * Custom config passed to 'pixelmatch' or 'ssim'
+     */
+    customDiffConfig?: PixelmatchOptions | SSIMOptions;
+    /**
+     * The method by which images are compared.
+     * `pixelmatch` does a pixel by pixel comparison, whereas `ssim` does a structural similarity comparison.
+     * @default 'pixelmatch'
+     */
+    comparisonMethod?: 'pixelmatch' | 'ssim';
     /**
      * Custom snapshots directory.
      * Absolute path of a directory to keep the snapshot in.
@@ -36,48 +40,57 @@ export interface MatchImageSnapshotOptions {
      * it is called with an object containing testPath, currentTestName, counter and defaultIdentifier as its first
      * argument. The function must return an identifier to use for the snapshot.
      */
-    customSnapshotIdentifier?: (parameters: {
-        testPath: string;
-        currentTestName: string;
-        counter: number;
-        defaultIdentifier: string;
-    }) => string | string;
+    customSnapshotIdentifier?:
+        | ((parameters: {
+              testPath: string;
+              currentTestName: string;
+              counter: number;
+              defaultIdentifier: string;
+          }) => string)
+        | string;
     /**
-     * Changes diff image layout direction, default is horizontal.
+     * Changes diff image layout direction.
+     * @default 'horizontal'
      */
     diffDirection?: 'horizontal' | 'vertical';
     /**
+     * Will output base64 string of a diff image to console in case of failed tests (in addition to creating a diff image).
+     * This string can be copy-pasted to a browser address string to preview the diff for a failed test.
+     * @default false
+     */
+    dumpDiffToConsole?: boolean;
+    /**
      * Removes coloring from the console output, useful if storing the results to a file.
-     * Defaults to false.
+     * @default false.
      */
     noColors?: boolean;
     /**
      * Sets the threshold that would trigger a test failure based on the failureThresholdType selected. This is different
      * to the customDiffConfig.threshold above - the customDiffConfig.threshold is the per pixel failure threshold, whereas
      * this is the failure threshold for the entire comparison.
-     * Defaults to 0.
+     * @default 0.
      */
     failureThreshold?: number;
     /**
      * Sets the type of threshold that would trigger a failure.
-     * Defaults to 'pixel'.
+     * @default 'pixel'.
      */
     failureThresholdType?: 'pixel' | 'percent';
     /**
      * Updates a snapshot even if it passed the threshold against the existing one.
-     * Defaults to false.
+     * @default false.
      */
     updatePassedSnapshot?: boolean;
     /**
      * Applies Gaussian Blur on compared images, accepts radius in pixels as value. Useful when you have noise after
-     * scaling images per different resolutions on your target website, usually setting it's value to 1-2 should be
+     * scaling images per different resolutions on your target website, usually setting its value to 1-2 should be
      * enough to solve that problem.
-     * Defaults to 0.
+     * @default 0.
      */
     blur?: number;
     /**
      * Runs the diff in process without spawning a child process.
-     * Defaults to false.
+     * @default false.
      */
     runInProcess?: boolean;
 }
@@ -100,6 +113,11 @@ export function toMatchImageSnapshot(options?: MatchImageSnapshotOptions): { mes
 export function configureToMatchImageSnapshot(
     options: MatchImageSnapshotOptions,
 ): () => { message(): string; pass: boolean };
+
+/**
+ * Mutates original state with new state
+ */
+export function updateSnapshotState<TObject, TPartial>(originalSnapshotState: TObject, partialSnapshotState: TPartial): TObject & TPartial;
 
 declare global {
     namespace jest {

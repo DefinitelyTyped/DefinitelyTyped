@@ -128,26 +128,26 @@ declare namespace adone.math {
         ceil(): Decimal;
 
         /**
-         * 1	if the value of this Decimal is greater than the value of x
+         * 1    if the value of this Decimal is greater than the value of x
          *
-         * -1	if the value of this Decimal is less than the value of x
+         * -1    if the value of this Decimal is less than the value of x
          *
-         * 0	if this Decimal and x have the same value
+         * 0    if this Decimal and x have the same value
          *
-         * NaN	if the value of either this Decimal or x is NaN
+         * NaN    if the value of either this Decimal or x is NaN
          *
          * @alias cmp
          */
         comparedTo(x: I.Decimal.Value): number;
 
         /**
-         * 1	if the value of this Decimal is greater than the value of x
+         * 1    if the value of this Decimal is greater than the value of x
          *
-         * -1	if the value of this Decimal is less than the value of x
+         * -1    if the value of this Decimal is less than the value of x
          *
-         * 0	if this Decimal and x have the same value
+         * 0    if this Decimal and x have the same value
          *
-         * NaN	if the value of either this Decimal or x is NaN
+         * NaN    if the value of either this Decimal or x is NaN
          *
          * @alias comparedTo
          */
@@ -1133,15 +1133,15 @@ declare namespace adone.math {
         static round(x: I.Decimal.Value): Decimal;
 
         /**
-         * 1	if the value of x is non-zero and its sign is positive
+         * 1    if the value of x is non-zero and its sign is positive
          *
-         * -1	if the value of x is non-zero and its sign is negative
+         * -1    if the value of x is non-zero and its sign is negative
          *
-         * 0	if the value of x is positive zero
+         * 0    if the value of x is positive zero
          *
-         * -0	if the value of x is negative zero
+         * -0    if the value of x is negative zero
          *
-         * NaN	if the value of x is NaN
+         * NaN    if the value of x is NaN
          */
         static sign(x: I.Decimal.Value): Decimal;
 

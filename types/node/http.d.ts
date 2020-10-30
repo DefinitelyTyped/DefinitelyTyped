@@ -1,11 +1,10 @@
 declare module "http" {
-    import * as events from "events";
     import * as stream from "stream";
     import { URL } from "url";
     import { Socket, Server as NetServer } from "net";
 
     // incoming headers will never contain number
-    interface IncomingHttpHeaders {
+    interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         'accept'?: string;
         'accept-language'?: string;
         'accept-patch'?: string;
@@ -16,6 +15,8 @@ declare module "http" {
         'access-control-allow-origin'?: string;
         'access-control-expose-headers'?: string;
         'access-control-max-age'?: string;
+        'access-control-request-headers'?: string;
+        'access-control-request-method'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -42,6 +43,7 @@ declare module "http" {
         'if-unmodified-since'?: string;
         'last-modified'?: string;
         'location'?: string;
+        'origin'?: string;
         'pragma'?: string;
         'proxy-authenticate'?: string;
         'proxy-authorization'?: string;
@@ -49,6 +51,11 @@ declare module "http" {
         'range'?: string;
         'referer'?: string;
         'retry-after'?: string;
+        'sec-websocket-accept'?: string;
+        'sec-websocket-extensions'?: string;
+        'sec-websocket-key'?: string;
+        'sec-websocket-protocol'?: string;
+        'sec-websocket-version'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
         'tk'?: string;
@@ -60,27 +67,31 @@ declare module "http" {
         'via'?: string;
         'warning'?: string;
         'www-authenticate'?: string;
-        [header: string]: string | string[] | undefined;
     }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
-    interface OutgoingHttpHeaders {
-        [header: string]: number | string | string[] | undefined;
+    type OutgoingHttpHeader = number | string | string[];
+
+    interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {
     }
 
     interface ClientRequestArgs {
-        protocol?: string;
-        host?: string;
-        hostname?: string;
+        protocol?: string | null;
+        host?: string | null;
+        hostname?: string | null;
         family?: number;
-        port?: number | string;
+        port?: number | string | null;
         defaultPort?: number | string;
         localAddress?: string;
         socketPath?: string;
+        /**
+         * @default 8192
+         */
+        maxHeaderSize?: number;
         method?: string;
-        path?: string;
+        path?: string | null;
         headers?: OutgoingHttpHeaders;
-        auth?: string;
+        auth?: string | null;
         agent?: Agent | boolean;
         _defaultAgent?: Agent;
         timeout?: number;
@@ -92,14 +103,25 @@ declare module "http" {
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage;
         ServerResponse?: typeof ServerResponse;
+        /**
+         * Optionally overrides the value of
+         * [`--max-http-header-size`][] for requests received by this server, i.e.
+         * the maximum length of request headers in bytes.
+         * @default 8192
+         */
+        maxHeaderSize?: number;
+        /**
+         * Use an insecure HTTP parser that accepts invalid HTTP headers when true.
+         * Using the insecure parser should be avoided.
+         * See --insecure-http-parser for more information.
+         * @default false
+         */
+        insecureHTTPParser?: boolean;
     }
 
     type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
 
-    class Server extends NetServer {
-        constructor(requestListener?: RequestListener);
-        constructor(options: ServerOptions, requestListener?: RequestListener);
-
+    interface HttpBase {
         setTimeout(msecs?: number, callback?: () => void): this;
         setTimeout(callback: () => void): this;
         /**
@@ -111,11 +133,23 @@ declare module "http" {
         timeout: number;
         /**
          * Limit the amount of time the parser will wait to receive the complete HTTP headers.
-         * @default 40000
+         * @default 60000
          * {@link https://nodejs.org/api/http.html#http_server_headerstimeout}
          */
         headersTimeout: number;
         keepAliveTimeout: number;
+        /**
+         * Sets the timeout value in milliseconds for receiving the entire request from the client.
+         * @default 0
+         * {@link https://nodejs.org/api/http.html#http_server_requesttimeout}
+         */
+        requestTimeout: number;
+    }
+
+    interface Server extends HttpBase {}
+    class Server extends NetServer {
+        constructor(requestListener?: RequestListener);
+        constructor(options: ServerOptions, requestListener?: RequestListener);
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
@@ -125,20 +159,27 @@ declare module "http" {
         shouldKeepAlive: boolean;
         useChunkedEncodingByDefault: boolean;
         sendDate: boolean;
+        /**
+         * @deprecated Use `writableEnded` instead.
+         */
         finished: boolean;
         headersSent: boolean;
-        connection: Socket;
+        /**
+         * @deprecate Use `socket` instead.
+         */
+        connection: Socket | null;
+        socket: Socket | null;
 
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        addTrailers(headers: OutgoingHttpHeaders | Array<[string, string]>): void;
+        addTrailers(headers: OutgoingHttpHeaders | ReadonlyArray<[string, string]>): void;
         flushHeaders(): void;
     }
 
@@ -146,7 +187,6 @@ declare module "http" {
     class ServerResponse extends OutgoingMessage {
         statusCode: number;
         statusMessage: string;
-        writableFinished: boolean;
 
         constructor(req: IncomingMessage);
 
@@ -155,8 +195,9 @@ declare module "http" {
         // https://github.com/nodejs/node/blob/master/test/parallel/test-http-write-callbacks.js#L53
         // no args in writeContinue callback
         writeContinue(callback?: () => void): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): this;
-        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
+        writeProcessing(): void;
     }
 
     interface InformationEvent {
@@ -171,13 +212,14 @@ declare module "http" {
 
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
     class ClientRequest extends OutgoingMessage {
-        connection: Socket;
-        socket: Socket;
-        aborted: number;
+        aborted: boolean;
+        host: string;
+        protocol: string;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
-        readonly path: string;
+        method: string;
+        path: string;
         abort(): void;
         onSocket(socket: Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -268,14 +310,19 @@ declare module "http" {
     class IncomingMessage extends stream.Readable {
         constructor(socket: Socket);
 
+        aborted: boolean;
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
         complete: boolean;
+        /**
+         * @deprecate Use `socket` instead.
+         */
         connection: Socket;
+        socket: Socket;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];
-        trailers: { [key: string]: string | undefined };
+        trailers: NodeJS.Dict<string>;
         rawTrailers: string[];
         setTimeout(msecs: number, callback?: () => void): this;
         /**
@@ -294,7 +341,6 @@ declare module "http" {
          * Only valid for response obtained from http.ClientRequest.
          */
         statusMessage?: string;
-        socket: Socket;
         destroy(error?: Error): void;
     }
 
@@ -313,6 +359,10 @@ declare module "http" {
          */
         maxSockets?: number;
         /**
+         * Maximum number of sockets allowed for all hosts in total. Each request will use a new socket until the maximum is reached. Default: Infinity.
+         */
+        maxTotalSockets?: number;
+        /**
          * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
          */
         maxFreeSockets?: number;
@@ -320,17 +370,19 @@ declare module "http" {
          * Socket timeout in milliseconds. This will set the timeout after the socket is connected.
          */
         timeout?: number;
+        /**
+         * Scheduling strategy to apply when picking the next free socket to use. Default: 'fifo'.
+         */
+        scheduling?: 'fifo' | 'lifo';
     }
 
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
-        readonly sockets: {
-            readonly [key: string]: Socket[];
-        };
-        readonly requests: {
-            readonly [key: string]: IncomingMessage[];
-        };
+        maxTotalSockets: number;
+        readonly freeSockets: NodeJS.ReadOnlyDict<Socket[]>;
+        readonly sockets: NodeJS.ReadOnlyDict<Socket[]>;
+        readonly requests: NodeJS.ReadOnlyDict<IncomingMessage[]>;
 
         constructor(opts?: AgentOptions);
 
@@ -364,7 +416,7 @@ declare module "http" {
 
     /**
      * Read-only property specifying the maximum allowed size of HTTP headers in bytes.
-     * Defaults to 8KB. Configurable using the [`--max-http-header-size`][] CLI option.
+     * Defaults to 16KB. Configurable using the [`--max-http-header-size`][] CLI option.
      */
     const maxHeaderSize: number;
 }

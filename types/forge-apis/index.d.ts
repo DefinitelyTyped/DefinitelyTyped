@@ -1,6 +1,6 @@
-// Type definitions for Forge-apis 0.4
+// Type definitions for Forge-apis 0.7
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
-// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
+// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -43,7 +43,7 @@ export type Scope =
 
 export interface ApiResponse {
     body: any;
-    headers: { [index: string]: string };
+    headers: { [header: string]: string };
     statusCode: number;
 }
 
@@ -86,41 +86,41 @@ export class AuthClientTwoLegged {
 export class AuthClientThreeLegged {
     constructor(clientId: string, clientSecret: string, redirectUri: string, scopes: Scope[], autoRefresh: boolean);
 
-    generateAuthUrl(): string;
+    generateAuthUrl(state: string): string;
     getToken(code: string): Promise<AuthToken>;
-    refreshToken(credentials: AuthToken): Promise<AuthToken>;
+    refreshToken(credentials: { refresh_token?: string }, scope?: Scope[]): Promise<AuthToken>;
 }
 
 export type AuthClient = AuthClientTwoLegged | AuthClientThreeLegged;
 
 export interface Activity {
-    id: string;
-    instruction: object;
-    appPackages: string[];
-    requiredEngineVersion: string;
-    parameters: object;
-    allowedChildProcesses: object[];
-    version: number;
-    description?: string;
-    hostApplication?: string;
-    isPublic: boolean;
+    Id: string;
+    Instruction: object;
+    AppPackages: string[];
+    RequiredEngineVersion: string;
+    Parameters: object;
+    AllowedChildProcesses: object[];
+    Version: number;
+    Description?: string;
+    HostApplication?: string;
+    IsPublic: boolean;
 }
 
 export interface ActivityOptional {
-    id?: string;
-    instruction?: object;
-    appPackages?: string[];
-    requiredEngineVersion?: string;
-    parameters?: object;
-    allowedChildProcesses?: object[];
-    version?: number;
-    description?: string;
-    hostApplication?: string;
-    isPublic?: boolean;
+    Id?: string;
+    Instruction?: object;
+    AppPackages?: string[];
+    RequiredEngineVersion?: string;
+    Parameters?: object;
+    AllowedChildProcesses?: object[];
+    Version?: number;
+    Description?: string;
+    HostApplication?: string;
+    IsPublic?: boolean;
 }
 
 export interface ActivityVersion {
-    version?: number;
+    Version?: number;
 }
 
 export class ActivitiesApi {
@@ -351,6 +351,38 @@ export interface JobPayload {
     output: JobPayloadOutput;
 }
 
+export class CommandsApi {
+    /**
+     * Checks if a user has permission to perform specified actions on specified resources.
+     */
+    checkPermission(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    /**
+     * Retrieves the custom relationships between specified versions of items and other resources in the data domain service
+     */
+    listRefs(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    /**
+     * Retrieves metadata for up to 50 specified items. For example, an item name, or the date it was created. It returns the tip (latest) version of the items.
+     */
+    listItems(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    /**
+     * Creates folders in BIM 360 Docs.
+     */
+    createFolder(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    /**
+     * Publishes the latest version of a Collaboration for Revit (C4R) model to BIM 360 Docs.
+     */
+    publishModel(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    /**
+     * Verifies whether a Collaboration for Revit (C4R) model needs to be published to BIM 360 Docs.
+     */
+    getPublishModelJob(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+}
+
 export class DerivativesApi {
     /**
      * Deletes the manifest and all its translated output files (derivatives). However, it does not delete the design source file.
@@ -547,6 +579,36 @@ export interface CreateRef {
     data?: CreateRefData;
 }
 
+export interface CommandsAttributesExtensionObject {
+    type: string;
+    version: string;
+    data?: object;
+}
+
+export interface CommandsAttributesObject {
+    extension: CommandsAttributesExtensionObject;
+}
+
+export interface CommandsRelationshipsResourceObject {
+    data: object;
+}
+
+export interface CommandsRelationshipsObject {
+    resources: CommandsRelationshipsResourceObject;
+}
+
+export interface CommandsBodyObject {
+    jsonapi: JsonApiVersionJsonapi;
+    data: CommandsBodyObjectData;
+    included?: object;
+}
+
+export interface CommandsBodyObjectData {
+    type: string;
+    attributes: CommandsAttributesObject;
+    relationships: CommandsRelationshipsObject;
+}
+
 export class FoldersApi {
     /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project
@@ -661,7 +723,7 @@ export class HubsApi {
 
 export interface CreateStorageDataAttributes {
     name: string;
-    extension: BaseAttributesExtensionObject;
+    extension?: BaseAttributesExtensionObject;
 }
 
 export interface CreateItemDataRelationshipsTipData {
@@ -717,11 +779,6 @@ export interface CreateItem {
     jsonapi?: JsonApiVersionJsonapi;
     data?: CreateItemData;
     included: CreateItemIncluded[];
-}
-
-export interface CreateRef {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateRefData;
 }
 
 export class ItemsApi {
@@ -845,7 +902,7 @@ export class ObjectsApi {
         bucketKey: string,
         objectName: string,
         postBucketsSigned: PostBucketsSigned,
-        access: string,
+        opts: { access?: string },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -873,7 +930,7 @@ export class ObjectsApi {
     /**
      * Download an object.
      */
-    deleteSignedResource(
+    getObject(
         bucketKey: string,
         objectName: string,
         opts: { range?: string; ifNoneMatch?: string; ifModifiedSince?: Date; acceptEncoding?: string },
@@ -990,6 +1047,7 @@ export interface CreateStorageDataRelationships {
 }
 
 export interface CreateStorageData {
+    type: string;
     attributes?: CreateStorageDataAttributes;
     relationships?: CreateStorageDataRelationships;
 }
@@ -1160,14 +1218,14 @@ export class VersionsApi {
 }
 
 export interface WorkItem {
-    id: string;
-    _arguments: object;
-    status?: string;
-    statusDetail?: object;
-    availabilityZone?: string;
-    activityId: string;
-    version?: number;
-    timestamp?: string;
+    Id: string;
+    Arguments: object;
+    Status?: string;
+    StatusDetail?: object;
+    AvailabilityZone?: string;
+    ActivityId: string;
+    Version?: number;
+    Timestamp?: string;
 }
 
 export class WorkItemsApi {

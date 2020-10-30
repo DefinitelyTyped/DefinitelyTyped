@@ -10,7 +10,7 @@ declare function jump(target: string | Element | number, opts?: jump.Options): v
 declare namespace jump {
     type TransitionFunc = (t: number, b: number, c: number, d: number) => number;
     interface Options {
-        duration?: number;
+        duration?: number | ((distance: number) => number);
         offset?: number;
         callback?(): void;
         easing?: TransitionFunc;

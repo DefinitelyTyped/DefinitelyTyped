@@ -2,7 +2,7 @@
 // Project: https://github.com/LukeMizuhashi/cfn-response
 // Definitions by: Ivo Murrell <https://github.com/ivoisbelongtous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 import { CloudFormationCustomResourceEvent, Context } from "aws-lambda";
 
@@ -15,5 +15,6 @@ export function send(
     context: Context,
     responseStatus: ResponseStatus,
     responseData?: object,
-    physicalResourceId?: string
-): void;
+    physicalResourceId?: string,
+    noEcho?: boolean
+): Promise<void>;

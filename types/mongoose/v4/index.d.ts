@@ -4,8 +4,9 @@
 //                 horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
 //                 murbanowicz <https://github.com/murbanowicz>
+//                 Samuel Bodin <https://github.com/bodinsamuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -1181,7 +1182,7 @@ declare module "mongoose" {
      * @param pathsToValidate only validate the given paths
      * @returns MongooseError if there are errors during validation, or undefined if there is no error.
      */
-    validateSync(pathsToValidate?: string | string[]): Error;
+    validateSync(pathsToValidate?: string | string[]): Error | undefined;
 
     /** Hash containing current validation errors. */
     errors: any;
@@ -2387,6 +2388,21 @@ declare module "mongoose" {
      */
     validate(obj: RegExp | Function | any, errorMsg?: string,
       type?: string): this;
+
+    /** Name of SchemaType instance. e.g. 'Number' */
+    instance: string;
+    /** Path name */
+    path: string;
+    /** Array containing validators */
+    validators: any[];
+    /** Array containing getters */
+    getters: any[];
+    /** Array containing setters */
+    setters: any[];
+    /** Array containing options for instantiated SchemaType */
+    options: SchemaOptions;
+    /** Default value */
+    defaultValue: any;
   }
 
   /*
@@ -2851,6 +2867,10 @@ declare module "mongoose" {
     strict?: boolean;
     /** disables update-only mode, allowing you to overwrite the doc (false) */
     overwrite?: boolean;
+    /**
+    * Only update elements that match the arrayFilters conditions in the document or documents that match the query conditions.
+    */
+    arrayFilters?: { [key: string]: any }[];
     /** other options */
     [other: string]: any;
   }

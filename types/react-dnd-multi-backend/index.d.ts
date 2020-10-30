@@ -1,4 +1,4 @@
-// Type definitions for react-dnd-multi-backend 4.0
+// Type definitions for react-dnd-multi-backend 6.0
 // Project: https://github.com/LouisBrunner/react-dnd-multi-backend, https://louisbrunner.github.io/dnd-multi-backend/packages/react-dnd-multi-backend
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 //                 Adam Haglund <https://github.com/beeequeue>
@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { CSSProperties, PureComponent } from "react";
+import { CSSProperties, FC, PureComponent, ReactNode } from "react";
 import { BackendFactory } from "dnd-core";
 
 /**
@@ -81,20 +81,40 @@ export interface Backends {
     backends: BackendDeclaration[];
 }
 
+export interface PreviewGeneratorArg<T = any> {
+    /**
+     * The type of the item (monitor.getItemType())
+     */
+    itemType: string;
+
+    /**
+     * The item being dragged (monitor.getItem())
+     */
+    item: T;
+
+    /**
+     * An object representing the style to use for the item, it should be passed to
+     * your component's style property and is used for positioning
+     */
+    style: CSSProperties;
+}
+
+export type PreviewGenerator<T = any> = (arg: PreviewGeneratorArg<T>) => ReactNode;
+
 /**
  * Properties for the Preview class
  */
-export interface PreviewProps {
+export interface PreviewProps<T = any> {
     /**
      * Callback function to generate a preview object when dragging. This preview will only be used
      * with backends that have the 'preview' flag set to true.
-     * @param type: the type of the item (monitor.getItemType())
-     * @param item: the item being dragged (monitor.getItem())
-     * @param style: an object representing the style to use for the item, it should be passed to
+     * @param arg.itemType: the type of the item (monitor.getItemType())
+     * @param arg.item: the item being dragged (monitor.getItem())
+     * @param arg.style: an object representing the style to use for the item, it should be passed to
      *               your component's style property and is used for positioning.
      * @returns The JSX element to display for the drag preview.
      */
-    generator(type: string, item: any, style: CSSProperties): JSX.Element;
+    generator: PreviewGenerator<T>;
 }
 
 /**
@@ -115,6 +135,15 @@ export const TouchTransition: Transition;
  * Pre-existing/default react-dnd-html5-backend transition available to use.
  */
 export const HTML5DragTransition: Transition;
+
+/**
+ * Multi-backend customized DndProvider implementation
+ */
+export const DndProvider: FC<{
+    context?: any;
+    debugMode?: boolean;
+    options: Backends;
+}>;
 
 /**
  * Primary BackendFactory for react-dnd-multi-backend.

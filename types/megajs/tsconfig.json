@@ -13,7 +13,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-		"index.d.ts",
-		"megajs-tests.ts"
-	]
+        "index.d.ts",
+        "megajs-tests.ts"
+    ]
 }

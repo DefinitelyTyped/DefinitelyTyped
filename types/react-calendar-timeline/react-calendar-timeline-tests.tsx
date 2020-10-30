@@ -13,13 +13,13 @@ import Timeline, {
 import * as moment from 'moment';
 import { Moment } from 'moment';
 
-const groups1 = [{ id: 1, title: 'group 1' }, { id: 2, title: 'group 2' }] as TimelineGroupBase[];
+const groups1: TimelineGroupBase[] = [{ id: 1, title: 'group 1' }, { id: 'two', title: 'group 2' }];
 
-const items1 = [
+const items1: TimelineItemBase<Moment>[] = [
     { id: 1, group: 1, title: 'item 1', start_time: moment(), end_time: moment().add(1, 'hour') },
-    { id: 2, group: 2, title: 'item 2', start_time: moment().add(-0.5, 'hour'), end_time: moment().add(0.5, 'hour') },
-    { id: 3, group: 1, title: 'item 3', start_time: moment().add(2, 'hour'), end_time: moment().add(3, 'hour') },
-] as TimelineItemBase<Moment>[];
+    { id: 2, group: 'two', title: 'item 2', start_time: moment().add(-0.5, 'hour'), end_time: moment().add(0.5, 'hour') },
+    { id: 'three', group: 1, title: 'item 3', start_time: moment().add(2, 'hour'), end_time: moment().add(3, 'hour') },
+];
 
 class ExampleOfUsingReactCalendarTimeline extends React.Component {
     render() {
@@ -40,12 +40,12 @@ class ExampleOfUsingReactCalendarTimeline extends React.Component {
 type TimelineGroupCustom = TimelineGroup<{ data: string }>;
 type TimelineItemCustom = TimelineItem<{ data: string }, Moment>;
 
-const groups2 = [
+const groups2: TimelineGroupCustom[] = [
     { id: 1, title: 'group 1', data: '1' },
     { id: 2, title: 'group 2', data: '1' },
-] as TimelineGroupCustom[];
+];
 
-const items2 = [
+const items2: TimelineItemCustom[] = [
     { id: 1, group: 1, title: 'item 1', start_time: moment(), end_time: moment().add(1, 'hour'), data: '1' },
     {
         id: 2,
@@ -63,7 +63,7 @@ const items2 = [
         end_time: moment().add(3, 'hour'),
         data: '1',
     },
-] as TimelineItemCustom[];
+];
 
 class ExampleOfUsingReactCalendarTimelineWithCustomGroupAndItemExtension extends React.Component {
     render() {
@@ -126,13 +126,13 @@ const Example: React.FC = () => (
     </Timeline>
 );
 
-const groups = [{ id: 1, title: 'group 1' }, { id: 2, title: 'group 2' }] as TimelineGroupBase[];
+const groups: TimelineGroupBase[] = [{ id: 1, title: 'group 1' }, { id: 2, title: 'group 2' }];
 
-const items = [
+const items: TimelineItemBase<number>[] = [
     { id: 1, group: 1, title: 'item 1', start_time: 1, end_time: 1 },
     { id: 2, group: 2, title: 'item 2', start_time: 1, end_time: 1 },
     { id: 3, group: 1, title: 'item 3', start_time: 1, end_time: 1 },
-] as TimelineItemBase<number>[];
+];
 
 const defaultTimeStart = moment()
     .startOf('day')

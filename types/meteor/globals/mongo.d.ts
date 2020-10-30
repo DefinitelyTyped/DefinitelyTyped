@@ -1,3 +1,6 @@
+// Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
+declare type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
+
 declare module Mongo {
 
     type BsonType = 1 | "double" |
@@ -115,6 +118,7 @@ declare module Mongo {
         $pop?: PartialMapTo<T, 1 | -1> & Dictionary<1 | -1>,
     }
 
+    type OptionalId<TSchema> = UnionOmit<TSchema, '_id'> & { _id?: any };
 
     interface SortSpecifier { }
     interface FieldSpecifier {
@@ -123,7 +127,7 @@ declare module Mongo {
 
     var Collection: CollectionStatic;
     interface CollectionStatic {
-        new <T>(name: string, options?: {
+        new <T>(name: string | null, options?: {
             connection?: Object | null;
             idGeneration?: string;
             transform?: Function | null;
@@ -159,13 +163,14 @@ declare module Mongo {
             reactive?: boolean;
             transform?: Function | null;
         }): T | undefined;
-        insert(doc: T, callback?: Function): string;
+        insert(doc: OptionalId<T>, callback?: Function): string;
         rawCollection(): any;
         rawDatabase(): any;
         remove(selector: Selector<T> | ObjectID | string, callback?: Function): number;
         update(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
             multi?: boolean;
             upsert?: boolean;
+            arrayFilters? : { [identifier: string]: any }[];
         }, callback?: Function): number;
         upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
             multi?: boolean;

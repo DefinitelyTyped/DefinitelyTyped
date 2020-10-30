@@ -1,13 +1,9 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
-        "eofline": false,
         "interface-name": false,
-        "jsdoc-format": false,
-        "no-trailing-whitespace": false
+        "jsdoc-format": false
     }
 }

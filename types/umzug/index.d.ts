@@ -1,4 +1,4 @@
-// Type definitions for Umzug v2.2.0
+// Type definitions for Umzug v2.3.0
 // Project: https://github.com/sequelize/umzug
 // Definitions by: Ivan Drinchev <https://github.com/drinchev>
 //                 Margus Lamp <https://github.com/mlamp>
@@ -174,7 +174,7 @@ declare namespace umzug {
         /**
          * Options for defined migration
          */
-        migrations?: MigrationOptions;
+        migrations?: MigrationOptions | Migration[];
 
     }
 
@@ -211,10 +211,18 @@ declare namespace umzug {
     }
 
     interface Migration {
-        path: string;
         file: string;
+        
+        migration(): Promise<any>;
+        up(): Promise<any>;
+        down(): Promise<any>;
+        testFileName(needle:string): boolean;
     }
 
+    interface MigrationDefinitionWithName extends Migration {
+        name: string;
+    }
+    
     interface Umzug extends EventEmitter {
         /**
          * The execute method is a general purpose function that runs for
@@ -254,6 +262,7 @@ declare namespace umzug {
 
     interface UmzugStatic {
         new(options?: UmzugOptions): Umzug;
+        migrationsList: (migrations: MigrationDefinitionWithName[], parameters?: any[]) => Migration[];
     }
 }
 

@@ -72,9 +72,12 @@ declare module 'jspdf' {
         getFontList():any;
         addFont(postScriptName:string, fontName:string, fontStyle:string):string;
         setLineWidth(width:number):jsPDF;
-        setDrawColor(ch1:number|string, ch2?:number, ch3?:number, ch4?:number):jsPDF;
-        setFillColor(ch1:number|string, ch2?:number, ch3?:number, ch4?:number):jsPDF;
-        setTextColor(r?:number, g?:number, b?:number):jsPDF;
+        setDrawColor(ch1:number|string):jsPDF;
+        setDrawColor(ch1:number, ch2:number, ch3:number, ch4?:number):jsPDF;
+        setFillColor(ch1:number|string):jsPDF;
+        setFillColor(ch1:number, ch2:number, ch3:number, ch4?:number):jsPDF;
+        setTextColor(ch1:number|string):jsPDF;
+        setTextColor(ch1:number, ch2:number, ch3:number, ch4?: number):jsPDF;
         setLineCap(style:string|number):jsPDF;
         setLineJoin(style:string|number):jsPDF;
         output(type?:string, options?:any):any;
@@ -147,7 +150,11 @@ declare module 'jspdf' {
         cellInitialize():void;
         cell(x:number, y:number, w:number, h:number, txt:string, ln:number, align:string):jsPDF;
         arrayMax(array:any[], comparisonFn?:Function):number;
-        table(x:number, y:number, data:any, headers:string[], config:any):jsPDF;
+        table(x:number, y:number, data:any, headers:{"name": string,
+            "prompt"?: string,
+            "width"?: number,
+            "align"?: string,
+            "padding"?: number}[], config:any):jsPDF;
         calculateLineHeight(headerNames:string[], columnWidths:number[], model:any[]):number;
         setTableHeaderRow(config:any[]):void;
         printHeaderRow(lineNumber:number, new_page?:boolean):void;

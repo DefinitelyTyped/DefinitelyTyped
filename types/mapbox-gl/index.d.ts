@@ -1,10 +1,13 @@
-// Type definitions for Mapbox GL JS v0.54.0
+// Type definitions for Mapbox GL JS 1.12
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
+//                 Vladimir Dashukevich <https://github.com/life777>
+//                 Marko Klopets <https://github.com/mklopets>
+//                 André Fonseca <https://github.com/amxfonseca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -18,41 +21,170 @@ declare namespace mapboxgl {
     let version: string;
     let baseApiUrl: string;
 
+    /**
+     * Number of web workers instantiated on a page with GL JS maps.
+     * By default, it is set to half the number of CPU cores (capped at 6).
+     */
+    let workerCount: number;
+
+    /**
+     * Maximum number of images (raster tiles, sprites, icons) to load in parallel, which affects performance in raster-heavy maps.
+     * 16 by default.
+     */
+    let maxParallelImageRequests: number;
+
     export function supported(options?: { failIfMajorPerformanceCaveat?: boolean }): boolean;
 
-    export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void): void;
+    /**
+     * Clears browser storage used by this library. Using this method flushes the Mapbox tile cache that is managed by this library.
+     * Tiles may still be cached by the browser in some cases.
+     */
+    export function clearStorage(callback?: (err?: Error) => void): void;
 
-    type LngLatLike = LngLat | { lng: number; lat: number; } | { lon: number; lat: number; } | [number, number];
-    type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number];
+    export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void, deferred?: boolean): void;
+    export function getRTLTextPluginStatus(): PluginStatus;
+
+    /**
+     * Initializes resources like WebWorkers that can be shared across maps to lower load
+     * times in some situations. `mapboxgl.workerUrl` and `mapboxgl.workerCount`, if being
+     * used, must be set before `prewarm()` is called to have an effect.
+     *
+     * By default, the lifecycle of these resources is managed automatically, and they are
+     * lazily initialized when a Map is first created. By invoking `prewarm()`, these
+     * resources will be created ahead of time, and will not be cleared when the last Map
+     * is removed from the page. This allows them to be re-used by new Map instances that
+     * are created later. They can be manually cleared by calling
+     * `mapboxgl.clearPrewarmedResources()`. This is only necessary if your web page remains
+     * active but stops using maps altogether.
+     *
+     * This is primarily useful when using GL-JS maps in a single page app, wherein a user
+     * would navigate between various views that can cause Map instances to constantly be
+     * created and destroyed.
+     */
+    export function prewarm(): void;
+
+    /**
+     * Clears up resources that have previously been created by `mapboxgl.prewarm()`.
+     * Note that this is typically not necessary. You should only call this function
+     * if you expect the user of your app to not return to a Map view at any point
+     * in your application.
+     */
+    export function clearPrewarmedResources(): void;
+
+    type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
+
+    type LngLatLike =
+        | [number, number]
+        | LngLat
+        | { lng: number; lat: number }
+        | { lon: number; lat: number }
+        | [number, number];
+
+    type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number] | LngLatLike;
     type PointLike = Point | [number, number];
 
     type ExpressionName =
         // Types
-        | 'array' | 'boolean' | 'collator' | 'format' | 'literal' | 'number' | 'object' | 'string'
-        | 'to-boolean' | 'to-color' | 'to-number' | 'to-string' | 'typeof'
+        | 'array'
+        | 'boolean'
+        | 'collator'
+        | 'format'
+        | 'literal'
+        | 'number'
+        | 'object'
+        | 'string'
+        | 'image'
+        | 'to-boolean'
+        | 'to-color'
+        | 'to-number'
+        | 'to-string'
+        | 'typeof'
         // Feature data
-        | 'feature-state' | 'geometry-type' | 'id' | 'line-progress' | 'properties'
+        | 'feature-state'
+        | 'geometry-type'
+        | 'id'
+        | 'line-progress'
+        | 'properties'
         // Lookup
-        | 'at' | 'get' | 'has' | 'length'
+        | 'at'
+        | 'get'
+        | 'has'
+        | 'in'
+        | 'index-of'
+        | 'length'
+        | 'slice'
         // Decision
-        | '!' | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match' | 'coalesce'
+        | '!'
+        | '!='
+        | '<'
+        | '<='
+        | '=='
+        | '>'
+        | '>='
+        | 'all'
+        | 'any'
+        | 'case'
+        | 'match'
+        | 'coalesce'
         // Ramps, scales, curves
-        | 'interpolate' | 'interpolate-hcl' | 'interpolate-lab' | 'step'
+        | 'interpolate'
+        | 'interpolate-hcl'
+        | 'interpolate-lab'
+        | 'step'
         // Variable binding
-        | 'let' | 'var'
+        | 'let'
+        | 'var'
         // String
-        | 'concat' | 'downcase' | 'is-supported-script' | 'resolved-locale' | 'upcase'
+        | 'concat'
+        | 'downcase'
+        | 'is-supported-script'
+        | 'resolved-locale'
+        | 'upcase'
         // Color
-        | 'rgb' | 'rgba'
+        | 'rgb'
+        | 'rgba'
         // Math
-        | '-' | '*' | '/' | '%' | '^' | '+' | 'abs' | 'acos' | 'asin' | 'atan' | 'ceil' | 'cos' | 'e'
-        | 'floor' | 'ln' | 'ln2' | 'log10' | 'log2' | 'max' | 'min' | 'pi' | 'round' | 'sin' | 'sqrt' | 'tan'
+        | '-'
+        | '*'
+        | '/'
+        | '%'
+        | '^'
+        | '+'
+        | 'abs'
+        | 'acos'
+        | 'asin'
+        | 'atan'
+        | 'ceil'
+        | 'cos'
+        | 'e'
+        | 'floor'
+        | 'ln'
+        | 'ln2'
+        | 'log10'
+        | 'log2'
+        | 'max'
+        | 'min'
+        | 'pi'
+        | 'round'
+        | 'sin'
+        | 'sqrt'
+        | 'tan'
         // Zoom, Heatmap
-        | 'zoom' | 'heatmap-density';
+        | 'zoom'
+        | 'heatmap-density';
 
-    type Expression = [ExpressionName, ...any[]]
+    type Expression = [ExpressionName, ...any[]];
 
-    type Anchor = 'center' | 'left' | 'right' | 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    type Anchor =
+        | 'center'
+        | 'left'
+        | 'right'
+        | 'top'
+        | 'bottom'
+        | 'top-left'
+        | 'top-right'
+        | 'bottom-left'
+        | 'bottom-right';
 
     /**
      * Map
@@ -60,7 +192,10 @@ declare namespace mapboxgl {
     export class Map extends Evented {
         constructor(options?: MapboxOptions);
 
-        addControl(control: Control | IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'): this;
+        addControl(
+            control: Control | IControl,
+            position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left',
+        ): this;
 
         removeControl(control: Control | IControl): this;
 
@@ -72,13 +207,21 @@ declare namespace mapboxgl {
 
         setMaxBounds(lnglatbounds?: LngLatBoundsLike): this;
 
-        setMinZoom(minZoom?: number): this;
+        setMinZoom(minZoom?: number | null): this;
 
         getMinZoom(): number;
 
-        setMaxZoom(maxZoom?: number): this;
+        setMaxZoom(maxZoom?: number | null): this;
 
         getMaxZoom(): number;
+
+        setMinPitch(minPitch?: number | null): this;
+
+        getMinPitch(): number;
+
+        setMaxPitch(maxPitch?: number | null): this;
+
+        getMaxPitch(): number;
 
         getRenderWorldCopies(): boolean;
 
@@ -94,11 +237,52 @@ declare namespace mapboxgl {
 
         isRotating(): boolean;
 
-        queryRenderedFeatures(pointOrBox?: PointLike | [PointLike, PointLike], parameters?: { layers?: string[], filter?: any[] }): MapboxGeoJSONFeature[];
+        /**
+         * Returns an array of GeoJSON Feature objects representing visible features that satisfy the query parameters.
+         *
+         * The properties value of each returned feature object contains the properties of its source feature. For GeoJSON sources, only string and numeric property values are supported (i.e. null, Array, and Object values are not supported).
+         *
+         * Each feature includes top-level layer, source, and sourceLayer properties. The layer property is an object representing the style layer to which the feature belongs. Layout and paint properties in this object contain values which are fully evaluated for the given zoom level and feature.
+         *
+         * Only features that are currently rendered are included. Some features will not be included, like:
+         *
+         * - Features from layers whose visibility property is "none".
+         * - Features from layers whose zoom range excludes the current zoom level.
+         * - Symbol features that have been hidden due to text or icon collision.
+         *
+         * Features from all other layers are included, including features that may have no visible contribution to the rendered result; for example, because the layer's opacity or color alpha component is set to 0.
+         *
+         * The topmost rendered feature appears first in the returned array, and subsequent features are sorted by descending z-order. Features that are rendered multiple times (due to wrapping across the antimeridian at low zoom levels) are returned only once (though subject to the following caveat).
+         *
+         * Because features come from tiled vector data or GeoJSON data that is converted to tiles internally, feature geometries may be split or duplicated across tile boundaries and, as a result, features may appear multiple times in query results. For example, suppose there is a highway running through the bounding rectangle of a query. The results of the query will be those parts of the highway that lie within the map tiles covering the bounding rectangle, even if the highway extends into other tiles, and the portion of the highway within each map tile will be returned as a separate feature. Similarly, a point feature near a tile boundary may appear in multiple tiles due to tile buffering.
+         *
+         * @param pointOrBox The geometry of the query region: either a single point or southwest and northeast points describing a bounding box. Omitting this parameter (i.e. calling Map#queryRenderedFeatures with zero arguments, or with only a  options argument) is equivalent to passing a bounding box encompassing the entire map viewport.
+         * @param options
+         */
+        queryRenderedFeatures(
+            pointOrBox?: PointLike | [PointLike, PointLike],
+            options?: { layers?: string[]; filter?: any[] } & FilterOptions,
+        ): MapboxGeoJSONFeature[];
 
-        querySourceFeatures(sourceID: string, parameters?: { sourceLayer?: string, filter?: any[] }): MapboxGeoJSONFeature[];
+        /**
+         * Returns an array of GeoJSON Feature objects representing features within the specified vector tile or GeoJSON source that satisfy the query parameters.
+         *
+         * In contrast to Map#queryRenderedFeatures, this function returns all features matching the query parameters, whether or not they are rendered by the current style (i.e. visible). The domain of the query includes all currently-loaded vector tiles and GeoJSON source tiles: this function does not check tiles outside the currently visible viewport.
+         *
+         * Because features come from tiled vector data or GeoJSON data that is converted to tiles internally, feature geometries may be split or duplicated across tile boundaries and, as a result, features may appear multiple times in query results. For example, suppose there is a highway running through the bounding rectangle of a query. The results of the query will be those parts of the highway that lie within the map tiles covering the bounding rectangle, even if the highway extends into other tiles, and the portion of the highway within each map tile will be returned as a separate feature. Similarly, a point feature near a tile boundary may appear in multiple tiles due to tile buffering.
+         *
+         * @param sourceID The ID of the vector tile or GeoJSON source to query.
+         * @param parameters
+         */
+        querySourceFeatures(
+            sourceID: string,
+            parameters?: {
+                sourceLayer?: string;
+                filter?: any[];
+            } & FilterOptions,
+        ): MapboxGeoJSONFeature[];
 
-        setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean, localIdeographFontFamily?: string }): this;
+        setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean; localIdeographFontFamily?: string }): this;
 
         getStyle(): mapboxgl.Style;
 
@@ -114,7 +298,15 @@ declare namespace mapboxgl {
 
         getSource(id: string): AnySourceImpl;
 
-        addImage(name: string, image: HTMLImageElement | ArrayBufferView | { width: number, height: number, data: Uint8Array | Uint8ClampedArray } | ImageData, options?: { pixelRatio?: number, sdf?: boolean }): this;
+        addImage(
+            name: string,
+            image:
+                | HTMLImageElement
+                | ArrayBufferView
+                | { width: number; height: number; data: Uint8Array | Uint8ClampedArray }
+                | ImageData,
+            options?: { pixelRatio?: number; sdf?: boolean },
+        ): this;
 
         hasImage(name: string): boolean;
 
@@ -132,7 +324,7 @@ declare namespace mapboxgl {
 
         getLayer(id: string): mapboxgl.Layer;
 
-        setFilter(layer: string, filter?: any[]): this;
+        setFilter(layer: string, filter?: any[] | boolean | null, options?: FilterOptions | null): this;
 
         setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -150,7 +342,10 @@ declare namespace mapboxgl {
 
         getLight(): mapboxgl.Light;
 
-        setFeatureState(feature: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature, state: { [key: string]: any }): void;
+        setFeatureState(
+            feature: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature,
+            state: { [key: string]: any },
+        ): void;
 
         getFeatureState(feature: FeatureIdentifier | mapboxgl.MapboxGeoJSONFeature): { [key: string]: any };
 
@@ -171,6 +366,17 @@ declare namespace mapboxgl {
         showTileBoundaries: boolean;
 
         showCollisionBoxes: boolean;
+
+        /**
+         * Gets and sets a Boolean indicating whether the map will visualize
+         * the padding offsets.
+         *
+         * @name showPadding
+         * @type {boolean}
+         * @instance
+         * @memberof Map
+         */
+        showPadding: boolean;
 
         repaint: boolean;
 
@@ -196,9 +402,36 @@ declare namespace mapboxgl {
 
         setBearing(bearing: number, eventData?: mapboxgl.EventData): this;
 
+        /**
+         * Returns the current padding applied around the map viewport.
+         *
+         * @memberof Map#
+         * @returns The current padding around the map viewport.
+         */
+        getPadding(): PaddingOptions;
+
+        /**
+         * Sets the padding in pixels around the viewport.
+         *
+         * Equivalent to `jumpTo({padding: padding})`.
+         *
+         * @memberof Map#
+         * @param padding The desired padding. Format: { left: number, right: number, top: number, bottom: number }
+         * @param eventData Additional properties to be added to event objects of events triggered by this method.
+         * @fires movestart
+         * @fires moveend
+         * @returns {Map} `this`
+         * @example
+         * // Sets a left padding of 300px, and a top padding of 50px
+         * map.setPadding({ left: 300, top: 50 });
+         */
+        setPadding(padding: PaddingOptions, eventData?: EventData): this;
+
         rotateTo(bearing: number, options?: mapboxgl.AnimationOptions, eventData?: EventData): this;
 
         resetNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
+
+        resetNorthPitch(options?: mapboxgl.AnimationOptions | null, eventData?: mapboxgl.EventData | null): this;
 
         snapToNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
@@ -210,7 +443,13 @@ declare namespace mapboxgl {
 
         fitBounds(bounds: LngLatBoundsLike, options?: mapboxgl.FitBoundsOptions, eventData?: mapboxgl.EventData): this;
 
-        fitScreenCoordinates(p0: PointLike, p1: PointLike, bearing: number, options?: AnimationOptions & CameraOptions, eventData?: EventData): this;
+        fitScreenCoordinates(
+            p0: PointLike,
+            p1: PointLike,
+            bearing: number,
+            options?: AnimationOptions & CameraOptions,
+            eventData?: EventData,
+        ): this;
 
         jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
@@ -222,15 +461,27 @@ declare namespace mapboxgl {
 
         stop(): this;
 
-        on<T extends keyof MapLayerEventType>(type: T, layer: string, listener: (ev: MapLayerEventType[T] & EventData) => void): this;
+        on<T extends keyof MapLayerEventType>(
+            type: T,
+            layer: string,
+            listener: (ev: MapLayerEventType[T] & EventData) => void,
+        ): this;
         on<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
         on(type: string, listener: (ev: any) => void): this;
 
-        once<T extends keyof MapLayerEventType>(type: T, layer: string, listener: (ev: MapLayerEventType[T] & EventData) => void): this;
+        once<T extends keyof MapLayerEventType>(
+            type: T,
+            layer: string,
+            listener: (ev: MapLayerEventType[T] & EventData) => void,
+        ): this;
         once<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
         once(type: string, listener: (ev: any) => void): this;
 
-        off<T extends keyof MapLayerEventType>(type: T, layer: string, listener: (ev: MapLayerEventType[T] & EventData) => void): this;
+        off<T extends keyof MapLayerEventType>(
+            type: T,
+            layer: string,
+            listener: (ev: MapLayerEventType[T] & EventData) => void,
+        ): this;
         off<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
         off(type: string, listener: (ev: any) => void): this;
 
@@ -247,11 +498,13 @@ declare namespace mapboxgl {
         doubleClickZoom: DoubleClickZoomHandler;
 
         touchZoomRotate: TouchZoomRotateHandler;
+
+        touchPitch: TouchPitchHandler;
     }
 
     export interface MapboxOptions {
         /**
-         * If  true, the gl context will be created with MSA antialiasing, which can be useful for antialiasing custom layers.
+         * If true, the gl context will be created with MSA antialiasing, which can be useful for antialiasing custom layers.
          * This is false by default as a performance optimization.
          */
         antialias?: boolean;
@@ -300,7 +553,7 @@ declare namespace mapboxgl {
         crossSourceCollisions?: boolean;
 
         /** ID of the container element */
-        container: string | Element;
+        container: string | HTMLElement;
 
         /** String or strings to show in an AttributionControl.
          * Only applicable if options.attributionControl is `true`. */
@@ -315,8 +568,13 @@ declare namespace mapboxgl {
         /** If true, enable the "double click to zoom" interaction (see DoubleClickZoomHandler). */
         doubleClickZoom?: boolean;
 
-        /** If true, the map will track and update the page URL according to map position */
-        hash?: boolean;
+        /** If `true`, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL.
+         * For example, `http://path/to/my/page.html#2.59/39.26/53.07/-24.1/60`.
+         * An additional string may optionally be provided to indicate a parameter-styled hash,
+         * e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar, where foo
+         * is a custom parameter and bar is an arbitrary hash distinct from the map hash.
+         * */
+        hash?: boolean | string;
 
         /**
          * Controls the duration of the fade-in/fade-out animation for label collisions, in milliseconds.
@@ -339,6 +597,14 @@ declare namespace mapboxgl {
         /** If true, enable keyboard shortcuts (see KeyboardHandler). */
         keyboard?: boolean;
 
+        /** A patch to apply to the default localization table for UI strings, e.g. control tooltips.
+         * The `locale` object maps namespaced UI string IDs to translated strings in the target language;
+         * see `src/ui/default_locale.js` for an example with all supported string IDs.
+         * The object may specify all UI strings (thereby adding support for a new translation) or
+         * only a subset of strings (thereby patching the default translation table).
+         */
+        locale?: { [key: string]: string };
+
         /**
          * If specified, defines a CSS font-family for locally overriding generation of glyphs in the
          * 'CJK Unified Ideographs' and 'Hangul Syllables' ranges. In these ranges, font settings from
@@ -359,10 +625,16 @@ declare namespace mapboxgl {
         /** If set, the map is constrained to the given bounds. */
         maxBounds?: LngLatBoundsLike;
 
-        /** Maximum zoom of the map */
+        /** Maximum pitch of the map. */
+        maxPitch?: number;
+
+        /** Maximum zoom of the map. */
         maxZoom?: number;
 
-        /** Minimum zoom of the map */
+        /** Minimum pitch of the map. */
+        minPitch?: number;
+
+        /** Minimum zoom of the map. */
         minZoom?: number;
 
         /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
@@ -418,6 +690,9 @@ declare namespace mapboxgl {
         /** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
         touchZoomRotate?: boolean;
 
+        /** If true, the "drag to pitch" interaction is enabled */
+        touchPitch?: boolean;
+
         /** Initial zoom level */
         zoom?: number;
 
@@ -428,6 +703,13 @@ declare namespace mapboxgl {
          * @default null
          */
         maxTileCacheSize?: number;
+
+        /**
+         * If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
+         *
+         * @default null
+         */
+        accessToken?: string;
     }
 
     export type ResourceType =
@@ -471,9 +753,9 @@ declare namespace mapboxgl {
     }
 
     export interface FeatureIdentifier {
-        id?: string | number,
-        source: string
-        sourceLayer?: string
+        id?: string | number;
+        source: string;
+        sourceLayer?: string;
     }
 
     /**
@@ -527,7 +809,7 @@ declare namespace mapboxgl {
      * DragRotateHandler
      */
     export class DragRotateHandler {
-        constructor(map: mapboxgl.Map, options?: { bearingSnap?: number, pitchWithRotate?: boolean });
+        constructor(map: mapboxgl.Map, options?: { bearingSnap?: number; pitchWithRotate?: boolean });
 
         isEnabled(): boolean;
 
@@ -581,6 +863,18 @@ declare namespace mapboxgl {
         enableRotation(): void;
     }
 
+    export class TouchPitchHandler {
+        constructor(map: mapboxgl.Map);
+
+        enable(): void;
+
+        isActive(): boolean;
+
+        isEnabled(): boolean;
+
+        disable(): void;
+    }
+
     export interface IControl {
         onAdd(map: Map): HTMLElement;
 
@@ -592,14 +886,13 @@ declare namespace mapboxgl {
     /**
      * Control
      */
-    export class Control extends Evented {
-    }
+    export class Control extends Evented {}
 
     /**
      * Navigation
      */
     export class NavigationControl extends Control {
-		constructor(options?: {showCompass?: boolean, showZoom?: boolean});
+        constructor(options?: { showCompass?: boolean; showZoom?: boolean; visualizePitch?: boolean });
     }
 
     export class PositionOptions {
@@ -612,7 +905,13 @@ declare namespace mapboxgl {
      * Geolocate
      */
     export class GeolocateControl extends Control {
-        constructor(options?: { positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showUserLocation?: boolean });
+        constructor(options?: {
+            positionOptions?: PositionOptions;
+            fitBoundsOptions?: FitBoundsOptions;
+            trackUserLocation?: boolean;
+            showAccuracyCircle?: boolean;
+            showUserLocation?: boolean;
+        });
         trigger(): boolean;
     }
 
@@ -620,14 +919,14 @@ declare namespace mapboxgl {
      * Attribution
      */
     export class AttributionControl extends Control {
-        constructor(options?: { compact?: boolean, customAttribution?: string | string[] });
+        constructor(options?: { compact?: boolean; customAttribution?: string | string[] });
     }
 
     /**
      * Scale
      */
     export class ScaleControl extends Control {
-        constructor(options?: { maxWidth?: number, unit?: string })
+        constructor(options?: { maxWidth?: number; unit?: string });
 
         setUnit(unit: 'imperial' | 'metric' | 'nautical'): void;
     }
@@ -661,7 +960,21 @@ declare namespace mapboxgl {
 
         getLngLat(): mapboxgl.LngLat;
 
+        /**
+         * Sets the geographical location of the popup's anchor, and moves the popup to it. Replaces trackPointer() behavior.
+         *
+         * @param lnglat The geographical location to set as the popup's anchor.
+         */
         setLngLat(lnglat: LngLatLike): this;
+
+        /**
+         * Tracks the popup anchor to the cursor position, on screens with a pointer device (will be hidden on touchscreens). Replaces the setLngLat behavior.
+         * For most use cases, `closeOnClick` and `closeButton` should also be set to `false` here.
+         */
+        trackPointer(): this;
+
+        /** Returns the `Popup`'s HTML element. */
+        getElement(): HTMLElement;
 
         setText(text: string): this;
 
@@ -672,6 +985,41 @@ declare namespace mapboxgl {
         getMaxWidth(): string;
 
         setMaxWidth(maxWidth: string): this;
+
+        /**
+         * Adds a CSS class to the popup container element.
+         *
+         * @param {string} className Non-empty string with CSS class name to add to popup container
+         *
+         * @example
+         * let popup = new mapboxgl.Popup()
+         * popup.addClassName('some-class')
+         */
+        addClassName(className: string): void;
+
+        /**
+         * Removes a CSS class from the popup container element.
+         *
+         * @param {string} className Non-empty string with CSS class name to remove from popup container
+         *
+         * @example
+         * let popup = new mapboxgl.Popup()
+         * popup.removeClassName('some-class')
+         */
+        removeClassName(className: string): void;
+
+        /**
+         * Add or remove the given CSS class on the popup container, depending on whether the container currently has that class.
+         *
+         * @param {string} className Non-empty string with CSS class name to add/remove
+         *
+         * @returns {boolean} if the class was removed return false, if class was added, then return true
+         *
+         * @example
+         * let popup = new mapboxgl.Popup()
+         * popup.toggleClassName('toggleClass')
+         */
+        toggleClassName(className: string): void;
     }
 
     export interface PopupOptions {
@@ -679,9 +1027,14 @@ declare namespace mapboxgl {
 
         closeOnClick?: boolean;
 
+        /**
+         * @param {boolean} [options.closeOnMove=false] If `true`, the popup will closed when the map moves.
+         */
+        closeOnMove?: boolean;
+
         anchor?: Anchor;
 
-        offset?: number | PointLike | { [key: string]: PointLike; };
+        offset?: number | PointLike | { [key: string]: PointLike };
 
         className?: string;
 
@@ -710,12 +1063,12 @@ declare namespace mapboxgl {
     }
 
     export interface Light {
-        'anchor'?: 'map' | 'viewport';
-        'position'?: number[];
+        anchor?: 'map' | 'viewport';
+        position?: number[];
         'position-transition'?: Transition;
-        'color'?: string;
+        color?: string;
         'color-transition'?: Transition;
-        'intensity'?: number;
+        intensity?: number;
         'intensity-transition'?: Transition;
     }
 
@@ -723,9 +1076,43 @@ declare namespace mapboxgl {
         [sourceName: string]: AnySourceData;
     }
 
-    export type AnySourceData = GeoJSONSourceRaw | VideoSourceRaw | ImageSourceRaw | CanvasSourceRaw | VectorSource | RasterSource | RasterDemSource
+    export type PromoteIdSpecification = { [key: string]: string } | string;
 
-    export type AnySourceImpl = GeoJSONSource | VideoSource | ImageSource | CanvasSource | VectorSource | RasterSource | RasterDemSource
+    export type AnySourceData =
+        | GeoJSONSourceRaw
+        | VideoSourceRaw
+        | ImageSourceRaw
+        | CanvasSourceRaw
+        | VectorSource
+        | RasterSource
+        | RasterDemSource;
+
+    interface VectorSourceImpl extends VectorSource {
+        /**
+         * Sets the source `tiles` property and re-renders the map.
+         *
+         * @param {string[]} tiles An array of one or more tile source URLs, as in the TileJSON spec.
+         * @returns {VectorTileSource} this
+         */
+        setTiles(tiles: ReadonlyArray<string>): VectorSourceImpl;
+
+        /**
+         * Sets the source `url` property and re-renders the map.
+         *
+         * @param {string} url A URL to a TileJSON resource. Supported protocols are `http:`, `https:`, and `mapbox://<Tileset ID>`.
+         * @returns {VectorTileSource} this
+         */
+        setUrl(url: string): VectorSourceImpl;
+    }
+
+    export type AnySourceImpl =
+        | GeoJSONSource
+        | VideoSource
+        | ImageSource
+        | CanvasSource
+        | VectorSourceImpl
+        | RasterSource
+        | RasterDemSource;
 
     export interface Source {
         type: 'vector' | 'raster' | 'raster-dem' | 'geojson' | 'image' | 'video' | 'canvas';
@@ -748,9 +1135,17 @@ declare namespace mapboxgl {
 
         getClusterExpansionZoom(clusterId: number, callback: (error: any, zoom: number) => void): this;
 
-        getClusterChildren(clusterId: number, callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void): this;
+        getClusterChildren(
+            clusterId: number,
+            callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void,
+        ): this;
 
-        getClusterLeaves(cluserId: number, limit: number, offset: number, callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void): this;
+        getClusterLeaves(
+            cluserId: number,
+            limit: number,
+            offset: number,
+            callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void,
+        ): this;
     }
 
     export interface GeoJSONSourceOptions {
@@ -770,9 +1165,20 @@ declare namespace mapboxgl {
 
         clusterMaxZoom?: number;
 
+        /**
+         * Minimum number of points necessary to form a cluster if clustering is enabled. Defaults to `2`.
+         */
+        clusterMinPoints?: number;
+
+        clusterProperties?: object;
+
         lineMetrics?: boolean;
 
         generateId?: boolean;
+
+        promoteId?: PromoteIdSpecification;
+
+        filter?: any;
     }
 
     /**
@@ -861,6 +1267,7 @@ declare namespace mapboxgl {
         minzoom?: number;
         maxzoom?: number;
         attribution?: string;
+        promoteId?: PromoteIdSpecification;
     }
 
     interface RasterSource extends Source {
@@ -905,6 +1312,10 @@ declare namespace mapboxgl {
         /** Return a LngLat as a string */
         toString(): string;
 
+        /** Returns the approximate distance between a pair of coordinates in meters
+         * Uses the Haversine Formula (from R.W. Sinnott, "Virtues of the Haversine", Sky and Telescope, vol. 68, no. 2, 1984, p. 159) */
+        distanceTo(lngLat: LngLat): number;
+
         toBounds(radius: number): LngLatBounds;
 
         static convert(input: LngLatLike): mapboxgl.LngLat;
@@ -924,8 +1335,11 @@ declare namespace mapboxgl {
 
         setSouthWest(sw: LngLatLike): this;
 
+        /** Check if the point is within the bounding box. */
+        contains(lnglat: LngLatLike): boolean;
+
         /** Extend the bounds to include a given LngLat or LngLatBounds. */
-        extend(obj: mapboxgl.LngLat | mapboxgl.LngLatBounds): this;
+        extend(obj: mapboxgl.LngLatLike | mapboxgl.LngLatBoundsLike): this;
 
         /** Get the point equidistant from this box's corners */
         getCenter(): mapboxgl.LngLat;
@@ -961,7 +1375,7 @@ declare namespace mapboxgl {
         toString(): string;
 
         /** Returns a boolean */
-        isEmpty(): boolean
+        isEmpty(): boolean;
 
         /** Convert an array to a LngLatBounds object, or return an existing LngLatBounds object unchanged. */
         static convert(input: LngLatBoundsLike): mapboxgl.LngLatBounds;
@@ -970,7 +1384,7 @@ declare namespace mapboxgl {
     /**
      * Point
      */
-        // Todo: Pull out class to seperate definition for Module "point-geometry"
+    // Todo: Pull out class to seperate definition for Module "point-geometry"
     export class Point {
         x: number;
         y: number;
@@ -1041,6 +1455,14 @@ declare namespace mapboxgl {
         /** Returns the LngLat for the coordinate. */
         toLngLat(): LngLat;
 
+        /**
+         * Returns the distance of 1 meter in MercatorCoordinate units at this latitude.
+         *
+         * For coordinates in real world units using meters, this naturally provides the
+         * scale to transform into MercatorCoordinates.
+         */
+        meterInMercatorCoordinateUnits(): number;
+
         /** Project a LngLat to a MercatorCoordinate. */
         static fromLngLat(lngLatLike: LngLatLike, altitude?: number): MercatorCoordinate;
     }
@@ -1076,18 +1498,60 @@ declare namespace mapboxgl {
         setDraggable(shouldBeDraggable: boolean): this;
 
         isDraggable(): boolean;
+
+        getRotationAlignment(): Alignment;
+
+        setRotationAlignment(alignment: Alignment): this;
+
+        getPitchAlignment(): Alignment;
+
+        setPitchAlignment(alignment: Alignment): this;
     }
 
+    type Alignment = 'map' | 'viewport' | 'auto';
+
     export interface MarkerOptions {
+        /** DOM element to use as a marker. The default is a light blue, droplet-shaped SVG marker */
         element?: HTMLElement;
 
+        /** The offset in pixels as a PointLike object to apply relative to the element's center. Negatives indicate left and up. */
         offset?: PointLike;
 
+        /** A string indicating the part of the Marker that should be positioned closest to the coordinate set via Marker.setLngLat.
+         * Options are `'center'`, `'top'`, `'bottom'`, `'left'`, `'right'`, `'top-left'`, `'top-right'`, `'bottom-left'`, and `'bottom-right'`.
+         * The default value os `'center'`
+         */
         anchor?: Anchor;
 
-        color?: string
+        /** The color to use for the default marker if options.element is not provided. The default is light blue (#3FB1CE). */
+        color?: string;
 
+        /** A boolean indicating whether or not a marker is able to be dragged to a new position on the map. The default value is false */
         draggable?: boolean;
+
+        /** The rotation angle of the marker in degrees, relative to its `rotationAlignment` setting. A positive value will rotate the marker clockwise.
+         * The default value is 0.
+         */
+        rotation?: number;
+
+        /** `map` aligns the `Marker`'s rotation relative to the map, maintaining a bearing as the map rotates.
+         * `viewport` aligns the `Marker`'s rotation relative to the viewport, agnostic to map rotations.
+         * `auto` is equivalent to `viewport`.
+         * The default value is `auto`
+         */
+        rotationAlignment?: Alignment;
+
+        /** `map` aligns the `Marker` to the plane of the map.
+         * `viewport` aligns the `Marker` to the plane of the viewport.
+         * `auto` automatically matches the value of `rotationAlignment`.
+         * The default value is `auto`.
+         */
+        pitchAlignment?: Alignment;
+
+        /** The scale to use for the default marker if options.element is not provided.
+         * The default scale (1) corresponds to a height of `41px` and a width of `27px`.
+         */
+        scale?: number;
     }
 
     /**
@@ -1127,7 +1591,8 @@ declare namespace mapboxgl {
     }
 
     export class MapMouseEvent extends MapboxEvent<MouseEvent> {
-        type: 'mousedown'
+        type:
+            | 'mousedown'
             | 'mouseup'
             | 'click'
             | 'dblclick'
@@ -1145,12 +1610,10 @@ declare namespace mapboxgl {
         defaultPrevented: boolean;
     }
 
-    export type MapLayerMouseEvent = MapMouseEvent & { features?: MapboxGeoJSONFeature[]; };
+    export type MapLayerMouseEvent = MapMouseEvent & { features?: MapboxGeoJSONFeature[] };
 
     export class MapTouchEvent extends MapboxEvent<TouchEvent> {
-        type: 'touchstart'
-            | 'touchend'
-            | 'touchcancel';
+        type: 'touchstart' | 'touchend' | 'touchcancel';
 
         point: Point;
         lngLat: LngLat;
@@ -1161,7 +1624,7 @@ declare namespace mapboxgl {
         defaultPrevented: boolean;
     }
 
-    export type MapLayerTouchEvent = MapTouchEvent & { features?: MapboxGeoJSONFeature[]; };
+    export type MapLayerTouchEvent = MapTouchEvent & { features?: MapboxGeoJSONFeature[] };
 
     export class MapWheelEvent extends MapboxEvent<WheelEvent> {
         type: 'wheel';
@@ -1171,9 +1634,7 @@ declare namespace mapboxgl {
     }
 
     export interface MapBoxZoomEvent extends MapboxEvent<MouseEvent> {
-        type: 'boxzoomstart'
-            | 'boxzoomend'
-            | 'boxzoomcancel';
+        type: 'boxzoomstart' | 'boxzoomend' | 'boxzoomcancel';
 
         boxZoomBounds: LngLatBounds;
     }
@@ -1218,6 +1679,18 @@ declare namespace mapboxgl {
     }
 
     /**
+     * FilterOptions
+     */
+    export interface FilterOptions {
+        /**
+         * Whether to check if the filter conforms to the Mapbox GL Style Specification.
+         * Disabling validation is a performance optimization that should only be used
+         * if you have previously validated the values you will be passing to this function.
+         */
+        validate?: boolean | null;
+    }
+
+    /**
      * AnimationOptions
      */
     export interface AnimationOptions {
@@ -1232,6 +1705,11 @@ declare namespace mapboxgl {
         offset?: PointLike;
         /** When set to false, no animation happens */
         animate?: boolean;
+
+        /** If `true`, then the animation is considered essential and will not be affected by `prefers-reduced-motion`.
+         * Otherwise, the transition will happen instantly if the user has enabled the `reduced motion` accesibility feature in their operating system.
+         */
+        essential?: boolean;
     }
 
     /**
@@ -1260,7 +1738,7 @@ declare namespace mapboxgl {
     // In practice center is always a {lat, lng} object.
     export type CameraForBoundsResult = Required<Pick<CameraOptions, 'zoom' | 'bearing'>> & {
         /** Map center */
-        center: {lng: number; lat: number};
+        center: { lng: number; lat: number };
     };
 
     /**
@@ -1296,6 +1774,7 @@ declare namespace mapboxgl {
         error: ErrorEvent;
 
         load: MapboxEvent;
+        idle: MapboxEvent;
         remove: MapboxEvent;
         render: MapboxEvent;
         resize: MapboxEvent;
@@ -1350,7 +1829,7 @@ declare namespace mapboxgl {
         pitchend: MapboxEvent<MouseEvent | TouchEvent | undefined>;
 
         wheel: MapWheelEvent;
-    }
+    };
 
     export type MapLayerEventType = {
         click: MapLayerMouseEvent;
@@ -1367,13 +1846,42 @@ declare namespace mapboxgl {
         touchstart: MapLayerTouchEvent;
         touchend: MapLayerTouchEvent;
         touchcancel: MapLayerTouchEvent;
-    }
+    };
 
-    export type AnyLayout = BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout | HeatmapLayout | HillshadeLayout;
+    export type AnyLayout =
+        | BackgroundLayout
+        | FillLayout
+        | FillExtrusionLayout
+        | LineLayout
+        | SymbolLayout
+        | RasterLayout
+        | CircleLayout
+        | HeatmapLayout
+        | HillshadeLayout;
+
+    export type AnyPaint =
+        | BackgroundPaint
+        | FillPaint
+        | FillExtrusionPaint
+        | LinePaint
+        | SymbolPaint
+        | RasterPaint
+        | CirclePaint
+        | HeatmapPaint
+        | HillshadePaint;
 
     export interface Layer {
         id: string;
-        type?: 'fill' | 'line' | 'symbol' | 'circle' | 'fill-extrusion' | 'raster' | 'background' | 'heatmap' | 'hillshade';
+        type?:
+            | 'fill'
+            | 'line'
+            | 'symbol'
+            | 'circle'
+            | 'fill-extrusion'
+            | 'raster'
+            | 'background'
+            | 'heatmap'
+            | 'hillshade';
 
         metadata?: any;
         ref?: string;
@@ -1389,7 +1897,7 @@ declare namespace mapboxgl {
 
         filter?: any[];
         layout?: AnyLayout;
-        paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint | HeatmapPaint | HillshadePaint;
+        paint?: AnyPaint;
     }
 
     // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface
@@ -1469,7 +1977,7 @@ declare namespace mapboxgl {
         base?: number;
         type?: 'identity' | 'exponential' | 'interval' | 'categorical';
         default?: any;
-        'colorSpace'?: 'rgb' | 'lab' | 'hcl';
+        colorSpace?: 'rgb' | 'lab' | 'hcl';
     }
 
     type Visibility = 'visible' | 'none';
@@ -1478,8 +1986,7 @@ declare namespace mapboxgl {
         visibility?: Visibility;
     }
 
-    export interface BackgroundLayout extends Layout {
-    }
+    export interface BackgroundLayout extends Layout {}
 
     export interface BackgroundPaint {
         'background-color'?: string | Expression;
@@ -1491,6 +1998,7 @@ declare namespace mapboxgl {
     }
 
     export interface FillLayout extends Layout {
+        'fill-sort-key'?: number;
     }
 
     export interface FillPaint {
@@ -1508,8 +2016,7 @@ declare namespace mapboxgl {
         'fill-pattern-transition'?: Transition;
     }
 
-    export interface FillExtrusionLayout extends Layout {
-    }
+    export interface FillExtrusionLayout extends Layout {}
 
     export interface FillExtrusionPaint {
         'fill-extrusion-opacity'?: number | Expression;
@@ -1533,6 +2040,7 @@ declare namespace mapboxgl {
         'line-join'?: 'bevel' | 'round' | 'miter' | Expression;
         'line-miter-limit'?: number | Expression;
         'line-round-limit'?: number | Expression;
+        'line-sort-key'?: number;
     }
 
     export interface LinePaint {
@@ -1582,7 +2090,7 @@ declare namespace mapboxgl {
         'text-field'?: string | StyleFunction | Expression;
         'text-font'?: string | string[] | Expression;
         'text-size'?: number | StyleFunction | Expression;
-        'text-max-width'?: number | Expression;
+        'text-max-width'?: number | StyleFunction | Expression;
         'text-line-height'?: number | Expression;
         'text-letter-spacing'?: number | Expression;
         'text-justify'?: 'left' | 'center' | 'right' | Expression;
@@ -1596,6 +2104,10 @@ declare namespace mapboxgl {
         'text-allow-overlap'?: boolean;
         'text-ignore-placement'?: boolean;
         'text-optional'?: boolean;
+        'text-radial-offset'?: number | Expression;
+        'text-variable-anchor'?: Anchor[];
+        'text-writing-mode'?: ('horizontal' | 'vertical')[];
+        'symbol-sort-key'?: number | Expression;
     }
 
     export interface SymbolPaint {
@@ -1627,8 +2139,7 @@ declare namespace mapboxgl {
         'text-translate-anchor'?: 'map' | 'viewport';
     }
 
-    export interface RasterLayout extends Layout {
-    }
+    export interface RasterLayout extends Layout {}
 
     export interface RasterPaint {
         'raster-opacity'?: number | Expression;
@@ -1644,10 +2155,11 @@ declare namespace mapboxgl {
         'raster-contrast'?: number | Expression;
         'raster-contrast-transition'?: Transition;
         'raster-fade-duration'?: number | Expression;
-        'raster-resample'?: 'linear' | 'nearest';
+        'raster-resampling'?: 'linear' | 'nearest';
     }
 
     export interface CircleLayout extends Layout {
+        'circle-sort-key'?: number;
     }
 
     export interface CirclePaint {
@@ -1672,8 +2184,7 @@ declare namespace mapboxgl {
         'circle-stroke-opacity-transition'?: Transition;
     }
 
-    export interface HeatmapLayout extends Layout {
-    }
+    export interface HeatmapLayout extends Layout {}
 
     export interface HeatmapPaint {
         'heatmap-radius'?: number | StyleFunction | Expression;
@@ -1686,8 +2197,7 @@ declare namespace mapboxgl {
         'heatmap-opacity-transition'?: Transition;
     }
 
-    export interface HillshadeLayout extends Layout {
-    }
+    export interface HillshadeLayout extends Layout {}
 
     export interface HillshadePaint {
         'hillshade-illumination-direction'?: number | Expression;

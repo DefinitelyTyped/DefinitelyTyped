@@ -1,0 +1,5 @@
+lib/utils/PropTypes.d.ts
+lib/utils/StyleConfig.d.ts
+lib/utils/capitalize.d.ts
+lib/utils/deprecationWarning.d.ts
+lib/utils/splitComponentProps.d.ts

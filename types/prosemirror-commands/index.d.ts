@@ -4,12 +4,33 @@
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
+//                 Mike Morearty <https://github.com/mmorearty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 import { MarkType, Node as ProsemirrorNode, NodeType, Schema } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+
+/**
+ * A command function takes an editor state, *optionally* a `dispatch`
+ * function that it can use to dispatch a transaction and optionally
+ * an `EditorView` instance. It should return a boolean that indicates
+ * whether it could perform any action. When no `dispatch` callback is
+ * passed, the command should do a 'dry run', determining whether it is
+ * applicable, but not actually doing anything.
+ */
+export interface Command<S extends Schema = any> {
+  (
+    state: EditorState<S>,
+    dispatch?: (tr: Transaction<S>) => void,
+    view?: EditorView<S>
+  ): boolean;
+}
+
+export interface Keymap<S extends Schema = any> {
+  [key: string]: Command<S>;
+}
 
 /**
  * Delete the selection, if there is one.
@@ -205,11 +226,7 @@ export function autoJoin<S extends Schema = any>(
  * Combine a number of command functions into a single function (which
  * calls them one by one until one returns true).
  */
-export function chainCommands<S extends Schema = any>(
-  ...commands: Array<
-    (p1: EditorState<S>, p2?: (tr: Transaction<S>) => void, p3?: EditorView<S>) => boolean
-    >
-): (p1: EditorState<S>, p2?: (tr: Transaction<S>) => void, p3?: EditorView<S>) => boolean;
+export function chainCommands<S extends Schema = any>(...commands: Array<Command<S>>): Command<S>;
 /**
  * A basic keymap containing bindings not specific to any schema.
  * Binds the following keys (when multiple commands are listed, they
@@ -222,17 +239,17 @@ export function chainCommands<S extends Schema = any>(
  * * **Mod-Delete** to `deleteSelection`, `joinForward`, `selectNodeForward`
  * * **Mod-a** to `selectAll`
  */
-export let pcBaseKeymap: { [key: string]: any };
+export let pcBaseKeymap: Keymap;
 /**
  * A copy of `pcBaseKeymap` that also binds **Ctrl-h** like Backspace,
  * **Ctrl-d** like Delete, **Alt-Backspace** like Ctrl-Backspace, and
  * **Ctrl-Alt-Backspace**, **Alt-Delete**, and **Alt-d** like
  * Ctrl-Delete.
  */
-export let macBaseKeymap: { [key: string]: any };
+export let macBaseKeymap: Keymap;
 /**
  * Depending on the detected platform, this will hold
  * [`pcBasekeymap`](#commands.pcBaseKeymap) or
  * [`macBaseKeymap`](#commands.macBaseKeymap).
  */
-export let baseKeymap: { [key: string]: any };
+export let baseKeymap: Keymap;

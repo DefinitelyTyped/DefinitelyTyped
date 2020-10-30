@@ -135,13 +135,13 @@ declare namespace powerbi {
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
-        // tslint:disable-next-line
+        // tslint:disable-next-line:no-unnecessary-generics
         defer<T>(): IDeferred<T>;
 
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
-        // tslint:disable-next-line
+        // tslint:disable-next-line:no-unnecessary-generics
         defer<TSuccess, TError>(): IDeferred2<TSuccess, TError>;
 
         /**
@@ -177,7 +177,7 @@ declare namespace powerbi {
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          * Does not resolve until all promises finish (success or failure).
          */
-        // tslint:disable-next-line
+        // tslint:disable-next-line:no-unnecessary-generics
         allSettled<T>(promises: Array<IPromise2<any, any>>): IPromise<Array<IPromiseResult<T>>>;
 
         /**
@@ -232,7 +232,7 @@ declare namespace powerbi {
          * are not supported as property names by ES3, you'll need to invoke
          * the method like promise['finally'](callback) to make your code IE8 and Android 2.x compatible.
          */
-        // tslint:disable-next-line
+        // tslint:disable-next-line:no-unnecessary-generics
         finally<T, U>(finallyCallback: () => any): IPromise2<T, U>;
     }
 
@@ -256,7 +256,6 @@ declare namespace powerbi {
     }
 
     interface IResultCallback<T> {
-        // tslint:disable-next-line
         (result: T, done: boolean): void;
     }
 
@@ -268,7 +267,7 @@ declare namespace powerbi {
 
 declare namespace powerbi.visuals {
     import Selector = data.Selector;
-	import SelectorsByColumn = data.SelectorsByColumn;
+    import SelectorsByColumn = data.SelectorsByColumn;
 
     interface ISelectionIdBuilder {
         withCategory(categoryColumn: DataViewCategoryColumn, index: number): this;
@@ -736,7 +735,7 @@ declare namespace powerbi.data {
         DataViewRoleWildcard |
         DataViewScopeTotal;
 
-	interface SelectorsByColumn {
+    interface SelectorsByColumn {
         key?: string;
     }
 }
@@ -1171,7 +1170,7 @@ declare namespace powerbi.extensibility {
     }
 
     interface IVisualDataViewTransform {
-        // tslint:disable-next-line
+        // tslint:disable-next-line:no-unnecessary-generics
         <T>(dataview: DataView[]): T;
     }
 
@@ -1307,7 +1306,7 @@ declare namespace powerbi.extensibility.visual {
      */
     interface IVisual extends extensibility.IVisual {
         /** Notifies the IVisual of an update (data, viewmode, size change). */
-        // tslint:disable-next-line
+        // tslint:disable-next-line:no-unnecessary-generics
         update<T>(options: VisualUpdateOptions, viewModel?: T): void;
 
         /** Gets the set of objects that the visual is currently displaying. */

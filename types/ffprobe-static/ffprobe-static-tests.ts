@@ -1,3 +1,3 @@
-import * as ffprobeStatic from 'ffmpeg-static';
+import * as ffprobeStatic from 'ffprobe-static';
 
 ffprobeStatic.path;

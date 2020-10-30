@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "src/coins.json.d.ts",
         "coinlist-tests.ts"
     ]
 }

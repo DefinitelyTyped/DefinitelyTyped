@@ -142,7 +142,12 @@ interface Video {
 
     setWatermark(watermarkPath: string, settings: WatermarkSettings): Video;
 
+    /**
+     * After setting the desired parameters have to start the conversion process.
+     * To do this you must call the function 'save'.
+     */
     save(destinationFileName: string, callback: SaveCallback): void;
+    save(destinationFileName: string): Promise<string>;
 
     fnExtractSoundToMP3(destinationFileName: string, callback: SaveCallback): void;
 

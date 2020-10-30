@@ -1,39 +1,47 @@
 import {
-    GraphQLCompilerContext,
-    transformASTSchema,
-    Parser as RelayParser,
+    CompilerContext,
+    Fragment,
+    Root,
     Printer as GraphQLIRPrinter,
+    Schema
 } from 'relay-compiler';
-
 import * as InlineFragmentsTransform from 'relay-compiler/lib/transforms/InlineFragmentsTransform';
 import * as SkipRedundantNodesTransform from 'relay-compiler/lib/transforms/SkipRedundantNodesTransform';
-import * as RelayApplyFragmentArgumentTransform from 'relay-compiler/lib/transforms/RelayApplyFragmentArgumentTransform';
+import * as ApplyFragmentArgumentTransform from 'relay-compiler/lib/transforms/ApplyFragmentArgumentTransform';
 import * as FlattenTransform from 'relay-compiler/lib/transforms/FlattenTransform';
-import * as ConnectionFieldTransform from 'relay-compiler/lib/transforms/ConnectionFieldTransform';
+import * as ConnectionTransform from 'relay-compiler/lib/transforms/ConnectionTransform';
 import { getLanguagePlugin } from 'relay-compiler/lib/bin/RelayCompilerMain';
-import { visit } from 'relay-compiler/lib/core/GraphQLIRVisitor';
+import { visit } from 'relay-compiler/lib/core/IRVisitor';
 
-import { GraphQLSchema, DefinitionNode } from 'graphql';
+const TestSchema: Schema = (undefined as any) as Schema;
 
-const documentAsts: DefinitionNode[] = [];
-const schema: GraphQLSchema = (undefined as any) as GraphQLSchema;
+declare function parseGraphQLText(schema: Schema, text: string): {
+    definitions: ReadonlyArray<Fragment | Root>,
+    schema: Schema
+};
 
-const adjustedSchema = transformASTSchema(schema, [
+const schema = TestSchema.extend([
     /* GraphQL */ `
         directive @connection(key: String!) on FIELD
         directive @client on FIELD
     `,
 ]);
 
-const relayDocuments = RelayParser.transform(adjustedSchema, documentAsts);
-const queryCompilerContext = new GraphQLCompilerContext(adjustedSchema)
-    .addAll(relayDocuments)
+const text = `
+    fragment ScalarField on User {
+      traits
+    }
+  `;
+
+const { definitions, schema: extendedSchema } = parseGraphQLText(schema, text);
+const queryCompilerContext = new CompilerContext(extendedSchema)
+    .addAll(definitions)
     .applyTransforms([
-        RelayApplyFragmentArgumentTransform.transform,
+        ApplyFragmentArgumentTransform.transform,
         InlineFragmentsTransform.transform,
         FlattenTransform.transformWithOptions({ flattenAbstractTypes: false }),
         SkipRedundantNodesTransform.transform,
-        ConnectionFieldTransform.transform,
+        ConnectionTransform.transform,
     ]);
 
 queryCompilerContext.documents().map(doc => GraphQLIRPrinter.print(doc));
@@ -47,7 +55,7 @@ getLanguagePlugin(() => ({
     inputExtensions: ['foo'],
     outputExtension: 'bar',
     typeGenerator: {
-        transforms: [RelayApplyFragmentArgumentTransform.transform],
+        transforms: [ApplyFragmentArgumentTransform.transform],
         generate: (schema, node, options) => {
             visit(node, {
                 Fragment(fragment) {

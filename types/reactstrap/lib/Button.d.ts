@@ -7,14 +7,11 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     active?: boolean;
     block?: boolean;
     color?: string;
-    disabled?: boolean;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     innerRef?: React.Ref<HTMLButtonElement>;
-    onClick?: React.MouseEventHandler<any>;
-    size?: any;
-    id?: string;
-    style?: React.CSSProperties;
+    size?: string;
     cssModule?: CSSModule;
+    close?: boolean;
 }
 
 declare class Button<T = {[key: string]: any}> extends React.Component<ButtonProps> {}

@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface CarouselProps extends React.HTMLProps<HTMLElement> {
+interface CommonCarouselProps extends React.HTMLAttributes<HTMLElement> {
   [key: string]: any;
   activeIndex?: number;
-  next: () => void;
-  previous: () => void;
   keyboard?: boolean;
   pause?: 'hover' | false;
   ride?: 'carousel';
@@ -14,22 +12,18 @@ export interface CarouselProps extends React.HTMLProps<HTMLElement> {
   mouseExit?: () => void;
   slide?: boolean;
   cssModule?: CSSModule;
+  enableTouch?: boolean;
 }
 
-export interface UncontrolledCarouselProps extends React.HTMLProps<HTMLElement> {
-  [key: string]: any;
+export interface CarouselProps extends CommonCarouselProps {
+  next: () => void;
+  previous: () => void;
+}
+
+export interface UncontrolledCarouselProps extends CommonCarouselProps {
   items: any[];
-  activeIndex?: number;
   next?: () => void;
   previous?: () => void;
-  keyboard?: boolean;
-  pause?: "hover" | false;
-  ride?: "carousel";
-  interval?: number | string | boolean;
-  mouseEnter?: () => void;
-  mouseExit?: () => void;
-  slide?: boolean;
-  cssModule?: CSSModule;
   controls?: boolean;
   indicators?: boolean;
   autoPlay?: boolean;

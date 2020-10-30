@@ -14,7 +14,7 @@
             "../"
         ],
         "paths": {
-            "@reach/dialog": ["reach__dialog"]
+            "@reach/*": ["reach__*"]
         },
         "types": [],
         "noEmit": true,

@@ -2,7 +2,7 @@
 // Project: https://facebook.github.io/relay/
 // Definitions by: Eloy Durán <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.4
 
 import { Config } from 'relay-compiler/lib/bin/RelayCompilerMain';
 

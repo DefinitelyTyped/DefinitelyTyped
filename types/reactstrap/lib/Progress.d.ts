@@ -7,13 +7,15 @@ export interface ProgressProps extends React.HTMLAttributes<HTMLElement> {
   multi?: boolean;
   tag?: string;
   value?: string | number;
+  min?: string | number;
   max?: string | number;
   animated?: boolean;
   striped?: boolean;
   color?: string;
-  className?: string;
   cssModule?: CSSModule;
   barClassName?: string;
+  barAriaValueText?: string;
+  barAriaLabelledBy?: string;
 }
 
 declare class Progress<T = {[key: string]: any}> extends React.Component<ProgressProps> {}

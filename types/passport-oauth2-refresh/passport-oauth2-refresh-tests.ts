@@ -17,4 +17,5 @@ const strategy1: OAuth2Strategy = new OAuth2Strategy(strategyOptions1, verifyFun
 
 use('strategy1', strategy1);
 
-requestNewAccessToken('strategy1', 'exampleRefreshToken', {}, () => {});
+requestNewAccessToken('strategy1', 'exampleRefreshToken', (err, accessToken, refreshToken, results) => {});
+requestNewAccessToken('strategy1', 'exampleRefreshToken', {}, (err, accessToken, refreshToken, results) => {});

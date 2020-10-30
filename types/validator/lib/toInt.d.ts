@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const toInt: typeof validator.toInt;
-export = toInt;
+import validator from '../';
+export default validator.toInt;

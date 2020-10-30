@@ -1,99 +1,163 @@
 // Adapted from README
 
-import { create, destroy } from "socketcluster-client";
-import { ClientOptions, SubscribeStateChangeData } from "socketcluster-client/lib/scclientsocket";
-import { SCChannelOptions } from "sc-channel";
-import WebSocket = require("ws");
+import { create, AGClientSocket } from 'socketcluster-client';
+import AuthEngine = require('socketcluster-client/lib/auth');
 
-const secureClientOptions: ClientOptions = {
-    hostname: "securedomain.com",
-    secure: true,
-    port: 443,
-    rejectUnauthorized: false
-};
-
-let socket = create(secureClientOptions);
-
-socket.on("connect", () => {
-    console.log("CONNECTED");
-});
-
-// Listen to an event called 'rand' from the server
-socket.on("rand", (num: any) => {
-    console.log("RANDOM: " + num);
-});
-
-const options: ClientOptions = {
-    path: "/socketcluster/",
+const socket = create({
+    hostname: 'localhost',
     port: 8000,
-    hostname: "127.0.0.1",
+});
+
+socket.transmit('foo', 123);
+
+(async () => {
+    // $ExpectType any
+    await socket.invoke('myProc', 123);
+})();
+
+(async () => {
+    // Subscribe to a channel.
+    const myChannel = socket.subscribe('myChannel');
+
+    await myChannel.listener('subscribe').once();
+
+    // $ExpectType ChannelState
+    myChannel.state;
+})();
+
+(async () => {
+    const myChannel = socket.channel('myChannel');
+
+    myChannel.subscribe();
+    await myChannel.listener('subscribe').once();
+
+    // $ExpectType ChannelState
+    myChannel.state;
+
+    myChannel.transmitPublish('This is a message');
+})();
+
+socket.transmitPublish('myChannel', 'This is a message');
+
+(async () => {
+    const myChannel = socket.channel('myChannel');
+
+    try {
+        await myChannel.invokePublish('This is a message');
+    } catch (error) {}
+
+    try {
+        const response = await socket.invokePublish('myChannel', 'This is a message');
+
+        // $ExpectType string
+        response.channel;
+
+        // $ExpectType any
+        response.data;
+    } catch (error) {}
+})();
+
+(async () => {
+    const myChannel = socket.channel('myChannel');
+
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const data of myChannel) {
+        // $ExpectType any
+        data;
+    }
+})();
+
+(async () => {
+    const secureOptions = {
+        hostname: 'securedomain.com',
+        secure: true,
+        port: 443,
+        rejectUnauthorized: false, // Only necessary during debug if using a self-signed certificate
+    };
+
+    const secureSocket = create(secureOptions);
+    const authStatus = await secureSocket.authenticate('abc');
+
+    // $ExpectType Error
+    authStatus.authError;
+
+    // $ExpectType AuthStates
+    authStatus.isAuthenticated;
+})();
+
+(async () => {
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const event of socket.listener('subscribeStateChange')) {
+        // $ExpectType string
+        event.channel;
+
+        // $ExpectType ChannelState
+        event.oldChannelState;
+
+        // $ExpectType ChannelState
+        event.newChannelState;
+
+        // $ExpectType SubscribeOptions
+        event.subscriptionOptions;
+    }
+})();
+
+const authToken = socket.authToken;
+if (authToken) {
+    // $ExpectType any
+    authToken.iat;
+}
+
+const authEngine = new AuthEngine();
+
+const mostOptions: AGClientSocket.ClientOptions = {
+    path: '/socketcluster/',
+    port: 8000,
+    hostname: '127.0.0.1',
     autoConnect: true,
     secure: false,
-    rejectUnauthorized: false,
-    connectTimeout: 10000, // milliseconds
-    ackTimeout: 10000, // milliseconds
+    connectTimeout: 10000,
+    ackTimeout: 10000,
     channelPrefix: null,
     disconnectOnUnload: true,
-    multiplex: true,
     autoReconnectOptions: {
-        initialDelay: 10000, // milliseconds
-        randomness: 10000, // milliseconds
-        multiplier: 1.5, // decimal
-        maxDelay: 60000 // milliseconds
+        initialDelay: 10000,
+        randomness: 10000,
+        multiplier: 1.5,
+        maxDelay: 60000,
     },
-    authEngine: null,
+    authEngine,
     codecEngine: null,
     subscriptionRetryOptions: {},
     query: {
-        yourparam: "hello"
+        yourparam: 'hello',
+    },
+};
+
+create(mostOptions);
+
+const oldVersionSocket = create({
+    protocolVersion: 1,
+    path: '/socketcluster/',
+});
+
+// $ExpectType ProtocolVersions
+oldVersionSocket.protocolVersion;
+
+export class MyAuthEngine implements AuthEngine.AGAuthEngine {
+    saveToken(
+        _name: string,
+        token: AuthEngine.AuthToken | AuthEngine.SignedAuthToken,
+        _options?: { [key: string]: any },
+    ): Promise<AuthEngine.AuthToken | AuthEngine.SignedAuthToken> {
+        return Promise.resolve(token);
     }
-};
-socket = create(options);
 
-// Check some of the standard events, with normal subscription,
-// one-time subscription and unsubscription.
-const subscribeListener: (channelName: string, subscriptionOptions: SCChannelOptions) => void = channelname => {
-    console.log("subscribe:" + channelname);
-};
-socket.on("subscribe", subscribeListener);
-socket.once("subscribe", subscribeListener);
-socket.off("subscribe", subscribeListener);
-socket.off("subscribe");
+    removeToken(_name: string): Promise<AuthEngine.AuthToken | AuthEngine.SignedAuthToken | null> {
+        return Promise.resolve(null);
+    }
 
-const subscribeFailListener: (err: Error, channelName: string, subscriptionOptions: SCChannelOptions) => void = channelname => {
-    console.log("subscribeFail:" + channelname);
-};
-socket.on("subscribeFail", subscribeFailListener);
-socket.once("subscribeFail", subscribeFailListener);
-socket.off("subscribeFail", subscribeFailListener);
-socket.off("subscribeFail");
-
-const unsubscribeListener: (channelName: string) => void = channelname => {
-    console.log("unsubscribe:" + channelname);
-};
-socket.on("unsubscribe", unsubscribeListener);
-socket.once("unsubscribe", unsubscribeListener);
-socket.off("unsubscribe", unsubscribeListener);
-socket.off("unsubscribe");
-
-const subscribeStateChangeListener: (stateChangeData: SubscribeStateChangeData) => void = data => {
-    console.log("subscribeStateChange:" + JSON.stringify(data));
-};
-socket.on("subscribeStateChange", subscribeStateChangeListener);
-socket.once("subscribeStateChange", subscribeStateChangeListener);
-socket.off("subscribeStateChange", subscribeStateChangeListener);
-socket.off("subscribeStateChange");
-
-const messageListener: (message: WebSocket.Data) => void = data => {
-    console.log("message:" + data);
-};
-socket.on("message", messageListener);
-socket.once("message", messageListener);
-socket.off("message", messageListener);
-socket.off("message");
-
-const channels = socket.channels;
-const testChannel = channels["test"];
-const channelState = testChannel.getState();
-
-destroy(socket);
+    loadToken(_name: string): Promise<AuthEngine.AuthToken | AuthEngine.SignedAuthToken | null> {
+        return Promise.resolve(null);
+    }
+}

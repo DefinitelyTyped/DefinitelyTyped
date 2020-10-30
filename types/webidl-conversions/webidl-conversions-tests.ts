@@ -1,11 +1,31 @@
 import conversions = require('webidl-conversions');
 
-const any: any = void 0;
-const unknown: unknown = void 0;
-// $ExpectType Options
-const options: conversions.Options = ((): conversions.Options => {
-	return {};
-})();
+declare const any: any;
+declare const unknown: unknown;
+
+declare const options: conversions.Options;
+declare const stringOptions: conversions.StringOptions;
+declare const integerOptions: conversions.IntegerOptions;
+declare const bufferSourceOptions: conversions.BufferSourceOptions;
+
+options.context; // $ExpectType string | undefined
+
+const {
+    globals, // $ExpectType Globals | undefined
+} = options;
+
+if (globals) {
+    globals; // $ExpectType Globals
+    globals.Number; // $ExpectType (value?: any) => number
+    globals.String; // $ExpectType (value?: any) => string
+    globals.TypeError; // $ExpectType new (message?: string | undefined) => TypeError
+}
+
+/**
+ * The `expectType` function from https://www.npmjs.com/package/tsd,
+ * except instead of returning `void`, it returns `T`.
+ */
+declare function expectType<T>(value: T): T;
 
 conversions.any(any); // $ExpectType any
 conversions.any(unknown); // $ExpectType unknown
@@ -14,50 +34,59 @@ conversions.any(RegExp); // $ExpectType RegExpConstructor
 conversions.any(Symbol.toStringTag); // $ExpectType symbol
 
 conversions.void(); // $ExpectType void
-conversions.boolean(any); // $ExpectType boolean
+conversions.boolean(any, integerOptions); // $ExpectType boolean
 
-conversions.byte(any); // $ExpectType number
-conversions.octet(any); // $ExpectType number
+conversions.byte(any, integerOptions); // $ExpectType number
+conversions.octet(any, integerOptions); // $ExpectType number
 
-conversions.short(any); // $ExpectType number
-conversions['unsigned short'](any); // $ExpectType number
+conversions.short(any, integerOptions); // $ExpectType number
+conversions['unsigned short'](any, integerOptions); // $ExpectType number
 
-conversions.long(any); // $ExpectType number
-conversions['unsigned long'](any); // $ExpectType number
+conversions.long(any, integerOptions); // $ExpectType number
+conversions['unsigned long'](any, integerOptions); // $ExpectType number
 
-conversions['long long'](any); // $ExpectType number
-conversions['unsigned long long'](any); // $ExpectType number
+conversions['long long'](any, integerOptions); // $ExpectType number
+conversions['unsigned long long'](any, integerOptions); // $ExpectType number
 
-conversions.double(any); // $ExpectType number
-conversions['unrestricted double'](any); // $ExpectType number
+conversions.double(any, integerOptions); // $ExpectType number
+conversions['unrestricted double'](any, integerOptions); // $ExpectType number
 
-conversions.float(any); // $ExpectType number
-conversions['unrestricted float'](any); // $ExpectType number
+conversions.float(any, integerOptions); // $ExpectType number
+conversions['unrestricted float'](any, integerOptions); // $ExpectType number
 
-conversions.DOMString(any, options); // $ExpectType string
-conversions.ByteString(any, options); // $ExpectType string
-conversions.USVString(any, options); // $ExpectType string
+conversions.DOMString(any, stringOptions); // $ExpectType string
+conversions.ByteString(any, stringOptions); // $ExpectType string
+conversions.USVString(any, stringOptions); // $ExpectType string
 
-conversions.object(any, options); // $ExpectType object
-conversions.Error(any, options); // $ExpectType Error
+conversions.object(any, options); // $ExpectType any
+conversions.object(unknown, options); // $ExpectType object
+expectType<null & object>(conversions.object(null, options));
+expectType<string & object>(conversions.object('string', options));
+expectType<number & object>(conversions.object(123, options));
+conversions.object({}, options); // $ExpectType {}
 
 conversions.ArrayBuffer(any, options); // $ExpectType ArrayBuffer
-conversions.DataView(any, options); // $ExpectType DataView
+expectType<ArrayBufferLike>(conversions.ArrayBuffer(any, { allowShared: true }));
+expectType<ArrayBufferLike>(conversions.ArrayBuffer(any, bufferSourceOptions));
 
-conversions.Int8Array(any, options); // $ExpectType Int8Array
-conversions.Int16Array(any, options); // $ExpectType Int16Array
-conversions.Int32Array(any, options); // $ExpectType Int32Array
+conversions.DataView(any, bufferSourceOptions); // $ExpectType DataView
 
-conversions.Uint8Array(any, options); // $ExpectType Uint8Array
-conversions.Uint16Array(any, options); // $ExpectType Uint16Array
-conversions.Uint32Array(any, options); // $ExpectType Uint32Array
-conversions.Uint8ClampedArray(any, options); // $ExpectType Uint8ClampedArray
+conversions.Int8Array(any, bufferSourceOptions); // $ExpectType Int8Array
+conversions.Int16Array(any, bufferSourceOptions); // $ExpectType Int16Array
+conversions.Int32Array(any, bufferSourceOptions); // $ExpectType Int32Array
 
-conversions.Float32Array(any, options); // $ExpectType Float32Array
-conversions.Float64Array(any, options); // $ExpectType Float64Array
+conversions.Uint8Array(any, bufferSourceOptions); // $ExpectType Uint8Array
+conversions.Uint16Array(any, bufferSourceOptions); // $ExpectType Uint16Array
+conversions.Uint32Array(any, bufferSourceOptions); // $ExpectType Uint32Array
+conversions.Uint8ClampedArray(any, bufferSourceOptions); // $ExpectType Uint8ClampedArray
 
-conversions.ArrayBufferView(any, options); // $ExpectType ArrayBufferView
+conversions.Float32Array(any, bufferSourceOptions); // $ExpectType Float32Array
+conversions.Float64Array(any, bufferSourceOptions); // $ExpectType Float64Array
+
+conversions.ArrayBufferView(any, bufferSourceOptions); // $ExpectType ArrayBufferView
 conversions.BufferSource(any, options); // $ExpectType ArrayBuffer | ArrayBufferView
+expectType<ArrayBufferLike | ArrayBufferView>(conversions.BufferSource(any, { allowShared: true }));
+expectType<ArrayBufferLike | ArrayBufferView>(conversions.BufferSource(any, bufferSourceOptions));
 
 conversions.DOMTimeStamp(any, options); // $ExpectType number
 

@@ -1,4 +1,4 @@
-// Type definitions for tough-cookie-file-store 1.2
+// Type definitions for tough-cookie-file-store 2.0
 // Project: https://github.com/ivanmarban/tough-cookie-file-store
 // Definitions by: Emily Marigold Klassen <https://github.com/forivall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,9 +6,7 @@
 
 import tough = require('tough-cookie');
 
-export = FileCookieStore;
-
-declare class FileCookieStore extends tough.Store {
+export class FileCookieStore extends tough.Store {
     idx: {
         [domain: string]: {
             [path: string]: {

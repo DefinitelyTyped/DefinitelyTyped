@@ -19,6 +19,13 @@
     },
     "files": [
         "index.d.ts",
+        "test/reference/map-tests.ts",
+        "test/reference/coordinates-tests.ts",
+        "test/reference/event-tests.ts",
+        "test/reference/marker-tests.ts",
+        "test/reference/info-window-tests.ts",
+        "test/reference/max-zoom-tests.ts",
+        "test/reference/distance-matrix-tests.ts",
         "googlemaps-tests.ts"
     ]
 }

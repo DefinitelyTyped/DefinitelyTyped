@@ -67,21 +67,21 @@ declare namespace SeamlessImmutable {
         asMutable(opts: AsMutableOptions<true>): T;
         asMutable(opts: AsMutableOptions): T | { [K in keyof T]: Immutable<T[K]> };
 
-        merge(part: DeepPartial<T>, config?: MergeConfig): Immutable<T>;
+        merge(part: DeepPartial<T | Immutable<T>>, config?: MergeConfig): Immutable<T>;
 
-        update<K extends keyof T>(property: K, updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
-        update<TValue>(property: string, updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
+        update<K extends keyof T>(property: K, updaterFunction: (value: Immutable<T[K]>, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
+        update<TValue>(property: string, updaterFunction: (value: Immutable<TValue>, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
 
         updateIn<K extends keyof T>(
-            propertyPath: [ K ], updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
+            propertyPath: [ K ], updaterFunction: (value: Immutable<T[K]>, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
         updateIn<K extends keyof T, L extends keyof T[K]>(
-            propertyPath: [ K, L ], updaterFunction: (value: T[K][L], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
+            propertyPath: [ K, L ], updaterFunction: (value: Immutable<T[K][L]>, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
         updateIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L]>(
-            propertyPath: [ K, L, M ], updaterFunction: (value: T[K][L][M], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
+            propertyPath: [ K, L, M ], updaterFunction: (value: Immutable<T[K][L][M]>, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
         updateIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M]>(
-            propertyPath: [ K, L, M, N ], updaterFunction: (value: T[K][L][M][N], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
+            propertyPath: [ K, L, M, N ], updaterFunction: (value: Immutable<T[K][L][M][N]>, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
         updateIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>(
-            propertyPath: [ K, L, M, N, O ], updaterFunction: (value: T[K][L][M][N][O], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
+            propertyPath: [ K, L, M, N, O ], updaterFunction: (value: Immutable<T[K][L][M][N][O]>, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
         updateIn<TValue = any>(propertyPath: string[], updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): Immutable<T>;
 
         without<K extends keyof T>(property: K): Immutable<T>;
@@ -175,6 +175,14 @@ declare namespace SeamlessImmutable {
     function ImmutableError(message: string): Error;
 
     function replace<T, S>(obj: Immutable<T>, valueObj: S, options?: ReplaceConfig): Immutable<S>;
+
+    function asMutable<T>(obj: T[] | ImmutableArray<T>, opts?: AsMutableOptions<false>): T[];
+    function asMutable<T>(obj: T[] | ImmutableArray<T>, opts: AsMutableOptions<true>): T[];
+    function asMutable<T>(obj: T[] | ImmutableArray<T>, opts: AsMutableOptions): T[] | Array<Immutable<T>>;
+
+    function asMutable<T>(obj: T | ImmutableObject<T>, opts?: AsMutableOptions<false>): { [K in keyof T]: Immutable<T[K]> };
+    function asMutable<T>(obj: T | ImmutableObject<T>, opts: AsMutableOptions<true>): T;
+    function asMutable<T>(obj: T | ImmutableObject<T>, opts: AsMutableOptions): T | { [K in keyof T]: Immutable<T[K]> };
 }
 
 declare function SeamlessImmutable<T>(obj: T, options?: SeamlessImmutable.Options): SeamlessImmutable.Immutable<T>;

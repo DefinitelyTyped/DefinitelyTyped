@@ -39,6 +39,7 @@ export interface SessionDescription extends SharedDescriptionFields, SessionAttr
         sessionId: string | number;
         sessionVersion: number;
         netType: string;
+        ipVer: number;
         address: string;
     };
     // s=
@@ -147,16 +148,16 @@ export interface MediaAttributes extends SharedAttributes {
         address?: string;
     };
     // a=rtcp-fb:98 nack rpsi
-    rtcpFb?: {
+    rtcpFb?: Array<{
         payload: number;
         type: string;
         subtype?: string;
-    };
+    }>;
     // a=rtcp-fb:98 trr-int 100
-    rtcpFbTrrInt?: {
+    rtcpFbTrrInt?: Array<{
         payload: number;
         value: number;
-    };
+    }>;
     // a=fmtp
     fmtp: Array<{
         payload: number;
@@ -258,8 +259,8 @@ export interface SharedDescriptionFields {
         ip: string;
     };
     // b=AS:4000
-    bandwidth?: {
+    bandwidth?: Array<{
         type: 'TIAS' | 'AS' | 'CT' | 'RR' | 'RS';
         limit: number | string;
-    };
+    }>;
 }

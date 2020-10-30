@@ -3,8 +3,8 @@
 import shell = require("shelljs");
 
 if (!shell.which("git")) {
-	shell.echo("Sorry, this script requires git");
-	shell.exit(1);
+    shell.echo("Sorry, this script requires git");
+    shell.exit(1);
 }
 
 // Copy files to release dir
@@ -14,14 +14,14 @@ shell.cp("-R", "stuff/*", "out/Release");
 // Replace macros in each .js file
 shell.cd("lib");
 shell.ls("*.js").forEach(file => {
-	shell.sed("-i", "BUILD_VERSION", "v0.1.2", file);
-	shell.sed("-i", /.*REMOVE_THIS_LINE.*\n/, "", file);
-	shell.sed(
-		"-i",
-		/.*REPLACE_LINE_WITH_MACRO.*\n/,
-		shell.cat("macro.js"),
-		file
-	);
+    shell.sed("-i", "BUILD_VERSION", "v0.1.2", file);
+    shell.sed("-i", /.*REMOVE_THIS_LINE.*\n/, "", file);
+    shell.sed(
+        "-i",
+        /.*REPLACE_LINE_WITH_MACRO.*\n/,
+        shell.cat("macro.js"),
+        file
+    );
 });
 
 shell.cd("..");
@@ -30,8 +30,8 @@ shell.config.execPath = shell.which("node");
 
 // Run external tool synchronously
 if (shell.exec('git commit -am "Auto-commit"').code !== 0) {
-	shell.echo("Error: Git commit failed");
-	shell.exit(1);
+    shell.echo("Error: Git commit failed");
+    shell.exit(1);
 }
 
 shell.ls("projs/*.js");
@@ -55,10 +55,10 @@ shell.mkdir("-p", "/tmp/a/b/c/d", "/tmp/e/f/g");
 shell.mkdir("-p", ["/tmp/a/b/c/d", "/tmp/e/f/g"]); // same as above
 
 if (shell.test("-d", "/tmp/a/b/c/d")) {
-	/* do something with dir */
+    /* do something with dir */
 }
 if (!shell.test("-f", "/tmp/a/b/c/d")) {
-	/* do something with dir */
+    /* do something with dir */
 }
 
 let str = shell.cat("file*.txt");
@@ -92,6 +92,14 @@ const version = shell.exec("node --version").stdout;
 const version2 = shell.exec("node --version", {async: false});
 const output = version2.stdout;
 
+// $ExpectType ShellString
+const version3 = shell.exec("node --version", {async: false, fatal: false});
+const output3 = version3.stdout;
+
+// $ExpectType ShellString
+const version4 = shell.exec("node --version", {async: false, fatal: true});
+const output4 = version4.stdout;
+
 // $ExpectType ChildProcess
 const asyncVersion3 = shell.exec("node --version", {async: true});
 let pid = asyncVersion3.pid;
@@ -102,25 +110,25 @@ declare let isAsync: boolean;
 const unknownUntilRuntime = shell.exec("node --version", {async: isAsync});
 
 shell.exec("node --version", {silent: true}, (code, stdout, stderr) => {
-	const version = stdout;
+    const version = stdout;
 });
 shell.exec(
-	"node --version",
-	{silent: true, async: true, cwd: "/usr/local/bin"},
-	(code, stdout, stderr) => {
-		const version = stdout;
-	}
+    "node --version",
+    {silent: true, async: true, cwd: "/usr/local/bin"},
+    (code, stdout, stderr) => {
+        const version = stdout;
+    }
 );
 shell.exec("node --version", (code, stdout, stderr) => {
-	const version = stdout;
+    const version = stdout;
 });
 shell.exec("node --version", (code: number) => {
-	const num: number = code;
+    const num: number = code;
 });
 
 // $ExpectType ChildProcess
 const childProc = shell.exec("node --version", (code: number) => {
-	const num: number = code;
+    const num: number = code;
 });
 pid = childProc.pid;
 
@@ -151,13 +159,13 @@ shell.touch("-c", ["/Users/brandom/test1", "/Users/brandom/test2"]);
 
 shell.touch({"-r": "/some/file.txt"}, "/Users/brandom/test1");
 shell.touch(
-	{"-r": "/some/file.txt"},
-	"/Users/brandom/test1",
-	"/Users/brandom/test2"
+    {"-r": "/some/file.txt"},
+    "/Users/brandom/test1",
+    "/Users/brandom/test2"
 );
 shell.touch({"-r": "/oome/file.txt"}, [
-	"/Users/brandom/test1",
-	"/Users/brandom/test2"
+    "/Users/brandom/test1",
+    "/Users/brandom/test2"
 ]);
 
 shell.head({"-n": 1}, "file*.txt");
@@ -188,14 +196,14 @@ shell.config.verbose = true;
 shell.config.execPath = null;
 shell.config.execPath = "/bin/node";
 shell.config.globOptions = {
-	cwd: "./",
-	dot: true
+    cwd: "./",
+    dot: true
 };
 
 shell
-	.ls("dir")
-	.grep(/^stuff/)
-	.head({"-n": 5}).stdout;
+    .ls("dir")
+    .grep(/^stuff/)
+    .head({"-n": 5}).stdout;
 
 const foo = new shell.ShellString('hello world');
 const farr = new shell.ShellString(['hello', 'world']);

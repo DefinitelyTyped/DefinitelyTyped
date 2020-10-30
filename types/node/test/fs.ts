@@ -34,8 +34,8 @@ import * as util from 'util';
     let content: string;
     let buffer: Buffer;
     let stringOrBuffer: string | Buffer;
-    const nullEncoding: string | null = null;
-    const stringEncoding: string | null = 'utf8';
+    const nullEncoding: BufferEncoding | null = null;
+    const stringEncoding: BufferEncoding | null = 'utf8';
 
     content = fs.readFileSync('testfile', 'utf8');
     content = fs.readFileSync('testfile', { encoding: 'utf8' });
@@ -70,6 +70,11 @@ import * as util from 'util';
 
 {
     fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 0);
+    fs.readSync(1, Buffer.from(''), {
+        length: 123,
+        offset: 456,
+        position: null,
+    });
 }
 
 {
@@ -119,6 +124,10 @@ async function testPromisify() {
     const listDir: fs.Dirent[] = await rd('path', { withFileTypes: true });
     const listDir2: Buffer[] = await rd('path', { withFileTypes: false, encoding: 'buffer' });
     const listDir3: fs.Dirent[] = await rd('path', { encoding: 'utf8', withFileTypes: true });
+
+    const ln = util.promisify(fs.link);
+    // $ExpectType Promise<void>
+    ln("abc", "def");
 }
 
 {
@@ -181,7 +190,6 @@ async function testPromisify() {
     fs.readlink('/path/to/folder', { encoding: undefined }, (err, linkString) => s = linkString);
     fs.readlink('/path/to/folder', { encoding: 'utf8' }, (err, linkString) => s = linkString);
     fs.readlink('/path/to/folder', { encoding: 'buffer' }, (err, linkString) => b = linkString);
-    fs.readlink('/path/to/folder', { encoding: s }, (err, linkString) => typeof linkString === "string" ? s = linkString : b = linkString);
 
     s = fs.readlinkSync('/path/to/folder');
     s = fs.readlinkSync('/path/to/folder', undefined);
@@ -194,8 +202,6 @@ async function testPromisify() {
     s = fs.readlinkSync('/path/to/folder', { encoding: undefined });
     s = fs.readlinkSync('/path/to/folder', { encoding: 'utf8' });
     b = fs.readlinkSync('/path/to/folder', { encoding: 'buffer' });
-    const v2 = fs.readlinkSync('/path/to/folder', { encoding: s });
-    typeof v2 === "string" ? s = v2 : b = v2;
 }
 
 {
@@ -210,7 +216,6 @@ async function testPromisify() {
     fs.realpath('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
     fs.realpath('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
     fs.realpath('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
-    fs.realpath('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
 
     s = fs.realpathSync('/path/to/folder');
     s = fs.realpathSync('/path/to/folder', undefined);
@@ -223,8 +228,6 @@ async function testPromisify() {
     s = fs.realpathSync('/path/to/folder', { encoding: undefined });
     s = fs.realpathSync('/path/to/folder', { encoding: 'utf8' });
     b = fs.realpathSync('/path/to/folder', { encoding: 'buffer' });
-    const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
-    typeof v2 === "string" ? s = v2 : b = v2;
 
     // native
     fs.realpath.native('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
@@ -236,7 +239,6 @@ async function testPromisify() {
     fs.realpath.native('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
     fs.realpath.native('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
     fs.realpath.native('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
-    fs.realpath.native('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
 
     s = fs.realpathSync.native('/path/to/folder');
     s = fs.realpathSync.native('/path/to/folder', undefined);
@@ -249,8 +251,6 @@ async function testPromisify() {
     s = fs.realpathSync.native('/path/to/folder', { encoding: undefined });
     s = fs.realpathSync.native('/path/to/folder', { encoding: 'utf8' });
     b = fs.realpathSync.native('/path/to/folder', { encoding: 'buffer' });
-    const v4 = fs.realpathSync.native('/path/to/folder', { encoding: s });
-    typeof v4 === "string" ? s = v4 : b = v4;
 }
 
 {
@@ -271,10 +271,25 @@ async function testPromisify() {
     fs.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
-    }, () => {
+    }, (err, path) => {
+        err; // $ExpectType ErrnoException | null
+        path; // $ExpectType string
     });
 
+    // $ExpectType string
     fs.mkdirSync('some/test/path', {
+        recursive: true,
+        mode: 0o777,
+    });
+
+    // $ExpectType Promise<string>
+    util.promisify(fs.mkdir)('some/test/path', {
+        recursive: true,
+        mode: 0o777,
+    });
+
+    // $ExpectType Promise<string>
+    fs.promises.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
     });
@@ -283,24 +298,62 @@ async function testPromisify() {
 {
     let names: Promise<string[]>;
     let buffers: Promise<Buffer[]>;
-    let namesOrBuffers: Promise<string[] | Buffer[]>;
     let entries: Promise<fs.Dirent[]>;
 
     names = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: false });
     buffers = fs.promises.readdir('/path/to/dir', { encoding: 'buffer', withFileTypes: false });
-    namesOrBuffers = fs.promises.readdir('/path/to/dir', { encoding: 'SOME OTHER', withFileTypes: false });
     entries = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: true });
 }
 
 {
-    fs.writev(1, [Buffer.from('123')], (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+    fs.writev(1, [Buffer.from('123')] as ReadonlyArray<NodeJS.ArrayBufferView>, (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
     });
-    const bytesWritten = fs.writevSync(1, [Buffer.from('123')]);
+    const bytesWritten = fs.writevSync(1, [Buffer.from('123')] as ReadonlyArray<NodeJS.ArrayBufferView>);
 }
 
 (async () => {
     try {
         await fs.promises.rmdir('some/test/path');
-        await fs.promises.rmdir('some/test/path', { recursive: true });
+        await fs.promises.rmdir('some/test/path', { recursive: true, maxRetries: 123, retryDelay: 123 });
+    } catch (e) {}
+
+    try {
+        await fs.promises.rmdir('some/test/file');
+        await fs.promises.rmdir('some/test/file', { recursive: true, maxRetries: 123, retryDelay: 123 });
     } catch (e) {}
 })();
+
+{
+    fs.opendir('test', async (err, dir) => {
+        const dirEnt: fs.Dirent | null = await dir.read();
+    });
+
+    const dir: fs.Dir = fs.opendirSync('test', {
+        encoding: 'utf8',
+    });
+
+    // Pending lib upgrade
+    // (async () => {
+    //     for await (const thing of dir) {
+    //     }
+    // });
+
+    const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
+        encoding: 'utf8',
+        bufferSize: 42,
+    });
+}
+
+{
+    const writeStream = fs.createWriteStream('./index.d.ts');
+    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
+
+    const readStream = fs.createReadStream('./index.d.ts');
+    const _rom = readStream.readableObjectMode; // $ExpectType boolean
+}
+
+{
+    fs.readvSync(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>);
+    fs.readv(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>, 123, (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
+    });
+}

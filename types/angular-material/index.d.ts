@@ -75,7 +75,6 @@ declare module 'angular' {
             multiple(multiple: boolean): T;
         }
 
-        // tslint:disable-next-line no-empty-interface
         interface IAlertDialog extends IPresetDialog<IAlertDialog> {
         }
 
@@ -192,7 +191,6 @@ declare module 'angular' {
             toastClass(toastClass: string): T;
         }
 
-        // tslint:disable-next-line no-empty-interface
         interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
         }
 
@@ -434,6 +432,7 @@ declare module 'angular' {
             addClass(newClass: string): void;
             removeClass(oldClass: string): void;
             toggleClass(toggleClass: string): void;
+            updateAnimation(animation: IPanelAnimation): void;
             updatePosition(position: IPanelPosition): void;
             registerInterceptor(type: string, callback: () => IPromise<any>): IPanelRef;
             removeInterceptor(type: string, callback: () => IPromise<any>): IPanelRef;
@@ -461,6 +460,7 @@ declare module 'angular' {
             openFrom(from: string | Element | Event | { top: number, left: number }): IPanelAnimation;
             closeTo(to: string | Element | { top: number, left: number }): IPanelAnimation;
             withAnimation(cssClass: string | { open: string, close: string }): IPanelAnimation;
+            duration(duration: number | { open: number, close: number }): IPanelAnimation;
         }
 
         interface IPanelService {

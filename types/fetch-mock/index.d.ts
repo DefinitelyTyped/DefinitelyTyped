@@ -145,6 +145,11 @@ declare namespace fetchMock {
         headers?: { [key: string]: string | number };
 
         /**
+         * body to match
+         */
+        body?: string | {};
+
+        /**
          * key/value map of query strings to match, in any order
          */
         query?: { [key: string]: string };
@@ -581,8 +586,8 @@ declare namespace fetchMock {
              * implementation.
              */
             Promise?: new (executor: (
-                resolve: () => void,
-                reject: () => void,
+                resolve: (value: Response | PromiseLike<Response>) => void,
+                reject: (reason?: any) => void,
             ) => void) => Promise<Response>;
 
             /**

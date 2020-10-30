@@ -62,7 +62,7 @@ interface Console {
      * This method does not display anything unless used in the inspector.
      *  Prints to `stdout` the array `array` formatted as a table.
      */
-    table(tabularData: any, properties?: string[]): void;
+    table(tabularData: any, properties?: ReadonlyArray<string>): void;
     /**
      * Starts a timer that can be used to compute the duration of an operation. Timers are identified by a unique `label`.
      */
@@ -152,6 +152,11 @@ interface String {
     trimLeft(): string;
     /** Removes whitespace from the right end of a string. */
     trimRight(): string;
+
+    /** Returns a copy with leading whitespace removed. */
+    trimStart(): string;
+    /** Returns a copy with trailing whitespace removed. */
+    trimEnd(): string;
 }
 
 /*-----------------------------------------------*
@@ -188,7 +193,6 @@ declare function queueMicrotask(callback: () => void): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
-    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -224,6 +228,12 @@ interface NodeModule {
     loaded: boolean;
     parent: NodeModule | null;
     children: NodeModule[];
+    /**
+     * @since 11.14.0
+     *
+     * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
+     */
+    path: string;
     paths: string[];
 }
 
@@ -338,7 +348,7 @@ declare const Buffer: {
      * @param array The octets to store.
      * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
-    new(array: any[]): Buffer;
+    new(array: ReadonlyArray<any>): Buffer;
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
@@ -360,8 +370,14 @@ declare const Buffer: {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    from(data: number[]): Buffer;
+    from(data: ReadonlyArray<number>): Buffer;
     from(data: Uint8Array): Buffer;
+    /**
+     * Creates a new buffer containing the coerced value of an object
+     * A `TypeError` will be thrown if {obj} has not mentioned methods or is not of other type appropriate for `Buffer.from()` variants.
+     * @param obj An object supporting `Symbol.toPrimitive` or `valueOf()`.
+     */
+    from(obj: { valueOf(): string | object } | { [Symbol.toPrimitive](hint: 'string'): string }, byteOffset?: number, length?: number): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -405,7 +421,7 @@ declare const Buffer: {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    concat(list: Uint8Array[], totalLength?: number): Buffer;
+    concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
@@ -719,6 +735,7 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
     interface ReadStream extends Socket {
+        readonly readableFlowing: boolean | null;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         isRaw?: boolean;
@@ -731,6 +748,7 @@ declare namespace NodeJS {
 
     interface HRTime {
         (time?: [number, number]): [number, number];
+        bigint(): bigint;
     }
 
     interface ProcessReport {
@@ -830,7 +848,7 @@ declare namespace NodeJS {
         getegid(): number;
         setegid(id: number | string): void;
         getgroups(): number[];
-        setgroups(groups: Array<string | number>): void;
+        setgroups(groups: ReadonlyArray<string | number>): void;
         setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
         hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
@@ -1123,8 +1141,4 @@ declare namespace NodeJS {
     }
 
     type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
-
-    // The value type here is a "poor man's `unknown`". When these types support TypeScript
-    // 3.0+, we can replace this with `unknown`.
-    type PoorMansUnknown = {} | null | undefined;
 }

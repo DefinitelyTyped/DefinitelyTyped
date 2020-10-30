@@ -1,12 +1,13 @@
-// Type definitions for prosemirror-view 1.11
+// Type definitions for prosemirror-view 1.16
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
+//                 Mike Morearty <https://github.com/mmorearty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 import {
   DOMParser,
@@ -19,6 +20,11 @@ import {
 } from 'prosemirror-model';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { Mapping } from 'prosemirror-transform';
+
+// Exported for testing
+export function __serializeForClipboard<S extends Schema = any>(view: EditorView<S>, slice: Slice<S>): { dom: HTMLElement, text: string };
+export function __parseFromClipboard<S extends Schema = any>(view: EditorView<S>, text: string, html: string, plainText: boolean, $context: ResolvedPos<S>): Slice<S>;
+export function __endComposition(view: EditorView, forceUpdate?: boolean): boolean;
 
 /**
  * The `spec` for a widget decoration
@@ -269,7 +275,7 @@ export class EditorView<S extends Schema = any> {
    * given as argument. Equivalent to `view.update(Object.assign({},
    * view.props, props))`.
    */
-  setProps(props: DirectEditorProps<S>): void;
+  setProps(props: Partial<DirectEditorProps<S>>): void;
   /**
    * Update the editor's `state` prop, without touching any of the
    * other props.
@@ -313,11 +319,14 @@ export class EditorView<S extends Schema = any> {
     top: number;
   }): { pos: number; inside: number } | null | undefined;
   /**
-   * Returns the viewport rectangle at a given document position. `left`
-   * and `right` will be the same number, as this returns a flat
-   * cursor-ish rectangle.
+   * Returns the viewport rectangle at a given document position.
+   * `left` and `right` will be the same number, as this returns a
+   * flat cursor-ish rectangle. If the position is between two things
+   * that aren't directly adjacent, `side` determines which element is
+   * used. When < 0, the element before the position is used,
+   * otherwise the element after.
    */
-  coordsAtPos(pos: number): { left: number; right: number; top: number; bottom: number };
+  coordsAtPos(pos: number, side?: number): { left: number; right: number; top: number; bottom: number };
   /**
    * Find the DOM position that corresponds to the given document
    * position. Note that you should **not** mutate the editor's
@@ -389,7 +398,7 @@ export class EditorView<S extends Schema = any> {
  * them returns true. For some props, the first plugin that yields a
  * value gets precedence.
  */
-export interface EditorProps<S extends Schema = any> {
+export interface EditorProps<ThisT = unknown, S extends Schema = any> {
   /**
    * Can be an object mapping DOM event type names to functions that
    * handle them. Such functions will be called before any handling
@@ -399,22 +408,22 @@ export interface EditorProps<S extends Schema = any> {
    * `preventDefault` yourself (or not, if you want to allow the
    * default behavior).
    */
-  handleDOMEvents?: { [name: string]: (view: EditorView<S>, event: Event) => boolean } | null;
+  handleDOMEvents?: HandleDOMEventsProp<ThisT, S> | null;
   /**
    * Called when the editor receives a `keydown` event.
    */
-  handleKeyDown?: ((view: EditorView<S>, event: KeyboardEvent) => boolean) | null;
+  handleKeyDown?: ((this: ThisT, view: EditorView<S>, event: KeyboardEvent) => boolean) | null;
   /**
    * Handler for `keypress` events.
    */
-  handleKeyPress?: ((view: EditorView<S>, event: KeyboardEvent) => boolean) | null;
+  handleKeyPress?: ((this: ThisT, view: EditorView<S>, event: KeyboardEvent) => boolean) | null;
   /**
    * Whenever the user directly input text, this handler is called
    * before the input is applied. If it returns `true`, the default
    * behavior of actually inserting the text is suppressed.
    */
   handleTextInput?:
-  | ((view: EditorView<S>, from: number, to: number, text: string) => boolean)
+  | ((this: ThisT, view: EditorView<S>, from: number, to: number, text: string) => boolean)
   | null;
   /**
    * Called for each node around a click, from the inside out. The
@@ -422,6 +431,7 @@ export interface EditorProps<S extends Schema = any> {
    */
   handleClickOn?:
   | ((
+    this: ThisT,
     view: EditorView<S>,
     pos: number,
     node: ProsemirrorNode<S>,
@@ -434,12 +444,13 @@ export interface EditorProps<S extends Schema = any> {
    * Called when the editor is clicked, after `handleClickOn` handlers
    * have been called.
    */
-  handleClick?: ((view: EditorView<S>, pos: number, event: MouseEvent) => boolean) | null;
+  handleClick?: ((this: ThisT, view: EditorView<S>, pos: number, event: MouseEvent) => boolean) | null;
   /**
    * Called for each node around a double click.
    */
   handleDoubleClickOn?:
   | ((
+    this: ThisT,
     view: EditorView<S>,
     pos: number,
     node: ProsemirrorNode<S>,
@@ -451,12 +462,13 @@ export interface EditorProps<S extends Schema = any> {
   /**
    * Called when the editor is double-clicked, after `handleDoubleClickOn`.
    */
-  handleDoubleClick?: ((view: EditorView<S>, pos: number, event: MouseEvent) => boolean) | null;
+  handleDoubleClick?: ((this: ThisT, view: EditorView<S>, pos: number, event: MouseEvent) => boolean) | null;
   /**
    * Called for each node around a triple click.
    */
   handleTripleClickOn?:
   | ((
+    this: ThisT,
     view: EditorView<S>,
     pos: number,
     node: ProsemirrorNode<S>,
@@ -468,20 +480,20 @@ export interface EditorProps<S extends Schema = any> {
   /**
    * Called when the editor is triple-clicked, after `handleTripleClickOn`.
    */
-  handleTripleClick?: ((view: EditorView<S>, pos: number, event: MouseEvent) => boolean) | null;
+  handleTripleClick?: ((this: ThisT, view: EditorView<S>, pos: number, event: MouseEvent) => boolean) | null;
   /**
    * Can be used to override the behavior of pasting. `slice` is the
    * pasted content parsed by the editor, but you can directly access
    * the event to get at the raw content.
    */
-  handlePaste?: ((view: EditorView<S>, event: Event, slice: Slice<S>) => boolean) | null;
+  handlePaste?: ((this: ThisT, view: EditorView<S>, event: ClipboardEvent, slice: Slice<S>) => boolean) | null;
   /**
    * Called when something is dropped on the editor. `moved` will be
    * true if this drop moves from the current selection (which should
    * thus be deleted).
    */
   handleDrop?:
-  | ((view: EditorView<S>, event: Event, slice: Slice<S>, moved: boolean) => boolean)
+  | ((this: ThisT, view: EditorView<S>, event: Event, slice: Slice<S>, moved: boolean) => boolean)
   | null;
   /**
    * Called when the view, after updating its state, tries to scroll
@@ -489,13 +501,14 @@ export interface EditorProps<S extends Schema = any> {
    * indicate that it did not handle the scrolling and further
    * handlers or the default behavior should be tried.
    */
-  handleScrollToSelection?: ((view: EditorView<S>) => boolean) | null;
+  handleScrollToSelection?: ((this: ThisT, view: EditorView<S>) => boolean) | null;
   /**
    * Can be used to override the way a selection is created when
    * reading a DOM selection between the given anchor and head.
    */
   createSelectionBetween?:
   | ((
+    this: ThisT,
     view: EditorView<S>,
     anchor: ResolvedPos<S>,
     head: ResolvedPos<S>
@@ -512,7 +525,7 @@ export interface EditorProps<S extends Schema = any> {
    * Can be used to transform pasted HTML text, _before_ it is parsed,
    * for example to clean it up.
    */
-  transformPastedHTML?: ((html: string) => string) | null;
+  transformPastedHTML?: ((this: ThisT, html: string) => string) | null;
   /**
    * The [parser](#model.DOMParser) to use when reading content from
    * the clipboard. When not given, the value of the
@@ -520,9 +533,10 @@ export interface EditorProps<S extends Schema = any> {
    */
   clipboardParser?: DOMParser<S> | null;
   /**
-   * Transform pasted plain text.
+   * Transform pasted plain text. The `plain` flag will be true when
+   * the text is pasted as plain text.
    */
-  transformPastedText?: ((text: string) => string) | null;
+  transformPastedText?: ((this: ThisT, text: string, plain: boolean) => string) | null;
   /**
    * A function to parse text from the clipboard into a document
    * slice. Called after
@@ -530,13 +544,15 @@ export interface EditorProps<S extends Schema = any> {
    * The default behavior is to split the text into lines, wrap them
    * in `<p>` tags, and call
    * [`clipboardParser`](#view.EditorProps.clipboardParser) on it.
+   * The `plain` flag will be true when the text is pasted as plain
+   * text.
    */
-  clipboardTextParser?: ((text: string, $context: ResolvedPos<S>) => Slice<S>) | null;
+  clipboardTextParser?: ((this: ThisT, text: string, $context: ResolvedPos<S>, plain: boolean) => Slice<S>) | null;
   /**
    * Can be used to transform pasted content before it is applied to
    * the document.
    */
-  transformPasted?: ((p: Slice<S>) => Slice<S>) | null;
+  transformPasted?: ((this: ThisT, p: Slice<S>) => Slice<S>) | null;
   /**
    * Allows you to pass custom rendering and behavior logic for nodes
    * and marks. Should map node and mark names to constructor
@@ -574,17 +590,17 @@ export interface EditorProps<S extends Schema = any> {
    * editor will use [`textBetween`](#model.Node.textBetween) on the
    * selected range.
    */
-  clipboardTextSerializer?: ((p: Slice<S>) => string) | null;
+  clipboardTextSerializer?: ((this: ThisT, p: Slice<S>) => string) | null;
   /**
    * A set of [document decorations](#view.Decoration) to show in the
    * view.
    */
-  decorations?: ((state: EditorState<S>) => DecorationSet<S> | null | undefined) | null;
+  decorations?: ((this: ThisT, state: EditorState<S>) => DecorationSet<S> | null | undefined) | null;
   /**
    * When this returns false, the content of the view is not directly
    * editable.
    */
-  editable?: ((state: EditorState<S>) => boolean) | null;
+  editable?: ((this: ThisT, state: EditorState<S>) => boolean) | null;
   /**
    * Control the DOM attributes of the editable element. May be either
    * an object or a function going from an editor state to an object.
@@ -597,7 +613,7 @@ export interface EditorProps<S extends Schema = any> {
    */
   attributes?:
   | { [name: string]: string }
-  | ((p: EditorState<S>) => { [name: string]: string } | null | undefined | void)
+  | ((this: ThisT, p: EditorState<S>) => { [name: string]: string } | null | undefined | void)
   | null;
   /**
    * Determines the distance (in pixels) between the cursor and the
@@ -612,10 +628,20 @@ export interface EditorProps<S extends Schema = any> {
   scrollMargin?: number | { top: number, right: number, bottom: number, left: number } | null;
 }
 /**
+ * A mapping of dom events.
+ */
+export type HandleDOMEventsProp<ThisT = unknown, S extends Schema = any> = Partial<
+  {
+    [K in keyof DocumentEventMap]: (this: ThisT, view: EditorView<S>, event: DocumentEventMap[K]) => boolean;
+  }
+> & {
+  [key: string]: (this: ThisT, view: EditorView<S>, event: any) => boolean;
+};
+/**
  * The props object given directly to the editor view supports two
  * fields that can't be used in plugins:
  */
-export interface DirectEditorProps<S extends Schema = any> extends EditorProps<S> {
+export interface DirectEditorProps<S extends Schema = any> extends EditorProps<unknown, S> {
   /**
    * The current state of the editor.
    */
@@ -629,7 +655,7 @@ export interface DirectEditorProps<S extends Schema = any> extends EditorProps<S
    * [applied](#state.EditorState.apply). The callback will be bound to have
    * the view instance as its `this` binding.
    */
-  dispatchTransaction?: ((tr: Transaction<S>) => void) | null;
+  dispatchTransaction?: ((this: EditorView<S>, tr: Transaction<S>) => void) | null;
 }
 /**
  * By default, document nodes are rendered using the result of the

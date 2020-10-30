@@ -84,6 +84,23 @@ declare namespace jsrsasign.KJUR.jws {
             x: string;
             y: string;
         }
+
+        interface JWSResult {
+            /** JSON object of header */
+            headerObj: {
+                alg: string;
+                typ: string;
+            };
+            /** pretty printed JSON header by stringify */
+            headerPP: string;
+            /** JSON object of payload if payload is JSON string otherwise undefined */
+            payloadObj?: object;
+            /** pretty printed JSON payload by stringify if payload is JSON otherwise Base64URL decoded raw string of payload */
+            payloadPP: string;
+            /** hexadecimal string of signature */
+            sigHex: string;
+        }
+
         /**
          * parse JWS string and set public property 'parsedJWS' dictionary.
          * @param sJWS JWS signature string to be parsed.
@@ -153,7 +170,7 @@ declare namespace jsrsasign.KJUR.jws {
          * // header and payload can be passed by both string and object
          * sJWS = KJUR.jws.JWS.sign(null, '{alg:"HS256",cty:"JWT"}', '{age:21}', "aaa");
          */
-        function sign(alg: string | null, spHead: { alg: string }, spPayload: string | object, pass?: string): string;
+        function sign(alg: string | null, spHead: string | { alg: string }, spPayload: string | object, pass?: string): string;
 
         /**
          * verify JWS signature by specified key or certificate
@@ -254,18 +271,7 @@ declare namespace jsrsasign.KJUR.jws {
          *   sigHex: "91f3cd..."
          * }
          */
-        function parse(
-            sJWS: string,
-        ): {
-            headerObj: { alg: string; typ: string };
-            headerPP: {
-                alg: string;
-                typ: string;
-            };
-            payloadObj: {};
-            payloadPP: {};
-            sigHex: string;
-        };
+        function parse(sJWS: string): JWSResult;
 
         /**
          * @param sJWT string of JSON Web Token(JWT) to verify
@@ -351,11 +357,11 @@ declare namespace jsrsasign.KJUR.jws {
             sJWT: string,
             key: string,
             acceptField?: {
-                alg: string[];
-                aud: string[];
-                iss: string[];
+                alg?: string[];
+                aud?: string[];
+                iss?: string[];
                 jti?: string;
-                sub: string[];
+                sub?: string[];
                 verifyAt?: string | number;
             },
         ): boolean;
@@ -411,8 +417,7 @@ declare namespace jsrsasign.KJUR.jws {
          * @param s JSON string
          * @return 1 or 0
          */
-        function isSafeJSONString(s: string): 0 | 1;
-        function isSafeJSONString(s: string, h: {}, p: string): 0 | 1;
+        function isSafeJSONString(s: string, h?: object, p?: string): 0 | 1;
 
         /**
          * read a String "s" as JSON object if it is safe.
@@ -421,7 +426,7 @@ declare namespace jsrsasign.KJUR.jws {
          * @param s JSON string
          * @return JSON object or null
          */
-        function readSafeJSONString(s: string): {} | null;
+        function readSafeJSONString(s: string): object | null;
 
         /**
          * get Encoed Signature Value from JWS string.
@@ -436,13 +441,11 @@ declare namespace jsrsasign.KJUR.jws {
          * @param o JWK object to be calculated thumbprint
          * @return Base64 URL encoded JWK thumbprint value
          * @description
-         * This method calculates JWK thmubprint for specified JWK object
-         * as described in
-         * [RFC 7638](https://tools.ietf.org/html/rfc7638).
+         * This method calculates JWK thumbprint for specified JWK object
+         * as described in [RFC 7638](https://tools.ietf.org/html/rfc7638).
          * It supports all type of "kty". (i.e. "RSA", "EC" and "oct"
          * (for symmetric key))
-         * Working sample is
-         * [here](https://kjur.github.io/jsrsasign/sample/tool_jwktp.html).
+         * Working sample is [here](https://kjur.github.io/jsrsasign/sample/tool_jwktp.html).
          * @example
          * jwk = {"kty":"RSA", "n":"0vx...", "e":"AQAB", ...};
          * thumbprint = KJUR.jws.JWS.getJWKthumbprint(jwk);

@@ -39,7 +39,7 @@ export class Creatable<OptionType extends OptionTypeBase> extends React.Componen
   static defaultProps: Props<any>;
   select: React.Ref<any>;
 
-  onChange: (newValue: ValueType<OptionType>, actionMeta: ActionMeta) => void;
+  onChange: (newValue: ValueType<OptionType>, actionMeta: ActionMeta<OptionType>) => void;
   focus(): void;
   blur(): void;
 }

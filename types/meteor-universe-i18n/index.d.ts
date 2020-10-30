@@ -1,19 +1,25 @@
 // Type definitions for non-npm package https://github.com/vazco/meteor-universe-i18n 1.14
 // Project: meteor-universe-i18n
 // Definitions by: Mathias Scherer <https://github.com/mathewmeconry>
+//                 Radosław Miernik <https://github.com/radekmie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.7
 
 /// <reference types="react" />
 /// <reference types="node" />
 
 // tslint:disable-next-line no-single-declare-module
-declare module "meteor/universe:i18n" {
-    import { OutgoingHttpHeaders } from "http";
+declare module 'meteor/universe:i18n' {
+    import { OutgoingHttpHeaders } from 'http';
 
     namespace i18n {
         // component functions
-        function createComponent(translator?: Translator, locale?: string, reactjs?: React.ReactInstance, type?: any): new () => React.Component<ReactComponentProps>;
+        function createComponent(
+            translator?: Translator,
+            locale?: string,
+            reactjs?: React.ReactInstance,
+            type?: any,
+        ): new () => React.Component<ReactComponentProps>;
 
         // translator functions
         function createTranslator(namespace: string, options?: TranslaterOptions): Translator;
@@ -33,8 +39,9 @@ declare module "meteor/universe:i18n" {
         function __(...key: string[]): string;
         function getTranslations(namespace: string, locale?: string): string[];
 
-        // options setter
-        function setOptions(options: i18nOptions): void;
+        // options
+        let options: Readonly<i18nOptions>;
+        function setOptions(options: Partial<i18nOptions>): void;
 
         // number operations
         function parseNumber(number: string, locale?: string): string;
@@ -48,9 +55,10 @@ declare module "meteor/universe:i18n" {
         // executes function in the locale context,
         // it means that every default locale used inside a called function will be set to a passed locale
         // keep in mind that locale must be loaded first (if it is not bundled)
-        function runWithLocale(locale: string, func: (...keys: any[]) => void): void;
+        function runWithLocale<T>(locale: string, func: () => T): T;
 
         // language getters
+        let _locales: Readonly<{ [locale: string]: Readonly<i18nLocaleEntry> }>;
         function getLanguages(type?: 'code' | 'name' | 'nativeNames'): string[];
         function getLanguageName(locale?: string): string;
         function getLanguageNativeName(locale?: string): string;
@@ -62,6 +70,7 @@ declare module "meteor/universe:i18n" {
         // others
         function isRTL(locale?: string): boolean;
         function getAllKeysForLocale(locale?: string, excactlyThis?: boolean): string[];
+        function normalize(locale: string): string | undefined;
 
         // events
         function onChangeLocale(callback: (locale: string) => void): void;
@@ -77,15 +86,26 @@ declare module "meteor/universe:i18n" {
         _containerType?: string;
     }
 
+    type i18nLocaleEntry = [
+        string, // code
+        string, // name
+        string, // localName
+        boolean, // isRTL
+        string, // numberTypographic
+        number, // decimal
+        string, // currency
+        [number] | [number, number], // groupNumberBY
+    ];
+
     interface i18nOptions {
-        defaultLocale?: string;
-        open?: string;
-        close?: string;
+        defaultLocale: string;
+        open: string;
+        close: string;
         purify?: () => void;
-        hideMissing?: boolean;
-        hostUrl?: string;
+        hideMissing: boolean;
+        hostUrl: string;
         translationsHeaders?: OutgoingHttpHeaders;
-        sameLocaleOnServerConnection?: boolean;
+        sameLocaleOnServerConnection: boolean;
     }
 
     interface GetTranslationParams {

@@ -11,23 +11,36 @@ export default ReduxPromiseListener.createListener;
 declare namespace ReduxPromiseListener {
     type ActionMatcher = (action: AnyAction) => boolean;
 
-    interface Config {
+    interface Config<
+        StartAction extends AnyAction,
+        ResolveAction extends AnyAction,
+        RejectAction extends AnyAction,
+        TReturn
+    > {
         start: string;
         resolve: string | ActionMatcher;
         reject: string | ActionMatcher;
-        setPayload?: (action: AnyAction, payload: any) => AnyAction;
-        getPayload?: (action: AnyAction) => any;
-        getError?: (action: AnyAction) => any;
+        setPayload?: (action: StartAction, payload: any) => AnyAction;
+        getPayload?: (action: ResolveAction) => TReturn;
+        getError?: (action: RejectAction) => any;
     }
 
-    interface AsyncFunction {
-        asyncFunction: (payload?: any) => Promise<any>;
+    interface AsyncFunction<TReturn> {
+        asyncFunction: (payload?: any) => Promise<TReturn>;
         unsubscribe: () => void;
     }
 
     interface PromiseListener {
         middleware: Middleware<{}, AnyAction>;
-        createAsyncFunction: (config: Config) => AsyncFunction;
+        createAsyncFunction: <
+            StartAction extends AnyAction,
+            ResolveAction extends AnyAction,
+            RejectAction extends AnyAction,
+            TReturn = ResolveAction['payload']
+        >(
+            // tslint:disable-next-line no-unnecessary-generics
+            config: Config<StartAction, ResolveAction, RejectAction, TReturn>,
+        ) => AsyncFunction<TReturn>;
     }
 
     function createListener(): PromiseListener;

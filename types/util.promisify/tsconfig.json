@@ -1,26 +1,19 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "lib": ["es2015"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "auto.d.ts",
-        "index.d.ts",
-        "polyfill.d.ts",
-        "shim.d.ts",
-        "util.promisify-tests.ts"
+        "util.promisify-tests.ts",
+        "index.d.ts"
     ]
 }

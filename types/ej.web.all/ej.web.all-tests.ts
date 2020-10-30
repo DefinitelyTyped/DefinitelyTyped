@@ -2754,8 +2754,7 @@ module ScrollerComponent {
         });
         $(window).bind('resize', function () {
             scrollerSample.refresh();
-        });
-
+        });
     });
 }
 

@@ -18,8 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/tern/index.d.ts",
-        "lib/infer/index.d.ts",
         "test/tern.test.ts"
     ]
 }

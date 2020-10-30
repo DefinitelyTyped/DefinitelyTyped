@@ -97,6 +97,8 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // const [reducerState, dispatch] = React.useReducer(reducer, true as true, arg => arg && initialState);
     const [reducerState, dispatch] = React.useReducer(reducer, true as true, (arg: true): AppState => arg && initialState);
 
+    const [, simpleDispatch] = React.useReducer(v => v + 1, 0);
+
     // inline object, to (manually) check if autocomplete works
     React.useReducer(reducer, { age: 42, name: 'The Answer' });
 
@@ -158,6 +160,10 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     }, []);
     React.useEffect(() => {
         dispatch({ type: 'getOlder' });
+        // $ExpectError
+        dispatch();
+
+        simpleDispatch();
         setState(reducerState.age);
     }, []);
 

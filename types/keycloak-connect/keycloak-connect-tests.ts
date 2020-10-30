@@ -65,6 +65,7 @@ _boolean = token.isExpired();
 _boolean = token.hasRole('roleName');
 _boolean = token.hasApplicationRole('appName', 'roleName');
 _boolean = token.hasRealmRole('roleName');
+_boolean = token.hasPermission('res:coffe', 'coffe:espresso');
 
 const specHandler: Keycloak.SpecHandler = undefined;
 _boolean = specHandler(token, request, response);

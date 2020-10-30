@@ -77,7 +77,7 @@ declare var Set: SetConstructor;
 
 interface WeakMap<K extends object, V> {
     delete(key: K): boolean;
-	clear(): void;
+    clear(): void;
     get(key: K): V;
     has(key: K): boolean;
     set(key: K, value?: V): WeakMap<K, V>;
@@ -93,7 +93,7 @@ declare var WeakMap: WeakMapConstructor;
 
 interface WeakSet<T> {
     delete(value: T): boolean;
-	clear(): void;
+    clear(): void;
     add(value: T): WeakSet<T>;
     has(value: T): boolean;
 }

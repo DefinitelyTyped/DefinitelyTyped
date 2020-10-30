@@ -18,6 +18,7 @@ class MyComponent extends React.Component {
                 <Breadcrumbs
                     className="demo__crumbs"
                     hidden
+                    separator="|"
                     setCrumbs={crumbs => null}
                     wrapper={Wrapper}
                 />

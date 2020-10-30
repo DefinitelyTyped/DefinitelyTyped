@@ -29,21 +29,21 @@ lolex.createClock<lolex.NodeClock>(7, 9001);
 lolex.createClock<lolex.NodeClock>(new Date(), 9001);
 
 const browserInstalledClock = lolex.install<lolex.BrowserClock>({
-	advanceTimeDelta: 20,
-	loopLimit: 10,
-	now: 0,
-	shouldAdvanceTime: true,
-	target: {},
-	toFake: ["setTimeout", "nextTick", "hrtime"]
+    advanceTimeDelta: 20,
+    loopLimit: 10,
+    now: 0,
+    shouldAdvanceTime: true,
+    target: {},
+    toFake: ["setTimeout", "nextTick", "hrtime"]
 });
 
 const nodeInstalledClock = lolex.install<lolex.NodeClock>({
-	advanceTimeDelta: 20,
-	loopLimit: 10,
-	now: new Date(0),
-	shouldAdvanceTime: true,
-	target: {},
-	toFake: ["setTimeout", "nextTick", "hrtime"]
+    advanceTimeDelta: 20,
+    loopLimit: 10,
+    now: new Date(0),
+    shouldAdvanceTime: true,
+    target: {},
+    toFake: ["setTimeout", "nextTick", "hrtime"]
 });
 
 const browserNow: number = browserClock.now;
@@ -91,14 +91,26 @@ browserClock.tick("08");
 nodeClock.tick(7);
 nodeClock.tick("08:03");
 
+browserClock.tickAsync(7).then(() => {});
+browserClock.tickAsync("08").then(() => {});
+
+nodeClock.tickAsync(7).then(() => {});
+nodeClock.tickAsync("08:03").then(() => {});
+
 browserClock.next();
 nodeClock.next();
+
+browserClock.nextAsync().then(() => {});
+nodeClock.nextAsync().then(() => {});
 
 browserClock.reset();
 nodeClock.reset();
 
 browserClock.runAll();
 nodeClock.runAll();
+
+browserClock.runAllAsync().then(() => {});
+nodeClock.runAllAsync().then(() => {});
 
 nodeClock.runMicrotasks();
 
@@ -107,6 +119,9 @@ nodeClock.runToFrame();
 
 browserClock.runToLast();
 nodeClock.runToLast();
+
+browserClock.runToLastAsync().then(() => {});
+nodeClock.runToLastAsync().then(() => {});
 
 browserClock.setSystemTime();
 browserClock.setSystemTime(7);

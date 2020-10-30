@@ -1349,7 +1349,7 @@ declare namespace AceAjax {
         /**
          * Returns `true` if current lines are always highlighted.
         **/
-        getHighlightActiveLine(): void;
+        getHighlightActiveLine(): boolean;
 
         /**
          * Determines if the currently selected word should be highlighted.
@@ -3080,7 +3080,7 @@ declare namespace AceAjax {
         docHTML?: string;
       }
       
-      export type CompletionCallback = (error: Error, results: Completion[]) => void;
+      export type CompletionCallback = (error: Error | null, results: Completion[]) => void;
 }
 
 declare var ace: AceAjax.Ace;

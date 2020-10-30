@@ -21,8 +21,8 @@ export interface Validation extends Vue {
     readonly $params: { [attr: string]: any }
 
     // const validationMethods
-    $touch(): never
-    $reset(): never
+    $touch(): void
+    $reset(): void
     $flattenParams(): ValidationParams[]
 }
 

@@ -1,5 +1,3 @@
-export { default as Atlas } from './style/Atlas';
-export { default as AtlasManager } from './style/AtlasManager';
 export { default as Circle } from './style/Circle';
 export { default as Fill } from './style/Fill';
 export { default as Icon } from './style/Icon';

@@ -1,6 +1,7 @@
 // Type definitions for anyproxy 4.1
 // Project: https://github.com/alibaba/anyproxy
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
+//                 Roland Reed <https://github.com/roland-reed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -20,6 +21,8 @@ import {
 } from "net";
 
 export type MaybePromise<T> = T | Promise<T>;
+
+export type NetworkType = 'http' | 'https';
 
 export interface ProxyOptions {
     /** Port number of proxy server */
@@ -229,9 +232,9 @@ export namespace utils {
     /** Manage the system proxy config. sudo password may be required. */
     namespace systemProxyMgr {
         /** Enable global system proxy with specified params. sudo password may be required. */
-        function enableGlobalProxy(host: string, port: string | number): void;
+        function enableGlobalProxy(host: string, port: string | number, networkType?: NetworkType): void;
         /** Disable global system proxy. sudo password may be required. */
-        function disableGlobalProxy(): void;
+        function disableGlobalProxy(networkType?: NetworkType): void;
     }
 
     /** Manage certificates of AnyProxy. */

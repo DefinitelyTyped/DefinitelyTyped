@@ -39,11 +39,11 @@ $("#sample").colResizable({
 });
 
 function postbackSample() {
-	$("#updatePanelSample").colResizable({
-		liveDrag: true,
-		postbackSafe: true,
-		partialRefresh: true
-	});
+    $("#updatePanelSample").colResizable({
+        liveDrag: true,
+        postbackSafe: true,
+        partialRefresh: true
+    });
 }
 
 $("#flexSample").colResizable({resizeMode: 'flex'});
@@ -53,9 +53,9 @@ $("#overflowSample").colResizable({resizeMode: 'overflow'});
 function onSlide() {}
 
 $("#sample5").colResizable({
-	liveDrag: true,
-	draggingClass: "rangeDrag",
-	gripInnerHtml: "<div class='rangeGrip'></div>",
-	onResize: onSlide,
-	minWidth: 8
+    liveDrag: true,
+    draggingClass: "rangeDrag",
+    gripInnerHtml: "<div class='rangeGrip'></div>",
+    onResize: onSlide,
+    minWidth: 8
 });

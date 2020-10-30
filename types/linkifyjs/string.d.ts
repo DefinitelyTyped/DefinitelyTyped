@@ -1,4 +1,3 @@
-import { LinkifyOptions } from "./index";
+import { Options } from './index';
 
-export function linkifyStr(str: string, options?: LinkifyOptions): string;
-export default linkifyStr;
+export default function linkifyStr(str: string, options?: Options): string;

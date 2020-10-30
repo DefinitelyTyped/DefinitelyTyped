@@ -1,6 +1,8 @@
 // Type definitions for Benchmark v1.0.0
-// Project: http://benchmarkjs.com
+// Project: https://benchmarkjs.com
 // Definitions by: Asana <https://asana.com>
+//                 Charlie Fish <https://github.com/fishcharlie>
+//                 Blair Zajac <https://github.com/blair>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -136,6 +138,27 @@ declare namespace Benchmark {
         timeStamp: number;
     }
 
+    export interface Target {
+        options: Options;
+        async?: boolean;
+        defer?: boolean;
+        delay?: number;
+        initCount?: number;
+        maxTime?: number;
+        minSamples?: number;
+        minTime?: number;
+        name?: string;
+        fn?: Function;
+        id: number;
+        stats?: Stats;
+        times?: Times;
+        running: boolean;
+        count?: number;
+        compiled?: Function;
+        cycles?: number;
+        hz?: number;
+    }
+
     export class Event {
         constructor(type: string | Object);
 
@@ -143,7 +166,7 @@ declare namespace Benchmark {
         cancelled: boolean;
         currentTarget: Object;
         result: any;
-        target: Object;
+        target: Target;
         timeStamp: number;
         type: string;
     }

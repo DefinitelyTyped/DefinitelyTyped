@@ -1,4 +1,4 @@
-// Type definitions for non-npm package chromecast-caf-receiver 3.x
+// Type definitions for non-npm package chromecast-caf-receiver 5.0
 // Project: https://github.com/googlecast
 // Definitions by: Sergio Arbeo <https://github.com/Serabe>
 //                 Craig Bruce <https://github.com/craigrbruce>
@@ -6,6 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
+/// <reference path="./cast.debug.d.ts" />
 /// <reference path="./cast.framework.d.ts" />
 /// <reference path="./cast.framework.breaks.d.ts" />
 /// <reference path="./cast.framework.events.d.ts" />
@@ -13,8 +14,10 @@
 /// <reference path="./cast.framework.system.d.ts" />
 /// <reference path="./cast.framework.ui.d.ts" />
 
+import * as debug from './cast.debug';
 import * as framework from './cast.framework';
 import { PlayerDataChangedEvent } from './cast.framework.ui';
+import { Event as SystemEvent } from './cast.framework.system';
 import {
     Event,
     Id3Event,
@@ -39,12 +42,16 @@ import {
 } from './cast.framework.events';
 
 export as namespace cast;
-export { framework };
+export { debug, framework };
 
 declare global {
-    const cast: { framework: typeof framework };
+    const cast: {
+        debug: typeof debug;
+        framework: typeof framework;
+    };
 
     type EventHandler = (event: Event) => void;
+    type SystemEventHandler = (event: SystemEvent) => void;
     type Id3EventHandler = (event: Id3Event) => void;
     type ErrorEventHandler = (event: ErrorEvent) => void;
     type MediaElementEventHandler = (event: MediaElementEvent) => void;

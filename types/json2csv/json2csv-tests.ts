@@ -1,7 +1,8 @@
 import { Transform as NodeTransform } from 'stream';
 import { createReadStream, createWriteStream } from 'fs';
 
-import json2csv, { AsyncParser, parse, Parser, parseAsync, Transform } from 'json2csv';
+import json2csv, { AsyncParser, parse, Parser, parseAsync, Transform, transforms } from 'json2csv';
+const { flatten, unwind } = transforms;
 
 let s: string;
 let obj: object;
@@ -40,31 +41,30 @@ const opts: json2csv.Options<Car> = {
 
         // Supports label -> simple path
         {
-        label: 'some label', // (optional, column will be labeled 'path.to.something' if not defined)
-        value: 'path.to.something', // data.path.to.something
-        default: 'NULL' // default if value is not found (optional, overrides `defaultValue` for column)
+            label: 'some label', // (optional, column will be labeled 'path.to.something' if not defined)
+            value: 'path.to.something', // data.path.to.something
+            default: 'NULL' // default if value is not found (optional, overrides `defaultValue` for column)
         },
 
         // Supports label -> derived value
         {
-        label: 'some label', // Soptional, column will be labeled with the function name or empty if the function is anonymous)
-        value: (row: Car, field: json2csv.FieldValueCallbackInfo) => {
-            if (field) {
-                return (row as any)[field.label].toLowerCase() || field.default;
-            }
-        },
-        default: 'NULL', // default if value function returns null or undefined
-        },
-
-        // Supports label -> derived value
-        {
-        value: (row: Car) => row.car
+            label: 'some label', // Soptional, column will be labeled with the function name or empty if the function is anonymous)
+            value: (row: Car, field: json2csv.FieldValueCallbackInfo) => {
+                if (field) {
+                    return (row as any)[field.label].toLowerCase() || field.default;
+                }
+            },
+            default: 'NULL', // default if value function returns null or undefined
         },
 
         // Supports label -> derived value
         {
-        value: (row: Car) => `"${row.car}"`,
-        stringify: false // This flag signals if the resulting string should be quoted (stringified) or not (optional, default: true)
+            value: (row: Car) => row.car
+        },
+
+        // Supports label -> derived value
+        {
+            value: (row: Car) => `"${row.car}"`,
         },
     ]
 };
@@ -121,6 +121,10 @@ asyncParser.fromInput(input).promise()
     .then(csv => console.log(csv))
     .catch(err => console.error(err));
 
+asyncParser.fromInput(input).promise(false)
+    .then(() => console.log('Ready'))
+    .catch(err => console.error(err));
+
 asyncParser.fromInput(input).toOutput(output);
 
 // Test convenience method "parseAsync" with object input
@@ -132,6 +136,30 @@ parseAsync(data, opts)
 parseAsync(input, opts)
     .then(csv => console.log(csv))
     .catch(err => console.error(err));
+
+// Test transforms
+function myTransform(input: object) {
+    const transformed = { ...input, id: 1 };
+    return transformed;
+}
+const tranformsOpts: json2csv.Options<Car> = {
+    transforms: [
+        unwind(),
+        unwind({}),
+        unwind({ paths: ['path'] }),
+        unwind({ blankOut: true }),
+        unwind({ paths: ['path'], blankOut: true  }),
+        flatten(),
+        flatten({}),
+        flatten({ objects: true }),
+        flatten({ arrays: true }),
+        flatten({ separator: '-' }),
+        flatten({ objects: true, arrays: true, separator: '-' }),
+        (input) => input,
+        (_) => ({ a: 1, b: 2 }),
+        myTransform,
+    ]
+};
 
 /********************
  * Internal Methods *
@@ -154,21 +182,14 @@ class ParserExt extends Parser<ExampleObj> {
         obj = this.preprocessRow({ str: '', num: 1, obj: {} });
         s = this.processRow({});
         s = this.processRow({ str: '', num: 1, obj: {} });
-        s = this.processCell({}, { label: 'test', default: 'test2', value: 'field' });
-        s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: 'field' });
-        s = this.processCell({}, { label: 'test', default: 'test2', value: (row: object, field: json2csv.FieldValueCallbackInfo) => 'string' });
-        s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: (row: object) => 'string' });
-        this.getValue({}, { value: 'test' });
-        this.getValue({ str: '', num: 1, obj: {} }, { value: 'test' });
-        s = this.processValue(undefined, true);
-        s = this.processValue(null, true);
-        s = this.processValue(1, true);
-        s = this.processValue('test', true);
-        s = this.processValue(new Date(), true);
-        s = this.processValue({}, true);
-        s = this.processValue([], true);
-        const flattenedData: object = this.flatten({}, '.');
-        const unwindedData: object[] = this.unwindData([], []);
+        s = this.processCell({}, { label: 'test', value: (row: object, field: json2csv.FieldValueCallbackInfo) => 'string' });
+        s = this.processValue(undefined);
+        s = this.processValue(null);
+        s = this.processValue(1);
+        s = this.processValue('test');
+        s = this.processValue(new Date());
+        s = this.processValue({});
+        s = this.processValue([]);
     }
 }
 
@@ -188,20 +209,13 @@ class TransformExt extends Transform<ExampleObj> {
         obj = this.preprocessRow({ str: '', num: 1, obj: {} });
         s = this.processRow({});
         s = this.processRow({ str: '', num: 1, obj: {} });
-        s = this.processCell({}, { label: 'test', default: 'test2', value: 'field' });
-        s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: 'field' });
-        s = this.processCell({}, { label: 'test', default: 'test2', value: (row: object, field: json2csv.FieldValueCallbackInfo) => 'string' });
-        s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: (row: object) => 'string' });
-        this.getValue({}, { value: 'test' });
-        this.getValue({ str: '', num: 1, obj: {} }, { value: 'test' });
-        s = this.processValue(undefined, true);
-        s = this.processValue(null, true);
-        s = this.processValue(1, true);
-        s = this.processValue('test', true);
-        s = this.processValue(new Date(), true);
-        s = this.processValue({}, true);
-        s = this.processValue([], true);
-        const flattenedData: object = this.flatten({}, '.');
-        const unwindedData: object[] = this.unwindData([], []);
+        s = this.processCell({}, { label: 'test', value: (row: object, field: json2csv.FieldValueCallbackInfo) => 'string' });
+        s = this.processValue(undefined);
+        s = this.processValue(null);
+        s = this.processValue(1);
+        s = this.processValue('test');
+        s = this.processValue(new Date());
+        s = this.processValue({});
+        s = this.processValue([]);
     }
 }

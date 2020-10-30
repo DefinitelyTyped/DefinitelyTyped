@@ -5,6 +5,7 @@
 //                 Matthias Jobst <https://github.com/MatthiasJobst>
 //                 Nithyanandam Venu <https://github.com/vbinithyanandamv>
 //                 Mihai Cherej <https://github.com/cronco>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Latest patch version of module validated against: 3.5.18

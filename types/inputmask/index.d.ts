@@ -513,6 +513,13 @@ declare namespace Inputmask {
          * Format of the unmasked value. This is only effective when used with the datetime alias.
          */
         outputFormat?: string;
+
+        /**
+         * Add new definitions to this inputmask.
+         */
+        definitions?: {
+            [key: string]: Definition;
+        };
     }
 
     interface Instance {
@@ -658,7 +665,7 @@ declare namespace Inputmask {
          */
         extendDefaults(opts: Options): void;
         /**
-         * Add new definitions to this inputmask.
+         * Extends the set of available definitions.
          */
         extendDefinitions(definitions: {
             [key: string]: Definition,
@@ -716,7 +723,7 @@ declare global {
         /**
          * Return the default (empty) mask value.
          */
-        inputmask(method: "getemptymask"): string; // tslint:disable-line:unified-signatures
+        inputmask(method: "getemptymask"): string;
         /**
          * The metadata of the actual mask provided in the mask definitions can be obtained by calling getmetadata. If
          * only a mask is provided the mask definition will be returned by the getmetadata.
@@ -726,7 +733,7 @@ declare global {
          * Check whether the returned value is masked or not; currently only works reliably when using `jquery.val` fn
          * to retrieve the value
          */
-        inputmask(method: "hasMaskedValue"): boolean; // tslint:disable-line:unified-signatures
+        inputmask(method: "hasMaskedValue"): boolean;
         /**
          * Verify whether the current value is complete or not.
          */

@@ -999,7 +999,7 @@ declare namespace algoliasearch {
   }
   /**
    * Describes the options used when generating new api keys
-   * 
+   *
    * @see https://www.algolia.com/doc/api-reference/api-methods/generate-secured-api-key/
    */
   interface SecuredApiOptions extends QueryParameters {
@@ -1208,6 +1208,12 @@ declare namespace algoliasearch {
      */
     optionalWords?: string[];
     /**
+     * Determines how to calculate the total score for filtering
+     * default: false
+     * https://www.algolia.com/doc/api-reference/api-parameters/sumOrFiltersScores/
+     */
+    sumOrFiltersScores?: boolean;
+    /**
      * Remove stop words from the query before executing it
      * default: false
      * true|false: enable or disable stop words for all 41 supported languages; or
@@ -1264,7 +1270,7 @@ declare namespace algoliasearch {
      * Filter the query by a set of tags.
      * Default: []
      */
-    tagFilters?: string[];
+    tagFilters?: (string|string[])[];
     /**
      * Filter the query by a set of facets.
      * Default: []
@@ -1303,11 +1309,16 @@ declare namespace algoliasearch {
 
     nbShards?: number;
     userData?: string | object;
+    /**
+     * Associates a certain user token with the current search
+     * https://www.algolia.com/doc/api-reference/api-parameters/userToken/
+     */
+    userToken?: string;
 
     sortFacetValuesBy?: 'count' | 'alpha';
 
     ruleContexts?: string[];
-    
+
     /**
      * allow the usage of an AB-test. This parameter is only allowed for queries, not for settings.
      * default: true
@@ -1363,22 +1374,16 @@ declare namespace algoliasearch {
     objectID?: string;
   }
 
-  /**
-   */
   interface MultiObjectTask {
     objectIDs: string[];
     taskID: number;
   }
 
-  /**
-   */
   interface UpdateIndexTask {
     updatedAt: string;
     taskID: number;
   }
 
-  /**
-   */
   interface BatchTask {
     objectIDs: string[];
     taskID: Record<string, number>;
@@ -1405,6 +1410,7 @@ declare namespace algoliasearch {
       | 'logs'
       | 'seeUnretrievableAttributes')[];
     validity: number;
+    indexes?: string[];
     description?: string;
   }
 

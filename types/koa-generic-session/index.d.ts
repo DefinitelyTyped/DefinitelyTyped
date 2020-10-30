@@ -34,7 +34,7 @@ declare namespace koaSession {
             path?: string;
             rewrite?: boolean;
             signed?: boolean;
-            maxAge?: number;
+            maxAge?: number | null;
             secure?: boolean;
             httpOnly?: boolean;
             sameSite?: boolean | "lax" | "none" | "strict";

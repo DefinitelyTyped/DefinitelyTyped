@@ -1,12 +1,12 @@
-// Type definitions for mini-css-extract-plugin 0.8
+// Type definitions for mini-css-extract-plugin 1.2
 // Project: https://github.com/webpack-contrib/mini-css-extract-plugin
 // Definitions by: JounQin <https://github.com/JounQin>
 //                 Katsuya Hino <https://github.com/dobogo>
 //                 Spencer Miskoviak <https://github.com/skovy>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-import { Plugin } from 'webpack';
+import { ChunkData, Plugin } from 'webpack';
 
 /**
  * Lightweight CSS extraction webpack plugin
@@ -25,8 +25,11 @@ declare namespace MiniCssExtractPlugin {
         /**
          * Options similar to the same options in webpackOptions.output, both options are optional
          * May contain `[name]`, `[id]`, `hash` and `[chunkhash]`
+         * With the filename option you can use chunk data to customize the filename.
+         * This is particularly useful when dealing with multiple entry points and wanting to get more control out of the filename for a given entry point/chunk.
+         * In the example below, we'll use filename to output the generated css into a different directory.
          */
-        filename?: string;
+        filename?: string | ((chunkData: ChunkData) => string);
         chunkFilename?: string;
         /**
          * For projects where CSS ordering has been mitigated through consistent
@@ -34,6 +37,19 @@ declare namespace MiniCssExtractPlugin {
          * disabled by setting this flag to true for the plugin.
          */
         ignoreOrder?: boolean;
+        /**
+         * By default, `mini-css-extract-plugin` generates JS modules that use the ES modules syntax.
+         * There are some cases in which using ES modules is beneficial,
+         * like in the case of module concatenation and tree shaking.
+         * @default true
+         */
+        esModule?: boolean;
+        /**
+         * This option allows loading asynchronous chunks with a custom link type, such as <link type="text/css" ...>.
+         * `false` disables the link `type` attribute
+         * @default `text/css`
+         */
+        linkType?: boolean | 'text/css';
     }
 }
 

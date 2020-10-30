@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/date": ["wordpress__date"]
+            "@wordpress/*": ["wordpress__*"]
         }
     },
     "files": ["index.d.ts", "wordpress__date-tests.ts"]

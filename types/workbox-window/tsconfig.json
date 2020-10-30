@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
+            "es2015",
             "webworker"
         ],
         "noImplicitAny": true,
@@ -19,10 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "Workbox.d.ts",
-        "messageSW.d.ts",
-        "utils/EventTargetShim.d.ts",
-        "utils/WorkboxEvent.d.ts",
         "workbox-window-tests.ts"
     ]
 }

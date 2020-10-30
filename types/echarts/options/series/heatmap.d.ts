@@ -5,13 +5,13 @@ declare namespace echarts {
          *
          * Heat map mainly use colors to represent values, which must be used
          * along with
-         * [visualMap](https://ecomfe.github.io/echarts-doc/public/en/option.html#visualMap)
+         * [visualMap](https://echarts.apache.org/en/option.html#visualMap)
          * component.
          *
          * It can be used in either
-         * [rectangular coordinate](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+         * [rectangular coordinate](https://echarts.apache.org/en/option.html#grid)
          * or
-         * [geographic coordinate](https://ecomfe.github.io/echarts-doc/public/en/option.html#geo)
+         * [geographic coordinate](https://echarts.apache.org/en/option.html#geo)
          *
          * But the behaviour on them are quite different.
          * Rectangular coordinate must have two catagories to use it.
@@ -21,21 +21,20 @@ declare namespace echarts {
          *
          * **rectangular coordinate:**
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap)
+         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap)
          *
          * **geographic coordinate:**
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap)
+         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap)
          *
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap
+         * @see https://echarts.apache.org/en/option.html#series-heatmap
          */
         interface SeriesHeatmap {
-
             /**
              * @default
              * "heatmap"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.type
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.type
              */
             type?: string;
 
@@ -45,19 +44,19 @@ declare namespace echarts {
              * or API.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.id
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.id
              */
             id?: string;
 
             /**
              * Series name used for displaying in
-             * [tooltip](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip)
+             * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
              * and filtering with
-             * [legend](https://ecomfe.github.io/echarts-doc/public/en/option.html#legend)
+             * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.name
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.name
              */
             name?: string;
 
@@ -68,115 +67,114 @@ declare namespace echarts {
              *
              * Use a two-dimensional rectangular coordinate (also known as Cartesian
              * coordinate), with
-             * [xAxisIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.xAxisIndex)
+             * [xAxisIndex](https://echarts.apache.org/en/option.html#series-heatmap.xAxisIndex)
              * and
-             * [yAxisIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.yAxisIndex)
+             * [yAxisIndex](https://echarts.apache.org/en/option.html#series-heatmap.yAxisIndex)
              * to assign the corresponding axis component.
              *
              * + `'geo'`
              *
              * Use geographic coordinate, with
-             * [geoIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.geoIndex)
+             * [geoIndex](https://echarts.apache.org/en/option.html#series-heatmap.geoIndex)
              * to assign the corresponding geographic coordinate components.
              *
              *
              * @default
              * "cartesian2d"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.coordinateSystem
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.coordinateSystem
              */
             coordinateSystem?: string;
 
             /**
              * Index of
-             * [x axis](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis)
+             * [x axis](https://echarts.apache.org/en/option.html#xAxis)
              * to combine with, which is useful for multiple x axes in one chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.xAxisIndex
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.xAxisIndex
              */
             xAxisIndex?: number;
 
             /**
              * Index of
-             * [y axis](https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis)
+             * [y axis](https://echarts.apache.org/en/option.html#yAxis)
              * to combine with, which is useful for multiple y axes in one chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.yAxisIndex
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.yAxisIndex
              */
             yAxisIndex?: number;
 
             /**
              * Index of
-             * [geographic coordinate](https://ecomfe.github.io/echarts-doc/public/en/option.html#geo)
+             * [geographic coordinate](https://echarts.apache.org/en/option.html#geo)
              * to combine with, which is useful for multiple geographic axes
              * in one chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.geoIndex
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.geoIndex
              */
             geoIndex?: number;
 
             /**
              * Index of
-             * [calendar coordinates](https://ecomfe.github.io/echarts-doc/public/en/option.html#calendar)
+             * [calendar coordinates](https://echarts.apache.org/en/option.html#calendar)
              * to combine with, which is useful for multiple calendar coordinates
              * in one chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.calendarIndex
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.calendarIndex
              */
             calendarIndex?: number;
 
             /**
              * Blur size of each data point. It is valid with
-             * [coordinateSystem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.coordinateSystem)
+             * [coordinateSystem](https://echarts.apache.org/en/option.html#series-heatmap.coordinateSystem)
              * of 'geo' value.
              *
              *
              * @default
              * 20
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.blurSize
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.blurSize
              */
             blurSize?: number;
 
             /**
              * Minimum opacity. It is valid with
-             * [coordinateSystem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.coordinateSystem)
+             * [coordinateSystem](https://echarts.apache.org/en/option.html#series-heatmap.coordinateSystem)
              * of 'geo' value.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.minOpacity
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.minOpacity
              */
             minOpacity?: number;
 
             /**
              * Maximum opacity. It is valid with
-             * [coordinateSystem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.coordinateSystem)
+             * [coordinateSystem](https://echarts.apache.org/en/option.html#series-heatmap.coordinateSystem)
              * of 'geo' value.
              *
              *
              * @default
              * 1
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.maxOpacity
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.maxOpacity
              */
             maxOpacity?: number;
 
             /**
              * Work for
-             * [coordinateSystem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.coordinateSystem)
+             * [coordinateSystem](https://echarts.apache.org/en/option.html#series-heatmap.coordinateSystem)
              * : 'cartesian2d'.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.show
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.show
                  */
                 show?: boolean;
 
@@ -191,7 +189,7 @@ declare namespace echarts {
                  * position of label relative to top-left corner of bounding
                  * box. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.label)
                  *
                  * + 'top'
                  *
@@ -209,13 +207,13 @@ declare namespace echarts {
                  * + 'insideBottomRight'
                  *
                  * See:
-                 * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                 * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                  * .
                  *
                  *
                  * @default
                  * "inside"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.position
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.position
                  */
                 position?: any[] | string;
 
@@ -224,13 +222,13 @@ declare namespace echarts {
                  * Works when position is string value (like `'top'`、`'insideRight'`).
                  *
                  * See:
-                 * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                 * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                  * .
                  *
                  *
                  * @default
                  * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.distance
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.distance
                  */
                 distance?: number;
 
@@ -239,11 +237,11 @@ declare namespace echarts {
                  * rotate anti-clockwise.
                  *
                  * See:
-                 * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                 * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                  * .
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rotate
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rotate
                  */
                 rotate?: number;
 
@@ -253,7 +251,7 @@ declare namespace echarts {
                  * move `40` vertically.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.offset
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.offset
                  */
                 offset?: any[];
 
@@ -266,7 +264,7 @@ declare namespace echarts {
                  *
                  * @default
                  * ""#fff""
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.color
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.color
                  */
                 color?: string;
 
@@ -282,7 +280,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.fontStyle
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.fontStyle
                  */
                 fontStyle?: string;
 
@@ -300,9 +298,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.fontWeight
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -312,7 +310,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "sans-serif"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.fontFamily
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.fontFamily
                  */
                 fontFamily?: string;
 
@@ -322,7 +320,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 12
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.fontSize
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.fontSize
                  */
                 fontSize?: number;
 
@@ -338,10 +336,10 @@ declare namespace echarts {
                  * If `align` is not set in `rich`, `align` in parent level
                  * will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.align
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.align
                  */
                 align?: string;
 
@@ -357,10 +355,10 @@ declare namespace echarts {
                  * If `verticalAlign` is not set in `rich`, `verticalAlign`
                  * in parent level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.verticalAlign
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.verticalAlign
                  */
                 verticalAlign?: string;
 
@@ -370,10 +368,10 @@ declare namespace echarts {
                  * If `lineHeight` is not set in `rich`, `lineHeight` in parent
                  * level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.lineHeight
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.lineHeight
                  */
                 lineHeight?: number;
 
@@ -384,7 +382,7 @@ declare namespace echarts {
                  *
                  * Or image can be used, for example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.label)
                  *
                  * `width` or `height` can be specified when using background
                  * image, or auto adapted by default.
@@ -395,7 +393,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.backgroundColor
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.backgroundColor
                  */
                 backgroundColor?: object | string;
 
@@ -408,7 +406,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.borderColor
                  */
                 borderColor?: string;
 
@@ -416,7 +414,7 @@ declare namespace echarts {
                  * Border width of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.borderWidth
                  */
                 borderWidth?: number;
 
@@ -424,7 +422,7 @@ declare namespace echarts {
                  * Border radius of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.borderRadius
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.borderRadius
                  */
                 borderRadius?: number;
 
@@ -440,7 +438,7 @@ declare namespace echarts {
                  * of the content, without `padding`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.padding
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.padding
                  */
                 padding?: any[] | number;
 
@@ -450,7 +448,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.shadowColor
                  */
                 shadowColor?: string;
 
@@ -458,7 +456,7 @@ declare namespace echarts {
                  * Show blur of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.shadowBlur
                  */
                 shadowBlur?: number;
 
@@ -466,7 +464,7 @@ declare namespace echarts {
                  * Shadow X offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.shadowOffsetX
                  */
                 shadowOffsetX?: number;
 
@@ -474,7 +472,7 @@ declare namespace echarts {
                  * Shadow Y offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.shadowOffsetY
                  */
                 shadowOffsetY?: number;
 
@@ -498,7 +496,7 @@ declare namespace echarts {
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.width
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.width
                  */
                 width?: number | string;
 
@@ -514,7 +512,7 @@ declare namespace echarts {
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.height
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.height
                  */
                 height?: number | string;
 
@@ -527,7 +525,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.textBorderColor
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.textBorderColor
                  */
                 textBorderColor?: string;
 
@@ -535,7 +533,7 @@ declare namespace echarts {
                  * Storke line width of the text.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.textBorderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.textBorderWidth
                  */
                 textBorderWidth?: number;
 
@@ -545,7 +543,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.textShadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.textShadowColor
                  */
                 textShadowColor?: string;
 
@@ -553,7 +551,7 @@ declare namespace echarts {
                  * Shadow blue of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.textShadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.textShadowBlur
                  */
                 textShadowBlur?: number;
 
@@ -561,7 +559,7 @@ declare namespace echarts {
                  * Shadow X offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.textShadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.textShadowOffsetX
                  */
                 textShadowOffsetX?: number;
 
@@ -569,7 +567,7 @@ declare namespace echarts {
                  * Shadow Y offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.textShadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.textShadowOffsetY
                  */
                 textShadowOffsetY?: number;
 
@@ -577,22 +575,20 @@ declare namespace echarts {
                  * "Rich text styles" can be defined in this `rich` property.
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.label)
                  *
                  * For more details, see
-                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                  * please.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich
                  */
                 rich?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -602,7 +598,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.color
                          */
                         color?: string;
 
@@ -618,7 +614,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                          */
                         fontStyle?: string;
 
@@ -636,9 +632,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -648,7 +644,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                          */
                         fontFamily?: string;
 
@@ -658,7 +654,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                          */
                         fontSize?: number;
 
@@ -674,10 +670,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.align
                          */
                         align?: string;
 
@@ -693,10 +689,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -706,10 +702,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                          */
                         lineHeight?: number;
 
@@ -720,7 +716,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -731,7 +727,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -744,7 +740,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                          */
                         borderColor?: string;
 
@@ -752,7 +748,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                          */
                         borderWidth?: number;
 
@@ -760,7 +756,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                          */
                         borderRadius?: number;
 
@@ -777,7 +773,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                          */
                         padding?: any[] | number;
 
@@ -787,7 +783,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                          */
                         shadowColor?: string;
 
@@ -795,7 +791,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -803,7 +799,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -811,7 +807,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -838,7 +834,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.width
                          */
                         width?: number | string;
 
@@ -855,7 +851,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.height
                          */
                         height?: number | string;
 
@@ -868,7 +864,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -876,7 +872,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -886,7 +882,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -894,7 +890,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -902,7 +898,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -910,7 +906,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
                     };
@@ -919,14 +915,13 @@ declare namespace echarts {
 
             /**
              * Work for
-             * [coordinateSystem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.coordinateSystem)
+             * [coordinateSystem](https://echarts.apache.org/en/option.html#series-heatmap.coordinateSystem)
              * : 'cartesian2d'.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.itemStyle
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color.
                  *
@@ -938,10 +933,10 @@ declare namespace echarts {
                  * Gradient color and texture are also supported besides single
                  * colors.
                  * >
-                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.itemStyle)
+                 * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.itemStyle)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.itemStyle.color
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.itemStyle.color
                  */
                 color?: string;
 
@@ -951,7 +946,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "#000"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.itemStyle.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.itemStyle.borderColor
                  */
                 borderColor?: string;
 
@@ -959,7 +954,7 @@ declare namespace echarts {
                  * border width. No border when it is set to be 0.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.itemStyle.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.itemStyle.borderWidth
                  */
                 borderWidth?: number;
 
@@ -970,7 +965,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "solid"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.itemStyle.borderType
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.itemStyle.borderType
                  */
                 borderType?: string;
 
@@ -981,10 +976,10 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.itemStyle)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.itemStyle)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.itemStyle.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.itemStyle.shadowBlur
                  */
                 shadowBlur?: number;
 
@@ -992,7 +987,7 @@ declare namespace echarts {
                  * Shadow color. Support same format as `color`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.itemStyle.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.itemStyle.shadowColor
                  */
                 shadowColor?: string;
 
@@ -1000,7 +995,7 @@ declare namespace echarts {
                  * Offset distance on the horizontal direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.itemStyle.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.itemStyle.shadowOffsetX
                  */
                 shadowOffsetX?: number;
 
@@ -1008,7 +1003,7 @@ declare namespace echarts {
                  * Offset distance on the vertical direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.itemStyle.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.itemStyle.shadowOffsetY
                  */
                 shadowOffsetY?: number;
 
@@ -1018,21 +1013,19 @@ declare namespace echarts {
                  * drawn when set to 0.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.itemStyle.opacity
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.itemStyle.opacity
                  */
                 opacity?: number;
             };
 
             /**
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis
              */
             emphasis?: {
-
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -1044,10 +1037,10 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.itemStyle.color
                      */
                     color?: string;
 
@@ -1057,7 +1050,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.itemStyle.borderColor
                      */
                     borderColor?: string;
 
@@ -1065,7 +1058,7 @@ declare namespace echarts {
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.itemStyle.borderWidth
                      */
                     borderWidth?: number;
 
@@ -1076,7 +1069,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.itemStyle.borderType
                      */
                     borderType?: string;
 
@@ -1087,10 +1080,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -1098,7 +1091,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -1106,7 +1099,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -1114,7 +1107,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -1124,21 +1117,20 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.itemStyle.opacity
                      */
                     opacity?: number;
                 };
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.show
                      */
                     show?: boolean;
 
@@ -1153,7 +1145,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.label)
                      *
                      * + 'top'
                      *
@@ -1171,13 +1163,13 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.position
                      */
                     position?: any[] | string;
 
@@ -1186,13 +1178,13 @@ declare namespace echarts {
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.distance
                      */
                     distance?: number;
 
@@ -1201,11 +1193,11 @@ declare namespace echarts {
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rotate
                      */
                     rotate?: number;
 
@@ -1215,7 +1207,7 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.offset
                      */
                     offset?: any[];
 
@@ -1228,7 +1220,7 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.color
                      */
                     color?: string;
 
@@ -1244,7 +1236,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.fontStyle
                      */
                     fontStyle?: string;
 
@@ -1262,9 +1254,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -1274,7 +1266,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.fontFamily
                      */
                     fontFamily?: string;
 
@@ -1284,7 +1276,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.fontSize
                      */
                     fontSize?: number;
 
@@ -1300,10 +1292,10 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.align
                      */
                     align?: string;
 
@@ -1319,10 +1311,10 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.verticalAlign
                      */
                     verticalAlign?: string;
 
@@ -1332,10 +1324,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.lineHeight
                      */
                     lineHeight?: number;
 
@@ -1346,7 +1338,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -1357,7 +1349,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.backgroundColor
                      */
                     backgroundColor?: object | string;
 
@@ -1370,7 +1362,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.borderColor
                      */
                     borderColor?: string;
 
@@ -1378,7 +1370,7 @@ declare namespace echarts {
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.borderWidth
                      */
                     borderWidth?: number;
 
@@ -1386,7 +1378,7 @@ declare namespace echarts {
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.borderRadius
                      */
                     borderRadius?: number;
 
@@ -1402,7 +1394,7 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.padding
                      */
                     padding?: any[] | number;
 
@@ -1412,7 +1404,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.shadowColor
                      */
                     shadowColor?: string;
 
@@ -1420,7 +1412,7 @@ declare namespace echarts {
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -1428,7 +1420,7 @@ declare namespace echarts {
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -1436,7 +1428,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -1461,7 +1453,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.width
                      */
                     width?: number | string;
 
@@ -1477,7 +1469,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.height
                      */
                     height?: number | string;
 
@@ -1490,7 +1482,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -1498,7 +1490,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -1508,7 +1500,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -1516,7 +1508,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -1524,7 +1516,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -1532,7 +1524,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
 
@@ -1540,22 +1532,20 @@ declare namespace echarts {
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1565,7 +1555,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
                             color?: string;
 
@@ -1581,7 +1571,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
                             fontStyle?: string;
 
@@ -1599,9 +1589,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -1611,7 +1601,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
                             fontFamily?: string;
 
@@ -1621,7 +1611,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
                             fontSize?: number;
 
@@ -1637,10 +1627,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string;
 
@@ -1656,10 +1646,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -1669,10 +1659,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
                             lineHeight?: number;
 
@@ -1684,7 +1674,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -1695,7 +1685,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -1708,7 +1698,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
                             borderColor?: string;
 
@@ -1716,7 +1706,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number;
 
@@ -1724,7 +1714,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
                             borderRadius?: number;
 
@@ -1742,7 +1732,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number;
 
@@ -1752,7 +1742,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
                             shadowColor?: string;
 
@@ -1760,7 +1750,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -1768,7 +1758,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -1776,7 +1766,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -1803,7 +1793,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string;
 
@@ -1820,7 +1810,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string;
 
@@ -1833,7 +1823,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -1841,7 +1831,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -1851,7 +1841,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -1859,7 +1849,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -1867,7 +1857,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -1875,7 +1865,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
                         };
@@ -1887,58 +1877,58 @@ declare namespace echarts {
              * Data array of series, which can be in the following forms:
              *
              * Notice, if no `data` specified in series, and there is
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * in option, series will use the first
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * as its datasource. If `data` has been specified,
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * will not used.
              *
              * `series.datasetIndex` can be used to specify other
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * .
              *
              * Basically, data is represented by a two-dimension array, like
              * the example below, where each colum is named as a "dimension".
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap)
              *
              * + In
-             * [cartesian (grid)](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+             * [cartesian (grid)](https://echarts.apache.org/en/option.html#grid)
              * , "dimX" and "dimY" correspond to
-             * [xAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis)
+             * [xAxis](https://echarts.apache.org/en/option.html#xAxis)
              * and
-             * [yAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis)
+             * [yAxis](https://echarts.apache.org/en/option.html#yAxis)
              * repectively.
              * + In
-             * [polar](https://ecomfe.github.io/echarts-doc/public/en/option.html#polar)
+             * [polar](https://echarts.apache.org/en/option.html#polar)
              * "dimX" and "dimY" correspond to
-             * [radiusAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#radiusAxis)
+             * [radiusAxis](https://echarts.apache.org/en/option.html#radiusAxis)
              * 和
-             * [angleAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#anbleAxis)
+             * [angleAxis](https://echarts.apache.org/en/option.html#anbleAxis)
              * repectively.
              * + Other dimensions are optional, which can be used in other place.
              * For example:
-             * + [visualMap](https://ecomfe.github.io/echarts-doc/public/en/option.html#visualMap)
+             * + [visualMap](https://echarts.apache.org/en/option.html#visualMap)
              * can map one or more dimensions to viusal (color, symbol size
              * ...).
-             * + [series.symbolSize](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.symbolSize)
+             * + [series.symbolSize](https://echarts.apache.org/en/option.html#series.symbolSize)
              * can be set as a callback function, where symbol size can be calculated
              * by values of a certain dimension.
              * + Values in other dimensions can be shown by
-             * [tooltip.formatter](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.formatter)
+             * [tooltip.formatter](https://echarts.apache.org/en/option.html#tooltip.formatter)
              * or
-             * [series.label.formatter](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.label.formatter)
+             * [series.label.formatter](https://echarts.apache.org/en/option.html#series.label.formatter)
              * .
              *
              * Especially, when there is one and only one category axis (axis.type
              * is `'category'`), data can be simply be represented by a one-dimension
              * array, like:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap)
              *
              * **Relationship between "value" and
-             * [axis.type](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.type)
+             * [axis.type](https://echarts.apache.org/en/option.html#xAxis.type)
              * **
              *
              * + When a dimension corresponds to a value axis (axis.type
@@ -1954,10 +1944,10 @@ declare namespace echarts {
              * (based on `0`), the string value of the axis.data.
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap)
              *
              * There is an example of double category axes:
-             * [Github Punchcard](https://ecomfe.github.io/echarts-examples/public/editor.html?c=scatter-punchCard)
+             * [Github Punchcard](https://echarts.apache.org/examples/en/editor.html?c=scatter-punchCard)
              * .
              *
              * + When a dimension corresponds to a time axis (type is `'time'`),
@@ -2001,7 +1991,7 @@ declare namespace echarts {
              * When needing to customize a data item, it can be set as an object,
              * where property `value` reprensent real value. For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap)
              *
              * **Empty value:**
              *
@@ -2013,21 +2003,19 @@ declare namespace echarts {
              * and scatter chart do not display graphic elements for empty values.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.data
              */
-            data?: (
-                (void | number | string | SeriesHeatmap.DataObject)[]
-                | (void | number | string | SeriesHeatmap.DataObject)[][]
-            );
+            data?:
+                | (void | number | string | SeriesHeatmap.DataObject)[]
+                | (void | number | string | SeriesHeatmap.DataObject)[][];
 
             /**
              * Mark point in a chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -2047,7 +2035,7 @@ declare namespace echarts {
                  *
                  * A `dataURI` example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint)
                  *
                  * Icons can be set to arbitrary vector path via `'path://'`
                  * in ECharts.
@@ -2062,12 +2050,12 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint)
                  *
                  *
                  * @default
                  * "pin"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.symbol
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.symbol
                  */
                 symbol?: string;
 
@@ -2087,14 +2075,14 @@ declare namespace echarts {
                  * ```
                  *
                  * The first parameter `value` is the value in
-                 * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.data)
+                 * [data](https://echarts.apache.org/en/option.html#series-.data)
                  * , and the second parameter `params` is the rest parameters
                  * of data item.
                  *
                  *
                  * @default
                  * 50
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.symbolSize
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.symbolSize
                  */
                 symbolSize?: any[] | Function | number;
 
@@ -2105,7 +2093,7 @@ declare namespace echarts {
                  * tangent angle.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.symbolRotate
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.symbolRotate
                  */
                 symbolRotate?: number;
 
@@ -2113,7 +2101,7 @@ declare namespace echarts {
                  * Whether to keep aspect for symbols in the form of `path://`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.symbolKeepAspect
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.symbolKeepAspect
                  */
                 symbolKeepAspect?: boolean;
 
@@ -2136,7 +2124,7 @@ declare namespace echarts {
                  *
                  * @default
                  * [0, 0]
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.symbolOffset
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.symbolOffset
                  */
                 symbolOffset?: any[];
 
@@ -2146,7 +2134,7 @@ declare namespace echarts {
                  * mouse events.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.silent
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.silent
                  */
                 silent?: boolean;
 
@@ -2154,15 +2142,14 @@ declare namespace echarts {
                  * Label of mark point.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.show
                      */
                     show?: boolean;
 
@@ -2177,7 +2164,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label)
                      *
                      * + 'top'
                      *
@@ -2195,13 +2182,13 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.position
                      */
                     position?: any[] | string;
 
@@ -2210,13 +2197,13 @@ declare namespace echarts {
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.distance
                      */
                     distance?: number;
 
@@ -2225,11 +2212,11 @@ declare namespace echarts {
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rotate
                      */
                     rotate?: number;
 
@@ -2239,7 +2226,7 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.offset
                      */
                     offset?: any[];
 
@@ -2280,10 +2267,10 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.formatter
                      */
                     formatter?: Function | string;
 
@@ -2296,7 +2283,7 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.color
                      */
                     color?: string;
 
@@ -2312,7 +2299,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.fontStyle
                      */
                     fontStyle?: string;
 
@@ -2330,9 +2317,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -2342,7 +2329,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.fontFamily
                      */
                     fontFamily?: string;
 
@@ -2352,7 +2339,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.fontSize
                      */
                     fontSize?: number;
 
@@ -2368,10 +2355,10 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.align
                      */
                     align?: string;
 
@@ -2387,10 +2374,10 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.verticalAlign
                      */
                     verticalAlign?: string;
 
@@ -2400,10 +2387,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.lineHeight
                      */
                     lineHeight?: number;
 
@@ -2414,7 +2401,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -2425,7 +2412,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.backgroundColor
                      */
                     backgroundColor?: object | string;
 
@@ -2438,7 +2425,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.borderColor
                      */
                     borderColor?: string;
 
@@ -2446,7 +2433,7 @@ declare namespace echarts {
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.borderWidth
                      */
                     borderWidth?: number;
 
@@ -2454,7 +2441,7 @@ declare namespace echarts {
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.borderRadius
                      */
                     borderRadius?: number;
 
@@ -2470,7 +2457,7 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.padding
                      */
                     padding?: any[] | number;
 
@@ -2480,7 +2467,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.shadowColor
                      */
                     shadowColor?: string;
 
@@ -2488,7 +2475,7 @@ declare namespace echarts {
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -2496,7 +2483,7 @@ declare namespace echarts {
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -2504,7 +2491,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -2529,7 +2516,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.width
                      */
                     width?: number | string;
 
@@ -2545,7 +2532,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.height
                      */
                     height?: number | string;
 
@@ -2558,7 +2545,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -2566,7 +2553,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -2576,7 +2563,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -2584,7 +2571,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -2592,7 +2579,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -2600,7 +2587,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
 
@@ -2608,22 +2595,20 @@ declare namespace echarts {
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2633,7 +2618,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
                             color?: string;
 
@@ -2649,7 +2634,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
                             fontStyle?: string;
 
@@ -2667,9 +2652,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -2679,7 +2664,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
                             fontFamily?: string;
 
@@ -2689,7 +2674,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
                             fontSize?: number;
 
@@ -2705,10 +2690,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string;
 
@@ -2724,10 +2709,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -2737,10 +2722,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
                             lineHeight?: number;
 
@@ -2752,7 +2737,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -2763,7 +2748,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -2776,7 +2761,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
                             borderColor?: string;
 
@@ -2784,7 +2769,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number;
 
@@ -2792,7 +2777,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
                             borderRadius?: number;
 
@@ -2810,7 +2795,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number;
 
@@ -2820,7 +2805,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
                             shadowColor?: string;
 
@@ -2828,7 +2813,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -2836,7 +2821,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -2844,7 +2829,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -2871,7 +2856,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string;
 
@@ -2888,7 +2873,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string;
 
@@ -2901,7 +2886,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -2909,7 +2894,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -2919,7 +2904,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -2927,7 +2912,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -2935,7 +2920,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -2943,22 +2928,21 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
                         };
                     };
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.show
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.show
                          */
                         show?: boolean;
 
@@ -2973,7 +2957,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
                          *
                          * + 'top'
                          *
@@ -2991,11 +2975,11 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.position
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.position
                          */
                         position?: any[] | string;
 
@@ -3004,13 +2988,13 @@ declare namespace echarts {
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.distance
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.distance
                          */
                         distance?: number;
 
@@ -3019,11 +3003,11 @@ declare namespace echarts {
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rotate
                          */
                         rotate?: number;
 
@@ -3033,7 +3017,7 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.offset
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.offset
                          */
                         offset?: any[];
 
@@ -3076,10 +3060,10 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.formatter
                          */
                         formatter?: Function | string;
 
@@ -3092,7 +3076,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.color
                          */
                         color?: string;
 
@@ -3108,7 +3092,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.fontStyle
                          */
                         fontStyle?: string;
 
@@ -3126,9 +3110,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -3138,7 +3122,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.fontFamily
                          */
                         fontFamily?: string;
 
@@ -3148,7 +3132,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.fontSize
                          */
                         fontSize?: number;
 
@@ -3164,10 +3148,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.align
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.align
                          */
                         align?: string;
 
@@ -3183,10 +3167,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -3196,10 +3180,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.lineHeight
                          */
                         lineHeight?: number;
 
@@ -3210,7 +3194,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -3221,7 +3205,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -3234,7 +3218,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.borderColor
                          */
                         borderColor?: string;
 
@@ -3242,7 +3226,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.borderWidth
                          */
                         borderWidth?: number;
 
@@ -3250,7 +3234,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.borderRadius
                          */
                         borderRadius?: number;
 
@@ -3267,7 +3251,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.padding
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.padding
                          */
                         padding?: any[] | number;
 
@@ -3277,7 +3261,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.shadowColor
                          */
                         shadowColor?: string;
 
@@ -3285,7 +3269,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -3293,7 +3277,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -3301,7 +3285,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -3328,7 +3312,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.width
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.width
                          */
                         width?: number | string;
 
@@ -3345,7 +3329,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.height
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.height
                          */
                         height?: number | string;
 
@@ -3358,7 +3342,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -3366,7 +3350,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -3376,7 +3360,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -3384,7 +3368,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -3392,7 +3376,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -3400,7 +3384,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
 
@@ -3408,22 +3392,20 @@ declare namespace echarts {
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3433,7 +3415,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
                                 color?: string;
 
@@ -3449,7 +3431,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -3467,9 +3449,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -3479,7 +3461,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -3489,7 +3471,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
                                 fontSize?: number;
 
@@ -3507,10 +3489,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string;
 
@@ -3528,10 +3510,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -3542,10 +3524,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -3557,7 +3539,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -3569,7 +3551,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -3582,7 +3564,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
                                 borderColor?: string;
 
@@ -3590,7 +3572,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -3598,7 +3580,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -3617,7 +3599,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number;
 
@@ -3627,7 +3609,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -3635,7 +3617,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -3643,7 +3625,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -3651,7 +3633,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -3682,7 +3664,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string;
 
@@ -3700,7 +3682,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string;
 
@@ -3713,7 +3695,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -3721,7 +3703,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -3731,7 +3713,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -3739,7 +3721,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -3747,7 +3729,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -3755,7 +3737,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
                             };
@@ -3767,10 +3749,9 @@ declare namespace echarts {
                  * Mark point style.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -3782,10 +3763,10 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.color
                      */
                     color?: string;
 
@@ -3795,7 +3776,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.borderColor
                      */
                     borderColor?: string;
 
@@ -3803,7 +3784,7 @@ declare namespace echarts {
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.borderWidth
                      */
                     borderWidth?: number;
 
@@ -3814,7 +3795,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.borderType
                      */
                     borderType?: string;
 
@@ -3825,10 +3806,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -3836,7 +3817,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -3844,7 +3825,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -3852,7 +3833,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -3862,15 +3843,14 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.opacity
                      */
                     opacity?: number;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -3883,10 +3863,10 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.itemStyle.emphasis)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.color
                          */
                         color?: string;
 
@@ -3897,7 +3877,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.borderColor
                          */
                         borderColor?: string;
 
@@ -3905,7 +3885,7 @@ declare namespace echarts {
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.borderWidth
                          */
                         borderWidth?: number;
 
@@ -3916,7 +3896,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.borderType
                          */
                         borderType?: string;
 
@@ -3927,10 +3907,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.itemStyle.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -3938,7 +3918,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.shadowColor
                          */
                         shadowColor?: string;
 
@@ -3946,7 +3926,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -3954,7 +3934,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -3964,7 +3944,7 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.itemStyle.emphasis.opacity
                          */
                         opacity?: number;
                     };
@@ -3975,9 +3955,9 @@ declare namespace echarts {
                  * Here are some ways to assign mark point position.
                  *
                  * 1. Assign coordinate according to container with
-                 * [x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.x)
+                 * [x](https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.x)
                  * ,
-                 * [y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.y)
+                 * [y](https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.y)
                  * attribute, in which pixel values and percentage are supported.
                  *
                  * When multiple attributes exist, priority is as the above
@@ -3985,20 +3965,19 @@ declare namespace echarts {
                  *
                  * **For example:**
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
                      *
                      * @default
                      * ''
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.name
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.name
                      */
                     name?: string;
 
@@ -4006,7 +3985,7 @@ declare namespace echarts {
                      * X position according to container, in pixel.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.x
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.x
                      */
                     x?: number;
 
@@ -4014,7 +3993,7 @@ declare namespace echarts {
                      * Y position according to container, in pixel.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.y
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.y
                      */
                     y?: number;
 
@@ -4022,7 +4001,7 @@ declare namespace echarts {
                      * Label value, which can be ignored.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.value
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.value
                      */
                     value?: number;
 
@@ -4045,7 +4024,7 @@ declare namespace echarts {
                      *
                      * A `dataURI` example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data)
                      *
                      * Icons can be set to arbitrary vector path via `'path://'`
                      * in ECharts.
@@ -4060,10 +4039,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.symbol
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.symbol
                      */
                     symbol?: string;
 
@@ -4075,7 +4054,7 @@ declare namespace echarts {
                      * height is`10`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.symbolSize
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.symbolSize
                      */
                     symbolSize?: any[] | number;
 
@@ -4086,7 +4065,7 @@ declare namespace echarts {
                      * use tangent angle.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.symbolRotate
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.symbolRotate
                      */
                     symbolRotate?: number;
 
@@ -4094,7 +4073,7 @@ declare namespace echarts {
                      * Whether to keep aspect for symbols in the form of `path://`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.symbolKeepAspect
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.symbolKeepAspect
                      */
                     symbolKeepAspect?: boolean;
 
@@ -4117,7 +4096,7 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.symbolOffset
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.symbolOffset
                      */
                     symbolOffset?: any[];
 
@@ -4125,10 +4104,9 @@ declare namespace echarts {
                      * Mark point style.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4141,10 +4119,10 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.itemStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.color
                          */
                         color?: string;
 
@@ -4155,7 +4133,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.borderColor
                          */
                         borderColor?: string;
 
@@ -4163,7 +4141,7 @@ declare namespace echarts {
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.borderWidth
                          */
                         borderWidth?: number;
 
@@ -4174,7 +4152,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.borderType
                          */
                         borderType?: string;
 
@@ -4185,10 +4163,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.itemStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -4196,7 +4174,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.shadowColor
                          */
                         shadowColor?: string;
 
@@ -4204,7 +4182,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -4212,7 +4190,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -4222,15 +4200,14 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.opacity
                          */
                         opacity?: number;
 
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -4243,10 +4220,10 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.itemStyle.emphasis)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.itemStyle.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.color
                              */
                             color?: string;
 
@@ -4257,7 +4234,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.borderColor
                              */
                             borderColor?: string;
 
@@ -4266,7 +4243,7 @@ declare namespace echarts {
                              * No border when it is set to be 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.borderWidth
                              */
                             borderWidth?: number;
 
@@ -4277,7 +4254,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.borderType
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.borderType
                              */
                             borderType?: string;
 
@@ -4288,10 +4265,10 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.itemStyle.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.itemStyle.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -4299,7 +4276,7 @@ declare namespace echarts {
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.shadowColor
                              */
                             shadowColor?: string;
 
@@ -4308,7 +4285,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -4317,7 +4294,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -4327,22 +4304,21 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.itemStyle.emphasis.opacity
                              */
                             opacity?: number;
                         };
                     };
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.show
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.show
                          */
                         show?: boolean;
 
@@ -4357,7 +4333,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label)
                          *
                          * + 'top'
                          *
@@ -4375,11 +4351,11 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.position
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.position
                          */
                         position?: any[] | string;
 
@@ -4388,13 +4364,13 @@ declare namespace echarts {
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.distance
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.distance
                          */
                         distance?: number;
 
@@ -4403,11 +4379,11 @@ declare namespace echarts {
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rotate
                          */
                         rotate?: number;
 
@@ -4417,7 +4393,7 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.offset
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.offset
                          */
                         offset?: any[];
 
@@ -4430,7 +4406,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.color
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.color
                          */
                         color?: string;
 
@@ -4446,7 +4422,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.fontStyle
                          */
                         fontStyle?: string;
 
@@ -4464,9 +4440,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -4476,7 +4452,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.fontFamily
                          */
                         fontFamily?: string;
 
@@ -4486,7 +4462,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.fontSize
                          */
                         fontSize?: number;
 
@@ -4502,10 +4478,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.align
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.align
                          */
                         align?: string;
 
@@ -4521,10 +4497,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -4534,10 +4510,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.lineHeight
                          */
                         lineHeight?: number;
 
@@ -4548,7 +4524,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -4559,7 +4535,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -4572,7 +4548,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.borderColor
                          */
                         borderColor?: string;
 
@@ -4580,7 +4556,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.borderWidth
                          */
                         borderWidth?: number;
 
@@ -4588,7 +4564,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.borderRadius
                          */
                         borderRadius?: number;
 
@@ -4605,7 +4581,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.padding
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.padding
                          */
                         padding?: any[] | number;
 
@@ -4615,7 +4591,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.shadowColor
                          */
                         shadowColor?: string;
 
@@ -4623,7 +4599,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -4631,7 +4607,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -4639,7 +4615,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -4666,7 +4642,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.width
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.width
                          */
                         width?: number | string;
 
@@ -4683,7 +4659,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.height
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.height
                          */
                         height?: number | string;
 
@@ -4696,7 +4672,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -4704,7 +4680,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -4714,7 +4690,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -4722,7 +4698,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -4730,7 +4706,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -4738,7 +4714,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
 
@@ -4746,22 +4722,20 @@ declare namespace echarts {
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4771,7 +4745,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
                                 color?: string;
 
@@ -4787,7 +4761,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -4805,9 +4779,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -4817,7 +4791,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -4827,7 +4801,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
                                 fontSize?: number;
 
@@ -4845,10 +4819,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string;
 
@@ -4866,10 +4840,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -4880,10 +4854,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -4895,7 +4869,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -4907,7 +4881,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -4920,7 +4894,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
                                 borderColor?: string;
 
@@ -4928,7 +4902,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -4936,7 +4910,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -4955,7 +4929,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number;
 
@@ -4965,7 +4939,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -4973,7 +4947,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -4981,7 +4955,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -4989,7 +4963,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -5020,7 +4994,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string;
 
@@ -5038,7 +5012,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string;
 
@@ -5051,7 +5025,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -5059,7 +5033,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -5069,7 +5043,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -5077,7 +5051,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -5085,7 +5059,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -5093,22 +5067,21 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
                             };
                         };
 
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.show
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.show
                              */
                             show?: boolean;
 
@@ -5123,7 +5096,7 @@ declare namespace echarts {
                              * to represent position of label relative to top-left
                              * corner of bounding box. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
                              *
                              * + 'top'
                              *
@@ -5141,11 +5114,11 @@ declare namespace echarts {
                              * + 'insideBottomRight'
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.position
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.position
                              */
                             position?: any[] | string;
 
@@ -5154,13 +5127,13 @@ declare namespace echarts {
                              * Works when position is string value (like `'top'`、`'insideRight'`).
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
                              *
                              *
                              * @default
                              * 5
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.distance
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.distance
                              */
                             distance?: number;
 
@@ -5169,11 +5142,11 @@ declare namespace echarts {
                              * value represents rotate anti-clockwise.
                              *
                              * See:
-                             * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                             * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rotate
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rotate
                              */
                             rotate?: number;
 
@@ -5183,7 +5156,7 @@ declare namespace echarts {
                              * and move `40` vertically.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.offset
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.offset
                              */
                             offset?: any[];
 
@@ -5196,7 +5169,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.color
                              */
                             color?: string;
 
@@ -5212,7 +5185,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.fontStyle
                              */
                             fontStyle?: string;
 
@@ -5230,9 +5203,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -5242,7 +5215,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.fontFamily
                              */
                             fontFamily?: string;
 
@@ -5252,7 +5225,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.fontSize
                              */
                             fontSize?: number;
 
@@ -5268,10 +5241,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.align
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.align
                              */
                             align?: string;
 
@@ -5287,10 +5260,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -5300,10 +5273,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.lineHeight
                              */
                             lineHeight?: number;
 
@@ -5315,7 +5288,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -5326,7 +5299,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -5339,7 +5312,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.borderColor
                              */
                             borderColor?: string;
 
@@ -5347,7 +5320,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.borderWidth
                              */
                             borderWidth?: number;
 
@@ -5355,7 +5328,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.borderRadius
                              */
                             borderRadius?: number;
 
@@ -5373,7 +5346,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.padding
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.padding
                              */
                             padding?: any[] | number;
 
@@ -5383,7 +5356,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.shadowColor
                              */
                             shadowColor?: string;
 
@@ -5391,7 +5364,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -5399,7 +5372,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -5407,7 +5380,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -5434,7 +5407,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.width
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.width
                              */
                             width?: number | string;
 
@@ -5451,7 +5424,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.height
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.height
                              */
                             height?: number | string;
 
@@ -5464,7 +5437,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -5472,7 +5445,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -5482,7 +5455,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -5490,7 +5463,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -5498,7 +5471,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -5506,7 +5479,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
 
@@ -5514,22 +5487,20 @@ declare namespace echarts {
                              * "Rich text styles" can be defined in this `rich`
                              * property. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis)
                              *
                              * For more details, see
-                             * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -5539,7 +5510,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * ""#fff""
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
                                     color?: string;
 
@@ -5555,7 +5526,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
                                     fontStyle?: string;
 
@@ -5573,9 +5544,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -5586,7 +5557,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "sans-serif"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
                                     fontFamily?: string;
 
@@ -5596,7 +5567,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * 12
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
                                     fontSize?: number;
 
@@ -5614,10 +5585,10 @@ declare namespace echarts {
                                      * in parent level will be used.
                                      * For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
                                     align?: string;
 
@@ -5635,10 +5606,10 @@ declare namespace echarts {
                                      * `verticalAlign` in parent level will
                                      * be used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
                                     verticalAlign?: string;
 
@@ -5649,10 +5620,10 @@ declare namespace echarts {
                                      * `lineHeight` in parent level will be
                                      * used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
                                     lineHeight?: number;
 
@@ -5664,7 +5635,7 @@ declare namespace echarts {
                                      *
                                      * Or image can be used, for example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      * `width` or `height` can be specified
                                      * when using background image, or auto
@@ -5676,7 +5647,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
                                     backgroundColor?: object | string;
 
@@ -5689,7 +5660,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
                                     borderColor?: string;
 
@@ -5697,7 +5668,7 @@ declare namespace echarts {
                                      * Border width of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
                                     borderWidth?: number;
 
@@ -5705,7 +5676,7 @@ declare namespace echarts {
                                      * Border radius of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
                                     borderRadius?: number;
 
@@ -5724,7 +5695,7 @@ declare namespace echarts {
                                      * without `padding`.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
                                     padding?: any[] | number;
 
@@ -5734,7 +5705,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
                                     shadowColor?: string;
 
@@ -5742,7 +5713,7 @@ declare namespace echarts {
                                      * Show blur of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
                                     shadowBlur?: number;
 
@@ -5750,7 +5721,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
                                     shadowOffsetX?: number;
 
@@ -5758,7 +5729,7 @@ declare namespace echarts {
                                      * Shadow Y offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
                                     shadowOffsetY?: number;
 
@@ -5789,7 +5760,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
                                     width?: number | string;
 
@@ -5807,7 +5778,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
                                     height?: number | string;
 
@@ -5820,7 +5791,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
                                     textBorderColor?: string;
 
@@ -5828,7 +5799,7 @@ declare namespace echarts {
                                      * Storke line width of the text.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
                                     textBorderWidth?: number;
 
@@ -5838,7 +5809,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
                                     textShadowColor?: string;
 
@@ -5846,7 +5817,7 @@ declare namespace echarts {
                                      * Shadow blue of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
                                     textShadowBlur?: number;
 
@@ -5854,7 +5825,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
                                     textShadowOffsetX?: number;
 
@@ -5862,7 +5833,7 @@ declare namespace echarts {
                                      * Shadow Y offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
                                     textShadowOffsetY?: number;
                                 };
@@ -5877,7 +5848,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.animation
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.animation
                  */
                 animation?: boolean;
 
@@ -5889,7 +5860,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 2000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.animationThreshold
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.animationThreshold
                  */
                 animationThreshold?: number;
 
@@ -5897,25 +5868,25 @@ declare namespace echarts {
                  * Duration of the first animation, which supports callback
                  * function for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint)
                  *
                  *
                  * @default
                  * 1000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.animationDuration
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.animationDuration
                  */
                 animationDuration?: Function | number;
 
                 /**
                  * Easing method used for the first animation.
                  * Varied easing effects can be found at
-                 * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+                 * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
                  *
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.animationEasing
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.animationEasing
                  */
                 animationEasing?: string;
 
@@ -5926,14 +5897,14 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.animationDelay
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.animationDelay
                  */
                 animationDelay?: Function | number;
 
@@ -5941,12 +5912,12 @@ declare namespace echarts {
                  * Time for animation to complete, which supports callback function
                  * for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint)
                  *
                  *
                  * @default
                  * 300
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.animationDurationUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.animationDurationUpdate
                  */
                 animationDurationUpdate?: Function | number;
 
@@ -5956,7 +5927,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.animationEasingUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.animationEasingUpdate
                  */
                 animationEasingUpdate?: string;
 
@@ -5966,16 +5937,16 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markPoint)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  * prefix
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markPoint.animationDelayUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markPoint.animationDelayUpdate
                  */
                 animationDelayUpdate?: Function | number;
             };
@@ -5984,17 +5955,16 @@ declare namespace echarts {
              * Use a line in the chart to illustrate.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
                  * mouse events.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.silent
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.silent
                  */
                 silent?: boolean;
 
@@ -6002,11 +5972,11 @@ declare namespace echarts {
                  * Symbol type at the two ends of the mark line.
                  * It can be an array for two ends, or assigned seperately.
                  * See
-                 * [data.symbol](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.symbol)
+                 * [data.symbol](https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.symbol)
                  * for more format information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.symbol
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.symbol
                  */
                 symbol?: any[] | string;
 
@@ -6018,7 +5988,7 @@ declare namespace echarts {
                  * as normal `symbolSize`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.symbolSize
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.symbolSize
                  */
                 symbolSize?: any[] | number;
 
@@ -6029,7 +5999,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 2
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.precision
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.precision
                  */
                 precision?: number;
 
@@ -6037,17 +6007,16 @@ declare namespace echarts {
                  * Mark line text.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.label
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
                      *
                      * @default
                      * "true"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.label.show
                      */
                     show?: boolean;
 
@@ -6061,7 +6030,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "end"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.label.position
                      */
                     position?: string;
 
@@ -6103,25 +6072,24 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.label.formatter
                      */
                     formatter?: Function | string;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.label.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
                          *
                          * @default
                          * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.label.emphasis.show
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.label.emphasis.show
                          */
                         show?: boolean;
 
@@ -6135,7 +6103,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "end"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.label.emphasis.position
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.label.emphasis.position
                          */
                         position?: string;
 
@@ -6179,10 +6147,10 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.label.emphasis.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.label.emphasis.formatter
                          */
                         formatter?: Function | string;
                     };
@@ -6192,10 +6160,9 @@ declare namespace echarts {
                  * Mark line style.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -6207,12 +6174,12 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.lineStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.lineStyle)
                      *
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.color
                      */
                     color?: string;
 
@@ -6220,7 +6187,7 @@ declare namespace echarts {
                      * line width.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.width
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.width
                      */
                     width?: number;
 
@@ -6236,7 +6203,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.type
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.type
                      */
                     type?: string;
 
@@ -6247,10 +6214,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.lineStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.lineStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -6258,7 +6225,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -6266,7 +6233,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -6274,7 +6241,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -6284,7 +6251,7 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.opacity
                      */
                     opacity?: number;
 
@@ -6293,15 +6260,14 @@ declare namespace echarts {
                      * The larger the value, the greater the curvature.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.curveness
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.curveness
                      */
                     curveness?: number;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -6314,12 +6280,12 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.lineStyle.emphasis)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.lineStyle.emphasis)
                          *
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.emphasis.color
                          */
                         color?: string;
 
@@ -6327,7 +6293,7 @@ declare namespace echarts {
                          * line width.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.emphasis.width
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.emphasis.width
                          */
                         width?: number;
 
@@ -6343,7 +6309,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.emphasis.type
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.emphasis.type
                          */
                         type?: string;
 
@@ -6354,10 +6320,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.lineStyle.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.lineStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.emphasis.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -6365,7 +6331,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.emphasis.shadowColor
                          */
                         shadowColor?: string;
 
@@ -6373,7 +6339,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -6381,7 +6347,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.emphasis.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -6391,7 +6357,7 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.lineStyle.emphasis.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.lineStyle.emphasis.opacity
                          */
                         opacity?: number;
                     };
@@ -6406,29 +6372,27 @@ declare namespace echarts {
                  * and ending point.
                  *
                  * 1. Assign coordinate according to container with
-                 * [x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.x)
+                 * [x](https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.x)
                  * ,
-                 * [y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.y)
+                 * [y](https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.y)
                  * attribute, in which pixel values and percentage are supported.
                  *
                  * When multiple attributes exist, priority is as the above
                  * order.
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -6441,7 +6405,7 @@ declare namespace echarts {
                          * X position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.x
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.x
                          */
                         x?: number;
 
@@ -6449,7 +6413,7 @@ declare namespace echarts {
                          * Y position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.y
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.y
                          */
                         y?: number;
 
@@ -6457,7 +6421,7 @@ declare namespace echarts {
                          * Label value, which can be ignored.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.value
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.value
                          */
                         value?: number;
 
@@ -6481,7 +6445,7 @@ declare namespace echarts {
                          *
                          * A `dataURI` example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.0)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.0)
                          *
                          * Icons can be set to arbitrary vector path via `'path://'`
                          * in ECharts.
@@ -6497,10 +6461,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.0)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.0)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.symbol
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.symbol
                          */
                         symbol?: string;
 
@@ -6512,7 +6476,7 @@ declare namespace echarts {
                          * and height is`10`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.symbolSize
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.symbolSize
                          */
                         symbolSize?: any[] | number;
 
@@ -6523,7 +6487,7 @@ declare namespace echarts {
                          * and compulsively use tangent angle.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.symbolRotate
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.symbolRotate
                          */
                         symbolRotate?: number;
 
@@ -6532,7 +6496,7 @@ declare namespace echarts {
                          * `path://`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.symbolKeepAspect
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.symbolKeepAspect
                          */
                         symbolKeepAspect?: boolean;
 
@@ -6556,7 +6520,7 @@ declare namespace echarts {
                          *
                          * @default
                          * [0, 0]
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.symbolOffset
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.symbolOffset
                          */
                         symbolOffset?: any[];
 
@@ -6565,10 +6529,9 @@ declare namespace echarts {
                          * with `lineStyle` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -6581,12 +6544,12 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.0.lineStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.0.lineStyle)
                              *
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.color
                              */
                             color?: string;
 
@@ -6594,7 +6557,7 @@ declare namespace echarts {
                              * line width.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.width
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.width
                              */
                             width?: number;
 
@@ -6610,7 +6573,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.type
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.type
                              */
                             type?: string;
 
@@ -6621,10 +6584,10 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.0.lineStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.0.lineStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -6632,7 +6595,7 @@ declare namespace echarts {
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.shadowColor
                              */
                             shadowColor?: string;
 
@@ -6641,7 +6604,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -6650,7 +6613,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -6660,7 +6623,7 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.opacity
                              */
                             opacity?: number;
 
@@ -6670,15 +6633,14 @@ declare namespace echarts {
                              * The larger the value, the greater the curvature.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.curveness
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.curveness
                              */
                             curveness?: number;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -6691,12 +6653,12 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.0.lineStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.0.lineStyle.emphasis)
                                  *
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.color
                                  */
                                 color?: string;
 
@@ -6704,7 +6666,7 @@ declare namespace echarts {
                                  * line width.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.width
                                  */
                                 width?: number;
 
@@ -6720,7 +6682,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.type
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.type
                                  */
                                 type?: string;
 
@@ -6732,10 +6694,10 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.0.lineStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.0.lineStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -6744,7 +6706,7 @@ declare namespace echarts {
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -6753,7 +6715,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -6762,7 +6724,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -6772,7 +6734,7 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.opacity
                                  */
                                 opacity?: number;
 
@@ -6782,7 +6744,7 @@ declare namespace echarts {
                                  * The larger the value, the greater the curvature.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.curveness
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.lineStyle.emphasis.curveness
                                  */
                                 curveness?: number;
                             };
@@ -6793,17 +6755,16 @@ declare namespace echarts {
                          * `label` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.label
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
                              *
                              * @default
                              * "true"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.label.show
                              */
                             show?: boolean;
 
@@ -6817,7 +6778,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "end"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.label.position
                              */
                             position?: string;
 
@@ -6861,25 +6822,24 @@ declare namespace echarts {
                              * where `params` is the single dataset needed by
                              * formatter, which is formed as:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.label.formatter
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.label.formatter
                              */
                             formatter?: Function | string;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
                                  *
                                  * @default
                                  * "true"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.label.emphasis.show
                                  */
                                 show?: boolean;
 
@@ -6893,7 +6853,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "end"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.label.emphasis.position
                                  */
                                 position?: string;
 
@@ -6937,10 +6897,10 @@ declare namespace echarts {
                                  * where `params` is the single dataset needed
                                  * by formatter, which is formed as:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.0.label.emphasis.formatter
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.0.label.emphasis.formatter
                                  */
                                 formatter?: Function | string;
                             };
@@ -6951,10 +6911,9 @@ declare namespace echarts {
                      * Data of the ending point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -6967,7 +6926,7 @@ declare namespace echarts {
                          * X position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.x
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.x
                          */
                         x?: number;
 
@@ -6975,7 +6934,7 @@ declare namespace echarts {
                          * Y position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.y
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.y
                          */
                         y?: number;
 
@@ -6983,7 +6942,7 @@ declare namespace echarts {
                          * Label value, which can be ignored.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.value
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.value
                          */
                         value?: number;
 
@@ -7007,7 +6966,7 @@ declare namespace echarts {
                          *
                          * A `dataURI` example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.1)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.1)
                          *
                          * Icons can be set to arbitrary vector path via `'path://'`
                          * in ECharts.
@@ -7023,10 +6982,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.1)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.1)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.symbol
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.symbol
                          */
                         symbol?: string;
 
@@ -7038,7 +6997,7 @@ declare namespace echarts {
                          * and height is`10`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.symbolSize
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.symbolSize
                          */
                         symbolSize?: any[] | number;
 
@@ -7049,7 +7008,7 @@ declare namespace echarts {
                          * and compulsively use tangent angle.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.symbolRotate
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.symbolRotate
                          */
                         symbolRotate?: number;
 
@@ -7058,7 +7017,7 @@ declare namespace echarts {
                          * `path://`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.symbolKeepAspect
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.symbolKeepAspect
                          */
                         symbolKeepAspect?: boolean;
 
@@ -7082,7 +7041,7 @@ declare namespace echarts {
                          *
                          * @default
                          * [0, 0]
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.symbolOffset
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.symbolOffset
                          */
                         symbolOffset?: any[];
 
@@ -7091,10 +7050,9 @@ declare namespace echarts {
                          * with `lineStyle` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7107,12 +7065,12 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.1.lineStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.1.lineStyle)
                              *
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.color
                              */
                             color?: string;
 
@@ -7120,7 +7078,7 @@ declare namespace echarts {
                              * line width.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.width
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.width
                              */
                             width?: number;
 
@@ -7136,7 +7094,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.type
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.type
                              */
                             type?: string;
 
@@ -7147,10 +7105,10 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.1.lineStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.1.lineStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -7158,7 +7116,7 @@ declare namespace echarts {
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.shadowColor
                              */
                             shadowColor?: string;
 
@@ -7167,7 +7125,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -7176,7 +7134,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -7186,7 +7144,7 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.opacity
                              */
                             opacity?: number;
 
@@ -7196,15 +7154,14 @@ declare namespace echarts {
                              * The larger the value, the greater the curvature.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.curveness
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.curveness
                              */
                             curveness?: number;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7217,12 +7174,12 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.1.lineStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.1.lineStyle.emphasis)
                                  *
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.color
                                  */
                                 color?: string;
 
@@ -7230,7 +7187,7 @@ declare namespace echarts {
                                  * line width.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.width
                                  */
                                 width?: number;
 
@@ -7246,7 +7203,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.type
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.type
                                  */
                                 type?: string;
 
@@ -7258,10 +7215,10 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.1.lineStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.1.lineStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -7270,7 +7227,7 @@ declare namespace echarts {
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -7279,7 +7236,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -7288,7 +7245,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -7298,7 +7255,7 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.opacity
                                  */
                                 opacity?: number;
 
@@ -7308,7 +7265,7 @@ declare namespace echarts {
                                  * The larger the value, the greater the curvature.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.curveness
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.lineStyle.emphasis.curveness
                                  */
                                 curveness?: number;
                             };
@@ -7319,17 +7276,16 @@ declare namespace echarts {
                          * `label` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.label
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
                              *
                              * @default
                              * "true"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.label.show
                              */
                             show?: boolean;
 
@@ -7343,7 +7299,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "end"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.label.position
                              */
                             position?: string;
 
@@ -7387,25 +7343,24 @@ declare namespace echarts {
                              * where `params` is the single dataset needed by
                              * formatter, which is formed as:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.label.formatter
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.label.formatter
                              */
                             formatter?: Function | string;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
                                  *
                                  * @default
                                  * "true"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.label.emphasis.show
                                  */
                                 show?: boolean;
 
@@ -7419,7 +7374,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "end"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.label.emphasis.position
                                  */
                                 position?: string;
 
@@ -7463,10 +7418,10 @@ declare namespace echarts {
                                  * where `params` is the single dataset needed
                                  * by formatter, which is formed as:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.data.1.label.emphasis.formatter
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.data.1.label.emphasis.formatter
                                  */
                                 formatter?: Function | string;
                             };
@@ -7480,7 +7435,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.animation
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.animation
                  */
                 animation?: boolean;
 
@@ -7492,7 +7447,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 2000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.animationThreshold
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.animationThreshold
                  */
                 animationThreshold?: number;
 
@@ -7500,25 +7455,25 @@ declare namespace echarts {
                  * Duration of the first animation, which supports callback
                  * function for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine)
                  *
                  *
                  * @default
                  * 1000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.animationDuration
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.animationDuration
                  */
                 animationDuration?: Function | number;
 
                 /**
                  * Easing method used for the first animation.
                  * Varied easing effects can be found at
-                 * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+                 * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
                  *
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.animationEasing
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.animationEasing
                  */
                 animationEasing?: string;
 
@@ -7529,14 +7484,14 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.animationDelay
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.animationDelay
                  */
                 animationDelay?: Function | number;
 
@@ -7544,12 +7499,12 @@ declare namespace echarts {
                  * Time for animation to complete, which supports callback function
                  * for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine)
                  *
                  *
                  * @default
                  * 300
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.animationDurationUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.animationDurationUpdate
                  */
                 animationDurationUpdate?: Function | number;
 
@@ -7559,7 +7514,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.animationEasingUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.animationEasingUpdate
                  */
                 animationEasingUpdate?: string;
 
@@ -7569,14 +7524,14 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markLine)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markLine.animationDelayUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markLine.animationDelayUpdate
                  */
                 animationDelayUpdate?: Function | number;
             };
@@ -7586,17 +7541,16 @@ declare namespace echarts {
              * For example, mark a time interval.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
                  * mouse events.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.silent
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.silent
                  */
                 silent?: boolean;
 
@@ -7604,15 +7558,14 @@ declare namespace echarts {
                  * Label in mark area.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.show
                      */
                     show?: boolean;
 
@@ -7627,7 +7580,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label)
                      *
                      * + 'top'
                      *
@@ -7645,11 +7598,11 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.position
                      */
                     position?: any[] | string;
 
@@ -7658,13 +7611,13 @@ declare namespace echarts {
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.distance
                      */
                     distance?: number;
 
@@ -7673,11 +7626,11 @@ declare namespace echarts {
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rotate
                      */
                     rotate?: number;
 
@@ -7687,7 +7640,7 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.offset
                      */
                     offset?: any[];
 
@@ -7700,7 +7653,7 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.color
                      */
                     color?: string;
 
@@ -7716,7 +7669,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.fontStyle
                      */
                     fontStyle?: string;
 
@@ -7734,9 +7687,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -7746,7 +7699,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.fontFamily
                      */
                     fontFamily?: string;
 
@@ -7756,7 +7709,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.fontSize
                      */
                     fontSize?: number;
 
@@ -7772,10 +7725,10 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.align
                      */
                     align?: string;
 
@@ -7791,10 +7744,10 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.verticalAlign
                      */
                     verticalAlign?: string;
 
@@ -7804,10 +7757,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.lineHeight
                      */
                     lineHeight?: number;
 
@@ -7818,7 +7771,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -7829,7 +7782,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.backgroundColor
                      */
                     backgroundColor?: object | string;
 
@@ -7842,7 +7795,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.borderColor
                      */
                     borderColor?: string;
 
@@ -7850,7 +7803,7 @@ declare namespace echarts {
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.borderWidth
                      */
                     borderWidth?: number;
 
@@ -7858,7 +7811,7 @@ declare namespace echarts {
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.borderRadius
                      */
                     borderRadius?: number;
 
@@ -7874,7 +7827,7 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.padding
                      */
                     padding?: any[] | number;
 
@@ -7884,7 +7837,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.shadowColor
                      */
                     shadowColor?: string;
 
@@ -7892,7 +7845,7 @@ declare namespace echarts {
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -7900,7 +7853,7 @@ declare namespace echarts {
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -7908,7 +7861,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -7933,7 +7886,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.width
                      */
                     width?: number | string;
 
@@ -7949,7 +7902,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.height
                      */
                     height?: number | string;
 
@@ -7962,7 +7915,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -7970,7 +7923,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -7980,7 +7933,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -7988,7 +7941,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -7996,7 +7949,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -8004,7 +7957,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
 
@@ -8012,22 +7965,20 @@ declare namespace echarts {
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8037,7 +7988,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
                             color?: string;
 
@@ -8053,7 +8004,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
                             fontStyle?: string;
 
@@ -8071,9 +8022,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -8083,7 +8034,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
                             fontFamily?: string;
 
@@ -8093,7 +8044,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
                             fontSize?: number;
 
@@ -8109,10 +8060,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string;
 
@@ -8128,10 +8079,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -8141,10 +8092,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
                             lineHeight?: number;
 
@@ -8156,7 +8107,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -8167,7 +8118,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -8180,7 +8131,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
                             borderColor?: string;
 
@@ -8188,7 +8139,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number;
 
@@ -8196,7 +8147,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
                             borderRadius?: number;
 
@@ -8214,7 +8165,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number;
 
@@ -8224,7 +8175,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
                             shadowColor?: string;
 
@@ -8232,7 +8183,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -8240,7 +8191,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -8248,7 +8199,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -8275,7 +8226,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string;
 
@@ -8292,7 +8243,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string;
 
@@ -8305,7 +8256,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -8313,7 +8264,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -8323,7 +8274,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -8331,7 +8282,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -8339,7 +8290,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -8347,22 +8298,21 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
                         };
                     };
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.show
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.show
                          */
                         show?: boolean;
 
@@ -8377,7 +8327,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
                          *
                          * + 'top'
                          *
@@ -8395,11 +8345,11 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.position
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.position
                          */
                         position?: any[] | string;
 
@@ -8408,13 +8358,13 @@ declare namespace echarts {
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.distance
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.distance
                          */
                         distance?: number;
 
@@ -8423,11 +8373,11 @@ declare namespace echarts {
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rotate
                          */
                         rotate?: number;
 
@@ -8437,7 +8387,7 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.offset
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.offset
                          */
                         offset?: any[];
 
@@ -8450,7 +8400,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.color
                          */
                         color?: string;
 
@@ -8466,7 +8416,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.fontStyle
                          */
                         fontStyle?: string;
 
@@ -8484,9 +8434,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -8496,7 +8446,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.fontFamily
                          */
                         fontFamily?: string;
 
@@ -8506,7 +8456,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.fontSize
                          */
                         fontSize?: number;
 
@@ -8522,10 +8472,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.align
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.align
                          */
                         align?: string;
 
@@ -8541,10 +8491,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -8554,10 +8504,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.lineHeight
                          */
                         lineHeight?: number;
 
@@ -8568,7 +8518,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -8579,7 +8529,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -8592,7 +8542,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.borderColor
                          */
                         borderColor?: string;
 
@@ -8600,7 +8550,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.borderWidth
                          */
                         borderWidth?: number;
 
@@ -8608,7 +8558,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.borderRadius
                          */
                         borderRadius?: number;
 
@@ -8625,7 +8575,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.padding
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.padding
                          */
                         padding?: any[] | number;
 
@@ -8635,7 +8585,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.shadowColor
                          */
                         shadowColor?: string;
 
@@ -8643,7 +8593,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -8651,7 +8601,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -8659,7 +8609,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -8686,7 +8636,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.width
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.width
                          */
                         width?: number | string;
 
@@ -8703,7 +8653,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.height
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.height
                          */
                         height?: number | string;
 
@@ -8716,7 +8666,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -8724,7 +8674,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -8734,7 +8684,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -8742,7 +8692,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -8750,7 +8700,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -8758,7 +8708,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
 
@@ -8766,22 +8716,20 @@ declare namespace echarts {
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.emphasis)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -8791,7 +8739,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
                                 color?: string;
 
@@ -8807,7 +8755,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -8825,9 +8773,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -8837,7 +8785,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -8847,7 +8795,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
                                 fontSize?: number;
 
@@ -8865,10 +8813,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string;
 
@@ -8886,10 +8834,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -8900,10 +8848,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -8915,7 +8863,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -8927,7 +8875,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -8940,7 +8888,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
                                 borderColor?: string;
 
@@ -8948,7 +8896,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -8956,7 +8904,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -8975,7 +8923,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number;
 
@@ -8985,7 +8933,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -8993,7 +8941,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -9001,7 +8949,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -9009,7 +8957,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -9040,7 +8988,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string;
 
@@ -9058,7 +9006,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string;
 
@@ -9071,7 +9019,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -9079,7 +9027,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -9089,7 +9037,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -9097,7 +9045,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -9105,7 +9053,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -9113,7 +9061,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
                             };
@@ -9125,10 +9073,9 @@ declare namespace echarts {
                  * Style of the mark area.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -9140,10 +9087,10 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.color
                      */
                     color?: string;
 
@@ -9153,7 +9100,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.borderColor
                      */
                     borderColor?: string;
 
@@ -9161,7 +9108,7 @@ declare namespace echarts {
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.borderWidth
                      */
                     borderWidth?: number;
 
@@ -9172,7 +9119,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.borderType
                      */
                     borderType?: string;
 
@@ -9183,10 +9130,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -9194,7 +9141,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -9202,7 +9149,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -9210,7 +9157,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -9220,15 +9167,14 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.opacity
                      */
                     opacity?: number;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -9241,10 +9187,10 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.itemStyle.emphasis)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.emphasis.color
                          */
                         color?: string;
 
@@ -9255,7 +9201,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.emphasis.borderColor
                          */
                         borderColor?: string;
 
@@ -9263,7 +9209,7 @@ declare namespace echarts {
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.emphasis.borderWidth
                          */
                         borderWidth?: number;
 
@@ -9274,7 +9220,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.emphasis.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.emphasis.borderType
                          */
                         borderType?: string;
 
@@ -9285,10 +9231,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.itemStyle.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.emphasis.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -9296,7 +9242,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.emphasis.shadowColor
                          */
                         shadowColor?: string;
 
@@ -9304,7 +9250,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -9312,7 +9258,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.emphasis.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -9322,7 +9268,7 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.itemStyle.emphasis.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.itemStyle.emphasis.opacity
                          */
                         opacity?: number;
                     };
@@ -9336,9 +9282,9 @@ declare namespace echarts {
                  *
                  * 1.
                  * Specify the coordinate in screen coordinate system using
-                 * [x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.x)
+                 * [x](https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.x)
                  * ,
-                 * [y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.y)
+                 * [y](https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.y)
                  * , where the unit is pixel (e.g.,
                  * the value is `5`), or percent (e.g.,
                  * the value is `'35%'`).
@@ -9346,21 +9292,19 @@ declare namespace echarts {
                  * The priority follows as above if more than one above definition
                  * used.
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -9374,7 +9318,7 @@ declare namespace echarts {
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.x
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.x
                          */
                         x?: number;
 
@@ -9383,7 +9327,7 @@ declare namespace echarts {
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.y
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.y
                          */
                         y?: number;
 
@@ -9391,7 +9335,7 @@ declare namespace echarts {
                          * value of the item, not necessary.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.value
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.value
                          */
                         value?: number;
 
@@ -9401,10 +9345,9 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -9417,10 +9360,10 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.itemStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.color
                              */
                             color?: string;
 
@@ -9431,7 +9374,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.borderColor
                              */
                             borderColor?: string;
 
@@ -9440,7 +9383,7 @@ declare namespace echarts {
                              * No border when it is set to be 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.borderWidth
                              */
                             borderWidth?: number;
 
@@ -9451,7 +9394,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.borderType
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.borderType
                              */
                             borderType?: string;
 
@@ -9462,10 +9405,10 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.itemStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -9473,7 +9416,7 @@ declare namespace echarts {
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.shadowColor
                              */
                             shadowColor?: string;
 
@@ -9482,7 +9425,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -9491,7 +9434,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -9501,15 +9444,14 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.opacity
                              */
                             opacity?: number;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -9522,10 +9464,10 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.itemStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.color
                                  */
                                 color?: string;
 
@@ -9536,7 +9478,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.borderColor
                                  */
                                 borderColor?: string;
 
@@ -9545,7 +9487,7 @@ declare namespace echarts {
                                  * No border when it is set to be 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -9556,7 +9498,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.borderType
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.borderType
                                  */
                                 borderType?: string;
 
@@ -9568,10 +9510,10 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.itemStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -9580,7 +9522,7 @@ declare namespace echarts {
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -9589,7 +9531,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -9598,7 +9540,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -9608,7 +9550,7 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.itemStyle.emphasis.opacity
                                  */
                                 opacity?: number;
                             };
@@ -9620,15 +9562,14 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.show
                              */
                             show?: boolean;
 
@@ -9643,7 +9584,7 @@ declare namespace echarts {
                              * to represent position of label relative to top-left
                              * corner of bounding box. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
                              *
                              * + 'top'
                              *
@@ -9661,11 +9602,11 @@ declare namespace echarts {
                              * + 'insideBottomRight'
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.position
                              */
                             position?: any[] | string;
 
@@ -9674,13 +9615,13 @@ declare namespace echarts {
                              * Works when position is string value (like `'top'`、`'insideRight'`).
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
                              *
                              *
                              * @default
                              * 5
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.distance
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.distance
                              */
                             distance?: number;
 
@@ -9689,11 +9630,11 @@ declare namespace echarts {
                              * value represents rotate anti-clockwise.
                              *
                              * See:
-                             * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                             * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rotate
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rotate
                              */
                             rotate?: number;
 
@@ -9703,7 +9644,7 @@ declare namespace echarts {
                              * and move `40` vertically.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.offset
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.offset
                              */
                             offset?: any[];
 
@@ -9716,7 +9657,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.color
                              */
                             color?: string;
 
@@ -9732,7 +9673,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.fontStyle
                              */
                             fontStyle?: string;
 
@@ -9750,9 +9691,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -9762,7 +9703,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.fontFamily
                              */
                             fontFamily?: string;
 
@@ -9772,7 +9713,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.fontSize
                              */
                             fontSize?: number;
 
@@ -9788,10 +9729,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.align
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.align
                              */
                             align?: string;
 
@@ -9807,10 +9748,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -9820,10 +9761,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.lineHeight
                              */
                             lineHeight?: number;
 
@@ -9835,7 +9776,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -9846,7 +9787,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -9859,7 +9800,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.borderColor
                              */
                             borderColor?: string;
 
@@ -9867,7 +9808,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.borderWidth
                              */
                             borderWidth?: number;
 
@@ -9875,7 +9816,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.borderRadius
                              */
                             borderRadius?: number;
 
@@ -9893,7 +9834,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.padding
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.padding
                              */
                             padding?: any[] | number;
 
@@ -9903,7 +9844,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.shadowColor
                              */
                             shadowColor?: string;
 
@@ -9911,7 +9852,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -9919,7 +9860,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -9927,7 +9868,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -9954,7 +9895,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.width
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.width
                              */
                             width?: number | string;
 
@@ -9971,7 +9912,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.height
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.height
                              */
                             height?: number | string;
 
@@ -9984,7 +9925,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -9992,7 +9933,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -10002,7 +9943,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -10010,7 +9951,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -10018,7 +9959,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -10026,7 +9967,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
 
@@ -10034,22 +9975,20 @@ declare namespace echarts {
                              * "Rich text styles" can be defined in this `rich`
                              * property. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label)
                              *
                              * For more details, see
-                             * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -10059,7 +9998,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * ""#fff""
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
                                     color?: string;
 
@@ -10075,7 +10014,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
                                     fontStyle?: string;
 
@@ -10093,9 +10032,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -10106,7 +10045,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "sans-serif"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
                                     fontFamily?: string;
 
@@ -10116,7 +10055,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * 12
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
                                     fontSize?: number;
 
@@ -10134,10 +10073,10 @@ declare namespace echarts {
                                      * in parent level will be used.
                                      * For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
                                     align?: string;
 
@@ -10155,10 +10094,10 @@ declare namespace echarts {
                                      * `verticalAlign` in parent level will
                                      * be used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
                                     verticalAlign?: string;
 
@@ -10169,10 +10108,10 @@ declare namespace echarts {
                                      * `lineHeight` in parent level will be
                                      * used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
                                     lineHeight?: number;
 
@@ -10184,7 +10123,7 @@ declare namespace echarts {
                                      *
                                      * Or image can be used, for example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      * `width` or `height` can be specified
                                      * when using background image, or auto
@@ -10196,7 +10135,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
                                     backgroundColor?: object | string;
 
@@ -10209,7 +10148,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
                                     borderColor?: string;
 
@@ -10217,7 +10156,7 @@ declare namespace echarts {
                                      * Border width of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
                                     borderWidth?: number;
 
@@ -10225,7 +10164,7 @@ declare namespace echarts {
                                      * Border radius of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
                                     borderRadius?: number;
 
@@ -10244,7 +10183,7 @@ declare namespace echarts {
                                      * without `padding`.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
                                     padding?: any[] | number;
 
@@ -10254,7 +10193,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
                                     shadowColor?: string;
 
@@ -10262,7 +10201,7 @@ declare namespace echarts {
                                      * Show blur of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
                                     shadowBlur?: number;
 
@@ -10270,7 +10209,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
                                     shadowOffsetX?: number;
 
@@ -10278,7 +10217,7 @@ declare namespace echarts {
                                      * Shadow Y offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
                                     shadowOffsetY?: number;
 
@@ -10309,7 +10248,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
                                     width?: number | string;
 
@@ -10327,7 +10266,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
                                     height?: number | string;
 
@@ -10340,7 +10279,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
                                     textBorderColor?: string;
 
@@ -10348,7 +10287,7 @@ declare namespace echarts {
                                      * Storke line width of the text.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
                                     textBorderWidth?: number;
 
@@ -10358,7 +10297,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
                                     textShadowColor?: string;
 
@@ -10366,7 +10305,7 @@ declare namespace echarts {
                                      * Shadow blue of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
                                     textShadowBlur?: number;
 
@@ -10374,7 +10313,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
                                     textShadowOffsetX?: number;
 
@@ -10382,22 +10321,21 @@ declare namespace echarts {
                                      * Shadow Y offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
                                     textShadowOffsetY?: number;
                                 };
                             };
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.show
                                  */
                                 show?: boolean;
 
@@ -10413,7 +10351,7 @@ declare namespace echarts {
                                  * to top-left corner of bounding box.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
                                  *
                                  * + 'top'
                                  *
@@ -10431,11 +10369,11 @@ declare namespace echarts {
                                  * + 'insideBottomRight'
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.position
                                  */
                                 position?: any[] | string;
 
@@ -10445,13 +10383,13 @@ declare namespace echarts {
                                  * `'top'`、`'insideRight'`).
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
                                  * @default
                                  * 5
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.distance
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.distance
                                  */
                                 distance?: number;
 
@@ -10460,11 +10398,11 @@ declare namespace echarts {
                                  * value represents rotate anti-clockwise.
                                  *
                                  * See:
-                                 * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                                 * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rotate
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rotate
                                  */
                                 rotate?: number;
 
@@ -10474,7 +10412,7 @@ declare namespace echarts {
                                  * and move `40` vertically.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.offset
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.offset
                                  */
                                 offset?: any[];
 
@@ -10487,7 +10425,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.color
                                  */
                                 color?: string;
 
@@ -10503,7 +10441,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -10521,9 +10459,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -10533,7 +10471,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -10543,7 +10481,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.fontSize
                                  */
                                 fontSize?: number;
 
@@ -10561,10 +10499,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.align
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.align
                                  */
                                 align?: string;
 
@@ -10582,10 +10520,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -10596,10 +10534,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -10611,7 +10549,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -10623,7 +10561,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -10636,7 +10574,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.borderColor
                                  */
                                 borderColor?: string;
 
@@ -10644,7 +10582,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -10652,7 +10590,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -10671,7 +10609,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.padding
                                  */
                                 padding?: any[] | number;
 
@@ -10681,7 +10619,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -10689,7 +10627,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -10697,7 +10635,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -10705,7 +10643,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -10736,7 +10674,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.width
                                  */
                                 width?: number | string;
 
@@ -10754,7 +10692,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.height
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.height
                                  */
                                 height?: number | string;
 
@@ -10767,7 +10705,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -10775,7 +10713,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -10785,7 +10723,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -10793,7 +10731,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -10801,7 +10739,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -10809,7 +10747,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
 
@@ -10817,22 +10755,20 @@ declare namespace echarts {
                                  * "Rich text styles" can be defined in this
                                  * `rich` property. For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis)
                                  *
                                  * For more details, see
-                                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                                  * please.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -10843,7 +10779,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * ""#fff""
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                          */
                                         color?: string;
 
@@ -10859,7 +10795,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                          */
                                         fontStyle?: string;
 
@@ -10877,9 +10813,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -10890,7 +10826,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "sans-serif"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                          */
                                         fontFamily?: string;
 
@@ -10900,7 +10836,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * 12
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                          */
                                         fontSize?: number;
 
@@ -10918,10 +10854,10 @@ declare namespace echarts {
                                          * `align` in parent level will be used.
                                          * For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                          */
                                         align?: string;
 
@@ -10939,10 +10875,10 @@ declare namespace echarts {
                                          * `rich`, `verticalAlign` in parent
                                          * level will be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                          */
                                         verticalAlign?: string;
 
@@ -10953,10 +10889,10 @@ declare namespace echarts {
                                          * `lineHeight` in parent level will
                                          * be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                          */
                                         lineHeight?: number;
 
@@ -10968,7 +10904,7 @@ declare namespace echarts {
                                          *
                                          * Or image can be used, for example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          * `width` or `height` can be specified
                                          * when using background image, or auto
@@ -10981,7 +10917,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                          */
                                         backgroundColor?: object | string;
 
@@ -10995,7 +10931,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                          */
                                         borderColor?: string;
 
@@ -11003,7 +10939,7 @@ declare namespace echarts {
                                          * Border width of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                          */
                                         borderWidth?: number;
 
@@ -11011,7 +10947,7 @@ declare namespace echarts {
                                          * Border radius of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                          */
                                         borderRadius?: number;
 
@@ -11032,7 +10968,7 @@ declare namespace echarts {
                                          * without `padding`.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                          */
                                         padding?: any[] | number;
 
@@ -11042,7 +10978,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                          */
                                         shadowColor?: string;
 
@@ -11050,7 +10986,7 @@ declare namespace echarts {
                                          * Show blur of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                          */
                                         shadowBlur?: number;
 
@@ -11058,7 +10994,7 @@ declare namespace echarts {
                                          * Shadow X offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                          */
                                         shadowOffsetX?: number;
 
@@ -11066,7 +11002,7 @@ declare namespace echarts {
                                          * Shadow Y offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                          */
                                         shadowOffsetY?: number;
 
@@ -11098,7 +11034,7 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                          */
                                         width?: number | string;
 
@@ -11117,7 +11053,7 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                          */
                                         height?: number | string;
 
@@ -11131,7 +11067,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                          */
                                         textBorderColor?: string;
 
@@ -11139,7 +11075,7 @@ declare namespace echarts {
                                          * Storke line width of the text.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                          */
                                         textBorderWidth?: number;
 
@@ -11149,7 +11085,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                          */
                                         textShadowColor?: string;
 
@@ -11157,7 +11093,7 @@ declare namespace echarts {
                                          * Shadow blue of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                          */
                                         textShadowBlur?: number;
 
@@ -11165,7 +11101,7 @@ declare namespace echarts {
                                          * Shadow X offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                          */
                                         textShadowOffsetX?: number;
 
@@ -11173,7 +11109,7 @@ declare namespace echarts {
                                          * Shadow Y offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                          */
                                         textShadowOffsetY?: number;
                                     };
@@ -11186,10 +11122,9 @@ declare namespace echarts {
                      * Specify the right-bottom point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Name of the marker, which will display as a label.
                          *
@@ -11203,7 +11138,7 @@ declare namespace echarts {
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.x
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.x
                          */
                         x?: number;
 
@@ -11212,7 +11147,7 @@ declare namespace echarts {
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.y
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.y
                          */
                         y?: number;
 
@@ -11220,7 +11155,7 @@ declare namespace echarts {
                          * value of the item, not necessary.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.value
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.value
                          */
                         value?: number;
 
@@ -11230,10 +11165,9 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -11246,10 +11180,10 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.itemStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.color
                              */
                             color?: string;
 
@@ -11260,7 +11194,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.borderColor
                              */
                             borderColor?: string;
 
@@ -11269,7 +11203,7 @@ declare namespace echarts {
                              * No border when it is set to be 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.borderWidth
                              */
                             borderWidth?: number;
 
@@ -11280,7 +11214,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.borderType
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.borderType
                              */
                             borderType?: string;
 
@@ -11291,10 +11225,10 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.itemStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -11302,7 +11236,7 @@ declare namespace echarts {
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.shadowColor
                              */
                             shadowColor?: string;
 
@@ -11311,7 +11245,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -11320,7 +11254,7 @@ declare namespace echarts {
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -11330,15 +11264,14 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.opacity
                              */
                             opacity?: number;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -11351,10 +11284,10 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.itemStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.color
                                  */
                                 color?: string;
 
@@ -11365,7 +11298,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.borderColor
                                  */
                                 borderColor?: string;
 
@@ -11374,7 +11307,7 @@ declare namespace echarts {
                                  * No border when it is set to be 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -11385,7 +11318,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.borderType
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.borderType
                                  */
                                 borderType?: string;
 
@@ -11397,10 +11330,10 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.itemStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -11409,7 +11342,7 @@ declare namespace echarts {
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -11418,7 +11351,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -11427,7 +11360,7 @@ declare namespace echarts {
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -11437,7 +11370,7 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.itemStyle.emphasis.opacity
                                  */
                                 opacity?: number;
                             };
@@ -11449,15 +11382,14 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.show
                              */
                             show?: boolean;
 
@@ -11472,7 +11404,7 @@ declare namespace echarts {
                              * to represent position of label relative to top-left
                              * corner of bounding box. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
                              *
                              * + 'top'
                              *
@@ -11490,11 +11422,11 @@ declare namespace echarts {
                              * + 'insideBottomRight'
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.position
                              */
                             position?: any[] | string;
 
@@ -11503,13 +11435,13 @@ declare namespace echarts {
                              * Works when position is string value (like `'top'`、`'insideRight'`).
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
                              *
                              *
                              * @default
                              * 5
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.distance
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.distance
                              */
                             distance?: number;
 
@@ -11518,11 +11450,11 @@ declare namespace echarts {
                              * value represents rotate anti-clockwise.
                              *
                              * See:
-                             * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                             * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rotate
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rotate
                              */
                             rotate?: number;
 
@@ -11532,7 +11464,7 @@ declare namespace echarts {
                              * and move `40` vertically.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.offset
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.offset
                              */
                             offset?: any[];
 
@@ -11545,7 +11477,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.color
                              */
                             color?: string;
 
@@ -11561,7 +11493,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.fontStyle
                              */
                             fontStyle?: string;
 
@@ -11579,9 +11511,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -11591,7 +11523,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.fontFamily
                              */
                             fontFamily?: string;
 
@@ -11601,7 +11533,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.fontSize
                              */
                             fontSize?: number;
 
@@ -11617,10 +11549,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.align
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.align
                              */
                             align?: string;
 
@@ -11636,10 +11568,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -11649,10 +11581,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.lineHeight
                              */
                             lineHeight?: number;
 
@@ -11664,7 +11596,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -11675,7 +11607,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -11688,7 +11620,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.borderColor
                              */
                             borderColor?: string;
 
@@ -11696,7 +11628,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.borderWidth
                              */
                             borderWidth?: number;
 
@@ -11704,7 +11636,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.borderRadius
                              */
                             borderRadius?: number;
 
@@ -11722,7 +11654,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.padding
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.padding
                              */
                             padding?: any[] | number;
 
@@ -11732,7 +11664,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.shadowColor
                              */
                             shadowColor?: string;
 
@@ -11740,7 +11672,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -11748,7 +11680,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -11756,7 +11688,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -11783,7 +11715,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.width
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.width
                              */
                             width?: number | string;
 
@@ -11800,7 +11732,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.height
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.height
                              */
                             height?: number | string;
 
@@ -11813,7 +11745,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -11821,7 +11753,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -11831,7 +11763,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -11839,7 +11771,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -11847,7 +11779,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -11855,7 +11787,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
 
@@ -11863,22 +11795,20 @@ declare namespace echarts {
                              * "Rich text styles" can be defined in this `rich`
                              * property. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label)
                              *
                              * For more details, see
-                             * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -11888,7 +11818,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * ""#fff""
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
                                     color?: string;
 
@@ -11904,7 +11834,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
                                     fontStyle?: string;
 
@@ -11922,9 +11852,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -11935,7 +11865,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "sans-serif"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
                                     fontFamily?: string;
 
@@ -11945,7 +11875,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * 12
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
                                     fontSize?: number;
 
@@ -11963,10 +11893,10 @@ declare namespace echarts {
                                      * in parent level will be used.
                                      * For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
                                     align?: string;
 
@@ -11984,10 +11914,10 @@ declare namespace echarts {
                                      * `verticalAlign` in parent level will
                                      * be used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
                                     verticalAlign?: string;
 
@@ -11998,10 +11928,10 @@ declare namespace echarts {
                                      * `lineHeight` in parent level will be
                                      * used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
                                     lineHeight?: number;
 
@@ -12013,7 +11943,7 @@ declare namespace echarts {
                                      *
                                      * Or image can be used, for example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      * `width` or `height` can be specified
                                      * when using background image, or auto
@@ -12025,7 +11955,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
                                     backgroundColor?: object | string;
 
@@ -12038,7 +11968,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
                                     borderColor?: string;
 
@@ -12046,7 +11976,7 @@ declare namespace echarts {
                                      * Border width of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
                                     borderWidth?: number;
 
@@ -12054,7 +11984,7 @@ declare namespace echarts {
                                      * Border radius of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
                                     borderRadius?: number;
 
@@ -12073,7 +12003,7 @@ declare namespace echarts {
                                      * without `padding`.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
                                     padding?: any[] | number;
 
@@ -12083,7 +12013,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
                                     shadowColor?: string;
 
@@ -12091,7 +12021,7 @@ declare namespace echarts {
                                      * Show blur of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
                                     shadowBlur?: number;
 
@@ -12099,7 +12029,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
                                     shadowOffsetX?: number;
 
@@ -12107,7 +12037,7 @@ declare namespace echarts {
                                      * Shadow Y offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
                                     shadowOffsetY?: number;
 
@@ -12138,7 +12068,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
                                     width?: number | string;
 
@@ -12156,7 +12086,7 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
                                     height?: number | string;
 
@@ -12169,7 +12099,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
                                     textBorderColor?: string;
 
@@ -12177,7 +12107,7 @@ declare namespace echarts {
                                      * Storke line width of the text.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
                                     textBorderWidth?: number;
 
@@ -12187,7 +12117,7 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
                                     textShadowColor?: string;
 
@@ -12195,7 +12125,7 @@ declare namespace echarts {
                                      * Shadow blue of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
                                     textShadowBlur?: number;
 
@@ -12203,7 +12133,7 @@ declare namespace echarts {
                                      * Shadow X offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
                                     textShadowOffsetX?: number;
 
@@ -12211,22 +12141,21 @@ declare namespace echarts {
                                      * Shadow Y offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
                                     textShadowOffsetY?: number;
                                 };
                             };
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.show
                                  */
                                 show?: boolean;
 
@@ -12242,7 +12171,7 @@ declare namespace echarts {
                                  * to top-left corner of bounding box.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
                                  *
                                  * + 'top'
                                  *
@@ -12260,11 +12189,11 @@ declare namespace echarts {
                                  * + 'insideBottomRight'
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.position
                                  */
                                 position?: any[] | string;
 
@@ -12274,13 +12203,13 @@ declare namespace echarts {
                                  * `'top'`、`'insideRight'`).
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
                                  * @default
                                  * 5
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.distance
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.distance
                                  */
                                 distance?: number;
 
@@ -12289,11 +12218,11 @@ declare namespace echarts {
                                  * value represents rotate anti-clockwise.
                                  *
                                  * See:
-                                 * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                                 * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rotate
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rotate
                                  */
                                 rotate?: number;
 
@@ -12303,7 +12232,7 @@ declare namespace echarts {
                                  * and move `40` vertically.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.offset
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.offset
                                  */
                                 offset?: any[];
 
@@ -12316,7 +12245,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.color
                                  */
                                 color?: string;
 
@@ -12332,7 +12261,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -12350,9 +12279,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -12362,7 +12291,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -12372,7 +12301,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.fontSize
                                  */
                                 fontSize?: number;
 
@@ -12390,10 +12319,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.align
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.align
                                  */
                                 align?: string;
 
@@ -12411,10 +12340,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -12425,10 +12354,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -12440,7 +12369,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -12452,7 +12381,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -12465,7 +12394,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.borderColor
                                  */
                                 borderColor?: string;
 
@@ -12473,7 +12402,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -12481,7 +12410,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -12500,7 +12429,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.padding
                                  */
                                 padding?: any[] | number;
 
@@ -12510,7 +12439,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -12518,7 +12447,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -12526,7 +12455,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -12534,7 +12463,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -12565,7 +12494,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.width
                                  */
                                 width?: number | string;
 
@@ -12583,7 +12512,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.height
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.height
                                  */
                                 height?: number | string;
 
@@ -12596,7 +12525,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -12604,7 +12533,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -12614,7 +12543,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -12622,7 +12551,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -12630,7 +12559,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -12638,7 +12567,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
 
@@ -12646,22 +12575,20 @@ declare namespace echarts {
                                  * "Rich text styles" can be defined in this
                                  * `rich` property. For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis)
                                  *
                                  * For more details, see
-                                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                                  * please.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                                     * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -12672,7 +12599,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * ""#fff""
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                          */
                                         color?: string;
 
@@ -12688,7 +12615,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                          */
                                         fontStyle?: string;
 
@@ -12706,9 +12633,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -12719,7 +12646,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "sans-serif"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                          */
                                         fontFamily?: string;
 
@@ -12729,7 +12656,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * 12
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                          */
                                         fontSize?: number;
 
@@ -12747,10 +12674,10 @@ declare namespace echarts {
                                          * `align` in parent level will be used.
                                          * For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                          */
                                         align?: string;
 
@@ -12768,10 +12695,10 @@ declare namespace echarts {
                                          * `rich`, `verticalAlign` in parent
                                          * level will be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                          */
                                         verticalAlign?: string;
 
@@ -12782,10 +12709,10 @@ declare namespace echarts {
                                          * `lineHeight` in parent level will
                                          * be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                          */
                                         lineHeight?: number;
 
@@ -12797,7 +12724,7 @@ declare namespace echarts {
                                          *
                                          * Or image can be used, for example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          * `width` or `height` can be specified
                                          * when using background image, or auto
@@ -12810,7 +12737,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                          */
                                         backgroundColor?: object | string;
 
@@ -12824,7 +12751,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                          */
                                         borderColor?: string;
 
@@ -12832,7 +12759,7 @@ declare namespace echarts {
                                          * Border width of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                          */
                                         borderWidth?: number;
 
@@ -12840,7 +12767,7 @@ declare namespace echarts {
                                          * Border radius of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                          */
                                         borderRadius?: number;
 
@@ -12861,7 +12788,7 @@ declare namespace echarts {
                                          * without `padding`.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                          */
                                         padding?: any[] | number;
 
@@ -12871,7 +12798,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                          */
                                         shadowColor?: string;
 
@@ -12879,7 +12806,7 @@ declare namespace echarts {
                                          * Show blur of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                          */
                                         shadowBlur?: number;
 
@@ -12887,7 +12814,7 @@ declare namespace echarts {
                                          * Shadow X offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                          */
                                         shadowOffsetX?: number;
 
@@ -12895,7 +12822,7 @@ declare namespace echarts {
                                          * Shadow Y offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                          */
                                         shadowOffsetY?: number;
 
@@ -12927,7 +12854,7 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                          */
                                         width?: number | string;
 
@@ -12946,7 +12873,7 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                          */
                                         height?: number | string;
 
@@ -12960,7 +12887,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                          */
                                         textBorderColor?: string;
 
@@ -12968,7 +12895,7 @@ declare namespace echarts {
                                          * Storke line width of the text.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                          */
                                         textBorderWidth?: number;
 
@@ -12978,7 +12905,7 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                          */
                                         textShadowColor?: string;
 
@@ -12986,7 +12913,7 @@ declare namespace echarts {
                                          * Shadow blue of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                          */
                                         textShadowBlur?: number;
 
@@ -12994,7 +12921,7 @@ declare namespace echarts {
                                          * Shadow X offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                          */
                                         textShadowOffsetX?: number;
 
@@ -13002,7 +12929,7 @@ declare namespace echarts {
                                          * Shadow Y offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                          */
                                         textShadowOffsetY?: number;
                                     };
@@ -13018,7 +12945,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.animation
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.animation
                  */
                 animation?: boolean;
 
@@ -13030,7 +12957,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 2000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.animationThreshold
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.animationThreshold
                  */
                 animationThreshold?: number;
 
@@ -13038,25 +12965,25 @@ declare namespace echarts {
                  * Duration of the first animation, which supports callback
                  * function for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea)
                  *
                  *
                  * @default
                  * 1000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.animationDuration
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.animationDuration
                  */
                 animationDuration?: Function | number;
 
                 /**
                  * Easing method used for the first animation.
                  * Varied easing effects can be found at
-                 * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+                 * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
                  *
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.animationEasing
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.animationEasing
                  */
                 animationEasing?: string;
 
@@ -13067,14 +12994,14 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.animationDelay
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.animationDelay
                  */
                 animationDelay?: Function | number;
 
@@ -13082,12 +13009,12 @@ declare namespace echarts {
                  * Time for animation to complete, which supports callback function
                  * for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea)
                  *
                  *
                  * @default
                  * 300
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.animationDurationUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.animationDurationUpdate
                  */
                 animationDurationUpdate?: Function | number;
 
@@ -13097,7 +13024,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.animationEasingUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.animationEasingUpdate
                  */
                 animationEasingUpdate?: string;
 
@@ -13107,14 +13034,14 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.markArea)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.markArea.animationDelayUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.markArea.animationDelayUpdate
                  */
                 animationDelayUpdate?: Function | number;
             };
@@ -13134,7 +13061,7 @@ declare namespace echarts {
              * smaller `zlevel`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.zlevel
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.zlevel
              */
             zlevel?: number;
 
@@ -13150,7 +13077,7 @@ declare namespace echarts {
              *
              * @default
              * 2
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.z
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.z
              */
             z?: number;
 
@@ -13160,7 +13087,7 @@ declare namespace echarts {
              * events.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.silent
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.silent
              */
             silent?: boolean;
 
@@ -13168,467 +13095,18 @@ declare namespace echarts {
              * tooltip settings in this series.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip
+             * @see https://echarts.apache.org/en/option.html#series-heatmap.tooltip
              */
-            tooltip?: {
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The position of the tooltip's floating layer, which would
-                 * follow the position of mouse by default.
-                 *
-                 * Options:
-                 *
-                 * + `Array`
-                 *
-                 * Display the position of tooltip's floating layer through
-                 * array, which supports absolute position and relative percentage.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.tooltip)
-                 *
-                 * + `Function`
-                 *
-                 * Callback function in the following form:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.tooltip)
-                 *
-                 * **Parameters:**
-                 * point: Mouse position.
-                 * param: The same as formatter.
-                 * dom: The DOM object of tooltip.
-                 * rect: It is valid only when mouse is on graphic elements,
-                 * which stands for a bounding box with `x`, `y`, `width`, and
-                 * `height`.
-                 * size: The size of dom echarts container.
-                 * For example: `{contentSize: [width, height], viewSize: [width,
-                 * height]}`.
-                 *
-                 * **Return:**
-                 * Return value is an array standing for tooltip position, which
-                 * can be absolute pixels, or relative percentage.
-                 * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                 * '20%', bottom: 40}`.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.tooltip)
-                 *
-                 * Or:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.tooltip)
-                 *
-                 * + `'inside'`
-                 *
-                 * Center position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'top'`
-                 *
-                 * Top position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'left'`
-                 *
-                 * Left position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'right'`
-                 *
-                 * Right position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'bottom'`
-                 *
-                 * Bottom position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.position
-                 */
-                position?: any[] | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The content formatter of tooltip's floating layer which supports
-                 * string template and callback function.
-                 *
-                 * **1\. String template**
-                 *
-                 * The template variables are `{a}`, `{b}`, `{c}`, `{d}` and
-                 * `{e}`, which stands for series name, data name and data value
-                 * and ect. When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is set to be `'axis'`, there may be data from multiple series.
-                 * In this time, series index can be refered as `{a0}`, `{a1}`,
-                 * or `{a2}`.
-                 *
-                 * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for different
-                 * series types:
-                 *
-                 * + Line (area) charts, bar (column) charts, K charts: `{a}`
-                 * for series name, `{b}` for category name, `{c}` for data
-                 * value, `{d}` for none;
-                 *
-                 * + Scatter (bubble) charts: `{a}` for series name, `{b}` for
-                 * data name, `{c}` for data value, `{d}` for none;
-                 *
-                 * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                 * for merging data, `{d}` for none;
-                 *
-                 * + Pie charts, gauge charts, funnel charts: `{a}` for series
-                 * name, `{b}` for data item name, `{c}` for data value, `{d}`
-                 * for percentage.
-                 *
-                 * **Example:**
-                 *
-                 * ```
-                 * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                 *
-                 * ```
-                 *
-                 * **2\. Callback function**
-                 *
-                 * The format of callback function:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.tooltip)
-                 *
-                 * The first parameter `params` is the data that the formatter
-                 * needs. Its format is shown as follows:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.tooltip)
-                 *
-                 * When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'axis'`, or when tooltip is triggered by
-                 * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
-                 * , `params` is the data array of multiple series.
-                 * The content of each item of the array is the same as above.
-                 * Besides,
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.tooltip)
-                 *
-                 * **Note:** Using array to present all the parameters in ECharts
-                 * 2.x is not supported anymore.
-                 *
-                 * The second parameter `ticket` is the asynchronous callback
-                 * flag which should be used along with the third parameter
-                 * `callback` when it is used.
-                 *
-                 * The third parameter `callback` is asynchronous callback.
-                 * When the content of tooltip is acquired asynchronously, `ticket`
-                 * and `htm` as introduced above can be used to update tooltip
-                 * with callback.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.tooltip)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.formatter
-                 */
-                formatter?: Function | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The background color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * "rgba(50,50,50,0.7)"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.backgroundColor
-                 */
-                backgroundColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * '#333'
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.borderColor
-                 */
-                borderColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border width of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.borderWidth
-                 */
-                borderWidth?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The floating layer of tooltip space around content.
-                 * The unit is px.
-                 * Default values for each position are 5.
-                 * And they can be set to different values with left, right,
-                 * top, and bottom.
-                 *
-                 * Examples:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.tooltip)
-                 *
-                 *
-                 * @default
-                 * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.padding
-                 */
-                padding?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The text syle of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle
-                 */
-                textStyle?: {
-
-                    /**
-                     * text color.
-                     *
-                     *
-                     * @default
-                     * "#fff"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 14
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.tooltip.textStyle)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.textStyle.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-                };
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * Extra CSS style for floating layer.
-                 * The following is an example for adding shadow.
-                 *
-                 * ```
-                 * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                 *
-                 * ```
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.tooltip.extraCssText
-                 */
-                extraCssText?: string;
-            };
+            tooltip?: BaseTooltip;
         }
 
         namespace SeriesHeatmap {
             interface DataObject {
-
                 /**
                  * Name of data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.name
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.name
                  */
                 name?: string;
 
@@ -13636,25 +13114,24 @@ declare namespace echarts {
                  * Value of data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.value
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.value
                  */
                 value?: any[];
 
                 /**
                  * It is valid with
-                 * [coordinateSystem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.coordinateSystem)
+                 * [coordinateSystem](https://echarts.apache.org/en/option.html#series-heatmap.coordinateSystem)
                  * of 'cartesian2d' value.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.show
                      */
                     show?: boolean;
 
@@ -13669,7 +13146,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.label)
                      *
                      * + 'top'
                      *
@@ -13687,13 +13164,13 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.position
                      */
                     position?: any[] | string;
 
@@ -13702,13 +13179,13 @@ declare namespace echarts {
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.distance
                      */
                     distance?: number;
 
@@ -13717,11 +13194,11 @@ declare namespace echarts {
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rotate
                      */
                     rotate?: number;
 
@@ -13731,7 +13208,7 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.offset
                      */
                     offset?: any[];
 
@@ -13744,7 +13221,7 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.color
                      */
                     color?: string;
 
@@ -13760,7 +13237,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.fontStyle
                      */
                     fontStyle?: string;
 
@@ -13778,9 +13255,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -13790,7 +13267,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.fontFamily
                      */
                     fontFamily?: string;
 
@@ -13800,7 +13277,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.fontSize
                      */
                     fontSize?: number;
 
@@ -13816,10 +13293,10 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.align
                      */
                     align?: string;
 
@@ -13835,10 +13312,10 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.verticalAlign
                      */
                     verticalAlign?: string;
 
@@ -13848,10 +13325,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.lineHeight
                      */
                     lineHeight?: number;
 
@@ -13862,7 +13339,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -13873,7 +13350,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.backgroundColor
                      */
                     backgroundColor?: object | string;
 
@@ -13886,7 +13363,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.borderColor
                      */
                     borderColor?: string;
 
@@ -13894,7 +13371,7 @@ declare namespace echarts {
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.borderWidth
                      */
                     borderWidth?: number;
 
@@ -13902,7 +13379,7 @@ declare namespace echarts {
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.borderRadius
                      */
                     borderRadius?: number;
 
@@ -13918,7 +13395,7 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.padding
                      */
                     padding?: any[] | number;
 
@@ -13928,7 +13405,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.shadowColor
                      */
                     shadowColor?: string;
 
@@ -13936,7 +13413,7 @@ declare namespace echarts {
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -13944,7 +13421,7 @@ declare namespace echarts {
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -13952,7 +13429,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -13977,7 +13454,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.width
                      */
                     width?: number | string;
 
@@ -13993,7 +13470,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.height
                      */
                     height?: number | string;
 
@@ -14006,7 +13483,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -14014,7 +13491,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -14024,7 +13501,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -14032,7 +13509,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -14040,7 +13517,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -14048,7 +13525,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
 
@@ -14056,22 +13533,20 @@ declare namespace echarts {
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -14081,7 +13556,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
                             color?: string;
 
@@ -14097,7 +13572,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
                             fontStyle?: string;
 
@@ -14115,9 +13590,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -14127,7 +13602,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
                             fontFamily?: string;
 
@@ -14137,7 +13612,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
                             fontSize?: number;
 
@@ -14153,10 +13628,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string;
 
@@ -14172,10 +13647,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -14185,10 +13660,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
                             lineHeight?: number;
 
@@ -14200,7 +13675,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -14211,7 +13686,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -14224,7 +13699,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
                             borderColor?: string;
 
@@ -14232,7 +13707,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number;
 
@@ -14240,7 +13715,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
                             borderRadius?: number;
 
@@ -14258,7 +13733,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number;
 
@@ -14268,7 +13743,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
                             shadowColor?: string;
 
@@ -14276,7 +13751,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -14284,7 +13759,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -14292,7 +13767,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -14319,7 +13794,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string;
 
@@ -14336,7 +13811,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string;
 
@@ -14349,7 +13824,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -14357,7 +13832,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -14367,7 +13842,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -14375,7 +13850,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -14383,7 +13858,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -14391,7 +13866,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
                         };
@@ -14400,14 +13875,13 @@ declare namespace echarts {
 
                 /**
                  * Style of a single data point. It is valid with
-                 * [coordinateSystem](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.coordinateSystem)
+                 * [coordinateSystem](https://echarts.apache.org/en/option.html#series-heatmap.coordinateSystem)
                  * of 'cartesian2d' value.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -14419,10 +13893,10 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.itemStyle.color
                      */
                     color?: string;
 
@@ -14432,7 +13906,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.itemStyle.borderColor
                      */
                     borderColor?: string;
 
@@ -14440,7 +13914,7 @@ declare namespace echarts {
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.itemStyle.borderWidth
                      */
                     borderWidth?: number;
 
@@ -14451,7 +13925,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.itemStyle.borderType
                      */
                     borderType?: string;
 
@@ -14462,10 +13936,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -14473,7 +13947,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -14481,7 +13955,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -14489,7 +13963,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -14499,21 +13973,19 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.itemStyle.opacity
                      */
                     opacity?: number;
                 };
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis
+                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis
                  */
                 emphasis?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -14526,10 +13998,10 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.itemStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.itemStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.itemStyle.color
                          */
                         color?: string;
 
@@ -14540,7 +14012,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.itemStyle.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.itemStyle.borderColor
                          */
                         borderColor?: string;
 
@@ -14548,7 +14020,7 @@ declare namespace echarts {
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.itemStyle.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.itemStyle.borderWidth
                          */
                         borderWidth?: number;
 
@@ -14559,7 +14031,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.itemStyle.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.itemStyle.borderType
                          */
                         borderType?: string;
 
@@ -14570,10 +14042,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.itemStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.itemStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.itemStyle.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -14581,7 +14053,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.itemStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.itemStyle.shadowColor
                          */
                         shadowColor?: string;
 
@@ -14589,7 +14061,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.itemStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -14597,7 +14069,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.itemStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.itemStyle.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -14607,21 +14079,20 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.itemStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.itemStyle.opacity
                          */
                         opacity?: number;
                     };
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label
+                     * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.show
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.show
                          */
                         show?: boolean;
 
@@ -14636,7 +14107,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.label)
                          *
                          * + 'top'
                          *
@@ -14654,13 +14125,13 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * "inside"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.position
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.position
                          */
                         position?: any[] | string;
 
@@ -14669,13 +14140,13 @@ declare namespace echarts {
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.distance
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.distance
                          */
                         distance?: number;
 
@@ -14684,11 +14155,11 @@ declare namespace echarts {
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rotate
                          */
                         rotate?: number;
 
@@ -14698,7 +14169,7 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.offset
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.offset
                          */
                         offset?: any[];
 
@@ -14711,7 +14182,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.color
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.color
                          */
                         color?: string;
 
@@ -14727,7 +14198,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.fontStyle
                          */
                         fontStyle?: string;
 
@@ -14745,9 +14216,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -14757,7 +14228,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.fontFamily
                          */
                         fontFamily?: string;
 
@@ -14767,7 +14238,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.fontSize
                          */
                         fontSize?: number;
 
@@ -14783,10 +14254,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.align
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.align
                          */
                         align?: string;
 
@@ -14802,10 +14273,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -14815,10 +14286,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.lineHeight
                          */
                         lineHeight?: number;
 
@@ -14829,7 +14300,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.label)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -14840,7 +14311,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -14853,7 +14324,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.borderColor
                          */
                         borderColor?: string;
 
@@ -14861,7 +14332,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.borderWidth
                          */
                         borderWidth?: number;
 
@@ -14869,7 +14340,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.borderRadius
                          */
                         borderRadius?: number;
 
@@ -14886,7 +14357,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.padding
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.padding
                          */
                         padding?: any[] | number;
 
@@ -14896,7 +14367,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.shadowColor
                          */
                         shadowColor?: string;
 
@@ -14904,7 +14375,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -14912,7 +14383,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -14920,7 +14391,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -14947,7 +14418,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.width
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.width
                          */
                         width?: number | string;
 
@@ -14964,7 +14435,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.height
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.height
                          */
                         height?: number | string;
 
@@ -14977,7 +14448,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -14985,7 +14456,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -14995,7 +14466,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -15003,7 +14474,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -15011,7 +14482,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -15019,7 +14490,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
 
@@ -15027,22 +14498,20 @@ declare namespace echarts {
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.label)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich
+                         * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -15052,7 +14521,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
                                 color?: string;
 
@@ -15068,7 +14537,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -15086,9 +14555,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -15098,7 +14567,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -15108,7 +14577,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
                                 fontSize?: number;
 
@@ -15126,10 +14595,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string;
 
@@ -15147,10 +14616,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -15161,10 +14630,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -15176,7 +14645,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-heatmap.heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -15188,7 +14657,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -15201,7 +14670,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
                                 borderColor?: string;
 
@@ -15209,7 +14678,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -15217,7 +14686,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -15236,7 +14705,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number;
 
@@ -15246,7 +14715,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -15254,7 +14723,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -15262,7 +14731,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -15270,7 +14739,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -15301,7 +14770,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string;
 
@@ -15319,7 +14788,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string;
 
@@ -15332,7 +14801,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -15340,7 +14809,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -15350,7 +14819,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -15358,7 +14827,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -15366,7 +14835,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -15374,7 +14843,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-heatmap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
                             };

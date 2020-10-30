@@ -102,7 +102,7 @@ interface Console {
      * This method does not display anything unless used in the inspector.
      *  Prints to `stdout` the array `array` formatted as a table.
      */
-    table(tabularData: any, properties?: string[]): void;
+    table(tabularData: any, properties?: ReadonlyArray<string>): void;
     /**
      * This method does not display anything unless used in the inspector.
      *  Adds an event with the label `label` to the Timeline panel of the inspector.
@@ -180,7 +180,6 @@ declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
-    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -224,11 +223,11 @@ declare var SlowBuffer: {
     new(str: string, encoding?: string): Buffer;
     new(size: number): Buffer;
     new(size: Uint8Array): Buffer;
-    new(array: any[]): Buffer;
+    new(array: ReadonlyArray<any>): Buffer;
     prototype: Buffer;
     isBuffer(obj: any): boolean;
     byteLength(string: string, encoding?: string): number;
-    concat(list: Buffer[], totalLength?: number): Buffer;
+    concat(list: ReadonlyArray<Buffer>, totalLength?: number): Buffer;
 };
 
 // Buffer class
@@ -328,7 +327,7 @@ declare var Buffer: {
      *
      * @param array The octets to store.
      */
-    new(array: any[]): Buffer;
+    new(array: ReadonlyArray<any>): Buffer;
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
@@ -349,7 +348,7 @@ declare var Buffer: {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    from(data: any[] | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
+    from(data: ReadonlyArray<any> | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -388,7 +387,7 @@ declare var Buffer: {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    concat(list: Uint8Array[], totalLength?: number): Buffer;
+    concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
@@ -694,7 +693,7 @@ declare namespace NodeJS {
         getegid(): number;
         setegid(id: number | string): void;
         getgroups(): number[];
-        setgroups(groups: Array<string | number>): void;
+        setgroups(groups: ReadonlyArray<string | number>): void;
         setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
         hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
@@ -1105,13 +1104,13 @@ declare module "http" {
 
         setTimeout(msecs: number, callback?: () => void): this;
         destroy(error: Error): void;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        addTrailers(headers: OutgoingHttpHeaders | Array<[string, string]>): void;
+        addTrailers(headers: OutgoingHttpHeaders | ReadonlyArray<[string, string]>): void;
         flushHeaders(): void;
     }
 
@@ -1680,6 +1679,7 @@ declare module "os" {
     export function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string };
     export var constants: {
         UV_UDP_REUSEADDR: number,
+        // signals: { [key in NodeJS.Signals]: number; }; @todo: change after migration to typescript 2.1
         signals: {
             SIGHUP: number;
             SIGINT: number;
@@ -1702,6 +1702,7 @@ declare module "os" {
             SIGCONT: number;
             SIGSTOP: number;
             SIGTSTP: number;
+            SIGBREAK: number;
             SIGTTIN: number;
             SIGTTOU: number;
             SIGURG: number;
@@ -1712,7 +1713,9 @@ declare module "os" {
             SIGWINCH: number;
             SIGIO: number;
             SIGPOLL: number;
+            SIGLOST: number;
             SIGPWR: number;
+            SIGINFO: number;
             SIGSYS: number;
             SIGUNUSED: number;
         },
@@ -1849,7 +1852,7 @@ declare module "punycode" {
     export var ucs2: ucs2;
     interface ucs2 {
         decode(string: string): number[];
-        encode(codePoints: number[]): string;
+        encode(codePoints: ReadonlyArray<number>): string;
     }
     export var version: any;
 }
@@ -2410,6 +2413,8 @@ declare module "child_process" {
         stdio: StdioStreams;
         killed: boolean;
         pid: number;
+        readonly exitCode: number | null;
+        readonly signalCode: number | null;
         kill(signal?: string): void;
         send(message: any, callback?: (error: Error) => void): boolean;
         send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error) => void): boolean;
@@ -2566,48 +2571,48 @@ declare module "child_process" {
 
     export function execFile(file: string): ChildProcess;
     export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
 
     // no `options` definitely means stdout/stderr are `string`.
     export function execFile(file: string, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
     export function execFile(file: string, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
 
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
     export function execFile(file: string, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
     export function execFile(file: string, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
     export function execFile(file: string, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
     export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
-    export function execFile(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace execFile {
         export function __promisify__(file: string): Promise<{ stdout: string, stderr: string }>;
-        export function __promisify__(file: string, args: string[] | undefined | null): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, args: ReadonlyArray<string> | undefined | null): Promise<{ stdout: string, stderr: string }>;
         export function __promisify__(file: string, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
+        export function __promisify__(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
         export function __promisify__(file: string, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
-        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
         export function __promisify__(file: string, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
-        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
         export function __promisify__(file: string, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
-        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
         export function __promisify__(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
-        export function __promisify__(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, args: ReadonlyArray<string> | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
     export interface ForkOptions {
@@ -2622,7 +2627,8 @@ declare module "child_process" {
         gid?: number;
         windowsVerbatimArguments?: boolean;
     }
-    export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
+    export function fork(modulePath: string, options?: ForkOptions): ChildProcess;
+    export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     export interface SpawnSyncOptions {
         cwd?: string;
@@ -2658,9 +2664,9 @@ declare module "child_process" {
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
     export function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
     export interface ExecSyncOptions {
         cwd?: string;
@@ -2710,9 +2716,9 @@ declare module "child_process" {
     export function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
     export function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
     export function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithStringEncoding): string;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptions): Buffer;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
 }
 
 declare module "url" {
@@ -2771,7 +2777,7 @@ declare module "url" {
     }
 
     export class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
+        constructor(init?: URLSearchParams | string | { [key: string]: string | ReadonlyArray<string> | undefined } | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;
@@ -3042,7 +3048,7 @@ declare module "dns" {
     }
 
     export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
-    export function setServers(servers: string[]): void;
+    export function setServers(servers: ReadonlyArray<string>): void;
     export function getServers(): string[];
 
     // Error codes
@@ -3373,7 +3379,7 @@ declare module "dgram" {
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     export class Socket extends events.EventEmitter {
-        send(msg: Buffer | string | Uint8Array | any[], port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: Buffer | string | Uint8Array | ReadonlyArray<any>, port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: Buffer | string | Uint8Array, offset: number, length: number, port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
         bind(port?: number, callback?: () => void): void;
@@ -3873,7 +3879,7 @@ declare module "fs" {
          * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        export function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
+        export function __promisify__(existingPath: PathLike, newPath: PathLike): Promise<void>;
     }
 
     /**
@@ -5364,7 +5370,7 @@ declare module "tls" {
              * An array of strings or a Buffer naming possible NPN protocols.
              * (Protocols should be ordered by their priority.)
              */
-            NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
+            NPNProtocols?: ReadonlyArray<string> | ReadonlyArray<Buffer> | ReadonlyArray<Uint8Array> | Buffer | Uint8Array,
             /**
              * An array of strings or a Buffer naming possible ALPN protocols.
              * (Protocols should be ordered by their priority.) When the server
@@ -5372,7 +5378,7 @@ declare module "tls" {
              * precedence over NPN and the server does not send an NPN extension
              * to the client.
              */
-            ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array,
+            ALPNProtocols?: ReadonlyArray<string> | ReadonlyArray<Buffer> | ReadonlyArray<Uint8Array> | Buffer | Uint8Array,
             /**
              * SNICallback(servername, cb) <Function> A function that will be
              * called if the client supports SNI TLS extension. Two arguments
@@ -6209,6 +6215,7 @@ declare module "domain" {
     export function create(): Domain;
 }
 
+/** @deprecated since v6.3.0 - use constants property exposed by the relevant module instead. */
 declare module "constants" {
     export var E2BIG: number;
     export var EACCES: number;
@@ -6344,15 +6351,25 @@ declare module "constants" {
     export var WSA_E_NO_MORE: number;
     export var WSA_E_CANCELLED: number;
     export var WSAEREFUSED: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGHUP` instead. */
     export var SIGHUP: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGINT` instead. */
     export var SIGINT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGILL` instead. */
     export var SIGILL: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGABRT` instead. */
     export var SIGABRT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGFPE` instead. */
     export var SIGFPE: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGKILL` instead. */
     export var SIGKILL: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSEGV` instead. */
     export var SIGSEGV: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTERM` instead. */
     export var SIGTERM: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGBREAK` instead. */
     export var SIGBREAK: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGWINCH` instead. */
     export var SIGWINCH: number;
     export var SSL_OP_ALL: number;
     export var SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
@@ -6455,30 +6472,55 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGQUIT` instead. */
     export var SIGQUIT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTRAP` instead. */
     export var SIGTRAP: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGIOT` instead. */
     export var SIGIOT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGBUS` instead. */
     export var SIGBUS: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGUSR1` instead. */
     export var SIGUSR1: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGUSR2` instead. */
     export var SIGUSR2: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPIPE` instead. */
     export var SIGPIPE: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGALRM` instead. */
     export var SIGALRM: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGCHLD` instead. */
     export var SIGCHLD: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSTKFLT` instead. */
     export var SIGSTKFLT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGCONT` instead. */
     export var SIGCONT: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSTOP` instead. */
     export var SIGSTOP: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTSTP` instead. */
     export var SIGTSTP: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTTIN` instead. */
     export var SIGTTIN: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGTTOU` instead. */
     export var SIGTTOU: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGURG` instead. */
     export var SIGURG: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGXCPU` instead. */
     export var SIGXCPU: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGXFSZ` instead. */
     export var SIGXFSZ: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGVTALRM` instead. */
     export var SIGVTALRM: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPROF` instead. */
     export var SIGPROF: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGIO` instead. */
     export var SIGIO: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPOLL` instead. */
     export var SIGPOLL: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGPWR` instead. */
     export var SIGPWR: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGSYS` instead. */
     export var SIGSYS: number;
+   /** @deprecated since v6.3.0 - use `os.constants.signals.SIGUNUSED` instead. */
     export var SIGUNUSED: number;
     export var defaultCoreCipherList: string;
     export var defaultCipherList: string;
@@ -7229,7 +7271,7 @@ declare module "http2" {
         readonly headersSent: boolean;
         removeHeader(name: string): void;
         sendDate: boolean;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         setTimeout(msecs: number, callback?: () => void): void;
         socket: net.Socket | tls.TLSSocket;
         statusCode: number;
@@ -7739,7 +7781,7 @@ declare module "perf_hooks" {
          * Property buffered defaults to false.
          * @param options
          */
-        observe(options: { entryTypes: string[], buffered?: boolean }): void;
+        observe(options: { entryTypes: ReadonlyArray<string>, buffered?: boolean }): void;
     }
 
     export namespace constants {

@@ -3,9 +3,9 @@ import { CSSModule } from '../index';
 
 export interface ListGroupProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
-    tag?: string | React.ReactType;
+    tag?: React.ElementType;
     flush?: boolean;
-    className?: string;
+    horizontal?: boolean | string;
     cssModule?: CSSModule;
 }
 

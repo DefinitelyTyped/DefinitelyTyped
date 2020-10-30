@@ -9,8 +9,8 @@
 
 /// <reference types="node" />
 
-import http = require('http');
-import Boom = require('@hapi/boom');
+import { Agent, IncomingMessage } from 'http';
+import { Boom } from '@hapi/boom';
 
 import {
     Plugin,
@@ -70,7 +70,7 @@ declare namespace h2o2 {
          */
         onResponse?: (this: RouteOptions,
             err: null | Boom,
-            res: http.IncomingMessage,
+            res: IncomingMessage,
             req: Request,
             h: ResponseToolkit,
             settings: ProxyHandlerOptions,
@@ -78,7 +78,7 @@ declare namespace h2o2 {
         /** ttl - if set to 'upstream', applies the upstream response caching policy to the response using the response.ttl() method (or passed as an argument to the onResponse method if provided). */
         ttl?: 'upstream';
         /** agent - a node http(s) agent to be used for connections to upstream server. @see {@link https://nodejs.org/api/http.html#http_class_http_agent} */
-        agent?: http.Agent;
+        agent?: Agent;
         /** maxSockets - sets the maximum number of sockets available per outgoing proxy host connection. false means use the wreck module default value (Infinity). Does not affect non-proxy outgoing client connections. Defaults to Infinity. */
         maxSockets?: false | number;
     }

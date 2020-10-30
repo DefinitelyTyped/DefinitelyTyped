@@ -1,7 +1,19 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "no-empty-interface": false,
         "no-unnecessary-generics": false,
-        "no-empty-interface": false
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
+        ]
     }
 }

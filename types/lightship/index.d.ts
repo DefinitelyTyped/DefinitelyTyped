@@ -1,30 +1,66 @@
-// Type definitions for lightship 3.0
+// Type definitions for lightship 6.1
 // Project: https://github.com/gajus/lightship#readme
-// Definitions by: Scott Chang <https://github.com/purmac>
+// Definitions by: Scott Chang <https://github.com/purmac>, Karoun Kasraie <https://github.com/karoun>, Jay Anslow <https://github.com/janslow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
+
+import { Server } from 'http';
 
 /**
  * A teardown function called when shutdown is initialized.
  * @param userConfiguration User configuration object
  */
-export function createLightship(userConfiguration?: UserConfigurationType): LightshipType;
+export function createLightship(configuration?: ConfigurationInputType): LightshipType;
 
-export interface UserConfigurationType {
-    /* Run Iapetus only if service is detected ro be running in Kubernetes. Default: true. */
+export type BeaconContextType = object;
+
+export interface BeaconControllerType {
+    die: () => Promise<void>;
+}
+
+export interface ConfigurationInputType {
+    /**
+     * Run Lightship in local mode when Kubernetes is not detected.
+     * @default true.
+     */
     detectKubernetes?: boolean;
-    /* The port on which the Lightship service listens. This port must be different than your main service port, if any. The default port is 9000.*/
+    /**
+     * A number of milliseconds before forcefull termination if process does not gracefully exit.
+     * The timer starts when `lightship.shutdown()` is called. This includes the time allowed to live beacons.
+     * @default 60_000
+     */
+    gracefulShutdownTimeout?: number;
+    /**
+     * The port on which the Lightship service listens. This port must be different than your main service port, if any.
+     * @default 9000
+     */
     port?: number;
-    /* An a array of [signal events]{@link https://nodejs.org/api/process.html#process_signal_events}. Default: [SIGTERM]. */
+    /**
+     * A number of milliseconds before forceful termination if shutdown handlers do not complete. The timer starts when the first shutdown handler is called.
+     * @default 5000
+     */
+    shutdownHandlerTimeout?: number;
+    /**
+     * An a array of [signal events](https://nodejs.org/api/process.html#process_signal_events).
+     * @default [SIGTERM, SIGHUP, SIGINT].
+     */
     signals?: ReadonlyArray<NodeJS.Signals>;
-    /* A number of milliseconds before force full termination. Default: 60000. */
-    timeout?: number;
+    /**
+     * Method used to terminate Node.js process
+     * @default `() => { process.exit(1) };`
+     */
+    terminate?: () => void;
 }
 
 export interface LightshipType {
-    /* Checks if server is in SERVER_IS_READY state */
+    createBeacon: (context?: BeaconContextType) => BeaconControllerType;
+    /**
+     * Checks if server is in SERVER_IS_READY state.
+     */
     isServerReady: () => boolean;
-    /* Checks if server is in SERVER_IS_SHUTTING_DOWN state */
+    /**
+     * Checks if server is in SERVER_IS_SHUTTING_DOWN state.
+     */
     isServerShuttingDown: () => boolean;
     /**
      * Registers teardown functions that are called when shutdown is initialized.
@@ -32,12 +68,22 @@ export interface LightshipType {
      * After all shutdown handlers have been executed, Lightship asks `process.exit()` to terminate the process synchronously.
      */
     registerShutdownHandler: (shutdownHandler: ShutdownHandlerType) => void;
-    /* Changes server state to SERVER_IS_SHUTTING_DOWN and initialises the shutdown of the application.*/
+    readonly server: Server;
+    /**
+     * Changes server state to SERVER_IS_SHUTTING_DOWN and initialises the shutdown of the application.
+     */
     shutdown: () => Promise<void>;
-    /* Changes server state to SERVER_IS_NOT_READY. */
+    /**
+     *  Changes server state to SERVER_IS_NOT_READY.
+     */
     signalNotReady: () => void;
-    /* Changes server state to SERVER_IS_READY. */
+    /**
+     * Changes server state to SERVER_IS_READY.
+     */
     signalReady: () => void;
 }
 
+/**
+ * A teardown function called when shutdown is initialized.
+ */
 export type ShutdownHandlerType = () => Promise<void> | void;

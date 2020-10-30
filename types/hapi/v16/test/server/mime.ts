@@ -1,13 +1,13 @@
 
 // From https://hapijs.com/api/16.1.1#servermime
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 const options: Hapi.ServerOptions = {
     mime: {
         override: {
             'node/module': {
-                source: 'steve',
+                source: 'apache',
                 compressible: false,
                 extensions: ['node', 'module', 'npm'],
                 type: 'node/module'

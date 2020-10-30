@@ -25,6 +25,7 @@
         "test/basic-tests.tsx",
         "test/custom-toolbar-tests.tsx",
         "test/focus-blur-callbacks-tests.tsx",
-        "test/uncontrolled-raw-draft-content-state.tsx"
+        "test/uncontrolled-raw-draft-content-state.tsx",
+        "test/custom-style-map-tests.tsx"
     ]
 }

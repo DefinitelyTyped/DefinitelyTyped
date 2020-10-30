@@ -1,8 +1,8 @@
 import Pubnub = require('pubnub');
 
 const console = {
-    log: (...params: any[]) => {},
-    error: (...params: any[]) => {},
+    log: (...params: any[]) => { },
+    error: (...params: any[]) => { },
 };
 
 const config: Pubnub.PubnubConfig = {
@@ -75,6 +75,51 @@ pubnub.addListener({
             data: { userId, spaceId, eTag, created, updated, custom },
         },
     }) => console.log({ userId, spaceId, eTag, created, updated, custom }),
+    messageAction: ({
+        channel,
+        publisher,
+        subscription,
+        timetoken,
+        message: {
+            event,
+            data: { type, value, uuid, actionTimetoken, messageTimetoken },
+        },
+    }) =>
+        console.log({
+            channel,
+            publisher,
+            subscription,
+            timetoken,
+            message: {
+                event,
+                data: { type, value, uuid, actionTimetoken, messageTimetoken },
+            },
+        }),
+    objects: ({
+        channel,
+        publisher,
+        subscription,
+        timetoken,
+        message: {
+            type,
+            event,
+            data
+        }
+    }) => {
+        console.log(
+            {
+                channel,
+                publisher,
+                subscription,
+                timetoken,
+                message: {
+                    type,
+                    event,
+                    data
+                }
+            }
+        );
+    }
 });
 
 pubnub.unsubscribe({ channels: ['channel-1'] });
@@ -125,9 +170,150 @@ pubnub.grant(grantOptions).then(status => {
     console.log(status);
 });
 
-pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => {
-    console.log(status, res);
+const grantUuidOptions = {
+    uuids: ['uuid-1'],
+    authKeys: ['auth-key'],
+    update: true
+};
+pubnub.grant(grantUuidOptions).then(status => {
+    console.log(status);
 });
+
+pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => console.log(status, res));
+
+pubnub.history({ channel: 'channel-1', count: 2 }).then(res => console.log(res));
+
+pubnub.fetchMessages(
+    {
+        channels: ['my_channel'],
+        stringifiedTimeToken: true,
+        start: '15343325214676133',
+        end: '15343325004275466',
+        includeMeta: true,
+        includeMessageActions: true,
+    },
+    (status, { channels }) =>
+        Object.keys(channels).forEach(channel =>
+            channels[channel].forEach(({ message, timetoken, meta, actions = {} }) => {
+                console.log({ message, timetoken, meta });
+                Object.keys(actions).forEach(type =>
+                    Object.keys(actions[type]).forEach(value =>
+                        actions[type][value].forEach(({ uuid, actionTimetoken }) =>
+                            console.log({ uuid, actionTimetoken }),
+                        ),
+                    ),
+                );
+            }),
+        ),
+);
+
+pubnub
+    .fetchMessages({
+        channels: ['my_channel'],
+        stringifiedTimeToken: true,
+        start: '15343325214676133',
+        end: '15343325004275466',
+    })
+    .then(res => console.log(res));
+
+pubnub.deleteMessages(
+    {
+        channel: 'ch1',
+        start: '15088506076921021',
+        end: '15088532035597390',
+    },
+    status => console.log(status),
+);
+
+pubnub
+    .deleteMessages({
+        channel: 'ch1',
+        start: '15088506076921021',
+        end: '15088532035597390',
+    })
+    .then();
+
+pubnub.messageCounts(
+    {
+        channels: ['ch1'],
+        channelTimetokens: ['15518041524300251'],
+    },
+    (status, { channels }) => {
+        Object.keys(channels).forEach(channel => {
+            console.log(channels[channel]);
+        });
+    },
+);
+
+pubnub
+    .messageCounts({
+        channels: ['ch1'],
+        channelTimetokens: ['15518041524300251'],
+    })
+    .then(res => console.log(res));
+
+pubnub.push.addChannels(
+    {
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    },
+    status => console.log(status),
+);
+
+pubnub.push
+    .addChannels({
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    })
+    .then();
+
+pubnub.push.listChannels(
+    {
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    },
+    (status, { channels = [] }) => channels.forEach(channel => console.log(channel)),
+);
+
+pubnub.push
+    .listChannels({
+        device: 'niceDevice',
+        pushGateway: 'apns',
+    })
+    .then(res => console.log(res));
+
+pubnub.push.removeChannels(
+    {
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    },
+    status => console.log(status),
+);
+pubnub.push
+    .removeChannels({
+        channels: ['a', 'b'],
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    })
+    .then();
+
+pubnub.push.deleteDevice(
+    {
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    },
+    status => console.log(status),
+);
+
+pubnub.push
+    .deleteDevice({
+        device: 'niceDevice',
+        pushGateway: 'apns', // apns, gcm, mpns
+    })
+    .then();
 
 const cryptoOptions = {
     encryptKey: true,
@@ -145,6 +331,8 @@ pubnub.decrypt('mySecretString', undefined, cryptoOptions);
 pubnub.encrypt('egrah5rwgrehwqh5eh3hwfwef', undefined, cryptoOptions);
 
 pubnub.time().then(response => console.log(response));
+
+pubnub.time((status, response) => console.log(status, response));
 
 const channelGroup = 'channel-group-1';
 const channels = ['channel-1'];
@@ -501,3 +689,215 @@ pubnub
         users: ['user-1', 'user-2'],
     })
     .then(res => console.log(res));
+
+pubnub.addMessageAction(
+    {
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        action: {
+            type: 'reaction',
+            value: 'smiley_face',
+        },
+    },
+    (status, { data: { type, value, uuid, actionTimetoken, messageTimetoken } }) =>
+        console.log({ type, value, uuid, actionTimetoken, messageTimetoken }),
+);
+
+pubnub
+    .addMessageAction({
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        action: {
+            type: 'reaction',
+            value: 'smiley_face',
+        },
+    })
+    .then(res => console.log(res));
+
+pubnub.removeMessageAction(
+    {
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        actionTimetoken: '15610547826970040',
+    },
+    (status, data) => console.log(status, data),
+);
+
+pubnub
+    .removeMessageAction({
+        channel: 'channel1',
+        messageTimetoken: '15610547826970040',
+        actionTimetoken: '15610547826970040',
+    })
+    .then(res => console.log(res));
+
+pubnub.getMessageActions(
+    {
+        channel: 'channel1',
+        start: '15610547826970040',
+        end: '15610547826970040',
+        limit: 100,
+    },
+    (status, { data }) => {
+        data.forEach(({ type, value, uuid, actionTimetoken, messageTimetoken }, index) => {
+            console.log(index, { type, value, uuid, actionTimetoken, messageTimetoken });
+        });
+    },
+);
+
+pubnub
+    .getMessageActions({
+        channel: 'channel1',
+        start: '15610547826970040',
+        end: '15610547826970040',
+        limit: 100,
+    })
+    .then(res => console.log(res));
+
+// APNS
+
+Pubnub.notificationPayload('Chat invitation', "You have been invited to 'quiz' chat").buildPayload(['apns2', 'fcm']);
+
+// Objects v2 (examples taken from docs https://www.pubnub.com/docs/web-javascript/api-reference-objects)
+
+pubnub.objects.getAllUUIDMetadata();
+
+// using UUID from the config
+pubnub.objects.getUUIDMetadata();
+
+// using passed in UUID
+pubnub.objects.getUUIDMetadata({
+    uuid: 'myUuid',
+});
+
+// using UUID from the config
+pubnub.objects.setUUIDMetadata({
+    data: {
+        name: 'John Doe',
+    },
+});
+
+// using passed in UUID
+pubnub.objects.setUUIDMetadata({
+    uuid: 'myUuid',
+    data: {},
+});
+
+// using UUID from the config
+pubnub.objects.removeUUIDMetadata();
+
+// using passed in UUID
+pubnub.objects.removeUUIDMetadata({
+    uuid: 'myUuid',
+});
+
+pubnub.objects.getAllChannelMetadata({
+    include: {
+        totalCount: true,
+    },
+});
+
+pubnub.objects.getChannelMetadata({
+    channel: 'myChannel',
+});
+
+pubnub.objects.setChannelMetadata({
+    channel: 'myChannel',
+    data: {
+        name: 'Channel Name',
+    },
+});
+
+pubnub.objects.removeChannelMetadata({
+    channel: 'myChannel',
+});
+
+// using UUID from the config
+pubnub.objects.getMemberships();
+
+// using passed in UUID
+pubnub.objects.getMemberships({
+    uuid: 'myUuid',
+    include: {
+        channelFields: true,
+    },
+});
+
+// using UUID from the config
+pubnub.objects.setMemberships({
+    channels: ['ch-1', 'ch-2'],
+});
+
+// using passed in UUID
+pubnub.objects.setMemberships({
+    uuid: 'my-uuid',
+    channels: ['my-channel-1', { id: 'my-channel-2' }, { id: 'my-channel-3', custom: { hello: 'world' } }],
+    include: {
+        // To include channel fields in response
+        channelFields: true,
+    },
+});
+
+// using UUID from the config
+pubnub.objects.removeMemberships({
+    channels: ['ch-1', 'ch-2'],
+});
+
+// using passed in UUID
+pubnub.objects.removeMemberships({
+    uuid: 'myUuid',
+    channels: ['ch-1', 'ch-2'],
+});
+
+pubnub.objects.getChannelMembers({
+    channel: 'myChannel',
+    include: {
+        UUIDFields: true,
+    },
+});
+
+pubnub.objects.setChannelMembers({
+    channel: 'myChannel',
+    uuids: ['uuid-1', 'uuid-2'],
+    page: {
+        next: "abc",
+        prev: "def"
+    }
+});
+
+pubnub.objects.removeChannelMembers({
+    channel: 'myChannel',
+    uuids: ['uuid-1', 'uuid-2'],
+});
+
+pubnub.listFiles({
+    channel: 'myChannel',
+    limit: 10
+});
+
+pubnub.sendFile({
+    channel: 'myChannel',
+    file: {
+        data: [ 12, 34 ],
+        name: 'cat_picture.jpg'
+    }
+});
+
+pubnub.downloadFile({
+    channel: 'myChannel',
+    id: '...',
+    name: 'cat_picture.jpg'
+});
+
+pubnub.deleteFile({
+    channel: 'myChannel',
+    id: '...',
+    name: 'cat_picture.jpg'
+});
+
+pubnub.publishFile({
+    channel: 'myChannel',
+    fileId: '...',
+    fileName: 'cat_picture.jpg',
+    message: { field: 'value' }
+});

@@ -26,18 +26,18 @@ class TestModel extends Backbone.Model {
 class TestCollection extends Backbone.Collection<TestModel> {
 
     constructor(models?: any, options?: any) {
-	super(models, options);
-	this.model = TestModel;
+    super(models, options);
+    this.model = TestModel;
     }
 
     initialize() {
 
-	this.on("change", this.modelChanged, this)
+    this.on("change", this.modelChanged, this)
     }
 
     modelChanged(model: Backbone.Model, val: any, options: any){
 
-	model.save();
+    model.save();
     }
 }
 
@@ -46,26 +46,26 @@ class TestView extends Backbone.View<TestModel> {
     testCollection: TestCollection;
     
     constructor(viewOptions?: Backbone.ViewOptions<TestModel>) {
-	super(viewOptions);
-	this.testCollection = new TestCollection();
-	this.gridView = new Backgrid.Grid({
+    super(viewOptions);
+    this.testCollection = new TestCollection();
+    this.gridView = new Backgrid.Grid({
             columns: [new Backgrid.Column({name: "FirstName", cell: "string", label: "First Name"}), 
-		      new Backgrid.Column({name: "LastName", cell: "string", label: "Last Name"}),
-		      new Backgrid.Column({name: "EMail", cell: "string", label: "E-Mail"})],
-		      collection:this.testCollection,
-		     });
-					  
-	
+              new Backgrid.Column({name: "LastName", cell: "string", label: "Last Name"}),
+              new Backgrid.Column({name: "EMail", cell: "string", label: "E-Mail"})],
+              collection:this.testCollection,
+             });
+                      
+    
     }
     
     initialize() {
     }
     
     render() {
-	this.$el.empty();
-	this.$el.append(this.gridView.render().$el);
-	//this.testCollection.fetch();
-	return this;
+    this.$el.empty();
+    this.$el.append(this.gridView.render().$el);
+    //this.testCollection.fetch();
+    return this;
     }
     
 }

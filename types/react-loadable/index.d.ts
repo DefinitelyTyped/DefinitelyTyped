@@ -28,8 +28,7 @@ declare namespace LoadableExport {
          * If you don't want to render anything you can pass a function that returns null
          * (this is considered a valid React component).
          */
-        // NOTE: () => null is only needed until React.SFC supports components returning null
-        loading: React.ComponentType<LoadingComponentProps> | (() => null);
+        loading: React.ComponentType<LoadingComponentProps>;
         /**
          * Defaults to 200, in milliseconds.
          *
@@ -189,7 +188,7 @@ declare namespace LoadableExport {
 
 declare const LoadableExport: LoadableExport.Loadable;
 
-/* tslint:disable-next-line */
+/* tslint:disable-next-line:no-declare-current-package no-single-declare-module */
 declare module "react-loadable" {
     export = LoadableExport;
 }

@@ -11,11 +11,10 @@ declare namespace echarts {
          * on touch screens.
          *
          * @todo describe
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom-inside
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom-slider
+         * @see https://echarts.apache.org/en/option.html#dataZoom-inside
+         * @see https://echarts.apache.org/en/option.html#dataZoom-slider
          */
-        type DataZoom = DataZoom.Inside
-            | DataZoom.Slider;
+        type DataZoom = DataZoom.Inside | DataZoom.Slider;
 
         namespace DataZoom {
             /**
@@ -28,12 +27,12 @@ declare namespace echarts {
              * Mobile: when touches and moved with two fingers in coordinates
              * on touch screens.
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom-inside
+             * @see https://echarts.apache.org/en/option.html#dataZoom-inside
              */
             interface Inside {
                 type?: string;
                 id?: string;
-                disable?: boolean;
+                disabled?: boolean;
                 xAxisIndex?: number | number[];
                 yAxisIndex?: number | number[];
                 radiusAxisIndex?: number | number[];
@@ -59,7 +58,7 @@ declare namespace echarts {
             }
 
             /**
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom-slider
+             * @see https://echarts.apache.org/en/option.html#dataZoom-slider
              */
             interface Slider {
                 type?: string;
@@ -70,7 +69,7 @@ declare namespace echarts {
                 fillerColor?: string;
                 borderColor?: string;
                 handleIcon?: string;
-                handleSize?: number;
+                handleSize?: number | string;
                 handleStyle?: object;
                 labelPrecision?: number;
                 labelFormatter?: string | Function;

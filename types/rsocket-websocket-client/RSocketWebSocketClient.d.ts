@@ -1,16 +1,7 @@
-import { ConnectionStatus, DuplexConnection, Frame, ISubject, ISubscriber, ISubscription, CONNECTION_STATUS } from 'rsocket-types';
+import { ConnectionStatus, DuplexConnection, Frame } from 'rsocket-types';
 
 import { Flowable } from 'rsocket-flowable';
-import {
-  deserializeFrame,
-  deserializeFrameWithLength,
-  Encoders,
-  printFrame,
-  serializeFrame,
-  serializeFrameWithLength,
-  toBuffer,
-} from 'rsocket-core';
-import * as ws from 'ws';
+import { Encoders } from 'rsocket-core';
 
 export interface ClientOptions {
     url: string;

@@ -8,7 +8,7 @@
 /// <reference types="webgl2" />
 
 // https://html.spec.whatwg.org/multipage/canvas.html#dom-canvas-transfercontroltooffscreen
-interface HTMLCanvasElement extends HTMLElement {
+interface HTMLCanvasElement {
     transferControlToOffscreen(): OffscreenCanvas;
 }
 
@@ -60,20 +60,19 @@ declare function createImageBitmap(image: ImageBitmapSource | OffscreenCanvas, s
                                    sw: number, sh: number): Promise<ImageBitmap>;
 
 // OffscreenCanvas should be a part of Transferable => extend all postMessage methods
-interface Worker extends EventTarget, AbstractWorker {
+interface Worker {
     postMessage(message: any, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 
-interface ServiceWorker extends EventTarget, AbstractWorker {
+interface ServiceWorker {
     postMessage(message: any, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 
-interface MessagePort extends EventTarget {
+interface MessagePort {
     postMessage(message: any, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 
-interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole,
-    GlobalEventHandlers, IDBEnvironment, WindowBase64, WindowOrWorkerGlobalScope, WindowEventHandlers {
+interface Window {
     postMessage(message: any, targetOrigin: string, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 

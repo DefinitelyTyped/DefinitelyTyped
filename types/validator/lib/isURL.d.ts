@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isURL: typeof validator.isURL;
-export = isURL;
+import validator from '../';
+export type IsURLOptions = validator.IsURLOptions;
+export default validator.isURL;

@@ -28,7 +28,44 @@ interface ScrollAreaProps extends React.Props<ScrollArea> {
     focusableTabIndex?: number
 }
 
-declare class ScrollArea extends React.Component<ScrollAreaProps> {}
+declare class ScrollArea extends React.Component<ScrollAreaProps> {
+  /**
+   * Allows manual refreshing of the scrollbar.
+   */
+  refresh: () => void;
+
+  /**
+   * Allows to scroll to the top of ScrollArea component.
+   */
+  scrollTop: () => void;
+
+  /**
+   * Allows to scroll to the bottom of ScrollArea component.
+   */
+  scrollBottom: () => void;
+
+  /**
+   * Moves vertical scrollbar.
+   * topPosition is a distance between the top of scrollArea container and the top of scrollArea content.
+   */
+  scrollYTo: (topPosition: number) => void;
+
+  /**
+   * Allows to scroll to the left of ScrollArea component.
+   */
+  scrollLeft: () => void;
+
+  /**
+   * Allows to scroll to the right of ScrollArea component.
+   */
+  scrollRight: () => void;
+
+  /**
+   * Moves horizontal scrollbar.
+   * leftPosition is a distance between left edge of scrollArea container and left edge of scrollArea content.
+   */
+  scrollXTo: (leftPosition: number) => void;
+}
 
 declare module "react-scrollbar" {
     export = ScrollArea;

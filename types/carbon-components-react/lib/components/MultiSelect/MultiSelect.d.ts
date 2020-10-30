@@ -1,35 +1,51 @@
 import * as React from "react";
-import { DownshiftTypedProps, InternationalProps, ListBoxBaseItemType, RequiresIdProps, ThemeProps, ValidityProps } from "../../../typings/shared";
+import {
+    InternationalProps,
+    ListBoxBaseItemType,
+    VerticalDirection,
+    ForwardRefProps,
+    FCReturn
+} from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 import FilterableMultiSelect from "./FilterableMultiSelect";
 import { MultiSelectSortingProps } from "./MultiSelectPropTypes";
+import { ListBoxSize } from "../ListBox/ListBoxPropTypes";
+import { ListBoxSelectionTranslationKey } from "../ListBox/ListBoxSelection";
 
-interface InheritedProps<T extends ListBoxBaseItemType = string> extends
-    DownshiftTypedProps<T>,
-    InternationalProps<ListBoxMenuIconTranslationKey>,
+export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extends
     MultiSelectSortingProps<T>,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps
+    InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey>
 {
+    direction?: VerticalDirection,
     disabled?: ListBoxProps["disabled"],
-    type?: ListBoxProps["type"],
-}
-
-export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extends InheritedProps<T> {
     downshiftProps?: any, // TODO
-    initialSelectedItems?: T[],
+    id: string,
+    initialSelectedItems?: readonly T[],
+    items: readonly T[],
+    itemToString?(item: T | null | undefined): string;
     inline?: boolean,
+    invalid?: boolean,
+    invalidText?: React.ReactNode,
     label?: React.ReactNode,
+    light?: boolean,
     locale?: string,
+    onChange: ({ selectedItems }: { selectedItems: T[] }) => void,
     open?: boolean,
     selectionFeedback?: "fixed" | "top" | "top-after-reopen",
+    size?: ListBoxSize,
+    titleText?: string,
+    type?: ListBoxProps["type"],
     useTitleInItem?: boolean,
+    warn?: boolean,
+    warnText?: React.ReactNode,
 }
 
-declare class MultiSelect<T extends ListBoxBaseItemType = string> extends React.Component<MultiSelectProps<T>> {
-    static readonly Filterable: FilterableMultiSelect;
+interface MultiSelect<T extends ListBoxBaseItemType = string> {
+    (props: ForwardRefProps<HTMLButtonElement, MultiSelectProps<T>>): FCReturn
+    readonly Filterable: typeof FilterableMultiSelect;
 }
+
+declare const MultiSelect: MultiSelect;
 
 export default MultiSelect;

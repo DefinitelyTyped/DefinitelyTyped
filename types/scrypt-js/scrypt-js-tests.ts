@@ -1,5 +1,3 @@
-import scrypt = require('scrypt-js');
-
 const testBuffer = Buffer.from('test');
 const testArray = [74, 65, 73, 74];
 const testUint8Array = Uint8Array.from(testArray);

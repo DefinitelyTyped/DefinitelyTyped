@@ -19,6 +19,11 @@
  * async function uploadFile(ctx: Koa.Context){
  *     let multerReq = <multer.MulterIncomingMessage>ctx.req;
  *     let files = multerReq.files;
+ *
+ *     // You can also directly access the files property from the context object or request object:
+ *     files = ctx.files;
+ *     files = ctx.request.files;
+ *
  *     let baseFilePath: string = ctx.params.path || '';
  *     //...
  * }
@@ -31,6 +36,18 @@
 
 import * as Koa from 'koa';
 import { IncomingMessage } from 'http';
+
+declare module 'koa' {
+    interface DefaultContext {
+        file: multer.File;
+        files: multer.File[];
+    }
+
+    interface Request {
+        file: multer.File;
+        files: multer.File[];
+    }
+}
 
 declare namespace multer {
     interface File {

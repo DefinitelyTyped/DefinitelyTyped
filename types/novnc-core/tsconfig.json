@@ -19,10 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/display.d.ts",
-        "lib/input/devices.d.ts",
-        "lib/util/events.d.ts",
-        "lib/util/logging.d.ts",
         "novnc-core-tests.ts"
     ]
 }

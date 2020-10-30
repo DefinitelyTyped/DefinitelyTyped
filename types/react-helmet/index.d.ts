@@ -1,4 +1,4 @@
-// Type definitions for react-helmet 5.0
+// Type definitions for react-helmet 6.1
 // Project: https://github.com/nfl/react-helmet
 // Definitions by: Evan Bremer <https://github.com/evanbb>
 //                 Isman Usoh <https://github.com/isman-usoh>
@@ -6,14 +6,21 @@
 //                 Kok Sam <https://github.com/sammkj>
 //                 Yui T. <https://github.com/yuit>
 //                 Yamagishi Kazutoshi <https://github.com/ykzts>
+//                 Justin Hall <https://github.com/wKovacs64>
+//                 Andriy2 <https://github.com/Andriy2>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
-type HtmlProps = JSX.IntrinsicElements['html'];
+interface OtherElementAttributes {
+    [key: string]: string | number | boolean | null | undefined;
+}
 
-type BodyProps = JSX.IntrinsicElements['body']
+type HtmlProps = JSX.IntrinsicElements['html'] & OtherElementAttributes;
+
+type BodyProps = JSX.IntrinsicElements['body'] & OtherElementAttributes;
 
 type LinkProps = JSX.IntrinsicElements['link'];
 
@@ -36,11 +43,7 @@ export interface HelmetProps {
     defer?: boolean;
     encodeSpecialCharacters?: boolean;
     htmlAttributes?: HtmlProps;
-    onChangeClientState?: (
-        newState: any,
-        addedTags: HelmetTags,
-        removedTags: HelmetTags,
-    ) => void;
+    onChangeClientState?: (newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void;
     link?: LinkProps[];
     meta?: MetaProps[];
     noscript?: Array<any>;
@@ -51,12 +54,17 @@ export interface HelmetProps {
     titleTemplate?: string;
 }
 
-export class Helmet extends React.Component<HelmetProps> {
+declare class Helmet extends React.Component<HelmetProps> {
     static peek(): HelmetData;
     static rewind(): HelmetData;
     static renderStatic(): HelmetData;
     static canUseDOM: boolean;
 }
+
+declare const HelmetExport: typeof Helmet;
+
+export { HelmetExport as Helmet };
+export default HelmetExport;
 
 export interface HelmetData {
     base: HelmetDatum;
@@ -90,4 +98,3 @@ export const peek: () => HelmetData;
 export const rewind: () => HelmetData;
 export const renderStatic: () => HelmetData;
 export const canUseDOM: boolean;
-export default Helmet;

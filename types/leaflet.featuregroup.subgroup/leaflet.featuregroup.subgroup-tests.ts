@@ -3,7 +3,7 @@ import 'leaflet.featuregroup.subgroup';
 
 // Setup
 interface MyProperties {
-	testProperty: string;
+    testProperty: string;
 }
 const parentGroup1: L.LayerGroup = L.layerGroup();
 const latLng: L.LatLng = L.latLng(10, 10);

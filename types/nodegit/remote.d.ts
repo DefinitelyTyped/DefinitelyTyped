@@ -26,7 +26,7 @@ export namespace Remote {
 export class Remote {
     static addFetch(repo: Repository, remote: string, refspec: string): number;
     static addPush(repo: Repository, remote: string, refspec: string): number;
-    static create(repo: Repository, name: string, url: string): Remote;
+    static create(repo: Repository, name: string, url: string): Promise<Remote>;
     static createAnonymous(repo: Repository, url: string): Promise<Remote>;
     static createDetached(url: string): Promise<Remote>;
     static createWithFetchspec(repo: Repository, name: string, url: string, fetch: string): Promise<Remote>;

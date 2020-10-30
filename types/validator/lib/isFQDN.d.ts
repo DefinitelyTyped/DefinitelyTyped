@@ -1,3 +1,3 @@
-import * as validator from "validator";
-declare const isFQDN: typeof validator.isFQDN;
-export = isFQDN;
+import validator from '../';
+export type IsFQDNOptions = validator.IsFQDNOptions;
+export default validator.isFQDN;

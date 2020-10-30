@@ -10,15 +10,16 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "clearbladejs-server-tests.ts",
-        "global.d.ts"
+        "clearbladejs-server-tests.ts"
     ],
     "exclude": [
         "**/clearbladejs-client/*",

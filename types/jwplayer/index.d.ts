@@ -157,7 +157,10 @@ declare namespace jwplayer {
     }
 
     interface ErrorParam {
+        code: number;
         message: string;
+        sourceError: object | null;
+        type: 'error';
     }
 
     interface FullscreenParam {
@@ -177,7 +180,7 @@ declare namespace jwplayer {
     }
 
     interface VolumeParam {
-        volume: boolean;
+        volume: number;
     }
 
     interface PlayParam {
@@ -208,6 +211,11 @@ declare namespace jwplayer {
         mode: string;
         label: string;
         reason: string;
+    }
+
+    interface PlaybackRateChangedParam {
+        playbackRate: number;
+        position: number;
     }
 
     interface LevelsParam {
@@ -308,6 +316,7 @@ declare namespace jwplayer {
         ready: ReadyParam;
         resize: ResizeParam;
         visualQuality: VisualQualityParam;
+        playbackRateChanged: PlaybackRateChangedParam;
         levels: LevelsParam;
         seek: SeekParam;
         setupError: ErrorParam;
@@ -343,12 +352,15 @@ declare namespace jwplayer {
         getEnvironment(): Environment;
         getWidth(): number;
         getVisualQuality(): QualityLevel | undefined;
+        getPlaybackRate(): number;
         load(playlist: any[] | string): void;
         on<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): void;
         on(event: NoParamEvent, callback: () => void): void;
         once<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): void;
         once(event: NoParamEvent, callback: () => void): void;
         off(event: keyof EventParams | NoParamEvent): void;
+        off(event: NoParamEvent, callback: () => void): void;
+        off<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): void;
         trigger<TEvent extends keyof EventParams>(event: TEvent, args: EventParams[TEvent]): void;
         trigger(event: NoParamEvent): void;
         pause(state?: boolean): void;
@@ -364,6 +376,7 @@ declare namespace jwplayer {
         setCurrentAudioTrack(index: number): void;
         setCurrentCaptions(index: number): void;
         setCurrentQuality(index: number): void;
+        setPlaybackRate(rate: number): void;
         setFullscreen(state: boolean): void;
         setMute(state?: boolean): void;
         setup(options: any): JWPlayer;

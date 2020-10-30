@@ -15,6 +15,11 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "puppeteer": [
+                "puppeteer/v1"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

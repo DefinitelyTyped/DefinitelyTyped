@@ -9,7 +9,6 @@ export interface Disposable {
 
 export type DataID = string;
 
-// Variables
 export interface Variables {
     [name: string]: any;
 }
@@ -17,7 +16,12 @@ export interface Variables {
 export interface OperationType {
     readonly variables: Variables;
     readonly response: unknown;
+    readonly rawResponse?: unknown;
 }
+
+export type VariablesOf<TQuery extends OperationType> = TQuery['variables'];
+
+export type DisposeFn = () => void;
 
 /**
  * Settings for how a query response may be cached.
@@ -39,3 +43,10 @@ export interface CacheConfig {
     metadata?: { [key: string]: unknown };
     transactionId?: string | null;
 }
+
+/**
+ * Experimental
+ */
+export type FetchQueryFetchPolicy = 'store-or-network' | 'network-only';
+export type FetchPolicy = FetchQueryFetchPolicy | 'store-and-network' | 'store-only';
+export type RenderPolicy = 'full' | 'partial';

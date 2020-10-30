@@ -1,369 +1,285 @@
-declare let aHtmlElement: HTMLElement;
+import { Alert, Button, Carousel, Collapse, Dropdown, Modal, Popover, ScrollSpy, Tab, Toast, Tooltip } from 'bootstrap';
 
-// --------------------------------------------------------------------------------------
-// Alert
-// --------------------------------------------------------------------------------------
+const element = new Element();
 
-// $ExpectType JQuery<HTMLElement>
-$("#alert").alert();
+/**
+ * Alert
+ */
 
-// $ExpectType JQuery<HTMLElement>
-$("#alert").alert("close");
+// $ExpectType Alert
+let instanceAlert = new Alert(element);
 
-$("#alert").on("close.bs.alert", () => {});
+// $ExpectType Alert
+instanceAlert = Alert.getInstance(element);
 
-// --------------------------------------------------------------------------------------
-// Button
-// --------------------------------------------------------------------------------------
-
-// $ExpectError
-$("#button").button();
-
-// $ExpectType JQuery<HTMLElement>
-$("#button").button("toggle");
-
-// --------------------------------------------------------------------------------------
-// Carousel
-// --------------------------------------------------------------------------------------
-
-// $ExpectType JQuery<HTMLElement>
-$("#carousel").carousel();
-
-// $ExpectType JQuery<HTMLElement>
-$("#carousel").carousel("pause");
-
-$("#carousel").carousel(100);
-
-$("#carousel").on("slide.bs.carousel", function(e) {
-    const that: HTMLElement = this;
-
-    const data: undefined = e.data;
-    const carousel: HTMLElement = e.target;
-
-    const direction: string = e.direction;
-    const relatedTarget: HTMLElement = e.relatedTarget;
-    const from: number = e.from;
-    const to: number = e.to;
+element.addEventListener(Alert.Events.close, event => {
+    // do something…
 });
 
-$("#carousel").carousel({
-    interval: 5000,
-    keyboard: true,
-    slide: false,
-    pause: "hover",
-    wrap: true,
-    touch: false,
+element.addEventListener(Alert.Events.closed, event => {
+    // do something…
 });
 
-$("#carousel").carousel({
-    slide: "prev",
+/**
+ * Button
+ */
+
+// $ExpectType Button
+const button = new Button(element);
+
+/**
+ * Carousel
+ */
+
+// $ExpectType Carousel
+const carousel = new Carousel(element, { interval: 1000 });
+
+// $ExpectType Carousel
+const instanceCarousel = Carousel.getInstance(element);
+
+element.addEventListener(Carousel.Events.slid, event => {
+    // do something…
 });
 
-$("#carousel").carousel({
-    pause: false,
+element.addEventListener(Carousel.Events.slide, event => {
+    // do something…
 });
 
-$("#carousel").carousel({
-    interval: false,
+/**
+ * Collapse
+ */
+
+// $ExpectType Collapse
+const collapse = new Collapse(element, { parent: '.parent' });
+
+// $ExpectType Collapse
+const instanceCollapse = Collapse.getInstance(element);
+
+element.addEventListener(Collapse.Events.show, event => {
+    // do something…
 });
 
-// --------------------------------------------------------------------------------------
-// Collapse
-// --------------------------------------------------------------------------------------
-
-// $ExpectType JQuery<HTMLElement>
-$("#collapse").collapse();
-
-// $ExpectType JQuery<HTMLElement>
-$("#collapse").collapse("toggle");
-
-$("#collapse").on("show.bs.collapse", () => {});
-
-$("#collapse").collapse({
-    parent: "#parent",
-    toggle: true,
+element.addEventListener(Collapse.Events.shown, event => {
+    // do something…
 });
 
-$("#collapse").collapse({
-    parent: aHtmlElement,
+element.addEventListener(Collapse.Events.hide, event => {
+    // do something…
 });
 
-$("#collapse").collapse({
-    parent: $("#parent"),
+element.addEventListener(Collapse.Events.hidden, event => {
+    // do something…
 });
 
-$("#collapse").collapse({
-    toggle: false,
+/**
+ * Dropdown
+ */
+
+// $ExpectType Dropdown
+const dropdown = new Dropdown(element, { offset: 10 });
+
+// $ExpectType Dropdown
+const instanceDropdown = Dropdown.getInstance(element);
+
+element.addEventListener(Dropdown.Events.show, event => {
+    // do something…
 });
 
-// --------------------------------------------------------------------------------------
-// Dropdown
-// --------------------------------------------------------------------------------------
-
-// $ExpectType JQuery<HTMLElement>
-$("#dropdown").dropdown();
-
-// $ExpectType JQuery<HTMLElement>
-$("#dropdown").dropdown("update");
-
-$("#dropdown").on("hide.bs.dropdown", (e) => {
-    const data: undefined = e.data;
-    const container: HTMLElement = e.target;
-    const togglingAnchorElement: HTMLElement = e.relatedTarget;
+element.addEventListener(Dropdown.Events.shown, event => {
+    // do something…
 });
 
-$("#dropdown").dropdown({
-    offset: 10,
-    flip: false,
-    boundary: "window",
-    reference: "toggle",
-    display: "dynamic",
+element.addEventListener(Dropdown.Events.hide, event => {
+    // do something…
 });
 
-$("#dropdown").dropdown({
-    offset: "10px",
+element.addEventListener(Dropdown.Events.hidden, event => {
+    // do something…
 });
 
-$("#dropdown").dropdown({
-    offset(offsets: Bootstrap.OffsetsExtend) {
-        if (!this.flip)
-            return { popper: { left: 100 } };
-        return {};
-    },
+/**
+ * Modal
+ */
+
+// $ExpectType Modal
+const modal = new Modal(element, { backdrop: 'static' });
+
+// $ExpectType Modal
+const instanceModal = Modal.getInstance(element);
+
+element.addEventListener(Modal.Events.show, event => {
+    // do something…
 });
 
-$("#dropdown").dropdown({
-    boundary: aHtmlElement,
+element.addEventListener(Modal.Events.shown, event => {
+    // do something…
 });
 
-$("#dropdown").dropdown({
-    reference: aHtmlElement,
+element.addEventListener(Modal.Events.hide, event => {
+    // do something…
 });
 
-// --------------------------------------------------------------------------------------
-// Modal
-// --------------------------------------------------------------------------------------
-
-// $ExpectType JQuery<HTMLElement>
-$("#modal").modal();
-
-// $ExpectType JQuery<HTMLElement>
-$("#modal").modal("show");
-
-$("#modal").on("show.bs.modal", (e) => {
-    const data: undefined = e.data;
-    const modal: HTMLElement = e.target;
-    if (e.relatedTarget) {
-        const clickedElement: HTMLElement = e.relatedTarget;
-    }
+element.addEventListener(Modal.Events.hidden, event => {
+    // do something…
 });
 
-$("#modal").modal({
-    backdrop: false,
-    focus: false,
-    keyboard: false,
-    show: false,
+element.addEventListener(Modal.Events.hidePrevented, event => {
+    // do something…
 });
 
-$("#modal").modal({
-    backdrop: "static",
+/**
+ * Popover
+ */
+
+// $ExpectType Popover
+const popover = new Popover(element, { animation: true });
+
+// $ExpectType Popover
+const instancePopover = Popover.getInstance(element);
+
+element.addEventListener(Popover.Events.show, event => {
+    // do something…
 });
 
-// --------------------------------------------------------------------------------------
-// Popover
-// --------------------------------------------------------------------------------------
-
-// $ExpectType JQuery<HTMLElement>
-$("#popover").popover();
-
-// $ExpectType JQuery<HTMLElement>
-$("#popover").popover("toggle");
-
-$("#popover").on("show.bs.popover", () => {});
-
-$("#popover").popover({});
-
-$("#popover").popover({
-    animation: false,
-    container: "#container",
-    delay: {show: 500, hide: 100},
-    html: true,
-    placement: "auto",
-    selector: "[rel=\"popover\"]",
-    template: '<div class="popover empty" role="popover"></div>',
-    title: "Hello world",
-    trigger: "hover focus",
-    offset: 10,
-    fallbackPlacement: ["flip", "clockwise"],
-    boundary: "scrollParent",
-    sanitize: false,
-    whiteList: {
-        h1: [],
-        img: ['src', 'alt', 'title', 'width', 'height'],
-    },
-    sanitizeFn: (x: string) => x.replace("<", ""),
+element.addEventListener(Popover.Events.shown, event => {
+    // do something…
 });
 
-$("#popover").popover({
-    placement(this, popover, trigger) {
-        console.log(this.tip === popover);
-        console.log(this.element === trigger);
-        console.log(this.config.content);
-        return "left";
-    },
+element.addEventListener(Popover.Events.hide, event => {
+    // do something…
 });
 
-$("#popover").popover({
-    sanitizeFn: null,
+element.addEventListener(Popover.Events.hidden, event => {
+    // do something…
 });
 
-// --------------------------------------------------------------------------------------
-// Scrollspy
-// --------------------------------------------------------------------------------------
-
-// $ExpectType JQuery<HTMLElement>
-$("#scrollspy").scrollspy();
-
-// $ExpectType JQuery<HTMLElement>
-$("#scrollspy").scrollspy("refresh");
-
-$("#scrollspy").on("activate.bs.scrollspy", () => {});
-
-$("#scrollspy").scrollspy({
-    offset: 100,
-    target: "#navbar-example2",
-    method: "offset",
+element.addEventListener(Popover.Events.inserted, event => {
+    // do something…
 });
 
-$("#scrollspy").scrollspy({
-    target: document.getElementById("navbar-example2") as HTMLElement
+/**
+ * ScrollSpy
+ */
+
+// $ExpectType ScrollSpy
+const scrollSpy = new ScrollSpy(element, { offset: 10 });
+
+// $ExpectType ScrollSpy
+const instanceScrollSpy = ScrollSpy.getInstance(element);
+
+element.addEventListener(ScrollSpy.Events.activate, event => {
+    // do something…
 });
 
-$("#scrollspy").scrollspy({
-    method: "position"
+/**
+ * Tab
+ */
+
+// $ExpectType Tab
+const tab = new Tab(element);
+
+// $ExpectType Tab
+const instanceTab = Tab.getInstance(element);
+
+element.addEventListener(Tab.Events.hidden, event => {
+    // do something…
 });
 
-// --------------------------------------------------------------------------------------
-// Tab
-// --------------------------------------------------------------------------------------
-
-// $ExpectType JQuery<HTMLElement>
-$("#someListItem").tab("show");
-
-$("a[data-toggle=\"list\"]").on("shown.bs.tab", (e) => {
-    const data: undefined = e.data;
-    const newlyActivatedTab: HTMLElement = e.target;
-    const previousActiveTab: HTMLElement = e.relatedTarget;
+element.addEventListener(Tab.Events.hide, event => {
+    // do something…
 });
 
-// --------------------------------------------------------------------------------------
-// Toast
-// --------------------------------------------------------------------------------------
-
-// $ExpectType JQuery<HTMLElement>
-$("#toast").toast();
-
-// $ExpectType JQuery<HTMLElement>
-$("#toast").toast("show");
-
-$("#toast").on("shown.bs.toast", () => {});
-
-$("#toast").toast({
-    animation: false,
-    autohide: false,
-    delay: 100,
+element.addEventListener(Tab.Events.show, event => {
+    // do something…
 });
 
-$("#toast").toast({});
-
-// --------------------------------------------------------------------------------------
-// Tooltip
-// --------------------------------------------------------------------------------------
-
-// $ExpectType JQuery<HTMLElement>
-$("#tooltip").tooltip();
-
-// $ExpectType JQuery<HTMLElement>
-$("#tooltip").tooltip("show");
-
-$("#tooltip").on("hide.bs.tooltip", () => {});
-
-$("#tooltip").tooltip({
-    animation: false,
-    container: "#container",
-    delay: {show: 500, hide: 100},
-    html: true,
-    placement: "auto",
-    selector: "[rel=\"tooltip\"]",
-    template: '<div class="tooltip empty" role="tooltip"></div>',
-    title: "Hello world",
-    trigger: "hover focus",
-    offset: 10,
-    fallbackPlacement: ["flip", "clockwise"],
-    boundary: "scrollParent",
-    sanitize: false,
-    whiteList: {
-        h1: [],
-        img: ['src', 'alt', 'title', 'width', 'height'],
-    },
-    sanitizeFn: (x: string) => x.replace("<", ""),
+element.addEventListener(Tab.Events.shown, event => {
+    // do something…
 });
 
-$("#tooltip").tooltip({
-    container: document.getElementById("#container") as HTMLElement,
+/**
+ * Toast
+ */
+
+// $ExpectType Toast
+const toast = new Toast(element);
+
+// $ExpectType Toast
+const instanceToast = Toast.getInstance(element);
+
+element.addEventListener(Toast.Events.hidden, event => {
+    // do something…
 });
 
-$("#tooltip").tooltip({
-    container: false,
+element.addEventListener(Toast.Events.hide, event => {
+    // do something…
 });
 
-$("#tooltip").tooltip({
-    delay: 250,
+element.addEventListener(Toast.Events.show, event => {
+    // do something…
 });
 
-$("#tooltip").tooltip({
-    placement(this, tooltip, trigger) {
-        console.log(this.tip === tooltip);
-        console.log(this.element === trigger);
-        console.log(this.config.html);
-        return "left";
-    },
+element.addEventListener(Toast.Events.shown, event => {
+    // do something…
 });
 
-$("#tooltip").tooltip({
-    placement(this, tooltip, trigger) {
-        // $ExpectError
-        console.log(this.config.content); // only for PopoverOption, not TooltipOption
-        return "left";
-    },
+/**
+ * Tooltip
+ */
+
+// $ExpectType Tooltip
+const tooltip = new Tooltip(element);
+
+// $ExpectType Tooltip
+const instanceTooltip = Tooltip.getInstance(element);
+
+element.addEventListener(Tooltip.Events.hidden, event => {
+    // do something…
 });
 
-$("#tooltip").tooltip({
-    selector: false,
+element.addEventListener(Tooltip.Events.hide, event => {
+    // do something…
 });
 
-$("#tooltip").tooltip({
-    title: document.getElementById("title-element") as HTMLElement,
+element.addEventListener(Tooltip.Events.show, event => {
+    // do something…
 });
 
-$("#tooltip").tooltip({
-    title(this: Element) {
-        return this.textContent as string;
-    },
+element.addEventListener(Tooltip.Events.shown, event => {
+    // do something…
 });
 
-$("#tooltip").tooltip({
-    offset: "10px",
-});
+import DistAlert from 'bootstrap/js/dist/alert';
+import DistButton from 'bootstrap/js/dist/button';
+import DistCarousel from 'bootstrap/js/dist/carousel';
+import DistCollapse from 'bootstrap/js/dist/collapse';
+import DistDropdown from 'bootstrap/js/dist/dropdown';
+import DistModal from 'bootstrap/js/dist/modal';
+import DistPopover from 'bootstrap/js/dist/popover';
+import DistScrollSpy from 'bootstrap/js/dist/scrollspy';
+import DistTab from 'bootstrap/js/dist/tab';
+import DistToast from 'bootstrap/js/dist/toast';
+import DistTooltip from 'bootstrap/js/dist/tooltip';
 
-$("#tooltip").tooltip({
-    fallbackPlacement: "clockwise",
-});
-
-$("#tooltip").tooltip({
-    boundary: aHtmlElement,
-});
-
-$("#tooltip").tooltip({
-    sanitizeFn: null,
-});
+// $ExpectType typeof Alert
+DistAlert;
+// $ExpectType typeof Button
+DistButton;
+// $ExpectType typeof Carousel
+DistCarousel;
+// $ExpectType typeof Collapse
+DistCollapse;
+// $ExpectType typeof Dropdown
+DistDropdown;
+// $ExpectType typeof Modal
+DistModal;
+// $ExpectType typeof Popover
+DistPopover;
+// $ExpectType typeof ScrollSpy
+DistScrollSpy;
+// $ExpectType typeof Tab
+DistTab;
+// $ExpectType typeof Toast
+DistToast;
+// $ExpectType typeof Tooltip
+DistTooltip;

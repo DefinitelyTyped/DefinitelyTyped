@@ -29,7 +29,10 @@ export interface ScrollspyProps {
     rootEl?: string;
 
     // Function to be executed when the active item has been updated
-    onUpdate?: (item: string) => void;
+    onUpdate?: (item: HTMLElement) => void;
+
+    // ClassName attribute to be passed to the generated <ul /> element
+    className?: string;
 }
 
 export default class Scrollspy extends React.Component<ScrollspyProps> {

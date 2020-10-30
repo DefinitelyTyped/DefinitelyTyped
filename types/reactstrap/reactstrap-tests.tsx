@@ -8,6 +8,7 @@ import {
   Button,
   ButtonDropdown,
   ButtonGroup,
+  ButtonToggle,
   ButtonToolbar,
   Dropdown,
   DropdownItem,
@@ -61,6 +62,7 @@ import {
   Nav,
   Navbar,
   NavbarBrand,
+  NavbarText,
   NavbarToggler,
   NavItem,
   NavLink,
@@ -85,13 +87,20 @@ import {
   Tooltip,
   Spinner,
   UncontrolledPopover,
+  Util
 } from 'reactstrap';
 
 // --------------- Alert
 const Examplea = (props: any) => {
   return (
     <div>
-      <Alert color="success">
+      <Alert
+        color="success"
+        closeClassName="close"
+        closeAriaLabel="close"
+        fade={false}
+        innerRef={React.createRef()}
+      >
         <strong>Well done!</strong> You successfully read this important alert message.
       </Alert>
       <Alert color="info">
@@ -335,6 +344,48 @@ class Example14 extends React.Component<any, any> {
           <Button color="primary" onClick={() => this.onCheckboxBtnClick(3)} active={this.state.cSelected.includes(3)}>Three</Button>
         </ButtonGroup>
         <p>Selected: {JSON.stringify(this.state.cSelected)}</p>
+      </div>
+    );
+  }
+}
+
+const ExampleButtonClose = () => (
+  <div>
+    <CardGroup>
+      <Card>
+        <CardBody>
+          <CardTitle>
+            <Button close />
+          </CardTitle>
+          <CardText>Default close icon</CardText>
+        </CardBody>
+      </Card>
+      <Card>
+        <CardBody>
+          <CardTitle>
+            <Button close aria-label="Cancel">
+              <span aria-hidden>&ndash;</span>
+            </Button>
+          </CardTitle>
+          <CardText>
+          Custom content and aria-label
+          </CardText>
+        </CardBody>
+      </Card>
+    </CardGroup>
+  </div>
+);
+
+class ExampleButtonToggle extends React.Component {
+  render() {
+    return (
+      <div>
+        <ButtonToggle color="primary">primary</ButtonToggle>{' '}
+        <ButtonToggle color="secondary">secondary</ButtonToggle>{' '}
+        <ButtonToggle color="success">success</ButtonToggle>{' '}
+        <ButtonToggle color="info">info</ButtonToggle>{' '}
+        <ButtonToggle color="warning">warning</ButtonToggle>{' '}
+        <ButtonToggle color="danger">danger</ButtonToggle>{' '}
       </div>
     );
   }
@@ -1695,6 +1746,56 @@ class Example61 extends React.Component {
   }
 }
 
+const ExampleResponsiveContainer = (props: any) => {
+  return (
+    <>
+      <Container className="themed-container">.container</Container>
+      <Container className="themed-container" fluid="sm">.container-sm</Container>
+      <Container className="themed-container" fluid="md">.container-md</Container>
+      <Container className="themed-container" fluid="lg">.container-lg</Container>
+      <Container className="themed-container" fluid="xl">.container-xl</Container>
+      <Container className="themed-container" fluid={true}>.container-fluid</Container>
+    </>
+  );
+};
+
+const ExampleRowColumns = (props: any) => {
+  return (
+    <Container>
+      <Row xs="2">
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+      </Row>
+      <Row xs="3">
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+      </Row>
+      <Row xs="4">
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+      </Row>
+      <Row xs="4">
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col xs="6">Column</Col>
+        <Col>Column</Col>
+      </Row>
+      <Row xs="1" sm="2" md="4">
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+        <Col>Column</Col>
+      </Row>
+    </Container>
+  );
+};
+
 class Example62 extends React.Component {
   render() {
     return (
@@ -1801,6 +1902,42 @@ class Example67 extends React.Component {
     );
   }
 }
+
+const ExampleListGroupFlush = (props: any) => {
+  return (
+    <ListGroup flush>
+      <ListGroupItem disabled tag="a" href="#">Cras justo odio</ListGroupItem>
+      <ListGroupItem tag="a" href="#">Dapibus ac facilisis in</ListGroupItem>
+      <ListGroupItem tag="a" href="#">Morbi leo risus</ListGroupItem>
+      <ListGroupItem tag="a" href="#">Porta ac consectetur ac</ListGroupItem>
+      <ListGroupItem tag="a" href="#">Vestibulum at eros</ListGroupItem>
+    </ListGroup>
+  );
+};
+
+const ExampleListGroupHorizontal = (props: any) => {
+  return (
+    <div>
+      <p>The <code>horizontal</code> prop can be a Boolean or a string specifying one of Bootstrap's breakpoints</p>
+      <ListGroup horizontal>
+        <ListGroupItem tag="a" href="#">Cras justo odio</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Dapibus ac facilisis in</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Morbi leo risus</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Porta ac consectetur ac</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Vestibulum at eros</ListGroupItem>
+      </ListGroup>
+      <p className="mt-3">This list group is horizontal at the <code>lg</code> breakpoint and up.</p>
+      <ListGroup horizontal="lg">
+        <ListGroupItem tag="a" href="#">Cras justo odio</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Dapibus ac facilisis in</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Morbi leo risus</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Porta ac consectetur ac</ListGroupItem>
+        <ListGroupItem tag="a" href="#">Vestibulum at eros</ListGroupItem>
+      </ListGroup>
+      <p className="mt-3">Note that horizontal list groups cannot be combined with flush list groups. If <code>flush</code> is <code>true</code> then <code>horizontal</code> has no effect.</p>
+    </div>
+  );
+};
 
 // ------------- Media
 const Example68 = () => {
@@ -1992,7 +2129,7 @@ class ModalExample72 extends React.Component<any, any> {
     return (
       <div>
         <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} container="#test">
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
@@ -2013,6 +2150,7 @@ class ModalExample72 extends React.Component<any, any> {
 
 class ModalExample73 extends React.Component<any, any> {
   state: any;
+  element: HTMLElement;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -2053,7 +2191,7 @@ class ModalExample73 extends React.Component<any, any> {
           {' '}
           <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         </Form>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop} container={this.element}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
@@ -2257,7 +2395,7 @@ class Example75 extends React.Component<any, any> {
               <NavItem>
                 <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
+              <UncontrolledDropdown nav inNavbar onToggle={() => {}} a11y>
                 <DropdownToggle nav caret>
                   Options
                 </DropdownToggle>
@@ -2275,6 +2413,7 @@ class Example75 extends React.Component<any, any> {
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
+            <NavbarText>Simple Text</NavbarText>
           </Collapse>
         </Navbar>
       </div>
@@ -2884,13 +3023,13 @@ const Example92 = (props: any) => {
   return (
     <div>
       <div className="text-center">1 of 5</div>
-      <Progress value="1" max="5" />
+      <Progress value="1" min="1" max="5" />
       <div className="text-center">50 of 135</div>
       <Progress value={50} max="135" />
       <div className="text-center">75 of 111</div>
-      <Progress value={75} max={111} />
+      <Progress value={75} min={1} max={111} />
       <div className="text-center">463 of 500</div>
-      <Progress value="463" max={500} />
+      <Progress value="463" max={500} barAriaValueText="test" barAriaLabelledBy="test" />
 
       <div className="text-center">Various (40) of 55</div>
       <Progress multi>
@@ -3129,7 +3268,7 @@ class Example98 extends React.Component {
 class Example99 extends React.Component {
   render() {
     return (
-      <Table responsive>
+      <Table responsive="md">
         <thead>
           <tr>
             <th>#</th>
@@ -3436,7 +3575,7 @@ function Example() {
   return (
     <div>
       <p>Somewhere in here is a <a href="#" id="UncontrolledTooltipExample">tooltip</a>.</p>
-      <UncontrolledTooltip placement="right" target="UncontrolledTooltipExample">
+      <UncontrolledTooltip placement="right" target="UncontrolledTooltipExample" popperClassName="popperClassName">
         Hello world!
       </UncontrolledTooltip>
     </div>
@@ -3985,7 +4124,7 @@ import { default as Table_ } from './lib/Table'; /* tslint:disable-line: no-rela
 import { default as TabPane_ } from './lib/TabPane'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Tag_ } from './lib/Tag'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Tooltip_ } from './lib/Tooltip'; /* tslint:disable-line: no-relative-import-in-test */
-import { UncontrolledAlert as UncontrolledAlert_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+import { UncontrolledAlert as UncontrolledAlert_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test */
 import { UncontrolledButtonDropdown as UncontrolledButtonDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 import { UncontrolledDropdown as UncontrolledDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 import { UncontrolledTooltip as UncontrolledTooltip_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
@@ -4497,7 +4636,7 @@ function Example125() {
 function Example126() {
     return (
         <div>
-            <UncontrolledPopover placement="bottom" target="UncontrolledPopover">
+            <UncontrolledPopover placement="bottom" target="UncontrolledPopover" popperClassName="popperClassName">
                 <PopoverHeader>Popover Title</PopoverHeader>
                 <PopoverBody>Lorem ipsum dolor sit amet</PopoverBody>
             </UncontrolledPopover>
@@ -4594,3 +4733,435 @@ class Example129 extends React.Component<any, any> {
       );
     }
 }
+
+class Example130 extends React.Component {
+  render() {
+    return (
+      <>
+        <Carousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={false}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </Carousel>
+        <Carousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={true}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </Carousel>
+        <UncontrolledCarousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={false}
+          items={[]}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </UncontrolledCarousel>
+        <UncontrolledCarousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={true}
+          items={[]}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </UncontrolledCarousel>
+      </>
+    );
+  }
+}
+
+const CustomInputTestInnerRef = () => {
+  const ref = React.createRef<HTMLButtonElement>();
+  return (<CustomInput type="checkbox" innerRef={ref} />);
+};
+
+const PopoverTestInnerRef = () => {
+  const target = React.createRef<HTMLButtonElement>();
+  const container = React.createRef<HTMLDivElement>();
+  return (<Popover target={target} container={container}>Yo!</Popover>);
+};
+
+const UncontrolledTooltipTestInnerRef = () => {
+  const target = React.createRef<HTMLButtonElement>();
+  const container = React.createRef<HTMLDivElement>();
+  return (<UncontrolledTooltip target={target} container={container}>Yo!</UncontrolledTooltip>);
+};
+
+const UtilTest = () => {
+  Util.setGlobalCssModule({
+    btn: 'btn2'
+  });
+};
+
+const ScheduleUpdate = () => {
+  return (
+    <>
+      <UncontrolledPopover trigger="click" placement="top" target="ScheduleUpdateButton">
+        {({ scheduleUpdate }) => (
+          <div>test</div>
+        )}
+      </UncontrolledPopover>
+      <UncontrolledTooltip placement="top" target="ScheduleUpdateTooltip" trigger="click">
+        {({ scheduleUpdate }) => (
+          <div>test</div>
+        )}
+      </UncontrolledTooltip>
+    </>
+  );
+};
+
+const noop = () => {};
+
+const htmlProps: Pick<React.HTMLAttributes<HTMLElement>, 'id' | 'className' | 'style' | 'onClick'> = {
+  id: 'id',
+  className: 'className',
+  style: { backgroundColor: '#fff' },
+  onClick: noop
+};
+
+const MegaTest = () => {
+  return (
+    <>
+      <Alert
+        ref={React.createRef<Alert>()}
+        {...htmlProps}
+      />
+      <Badge
+        ref={React.createRef<Badge>()}
+        {...htmlProps}
+      />
+      <Breadcrumb
+        ref={React.createRef<Breadcrumb>()}
+        {...htmlProps}
+      />
+      <BreadcrumbItem
+        ref={React.createRef<BreadcrumbItem>()}
+        {...htmlProps}
+      />
+      <Button
+        ref={React.createRef<Button>()}
+        {...htmlProps}
+      />
+      <ButtonGroup
+        ref={React.createRef<ButtonGroup>()}
+        {...htmlProps}
+      />
+      <ButtonToggle
+        ref={React.createRef<ButtonToggle>()}
+        {...htmlProps}
+      />
+      <ButtonToolbar
+        ref={React.createRef<ButtonToolbar>()}
+        {...htmlProps}
+      />
+      <Card
+        ref={React.createRef<Card>()}
+        {...htmlProps}
+      />
+      <CardBody
+        ref={React.createRef<CardBody>()}
+        {...htmlProps}
+      />
+      <CardColumns
+        ref={React.createRef<CardColumns>()}
+        {...htmlProps}
+      />
+      <CardDeck
+        ref={React.createRef<CardDeck>()}
+        {...htmlProps}
+      />
+      <CardFooter
+        ref={React.createRef<CardFooter>()}
+        {...htmlProps}
+      />
+      <CardGroup
+        ref={React.createRef<CardGroup>()}
+        {...htmlProps}
+      />
+      <CardHeader
+        ref={React.createRef<CardHeader>()}
+        {...htmlProps}
+      />
+      <CardImg
+        ref={React.createRef<CardImg>()}
+        {...htmlProps}
+      />
+      <CardImgOverlay
+        ref={React.createRef<CardImgOverlay>()}
+        {...htmlProps}
+      />
+      <CardLink
+        ref={React.createRef<CardLink>()}
+        {...htmlProps}
+      />
+      <CardSubtitle
+        ref={React.createRef<CardSubtitle>()}
+        {...htmlProps}
+      />
+      <CardText
+        ref={React.createRef<CardText>()}
+        {...htmlProps}
+      />
+      <CardTitle
+        ref={React.createRef<CardTitle>()}
+        {...htmlProps}
+      />
+      <Carousel
+        ref={React.createRef<Carousel>()}
+        {...htmlProps}
+        previous={noop}
+        next={noop}
+      />
+      <CarouselCaption
+        ref={React.createRef<CarouselCaption>()}
+        {...htmlProps}
+        captionText="a"
+      />
+      <CarouselControl
+        ref={React.createRef<CarouselControl>()}
+        {...htmlProps}
+        direction="next"
+        onClickHandler={noop}
+      />
+      <CarouselIndicators
+        ref={React.createRef<CarouselIndicators>()}
+        {...htmlProps}
+        items={[]}
+        onClickHandler={noop}
+        activeIndex={1}
+      />
+      <CarouselItem
+        ref={React.createRef<CarouselItem>()}
+        {...htmlProps}
+      />
+      <Col
+        ref={React.createRef<Col>()}
+        {...htmlProps}
+      />
+      <Collapse
+        ref={React.createRef<Collapse>()}
+        {...htmlProps}
+      />
+      <Container
+        ref={React.createRef<Container>()}
+        {...htmlProps}
+      />
+      <CustomInput
+        ref={React.createRef<CustomInput>()}
+        {...htmlProps}
+        type="checkbox"
+      />
+      <Dropdown
+        ref={React.createRef<Dropdown>()}
+        {...htmlProps}
+      />
+      <DropdownItem
+        ref={React.createRef<DropdownItem<{}>>()}
+        {...htmlProps}
+      />
+      <DropdownMenu
+        ref={React.createRef<DropdownMenu>()}
+        {...htmlProps}
+      />
+      <DropdownToggle
+        ref={React.createRef<DropdownToggle<{}>>()}
+        {...htmlProps}
+      />
+      <Fade
+        ref={React.createRef<Fade>()}
+        {...htmlProps}
+      />
+      <Form
+        ref={React.createRef<Form<{}>>()}
+        {...htmlProps}
+      />
+      <FormFeedback
+        ref={React.createRef<FormFeedback>()}
+        {...htmlProps}
+      />
+      <FormGroup
+        ref={React.createRef<FormGroup>()}
+        {...htmlProps}
+      />
+      <FormText
+        ref={React.createRef<FormText>()}
+        {...htmlProps}
+      />
+      <Input
+        ref={React.createRef<Input<{}>>()}
+        {...htmlProps}
+      />
+      <InputGroup
+        ref={React.createRef<InputGroup>()}
+        {...htmlProps}
+      />
+      <InputGroupAddon
+        ref={React.createRef<InputGroupAddon>()}
+        {...htmlProps}
+        addonType="append"
+      />
+      <InputGroupText
+        ref={React.createRef<InputGroupText>()}
+        {...htmlProps}
+      />
+      <Jumbotron
+        ref={React.createRef<Jumbotron>()}
+        {...htmlProps}
+      />
+      <Label
+        ref={React.createRef<Label>()}
+        {...htmlProps}
+      />
+      <ListGroup
+        ref={React.createRef<ListGroup>()}
+        {...htmlProps}
+      />
+      <ListGroupItem
+        ref={React.createRef<ListGroupItem>()}
+        {...htmlProps}
+      />
+      <ListGroupItemHeading
+        ref={React.createRef<ListGroupItemHeading>()}
+        {...htmlProps}
+      />
+      <ListGroupItemText
+        ref={React.createRef<ListGroupItemText>()}
+        {...htmlProps}
+      />
+      <Media
+        ref={React.createRef<Media>()}
+        {...htmlProps}
+      />
+      <Modal
+        ref={React.createRef<Modal<{}>>()}
+        {...htmlProps}
+      />
+      <ModalBody
+        ref={React.createRef<ModalBody>()}
+        {...htmlProps}
+      />
+      <ModalFooter
+        ref={React.createRef<ModalFooter>()}
+        {...htmlProps}
+      />
+      <ModalHeader
+        ref={React.createRef<ModalHeader>()}
+        {...htmlProps}
+      />
+      <Nav
+        ref={React.createRef<Nav>()}
+        {...htmlProps}
+      />
+      <NavItem
+        ref={React.createRef<NavItem>()}
+        {...htmlProps}
+      />
+      <NavLink
+        ref={React.createRef<NavLink<{}>>()}
+        {...htmlProps}
+      />
+      <Navbar
+        ref={React.createRef<Navbar>()}
+        {...htmlProps}
+      />
+      <NavbarBrand
+        ref={React.createRef<NavbarBrand>()}
+        {...htmlProps}
+      />
+      <NavbarText
+        ref={React.createRef<NavbarText>()}
+        {...htmlProps}
+      />
+      <NavbarToggler
+        ref={React.createRef<NavbarToggler>()}
+        {...htmlProps}
+      />
+      <Pagination
+        ref={React.createRef<Pagination>()}
+        {...htmlProps}
+      />
+      <PaginationItem
+        ref={React.createRef<PaginationItem>()}
+        {...htmlProps}
+      />
+      <PaginationLink
+        ref={React.createRef<PaginationLink>()}
+        {...htmlProps}
+      />
+      <Popover
+        ref={React.createRef<Popover<{}>>()}
+        {...htmlProps}
+        target="a"
+      />
+      <PopoverBody
+        ref={React.createRef<PopoverBody>()}
+        {...htmlProps}
+      />
+      <PopoverHeader
+        ref={React.createRef<PopoverHeader>()}
+        {...htmlProps}
+      />
+      <Progress
+        ref={React.createRef<Progress>()}
+        {...htmlProps}
+      />
+      <Row
+        ref={React.createRef<Row>()}
+        {...htmlProps}
+      />
+      <Spinner
+        ref={React.createRef<Spinner>()}
+        {...htmlProps}
+      />
+      <TabContent
+        ref={React.createRef<TabContent<{}>>()}
+        {...htmlProps}
+      />
+      <TabPane
+        ref={React.createRef<TabPane>()}
+        {...htmlProps}
+      />
+      <Table
+        ref={React.createRef<Table>()}
+        {...htmlProps}
+      />
+      <Tag
+        ref={React.createRef<Tag>()}
+        {...htmlProps}
+      />
+      <Toast
+        ref={React.createRef<Toast<{}>>()}
+        {...htmlProps}
+        target="a"
+      />
+      <ToastBody
+        ref={React.createRef<ToastBody>()}
+        {...htmlProps}
+      />
+      <ToastHeader
+        ref={React.createRef<ToastHeader>()}
+        {...htmlProps}
+      />
+      <Tooltip
+        ref={React.createRef<Tooltip<{}>>()}
+        {...htmlProps}
+        target="a"
+      />
+    </>
+  );
+};

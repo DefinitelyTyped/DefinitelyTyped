@@ -5,10 +5,11 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 John Gozde <https://github.com/jgoz>
 //                 Jessica Franco <https://github.com/Jessidhia>
+//                 Dhruv Jain <https://github.com/maddhruv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactElement, ReactType } from "react";
+import { ReactElement, ElementType } from 'react';
 
 // extracted from:
 // - https://github.com/facebook/react/blob/v16.0.0/src/renderers/testing/ReactTestRendererFiberEntry.js
@@ -21,27 +22,27 @@ export interface ReactTestRendererJSON {
 }
 export type ReactTestRendererNode = ReactTestRendererJSON | string;
 export interface ReactTestRendererTree extends ReactTestRendererJSON {
-    nodeType: "component" | "host";
+    nodeType: 'component' | 'host';
     instance: any;
-    rendered: null | ReactTestRendererTree;
+    rendered: null | ReactTestRendererTree | ReactTestRendererTree[];
 }
 export interface ReactTestInstance {
     instance: any;
-    type: ReactType;
+    type: ElementType;
     props: { [propName: string]: any };
     parent: null | ReactTestInstance;
     children: Array<ReactTestInstance | string>;
 
     find(predicate: (node: ReactTestInstance) => boolean): ReactTestInstance;
-    findByType(type: ReactType): ReactTestInstance;
+    findByType(type: ElementType): ReactTestInstance;
     findByProps(props: { [propName: string]: any }): ReactTestInstance;
 
     findAll(predicate: (node: ReactTestInstance) => boolean, options?: { deep: boolean }): ReactTestInstance[];
-    findAllByType(type: ReactType, options?: { deep: boolean }): ReactTestInstance[];
+    findAllByType(type: ElementType, options?: { deep: boolean }): ReactTestInstance[];
     findAllByProps(props: { [propName: string]: any }, options?: { deep: boolean }): ReactTestInstance[];
 }
 export interface ReactTestRenderer {
-    toJSON(): null | ReactTestRendererJSON;
+    toJSON(): null | ReactTestRendererJSON | ReactTestRendererJSON[];
     toTree(): null | ReactTestRendererTree;
     unmount(nextElement?: ReactElement): void;
     update(nextElement: ReactElement): void;
@@ -85,9 +86,6 @@ export function act(callback: () => void | undefined): DebugPromiseLike;
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.
 export interface DebugPromiseLike {
-  // the actual then() in here is 1-ary, but that doesn't count as a PromiseLike.
-  then(
-    onfulfilled: (value: never) => never,
-    onrejected: (reason: never) => never,
-  ): never;
+    // the actual then() in here is 1-ary, but that doesn't count as a PromiseLike.
+    then(onfulfilled: (value: never) => never, onrejected: (reason: never) => never): never;
 }

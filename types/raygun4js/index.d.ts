@@ -1,6 +1,9 @@
 // Type definitions for raygun4js 2.13
 // Project: https://github.com/MindscapeHQ/raygun4js
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>, Benjamin Harding <https://github.com/BenjaminHarding>, Taylor Lodge <https://github.com/UberMouse>
+// Definitions by: Krishna Kapadia <https://github.com/krishnakapadia>,
+//                 Benjamin Harding <https://github.com/BenjaminHarding>,
+//                 Taylor Lodge <https://github.com/UberMouse>,
+//                 Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -112,6 +115,22 @@ interface RaygunOptions {
      * String which can be optionally set "onLoad" which will then boot the RealUserMonitoring side instead of waiting for the `load` event.
      */
     from?: string | "onLoad";
+
+    /**
+     * Raygun4JS will track each window.performance.measure call as a custom timing entry. This enables developers to use a more native API for tracking performance timings.
+     */
+    automaticPerformanceCustomTimings?: boolean;
+
+    /**
+     * RUM requests will be associated to this IP address when set.
+     */
+    clientIp?: string;
+
+    /**
+     * RUM uses the window.performance API to track XHR timing information and (depending on the browser) not all non-2XX XHR timings are recorded by this API.
+     * This option enables the tracking of these missing XHR's calls by tracking the difference between send & success XHR handlers.
+     */
+    captureMissingRequests?: boolean;
 }
 
 interface RaygunPayload {
@@ -278,6 +297,7 @@ interface RaygunStatic {
      * Track Single Page Application route events.
      */
     trackEvent(type: "pageView", options: { path: string }): void;
+    trackEvent(type: "customTiming", options: { name: string; duration: number; }): void;
 
     /**
      * Records a manual breadcrumb with the given message and metadata passed.
@@ -359,25 +379,28 @@ interface RaygunV2 {
             options: any
         ) => string | void
     ): void;
-    (key: "trackEvent", value: { type: string; path: string }): void;
+    (key: "trackEvent", value: { type: string; path: string } | { type: string, name: string, duration: number }): void;
     (key: "apiKey" | "setVersion" | "setFilterScope", value: string): void;
     (
         key:
             | "attach"
             | "enableCrashReporting"
             | "enablePulse"
+            | "logContentsOfXhrCalls"
             | "noConflict"
             | "saveIfOffline",
         value: boolean
     ): void;
+    (key: "filterSensitiveData", values: Array<string | RegExp>): void;
     (
-        key: "filterSensitiveData" | "whitelistCrossOriginDomains" | "withTags",
+        key: "whitelistCrossOriginDomains" | "withTags",
         values: string[]
     ): void;
     (key: "send" | "withCustomData", value: any): void;
     (key: "getRaygunInstance"): RaygunStatic;
     (
         key:
+            "endSession"
             | "detach"
             | "disableAutoBreadcrumbs"
             | "enableAutoBreadcrumbs"
@@ -397,11 +420,11 @@ interface RaygunV2 {
         message:
             | string
             | {
-                  message: string;
-                  metadata: any;
-                  level: BreadcrumbLevel;
-                  location: string;
-              },
+                message: string;
+                metadata: any;
+                level: BreadcrumbLevel;
+                location: string;
+            },
         metadata: object
     ): void;
 }
@@ -412,6 +435,14 @@ interface Window {
     Raygun: RaygunStatic;
 }
 
-export { RaygunStatic, RaygunV2, RaygunV2UserDetails, RaygunOptions };
+export {
+    RaygunStatic,
+    RaygunV2,
+    RaygunV2UserDetails,
+    RaygunOptions,
+    RaygunPayload,
+    RaygunStackTrace,
+    BreadcrumbLevel,
+};
 
 export default rg4js;

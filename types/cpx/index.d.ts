@@ -6,6 +6,7 @@
 /// <reference types="node" />
 
 import * as stream from "stream";
+import { EventEmitter } from 'events';
 
 export interface SyncOptions {
     /** remove files that copied on past before copy. */
@@ -30,7 +31,7 @@ export interface WatchOptions extends AsyncOptions, SyncOptions {
     initialCopy?: boolean;
 }
 
-export class Watcher extends NodeJS.EventEmitter {
+export class Watcher extends EventEmitter {
     constructor(options: WatchOptions);
     open(): void;
     close(): void;

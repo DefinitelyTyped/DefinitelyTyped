@@ -1,3 +1,4 @@
-import getPolyfill = require("./polyfill");
+import getPolyfill = require('./polyfill');
 
-export = getPolyfill;
+declare function shimUtilPromisify(): ReturnType<typeof getPolyfill>;
+export = shimUtilPromisify;

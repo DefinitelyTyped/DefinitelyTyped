@@ -4,16 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-/// <reference types="../react"/>
-/// <reference types="../howler"/>
-
 import * as React from 'react';
 import { Howl } from 'howler';
 
 declare enum HOWLER_STATE {
     UNLOADED = 'unloaded',
     LOADING = 'loading',
-    LOADED = 'loaded'
+    LOADED = 'loaded',
 }
 
 interface Props {
@@ -39,7 +36,7 @@ declare class ReactHowler extends React.Component<Props> {
 
     duration(id?: number): number;
 
-    seek(time: number): number;
+    seek(time?: number): number;
 
     howlerState(): HOWLER_STATE;
 

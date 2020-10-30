@@ -2,28 +2,28 @@ import cbor = require('cbor');
 import assert = require('assert');
 import fs = require('fs');
 
-var encoded = cbor.encode(true); // returns <Buffer f5>
-cbor.decodeFirst(encoded, function(error, obj) {
+let encoded = cbor.encode(true); // returns <Buffer f5>
+cbor.decodeFirst(encoded, (error, obj) => {
     // error != null if there was an error
     // obj is the unpacked object
     assert.ok(obj === true);
 });
 
 // Use integers as keys?
-var m = new Map();
+const m = new Map();
 m.set(1, 2);
 encoded = cbor.encode(m); // <Buffer a1 01 02>
 
-var d = new cbor.Decoder();
-d.on('data', function(obj: any) {
+const d = new cbor.Decoder();
+d.on('data', (obj: any) => {
     console.log(obj);
 });
 
-var s = fs.createReadStream('foo');
+const s = fs.createReadStream('foo');
 s.pipe(d);
 
-var d2 = new cbor.Decoder({ input: '00', encoding: 'hex' });
-d.on('data', function(obj: any) {
+const d2 = new cbor.Decoder({ encoding: 'hex' });
+d2.on('data', (obj: any) => {
     console.log(obj);
 });
 
@@ -40,15 +40,17 @@ class Bar {
         this.three = 3;
     }
 }
-const enc = new cbor.Encoder()
+
+const enc = new cbor.Encoder();
 enc.addSemanticType(Bar, (encoder, b) => {
-    encoder.pushAny(b.three);
-})
+    return encoder.pushAny(b.three);
+});
 
 class Foo {
     one: number;
     two: string;
 }
+
 const d3 = new cbor.Decoder({
     tags: {
         64000: (val) => {
@@ -59,4 +61,4 @@ const d3 = new cbor.Decoder({
             return foo;
         }
     }
-})
+});

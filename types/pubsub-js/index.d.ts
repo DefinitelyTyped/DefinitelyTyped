@@ -1,39 +1,52 @@
-// Type definitions for PubSubJS 1.5.2
+// Type definitions for PubSubJS 1.8.0
 // Project: https://github.com/mroderick/PubSubJS
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Matthias Lindinger <https://github.com/morpheus-87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PubSubJS {
-    interface Base extends Publish, Subscribe, Unsubscribe, ClearAllSubscriptions {
-        version: string;
+    interface Base
+        extends CountSubscriptions,
+            ClearAllSubscriptions,
+            GetSubscriptions,
+            Publish,
+            Subscribe,
+            Unsubscribe {
         name: string;
+        version: string;
     }
 
-    interface Publish{
-        publish(message: any, data: any): boolean;
-
-        publish(message:any, data:any, sync:boolean, immediateExceptions:Function): boolean;
-
-        publishSync(message: any, data: any): boolean;
+    interface CountSubscriptions {
+        countSubscriptions(token: any): number;
     }
 
-    interface Subscribe{
-        subscribe(message: any, func: Function): any;
+    interface ClearAllSubscriptions {
+        clearAllSubscriptions(token?: any): void;
     }
 
+    interface GetSubscriptions {
+        getSubscriptions(token: any): any[];
+    }
 
-    interface Unsubscribe{
+    interface Publish {
+        publish(message: string, data?: any): boolean;
+
+        publishSync(message: string, data?: any): boolean;
+    }
+
+    interface Subscribe {
+        subscribe(message: string, func: Function): string;
+
+        subscribeOnce(message: string, func: Function): any;
+    }
+
+    interface Unsubscribe {
         unsubscribe(tokenOrFunction: any): any;
-    }
-
-
-    interface ClearAllSubscriptions{
-        clearAllSubscriptions(): any;
     }
 }
 
 declare var PubSub: PubSubJS.Base;
 
-declare module "pubsub-js" {
-  export = PubSub;
+declare module 'pubsub-js' {
+    export = PubSub;
 }

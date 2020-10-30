@@ -2,7 +2,7 @@
 // Project: https://github.com/yuanqing/load-google-maps-api#readme
 // Definitions by: Oscar Busk <https://github.com/oBusk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 3.0
 
 /// <reference types="googlemaps" />
 

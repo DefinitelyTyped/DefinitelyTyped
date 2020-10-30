@@ -1,9 +1,13 @@
 import express = require('express');
 import * as http from 'http';
-import { RequestRanges, ParamsArray } from 'express-serve-static-core';
+import { Request, RequestRanges, ParamsArray } from 'express-serve-static-core';
 
 namespace express_tests {
     const app = express();
+
+    // Disable and use the same built-in query parser
+    app.disable('query parser');
+    app.use(express.query({}));
 
     app.engine('jade', require('jade').__express);
     app.engine('html', require('ejs').renderFile);
@@ -131,14 +135,62 @@ namespace express_tests {
         req.params.length; // $ExpectType number
     });
 
-    // Params can be a custom type that conforms to constraint
-    router.get<{ foo: string }>('/:foo', req => {
-        req.params.foo; // $ExpectType string
-        req.params.bar; // $ExpectError
+    // Params can used as an array and can be specified via an explicit param type (express-serve-static-core)
+    router.get('/*', (req: Request<ParamsArray>) => {
+        req.params[0]; // $ExpectType string
+        req.params.length; // $ExpectType number
     });
 
-    // Params cannot be a custom type that does not conform to constraint
-    router.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
+    // Params can used as an array and can be specified via an explicit param type (express)
+    router.get('/*', (req: express.Request<ParamsArray>) => {
+        req.params[0]; // $ExpectType string
+        req.params.length; // $ExpectType number
+    });
+
+    // Params can be a custom type
+    // NB. out-of-the-box all params are strings, however, other types are allowed to accomadate request validation/coersion middleware
+    router.get<{ foo: string, bar: number }>('/:foo/:bar', req => {
+        req.params.foo; // $ExpectType string
+        req.params.bar; // $ExpectType number
+        req.params.baz; // $ExpectError
+    });
+
+    // Params can be a custom type and can be specified via an explicit param type (express-serve-static-core)
+    router.get('/:foo/:bar', (req: Request<{ foo: string, bar: number }>) => {
+        req.params.foo; // $ExpectType string
+        req.params.bar; // $ExpectType number
+        req.params.baz; // $ExpectError
+    });
+
+    // Params can be a custom type and can be specified via an explicit param type (express)
+    router.get('/:foo/:bar', (req: express.Request<{ foo: string, bar: number }>) => {
+        req.params.foo; // $ExpectType string
+        req.params.bar; // $ExpectType number
+        req.params.baz; // $ExpectError
+    });
+
+    // Query can be a custom type
+    router.get('/:foo', (req: express.Request<{}, any, any , {q: string}>) => {
+        req.query.q; // $ExpectType string
+        req.query.a; // $ExpectError
+    });
+
+    // Query will be defaulted to any
+    router.get('/:foo', (req: express.Request<{}>) => {
+        req.query; // $ExpectType ParsedQs
+    });
+
+    // Response will default to any type
+    router.get("/", (req: Request, res: express.Response) => {
+        res.json({});
+    });
+
+    // Response will be of Type provided
+    router.get("/", (req: Request, res: express.Response<string>) => {
+        res.json();
+        res.json(1); // $ExpectError
+        res.send(1); // $ExpectError
+    });
 
     app.use((req, res, next) => {
         // hacky trick, router is just a handler
@@ -173,6 +225,12 @@ namespace express_tests {
     app.listen(3000);
 
     const next: express.NextFunction = () => { };
+
+    // Make sure we can use every generic
+    const someOtherHandler: express.RequestHandler<{}, any, any , { foo: string }> = (req, res, next) => next();
+
+    // Make sure we can use every generic
+    const someOtherErrorHandler: express.ErrorRequestHandler<{}, any, any , { foo: string }> = (req, res) => {};
 }
 
 /***************************

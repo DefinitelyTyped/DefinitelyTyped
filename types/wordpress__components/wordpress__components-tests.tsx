@@ -1,11 +1,22 @@
 import * as C from '@wordpress/components';
 import { Component } from '@wordpress/element';
+import { Value } from '@wordpress/rich-text';
+import { MouseEvent as ReactMouseEvent } from 'react';
 
 //
 // primitives
 //
 <C.Rect width={10} height={10} rx={5} />;
 <C.HorizontalRule />;
+
+//
+// angle-picker-control
+//
+<C.AnglePickerControl
+    value={350}
+    label="Test label"
+    onChange={value => console.log(value)}
+/>;
 
 //
 // animate
@@ -22,7 +33,16 @@ interface MyCompleteOption {
     name: string;
     id: number;
 }
+let record: Value = {
+    formats: [],
+    replacements: [],
+    text: '',
+};
 <C.Autocomplete<MyCompleteOption>
+    onReplace={(value) => (record = value)}
+    onChange={(value) => (record = value)}
+    record={record}
+    isSelected={false}
     completers={[
         {
             name: 'fruit',
@@ -50,7 +70,7 @@ interface MyCompleteOption {
         },
     ]}
 >
-    {({ isExpanded, listBoxId, activeId }) => (
+    {({ isExpanded, listBoxId, activeId, onKeyDown }) => (
         <div
             contentEditable
             suppressContentEditableWarning
@@ -58,6 +78,7 @@ interface MyCompleteOption {
             aria-expanded={isExpanded}
             aria-owns={listBoxId}
             aria-activedescendant={activeId}
+            onKeyDown={onKeyDown}
         ></div>
     )}
 </C.Autocomplete>;
@@ -65,7 +86,7 @@ interface MyCompleteOption {
 //
 // base-control
 //
-<C.BaseControl id="foo" label="hello world">
+<C.BaseControl id="foo" label="hello world" hideLabelFromVision>
     <C.BaseControl.VisualLabel>My Label</C.BaseControl.VisualLabel>
 </C.BaseControl>;
 
@@ -75,7 +96,7 @@ interface MyCompleteOption {
 <C.Button href="#foo" download="foo.txt" isSmall>
     Anchor Button
 </C.Button>;
-<C.Button autoFocus isDestructive isLarge>
+<C.Button autoFocus isDestructive isLarge isSecondary>
     Button Button
 </C.Button>;
 
@@ -86,6 +107,44 @@ interface MyCompleteOption {
     <button>Hello</button>
     <button>World</button>
 </C.ButtonGroup>;
+
+//
+// card
+//
+<C.Card>I'm a card!</C.Card>;
+<C.Card isElevated isBorderless className="card" size="large">
+    I'm a card with props!
+</C.Card>;
+<C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
+
+// These components can be rendered as other components:
+<C.Card as={C.HorizontalRule} />;
+// Card renders a `div` by default:
+<C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
+// `div` doesn't support autoFocus:
+// $ExpectError
+<C.Card autoFocus />;
+// With `as="button"`, a `button` element is rendered and `button` props are accepted:
+<C.Card as="button" autoFocus onClick={(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {}} />;
+
+<C.CardBody isShady size="extraSmall">
+    Hello world!
+</C.CardBody>;
+
+<C.CardHeader isShady size="extraSmall">
+    Hello world!
+</C.CardHeader>;
+
+<C.CardFooter isBorderless isShady size="extraSmall">
+    Hello world!
+</C.CardFooter>;
+
+// Divider has no children or props except className
+// $ExpectError
+<C.CardDivider>Hello world!</C.CardDivider>;
+// $ExpectError
+<C.CardDivider isShady />;
+<C.CardDivider />;
 
 //
 // checkbox-control
@@ -119,6 +178,19 @@ interface MyCompleteOption {
 // color-picker
 //
 <C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} />;
+
+//
+// custom-select-control
+//
+<C.CustomSelectControl
+    label="Fruit"
+    options={[
+        { key: 'apple', name: 'Apple', style: { color: 'red' } },
+        { key: 'banana', name: 'Banana', style: { backgroundColor: 'yellow' }, className: 'my-favorite-fruit' },
+        { key: 'papaya', name: 'Papaya', style: { color: 'orange', backgroundColor: 'green' } },
+    ]}
+    onChange={v => console.log(v.selectedItem && v.selectedItem.name)}
+/>;
 
 //
 // dashicon
@@ -216,6 +288,27 @@ interface MyCompleteOption {
 // external-link
 //
 <C.ExternalLink href="https://wordpress.org">WordPress.org</C.ExternalLink>;
+
+//
+// flex
+//
+<C.Flex
+    isReversed
+    gap={3}
+    align='bottom'
+    justify='left'
+    className="test-classname"
+>
+    <C.FlexBlock className="test-classname">Test Flex Block</C.FlexBlock>
+    <C.FlexItem className="test-classname">
+        Flex Item 1
+    </C.FlexItem>
+    <C.FlexItem>
+        Flex Item 2
+    </C.FlexItem>
+</C.Flex>;
+
+<C.Flex><div /></C.Flex>;
 
 //
 // focal-point-picker
@@ -369,7 +462,7 @@ const kbshortcuts = {
 //
 // modal
 //
-<C.Modal title="This is my modal" onRequestClose={() => console.log('closing modal')}>
+<C.Modal title="This is my modal" isDismissible={true} onRequestClose={() => console.log('closing modal')}>
     <button onClick={() => console.log('clicked')}>My custom close button</button>
 </C.Modal>;
 
@@ -454,9 +547,16 @@ const kbshortcuts = {
             return anchorEl.parentElement.getBoundingClientRect();
         }
     }}
+    onClose={() => {}}
+    onClickOutside={() => {}}
+    onFocusOutside={e => {
+        if (e.relatedTarget === document.querySelector('#my-element')) return;
+    }}
 >
     Hello World
 </C.Popover>;
+
+<C.Popover.Slot />;
 
 //
 // query-controls
@@ -497,14 +597,20 @@ const kbshortcuts = {
     label="User type"
     help="The type of the current user"
     selected="a"
-    options={[{ label: 'Author', value: 'a' }, { label: 'Editor', value: 'e' }]}
+    options={[
+        { label: 'Author', value: 'a' },
+        { label: 'Editor', value: 'e' },
+    ]}
     onChange={value => value && console.log(value.toUpperCase())}
 />;
 <C.RadioControl
     label="User type"
     help="The type of the current user"
     selected={{ foo: 'bar' }}
-    options={[{ label: 'Author', value: { foo: 'bar' } }, { label: 'Editor', value: { foo: 'baz' } }]}
+    options={[
+        { label: 'Author', value: { foo: 'bar' } },
+        { label: 'Editor', value: { foo: 'baz' } },
+    ]}
     onChange={value => value && console.log(value.foo)}
 />;
 
@@ -558,14 +664,22 @@ const kbshortcuts = {
 <C.SelectControl
     label="Size"
     value="50%"
-    options={[{ label: 'Big', value: '100%' }, { label: 'Medium', value: '50%' }, { label: 'Small', value: '25%' }]}
+    options={[
+        { label: 'Big', value: '100%' },
+        { label: 'Medium', value: '50%' },
+        { label: 'Small', value: '25%' },
+    ]}
     onChange={size => console.log(size)}
 />;
 <C.SelectControl
     label="Size"
     value={['50%']}
     multiple
-    options={[{ label: 'Big', value: '100%' }, { label: 'Medium', value: '50%' }, { label: 'Small', value: '25%' }]}
+    options={[
+        { label: 'Big', value: '100%' },
+        { label: 'Medium', value: '50%' },
+        { label: 'Small', value: '25%' },
+    ]}
     onChange={size => console.log(size)}
 />;
 
@@ -635,7 +749,13 @@ const kbshortcuts = {
 // text-control
 //
 <C.TextControl label="My text value" value={'foo'} onChange={value => console.log(value.toUpperCase())} />;
-<C.TextControl type="number" label="My numeric value" value={3} onChange={value => console.log(value.toUpperCase())} />;
+<C.TextControl
+    type="number"
+    label="My numeric value"
+    hideLabelFromVision
+    value={3}
+    onChange={value => console.log(value.toUpperCase())}
+/>;
 
 //
 // textarea-control
@@ -900,7 +1020,7 @@ const MySlotFillProvider = () => {
             render() {
                 return <div>{this.props.foo}</div>;
             }
-        }
+        },
     );
     <EnhancedComponentClassExpression foo="hello world" />;
 

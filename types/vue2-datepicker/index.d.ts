@@ -1,4 +1,4 @@
-// Type definitions for vue2-datepicker 2.12
+// Type definitions for vue2-datepicker 3.3
 // Project: https://github.com/mengxiong10/vue2-datepicker
 // Definitions by: ChristianStornowski <https://github.com/ChristianStornowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,15 +16,26 @@ declare namespace Datepicker {
         start: string;
         step: string;
         end: string;
+        format: string;
     }
 
     interface Lang {
-        days: string[];
-        months: string[];
-        pickers: string[];
-        placeholder: {
-            date: string;
-            dateRange: string;
+        days?: string[];
+        months?: string[];
+        yearFormat: string;
+        monthFormat: string;
+        monthBeforeYear: boolean;
+        formatLocale: {
+            months: string[];
+            monthsShort: string[];
+            weekdays: string[];
+            weekdaysShort: string[];
+            weekdaysMin: string[];
+            firstDayOfWeek: number;
+            firstWeekContainsDate: number;
+            meridiem: (h: number, _: number, isLowercase: boolean) => boolean;
+            meridiemParse: RegExp;
+            isPM: (input: string) => boolean;
         };
     }
 
@@ -32,17 +43,12 @@ declare namespace Datepicker {
         date: Date;
         timestamp: number;
         format: string;
-    }
-
-    interface TimeSelectOptions {
-        hours: number[];
-        minutes: number[];
-        seconds: number[];
+        token: string;
     }
 }
 
 declare const Datepicker: Component<any, any, any, {
-    type?: string;
+    type?: 'date'|'datetime'|'year'|'month'|'time'|'week';
     range?: boolean;
     format?: string;
     valueType?: Datepicker.ValueType;
@@ -52,23 +58,35 @@ declare const Datepicker: Component<any, any, any, {
     editable?: boolean;
     disabled?: boolean;
     placeholder?: string;
-    width?: number | string;
     appendToBody?: boolean;
-    defaultValue?: string;
-    popupStyle?: string;
-    notBefore?: string | Date;
-    notAfter?: string | Date;
-    disabledDays?: number[] | string[] | ((date: Date) => Date[]);
-    shortcuts?: boolean | Datepicker.Shortcuts[]
-    timePickerOptions?: Datepicker.TimePickerOptions[] | (() => Datepicker.TimePickerOptions[]);
-    timeSelectOptions?: Datepicker.TimeSelectOptions;
+    defaultValue?: Date;
+    popupStyle?: (() => {});
+    shortcuts?: Datepicker.Shortcuts[];
+    timePickerOptions?: Datepicker.TimePickerOptions;
     minuteStep?: number;
-    firstDayOfWeek?: number;
     inputClass?: string;
-    inputAttr?: string;
+    inputAttr?: (() => {});
     confirmText?: string;
     rangeSeparator?: string;
-    dateFormat?: string;
+    disabledDate?: ((date: Date) => boolean);
+    disabledTime?: ((date: Date) => boolean);
+    inline?: boolean;
+    open?: boolean
+    popupClass?: string;
+    titleFormat?: string;
+    partialUpdate?: boolean;
+    showWeekNumber?: boolean
+    hourStep?: number;
+    secondStep?: number;
+    hourOptions?: number[];
+    minuteOptions?: number[];
+    secondOptions?: number[];
+    showHour?: boolean;
+    showMinute?: boolean;
+    showSecond?: boolean;
+    use12h?: boolean;
+    showTimeHeader?: boolean;
+    timeTitleFormat?: string;
 }>;
 
 export default Datepicker;

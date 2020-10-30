@@ -1,5 +1,16 @@
 import * as React from "react";
-import Carousel, { Dots } from "@brainhubeu/react-carousel";
+import Carousel, {
+    Dots,
+    slidesToShowPlugin,
+    infinitePlugin,
+    clickToChangePlugin,
+    autoplayPlugin,
+    rtlPlugin,
+    centeredPlugin,
+    slidesToScrollPlugin,
+    arrowsPlugin,
+    fastSwipePlugin,
+} from "@brainhubeu/react-carousel";
 
 interface MyCarouselProps {
     value: number;
@@ -30,31 +41,68 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
         return (
             <>
                 <Carousel
-                    addArrowClickHandler
+                    plugins={['infinite',
+                        {
+                            resolve: slidesToShowPlugin,
+                            options: {
+                                numberOfSlides: 3,
+                            }
+                        },
+                        {
+                            resolve: slidesToScrollPlugin,
+                            options: {
+                                numberOfSlides: 3,
+                            }
+                        },
+                        {
+                            resolve: infinitePlugin,
+                            options: {
+                                numberOfInfiniteClones: 1,
+                            }
+                        },
+                        {
+                            resolve: clickToChangePlugin,
+                        },
+                        {
+                            resolve: autoplayPlugin,
+                            options: {
+                                interval: 2000,
+                                direction: 'left'
+                            }
+                        },
+                        {
+                            resolve: rtlPlugin,
+                        },
+                        {
+                            resolve: centeredPlugin,
+                        },
+                        {
+                            resolve: arrowsPlugin,
+                            options: {
+                                arrowLeft: <button>{'<<'}</button>,
+                                arrowLeftDisabled: <button>{'<'}</button>,
+                                arrowRight: <button>{'>>'}</button>,
+                                arrowRightDisabled: <button>{'>'}</button>,
+                                addArrowClickHandler: true,
+                            }
+                        },
+                        {
+                            resolve: fastSwipePlugin,
+                        }
+                    ]}
                     animationSpeed={2000}
-                    arrows
-                    arrowLeft={<div>left</div>}
-                    arrowRight={<div>left</div>}
-                    autoPlay={1000}
-                    clickToChange
-                    centered
-                    dots={false}
                     draggable
                     itemWidth={100}
-                    infinite
-                    keepDirectionWhenDragging
                     onChange={this.handleChange}
                     offset={50}
                     slides={slides}
-                    slidesPerPage={1}
-                    slidesPerScroll={3}
-                    stopAutoPlayOnHover
-                    value={value}>
+                    value={value}
+                >
                     <img alt="image-1"/>
                     <img alt="image-2"/>
                     <img alt="image-3"/>
                 </Carousel>
-                <Dots number={slides.length} value={value} onChange={this.handleChange}/>
+                <Dots number={slides.length} value={value} onChange={this.handleChange} rtl={false}/>
             </>
         );
     }
