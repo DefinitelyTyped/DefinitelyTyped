@@ -5539,6 +5539,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "@tweenjs/tween.js",
+            "typingsPackageName": "tween.js",
+            "sourceRepoURL": "https://github.com/tweenjs/tween.js",
+            "asOfVersion": "18.6.1"
+        },
+        {
             "libraryName": "typed.js",
             "typingsPackageName": "typed.js",
             "sourceRepoURL": "https://github.com/mattboldt/typed.js",
