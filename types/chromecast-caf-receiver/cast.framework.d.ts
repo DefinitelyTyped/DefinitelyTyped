@@ -200,6 +200,39 @@ type MessageInterceptor<MessageType> =
     | ((data: MessageType) => null)
     | null;
 
+interface MessageEventToMessageTypeMap {
+    [messages.MessageType.CLOUD_STATUS]: messages.CloudMediaStatus;
+    [messages.MessageType.CUSTOM_COMMAND]: messages.CustomCommandRequestData;
+    [messages.MessageType.DISPLAY_STATUS]: messages.DisplayStatusRequestData;
+    [messages.MessageType.EDIT_AUDIO_TRACKS]: messages.EditAudioTracksRequestData;
+    [messages.MessageType.EDIT_TRACKS_INFO]: messages.EditTracksInfoRequestData;
+    [messages.MessageType.FOCUS_STATE]: messages.FocusStateRequestData;
+    [messages.MessageType.GET_STATUS]: messages.GetStatusRequestData;
+    [messages.MessageType.LOAD]: messages.LoadRequestData;
+    [messages.MessageType.LOAD_BY_ENTITY]: messages.LoadByEntityRequestData;
+    [messages.MessageType.MEDIA_STATUS]: messages.MediaStatus;
+    [messages.MessageType.PRECACHE]: messages.PrecacheRequestData;
+    [messages.MessageType.PRELOAD]: messages.PreloadRequestData;
+    [messages.MessageType.QUEUE_CHANGE]: messages.QueueChange;
+    [messages.MessageType.QUEUE_GET_ITEMS]: messages.GetItemsInfoRequestData;
+    [messages.MessageType.QUEUE_GET_ITEM_RANGE]: messages.FetchItemsRequestData;
+    [messages.MessageType.QUEUE_INSERT]: messages.QueueInsertRequestData;
+    [messages.MessageType.QUEUE_ITEMS]: messages.ItemsInfo;
+    [messages.MessageType.QUEUE_ITEM_IDS]: messages.QueueIds;
+    [messages.MessageType.QUEUE_LOAD]: messages.QueueLoadRequestData;
+    [messages.MessageType.QUEUE_REMOVE]: messages.QueueRemoveRequestData;
+    [messages.MessageType.QUEUE_REORDER]: messages.QueueReorderRequestData;
+    [messages.MessageType.QUEUE_UPDATE]: messages.QueueUpdateRequestData;
+    [messages.MessageType.RESUME_SESSION]: messages.ResumeSessionRequestData;
+    [messages.MessageType.SEEK]: messages.SeekRequestData;
+    [messages.MessageType.SESSION_STATE]: messages.StoreSessionRequestData;
+    [messages.MessageType.SET_CREDENTIALS]: messages.SetCredentialsRequestData;
+    [messages.MessageType.SET_PLAYBACK_RATE]: messages.SetPlaybackRateRequestData;
+    [messages.MessageType.SET_VOLUME]: messages.VolumeRequestData;
+    [messages.MessageType.STORE_SESSION]: messages.StoreSessionRequestData;
+    [messages.MessageType.USER_ACTION]: messages.UserActionRequestData;
+}
+
 /**
  * Controls and monitors media playback.
  */
@@ -669,125 +702,9 @@ export class PlayerManager {
      * provided, and no interceptor is provided for preload - the load
      * interceptor will be called for preload messages.
      */
-    setMessageInterceptor(
-        type: messages.MessageType.CLOUD_STATUS,
-        interceptor: MessageInterceptor<messages.CloudMediaStatus>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.CUSTOM_COMMAND,
-        interceptor: MessageInterceptor<messages.CustomCommandRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.DISPLAY_STATUS,
-        interceptor: MessageInterceptor<messages.DisplayStatusRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.EDIT_AUDIO_TRACKS,
-        interceptor: MessageInterceptor<messages.EditAudioTracksRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.EDIT_TRACKS_INFO,
-        interceptor: MessageInterceptor<messages.EditTracksInfoRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.FOCUS_STATE,
-        interceptor: MessageInterceptor<messages.FocusStateRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.GET_STATUS,
-        interceptor: MessageInterceptor<messages.GetStatusRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.LOAD,
-        interceptor: MessageInterceptor<messages.LoadRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.LOAD_BY_ENTITY,
-        interceptor: MessageInterceptor<messages.LoadByEntityRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.MEDIA_STATUS,
-        interceptor: MessageInterceptor<messages.MediaStatus>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.PRECACHE,
-        interceptor: MessageInterceptor<messages.PrecacheRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.PRELOAD,
-        interceptor: MessageInterceptor<messages.PreloadRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_CHANGE,
-        interceptor: MessageInterceptor<messages.QueueChange>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_GET_ITEMS,
-        interceptor: MessageInterceptor<messages.GetItemsInfoRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_GET_ITEM_RANGE,
-        interceptor: MessageInterceptor<messages.FetchItemsRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_INSERT,
-        interceptor: MessageInterceptor<messages.QueueInsertRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_ITEMS,
-        interceptor: MessageInterceptor<messages.ItemsInfo>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_ITEM_IDS,
-        interceptor: MessageInterceptor<messages.QueueIds>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_LOAD,
-        interceptor: MessageInterceptor<messages.QueueLoadRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_REMOVE,
-        interceptor: MessageInterceptor<messages.QueueRemoveRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_REORDER,
-        interceptor: MessageInterceptor<messages.QueueReorderRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_UPDATE,
-        interceptor: MessageInterceptor<messages.QueueUpdateRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.RESUME_SESSION,
-        interceptor: MessageInterceptor<messages.ResumeSessionRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SEEK,
-        interceptor: MessageInterceptor<messages.SeekRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SESSION_STATE,
-        interceptor: MessageInterceptor<messages.StoreSessionRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SET_CREDENTIALS,
-        interceptor: MessageInterceptor<messages.SetCredentialsRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SET_PLAYBACK_RATE,
-        interceptor: MessageInterceptor<messages.SetPlaybackRateRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SET_VOLUME,
-        interceptor: MessageInterceptor<messages.VolumeRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.STORE_SESSION,
-        interceptor: MessageInterceptor<messages.StoreSessionRequestData>,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.USER_ACTION,
-        interceptor: MessageInterceptor<messages.UserActionRequestData>,
+    setMessageInterceptor<MessageEvent extends keyof MessageEventToMessageTypeMap>(
+        type: MessageEvent,
+        interceptor: MessageInterceptor<MessageEventToMessageTypeMap[MessageEvent]>,
     ): void;
     setMessageInterceptor(type: messages.MessageType, interceptor: MessageInterceptor<messages.RequestData>): void;
 
