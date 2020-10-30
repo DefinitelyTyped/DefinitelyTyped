@@ -1,4 +1,7 @@
-// Type definitions for creditkey-js
+// Type definitions for creditkey-js 1.0.73
+// Project: https://github.com/creditkey/creditkey-js
+// Definitions by: Mike Bennett and Tristan Smith <https://github.com/Entroper and https://github.com/TristanTaradel>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace _default {
     type Platform = 'production' | 'staging' | 'development';
