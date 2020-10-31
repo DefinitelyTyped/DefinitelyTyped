@@ -182,6 +182,12 @@ puppeteer.launch().then(async browser => {
   page.keyboard.press("Backspace");
   page.keyboard.sendCharacter("嗨");
 
+  // mouse events
+  await page.mouse.wheel();
+  await page.mouse.wheel({ deltaX: -100 });
+  await page.mouse.wheel({ deltaY: -100 });
+  await page.mouse.wheel({ deltaX: 100, deltaY: 100 });
+
   await page.tracing.start({ path: "trace.json" });
   await page.goto("https://www.google.com");
   await page.tracing.stop();
