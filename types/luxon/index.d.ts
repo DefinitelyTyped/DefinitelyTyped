@@ -522,7 +522,7 @@ export namespace Settings {
     let defaultLocale: string;
     let defaultNumberingSystem: string;
     let defaultOutputCalendar: string;
-    const defaultZone: Zone;
+    let defaultZone: Zone;
     let defaultZoneName: string;
     let throwOnInvalid: boolean;
     function now(): number;

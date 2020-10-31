@@ -206,13 +206,12 @@ Info.features().relative;
 Settings.defaultLocale;
 Settings.defaultLocale = 'en';
 Settings.defaultZoneName = 'Europe/Paris';
-Settings.throwOnInvalid = true;
-Settings.now();
-Settings.now = () => 0;
-Settings.resetCaches();
-
-// $ExpectError
+Settings.defaultZone; // $ExpectType Zone
 Settings.defaultZone = Settings.defaultZone;
+Settings.throwOnInvalid = true;
+Settings.now; // $ExpectType () => number
+Settings.now = () => Date.now() + 3000;
+Settings.resetCaches();
 
 // The following tests were coped from the docs
 // http://moment.github.io/luxon/docs/manual/
