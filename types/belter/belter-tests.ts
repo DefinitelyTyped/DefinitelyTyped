@@ -1,5 +1,6 @@
 import belter = require('belter');
 
+// Device.js function definitions tests
 belter.getUserAgent();
 belter.isDevice('userAgent');
 belter.isWebView();
@@ -22,3 +23,12 @@ belter.isMacOsCna();
 belter.supportsPopups('userAgent');
 belter.isChrome('userAgent');
 belter.isSafari('userAgent');
+
+// css.js function definitions tests
+belter.isPerc('42%');
+belter.isPx('42px');
+belter.toNum('42');
+belter.toPx('42');
+belter.toCSS(42);
+belter.percOf(100, "42%");
+belter.normalizeDimension(42, 10);

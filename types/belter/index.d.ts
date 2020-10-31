@@ -5,7 +5,7 @@
 
 export as namespace belter;
 
-// Device.js function definitions
+// device.js function definitions
 export function getUserAgent(): string;
 export function isDevice(userAgent: string): boolean;
 export function isWebView(): boolean;
@@ -19,7 +19,7 @@ export function isIos(ua: string): boolean;
 export function isGoogleSearchApp(ua: string): boolean;
 export function isQQBrowser(ua: string): boolean;
 export function isIosWebview(ua: string): boolean;
-export function isAndroidWebview(ua?: string): boolean;
+export function isAndroidWebview(ua: string): boolean;
 export function isIE(): boolean;
 export function isIECompHeader(): boolean;
 export function isElectron(): boolean;
@@ -28,3 +28,14 @@ export function isMacOsCna(): boolean;
 export function supportsPopups(ua: string): boolean;
 export function isChrome(ua: string): boolean;
 export function isSafari(ua: string): boolean;
+
+// css.js function definitions
+export function isPerc(str: string): boolean;
+export function isPx(str: string): boolean;
+export function toNum(val: string | number): number;
+export function toPx(val: number | string): string;
+export function toCSS(val: number | string): string;
+export function percOf(num: number, perc: string): number;
+export function normalizeDimension(dim: string | number, max: number): number;
+
+
