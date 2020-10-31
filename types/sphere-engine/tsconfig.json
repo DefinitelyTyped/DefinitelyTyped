@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "es2017",
-        "module": "es2015",
+        "module": "commonjs",
         "lib": [
             "es2017"
         ],
@@ -15,9 +15,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "allowJs": true,
-        "noEmitOnError": true,
-        "sourceMap": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [

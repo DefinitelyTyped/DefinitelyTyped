@@ -1,4 +1,4 @@
-/**
+/*
  *  Cell, the Sphere packaging compiler
  *  Copyright (c) 2015-2019, Fat Cerberus
  *  All rights reserved.
@@ -28,7 +28,7 @@
  *  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
- **/
+ */
 
 /** Provides indirect access to global variables as properties of an object. */
 declare const global: typeof globalThis;
@@ -188,7 +188,7 @@ interface FontOptions {
      * `true` to enable automatic kerning. Kerning adjusts the spacing between each character so the
      * distance between adjacent characters appears uniform.
      * @default true
-     * */
+     */
     kern?: boolean;
 }
 
@@ -213,7 +213,7 @@ interface JobOptions {
     priority?: number;
 }
 
-declare interface MouseEvent {
+interface MouseEvent {
     key: MouseKey | null;
     x?: number;
     y?: number;
@@ -223,7 +223,7 @@ declare interface MouseEvent {
 /**
  * Specifies options for creating a new `Shader`.
  */
-declare interface ShaderOptions {
+interface ShaderOptions {
     /** SphereFS path to a GLSL vertex shader file. */
     vertexFile: string;
 
@@ -232,7 +232,7 @@ declare interface ShaderOptions {
 }
 
 /** Specifies the 2D dimensions (width and height) of something. */
-declare interface Size2D {
+interface Size2D {
     /** Width, as measured in pixels. */
     width: number;
 
@@ -241,7 +241,7 @@ declare interface Size2D {
 }
 
 /** Specifies options for playing back an audio sample. */
-declare interface SoundOptions {
+interface SoundOptions {
     /**
      * L/R stereo balance. 0.0 is centered, +/- 1.0 is full right/left respectively.
      * @default 0.0
@@ -264,7 +264,7 @@ declare interface SoundOptions {
 /**
  * Describes a vertex of a `Shape`.
  */
-declare interface Vertex {
+interface Vertex {
     x: number;
     y: number;
     z?: number;
@@ -502,6 +502,8 @@ declare class BlendOp {
      * destination color.
      */
     static readonly Subtract: BlendOp;
+
+    private _workaround: null; // this doesn't actually exist, it's just a workaround for dtslint
 }
 
 /**
@@ -675,7 +677,8 @@ declare class Color {
 
     /**
      * Gets a `Color` corresponding to the specified color name which can be either HTML notation
-     * (e.g. `#7FFF00`) or an X11 color name such as `chartreuse` (case insensitive). */
+     * (e.g. `#7FFF00`) or an X11 color name such as `chartreuse` (case insensitive).
+     */
     static of(name: string): Color;
 
     /**
@@ -1015,12 +1018,13 @@ declare class IndexList {
      * @param indices The indices to be stored in the index list.
      */
     constructor(indices: number[]);
+    private _workaround: null; // this doesn't actually exist, it's just a workaround for dtslint
 }
 
 /**
  * Provides proof of a scheduled Dispatch job and allows its scheduling to be manipulated.
  */
-declare interface JobToken {
+interface JobToken {
     /**
      * Cancels the job. For one-time jobs, if the job has already fired, calling this has no
      * effect.
@@ -1128,15 +1132,10 @@ declare class Model {
     transform: Transform;
 
     /**
-     * Render the model to the backbuffer.
-     */
-    draw(): void;
-
-    /**
-     * Render the model to a surface.
+     * Render the model to a surface or the backbuffer if no surface is provided.
      * @param surface Surface on which to render the model.
      */
-    draw(surface: Surface): void;
+    draw(surface?: Surface): void;
 }
 
 /**
@@ -1765,16 +1764,11 @@ declare class Texture {
     readonly width: number;
 
     /**
-     * Construct a new texture from an image file.
-     * @param fileName SphereFS path of the image file to load.
+     * Construct a new texture from an image file or from the contents of a `Surface`
+     * @param source SphereFS path of the image file to load, or a Surface object whose
+     *               contents will be used for the new texture
      */
-    constructor(fileName: string);
-
-    /**
-     * Construct a new texture from the contents of a `Surface`.
-     * @param surface A surface whose contents will be used for the new texture.
-     */
-    constructor(surface: Surface);
+    constructor(source: string | Surface)
 
     /**
      * Construct a new texture of a given size and initial contents.
@@ -1863,6 +1857,7 @@ declare class VertexList {
      * @param vertices An array of `Vertex` objects describing the vertices.
      */
     constructor(vertices: Vertex[]);
+    private _workaround: null; // this doesn't actually exist, it's just a workaround for dtslint
 }
 
 /**
@@ -1966,7 +1961,7 @@ declare module 'console' {
         defineObject<T>(
             name: string,
             object: T,
-            methods: Record<string, (this: T, ...args: (string | number)[]) => void>,
+            methods: Record<string, (this: T, ...args: Array<(string | number)>) => void>,
         ): void;
 
         /**
@@ -2267,7 +2262,7 @@ declare module 'from' {
      * Get a new query for the elements of one or more arrays or other iterable objects.
      * @param sources One or more arrays or iterable objects to query.
      */
-    function from<T>(...sources: Iterable<T>[]): Query<T>;
+    function from<T>(...sources: Array<Iterable<T>>): Query<T>;
 
     /**
      * Represents a sequence of values with optional query transformations applied. Queries can be
@@ -2319,26 +2314,10 @@ declare module 'from' {
         /**
          * Extend the query with a sorting operation that sorts the values in ascending order
          * according to the result of calling a key-selection function for each value.
-         * @param keySelector A key selector function. It takes a query result and returns a string
-         *                    to be used as a key for sorting.
+         * @param keySelector A key selector function. It takes a query result and returns a string,
+         *                    a number, or a Boolean value to be used as a key for sorting.
          */
-        ascending(keySelector?: (value: T) => string): Query<T>;
-
-        /**
-         * Extend the query with a sorting operation that sorts the values in ascending order
-         * according to the result of calling a key-selection function for each value.
-         * @param keySelector A key selector function. It takes a query result and returns a number
-         *                    to be used as a key for sorting.
-         */
-        ascending(keySelector?: (value: T) => number): Query<T>;
-
-        /**
-         * Extend the query with a sorting operation that sorts the values in ascending order
-         * according to the result of calling a key-selection function for each value.
-         * @param keySelector A key selector function. It takes a query result and returns a Boolean
-         *                    value to be used as a key for sorting (`false` comes before `true`).
-         */
-        ascending(keySelector?: (value: T) => boolean): Query<T>;
+        ascending(keySelector?: (value: T) => string | number | boolean): Query<T>;
 
         /**
          * Extend the query with an operation that calls a user-supplied function for each result
@@ -2354,7 +2333,7 @@ declare module 'from' {
          * @param sources One or more `Iterable`s whose contents will be appended.
          * @return A new query for the transformed sequence.
          */
-        concat(...sources: Iterable<T>[]): Query<T>;
+        concat(...sources: Array<Iterable<T>>): Query<T>;
 
         /**
          * Run the query and count the number of results it produces.
@@ -2369,34 +2348,18 @@ declare module 'from' {
          * @returns An object with properties corresponding to each key. The value of each property
          *          is the number of results with that key.
          */
-        countBy<K extends string>(keySelector: (value: T) => string): Record<K, number>;
+        countBy(keySelector: (value: T) => string): Record<string, number>;
 
         /**
          * Extend the query with a sorting operation that sorts the values in descending order
          * according to the result of calling a key-selection function for each value.
-         * @param keySelector A key selector function. It takes a query result and returns a string
-         *                    to be used as a key for sorting.
+         * @param keySelector A key selector function. It takes a query result and returns a string,
+         *                    a number, or a Boolean value to be used as a key for sorting.
          */
-        descending(keySelector?: (value: T) => string): Query<T>;
-
-        /**
-         * Extend the query with a sorting operation that sorts the values in descending order
-         * according to the result of calling a key-selection function for each value.
-         * @param keySelector A key selector function. It takes a query result and returns a number
-         *                    to be used as a key for sorting.
-         */
-        descending(keySelector?: (value: T) => number): Query<T>;
-
-        /**
-         * Extend the query with a sorting operation that sorts the values in descending order
-         * according to the result of calling a key-selection function for each value.
-         * @param keySelector A key selector function. It takes a query result and returns a Boolean
-         *                    value to be used as a key for sorting (`true` comes before `false`).
-         */
-        descending(keySelector?: (value: T) => boolean): Query<T>;
+        descending(keySelector?: (value: T) => string | number | boolean): Query<T>;
 
         distinct(): Query<T>;
-        distinct<K>(predicate: (value: T) => K): Query<T>;
+        distinct(predicate: (value: T) => string): Query<T>;
 
         /**
          * Run the query and get the query result at a given position in the sequence.
@@ -2420,7 +2383,7 @@ declare module 'from' {
          */
         forEach(iteratee: (value: T) => void): void;
 
-        groupBy<K extends string>(keySelector: (value: T) => K): Record<K, T[]>;
+        groupBy(keySelector: (value: T) => string): Record<string, T[]>;
         join<U, R>(
             joinSource: Iterable<U>,
             predicate: (left: T, right: U) => boolean,
@@ -2576,7 +2539,7 @@ declare module 'from' {
          */
         toArray(): T[];
 
-        update<R>(selector: (value: T) => R): void;
+        update(selector: (value: T) => string): void;
 
         /**
          * Extend the query with a filter operation that keeps only those values satisfying a given
@@ -2908,7 +2871,6 @@ declare module 'thread' {
 
     /**
      * Represents a set of Dispatch jobs with associated state which can be controlled as a unit.
-     * @abstract
      */
     abstract class Thread {
         /**

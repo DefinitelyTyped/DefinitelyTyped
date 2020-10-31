@@ -28,7 +28,7 @@
  *  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
- **/
+ */
 
 // Most of the JSDoc comments have been copied/adapted from the old Sphere documentation
 // https://github.com/sphere-group/sphere/blob/master/sphere/docs/development/api.txt
@@ -182,14 +182,12 @@ declare const INVERT = 8;
  * Objects from the 1.x API should generally only be used for Sphere 1.x API functions
  * that require them.
  */
-declare interface Sphere1Color {
+interface Sphere1Color {
     red: number;
     green: number;
     blue: number;
     alpha: number;
 }
-
-declare interface Sphere1ColorMatrix {}
 
 /**
  * A Sphere 1.x font object
@@ -197,7 +195,7 @@ declare interface Sphere1ColorMatrix {}
  * Objects from the 1.x API should generally only be used for Sphere 1.x API functions
  * that require them.
  */
-declare interface Sphere1Font {
+interface Sphere1Font {
     setColorMask(color: Sphere1Color): void;
     getColorMask(): Sphere1Color;
     drawText(x: number, y: number, text: any): void;
@@ -218,7 +216,7 @@ declare interface Sphere1Font {
  * Objects from the 1.x API should generally only be used for Sphere 1.x API functions
  * that require them.
  */
-declare interface Sphere1Image {
+interface Sphere1Image {
     width: number;
     height: number;
     blit(x: number, y: number, blendMode?: number): void;
@@ -268,7 +266,7 @@ declare interface Sphere1Image {
     createSurface(): Sphere1Surface;
 }
 
-declare interface Sphere1Point {
+interface Sphere1Point {
     x: number;
     y: number;
 }
@@ -279,7 +277,7 @@ declare interface Sphere1Point {
  * Objects from the 1.x API should generally only be used for Sphere 1.x API functions
  * that require them.
  */
-declare interface Sphere1Surface {
+interface Sphere1Surface {
     width: number;
     height: number;
     applyLookup(
@@ -292,16 +290,16 @@ declare interface Sphere1Surface {
         blueLookup: number[],
         alphaLookup: number[],
     ): void;
-    applyColorFX(x: number, y: number, w: number, h: number, colorMatrix: Sphere1ColorMatrix): void;
+    applyColorFX(x: number, y: number, w: number, h: number, colorMatrix: any): void;
     applyColorFX4(
         x: number,
         y: number,
         w: number,
         h: number,
-        matrixUL: Sphere1ColorMatrix,
-        matrixUR: Sphere1ColorMatrix,
-        matrixLL: Sphere1ColorMatrix,
-        matrixLR: Sphere1ColorMatrix,
+        matrixUL: any,
+        matrixUR: any,
+        matrixLL: any,
+        matrixLR: any,
     ): void;
     blit(x: number, y: number): void;
     blitSurface(surface: Sphere1Surface, x: number, y: number): void;
@@ -421,30 +419,27 @@ declare interface Sphere1Surface {
     save(filename: string): void;
 }
 
-declare interface SphereGame {
+interface SphereGame {
     name: string;
     directory: string;
     author: string;
     description: string;
 }
 
-/**
- *
- * @property num_frames		- the number of frames for the person's current direction
- * @property num_directions	- the number of directions for the person
- * @property width				- the width of the spriteset's current frame
- * @property height			- the height of the spriteset's current frame
- * @property leader			- the person that `name` is following, or "" if no-one
- */
-declare interface SpherePersonData {
-    num_frames: Number;
-    num_directions: Number;
-    width: Number;
-    height: Number;
-    leader: String;
+interface SpherePersonData {
+    /** the number of frames for the person's current direction */
+    num_frames: number;
+    /** the number of directions for the person */
+    num_directions: number;
+    /** the width of the spriteset's current frame */
+    width: number;
+    /** the height of the spriteset's current frame */
+    height: number;
+    /** the person that `name` is following, or "" if no-one */
+    leader: string;
 }
 
-declare interface SphereSpriteset {
+interface SphereSpriteset {
     /* Spriteset base obstruction object */
     base: SphereSpritesetBase;
     /** The filename that the spriteset was loaded with */
@@ -459,28 +454,28 @@ declare interface SphereSpriteset {
     clone(): SphereSpriteset;
 }
 
-declare interface SphereSpritesetBase {
+interface SphereSpritesetBase {
     x1: number;
     y1: number;
     x2: number;
     y2: number;
 }
 
-declare interface SphereSpritesetDirection {
+interface SphereSpritesetDirection {
     /** Name of the direction */
     name: string;
     /** Array of spriteset frame objects */
     frames: SphereSpritesetFrame[];
 }
 
-declare interface SphereSpritesetFrame {
+interface SphereSpritesetFrame {
     /** Index into images array */
     index: number;
     /** Number of frames before animation should switch */
     delay: number;
 }
 
-declare interface SphereWindowStyle {
+interface SphereWindowStyle {
     /**
      * Draws the window at `x`,`y` with the width and height of `w` and `h`.
      * Note that window corners and edges are drawn outside of the width
@@ -621,7 +616,7 @@ declare function CreateColorMatrix(
     br: number,
     bg: number,
     bb: number,
-): Sphere1ColorMatrix;
+): any;
 
 /**
  * Returns an object representing the map engine
@@ -1224,11 +1219,6 @@ declare function SetPersonVisible(name: string, visible: boolean): void;
 
 /**
  * Returns a data object associated with the person `name` with the following default properties:
- * @property num_frames		- the number of frames for the person's current direction
- * @property num_directions	- the number of directions for the person
- * @property width				- the width of the spriteset's current frame
- * @property height			- the height of the spriteset's current frame
- * @property leader			- the person that `name` is following, or "" if no-one
  * @example
  * let data = GetPersonData("Jimmy");
  * let num_frames = data["num_frames"];
