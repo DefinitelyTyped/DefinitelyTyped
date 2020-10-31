@@ -362,6 +362,7 @@ export const bisect: typeof bisectRight;
 export interface Bisector<T, U> {
     left(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
     right(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
+    center(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
 }
 
 export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>;
@@ -420,12 +421,14 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
 
 /**
  * Groups the specified array of values into a Map from key to array of value.
+ *
  * @param iterable The array to group.
  * @param key The key function.
  */
 export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
 /**
  * Groups the specified array of values into a Map from key to array of value.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -437,6 +440,7 @@ export function group<TObject, TKey1, TKey2>(
 ): Map<TKey1, Map<TKey2, TObject[]>>;
 /**
  * Groups the specified array of values into a Map from key to array of value.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -451,6 +455,7 @@ export function group<TObject, TKey1, TKey2, TKey3>(
 
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
+ *
  * @param iterable The array to group.
  * @param key The key function.
  */
@@ -460,6 +465,7 @@ export function groups<TObject, TKey>(
 ): Array<[TKey, TObject[]]>;
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -471,6 +477,7 @@ export function groups<TObject, TKey1, TKey2>(
 ): Array<[TKey1, Array<[TKey2, TObject[]]>]>;
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -482,6 +489,77 @@ export function groups<TObject, TKey1, TKey2, TKey3>(
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject[]]>]>]>;
+
+/**
+ * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
+ *
+ * @param iterable The array to group.
+ * @param key The key function.
+ */
+export function index<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject>;
+/**
+ * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function index<TObject, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Map<TKey1, Map<TKey2, TObject>>;
+/**
+ * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function index<TObject, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Map<TKey1, Map<TKey2, Map<TKey3, TObject>>>;
+
+/**
+ * Equivalent to index, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key The key function.
+ */
+export function indexes<TObject, TKey>(
+    iterable: Iterable<TObject>,
+    key: (value: TObject) => TKey
+): Array<[TKey, TObject]>;
+/**
+ * Equivalent to index, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function indexes<TObject, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Array<[TKey1, Array<[TKey2, TObject]>]>;
+/**
+ * Equivalent to index, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function indexes<TObject, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject]>]>]>;
 
 /**
  * Groups and reduces the specified array of values into a Map from key to value.
