@@ -73,7 +73,13 @@ export interface paypalCreateOptions {
     flow: "checkout" | "vault";
     amount?: string | number;
     currency?: string;
-    buttonStyle?: string;
+    buttonStyle?: {
+        color?: 'gold' | 'blue' | 'silver' | 'black';
+        shape?: 'pill' | 'rect';
+        size?: 'small' | 'medium' | 'large' | 'responsive';
+        label?: 'checkout' | 'credit' | 'pay' | 'buynow' | 'paypal';
+        tagline?: boolean;
+    };
     commit?: boolean;
 }
 

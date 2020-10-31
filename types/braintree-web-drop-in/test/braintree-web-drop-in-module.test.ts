@@ -34,7 +34,13 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
             flow: "checkout",
             amount: 1,
             currency: "USD",
-            buttonStyle: "red",
+            buttonStyle: {
+                color: 'gold',
+                shape: 'pill',
+                size: 'small',
+                label: 'checkout',
+                tagline: false
+            },
             commit: false
         },
         paypalCredit: undefined,
