@@ -10,6 +10,7 @@
 //                 Andrés Ortiz <https://github.com/angrykoala>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Cameron Hunter <https://github.com/cameronhunter>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -325,6 +326,19 @@ export interface MousePressOptions {
 export interface MouseWheelOptions {
     deltaX?: number;
     deltaY?: number;
+}
+
+export interface MouseWheelOptions {
+  /**
+   * X delta in CSS pixels for mouse wheel event. Positive values emulate a scroll up and negative values a scroll down event.
+   * @default 0
+   */
+  deltaX?: number;
+  /**
+   * Y delta in CSS pixels for mouse wheel event. Positive values emulate a scroll right and negative values a scroll left event.
+   * @default 0
+   */
+  deltaY?: number;
 }
 
 export interface Mouse {

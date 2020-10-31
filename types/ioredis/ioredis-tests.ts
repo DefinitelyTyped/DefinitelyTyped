@@ -194,6 +194,9 @@ redis.msetnx({ a: 'b', c: 4 }).then(console.log);
 redis.msetnx({ a: 'b', c: 4 }, cbNumber);
 redis.msetnx(new Map<string, number>(), cbNumber);
 
+// Test for memory usage
+redis.memory('USAGE', 'foo').then(console.log);
+
 // Test OverloadedEvalCommand
 redis.eval('script', 2, 'foo', 'bar').then(console.log);
 redis.eval('script', 2, 'foo', 'bar', cb);

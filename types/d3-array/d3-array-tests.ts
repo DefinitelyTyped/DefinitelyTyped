@@ -354,6 +354,27 @@ numOrUndefined = d3Array.variance(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.variance(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.variance(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// fsum() ----------------------------------------------------------------------
+
+numOrUndefined = d3Array.fsum(numbersArray);
+numOrUndefined = d3Array.fsum(numericArray);
+numOrUndefined = d3Array.fsum(numbersOrUndefinedArray);
+
+numOrUndefined = d3Array.fsum(typedArray);
+numOrUndefined = d3Array.fsum(readonlyNumbersArray);
+numOrUndefined = d3Array.fsum(readonlyNumericArray);
+numOrUndefined = d3Array.fsum(readonlyNumbersOrUndefinedArray);
+
+numOrUndefined = d3Array.fsum(mixedObjectArray, accessorMixedObjectToNum);
+numOrUndefined = d3Array.fsum(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.fsum(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
+// Adder() ---------------------------------------------------------------------
+
+const adder = new d3Array.Adder();
+for (let i = 0; i < 10; i++) adder.add(.1);
+const value: number = adder.valueOf();
+
 // -----------------------------------------------------------------------------
 // Test Searching Arrays
 // -----------------------------------------------------------------------------
