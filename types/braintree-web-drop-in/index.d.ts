@@ -74,10 +74,10 @@ export interface paypalCreateOptions {
     amount?: string | number;
     currency?: string;
     buttonStyle?: {
-        color?: 'gold' | 'blue' | 'silver' | 'black';
-        shape?: 'pill' | 'rect';
-        size?: 'small' | 'medium' | 'large' | 'responsive';
-        label?: 'checkout' | 'credit' | 'pay' | 'buynow' | 'paypal';
+        color?: "gold" | "blue" | "silver" | "black";
+        shape?: "pill" | "rect";
+        size?: "small" | "medium" | "large" | "responsive";
+        label?: "checkout" | "credit" | "pay" | "buynow" | "paypal";
         tagline?: boolean;
     };
     commit?: boolean;

@@ -35,10 +35,10 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
             amount: 1,
             currency: "USD",
             buttonStyle: {
-                color: 'gold',
-                shape: 'pill',
-                size: 'small',
-                label: 'checkout',
+                color: "gold",
+                shape: "pill",
+                size: "small",
+                label: "checkout",
                 tagline: false
             },
             commit: false
