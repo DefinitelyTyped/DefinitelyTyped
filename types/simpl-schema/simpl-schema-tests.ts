@@ -43,6 +43,8 @@ StringSchema.validator({
     clean: true
 });
 
+StringSchema.label('basicString');
+
 const StringSchemaWithOptions = new SimpleSchema({
     basicString: {
         type: String

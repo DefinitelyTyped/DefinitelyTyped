@@ -132,8 +132,7 @@ interface SimpleSchemaStatic {
   getDefinition(key: string, propList?: any, functionContext?: any): any;
   keyIsInBlackBox(key: string): boolean;
   labels(labels: {[key: string]: string}): void;
-  label(key: any): any;
-  Integer: RegExp;
+  label(key?: string): string | {[key: string]: string};  Integer: RegExp;
   messages(messages: any): any;
   messageForError(type: any, key: any, def: any, value: any): string;
   allowsKey(key: any): string;
