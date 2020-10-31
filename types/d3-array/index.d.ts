@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 2.4
+// Type definitions for D3JS d3-array module 2.5
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.4.0
+// Last module patch version validated against: 2.5.1
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -248,6 +248,38 @@ export function deviation<T>(
     iterable: Iterable<T>,
     accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
 ): number | undefined;
+
+/**
+ * Returns a full precision summation of the given values.
+ * Although slower, d3.fsum can replace d3.sum wherever greater precision is needed. Uses d3.Adder.
+ */
+export function fsum<T extends Numeric>(values: Iterable<T | undefined | null>): number;
+/**
+ * Returns a full precision summation of the given values.
+ * Although slower, d3.fsum can replace d3.sum wherever greater precision is needed. Uses d3.Adder.
+ */
+export function fsum<T>(
+    values: Iterable<T>,
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+): number;
+
+export class Adder {
+    /**
+     * Creates a full precision adder for IEEE 754 floating point numbers, setting its initial value to 0.
+     */
+    constructor();
+
+    /**
+     * Adds the specified number to the adder’s current value and returns the adder.
+     */
+    add(number: number): Adder;
+
+    /**
+     * Returns the IEEE 754 double precision representation of the adder’s current value.
+     * Most useful as the short-hand notation +adder.
+     */
+    valueOf(): number;
+}
 
 // --------------------------------------------------------------------------------------
 // Searching Arrays

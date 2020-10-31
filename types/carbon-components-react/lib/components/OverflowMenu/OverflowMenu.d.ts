@@ -28,6 +28,7 @@ export interface OverflowMenuProps extends Omit<ReactButtonAttr, ExcludedAttribu
     open?: boolean,
     renderIcon?: any,
     selectorPrimaryFocus?: string,
+    size?: "sm" | "xl",
 }
 
 declare const OverflowMenu: ForwardRefReturn<HTMLButtonElement, OverflowMenuProps>;

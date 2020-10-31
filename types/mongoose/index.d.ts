@@ -41,6 +41,7 @@
 //                 Jeremy Bensimon <https://github.com/jeremyben>
 //                 Andrei Alecu <https://github.com/andreialecu>
 //                 The Half Blood Prince <https://github.com/tHBp>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -1972,6 +1973,8 @@ declare module "mongoose" {
      */
     all(val: number): this;
     all(path: string, val: number): this;
+    all(val: any[]): this;
+    all(path: string, val: any[]): this;
 
     /**
      * Specifies arguments for a $and condition.

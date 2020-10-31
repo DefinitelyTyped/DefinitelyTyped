@@ -39,7 +39,7 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
      * @param label optional string for labeling the promise. Useful for tooling.
      */
     catch<TResult = never>(
-        onRejected?: ((reason: any) => TResult | PromiseLike<TResult>),
+        onRejected?: (reason: any) => TResult | PromiseLike<TResult>,
         label?: string,
     ): Promise<TResult>;
     /**
@@ -49,7 +49,7 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
      * @param onFinally
      * @param label optional string for labeling the promise. Useful for tooling.
      */
-    finally(onFinally?: (() => void), label?: string): Promise<T>;
+    finally(onFinally?: () => void, label?: string): Promise<T>;
     /**
      * Transitions are aborted and their promises rejected when redirects occur;
      * this method returns a promise that will follow any redirects that occur and
@@ -88,8 +88,8 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
      * @param  label label optional string for labeling the promise. Useful for tooling.
      */
     then<TResult1 = T, TResult2 = never>(
-        onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>),
-        onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>),
+        onfulfilled?: (value: T) => TResult1 | PromiseLike<TResult1>,
+        onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>,
         label?: string,
     ): Promise<TResult1 | TResult2>;
     /**

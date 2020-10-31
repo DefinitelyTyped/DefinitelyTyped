@@ -15,10 +15,10 @@ function foo(x: number) {
 }
 
 // $ExpectType Promise<string>
-MeteorPromise.async(foo, null)(1);
+MeteorPromise.async(foo, false)(1);
 
 // $ExpectType string
-MeteorPromise.async(foo, null)(1).await();
+MeteorPromise.async(foo, false)(1).await();
 
 // $ExpectType Promise<string>
 MeteorPromise.asyncApply(foo, null, [1]);

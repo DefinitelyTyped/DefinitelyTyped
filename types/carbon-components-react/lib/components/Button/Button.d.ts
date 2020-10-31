@@ -10,7 +10,7 @@ import {
 } from "../../../typings/shared";
 
 export type ButtonKind = "danger" | "danger--primary" | "ghost" | "primary" | "secondary" | "tertiary";
-export type ButtonSize = "default" | "field" | "small";
+export type ButtonSize = "default" | "field" | "lg" | "sm" | "small" | "xl";
 
 export interface ButtonRenderIconRenderProps {
     "aria-hidden"?: boolean;

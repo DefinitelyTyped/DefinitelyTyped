@@ -423,9 +423,9 @@ export function transformFromAstAsync(
 export interface PluginObj<S = PluginPass> {
     name?: string;
     manipulateOptions?(opts: any, parserOpts: any): void;
-    pre?(this: S, state: S): void;
+    pre?(this: S, file: BabelFile): void;
     visitor: Visitor<S>;
-    post?(this: S, state: S): void;
+    post?(this: S, file: BabelFile): void;
     inherits?: any;
 }
 
@@ -434,7 +434,7 @@ export interface BabelFile {
     opts: TransformOptions;
     hub: Hub;
     metadata: object;
-    path: NodePath;
+    path: NodePath<t.Program>;
     scope: Scope;
     inputMap: object | null;
     code: string;

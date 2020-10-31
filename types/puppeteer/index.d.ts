@@ -9,6 +9,7 @@
 //                 Dave Cardwell <https://github.com/davecardwell>
 //                 Andrés Ortiz <https://github.com/angrykoala>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -293,6 +294,19 @@ export interface MousePressOptions {
   clickCount?: number;
 }
 
+export interface MouseWheelOptions {
+  /**
+   * X delta in CSS pixels for mouse wheel event. Positive values emulate a scroll up and negative values a scroll down event.
+   * @default 0
+   */
+  deltaX?: number;
+  /**
+   * Y delta in CSS pixels for mouse wheel event. Positive values emulate a scroll right and negative values a scroll left event.
+   * @default 0
+   */
+  deltaY?: number;
+}
+
 export interface Mouse {
   /**
    * Shortcut for `mouse.move`, `mouse.down` and `mouse.up`.
@@ -319,6 +333,11 @@ export interface Mouse {
    * @param options The mouse press options.
    */
   up(options?: MousePressOptions): Promise<void>;
+  /**
+   * Dispatches a `mousewheel` event.
+   * @param options The mouse wheel options.
+   */
+  wheel(options?: MouseWheelOptions): Promise<void>;
 }
 
 export interface Touchscreen {
@@ -1270,6 +1289,27 @@ export interface FrameBase extends Evalable, JSEvalable {
       selector: string,
       options?: WaitForSelectorOptionsHidden,
   ): Promise<ElementHandle | null>;
+
+  /**
+   * Causes your script to wait for the given number of milliseconds.
+   *
+   * @remarks
+   *
+   * It's generally recommended to not wait for a number of seconds, but instead
+   * use {@link Page.waitForSelector}, {@link Page.waitForXPath} or
+   * {@link Page.waitForFunction} to wait for exactly the conditions you want.
+   *
+   * @example
+   *
+   * Wait for 1 second:
+   *
+   * ```
+   * await page.waitForTimeout(1000);
+   * ```
+   *
+   * @param milliseconds - the number of milliseconds to wait.
+   */
+  waitForTimeout(milliseconds: number): Promise<void>;
 
   waitForXPath(
     xpath: string,
