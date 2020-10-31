@@ -6,6 +6,7 @@ export type LeadIdentifier = { "id": string } | { "user_id": string };
 export interface Lead {
   "type": "contact",
   readonly "id": string,
+  "role": "user" | "lead",
   "user_id": string | null,
   "email": string | null,
   "phone": string | null,
