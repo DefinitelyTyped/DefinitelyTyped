@@ -3,6 +3,6 @@
 // Definitions by: Ryota Murohoshi <https://github.com/RyotaMurohoshi>
 // Definitions: https://github.com/RyotaMurohoshi/DefinitelyTyped
 
-export = isUrl;
+export = isUrl
 
 declare function isUrl(string: string): boolean;
