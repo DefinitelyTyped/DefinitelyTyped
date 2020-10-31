@@ -6310,7 +6310,7 @@ declare namespace chrome.storage {
         set(items: Object, callback?: () => void): void;
         /**
          * Removes one or more items from storage.
-         * @param A single key or a list of keys for items to remove.
+         * @param keys A single key or a list of keys for items to remove.
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */

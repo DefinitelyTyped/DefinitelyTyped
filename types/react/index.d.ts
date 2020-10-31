@@ -176,7 +176,6 @@ declare namespace React {
     }
 
     // ReactHTML for ReactHTMLElement
-    // tslint:disable-next-line:no-empty-interface
     interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> { }
 
     interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMElement<P, T> {
@@ -215,7 +214,6 @@ declare namespace React {
     type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
         (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
 
-    // tslint:disable-next-line:no-empty-interface
     interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
     interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
@@ -431,7 +429,6 @@ declare namespace React {
     type ReactInstance = Component<any> | Element;
 
     // Base component for plain JS classes
-    // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
         // tslint won't let me format the sample code in a way that vscode likes it :(
@@ -1196,7 +1193,6 @@ declare namespace React {
         target: EventTarget & T;
     }
 
-    // tslint:disable-next-line:no-empty-interface
     interface FormEvent<T = Element> extends SyntheticEvent<T> {
     }
 
@@ -1944,7 +1940,6 @@ declare namespace React {
         referrerPolicy?: HTMLAttributeReferrerPolicy;
     }
 
-    // tslint:disable-next-line:no-empty-interface
     interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> {}
 
     interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2969,7 +2964,6 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
 
 declare global {
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any, any> { }
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
@@ -2985,9 +2979,7 @@ declare global {
                 : ReactManagedAttributes<T, P>
             : ReactManagedAttributes<C, P>;
 
-        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
-        // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
 
         interface IntrinsicElements {

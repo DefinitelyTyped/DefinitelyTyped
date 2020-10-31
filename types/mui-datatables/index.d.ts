@@ -18,6 +18,7 @@ export type Responsive = 'vertical' | 'standard' | 'simple';
 export type SelectableRows = 'multiple' | 'single' | 'none';
 export type ChipVariant = 'outlined' | 'default';
 export type ChipColor = 'primary' | 'secondary' | 'default';
+export type ToolbarButton = boolean | 'true' | 'false' | 'disabled';
 
 export interface MUISortOptions {
     name: string;
@@ -256,7 +257,7 @@ export type MUIDataTableOptions = Partial<{
     /** @deprecated use `selectToolbarPlacement` instead */
     disableToolbarSelect: boolean;
     draggableColumns: MUIDataTableDraggableColumns;
-    download: boolean;
+    download: ToolbarButton;
     downloadOptions: Partial<{
         filename: string;
         separator: string;
@@ -267,7 +268,7 @@ export type MUIDataTableOptions = Partial<{
     expandableRows: boolean;
     expandableRowsHeader: boolean;
     expandableRowsOnClick: boolean;
-    filter: boolean;
+    filter: ToolbarButton;
     filterType: FilterType;
     fixedHeader: boolean;
     /** @deprecated use `fixedHeader` for **X** axis and `fixedSelectColumn` for **Y** axis */
@@ -333,7 +334,7 @@ export type MUIDataTableOptions = Partial<{
     onViewColumnsChange: (changedColumn: string, action: string) => void;
     page: number;
     pagination: boolean;
-    print: boolean;
+    print: ToolbarButton;
     renderExpandableRow: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => React.ReactNode;
     resizableColumns: boolean;
     responsive: Responsive;
@@ -342,7 +343,7 @@ export type MUIDataTableOptions = Partial<{
     rowsPerPage: number;
     rowsPerPageOptions: number[];
     rowsSelected: any[];
-    search: boolean;
+    search: ToolbarButton;
     searchOpen: boolean;
     searchProps: React.HTMLAttributes<HTMLInputElement>;
     searchPlaceholder: string;
@@ -362,7 +363,7 @@ export type MUIDataTableOptions = Partial<{
     tableBodyHeight: string;
     tableBodyMaxHeight: string;
     textLabels: Partial<MUIDataTableTextLabels>;
-    viewColumns: boolean;
+    viewColumns: ToolbarButton;
 }>;
 
 export type MUIDataTableColumnDef = string | MUIDataTableColumn;

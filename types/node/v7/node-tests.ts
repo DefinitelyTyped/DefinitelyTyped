@@ -1,25 +1,15 @@
 // NOTE: Disabled to preserve existing tests file
-// tslint:disable:array-type
-// tslint:disable:comment-format
 // tslint:disable:import-spacing
 // tslint:disable:interface-over-type-literal
-// tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
-// tslint:disable:no-consecutive-blank-lines
 // tslint:disable:no-duplicate-imports
 // tslint:disable:no-duplicate-variable
 // tslint:disable:no-inferrable-types
 // tslint:disable:no-namespace
-// tslint:disable:no-padding
 // tslint:disable:no-string-throw
-// tslint:disable:no-var-keyword
 // tslint:disable:object-literal-shorthand
 // tslint:disable:one-line
 // tslint:disable:only-arrow-functions
 // tslint:disable:prefer-const
-// tslint:disable:semicolon
-// tslint:disable:typedef-whitespace
-// tslint:disable:whitespace
 import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";

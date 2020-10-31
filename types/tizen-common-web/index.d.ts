@@ -41,7 +41,7 @@ import { TVInputDeviceManager } from './tvinputdevice';
 import { TVWindowManager } from './tvwindow';
 import { PackageManager } from './package';
 import { TVInfoManager } from './tvinfo';
-import { TimeUtil, TZDate, TimeDuration } from './time';
+import { TimeUtil, TZDateConstructor, TimeDurationConstructor } from './time';
 
 declare const tizen: Tizen;
 
@@ -76,8 +76,8 @@ interface Tizen {
     DownloadRequest: DownloadRequestConstructor;
     package: PackageManager;
     time: TimeUtil;
-    TZDate: typeof TZDate;
-    TimeDuration: typeof TimeDuration;
+    TZDate: TZDateConstructor;
+    TimeDuration: TimeDurationConstructor;
 }
 
 export = tizen;

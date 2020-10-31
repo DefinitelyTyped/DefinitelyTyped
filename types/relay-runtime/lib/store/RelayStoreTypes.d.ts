@@ -379,7 +379,7 @@ export interface ReadOnlyRecordProxy {
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    // tslint:disable-next-line
+    // tslint:disable-next-line:no-unnecessary-generics
     get<T = {}>(dataID: DataID): RecordProxy<T> | null | undefined;
     getRoot(): RecordProxy;
 }

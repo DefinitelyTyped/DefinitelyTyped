@@ -230,25 +230,39 @@ Posts.insert({ title: "Hello world", body: "First post" });
  assert(Scratchpad.find({number: {$lt: 9}}).count() === 5);
  **/
 
+type AnimalPOD = {
+    _id?: string;
+    name: string;
+    sound: string;
+}
+interface Animal extends AnimalPOD {}
+
 class Animal {
     constructor(public doc: any) {}
+    makeNoise() {
+        return 'roar';
+    }
 }
 
 interface AnimalDAO {
     _id?: string;
     name: string;
     sound: string;
-    makeNoise?: () => void;
+    makeNoise: () => void;
 }
 
 // Define a Collection that uses Animal as its document
-var Animals = new Mongo.Collection<AnimalDAO>("Animals", {
-    transform: function (doc: any): Animal { return new Animal(doc); }
+var Animals = new Mongo.Collection<AnimalPOD, AnimalDAO>("Animals", {
+    transform: function (doc: AnimalPOD): Animal { return new Animal(doc); }
 });
 
 // Create an Animal and call its makeNoise method
 Animals.insert({ name: "raptor", sound: "roar" });
-Animals.findOne({ name: "raptor" }).makeNoise(); // prints "roar"
+var animal = Animals.findOne({ name: "raptor" });
+
+if (animal) {
+    animal.makeNoise(); // prints "roar"
+}
 
 /**
  * From Collections, Collection.insert section
@@ -342,7 +356,7 @@ Posts = new Mongo.Collection<iPost>("posts");
 Posts.allow({
     insert: function (userId: string, doc: iPost) {
         // the user must be logged in, and the document must be owned by the user
-        return (userId && doc.owner === userId);
+        return Boolean(userId && doc.owner === userId);
     },
     update: function (userId: string, doc: iPost, fields: string[], modifier: any) {
         // can only change your own documents
@@ -482,7 +496,7 @@ Session.set("enemy", "Eurasia");
 /**
  * From Sessions, Session.equals section
  */
-var value: string;
+var value = '';
 Session.get("key") === value;
 Session.equals("key", value);
 
@@ -490,6 +504,8 @@ Session.equals("key", value);
  * From Accounts, Meteor.users section
  */
 Meteor.publish("userData", function () {
+    if (this.userId === null) return;
+
     return Meteor.users.find({ _id: this.userId },
         { fields: { 'other': 1, 'things': 1 } });
 });
@@ -638,7 +654,7 @@ Meteor.methods({
         message.text;
         // $ExpectType Date
         message.timestamp;
-        // $ExpectType "Test String"
+        // $ExpectType "Test String" | undefined
         message.tags;
     }
 });
@@ -742,10 +758,10 @@ Meteor.methods({
 HTTP.call("POST", "http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
     function (error, result) {
-        error; // $ExpectType Error
-        result; // $ExpectType HTTPResponse
+        error; // $ExpectType Error | null
+        result; // $ExpectType HTTPResponse | undefined
 
-        if (result.statusCode === 200) {
+        if (result && result.statusCode === 200) {
             Session.set("twizzled", true);
         }
     });
@@ -753,10 +769,10 @@ HTTP.call("POST", "http://api.twitter.com/xyz",
 HTTP.post("http://api.twitter.com/xyz",
     { data: { some: "json", stuff: 1 } },
     function (error, result) {
-        error; // $ExpectType Error
-        result; // $ExpectType HTTPResponse
+        error; // $ExpectType Error | null
+        result; // $ExpectType HTTPResponse | undefined
 
-        if (result.statusCode === 200) {
+        if (result && result.statusCode === 200) {
             Session.set("twizzled", true);
         }
     });
@@ -854,7 +870,7 @@ Accounts.emailTemplates.enrollAccount.subject = function (user: Meteor.User) {
 Accounts.emailTemplates.enrollAccount.html = function (user: Meteor.User, url: string) {
     return "<h1>Some html here</h1>";
 };
-Accounts.emailTemplates.enrollAccount.from = function () {
+Accounts.emailTemplates.enrollAccount.from = function (user: Meteor.User) {
     return "asdf@asdf.com";
 };
 Accounts.emailTemplates.enrollAccount.text = function (user: Meteor.User, url: string) {
@@ -907,7 +923,8 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-    const check = Accounts._checkPassword(Meteor.users.findOne({}), 'abc123');
+    const user = Meteor.users.findOne({}) ?? {} as Meteor.User;
+    const check = Accounts._checkPassword(user, 'abc123');
     if (check.error) {
         console.error('incorrect password');
     }
@@ -980,7 +997,7 @@ Meteor.absoluteUrl.defaultOptions = {
 
 // EnvironmentVariable
 const scopedCounter = new Meteor.EnvironmentVariable<number>();
-// $ExpectType number
+// $ExpectType number | null
 scopedCounter.getOrNullIfOutsideFiber();
 // $ExpectType string
 scopedCounter.withValue(42, () => {

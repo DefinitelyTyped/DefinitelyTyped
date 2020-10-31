@@ -10,12 +10,30 @@ import SimpleGeometry from './SimpleGeometry';
 export default class LinearRing extends SimpleGeometry {
     constructor(coordinates: Coordinate[] | number[], opt_layout?: GeometryLayout);
     protected getSimplifiedGeometryInternal(squaredTolerance: number): LinearRing;
+    /**
+     * Make a complete copy of the geometry.
+     */
     clone(): LinearRing;
     closestPointXY(x: number, y: number, closestPoint: Coordinate, minSquaredDistance: number): number;
+    /**
+     * Return the area of the linear ring on projected plane.
+     */
     getArea(): number;
+    /**
+     * Return the coordinates of the linear ring.
+     */
     getCoordinates(): Coordinate[];
+    /**
+     * Get the type of this geometry.
+     */
     getType(): GeometryType;
+    /**
+     * Test if the geometry and the passed extent intersect.
+     */
     intersectsExtent(extent: Extent): boolean;
+    /**
+     * Set the coordinates of the linear ring.
+     */
     setCoordinates(coordinates: Coordinate[], opt_layout?: GeometryLayout): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

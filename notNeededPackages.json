@@ -4333,6 +4333,12 @@
             "asOfVersion": "0.11.0"
         },
         {
+            "libraryName": "@react-native-community/cli",
+            "typingsPackageName": "react-native-community__cli",
+            "sourceRepoURL": "https://github.com/react-native-community/cli",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "react-native-elements",
             "typingsPackageName": "react-native-elements",
             "sourceRepoURL": "https://github.com/react-native-training/react-native-elements",
@@ -5531,6 +5537,12 @@
             "typingsPackageName": "tus-js-client",
             "sourceRepoURL": "https://github.com/tus/tus-js-client",
             "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "@tweenjs/tween.js",
+            "typingsPackageName": "tween.js",
+            "sourceRepoURL": "https://github.com/tweenjs/tween.js",
+            "asOfVersion": "18.6.1"
         },
         {
             "libraryName": "typed.js",

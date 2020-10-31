@@ -193,7 +193,6 @@ declare function queueMicrotask(callback: () => void): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
-    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -231,7 +230,8 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: NodeModule | null;
+    /** @deprecated since 12.19.0 Please use `require.main` and `module.children` instead. */
+    parent: NodeModule | null | undefined;
     children: NodeModule[];
     /**
      * @since 11.14.0

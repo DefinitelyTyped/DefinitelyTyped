@@ -1,5 +1,4 @@
 declare namespace AMap {
-    // tslint:disable-next-line;
     /**
      * 圆点标记
      */

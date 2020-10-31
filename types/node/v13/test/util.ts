@@ -47,7 +47,6 @@ import { readFile } from 'fs';
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
 
     // util.callbackify
-    // tslint:disable-next-line no-unnecessary-class
     class callbackifyTest {
         static fn(): Promise<void> {
             assert(arguments.length === 0);
@@ -184,7 +183,7 @@ import { readFile } from 'fs';
         }
     };
 
-    // tslint:disable-next-line:no-construct ban-types
+    // tslint:disable-next-line:no-construct
     const maybeBoxed: number | Number = new Number(1);
     if (util.types.isBoxedPrimitive(maybeBoxed)) {
         const boxed: Number = maybeBoxed;

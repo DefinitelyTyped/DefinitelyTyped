@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 1.25
+// Type definitions for non-npm package microsoft-graph 1.26
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -1042,6 +1042,8 @@ export type ThreatAssessmentResultType = "checkPolicy" | "rescan" | "unknownFutu
 export type ThreatAssessmentStatus = "pending" | "completed";
 export type ThreatCategory = "undefined" | "spam" | "phishing" | "malware" | "unknownFutureValue";
 export type ThreatExpectedAssessment = "block" | "unblock";
+export type TaskStatus = "notStarted" | "inProgress" | "completed" | "waitingOnOthers" | "deferred";
+export type WellknownListName = "none" | "defaultList" | "flaggedEmails" | "unknownFutureValue";
 export interface Entity {
     // Read-only.
     id?: string;
@@ -1260,7 +1262,7 @@ export interface User extends DirectoryObject {
      * Supports $filter and $orderby.
      */
     displayName?: NullableOption<string>;
-    // The employee identifier assigned to the user by the organization. Supports $filter.
+    // The employee identifier assigned to the user by the organization. Returned only on $select. Supports $filter.
     employeeId?: NullableOption<string>;
     /**
      * For an external user invited to the tenant using the invitation API, this property represents the invited user's
@@ -1285,7 +1287,7 @@ export interface User extends DirectoryObject {
     imAddresses?: NullableOption<string[]>;
     // Do not use – reserved for future use.
     isResourceAccount?: NullableOption<boolean>;
-    // The user’s job title. Supports $filter.
+    // The user's job title. Supports $filter.
     jobTitle?: NullableOption<string>;
     /**
      * The time when this Azure AD user last changed their password. The date and time information uses ISO 8601 format and is
@@ -1330,7 +1332,7 @@ export interface User extends DirectoryObject {
     /**
      * This property is used to associate an on-premises Active Directory user account to their Azure AD user object. This
      * property must be specified when creating a new user account in the Graph if you are using a federated domain for the
-     * user’s userPrincipalName (UPN) property. Important: The $ and _ characters cannot be used when specifying this
+     * user's userPrincipalName (UPN) property. Important: The $ and _ characters cannot be used when specifying this
      * property. Supports $filter.
      */
     onPremisesImmutableId?: NullableOption<string>;
@@ -1377,7 +1379,7 @@ export interface User extends DirectoryObject {
      */
     passwordPolicies?: NullableOption<string>;
     /**
-     * Specifies the password profile for the user. The profile contains the user’s password. This property is required when a
+     * Specifies the password profile for the user. The profile contains the user's password. This property is required when a
      * user is created. The password in the profile must satisfy minimum requirements as specified by the passwordPolicies
      * property. By default, a strong password is required.
      */
@@ -1423,7 +1425,7 @@ export interface User extends DirectoryObject {
     /**
      * The user principal name (UPN) of the user. The UPN is an Internet-style login name for the user based on the Internet
      * standard RFC 822. By convention, this should map to the user's email name. The general format is alias@domain, where
-     * domain must be present in the tenant’s collection of verified domains. This property is required when a user is
+     * domain must be present in the tenant's collection of verified domains. This property is required when a user is
      * created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.
      * Supports $filter and $orderby.
      */
@@ -1449,7 +1451,9 @@ export interface User extends DirectoryObject {
     birthday?: string;
     /**
      * The hire date of the user. The Timestamp type represents date and time information using ISO 8601 format and is always
-     * in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
+     * in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Returned only on
+     * $select. Note: This property is specific to SharePoint Online. We recommend using the native employeeHireDate property
+     * to set and update hire date values using Microsoft Graph APIs.
      */
     hireDate?: string;
     // A list for the user to describe their interests.
@@ -1476,7 +1480,7 @@ export interface User extends DirectoryObject {
     directReports?: NullableOption<DirectoryObject[]>;
     // A collection of this user's license details. Read-only.
     licenseDetails?: NullableOption<LicenseDetails[]>;
-    // The user or contact that is this user’s manager. Read-only. (HTTP Methods: GET, PUT, DELETE.)
+    // The user or contact that is this user's manager. Read-only. (HTTP Methods: GET, PUT, DELETE.)
     manager?: NullableOption<DirectoryObject>;
     // The groups and directory roles that the user is a member of. Read-only. Nullable.
     memberOf?: NullableOption<DirectoryObject[]>;
@@ -1544,6 +1548,7 @@ export interface User extends DirectoryObject {
     onlineMeetings?: NullableOption<OnlineMeeting[]>;
     joinedTeams?: NullableOption<Team[]>;
     teamwork?: NullableOption<UserTeamwork>;
+    todo?: NullableOption<Todo>;
 }
 export interface AppRoleAssignment extends DirectoryObject {
     /**
@@ -1665,6 +1670,7 @@ export interface Calendar extends Entity {
      */
     defaultOnlineMeetingProvider?: NullableOption<OnlineMeetingProviderType>;
     hexColor?: NullableOption<string>;
+    isDefaultCalendar?: NullableOption<boolean>;
     // Indicates whether this user calendar can be deleted from the user mailbox.
     isRemovable?: NullableOption<boolean>;
     /**
@@ -2049,11 +2055,11 @@ export interface Message extends OutlookItem {
      */
     uniqueBody?: NullableOption<ItemBody>;
     /**
-     * The URL to open the message in Outlook Web App.You can append an ispopout argument to the end of the URL to change how
-     * the message is displayed. If ispopout is not present or if it is set to 1, then the message is shown in a popout
-     * window. If ispopout is set to 0, then the browser will show the message in the Outlook Web App review pane.The message
-     * will open in the browser if you are logged in to your mailbox via Outlook Web App. You will be prompted to login if you
-     * are not already logged in with the browser.This URL can be accessed from within an iFrame.
+     * The URL to open the message in Outlook on the web.You can append an ispopout argument to the end of the URL to change
+     * how the message is displayed. If ispopout is not present or if it is set to 1, then the message is shown in a popout
+     * window. If ispopout is set to 0, then the browser will show the message in the Outlook on the web review pane.The
+     * message will open in the browser if you are logged in to your mailbox via Outlook on the web. You will be prompted to
+     * login if you are not already logged in with the browser.This URL cannot be accessed from within an iFrame.
      */
     webLink?: NullableOption<string>;
     // The fileAttachment and itemAttachment attachments for the message.
@@ -2546,6 +2552,9 @@ export interface UserTeamwork extends Entity {
     // The apps installed in the personal scope of this user.
     installedApps?: NullableOption<UserScopeTeamsAppInstallation[]>;
 }
+export interface Todo extends Entity {
+    lists?: NullableOption<TodoTaskList[]>;
+}
 export interface Application extends DirectoryObject {
     /**
      * Defines custom behavior that a consuming service can use to call an app in specific contexts. For example, applications
@@ -2717,9 +2726,9 @@ export interface AdministrativeUnit extends DirectoryObject {
     // Display name for the administrative unit.
     displayName?: NullableOption<string>;
     /**
-     * Controls whether the adminstrative unit and its members are hidden or public. Can be set to HiddenMembership or Public.
-     * If not set, default behavior is Public. When set to HiddenMembership, only members of the administrative unit can list
-     * other members of the adminstrative unit.
+     * Controls whether the administrative unit and its members are hidden or public. Can be set to HiddenMembership or
+     * Public. If not set, default behavior is Public. When set to HiddenMembership, only members of the administrative unit
+     * can list other members of the adminstrative unit.
      */
     visibility?: NullableOption<string>;
     /**
@@ -2788,9 +2797,9 @@ export interface Device extends DirectoryObject {
     complianceExpirationDateTime?: NullableOption<string>;
     // Unique identifier set by Azure Device Registration Service at the time of registration.
     deviceId?: NullableOption<string>;
-    // For interal use only. Set to null.
+    // For internal use only. Set to null.
     deviceMetadata?: NullableOption<string>;
-    // For interal use only.
+    // For internal use only.
     deviceVersion?: NullableOption<number>;
     // The display name for the device. Required.
     displayName?: NullableOption<string>;
@@ -2807,9 +2816,9 @@ export interface Device extends DirectoryObject {
     // Application identifier used to register device into MDM. Read-only. Supports $filter.
     mdmAppId?: NullableOption<string>;
     /**
-     * The last time at which the object was synced with the on-premises directory.The Timestamp type represents date and time
-     * information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like
-     * this: '2014-01-01T00:00:00Z' Read-only.
+     * The last time at which the object was synced with the on-premises directory. The Timestamp type represents date and
+     * time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look
+     * like this: '2014-01-01T00:00:00Z' Read-only.
      */
     onPremisesLastSyncDateTime?: NullableOption<string>;
     /**
@@ -2822,7 +2831,7 @@ export interface Device extends DirectoryObject {
     operatingSystem?: NullableOption<string>;
     // The version of the operating system on the device. Required.
     operatingSystemVersion?: NullableOption<string>;
-    // For interal use only. Not nullable.
+    // For internal use only. Not nullable.
     physicalIds?: string[];
     // The profile type of the device. Possible values:RegisteredDevice (default)SecureVMPrinterSharedIoT
     profileType?: NullableOption<string>;
@@ -3578,6 +3587,7 @@ export interface ServicePrincipal extends DirectoryObject {
     claimsMappingPolicies?: NullableOption<ClaimsMappingPolicy[]>;
     // Directory objects created by this service principal. Read-only. Nullable.
     createdObjects?: NullableOption<DirectoryObject[]>;
+    delegatedPermissionClassifications?: NullableOption<DelegatedPermissionClassification[]>;
     /**
      * Endpoints available for discovery. Services like Sharepoint populate this property with a tenant specific SharePoint
      * endpoints that other applications can discover and use in their experiences.
@@ -4005,6 +4015,11 @@ export interface Subscription extends Entity {
      * Microsoft Graph defaults the property to v1_2.
      */
     latestSupportedTlsVersion?: NullableOption<string>;
+    /**
+     * The URL of the endpoint that receives lifecycle notifications, including subscriptionRemoved and missed notifications.
+     * This URL must make use of the HTTPS protocol. Optional. Read more about how Outlook resources use lifecycle
+     * notifications.
+     */
     lifecycleNotificationUrl?: NullableOption<string>;
     /**
      * Required. The URL of the endpoint that will receive the change notifications. This URL must make use of the HTTPS
@@ -9812,6 +9827,36 @@ export interface UrlAssessmentRequest extends ThreatAssessmentRequest {
     // The URL string.
     url?: string;
 }
+export interface LinkedResource extends Entity {
+    applicationName?: NullableOption<string>;
+    displayName?: NullableOption<string>;
+    externalId?: NullableOption<string>;
+    webUrl?: NullableOption<string>;
+}
+export interface TodoTaskList extends Entity {
+    displayName?: NullableOption<string>;
+    isOwner?: boolean;
+    isShared?: boolean;
+    wellknownListName?: WellknownListName;
+    extensions?: NullableOption<Extension[]>;
+    tasks?: NullableOption<TodoTask[]>;
+}
+export interface TodoTask extends Entity {
+    body?: NullableOption<ItemBody>;
+    bodyLastModifiedDateTime?: string;
+    completedDateTime?: NullableOption<DateTimeTimeZone>;
+    createdDateTime?: string;
+    dueDateTime?: NullableOption<DateTimeTimeZone>;
+    importance?: Importance;
+    isReminderOn?: boolean;
+    lastModifiedDateTime?: string;
+    recurrence?: NullableOption<PatternedRecurrence>;
+    reminderDateTime?: NullableOption<DateTimeTimeZone>;
+    status?: TaskStatus;
+    title?: NullableOption<string>;
+    extensions?: NullableOption<Extension[]>;
+    linkedResources?: NullableOption<LinkedResource[]>;
+}
 export interface AppIdentity {
     // Refers to the Unique GUID representing Application Id in the Azure Active Directory.
     appId?: NullableOption<string>;
@@ -13930,6 +13975,10 @@ export interface ChangeNotification {
     encryptedContent?: NullableOption<ChangeNotificationEncryptedContent>;
     // Unique ID for the notification. Optional.
     id?: NullableOption<string>;
+    /**
+     * The type of lifecycle notification if the current notification is a lifecycle notification. Optional. Supported values
+     * are missed, removed, reauthorizationRequired.
+     */
     lifecycleEvent?: NullableOption<LifecycleEventType>;
     // The URI of the resource that emitted the change notification relative to https://graph.microsoft.com. Required.
     resource?: string;
