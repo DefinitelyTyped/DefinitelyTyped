@@ -554,7 +554,7 @@ Meteor.loginWithGithub({
         Session.set('errorMessage', err.reason || 'Unknown error');
 });
 
-Meteor.loggingOut() // $ExpectType boolean
+Meteor.loggingOut(); // $ExpectType boolean
 
 /**
  * From Accounts, Accounts.ui.config section
