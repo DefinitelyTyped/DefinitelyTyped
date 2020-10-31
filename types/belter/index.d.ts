@@ -37,5 +37,3 @@ export function toPx(val: number | string): string;
 export function toCSS(val: number | string): string;
 export function percOf(num: number, perc: string): number;
 export function normalizeDimension(dim: string | number, max: number): number;
-
-
