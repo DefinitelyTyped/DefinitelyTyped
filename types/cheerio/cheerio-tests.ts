@@ -340,3 +340,14 @@ cheerio.html($el);
 
 // $ExpectType string
 cheerio.version;
+
+const doSomething = (element: cheerio.Element): void => {
+  // $ExpectType Element | null
+  let a = element.firstChild;
+  // $ExpectType Element | null
+  let b = element.lastChild;
+  // $ExpectType Element | null
+  let c = element.next;
+  // $ExpectType Element | null
+  let d = element.prev;
+};
