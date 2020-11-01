@@ -82,3 +82,6 @@ router.transitionTo('someRoute', 1, '13', { queryParams: { areSupported: true } 
 router.recognize('foo/bar'); // $ExpectType RouteInfo
 
 router.recognizeAndLoad('foo/bar'); // $ExpectType RouteInfoWithAttributes
+
+router.rootURL; // $ExpectType string
+router.rootURL = 'foo'; // $ExpectError
