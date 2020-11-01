@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "sphere-engine-tests.ts"
+        "sphere-engine-browser-tests.ts"
     ]
 }
