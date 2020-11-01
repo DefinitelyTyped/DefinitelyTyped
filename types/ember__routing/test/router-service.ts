@@ -52,7 +52,7 @@ transition.send(false, 'error');
 
 transition.data = { some: 'data' };
 
-// $ExpectType RouteInfo | null
+// $ExpectType RouteInfoWithAttributes | null
 transition.from;
 // $ExpectError
 transition.from = 'from';
@@ -62,7 +62,7 @@ transition.promise;
 // $ExpectError
 transition.promise = 'promise';
 
-// $ExpectType RouteInfo
+// $ExpectType RouteInfo | RouteInfoWithAttributes
 transition.to;
 // $ExpectError
 transition.to = 'to';
