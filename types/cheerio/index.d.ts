@@ -286,7 +286,7 @@ declare namespace cheerio {
         // JQuery http://api.jquery.com
         root(): Cheerio;
         contains(container: Element, contained: Element): boolean;
-        parseHTML(data: string, context?: Document, keepScripts?: boolean): Document[];
+        parseHTML(data: string, context?: Document | null, keepScripts?: boolean): Document[];
 
         html(options?: CheerioParserOptions): string;
         html(dom: string | Cheerio | Element, options?: CheerioParserOptions): string;
