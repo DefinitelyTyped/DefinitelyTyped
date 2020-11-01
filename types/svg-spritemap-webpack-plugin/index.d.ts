@@ -1,9 +1,9 @@
-// Type definitions for svg-spritemap-webpack-plugin 3.5
+// Type definitions for svg-spritemap-webpack-plugin 3.6
 // Project: https://github.com/cascornelissen/svg-spritemap-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin, compilation } from 'webpack';
+import { Compiler } from 'webpack';
 
 export = SVGSpritemapPlugin;
 
@@ -82,6 +82,10 @@ declare namespace SVGSpritemapPlugin {
             | {
                   filename?: string;
                   format?: 'data' | 'fragment';
+                  /**
+                   * @default false
+                   */
+                  keepAttributes?: boolean;
                   variables?: {
                       sprites?: string;
                       sizes?: string;
@@ -91,8 +95,7 @@ declare namespace SVGSpritemapPlugin {
               };
     }
 }
-declare class SVGSpritemapPlugin extends Plugin {
-    readonly files: string[];
+declare class SVGSpritemapPlugin {
     readonly directories: string[];
 
     constructor(pattern?: string | string[], options?: SVGSpritemapPlugin.Options);
@@ -109,7 +112,9 @@ declare class SVGSpritemapPlugin extends Plugin {
         readonly assets: object;
     };
     private hashFilename(fileaname: string, hashes?: string[]): string;
-    private getSpritemapHashes(compilation: compilation.Compilation): string[];
-    private getStylesHashes(compilation: compilation.Compilation): string[];
+    private getSpritemapHashes(compilation: any): string[];
+    private getStylesHashes(compilation: any): string[];
     private getContentHash(source: string): string;
+
+    apply(compiler: Compiler): void;
 }
