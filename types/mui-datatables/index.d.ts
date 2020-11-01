@@ -355,7 +355,7 @@ export type MUIDataTableOptions = Partial<{
     selectToolbarPlacement: 'replace' | 'above' | 'none';
     serverSide: boolean;
     setFilterChipProps: (colIndex: number, colName: string, data: ReadonlyArray<any[]>) => MUIDataTableChip;
-    setRowProps: (row: any[], rowIndex: number) => object;
+    setRowProps: (row: any[], dataIndex: number, rowIndex: number) => object;
     setTableProps: () => object;
     sort: boolean;
     sortFilterList: boolean;
