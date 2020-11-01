@@ -3,6 +3,6 @@
 // Definitions by: Dillon Mulroy <https://github.com/dmmulroy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function isValidFunction(zipcode: string, country?: string): boolean;
+declare function isValidZipcode(zipcode: string, country?: string): boolean;
 
-export = isValidFunction;
+export = isValidZipcode;
