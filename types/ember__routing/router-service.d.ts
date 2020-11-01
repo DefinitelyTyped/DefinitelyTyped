@@ -1,4 +1,5 @@
 import RouteInfo from '@ember/routing/-private/route-info';
+import RouteInfoWithAttributes from '@ember/routing/-private/route-info-with-attributes';
 import Transition from '@ember/routing/-private/transition';
 import Service from '@ember/service';
 
@@ -265,4 +266,36 @@ export default class RouterService extends Service {
         name: 'routeDidChange' | 'routeWillChange',
         callback: (transition: Transition) => void
     ): RouterService;
+
+    /**
+     * Takes a string URL and returns a `RouteInfo` for the leafmost route represented
+     * by the URL. Returns `null` if the URL is not recognized. This method expects to
+     * receive the actual URL as seen by the browser including the app's `rootURL`.
+     * See [RouteInfo](/ember/release/classes/RouteInfo) for more info.
+     * In the following example `recognize` is used to verify if a path belongs to our
+     * application before transitioning to it.
+     * ```
+     * import Component from '@ember/component';
+     * import { inject as service } from '@ember/service';
+     * export default class extends Component {
+     *   @service router;
+     *   path = '/';
+     *   click() {
+     *     if (this.router.recognize(this.path)) {
+     *       this.router.transitionTo(this.path);
+     *     }
+     *   }
+     * }
+     * ```
+     */
+    recognize(url: string): RouteInfo;
+
+    /**
+     * Takes a string URL and returns a promise that resolves to a
+     * `RouteInfoWithAttributes` for the leafmost route represented by the URL.
+     * The promise rejects if the URL is not recognized or an unhandled exception
+     * is encountered. This method expects to receive the actual URL as seen by
+     * the browser including the app's `rootURL`.
+     */
+    recognizeAndLoad(url: string): RouteInfoWithAttributes;
 }
