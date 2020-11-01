@@ -16,14 +16,22 @@
 interface Document {}
 
 declare namespace cheerio {
-    interface Element {
-        // Document References
-        // Node Console
+    type Element = TextElement | TagElement;
+
+    interface TextElement {
+        type: 'text';
+        next: Element | null;
+        prev: Element | null;
+        parent: Element;
+        data?: string;
+    }
+
+    interface TagElement {
         tagName: string;
-        type: string;
+        type: 'tag';
         name: string;
         attribs: { [attr: string]: string };
-        children?: Element[];
+        children: Element[];
         childNodes: Element[] | null;
         lastChild: Element | null;
         firstChild: Element | null;

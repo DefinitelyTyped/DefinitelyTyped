@@ -60,7 +60,9 @@ $el.cheerio;
 $el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
+// $ExpectError
 $el.attr('id', (el, i, attr) => el.tagName + i * 2 + attr).html();
+// $ExpectError
 $el.attr('id', el => el.tagName).html();
 $el.attr({ id: 'uniq', class: 'big' }).html();
 
@@ -342,12 +344,19 @@ cheerio.html($el);
 cheerio.version;
 
 const doSomething = (element: cheerio.Element): void => {
-  // $ExpectType Element | null
-  let a = element.firstChild;
-  // $ExpectType Element | null
-  let b = element.lastChild;
-  // $ExpectType Element | null
-  let c = element.next;
-  // $ExpectType Element | null
-  let d = element.prev;
+    if (element.type !== 'text') {
+        // $ExpectType { [attr: string]: string; }
+        element.attribs;
+        // $ExpectType Element[]
+        element.children;
+    }
+
+    // $ExpectError
+    let a = element.firstChild;
+    // $ExpectError
+    let b = element.lastChild;
+    // $ExpectType TextElement | TagElement | null
+    let c = element.next;
+    // $ExpectType TextElement | TagElement | null
+    let d = element.prev;
 };
