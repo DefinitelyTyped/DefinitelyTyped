@@ -33,7 +33,7 @@ declare namespace Box {
 
     interface Thread {
         getPosts(): Promise<ThreadPost[]>;
-        onUpdate(updateFn: any): void;
+        onUpdate(updateFn: () => void): void;
 
         post(message: any, to?: string): Promise<void>;
         deletePost(id: string): Promise<void>;
@@ -42,7 +42,7 @@ declare namespace Box {
         listModerators(): Promise<string[]>;
         addMember(id: string): Promise<void>;
         listMembers(): Promise<string[]>;
-        onNewCapabilities(updateFn: any): void;
+        onNewCapabilities(updateFn: () => void): void;
     }
 
     interface Space {
@@ -101,7 +101,7 @@ declare class Box {
         address: string,
         ethereumProvider: any,
         opts?: {
-            consentCallback?: any;
+            consentCallback?: () => void;
             pinningNode?: string;
             ipfs?: any;
             addressServer?: string;
@@ -110,10 +110,10 @@ declare class Box {
     static isLoggedIn(address: string): boolean;
     static create(ethereumProvider: any): Promise<Box>;
 
-    openSpace(name: string, opts?: { consentCallback?: any; onSyncDone?: any }): Promise<Box.Space>;
+    openSpace(name: string, opts?: { consentCallback?: () => void; onSyncDone?: () => void }): Promise<Box.Space>;
     auth(space: string[], user: { address: string }): void;
     syncDone: Promise<Box.Space>;
-    onSyncDone(syncDoneFn: any): void;
+    onSyncDone(syncDoneFn: () => void): void;
     logout(): void;
 
     static getProfile(
