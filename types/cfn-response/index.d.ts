@@ -17,4 +17,5 @@ export function send(
     responseStatus: ResponseStatus,
     responseData?: object,
     physicalResourceId?: string,
+    noEcho?: boolean,
 ): void;
