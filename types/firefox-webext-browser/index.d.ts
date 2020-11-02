@@ -5143,7 +5143,7 @@ declare namespace browser.webRequest {
 
         /**
          * Writes response data to the output stream.
-         * @param {Uint8Array | ArrayBuffer} data
+         * @param data
          */
         write(data: Uint8Array | ArrayBuffer): void;
 
@@ -5199,8 +5199,8 @@ declare namespace browser.webRequest {
 
     /**
      * Create a `StreamFilter` object for a request.
-     * @param {string} requestId
-     * @returns {browser.webRequest._StreamFilter}
+     * @param requestId
+     * @returns
      */
     function filterResponseData(requestId: string): _StreamFilter;
 
