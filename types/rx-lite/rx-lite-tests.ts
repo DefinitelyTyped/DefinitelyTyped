@@ -148,3 +148,39 @@ function test_publish() {
     // => Completed
     // => Completed
 }
+
+function test_delay() {
+    // With Date dueTime
+    obsNum = Rx.Observable.range(0, 3).delay(new Date());
+
+    // With number dueTime
+    obsNum = Rx.Observable.range(0, 3).delay(4200);
+
+    // With selector
+    obsNum = Rx.Observable.range(0, 3).delay(item => Rx.Observable.return(item));
+
+    // With subscription delay and selector
+    obsNum = Rx.Observable.range(0, 3).delay(Rx.Observable.return(4200), item => Rx.Observable.return(item));
+}
+
+function test_debounce() {
+    // With number dueTime
+    obsNum = Rx.Observable.range(0, 3).debounce(4200);
+
+    // With selector
+    obsNum = Rx.Observable.range(0, 3).debounce(item => Rx.Observable.return(item));
+}
+
+function test_timeout() {
+    // With Date dueTime
+    obsNum = Rx.Observable.range(0, 3).timeout(new Date());
+
+    // With number dueTime
+    obsNum = Rx.Observable.range(0, 3).timeout(4200);
+
+    // With selector
+    obsNum = Rx.Observable.range(0, 3).timeout(item => Rx.Observable.return(item));
+
+    // With firstTimeout and selector
+    obsNum = Rx.Observable.range(0, 3).timeout(Rx.Observable.return(4200), item => Rx.Observable.return(item));
+}
