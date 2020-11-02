@@ -406,7 +406,7 @@ $("select").select2({
 $("select").select2({
     templateSelection: (data: Select2.IdTextPair | Select2.LoadingData | Select2.OptionData, container: JQuery) => {
         if (data.id === "") {
-            container.css('background-color', '#f6f6f6');
+            container.css("background-color", "#f6f6f6");
 
             return "Custom styled placeholder";
         }
