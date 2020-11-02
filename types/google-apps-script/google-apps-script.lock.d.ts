@@ -1,13 +1,12 @@
-// Type definitions for Google Apps Script 2020-01-02
+// Type definitions for Google Apps Script 2020-11-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
+// Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  namespace Lock {
+  export module Lock {
     /**
      * A representation of a mutual-exclusion lock.
      *
@@ -38,21 +37,23 @@ declare namespace GoogleAppsScript {
      * lastTicketNumber
      * ScriptProperties
      */
-    interface Lock {
+    export interface Lock {
       hasLock(): boolean;
       releaseLock(): void;
       tryLock(timeoutInMillis: Integer): boolean;
       waitLock(timeoutInMillis: Integer): void;
     }
+
     /**
      * Prevents concurrent access to sections of code. This can be useful when you have multiple users
      * or processes modifying a shared resource and want to prevent collisions.
      */
-    interface LockService {
+    export interface LockService {
       getDocumentLock(): Lock;
       getScriptLock(): Lock;
       getUserLock(): Lock;
     }
+
   }
 }
 

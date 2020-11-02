@@ -1,13 +1,12 @@
-// Type definitions for Google Apps Script 2020-01-02
+// Type definitions for Google Apps Script 2020-11-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
+// Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  namespace Content {
+  export module Content {
     /**
      * Service for returning text content from a script.
      *
@@ -17,15 +16,17 @@ declare namespace GoogleAppsScript {
      *       return ContentService.createTextOutput("Hello World");
      *     }
      */
-    interface ContentService {
+    export interface ContentService {
       MimeType: typeof MimeType;
       createTextOutput(): TextOutput;
       createTextOutput(content: string): TextOutput;
     }
+
     /**
      * An enum for mime types that can be served from a script.
      */
-    enum MimeType { ATOM, CSV, ICAL, JAVASCRIPT, JSON, RSS, TEXT, VCARD, XML }
+    export enum MimeType { ATOM, CSV, ICAL, JAVASCRIPT, JSON, RSS, TEXT, VCARD, XML }
+
     /**
      * A TextOutput object that can be served from a script.
      *
@@ -41,7 +42,7 @@ declare namespace GoogleAppsScript {
      *
      * ContentService
      */
-    interface TextOutput {
+    export interface TextOutput {
       append(addedContent: string): TextOutput;
       clear(): TextOutput;
       downloadAsFile(filename: string): TextOutput;
@@ -51,6 +52,7 @@ declare namespace GoogleAppsScript {
       setContent(content: string): TextOutput;
       setMimeType(mimeType: MimeType): TextOutput;
     }
+
   }
 }
 

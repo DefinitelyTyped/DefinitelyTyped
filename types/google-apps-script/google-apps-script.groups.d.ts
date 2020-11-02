@@ -1,14 +1,13 @@
-// Type definitions for Google Apps Script 2020-01-02
+// Type definitions for Google Apps Script 2020-11-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
+// Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  namespace Groups {
+  export module Groups {
     /**
      * A group object whose members and those members' roles within the group can be queried.
      *
@@ -26,7 +25,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log(str);
      *     }
      */
-    interface Group {
+    export interface Group {
       getEmail(): string;
       getGroups(): Group[];
       getRole(email: string): Role;
@@ -38,6 +37,7 @@ declare namespace GoogleAppsScript {
       hasUser(email: string): boolean;
       hasUser(user: Base.User): boolean;
     }
+
     /**
      * This class provides access to Google Groups information. It can be used to query information such
      * as a group's email address, or the list of groups in which the user is a direct member.
@@ -47,11 +47,12 @@ declare namespace GoogleAppsScript {
      *     var groups = GroupsApp.getGroups();
      *     Logger.log('You belong to ' + groups.length + ' groups.');
      */
-    interface GroupsApp {
+    export interface GroupsApp {
       Role: typeof Role;
       getGroupByEmail(email: string): Group;
       getGroups(): Group[];
     }
+
     /**
      * Possible roles of a user within a group, such as owner or ordinary member. Users subscribed to a
      * group have exactly one role within the context of that group.
@@ -59,7 +60,8 @@ declare namespace GoogleAppsScript {
      *
      * Group.getRole(email)
      */
-    enum Role { OWNER, MANAGER, MEMBER, INVITED, PENDING }
+    export enum Role { OWNER, MANAGER, MEMBER, INVITED, PENDING }
+
   }
 }
 

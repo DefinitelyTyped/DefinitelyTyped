@@ -1,13 +1,12 @@
-// Type definitions for Google Apps Script 2020-01-02
+// Type definitions for Google Apps Script 2020-11-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
+// Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  namespace XML_Service {
+  export module XML {
     /**
      * A representation of an XML attribute.
      *
@@ -27,7 +26,7 @@ declare namespace GoogleAppsScript {
      *     xml = XmlService.getPrettyFormat().format(document);
      *     Logger.log(xml);
      */
-    interface Attribute {
+    export interface Attribute {
       getName(): string;
       getNamespace(): Namespace;
       getValue(): string;
@@ -35,6 +34,7 @@ declare namespace GoogleAppsScript {
       setNamespace(namespace: Namespace): Attribute;
       setValue(value: string): Attribute;
     }
+
     /**
      * A representation of an XML CDATASection node.
      *
@@ -48,7 +48,7 @@ declare namespace GoogleAppsScript {
      *     var xml = XmlService.getPrettyFormat().format(document);
      *     Logger.log(xml);
      */
-    interface Cdata extends Content {
+    export interface Cdata {
       append(text: string): Text;
       detach(): Content;
       getParentElement(): Element;
@@ -56,16 +56,18 @@ declare namespace GoogleAppsScript {
       getValue(): string;
       setText(text: string): Text;
     }
+
     /**
      * A representation of an XML Comment node.
      */
-    interface Comment extends Content {
+    export interface Comment {
       detach(): Content;
       getParentElement(): Element;
       getText(): string;
       getValue(): string;
       setText(text: string): Comment;
     }
+
     /**
      * A representation of a generic XML node.
      * Implementing classes
@@ -86,7 +88,7 @@ declare namespace GoogleAppsScript {
      *
      * TextA representation of an XML Text node.
      */
-    interface Content {
+    export interface Content {
       asCdata(): Cdata;
       asComment(): Comment;
       asDocType(): DocType;
@@ -99,14 +101,16 @@ declare namespace GoogleAppsScript {
       getType(): ContentType;
       getValue(): string;
     }
+
     /**
      * An enumeration representing the types of XML content nodes.
      */
-    enum ContentType { CDATA, COMMENT, DOCTYPE, ELEMENT, ENTITYREF, PROCESSINGINSTRUCTION, TEXT }
+    export enum ContentType { CDATA, COMMENT, DOCTYPE, ELEMENT, ENTITYREF, PROCESSINGINSTRUCTION, TEXT }
+
     /**
      * A representation of an XML DocumentType node.
      */
-    interface DocType extends Content {
+    export interface DocType {
       detach(): Content;
       getElementName(): string;
       getInternalSubset(): string;
@@ -119,10 +123,11 @@ declare namespace GoogleAppsScript {
       setPublicId(id: string): DocType;
       setSystemId(id: string): DocType;
     }
+
     /**
      * A representation of an XML document.
      */
-    interface Document {
+    export interface Document {
       addContent(content: Content): Document;
       addContent(index: Integer, content: Content): Document;
       cloneContent(): Content[];
@@ -140,6 +145,7 @@ declare namespace GoogleAppsScript {
       setDocType(docType: DocType): Document;
       setRootElement(element: Element): Document;
     }
+
     /**
      * A representation of an XML Element node.
      *
@@ -161,7 +167,7 @@ declare namespace GoogleAppsScript {
      *     xml = XmlService.getPrettyFormat().format(document);
      *     Logger.log(xml);
      */
-    interface Element extends Content {
+    export interface Element {
       addContent(content: Content): Element;
       addContent(index: Integer, content: Content): Element;
       cloneContent(): Content[];
@@ -203,10 +209,11 @@ declare namespace GoogleAppsScript {
       setNamespace(namespace: Namespace): Element;
       setText(text: string): Element;
     }
+
     /**
      * A representation of an XML EntityReference node.
      */
-    interface EntityRef extends Content {
+    export interface EntityRef {
       detach(): Content;
       getName(): string;
       getParentElement(): Element;
@@ -217,6 +224,7 @@ declare namespace GoogleAppsScript {
       setPublicId(id: string): EntityRef;
       setSystemId(id: string): EntityRef;
     }
+
     /**
      * A formatter for outputting an XML document, with three pre-defined formats that can be further
      * customized.
@@ -231,7 +239,7 @@ declare namespace GoogleAppsScript {
      *         .format(document);
      *     Logger.log(output);
      */
-    interface Format {
+    export interface Format {
       format(document: Document): string;
       format(element: Element): string;
       setEncoding(encoding: string): Format;
@@ -240,27 +248,30 @@ declare namespace GoogleAppsScript {
       setOmitDeclaration(omitDeclaration: boolean): Format;
       setOmitEncoding(omitEncoding: boolean): Format;
     }
+
     /**
      * A representation of an XML namespace.
      */
-    interface Namespace {
+    export interface Namespace {
       getPrefix(): string;
       getURI(): string;
     }
+
     /**
      * A representation of an XML ProcessingInstruction node.
      */
-    interface ProcessingInstruction extends Content {
+    export interface ProcessingInstruction {
       detach(): Content;
       getData(): string;
       getParentElement(): Element;
       getTarget(): string;
       getValue(): string;
     }
+
     /**
      * A representation of an XML Text node.
      */
-    interface Text extends Content {
+    export interface Text {
       append(text: string): Text;
       detach(): Content;
       getParentElement(): Element;
@@ -268,10 +279,12 @@ declare namespace GoogleAppsScript {
       getValue(): string;
       setText(text: string): Text;
     }
+
     /**
      * This service allows scripts to parse, navigate, and programmatically create XML documents.
      *
-     *     // Log the title and labels for the first page of blog posts on the G Suite Developer blog.
+     *     // Log the title and labels for the first page of blog posts on the
+     *     // Google Workspace Developer blog.
      *     function parseXml() {
      *       var url = 'https://gsuite-developers.googleblog.com/atom.xml';
      *       var xml = UrlFetchApp.fetch(url).getContentText();
@@ -307,7 +320,7 @@ declare namespace GoogleAppsScript {
      *       Logger.log(xml);
      *     }
      */
-    interface XmlService {
+    export interface XmlService {
       ContentTypes: typeof ContentType;
       createCdata(text: string): Cdata;
       createComment(text: string): Comment;
@@ -328,7 +341,8 @@ declare namespace GoogleAppsScript {
       getXmlNamespace(): Namespace;
       parse(xml: string): Document;
     }
+
   }
 }
 
-declare var XmlService: GoogleAppsScript.XML_Service.XmlService;
+declare var XmlService: GoogleAppsScript.XML.XmlService;

@@ -1,79 +1,30 @@
-// Type definitions for Google Apps Script 2020-01-02
+// Type definitions for Google Apps Script 2020-11-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
-//                 takoyaki9n <https://github.com/takoyaki9n>
+// Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  namespace URL_Fetch {
+  export module URL_Fetch {
     /**
      * This class allows users to access specific information on HTTP responses.
      * See also
      *
      * UrlFetchApp
      */
-    interface HTTPResponse {
-      getAllHeaders(): object;
+    export interface HTTPResponse {
+      getAllHeaders(): Object;
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
       getContent(): Byte[];
       getContentText(): string;
       getContentText(charset: string): string;
-      getHeaders(): object;
+      getHeaders(): Object;
       getResponseCode(): Integer;
     }
-    interface URLFetchRequest extends URLFetchRequestOptions {
-      url: string;
-    }
-    interface URLFetchRequestOptions {
-      /**
-       * the content type (defaults to 'application/x-www-form-urlencoded'). Another example of content
-       * type is 'application/xml; charset=utf-8'.
-       */
-      contentType?: string;
-      /**
-       * a JavaScript key/value map of HTTP headers for the request
-       */
-      headers?: HttpHeaders;
-      /**
-       * the HTTP method for the request: get, delete, patch, post, or put. The default is get.
-       */
-      method?: HttpMethod;
-      /**
-       * the payload (e.g. POST body) for the request. Certain HTTP methods (e.g. GET) do not accept a
-       * payload. It can be a string, a byte array, or a JavaScript object. A JavaScript object will be
-       * interpretted as a map of form field names to values, where the values can be either strings or blobs.
-       */
-      payload?: Payload;
-      /**
-       * Deprecated. This instructs fetch to resolve the specified URL within the intranet linked to your
-       * domain through (deprecated) SDC
-       */
-      useIntranet?: boolean;
-      /**
-       * if this is set to false, the fetch will ignore any invalid certificates for HTTPS requests.
-       * The default is true.
-       */
-      validateHttpsCertificates?: boolean;
-      /**
-       * if this is set to false, the fetch not automatically follow HTTP redirects; it will return
-       * the original HTTP response. The default is true.
-       */
-      followRedirects?: boolean;
-      /**
-       * if this is set to true, the fetch will not throw an exception if the response code indicates
-       * failure, and will instead return the HTTPResponse (default: false)
-       */
-      muteHttpExceptions?: boolean;
-      /**
-       * if this is set to false, reserved characters in the URL will not be escaped (default: true)
-       */
-      escaping?: boolean;
-    }
+
     /**
      * Fetch resources and communicate with other hosts over the Internet.
      *
@@ -95,18 +46,14 @@ declare namespace GoogleAppsScript {
      *
      * Setting explicit scopes
      */
-    interface UrlFetchApp {
+    export interface UrlFetchApp {
       fetch(url: string): HTTPResponse;
-      fetch(url: string, params: URLFetchRequestOptions): HTTPResponse;
-      fetchAll(requests: (URLFetchRequest | string)[]): HTTPResponse[];
-      getRequest(url: string): URLFetchRequest;
-      getRequest(url: string, params: URLFetchRequestOptions): URLFetchRequest;
+      fetch(url: string, params: Object): HTTPResponse;
+      fetchAll(requests: Object[]): HTTPResponse[];
+      getRequest(url: string): Object;
+      getRequest(url: string, params: Object): Object;
     }
-    interface HttpHeaders {
-        [key: string]: string;
-    }
-    type HttpMethod = 'get' | 'delete' | 'patch' | 'post' | 'put';
-    type Payload = string | { [key: string]: any } | Base.Blob;
+
   }
 }
 

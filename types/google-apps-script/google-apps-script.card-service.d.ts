@@ -1,7 +1,6 @@
-// Type definitions for Google Apps Script 2020-01-02
+// Type definitions for Google Apps Script 2020-11-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
+// Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -9,7 +8,7 @@
 /// <reference path="google-apps-script.gmail.d.ts" />
 
 declare namespace GoogleAppsScript {
-  namespace Card_Service {
+  export module Card {
     /**
      * An action that enables interactivity within UI elements. The action does not happen directly on
      * the client but rather invokes an Apps Script callback function with optional parameters.
@@ -19,12 +18,13 @@ declare namespace GoogleAppsScript {
      *             .setFunctionName("handleImageClick")
      *             .setParameters({imageSrc: 'carImage'}));
      */
-    interface Action {
+    export interface Action {
       setFunctionName(functionName: string): Action;
       setLoadIndicator(loadIndicator: LoadIndicator): Action;
-      setParameters(parameters: { [key: string]: string }): Action;
-      /** @deprecated DO NOT USE */ setMethodName(functionName: string): Action;
+      setParameters(parameters: Object): Action;
+      setMethodName(functionName: string): Action;
     }
+
     /**
      * The response object that may be returned from a callback function (e.g., a form response handler)
      * to perform one or more actions on the client. Some combinations of actions are not supported.
@@ -52,28 +52,31 @@ declare namespace GoogleAppsScript {
      *         .setStateChanged(true)
      *         .build();
      */
-    interface ActionResponse {
+    export interface ActionResponse {
       printJson(): string;
     }
+
     /**
      * A builder for ActionResponse objects.
      */
-    interface ActionResponseBuilder {
+    export interface ActionResponseBuilder {
       build(): ActionResponse;
       setNavigation(navigation: Navigation): ActionResponseBuilder;
       setNotification(notification: Notification): ActionResponseBuilder;
       setOpenLink(openLink: OpenLink): ActionResponseBuilder;
       setStateChanged(stateChanged: boolean): ActionResponseBuilder;
     }
+
     /**
      * An authorization action that will send the user to the AuthorizationUrl when clicked.
      *
      *     CardService.newAuthorizationAction()
      *       .setAuthorizationUrl("http://google.com/");
      */
-    interface AuthorizationAction {
+    export interface AuthorizationAction {
       setAuthorizationUrl(authorizationUrl: string): AuthorizationAction;
     }
+
     /**
      * An error that can be returned to trigger an authorization card to be shown to the user.
      *
@@ -82,23 +85,25 @@ declare namespace GoogleAppsScript {
      *       .setResourceDisplayName("Example Resource")
      *       .throwException();
      */
-    interface AuthorizationException {
+    export interface AuthorizationException {
       printJson(): string;
       setAuthorizationUrl(authUrl: string): AuthorizationException;
       setCustomUiCallback(callback: string): AuthorizationException;
       setResourceDisplayName(name: string): AuthorizationException;
       throwException(): void;
     }
+
     /**
      * A base class for all buttons.
      */
-    interface Button {
+    export interface Button {
       setAuthorizationAction(action: AuthorizationAction): Button;
       setComposeAction(action: Action, composedEmailType: ComposedEmailType): Button;
       setOnClickAction(action: Action): Button;
       setOnClickOpenLinkAction(action: Action): Button;
       setOpenLink(openLink: OpenLink): Button;
     }
+
     /**
      * Holds a set of Button objects that are displayed in a row.
      *
@@ -112,9 +117,32 @@ declare namespace GoogleAppsScript {
      *         .addButton(textButton)
      *         .addButton(imageButton);
      */
-    interface ButtonSet {
+    export interface ButtonSet {
       addButton(button: Button): ButtonSet;
     }
+
+    /**
+     * Represents a response that makes changes to the calendar event that the user is currently editing
+     * in reaction to an action taken in the UI, such as a button click.
+     *
+     *     // A CalendarEventActionResponse that adds two attendees to an event.
+     *     var calendarEventActionResponse = CardService.newCalendarEventActionResponseBuilder()
+     *         .addAttendees(["user1@example.com", "user2@example.com"])
+     *         .build();
+     */
+    export interface CalendarEventActionResponse {
+      printJson(): string;
+    }
+
+    /**
+     * A builder for CalendarEventActionResponse objects.
+     */
+    export interface CalendarEventActionResponseBuilder {
+      addAttendees(emails: String[]): CalendarEventActionResponseBuilder;
+      build(): CalendarEventActionResponse;
+      setConferenceData(conferenceData: Conference_Data.ConferenceData): CalendarEventActionResponseBuilder;
+    }
+
     /**
      * A context card that represents a single view in the
      * UI.
@@ -128,9 +156,10 @@ declare namespace GoogleAppsScript {
      *         .addSection(cardSection)
      *         .build();
      */
-    interface Card {
+    export interface Card {
       printJson(): string;
     }
+
     /**
      * A clickable menu item that is added to the card header menu.
      *
@@ -141,7 +170,7 @@ declare namespace GoogleAppsScript {
      *         .setText("Card action")
      *         .setOnClickAction(action);
      */
-    interface CardAction {
+    export interface CardAction {
       setAuthorizationAction(action: AuthorizationAction): CardAction;
       setComposeAction(action: Action, composedEmailType: ComposedEmailType): CardAction;
       setOnClickAction(action: Action): CardAction;
@@ -149,16 +178,21 @@ declare namespace GoogleAppsScript {
       setOpenLink(openLink: OpenLink): CardAction;
       setText(text: string): CardAction;
     }
+
     /**
      * A builder for Card objects.
      */
-    interface CardBuilder {
+    export interface CardBuilder {
       addCardAction(cardAction: CardAction): CardBuilder;
       addSection(section: CardSection): CardBuilder;
       build(): Card;
+      setDisplayStyle(displayStyle: DisplayStyle): CardBuilder;
+      setFixedFooter(fixedFooter: FixedFooter): CardBuilder;
       setHeader(cardHeader: CardHeader): CardBuilder;
       setName(name: string): CardBuilder;
+      setPeekCardHeader(peekCardHeader: CardHeader): CardBuilder;
     }
+
     /**
      * The header of a Card.
      *
@@ -168,13 +202,14 @@ declare namespace GoogleAppsScript {
      *         .setImageStyle(CardService.ImageStyle.CIRCLE)
      *         .setImageUrl("https://image.png");
      */
-    interface CardHeader {
+    export interface CardHeader {
       setImageAltText(imageAltText: string): CardHeader;
       setImageStyle(imageStyle: ImageStyle): CardHeader;
       setImageUrl(imageUrl: string): CardHeader;
       setSubtitle(subtitle: string): CardHeader;
       setTitle(title: string): CardHeader;
     }
+
     /**
      * A card section holds groups of widgets and provides visual separation between them.
      *
@@ -188,12 +223,13 @@ declare namespace GoogleAppsScript {
      *         .addWidget(image)
      *         .addWidget(textParagraph);
      */
-    interface CardSection {
+    export interface CardSection {
       addWidget(widget: Widget): CardSection;
       setCollapsible(collapsible: boolean): CardSection;
       setHeader(header: string): CardSection;
       setNumUncollapsibleWidgets(numUncollapsibleWidgets: Integer): CardSection;
     }
+
     /**
      * CardService provides the ability to create generic cards used across different Google
      * extensibility products, such as Gmail add-ons.
@@ -238,7 +274,7 @@ declare namespace GoogleAppsScript {
      *          .build();
      *     }
      */
-    interface CardService {
+    export interface CardService {
       ComposedEmailType: typeof ComposedEmailType;
       ContentType: typeof ContentType;
       Icon: typeof Icon;
@@ -262,6 +298,7 @@ declare namespace GoogleAppsScript {
       newComposeActionResponseBuilder(): ComposeActionResponseBuilder;
       newDatePicker(): DatePicker;
       newDateTimePicker(): DateTimePicker;
+      newDecoratedText(): DecoratedText;
       newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
       newFixedFooter(): FixedFooter;
       newImage(): Image;
@@ -277,10 +314,16 @@ declare namespace GoogleAppsScript {
       newTextButton(): TextButton;
       newTextInput(): TextInput;
       newTextParagraph(): TextParagraph;
+      newTimePicker(): TimePicker;
       newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
       newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
+      newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
       newUpdateDraftBodyAction(): UpdateDraftBodyAction;
+      newUpdateDraftCcRecipientsAction(): UpdateDraftCcRecipientsAction;
+      newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
+      newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
     }
+
     /**
      * The response object that may be returned from a callback method for compose action in a Gmail add-on.
      *
@@ -293,9 +336,10 @@ declare namespace GoogleAppsScript {
      *         .setGmailDraft(GmailApp.createDraft("recipient", "subject", "body"))
      *         .build();
      */
-    interface ComposeActionResponse {
+    export interface ComposeActionResponse {
       printJson(): string;
     }
+
     /**
      * A builder for ComposeActionResponse objects.
      *
@@ -304,28 +348,151 @@ declare namespace GoogleAppsScript {
      * this builder creates responses to an Action that composes draft messages when a specific
      * UI element is selected.
      */
-    interface ComposeActionResponseBuilder {
+    export interface ComposeActionResponseBuilder {
       build(): ComposeActionResponse;
       setGmailDraft(draft: Gmail.GmailDraft): ComposeActionResponseBuilder;
     }
+
     /**
      * An enum value that specifies whether the composed email is a standalone or reply draft.
      */
-    enum ComposedEmailType { REPLY_AS_DRAFT, STANDALONE_DRAFT }
+    export enum ComposedEmailType { REPLY_AS_DRAFT, STANDALONE_DRAFT }
+
     /**
      * An enum value that specifies the content type of the content generated by a UpdateDraftActionResponse.
      */
-    enum ContentType { TEXT, MUTABLE_HTML, IMMUTABLE_HTML }
+    export enum ContentType { TEXT, MUTABLE_HTML, IMMUTABLE_HTML }
+
+    /**
+     * An input field that allows inputing a date.
+     *
+     *     var dateTimePicker = CardService.newDatePicker()
+     *         .setTitle("Enter the date.")
+     *         .setFieldName("date_field")
+     *         // Set default value as Jan 1, 2018 UTC. Either a number or string is acceptable.
+     *         .setValueInMsSinceEpoch(1514775600)
+     *         .setOnChangeAction(CardService.newAction()
+     *             .setFunctionName("handleDateTimeChange"));
+     */
+    export interface DatePicker {
+      setFieldName(fieldName: string): DatePicker;
+      setOnChangeAction(action: Action): DatePicker;
+      setTitle(title: string): DatePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: Number): DatePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: string): DatePicker;
+    }
+
+    /**
+     * An input field that allows users to input a date and time.
+     *
+     *     var dateTimePicker = CardService.newDateTimePicker()
+     *         .setTitle("Enter the date and time.")
+     *         .setFieldName("date_time_field")
+     *         // Set default value as Jan 1, 2018, 3:00 AM UTC. Either a number or string is acceptable.
+     *         .setValueInMsSinceEpoch(1514775600)
+     *         // EDT time is 5 hours behind UTC.
+     *         .setTimeZoneOffsetInMins(-5 * 60)
+     *         .setOnChangeAction(CardService.newAction()
+     *             .setFunctionName("handleDateTimeChange"));
+     */
+    export interface DateTimePicker {
+      setFieldName(fieldName: string): DateTimePicker;
+      setOnChangeAction(action: Action): DateTimePicker;
+      setTimeZoneOffsetInMins(timeZoneOffsetMins: Integer): DateTimePicker;
+      setTitle(title: string): DateTimePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: Number): DateTimePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: string): DateTimePicker;
+    }
+
+    /**
+     * A widget that displays text with optional decorations. Possible keys include an icon, a label
+     * above and a label below. Setting the text content and one of the keys is required using setText(text) and one of setIcon(icon), setIconUrl(url), setTopLabel(text), or setBottomLabel(text). This class is intended to replace KeyValue.
+     *
+     *     var decoratedText = CardService.newDecoratedText()
+     *         .setText("Text")
+     *         .setTopLabel("TopLabel");
+     *
+     *     var multilineDecoratedText = CardService.newDecoratedText()
+     *         .setText("Text")
+     *         .setTopLabel("TopLabel")
+     *         .setWrapText(true)
+     *         .setBottomLabel("BottomLabel");
+     */
+    export interface DecoratedText {
+      setAuthorizationAction(action: AuthorizationAction): DecoratedText;
+      setBottomLabel(text: string): DecoratedText;
+      setButton(button: Button): DecoratedText;
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): DecoratedText;
+      setIcon(icon: Icon): DecoratedText;
+      setIconAltText(altText: string): DecoratedText;
+      setIconUrl(url: string): DecoratedText;
+      setOnClickAction(action: Action): DecoratedText;
+      setOnClickOpenLinkAction(action: Action): DecoratedText;
+      setOpenLink(openLink: OpenLink): DecoratedText;
+      setSwitchControl(switchToSet: Switch): DecoratedText;
+      setText(text: string): DecoratedText;
+      setTopLabel(text: string): DecoratedText;
+      setWrapText(wrapText: boolean): DecoratedText;
+    }
+
+    /**
+     * An enum that defines the display style of card.
+     *
+     * DisplayStyle.REPLACE means that the card is shown by replacing the view of top card in
+     * the card stack.
+     *
+     * DisplayStyle.PEEK mean that the header of the card appears at the bottom of the
+     * sidebar, partially covering the current top card of the stack. Clicking the header pops the card
+     * into the card stack. If the card has no header, a generated header is used instead.
+     *
+     * DisplayStyle only works for card returned from contextual trigger function.
+     */
+    export enum DisplayStyle { PEEK, REPLACE }
+
+    /**
+     * Represents a response that makes changes to Drive while Drive items are selected and in reaction
+     * to an action taken in the UI, such as a button click.
+     */
+    export interface DriveItemsSelectedActionResponse {
+      printJson(): string;
+    }
+
+    /**
+     * A builder for DriveItemsSelectedActionResponse objects.
+     */
+    export interface DriveItemsSelectedActionResponseBuilder {
+      build(): DriveItemsSelectedActionResponse;
+      requestFileScope(itemId: string): DriveItemsSelectedActionResponseBuilder;
+    }
+
+    /**
+     * The fixed footer shown at the bottom of an add-on Card.
+     *
+     *     var fixedFooter =
+     *           CardService
+     *               .newFixedFooter()
+     *               .setPrimaryButton(
+     *                   CardService
+     *                       .newTextButton()
+     *                       .setText("help")
+     *                       .setOpenLink(CardService.newOpenLink().setUrl("http://www.google.com")));
+     */
+    export interface FixedFooter {
+      setPrimaryButton(button: TextButton): FixedFooter;
+      setSecondaryButton(button: TextButton): FixedFooter;
+    }
+
     /**
      * Predefined icons that can be used in various UI objects, such as ImageButton or KeyValue widgets.
      */
-    enum Icon { NONE, AIRPLANE, BOOKMARK, BUS, CAR, CLOCK, CONFIRMATION_NUMBER_ICON, DOLLAR, DESCRIPTION, EMAIL, EVENT_PERFORMER, EVENT_SEAT, FLIGHT_ARRIVAL, FLIGHT_DEPARTURE, HOTEL, HOTEL_ROOM_TYPE, INVITE, MAP_PIN, MEMBERSHIP, MULTIPLE_PEOPLE, OFFER, PERSON, PHONE, RESTAURANT_ICON, SHOPPING_CART, STAR, STORE, TICKET, TRAIN, VIDEO_CAMERA, VIDEO_PLAY }
+    export enum Icon { NONE, AIRPLANE, BOOKMARK, BUS, CAR, CLOCK, CONFIRMATION_NUMBER_ICON, DOLLAR, DESCRIPTION, EMAIL, EVENT_PERFORMER, EVENT_SEAT, FLIGHT_ARRIVAL, FLIGHT_DEPARTURE, HOTEL, HOTEL_ROOM_TYPE, INVITE, MAP_PIN, MEMBERSHIP, MULTIPLE_PEOPLE, OFFER, PERSON, PHONE, RESTAURANT_ICON, SHOPPING_CART, STAR, STORE, TICKET, TRAIN, VIDEO_CAMERA, VIDEO_PLAY }
+
     /**
      * A widget that shows a single image.
      *
      *     var image = CardService.newImage().setAltText("A nice image").setImageUrl("https://image.png");
      */
-    interface Image {
+    export interface Image {
       setAltText(altText: string): Image;
       setAuthorizationAction(action: AuthorizationAction): Image;
       setComposeAction(action: Action, composedEmailType: ComposedEmailType): Image;
@@ -334,6 +501,7 @@ declare namespace GoogleAppsScript {
       setOnClickOpenLinkAction(action: Action): Image;
       setOpenLink(openLink: OpenLink): Image;
     }
+
     /**
      * A ImageButton with an image displayed on it.
      *
@@ -343,7 +511,7 @@ declare namespace GoogleAppsScript {
      *         .setOpenLink(CardService.newOpenLink()
      *             .setUrl("https://airplane.com"));
      */
-    interface ImageButton {
+    export interface ImageButton {
       setAltText(altText: string): ImageButton;
       setAuthorizationAction(action: AuthorizationAction): ImageButton;
       setComposeAction(action: Action, composedEmailType: ComposedEmailType): ImageButton;
@@ -353,10 +521,12 @@ declare namespace GoogleAppsScript {
       setOnClickOpenLinkAction(action: Action): ImageButton;
       setOpenLink(openLink: OpenLink): ImageButton;
     }
+
     /**
      * An enum that defines an image cropping style.
      */
-    enum ImageStyle { SQUARE, CIRCLE }
+    export enum ImageStyle { SQUARE, CIRCLE }
+
     /**
      * A widget that displays one or more "keys" around a text "value". The possible keys include an
      * icon, a label above and a label below. Setting the text content and one of the keys is required
@@ -377,7 +547,7 @@ declare namespace GoogleAppsScript {
      *         .setMultiline(true)
      *         .setBottomLabel("Bottom label - single line");
      */
-    interface KeyValue {
+    export interface KeyValue {
       setAuthorizationAction(action: AuthorizationAction): KeyValue;
       setBottomLabel(text: string): KeyValue;
       setButton(button: Button): KeyValue;
@@ -393,14 +563,16 @@ declare namespace GoogleAppsScript {
       setSwitch(switchToSet: Switch): KeyValue;
       setTopLabel(text: string): KeyValue;
     }
+
     /**
      * An enum type that specifies the type of loading or progress indicator to display while an Action is being processed.
      */
-    enum LoadIndicator { SPINNER, NONE }
+    export enum LoadIndicator { SPINNER, NONE }
+
     /**
      * A helper object that controls card navigation. See the card navigation guide for more details.
      */
-    interface Navigation {
+    export interface Navigation {
       popCard(): Navigation;
       popToNamedCard(cardName: string): Navigation;
       popToRoot(): Navigation;
@@ -408,6 +580,7 @@ declare namespace GoogleAppsScript {
       pushCard(card: Card): Navigation;
       updateCard(card: Card): Navigation;
     }
+
     /**
      * A notification shown to the user as a response to interacting with a UI element.
      *
@@ -423,9 +596,10 @@ declare namespace GoogleAppsScript {
      *           .build();
      *     }
      */
-    interface Notification {
+    export interface Notification {
       setText(text: string): Notification;
     }
+
     /**
      * An enum that specifies what to do when a URL opened through an OpenLink is closed.
      *
@@ -433,7 +607,8 @@ declare namespace GoogleAppsScript {
      * The implementation depends on the client platform capabilities. OnClose may cause OpenAs to be ignored; if the client platform cannot support both selected values together,
      * OnClose takes precedence.
      */
-    enum OnClose { NOTHING, RELOAD_ADD_ON }
+    export enum OnClose { NOTHING, RELOAD_ADD_ON }
+
     /**
      * An enum that specifies how to open a URL.
      *
@@ -444,7 +619,8 @@ declare namespace GoogleAppsScript {
      * Using OnClose may cause OpenAs to be ignored; if the client platform cannot
      * support both selected values together, OnClose takes precedence.
      */
-    enum OpenAs { FULL_SIZE, OVERLAY }
+    export enum OpenAs { FULL_SIZE, OVERLAY }
+
     /**
      * Represents an action to open a link with some options.
      *
@@ -466,11 +642,12 @@ declare namespace GoogleAppsScript {
      *             .setOnClose(CardService.OnClose.NOTHING));
      *         .build();
      */
-    interface OpenLink {
+    export interface OpenLink {
       setOnClose(onClose: OnClose): OpenLink;
       setOpenAs(openAs: OpenAs): OpenLink;
       setUrl(url: string): OpenLink;
     }
+
     /**
      * An input field that allows choosing between a set of predefined options.
      *
@@ -480,7 +657,7 @@ declare namespace GoogleAppsScript {
      *         .setFieldName("checkbox_field")
      *         .addItem("checkbox one title", "checkbox_one_value", false)
      *         .addItem("checkbox two title", "checkbox_two_value", true)
-     *         .addItem("checkbox three title", "checkbox_three_value", false)
+     *         .addItem("checkbox three title", "checkbox_three_value", true)
      *         .setOnChangeAction(CardService.newAction()
      *             .setFunctionName("handleCheckboxChange"));
      *
@@ -489,20 +666,22 @@ declare namespace GoogleAppsScript {
      *         .setTitle("A group of radio buttons. Only a single selection is allowed.")
      *         .setFieldName("checkbox_field")
      *         .addItem("radio button one title", "radio_one_value", true)
-     *         .addItem("radio button two title", "radio_two_value", true)
+     *         .addItem("radio button two title", "radio_two_value", false)
      *         .addItem("radio button three title", "radio_three_value", false);
      */
-    interface SelectionInput {
-      addItem(text: any, value: any, selected: boolean): SelectionInput;
+    export interface SelectionInput {
+      addItem(text: Object, value: Object, selected: boolean): SelectionInput;
       setFieldName(fieldName: string): SelectionInput;
       setOnChangeAction(action: Action): SelectionInput;
       setTitle(title: string): SelectionInput;
       setType(type: SelectionInputType): SelectionInput;
     }
+
     /**
      * Type of selection input.
      */
-    enum SelectionInputType { CHECK_BOX, RADIO_BUTTON, DROPDOWN }
+    export enum SelectionInputType { CHECK_BOX, RADIO_BUTTON, DROPDOWN }
+
     /**
      * Autocomplete suggestions to supplement a TextInput widget.
      *
@@ -511,10 +690,11 @@ declare namespace GoogleAppsScript {
      *             .addSuggestion("First suggestion")
      *             .addSuggestion("Second suggestion"))
      */
-    interface Suggestions {
+    export interface Suggestions {
       addSuggestion(suggestion: string): Suggestions;
-      addSuggestions(suggestions: string[]): Suggestions;
+      addSuggestions(suggestions: Object[]): Suggestions;
     }
+
     /**
      * A response object that can be returned from a suggestions callback function. This is used with
      * TextInput widgets that implement autocomplete.
@@ -525,16 +705,18 @@ declare namespace GoogleAppsScript {
      *             .addSuggestion("Second suggestion"))
      *             .build();
      */
-    interface SuggestionsResponse {
+    export interface SuggestionsResponse {
       printJson(): string;
     }
+
     /**
      * A builder for SuggestionsResponse objects.
      */
-    interface SuggestionsResponseBuilder {
+    export interface SuggestionsResponseBuilder {
       build(): SuggestionsResponse;
       setSuggestions(suggestions: Suggestions): SuggestionsResponseBuilder;
     }
+
     /**
      * A UI element that supports being toggled on or off. This can only be used within a KeyValue widget.
      *
@@ -547,12 +729,19 @@ declare namespace GoogleAppsScript {
      *             .setOnChangeAction(CardService.newAction()
      *                 .setFunctionName("handleSwitchChange")));
      */
-    interface Switch {
+    export interface Switch {
+      setControlType(controlType: SwitchControlType): Switch;
       setFieldName(fieldName: string): Switch;
       setOnChangeAction(action: Action): Switch;
       setSelected(selected: boolean): Switch;
       setValue(value: string): Switch;
     }
+
+    /**
+     * Type of a Switch widget control.
+     */
+    export enum SwitchControlType { SWITCH, CHECK_BOX }
+
     /**
      * A TextButton with a text label. You can set the background color and disable the button when
      * needed.
@@ -562,7 +751,7 @@ declare namespace GoogleAppsScript {
      *         .setOpenLink(CardService.newOpenLink()
      *             .setUrl("https://www.google.com"));
      */
-    interface TextButton {
+    export interface TextButton {
       setAuthorizationAction(action: AuthorizationAction): TextButton;
       setBackgroundColor(backgroundColor: string): TextButton;
       setComposeAction(action: Action, composedEmailType: ComposedEmailType): TextButton;
@@ -573,6 +762,7 @@ declare namespace GoogleAppsScript {
       setText(text: string): TextButton;
       setTextButtonStyle(textButtonStyle: TextButtonStyle): TextButton;
     }
+
     /**
      * An enum that specifies the style for TextButton.
      *
@@ -580,7 +770,8 @@ declare namespace GoogleAppsScript {
      * FILLED buttons have a background color you can set with
      * TextButton.setBackgroundColor(backgroundColor).
      */
-    enum TextButtonStyle { TEXT, FILLED }
+    export enum TextButtonStyle { TEXT, FILLED }
+
     /**
      * A input field widget that accepts text input.
      *
@@ -589,7 +780,7 @@ declare namespace GoogleAppsScript {
      *         .setTitle("Text input title")
      *         .setHint("Text input hint");
      */
-    interface TextInput {
+    export interface TextInput {
       setFieldName(fieldName: string): TextInput;
       setHint(hint: string): TextInput;
       setMultiline(multiline: boolean): TextInput;
@@ -599,15 +790,37 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): TextInput;
       setValue(value: string): TextInput;
     }
+
     /**
      * A widget that displays text and supports basic HTML formatting.
      *
      *     var textParagraph = CardService.newTextParagraph()
      *         .setText("This is a text paragraph widget. Multiple lines are allowed if needed.");
      */
-    interface TextParagraph {
+    export interface TextParagraph {
       setText(text: string): TextParagraph;
     }
+
+    /**
+     * An input field that allows users to input a time.
+     *
+     *     var dateTimePicker = CardService.newTimePicker()
+     *         .setTitle("Enter the time.")
+     *         .setFieldName("time_field")
+     *         // Set default value as 3:30 AM.
+     *         .setHours(3)
+     *         .setMinutes(30)
+     *         .setOnChangeAction(CardService.newAction()
+     *             .setFunctionName("handleDateTimeChange"));
+     */
+    export interface TimePicker {
+      setFieldName(fieldName: string): TimePicker;
+      setHours(hours: Integer): TimePicker;
+      setMinutes(minutes: Integer): TimePicker;
+      setOnChangeAction(action: Action): TimePicker;
+      setTitle(title: string): TimePicker;
+    }
+
     /**
      * The response object that may be returned from a method that creates universal action.
      *
@@ -628,21 +841,45 @@ declare namespace GoogleAppsScript {
      *             cardBuilder2.build();
      *         ]).build();
      */
-    interface UniversalActionResponse {
+    export interface UniversalActionResponse {
       printJson(): string;
     }
+
     /**
      * A builder for the UniversalActionResponse objects.
      */
-    interface UniversalActionResponseBuilder {
+    export interface UniversalActionResponseBuilder {
       build(): UniversalActionResponse;
-      displayAddOnCards(cardObjects: Card[]): UniversalActionResponseBuilder;
+      displayAddOnCards(cardObjects: Object[]): UniversalActionResponseBuilder;
       setOpenLink(openLink: OpenLink): UniversalActionResponseBuilder;
     }
+
     /**
      * Represents an action that updates the email draft that the user is currently editing.
      *
-     *     // A UpdateDraftActionResponse that inserts non-editable content (a link in this case) into an
+     *     // An UpdateDraftActionResponse that inserts a list of To recipients into an email draft
+     *     var updateDraftActionResponse = CardService.newUpdateDraftActionResponseBuilder()
+     *         .setUpdateToRecipientsAction(CardService.newUpdateToRecipientsAction()
+     *            .addUpdateToRecipients(["joe@example.com", "wen@example.com"]))
+     *         .build()
+     *
+     *     // An UpdateDraftActionResponse that inserts a list of Cc recipients into an email draft
+     *     var updateDraftActionResponse = CardService.newUpdateDraftActionResponseBuilder()
+     *         .setUpdateCcRecipientsAction(CardService.newUpdateCcRecipientsAction()
+     *            .addUpdateCcRecipients(["joe@example.com", "wen@example.com"]))
+     *         .build()
+     *
+     *     // An UpdateDraftActionResponse that inserts a list of Bcc recipients into an email draft
+     *         .setUpdateCcRecipientsAction(CardService.newUpdateBccRecipientsAction()
+     *            .addUpdateBccRecipients(["joe@example.com", "wen@example.com"]))
+     *
+     *     // An UpdateDraftActionResponse that inserts a subject line into an email draft
+     *     var updateDraftActionResponse = CARD_SERVICE.newUpdateDraftActionResponseBuilder()
+     *     .setUpdateDraftSubjectAction(CARD_SERVICE.newUpdateDraftSubjectAction()
+     *     .addUpdateSubject("example subject"))
+     *     .build();
+     *
+     *     // An UpdateDraftActionResponse that inserts non-editable content (a link in this case) into an
      *     // email draft.
      *     var updateDraftActionResponse = CardService.newUpdateDraftActionResponseBuilder()
      *         .setUpdateDraftBodyAction(CardService.newUpdateDraftBodyAction()
@@ -652,7 +889,7 @@ declare namespace GoogleAppsScript {
      *             .setUpdateType(UpdateDraftBodyType.IN_PLACE_INSERT))
      *         .build();
      *
-     *     // A UpdateDraftActionResponse that inserts a link into an email draft. The added content can be
+     *     // An UpdateDraftActionResponse that inserts a link into an email draft. The added content can be
      *     // edited further.
      *     var updateDraftActionResponse = CardService.newUpdateDraftActionResponseBuilder()
      *         .setUpdateDraftBodyAction(CardService.newUpdateDraftBodyAction()
@@ -662,7 +899,7 @@ declare namespace GoogleAppsScript {
      *             .setUpdateType(UpdateDraftBodyType.IN_PLACE_INSERT))
      *         .build();
      *
-     *     // A UpdateDraftActionResponse that inserts multiple values of different types.
+     *     // An UpdateDraftActionResponse that inserts multiple values of different types.
      *     // The example action response inserts two lines next to each other in the email
      *     // draft, at the cursor position. Each line contains the content added by
      *     // {@link UpdateDraftActionResponseBuilder#addUpdateContent}.
@@ -675,96 +912,70 @@ declare namespace GoogleAppsScript {
      *             .setUpdateType(UpdateDraftBodyType.IN_PLACE_INSERT))
      *         .build();
      */
-    interface UpdateDraftActionResponse {
+    export interface UpdateDraftActionResponse {
       printJson(): string;
     }
+
     /**
      * A builder for UpdateDraftActionResponse objects.
      */
-    interface UpdateDraftActionResponseBuilder {
+    export interface UpdateDraftActionResponseBuilder {
       build(): UpdateDraftActionResponse;
+      setUpdateDraftBccRecipientsAction(updateDraftBccRecipientsAction: UpdateDraftBccRecipientsAction): UpdateDraftActionResponseBuilder;
       setUpdateDraftBodyAction(updateDraftBodyAction: UpdateDraftBodyAction): UpdateDraftActionResponseBuilder;
+      setUpdateDraftCcRecipientsAction(updateDraftCcRecipientsAction: UpdateDraftCcRecipientsAction): UpdateDraftActionResponseBuilder;
+      setUpdateDraftSubjectAction(updateDraftSubjectAction: UpdateDraftSubjectAction): UpdateDraftActionResponseBuilder;
+      setUpdateDraftToRecipientsAction(updateDraftToRecipientsAction: UpdateDraftToRecipientsAction): UpdateDraftActionResponseBuilder;
     }
+
     /**
-     * Represents an action that updates the email draft body.
+     * Updates the Bcc recipients of an email draft.
      */
-    interface UpdateDraftBodyAction {
+    export interface UpdateDraftBccRecipientsAction {
+      addUpdateBccRecipients(bccRecipientEmails: String[]): UpdateDraftBccRecipientsAction;
+    }
+
+    /**
+     * Updates the email draft body.
+     */
+    export interface UpdateDraftBodyAction {
       addUpdateContent(content: string, contentType: ContentType): UpdateDraftBodyAction;
       setUpdateType(updateType: UpdateDraftBodyType): UpdateDraftBodyAction;
-    }
-    /**
-     * The fixed footer shown at the bottom of an add-on Card.
-     */
-    interface FixedFooter {
-      setPrimaryButton(button: TextButton): FixedFooter;
-      setSecondaryButton(button: TextButton): FixedFooter;
-    }
-
-    /**
-     * Represents a response that makes changes to the calendar event that the user is currently editing in reaction to an action taken in the UI, such as a button click.
-     */
-    interface CalendarEventActionResponse {
-      printJson(): string;
-    }
-
-    /**
-     * A builder for CalendarEventActionResponse objects.
-     */
-    interface CalendarEventActionResponseBuilder {
-      addAttendees(emails: string[]): CalendarEventActionResponseBuilder;
-      build(): CalendarEventActionResponse;
-      setConferenceData(conferenceData: Conference_Data.ConferenceData): CalendarEventActionResponseBuilder;
-    }
-
-    /**
-     * An input field that allows inputing a date.
-     */
-    interface DatePicker {
-      setFieldName(fieldName: string): DatePicker;
-      setOnChangeAction(action: Action): DatePicker;
-      setTitle(title: string): DatePicker;
-      setValueInMsSinceEpoch(valueMsEpoch: number): DatePicker;
-      setValueInMsSinceEpoch(valueMsEpoch: string): DatePicker;
-    }
-
-    /**
-     * An input field that allows inputing a date.
-     */
-    interface DateTimePicker {
-      setFieldName(fieldName: string): DateTimePicker;
-      setOnChangeAction(action: Action): DateTimePicker;
-      setTimeZoneOffsetInMins(timeZoneOffsetMins: Integer): DateTimePicker;
-      setTitle(title: string): DateTimePicker;
-      setValueInMsSinceEpoch(valueMsEpoch: number): DateTimePicker;
-      setValueInMsSinceEpoch(valueMsEpoch: string): DateTimePicker;
-    }
-
-    /**
-     * A builder for DriveItemsSelectedActionResponse objects.
-     */
-    interface DriveItemsSelectedActionResponseBuilder {
-      build(): DriveItemsSelectedActionResponse;
-      requestFileScope(itemId: string): DriveItemsSelectedActionResponseBuilder;
-    }
-
-    /**
-     * Represents a response that makes changes to Drive while Drive items are selected and in reaction to an action taken in the UI, such as a button click.
-     */
-    interface DriveItemsSelectedActionResponse {
-      printJson(): string;
     }
 
     /**
      * An enum value that specifies the type of an UpdateDraftBodyAction.
      */
-    enum UpdateDraftBodyType { IN_PLACE_INSERT }
+    export enum UpdateDraftBodyType { IN_PLACE_INSERT, INSERT_AT_START, INSERT_AT_END }
+
+    /**
+     * Updates the Cc recipients of an email draft.
+     */
+    export interface UpdateDraftCcRecipientsAction {
+      addUpdateCcRecipients(ccRecipientEmails: String[]): UpdateDraftCcRecipientsAction;
+    }
+
+    /**
+     * Updates the subject line of an email draft.
+     */
+    export interface UpdateDraftSubjectAction {
+      addUpdateSubject(subject: string): UpdateDraftSubjectAction;
+    }
+
+    /**
+     * Updates the To recipients of an email draft.
+     */
+    export interface UpdateDraftToRecipientsAction {
+      addUpdateToRecipients(toRecipientEmails: String[]): UpdateDraftToRecipientsAction;
+    }
+
     /**
      * Base class for all widgets that can be added to a Card.
      */
-    // tslint:disable-next-line: no-empty-interface
-    interface Widget {
+    export interface Widget {
     }
+
   }
 }
 
-declare var CardService: GoogleAppsScript.Card_Service.CardService;
+declare var CardService: GoogleAppsScript.Card.CardService;

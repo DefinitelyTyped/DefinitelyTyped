@@ -1,14 +1,13 @@
-// Type definitions for Google Apps Script 2020-01-02
+// Type definitions for Google Apps Script 2020-11-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
+// Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  namespace Charts {
+  export module Charts {
     /**
      * Builder for area charts. For more details, see the Google Charts documentation.
      *
@@ -43,11 +42,11 @@ declare namespace GoogleAppsScript {
      *           .setDataTable(sampleData)
      *           .build();
      */
-    interface AreaChartBuilder {
+    export interface AreaChartBuilder {
       build(): Chart;
       reverseCategories(): AreaChartBuilder;
       setBackgroundColor(cssValue: string): AreaChartBuilder;
-      setColors(cssValues: string[]): AreaChartBuilder;
+      setColors(cssValues: String[]): AreaChartBuilder;
       setDataSourceUrl(url: string): AreaChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): AreaChartBuilder;
       setDataTable(table: DataTableSource): AreaChartBuilder;
@@ -55,9 +54,9 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): AreaChartBuilder;
       setLegendPosition(position: Position): AreaChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): AreaChartBuilder;
-      setOption(option: string, value: any): AreaChartBuilder;
+      setOption(option: string, value: Object): AreaChartBuilder;
       setPointStyle(style: PointStyle): AreaChartBuilder;
-      setRange(start: number, end: number): AreaChartBuilder;
+      setRange(start: Number, end: Number): AreaChartBuilder;
       setStacked(): AreaChartBuilder;
       setTitle(chartTitle: string): AreaChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): AreaChartBuilder;
@@ -69,6 +68,7 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): AreaChartBuilder;
       useLogScale(): AreaChartBuilder;
     }
+
     /**
      * Builder for bar charts. For more details, see the Google Charts documentation.
      *
@@ -89,12 +89,12 @@ declare namespace GoogleAppsScript {
      *
      *      var chart = chartBuilder.build();
      */
-    interface BarChartBuilder {
+    export interface BarChartBuilder {
       build(): Chart;
       reverseCategories(): BarChartBuilder;
       reverseDirection(): BarChartBuilder;
       setBackgroundColor(cssValue: string): BarChartBuilder;
-      setColors(cssValues: string[]): BarChartBuilder;
+      setColors(cssValues: String[]): BarChartBuilder;
       setDataSourceUrl(url: string): BarChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): BarChartBuilder;
       setDataTable(table: DataTableSource): BarChartBuilder;
@@ -102,8 +102,8 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): BarChartBuilder;
       setLegendPosition(position: Position): BarChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): BarChartBuilder;
-      setOption(option: string, value: any): BarChartBuilder;
-      setRange(start: number, end: number): BarChartBuilder;
+      setOption(option: string, value: Object): BarChartBuilder;
+      setRange(start: Number, end: Number): BarChartBuilder;
       setStacked(): BarChartBuilder;
       setTitle(chartTitle: string): BarChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): BarChartBuilder;
@@ -115,23 +115,27 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): BarChartBuilder;
       useLogScale(): BarChartBuilder;
     }
+
     /**
      * A Chart object, which can be converted to a static image. For charts embedded in spreadsheets,
      * see EmbeddedChart.
      */
-    interface Chart {
+    export interface Chart {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
       getOptions(): ChartOptions;
     }
+
     /**
      * An enumeration of how hidden dimensions in a source are expressed in a chart.
      */
-    enum ChartHiddenDimensionStrategy { IGNORE_BOTH, IGNORE_ROWS, IGNORE_COLUMNS, SHOW_BOTH }
+    export enum ChartHiddenDimensionStrategy { IGNORE_BOTH, IGNORE_ROWS, IGNORE_COLUMNS, SHOW_BOTH }
+
     /**
      * An enumeration of how multiple ranges in the source are expressed in a chart.
      */
-    enum ChartMergeStrategy { MERGE_COLUMNS, MERGE_ROWS }
+    export enum ChartMergeStrategy { MERGE_COLUMNS, MERGE_ROWS }
+
     /**
      * Exposes options currently configured for a Chart, such as height, color, etc.
      *
@@ -141,13 +145,16 @@ declare namespace GoogleAppsScript {
      *
      * These options are immutable.
      */
-    interface ChartOptions {
-      get(option: string): any;
+    export interface ChartOptions {
+      get(option: string): Object;
+      getOrDefault(option: string): Object;
     }
+
     /**
      * Chart types supported by the Charts service.
      */
-    enum ChartType { TIMELINE, AREA, BAR, BUBBLE, CANDLESTICK, COLUMN, COMBO, GAUGE, GEO, HISTOGRAM, RADAR, LINE, ORG, PIE, SCATTER, SPARKLINE, STEPPED_AREA, TABLE, TREEMAP, WATERFALL }
+    export enum ChartType { TIMELINE, AREA, BAR, BUBBLE, CANDLESTICK, COLUMN, COMBO, GAUGE, GEO, HISTOGRAM, RADAR, LINE, ORG, PIE, SCATTER, SPARKLINE, STEPPED_AREA, TABLE, TREEMAP, WATERFALL }
+
     /**
      * Entry point for creating Charts in scripts.
      *
@@ -181,7 +188,7 @@ declare namespace GoogleAppsScript {
      *        return htmlOutput;
      *     }
      */
-    interface Charts {
+    export interface Charts {
       ChartHiddenDimensionStrategy: typeof ChartHiddenDimensionStrategy;
       ChartMergeStrategy: typeof ChartMergeStrategy;
       ChartType: typeof ChartType;
@@ -200,6 +207,7 @@ declare namespace GoogleAppsScript {
       newTableChart(): TableChartBuilder;
       newTextStyle(): TextStyleBuilder;
     }
+
     /**
      * Builder for column charts. For more details, see the Google Charts documentation.
      *
@@ -228,11 +236,11 @@ declare namespace GoogleAppsScript {
      *         .setDataTable(sampleData)
      *         .build();
      */
-    interface ColumnChartBuilder {
+    export interface ColumnChartBuilder {
       build(): Chart;
       reverseCategories(): ColumnChartBuilder;
       setBackgroundColor(cssValue: string): ColumnChartBuilder;
-      setColors(cssValues: string[]): ColumnChartBuilder;
+      setColors(cssValues: String[]): ColumnChartBuilder;
       setDataSourceUrl(url: string): ColumnChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): ColumnChartBuilder;
       setDataTable(table: DataTableSource): ColumnChartBuilder;
@@ -240,8 +248,8 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): ColumnChartBuilder;
       setLegendPosition(position: Position): ColumnChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): ColumnChartBuilder;
-      setOption(option: string, value: any): ColumnChartBuilder;
-      setRange(start: number, end: number): ColumnChartBuilder;
+      setOption(option: string, value: Object): ColumnChartBuilder;
+      setRange(start: Number, end: Number): ColumnChartBuilder;
       setStacked(): ColumnChartBuilder;
       setTitle(chartTitle: string): ColumnChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): ColumnChartBuilder;
@@ -253,22 +261,25 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): ColumnChartBuilder;
       useLogScale(): ColumnChartBuilder;
     }
+
     /**
      * An enumeration of the valid data types for columns in a DataTable.
      */
-    enum ColumnType { DATE, NUMBER, STRING }
+    export enum ColumnType { DATE, NUMBER, STRING }
+
     /**
      * An enumeration of the styles for curves in a chart.
      */
-    enum CurveStyle { NORMAL, SMOOTH }
+    export enum CurveStyle { NORMAL, SMOOTH }
+
     /**
      * A Data Table to be used in charts. A DataTable can come from sources such as Google
      * Sheets or specified data-table URLs, or can be filled in by hand. This class intentionally has no
      * methods: a DataTable can be passed around, but not manipulated directly.
      */
-    // tslint:disable-next-line: no-empty-interface
-    interface DataTable {
+    export interface DataTable {
     }
+
     /**
      * Builder of DataTable objects. Building a data table consists of first specifying its columns, and
      * then adding its rows, one at a time. Example:
@@ -284,12 +295,13 @@ declare namespace GoogleAppsScript {
      *         .addRow(["May", 30, 4])
      *         .build();
      */
-    interface DataTableBuilder {
+    export interface DataTableBuilder {
       addColumn(type: ColumnType, label: string): DataTableBuilder;
-      addRow(values: any[]): DataTableBuilder;
+      addRow(values: Object[]): DataTableBuilder;
       build(): DataTable;
-      setValue(row: Integer, column: Integer, value: any): DataTableBuilder;
+      setValue(row: Integer, column: Integer, value: Object): DataTableBuilder;
     }
+
     /**
      * Interface for objects that can represent their data as a DataTable.
      * Implementing classes
@@ -300,9 +312,10 @@ declare namespace GoogleAppsScript {
      *
      * RangeAccess and modify spreadsheet ranges.
      */
-    interface DataTableSource {
+    export interface DataTableSource {
       getDataTable(): DataTable;
     }
+
     /**
      * A data view definition for visualizing chart data.
      *
@@ -312,9 +325,9 @@ declare namespace GoogleAppsScript {
      * consideration when drawing the chart. See DataViewDefinitionBuilder for an example on how
      * to define and use a DataViewDefinition.
      */
-    // tslint:disable-next-line: no-empty-interface
-    interface DataViewDefinition {
+    export interface DataViewDefinition {
     }
+
     /**
      * Builder for DataViewDefinition objects.
      *
@@ -356,10 +369,11 @@ declare namespace GoogleAppsScript {
      *       return htmlOutput;
      *     }
      */
-    interface DataViewDefinitionBuilder {
+    export interface DataViewDefinitionBuilder {
       build(): DataViewDefinition;
-      setColumns(columns: any[]): DataViewDefinitionBuilder;
+      setColumns(columns: Object[]): DataViewDefinitionBuilder;
     }
+
     /**
      * Builder for line charts. For more details, see the Google Charts documentation.
      *
@@ -380,11 +394,11 @@ declare namespace GoogleAppsScript {
      *
      *       var chart = chartBuilder.build();
      */
-    interface LineChartBuilder {
+    export interface LineChartBuilder {
       build(): Chart;
       reverseCategories(): LineChartBuilder;
       setBackgroundColor(cssValue: string): LineChartBuilder;
-      setColors(cssValues: string[]): LineChartBuilder;
+      setColors(cssValues: String[]): LineChartBuilder;
       setCurveStyle(style: CurveStyle): LineChartBuilder;
       setDataSourceUrl(url: string): LineChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): LineChartBuilder;
@@ -393,9 +407,9 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): LineChartBuilder;
       setLegendPosition(position: Position): LineChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): LineChartBuilder;
-      setOption(option: string, value: any): LineChartBuilder;
+      setOption(option: string, value: Object): LineChartBuilder;
       setPointStyle(style: PointStyle): LineChartBuilder;
-      setRange(start: number, end: number): LineChartBuilder;
+      setRange(start: Number, end: Number): LineChartBuilder;
       setTitle(chartTitle: string): LineChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): LineChartBuilder;
       setXAxisTextStyle(textStyle: TextStyle): LineChartBuilder;
@@ -406,6 +420,7 @@ declare namespace GoogleAppsScript {
       setYAxisTitleTextStyle(textStyle: TextStyle): LineChartBuilder;
       useLogScale(): LineChartBuilder;
     }
+
     /**
      * An enumeration of how a string value should be matched. Matching a string is a boolean operation.
      * Given a string, a match term (string), and a match type, the operation outputs true in
@@ -421,7 +436,8 @@ declare namespace GoogleAppsScript {
      * of the data table. Given a column to filter on, leave only the rows that match the value entered
      * in the filter input box, using one of the above matching types.
      */
-    enum MatchType { EXACT, PREFIX, ANY }
+    export enum MatchType { EXACT, PREFIX, ANY }
+
     /**
      * A builder for number range filter controls.
      *
@@ -432,21 +448,24 @@ declare namespace GoogleAppsScript {
      * For more details, see the Gviz
      * documentation.
      */
-    interface NumberRangeFilterBuilder {
+    export interface NumberRangeFilterBuilder {
       setMaxValue(maxValue: Integer): NumberRangeFilterBuilder;
       setMinValue(minValue: Integer): NumberRangeFilterBuilder;
       setOrientation(orientation: Orientation): NumberRangeFilterBuilder;
       setShowRangeValues(showRangeValues: boolean): NumberRangeFilterBuilder;
       setTicks(ticks: Integer): NumberRangeFilterBuilder;
     }
+
     /**
      * An enumeration of the orientation of an object.
      */
-    enum Orientation { HORIZONTAL, VERTICAL }
+    export enum Orientation { HORIZONTAL, VERTICAL }
+
     /**
      * An enumeration of how to display selected values in picker widget.
      */
-    enum PickerValuesLayout { ASIDE, BELOW, BELOW_WRAPPING, BELOW_STACKED }
+    export enum PickerValuesLayout { ASIDE, BELOW, BELOW_WRAPPING, BELOW_STACKED }
+
     /**
      * A builder for pie charts. For more details, see the Google Charts documentation.
      *
@@ -464,12 +483,12 @@ declare namespace GoogleAppsScript {
      *
      *       var chart = chartBuilder.build();
      */
-    interface PieChartBuilder {
+    export interface PieChartBuilder {
       build(): Chart;
       reverseCategories(): PieChartBuilder;
       set3D(): PieChartBuilder;
       setBackgroundColor(cssValue: string): PieChartBuilder;
-      setColors(cssValues: string[]): PieChartBuilder;
+      setColors(cssValues: String[]): PieChartBuilder;
       setDataSourceUrl(url: string): PieChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): PieChartBuilder;
       setDataTable(table: DataTableSource): PieChartBuilder;
@@ -477,18 +496,21 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): PieChartBuilder;
       setLegendPosition(position: Position): PieChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): PieChartBuilder;
-      setOption(option: string, value: any): PieChartBuilder;
+      setOption(option: string, value: Object): PieChartBuilder;
       setTitle(chartTitle: string): PieChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): PieChartBuilder;
     }
+
     /**
      * An enumeration of the styles of points in a line.
      */
-    enum PointStyle { NONE, TINY, MEDIUM, LARGE, HUGE }
+    export enum PointStyle { NONE, TINY, MEDIUM, LARGE, HUGE }
+
     /**
      * An enumeration of legend positions within a chart.
      */
-    enum Position { TOP, RIGHT, BOTTOM, NONE }
+    export enum Position { TOP, RIGHT, BOTTOM, NONE }
+
     /**
      * Builder for scatter charts. For more details, see the Google Charts documentation.
      *
@@ -508,10 +530,10 @@ declare namespace GoogleAppsScript {
      *
      *     var chart = chartBuilder.build();
      */
-    interface ScatterChartBuilder {
+    export interface ScatterChartBuilder {
       build(): Chart;
       setBackgroundColor(cssValue: string): ScatterChartBuilder;
-      setColors(cssValues: string[]): ScatterChartBuilder;
+      setColors(cssValues: String[]): ScatterChartBuilder;
       setDataSourceUrl(url: string): ScatterChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): ScatterChartBuilder;
       setDataTable(table: DataTableSource): ScatterChartBuilder;
@@ -519,21 +541,22 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): ScatterChartBuilder;
       setLegendPosition(position: Position): ScatterChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): ScatterChartBuilder;
-      setOption(option: string, value: any): ScatterChartBuilder;
+      setOption(option: string, value: Object): ScatterChartBuilder;
       setPointStyle(style: PointStyle): ScatterChartBuilder;
       setTitle(chartTitle: string): ScatterChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setXAxisLogScale(): ScatterChartBuilder;
-      setXAxisRange(start: number, end: number): ScatterChartBuilder;
+      setXAxisRange(start: Number, end: Number): ScatterChartBuilder;
       setXAxisTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setXAxisTitle(title: string): ScatterChartBuilder;
       setXAxisTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setYAxisLogScale(): ScatterChartBuilder;
-      setYAxisRange(start: number, end: number): ScatterChartBuilder;
+      setYAxisRange(start: Number, end: Number): ScatterChartBuilder;
       setYAxisTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setYAxisTitle(title: string): ScatterChartBuilder;
       setYAxisTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
     }
+
     /**
      * A builder for string filter controls.
      *
@@ -544,11 +567,12 @@ declare namespace GoogleAppsScript {
      * For more details, see the Gviz
      * documentation.
      */
-    interface StringFilterBuilder {
+    export interface StringFilterBuilder {
       setCaseSensitive(caseSensitive: boolean): StringFilterBuilder;
       setMatchType(matchType: MatchType): StringFilterBuilder;
       setRealtimeTrigger(realtimeTrigger: boolean): StringFilterBuilder;
     }
+
     /**
      * A builder for table charts. For more details, see the Google Charts documentation.
      *
@@ -565,7 +589,7 @@ declare namespace GoogleAppsScript {
      *
      *     var chart = chartBuilder.build();
      */
-    interface TableChartBuilder {
+    export interface TableChartBuilder {
       build(): Chart;
       enablePaging(enablePaging: boolean): TableChartBuilder;
       enablePaging(pageSize: Integer): TableChartBuilder;
@@ -580,10 +604,11 @@ declare namespace GoogleAppsScript {
       setFirstRowNumber(number: Integer): TableChartBuilder;
       setInitialSortingAscending(column: Integer): TableChartBuilder;
       setInitialSortingDescending(column: Integer): TableChartBuilder;
-      setOption(option: string, value: any): TableChartBuilder;
+      setOption(option: string, value: Object): TableChartBuilder;
       showRowNumberColumn(showRowNumber: boolean): TableChartBuilder;
       useAlternatingRowStyle(alternate: boolean): TableChartBuilder;
     }
+
     /**
      * A text style configuration object. Used in charts options to configure text style for elements
      * that accepts it, such as title, horizontal axis, vertical axis, legend and tooltip.
@@ -615,11 +640,12 @@ declare namespace GoogleAppsScript {
      *           .setDataTable(sampleData)
      *           .build();
      */
-    interface TextStyle {
+    export interface TextStyle {
       getColor(): string;
       getFontName(): string;
-      getFontSize(): number;
+      getFontSize(): Number;
     }
+
     /**
      * A builder used to create TextStyle objects. It allows configuration of the text's
      * properties such as name, color, and size.
@@ -632,12 +658,13 @@ declare namespace GoogleAppsScript {
      *         .setColor('#0000FF').setFontName('Ariel').setFontSize(26);
      *     var style = textStyleBuilder.build();
      */
-    interface TextStyleBuilder {
+    export interface TextStyleBuilder {
       build(): TextStyle;
       setColor(cssValue: string): TextStyleBuilder;
       setFontName(fontName: string): TextStyleBuilder;
-      setFontSize(fontSize: number): TextStyleBuilder;
+      setFontSize(fontSize: Number): TextStyleBuilder;
     }
+
   }
 }
 
