@@ -228,7 +228,7 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
     sorter?: (data: Array<OptGroupData | OptionData | IdTextPair>) => Array<OptGroupData | OptionData | IdTextPair>;
     tags?: boolean;
     templateResult?: (result: LoadingData | Result) => string | JQuery | null;
-    templateSelection?: (selection: IdTextPair | LoadingData | Result) => string | JQuery;
+    templateSelection?: (selection: IdTextPair | LoadingData | Result, container: JQuery) => string | JQuery;
     theme?: string;
     tokenizer?: (input: string, selection: any[], selectCallback: () => void, options: Options) => string;
     tokenSeparators?: string[];
