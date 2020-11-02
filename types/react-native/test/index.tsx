@@ -1059,13 +1059,7 @@ export class ImageTest extends React.Component {
             (width, height) => console.log(width, height),
             error => console.error(error),
         );
-        Image.prefetch(uri).then((success) => {
-            if (success) {
-                console.log('Image prefetch success');
-            } else {
-                console.log('Image prefetch has an issue');
-            }
-        });
+        Image.prefetch(uri); // $ExpectType Promise<boolean>
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
