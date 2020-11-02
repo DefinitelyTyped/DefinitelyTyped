@@ -10,9 +10,6 @@
 
 // Last module patch version validated against: 6.0.0
 
-// NOTE TO MAINTAINERS: Review D3 v5.x module dependencies (see v5 sub-folder) and update its path-mappings in tsconfig (v5 folder),
-// if new MAJOR version of D3 v5 modules are released!!!
-
 export as namespace d3;
 
 /**
