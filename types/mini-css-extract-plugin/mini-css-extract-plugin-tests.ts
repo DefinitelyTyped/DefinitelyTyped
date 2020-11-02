@@ -103,6 +103,4 @@ configuration = {
     ],
 };
 
-let compiler!: webpack.Compiler;
-
-new MiniCssExtractPlugin().apply(compiler);
+new MiniCssExtractPlugin().apply(new webpack.Compiler());
