@@ -1,4 +1,4 @@
-// Type definitions for miniSphere 5.5
+// Type definitions for the non-npm package sphere-engine
 // Project: https://github.com/fatcerberus/miniSphere
 // Definitions by: Fat Cerberus <https://github.com/fatcerberus>, Eggbertx <https://github.com/eggbertx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
