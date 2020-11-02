@@ -2110,20 +2110,20 @@ declare module 'data-stream' {
          * @example
          * // from the miniSphere runtime docs
          * rmp_header = myReader.readStruct({
-         * 	signature: { type: 'fstring', length: 4 },
-         * 	version: { type: 'uint16le' },
-         * 	type: { type: 'uint8' },
-         * 	numLayers: { type: 'uint8' },
-         * 	reserved1: { type: 'raw', size: 1 },
-         * 	numEntities: { type: 'uint16le' },
-         * 	startX: { type: 'uint16le' },
-         * 	startY: { type: 'uint16le' },
-         * 	startLayer: { type: 'uint8' },
-         * 	startDir: { type: 'uint8' },
-         * 	numStrings: { type: 'uint16le' },
-         * 	numZones: { type: 'uint16le' },
-         * 	repeating: { type: 'bool' },
-         * 	reserved2: { type: 'raw', size: 234 },
+         *     signature: { type: 'fstring', length: 4 },
+         *     version: { type: 'uint16le' },
+         *     type: { type: 'uint8' },
+         *     numLayers: { type: 'uint8' },
+         *     reserved1: { type: 'raw', size: 1 },
+         *     numEntities: { type: 'uint16le' },
+         *     startX: { type: 'uint16le' },
+         *     startY: { type: 'uint16le' },
+         *     startLayer: { type: 'uint8' },
+         *     startDir: { type: 'uint8' },
+         *     numStrings: { type: 'uint16le' },
+         *     numZones: { type: 'uint16le' },
+         *     repeating: { type: 'bool' },
+         *     reserved2: { type: 'raw', size: 234 },
          * });
          */
         readStruct(desc: FileDescriptor): any;

@@ -572,7 +572,7 @@ declare function OpenLog(
  * @example
  * let start = GetTime();
  * while (GetTime() < start + 1000) {
- * 	// do stuff
+ *     // do stuff
  * }
  */
 declare function GetTime(): number;
