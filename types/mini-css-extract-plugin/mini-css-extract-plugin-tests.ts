@@ -77,6 +77,15 @@ configuration = {
     // ...
     plugins: [
         new MiniCssExtractPlugin({
+            filename: configuration.output!.filename,
+        }),
+    ],
+};
+
+configuration = {
+    // ...
+    plugins: [
+        new MiniCssExtractPlugin({
             esModule: true,
         }),
     ],
