@@ -990,8 +990,8 @@ const menus = (
     <div>
         <Menu>
             <Menu.List>
-                <Menu.Item url="/">Option 1</Menu.Item>
-                <Menu.Item url="/">Option 2</Menu.Item>
+                <Menu.Item separator url="/">Option 1</Menu.Item>
+                <Menu.Item separator url="/">Option 2</Menu.Item>
                 <Menu.Item url="/">Option 3</Menu.Item>
                 <Menu.Item url="/">Option 4</Menu.Item>
             </Menu.List>
@@ -2008,7 +2008,7 @@ const shellbars = (
 
 const sideNavs = (
     <div>
-        <SideNav selectedId="item-2">
+        <SideNav skipLink={{href: "/", label: "skip to /"}} selectedId="item-2">
             <SideNav.List>
                 <SideNav.ListItem id="item-1" name="Link Item" url="#" />
                 <SideNav.ListItem id="item-2" name="Link Item" url="#" />
