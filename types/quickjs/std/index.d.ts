@@ -55,7 +55,6 @@ declare module 'std' {
 		errorObj?: Partial<{ errno: ERRNO }>
 	): N<FILE>;
 
-	//TODO: figure out type of `fd`
 	/**
 	 * Open a file from a file handle (wrapper to the libc `fdopen()`). Return the FILE object or `null` in case of I/O error. If `errorObj` is not undefined, set its `errno` property to the error code or to 0 if no error occured.
 	 */
@@ -141,12 +140,9 @@ declare module 'std' {
 	export function getenv(name: string): string;
 
 	/**
-	 * 
-		Download `url` using the `curl` command line utility. `options` is an optional object containing the following optional properties:
-		
-    binary - Boolean (default = false). If true, the response is an ArrayBuffer instead of a string. When a string is returned, the data is assumed to be UTF-8 encoded.
-		
-		full - Boolean (default = false). If true, returns an object contains the properties response (response content), responseHeaders (headers separated by CRLF), status (status code). response is null is case of protocol or network error. If full is false, only the response is returned if the status is between 200 and 299. Otherwise null is returned.
+	 * Download `url` using the `curl` command line utility. `options` is an optional object containing the following optional properties:
+     * binary - Boolean (default = false). If true, the response is an ArrayBuffer instead of a string. When a string is returned, the data is assumed to be UTF-8 encoded.
+	 * full - Boolean (default = false). If true, returns an object contains the properties response (response content), responseHeaders (headers separated by CRLF), status (status code). response is null is case of protocol or network error. If full is false, only the response is returned if the status is between 200 and 299. Otherwise null is returned.
 	 */
 	export function urlGet(
 		url: string,
