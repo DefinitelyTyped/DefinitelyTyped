@@ -13,11 +13,11 @@ import CoreView from "@ember/component/-private/core-view";
 import ClassNamesSupport from "@ember/component/-private/class-names-support";
 import ViewMixin from "@ember/component/-private/view-mixin";
 import ActionSupport from "@ember/component/-private/action-support";
+import { TemplateFactory } from 'ember-cli-htmlbars';
 
-// tslint:disable-next-line:strict-export-declare-modifiers
-interface TemplateFactory {
-    __htmlbars_inline_precompile_template_factory: any;
-}
+export function setComponentTemplate<T extends object>(template: TemplateFactory, obj: T): T;
+
+export function getComponentTemplate(obj: object): TemplateFactory | null;
 
 /**
  * A component is an isolated piece of UI, represented by a template and an

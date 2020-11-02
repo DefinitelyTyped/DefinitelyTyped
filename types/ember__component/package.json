@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "ember-cli-htmlbars": ">=4.3.1"
+    }
+}

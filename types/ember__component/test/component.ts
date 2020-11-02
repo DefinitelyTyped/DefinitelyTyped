@@ -1,6 +1,6 @@
-import Component from '@ember/component';
+import Component, { setComponentTemplate, getComponentTemplate } from '@ember/component';
 import Object, { computed, get } from '@ember/object';
-import hbs from 'htmlbars-inline-precompile';
+import { hbs } from 'ember-cli-htmlbars';
 import { assertType } from './lib/assert';
 
 Component.extend({
@@ -121,3 +121,12 @@ Component.extend({
         // rendered element is clicked
     },
 });
+
+const DotExtendComponent = Component.extend({});
+// this has a big ugly type signature, we test return type below
+setComponentTemplate(hbs`<h1>Test</h1>`, DotExtendComponent);
+getComponentTemplate(DotExtendComponent); // $ExpectType TemplateFactory | null
+
+class ClassComponent extends Component {}
+setComponentTemplate(hbs`<h1>Test</h1>`, ClassComponent); // $ExpectType typeof ClassComponent
+getComponentTemplate(ClassComponent); // $ExpectType TemplateFactory | null
