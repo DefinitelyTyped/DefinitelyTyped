@@ -21,7 +21,7 @@ export type MenuItemProps = {
     className?: string;
     disabled?: boolean;
     isLink?: boolean;
-    onClick?: (...args: any[]) => any;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     selected?: boolean;
     separator?: boolean;
     url?: string;
