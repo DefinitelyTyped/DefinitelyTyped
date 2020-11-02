@@ -4531,6 +4531,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "reactstrap",
+            "typingsPackageName": "reactstrap",
+            "sourceRepoURL": "https://github.com/reactstrap/reactstrap",
+            "asOfVersion": "8.7.0"
+        },
+        {
             "libraryName": "read-chunk",
             "typingsPackageName": "read-chunk",
             "sourceRepoURL": "https://github.com/sindresorhus/read-chunk",
