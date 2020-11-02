@@ -7,9 +7,9 @@ export = Box;
 export as namespace Box;
 
 declare namespace Box {
-    interface ThreadPost<TMessage = string> {
+    interface ThreadPost {
         author: string;
-        message: TMessage;
+        message: any;
         postId: string;
         timestamp: number;
     }
