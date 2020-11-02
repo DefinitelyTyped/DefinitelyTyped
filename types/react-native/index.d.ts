@@ -4040,7 +4040,7 @@ export class Image extends ImageBase {
         success: (width: number, height: number) => void,
         failure?: (error: any) => void,
     ): any;
-    static prefetch(url: string): any;
+    static prefetch(url: string): Promise<boolean>;
     static abortPrefetch?(requestId: number): void;
     static queryCache?(urls: string[]): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
 
