@@ -102,3 +102,5 @@ configuration = {
         }),
     ],
 };
+
+new MiniCssExtractPlugin().apply({} as webpack.Compiler);
