@@ -119,7 +119,7 @@ declare class Box {
     static getProfile(
         address: string,
         opts?: {
-            blocklist?: any;
+            blocklist?: (address: string) => boolean;
             metadata?: string;
             addressServer?: string;
             ipfs?: any;
