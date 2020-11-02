@@ -673,8 +673,12 @@ declare namespace Rx {
     interface Observable<T> {
         delay(dueTime: Date, scheduler?: IScheduler): Observable<T>;
         delay(dueTime: number, scheduler?: IScheduler): Observable<T>;
+        delay(delayDurationSelector: (item: T) => Observable<number> | IPromise<number>): Observable<T>;
+        delay(subscriptionDelay: Observable<number>, delayDurationSelector: (item: T) => Observable<number> | IPromise<number>): Observable<T>;
 
         debounce(dueTime: number, scheduler?: IScheduler): Observable<T>;
+        debounce(debounceDurationSelector: (item: T) => Observable<any> | IPromise<any>): Observable<T>;
+
         throttleWithTimeout(dueTime: number, scheduler?: IScheduler): Observable<T>;
         /**
          * @deprecated use #debounce or #throttleWithTimeout instead.
@@ -690,6 +694,8 @@ declare namespace Rx {
 
         timeout(dueTime: Date, other?: Observable<T>, scheduler?: IScheduler): Observable<T>;
         timeout(dueTime: number, other?: Observable<T>, scheduler?: IScheduler): Observable<T>;
+        timeout<TTimeout>(timeoutDurationSelector: (item: T) => Observable<TTimeout>, other?: Observable<T>): Observable<T>;
+        timeout<TTimeout>(firstTimeout: Observable<TTimeout>, timeoutDurationSelector: (item: T) => Observable<TTimeout>, other?: Observable<T>): Observable<T>;
     }
 
     interface ObservableStatic {
