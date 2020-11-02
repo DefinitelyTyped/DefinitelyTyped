@@ -124,6 +124,11 @@ const MuiCustomTable: React.FC<Props> = props => {
                 variant: 'outlined',
             };
         },
+        setRowProps: (row, dataIndex, rowIndex) => {
+            return {
+                className: `row${dataIndex}`,
+            };
+        },
         textLabels: {
             body: {
                 noMatch: 'Sorry, no matching records found',
