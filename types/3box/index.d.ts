@@ -83,7 +83,7 @@ declare namespace Box {
 declare class Box {
     static getConfig(address: string, opts?: { profileServer?: string }): Promise<object>;
     static idUtils: {
-        verifyClaim(claim: string, opts?: { audience?: string }): Promise<any>;
+        verifyClaim(claim: string, opts?: { audience?: string }): Promise<object>;
         isMuportDID(address: string): Promise<boolean>;
         isClaim(claim: string, opts?: { audience?: string }): Promise<boolean>;
     };
