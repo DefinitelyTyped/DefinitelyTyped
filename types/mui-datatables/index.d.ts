@@ -208,7 +208,7 @@ export interface MUIDataTableColumnOptions {
      * @link https://github.com/gregnb/mui-datatables/blob/master/examples/component/index.js
      */
     customBodyRender?: (
-        value: string,
+        value: any,
         tableMeta: MUIDataTableMeta,
         updateValue: (value: string) => void,
     ) => string | React.ReactNode;
