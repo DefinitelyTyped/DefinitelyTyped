@@ -115,7 +115,7 @@ function test_publish() {
 
     const source = interval
         .take(2)
-        .doAction(x => {
+        .do(x => {
             console.log('Side effect');
         });
 

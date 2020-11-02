@@ -268,8 +268,6 @@ declare namespace Rx {
         distinctUntilChanged<TValue>(keySelector?: (value: T) => TValue, comparer?: (x: TValue, y: TValue) => boolean): Observable<T>;
         do(observer: Observer<T>): Observable<T>;
         do(onNext?: (value: T) => void, onError?: (exception: Error) => void, onCompleted?: () => void): Observable<T>;
-        doAction(observer: Observer<T>): Observable<T>;    // alias for do
-        doAction(onNext?: (value: T) => void, onError?: (exception: Error) => void, onCompleted?: () => void): Observable<T>;    // alias for do
         tap(observer: Observer<T>): Observable<T>;    // alias for do
         tap(onNext?: (value: T) => void, onError?: (exception: Error) => void, onCompleted?: () => void): Observable<T>;    // alias for do
 
@@ -281,7 +279,6 @@ declare namespace Rx {
         tapOnCompleted(onCompleted: () => void, thisArg?: any): Observable<T>;
 
         finally(action: () => void): Observable<T>;
-        finallyAction(action: () => void): Observable<T>;    // alias for finally
         ignoreElements(): Observable<T>;
         materialize(): Observable<Notification<T>>;
         repeat(repeatCount?: number): Observable<T>;
@@ -521,20 +518,11 @@ declare namespace Rx {
          * @since 2.2.28
          */
         just<T>(value: T, scheduler?: IScheduler): Observable<T>;    // alias for return
-        returnValue<T>(value: T, scheduler?: IScheduler): Observable<T>;    // alias for return
         throw<T>(exception: Error, scheduler?: IScheduler): Observable<T>;
-        throwException<T>(exception: Error, scheduler?: IScheduler): Observable<T>;    // alias for throw
-        throwError<T>(error: Error, scheduler?: IScheduler): Observable<T>;    // alias for throw
 
         catch<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;
         catch<T>(...sources: Observable<T>[]): Observable<T>;
         catch<T>(...sources: IPromise<T>[]): Observable<T>;
-        catchException<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;    // alias for catch
-        catchException<T>(...sources: Observable<T>[]): Observable<T>;    // alias for catch
-        catchException<T>(...sources: IPromise<T>[]): Observable<T>;    // alias for catch
-        catchError<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;    // alias for catch
-        catchError<T>(...sources: Observable<T>[]): Observable<T>;    // alias for catch
-        catchError<T>(...sources: IPromise<T>[]): Observable<T>;    // alias for catch
 
         combineLatest<T, T2>(first: Observable<T> | IPromise<T>, second: Observable<T2> | IPromise<T2>): Observable<[T, T2]>;
         combineLatest<T, T2, TResult>(first: Observable<T> | IPromise<T>, second: Observable<T2> | IPromise<T2>, resultSelector: (v1: T, v2: T2) => TResult): Observable<TResult>;
