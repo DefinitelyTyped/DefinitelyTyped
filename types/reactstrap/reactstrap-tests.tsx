@@ -623,7 +623,7 @@ const Example26 = (props: any) => {
 const Example27 = (props: any) => {
   return (
     <Row noGutters>
-      <Col sm="6">
+      <Col sm="6" cssModule={{ col: 'test' }}>
         <Card body>
           <CardTitle>Special Title Treatment</CardTitle>
           <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
@@ -1732,7 +1732,7 @@ class Example61 extends React.Component {
           <Col sm="4">.col .col-sm-4</Col>
         </Row>
         <Row>
-          <Col sm={{ size: 6, push: 2, pull: 2, offset: 1 }}>.col .col-sm-6 .col-sm-push-2 .col-sm-pull-2 .col-sm-offset-2</Col>
+          <Col sm={{ size: 6, offset: 1 }}>.col .col-sm-6 .col-sm-offset-2</Col>
         </Row>
         <Row>
           <Col sm="12" md={{ size: 8, offset: 2 }}>.col .col-sm-12 .col-md-6 .col-md-offset-3</Col>

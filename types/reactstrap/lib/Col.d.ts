@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { CSSModule } from '../index';
 
 export type ColumnProps
   = string
@@ -6,8 +7,6 @@ export type ColumnProps
   | number
   | {
     size?: boolean | number | string
-    push?: string | number
-    pull?: string | number
     offset?: string | number
     order?: string | number
   };
@@ -20,7 +19,7 @@ export interface ColProps extends React.HTMLAttributes<HTMLDivElement> {
     md?: ColumnProps;
     lg?: ColumnProps;
     xl?: ColumnProps;
-
+    cssModule?: CSSModule;
     // custom widths
     widths?: string[];
 }
