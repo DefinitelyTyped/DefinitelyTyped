@@ -73,8 +73,19 @@ export interface MUIDataTableMeta {
     tableState: MUIDataTableState;
 }
 
-export interface MUIDataTableCustomHeadRenderer extends MUIDataTableColumn {
+export interface MUIDataTableCustomHeadRenderer {
     index: number;
+    name: MUIDataTableColumn['name'];
+    label: MUIDataTableColumn['label'];
+    customHeadRender: MUIDataTableColumnOptions['customHeadRender'];
+    display: MUIDataTableColumnOptions['display'];
+    filter: MUIDataTableColumnOptions['filter'];
+    sort: MUIDataTableColumnOptions['sort'];
+    download: MUIDataTableColumnOptions['download'];
+    empty: MUIDataTableColumnOptions['empty'];
+    print: MUIDataTableColumnOptions['print'];
+    searchable: MUIDataTableColumnOptions['searchable'];
+    viewColumns: MUIDataTableColumnOptions['viewColumns'];
 }
 
 export interface MUIDataTableTextLabelsBody {
@@ -166,8 +177,21 @@ export interface MUIDataTableFilterOptions {
 }
 
 export interface MUIDataTableCustomFilterListOptions {
+    /**
+     * Function that return a string or array of strings use as the chip label(s)
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js
+     */
     render?: (value: any) => React.ReactNode;
-    update?: (...args: any[]) => string[];
+    /**
+     * Function that returns a filterList allowing for custom filter updates
+     * when removing the filter chip. FilterType must be set to 'custom'
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js
+     */
+    update?: (
+        filterList: MUIDataTableState['filterList'],
+        filterPos: number,
+        index: number,
+    ) => MUIDataTableState['filterList'];
 }
 
 export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
@@ -177,11 +201,11 @@ export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
 
 export interface MUIDataTableColumnOptions {
     /**
-     * Function that returns a string or React component. Used to display data
-     * within all table cells of a given column. The value returned from this
-     * function will be used for filtering in the filter dialog. If this isn't
-     * need, you may want to consider customBodyRenderLite instead.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/component/index.js
+     * Function that returns a string or React component.
+     * Used to display data within all table cells of a given column.
+     * The value returned from this function will be used for filtering in the filter dialog.
+     * If this isn't need, you may want to consider customBodyRenderLite instead.
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/component/index.js
      */
     customBodyRender?: (
         value: string,
@@ -192,31 +216,128 @@ export interface MUIDataTableColumnOptions {
      * Similar to and performing better than `customBodyRender`, however with the following caveats:
      * 1. The value returned from this function is not used for filtering, so the filter dialog will use the raw data from the data array.
      * 2. This method only gives you the dataIndex and rowIndex, leaving you to lookup the column value.
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/large-data-set/index.js
      */
     customBodyRenderLite?: (dataIndex: number, rowIndex: number) => string | React.ReactNode;
+    /**
+     * Function that returns a string or React component.
+     * Used for creating a custom header to a column.
+     * This method only affects the display in the table's header, other areas of the table (such as the View Columns popover), will use the column's label.
+     */
     customHeadLabelRender?: (dataIndex: number, rowIndex: number) => string | React.ReactNode;
+    /**
+     * These options only affect the filter chips that display after filter are selected.
+     * To modify the filters themselves, see filterOptions.
+     */
     customFilterListOptions?: MUIDataTableCustomFilterListOptions;
+    /** @deprecated use customFilterListOptions.render */
     customFilterListRender?: (value: any) => string;
+    /** Function that returns a string or React component. Used as display for column header. */
     customHeadRender?: (
         columnMeta: MUIDataTableCustomHeadRenderer,
-        updateDirection: (params: any) => any,
+        handleToggleColumn: (columnIndex: number) => void,
+        sortOrder: MUISortOptions,
     ) => string | React.ReactNode;
+    /**
+     * Determines if the column can be dragged.
+     * The draggableColumns.enabled option must also be true.
+     * @defaultValue true
+     */
     draggable?: boolean;
-    display?: boolean | string;
+    /**
+     * Display the column.
+     * Possible values:
+     * - true: Column is visible and toggleable via the View Columns Popover
+     * - false: Column is not visible but can be made so in the View Columns Popover
+     * - 'excluded': Column is not visible and not toggleable in the View Column Popover
+     *
+     * @defaultValue true
+     */
+    display?: Display;
+    /**
+     * Display column in the CSV download file.
+     * @defaultValue true
+     */
     download?: boolean;
+    /**
+     * This denote whether the column has data or not.
+     * For use with intentionally empty columns.
+     * @defaultValue false
+     */
     empty?: boolean;
+    /**
+     * Display column in filter list
+     * @defaultValue true
+     */
     filter?: boolean;
+    /**
+     * Filter value list
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/column-filters/index.js
+     */
     filterList?: string[];
+    /**
+     * These options affect the filter display and functionality from the filter dialog.
+     * To modify the filter chip that display after selecting
+     * filters, see customFilterListOptions
+     */
     filterOptions?: MUIDataTableFilterOptions;
+    /**
+     * Choice of filtering view. Takes priority over global filterType option.
+     * Use 'custom' is you are supplying your own rendering via filterOptions.
+     * @defaultValue dropdown
+     */
     filterType?: FilterType;
+    /** Display hint icon with string as tooltip on hover. */
     hint?: string;
+    /**
+     * Display column when printing.
+     * @defaultValue true
+     */
     print?: boolean;
+    /**
+     * Exclude/include column from search results.
+     * @defaultValue true
+     */
     searchable?: boolean;
+    /**
+     * Is called for each header cell and allows you to return custom props for the header cell based on its data.
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-styling/index.js
+     */
     setCellHeaderProps?: (columnMeta: MUIDataTableCustomHeadRenderer) => object;
+    /**
+     * Is called for each cell and allows to you return custom props for this cell based on its data.
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-styling/index.js
+     */
     setCellProps?: (cellValue: string, rowIndex: number, columnIndex: number) => object;
+    /**
+     * Enable/disable sorting on column.
+     * @defaultValue true
+     */
     sort?: boolean;
+    /**
+     * Custom sort function for the column. Takes in an order string and returns a function that compares the two column values.
+     * If this method and options.customSort are both defined, this method will take precedence.
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/column-sort/index.js
+     */
+    sortCompare?: (order: MUISortOptions['direction']) => (obj1: { data: any }, obj2: { data: any }) => number;
+    /**
+     * Causes the first click on a column to sort by desc rather than asc.
+     * @defaultValue false
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-columns/index.js
+     */
+    sortDescFirst?: boolean;
+    /**
+     * Allows for a third click on a column header to undo any sorting on the column.
+     * @defaultValue false
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-columns/index.js
+     */
+    sortThirdClickReset?: boolean;
     /** @deprecated use `sortOrder` instead */
     sortDirection?: 'asc' | 'desc' | 'none';
+    /**
+     * Allow user to toggle column visibility through 'View Column' list.
+     * @defaultValue true
+     */
     viewColumns?: boolean;
 }
 
@@ -236,18 +357,15 @@ export type MUIDataTableOptions = Partial<{
     /** Enable/disalbe case sensitivity for search */
     caseSensitive: boolean;
     /**
-     * Works in conjuction with the customFilterDialogFooter options and make
-     * is so filters have to be confirmed before being apllied to the table.
-     * When this option is true, the customFilterDialogFooter callback will
-     * receive an applyFilters function which, when called will apply the
-     * filter to the table.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js
+     * Works in conjuction with the customFilterDialogFooter options and make is so filters have to be confirmed before being apllied to the table.
+     * When this option is true, the customFilterDialogFooter callback will receive an applyFilters function which, when called will apply the filter to the table.
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js
      */
     confirmFilters: boolean;
     /**
-     * An array of numbers (column indices) indicating the order the columns
-     * should be displayed in. Defaults to the order provided by the Columns
-     * prop. This option is usefulif you'd like certain columns to swap position.
+     * An array of numbers (column indices) indicating the order the columns should be displayed in.
+     * Defaults to the order provided by the Columns prop.
+     * This option is useful if you'd like certain columns to swap position.
      * See draggableColumns option
      */
     columnOrder: number[];
@@ -260,7 +378,7 @@ export type MUIDataTableOptions = Partial<{
     ) => React.ReactNode;
     /**
      * Render a custom table footer.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-footer/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-footer/index.js
      */
     customFooter: (
         rowCount: number,
@@ -272,17 +390,17 @@ export type MUIDataTableOptions = Partial<{
     ) => React.ReactNode;
     /**
      * Override default row rendering with custom function.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-rows/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-rows/index.js
      */
     customRowRender: (data: any[], dataIndex: number, rowIndex: number) => React.ReactNode;
     /**
      * Override default search with custom function
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-search/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-search/index.js
      */
     customSearch: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
     /**
      * Render a custom table search
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-search-render/CustomSearchRender.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-search-render/CustomSearchRender.js
      */
     customSearchRender: (
         searchText: string,
@@ -291,26 +409,25 @@ export type MUIDataTableOptions = Partial<{
         options: any,
     ) => React.Component | JSX.Element;
     /**
-     * Override default sorting with custom function. If you just need to
-     * override the sorting for a particular column, see the sortCompare method
-     * in the Column options
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-sorting/index.js
+     * Override default sorting with custom function.
+     * If you just need to override the sorting for a particular column, see the sortCompare method in the Column options
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-sorting/index.js
      */
     customSort: (data: any[], colIndex: number, order: string) => any[];
     /**
      * Render a footer under the table body but above the table's standard footer.
      * This is useful for creating footers for individual columns.
-     * @Example: https://github.com/gregnb/mui-datatables/blob/master/examples/customize-footer/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-footer/index.js
      */
     customTableBodyFooterRender: (options: { data: any[]; selectableRows: SelectableRows; columns: any[] }) => any;
     /**
      * Render a custom Toolbar
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-toolbar/CustomToolbar.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-toolbar/CustomToolbar.js
      */
     customToolbar: (data: { displayData: DisplayData }) => React.ReactNode;
     /**
      * Render a custom selected row ToolBar
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-toolbarselect/CustomToolbarSelect.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-toolbarselect/CustomToolbarSelect.js
      */
     customToolbarSelect: (
         selectedRows: { data: Array<{ index: number; dataIndex: number }>; lookup: { [key: number]: boolean } },
@@ -324,12 +441,12 @@ export type MUIDataTableOptions = Partial<{
      * true       = Button visible and clickable
      * false      = Button not visible
      * 'disabled' = Button is visible but not clickable
-     * @Default true
+     * @defaultValue true
      */
     download: ToolbarButton;
     /**
      * An object of options to change the output of the csv file.
-     * @Default { filename: 'tableDownload.csv', separator: ',' }
+     * @defaultValue { filename: 'tableDownload.csv', separator: ',' }
      */
     downloadOptions: Partial<{
         filename: string;
@@ -340,43 +457,40 @@ export type MUIDataTableOptions = Partial<{
      * An object of options describing how dragging columns should work.
      * The options are:
      * enabled: boolean - Indeicated if draggable columns are enabled. Default is false
-     * transitiontime: number - The time in milliseconds it takes for columns to
+     * transitionTime: number - The time in milliseconds it takes for columns to
      * swap postions. Defaults to 300.
      *
-     * To disable the dragging of a particular column, see the "draggable"
-     * option in the columns options. Dragging a column to a new position
-     * updates the columnOrder array and triggers the onColumnOrderChange callback.
+     * To disable the dragging of a particular column, see the "draggable" option in the columns options.
+     * Dragging a column to a new position updates the columnOrder array and triggers the onColumnOrderChange callback.
      */
     draggableColumns: MUIDataTableDraggableColumns;
     /**
      * Shadow depth applied to the Paper component.
-     * @Default 4
+     * @defaultValue 4
      */
     elevation: number;
     /**
-     * If provided a non-empty string (ex: "."), it will use that value in the
-     * column's names to access nested data. For example, given a
-     * enableNestedDataAccess value of "." and a column name of "phone.cell",
-     * the column would use the value found in phone:{cell:"555-5555"}
+     * If provided a non-empty string (ex: "."), it will use that value in the column's names to access nested data.
+     * For example, given a enableNestedDataAccess value of "." and a column name of "phone.cell", the column would use the value found in phone:{cell:"555-5555"}
      * Any amount of nesting will work.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/data-as-objects/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/data-as-objects/index.js
      */
     enableNestedDataAccess: string;
     /**
      * Enable/disable expandable rows.
-     * @Default false
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/expandable-rows/index.js
+     * @defaultValue false
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/expandable-rows/index.js
      */
     expandableRows: boolean;
     /**
      * Show/hide the expand all/collapse all row header for expandable row.
-     * @Default true
+     * @defaultValue true
      */
     expandableRowsHeader: boolean;
     /**
-     * Enable/disable expand trigger when row is clicked. When false, only
-     * expand icon will trigger this action.
-     * @Default false
+     * Enable/disable expand trigger when row is clicked.
+     * When false, only expand icon will trigger this action.
+     * @defaultValue false
      */
     expandableRowsOnClick: boolean;
     /**
@@ -384,23 +498,22 @@ export type MUIDataTableOptions = Partial<{
      * true       = Button visible and clickable
      * false      = Button not visible
      * 'disabled' = Button is visible but not clickable
-     * @Default true
+     * @defaultValue true
      */
     filter: ToolbarButton;
     /**
-     * For array values, default checks if all the filter values are included
-     * in the array. If false, checks if at least one of the filter values is
-     * in the array.
-     * @Default true
-     * @Example https://github.com/gregnb/mui-datatables/blob/bb0cf931decae7e5bec49a6b5f3343408bc4c0b5/examples/array-value-columns/index.js
+     * For array values, default checks if all the filter values are included in the array.
+     * If false, checks if at least one of the filter values is in the array.
+     * @defaultValue true
+     * @link https://github.com/gregnb/mui-datatables/blob/bb0cf931decae7e5bec49a6b5f3343408bc4c0b5/examples/array-value-columns/index.js
      */
     filterArrayFullMatch: boolean;
     /** Choice of filtering view. */
     filterType: FilterType;
     /**
      * Enable/disable a fixed header for the table
-     * @Default true
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/fixed-header/index.js
+     * @defaultValue true
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/fixed-header/index.js
      */
     fixedHeader: boolean;
     /** @deprecated use `fixedHeader` for **X** axis and `fixedSelectColumn` for **Y** axis */
@@ -412,8 +525,8 @@ export type MUIDataTableOptions = Partial<{
     };
     /**
      * Enable/disable fined select column.
-     * @Default true
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/fixed-header/index.js
+     * @defaultValue true
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/fixed-header/index.js
      */
     fixedSelectColumn: boolean;
     /**
@@ -424,10 +537,9 @@ export type MUIDataTableOptions = Partial<{
     /** Enable/disable selection on certain rows with custom function. Returns true if not provided. */
     isRowSelectable: (dataIndex: number, selectedRows?: MUIDataTableIsRowCheck) => boolean;
     /**
-     * When true, the option adds a dropdown to the table's footer that allows
-     * a user to navigate to a specific page.
-     * @Default false
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/large-data-set/index.js
+     * When true, the option adds a dropdown to the table's footer that allows a user to navigate to a specific page.
+     * @defaultValue false
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/large-data-set/index.js
      */
     jumpToPage: boolean;
     /** Callback function that triggers when a cell is clicked. */
@@ -448,7 +560,7 @@ export type MUIDataTableOptions = Partial<{
      * A callback function that triggers when the user downloads the CSV file.
      * In the callback, you can control what is written to the CSV file.
      * Return false to cancel download of file.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/on-download/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/on-download/index.js
      */
     onDownload: (
         buildHead: (columns: any) => string,
@@ -466,13 +578,13 @@ export type MUIDataTableOptions = Partial<{
     ) => void;
     /**
      * Callback function that is triggered when a user clicks the "X" on a filter chip.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js
      */
     onFilterChipClose: (index: number, removedFilter: string, filterList: MUIDataTableState['filterList']) => void;
     /**
      * Callback function that is triggered when a user presses the "confirm" button on the filter popover.
      * This occurs only if you've set `confirmFilters` option to `true`.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js
      */
     onFilterConfirm: (filterList: MUIDataTableState['filterList']) => void;
     /** Callback function that triggers when the filter dialog closes. */
@@ -512,7 +624,7 @@ export type MUIDataTableOptions = Partial<{
     page: number;
     /**
      * Enable/disable pagination.
-     * @Default true
+     * @defaultValue true
      */
     pagination: boolean;
     /**
@@ -520,12 +632,12 @@ export type MUIDataTableOptions = Partial<{
      * true       = Button visible and clickable
      * false      = Button not visible
      * 'disabled' = Button is visible but not clickable
-     * @Default true
+     * @defaultValue true
      */
     print: ToolbarButton;
     /**
      * Render Expandable rows.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/expandable-rows/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/expandable-rows/index.js
      */
     renderExpandableRow: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => React.ReactNode;
     /** Enable/disable resizable columns. */
@@ -533,19 +645,17 @@ export type MUIDataTableOptions = Partial<{
     /**
      * Enable/diable responsize table view.
      * Options:
-     * - 'vertical': In smaller view the table cells will collapse such that the heading
-     * is to the left of th cell value.
-     * - 'standarg': Table will stay in the standard mode but make small chnages to better
-     * fit the allocated space.
+     * - 'vertical': In smaller view the table cells will collapse such that the heading is to the left of th cell value.
+     * - 'standarg': Table will stay in the standard mode but make small chnages to better fit the allocated space.
      * - 'simple': On very small devices the table rows will collapse into simple display.
      *
-     * @Default vertical
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/simple/index.js
+     * @defaultValue vertical
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/simple/index.js
      */
     responsive: Responsive;
     /**
      * Enable/disalbe hover style over row.
-     * @Default true
+     * @defaultValue true
      */
     rowHover: boolean;
     /** User provided expanded rows */
@@ -561,47 +671,46 @@ export type MUIDataTableOptions = Partial<{
      * true       = Button visible and clickable
      * false      = Button not visible
      * 'disabled' = Button is visible but not clickable
-     * @Default true
+     * @defaultValue true
      */
     search: ToolbarButton;
     /**
      * Initially displays search bar.
-     * @Default false
+     * @defaultValue false
      */
     searchOpen: boolean;
     /**
      * Props applied to the search text box. You can set method callbacks like onBlur, onKeyUp, etc, this way.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-search/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-search/index.js
      */
     searchProps: React.HTMLAttributes<HTMLInputElement>;
     /**
      * Search text placeholder.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-search/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-search/index.js
      */
     searchPlaceholder: string;
     /** Search text for the table. */
     searchText: string;
     /**
      * Indicates if rows can be selected.
-     * @Default multiple
+     * @defaultValue multiple
      */
     selectableRows: SelectableRows;
     /**
      * Show/hide the select all/deselect all checkbox header for selectable rows.
-     * @Default true
+     * @defaultValue true
      */
     selectableRowsHeader: boolean;
     /**
-     * Hides the checkboxes that appear when selectableRows is set to "multiple"
-     * or "single". Can provide a more custom UX, especially when paired
-     * with selectableRowsOnClick.
-     * @Default false
+     * Hides the checkboxes that appear when selectableRows is set to "multiple" or "single".
+     * Can provide a more custom UX, especially when paired with selectableRowsOnClick.
+     * @defaultValue false
      */
     selectableRowsHideCheckboxes: boolean;
     /**
-     * Enable/disable select toggle when row is clicked. When False, only
-     * checkbox will trigger this action.
-     * @Default false
+     * Enable/disable select toggle when row is clicked.
+     * When False, only checkbox will trigger this action.
+     * @defaultValue false
      */
     selectableRowsOnClick: boolean;
     /**
@@ -611,56 +720,56 @@ export type MUIDataTableOptions = Partial<{
      * - 'above': Appears above the defualt toolbar.
      * - 'none': Select Toolbar never appears
      *
-     * @Default replace
+     * @defaultValue replace
      */
     selectToolbarPlacement: 'replace' | 'above' | 'none';
     /**
      * Enable remote data source
-     * @Default fale
+     * @defaultValue fale
      */
     serverSide: boolean;
     /**
      * Is called for each filter chip and allows you to place custom props on a filter chip.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js
      */
     setFilterChipProps: (colIndex: number, colName: string, data: ReadonlyArray<any[]>) => MUIDataTableChip;
     /**
      * Is called for each row and allows you to return custom props for this row based on its data.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-styling/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-styling/index.js
      */
     setRowProps: (row: any[], dataIndex: number, rowIndex: number) => object;
     /**
      * Is called for the table and allows you to return custom props for the table based on its data.
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-styling/index.js
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-styling/index.js
      */
     setTableProps: () => object;
     /**
      * Enable/disable sort on all columns.
-     * @Default true
+     * @defaultValue true
      */
     sort: boolean;
     /**
      * Enable/disable alphanumeric sorting of filter lists.
-     * @Default true
+     * @defaultValue true
      */
     sortFilterList: boolean;
     /**
-     * Sets the column to sort by and its sort direction. To remove/reset sorting,
-     * input in an empty object. The object options are the column name and
-     * the direction. { name: string, direction: 'asc' | 'desc' }
-     * @Example https://github.com/gregnb/mui-datatables/blob/master/examples/customize-columns/index.js
+     * Sets the column to sort by and its sort direction.
+     * To remove/reset sorting, input in an empty object.
+     * The object options are the column name and the direction.
+     * @shape { name: string, direction: 'asc' | 'desc' }
+     * @link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-columns/index.js
      */
     sortOrder: MUISortOptions;
     /**
-     * A string that is used internally for identifying the table. It's
-     * auto-generated, however, if you need it set to a custom value
-     * (ex: server-side rendering), you can set it via this property.
-     * @Default auto-generated string
+     * A string that is used internally for identifying the table.
+     * It's auto-generated, however, if you need it set to a custom value (ex: server-side rendering), you can set it via this property.
+     * @defaultValue auto-generated string
      */
     tableId: string;
     /**
      * CSS string for the height of the table (ex: '500px', '100%', 'auto').
-     * @Default 'auto'
+     * @defaultValue 'auto'
      */
     tableBodyHeight: string;
     /** CSS string for the height of the table (ex: '500px', '100%', 'auto'). */
@@ -672,7 +781,7 @@ export type MUIDataTableOptions = Partial<{
      * true       = Button visible and clickable
      * false      = Button not visible
      * 'disabled' = Button is visible but not clickable
-     * @Default true
+     * @defaultValue true
      */
     viewColumns: ToolbarButton;
 }>;
