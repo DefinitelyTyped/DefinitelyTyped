@@ -277,8 +277,7 @@ export interface MUIDataTableColumnOptions {
     filterList?: string[];
     /**
      * These options affect the filter display and functionality from the filter dialog.
-     * To modify the filter chip that display after selecting
-     * filters, see customFilterListOptions
+     * To modify the filter chip that display after selecting filters, see customFilterListOptions
      */
     filterOptions?: MUIDataTableFilterOptions;
     /**
@@ -457,8 +456,7 @@ export type MUIDataTableOptions = Partial<{
      * An object of options describing how dragging columns should work.
      * The options are:
      * enabled: boolean - Indeicated if draggable columns are enabled. Default is false
-     * transitionTime: number - The time in milliseconds it takes for columns to
-     * swap postions. Defaults to 300.
+     * transitionTime: number - The time in milliseconds it takes for columns to swap postions. Defaults to 300.
      *
      * To disable the dragging of a particular column, see the "draggable" option in the columns options.
      * Dragging a column to a new position updates the columnOrder array and triggers the onColumnOrderChange callback.
