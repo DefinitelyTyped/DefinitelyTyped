@@ -5116,6 +5116,75 @@ declare namespace browser.webRequest {
         hasListener(cb: TCallback): boolean;
     }
 
+    interface _StreamFilterDataEvent extends Event {
+        readonly data: ArrayBuffer;
+    }
+
+    interface _StreamFilter {
+        /**
+         * Closes the request. Any further response data is discarded.
+         */
+        close(): void;
+
+        /**
+         * Disconnects the filter from the request. The browser will handle further data.
+         */
+        disconnect(): void;
+
+        /**
+         * Resumes a suspended request.
+         */
+        resume(): void;
+
+        /**
+         * Suspends a request. After this is called, no more data will be delivered until the request is resumed with a call to `resume()`.
+         */
+        suspend(): void;
+
+        /**
+         * Writes response data to the output stream.
+         * @param {Uint8Array | ArrayBuffer} data
+         */
+        write(data: Uint8Array | ArrayBuffer): void;
+
+        /**
+         * Event handler which is called when incoming data is available.
+         */
+        ondata: ((event: _StreamFilterDataEvent) => void) | null;
+
+        /**
+         * Event handler which is called when an error has occurred.
+         */
+        onerror: ((event: Event) => void) | null;
+
+        /**
+         * Event handler which is called when the stream is about to start receiving data.
+         */
+        onstart: ((event: Event) => void) | null;
+
+        /**
+         * Event handler which is called when the stream has no more data to deliver or has closed.
+         */
+        onstop: ((event: Event) => void) | null;
+
+        /**
+         * When `onerror` is called, this will describe the error.
+         */
+        readonly error: string;
+
+        /**
+         * Describes the current status of the stream.
+         */
+        readonly status:
+            | 'uninitialized'
+            | 'transferringdata'
+            | 'finishedtransferringdata'
+            | 'suspended'
+            | 'closed'
+            | 'disconnected'
+            | 'failed';
+    }
+
     /* webRequest properties */
     /**
      * The maximum number of times that `handlerBehaviorChanged` can be called per 10 minute sustained interval. `handlerBehaviorChanged` is an expensive function call that shouldn't be called often.
@@ -5128,8 +5197,12 @@ declare namespace browser.webRequest {
      */
     function handlerBehaviorChanged(): Promise<void>;
 
-    /** ... */
-    function filterResponseData(requestId: string): object; /*StreamFilter*/
+    /**
+     * Create a `StreamFilter` object for a request.
+     * @param {string} requestId
+     * @returns {browser.webRequest._StreamFilter}
+     */
+    function filterResponseData(requestId: string): _StreamFilter;
 
     /**
      * Retrieves the security information for the request. Returns a promise that will resolve to a SecurityInfo object.
