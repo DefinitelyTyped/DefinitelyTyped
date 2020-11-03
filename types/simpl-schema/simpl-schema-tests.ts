@@ -66,53 +66,48 @@ const schema: SimpleSchemaDefinition = {
 
 const StringSchema = new SimpleSchema(schema);
 
-StringSchema.validate(
-    {
-        basicString: 'Test',
-        limitedString: 'pro',
-        regExpString: 'id',
-    },
-    { keys: ['basicString'] },
-);
+StringSchema.validate({
+    basicString: 'Test',
+    limitedString: 'pro',
+    regExpString: 'id',
+}, {keys: ['basicString']});
 
 StringSchema.validator();
 
 StringSchema.validator({
-    clean: true,
+    clean: true
 });
 
-const StringSchemaWithOptions = new SimpleSchema(
-    {
-        basicString: {
-            type: String,
-        },
-        limitedString: {
-            type: String,
-            allowedValues: ['pro', 'con'],
-        },
-        subschema: {
-            type: StringSchema,
-        },
-        userId: {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id,
-        },
-        createdAt: {
-            type: Date,
-            autoValue: () => new Date(),
-        },
+const StringSchemaWithOptions = new SimpleSchema({
+    basicString: {
+        type: String
     },
-    {
-        clean: {
-            filter: true,
-            autoConvert: true,
-            removeEmptyStrings: true,
-            trimStrings: true,
-            getAutoValues: true,
-            removeNullsFromArrays: true,
-        },
+    limitedString: {
+        type: String,
+        allowedValues: ['pro', 'con']
     },
-);
+    subschema: {
+        type: StringSchema
+    },
+    userId: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    createdAt: {
+        type: Date,
+        autoValue: () => new Date()
+    },
+},
+{
+    clean: {
+        filter: true,
+        autoConvert: true,
+        removeEmptyStrings: true,
+        trimStrings: true,
+        getAutoValues: true,
+        removeNullsFromArrays: true
+    },
+});
 
 new SimpleSchema({
     shortBoolean: Boolean,
@@ -121,16 +116,16 @@ new SimpleSchema({
     shortInteger: SimpleSchema.Integer,
     shortDate: Date,
     shortArray: Array,
-    subSchema: StringSchemaWithOptions,
+    subSchema: StringSchemaWithOptions
 });
 
 StringSchema.extend(
     new SimpleSchema({
-        name: { type: String },
+        name: { type: String }
     }),
 );
 StringSchema.extend({
-    name: { type: String },
+    name: { type: String }
 });
 
 SimpleSchema.extendOptions(['autoform']);
