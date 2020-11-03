@@ -17,6 +17,7 @@
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Kazuma Ebina <https://github.com/kazuma1989>
 //                 Michael Lebedev <https://github.com/megazazik>
+//                 jun-sheaf <https://github.com/jun-sheaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -574,6 +575,7 @@ export function useSelector<TState = DefaultRootState, TSelected = unknown>(
  *
  * const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
  *
+ * @deprecated Use `createSelectorHook<State, Action>()`
  */
 export interface TypedUseSelectorHook<TState> {
     <TSelected>(
@@ -605,7 +607,12 @@ export function useStore<S = RootStateOrAny, A extends Action = AnyAction>(): St
  * @param Context passed to your `<Provider>`.
  * @returns A `useSelector` hook bound to the specified context.
  */
-export function createSelectorHook(context?: Context<ReactReduxContextValue>): typeof useSelector;
+export function createSelectorHook<S = RootStateOrAny, A extends Action = AnyAction>(
+    context?: Context<ReactReduxContextValue<S, A>>,
+): <Selected extends unknown>(
+    selector: (state: S) => Selected,
+    equalityFn?: (previous: Selected, next: Selected) => boolean,
+) => Selected;
 
 /**
  * Hook factory, which creates a `useStore` hook bound to a given context.
@@ -613,7 +620,9 @@ export function createSelectorHook(context?: Context<ReactReduxContextValue>): t
  * @param Context passed to your `<Provider>`.
  * @returns A `useStore` hook bound to the specified context.
  */
-export function createStoreHook(context?: Context<ReactReduxContextValue>): typeof useStore;
+export function createStoreHook<S = RootStateOrAny, A extends Action = AnyAction>(
+    context?: Context<ReactReduxContextValue<S, A>>,
+): () => Store<S, A>;
 
 /**
  * Hook factory, which creates a `useDispatch` hook bound to a given context.
@@ -621,6 +630,8 @@ export function createStoreHook(context?: Context<ReactReduxContextValue>): type
  * @param Context passed to your `<Provider>`.
  * @returns A `useDispatch` hook bound to the specified context.
  */
-export function createDispatchHook(context?: Context<ReactReduxContextValue>): typeof useDispatch;
+export function createDispatchHook<S = RootStateOrAny, A extends Action = AnyAction>(
+    context?: Context<ReactReduxContextValue<S, A>>,
+): () => Dispatch<A>;
 
 // tslint:enable:no-unnecessary-generics

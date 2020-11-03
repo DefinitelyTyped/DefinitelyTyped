@@ -1400,17 +1400,30 @@ function testUseStore() {
 
 // These should match the types of the hooks.
 function testCreateHookFunctions() {
-    // $ExpectType { <TDispatch = Dispatch<any>>(): TDispatch; <A extends Action<any> = AnyAction>(): Dispatch<A>; }
-    createDispatchHook();
-    // $ExpectType <TState = DefaultRootState, TSelected = unknown>(selector: (state: TState) => TSelected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
-    createSelectorHook();
     interface RootState {
         property: string;
     }
-    // Should be able to create a version typed for a specific root state.
-    const useTypedSelector: TypedUseSelectorHook<RootState> = createSelectorHook();
-    // $ExpectType <S = any, A extends Action<any> = AnyAction>() => Store<S, A>
+    interface RootAction {
+        type: 'TEST_ACTION';
+    }
+
+    const Context = React.createContext<ReactReduxContextValue<RootState, RootAction>>(null as any);
+
+    // No context tests
+    // $ExpectType () => Dispatch<AnyAction>
+    createDispatchHook();
+    // $ExpectType <Selected extends unknown>(selector: (state: any) => Selected, equalityFn?: ((previous: Selected, next: Selected) => boolean) | undefined) => Selected
+    createSelectorHook();
+    // $ExpectType () => Store<any, AnyAction>
     createStoreHook();
+
+    // With context tests
+    // $ExpectType () => Dispatch<RootAction>
+    createDispatchHook(Context);
+    // $ExpectType <Selected extends unknown>(selector: (state: RootState) => Selected, equalityFn?: ((previous: Selected, next: Selected) => boolean) | undefined) => Selected
+    createSelectorHook(Context);
+    // $ExpectType () => Store<RootState, RootAction>
+    createStoreHook(Context);
 }
 
 function testConnectedProps() {
