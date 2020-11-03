@@ -623,5 +623,114 @@ const awsServerless: Aws.Serverless = {
     }
 };
 
+const awsServerless2: Aws.Serverless = {
+    service: {
+        name: 'testName1',
+        awsKmsKeyArn: 'testAwsKmsKeyArn'
+    },
+    frameworkVersion: 'testFrameworkVersion',
+    provider: {
+        name: 'aws',
+        httpApi: {
+            id: 'testid',
+            name: 'testname',
+            payload: 'testpayload',
+            cors: {
+                allowedOrigins: [
+                    'https://url1.com',
+                    'https://url2.com'
+                ],
+                allowedHeaders: [
+                    'Content-Type',
+                    'Authorization'
+                ],
+                allowedMethods: ['GET'],
+                allowCredentials: true,
+                exposedResponseHeaders: ['Special-Response-Header'],
+                maxAge: 6000
+            },
+            authorizers: {
+                testJwtAuthorizer: {
+                    identitySource: 'testidentitySource',
+                    issuerUrl: 'testissuerUrl',
+                    audience: 'testaudience'
+                }
+            }
+        }
+    },
+    functions: {
+        testFunction: {
+            handler: 'testhandler',
+            events: [
+                {
+                    cloudFront: {
+                        eventType: 'testeventType',
+                        includeBody: false,
+                        pathPattern: 'testpathPattern',
+                        origin: {
+                            ConnectionAttempts: 3,
+                            ConnectionTimeout: 10,
+                            DomainName: 'testDomainName',
+                            Id: 'testId',
+                            OriginCustomHeaders: [
+                                {
+                                    HeaderName: 'X-Custom-Header',
+                                    HeaderValue: 'headerValue'
+                                }
+                            ],
+                            OriginPath: 'testOriginPath',
+                            OriginShield: {
+                                Enabled: true,
+                                OriginShieldRegion: 'us-east-2'
+                            },
+                            S3OriginConfig: {
+                                OriginAccessIdentity: 'origin-access-identity/cloudfront/testId',
+                            }
+                        },
+                        behavior: {
+                            AllowedMethods: [
+                                'GET',
+                                'HEAD'
+                            ],
+                            CachedMethods: [
+                                'GET',
+                                'HEAD'
+                            ],
+                            CachePolicyId: 'testCachePolicyId',
+                            Compress: true,
+                            DefaultTTL: 30,
+                            FieldLevelEncryptionId: 'testFieldLevelEncryptionId',
+                            ForwardedValues: {
+                                Cookies: {
+                                    Forward: 'all'
+                                },
+                                Headers: [
+                                    'Authorization'
+                                ],
+                                QueryString: true,
+                                QueryStringCacheKeys: [ 'testQueryStringCacheKeys' ]
+                            },
+                            LambdaFunctionAssociations: {
+                                EventType: 'origin-request',
+                                IncludeBody: true,
+                                LambdaFunctionARN: 'testLambdaFunctionARN'
+                            },
+                            MaxTTL: 30,
+                            MinTTL: 0,
+                            OriginRequestPolicyId: 'testOriginRequestPolicyId',
+                            PathPattern: 'images/*.jpg',
+                            RealtimeLogConfigArn: 'testRealtimeLogConfigArn',
+                            SmoothStreaming: false,
+                            TargetOriginId: 'testTargetOriginId',
+                            TrustedSigners: [ 'testTrustedSigner' ],
+                            ViewerProtocolPolicy: 'redirect-to-https'
+                        }
+                    }
+                }
+            ]
+        }
+    },
+};
+
 // Test Aws Class
 const aws = new Aws(serverless, options);

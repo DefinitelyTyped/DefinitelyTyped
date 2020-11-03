@@ -136,7 +136,7 @@ declare namespace Aws {
     interface JwtAuthorizer {
         identitySource: string;
         issuerUrl: string;
-        audience: string[];
+        audience: string | string[];
     }
 
     interface Authorizers {
@@ -148,11 +148,20 @@ declare namespace Aws {
         authorizers?: Authorizers;
     }
 
+    interface HttpApiCors {
+        allowedOrigins?: string[];
+        allowedHeaders?: string[];
+        allowedMethods?: string[];
+        allowCredentials?: boolean;
+        exposedResponseHeaders?: string[];
+        maxAge?: number;
+    }
+
     interface HttpApi {
         id?: string;
         name?: string;
         payload?: string;
-        cors?: boolean;
+        cors?: boolean | HttpApiCors;
         authorizers?: Authorizers;
     }
 
@@ -463,19 +472,85 @@ declare namespace Aws {
         inputTransformer?: InputTransformer;
     }
 
+    interface CustomOriginConfig {
+        HTTPPort?: number;
+        HTTPSPort?: number;
+        OriginKeepaliveTimeout?: number;
+        OriginProtocolPolicy: string;
+        OriginReadTimeout?: number;
+        OriginSSLProtocols?: string[];
+    }
+
+    interface OriginCustomHeader {
+        HeaderName: string;
+        HeaderValue: string;
+    }
+
+    interface OriginShield {
+        Enabled: boolean;
+        OriginShieldRegion?: string;
+    }
+
+    interface S3OriginConfig {
+        OriginAccessIdentity?: string;
+    }
+
     interface Origin {
+        ConnectionAttempts?: number;
+        ConnectionTimeout?: number;
+        CustomOriginConfig?: CustomOriginConfig;
         DomainName: string;
-        OriginPath: string;
-        CustomOriginConfig: {
-            OriginProtocolPolicy: string;
-        };
+        Id?: string;
+        OriginCustomHeaders?: OriginCustomHeader[];
+        OriginPath?: string;
+        OriginShield?: OriginShield;
+        S3OriginConfig?: S3OriginConfig;
+    }
+
+    interface Cookies {
+        Forward: string;
+        WhitelistedNames?: string[];
+    }
+
+    interface ForwardedValues {
+        Cookies?: Cookies;
+        Headers?: string[];
+        QueryString: boolean;
+        QueryStringCacheKeys?: string[];
+    }
+
+    interface LambdaFunctionAssociations {
+        EventType?: string;
+        IncludeBody?: boolean;
+        LambdaFunctionARN?: string;
+    }
+
+    interface Behavior {
+        AllowedMethods?: string[];
+        CachedMethods?: string[];
+        CachePolicyId?: string;
+        Compress?: boolean;
+        DefaultTTL?: number;
+        FieldLevelEncryptionId?: string;
+        ForwardedValues?: ForwardedValues;
+        LambdaFunctionAssociations?: LambdaFunctionAssociations;
+        MaxTTL?: number;
+        MinTTL?: number;
+        OriginRequestPolicyId?: string;
+        PathPattern?: string;
+        RealtimeLogConfigArn?: string;
+        SmoothStreaming?: boolean;
+        TargetOriginId?: string;
+        TrustedSigners?: string[];
+        ViewerProtocolPolicy: string;
     }
 
     interface CloudFront {
         eventType: string;
-        includeBody: boolean;
-        pathPattern: string;
+        includeBody?: boolean;
+        pathPattern?: string;
         origin: Origin;
+        behavior?: Behavior;
     }
 
     interface Event {
