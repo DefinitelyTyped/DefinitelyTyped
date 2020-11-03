@@ -59,6 +59,12 @@ export default class RouterService extends Service {
     readonly currentURL: string;
     //
     /**
+     * The rootURL property represents the URL of the root of the application,
+     * '/' by default. This prefix is assumed on all routes defined on this app.
+     */
+    readonly rootURL: string;
+    //
+    /**
      * Determines whether a route is active.
      *
      * @param routeName the name of the route
