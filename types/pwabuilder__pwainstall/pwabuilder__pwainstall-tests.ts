@@ -1,6 +1,6 @@
-import * as PWAInstall from 'pwabuilder__pwainstall';
+import * as pwainstall from 'pwabuilder__pwainstall';
 
-const example: PWAInstall.Component = {
+const example: pwainstall.Component = {
     openmodal: true,
     usecustom: false,
     manifestpath: 'some path',

@@ -6,7 +6,7 @@
 //                  Leonardo Lee <https://github.com/lee-leonardo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace PWAInstall;
+export as namespace pwainstall;
 
 /*~ Public Attributes
  */
