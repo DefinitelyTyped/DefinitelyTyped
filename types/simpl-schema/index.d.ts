@@ -152,22 +152,13 @@ export type SimpleSchemaDefinition = {
 
 export class SimpleSchema {
   constructor(schema: SimpleSchemaDefinition, options?: SimpleSchemaOptions);
+  namedContext(name?: string): SimpleSchemaValidationContextStatic;
   static isSimpleSchema(obj: any): boolean;
   static addValidator(validator: Validator): void;
   addValidator(validator: Validator): void;
-  namedContext(name?: string): SimpleSchemaValidationContextStatic;
   pick(...fields: string[]): SimpleSchema;
   omit(...fields: string[]): SimpleSchema;
-  oneOf(
-      ...types: Array<
-          | SchemaDefinition
-          | BooleanConstructor
-          | StringConstructor
-          | NumberConstructor
-          | DateConstructor
-          | ArrayConstructor
-      >
-  ): SimpleSchema;
+  oneOf(...types: Array<(SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor)>): SimpleSchema;
   clean(doc: any, options?: CleanOption): any;
   schema(key: string): SchemaDefinition;
   schema(): SchemaDefinition[];
