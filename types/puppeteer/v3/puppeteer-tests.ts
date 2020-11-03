@@ -1,4 +1,6 @@
 import * as puppeteer from "puppeteer";
+import { TimeoutError } from "puppeteer/Errors";
+import * as Devices from "puppeteer/DeviceDescriptors";
 
 // Accessibility
 
@@ -118,10 +120,13 @@ puppeteer.launch().then(async browser => {
     console.log(content);
   });
 
+  Object.keys(Devices).forEach(name => console.log(name));
   Object.keys(puppeteer.devices).forEach(name => console.log(name));
+  Object.values(Devices).forEach(device => console.log(device.name));
   Object.values(puppeteer.devices).forEach(device => console.log(device.name));
 
   await page.emulateMediaType("screen");
+  await page.emulate(Devices['test']);
   await page.emulate(puppeteer.devices['test']);
   await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'dark' }]);
   await page.pdf({ path: "page.pdf" });
@@ -176,12 +181,6 @@ puppeteer.launch().then(async browser => {
   page.keyboard.up("Shift");
   page.keyboard.press("Backspace");
   page.keyboard.sendCharacter("嗨");
-
-  // mouse events
-  await page.mouse.wheel();
-  await page.mouse.wheel({ deltaX: -100 });
-  await page.mouse.wheel({ deltaY: -100 });
-  await page.mouse.wheel({ deltaX: 100, deltaY: 100 });
 
   await page.tracing.start({ path: "trace.json" });
   await page.goto("https://www.google.com");
@@ -535,6 +534,17 @@ puppeteer.launch().then(async browser => {
   });
 });
 
+// Errors
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  try {
+    await page.waitFor('test');
+  } catch (err) {
+    console.log(err instanceof TimeoutError);
+  }
+});
+
 // domcontentloaded page event test
 (async () => {
   const browser = await puppeteer.launch();
@@ -710,20 +720,4 @@ puppeteer.launch().then(async browser => {
 
   const queryObjectsRes = context.queryObjects(await context.evaluateHandle(() => {}));
   queryObjectsRes.then(() => {});
-})();
-
-// .isJavaScriptEnabled on Page
-(async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-
-  const isJavaScriptEnabled: boolean = page.isJavaScriptEnabled();
-})();
-
-// Mouse Wheel
-(async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-
-  await page.mouse.wheel({ deltaY: -100 });
 })();

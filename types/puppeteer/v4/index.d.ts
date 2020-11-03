@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 5.4
+// Type definitions for puppeteer 4.0
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -10,7 +10,6 @@
 //                 Andrés Ortiz <https://github.com/angrykoala>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Cameron Hunter <https://github.com/cameronhunter>
-//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -18,41 +17,10 @@
 
 import { ChildProcess } from 'child_process';
 
-export namespace devices {
-    interface Device {
-        name: string;
-        userAgent: string;
-        viewport: {
-            width: number;
-            height: number;
-            deviceScaleFactor: number;
-            isMobile: boolean;
-            hasTouch: boolean;
-            isLandscape: boolean;
-        };
-    }
-}
+import * as errors from './Errors';
+import * as devices from './DeviceDescriptors';
 
-export const devices: { [name: string]: devices.Device };
-
-declare class CustomError extends Error {
-    constructor(message: string);
-}
-
-/**
- * TimeoutError is emitted whenever certain operations are terminated due to timeout.
- *
- * Example operations are {@link Page.waitForSelector | page.waitForSelector}
- * or {@link PuppeteerNode.launch | puppeteer.launch}.
- */
-declare class TimeoutError extends CustomError {}
-
-export const errors: {
-    TimeoutError: TimeoutError;
-    puppeteerErrors: {
-        TimeoutError: TimeoutError;
-    };
-};
+export { errors, devices };
 
 /** Wraps a DOM element into an ElementHandle instance */
 export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
@@ -323,24 +291,6 @@ export interface MousePressOptions {
     clickCount?: number;
 }
 
-export interface MouseWheelOptions {
-    deltaX?: number;
-    deltaY?: number;
-}
-
-export interface MouseWheelOptions {
-  /**
-   * X delta in CSS pixels for mouse wheel event. Positive values emulate a scroll up and negative values a scroll down event.
-   * @default 0
-   */
-  deltaX?: number;
-  /**
-   * Y delta in CSS pixels for mouse wheel event. Positive values emulate a scroll right and negative values a scroll left event.
-   * @default 0
-   */
-  deltaY?: number;
-}
-
 export interface Mouse {
     /**
      * Shortcut for `mouse.move`, `mouse.down` and `mouse.up`.
@@ -367,27 +317,6 @@ export interface Mouse {
      * @param options The mouse press options.
      */
     up(options?: MousePressOptions): Promise<void>;
-
-    /**
-     * Dispatches a `mousewheel` event.
-     * @param options - Optional: `MouseWheelOptions`.
-     *
-     * @example
-     * An example of zooming into an element:
-     * ```js
-     * await page.goto('https://mdn.mozillademos.org/en-US/docs/Web/API/Element/wheel_event$samples/Scaling_an_element_via_the_wheel?revision=1587366');
-     *
-     * const elem = await page.$('div');
-     * const boundingBox = await elem.boundingBox();
-     * await page.mouse.move(
-     *   boundingBox.x + boundingBox.width / 2,
-     *   boundingBox.y + boundingBox.height / 2
-     * );
-     *
-     * await page.mouse.wheel({ deltaY: -100 })
-     * ```
-     */
-    wheel(options?: MouseWheelOptions): Promise<void>;
 }
 
 export interface Touchscreen {
@@ -1277,33 +1206,19 @@ export interface FrameBase extends Evalable, JSEvalable {
     url(): string;
 
     /**
-     * @remarks
-     *
-     * This method behaves differently depending on the first parameter. If it's a
-     * `string`, it will be treated as a `selector` or `xpath` (if the string
-     * starts with `//`). This method then is a shortcut for
-     * {@link Frame.waitForSelector} or {@link Frame.waitForXPath}.
-     *
-     * If the first argument is a function this method is a shortcut for
-     * {@link Frame.waitForFunction}.
-     *
-     * If the first argument is a `number`, it's treated as a timeout in
-     * milliseconds and the method returns a promise which resolves after the
-     * timeout.
-     *
-     * @param selectorOrFunctionOrTimeout - a selector, predicate or timeout to
-     * wait for.
-     * @param options - optional waiting parameters.
-     * @param args - arguments to pass to `pageFunction`.
-     *
-     * @deprecated Don't use this method directly. Instead use the more explicit
-     * methods available: {@link Frame.waitForSelector},
-     * {@link Frame.waitForXPath}, {@link Frame.waitForFunction} or
-     * {@link Frame.waitForTimeout}.
+     * Waits for a certain amount of time before resolving.
+     * @param duration The time to wait for.
      */
     waitFor(duration: number): Promise<void>;
+    /**
+     * Shortcut for waitForSelector and waitForXPath
+     */
     waitFor(selector: string, options: WaitForSelectorOptionsHidden): Promise<ElementHandle | null>;
     waitFor(selector: string, options?: WaitForSelectorOptions): Promise<ElementHandle>;
+
+    /**
+     * Shortcut for waitForFunction.
+     */
     waitFor(
         selector: EvaluateFn,
         options?: WaitForSelectorOptions,
@@ -1323,26 +1238,6 @@ export interface FrameBase extends Evalable, JSEvalable {
 
     waitForSelector(selector: string, options?: WaitForSelectorOptions): Promise<ElementHandle>;
     waitForSelector(selector: string, options?: WaitForSelectorOptionsHidden): Promise<ElementHandle | null>;
-
-    /**
-     * Causes your script to wait for the given number of milliseconds.
-     *
-     * @remarks
-     * It's generally recommended to not wait for a number of seconds, but instead
-     * use {@link Frame.waitForSelector}, {@link Frame.waitForXPath} or
-     * {@link Frame.waitForFunction} to wait for exactly the conditions you want.
-     *
-     * @example
-     *
-     * Wait for 1 second:
-     *
-     * ```
-     * await frame.waitForTimeout(1000);
-     * ```
-     *
-     * @param milliseconds - the number of milliseconds to wait.
-     */
-    waitForTimeout(milliseconds: number): Promise<void>;
 
     waitForXPath(xpath: string, options?: WaitForSelectorOptions): Promise<ElementHandle>;
 }
@@ -1646,28 +1541,6 @@ export interface Page extends EventEmitter, FrameBase {
 
     /** Emulates given device metrics and user agent. This method is a shortcut for `setUserAgent` and `setViewport`.  */
     emulate(options: EmulateOptions): Promise<void>;
-
-    /**
-     * Emulates the idle state.
-     * If no arguments set, clears idle state emulation.
-     *
-     * @example
-     * ```js
-     * // set idle emulation
-     * await page.emulateIdleState({isUserActive: true, isScreenUnlocked: false});
-     *
-     * // do some checks here
-     * ...
-     *
-     * // clear idle emulation
-     * await page.emulateIdleState();
-     * ```
-     *
-     * @param overrides Mock idle state. If not set, clears idle overrides
-     * @param isUserActive Mock isUserActive
-     * @param isScreenUnlocked Mock isScreenUnlocked
-     */
-    emulateIdleState(overrides?: { isUserActive: boolean; isScreenUnlocked: boolean }): Promise<void>;
 
     /** Emulates the media. */
     emulateMediaType(mediaType: MediaType | null): Promise<void>;
@@ -2347,21 +2220,6 @@ export interface EventEmitter {
     removeAllListeners(event?: EventType): EventEmitter;
 }
 
-/**
- * Contains two functions `queryOne` and `queryAll` that can
- * be {@link Puppeteer.registerCustomQueryHandler | registered}
- * as alternative querying strategies. The functions `queryOne` and `queryAll`
- * are executed in the page context.  `queryOne` should take an `Element` and a
- * selector string as argument and return a single `Element` or `null` if no
- * element is found. `queryAll` takes the same arguments but should instead
- * return a `NodeListOf<Element>` or `Array<Element>` with all the elements
- * that match the given query selector.
- */
-export interface CustomQueryHandler {
-    queryOne?: (element: Element | Document, selector: string) => Element | null;
-    queryAll?: (element: Element | Document, selector: string) => Element[] | NodeListOf<Element>;
-}
-
 /** Attaches Puppeteer to an existing Chromium instance */
 export function connect(options?: ConnectOptions): Promise<Browser>;
 /** The default flags that Chromium will be launched with */
@@ -2372,43 +2230,3 @@ export function executablePath(): string;
 export function launch(options?: LaunchOptions): Promise<Browser>;
 /** This methods attaches Puppeteer to an existing Chromium instance. */
 export function createBrowserFetcher(options?: FetcherOptions): BrowserFetcher;
-
-/**
- * The name of the browser that is under automation (`"chrome"` or `"firefox"`)
- *
- * The product is set by the `PUPPETEER_PRODUCT` environment variable or the `product`
- * option in `puppeteer.launch([options])` and defaults to `chrome`.
- * Firefox support is experimental.
- */
-export const product: Product;
-
-/**
- * Registers a {@link CustomQueryHandler | custom query handler}. After
- * registration, the handler can be used everywhere where a selector is
- * expected by prepending the selection string with `<name>/`. The name is
- * only allowed to consist of lower- and upper case latin letters.
- * @example
- * ```
- * puppeteer.registerCustomQueryHandler('text', { … });
- * const aHandle = await page.$('text/…');
- * ```
- * @param name - The name that the custom query handler will be registered under.
- * @param queryHandler - The {@link CustomQueryHandler | custom query handler} to
- * register.
- */
-export function registerCustomQueryHandler(name: string, queryHandler: CustomQueryHandler): void;
-/**
- * @param name - The name of the query handler to unregistered.
- */
-export function unregisterCustomQueryHandler(name: string): void;
-/**
- * @returns a list with the names of all registered custom query handlers.
- */
-export function customQueryHandlerNames(): string[];
-/**
- * Clears all registered handlers.
- */
-export function clearCustomQueryHandlers(): void;
-
-// Shut off  automatic exporting. See: https://github.com/Microsoft/dtslint/blob/master/docs/strict-export-declare-modifiers.md
-export {};
