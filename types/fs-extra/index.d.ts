@@ -109,7 +109,10 @@ export function ensureSymlinkSync(src: string, dest: string, type?: SymlinkType)
 
 export function emptyDir(path: string): Promise<void>;
 export function emptyDir(path: string, callback: (err: Error) => void): void;
+export const emptydir: typeof emptyDir;
+
 export function emptyDirSync(path: string): void;
+export const emptydirSync: typeof emptyDirSync;
 
 export function pathExists(path: string): Promise<boolean>;
 export function pathExists(path: string, callback: (err: Error, exists: boolean) => void): void;
