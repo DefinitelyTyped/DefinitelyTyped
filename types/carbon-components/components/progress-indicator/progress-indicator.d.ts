@@ -1,10 +1,10 @@
 declare const ProgressIndicator_base: any;
 declare class ProgressIndicator extends ProgressIndicator_base {
     constructor(element: any, options: any);
-    getSteps(): {
+    getSteps(): Array<{
         element: any;
         index: number;
-    }[];
+    }>;
     getCurrent(): {
         element: any;
         index: number;

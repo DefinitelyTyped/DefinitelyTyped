@@ -1,7 +1,13 @@
-export declare const getMenuOffset: (menuBody: any, direction: any, trigger: any) => {
-    left: number;
-    top: number;
-} | undefined;
+export function getMenuOffset(
+    menuBody: any,
+    direction: any,
+    trigger: any,
+):
+    | {
+          left: number;
+          top: number;
+      }
+    | undefined;
 declare const OverflowMenu_base: any;
 declare class OverflowMenu extends OverflowMenu_base {
     constructor(element: any, options: any);
@@ -20,14 +26,26 @@ declare class OverflowMenu extends OverflowMenu_base {
         classShown: string;
         classMenuShown: string;
         classMenuFlip: string;
-        objMenuOffset: (menuBody: any, direction: any, trigger: any) => {
-            left: number;
-            top: number;
-        } | undefined;
-        objMenuOffsetFlip: (menuBody: any, direction: any, trigger: any) => {
-            left: number;
-            top: number;
-        } | undefined;
+        objMenuOffset: (
+            menuBody: any,
+            direction: any,
+            trigger: any,
+        ) =>
+            | {
+                  left: number;
+                  top: number;
+              }
+            | undefined;
+        objMenuOffsetFlip: (
+            menuBody: any,
+            direction: any,
+            trigger: any,
+        ) =>
+            | {
+                  left: number;
+                  top: number;
+              }
+            | undefined;
     };
 }
 export default OverflowMenu;
