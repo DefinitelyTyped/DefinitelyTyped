@@ -16,6 +16,7 @@
 //                 Dylan Vann <https://github.com/dylanvann>
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Kazuma Ebina <https://github.com/kazuma1989>
+//                 jun-sheaf <https://github.com/jun-sheaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
