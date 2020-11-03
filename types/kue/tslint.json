@@ -2,19 +2,17 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "member-access": false,
-        "no-redundant-jsdoc": false,
         "no-var-keyword": false,
         "no-void-expression": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "prefer-template": false,
         "semicolon": false,
         "space-before-function-paren": false,
         "space-within-parens": false,
-        "strict-export-declare-modifiers": false
+        "strict-export-declare-modifiers": false,
+        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
     }
 }

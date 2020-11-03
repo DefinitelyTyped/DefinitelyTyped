@@ -2,7 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
         "jsdoc-format": false,
@@ -11,7 +10,6 @@
         "no-empty-interface": false,
         "no-inferrable-types": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "no-void-expression": false,
@@ -19,7 +17,6 @@
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "prefer-template": false,
         "radix": false,
         "semicolon": false,

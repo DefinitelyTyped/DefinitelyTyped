@@ -16,6 +16,8 @@ declare module "http" {
         'access-control-allow-origin'?: string;
         'access-control-expose-headers'?: string;
         'access-control-max-age'?: string;
+        'access-control-request-headers'?: string;
+        'access-control-request-method'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -42,6 +44,7 @@ declare module "http" {
         'if-unmodified-since'?: string;
         'last-modified'?: string;
         'location'?: string;
+        'origin'?: string;
         'pragma'?: string;
         'proxy-authenticate'?: string;
         'proxy-authorization'?: string;
@@ -132,13 +135,13 @@ declare module "http" {
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        addTrailers(headers: OutgoingHttpHeaders | Array<[string, string]>): void;
+        addTrailers(headers: OutgoingHttpHeaders | ReadonlyArray<[string, string]>): void;
         flushHeaders(): void;
     }
 
@@ -162,7 +165,7 @@ declare module "http" {
     class ClientRequest extends OutgoingMessage {
         connection: Socket;
         socket: Socket;
-        aborted: number;
+        aborted: boolean;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 

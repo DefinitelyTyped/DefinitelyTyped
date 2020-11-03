@@ -1,8 +1,6 @@
 import { ReactButtonAttr, ForwardRefReturn } from "../../../typings/shared";
 
-interface InheritedProps extends Omit<ReactButtonAttr, "type"> { }
-
-export interface HeaderGlobalActionProps extends InheritedProps {
+export interface HeaderGlobalActionProps extends Omit<ReactButtonAttr, "type"> {
     isActive?: boolean,
 }
 

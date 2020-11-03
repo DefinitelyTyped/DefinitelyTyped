@@ -1,4 +1,4 @@
-// Type definitions for ol 6.3
+// Type definitions for ol 6.4
 // Project: https://github.com/openlayers/openlayers, https://openlayers.org
 // Definitions by: Rifa'i M. Hanif <https://github.com/hanreev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,6 @@ export { default as Kinetic } from './Kinetic';
 export { default as Map } from './Map';
 export { default as MapBrowserEvent } from './MapBrowserEvent';
 export { default as MapBrowserEventHandler } from './MapBrowserEventHandler';
-export { default as MapBrowserPointerEvent } from './MapBrowserPointerEvent';
 export { default as MapEvent } from './MapEvent';
 export { default as Object } from './Object';
 export { default as Observable } from './Observable';

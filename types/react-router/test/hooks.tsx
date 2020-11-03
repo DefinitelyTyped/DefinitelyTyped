@@ -21,7 +21,7 @@ interface LocationState {
 const HooksTest: React.FC = () => {
     const history = useHistory<LocationState>();
     const location = useLocation<LocationState>();
-    const { id } = useParams();
+    const { id } = useParams<Params>();
     const params = useParams<Params>();
     // $ExpectType OptionalParams
     const optionalParams = useParams<OptionalParams>();

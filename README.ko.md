@@ -1,4 +1,4 @@
-# DefinitelyTyped
+# Definitely Typed
 
 > 이 저장소는 고품질의 타입스크립트(TypeScript) 자료형 정의(Type definition)를 위한 저장소입니다.
 
@@ -26,13 +26,11 @@
 기여자분들이 작성한 PR 또는 패키지에 문제가 발생했을 경우 이 표시를 보면 도움이 될 수 있습니다.
 
 * 최신 빌드가 [타입 체크/린트](https://github.com/Microsoft/dtslint) 과정을 깔끔하게 통과했습니다: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
-* 모든 패키지가 typescript@next상에서 타입 체크/린트 과정을 깔끔하게 통과합니다: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
+* 모든 패키지가 typescript@next상에서 타입 체크/린트 과정을 깔끔하게 통과합니다: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * 모든 패키지가 1시간 내에 [npm에 배포](https://github.com/microsoft/types-publisher)되었습니다: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
-* [typescript-bot](https://github.com/typescript-bot)이 DefinitelyTyped에서 잘 돌고 있습니다 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+* [typescript-bot](https://github.com/typescript-bot)이 Definitely Typed에서 잘 돌고 있습니다 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
-상태 표시가 비정상이거나 고장 표시가 발생하면 [DefinitelyTyped Gitter 채널](https://gitter.im/DefinitelyTyped/DefinitelyTyped)에서 이 문제를 알려주세요.
-
-[![https://gitter.im/DefinitelyTyped/DefinitelyTyped 에서 대화에 참여해보세요](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+상태 표시가 비정상이거나 고장 표시가 발생하면 [Definitely Typed Discord 채널](https://discord.gg/typescript)에서 이 문제를 알려주세요.
 
 ## 선언 파일(Declaration file)이 뭔가요?
 
@@ -65,11 +63,11 @@ NPM 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 이 경우 주로 `package.json` 파일의 `"types"` 나 `"typings"` 필드(Field)를 통해 제공되지만,
 `/// <reference path="" />` 같은 주석을 사용하여 패키지 안의 ".d.ts" 파일들을 직접 가져와야 할 수도 있습니다.
 
-#### 이전 버전 TypeScript (2.8 또는 그 이전)
+#### 이전 버전 TypeScript (3.1 또는 그 이전)
 
 Definitely Typed는 2년이 지나지 않은 TypeScript 버전만을 대상으로 패키지를 테스트합니다.
-현재 버전 2.9 및 그 이상만을 테스트하고 있습니다.
-TypeScript 2.0에서 2.8 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
+현재 버전 3.2 및 그 이상만을 테스트하고 있습니다.
+TypeScript 2.0에서 3.1 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
 그러나 작동 여부를 보장하지는 못합니다.
 지원 기간은 다음과 같습니다:
 
@@ -87,6 +85,7 @@ TypeScript 2.0에서 2.8 버전을 사용하는 경우, 그래도 `@types` 패�
 3.7 | 2019년 11월 | 2021년 11월
 3.8 | 2020년 2월 | 2022년 2월
 3.9 | 2020년 5월 | 2022년 5월
+4.0 | 2020년 8월 | 2022년 8월
 
 `@types` 패키지 안에는 패키지가 확실하게 지원하는 TypeScript 버전이 태그로 쓰여 있으므로, 2년 지원 기간이 지난 오래된 패키지도 보통 찾아보실 수 있습니다.
 예를 들어, `npm dist-tags @types/react` 명령어를 입력하면 TypeScript 2.5는 react@16.0용 타입을, TypeScript 2.6 및 2.7은 react@16.4용 타입을 사용할 수 있는 것을 확인하실 수 있습니다:
@@ -171,7 +170,7 @@ Definitely Typed는 여러분과 같은 많은 기여자들의 도움 덕분에 
 
 #### 새 패키지를 만들기
 
-만약 라이브러리를 만드는 중이고 라이브러리가 타입스크립트(TypeScript)로 쓰여있다면, DefinitelyTyped 에 선언(Declaration)을 올리는 대신 패키지에 [자동생성된 선언(Declaration) 파일을 포함](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)시킬 수 있습니다.
+만약 라이브러리를 만드는 중이고 라이브러리가 타입스크립트(TypeScript)로 쓰여있다면, Definitely Typed 에 선언(Declaration)을 올리는 대신 패키지에 [자동생성된 선언(Declaration) 파일을 포함](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)시킬 수 있습니다.
 
 NPM 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 패키지의 이름과 같은 이름의 디렉토리를 만들어주세요.
 NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 그 패키지가 NPM 에 올라와 있는 패키지와 이름이 겹치지 않는지 확인해주세요.
@@ -192,7 +191,7 @@ NPM 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 
 자료형(Typing) 패키지에 새 파일을 추가하거나, `async` 키워드를 사용하기 위해 `"target"` 을 `"es6"` 로 설정하거나, `"lib"` 를 추가하거나, `jsx` 지원을 추가하기 위해서 `tsconfig.json` 파일을 변경해야 할 수도 있습니다.
 
-DefinitelyTyped 의 관리자들이 주기적으로 새로운 풀 리퀘스트(Pull request)들을 확인하기는 하지만,
+Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(Pull request)들을 확인하기는 하지만,
 다른 풀 리퀘스트(Pull request)가 많을 경우 확인이 느려질 수 있다는 걸 알아주세요.
 
 [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) 패키지는 좋은 예시 중 하나입니다.
@@ -221,7 +220,7 @@ DefinitelyTyped 의 관리자들이 주기적으로 새로운 풀 리퀘스트(P
 
 #### 패키지 삭제하기
 
-패키지가 스스로의 형(Type)을 [포함](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하게 되면, DefinitelyTyped 에 있는 자료형(Typing) 패키지를 삭제하는 것이 좋습니다.
+패키지가 스스로의 형(Type)을 [포함](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하게 되면, Definitely Typed 에 있는 자료형(Typing) 패키지를 삭제하는 것이 좋습니다.
 
 `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
 - `typingsPackageName` 는 삭제할 디렉토리의 이름입니다.
@@ -229,9 +228,9 @@ DefinitelyTyped 의 관리자들이 주기적으로 새로운 풀 리퀘스트(P
 - `sourceRepoURL` 는 자료형(Typing)을 포함하게 된 저장소의 주소입니다.
 - `libraryName` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 "typingsPackageName" 와 같은 것으로 취급됩니다.)
 
-DefinitelyTyped 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 DefinitelyTyped 패키지들의 `package.json` 파일에 `"dependencies": { "foo": "x.y.z" }` 를 추가해주시면 됩니다.
+Definitely Typed 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 Definitely Typed 패키지들의 `package.json` 파일에 `"dependencies": { "foo": "x.y.z" }` 를 추가해주시면 됩니다.
 
-DefinitelyTyped 에 한 번도 올라온 적 없는 패키지가 형(Type)을 포함하게 되었다면, `notNeededPackages.json` 파일에 추가할 필요도 없습니다.
+Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 포함하게 되었다면, `notNeededPackages.json` 파일에 추가할 필요도 없습니다.
 
 
 #### 린터
@@ -278,7 +277,7 @@ f("one");
 
 #### 풀 리퀘스트(Pull request)를 제출했습니다. 이게 합쳐질 때까지 얼마나 걸리나요?
 
-상황에 따라 다르지만, 대부분의 풀 리퀘스트(Pull request)들은 일주일 안에 합쳐집니다. 머릿주석에 있는 저자 중 한명에 의해 승인된 풀 리퀘스트(Pull request)는 보통 더 빨리 합쳐집니다. 새로운 패키지에 대한 풀 리퀘스트(Pull request)는 관리자의 세세한 코드 리뷰를 필요로 하기 때문에 더 오래 걸리는 경우가 많습니다. 각 PR 들은 합쳐지기 전에 TypeScript or DefinitelyTyped 팀 구성원의 코드 리뷰를 받아야 하며, 이는 사람이 하는 일이기 때문에 느려질 수도 있으니 양해를 바랍니다. [풀 리퀘스트 번다운 보드(New Pull Request Status Board)](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5)에서 열린 풀 리퀘스트에 대한 관리자들의 진행도를 확인하실 수 있습니다.
+상황에 따라 다르지만, 대부분의 풀 리퀘스트(Pull request)들은 일주일 안에 합쳐집니다. 머릿주석에 있는 저자 중 한명에 의해 승인된 풀 리퀘스트(Pull request)는 보통 더 빨리 합쳐집니다. 새로운 패키지에 대한 풀 리퀘스트(Pull request)는 관리자의 세세한 코드 리뷰를 필요로 하기 때문에 더 오래 걸리는 경우가 많습니다. 각 PR 들은 합쳐지기 전에 TypeScript or Definitely Typed 팀 구성원의 코드 리뷰를 받아야 하며, 이는 사람이 하는 일이기 때문에 느려질 수도 있으니 양해를 바랍니다. [풀 리퀘스트 번다운 보드(New Pull Request Status Board)](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5)에서 열린 풀 리퀘스트에 대한 관리자들의 진행도를 확인하실 수 있습니다.
 
 #### 내 풀 리퀘스트(Pull request)는 합쳐졌습니다. 언제 NPM 에 `@types` 패키지가 갱신되나요?
 
@@ -315,16 +314,16 @@ NPM 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간�
 자료형 정의(Type definition)가 맞는 경우에는 자료형 정의(Type definition)을 수정하지 마세요.
 NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `export =` 이 맞고, `node -p 'require("foo").default'` 이 원하는 값이라면 `export default` 이 맞습니다.
 
-#### 자료형 선언(Type declaration)에서 타입스크립트(TypeScript) 2.1 이상의 기능을 사용하고 싶습니다.
+#### 자료형 선언(Type declaration)에서 타입스크립트(TypeScript) 3.3 이상의 기능을 사용하고 싶습니다.
 
-정의(Definition) 머릿주석(`// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`) 뒤에 `// TypeScript Version: 2.1` 를 추가해주시면 됩니다.
+정의(Definition) 머릿주석(`// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`) 뒤에 `// Minimum TypeScript Version: 3.3` 를 추가해주시면 됩니다.
 
 #### 타입스크립트(TypeScript)에 기본으로 포함되지 않은 DOM API 를 추가하고 싶어요.
 
 [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme) 저장소가 관련되어있을 가능성이 있습니다. 해당 저장소의 안내를 따라주세요.
 해당 표준이 아직 초안인 상태라면, 이 저장소와 관련된 일입니다.
 `dom-` 으로 시작하는 패키지를 만드신 뒤, "Project" 머릿주석 부분에 해당 표준의 링크를 써 주세요.
-다만 표준이 초안을 벗어나면 DefinitelyTyped 에서 삭제되고 `@types` 패키지가 지원이 중단된(Deprecated) 것으로 표시될 수도 있습니다.
+다만 표준이 초안을 벗어나면 Definitely Typed 에서 삭제되고 `@types` 패키지가 지원이 중단된(Deprecated) 것으로 표시될 수도 있습니다.
 
 #### 패키지를 새 메이저 버전(major version)에 맞게 갱신하고 싶어요.
 
@@ -351,12 +350,12 @@ NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 }
 ```
 
-수정 중인 패키지에 의존하는 DefinitelyTyped 의 다른 패키지들이 새 버전과 호환되지 않을 경우, 그 패키지들에도 옛날 버전으로의 경로 대응 규칙(Path mapping rule)을 추가해주어야 합니다. 수정 중인 패키지에 의존하는 패키지에 의존하는 패키지들에도 똑같은 작업을 해 주셔야 합니다.
+수정 중인 패키지에 의존하는 Definitely Typed 의 다른 패키지들이 새 버전과 호환되지 않을 경우, 그 패키지들에도 옛날 버전으로의 경로 대응 규칙(Path mapping rule)을 추가해주어야 합니다. 수정 중인 패키지에 의존하는 패키지에 의존하는 패키지들에도 똑같은 작업을 해 주셔야 합니다.
 
 예를 들어, `react-router` 패키지는 `history@2` 패키지에 의존하고 있기 때문에, [react-router 패키지의 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) 파일이 `"history": [ "history/v2" ]` 와 같은 경로 대응 규칙(Path mapping rule)을 가지고 있는 걸 볼 수 있습니다.
 이어서 (`react-router` 패키지에 의존하는 패키지인) `react-router-bootstrap` 또한 [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json) 파일 안에 경로 대응 규칙(Path mapping rule)을 가지고 있는 것을 보실 수 있습니다.
 
-`/// <reference types=".." />` 에서는 경로 대응 규칙(Path mapping rule)이 동작하지 않기 때문에, DefinitelyTyped 패키지로에 의존할 때에는 임포트(import) 를 사용해야 합니다.
+`/// <reference types=".." />` 에서는 경로 대응 규칙(Path mapping rule)이 동작하지 않기 때문에, Definitely Typed 패키지로에 의존할 때에는 임포트(import) 를 사용해야 합니다.
 
 #### 전역적으로도 모듈로도 사용될 수 있는 패키지의 자료형 선언(Type declaration)은 어떻게 쓰나요?
 
@@ -376,7 +375,7 @@ NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 ```json
 {
     "paths":{
-      "@foo/bar": ["foo__bar"]
+      "@foo/*": ["foo__*"]
     }
 }
 ```

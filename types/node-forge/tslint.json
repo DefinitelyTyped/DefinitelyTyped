@@ -3,7 +3,6 @@
     "rules": {
         "adjacent-overload-signatures": false,
         "array-type": false,
-        "callable-types": false,
         "dt-header": false,
         "interface-over-type-literal": false,
         "jsdoc-format": false,
@@ -11,7 +10,6 @@
         "no-declare-current-package": false,
         "no-inferrable-types": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
@@ -19,7 +17,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "prefer-template": false,
         "semicolon": false,
         "typedef-whitespace": false,

@@ -1,6 +1,7 @@
-// Type definitions for non-npm package frida-gum 15.2
+// Type definitions for non-npm package frida-gum 16.2
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
+//                 Francesco Tamagni <https://github.com/mrmacete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -1465,6 +1466,11 @@ declare class NativePointer {
     toInt32(): number;
 
     /**
+     * Converts to an unsigned 32-bit integer.
+     */
+    toUInt32(): number;
+
+    /**
      * Converts to a “0x”-prefixed hexadecimal string, unless a `radix`
      * is specified.
      */
@@ -1596,7 +1602,7 @@ interface UnixSystemFunctionResult {
 }
 
 declare class NativeCallback extends NativePointer {
-    constructor(func: NativeCallbackImplementation, retType: NativeType, argTypes: NativeType[]);
+    constructor(func: NativeCallbackImplementation, retType: NativeType, argTypes: NativeType[], abi?: NativeABI);
 }
 
 type NativeCallbackImplementation = (this: InvocationContext | undefined, ...params: any[]) => any;
@@ -2381,6 +2387,11 @@ declare namespace Interceptor {
      * Reverts the previously replaced function at `target`.
      */
     function revert(target: NativePointerValue): void;
+
+    /**
+     * Ensure any pending changes have been committed to memory.
+     */
+    function flush(): void;
 }
 
 declare class InvocationListener {
@@ -2663,6 +2674,19 @@ interface StalkerOptions {
     onCallSummary?: (summary: StalkerCallSummary) => void;
 
     /**
+     * C callback that processes events as they occur, allowing synchronous
+     * processing of events in native code – typically implemented using
+     * CModule.
+     *
+     * This is useful when wanting to implement custom filtering and/or queuing
+     * logic to improve performance, or sacrifice performance in exchange for
+     * reliable event delivery.
+     *
+     * Note that this precludes usage of `onReceive()` and `onCallSummary()`.
+     */
+    onEvent?: StalkerNativeEventCallback;
+
+    /**
      * Callback that transforms each basic block compiled whenever Stalker
      * wants to recompile a basic block of the code that's about to be executed
      * by the stalked thread.
@@ -2670,7 +2694,7 @@ interface StalkerOptions {
     transform?: StalkerTransformCallback;
 
     /**
-     * User data to be passed to `StalkerNativeTransformCallback`.
+     * User data to be passed to `StalkerNativeEventCallback` and `StalkerNativeTransformCallback`.
      */
     data?: NativePointerValue;
 }
@@ -2737,28 +2761,46 @@ type StalkerBlockEventBare = [          NativePointer | string, NativePointer | 
 type StalkerCompileEventFull = [ "compile", NativePointer | string, NativePointer | string ];
 type StalkerCompileEventBare = [            NativePointer | string, NativePointer | string ];
 
+/**
+ * Signature: `void process (const GumEvent * event, GumCpuContext * cpu_context, gpointer user_data)`
+ */
+type StalkerNativeEventCallback = NativePointer;
+
 type StalkerTransformCallback =
     | StalkerX86TransformCallback
+    | StalkerArm32TransformCallback
     | StalkerArm64TransformCallback
     | StalkerNativeTransformCallback
     ;
 
 type StalkerX86TransformCallback = (iterator: StalkerX86Iterator) => void;
-
+type StalkerArm32TransformCallback = (iterator: StalkerArmIterator | StalkerThumbIterator) => void;
 type StalkerArm64TransformCallback = (iterator: StalkerArm64Iterator) => void;
 
 /**
- * Signature: `void transform (GumStalkerIterator * iterator, GumStalkerWriter * output, gpointer user_data)`
+ * Signature: `void transform (GumStalkerIterator * iterator, GumStalkerOutput * output, gpointer user_data)`
  */
 type StalkerNativeTransformCallback = NativePointer;
 
-declare abstract class StalkerX86Iterator extends X86Writer {
+interface StalkerX86Iterator extends X86Writer {
     next(): X86Instruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
 }
 
-declare abstract class StalkerArm64Iterator extends Arm64Writer {
+interface StalkerArmIterator extends ArmWriter {
+    next(): ArmInstruction | null;
+    keep(): void;
+    putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+}
+
+interface StalkerThumbIterator extends ThumbWriter {
+    next(): ArmInstruction | null;
+    keep(): void;
+    putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+}
+
+interface StalkerArm64Iterator extends Arm64Writer {
     next(): Arm64Instruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
@@ -2796,7 +2838,8 @@ declare class ApiResolver {
     /**
      * Performs the resolver-specific query.
      *
-     * @param query Resolver-specific query.
+     * @param query Resolver-specific query, optionally suffixed with `/i` to
+     *              perform case-insensitive matching.
      */
     enumerateMatches(query: string): ApiResolverMatch[];
 }
@@ -2822,6 +2865,7 @@ type ApiResolverType =
      *
      * Example query: `"exports:*!open*"`
      * Which may resolve to: `"/usr/lib/libSystem.B.dylib!opendir$INODE64"`
+     * Suffix with `/i` to perform case-insensitive matching.
      */
     | "module"
 
@@ -2834,6 +2878,7 @@ type ApiResolverType =
      *
      * Example query: `"-[NSURL* *HTTP*]"`
      * Which may resolve to: `"-[NSURLRequest valueForHTTPHeaderField:]"`
+     * Suffix with `/i` to perform case-insensitive matching.
      */
     | "objc"
     ;
@@ -2900,6 +2945,13 @@ declare class DebugSymbol {
      * @param glob Glob matching functions to resolve the addresses of.
      */
     static findFunctionsMatching(glob: string): NativePointer[];
+
+    /**
+     * Loads debug symbols for a specific module.
+     *
+     * @param path Path of module to load symbols for.
+     */
+    static load(path: string): void;
 
     /**
      * Converts to a human-readable string.
@@ -3169,19 +3221,6 @@ interface ArmSysregOperand extends ArmBaseOperand {
     type: "sysreg";
     value: ArmRegister;
 }
-
-type ArmShifter =
-    | "asr"
-    | "lsl"
-    | "lsr"
-    | "ror"
-    | "rrx"
-    | "asr-reg"
-    | "lsl-reg"
-    | "lsr-reg"
-    | "ror-reg"
-    | "rrx-reg"
-    ;
 
 type Arm64Operand = Arm64RegOperand | Arm64ImmOperand | Arm64MemOperand |
     Arm64FpOperand | Arm64CimmOperand | Arm64RegMrsOperand | Arm64RegMsrOperand |
@@ -3690,7 +3729,7 @@ declare namespace ObjC {
      * implementation.
      */
     class Block implements ObjectWrapper {
-        constructor(target: NativePointer | MethodSpec<BlockMethodImplementation>, options?: NativeFunctionOptions);
+        constructor(target: NativePointer | MethodSpec<BlockImplementation>, options?: NativeFunctionOptions);
 
         handle: NativePointer;
 
@@ -3703,9 +3742,39 @@ declare namespace ObjC {
          * Current implementation. You may replace it by assigning to this property.
          */
         implementation: AnyFunction;
+
+        /**
+         * Declares the signature of an externally defined block. This is needed
+         * when working with blocks without signature metadata, i.e. when
+         * `block.types === undefined`.
+         *
+         * @param signature Signature to use.
+         */
+        declare(signature: BlockSignature): void;
     }
 
-    type BlockMethodImplementation = (this: Block, ...args: any[]) => any;
+    type BlockImplementation = (this: Block, ...args: any[]) => any;
+
+    type BlockSignature = SimpleBlockSignature | DetailedBlockSignature;
+
+    interface SimpleBlockSignature {
+        /**
+         * Return type.
+         */
+        retType: string;
+
+        /**
+         * Argument types.
+         */
+        argTypes: string[];
+    }
+
+    interface DetailedBlockSignature {
+        /**
+         * Signature.
+         */
+        types: string;
+    }
 
     /**
      * Creates a JavaScript implementation compatible with the signature of `method`, where `fn` is used as the
@@ -4089,6 +4158,18 @@ declare namespace Java {
     function enumerateClassLoadersSync(): Wrapper[];
 
     /**
+     * Enumerates methods matching `query`.
+     *
+     * @param query Query specified as `class!method`, with globs permitted. May
+     *              also be suffixed with `/` and one or more modifiers:
+     *              - `i`: Case-insensitive matching.
+     *              - `s`: Include method signatures, so e.g. `"putInt"` becomes
+     *                `"putInt(java.lang.String, int): void"`.
+     *              - `u`: User-defined classes only, ignoring system classes.
+     */
+    function enumerateMethods(query: string): EnumerateMethodsMatchGroup[];
+
+    /**
      * Runs `fn` on the main thread of the VM.
      *
      * @param fn Function to run on the main thread of the VM.
@@ -4232,6 +4313,41 @@ declare namespace Java {
         onComplete: () => void;
     }
 
+    /**
+     * Matching methods grouped by class loader.
+     */
+    interface EnumerateMethodsMatchGroup {
+        /**
+         * Class loader, or `null` for the bootstrap class loader.
+         *
+         * Typically passed to `ClassFactory.get()` to interact with classes of
+         * interest.
+         */
+        loader: Wrapper | null;
+
+        /**
+         * One or more matching classes that have one or more methods matching
+         * the given query.
+         */
+        classes: [EnumerateMethodsMatchClass, ...EnumerateMethodsMatchClass[]];
+    }
+
+    /**
+     * Class matching query which has one or more matching methods.
+     */
+    interface EnumerateMethodsMatchClass {
+        /**
+         * Class name that matched the given query.
+         */
+        name: string;
+
+        /**
+         * One or more matching method names, each followed by signature when
+         * the `s` modifier is used.
+         */
+        methods: [string, ...string[]];
+    }
+
     interface ChooseCallbacks {
         /**
          * Called with each live instance found with a ready-to-use `instance`
@@ -4282,6 +4398,16 @@ declare namespace Java {
         $init: MethodDispatcher<T>;
 
         /**
+         * Eagerly deletes the underlying JNI global reference without having to
+         * wait for the object to become unreachable and the JavaScript
+         * runtime's garbage collector to kick in (or script to be unloaded).
+         *
+         * Useful when a lot of short-lived objects are created in a loop and
+         * there's a risk of running out of global handles.
+         */
+        $dispose(): void;
+
+        /**
          * Retrieves a `java.lang.Class` wrapper for the current class.
          */
         class: Wrapper;
@@ -4290,6 +4416,12 @@ declare namespace Java {
          * Canonical name of class being wrapped.
          */
         $className: string;
+
+        /**
+         * Method and field names exposed by this object’s class, not including
+         * parent classes.
+         */
+        $ownMembers: string[];
 
         /**
          * Instance used for chaining up to super-class method implementations.
@@ -4548,14 +4680,16 @@ declare namespace Java {
 
     class ClassFactory {
         /**
-         * Gets the class factory instance for a given class loader.
+         * Gets the class factory instance for a given class loader, or the
+         * default factory when passing `null`.
          *
          * The default class factory used behind the scenes only interacts
          * with the application's main class loader. Other class loaders
-         * can be discovered through `Java.enumerateClassLoaders()` and
-         * interacted with through this API.
+         * can be discovered through APIs such as `Java.enumerateMethods()` and
+         * `Java.enumerateClassLoaders()`, and subsequently interacted with
+         * through this API.
          */
-        static get(classLoader: Wrapper): ClassFactory;
+        static get(classLoader: Wrapper | null): ClassFactory;
 
         /**
          * Class loader currently being used. For the default class factory this
@@ -5343,12 +5477,12 @@ declare class X86Relocator {
     skipOneNoLabel(): void;
 
     /**
-     * write the next buffered instruction.
+     * Writes the next buffered instruction.
      */
     writeOne(): boolean;
 
     /**
-     * write the next buffered instruction, but without a
+     * Writes the next buffered instruction, but without a
      * label for internal use. This breaks relocation of branches to locations
      * inside the relocated range, and is an optimization for use-cases where all
      * branches are rewritten (e.g. Frida's Stalker).
@@ -5496,9 +5630,58 @@ declare class ArmWriter {
     putLabel(id: string): void;
 
     /**
+     * Puts code needed for calling a C function with the specified `args`.
+     */
+    putCallAddressWithArguments(func: NativePointerValue, args: ArmCallArgument[]): void;
+
+    /**
+     * Puts code needed for branching/jumping to the given address.
+     */
+    putBranchAddress(address: NativePointerValue): void;
+
+    /**
+     * Determines whether a direct branch is possible between the two
+     * given memory locations.
+     */
+    canBranchDirectlyBetween(from: NativePointerValue, to: NativePointerValue): boolean;
+
+    /**
      * Puts a B instruction.
      */
     putBImm(target: NativePointerValue): void;
+
+    /**
+     * Puts a B COND instruction.
+     */
+    putBCondImm(cc: ArmConditionCode, target: NativePointerValue): void;
+
+    /**
+     * Puts a B instruction referencing `labelId`, defined by a past
+     * or future `putLabel()`.
+     */
+    putBLabel(labelId: string): void;
+
+    /**
+     * Puts a B COND instruction referencing `labelId`, defined by a past
+     * or future `putLabel()`.
+     */
+    putBCondLabel(cc: ArmConditionCode, labelId: string): void;
+
+    /**
+     * Puts a BL instruction.
+     */
+    putBlImm(target: NativePointerValue): void;
+
+    /**
+     * Puts a BLX instruction.
+     */
+    putBlxImm(target: NativePointerValue): void;
+
+    /**
+     * Puts a BL instruction referencing `labelId`, defined by a past
+     * or future `putLabel()`.
+     */
+    putBlLabel(labelId: string): void;
 
     /**
      * Puts a BX instruction.
@@ -5506,10 +5689,14 @@ declare class ArmWriter {
     putBxReg(reg: ArmRegister): void;
 
     /**
-     * Puts a B instruction referencing `labelId`, defined by a past
-     * or future `putLabel()`.
+     * Puts a BLX instruction.
      */
-    putBLabel(labelId: string): void;
+    putBlxReg(reg: ArmRegister): void;
+
+    /**
+     * Puts a RET instruction.
+     */
+    putRet(): void;
 
     /**
      * Puts an LDR instruction.
@@ -5522,14 +5709,104 @@ declare class ArmWriter {
     putLdrRegU32(reg: ArmRegister, val: number): void;
 
     /**
+     * Puts an LDR instruction.
+     */
+    putLdrRegRegOffset(dstReg: ArmRegister, srcReg: ArmRegister, srcOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts an LDR COND instruction.
+     */
+    putLdrCondRegRegOffset(cc: ArmConditionCode, dstReg: ArmRegister, srcReg: ArmRegister, srcOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts an LDMIA MASK instruction.
+     */
+    putLdmiaRegMask(reg: ArmRegister, mask: number): void;
+
+    /**
+     * Puts a STR instruction.
+     */
+    putStrRegRegOffset(srcReg: ArmRegister, dstReg: ArmRegister, dstOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts a STR COND instruction.
+     */
+    putStrCondRegRegOffset(cc: ArmConditionCode, srcReg: ArmRegister, dstReg: ArmRegister, dstOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts a MOV instruction.
+     */
+    putMovRegReg(dstReg: ArmRegister, srcReg: ArmRegister): void;
+
+    /**
+     * Puts a MOV SHIFT instruction.
+     */
+    putMovRegRegShift(dstReg: ArmRegister, srcReg: ArmRegister, shift: ArmShifter, shiftValue: number): void;
+
+    /**
+     * Puts a MOV CPSR instruction.
+     */
+    putMovRegCpsr(reg: ArmRegister): void;
+
+    /**
+     * Puts a MOV CPSR instruction.
+     */
+    putMovCpsrReg(reg: ArmRegister): void;
+
+    /**
+     * Puts an ADD U16 instruction.
+     */
+    putAddRegU16(dstReg: ArmRegister, val: number): void;
+
+    /**
+     * Puts an ADD instruction.
+     */
+    putAddRegU32(dstReg: ArmRegister, val: number): void;
+
+    /**
      * Puts an ADD instruction.
      */
     putAddRegRegImm(dstReg: ArmRegister, srcReg: ArmRegister, immVal: number): void;
 
     /**
-     * Puts an LDR instruction.
+     * Puts an ADD instruction.
      */
-    putLdrRegRegImm(dstReg: ArmRegister, srcReg: ArmRegister, immVal: number): void;
+    putAddRegRegReg(dstReg: ArmRegister, srcReg1: ArmRegister, srcReg2: ArmRegister): void;
+
+    /**
+     * Puts an ADD SHIFT instruction.
+     */
+    putAddRegRegRegShift(dstReg: ArmRegister, srcReg1: ArmRegister, srcReg2: ArmRegister, shift: ArmShifter, shiftValue: number): void;
+
+    /**
+     * Puts a SUB U16 instruction.
+     */
+    putSubRegU16(dstReg: ArmRegister, val: number): void;
+
+    /**
+     * Puts a SUB instruction.
+     */
+    putSubRegU32(dstReg: ArmRegister, val: number): void;
+
+    /**
+     * Puts a SUB instruction.
+     */
+    putSubRegRegImm(dstReg: ArmRegister, srcReg: ArmRegister, immVal: number): void;
+
+    /**
+     * Puts a SUB instruction.
+     */
+    putSubRegRegReg(dstReg: ArmRegister, srcReg1: ArmRegister, srcReg2: ArmRegister): void;
+
+    /**
+     * Puts an ANDS instruction.
+     */
+    putAndsRegRegImm(dstReg: ArmRegister, srcReg: ArmRegister, immVal: number): void;
+
+    /**
+     * Puts a CMP instruction.
+     */
+    putCmpRegImm(dstReg: ArmRegister, immVal: number): void;
 
     /**
      * Puts a NOP instruction.
@@ -5540,6 +5817,11 @@ declare class ArmWriter {
      * Puts an OS/architecture-specific breakpoint instruction.
      */
     putBreakpoint(): void;
+
+    /**
+     * Puts a BRK instruction.
+     */
+    putBrkImm(imm: number): void;
 
     /**
      * Puts a raw instruction.
@@ -5639,7 +5921,7 @@ declare class ArmRelocator {
     skipOne(): void;
 
     /**
-     * write the next buffered instruction.
+     * Writes the next buffered instruction.
      */
     writeOne(): boolean;
 
@@ -5710,6 +5992,13 @@ declare class ThumbWriter {
      * that may be referenced in past and future `put*Label()` calls.
      */
     putLabel(id: string): void;
+
+    /**
+     * Commits the first pending reference to the given label, returning
+     * `true` on success. Returns `false` if the given label hasn't been
+     * defined yet, or there are no more pending references to it.
+     */
+    commitLabel(id: string): boolean;
 
     /**
      * Puts code needed for calling a C function with the specified `args`.
@@ -5834,6 +6123,21 @@ declare class ThumbWriter {
     putLdrRegRegOffset(dstReg: ArmRegister, srcReg: ArmRegister, srcOffset: number | Int64 | UInt64): void;
 
     /**
+     * Puts an LDRB instruction.
+     */
+    putLdrbRegReg(dstReg: ArmRegister, srcReg: ArmRegister): void;
+
+    /**
+     * Puts a VLDR instruction.
+     */
+    putVldrRegRegOffset(dstReg: ArmRegister, srcReg: ArmRegister, srcOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts an LDMIA MASK instruction.
+     */
+    putLdmiaRegMask(reg: ArmRegister, mask: number): void;
+
+    /**
      * Puts a STR instruction.
      */
     putStrRegReg(srcReg: ArmRegister, dstReg: ArmRegister): void;
@@ -5852,6 +6156,16 @@ declare class ThumbWriter {
      * Puts a MOV instruction.
      */
     putMovRegU8(dstReg: ArmRegister, immValue: number): void;
+
+    /**
+     * Puts a MOV CPSR instruction.
+     */
+    putMovRegCpsr(reg: ArmRegister): void;
+
+    /**
+     * Puts a MOV CPSR instruction.
+     */
+    putMovCpsrReg(reg: ArmRegister): void;
 
     /**
      * Puts an ADD instruction.
@@ -5892,6 +6206,21 @@ declare class ThumbWriter {
      * Puts a SUB instruction.
      */
     putSubRegRegImm(dstReg: ArmRegister, leftReg: ArmRegister, rightValue: number | Int64 | UInt64): void;
+
+    /**
+     * Puts an AND instruction.
+     */
+    putAndRegRegImm(dstReg: ArmRegister, leftReg: ArmRegister, rightValue: number | Int64 | UInt64): void;
+
+    /**
+     * Puts a LSLS instruction.
+     */
+    putLslsRegRegImm(dstReg: ArmRegister, leftReg: ArmRegister, rightValue: number): void;
+
+    /**
+     * Puts a LSRS instruction.
+     */
+    putLsrsRegRegImm(dstReg: ArmRegister, leftReg: ArmRegister, rightValue: number): void;
 
     /**
      * Puts a MRS instruction.
@@ -6019,9 +6348,16 @@ declare class ThumbRelocator {
     skipOne(): void;
 
     /**
-     * write the next buffered instruction.
+     * Writes the next buffered instruction.
      */
     writeOne(): boolean;
+
+    /**
+     * Copies out the next buffered instruction without advancing the
+     * output cursor, allowing the same instruction to be written out
+     * multiple times.
+     */
+    copyOne(): boolean;
 
     /**
      * Writes all buffered instructions.
@@ -6073,6 +6409,19 @@ type ArmConditionCode =
     | "gt"
     | "le"
     | "al"
+    ;
+
+type ArmShifter =
+    | "asr"
+    | "lsl"
+    | "lsr"
+    | "ror"
+    | "rrx"
+    | "asr-reg"
+    | "lsl-reg"
+    | "lsr-reg"
+    | "ror-reg"
+    | "rrx-reg"
     ;
 
 /**
@@ -6148,9 +6497,15 @@ declare class Arm64Writer {
     putCallRegWithArguments(reg: Arm64Register, args: Arm64CallArgument[]): void;
 
     /**
-     * Puts a BRANCH instruction.
+     * Puts code needed for branching/jumping to the given address.
      */
     putBranchAddress(address: NativePointerValue): void;
+
+    /**
+     * Determines whether a direct branch is possible between the two
+     * given memory locations.
+     */
+    canBranchDirectlyBetween(from: NativePointerValue, to: NativePointerValue): boolean;
 
     /**
      * Puts a B instruction.
@@ -6186,9 +6541,21 @@ declare class Arm64Writer {
     putBrReg(reg: Arm64Register): void;
 
     /**
+     * Puts a BR instruction expecting a raw pointer without
+     * any authentication bits.
+     */
+    putBrRegNoAuth(reg: Arm64Register): void;
+
+    /**
      * Puts a BLR instruction.
      */
     putBlrReg(reg: Arm64Register): void;
+
+    /**
+     * Puts a BLR instruction expecting a raw pointer without
+     * any authentication bits.
+     */
+    putBlrRegNoAuth(reg: Arm64Register): void;
 
     /**
      * Puts a RET instruction.
@@ -6348,6 +6715,11 @@ declare class Arm64Writer {
     putCmpRegReg(regA: Arm64Register, regB: Arm64Register): void;
 
     /**
+     * Puts an XPACI instruction.
+     */
+    putXpaciReg(reg: Arm64Register): void;
+
+    /**
      * Puts a NOP instruction.
      */
     putNop(): void;
@@ -6366,6 +6738,11 @@ declare class Arm64Writer {
      * Puts raw data.
      */
     putBytes(data: ArrayBuffer | number[] | string): void;
+
+    /**
+     * Signs the given pointer value.
+     */
+    sign(value: NativePointerValue): NativePointer;
 }
 
 interface Arm64WriterOptions {
@@ -6455,7 +6832,7 @@ declare class Arm64Relocator {
     skipOne(): void;
 
     /**
-     * write the next buffered instruction.
+     * Writes the next buffered instruction.
      */
     writeOne(): boolean;
 
@@ -6734,6 +7111,11 @@ declare class MipsWriter {
     putJAddress(address: NativePointerValue): void;
 
     /**
+     * Puts a J WITHOUT NOP instruction.
+     */
+    putJAddressWithoutNop(address: NativePointerValue): void;
+
+    /**
      * Puts a J instruction referencing `labelId`, defined by a past
      * or future `putLabel()`.
      */
@@ -6781,9 +7163,19 @@ declare class MipsWriter {
     putLuiRegImm(reg: MipsRegister, imm: number): void;
 
     /**
+     * Puts a DSLL instruction.
+     */
+    putDsllRegReg(dstReg: MipsRegister, srcReg: MipsRegister, amount: number): void;
+
+    /**
      * Puts an ORI instruction.
      */
     putOriRegRegImm(rt: MipsRegister, rs: MipsRegister, imm: number): void;
+
+    /**
+     * Puts an LD instruction.
+     */
+    putLdRegRegOffset(dstReg: MipsRegister, srcReg: MipsRegister, srcOffset: number | Int64 | UInt64): void;
 
     /**
      * Puts a LW instruction.
@@ -6808,17 +7200,17 @@ declare class MipsWriter {
     /**
      * Puts an ADDI instruction.
      */
-    putAddiRegRegImm(destReg: MipsRegister, leftReg: MipsRegister, imm: number): void;
+    putAddiRegRegImm(dstReg: MipsRegister, leftReg: MipsRegister, imm: number): void;
 
     /**
      * Puts an ADDI instruction.
      */
-    putAddiRegImm(destReg: MipsRegister, imm: number): void;
+    putAddiRegImm(dstReg: MipsRegister, imm: number): void;
 
     /**
      * Puts a SUB instruction.
      */
-    putSubRegRegImm(destReg: MipsRegister, leftReg: MipsRegister, imm: number): void;
+    putSubRegRegImm(dstReg: MipsRegister, leftReg: MipsRegister, imm: number): void;
 
     /**
      * Puts a PUSH instruction.
@@ -6859,6 +7251,11 @@ declare class MipsWriter {
      * Puts a BREAK instruction.
      */
     putBreak(): void;
+
+    /**
+     * Puts a minimal sized trampoline for vectoring to the given address.
+     */
+    putPrologueTrampoline(reg: MipsRegister, address: NativePointerValue): void;
 
     /**
      * Puts a raw instruction.
@@ -6958,7 +7355,7 @@ declare class MipsRelocator {
     skipOne(): void;
 
     /**
-     * write the next buffered instruction.
+     * Writes the next buffered instruction.
      */
     writeOne(): boolean;
 

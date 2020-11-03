@@ -1,9 +1,11 @@
-// Type definitions for serverless 1.67
+// Type definitions for serverless 1.78
 // Project: https://github.com/serverless/serverless#readme
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
 //                 Alex Pavlenko <https://github.com/a-pavlenko>
 //                 Frédéric Barthelet <https://github.com/fredericbarthelet>
+//                 Bryan Hunter <https://github.com/bryan-hunter>
+//                 Thomas Aribart <https://github.com/thomasaribart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');
@@ -37,6 +39,7 @@ declare namespace Serverless {
         memorySize?: number;
         environment?: { [name: string]: string };
         events: Event[];
+        tags?: { [key: string]: string };
     }
 
     // Other events than ApiGatewayEvent are available
@@ -67,7 +70,9 @@ declare class Serverless {
 
     providers: {};
     utils: Utils;
-    variables: {};
+    variables: {
+        populateService(): Promise<any>;
+    };
     yamlParser: YamlParser;
     pluginManager: PluginManager;
 
@@ -76,6 +81,8 @@ declare class Serverless {
 
     service: Service;
     version: string;
+
+    resources: AwsProvider.Resources;
 }
 
 export = Serverless;

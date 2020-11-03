@@ -1,4 +1,5 @@
 import {
+    Context,
     Component,
     ComponentType,
     SyntheticEvent
@@ -134,7 +135,7 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     warn?(values: FormData, props: DecoratedFormProps<FormData, P, ErrorType>): FormWarnings<FormData>;
 }
 
-export interface ReduxFormContext {
+export interface FormContext {
     form: string;
     getFormState: GetFormState;
     asyncValidate: {
@@ -157,8 +158,10 @@ export interface ReduxFormContext {
 }
 
 export interface WrappedReduxFormContext {
-    _reduxForm: ReduxFormContext;
+    _reduxForm: FormContext;
 }
+
+export declare const ReduxFormContext: Context<FormContext>;
 
 export interface FormInstance<FormData, P> extends Component<P> {
     dirty: boolean;

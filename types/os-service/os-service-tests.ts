@@ -9,12 +9,12 @@ service.add(name, {displayName: name}, (): void => {
 });
 
 service.run((): void => {
-	service.stop(0);
+    service.stop(0);
 });
 
 service.remove(name, (): void => {
-	service.stop(0);
+    service.stop(0);
 });
 service.remove(name, (error): void => {
-	service.stop(0);
+    service.stop(0);
 });

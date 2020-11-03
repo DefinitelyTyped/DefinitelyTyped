@@ -189,6 +189,7 @@ declare namespace googletag {
 
         interface SlotRenderEndedEvent extends Event {
             advertiserId?: number;
+            campaignId?: number;
             creativeId?: number;
             isEmpty: boolean;
             lineItemId?: number;

@@ -11,6 +11,10 @@ const authenticationUrl = unsplash.auth.getAuthenticationUrl([
     'write_user',
     'read_photos',
     'write_photos',
+    'write_likes',
+    'write_followers',
+    'read_collections',
+    'write_collections'
 ]);
 
 unsplash.auth
@@ -37,9 +41,12 @@ unsplash.users.profile('naoufal');
 
 unsplash.users.statistics('naoufal', 'days', 30);
 
-unsplash.users.photos('naoufal', 1, 10, 'popular', false);
+unsplash.users.photos('naoufal', 1, 10, 'latest', {
+    orientation: 'landscape',
+    stats: true
+});
 
-unsplash.users.likes('naoufal', 2, 15, 'popular');
+unsplash.users.likes('naoufal', 2, 15, 'latest', { orientation: 'landscape' });
 
 unsplash.users.collections('naoufal', 2, 15, 'updated');
 
@@ -60,13 +67,14 @@ unsplash.photos
     .then(toJson)
     .then(json => {
         unsplash.photos.downloadPhoto(json);
+        unsplash.photos.trackDownload(json);
     });
 
-unsplash.collections.listCollections(1, 10, 'popular');
+unsplash.collections.listCollections(1, 10);
 
 unsplash.collections.getCollection(123456);
 
-unsplash.collections.getCollectionPhotos(123456, 1, 10, 'popular');
+unsplash.collections.getCollectionPhotos(123456, 1, 10, 'latest', { orientation: 'landscape' });
 
 unsplash.collections.createCollection('Birds', "Wild birds from 'round the world", true);
 
@@ -80,7 +88,14 @@ unsplash.collections.removePhotoFromCollection(88, 'abc1234');
 
 unsplash.collections.listRelatedCollections(88);
 
-unsplash.search.photos('dogs', 1);
+unsplash.search.photos('dogs', 1, 0, {
+    orientation: 'landscape',
+    contentFilter: 'low',
+    color: 'black',
+    orderBy: 'latest',
+    lang: 'en',
+    collections: [1, 2],
+});
 
 unsplash.search.users('steve', 1);
 

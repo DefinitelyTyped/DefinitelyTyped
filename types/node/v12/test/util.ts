@@ -120,7 +120,7 @@ import { readFile } from 'fs';
     const arg0: () => Promise<number> = util.promisify((cb: (err: Error | null, result: number) => void): void => { });
     const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error | null) => void): void => { });
     const arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
-    const arg1UnknownError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: NodeJS.PoorMansUnknown, result: number) => void): void => { });
+    const arg1UnknownError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: unknown, result: number) => void): void => { });
     const arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error | null) => void): void => { });
     const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); }); // tslint:disable-line void-return
     assert(typeof util.promisify.custom === 'symbol');
@@ -173,7 +173,13 @@ import { readFile } from 'fs';
     b = util.types.isBigUint64Array(15);
     b = util.types.isModuleNamespaceObject(15);
 
-    // tslint:disable-next-line:no-construct ban-types
+    const f = (v: any) => {
+        if (util.types.isArrayBufferView(v)) {
+            const abv: ArrayBufferView  = v;
+        }
+    };
+
+    // tslint:disable-next-line:no-construct
     const maybeBoxed: number | Number = new Number(1);
     if (util.types.isBoxedPrimitive(maybeBoxed)) {
         const boxed: Number = maybeBoxed;

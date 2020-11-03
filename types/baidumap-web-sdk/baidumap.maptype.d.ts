@@ -31,29 +31,29 @@ SOFTWARE.
 /// <reference path="./baidumap.base.d.ts" />
 /// <reference path="./baidumap.maplayer.d.ts" />
 declare namespace BMap {
-	class MapType {
-		constructor(name: string, layers: TileLayer | TileLayer[], opts?: MapTypeOptions);
-		getName(): string;
-		getTileLayer(): TileLayer;
-		getMinZoom(): number;
-		getMaxZoom(): number;
-		getProjection(): Projection;
-		getTextColor(): string;
-		getTips(): string;
-	}
-	interface MapTypeOptions {
-		minZoom?: number;
-		maxZoom?: number;
-		errorImageUrl?: string;
-		textColor?: number;
-		tips?: string;
-	}
-	interface Projection {
-		lngLatToPoint(lngLat: Point): Pixel;
-		pointToLngLat(point: Pixel): Point;
-	}
-	type MercatorProjection = Projection;
-	type PerspectiveProjection = Projection;
+    class MapType {
+        constructor(name: string, layers: TileLayer | TileLayer[], opts?: MapTypeOptions);
+        getName(): string;
+        getTileLayer(): TileLayer;
+        getMinZoom(): number;
+        getMaxZoom(): number;
+        getProjection(): Projection;
+        getTextColor(): string;
+        getTips(): string;
+    }
+    interface MapTypeOptions {
+        minZoom?: number;
+        maxZoom?: number;
+        errorImageUrl?: string;
+        textColor?: number;
+        tips?: string;
+    }
+    interface Projection {
+        lngLatToPoint(lngLat: Point): Pixel;
+        pointToLngLat(point: Pixel): Point;
+    }
+    type MercatorProjection = Projection;
+    type PerspectiveProjection = Projection;
 }
 declare const BMAP_NORMAL_MAP: BMap.MapType;
 declare const BMAP_PERSPECTIVE_MAP: BMap.MapType;

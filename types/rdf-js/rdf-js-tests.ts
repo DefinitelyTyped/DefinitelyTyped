@@ -17,6 +17,14 @@ function test_terms() {
     namedNodeEqual = namedNode.equals(null);
     namedNodeEqual = namedNode.equals(undefined);
 
+    const namedNodeConstant: NamedNode<'http://example.org'> = <any> {};
+    const constantIri: 'http://example.org' = namedNodeConstant.value;
+    // $ExpectError
+    const otherConstantIri: 'http://not-example.org' = namedNodeConstant.value;
+    // $ExpectError
+    const otherNamedNodeConstant: NamedNode<'http://not-example.org'> = namedNodeConstant;
+    const regularNamedNode: NamedNode = namedNodeConstant;
+
     const blankNode: BlankNode = <any> {};
     const termType2: string = blankNode.termType;
     const value2: string = blankNode.value;
@@ -61,6 +69,11 @@ function test_datafactory() {
     const dataFactory: DataFactory = <any> {};
 
     const namedNode: NamedNode = dataFactory.namedNode('http://example.org');
+    const constantValue: 'http://example.org' = dataFactory.namedNode('http://example.org').value;
+    // $ExpectError
+    const otherConstantValue: 'http://not-example.org' = dataFactory.namedNode('http://example.org').value;
+    // $ExpectError
+    const otherConstantNamedNode: NamedNode<'http://not-example.org'> = dataFactory.namedNode('http://example.org');
 
     const blankNode1: BlankNode = dataFactory.blankNode('b1');
     const blankNode2: BlankNode = dataFactory.blankNode();
@@ -84,9 +97,57 @@ function test_datafactory() {
     const hasBnode = quad.predicate.termType === "BlankNode";
 }
 
+function test_datafactory_star() {
+    const dataFactory: DataFactory = <any> {};
+
+    // Compose the triple "<<ex:bob ex:age 23>> ex:certainty 0.9."
+    const quadBobAge: Quad = dataFactory.quad(
+        dataFactory.namedNode('ex:bob'),
+        dataFactory.namedNode('ex:age'),
+        dataFactory.literal('23'),
+    );
+    const quadBobAgeCertainty: Quad = dataFactory.quad(
+        quadBobAge,
+        dataFactory.namedNode('ex:certainty'),
+        dataFactory.literal('0.9'),
+    );
+
+    // Decompose the triple
+    if (quadBobAgeCertainty.subject.termType === 'Quad') {
+        const quadBobAge2: Quad = quadBobAgeCertainty.subject;
+
+        const equalToSelf: boolean = quadBobAge2.equals(quadBobAge);
+        const notEqualToOtherType: boolean = quadBobAge2.equals(dataFactory.namedNode('ex:something:else'));
+    }
+}
+
+function test_datafactory_star_basequad() {
+    const dataFactory: DataFactory<BaseQuad> = <any> {};
+
+    // Compose the triple "<<ex:bob ex:age 23>> ex:certainty 0.9."
+    const quadBobAge: BaseQuad = dataFactory.quad(
+        dataFactory.namedNode('ex:bob'),
+        dataFactory.namedNode('ex:age'),
+        dataFactory.literal('23'),
+    );
+    const quadBobAgeCertainty: BaseQuad = dataFactory.quad(
+        quadBobAge,
+        dataFactory.namedNode('ex:certainty'),
+        dataFactory.literal('0.9'),
+    );
+
+    // Decompose the triple
+    if (quadBobAgeCertainty.subject.termType === 'Quad') {
+        const quadBobAge2: BaseQuad = quadBobAgeCertainty.subject;
+
+        const equalToSelf: boolean = quadBobAge2.equals(quadBobAge);
+        const notEqualToOtherType: boolean = quadBobAge2.equals(dataFactory.namedNode('ex:something:else'));
+    }
+}
+
 function test_stream() {
     const stream: Stream = <any> {};
-    const quad: Quad = stream.read();
+    const quad: Quad | null = stream.read();
 
     const term: Term = <any> {};
     const source: Source = <any> {};
@@ -316,4 +377,124 @@ async function test_dataset_covariance(): Promise<Dataset> {
     datasetExt.intersection(dataset);
     datasetExt.union(dataset);
     return datasetExt.import(stream);
+}
+
+class DatasetCoreExt implements DatasetCore {
+    size: number;
+
+    add(): this {
+        throw new Error("Method not implemented.");
+    }
+
+    delete(): this {
+        throw new Error("Method not implemented.");
+    }
+
+    has(): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    match(): DatasetCore<Quad, Quad> {
+        const newInstance: DatasetCoreExt = <any> {};
+        return newInstance;
+    }
+
+    [Symbol.iterator](): Iterator<Quad> {
+        throw new Error("Method not implemented.");
+    }
+}
+
+class DatasetExt extends DatasetCoreExt implements Dataset {
+    addAll(): this {
+        throw new Error("Method not implemented.");
+    }
+
+    contains(): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    deleteMatches(): this {
+        throw new Error("Method not implemented.");
+    }
+
+    difference(): Dataset<Quad, Quad> {
+        const newInstance: DatasetExt = <any> {};
+        return newInstance;
+    }
+
+    equals(): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    every(): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    filter(): Dataset<Quad, Quad> {
+        const newInstance: DatasetExt = <any> {};
+        return newInstance;
+    }
+
+    forEach(): void {
+        throw new Error("Method not implemented.");
+    }
+
+    import(): Promise<this> {
+        throw new Error("Method not implemented.");
+    }
+
+    intersection(): this {
+        throw new Error("Method not implemented.");
+    }
+
+    map(): Dataset<Quad, Quad> {
+        const newInstance: DatasetExt = <any> {};
+        return newInstance;
+    }
+
+    match(): Dataset<Quad, Quad> {
+        const newInstance: DatasetExt = <any> {};
+        return newInstance;
+    }
+
+    reduce(): any {
+        throw new Error("Method not implemented.");
+    }
+
+    some(): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    toArray(): Quad[] {
+        throw new Error("Method not implemented.");
+    }
+
+    toCanonical(): string {
+        throw new Error("Method not implemented.");
+    }
+
+    toStream(): Stream {
+        throw new Error("Method not implemented.");
+    }
+
+    toString(): string {
+        throw new Error("Method not implemented.");
+    }
+
+    union(): Dataset<Quad, Quad> {
+        const newInstance: DatasetExt = <any> {};
+        return newInstance;
+    }
+}
+
+function testInheritance() {
+    const datasetCoreExt: DatasetCoreExt = new DatasetCoreExt();
+    const datasetCoreMatch: DatasetCore = datasetCoreExt.match();
+
+    const datasetExt: DatasetExt = new DatasetExt();
+    const datasetMatch: Dataset = datasetExt.match();
+    const datasetMap: Dataset = datasetExt.map();
+    const datasetUnion: Dataset = datasetExt.union();
+    const datasetFilter: Dataset = datasetExt.filter();
+    const datasetDifference: Dataset = datasetExt.difference();
 }

@@ -1,4 +1,4 @@
-// Type definitions for webscopeio__react-textarea-autocomplete 4.6
+// Type definitions for @webscopeio/react-textarea-autocomplete 4.6
 // Project: https://github.com/webscopeio/react-textarea-autocomplete
 // Definitions by: Michal Zochowski <https://github.com/michauzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -91,7 +91,7 @@ export interface TextareaProps<TItem> extends React.TextareaHTMLAttributes<HTMLT
      */
     scrollToItem?: boolean | ((container: HTMLDivElement, item: HTMLDivElement) => void);
     /**
-     * 	When it's true autocomplete will close when use click outside.
+     *     When it's true autocomplete will close when use click outside.
      * @default false
      */
     closeOnClickOutside?: boolean;
@@ -138,7 +138,7 @@ export interface TextareaProps<TItem> extends React.TextareaHTMLAttributes<HTMLT
      */
     containerClassName?: string;
     /**
-     * 	ClassNames of list's wrapper.
+     *     ClassNames of list's wrapper.
      */
     listClassName?: string;
     /**
@@ -150,7 +150,7 @@ export interface TextareaProps<TItem> extends React.TextareaHTMLAttributes<HTMLT
      */
     loaderClassName?: string;
     /**
-     * 	ClassNames of dropdown's wrapper.
+     *     ClassNames of dropdown's wrapper.
      */
     dropdownClassName?: string;
 }
@@ -183,7 +183,7 @@ declare class ReactTextareaAutocomplete<TItem extends string | object> extends R
      */
     getSelectionPosition(): { selectionStart: number, selectionEnd: number };
     /**
-     * 	Returns currently selected word.
+     *     Returns currently selected word.
      */
     getSelectedText(): string | undefined;
 }

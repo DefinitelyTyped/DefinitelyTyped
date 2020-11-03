@@ -226,9 +226,16 @@ type Expression =
     LogicalExpression | MemberExpression | ConditionalExpression |
     CallExpression | NewExpression | SequenceExpression | TemplateLiteral |
     TaggedTemplateExpression | ClassExpression | MetaProperty | Identifier |
-    AwaitExpression | ImportExpression;
+    AwaitExpression | ImportExpression | ChainExpression;
 
 export interface BaseExpression extends BaseNode { }
+
+type ChainElement = SimpleCallExpression | MemberExpression;
+
+export interface ChainExpression extends BaseExpression {
+  type: "ChainExpression";
+  expression: ChainElement;
+}
 
 export interface ThisExpression extends BaseExpression {
   type: "ThisExpression";
@@ -315,6 +322,7 @@ export type CallExpression = SimpleCallExpression | NewExpression;
 
 export interface SimpleCallExpression extends BaseCallExpression {
   type: "CallExpression";
+  optional: boolean;
 }
 
 export interface NewExpression extends BaseCallExpression {
@@ -326,6 +334,7 @@ export interface MemberExpression extends BaseExpression, BasePattern {
   object: Expression | Super;
   property: Expression;
   computed: boolean;
+  optional: boolean;
 }
 
 export type Pattern =
@@ -377,7 +386,7 @@ export type BinaryOperator =
     ">>" | ">>>" | "+" | "-" | "*" | "/" | "%" | "**" | "|" | "^" | "&" | "in" |
     "instanceof";
 
-export type LogicalOperator = "||" | "&&";
+export type LogicalOperator = "||" | "&&" | "??";
 
 export type AssignmentOperator =
     "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "**=" | "<<=" | ">>=" | ">>>=" |

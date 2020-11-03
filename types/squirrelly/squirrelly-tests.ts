@@ -21,7 +21,8 @@ Sqrl.Render(compiledTemplate, {
 });
 
 Sqrl.renderFile('../file1', { $name: 'file1' });
-Sqrl.load({}, 'str');
+Sqrl.load({}, 'str'); // $ExpectType SqrlFn
+Sqrl.load({}); // $ExpectType string | SqrlFn
 Sqrl.load({ $name: 'mytemplate' });
 
 Sqrl.defineFilter('reverse', str => {
@@ -59,9 +60,24 @@ Sqrl.defineNativeHelper('if', {
     },
 });
 
-Sqrl.definePartial('mypartial', `
+Sqrl.definePartial(
+    'mypartial',
+    `
 This is a partial.
 It can be called with the data of the template it's in.
-`);
+`,
+);
 
 Sqrl.defaultTags(['--', '--']);
+
+const tpl = Sqrl.Compile(`Hello {{person.name}} {{person.firstname}}`);
+
+tpl(
+    {
+        person: {
+            name: 'Doe',
+            firstname: 'John',
+        },
+    },
+    Sqrl,
+);

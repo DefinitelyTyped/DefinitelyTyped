@@ -31,7 +31,7 @@ declare module Tracker {
 
     function flush(): void;
 
-    function nonreactive(func: Function): void;
+    function nonreactive<T>(func: () => T): T;
 
     function onInvalidate(callback: Function): void;
 }

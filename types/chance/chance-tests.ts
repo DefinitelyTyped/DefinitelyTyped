@@ -143,6 +143,11 @@ char = chance.character({ numeric: true });
 char = chance.character({ symbols: true });
 char = chance.character({ pool: 'abcdef', casing: 'lower', alpha: true, numeric: true, symbols: true });
 
+chance.falsy(); // $ExpectType FalsyType
+chance.falsy({ pool: [NaN, undefined] }); // $ExpectType FalsyType
+
+chance.template('{AA###}-{##}'); // $ExpectType string
+
 let url: string = chance.url();
 url = chance.url({});
 url = chance.url({protocol: 'http'});

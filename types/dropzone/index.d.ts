@@ -1,4 +1,4 @@
-// Type definitions for Dropzone 5.5.0
+// Type definitions for Dropzone 5.7.2
 // Project: http://www.dropzonejs.com/
 // Definitions by: Natan Vivo <https://github.com/nvivo>
 //                 Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
@@ -9,6 +9,8 @@
 //                 Daniel Waxweiler <https://github.com/dwaxweiler>
 //                 PikachuEXE <https://github.com/PikachuEXE>
 //                 Arne Deruwe <https://github.com/arnederuwe>
+//                 Chris Macklin <https://github.com/macklin-10x>
+//                 Michał Lipiński <https://github.com/falsyvalues>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -26,13 +28,29 @@ declare namespace Dropzone {
         trgHeight?: number;
     }
 
+    export interface DropzoneFileUpload {
+        progress: number;
+        total: number;
+        bytesSent: number;
+        uuid: string;
+        totalChunkCount?: number;
+    }
+
     export interface DropzoneFile extends File {
+        dataURL?: string;
         previewElement: HTMLElement;
         previewTemplate: HTMLElement;
         previewsContainer: HTMLElement;
         status: string;
         accepted: boolean;
         xhr?: XMLHttpRequest;
+        upload?: DropzoneFileUpload;
+    }
+
+    export interface DropzoneMockFile {
+        name: string;
+        size: number;
+        [index: string]: any;
     }
 
     export interface DropzoneDictFileSizeUnits {
@@ -148,17 +166,34 @@ declare namespace Dropzone {
 
         previewTemplate?: string;
     }
+
+    export interface DropzoneListener {
+        element: HTMLElement;
+        events: {
+            [key: string]: (e: Event) => any;
+        };
+    }
 }
 
 declare class Dropzone {
     constructor(container: string | HTMLElement, options?: Dropzone.DropzoneOptions);
 
     static autoDiscover: boolean;
-    static options: { [key: string]: Dropzone.DropzoneOptions | false };
+    static blacklistedBrowsers: RegExp[];
     static confirm: (question: string, accepted: () => void, rejected?: () => void) => void;
     static createElement(string: string): HTMLElement;
-    static isBrowserSupported(): boolean;
+    static dataURItoBlob(dataURI: string): Blob;
+    static discover(): Dropzone[];
+    static elementInside(element: HTMLElement, container: HTMLElement): boolean;
+    static forElement(element: string | HTMLElement): Dropzone;
+    static getElement(element: string | HTMLElement, name?: string): HTMLElement;
+    static getElements(elements: string | HTMLElement | Array<string | HTMLElement>): HTMLElement[];
     static instances: Dropzone[];
+    static isBrowserSupported(): boolean;
+    static isValidFile(file: File, acceptedFiles: string): boolean;
+    static options: { [key: string]: Dropzone.DropzoneOptions | false };
+    static optionsForElement(element: HTMLElement): Dropzone.DropzoneOptions | undefined;
+    static version: string;
 
     static ADDED: string;
     static QUEUED: string;
@@ -169,9 +204,14 @@ declare class Dropzone {
     static ERROR: string;
     static SUCCESS: string;
 
+    element: HTMLElement;
     files: Dropzone.DropzoneFile[];
+    hiddenFileInput?: HTMLInputElement;
+    listeners: Dropzone.DropzoneListener[];
     defaultOptions: Dropzone.DropzoneOptions;
     options: Dropzone.DropzoneOptions;
+    previewsContainer: HTMLElement;
+    version: string;
 
     enable(): void;
 
@@ -204,6 +244,14 @@ declare class Dropzone {
         resizeMethod?: string,
         fixOrientation?: boolean,
         callback?: (...args: any[]) => void,
+    ): any;
+
+    displayExistingFile(
+        mockFile: Dropzone.DropzoneMockFile,
+        imageUrl: string,
+        callback?: () => void,
+        crossOrigin?: 'anonymous' | 'use-credentials',
+        resizeThumbnail?: boolean,
     ): any;
 
     createThumbnailFromUrl(

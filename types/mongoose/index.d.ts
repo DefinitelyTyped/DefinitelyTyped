@@ -2,7 +2,6 @@
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
-//                 Alorel <https://github.com/Alorel>
 //                 jendrikw <https://github.com/jendrikw>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 vologa <https://github.com/vologab>
@@ -18,7 +17,6 @@
 //                 Frontend Monster <https://github.com/frontendmonster>
 //                 Ming Chen <https://github.com/mingchen>
 //                 Olga Isakova <https://github.com/penumbra1>
-//                 Orblazer <https://github.com/orblazer>
 //                 HughKu <https://github.com/HughKu>
 //                 Erik Lopez <https://github.com/niuware>
 //                 Vlad Melnik <https://github.com/vladmel1234>
@@ -40,6 +38,10 @@
 //                 Cl3dson <https://github.com/cl3dson>
 //                 Richard Simko <https://github.com/richardsimko>
 //                 Marek Tuchalski <https://github.com/ith>
+//                 Jeremy Bensimon <https://github.com/jeremyben>
+//                 Andrei Alecu <https://github.com/andreialecu>
+//                 The Half Blood Prince <https://github.com/tHBp>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -83,8 +85,73 @@ declare module "mongoose" {
   // We can use TypeScript Omit once minimum required TypeScript Version is above 3.5
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
+  type NonFunctionPropertyNames<T> = {
+    [K in keyof T]: T[K] extends Function ? never : K;
+  }[keyof T];
+  
+  type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
+
+  type IfEquals<X, Y, A, B> =
+    (<T>() => T extends X ? 1 : 2) extends
+    (<T>() => T extends Y ? 1 : 2) ? A : B;
+
+  type ReadonlyKeysOf<T> = {
+    [P in keyof T]: IfEquals<{ [Q in P]: T[P] }, { -readonly [Q in P]: T[P] }, never, P>
+  }[keyof T];
+
+  type OmitReadonly<T> = Omit<T, ReadonlyKeysOf<T>>;
+
+  type MongooseBuiltIns = mongodb.ObjectID | mongodb.Decimal128 | Date | number | boolean;
+
+  type ImplicitMongooseConversions<T> = 
+    T extends MongooseBuiltIns 
+      ? T extends (boolean | mongodb.Decimal128 | Date) ? T | string | number // accept numbers for these
+      : T | string 
+    : T;
+
+  type DeepCreateObjectTransformer<T> =
+    T extends MongooseBuiltIns
+      ? T
+      : T extends object
+        ? { [V in keyof NonFunctionProperties<OmitReadonly<T>>]: T[V] extends object | undefined
+          ? ImplicitMongooseConversions<DeepCreateTransformer<NonNullable<T[V]>>>
+          : ImplicitMongooseConversions<T[V]> }
+        :
+      T;
+
+  // removes functions from schema from all levels
+  type DeepCreateTransformer<T> =
+    T extends Map<infer KM, infer KV> 
+      // handle map values
+      // Maps are not scrubbed, replace below line with this once minimum TS version is 3.7:
+      // ? Map<KM, DeepNonFunctionProperties<KV>>
+      ? { [key: string]: DeepCreateTransformer<KV> } | [KM, KV][] | Map<KM, KV>
+      : 
+    T extends Array<infer U>
+      ? Array<DeepCreateObjectTransformer<U>>
+      : 
+    DeepCreateObjectTransformer<T>;
+
+  // mongoose allows Map<K, V> to be specified either as a Map or a Record<K, V>
+  type DeepMapAsObject<T> = T extends object | undefined
+    ? {
+      [K in keyof T]: T[K] extends Map<infer KM, infer KV> | undefined
+        // if it's a map, transform it into Map | Record
+        // only string keys allowed
+        ? KM extends string ? Map<KM, DeepMapAsObject<KV>> | Record<KM, DeepMapAsObject<KV>> | [KM, DeepMapAsObject<KV>][] : never
+        // otherwise if it's an object or undefined (for optional props), recursively go again
+        : T[K] extends object | undefined
+          ? DeepMapAsObject<T[K]>
+          : T[K]
+      }
+    : T;
+
   /* Helper type to extract a definition type from a Document type */
   type DocumentDefinition<T> = Omit<T, Exclude<keyof Document, '_id'>>;
+
+  type ScrubCreateDefinition<T> = DeepMapAsObject<DeepCreateTransformer<T>>
+
+  type CreateDocumentDefinition<T> = ScrubCreateDefinition<DocumentDefinition<T>>;
 
   /**
    * Patched version of FilterQuery to also allow:
@@ -121,6 +188,17 @@ declare module "mongoose" {
   export type MongooseUpdateQuery<S> = mongodb.UpdateQuery<S> & mongodb.MatchKeysAndValues<S>;
 
   export type UpdateQuery<D> = MongooseUpdateQuery<DocumentDefinition<D>>;
+
+  // check whether a type consists just of {_id: T} and no other properties
+  type HasJustId<T> = keyof Omit<T, "_id"> extends never ? true : false;
+
+  // ensure that if an empty document type is passed, we allow any properties
+  // for backwards compatibility
+  export type CreateQuery<D> = HasJustId<CreateDocumentDefinition<D>> extends true 
+    ? { _id?: any } & Record<string, any> 
+    : D extends { _id: infer TId } 
+      ? mongodb.OptionalId<CreateDocumentDefinition<D> & { _id: TId }>
+      : CreateDocumentDefinition<D>
 
   /**
    * Gets and optionally overwrites the function used to pluralize collection names
@@ -220,8 +298,16 @@ declare module "mongoose" {
   ): U;
 
   /**
-   * Returns an array of model names created on this instance of Mongoose.
-   * Does not include names of models created using connection.model().
+   * Removes the model named `name` from the default connection on this instance
+   * of Mongoose. You can use this function to clean up any models you created
+   * in your tests to prevent OverwriteModelErrors.
+   */
+  export function deleteModel(name: string | RegExp): Connection;
+
+  /**
+   * Returns an array of model names created on the default connection for this
+   * instance of Mongoose. Does not include names of models created
+   * on additional connections that were created with `createConnection()`.
    */
   export function modelNames(): string[];
 
@@ -443,6 +529,20 @@ declare module "mongoose" {
     useFindAndModify?: boolean;
     /** Flag for using new Server Discovery and Monitoring engine instead of current (deprecated) one */
     useUnifiedTopology?: boolean;
+    /**
+     * With useUnifiedTopology, the MongoDB driver will try to find a server to send any given operation to,
+     * and keep retrying for serverSelectionTimeoutMS milliseconds.
+     * If not set, the MongoDB driver defaults to using 30000 (30 seconds).
+     */
+    serverSelectionTimeoutMS?: number;
+    /**
+     * With useUnifiedTopology, the MongoDB driver sends a heartbeat every heartbeatFrequencyMS to check on the status of the connection.
+     * A heartbeat is subject to serverSelectionTimeoutMS, so the MongoDB driver will retry failed heartbeats for up to 30 seconds by default.
+     * Mongoose only emits a 'disconnected' event after a heartbeat has failed,
+     * so you may want to decrease this setting to reduce the time between when your server goes down and when Mongoose emits 'disconnected'.
+     * We recommend you do not set this setting below 1000, too many heartbeats can lead to performance degradation.
+     */
+    heartbeatFrequencyMS?: number;
 
     // Legacy properties - passed to the connection server instance(s)
     mongos?: any;
@@ -473,6 +573,12 @@ declare module "mongoose" {
     getIndexes(): any;
   }
 
+  interface ConnectionUseDbOptions {
+    /**
+     * If true, cache results so calling `useDb()` multiple times with the same name only creates 1 connection object.
+     */
+    useCache?: boolean;
+  }
   /*
    * section drivers/node-mongodb-native/connection.js
    * http://mongoosejs.com/docs/api.html#drivers-node-mongodb-native-connection-js
@@ -481,9 +587,10 @@ declare module "mongoose" {
     /**
      * Switches to a different database using the same connection pool.
      * @param name The database name
+     * @param options Additional options
      * @returns New Connection Object
      */
-    useDb(name: string): Connection;
+    useDb(name: string, options?: ConnectionUseDbOptions): Connection;
 
     startSession(options?: mongodb.SessionOptions, cb?: (err: any, session: mongodb.ClientSession) => void): Promise<mongodb.ClientSession>;
 
@@ -764,6 +871,11 @@ declare module "mongoose" {
     set(fn: Function): this;
   }
 
+  interface HookOptions {
+    document?: boolean;
+    query?: boolean;
+  }
+
   /*
    * section schema.js
    * http://mongoosejs.com/docs/api.html#schema-js
@@ -868,9 +980,21 @@ declare module "mongoose" {
       docs: T[], next: (err?: NativeError) => Promise<any>
     ) => void): this;
 
+    post<T extends Document>(method: 'remove' | 'deleteOne', { document, query }: HookOptions, fn: (
+      doc: T
+    ) => void): this;
+
     post<T extends Document>(method: string | RegExp, fn: (
       doc: T, next: (err?: NativeError) => void
     ) => void): this;
+
+    post<T extends Document>(method: string | RegExp, fn: (
+      docs: T[], next: (err?: NativeError) => void
+    ) => void): this;
+
+    post<T extends Document>(method: string | RegExp, fn: (
+      docs: T[], next: (err?: NativeError) => void
+    ) => Promise<void>): this;
 
     post<T extends Document>(method: string | RegExp, fn: (
       error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
@@ -1075,8 +1199,10 @@ declare module "mongoose" {
 
     /** defaults to null */
     shardKey?: object;
+    /** no default */
+    strictQuery?: boolean;
     /** defaults to true */
-    strict?: boolean | 'throw';
+    strict?: boolean | "throw";
     /** no default */
     toJSON?: DocumentToObjectOptions;
     /** no default */
@@ -1126,6 +1252,7 @@ declare module "mongoose" {
   interface SchemaTimestampsConfig {
     createdAt?: boolean | string;
     updatedAt?: boolean | string;
+    currentTime?: () => (Date | number);
   }
 
   /*
@@ -1846,6 +1973,8 @@ declare module "mongoose" {
      */
     all(val: number): this;
     all(path: string, val: number): this;
+    all(val: any[]): this;
+    all(path: string, val: any[]): this;
 
     /**
      * Specifies arguments for a $and condition.
@@ -1997,6 +2126,12 @@ declare module "mongoose" {
     findOne(callback?: (err: any, res: DocType | null) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
     findOne(criteria: FilterQuery<DocType>,
       callback?: (err: any, res: DocType | null) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
+    findOne(criteria: FilterQuery<DocType>, projection: any,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
+    findOne(criteria: FilterQuery<DocType>, projection: any, options: { lean: true } & Omit<QueryFindBaseOptions, 'lean'>,
+      callback?: (err: any, res: T | null) => void): Query<DocumentDefinition<DocType>> & QueryHelpers;
+    findOne(criteria: FilterQuery<DocType>, projection: any, options: QueryFindBaseOptions,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
 
     /**
      * Issues a mongodb findAndModify remove command.
@@ -2038,6 +2173,10 @@ declare module "mongoose" {
     findOneAndUpdate(query: FilterQuery<DocType>, update: UpdateQuery<DocType>, options: { rawResult: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<DocType | null>, res: any) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<DocType | null>> & QueryHelpers;
+    findOneAndUpdate(query: FilterQuery<DocType>, update: UpdateQuery<DocType>,
+      options: { lean: true } & Omit<QueryFindOneAndUpdateOptions, 'lean'>,
+      callback?: (err: any, doc: DocumentDefinition<DocType>, res: any) => void)
+        : Query<DocumentDefinition<DocType>> & QueryHelpers;
     findOneAndUpdate(query: FilterQuery<DocType>, update: UpdateQuery<DocType>, options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType, QueryHelpers> & QueryHelpers;
 
@@ -2057,8 +2196,15 @@ declare module "mongoose" {
     /**
      * Returns the current query conditions as a JSON object.
      * @returns current query conditions
+     * @deprecated You should use getFilter() instead of getQuery() where possible. getQuery() will likely be deprecated in a future release.
      */
     getQuery(): any;
+
+    /**
+     * Returns the current query filter (also known as conditions) as a POJO.
+     * @returns current query filter
+     */
+    getFilter(): any;
 
     /**
      * Returns the current update operations as a JSON object.
@@ -2212,7 +2358,7 @@ declare module "mongoose" {
      *
      * @param err optional error to throw if no docs match `filter`
      */
-    orFail(err?: Error | (() => Error)): this;
+    orFail(err?: Error | (() => Error)): DocumentQuery<NonNullable<T>, DocType, QueryHelpers>;
 
     /** Specifies a $polygon condition */
     polygon(...coordinatePairs: number[][]): this;
@@ -2371,6 +2517,32 @@ declare module "mongoose" {
   //   replace it if one is ever created
   class mquery { }
 
+  // https://mongoosejs.com/docs/api.html#query_Query-setOptions
+  interface QueryFindBaseOptions {
+    /** Sets a default collation for every query and aggregation. */
+    collation?: CollationOptions;
+    explain?: any;
+    lean?: boolean;
+    populate?: string | ModelPopulateOptions;
+    /** like select, it determines which fields to return */
+    projection?: any;
+    /** use client session for transaction */
+    session?: ClientSession;
+  }
+
+  interface QueryFindOptions extends QueryFindBaseOptions {
+    batchSize?: number;
+    comment?: any;
+    hint?: any;
+    limit?: number;
+    maxscan?: number;
+    readPreference?: mongodb.ReadPreferenceMode;
+    skip?: number;
+    snapshot?: any;
+    sort?: any;
+    tailable?: any;
+  }
+
   interface QueryFindOneAndRemoveOptions {
     /**
       * if multiple docs are found by the conditions, sets the sort order to choose
@@ -2386,7 +2558,7 @@ declare module "mongoose" {
     /** if true, returns the raw result from the MongoDB driver */
     rawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
-    strict?: boolean|string;
+    strict?: boolean | "throw";
     /** use client session for transaction */
     session?: ClientSession;
   }
@@ -2432,6 +2604,10 @@ declare module "mongoose" {
      * Does nothing if schema-level timestamps are not set.
      */
     timestamps?:boolean;
+    /**
+     * True by default. Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify().
+     */
+    useFindAndModify?:boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
@@ -3004,6 +3180,21 @@ declare module "mongoose" {
    */
   export var Model: Model<any>;
   interface Model<T extends Document, QueryHelpers = {}> extends NodeJS.EventEmitter, ModelProperties {
+    /** Base Mongoose instance the model uses. */
+    base: typeof mongoose;
+
+    /**
+     * If this is a discriminator model, baseModelName is the
+     * name of the base model.
+     */
+    baseModelName: string | undefined;
+
+    /** Registered discriminators for this model. */
+    discriminators: { [name: string]: Model<any> } | undefined;
+
+    /** The name of the model */
+    modelName: string;
+
     /**
      * Model constructor
      * Provides the interface to MongoDB collections as well as creates document instances.
@@ -3052,19 +3243,6 @@ declare module "mongoose" {
     bulkWrite(writes: any[], cb?: (err: any, res: mongodb.BulkWriteOpResultObject) => void): Promise<mongodb.BulkWriteOpResultObject>;
     bulkWrite(writes: any[], options?: mongodb.CollectionBulkWriteOptions): Promise<mongodb.BulkWriteOpResultObject>;
     bulkWrite(writes: any[], options: mongodb.CollectionBulkWriteOptions, cb: (err: any, res: mongodb.BulkWriteOpResultObject) => void): void;
-
-    /**
-     * Finds a single document by its _id field. findById(id) is almost*
-     * equivalent to findOne({ _id: id }). findById() triggers findOne hooks.
-     * @param id value of _id to query by
-     * @param projection optional fields to return
-     */
-    findById(id: any | string | number,
-      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
-    findById(id: any | string | number, projection: any,
-      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
-    findById(id: any | string | number, projection: any, options: any,
-      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
     model<U extends Document>(name: string): Model<U>;
 
@@ -3119,11 +3297,11 @@ declare module "mongoose" {
      * does new MyModel(doc).save() for every doc in docs.
      * Triggers the save() hook.
      */
-    create(docs: any[], callback?: (err: any, res: T[]) => void): Promise<T[]>;
-    create(docs: any[], options?: SaveOptions, callback?: (err: any, res: T[]) => void): Promise<T[]>;
-    create(...docs: any[]): Promise<T>;
-    create(...docsWithCallback: any[]): Promise<T>;
-
+    create<TCreate = T>(doc: CreateQuery<TCreate>, options?: SaveOptions): Promise<T>;
+    create<TCreate = T>(doc: CreateQuery<TCreate>, callback?: (err: any, res: T[]) => void): Promise<T>;
+    create<TCreate = T>(docs: CreateQuery<TCreate>[], callback?: (err: any, res: T[]) => void): Promise<T[]>;
+    create<TCreate = T>(docs: CreateQuery<TCreate>[], options?: SaveOptions, callback?: (err: any, res: T[]) => void): Promise<T[]>;
+    create<TCreate = T>(...docs: CreateQuery<TCreate>[]): Promise<T>;
     /**
      * Create the collection for this model. By default, if no indexes are specified, mongoose will not create the
      * collection for the model until any documents are created. Use this method to create the collection explicitly.
@@ -3202,10 +3380,25 @@ declare module "mongoose" {
     find(conditions: FilterQuery<T>, callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T, QueryHelpers> & QueryHelpers;
     find(conditions: FilterQuery<T>, projection?: any | null,
       callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T, QueryHelpers> & QueryHelpers;
-    find(conditions: FilterQuery<T>, projection?: any | null, options?: any | null,
+    find(conditions: FilterQuery<T>, projection?: any | null, options?: { lean: true } & Omit<QueryFindOptions, 'lean'>,
+      callback?: (err: any, res: T[]) => void): Query<DocumentDefinition<T>[]> & QueryHelpers;
+    find(conditions: FilterQuery<T>, projection?: any | null, options?: QueryFindOptions,
       callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T, QueryHelpers> & QueryHelpers;
 
-
+    /**
+     * Finds a single document by its _id field. findById(id) is almost*
+     * equivalent to findOne({ _id: id }). findById() triggers findOne hooks.
+     * @param id value of _id to query by
+     * @param projection optional fields to return
+     */
+    findById(id: any | string | number,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
+    findById(id: any | string | number, projection: any,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
+    findById(id: any | string | number, projection: any, options: { lean: true } & Omit<QueryFindBaseOptions, 'lean'>,
+      callback?: (err: any, res: T | null) => void): Query<DocumentDefinition<T>> & QueryHelpers;
+    findById(id: any | string | number, projection: any, options: QueryFindBaseOptions,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
     /**
      * Issue a mongodb findAndModify remove command by a document's _id field.
@@ -3231,7 +3424,7 @@ declare module "mongoose" {
 
      /**
      * Issue a mongodb findOneAndDelete command by a document's _id field.
-     * findByIdAndDelete(id, ...) is equivalent to findByIdAndDelete({ _id: id }, ...).
+     * findByIdAndDelete(id, ...) is equivalent to findOneAndDelete({ _id: id }, ...).
      * Finds a matching document, removes it, passing the found document (if any) to the callback.
      * Executes immediately if callback is passed, else a Query object is returned.
      *
@@ -3271,6 +3464,10 @@ declare module "mongoose" {
       callback?: (err: any, res: mongodb.FindAndModifyWriteOpResultObject<T | null>) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
     findByIdAndUpdate(id: any | number | string, update: UpdateQuery<T>,
+      options: { lean: true } & Omit<QueryFindOneAndUpdateOptions, 'lean'>,
+      callback?: (err: any, res: DocumentDefinition<T>) => void)
+        : Query<DocumentDefinition<T>> & QueryHelpers;
+    findByIdAndUpdate(id: any | number | string, update: UpdateQuery<T>,
       options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
@@ -3283,7 +3480,9 @@ declare module "mongoose" {
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
     findOne(conditions: FilterQuery<T>, projection: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
-    findOne(conditions: FilterQuery<T>, projection: any, options: any,
+    findOne(conditions: FilterQuery<T>, projection: any, options: { lean: true } & Omit<QueryFindBaseOptions, 'lean'>,
+      callback?: (err: any, res: T | null) => void): Query<DocumentDefinition<T>> & QueryHelpers;
+    findOne(conditions: FilterQuery<T>, projection: any, options: QueryFindBaseOptions,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
     /**
@@ -3327,8 +3526,8 @@ declare module "mongoose" {
      * and returns the found document (if any) to the callback. The query executes immediately
      * if callback is passed else a Query object is returned.
      *
-+    * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than the deprecated findAndModify().
-+    * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
+     * If mongoose option 'useFindAndModify': set to false it uses native findOneAndUpdate() rather than the deprecated findAndModify().
+     * https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
      */
     findOneAndUpdate(): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
     findOneAndUpdate(conditions: FilterQuery<T>, update: UpdateQuery<T>,
@@ -3344,6 +3543,9 @@ declare module "mongoose" {
       options: { rawResult: true } & QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: mongodb.FindAndModifyWriteOpResultObject<T | null>, res: any) => void)
         : Query<mongodb.FindAndModifyWriteOpResultObject<T | null>> & QueryHelpers;
+    findOneAndUpdate(conditions: FilterQuery<T>, update: UpdateQuery<T>,
+      options: { lean: true } & Omit<QueryFindOneAndUpdateOptions, 'lean'>,
+      callback?: (err: any, doc: DocumentDefinition<T>, res: any) => void): Query<DocumentDefinition<T>> & QueryHelpers;
     findOneAndUpdate(conditions: FilterQuery<T>, update: UpdateQuery<T>,
       options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
@@ -3479,6 +3681,12 @@ declare module "mongoose" {
     remove(fn?: (err: any, product: this) => void): Promise<this>;
 
     /**
+     * Deletes the document from the db.
+     * @param fn optional callback
+     */
+    deleteOne(fn?: (err: any, product: this) => void): Promise<this>;
+
+    /**
      * Saves this document.
      * @param options options optional options
      * @param options.safe overrides schema's safe option
@@ -3496,9 +3704,15 @@ declare module "mongoose" {
   }
 
   interface SaveOptions {
+    checkKeys?: boolean;
     safe?: boolean | WriteConcern;
     validateBeforeSave?: boolean;
+    validateModifiedOnly?: boolean;
+    j?: boolean;
     session?: ClientSession;
+    timestamps?: boolean;
+    w?: number | string;
+    wtimeout?: number;
   }
 
   interface WriteConcern {
@@ -3512,26 +3726,11 @@ declare module "mongoose" {
   }
 
   interface ModelProperties {
-    /** Base Mongoose instance the model uses. */
-    base: typeof mongoose;
-
-    /**
-     * If this is a discriminator model, baseModelName is the
-     * name of the base model.
-     */
-    baseModelName: string | undefined;
-
     /** Collection the model uses. */
     collection: Collection;
 
     /** Connection the model uses. */
     db: Connection;
-
-    /** Registered discriminators for this model. */
-    discriminators: any;
-
-    /** The name of the model */
-    modelName: string;
 
     /** Schema the model uses. */
     schema: Schema;
@@ -3581,7 +3780,7 @@ declare module "mongoose" {
      */
     setDefaultsOnInsert?: boolean;
     /** overrides the strict option for this update */
-    strict?: boolean;
+    strict?: boolean | "throw";
     /** disables update-only mode, allowing you to overwrite the doc (false) */
     overwrite?: boolean;
     /**

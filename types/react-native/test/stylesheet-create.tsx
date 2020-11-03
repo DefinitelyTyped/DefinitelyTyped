@@ -12,4 +12,13 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
+    transforms: {
+        transform: [
+            { matrix: [0, 1, -1, 0, 0, 0] },
+            { skewX: '40deg' },
+            { translateX: 40 },
+            { translateY: 40 },
+            { rotate: '30deg' },
+        ],
+    },
 });

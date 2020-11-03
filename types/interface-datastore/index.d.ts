@@ -1,8 +1,9 @@
-// Type definitions for interface-datastore 0.8
+// Type definitions for interface-datastore 1.0
 // Project: https://github.com/ipfs/interface-datastore#readme
-// Definitions by: Carson Farmer <https://github.com/me>
+// Definitions by: Carson Farmer <https://github.com/carsonfarmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
+/// <reference lib="dom" />
 // TypeScript Version: 3.6
 
 // From https://github.com/IndigoUnited/js-err-code
@@ -17,6 +18,96 @@ export namespace Errors {
     function dbDeleteFailedError(error: Error): ErrCode;
     function dbWriteFailedError(error: Error): ErrCode;
     function notFoundError(error: Error): ErrCode;
+    function abortedError(error: Error): ErrCode;
+}
+
+/**
+ * Key/Value pair.
+ */
+export interface Pair<Value = Buffer> {
+    key: Key;
+    value: Value;
+}
+
+/**
+ * Options for async operations.
+ */
+export interface Options {
+    signal: AbortSignal;
+}
+
+/**
+ * Base Interface Datastore Adapter.
+ */
+export abstract class Adapter<Value = Buffer> {
+    abstract open(): Promise<void>;
+    abstract close(): Promise<void>;
+    /**
+     * Store the passed value under the passed key
+     *
+     * @param key
+     * @param val
+     * @param options
+     */
+    abstract put(key: Key, val: Value, options?: Options): Promise<void>;
+    /**
+     * Store the given key/value pairs
+     *
+     * @param source
+     * @param options
+     */
+    putMany(
+        source: AsyncIterable<Pair<Value>> | Iterable<Pair<Value>>,
+        options?: Options,
+    ): AsyncIterableIterator<Pair<Value>>;
+
+    /**
+     * Retrieve the value for the passed key
+     *
+     * @param key
+     * @param options
+     */
+    abstract get(key: Key, options?: Options): Promise<Value>;
+    /**
+     * Retrieve values for the passed keys
+     *
+     * @param source
+     * @param options
+     */
+    getMany(source: AsyncIterable<Key> | Iterable<Key>, options?: Options): AsyncIterableIterator<Value>;
+
+    /**
+     * Check for the existence of a value for the passed key
+     *
+     * @param key
+     */
+    abstract has(key: Key): Promise<boolean>;
+
+    /**
+     * Remove the record for the passed key
+     *
+     * @param key
+     * @param options
+     */
+    abstract delete(key: Key, options?: Options): Promise<void>;
+    /**
+     * Remove values for the passed keys
+     *
+     * @param source
+     * @param options
+     */
+    deleteMany(source: AsyncIterable<Key> | Iterable<Key>, options?: Options): AsyncIterableIterator<Key>;
+    /**
+     * Create a new batch object.
+     */
+    batch(): Batch<Value>;
+    /**
+     * Query the store.
+     *
+     * @param q
+     * @param options
+     */
+    query(q: Query<Value>, options?: Options): AsyncIterable<Pair<Value>>;
 }
 
 export namespace utils {
@@ -28,32 +119,26 @@ export namespace utils {
     function tmpdir(): string;
 }
 
-export class MemoryDatastore<Value = Buffer> implements Datastore<Value> {
+export class MemoryDatastore<Value = Buffer> extends Adapter<Value> {
     constructor();
     open(): Promise<void>;
+    close(): Promise<void>;
     put(key: Key, val: Value): Promise<void>;
     get(key: Key): Promise<Value>;
     has(key: Key): Promise<boolean>;
     delete(key: Key): Promise<void>;
-    batch(): Batch<Value>;
-    query(q: Query<Value>): AsyncIterable<Result<Value>>;
-    close(): Promise<void>;
+    _all(): AsyncIterable<Pair<Value>>;
 }
 
 export interface Batch<Value = Buffer> {
     put(key: Key, value: Value): void;
     delete(key: Key): void;
-    commit(): Promise<void>;
-}
-
-export interface Result<Value = Buffer> {
-    key: Key;
-    value: Value;
+    commit(options?: Options): Promise<void>;
 }
 
 export namespace Query {
-    type Filter<T = Buffer> = (item: Result<T>) => boolean;
-    type Order<T = Buffer> = (items: Array<Result<T>>) => Array<Result<T>>;
+    type Filter<Value = Buffer> = (item: Pair<Value>) => boolean;
+    type Order<Value = Buffer> = (items: Array<Pair<Value>>) => Array<Pair<Value>>;
 }
 
 export interface Query<Value = Buffer> {
@@ -242,13 +327,4 @@ export class Key {
     static isKey(key: any): boolean;
 }
 
-export interface Datastore<Value = Buffer> {
-    open(): Promise<void>;
-    put(key: Key, val: Value): Promise<void>;
-    get(key: Key): Promise<Value>;
-    has(key: Key): Promise<boolean>;
-    delete(key: Key): Promise<void>;
-    batch(): Batch<Value>;
-    query(q: Query<Value>): AsyncIterable<Result<Value>>;
-    close(): Promise<void>;
-}
+export type Datastore<Value = Buffer> = Adapter<Value>;

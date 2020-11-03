@@ -14,7 +14,7 @@
             "../"
         ],
         "paths": {
-            "@reach/alert": ["reach__alert"]
+            "@reach/*": ["reach__*"]
         },
         "types": [],
         "noEmit": true,

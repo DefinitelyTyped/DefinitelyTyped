@@ -5,22 +5,22 @@ import simpleParser = mailparser_mod.simpleParser;
 var mailparser = new MailParser();
 
 mailparser.on('headers', function(headers){
-	console.log('Subject:', headers.get('subject'));
+    console.log('Subject:', headers.get('subject'));
 });
 
 // Attachments
 mailparser.on('data', data => {
-	if (data.type === 'attachment'){
-		console.log(data.filename);
-		data.content.pipe(process.stdout);
-		data.content.on('end', () => data.release());
-	}
+    if (data.type === 'attachment'){
+        console.log(data.filename);
+        data.content.pipe(process.stdout);
+        data.content.on('end', () => data.release());
+    }
 });
 
 mailparser.on('data', data => {
-	if (data.type === 'text'){
-		console.log(data.html);
-	}
+    if (data.type === 'text'){
+        console.log(data.html);
+    }
 });
 
 // Pipe file to MailParser
@@ -48,14 +48,14 @@ simpleParser(sourceBuffer, { keepCidLinks: true }).then(mail => mail.html).catch
 simpleParser(sourceStream, { keepCidLinks: true }).then(mail => mail.html).catch(err => err);
 
 simpleParser(sourceString, (err, mail) => {
-	console.log(mail.headers.get('subject'));
-	console.log(mail.subject);
+    console.log(mail.headers.get('subject'));
+    console.log(mail.subject);
 
-	// Attachments
-	mail.attachments.forEach(attachment => console.log(attachment.filename));
+    // Attachments
+    mail.attachments.forEach(attachment => console.log(attachment.filename));
 
-	// Text
-	console.log(mail.text);
-	console.log(mail.html);
-	console.log(mail.textAsHtml);
+    // Text
+    console.log(mail.text);
+    console.log(mail.html);
+    console.log(mail.textAsHtml);
 });

@@ -15,6 +15,8 @@
 //                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
 //                 Evan Broder <https://github.com/ebroder>
 //                 Radosław Miernik <https://github.com/radekmie>
+//                 Wojciech Adamek <https://github.com/wadamek65>
+//                 Maciej Stasieluk <https://github.com/MacRusher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
@@ -32,6 +34,7 @@
 /// <reference path="./globals/ddp.d.ts" />
 /// <reference path="./ejson.d.ts" />
 /// <reference path="./globals/ejson.d.ts" />
+/// <reference path="./fetch.d.ts" />
 /// <reference path="./email.d.ts" />
 /// <reference path="./globals/email.d.ts" />
 /// <reference path="./http.d.ts" />
@@ -40,6 +43,7 @@
 /// <reference path="./globals/meteor.d.ts" />
 /// <reference path="./mongo.d.ts" />
 /// <reference path="./globals/mongo.d.ts" />
+/// <reference path="./promise.d.ts" />
 /// <reference path="./random.d.ts" />
 /// <reference path="./globals/random.d.ts" />
 /// <reference path="./reactive-dict.d.ts" />

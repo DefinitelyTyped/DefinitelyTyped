@@ -1,9 +1,9 @@
-// Type definitions for oracledb 4.2
+// Type definitions for oracledb 5.0
 // Project: https://github.com/oracle/node-oracledb
 // Definitions by: Richard Natal <https://github.com/Bigous>
 //                 Connor Fitzgerald <https://github.com/connorjayfitzgerald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 
@@ -108,6 +108,8 @@ declare namespace OracleDB {
     const SYSKM: number;
     /** Constant for getConnection() privilege properties. */
     const SYSOPER: number;
+    /** Constant for getConnection() privilege properties. */
+    const SYSPRELIM: number;
     /** Constant for getConnection() privilege properties. */
     const SYSRAC: number;
 
@@ -247,6 +249,19 @@ declare namespace OracleDB {
 
     /** Constant for the sodaDatabase.createCollection() mode property. */
     const SODA_COLL_MAP_MODE: number;
+
+    /** Constant for shutting down the Oracle database with oracledb.shutdown() and connection.shutdown() */
+    const SHUTDOWN_MODE_ABORT: number;
+    /** Constant for shutting down the Oracle database with oracledb.shutdown() and connection.shutdown() */
+    const SHUTDOWN_MODE_DEFAULT: number;
+    /** Constant for shutting down the Oracle database with oracledb.shutdown() and connection.shutdown() */
+    const SHUTDOWN_MODE_FINAL: number;
+    /** Constant for shutting down the Oracle database with oracledb.shutdown() and connection.shutdown() */
+    const SHUTDOWN_MODE_IMMEDIATE: number;
+    /** Constant for shutting down the Oracle database with oracledb.shutdown() and connection.shutdown() */
+    const SHUTDOWN_MODE_TRANSACTIONAL: number;
+    /** Constant for shutting down the Oracle database with oracledb.shutdown() and connection.shutdown() */
+    const SHUTDOWN_MODE_TRANSACTIONAL_LOCAL: number;
 
     /**
      * If true, the transaction in the current connection is automatically committed at the end of statement execution.
@@ -476,16 +491,29 @@ declare namespace OracleDB {
      */
     let poolTimeout: number;
     /**
-     * Node-oracledb supports Promises on all methods. The standard Promise library is used.
-     *
-     * This property can be set to override or disable the Promise implementation.
-     *
-     * Promises can be disabled by setting this property to null.
-     *
-     * Example:
-     *
-     *      const myLib = require('myFavouritePromiseImplementation');
-     *      oracledb.Promise = myLib;
+     * This is a query tuning option to set the number of additional rows the underlying Oracle Client library
+     * fetches during the internal initial statement execution phase of a query. The prefetch size does not affect when, or how many,
+     * rows are returned by node-oracledb to the application.
+     * 
+     * The prefetchRows attribute can be used in conjunction with oracledb.fetchArraySize to tune query performance, memory use,
+     * and to reduce the number of round-trip calls needed to return query results.
+     * 
+     * The prefetchRows value is ignored in some cases, such as when the query involves a LOB.
+     * 
+     * This property may be overridden in an connection.execute() call, which is preferred usage if you need to change the value.
+     * 
+     * This attribute is not used in node-oracledb version 2, 3 or 4. In those versions use only oracledb.fetchArraySize instead.
+     * 
+     * @default 2
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#rowfetching
+     */
+    let prefetchRows: number;
+    /**
+     * The oracledb.Promise property is no longer used in node-oracledb 5 and has no effect.
+     * 
+     * Node-oracledb supports Promises on all methods. The native Promise library is used.
+     * 
+     * @deprecated 5.0
      */
     let Promise: Promise<any>;
     /**
@@ -498,6 +526,26 @@ declare namespace OracleDB {
      * @since 1.7
      */
     let queueTimeout: number;
+    /**
+     * The maximum number of pending pool.getConnection() calls that can be queued.
+     * 
+     * When the number of pool.getConnection() calls that have been queued waiting for an available connection reaches queueMax,
+     * then any future pool.getConnection() calls will immediately return an error and will not be queued.
+     * 
+     * If queueMax is -1, then the queue length is not limited.
+     * 
+     * This property may be overridden when creating a connection pool.
+     * 
+     * @default 500
+     */
+    let queueMax: number;
+    /**
+     * This property was removed in node-oracledb 3.0 and queuing was always enabled.
+     * In node-oracledb 5.0, set queueMax to 0 to disable queuing.
+     * 
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#connpoolqueue
+     */
+    let queueRequests: number;
     /**
      * The number of statements that are cached in the statement cache of each connection.
      *
@@ -592,7 +640,7 @@ declare namespace OracleDB {
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
-    type BindParameters = Record<string, BindParameter | string | number | Date | DBObject | Buffer | null | undefined> | BindParameter[] | any[];
+    type BindParameters = Record<string, BindParameter | string | number | Date | DBObject_IN<any> | Buffer | null | undefined> | BindParameter[] | any[];
 
     interface CloseConnectionOptions {
         /**
@@ -925,21 +973,21 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
          * @since 4.0
          */
-        getDbObjectClass(className: string): Promise<DBObjectClass>;
-        getDbObjectClass(
+        getDbObjectClass<T>(className: string): Promise<DBObjectClass<T>>;
+        getDbObjectClass<T>(
             className: string,
-            callback: (error: DBError, dbObject: DBObjectClass) => void
+            callback: (error: DBError, dbObject: DBObjectClass<T>) => void
         ): void;
 
-        getQueue(name: string, options?: GetAdvancedQueueOptions): Promise<AdvancedQueue>;
-        getQueue(
+        getQueue<T>(name: string, options?: GetAdvancedQueueOptions): Promise<AdvancedQueue<T>>;
+        getQueue<T>(
             name: string,
-            callback: (error: DBError, queue: AdvancedQueue) => void
+            callback: (error: DBError, queue: AdvancedQueue<T>) => void
         ): void;
-        getQueue(
+        getQueue<T>(
             name: string,
             options: GetAdvancedQueueOptions,
-            callback: (error: DBError, queue: AdvancedQueue) => void
+            callback: (error: DBError, queue: AdvancedQueue<T>) => void
         ): void;
 
         /**
@@ -1034,6 +1082,40 @@ declare namespace OracleDB {
          */
         rollback(): Promise<void>;
         rollback(callback: (error: DBError) => void): void;
+
+        /**
+         * Used to shut down a database instance. This is the flexible version of oracledb.shutdown(), allowing more control over behavior.
+         * 
+         * This method must be called twice. The first call blocks new connections. SQL statements such as await ALTER DATABASE CLOSE NORMAL
+         * and ALTER DATABASE DISMOUNT can then be used to close and unmount the database instance. Alternatively database administration can
+         * be performed. Finally, a second call connection.shutdown(oracledb.SHUTDOWN_MODE_FINAL) is required to fully close the database instance.
+         * 
+         * If the initial connection.shutdown() shutdownMode mode oracledb.SHUTDOWN_MODE_ABORT is used, then connection.shutdown() does not need to be called a second time.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#startupshutdown
+         * @since 5.0
+         */
+        shutdown(mode?: number): Promise<void>;
+        shutdown(mode: number, cb: (err: Error) => void): void;
+        shutdown(cb: (err: Error) => void): void;
+
+        /**
+         * Used to start up a database instance. This is the flexible version of oracledb.startup(), allowing more control over behavior.
+         * 
+         * The connection must be a standalone connection, not a pooled connection.
+         * 
+         * This function starts the database in an unmounted state. SQL statements such as ALTER DATABASE MOUNT and ALTER DATABASE OPEN
+         * can then be executed to completely open the database instance. Database recovery commands could also be executed at this time.
+         * 
+         * The connection used must have the privilege set to oracledb.SYSPRELIM, along with either oracledb.SYSDBA or oracledb.SYSOPER.
+         * For example oracledb.SYSDBA | oracledb.SYSPRELIM.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#startupshutdown
+         * @since 5.0
+         */
+        startup(opts?: StartupOptions): Promise<void>;
+        startup(opts: StartupOptions, cb: (err: Error) => void): void;
+        startup(cb: (err: Error) => void): void;
 
         /**
          * Register a JavaScript callback method to be invoked when data is changed in the database by any committed transaction,
@@ -1207,11 +1289,11 @@ declare namespace OracleDB {
     /**
      * Result of connection.getStatementInfo().
      */
-    interface StatementInfo {
+    interface StatementInfo<T = {}> {
         /** Array of strings corresponding to the unique names of the bind variables used in the SQL statement. */
         bindNames?: string[];
         /** Extended metadata properties. */
-        metaData?: Array<Metadata>;
+        metaData?: Array<Metadata<T>>;
         /** One of the SQL Statement Type Constants. */
         statementType?: number;
     }
@@ -1424,6 +1506,23 @@ declare namespace OracleDB {
          */
         outFormat?: number;
         /**
+         * This is a query tuning option to set the number of additional rows the underlying Oracle Client library fetches during
+         * the internal initial statement execution phase of a query. The prefetch size does not affect when, or how many,
+         * rows are returned by node-oracledb to the application.
+         * 
+         * The prefetchRows attribute can be used in conjunction with oracledb.fetchArraySize to tune query performance, memory use,
+         * and to reduce the number of round-trip calls needed to return query results.
+         * 
+         * The prefetchRows value is ignored in some cases, such as when the query involves a LOB.
+         * 
+         * This attribute is not used in node-oracledb version 2, 3 or 4. In those versions use only oracledb.fetchArraySize instead.
+         * 
+         * @default 2
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#rowfetching
+         * @since 5.0
+         */
+        prefetchRows?: number;
+        /**
          * Determines whether query results should be returned as a ResultSet object or directly.
          *
          * @default false
@@ -1572,7 +1671,7 @@ declare namespace OracleDB {
     /**
      * Included in the result of a query execution to describe details of the columns involved.
      */
-    interface Metadata {
+    interface Metadata<T> {
         /**
          * The column name follows Oracle’s standard name-casing rules. It will commonly be uppercase,
          * since most applications create tables using unquoted, case-insensitive names.
@@ -1593,7 +1692,7 @@ declare namespace OracleDB {
         /**
          * The class associated with the database type. This is only set if the database type is an object type.
          */
-        dbTypeClass?: DBObjectClass;
+        dbTypeClass?: DBObjectClass<T>;
         /**
          * Name of the database type, such as “NUMBER” or “VARCHAR2”. For object types, this will be the object name.
          */
@@ -1788,7 +1887,7 @@ declare namespace OracleDB {
      */
     interface GetPooledConnectionOptions {
         /** Database user to retrieve the connection for. */
-        user: string;
+        user?: string;
         /** Password of the specified user. */
         password?: string;
         /** Optionally set the connection tag. */
@@ -1908,6 +2007,26 @@ declare namespace OracleDB {
          */
         poolTimeout?: number;
         /**
+         * The maximum number of pending pool.getConnection() calls that can be queued.
+         * 
+         * When the number of pool.getConnection() calls that have been queued waiting for an available connection reaches queueMax,
+         * then any future pool.getConnection() calls will immediately return an error and will not be queued.
+         * 
+         * If queueMax is -1, then the queue length is not limited.
+         * 
+         * This property may be overridden when creating a connection pool.
+         * 
+         * @default 500
+         */
+        queueMax?: number;
+        /**
+         * This property was removed in node-oracledb 3.0 and queuing was always enabled.
+         * In node-oracledb 5.0, set queueMax to 0 to disable queuing.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#connpoolqueue
+         */
+        queueRequests?: number;
+        /**
          * The number of milliseconds after which connection requests waiting in the connection request queue are terminated.
          * If queueTimeout is set to 0, then queued connection requests are never terminated.
          * This optional property overrides the oracledb.queueTimeout property.
@@ -1962,7 +2081,7 @@ declare namespace OracleDB {
      * @see https://oracle.github.io/node-oracledb/doc/api.html#aq
      * @since 4.0
      */
-    interface AdvancedQueue {
+    interface AdvancedQueue<T> {
         /** Contains the name of the queue specified in the connection.getQueue() call. */
         readonly name: string;
         /** Options to use when dequeuing messages. Attributes can be set before each queue.deqOne() or queue.deqMany(). */
@@ -1976,7 +2095,7 @@ declare namespace OracleDB {
          * 
          * This is defined only if payloadType has the value oracledb.DB_TYPE_OBJECT.
          */
-        readonly payloadTypeClass?: DBObjectClass;
+        readonly payloadTypeClass?: DBObjectClass<T>;
         /** Either the string “RAW” or the name of the Oracle Database object type identified when the queue was created. */
         readonly payloadTypeName: string;
 
@@ -1985,14 +2104,14 @@ declare namespace OracleDB {
          * 
          * @param maxMessages Maximum number of messages to dequeue.
          */
-        deqMany(maxMessages: number): Promise<AdvancedQueueMessage[]>;
-        deqMany(maxMessages: number, callback: (error: DBError, messages: AdvancedQueueMessage[]) => void): void;
+        deqMany(maxMessages: number): Promise<AdvancedQueueMessage<T>[]>;
+        deqMany(maxMessages: number, callback: (error: DBError, messages: AdvancedQueueMessage<T>[]) => void): void;
 
         /**
          * Dequeues a single message. Depending on the dequeue options, the message may also be returned as undefined if no message is available.
          */
-        deqOne(): Promise<AdvancedQueueMessage | undefined>;
-        deqOne(callback: (error: DBError, message?: AdvancedQueueMessage) => void): void;
+        deqOne(): Promise<AdvancedQueueMessage<T> | undefined>;
+        deqOne(callback: (error: DBError, message?: AdvancedQueueMessage<T>) => void): void;
 
         /**
          * Enqueues multiple messages.
@@ -2003,19 +2122,19 @@ declare namespace OracleDB {
          * 
          * @param messages Messages to enqueue.
          */
-        enqMany(messages: EnqueueMessage[]): Promise<void>;
-        enqMany(messages: EnqueueMessage[], callback: (error: DBError) => void): void;
+        enqMany(messages: EnqueueMessage<T>[]): Promise<void>;
+        enqMany(messages: EnqueueMessage<T>[], callback: (error: DBError) => void): void;
 
         /**
          * Enqueues a single message.
          * 
          * @param message 
          */
-        enqOne(message: EnqueueMessage): Promise<void>;
-        enqOne(message: EnqueueMessage, callback: (error: DBError) => void): void;
+        enqOne(message: EnqueueMessage<T>): Promise<void>;
+        enqOne(message: EnqueueMessage<T>, callback: (error: DBError) => void): void;
     }
 
-    type EnqueueMessage = string | Buffer | DBObject | {
+    type EnqueueMessage<T> = string | Buffer | DBObject_IN<T> | {
         /** Correlation that was used during enqueue. */
         correlation: string;
         /** Number of seconds the message was delayed before it could be dequeued. */
@@ -2027,7 +2146,7 @@ declare namespace OracleDB {
         /** Contains the payload of the message, with type depending on the value of queue.payloadType.
          * Note that enqueued Strings are returned as UTF-8 encoded Buffers.
          */
-        payload: Buffer | DBObject;
+        payload: string | Buffer | DBObject_IN<T>;
         /** Priority of the message when it was enqueued. */
         priority: number;
     }
@@ -2036,13 +2155,29 @@ declare namespace OracleDB {
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
      * @since 4.0
      */
-    interface DBObjectClass { new(data: Record<string, any>): DBObject }
-    
+    interface DBObjectClass<T> { new(data?: T): DBObject_IN<T> }
+
     /**
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
      * @since 4.0
      */
-    class DBObject {
+    type DBObject_IN<T> = {
+        [P in keyof T]: T[P]
+    } & BaseDBObject<T>;
+
+    /**
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
+     * @since 4.0
+     */
+    type DBObject_OUT<T> = {
+        [P in keyof T]: DBObject_OUT<T[P]>
+    } & BaseDBObject<T>;
+
+    /**
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
+     * @since 4.0
+     */
+    interface BaseDBObject<T> {
         /**
          * When dbObject.isCollection is false, this will be an object containing attributes corresponding to the Oracle Database object attributes. 
          */
@@ -2052,11 +2187,11 @@ declare namespace OracleDB {
             /** Type, such as 'VARCHAR2' or 'NUMBER'. */
             typeName: string;
             /** Set if the value of type is a DBObject. */
-            typeClass?: DBObjectClass;
+            typeClass?: DBObjectClass<T>;
         }>;
         /** When dbObject.isCollection is true, this will be one of the DB_TYPE constants. */
         readonly elementType: number;
-        readonly elementTypeClass: DBObjectClass;
+        readonly elementTypeClass: DBObjectClass<T>;
         /** When dbObject.isCollection is true, this will have the name of the element type, such as “VARCHAR2” or “NUMBER”. */
         readonly elementTypeName: string;
         /** The fully qualified name of the Oracle Database object or collection. */
@@ -2070,16 +2205,14 @@ declare namespace OracleDB {
         /** Schema owning the Oracle Database object or collection. */
         readonly schema: string;
 
-        [key: string]: any;
-
         /**
          * Add the given value to the end of the collection.
          */
-        append(value: any): void;	
+        append(value: T): void;
         /**
          * Deletes the value from collection at the given index.
          */
-        deleteElement(index: number): void;	
+        deleteElement(index: number): void;
         /**
          * Return the value associated with the given index.
          */
@@ -2090,8 +2223,8 @@ declare namespace OracleDB {
         getFirstIndex(): number;
         /**
          * Returns a JavaScript array containing the ‘index’ keys.
-         */	
-        getKeys(): string[];
+         */
+        getKeys(): T extends string | number ? number[] : (keyof T)[]
         /**
          * To obtain the last index for later use to obtain a value.
          */
@@ -2111,11 +2244,11 @@ declare namespace OracleDB {
         /**
          * To set the given value at the position of the given index.
          */
-        setElement(index: number, value: any): void;
+        setElement(index: number, value: T): void;
         /**
          * Returns an array of element values as a JavaScript array in key order.
-         */	
-        getValues(): any[];
+         */
+        getValues(): T[];
         /**
          * Trims the specified number of elements from the end of the collection.
          */
@@ -2127,7 +2260,7 @@ declare namespace OracleDB {
      * 
      * @since 4.0
      */
-    interface AdvancedQueueMessage {
+    interface AdvancedQueueMessage<T> {
         /** Correlation that was used during enqueue. */
         correlation: string;
         /** Number of seconds the message was delayed before it could be dequeued. */
@@ -2147,7 +2280,7 @@ declare namespace OracleDB {
         /** Contains the payload of the message, with type depending on the value of queue.payloadType.
          * Note that enqueued Strings are returned as UTF-8 encoded Buffers.
          */
-        payload: Buffer | DBObject;
+        payload: Buffer | DBObject_OUT<T>;
         /** Priority of the message when it was enqueued. */
         priority: number;
         /** State of the message. It can be any one of the AQ_MSG_STATE constants. */
@@ -2219,7 +2352,7 @@ declare namespace OracleDB {
          * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option extendedMetaData
          * are true then additional information is included.
          */
-        metaData?: Metadata[];
+        metaData?: Metadata<T>[];
         /**
          * This contains the output values of OUT and IN OUT binds. If bindParams is passed as an array,
          * then outBinds is returned as an array. If bindParams is passed as an object,
@@ -2311,7 +2444,7 @@ declare namespace OracleDB {
          * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option
          * extendedMetaData are true then additional information is included.
          */
-        readonly metaData: Metadata[];
+        readonly metaData: Metadata<T>[];
 
         /**
          * Closes a ResultSet. Applications should always call this at the end of fetch or when no more rows are needed.
@@ -2667,6 +2800,36 @@ declare namespace OracleDB {
          */
         insertManyAndGet(documents: (SodaDocument | Record<string, any>)[]): Promise<SodaDocument[]>;
         insertManyAndGet(documents: (SodaDocument | Record<string, any>)[], callback: (error: DBError, documents: SodaDocument[]) => void): void;
+
+        /**
+         * This method behaves like sodaCollection.insertOne() with the exception that if a document with the same key already exists, then it is updated instead.
+         * 
+         * The collection must use client-assigned keys keys, which is why save() accepts only a SodaDocument, unlike insertOne(). If the collection is not configured
+         * with client-assigned keys, then the behavior is exactly the same as sodaCollection.insertOne().
+         * 
+         * @since 5.0
+         */
+        save(document: SodaDocument): Promise<SodaDocument>;
+        save(document: SodaDocument, cb: (err: DBError, doc: SodaDocument) => void): void;
+
+        /**
+         * This method behaves like sodaCollection.insertOneAndGet() with the exception that if a document with the same key already exists, then it is updated instead.
+         * 
+         * The collection must use client-assigned keys keys, which is why saveAndGet() accepts only a SodaDocument, unlike insertOneAndGet(). If the collection is not
+         * configured with client-assigned keys, then the behavior is exactly the same as sodaCollection.insertOneAndGet().
+         * 
+         * @since 5.0
+         */
+        saveAndGet(document: SodaDocument): Promise<SodaDocument>;
+        saveAndGet(document: SodaDocument, cb: (err: DBError, doc: SodaDocument) => void): void;
+
+        /**
+         * This method truncates a collection, removing all documents. The collection will not be deleted.
+         * 
+         * @since 5.0
+         */
+        truncate(): Promise<void>;
+        truncate(cb: (err: DBError) => void): void;
     }
 
     /**
@@ -2758,6 +2921,17 @@ declare namespace OracleDB {
      * A SodaOperation object is an internal object. You should not directly modify its properties.
      */
     interface SodaOperation {
+        /**
+         * This property sets the size of an internal buffer used for fetching documents from a collection
+         * with the terminal SodaOperation methods getCursor() and getDocuments(). Changing size may affect
+         * performance but does not affect how many documents are returned.
+         * 
+         * If fetchArraySize() is not used, the size defaults to the current value of oracledb.fetchArraySize.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#sodaqbesearches
+         * @since 5.0
+         */
+        fetchArraySize(size: number): SodaOperation;
         /**
          * Sets a filter specification for the operation, allowing for complex document queries and ordering
          * of JSON documents. Filter specifications can include comparisons, regular expressions, logical,
@@ -3342,6 +3516,113 @@ declare namespace OracleDB {
      * @default default
      */
     function getPool(poolAlias?: string): Pool;
+
+    interface InitialiseOptions {
+        /**
+         * This specifies the directory in which the Optional Oracle Net Configuration and Optional Oracle Client Configuration files reside. It is equivalent to setting the Oracle environment variable TNS_ADMIN to this value. Any value in that environment variable prior to the call to oracledb.initOracleClient() is ignored. If this attribute is not set, Oracle’s default configuration file search heuristics are used.
+         */
+        configDir?: string;
+        /**
+         * This specifies the driver name value shown in database views, such as V$SESSION_CONNECT_INFO. It can be used by applications to identify themselves for tracing and monitoring purposes. The convention is to separate the product name from the product version by a colon and single space characters. If this attribute is not specified, the value “node-oracledb : version” is used.
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#otherinit
+         */
+        driverName?: string;
+        /**
+         * This specifies the URL that is included in the node-oracledb exception message if the Oracle Client libraries cannot be loaded. This allows applications that use node-oracledb to refer users to application-specific installation instructions. If this attribute is not specified, then the node-oracledb installation instructions URL is used. 
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#otherinit
+         */
+        errorUrl?: string;
+        /**
+         * This specifies the directory containing the Oracle Client libraries. If libDir is not specified, the default library search mechanism is used. If your client libraries are in a full Oracle Client or Oracle Database installation, such as Oracle Database “XE” Express Edition, then you must have previously set environment variables like ORACLE_HOME before calling initOracleClient().
+         * 
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#oracleclientloading
+         */
+        libDir?: string;
+    }
+
+    /**
+     * This synchronous function loads and initializes the Oracle Client libraries that are necessary
+     * for node-oracledb to communicate with Oracle Database. This function is optional. If used, it
+     * should be the first node-oracledb call made by an application.
+     * 
+     * If initOracleClient() is not called, then the Oracle Client libraries are loaded at the time of
+     * first use in the application, such as when creating a connection pool. The default values described
+     * for options will be used in this case.
+     * 
+     * If the Oracle Client libraries cannot be loaded, or they have already been initialized, either by a
+     * previous call to this function or because another function call already required the Oracle Client libraries,
+     * then initOracleClient() raises an exception.
+     * 
+     * On Linux, ensure a libclntsh.so file exists. On macOS ensure a libclntsh.dylib file exists.
+     * Node-oracledb will not directly load libclntsh.*.XX.1 files in libDir. Note other libraries used by libclntsh* are also required.
+     * 
+     * On Linux, using libDir is only useful for forcing initOracleClient() to immediately load the Oracle Client libraries because
+     * those libraries still need to be in the operating system search path, such as from running ldconfig or set in the environment
+     * variable LD_LIBRARY_PATH.
+     * 
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#initnodeoracledb
+     * @since 5.0
+     */
+    function initOracleClient(opts?: InitialiseOptions): void;
+
+    type DBCredentials = {
+        user: string;
+        password: string;
+        connectionString: string;
+        externalAuth?: boolean;
+    } | {
+        user: string;
+        password: string;
+        connectString: string;
+        externalAuth?: boolean;
+    }
+
+    /**
+     * This is the simplified form of connection.shutdown() used for shutting down a database instance. It accepts connection
+     * credentials and shuts the database instance completely down.
+     * 
+     * Internally it creates, and closes, a standalone connection using the oracledb.SYSOPER privilege.
+     * 
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#startupshutdown
+     * @since 5.0
+     */
+    function shutdown(creds: DBCredentials, mode?: number): Promise<void>;
+    function shutdown(creds: DBCredentials, mode: number, cb: (err: Error) => void): void;
+    function shutdown(creds: DBCredentials, cb: (err: Error) => void): void;
+
+    interface StartupOptions {
+        /**
+         * Shuts down a running database using oracledb.SHUTDOWN_MODE_ABORT before restarting the database. The database start up may require instance recovery. The default for force is false.
+         * 
+         * @default false
+         */
+        force?: boolean;
+        /**
+         * After the database is started, access is restricted to users who have the CREATE_SESSION and RESTRICTED SESSION privileges. The default is false.
+         * 
+         * @default false
+         */
+        restrict?: boolean;
+        /**
+         * The path and filename for a text file containing Oracle Database initialization parameters. If pfile is not set, then the database server-side parameter file is used.
+         */
+        pfile?: string;
+    }
+
+    /**
+     * This is the simplified form of connection.startup() used for starting a database instance up.
+     * It accepts connection credentials and starts the database instance completely.
+     * 
+     * As part of the start up process, a standalone connection using the oracledb.SYSOPER privilege is internally created and closed.
+     * 
+     * @see https://oracle.github.io/node-oracledb/doc/api.html#startupshutdown
+     * @since 5.0
+     */
+    function startup(creds: DBCredentials, opts?: StartupOptions): Promise<void>;
+    function startup(creds: DBCredentials, opts: StartupOptions, cb: (err: Error) => void): void;
+    function startup(creds: DBCredentials, cb: (err: Error) => void): void;
 }
 
 export = OracleDB;

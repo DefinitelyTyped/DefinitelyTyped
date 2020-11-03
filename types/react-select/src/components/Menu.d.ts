@@ -53,6 +53,8 @@ export type MenuProps<OptionType extends OptionTypeBase> = CommonProps<OptionTyp
   getPortalPlacement: (state: MenuState) => void,
   /** Props to be passed to the menu wrapper. */
   innerProps: object,
+  /** Reference to the internal element, consumed by the MenuPlacer component */
+  innerRef: InnerRef,
   /** Set the maximum height of the menu. */
   maxMenuHeight: number,
   /** Set whether the menu should be at the top, at the bottom. The auto options sets it to bottom. */

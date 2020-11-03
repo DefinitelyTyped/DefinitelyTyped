@@ -120,12 +120,28 @@ declare namespace jexcel {
     //
     // Main options
     // ----------------------------------------------------------------------
+    interface SharedMethodsInitializationOptions {
+        /**
+         * Search in the table, only if directive is enabled during inialization - sets search in initialization.
+         * @param string - Search for word
+         * myTable.search([string]);
+         */
+        // tslint:disable-next-line ban-types
+        search?: Function | boolean;
+        /**
+         * Toggle table fullscreen mode or set fullscreen mode in initialization
+         * @param boolean fullscreen - define fullscreen status as true or false
+         * myTable.fullscreen([bool]);
+         */
+        // tslint:disable-next-line ban-types
+        fullscreen?: Function | boolean;
+    }
 
     interface MethodsOptions {
         /**
          * remove column by number
          * @param integer columnNumber - Which column should be excluded starting on zero
-         * @param integer numOfColumns - number of columns to be excluded from the reference column	myTable.deleteColumn([integer], [integer]);
+         * @param integer numOfColumns - number of columns to be excluded from the reference column    myTable.deleteColumn([integer], [integer]);
          */
         // tslint:disable-next-line ban-types
         deleteColumn?: Function;
@@ -137,7 +153,7 @@ declare namespace jexcel {
          */
         // tslint:disable-next-line ban-types
         deleteRow?: Function;
-        /** Destroy all merged cells	myTable.destroyMerge(); */
+        /** Destroy all merged cells    myTable.destroyMerge(); */
         // tslint:disable-next-line ban-types
         destroyMerged?: Function;
         /**
@@ -147,74 +163,67 @@ declare namespace jexcel {
          */
         // tslint:disable-next-line ban-types
         download?: Function;
-        /**
-         * Toggle table fullscreen mode
-         * @param boolean fullscreen - define fullscreen status as true or false
-         * myTable.fullscreen([bool]);
-         */
-        // tslint:disable-next-line ban-types
-        fullscreen?: Function;
-        /** get current cell DOM @param string columnName - str compatible with excel, or as object.	myTable.getCell([string]); */
+        /** get current cell DOM @param string columnName - str compatible with excel, or as object.    myTable.getCell([string]); */
         // tslint:disable-next-line ban-types
         getCell?: Function;
-        /** Get the data from one column by number @param integer columnNumber - Column number	myTable.getColumnData([int]); */
+        /** Get the data from one column by number @param integer columnNumber - Column number    myTable.getColumnData([int]); */
         // tslint:disable-next-line ban-types
         getColumnData?: Function;
-        /** get cell comments @param mixed - cell identification or null for the whole table.	myTable.getComments([string]); */
+        /** get cell comments @param mixed - cell identification or null for the whole table.    myTable.getComments([string]); */
         // tslint:disable-next-line ban-types
         getComments?: Function;
-        /** get table definitions	myTable.getConfig(); */
+        /** get table definitions    myTable.getConfig(); */
         // tslint:disable-next-line ban-types
         getConfig?: Function;
-        /** Get the full or partial table data @param boolean onlyHighlighedCells - Get only highlighted cells	myTable.getData([bool]); */
+        /** Get the full or partial table data @param boolean onlyHighlighedCells - Get only highlighted cells    myTable.getData([bool]); */
         // tslint:disable-next-line ban-types
         getData?: Function;
-        /** get the current header by column number @param integer columnNumber - Column number starting on zero	myTable.getHeader([integer]); */
+        /** get the current header by column number @param integer columnNumber - Column number starting on zero    myTable.getHeader([integer]); */
         // tslint:disable-next-line ban-types
         getHeader?: Function;
-        /** get all header titles	myTable.getHeaders(); */
+        /** get all header titles    myTable.getHeaders(); */
         // tslint:disable-next-line ban-types
         getHeaders?: Function;
-        /** get the current row height @param integer rowNumber - row number starting on zero	myTable.getHeight([integer]); */
+        /** get the current row height @param integer rowNumber - row number starting on zero    myTable.getHeight([integer]); */
         // tslint:disable-next-line ban-types
         getHeight?: Function;
-        /** Get the full or partial table data in JSON format @param boolean onlyHighlighedCells - Get only highlighted cells	myTable.getData([bool]); */
+        /** Get the full or partial table data in JSON format @param boolean onlyHighlighedCells - Get only highlighted cells    myTable.getData([bool]); */
         // tslint:disable-next-line ban-types
         getJson?: Function;
-        /** get current cell DOM innerHTML @param string columnName - str compatible with excel, or as object.	myTable.getLabel([string]); */
+        /** get current cell DOM innerHTML @param string columnName - str compatible with excel, or as object.    myTable.getLabel([string]); */
         // tslint:disable-next-line ban-types
         getLabel?: Function;
-        /** Get merged cells properties @param string columnName - Column name, such as A1.	myTable.getMerge([string]); */
+        /** Get merged cells properties @param string columnName - Column name, such as A1.    myTable.getMerge([string]); */
         // tslint:disable-next-line ban-types
         getMerge?: Function;
-        /** get the table or cell meta information @param mixed - cell identification or null for the whole table.	myTable.getMeta([string]); */
+        /** get the table or cell meta information @param mixed - cell identification or null for the whole table.    myTable.getMeta([string]); */
         // tslint:disable-next-line ban-types
         getMeta?: Function;
-        /** Get the data from one row by number @param integer rowNumber - Row number	myTable.getRowData([int]); */
+        /** Get the data from one row by number @param integer rowNumber - Row number    myTable.getRowData([int]); */
         // tslint:disable-next-line ban-types
         getRowData?: Function;
-        /** Get the selected columns @param boolean asIds - Get the colNumbers or row DOM elements	myTable.getSelectedColumns([bool]); */
+        /** Get the selected columns @param boolean asIds - Get the colNumbers or row DOM elements    myTable.getSelectedColumns([bool]); */
         // tslint:disable-next-line ban-types
         getSelectedColumns?: Function;
-        /** Get the selected rows @param boolean asIds - Get the rowNumbers or row DOM elements	myTable.getSelectedRows([bool]); */
+        /** Get the selected rows @param boolean asIds - Get the rowNumbers or row DOM elements    myTable.getSelectedRows([bool]); */
         // tslint:disable-next-line ban-types
         getSelectedRows?: Function;
-        /** get table or cell style @param mixed - cell identification or null for the whole table.	myTable.getStyle([string])); */
+        /** get table or cell style @param mixed - cell identification or null for the whole table.    myTable.getStyle([string])); */
         // tslint:disable-next-line ban-types
         getStyle?: Function;
-        /** get current cell value @param mixed cellIdent - str compatible with excel, or as object.	myTable.getValue([string]); */
+        /** get current cell value @param mixed cellIdent - str compatible with excel, or as object.    myTable.getValue([string]); */
         // tslint:disable-next-line ban-types
         getValue?: Function;
         /** get value from coords @param integer x @param integer y myTable.getValueFromCoords([integer], [integer]); */
         // tslint:disable-next-line ban-types
         getValueFromCoords?: Function;
-        /** get the current column width @param integer columnNumber - column number starting on zero	myTable.getWidth([integer]); */
+        /** get the current column width @param integer columnNumber - column number starting on zero    myTable.getWidth([integer]); */
         // tslint:disable-next-line ban-types
         getWidth?: Function;
-        /** hide column by number	myTable.hideColumn([int]); */
+        /** hide column by number    myTable.hideColumn([int]); */
         // tslint:disable-next-line ban-types
         hideColumn?: Function;
-        /** hide column of index numbers	myTable.hideIndex(); */
+        /** hide column of index numbers    myTable.hideIndex(); */
         // tslint:disable-next-line ban-types
         hideIndex?: Function;
         /**
@@ -260,40 +269,37 @@ declare namespace jexcel {
          */
         // tslint:disable-next-line ban-types
         orderBy?: Function;
-        /** Go to page number- Valid only when pagination is true. @param integer - Go to page number	myTable.page([integer]); */
+        /** Go to page number- Valid only when pagination is true. @param integer - Go to page number    myTable.page([integer]); */
         // tslint:disable-next-line ban-types
         page?: Function;
-        /** Redo changes	myTable.redo(); */
+        /** Redo changes    myTable.redo(); */
         // tslint:disable-next-line ban-types
         redo?: Function;
-        /** Destroy merged by column name @param string columnName - Column name, such as A1.	myTable.removeMerge([string]); */
+        /** Destroy merged by column name @param string columnName - Column name, such as A1.    myTable.removeMerge([string]); */
         // tslint:disable-next-line ban-types
         removeMerge?: Function;
-        /** reset search table	myTable.resetSearch(); */
+        /** reset search table    myTable.resetSearch(); */
         // tslint:disable-next-line ban-types
         resetSearch?: Function;
         /** Reset the table selection @param boolean executeBlur - execute the blur from the table myTable.resetSelection([bool]); */
         // tslint:disable-next-line ban-types
         resetSelection?: Function;
-        /** remove all style from a cell @param string columnName - Column name, example: A1, B3, etc	myTable.resetStyle([string]); */
+        /** remove all style from a cell @param string columnName - Column name, example: A1, B3, etc    myTable.resetStyle([string]); */
         // tslint:disable-next-line ban-types
         resetStyle?: Function;
-        /** search in the table, only if directive is enabled during inialization. @param string - Search for word	myTable.search([string]); */
-        // tslint:disable-next-line ban-types
-        search?: Function;
-        /** Set the data from one column by number @param integer columnNumber - Column number @param array colData - Column data	myTable.setColumnData([int], [array]); */
+        /** Set the data from one column by number @param integer columnNumber - Column number @param array colData - Column data    myTable.setColumnData([int], [array]); */
         // tslint:disable-next-line ban-types
         setColumnData?: Function;
-        /** set cell comments @param cell - cell identification @param text - comments	myTable.setComments([string], [string]); */
+        /** set cell comments @param cell - cell identification @param text - comments    myTable.setComments([string], [string]); */
         // tslint:disable-next-line ban-types
         setComments?: Function;
-        /** Set the table data @param json newData - New json data, null will reload what is in memory.	myTable.setData([json]); */
+        /** Set the table data @param json newData - New json data, null will reload what is in memory.    myTable.setData([json]); */
         // tslint:disable-next-line ban-types
         setData?: Function;
-        /** change header by column @param integer columnNumber - column number starting on zero @param string columnTitle - New header title	myTable.setHeader([integer], [string]); */
+        /** change header by column @param integer columnNumber - column number starting on zero @param string columnTitle - New header title    myTable.setHeader([integer], [string]); */
         // tslint:disable-next-line ban-types
         setHeader?: Function;
-        /** change row height @param integer rowNumber - row number starting on zero @param string newRowHeight- New row height	myTable.setHeight([integer], [integer]); */
+        /** change row height @param integer rowNumber - row number starting on zero @param string newRowHeight- New row height    myTable.setHeight([integer], [integer]); */
         // tslint:disable-next-line ban-types
         setHeight?: Function;
         /**
@@ -305,7 +311,7 @@ declare namespace jexcel {
          */
         // tslint:disable-next-line ban-types
         setMerge?: Function;
-        /** set the table or cell meta information @param mixed - json with whole table meta information.	myTable.setMeta[mixed]); */
+        /** set the table or cell meta information @param mixed - json with whole table meta information.    myTable.setMeta[mixed]); */
         // tslint:disable-next-line ban-types
         setMeta?: Function;
         /**
@@ -352,13 +358,13 @@ declare namespace jexcel {
          */
         // tslint:disable-next-line ban-types
         setWidth?: Function;
-        /** show column by number	myTable.showIndex([int]); */
+        /** show column by number    myTable.showIndex([int]); */
         // tslint:disable-next-line ban-types
         showColumn?: Function;
-        /** show column of index numbers	myTable.showIndex(); */
+        /** show column of index numbers    myTable.showIndex(); */
         // tslint:disable-next-line ban-types
         showIndex?: Function;
-        /** Undo last changes	myTable.undo(); */
+        /** Undo last changes    myTable.undo(); */
         // tslint:disable-next-line ban-types
         undo?: Function;
         /**
@@ -370,10 +376,10 @@ declare namespace jexcel {
          */
         // tslint:disable-next-line ban-types
         updateSelection?: Function;
-        /** select cells @param integer x1 @param integer y1 @param integer x2 @param integer y2	myTable.updateSelectionFromCoords([integer], [integer], [integer], [integer]); */
+        /** select cells @param integer x1 @param integer y1 @param integer x2 @param integer y2    myTable.updateSelectionFromCoords([integer], [integer], [integer], [integer]); */
         // tslint:disable-next-line ban-types
         updateSelectionFromCoords?: Function;
-        /** Which page showing on jExcel - Valid only when pagination is true.	myTable.whichPage(); */
+        /** Which page showing on jExcel - Valid only when pagination is true.    myTable.whichPage(); */
         // tslint:disable-next-line ban-types
         whichPage?: Function;
     }
@@ -531,8 +537,6 @@ declare namespace jexcel {
         defaultColWidth?: number;
         /** Allow table edition: bool */
         editable?: boolean;
-        /** Fullscreen mode */
-        fullscreen?: boolean;
         /** Include header titles on download: bool */
         includeHeadersOnDownload?: boolean;
         /** Activate the table lazyloading */
@@ -568,8 +572,6 @@ declare namespace jexcel {
         rowResize?: boolean;
         /** Row properties: height.: object */
         rows?: Record<string, any>;
-        /** Allow search in the table */
-        search?: boolean;
         /** Allow selection copy: bool */
         selectionCopy?: boolean;
         /**
@@ -664,7 +666,7 @@ declare namespace jexcel {
     /**
      * @see https://bossanova.uk/jexcel/v4/docs/quick-reference
      */
-    type Options = MethodsOptions & EventsOptions & InitializationOptions & TranslationsOptions & UnDocumentOptions;
+    type Options = SharedMethodsInitializationOptions & MethodsOptions & EventsOptions & InitializationOptions & TranslationsOptions & UnDocumentOptions;
 
     interface ActionHistory {
         action: string;

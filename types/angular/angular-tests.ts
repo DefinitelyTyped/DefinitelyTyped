@@ -235,7 +235,7 @@ mod.service('name', ($scope: ng.IScope) => {});
 mod.service('name', ['$scope', ($scope: ng.IScope) => {}]);
 mod.service({
     MyCtrl: class {},
-    MyCtrl2: () => {}, // tslint:disable-line:object-literal-shorthand
+    MyCtrl2: () => {},
     MyCtrl3: ['$fooService', ($fooService: any) => {}]
 });
 mod.constant('name', 23);
@@ -1479,6 +1479,10 @@ function testIHttpParamSerializerJQLikeProvider() {
     serializer({
         a: 'b'
     });
+}
+
+function testJqLiteRestoreBehavior() {
+    angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement(); // $ExpectType void
 }
 
 function anyOf2<T1, T2>(v1: T1, v2: T2) {

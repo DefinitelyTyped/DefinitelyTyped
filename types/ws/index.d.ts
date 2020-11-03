@@ -4,7 +4,6 @@
 //                 Matt Silverlock <https://github.com/elithrar>
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
-//                 Orblazer <https://github.com/orblazer>
 //                 reduckted <https://github.com/reduckted>
 //                 teidesu <https://github.com/teidesu>
 //                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>
@@ -19,6 +18,7 @@ import * as net from 'net';
 import * as url from 'url';
 import * as zlib from 'zlib';
 import * as stream from 'stream';
+import { SecureContextOptions } from 'tls';
 
 // WebSocket socket.
 declare class WebSocket extends events.EventEmitter {
@@ -55,14 +55,23 @@ declare class WebSocket extends events.EventEmitter {
     terminate(): void;
 
     // HTML5 WebSocket events
-    addEventListener(method: 'message', cb?: (event: { data: any; type: string; target: WebSocket }) => void): void;
-    addEventListener(method: 'close', cb?: (event: {
+    addEventListener(method: 'message', cb: (event: {
+        data: any;
+        type: string;
+        target: WebSocket
+    }) => void, options?: WebSocket.EventListenerOptions): void;
+    addEventListener(method: 'close', cb: (event: {
         wasClean: boolean; code: number;
         reason: string; target: WebSocket
-    }) => void): void;
-    addEventListener(method: 'error', cb?: (event: {error: any, message: any, type: string, target: WebSocket }) => void): void;
-    addEventListener(method: 'open', cb?: (event: { target: WebSocket }) => void): void;
-    addEventListener(method: string, listener?: () => void): void;
+    }) => void, options?: WebSocket.EventListenerOptions): void;
+    addEventListener(method: 'error', cb: (event: {
+        error: any,
+        message: any,
+        type: string,
+        target: WebSocket
+    }) => void, options?: WebSocket.EventListenerOptions): void;
+    addEventListener(method: 'open', cb: (event: { target: WebSocket }) => void, options?: WebSocket.EventListenerOptions): void;
+    addEventListener(method: string, listener: () => void, options?: WebSocket.EventListenerOptions): void;
 
     removeEventListener(method: 'message', cb?: (event: { data: any; type: string; target: WebSocket }) => void): void;
     removeEventListener(method: 'close', cb?: (event: {
@@ -128,7 +137,7 @@ declare namespace WebSocket {
     type VerifyClientCallbackAsync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }
         , callback: (res: boolean, code?: number, message?: string, headers?: http.OutgoingHttpHeaders) => void) => void;
 
-    interface ClientOptions {
+    interface ClientOptions extends SecureContextOptions {
         protocol?: string;
         followRedirects?: boolean;
         handshakeTimeout?: number;
@@ -143,12 +152,6 @@ declare namespace WebSocket {
         family?: number;
         checkServerIdentity?(servername: string, cert: CertMeta): boolean;
         rejectUnauthorized?: boolean;
-        passphrase?: string;
-        ciphers?: string;
-        cert?: CertMeta;
-        key?: CertMeta;
-        pfx?: string | Buffer;
-        ca?: CertMeta;
         maxPayload?: number;
     }
 
@@ -197,6 +200,10 @@ declare namespace WebSocket {
         target: WebSocket;
     }
 
+    interface EventListenerOptions {
+        once?: boolean;
+    }
+
     interface ServerOptions {
         host?: string;
         port?: number;
@@ -229,7 +236,7 @@ declare namespace WebSocket {
         close(cb?: (err?: Error) => void): void;
         handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
             upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
-        shouldHandle(request: http.IncomingMessage): boolean;
+        shouldHandle(request: http.IncomingMessage): boolean | Promise<boolean>;
 
         // Events
         on(event: 'connection', cb: (this: Server, socket: WebSocket, request: http.IncomingMessage) => void): this;

@@ -1,12 +1,15 @@
-// Type definitions for kurento-client 6.12
+// Type definitions for kurento-client 6.14
 // Project: https://github.com/Kurento/kurento-client-js, https://www.kurento.org
-// Definitions by: James Hill <https://github.com/jhdevuk>, Michel Albers <https://github.com/michelalbers>
+// Definitions by: James Hill <https://github.com/jhukdev>
+//                Michel Albers <https://github.com/michelalbers>
+//                Joe Flateau <https://github.com/joeflateau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 declare namespace kurento {
     interface Constructor {
         (ws_uri: string, options?: Options): Promise<ClientInstance>;
         getComplexType: (complex: 'IceCandidate') => (value: any) => any;
+        getSingleton(ws_uri: string, options?: Options): Promise<ClientInstance>;
     }
 
     interface RecorderEndpointOptions {
@@ -30,11 +33,21 @@ declare namespace kurento {
         create(type: 'MediaPipeline'): Promise<MediaPipeline>;
         create(type: 'WebRtcEndpoint'): Promise<WebRtcEndpoint>;
         create(type: 'RecorderEndpoint', options: RecorderEndpointOptions): Promise<RecorderEndpoint>;
-        on(event: 'OnIceCandidate', callback: (event: IceCandidate) => void): void;
+        on(event: 'OnIceCandidate', callback: (event: IceCandidateEvent) => void): void;
         on(event: 'Error', callback: (error: Error) => void): void;
         on(event: 'Recording' | 'Paused' | 'Stopped', callback: () => void): void;
         getMediaobjectById(objectId: string): Promise<MediaPipeline | WebRtcEndpoint | RecorderEndpoint>;
+        getServerManager: (callback?: Callback<MediaServer>) => Promise<MediaServer>;
         close(): void;
+    }
+
+    interface MediaServer {
+        getCpuCount: (callback?: Callback<number[]>) => Promise<number[]>;
+        getKmd: (moduleName: string, callback?: Callback<string>) => Promise<string>;
+        getUsedCpu: (interval: number, callback?: Callback<number>) => Promise<number>;
+        getUsedMemory: (callback?: Callback<number>) => Promise<number>;
+        getChildren: (callback?: Callback<MediaObject>) => Promise<MediaObject>;
+        getName: (callback?: Callback<string>) => Promise<string>;
     }
 
     interface MediaObject {
@@ -52,6 +65,7 @@ declare namespace kurento {
         getParent: (callback?: Callback<MediaObject>) => Promise<MediaObject>;
         getName: (callback?: Callback<string>) => Promise<string>;
         setName: (name: string, callback?: Callback<void>) => Promise<void>;
+        release: (callback?: Callback<void>) => Promise<void>;
     }
 
     interface MediaElement {
@@ -146,6 +160,15 @@ declare namespace kurento {
         candidate: string;
         sdpMid: string;
         sdpMLineIndex: number;
+    }
+
+    interface IceCandidateEvent {
+        candidate: IceCandidate;
+        souce: string;
+        tags: object;
+        timestamp: string;
+        timestampMillis: string;
+        type: 'OnIceCandidate';
     }
 
     type Callback<T> = (error: Error, result: T) => void;

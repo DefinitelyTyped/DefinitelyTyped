@@ -81,7 +81,7 @@ to a new trigger, also add the change to the tests.
 
 Tests are grouped by each service in [test/](), and must also be explicitly
 added to `tsconfig.json`'s `files` list (use of `include` is banned by
-DefinitelyTyped at the moment).
+Definitely Typed at the moment).
 
 The test file for a service `foo` with two triggers `bar` and `baz` may look like:
 
@@ -186,4 +186,4 @@ prepared to make a decently strong case for why this is an exception.
   400 error, or parsing CloudWatch log payloads.
 
   This one is much more fraught, as it by default loses all the existing
-  DefinitelyTyped tooling and community support (e.g. cross package typing).
+  Definitely Typed tooling and community support (e.g. cross package typing).

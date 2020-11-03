@@ -1,4 +1,4 @@
-// Type definitions for Swiper 5.3
+// Type definitions for Swiper 5.4
 // Project: https://github.com/nolimits4web/Swiper, http://www.idangero.us/swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>
 //                 Luca Trazzi <https://github.com/lucax88x>
@@ -62,9 +62,14 @@ export type AutoplayEvent = 'autoplayStart' | 'autoplayStop' | 'autoplay';
 export type LazyLoadingEvent = 'lazyImageLoad' | 'lazyImageReady';
 
 /**
+ * Swiper hash-navigation event names.
+ */
+export type HashNavigationEvent = 'hashChange' | 'hashSet';
+
+/**
  * Swiper event names.
  */
-export type SwiperEvent = CommonEvent | PaginationEvent | AutoplayEvent | LazyLoadingEvent;
+export type SwiperEvent = CommonEvent | PaginationEvent | AutoplayEvent | LazyLoadingEvent | HashNavigationEvent;
 
 /**
  * Swiper module types.
@@ -907,7 +912,7 @@ export interface ScrollbarOptions {
     lockClass?: string;
 
     /**
-     * 	Scrollbar draggable element CSS class
+     *     Scrollbar draggable element CSS class
      *
      * @default 'swiper-scrollbar-drag'
      */
@@ -1014,6 +1019,8 @@ export interface ThumbsOptions {
     swiper?: Swiper;
     slideThumbActiveClass?: string;
     thumbsContainerClass?: string;
+    multipleActiveThumbs?: boolean;
+    autoScrollOffset?: number;
 }
 
 export interface ZoomOptions {
@@ -1059,7 +1066,7 @@ export interface HashNavigationOptions {
      * Works in addition to hashnav to replace current url state with the
      * new one instead of adding it to history
      *
-     * @default 	false
+     * @default     false
      */
     replaceState?: boolean;
 }
@@ -1166,8 +1173,6 @@ export interface A11yOptions {
     notificationClass?: string;
 }
 
-// "Multiple imports from './dist/js/swiper.esm' can be combined into one" + "Line breaks are not allowed in import declaration" = ...
-// tslint:disable-next-line:max-line-length
 import {
     Virtual,
     Keyboard,
@@ -1506,7 +1511,7 @@ export default class Swiper {
      *
      * @example removeSlide(0); // remove first slide
      * @example removeSlide([0, 1]); // remove first and second slides
-     * @example removeAllSlides();	// Remove all slides
+     * @example removeAllSlides();    // Remove all slides
      */
     removeSlide(slideIndex: number | number[]): void;
 

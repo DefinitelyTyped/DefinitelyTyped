@@ -1,6 +1,6 @@
 // Type definitions for Forge-apis 0.7
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
-// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Bryan Huang <https://github.com/dukedhx>
+// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -86,9 +86,9 @@ export class AuthClientTwoLegged {
 export class AuthClientThreeLegged {
     constructor(clientId: string, clientSecret: string, redirectUri: string, scopes: Scope[], autoRefresh: boolean);
 
-    generateAuthUrl(): string;
+    generateAuthUrl(state: string): string;
     getToken(code: string): Promise<AuthToken>;
-    refreshToken(credentials: AuthToken): Promise<AuthToken>;
+    refreshToken(credentials: { refresh_token?: string }, scope?: Scope[]): Promise<AuthToken>;
 }
 
 export type AuthClient = AuthClientTwoLegged | AuthClientThreeLegged;

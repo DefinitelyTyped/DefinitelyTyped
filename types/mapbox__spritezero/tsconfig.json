@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@mapbox/spritezero": [
-                "mapbox__spritezero"
+            "@mapbox/*": [
+                "mapbox__*"
             ]
         },
         "types": [],

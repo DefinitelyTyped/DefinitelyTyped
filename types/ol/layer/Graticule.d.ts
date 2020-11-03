@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import LineString from '../geom/LineString';
@@ -39,11 +39,24 @@ export interface Options {
 }
 export default class Graticule extends VectorLayer {
     constructor(opt_options?: Options);
+    /**
+     * Get the list of meridians.  Meridians are lines of equal longitude.
+     */
     getMeridians(): LineString[];
+    /**
+     * Get the list of parallels.  Parallels are lines of equal latitude.
+     */
     getParallels(): LineString[];
+    /**
+     * Update geometries in the source based on current view
+     */
     loaderFunction(extent: Extent, resolution: number, projection: Projection): void;
+    /**
+     * Strategy function for loading features based on the view's extent and
+     * resolution.
+     */
     strategyFunction(extent: Extent, resolution: number): Extent[];
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

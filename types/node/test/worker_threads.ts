@@ -2,6 +2,7 @@ import * as workerThreads from "worker_threads";
 import assert = require("assert");
 import { createContext } from "vm";
 import { Readable } from "stream";
+import * as fs from "fs";
 
 {
     if (workerThreads.isMainThread) {
@@ -40,11 +41,13 @@ import { Readable } from "stream";
     if (workerThreads.isMainThread) {
         const worker = new workerThreads.Worker(__filename);
         const subChannel = new workerThreads.MessageChannel();
-        worker.postMessage({ hereIsYourPort: subChannel.port1 }, [subChannel.port1]);
+        worker.postMessage({ hereIsYourPort: subChannel.port1 }, [subChannel.port1] as ReadonlyArray<workerThreads.TransferListItem>);
         subChannel.port2.on('message', (value) => {
             console.log('received:', value);
         });
-        worker.moveMessagePortToContext(new workerThreads.MessagePort(), createContext());
+        const movedPort = workerThreads.moveMessagePortToContext(
+            new workerThreads.MessagePort(), createContext());
+        workerThreads.receiveMessageOnPort(movedPort);
     } else {
         workerThreads.parentPort!.once('message', (value) => {
             assert(value.hereIsYourPort instanceof workerThreads.MessagePort);
@@ -74,4 +77,30 @@ import { Readable } from "stream";
     const wwww = new workerThreads.Worker(__filename, {
       env: { doot: 'woot' }
     });
+
+    const wwwww = new workerThreads.Worker(__filename, {
+      trackUnmanagedFds: true
+    });
+}
+
+{
+    const pooledBuffer = new ArrayBuffer(8);
+    const typedArray1 = new Uint8Array(pooledBuffer);
+    const typedArray2 = new Float64Array(pooledBuffer);
+
+    workerThreads.markAsUntransferable(pooledBuffer);
+
+    const { port1 } = new workerThreads.MessageChannel();
+    port1.postMessage(typedArray1, [ typedArray1.buffer ] as ReadonlyArray<workerThreads.TransferListItem>);
+
+    console.log(typedArray1);
+    console.log(typedArray2);
+}
+
+{
+    (async () => {
+        const fileHandle = await fs.promises.open("thefile.txt", "r");
+        const worker = new workerThreads.Worker(__filename);
+        worker.postMessage("some message", [ fileHandle ] as ReadonlyArray<workerThreads.TransferListItem>);
+    })();
 }

@@ -27,8 +27,8 @@ num = reader._readTag(num);
 
 let writer = new BerWriter();
 writer = new BerWriter({
-	size: num,
-	growthFactor: num,
+    size: num,
+    growthFactor: num,
 });
 
 buf = writer.buffer;

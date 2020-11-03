@@ -1,14 +1,15 @@
-// Type definitions for react-date-range 0.94
+// Type definitions for react-date-range 1.0
 // Project: https://github.com/Adphorus/react-date-range/
 // Definitions by: Junbong Lee <https://github.com/Junbong>
+//                 John Demetriou <https://github.com/DevsAnon>
+//                 Minseok Choi <https://github.com/Curzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
-import * as moment from "moment-timezone";
 
-export type AnyDate = string | moment.Moment;
-export type DateFunc = (now: moment.Moment) => AnyDate;
+export type AnyDate = string | Date;
+export type DateFunc = (now: Date) => AnyDate;
 export type DateInputType = AnyDate | DateFunc;
 export type LanguageType =
     | "cn"
@@ -23,7 +24,7 @@ export type LanguageType =
 export type SizeType = number;
 
 export interface DateContainerType {
-    date: moment.Moment;
+    date: Date;
 }
 
 export interface CalendarTheme {
@@ -53,15 +54,14 @@ export interface CalendarTheme {
 
 export interface Range {
     /** default: today */
-    startDate?: moment.Moment;
+    startDate?: Date;
     /** default: today */
-    endDate?: moment.Moment;
+    endDate?: Date;
 }
 
 export interface CommonCalendarProps {
     /** default: DD/MM/YYY */
     format?: string;
-    /** default: moment.localeData().firstDayOfWeek() */
     firstDayOfWeek?: number;
     theme?: CalendarTheme;
     /** default: none */
@@ -88,26 +88,66 @@ export interface CalendarProps extends CommonCalendarProps {
     date: DateInputType;
 }
 
-export class Calendar extends React.Component<CalendarProps> {}
+export class Calendar extends React.Component<CalendarProps> { }
 
 export interface DateRangeProps extends Range, CommonCalendarProps {
+    /** default: enUs from locale. Complete list here https://github.com/Adphorus/react-date-range/blob/next/src/locale/index.js */
+    locale?: object;
     /** default: false */
     linkedCalendars?: boolean;
     /** default: 2 */
     calendars?: number;
     /** default: none */
     ranges?: object;
+    /** default: { enabled: false } */
+    scroll?: object;
+    /** default: false */
+    showSelectionPreview?: boolean;
     /** default: false */
     twoStepChange?: boolean;
+    /** default: true */
+    showMonthArrow?: boolean;
     /** default: false */
     rangedCalendars?: boolean;
     /** default: none */
     specialDays?: DateContainerType[];
+    /** default: 1 */
+    months?: number;
+    /** default: */
+    weekStartsOn?: number;
+    /** default: true */
+    showMonthAndYearPickers?: boolean;
+    /** default: [] */
+    rangeColors?: string[];
+    /** default: */
+    shownDate?: Date;
+    /** default: */
+    disabledDates?: Date[];
+    /** default: Early */
+    startDatePlaceholder?: string;
+    /** default: */
+    className?: string;
+    /** default: Continuous */
+    endDatePlaceholder?: string;
+    /** default: MMM d, yyyy */
+    dateDisplayFormat?: string;
+    /** default: d */
+    dayDisplayFormat?: string;
+    /** default: E */
+    weekdayDisplayFormat?: string;
+    /** default: MMM yyyy */
+    monthDisplayFormat?: string;
+    /** default: vertical */
+    direction?: string;
+    /** default: false */
+    moveRangeOnFirstSelection?: boolean;
+    /** default: false */
+    editableDateInputs?: boolean;
 }
 
-export class DateRange extends React.Component<DateRangeProps> {}
+export class DateRange extends React.Component<DateRangeProps> { }
 
-export class DateRangePicker extends React.Component<DateRangeProps> {}
+export class DateRangePicker extends React.Component<DateRangeProps> { }
 
 export type DateRangeIndex =
     | "Today"
@@ -116,8 +156,8 @@ export type DateRangeIndex =
     | "Last 30 Days";
 
 export interface DateRangeObject {
-    startDate: (now: moment.Moment) => moment.Moment;
-    endDate: (now: moment.Moment) => moment.Moment;
+    startDate: (now: Date) => Date;
+    endDate: (now: Date) => Date;
 }
 export const defaultRanges: {
     [measure: string]: DateRangeObject;

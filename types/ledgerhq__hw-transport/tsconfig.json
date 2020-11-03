@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@ledgerhq/hw-transport": ["ledgerhq__hw-transport"]
+            "@ledgerhq/*": ["ledgerhq__*"]
         }
     },
     "files": ["index.d.ts", "ledgerhq__hw-transport-tests.ts"]

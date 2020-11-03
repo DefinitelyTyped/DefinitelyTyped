@@ -32,10 +32,10 @@ export interface TFontDictionary {
 }
 
 export interface TFontFamilyTypes {
-    normal?: string;
-    bold?: string;
-    italics?: string;
-    bolditalics?: string;
+    normal?: PDFKit.Mixins.PDFFontSource;
+    bold?: PDFKit.Mixins.PDFFontSource;
+    italics?: PDFKit.Mixins.PDFFontSource;
+    bolditalics?: PDFKit.Mixins.PDFFontSource;
 }
 
 export interface TDocumentInformation {
@@ -198,6 +198,8 @@ export interface ContentColumns extends ContentBase {
 }
 
 export interface ContentStack extends ContentBase {
+    /** if true, ensures that the contents of the stack are always on the same page */
+    unbreakable?: boolean;
     stack: Content[];
 }
 

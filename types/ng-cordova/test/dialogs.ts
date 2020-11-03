@@ -2,16 +2,16 @@
 // https://github.com/ksachdeva/ngCordova-typescript-demo
 
 namespace demo.dialog {
-	'use strict';
+    'use strict';
 
-	export class DialogController {
+    export class DialogController {
 
     action:string;
 
-		static $inject:Array<string> = ["$ionicPlatform", "$cordovaDialogs"];
-		constructor($ionicPlatform:ionic.platform.IonicPlatformService, private readonly $cordovaDialogs:ngCordova.IDialogsService) {
+        static $inject:Array<string> = ["$ionicPlatform", "$cordovaDialogs"];
+        constructor($ionicPlatform:ionic.platform.IonicPlatformService, private readonly $cordovaDialogs:ngCordova.IDialogsService) {
       this.action = "Press any button !";
-		}
+        }
 
     alert() {
       this.action = "Alert";
@@ -37,7 +37,7 @@ namespace demo.dialog {
       this.$cordovaDialogs.beep(3);
     }
 
-	}
+    }
 
-	angular.module("demo.dialog").controller("DialogController", DialogController);
+    angular.module("demo.dialog").controller("DialogController", DialogController);
 }

@@ -1,17 +1,17 @@
 // Type definitions for mysql 2.15
 // Project: https://github.com/mysqljs/mysql
 // Definitions by:  William Johnston <https://github.com/wjohnsto>
-// 	                Kacper Polak <https://github.com/kacepe>
-// 	                Krittanan Pingclasai <https://github.com/kpping>
-// 	                James Munro <https://github.com/jdmunro>
-// 	                Sanders DeNardi <https://github.com/sedenardi>
+//                     Kacper Polak <https://github.com/kacepe>
+//                     Krittanan Pingclasai <https://github.com/kpping>
+//                     James Munro <https://github.com/jdmunro>
+//                     Sanders DeNardi <https://github.com/sedenardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
 
-import stream = require("stream");
-import tls = require("tls");
+import stream = require('stream');
+import tls = require('tls');
 
 export interface EscapeFunctions {
     /**
@@ -81,7 +81,9 @@ export function createPoolCluster(config?: PoolClusterConfig): PoolCluster;
  * format().
  * @param sql
  */
-export function raw(sql: string): () => string;
+export function raw(sql: string): {
+    toSqlString: () => string
+};
 
 export interface Connection extends EscapeFunctions {
     config: ConnectionConfig;
@@ -122,8 +124,8 @@ export interface Connection extends EscapeFunctions {
      * there are any fatal errors, the connection will be immediately closed.
      * @param callback Handler for any fatal error
      */
-    end(callback?: (err: MysqlError, ...args: any[]) => void): void;
-    end(options: any, callback: (err: MysqlError, ...args: any[]) => void): void;
+    end(callback?: (err?: MysqlError) => void): void;
+    end(options: any, callback: (err?: MysqlError) => void): void;
 
     /**
      * Close the connection immediately, without waiting for any queued data (eg
@@ -187,11 +189,14 @@ export interface PoolConnection extends Connection {
 }
 
 export interface Pool extends EscapeFunctions {
-    config: PoolConfig;
+    config: PoolActualConfig;
 
     getConnection(callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
-    acquireConnection(connection: PoolConnection, callback: (err: MysqlError, connection: PoolConnection) => void): void;
+    acquireConnection(
+        connection: PoolConnection,
+        callback: (err: MysqlError, connection: PoolConnection) => void,
+    ): void;
 
     releaseConnection(connection: PoolConnection): void;
 
@@ -270,7 +275,11 @@ export interface PoolCluster {
 
     getConnection(pattern: string, callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
-    getConnection(pattern: string, selector: string, callback: (err: MysqlError, connection: PoolConnection) => void): void;
+    getConnection(
+        pattern: string,
+        selector: string,
+        callback: (err: MysqlError, connection: PoolConnection) => void,
+    ): void;
 
     /**
      * Set handler to be run on a certain event.
@@ -348,15 +357,23 @@ export interface Query {
     on(ev: 'end', callback: () => void): Query;
 }
 
-export interface GeometryType extends Array<{ x: number, y: number } | GeometryType> {
+export interface GeometryType extends Array<{ x: number; y: number } | GeometryType> {
     x: number;
     y: number;
 }
 
-export type TypeCast = boolean | (
-    (field: UntypedFieldInfo
-        & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null | GeometryType },
-        next: () => void) => any);
+export type TypeCast =
+    | boolean
+    | ((
+          field: UntypedFieldInfo & {
+              type: string;
+              length: number;
+              string(): string;
+              buffer(): Buffer;
+              geometry(): null | GeometryType;
+          },
+          next: () => void,
+      ) => any);
 
 export type queryCallback = (err: MysqlError | null, results?: any, fields?: FieldInfo[]) => void;
 
@@ -366,7 +383,7 @@ export interface QueryFunction {
 
     (options: string | QueryOptions, callback?: queryCallback): Query;
 
-    (options: string, values: any, callback?: queryCallback): Query;
+    (options: string | QueryOptions, values: any, callback?: queryCallback): Query;
 }
 
 export interface QueryOptions {
@@ -566,7 +583,7 @@ export interface ConnectionConfig extends ConnectionOptions {
     ssl?: string | (tls.SecureContextOptions & { rejectUnauthorized?: boolean });
 }
 
-export interface PoolConfig extends ConnectionConfig {
+export interface PoolSpecificConfig {
     /**
      * The milliseconds before a timeout occurs during the connection acquisition. This is slightly different from connectTimeout,
      * because acquiring a pool connection does not always involve making a connection. (Default: 10 seconds)
@@ -590,6 +607,13 @@ export interface PoolConfig extends ConnectionConfig {
      * is no limit to the number of queued connection requests. (Default: 0)
      */
     queueLimit?: number;
+}
+
+export interface PoolConfig extends PoolSpecificConfig, ConnectionConfig {
+}
+
+export interface PoolActualConfig extends PoolSpecificConfig {
+    connectionConfig: ConnectionConfig;
 }
 
 export interface PoolClusterConfig {

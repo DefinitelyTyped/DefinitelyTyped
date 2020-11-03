@@ -5,8 +5,6 @@
         "export-just-namespace": false,
         "interface-name": false,
         "interface-over-type-literal": false,
-        "no-empty-interface": false,
-        "no-var": false,
-        "prefer-method-signature": false
+        "no-empty-interface": false
     }
 }

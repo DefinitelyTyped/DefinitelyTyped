@@ -707,7 +707,7 @@ function test_validationOptions() {
 
 interface NumericRange{
     max: number;
-	min: number;
+    min: number;
 }
 
 interface NumericRangeValidatorFunctionContext extends breeze.ValidatorFunctionContext, NumericRange {

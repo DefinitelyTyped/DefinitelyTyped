@@ -3,11 +3,11 @@
  * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
  */
 declare function polyfill<T>(
-	o: T,
+    o: T,
 ): {
-	-readonly [P in keyof T]: TypedPropertyDescriptor<T[P]>;
+    -readonly [P in keyof T]: TypedPropertyDescriptor<T[P]>;
 } & {
-	[property: string]: PropertyDescriptor;
+    [property: string]: PropertyDescriptor;
 };
 
 export = polyfill;

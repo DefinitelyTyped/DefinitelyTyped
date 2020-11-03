@@ -52,6 +52,7 @@ const chart: Chart = new Chart(ctx, {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
             mode: 'index',
+            axis: 'x',
             itemSort: (a, b, data) => Math.random() - 0.5,
             position: 'average',
             caretPadding: 2,
@@ -126,6 +127,12 @@ if (chart.chartArea) {
     console.log(chart.chartArea.bottom);
     console.log(chart.chartArea.left);
 }
+
+// Testing dataset visibility
+chart.isDatasetVisible(0); // $ExpectType boolean
+chart.setDatasetVisibility(0, false); // $ExpectType void
+chart.isDatasetVisible(0); // $ExpectType boolean
+chart.getVisibleDatasetCount(); // $ExpectType number
 
 // Testing custom legends
 chart.config.options = {
@@ -282,6 +289,13 @@ const linearScaleChart: Chart = new Chart(ctx, {
             },
             xAxes: [{
                 type: 'time',
+                time: {
+                    adapters: {
+                        date: {
+                            locale: 'de'
+                        }
+                    }
+                },
                 distribution: 'series',
                 ticks: {
                     source: 'data',
@@ -320,6 +334,22 @@ const customTooltipsPieChart = new Chart(ctx, {
     },
 });
 
+// chart with right-to-left (rtl) legend and tooltip
+const rtlTooltipsLegendsLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {},
+    options: {
+        legend: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+        tooltips: {
+            rtl: true,
+            textDirection: 'rtl',
+        },
+    },
+});
+
 // platform global values
 Chart.platform.disableCSSInjection = true;
 
@@ -334,6 +364,18 @@ Chart.defaults.global.defaultFontFamily = 'Arial';
 Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
 Chart.defaults.global.tooltips.cornerRadius = 2;
 Chart.defaults.global.tooltips.displayColors = false;
+
+// Update Chart defaults using scaleService
+Chart.scaleService.updateScaleDefaults('time', {
+    gridLines: {
+        drawBorder: false,
+        drawOnChartArea: false,
+        drawTicks: false,
+    },
+    ticks: {
+        padding: 20,
+    },
+});
 
 const doughnutChart = new Chart(ctx, {
     type: 'doughnut',
@@ -504,3 +546,9 @@ const chartWithNumberArrayData: Chart = new Chart(ctx, {
         }
     }
 });
+
+// Category axes
+const categoryXAxe: Chart.ChartXAxe = {
+    type: 'category',
+    labels: ['label1', 'label2'],
+};

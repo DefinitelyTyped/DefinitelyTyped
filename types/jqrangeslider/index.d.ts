@@ -82,10 +82,10 @@ interface JQuery {
     editRangeSlider(method: string): any;
     editRangeSlider(method: string, value: number): JQuery;
     editRangeSlider(method: string, min: number, max: number): JQuery
-	editRangeSlider(options?: JQEditRangeSliderOptions): JQuery;
+    editRangeSlider(options?: JQEditRangeSliderOptions): JQuery;
 
     dateRangeSlider(method: string): any;
     dateRangeSlider(method: string, value: Date): JQuery;
     dateRangeSlider(method: string, min: Date, max: Date): JQuery
-	dateRangeSlider(options?: JQDateRangeSliderOptions): JQuery;
+    dateRangeSlider(options?: JQDateRangeSliderOptions): JQuery;
 }

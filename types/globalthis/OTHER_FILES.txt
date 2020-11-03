@@ -1,3 +1,0 @@
-implementation.d.ts
-polyfill.d.ts
-shim.d.ts

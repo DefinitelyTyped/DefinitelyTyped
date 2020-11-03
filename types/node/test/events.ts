@@ -84,3 +84,8 @@ async function test() {
         console.log(e);
     }
 }
+
+{
+    emitter.on(events.errorMonitor, listener);
+    emitter.on(events.EventEmitter.errorMonitor, listener);
+}

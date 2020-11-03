@@ -81,6 +81,9 @@ export enum EventType {
     REQUEST_QUEUE_GET_ITEMS = 'REQUEST_QUEUE_GET_ITEMS',
     REQUEST_QUEUE_GET_ITEM_IDS = 'REQUEST_QUEUE_GET_ITEM_IDS',
     REQUEST_PRECACHE = 'REQUEST_PRECACHE',
+    TIMED_METADATA_CHANGED = 'TIMED_METADATA_CHANGED',
+    TIMED_METADATA_ENTER = 'TIMED_METADATA_ENTER',
+    TIMED_METADATA_EXIT = 'TIMED_METADATA_EXIT',
     LIVE_IS_MOVING_WINDOW_CHANGED = 'LIVE_IS_MOVING_WINDOW_CHANGED',
     LIVE_ENDED = 'LIVE_ENDED',
 }
@@ -415,7 +418,7 @@ export class BreaksEvent extends Event {
 /**
  * Event data for @see {@link EventType.BITRATE_CHANGED} event.
  */
-export class BitrateChangedEvent {
+export class BitrateChangedEvent extends Event {
     constructor(totalBitrate?: number);
 
     /** The bitrate of the media (audio and video) in bits per second. */

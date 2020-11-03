@@ -1,4 +1,4 @@
-// Type definitions for react-native-share 3.1
+// Type definitions for react-native-share 3.3
 // Project: https://github.com/react-native-community/react-native-share#readme
 // Definitions by: Mark Nelissen <https://github.com/marknelissen>
 //                 pera <https://github.com/santiagofm>
@@ -97,6 +97,7 @@ export interface Options {
     subject?: string;
     activityItemSources?: ActivityItemSource[];
     filename?: string;
+    saveToFiles?: boolean;
     excludedActivityTypes?: string;
     failOnCancel?: boolean;
     showAppsToView?: boolean;

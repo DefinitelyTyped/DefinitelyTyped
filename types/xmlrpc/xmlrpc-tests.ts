@@ -5,12 +5,14 @@ const serverOpts = {
     port: 9000
 };
 
-const server = xmlrpc.createServer(serverOpts, () => {
-    server.on('NotFound', method => {
+const serverWithOutCallback = xmlrpc.createServer(serverOpts);
+
+const serverWithCallback = xmlrpc.createServer(serverOpts, () => {
+    serverWithCallback.on('NotFound', method => {
         console.log(`Method ${method} not found`);
     })
 
-    server.on('hello', (err, params, cb) => {
+    serverWithCallback.on('hello', (err, params, cb) => {
         cb(null, `Hello, ${params[0]}!`);
     });
 

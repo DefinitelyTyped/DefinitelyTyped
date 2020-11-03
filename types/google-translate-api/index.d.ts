@@ -4,24 +4,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface TranslateOption {
-	from?: string;
-	to?: string;
-	raw?: boolean;
+    from?: string;
+    to?: string;
+    raw?: boolean;
 }
 interface TranslateResult {
-	text: string;
-	from: {
-		language: {
-			didYouMean: boolean;
-			iso: string;
-		}
-		text: {
-			autoCorrected: boolean;
-			value: string;
-			didYouMean: boolean;
-		}
-	};
-	raw: string;
+    text: string;
+    from: {
+        language: {
+            didYouMean: boolean;
+            iso: string;
+        }
+        text: {
+            autoCorrected: boolean;
+            value: string;
+            didYouMean: boolean;
+        }
+    };
+    raw: string;
 }
 declare function translate(text: string, options?: TranslateOption): Promise<TranslateResult>;
 export = translate;

@@ -68,7 +68,7 @@ declare namespace __WebpackModuleApi {
         id: string;
         filename: string;
         loaded: boolean;
-        parent: NodeModule | null;
+        parent: NodeModule | null | undefined;
         children: NodeModule[];
         hot?: Hot;
     }

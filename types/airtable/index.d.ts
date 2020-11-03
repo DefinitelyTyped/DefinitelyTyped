@@ -1,7 +1,8 @@
-// Type definitions for airtable 0.5
+// Type definitions for airtable 0.8
 // Project: https://github.com/airtable/airtable.js
 // Definitions by: Brandon Valosek <https://github.com/bvalosek>
 //                 Max Chehab <https://github.com/maxchehab>
+//                 Evan Hahn <https://github.com/EvanHahn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -11,6 +12,8 @@ declare global {
     class Airtable {
         constructor(options?: Airtable.AirtableOptions);
         base(appId: string): Airtable.Base;
+        static base(appId: string): Airtable.Base;
+        static configure(options?: Airtable.AirtableOptions): Airtable;
     }
 
     namespace Airtable {
@@ -30,7 +33,6 @@ declare global {
             apiKey?: string;
             endpointUrl?: string;
             apiVersion?: string;
-            allowUnauthorizedSsl?: boolean;
             noRetryIfRateLimited?: boolean;
             requestTimeout?: number;
         }
@@ -50,8 +52,8 @@ declare global {
         }
 
         interface SortParameter {
-          field: string;
-          direction?: 'asc' | 'desc';
+            field: string;
+            direction?: 'asc' | 'desc';
         }
 
         interface SelectOptions {
@@ -99,9 +101,9 @@ declare global {
         }
 
         interface Collaborator {
-          id: string;
-          email: string;
-          name: string;
+            id: string;
+            email: string;
+            name: string;
         }
     }
 }
