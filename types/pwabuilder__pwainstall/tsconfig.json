@@ -23,6 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "pwa-install-tests.ts"
+        "pwabuilder__pwainstall-tests.ts"
     ]
 }
