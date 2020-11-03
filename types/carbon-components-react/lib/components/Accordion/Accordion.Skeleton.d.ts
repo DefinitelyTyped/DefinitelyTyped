@@ -1,9 +1,7 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAttr<HTMLUListElement> { }
-
-export interface AccordionSkeletonProps extends InheritedProps {
+export interface AccordionSkeletonProps extends  ReactAttr<HTMLUListElement> {
     align?: "end" | "start";
     count?: number,
     open?: boolean,

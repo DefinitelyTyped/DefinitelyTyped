@@ -351,7 +351,7 @@ declare module "node-forge" {
 
         function certificateToAsn1(cert: Certificate): asn1.Asn1;
 
-        function decryptRsaPrivateKey(pem: PEM, passphrase?: string): PrivateKey;
+        function decryptRsaPrivateKey(pem: PEM, passphrase?: string): rsa.PrivateKey;
 
         function createCertificate(): Certificate;
 
@@ -391,7 +391,7 @@ declare module "node-forge" {
 
         function encryptedPrivateKeyToPem(obj: asn1.Asn1): PEM;
 
-        function decryptRsaPrivateKey(pem: PEM, password: string): PrivateKey;
+        function decryptRsaPrivateKey(pem: PEM, password: string): rsa.PrivateKey;
 
         function encryptRsaPrivateKey(privateKey: PrivateKey, password: string, options?: EncryptionOptions): PEM;
 

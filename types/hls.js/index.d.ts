@@ -322,7 +322,7 @@ declare namespace Hls {
         /**
          * stream start date and time
          */
-        programDateTime: Date;
+        programDateTime: number;
         /**
          * continuity count
          */
@@ -353,13 +353,29 @@ declare namespace Hls {
         error?: CustomLogger;
     }
 
-    interface AudioTrack {
-        buffer: SourceBuffer;
-        container: string;
-        codec: string;
-        id: string;
-        initSegment?: Uint8Array;
-        levelCodec: string;
+    interface HlsAudioTrack {
+        audioCodec: string;
+        autoselect: boolean;
+        default: boolean;
+        forced: boolean;
+        groupId: string;
+        id: number;
+        lang: string;
+        name: string;
+        type: string;
+        url: string;
+    }
+
+    interface SubtitleTrack {
+        autoselect: boolean;
+        default: boolean;
+        forced: boolean;
+        groupId: string;
+        id: number;
+        lang: string;
+        name: string;
+        type: string;
+        url: string;
     }
 
     interface Config {
@@ -912,7 +928,7 @@ declare namespace Hls {
     }
 
     interface audioTracksUpdatedData {
-        audioTracks: AudioTrack[];
+        audioTracks: HlsAudioTrack[];
     }
 
     interface audioTrackSwitchingData {
@@ -1715,9 +1731,19 @@ declare class Hls {
      */
     readonly liveSyncPosition: number;
     /**
+     * get : array of audio tracks exposed in manifest
+     */
+    readonly audioTracks: Hls.HlsAudioTrack[];
+    /**
+     * get/set : audio track id (returned by).
+     * Returns -1 if no track is selected.
+     * Set to -1 to play default audio track.
+     */
+    audioTrack: number;
+    /**
      * get : array of subtitle tracks exposed in manifest
      */
-    readonly subtitleTracks: any[];
+    readonly subtitleTracks: Hls.SubtitleTrack[];
     /**
      * get/set : subtitle track id (returned by).
      * Returns -1 if no track is visible.

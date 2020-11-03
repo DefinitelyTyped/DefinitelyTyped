@@ -1,8 +1,9 @@
-import * as React from 'react';
-import { ReactAttr, FCReturn, ReactDivAttr, JSXIntrinsicElementProps } from '../../../typings/shared';
+import * as React from "react";
+import { ReactAttr, FCReturn, ReactDivAttr, JSXIntrinsicElementProps } from "../../../typings/shared";
 
 interface RowBaseIsolatedProps {
     condensed?: boolean;
+    narrow?: boolean;
 }
 type SafeProps<P> = Omit<P, 'as' | 'condensed'>;
 

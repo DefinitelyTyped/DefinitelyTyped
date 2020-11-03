@@ -391,6 +391,13 @@ declare namespace webpack {
          * This addresses a performance regression.
          */
         cacheWithContext?: boolean;
+
+        /**
+         * A list of directories where requests of server-relative URLs
+         * (starting with '/') are resolved, defaults to context configuration option.
+         * On non-Windows systems these requests are resolved as an absolute path first.
+         */
+        roots?: string[];
     }
 
     interface ResolveLoader extends Resolve {
@@ -416,7 +423,7 @@ declare namespace webpack {
         /**
          * Callback with an Error
          */
-        (error: {}): void; /* tslint:disable-line */
+        (error: {}): void; /* tslint:disable-line:unified-signatures */
         /**
          * Externalize the dependency
          */
@@ -604,7 +611,6 @@ declare namespace webpack {
     type Rule = RuleSetRule;
 
     namespace Options {
-        // tslint:disable-next-line:max-line-length
         type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map'
             | 'source-map' | 'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | 'inline-cheap-source-map' | 'inline-cheap-module-source-map' | '@eval'
             | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' | '@cheap-module-source-map' | '@eval-source-map'
@@ -1439,6 +1445,11 @@ declare namespace webpack {
     abstract class Plugin implements Tapable.Plugin {
         apply(compiler: Compiler): void;
     }
+
+    // Compatibility with webpack@5's own types
+    // See https://github.com/webpack/webpack/issues/11630
+    // tslint:disable-next-line no-empty-interface
+    interface WebpackPluginInstance extends Plugin {}
 
     abstract class ResolvePlugin implements Tapable.Plugin {
         apply(resolver: any /* EnhancedResolve.Resolver */): void;

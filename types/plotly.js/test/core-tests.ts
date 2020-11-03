@@ -1,5 +1,5 @@
 import * as Plotly from 'plotly.js/lib/core';
-import { Datum, ScatterData, Layout, PlotlyHTMLElement, newPlot, PlotData } from 'plotly.js/lib/core';
+import { Datum, ScatterData, Layout, newPlot, PlotData, ViolinData } from 'plotly.js/lib/core';
 
 const graphDiv = '#test';
 
@@ -9,11 +9,13 @@ const graphDiv = '#test';
     const trace1 = {
         x: [1999, 2000, 2001, 2002],
         y: [10, 15, 13, 17],
+        customdata: [1, 2, 3],
         type: 'scatter',
     } as ScatterData;
     const trace2 = {
         x: [1999, 2000, 2001, 2002],
         y: [16, 5, 11, 9],
+        customdata: [[1, 'a'], [2, 'b'], [3, 'c']],
         type: 'scatter',
     } as ScatterData;
     const data = [trace1, trace2];
@@ -30,6 +32,23 @@ const graphDiv = '#test';
         },
     };
     Plotly.newPlot(graphDiv, data, layout);
+
+    const violinTrace = {
+        name: 'Values',
+        type: 'violin',
+        y: [10, 15, 13, 17],
+        points: 'all',
+        pointpos: -1,
+        marker: { opacity: 0.6 },
+        box: {
+            visible: true,
+            fillcolor: 'yellow',
+        },
+        line: { color: 'black' },
+        opacity: 0.6,
+        meanline: { visible: true },
+    } as ViolinData;
+    Plotly.newPlot(graphDiv, [violinTrace], { title: 'Sales growth' });
 })();
 (() => {
     // deprecated: calling plot again will add new trace(s) to the plot,

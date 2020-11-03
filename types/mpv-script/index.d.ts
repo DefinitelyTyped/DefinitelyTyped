@@ -25,6 +25,12 @@ declare namespace mp {
         remove(): void;
     }
 
+    interface OSDSize {
+        width?: number;
+        height?: number;
+        aspect?: number;
+    }
+
     interface FileInfo {
         mode: number;
         size: number;
@@ -115,7 +121,7 @@ declare namespace mp {
 
     function create_osd_overlay(format: 'ass-events'): OSDOverlay;
 
-    function get_osd_size(): [number, number, number];
+    function get_osd_size(): OSDSize | undefined;
 
     function add_hook(name: string, priority: number, fn: () => void): void;
 

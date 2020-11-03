@@ -6,8 +6,6 @@
 //                 Griffin Yourick <https://github.com/tough-griff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import { RawSourceMap } from 'source-map';
 
 /**

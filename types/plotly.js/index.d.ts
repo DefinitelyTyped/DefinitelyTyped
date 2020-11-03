@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.50
+// Type definitions for plotly.js 1.54
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -22,7 +22,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from 'd3';
+import { BoxPlotData } from './lib/traces/box';
+import { ViolinData } from './lib/traces/violin';
+
 export as namespace Plotly;
+export { BoxPlotData, ViolinData };
 
 export interface StaticPlots {
     resize(root: Root): void;
@@ -204,6 +208,30 @@ export interface SliderEndEvent {
     step: SliderStep;
 }
 
+export interface SunburstClickEvent {
+    event: MouseEvent;
+    nextLevel: string;
+    points: SunburstPlotDatum[];
+}
+
+export interface SunburstPlotDatum {
+    color: number;
+    curveNumber: number;
+    data: Data;
+    entry: string;
+    fullData: Data;
+    hovertext: string;
+    id: string;
+    label: string;
+    parent: string;
+    percentEntry: number;
+    percentParent: number;
+    percentRoot: number;
+    pointNumber: number;
+    root: string;
+    value: number;
+}
+
 export interface BeforePlotEvent {
     data: Data[];
     layout: Partial<Layout>;
@@ -221,6 +249,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
     on(event: 'plotly_sliderchange', callback: (event: SliderChangeEvent) => void): void;
     on(event: 'plotly_sliderend', callback: (event: SliderEndEvent) => void): void;
     on(event: 'plotly_sliderstart', callback: (event: SliderStartEvent) => void): void;
+    on(event: 'plotly_sunburstclick', callback: (event: SunburstClickEvent) => void): void;
     on(event: 'plotly_event', callback: (data: any) => void): void;
     on(event: 'plotly_beforeplot', callback: (event: BeforePlotEvent) => boolean): void;
     on(
@@ -434,6 +463,7 @@ export interface Layout {
     polar8: Partial<PolarLayout>;
     polar9: Partial<PolarLayout>;
     transition: Transition;
+    template: Template;
 }
 
 export interface Legend extends Label {
@@ -740,25 +770,11 @@ export type Calendar =
     | 'thai'
     | 'ummalqura';
 
-export type AxisName =
-    | 'x'
-    | 'x2'
-    | 'x3'
-    | 'x4'
-    | 'x5'
-    | 'x6'
-    | 'x7'
-    | 'x8'
-    | 'x9'
-    | 'y'
-    | 'y2'
-    | 'y3'
-    | 'y4'
-    | 'y5'
-    | 'y6'
-    | 'y7'
-    | 'y8'
-    | 'y9';
+export type XAxisName =
+    | 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9' | 'x10' | 'x11';
+export type YAxisName =
+    | 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9' | 'y10' | 'y11';
+export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
     fixedrange: boolean;
@@ -797,12 +813,10 @@ export interface Shape {
     layer: 'below' | 'above';
     type: 'rect' | 'circle' | 'line' | 'path';
     path: string;
-    // x-reference is assigned to the x-values
-    xref: 'x' | 'paper';
+    xref: 'paper' | XAxisName;
     xsizemode: 'scaled' | 'pixel';
     xanchor: number | string;
-    // y-reference is assigned to the plot paper [0,1]
-    yref: 'paper' | 'y';
+    yref: 'paper' | YAxisName;
     ysizemode: 'scaled' | 'pixel';
     yanchor: number | string;
     x0: Datum;
@@ -950,6 +964,7 @@ export interface Delta {
 export interface DataTitle {
     text: string;
     font: Partial<Font>;
+    standoff: number;
     position:
         | 'top left'
         | 'top center'
@@ -965,6 +980,11 @@ export interface PlotNumber {
     font: Partial<Font>;
     prefix: string;
     suffix: string;
+}
+
+export interface Template {
+    data?: { [type in PlotType]?: Partial<PlotData> };
+    layout?: Partial<Layout>;
 }
 
 // Data
@@ -1007,33 +1027,54 @@ export type ErrorBar = Partial<ErrorOptions> &
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 export type PlotType =
     | 'bar'
+    | 'barpolar'
     | 'box'
     | 'candlestick'
+    | 'carpet'
     | 'choropleth'
+    | 'choroplethmapbox'
+    | 'cone'
     | 'contour'
+    | 'contourcarpet'
+    | 'contourgl'
+    | 'densitymapbox'
+    | 'funnel'
+    | 'funnelarea'
     | 'heatmap'
+    | 'heatmapgl'
     | 'histogram'
+    | 'histogram2d'
+    | 'histogram2dcontour'
+    | 'image'
     | 'indicator'
+    | 'isosurface'
     | 'mesh3d'
     | 'ohlc'
+    | 'parcats'
     | 'parcoords'
     | 'pie'
     | 'pointcloud'
+    | 'sankey'
     | 'scatter'
     | 'scatter3d'
+    | 'scattercarpet'
     | 'scattergeo'
     | 'scattergl'
+    | 'scattermapbox'
     | 'scatterpolar'
+    | 'scatterpolargl'
     | 'scatterternary'
+    | 'splom'
+    | 'streamtube'
     | 'sunburst'
     | 'surface'
+    | 'table'
     | 'treemap'
-    | 'waterfall'
-    | 'funnel'
-    | 'funnelarea'
-    | 'scattermapbox';
+    | 'violin'
+    | 'volume'
+    | 'waterfall';
 
-export type Data = Partial<PlotData>;
+export type Data = Partial<PlotData> | Partial<BoxPlotData> | Partial<ViolinData>;
 export type Color =
     | string
     | number
@@ -1049,6 +1090,9 @@ export interface PlotData {
     x: Datum[] | Datum[][] | TypedArray;
     y: Datum[] | Datum[][] | TypedArray;
     z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+    i: TypedArray;
+    j: TypedArray;
+    k: TypedArray;
     xy: Float32Array;
     error_x: ErrorBar;
     error_y: ErrorBar;
@@ -1169,7 +1213,9 @@ export interface PlotData {
         | 'bottom center'
         | 'bottom right'
         | 'inside'
-        | 'outside';
+        | 'outside'
+        | 'auto'
+        | 'none';
     textfont: Partial<Font>;
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
@@ -1178,6 +1224,8 @@ export interface PlotData {
     parents: string[];
     name: string;
     stackgroup: string;
+    groupnorm: '' | 'fraction' | 'percent';
+    stackgaps: 'infer zero' | 'interpolate';
     connectgaps: boolean;
     visible: boolean | 'legendonly';
     delta: Partial<Delta>;
@@ -1187,6 +1235,9 @@ export interface PlotData {
     orientation: 'v' | 'h';
     width: number | number[];
     boxmean: boolean | 'sd';
+    boxpoints: 'all' | 'outliers' | 'suspectedoutliers' | false;
+    jitter: number;
+    pointpos: number;
     opacity: number;
     showscale: boolean;
     colorscale: ColorScale;
@@ -1208,7 +1259,8 @@ export interface PlotData {
     rotation: number;
     theta: Datum[];
     r: Datum[];
-    customdata: Datum[];
+    customdata: Datum[] | Datum[][];
+    selectedpoints: Datum[];
     domain: Partial<{
         rows: number;
         columns: number;
@@ -1217,6 +1269,8 @@ export interface PlotData {
     }>;
     title: Partial<DataTitle>;
     branchvalues: 'total' | 'remainder';
+    ids: string[];
+    level: string;
 }
 
 /**
@@ -1718,7 +1772,7 @@ export interface Annotations extends Label {
      * for trendline annotations which should continue to indicate
      * the correct trend when zoomed.
      */
-    axref: 'pixel';
+    axref: 'pixel' | XAxisName;
 
     /**
      * Indicates in what terms the tail of the annotation (ax,ay)
@@ -1728,7 +1782,7 @@ export interface Annotations extends Label {
      * for trendline annotations which should continue to indicate
      * the correct trend when zoomed.
      */
-    ayref: 'pixel';
+    ayref: 'pixel' | YAxisName;
 
     /**
      * Sets the annotation's x coordinate axis.
@@ -1737,7 +1791,7 @@ export interface Annotations extends Label {
      * the left side of the plotting area in normalized coordinates
      * where 0 (1) corresponds to the left (right) side.
      */
-    xref: 'paper' | 'x';
+    xref: 'paper' | XAxisName;
 
     /**
      * Sets the annotation's x position.
@@ -1772,7 +1826,7 @@ export interface Annotations extends Label {
      * the bottom of the plotting area in normalized coordinates
      * where 0 (1) corresponds to the bottom (top).
      */
-    yref: 'paper' | 'y';
+    yref: 'paper' | YAxisName;
 
     /**
      * Sets the annotation's y position.
@@ -1855,8 +1909,8 @@ export interface Image {
     y: number | string;
     xanchor: 'left' | 'center' | 'right';
     yanchor: 'top' | 'middle' | 'bottom';
-    xref: 'paper' | 'x';
-    yref: 'paper' | 'y';
+    xref: 'paper' | XAxisName;
+    yref: 'paper' | YAxisName;
 }
 
 export interface Scene {

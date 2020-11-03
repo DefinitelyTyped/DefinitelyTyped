@@ -22,6 +22,7 @@
         "test/audio.ts",
         "test/config.ts",
         "test/engine.ts",
+        "test/events.ts",
         "test/extensions.ts",
         "test/functions.ts",
         "test/macro.ts",

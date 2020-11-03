@@ -1,17 +1,17 @@
 import Ember from 'ember';
 import DS, { ChangedAttributes } from 'ember-data';
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 import RSVP from 'rsvp';
 
 const Person = DS.Model.extend({
     firstName: DS.attr(),
     lastName: DS.attr(),
-    title: DS.attr({ defaultValue: "The default" }),
-    title2: DS.attr({ defaultValue: () => "The default" }),
+    title: DS.attr({ defaultValue: 'The default' }),
+    title2: DS.attr({ defaultValue: () => 'The default' }),
 
-    fullName: Ember.computed('firstName', 'lastName', function() {
+    fullName: Ember.computed('firstName', 'lastName', function () {
         return `${this.get('firstName')} ${this.get('lastName')}`;
-    })
+    }),
 });
 
 const User = DS.Model.extend({
@@ -20,8 +20,10 @@ const User = DS.Model.extend({
     verified: DS.attr('boolean', { defaultValue: false }),
     canBeNull: DS.attr('boolean', { allowNull: true }),
     createdAt: DS.attr('date', {
-        defaultValue() { return new Date(); }
-    })
+        defaultValue() {
+            return new Date();
+        },
+    }),
 });
 
 const user = User.create({ username: 'dwickern' });
@@ -42,8 +44,8 @@ user.rollbackAttributes(); // $ExpectType void
 let destroyResult: RSVP.Promise<typeof user>;
 destroyResult = user.destroyRecord();
 destroyResult = user.destroyRecord({});
-destroyResult = user.destroyRecord({ adapterOptions: {}});
-destroyResult = user.destroyRecord({ adapterOptions: { waffles: 'are yummy' }});
+destroyResult = user.destroyRecord({ adapterOptions: {} });
+destroyResult = user.destroyRecord({ adapterOptions: { waffles: 'are yummy' } });
 
 user.deleteRecord(); // $ExpectType void
 

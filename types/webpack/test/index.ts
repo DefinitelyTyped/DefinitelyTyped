@@ -109,27 +109,26 @@ configuration = {
 configuration = {
     externals: [
         // Disable TSLint for allowing non-arrow functions
-        /* tslint:disable-next-line */
+        /* tslint:disable-next-line:only-arrow-functions */
         function(context, request, callback) {
-            /* tslint:disable-next-line */
             if (/^yourregex$/.test(request)) {
                 // Disable TSLint for allowing non-arrow functions
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, 'commonjs ' + request);
             }
             if (request === 'foo') {
                 // Disable TSLint for allowing non-arrow functions
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, ['path', 'to', 'external']);
             }
             if (request === 'bar') {
                 // Disable TSLint for allowing non-arrow functions
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, {}, 'commonjs');
             }
             if (request === 'baz') {
                 // Disable TSLint for allowing non-arrow functions
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, {});
             }
 
@@ -147,7 +146,7 @@ configuration = {
 
             // Continue without externalizing the import
             // Disable TSLint for allowing non-arrow functions
-            /* tslint:disable-next-line */
+            /* tslint:disable-next-line:no-void-expression */
             return callback();
         },
     ],
@@ -168,11 +167,11 @@ configuration = {
             subtract: ['./math', 'subtract']
             },
             // Disable TSLint for allowing non-arrow functions
-            /* tslint:disable-next-line */
+            /* tslint:disable-next-line:only-arrow-functions */
             function(context, request, callback) {
               if (/^yourregex$/.test(request)) {
                 // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, 'commonjs ' + request);
               }
               callback(null, {});
@@ -1060,6 +1059,7 @@ configuration = {
                 exclude: path => path.startsWith('/foo'),
                 resourceQuery: ['foo', 'bar'],
                 resolve: {
+                    roots: [process.cwd()],
                     mainFields: ['foo'],
                     aliasFields: [['bar']],
                 },

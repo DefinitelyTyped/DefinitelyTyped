@@ -9,6 +9,7 @@
 //                 Marcell Toth <https://github.com/marcelltoth>
 //                 Vincenzo Chianese <https://github.com/XVincentX>
 //                 Andree Hagelstein <https://github.com/ahagelstein>
+//                 Alexander Pepper <https://github.com/apepper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -79,7 +80,7 @@ declare const URI: {
             port?: string;
         },
     ): string;
-    parseQuery(url: string): object;
+    parseQuery(url: string): URI.QueryDataMap;
     parseUserinfo(
         url: string,
         parts: {
@@ -117,17 +118,17 @@ declare namespace URI {
         preventInvalidHostname: boolean;
     }
 
-    interface QueryDataMap { [key: string]: string | string[]; }
+    interface QueryDataMap {
+        [key: string]: string | null | Array<string | null>;
+    }
 }
 
 interface URI {
     absoluteTo(path: string | URI): URI;
     addFragment(fragment: string): URI;
     addQuery(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     addQuery(qry: string, value: any): URI;
     addSearch(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     addSearch(key: string, value: any): URI;
     authority(): string;
     authority(authority: string): URI;
@@ -209,16 +210,15 @@ interface URI {
     preventInvalidHostname(val: boolean): URI;
 
     query(): string;
-    query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap)): URI;
-    query(qry: boolean): object;
+    // tslint:disable-next-line void-return
+    query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    query(v: boolean): URI.QueryDataMap;
 
     readable(): string;
     relativeTo(path: string): URI;
     removeQuery(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     removeQuery(name: string, value: string): URI;
     removeSearch(qry: string | object): URI;
-    // tslint:disable-next-line:unified-signatures
     removeSearch(name: string, value: string): URI;
     resource(): string;
     resource(resource: string): URI;
@@ -226,8 +226,9 @@ interface URI {
     scheme(): string;
     scheme(protocol: string): URI;
     search(): string;
-    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap)): URI;
-    search(qry: boolean): any;
+    // tslint:disable-next-line void-return
+    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    search(v: boolean): URI.QueryDataMap;
     segment(): string[];
     segment(segments: string[] | string): URI;
     segment(position: number): string | undefined;

@@ -1,6 +1,7 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import { Condition } from '../events/condition';
 import BaseEvent from '../events/Event';
+import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import DragBox, { DragBoxEvent } from './DragBox';
 
@@ -13,7 +14,11 @@ export interface Options {
 }
 export default class DragZoom extends DragBox {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    /**
+     * Function to execute just before onboxend is fired
+     */
+    onBoxEnd(event: MapBrowserEvent<UIEvent>): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): EventsKey;

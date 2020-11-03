@@ -2,14 +2,14 @@ const a: any = null;
 let b = false;
 let s = "string";
 
-Wikifier.createExternalLink(s, s, s);
-Wikifier.createInternalLink(s, s, s, () => {});
-Wikifier.evalExpression(s); // $ExpectType any
-Wikifier.evalStatements(s); // $ExpectType any
-Wikifier.getValue(s); // $ExpectType any
-b = Wikifier.isExternalLink(s);
-Wikifier.parse(s); // $ExpectType any
-b = Wikifier.setValue(s, a);
+const output: DocumentFragment | HTMLElement | JQuery = new DocumentFragment();
+
+Wikifier.createExternalLink(output, s, s);
+Wikifier.createInternalLink(output, s, s, () => {});
 s = Wikifier.wikifyEval(s);
+b = Wikifier.isExternalLink(s);
+
+new Wikifier(output, s);
+new Wikifier(null, s, {profile: s, ignoreTerminatorCase: b});
 
 export {};

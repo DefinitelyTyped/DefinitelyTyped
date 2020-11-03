@@ -1,6 +1,7 @@
 // Type definitions for yeoman-environment 2.10
 // Project: https://github.com/yeoman/environment, http://yeoman.io
 // Definitions by: c4605 <https://github.com/bolasblack>
+//                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -14,7 +15,7 @@ import { Logger as LoggerBase } from "./lib/util/log";
 import util = require("./lib/util/util");
 
 /**
- * `Environment` object is responsible of handling the lifecyle and bootstrap
+ * `Environment` object is responsible of handling the lifecycle and bootstrap
  * of generators in a specific environment (your app).
  *
  * It provides a high-level API to create and run generators, as well as further

@@ -178,7 +178,7 @@ export interface CreditFinancingOptions {
     cartAmountImmutable: boolean;
 }
 
-export interface TokenizePayloadDetails {
+export interface AuthorizationResponseDetails {
     email: string;
     payerId: string;
     firstName: string;
@@ -202,7 +202,7 @@ export interface TokenizePayloadDetails {
     creditFinancingOffered?: CreditFinancingOptions;
 }
 
-export interface TokenizePayload {
+export interface AuthorizationResponse {
     /**
      * The payment method nonce.
      */
@@ -216,7 +216,7 @@ export interface TokenizePayload {
     /**
      * Additional PayPal account details.
      */
-    details: TokenizePayloadDetails;
+    details: AuthorizationResponseDetails;
 }
 
 export enum FlowType {
@@ -265,21 +265,4 @@ export interface CancellationData {
     intent: string;
     paymentID: string;
     paymentToken: string;
-}
-
-export interface AuthorizationTokenizePayload {
-    /**
-     * The payment method nonce.
-     */
-    nonce: string;
-
-    /**
-     * The payment method type, always `PayPalAccount`.
-     */
-    type: string;
-
-    /**
-     * Additional PayPal account details.
-     */
-    details: TokenizePayloadDetails;
 }

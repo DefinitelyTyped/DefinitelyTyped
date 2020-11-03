@@ -36,7 +36,6 @@ export interface ControllerMixin extends ActionHandler {
     target: object;
 }
 export const ControllerMixin: Mixin<ControllerMixin>;
-// tslint:disable-next-line:no-empty-interface
 export default class Controller extends EmberObject.extend(ControllerMixin) {}
 export function inject(): ComputedProperty<Controller>;
 export function inject<K extends keyof Registry>(

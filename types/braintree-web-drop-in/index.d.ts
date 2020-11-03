@@ -46,7 +46,7 @@ export interface cardCreateOptions {
         | {
               required?: boolean;
           };
-    overrides: {
+    overrides?: {
         fields?: object;
         styles?: object;
     };

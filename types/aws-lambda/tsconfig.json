@@ -21,6 +21,7 @@
         "aws-lambda-tests.ts",
         "test/alb-tests.ts",
         "test/api-gateway-tests.ts",
+        "test/appsync-resolver-tests.ts",
         "test/cloudformation-tests.ts",
         "test/cloudfront-tests.ts",
         "test/cloudwatch-tests.ts",
@@ -33,7 +34,9 @@
         "test/kinesis-tests.ts",
         "test/lex-tests.ts",
         "test/s3-tests.ts",
+        "test/ses-tests.ts",
         "test/sns-tests.ts",
-        "test/sqs-tests.ts"
+        "test/sqs-tests.ts",
+        "test/msk-tests.ts"
     ]
 }

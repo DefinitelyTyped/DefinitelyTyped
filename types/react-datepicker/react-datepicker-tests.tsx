@@ -61,7 +61,7 @@ const defaultLocale = getDefaultLocale();
     onBlur={event => null}
     onCalendarClose={() => null}
     onCalendarOpen={() => null}
-    onChange={(date: Date | null) => {}}
+    onChange={(date: Date | [Date, Date] | null) => {}}
     onChangeRaw={event => null}
     onClickOutside={event => null}
     onDayMouseEnter={(date: Date) => {}}

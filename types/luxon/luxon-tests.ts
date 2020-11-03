@@ -12,6 +12,9 @@ import {
 } from 'luxon';
 
 /* DateTime */
+DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
+
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
 const now = DateTime.local();
@@ -68,29 +71,29 @@ getters.isInLeapYear;
 
 dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string
-dt.toISO(); // $ExpectType string | null
-dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string | null
-dt.toISODate(); // $ExpectType string | null
-dt.toISODate({ format: 'basic'}); // $ExpectType string | null
-dt.toISOTime(); // $ExpectType string | null
-dt.toISOTime({ format: 'basic' }); // $ExpectType string | null
-dt.toISOWeekDate(); // $ExpectType string | null
+dt.toISO(); // $ExpectType string
+dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string
+dt.toISODate(); // $ExpectType string
+dt.toISODate({ format: 'basic'}); // $ExpectType string
+dt.toISOTime(); // $ExpectType string
+dt.toISOTime({ format: 'basic' }); // $ExpectType string
+dt.toISOWeekDate(); // $ExpectType string
 dt.toJSDate(); // $ExpectType Date
-dt.toJSON(); // $ExpectType string | null
-dt.toLocaleString(); // $ExpectType string | null
-dt.toLocaleString({ month: 'long', day: 'numeric' }); // $ExpectType string | null
-dt.toLocaleString(DateTime.DATE_MED); // $ExpectType string | null
+dt.toJSON(); // $ExpectType string
+dt.toLocaleString(); // $ExpectType string
+dt.toLocaleString({ month: 'long', day: 'numeric' }); // $ExpectType string
+dt.toLocaleString(DateTime.DATE_MED); // $ExpectType string
 dt.toMillis(); // $ExpectType number
 dt.toMillis(); // $ExpectType number
 dt.toRelative(); // $ExpectType string | null
 dt.toRelativeCalendar(); // $ExpectType string | null
-dt.toRFC2822(); // $ExpectType string | null
+dt.toRFC2822(); // $ExpectType string
 dt.toSeconds(); // $ExpectType number
-dt.toSQL(); // $ExpectType string | null
-dt.toSQL({ includeOffset: false, includeZone: true }); // $ExpectType string | null
-dt.toSQLDate(); // $ExpectType string | null
-dt.toSQLTime(); // $ExpectType string | null
-dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string | null
+dt.toSQL(); // $ExpectType string
+dt.toSQL({ includeOffset: false, includeZone: true }); // $ExpectType string
+dt.toSQLDate(); // $ExpectType string
+dt.toSQLTime(); // $ExpectType string
+dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string
 dt.valueOf(); // $ExpectType number
 
 // $ExpectType string | null
@@ -158,7 +161,7 @@ dur.seconds; // $ExpectType number
 
 dur.as('seconds'); // $ExpectType number
 dur.toObject();
-dur.toISO(); // $ExpectType string | null
+dur.toISO(); // $ExpectType string
 dur.normalize(); // $ExpectType Duration
 dur.mapUnits((x, u) => u === 'hours' ? x * 2 : x); // $ExpectType Duration
 
@@ -216,7 +219,7 @@ Settings.defaultZone = Settings.defaultZone;
 
 /* Intl */
 // prettier-ignore
-DateTime.local().setLocale('el').toLocaleString(DateTime.DATE_FULL); // $ExpectType string | null
+DateTime.local().setLocale('el').toLocaleString(DateTime.DATE_FULL); // $ExpectType string
 dt.locale; // $ExpectType string
 DateTime.local().setLocale('fr').locale; // $ExpectType string
 DateTime.local().reconfigure({ locale: 'fr' }).locale; // $ExpectType string
@@ -226,8 +229,8 @@ DateTime.local().locale; // $ExpectType string
 
 Settings.defaultLocale = DateTime.local().resolvedLocaleOpts().locale;
 
-dt.setLocale('fr').toLocaleString(DateTime.DATE_FULL); // $ExpectType string | null
-dt.toLocaleString({ locale: 'es', ...DateTime.DATE_FULL }); // $ExpectType string | null
+dt.setLocale('fr').toLocaleString(DateTime.DATE_FULL); // $ExpectType string
+dt.toLocaleString({ locale: 'es', ...DateTime.DATE_FULL }); // $ExpectType string
 dt.setLocale('fr').toFormat('MMMM dd, yyyy GG'); // $ExpectType string
 
 DateTime.fromFormat('septembre 25, 2017 après Jésus-Christ', 'MMMM dd, yyyy GG', { locale: 'fr' });
@@ -264,11 +267,11 @@ Settings.defaultZoneName = 'Asia/Tokyo';
 
 /* Calendars */
 // prettier-ignore
-DateTime.fromISO('2017-W23-3').plus({ weeks: 1, days: 2 }).toISOWeekDate(); // $ExpectType string | null
+DateTime.fromISO('2017-W23-3').plus({ weeks: 1, days: 2 }).toISOWeekDate(); // $ExpectType string
 
 const dtHebrew = DateTime.local().reconfigure({ outputCalendar: 'hebrew' });
 dtHebrew.outputCalendar; // $ExpectType string
-dtHebrew.toLocaleString(); // $ExpectType string | null
+dtHebrew.toLocaleString(); // $ExpectType string
 
 DateTime.fromObject({ outputCalendar: 'buddhist' }).toLocaleString(DateTime.DATE_FULL);
 Settings.defaultOutputCalendar = 'persian';
@@ -310,7 +313,7 @@ dur.toObject().days; // $ExpectType number | undefined
 dur.as('minutes'); // $ExpectType number
 dur.shiftTo('minutes').toObject().minutes; // $ExpectType number | undefined
 // prettier-ignore
-DateTime.fromISO('2017-05-15').plus(dur).toISO(); // $ExpectType string | null
+DateTime.fromISO('2017-05-15').plus(dur).toISO(); // $ExpectType string
 
 const end = DateTime.fromISO('2017-03-13');
 const start = DateTime.fromISO('2017-02-13');

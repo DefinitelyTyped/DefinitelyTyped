@@ -3336,9 +3336,9 @@ export class Object {
      * @param {Boolean} [options.enableRetinaScaling] Enable retina scaling for clone image. Introduce in 1.6.4
      * @param {Boolean} [options.withoutTransform] Remove current object transform ( no scale , no angle, no flip, no skew ). Introduced in 2.3.4
      * @param {Boolean} [options.withoutShadow] Remove current object shadow. Introduced in 2.4.2
-     * @return {String} Returns a data: URL containing a representation of the object in the format specified by options.format
+     * @return {HTMLCanvasElement} Returns a new HTMLCanvasElement painted with the current canvas object
      */
-    toCanvasElement(options?: IDataURLOptions): string;
+    toCanvasElement(options?: IDataURLOptions): HTMLCanvasElement;
 
     /**
      * Converts an object into a data-url-like string

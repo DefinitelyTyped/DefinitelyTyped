@@ -4,7 +4,6 @@
 //                 Matt Silverlock <https://github.com/elithrar>
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
-//                 Orblazer <https://github.com/orblazer>
 //                 reduckted <https://github.com/reduckted>
 //                 teidesu <https://github.com/teidesu>
 //                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>
@@ -56,14 +55,23 @@ declare class WebSocket extends events.EventEmitter {
     terminate(): void;
 
     // HTML5 WebSocket events
-    addEventListener(method: 'message', cb?: (event: { data: any; type: string; target: WebSocket }) => void): void;
-    addEventListener(method: 'close', cb?: (event: {
+    addEventListener(method: 'message', cb: (event: {
+        data: any;
+        type: string;
+        target: WebSocket
+    }) => void, options?: WebSocket.EventListenerOptions): void;
+    addEventListener(method: 'close', cb: (event: {
         wasClean: boolean; code: number;
         reason: string; target: WebSocket
-    }) => void): void;
-    addEventListener(method: 'error', cb?: (event: {error: any, message: any, type: string, target: WebSocket }) => void): void;
-    addEventListener(method: 'open', cb?: (event: { target: WebSocket }) => void): void;
-    addEventListener(method: string, listener?: () => void): void;
+    }) => void, options?: WebSocket.EventListenerOptions): void;
+    addEventListener(method: 'error', cb: (event: {
+        error: any,
+        message: any,
+        type: string,
+        target: WebSocket
+    }) => void, options?: WebSocket.EventListenerOptions): void;
+    addEventListener(method: 'open', cb: (event: { target: WebSocket }) => void, options?: WebSocket.EventListenerOptions): void;
+    addEventListener(method: string, listener: () => void, options?: WebSocket.EventListenerOptions): void;
 
     removeEventListener(method: 'message', cb?: (event: { data: any; type: string; target: WebSocket }) => void): void;
     removeEventListener(method: 'close', cb?: (event: {
@@ -190,6 +198,10 @@ declare namespace WebSocket {
         data: Data;
         type: string;
         target: WebSocket;
+    }
+
+    interface EventListenerOptions {
+        once?: boolean;
     }
 
     interface ServerOptions {

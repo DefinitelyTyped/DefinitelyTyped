@@ -24,6 +24,7 @@ declare namespace postcssLess {
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/nodes/variable.js
     interface VariableAtRule extends postcss.AtRule {
         variable: true;
+        value: string;
     }
 
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L147-L151
@@ -45,6 +46,13 @@ declare namespace postcssLess {
     }
 
     type Rule = ExtendRule;
+
+    // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L187
+    interface ExtendDeclaration extends postcss.Declaration {
+        extend: true;
+    }
+
+    type Declaration = ExtendDeclaration;
 
     // @see https://github.com/shellscape/postcss-less/blob/v3.1.4/lib/LessParser.js#L73
     interface InlineComment extends postcss.Comment {

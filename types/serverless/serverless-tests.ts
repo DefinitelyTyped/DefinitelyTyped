@@ -121,6 +121,7 @@ const awsServerless: Aws.Serverless = {
         awsKmsKeyArn: 'testAwsKmsKeyArn'
     },
     frameworkVersion: 'testFrameworkVersion',
+    configValidationMode: 'error',
     provider: {
         name: 'aws',
         runtime: 'testRuntime',
@@ -588,6 +589,7 @@ const awsServerless: Aws.Serverless = {
         }
     },
     resources: {
+        Description: 'testStackDescription',
         Resources: {
             testcloudformationresource: {
                 Type: 'testType',

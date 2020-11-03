@@ -1,4 +1,4 @@
-// Type definitions for pulsar-client 1.0
+// Type definitions for pulsar-client 1.2
 // Project: https://github.com/apache/pulsar-client-node
 // Definitions by: Brian Walendzinski <https://github.com/bwalendz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,9 @@
 
 /// <reference types="node" />
 
-export type MessageProperties = unknown[];
+export interface MessageProperties {
+    [key: string ]: string;
+}
 
 export type MessageRoutingModes =
     'RoundRobinPartition' |
@@ -25,7 +27,8 @@ export type CompressionType =
 export type SubscriptionType =
     'Exclusive' |
     'Shared' |
-    'Failover';
+    'Failover' |
+    'KeyShared';
 
 export class AuthenticationTls {
     constructor(authTlsOpts: { certificatePath: string; privateKeyPath: string });

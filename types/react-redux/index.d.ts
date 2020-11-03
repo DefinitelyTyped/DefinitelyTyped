@@ -16,6 +16,7 @@
 //                 Dylan Vann <https://github.com/dylanvann>
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Kazuma Ebina <https://github.com/kazuma1989>
+//                 Michael Lebedev <https://github.com/megazazik>
 //                 jun-sheaf <https://github.com/jun-sheaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -190,11 +191,11 @@ export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> =
  * @param mergeProps
  * @param options
  */
-export interface Connect {
+export interface Connect<DefaultState = DefaultRootState> {
     // tslint:disable:no-unnecessary-generics
     (): InferableComponentEnhancer<DispatchProp>;
 
-    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultRootState>(
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>
     ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp, TOwnProps>;
 
@@ -211,12 +212,12 @@ export interface Connect {
         TOwnProps
     >;
 
-    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>(
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
-    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>(
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     ): InferableComponentEnhancerWithProps<
@@ -230,7 +231,7 @@ export interface Connect {
         mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultRootState>(
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: null | undefined,
         mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
@@ -242,7 +243,7 @@ export interface Connect {
         mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultRootState>(
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: null | undefined,
         mergeProps: null | undefined,
@@ -266,14 +267,14 @@ export interface Connect {
         TOwnProps
     >;
 
-    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>(
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<State, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
-    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>(
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
@@ -283,7 +284,7 @@ export interface Connect {
         TOwnProps
     >;
 
-    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultRootState>(
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,

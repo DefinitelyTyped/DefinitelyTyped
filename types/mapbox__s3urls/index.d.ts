@@ -1,4 +1,4 @@
-// Type definitions for mapbox__s3urls 1.5
+// Type definitions for @mapbox/s3urls 1.5
 // Project: https://github.com/mapbox/s3urls
 // Definitions by: Sebastian Vera <https://github.com/sebastianvera>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

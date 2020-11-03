@@ -53,3 +53,14 @@ mp.observe_property('test', 'none', name => {});
 mp.observe_property('test', 'none', (name, value) => {});
 // $ExpectError
 mp.observe_property('test', undefined, (name, value) => {});
+
+// $ExpectType OSDSize | undefined
+const osd_size = mp.get_osd_size();
+if (osd_size) {
+    // $ExpectType number | undefined
+    osd_size.width;
+    // $ExpectType number | undefined
+    osd_size.height;
+    // $ExpectType number | undefined
+    osd_size.aspect;
+}

@@ -256,7 +256,7 @@ declare class BScroll {
             'scroll' |
             'scrollEnd' |
             'touchEnd',
-        fn: (pos: Position) => any
+        fn: (pos: BScroll.Position) => any
     ): void;
 
     off(

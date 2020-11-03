@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@koa/router": [
-                "koa__router"
+            "@koa/*": [
+                "koa__*"
             ]
         }
     },

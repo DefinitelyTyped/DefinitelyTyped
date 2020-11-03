@@ -102,13 +102,6 @@ export abstract class Adapter<Value = Buffer> {
      */
     batch(): Batch<Value>;
     /**
-     * Yield all datastore values
-     *
-     * @param q
-     * @param options
-     */
-    abstract _all(q?: Query<Value>, options?: Options): AsyncIterable<Pair<Value>>;
-    /**
      * Query the store.
      *
      * @param q

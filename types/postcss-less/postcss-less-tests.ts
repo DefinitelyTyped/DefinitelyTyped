@@ -1,7 +1,17 @@
 import postcss = require('postcss');
 import less = require('postcss-less');
 
-const lessCode = 'a { @link-color: blue; }';
+const lessCode = `
+@import "foo.less";
+a { @link-color: blue; }
+.my-mixin(#FFF);
+.my-mixin-important(#FFF) !important;
+each(@selectors, {
+  .sel-@{value} {
+    a: b;
+  }
+});
+`;
 
 postcss().process(lessCode, { syntax: less });
 
@@ -22,6 +32,7 @@ less.parse(lessCode).walkAtRules(atRule => {
 
     if ('variable' in lessAtRule) {
         assert(lessAtRule.variable === true);
+        assert(typeof lessAtRule.value === 'string');
     }
 
     if ('mixin' in lessAtRule) {
@@ -40,31 +51,40 @@ less.parse(lessCode).walkAtRules(atRule => {
     }
 });
 
-less.parse(lessCode).walkRules(rule => {
+less.parse('.a:extend(.b) {}').walkRules(rule => {
     const lessRule = rule as less.Rule;
     assert(lessRule.extend === true);
 });
 
-less.parse(lessCode).walkComments(comment => {
+less.parse('&:extend(.a)').walkDecls(decl => {
+    const lessDecl = decl as less.Declaration;
+    assert(lessDecl.extend === true);
+});
+
+less.parse('// a').walkComments(comment => {
     const lessComment = comment as less.Comment;
     assert(lessComment.inline === true);
 });
 
 less.stringify(less.parse(lessCode), (part, node, type) => {
     assert(typeof part === 'string');
-    assert(type === 'start');
-    assert(type === 'end');
 
     if (node) {
         assert(typeof node.root === 'function');
     } else {
         assert(node === undefined);
     }
+
+    if (type) {
+        assert(type === 'start' || type === 'end');
+    } else {
+        assert(type === undefined);
+    }
 });
 
 assert(typeof less.nodeToString(less.parse(lessCode)) === 'string');
 
-function assert(condition: any) /* : asserts condition */ {
+function assert(condition: any) {
     if (!condition) {
         throw new Error('Assertion failed');
     }

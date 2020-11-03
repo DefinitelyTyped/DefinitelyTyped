@@ -1,5 +1,7 @@
 import express = require('express');
 import multer = require('multer');
+import { Multer } from 'multer';
+import assert = require('assert');
 
 const upload = multer({
     dest: 'uploads/',
@@ -9,6 +11,9 @@ const upload = multer({
         cb(new Error(`I don't have a clue!`));
     },
 });
+
+upload; // $ExpectType Multer
+assert.strictEqual(upload.constructor.name, 'Multer');
 
 const app = express();
 
@@ -37,7 +42,7 @@ const diskStorage = multer.diskStorage({
     }
 });
 
-const diskUpload = multer({ storage: diskStorage });
+const diskUpload: Multer = multer({ storage: diskStorage });
 
 const memoryStorage = multer.memoryStorage();
-const memoryUpload = multer({ storage: memoryStorage });
+const memoryUpload: Multer = multer({ storage: memoryStorage });

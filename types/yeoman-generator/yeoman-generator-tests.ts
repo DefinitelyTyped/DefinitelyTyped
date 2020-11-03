@@ -39,6 +39,7 @@ const description: string = generator.description;
 const appname: string = generator.appname;
 const config: Storage = generator.config;
 const fs: Editor = generator.fs;
+const contextRoot: string = generator.contextRoot;
 
 // $ExpectType any
 generator._templateData('lint.ruleset');

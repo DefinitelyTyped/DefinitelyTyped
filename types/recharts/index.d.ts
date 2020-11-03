@@ -552,6 +552,7 @@ export interface PolarAngleAxisProps extends EventAttributes, Partial<Presentati
     stroke?: string;
     orientation?: 'inner' | 'outer';
     tickFormatter?: TickFormatterFunction;
+    allowDuplicatedCategory?: boolean;
 }
 
 export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> { }
@@ -592,6 +593,7 @@ export interface PolarRadiusAxisProps extends EventAttributes, Partial<Presentat
     domain?: Readonly<[PolarRadiusAxisDomain, PolarRadiusAxisDomain]>;
     scale?: ScaleType | RechartsFunction;
     allowDataOverflow?: boolean;
+    allowDuplicatedCategory?: boolean;
 }
 
 export class PolarRadiusAxis extends React.Component<PolarRadiusAxisProps> { }
@@ -1073,6 +1075,7 @@ export interface YAxisProps extends EventAttributes {
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/YAxis
     label?: string | number | Label | LabelProps;
+    allowDuplicatedCategory?: boolean;
     stroke?: string;
 }
 

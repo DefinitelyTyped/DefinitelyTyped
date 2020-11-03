@@ -1,18 +1,29 @@
-// Type definitions for prettier 2.0
+// Type definitions for prettier 2.1
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
 //                 Florian Keller <https://github.com/ffflorian>,
-//                 Sosuke Suzuki <https://github.com/sosukesuzuki>
+//                 Sosuke Suzuki <https://github.com/sosukesuzuki>,
+//                 Christopher Quadflieg <https://github.com/Shinigami92>
+//                 Kevin Deisz <https://github.com/kddeisz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+// This utility is here to handle the case where you have an explicit union
+// between string literals and the generic string type. It would normally
+// resolve out to just the string type, but this generic LiteralUnion maintains
+// the intellisense of the original union.
+//
+// It comes from this issue: microsoft/TypeScript#29729:
+//   https://github.com/microsoft/TypeScript/issues/29729#issuecomment-700527227
+export type LiteralUnion<T extends U, U = string> = T | (Pick<U, never> & { _?: never });
 
 export type AST = any;
 export type Doc = doc.builders.Doc;
 
 // https://github.com/prettier/prettier/blob/master/src/common/fast-path.js
 export interface FastPath<T = any> {
-    stack: any[];
+    stack: T[];
     getName(): null | PropertyKey;
     getValue(): T;
     getNode(count?: number): null | T;
@@ -43,8 +54,9 @@ export type BuiltInParserName =
     | 'mdx'
     | 'yaml'
     | 'lwc';
+export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
-export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
+export type CustomParser = (text: string, parsers: BuiltInParsers, options: Options) => AST;
 
 export interface Options extends Partial<RequiredOptions> {}
 export interface RequiredOptions extends doc.printer.Options {
@@ -91,7 +103,7 @@ export interface RequiredOptions extends doc.printer.Options {
     /**
      * Specify which parser to use.
      */
-    parser: BuiltInParserName | CustomParser;
+    parser: LiteralUnion<BuiltInParserName> | CustomParser;
     /**
      * Specify the input filepath. This will be used to do parser inference.
      */
@@ -145,38 +157,43 @@ export interface RequiredOptions extends doc.printer.Options {
      * @default false
      */
     vueIndentScriptAndStyle: boolean;
+    /**
+     * Control whether Prettier formats quoted code embedded in the file.
+     * @default 'auto'
+     */
+    embeddedLanguageFormatting: 'auto' | 'off';
 }
 
-export interface ParserOptions extends RequiredOptions {
-    locStart: (node: any) => number;
-    locEnd: (node: any) => number;
+export interface ParserOptions<T = any> extends RequiredOptions {
+    locStart: (node: T) => number;
+    locEnd: (node: T) => number;
     originalText: string;
 }
 
-export interface Plugin {
+export interface Plugin<T = any> {
     languages?: SupportLanguage[];
-    parsers?: { [parserName: string]: Parser };
-    printers?: { [astFormat: string]: Printer };
-    options?: SupportOption[];
+    parsers?: { [parserName: string]: Parser<T> };
+    printers?: { [astFormat: string]: Printer<T> };
+    options?: SupportOptions;
     defaultOptions?: Partial<RequiredOptions>;
 }
 
-export interface Parser {
-    parse: (text: string, parsers: { [parserName: string]: Parser }, options: ParserOptions) => AST;
+export interface Parser<T = any> {
+    parse: (text: string, parsers: { [parserName: string]: Parser }, options: ParserOptions<T>) => T;
     astFormat: string;
     hasPragma?: (text: string) => boolean;
-    locStart: (node: any) => number;
-    locEnd: (node: any) => number;
-    preprocess?: (text: string, options: ParserOptions) => string;
+    locStart: (node: T) => number;
+    locEnd: (node: T) => number;
+    preprocess?: (text: string, options: ParserOptions<T>) => string;
 }
 
-export interface Printer {
-    print(path: FastPath, options: ParserOptions, print: (path: FastPath) => Doc): Doc;
+export interface Printer<T = any> {
+    print(path: FastPath<T>, options: ParserOptions<T>, print: (path: FastPath<T>) => Doc): Doc;
     embed?: (
-        path: FastPath,
-        print: (path: FastPath) => Doc,
+        path: FastPath<T>,
+        print: (path: FastPath<T>) => Doc,
         textToDoc: (text: string, options: Options) => Doc,
-        options: ParserOptions,
+        options: ParserOptions<T>,
     ) => Doc | null;
     insertPragma?: (text: string) => string;
     /**
@@ -185,24 +202,24 @@ export interface Printer {
      * @returns anything if you want to replace the node with it
      */
     massageAstNode?: (node: any, newNode: any, parent: any) => any;
-    hasPrettierIgnore?: (path: FastPath) => boolean;
-    canAttachComment?: (node: any) => boolean;
-    willPrintOwnComments?: (path: FastPath) => boolean;
-    printComments?: (path: FastPath, print: (path: FastPath) => Doc, options: ParserOptions, needsSemi: boolean) => Doc;
+    hasPrettierIgnore?: (path: FastPath<T>) => boolean;
+    canAttachComment?: (node: T) => boolean;
+    willPrintOwnComments?: (path: FastPath<T>) => boolean;
+    printComments?: (path: FastPath<T>, print: (path: FastPath<T>) => Doc, options: ParserOptions<T>, needsSemi: boolean) => Doc;
     handleComments?: {
-        ownLine?: (commentNode: any, text: string, options: ParserOptions, ast: any, isLastComment: boolean) => boolean;
+        ownLine?: (commentNode: any, text: string, options: ParserOptions<T>, ast: T, isLastComment: boolean) => boolean;
         endOfLine?: (
             commentNode: any,
             text: string,
-            options: ParserOptions,
-            ast: any,
+            options: ParserOptions<T>,
+            ast: T,
             isLastComment: boolean,
         ) => boolean;
         remaining?: (
             commentNode: any,
             text: string,
-            options: ParserOptions,
-            ast: any,
+            options: ParserOptions<T>,
+            ast: T,
             isLastComment: boolean,
         ) => boolean;
     };
@@ -318,46 +335,92 @@ export interface SupportLanguage {
     vscodeLanguageIds?: string[];
 }
 
-export interface SupportOptionDefault {
-    since: string;
-    value: SupportOptionValue;
-}
-
-export interface SupportOption {
-    name: string;
-    since?: string;
-    type: 'int' | 'boolean' | 'choice' | 'path';
-    array?: boolean;
-    deprecated?: string;
-    redirect?: SupportOptionRedirect;
-    description: string;
-    oppositeDescription?: string;
-    default: SupportOptionValue | SupportOptionDefault[];
-    range?: SupportOptionRange;
-    choices?: SupportOptionChoice[];
-    category: string;
-}
-
-export interface SupportOptionRedirect {
-    options: string;
-    value: SupportOptionValue;
-}
-
 export interface SupportOptionRange {
     start: number;
     end: number;
     step: number;
 }
 
-export interface SupportOptionChoice {
-    value: boolean | string;
+export type SupportOptionType = 'int' | 'boolean' | 'choice' | 'path';
+
+export interface BaseSupportOption<Type extends SupportOptionType> {
+    since: string;
+    category: string;
+    /**
+     * The type of the option.
+     *
+     * When passing a type other than the ones listed below, the option is
+     * treated as taking any string as argument, and `--option <${type}>` will
+     * be displayed in --help.
+     */
+    type: Type;
+    /**
+     * Indicate that the option is deprecated.
+     *
+     * Use a string to add an extra message to --help for the option,
+     * for example to suggest a replacement option.
+     */
+    deprecated?: true | string;
+    /**
+     * Description to be displayed in --help. If omitted, the option won't be
+     * shown at all in --help.
+     */
     description?: string;
-    since?: string;
-    deprecated?: string;
-    redirect?: SupportOptionValue;
 }
 
-export type SupportOptionValue = number | boolean | string;
+export interface IntSupportOption extends BaseSupportOption<'int'> {
+    default: number;
+    array?: false;
+    range?: SupportOptionRange;
+}
+
+export interface IntArraySupportOption extends BaseSupportOption<'int'> {
+    default: Array<{ value: number[] }>;
+    array: true;
+}
+
+export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
+    default: boolean;
+    array?: false;
+    description: string;
+    oppositeDescription?: boolean;
+}
+
+export interface BooleanArraySupportOption extends BaseSupportOption<'boolean'> {
+    default: Array<{ value: boolean[] }>;
+    array: true;
+}
+
+export interface ChoiceSupportOption<Value = any> extends BaseSupportOption<'choice'> {
+    default: Value | Array<{ since: string; value: Value }>;
+    description: string;
+    choices: Array<{
+        since?: string;
+        value: Value;
+        description: string;
+    }>;
+}
+
+export interface PathSupportOption extends BaseSupportOption<'path'> {
+    default: string;
+    array?: false;
+}
+
+export interface PathArraySupportOption extends BaseSupportOption<'path'> {
+    default: Array<{ value: string[] }>;
+    array: true;
+}
+
+export type SupportOption =
+    | IntSupportOption
+    | IntArraySupportOption
+    | BooleanSupportOption
+    | BooleanArraySupportOption
+    | ChoiceSupportOption
+    | PathSupportOption
+    | PathArraySupportOption;
+
+export interface SupportOptions extends Record<string, SupportOption> {}
 
 export interface SupportInfo {
     languages: SupportLanguage[];
@@ -535,6 +598,8 @@ export namespace doc {
              * @default false
              */
             useTabs: boolean;
+            parentParser?: string;
+            embeddedInHtml: boolean;
         }
     }
     namespace utils {

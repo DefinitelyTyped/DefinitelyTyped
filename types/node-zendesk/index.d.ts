@@ -1036,12 +1036,54 @@ export namespace Users {
             list(): Promise<unknown>;
             show(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
             show(fieldId: ZendeskID): Promise<unknown>;
-            create(field: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
-            create(field: unknown): Promise<unknown>;
+            create(field: CreateUserField, cb: ZendeskCallback<unknown, unknown>): unknown;
+            create(field: CreateUserField): Promise<unknown>;
+            create(field: CreateUserField, cb: ZendeskCallback<unknown, unknown>): unknown;
             update(fieldId: ZendeskID, field: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
             update(fieldId: ZendeskID, field: unknown): Promise<unknown>;
             delete(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
             delete(fieldId: ZendeskID): Promise<unknown>;
+        }
+        /**
+         * Types of custom fields that can be created
+         * @default 'text'
+         */
+        type UserFieldType =
+            | 'text'
+            | 'textarea'
+            | 'checkbox'
+            | 'date'
+            | 'integer'
+            | 'decimal'
+            | 'regexp'
+            | 'tagger';
+
+        /**
+         * Represents 'user_field'
+         */
+        interface UserField {
+            readonly id?: number;
+            readonly url?: string;
+            readonly type?: UserFieldType;
+            key?: string;
+            title: string;
+            raw_title?: string;
+            description?: string;
+            raw_description?: string;
+            position?: number;
+            active?: boolean;
+            readonly system?: boolean;
+            regexp_for_validation?: string;
+            created_at?: Date;
+            updated_at?: Date;
+            tag?: string;
+            custom_field_options?: CustomFieldOptions[];
+        }
+        interface CreateUserField extends UserField {
+            key: string;
+        }
+        interface CustomFieldOptions {
+            [key: string]: unknown;
         }
     }
 }

@@ -22,11 +22,7 @@ export interface InstallOpts {
     basePath?: string;
     version?: string;
     drivers?: {
-        [browser: string]: {
-            version?: string;
-            arch: string | "ia32" | "x64";
-            baseURL: string;
-        }
+        [browser: string]: DriverOptions
     };
     progressCb?: (totalLength: number, progressLength: number, chunkLength: number) => void;
     logger?: (message: string) => void;
@@ -38,11 +34,7 @@ export interface StartOpts {
     basePath?: string;
     version?: string;
     drivers?: {
-        [browser: string]: {
-            version?: string;
-            arch: string | "ia32" | "x64";
-            baseURL: string;
-        }
+        [browser: string]: DriverOptions
     };
     seleniumArgs?: string[];
     javaArgs?: string[];
@@ -51,6 +43,12 @@ export interface StartOpts {
     javaPath?: string;
     requestOpts?: http.RequestOptions | string | URL;
     cb?: (error: Error, child: ChildProcess) => void;
+}
+
+export interface DriverOptions {
+    version?: string;
+    arch?: string | "ia32" | "x64";
+    baseURL?: string;
 }
 
 export interface FsPaths {

@@ -23,6 +23,9 @@ import {
     SqlTaggedTemplateType,
     QueryContextType,
     InterceptorType,
+    StatementCancelledError,
+    InvalidConfigurationError,
+    StatementTimeoutError,
 } from 'slonik';
 import { ArrayTokenSymbol, BinaryTokenSymbol } from 'slonik/symbols';
 
@@ -54,6 +57,7 @@ pool.connect(async connection => {
     // Query methods
     await connection.any(sql`SELECT foo`);
     await connection.anyFirst(sql`SELECT foo`);
+    await connection.exists(sql`SELECT foo`);
     await connection.many(sql`SELECT foo`);
     await connection.manyFirst(sql`SELECT foo`);
     await connection.maybeOne(sql`SELECT foo`);
@@ -112,6 +116,9 @@ const typedQuery = async () => {
 
     // $ExpectType QueryResultType<FooBar>
     await pool.query(getFooBarQuery(10));
+
+    // $ExpectType boolean
+    await pool.exists(getFooQuery(10));
 
     // $ExpectType string
     await pool.oneFirst(getFooQuery(10));
@@ -341,11 +348,7 @@ createTimestampWithTimeZoneTypeParser();
 
     let normalizeIdentifier: IdentifierNormalizerType;
 
-    normalizeIdentifier = (input: string) =>
-        input
-            .split('')
-            .reverse()
-            .join('');
+    normalizeIdentifier = (input: string) => input.split('').reverse().join('');
 
     sql = createSqlTag({
         normalizeIdentifier,
@@ -360,6 +363,9 @@ createTimestampWithTimeZoneTypeParser();
 new SlonikError();
 new NotFoundError();
 new DataIntegrityError();
+new InvalidConfigurationError();
+new StatementCancelledError(new Error('Foo'));
+new StatementTimeoutError(new Error('Foo'));
 new IntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
 new NotNullIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
 new ForeignKeyIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');

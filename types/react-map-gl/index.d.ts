@@ -9,7 +9,7 @@
 //                 David Baumgold <https://github.com/singingwolfboy>
 //                 Ilja Reznik <https://github.com/ireznik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.4
 
 /// <reference lib='dom' />
 
@@ -350,7 +350,7 @@ export interface PopupProps extends BaseControlProps {
     tipSize?: number;
     closeButton?: boolean;
     closeOnClick?: boolean;
-    anchor?: 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right';
+    anchor?: MapboxGL.Anchor;
     dynamicPosition?: boolean;
     sortByDepth?: boolean;
     onClose?: () => void;

@@ -15,6 +15,12 @@ info({ obj: { aa: 'bbb' } }, 'another');
 setImmediate(info, 'after setImmediate');
 error(new Error('an error'));
 
+const writeSym = pino.symbols.writeSym;
+
+const testUniqSymbol = {
+    [pino.symbols.needsMetadataGsym]: true
+}[pino.symbols.needsMetadataGsym];
+
 const log2: pino.Logger = pino({
     name: 'myapp',
     safe: true,
@@ -30,7 +36,9 @@ pino({
 });
 
 pino({
-    mixin() { return { customName: 'unknown', customId: 111 }; },
+    mixin() {
+        return { customName: 'unknown', customId: 111 };
+    },
 });
 
 pino({
@@ -47,18 +55,15 @@ pino({
 
 pino({
     browser: {
-        write(o) {
-        }
-    }
+        write(o) {},
+    },
 });
 
 pino({
     browser: {
         write: {
-            info(o) {
-            },
-            error(o) {
-            }
+            info(o) {},
+            error(o) {},
         },
         serialize: true,
         asObject: true,
@@ -70,9 +75,9 @@ pino({
                 logEvent.level;
                 logEvent.ts;
                 logEvent.messages;
-            }
-        }
-    }
+            },
+        },
+    },
 });
 
 pino({ base: null });
@@ -93,7 +98,7 @@ child.bindings();
 const customSerializers = {
     test() {
         return 'this is my serializer';
-    }
+    },
 };
 pino().child({ serializers: customSerializers }).info({ test: 'should not show up' });
 const child2 = log.child({ father: true });
@@ -140,24 +145,24 @@ const handler = pino.final(logExtreme, (err: Error, finalLogger: pino.BaseLogger
 handler(new Error('error'));
 
 const redacted = pino({
-    redact: ['path']
+    redact: ['path'],
 });
 
 redacted.info({
     msg: 'logged with redacted properties',
-    path: 'Not shown'
+    path: 'Not shown',
 });
 
 const anotherRedacted = pino({
     redact: {
         paths: ['anotherPath'],
-        censor: 'Not the log you\re looking for'
-    }
+        censor: 'Not the log you\re looking for',
+    },
 });
 
 anotherRedacted.info({
     msg: 'another logged with redacted properties',
-    anotherPath: 'Not shown'
+    anotherPath: 'Not shown',
 });
 
 const pretty = pino({
@@ -173,8 +178,8 @@ const pretty = pino({
         timestampKey: 'timestamp',
         translateTime: 'UTC:h:MM:ss TT Z',
         search: 'foo == `bar`',
-        suppressFlushSyncWarning: true
-    }
+        suppressFlushSyncWarning: true,
+    },
 });
 
 const withTimeFn = pino({
@@ -189,19 +194,19 @@ const withHooks = pino({
     hooks: {
         logMethod(args, method) {
             return method.apply(this, args);
-        }
-    }
+        },
+    },
 });
 
 // Properties/types imported from pino-std-serializers
 const wrappedErrSerializer = pino.stdSerializers.wrapErrorSerializer((err: pino.SerializedError) => {
-  return {...err, newProp: 'foo'};
+    return { ...err, newProp: 'foo' };
 });
 const wrappedReqSerializer = pino.stdSerializers.wrapRequestSerializer((req: pino.SerializedRequest) => {
-  return {...req, newProp: 'foo'};
+    return { ...req, newProp: 'foo' };
 });
 const wrappedResSerializer = pino.stdSerializers.wrapResponseSerializer((res: pino.SerializedResponse) => {
-  return {...res, newProp: 'foo'};
+    return { ...res, newProp: 'foo' };
 });
 
 const socket = new Socket();
@@ -234,3 +239,12 @@ pino(destinationViaStream);
 pino({ name: 'my-logger' }, destinationViaStream);
 pino(destinationViaOptionsObject);
 pino({ name: 'my-logger' }, destinationViaOptionsObject);
+
+interface StrictShape {
+    activity: string;
+    err?: unknown;
+}
+
+info<StrictShape>({
+    activity: 'Required property',
+});

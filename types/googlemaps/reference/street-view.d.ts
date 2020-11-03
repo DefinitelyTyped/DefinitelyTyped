@@ -45,6 +45,7 @@ declare namespace google.maps {
         position?: LatLng | LatLngLiteral;
         pov?: StreetViewPov;
         scrollwheel?: boolean;
+        showRoadLabels?: boolean;
         visible?: boolean;
         zoom?: number;
         zoomControl?: boolean;

@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import { FeatureLike } from '../Feature';
@@ -7,7 +7,7 @@ import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import { Size } from '../size';
-import Tile, { LoadFunction, UrlFunction } from '../Tile';
+import { LoadFunction, UrlFunction } from '../Tile';
 import TileGrid from '../tilegrid/TileGrid';
 import VectorRenderTile from '../VectorRenderTile';
 import VectorTile_1 from '../VectorTile';
@@ -42,13 +42,33 @@ export interface Options {
 export default class VectorTile extends UrlTile {
     constructor(options: Options);
     protected tileClass: VectorTile_1;
+    /**
+     * clear {@link module:ol/TileCache~TileCache} and delete all source tiles
+     */
     clear(): void;
     expireCache(projection: Projection, usedTiles: { [key: string]: boolean }): void;
+    /**
+     * Get features whose bounding box intersects the provided extent. Only features for cached
+     * tiles for the last rendered zoom level are available in the source. So this method is only
+     * suitable for requesting tiles for extents that are currently rendered.
+     * Features are returned in random tile order and as they are included in the tiles. This means
+     * they can be clipped, duplicated across tiles, and simplified to the render resolution.
+     */
     getFeaturesInExtent(extent: Extent): FeatureLike[];
     getOverlaps(): boolean;
     getSourceTiles(pixelRatio: number, projection: Projection, tile: VectorRenderTile): VectorTile_1[];
-    getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): VectorRenderTile;
+    getTileGridForProjection(projection: Projection): TileGrid;
+    /**
+     * Get the tile pixel ratio for this source.
+     */
+    getTilePixelRatio(pixelRatio: number): number;
+    getTilePixelSize(z: number, pixelRatio: number, projection: Projection): Size;
+    /**
+     * Increases the cache size if needed
+     */
+    updateCacheSize(tileCount: number, projection: Projection): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
@@ -70,4 +90,7 @@ export default class VectorTile extends UrlTile {
     once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
     un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;
 }
+/**
+ * Sets the loader for a tile.
+ */
 export function defaultLoadFunction(tile: VectorTile_1, url: string): void;

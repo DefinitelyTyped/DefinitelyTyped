@@ -28,6 +28,7 @@ export interface ClientConfig {
     keepAliveInitialDelayMillis?: number;
     idle_in_transaction_session_timeout?: number;
     application_name?: string;
+    connectionTimeoutMillis?: number;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -44,7 +45,6 @@ export interface PoolConfig extends ClientConfig {
     // properties from module 'node-pool'
     max?: number;
     min?: number;
-    connectionTimeoutMillis?: number;
     idleTimeoutMillis?: number;
     log?: (...messages: any[]) => void;
     Promise?: PromiseConstructorLike;

@@ -97,6 +97,13 @@ const testSchema: Schema = {
     },
 };
 
+const testListSchema: Schema = {
+    type: 'array',
+    minItems: 5,
+    maxItems: 5,
+    items: testSchema,
+};
+
 const testRef: jsf.Schema[] = [
     {
         id: 'otherSchema',
@@ -106,7 +113,10 @@ const testRef: jsf.Schema[] = [
 
 // generate
 const generated = jsf.generate(testSchema);
-generated.forEach(testItem);
+testItem(generated);
+
+const generatedList = jsf.generate(testListSchema);
+generatedList.forEach(testItem);
 
 // resolve
 jsf.resolve(testSchema, testRef).then(res => {

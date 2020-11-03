@@ -1,14 +1,5 @@
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
-import GeometryCollection from '../geom/GeometryCollection';
-import LinearRing from '../geom/LinearRing';
-import LineString from '../geom/LineString';
-import MultiLineString from '../geom/MultiLineString';
-import MultiPoint from '../geom/MultiPoint';
-import MultiPolygon from '../geom/MultiPolygon';
-import Point from '../geom/Point';
-import Polygon from '../geom/Polygon';
-import SimpleGeometry from '../geom/SimpleGeometry';
 import { ReadOptions, WriteOptions } from './Feature';
 import TextFeature from './TextFeature';
 

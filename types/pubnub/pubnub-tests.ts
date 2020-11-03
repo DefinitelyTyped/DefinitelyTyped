@@ -170,6 +170,15 @@ pubnub.grant(grantOptions).then(status => {
     console.log(status);
 });
 
+const grantUuidOptions = {
+    uuids: ['uuid-1'],
+    authKeys: ['auth-key'],
+    update: true
+};
+pubnub.grant(grantUuidOptions).then(status => {
+    console.log(status);
+});
+
 pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => console.log(status, res));
 
 pubnub.history({ channel: 'channel-1', count: 2 }).then(res => console.log(res));
@@ -850,9 +859,45 @@ pubnub.objects.getChannelMembers({
 pubnub.objects.setChannelMembers({
     channel: 'myChannel',
     uuids: ['uuid-1', 'uuid-2'],
+    page: {
+        next: "abc",
+        prev: "def"
+    }
 });
 
 pubnub.objects.removeChannelMembers({
     channel: 'myChannel',
     uuids: ['uuid-1', 'uuid-2'],
+});
+
+pubnub.listFiles({
+    channel: 'myChannel',
+    limit: 10
+});
+
+pubnub.sendFile({
+    channel: 'myChannel',
+    file: {
+        data: [ 12, 34 ],
+        name: 'cat_picture.jpg'
+    }
+});
+
+pubnub.downloadFile({
+    channel: 'myChannel',
+    id: '...',
+    name: 'cat_picture.jpg'
+});
+
+pubnub.deleteFile({
+    channel: 'myChannel',
+    id: '...',
+    name: 'cat_picture.jpg'
+});
+
+pubnub.publishFile({
+    channel: 'myChannel',
+    fileId: '...',
+    fileName: 'cat_picture.jpg',
+    message: { field: 'value' }
 });

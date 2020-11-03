@@ -15,23 +15,8 @@
             "../"
         ],
         "paths": {
-            "@ember/object": [
-                "ember__object"
-            ],
-            "@ember/object/*": [
-                "ember__object/*"
-            ],
-            "@ember/controller": [
-                "ember__controller"
-            ],
-            "@ember/controller/*": [
-                "ember__controller/*"
-            ],
-            "@ember/component": [
-                "ember__component"
-            ],
-            "@ember/component/*": [
-                "ember__component/*"
+            "@ember/*": [
+                "ember__*"
             ]
         },
         "types": [],
@@ -42,6 +27,7 @@
         "index.d.ts",
         "test/lib/assert.ts",
         "test/component.ts",
-        "test/helper.ts"
+        "test/helper.ts",
+        "test/template-only.ts"
     ]
 }

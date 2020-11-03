@@ -119,6 +119,9 @@ declare namespace sharedb {
     type Query = ShareDB.Query;
     type Error = ShareDB.Error;
     type Op = ShareDB.Op;
+    type CreateOp = ShareDB.CreateOp;
+    type DeleteOp = ShareDB.DeleteOp;
+    type EditOp = ShareDB.EditOp;
     type AddNumOp = ShareDB.AddNumOp;
     type ListMoveOp = ShareDB.ListMoveOp;
     type ListInsertOp = ShareDB.ListInsertOp;
@@ -226,7 +229,7 @@ interface SubmitRequest {
     projection: Projection | undefined;
     collection: string;
     id: string;
-    op: sharedb.Op;
+    op: sharedb.CreateOp | sharedb.DeleteOp | sharedb.EditOp;
     options: any;
     start: number;
 
