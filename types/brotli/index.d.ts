@@ -2,9 +2,9 @@
 // Project: https://github.com/foliojs/brotli.js
 // Definitions by: Artur Androsovych <https://github.com/arturovt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.2
 
-import compress = require('./compress');
-import decompress = require('./decompress');
+/// <reference types="node" />
 
-export { compress, decompress };
+export import compress = require('./compress');
+export import decompress = require('./decompress');

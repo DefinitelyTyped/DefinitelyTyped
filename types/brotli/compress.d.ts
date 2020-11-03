@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 interface CompressOptions {
   /**
    * The Brotli compression mode. Possible modes are:
