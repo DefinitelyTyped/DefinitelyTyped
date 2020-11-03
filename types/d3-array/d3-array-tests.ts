@@ -624,6 +624,15 @@ num = mixedObjectDateBisectorObject.left(readonlyMixedObjectArray, new Date(2015
 num = mixedObjectDateBisectorObject.left(readonlyMixedObjectArray, new Date(2015, 3, 14), 1);
 num = mixedObjectDateBisectorObject.left(readonlyMixedObjectArray, new Date(2015, 3, 14), 3, 4);
 
+// bisect center
+num = mixedObjectDateBisectorObject.center(mixedObjectArray, new Date(2015, 3, 14));
+num = mixedObjectDateBisectorObject.center(mixedObjectArray, new Date(2015, 3, 14), 1);
+num = mixedObjectDateBisectorObject.center(mixedObjectArray, new Date(2015, 3, 14), 3, 4);
+
+num = mixedObjectDateBisectorObject.center(readonlyMixedObjectArray, new Date(2015, 3, 14));
+num = mixedObjectDateBisectorObject.center(readonlyMixedObjectArray, new Date(2015, 3, 14), 1);
+num = mixedObjectDateBisectorObject.center(readonlyMixedObjectArray, new Date(2015, 3, 14), 3, 4);
+
 // bisect right
 num = mixedObjectDateBisectorObject.right(mixedObjectArray, new Date(2015, 3, 14));
 num = mixedObjectDateBisectorObject.right(mixedObjectArray, new Date(2015, 3, 14), 1);
@@ -706,6 +715,9 @@ const objArray: ObjDefinition[] = [
 const grouped: Map<string, ObjDefinition[]> = d3Array.group(objArray, d => d.name);
 const grouped2: Map<string, Map<string, ObjDefinition[]>> = d3Array.group(objArray, d => d.name, d => d.date);
 const grouped3: Map<string, Map<string, Map<string, ObjDefinition[]>>> = d3Array.group(objArray, d => d.name, d => d.date, d => d.amount);
+const indexed: Map<string, ObjDefinition> = d3Array.index(objArray, d => d.name);
+const indexed2: Map<string, Map<string, ObjDefinition>> = d3Array.index(objArray, d => d.name, d => d.date);
+const indexed3: Map<string, Map<string, Map<string, ObjDefinition>>> = d3Array.index(objArray, d => d.name, d => d.date, d => d.amount);
 const rolledup: Map<string, number> = d3Array.rollup(objArray, d => d.length, d => d.name);
 const rolledup2: Map<string, Map<string, number>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date);
 const rolledup3: Map<string, Map<string, Map<string, number>>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
@@ -714,6 +726,9 @@ const rolledupAlternate: Map<string, string> = d3Array.rollup(objArray, d => d.m
 const groups: Array<[string, ObjDefinition[]]> = d3Array.groups(objArray, d => d.name);
 const groups2: Array<[string, Array<[string, ObjDefinition[]]>]> = d3Array.groups(objArray, d => d.name, d => d.date);
 const groups3: Array<[string, Array<[string, Array<[string, ObjDefinition[]]>]>]> = d3Array.groups(objArray, d => d.name, d => d.date, d => d.amount);
+const indexes: Array<[string, ObjDefinition]> = d3Array.indexes(objArray, d => d.name);
+const indexes2: Array<[string, Array<[string, ObjDefinition]>]> = d3Array.indexes(objArray, d => d.name, d => d.date);
+const indexes3: Array<[string, Array<[string, Array<[string, ObjDefinition]>]>]> = d3Array.indexes(objArray, d => d.name, d => d.date, d => d.amount);
 const rolledups: Array<[string, number]> = d3Array.rollups(objArray, d => d.length, d => d.name);
 const rolledups2: Array<[string, Array<[string, number]>]> = d3Array.rollups(objArray, d => d.length, d => d.name, d => d.date);
 const rolledups3: Array<[string, Array<[string, Array<[string, number]>]>]> = d3Array.rollups(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
