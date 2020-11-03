@@ -144,10 +144,10 @@ interface SimpleSchemaValidationError {
 
 export type SimpleSchemaDefinition = {
     [key: string]: SchemaDefinition
-        | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
-        | ArrayConstructor
-        | string | RegExp
-        | SimpleSchema
+      | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
+      | ArrayConstructor
+      | string | RegExp
+      | SimpleSchema
 } | any[];
 
 export class SimpleSchema {
@@ -262,7 +262,7 @@ interface MongoObjectStatic {
     setValueForKey(key: string, val: any): void;
     setValueForGenericKey(key: string, val: any): void;
     getObject(): any;
-    getFlatObject(options?: { keepArrays?: boolean }): any;
+    getFlatObject(options?: {keepArrays?: boolean}): any;
     affectsKey(key: string): any;
     affectsGenericKey(key: string): any;
     affectsGenericKeyImplicit(key: string): any;
@@ -272,7 +272,7 @@ export const SimpleSchemaValidationContext: SimpleSchemaValidationContextStatic;
 export const MongoObject: MongoObjectStatic;
 
 export interface MongoObject {
-    expandKey(val: any, key: string, obj: any): void;
+  expandKey(val: any, key: string, obj: any): void;
 }
 
 export default SimpleSchema;

@@ -10,7 +10,7 @@ const schema: SimpleSchemaDefinition = {
     },
     regExpString: {
         type: String,
-        regEx: SimpleSchema.RegEx.Id,
+        regEx: SimpleSchema.RegEx.Id
     },
     createdAt: {
         type: Date,
@@ -60,8 +60,8 @@ const schema: SimpleSchemaDefinition = {
 
           if (text.length > 100) return { type: SimpleSchema.ErrorTypes.MAX_STRING, max: 100 };
           else if (text.length < 10) return SimpleSchema.ErrorTypes.MIN_STRING;
-        },
-    },
+        }
+    }
 };
 
 const StringSchema = new SimpleSchema(schema);
@@ -96,7 +96,7 @@ const StringSchemaWithOptions = new SimpleSchema({
     createdAt: {
         type: Date,
         autoValue: () => new Date()
-    },
+    }
 },
 {
     clean: {
@@ -105,8 +105,8 @@ const StringSchemaWithOptions = new SimpleSchema({
         removeEmptyStrings: true,
         trimStrings: true,
         getAutoValues: true,
-        removeNullsFromArrays: true
-    },
+        removeNullsFromArrays: true,
+    }
 });
 
 new SimpleSchema({
@@ -122,7 +122,7 @@ new SimpleSchema({
 StringSchema.extend(
     new SimpleSchema({
         name: { type: String }
-    }),
+    })
 );
 StringSchema.extend({
     name: { type: String }
