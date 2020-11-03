@@ -129,17 +129,17 @@ interface CleanOption {
 }
 
 interface SimpleSchemaOptions {
-    check?: boolean;
-    clean?: CleanOption;
-    defaultLabel?: string;
-    humanizeAutoLabels?: boolean;
-    requiredByDefault?: boolean;
-    tracker?: any;
+  check?: boolean;
+  clean?: CleanOption;
+  defaultLabel?: string;
+  humanizeAutoLabels?: boolean;
+  requiredByDefault?: boolean;
+  tracker?: any;
 }
 
 interface SimpleSchemaValidationError {
-    type: string;
-    [key: string]: number | string;
+  type: string;
+  [key: string]: number | string;
 }
 
 export type SimpleSchemaDefinition = {
@@ -148,7 +148,7 @@ export type SimpleSchemaDefinition = {
       | ArrayConstructor
       | string | RegExp
       | SimpleSchema
-} | any[];
+  } | any[];
 
 export class SimpleSchema {
   constructor(schema: SimpleSchemaDefinition, options?: SimpleSchemaOptions);
