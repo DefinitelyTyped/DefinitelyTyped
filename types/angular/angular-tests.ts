@@ -254,6 +254,34 @@ angular.module('qprovider-test', [])
         const currentValue: boolean = $qProvider.errorOnUnhandledRejections();
     }]);
 
+let $compileProvider: ng.ICompileProvider;
+let urlListRegex: RegExp;
+
+urlListRegex = $compileProvider.aHrefSanitizationWhitelist();
+$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|mailto):/);
+urlListRegex = $compileProvider.aHrefSanitizationTrustedUrlList();
+$compileProvider.aHrefSanitizationTrustedUrlList(/^\s*(https?|mailto):/);
+
+urlListRegex = $compileProvider.imgSrcSanitizationWhitelist();
+$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|mailto):/);
+urlListRegex = $compileProvider.imgSrcSanitizationTrustedUrlList();
+$compileProvider.imgSrcSanitizationTrustedUrlList(/^\s*(https?|mailto):/);
+
+let $httpProvider: ng.IHttpProvider;
+$httpProvider.xsrfWhitelistedOrigins = ['https://example.com'];
+$httpProvider.xsrfTrustedOrigins = ['https://example.com'];
+
+let $sceDelegateProvider: ng.ISCEDelegateProvider;
+let urlList: any[];
+urlList = $sceDelegateProvider.resourceUrlBlacklist();
+$sceDelegateProvider.resourceUrlBlacklist(['https://example.com']);
+urlList = $sceDelegateProvider.bannedResourceUrlList();
+$sceDelegateProvider.bannedResourceUrlList(['https://example.com']);
+urlList = $sceDelegateProvider.resourceUrlWhitelist();
+$sceDelegateProvider.resourceUrlWhitelist(['https://example.com']);
+urlList = $sceDelegateProvider.trustedResourceUrlList();
+$sceDelegateProvider.trustedResourceUrlList(['https://example.com']);
+
 // Promise signature tests
 let foo: ng.IPromise<number>;
 foo.then((x) => {
