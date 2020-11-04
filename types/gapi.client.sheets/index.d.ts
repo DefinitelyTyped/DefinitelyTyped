@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Sheets API
+// Type definitions for non-npm package Google Sheets API v4 4.0
 // Project: https://developers.google.com/sheets/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
