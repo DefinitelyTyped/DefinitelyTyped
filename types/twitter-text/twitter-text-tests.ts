@@ -63,3 +63,5 @@ const usernames: string[] = twitter.extractMentions("Mentioning @twitter and @ja
 
 const tweet = twitter.parseTweet('foo');
 const tweetWithOptions = twitter.parseTweet('foo', {maxWeightedTweetLength: 140});
+
+const isValidTcoUrl = twitter.regexen.validTcoUrl.test("https://t.co/m0ckm3");
