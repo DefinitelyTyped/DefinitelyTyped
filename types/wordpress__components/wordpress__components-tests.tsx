@@ -174,10 +174,23 @@ let record: Value = {
     onChange={color => color && console.log(color.name)}
 />;
 
+<C.ColorPalette
+    disableCustomColors
+    clearable={false}
+    colors={[
+        { name: 'red', color: '#ff0000' },
+        { name: 'green', color: '#00ff00' },
+        { name: 'blue', color: '#0000ff' },
+    ]}
+    value={{ name: 'red', color: '#ff0000' }}
+    onChange={color => color && console.log(color.name)}
+/>;
+
 //
 // color-picker
 //
-<C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} />;
+<C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} oldHue={3} />;
+<C.ColorPicker onChangeComplete={color => console.log(color.hex)} disableAlpha />;
 
 //
 // custom-select-control
