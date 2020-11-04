@@ -346,6 +346,8 @@ interface PDFPageViewport {
 interface ViewportParameters {
     scale: number; // The desired scale of the viewport.
     rotation?: number; // (optional) The desired rotation, in degrees, of the viewport. If omitted it defaults to the page rotation.
+    offsetX?: number; // (optional) The horizontal, i.e. x-axis, offset. The default value is `0`.
+    offsetY?: number; // (optional) The vertical, i.e. y-axis, offset. The default value is `0`.
     dontFlip?: boolean; // (optional) If true, the y-axis will not be flipped. The default value is `false`.
 }
 interface PDFAnnotationData {
