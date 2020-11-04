@@ -58,13 +58,28 @@ export default class RouterService extends Service {
      * * `/blog/some-post-id` when you visit `/blog/some-post-id`
      */
     readonly currentURL: string;
-    //
+
     /**
-     * The rootURL property represents the URL of the root of the application,
-     * '/' by default. This prefix is assumed on all routes defined on this app.
+     * The `rootURL` property represents the URL of the root of
+     * the application, '/' by default.
+     * This prefix is assumed on all routes defined on this app.
+     * If you change the `rootURL` in your environment configuration
+     * like so:
+     * ```config/environment.js
+     * 'use strict';
+     * module.exports = function(environment) {
+     *   let ENV = {
+     *     modulePrefix: 'router-service',
+     *     environment,
+     *     rootURL: '/my-root',
+     *   …
+     *   }
+     * ]
+     * ```
+     * This property will return `/my-root`.
      */
     readonly rootURL: string;
-    //
+
     /**
      * Determines whether a route is active.
      *
@@ -304,25 +319,4 @@ export default class RouterService extends Service {
      * the browser including the app's `rootURL`.
      */
     recognizeAndLoad(url: string): RouteInfoWithAttributes;
-
-    /**
-     * The `rootURL` property represents the URL of the root of
-     * the application, '/' by default.
-     * This prefix is assumed on all routes defined on this app.
-     * IF you change the `rootURL` in your environment configuration
-     * like so:
-     * ```config/environment.js
-     * 'use strict';
-     * module.exports = function(environment) {
-     *   let ENV = {
-     *     modulePrefix: 'router-service',
-     *     environment,
-     *     rootURL: '/my-root',
-     *   …
-     *   }
-     * ]
-     * ```
-     * This property will return `/my-root`.
-     */
-    readonly rootURL: string;
 }
