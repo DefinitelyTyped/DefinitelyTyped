@@ -13,6 +13,10 @@
  * @see https://developers.google.com/youtube/iframe_api_reference
  * @see https://developers.google.com/youtube/player_parameters
  */
+interface Window {
+    onYouTubeIframeAPIReady(): void;
+}
+
 declare namespace YT
 {
     /**
@@ -958,7 +962,7 @@ declare namespace YT
          * @param listener   Handler for the event.
          */
         removeEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
-        
+
         /**
          * @returns The DOM node for the embedded <iframe>.
          */

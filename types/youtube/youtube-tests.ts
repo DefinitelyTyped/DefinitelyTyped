@@ -281,3 +281,5 @@ player.addEventListener("onApiChange", (event: YT.PlayerEvent) => {});
 const frame: HTMLIFrameElement = player.getIframe();
 
 player.destroy();
+
+window.onYouTubeIframeAPIReady = () => {}
