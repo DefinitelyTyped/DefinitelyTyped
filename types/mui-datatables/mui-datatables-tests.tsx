@@ -61,6 +61,7 @@ const MuiCustomTable: React.FC<Props> = props => {
         jumpToPage: true,
         fixedHeader: true,
         fixedSelectColumn: false,
+        sortOrder: { name: 'amount', direction: 'asc' },
         filterType: 'checkbox',
         responsive: 'standard',
         selectableRows: 'none',

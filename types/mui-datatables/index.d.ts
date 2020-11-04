@@ -73,10 +73,21 @@ export interface MUIDataTableMeta {
     tableState: MUIDataTableState;
 }
 
-export type MUIDataTableCustomHeadRenderer = Pick<MUIDataTableColumn, 'name' | 'label'> & Pick<MUIDataTableColumnOptions, 'customHeadRender' | 'display' | 'filter' | 'sort' | 'download' | 'empty' | 'print' | 'searchable' | 'viewColumns'> & {
-    index: number;
-}
-}
+export type MUIDataTableCustomHeadRenderer = Pick<MUIDataTableColumn, 'name' | 'label'> &
+    Pick<
+        MUIDataTableColumnOptions,
+        | 'customHeadRender'
+        | 'display'
+        | 'filter'
+        | 'sort'
+        | 'download'
+        | 'empty'
+        | 'print'
+        | 'searchable'
+        | 'viewColumns'
+    > & {
+        index: number;
+    };
 
 export interface MUIDataTableTextLabelsBody {
     noMatch: string | React.ReactNode;
@@ -747,7 +758,7 @@ export type MUIDataTableOptions = Partial<{
      * Sets the column to sort by and its sort direction.
      * To remove/reset sorting, input in an empty object.
      * The object options are the column name and the direction.
-     * @type `{ name: string, direction: 'asc' | 'desc' }`
+     * @shape { name: string, direction: 'asc' | 'desc' }
      * {@link https://github.com/gregnb/mui-datatables/blob/master/examples/customize-columns/index.js Example}
      */
     sortOrder: MUISortOptions;
