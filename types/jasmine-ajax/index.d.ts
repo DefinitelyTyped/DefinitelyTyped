@@ -8,7 +8,7 @@
 /**
  * @deprecated Use JasmineAjaxRequestStubReturnOptions instead
  */
-interface JasmineAjaxResponse extends JasmineAjaxRequestStubReturnOptions {}
+type JasmineAjaxResponse = JasmineAjaxRequestStubReturnOptions;
 
 interface JasmineAjaxRequest extends XMLHttpRequest {
     url: string;
