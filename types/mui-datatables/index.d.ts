@@ -1,4 +1,4 @@
-// Type definitions for mui-datatables 3.6
+// Type definitions for mui-datatables 3.7
 // Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 //                 Ankith Konda <https://github.com/ankithkonda>
@@ -880,7 +880,7 @@ export interface MUIDataTableFilter {
     classes?: object;
     filterData: any[];
     filterList?: MUIDataTableState['filterList'];
-    onFilterRest?: (...args: any) => any;
+    onFilterReset?: (...args: any) => any;
     onFilterUpdate?: (...args: any) => any;
     options: MUIDataTableOptions;
 }
