@@ -5,13 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-interface JasmineAjaxResponse {
-    status?: number;
-    statusText?: string;
-    responseText?: string;
-    response?: string;
-    contentType?: string;
-    responseHeaders?: { [key: string]: string };
+interface JasmineAjaxResponse extends JasmineAjaxRequestStubReturnOptions {
+    status: number;
 }
 
 interface JasmineAjaxRequest extends XMLHttpRequest {
@@ -43,9 +38,12 @@ interface JasmineAjaxRequestTracker {
 
 interface JasmineAjaxRequestStubReturnOptions {
     status?: number;
+    statusText?: string;
     contentType?: string;
     response?: string;
     responseText?: string;
+    responseURL?: string;
+    responseJSON?: any;
     responseHeaders?: { [key: string]: string };
 }
 
