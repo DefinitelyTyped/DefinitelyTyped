@@ -1,3 +1,28 @@
+import '../test/assert';
+import '../test/buffer';
+import '../test/child_process';
+import '../test/cluster';
+import '../test/crypto';
+import '../test/dgram';
+import '../test/events';
+import '../test/global';
+import '../test/http';
+import '../test/http2';
+import '../test/net';
+import '../test/os';
+import '../test/path';
+import '../test/perf_hooks';
+import '../test/process';
+import '../test/readline';
+import '../test/repl';
+import '../test/stream';
+import '../test/tls';
+import '../test/tty';
+import '../test/util';
+import '../test/v8';
+import '../test/worker_threads';
+import '../test/zlib';
+
 import assert = require("assert");
 import * as fs from "fs";
 import * as url from "url";

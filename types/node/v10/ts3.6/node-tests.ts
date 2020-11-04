@@ -1,4 +1,5 @@
-import "../node-tests";
+import '../test/zlib';
+
 import * as util from "util";
 
 //////////////////////////////////////////////////////////

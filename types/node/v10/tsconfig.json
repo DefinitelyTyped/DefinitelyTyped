@@ -1,8 +1,6 @@
 {
     "files": [
         "node-tests.ts",
-        "test/url.ts",
-        "test/zlib.ts",
         "index.d.ts"
     ],
     "compilerOptions": {
