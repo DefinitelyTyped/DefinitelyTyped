@@ -5,9 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-interface JasmineAjaxResponse extends JasmineAjaxRequestStubReturnOptions {
-    status: number;
-}
+/**
+ * @deprecated Use JasmineAjaxRequestStubReturnOptions instead
+ */
+interface JasmineAjaxResponse extends JasmineAjaxRequestStubReturnOptions {}
 
 interface JasmineAjaxRequest extends XMLHttpRequest {
     url: string;
