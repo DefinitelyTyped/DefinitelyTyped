@@ -340,7 +340,7 @@ declare namespace NodeJS {
          * Specifies the maximum number of characters to
          * include when formatting. Set to `null` or `Infinity` to show all elements.
          * Set to `0` or negative to show no characters.
-         * @default Infinity
+         * @default 10000
          */
         maxStringLength?: number | null;
         breakLength?: number;
@@ -466,6 +466,8 @@ declare namespace NodeJS {
     interface ReadWriteStream extends ReadableStream, WritableStream { }
 
     interface Global {
+        AbortController: typeof AbortController;
+        AbortSignal: typeof AbortSignal;
         Array: typeof Array;
         ArrayBuffer: typeof ArrayBuffer;
         Boolean: typeof Boolean;
@@ -611,4 +613,8 @@ declare namespace NodeJS {
     interface ReadOnlyDict<T> {
         readonly [key: string]: T | undefined;
     }
+
+    type EmptyObject<T> = {
+        [P in keyof T]: undefined;
+    };
 }

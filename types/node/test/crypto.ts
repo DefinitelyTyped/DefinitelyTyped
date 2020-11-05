@@ -934,3 +934,20 @@ import { promisify } from 'util';
 {
     crypto.createSecretKey(new Uint8Array([0])); // $ExpectType KeyObject
 }
+
+{
+    crypto.hkdf("sha256", Buffer.alloc(32, 0xFF), Buffer.alloc(16, 0x00), "SomeInfo", 42, (err, derivedKey) => {});
+}
+
+{
+    const derivedKey = crypto.hkdfSync("sha256", Buffer.alloc(32, 0xFF), Buffer.alloc(16, 0x00), "SomeInfo", 42);
+}
+
+{
+    (async () => {
+        const key = await crypto.webcrypto.subtle.generateKey({
+            name: 'AES-CBC',
+            length
+        }, true, ['encrypt', 'decrypt']);
+    })();
+}

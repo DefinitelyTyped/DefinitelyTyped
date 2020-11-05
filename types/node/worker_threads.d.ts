@@ -235,4 +235,14 @@ declare module "worker_threads" {
      * `MessagePort`’s queue.
      */
     function receiveMessageOnPort(port: MessagePort): { message: any } | undefined;
+
+    global {
+        namespace NodeJS {
+            interface Global {
+                MessageChannel: typeof MessageChannel;
+                MessageEvent: typeof MessageEvent;
+                MessagePort: typeof MessagePort;
+            }
+        }
+    }
 }
