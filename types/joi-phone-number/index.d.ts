@@ -1,4 +1,4 @@
-// Type definitions for joi-phone-number
+// Type definitions for joi-phone-number 5.0
 // Project: https://github.com/Salesflare/joi-phone-number
 // Definitions by: Marvin Witt <https://github.com/NurMarvin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
