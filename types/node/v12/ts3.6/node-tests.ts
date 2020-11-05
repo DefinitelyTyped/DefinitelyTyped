@@ -1,4 +1,4 @@
-import '../ts3.3/node-tests';
+import '../ts3.4/node-tests';
 import '../test/globals';
 import '../test/wasi';
 
