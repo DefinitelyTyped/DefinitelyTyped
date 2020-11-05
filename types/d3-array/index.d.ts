@@ -357,6 +357,10 @@ export function bisectRight(array: ArrayLike<number>, x: number, lo?: number, hi
 export function bisectRight(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
 export function bisectRight(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
 
+export function bisectCenter(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
+export function bisectCenter(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
+export function bisectCenter(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
+
 export const bisect: typeof bisectRight;
 
 export interface Bisector<T, U> {
@@ -735,6 +739,11 @@ export function shuffle(array: Int32Array, lo?: number, hi?: number): Int32Array
 export function shuffle(array: Uint32Array, lo?: number, hi?: number): Uint32Array;
 export function shuffle(array: Float32Array, lo?: number, hi?: number): Float32Array;
 export function shuffle(array: Float64Array, lo?: number, hi?: number): Float64Array;
+
+/**
+ * Returns a shuffle function given the specified random source.
+ */
+export function shuffler(random: () => number): typeof shuffle;
 
 /**
  * Generate an array of approximately count + 1 uniformly-spaced, nicely-rounded values between start and stop (inclusive).
