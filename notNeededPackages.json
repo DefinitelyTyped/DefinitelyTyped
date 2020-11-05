@@ -2065,6 +2065,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "incremental-dom",
+            "typingsPackageName": "incremental-dom",
+            "sourceRepoURL": "https://github.com/google/incremental-dom",
+            "asOfVersion": "0.6.0"
+        },
+        {
             "libraryName": "indent-string",
             "typingsPackageName": "indent-string",
             "sourceRepoURL": "https://github.com/sindresorhus/indent-string",
