@@ -14,6 +14,22 @@ const client = new LanguageClient(
     },
 );
 
+interface TestThisType {
+    __type: 'TestThisType';
+}
+declare const testThis: TestThisType;
+
+client.onDidStop(err => {
+    // $ExpectType Error | undefined
+    err;
+});
+client.onDidStop(function(err) {
+    // $ExpectType Error | undefined
+    err;
+    // $ExpectType TestThisType
+    this;
+}, testThis);
+
 export function activate() {
     client.start();
 }
@@ -45,14 +61,14 @@ nova.config.get('test', 'array');
 
 /// https://novadocs.panic.com/api-reference/assistants-registry/
 
-nova.assistants.registerCompletionAssistant("foo", {
+nova.assistants.registerCompletionAssistant('foo', {
     async provideCompletionItems(editor, context) {
         // $ExpectType TextEditor
         editor;
         // $ExpectType CompletionContext
         context;
         return [completionItem];
-    }
+    },
 });
 
 /// https://novadocs.panic.com/api-reference/charset/
@@ -67,9 +83,10 @@ nova.clipboard.readText();
 
 /// https://novadocs.panic.com/api-reference/completion-item/
 
-const completionItem = new CompletionItem("label", CompletionItemKind.Struct);
+const completionItem = new CompletionItem('label', CompletionItemKind.Struct);
 completionItem.insertTextFormat = InsertTextFormat.Snippet;
-completionItem.insertText = "text to insert";
+completionItem.insertText = 'text to insert';
+completionItem.commitChars = new Charset('-');
 
 /// https://novadocs.panic.com/api-reference/emitter/
 
@@ -164,12 +181,12 @@ p.start();
 const issue = new Issue();
 
 issue.message = "Undefined name 'foobar'";
-issue.code = "E12";
+issue.code = 'E12';
 issue.severity = IssueSeverity.Error;
 issue.line = 10;
 issue.column = 12;
 
-(new IssueCollection()).set("fileURI", [issue]);
+new IssueCollection().set('fileURI', [issue]);
 
 /// https://novadocs.panic.com/api-reference/notification-request/
 
@@ -236,6 +253,34 @@ scanner.scanFloat(); // => null
 scanner.atEnd; // => true
 
 scanner.location = 42;
+
+/// https://docs.nova.app/api-reference/task/
+
+const task = new Task('Say Example');
+
+task.setAction(
+    Task.Build,
+    new TaskProcessAction('/usr/bin/say', {
+        args: ["I'm Building!"],
+        env: {},
+    }),
+);
+
+task.setAction(
+    Task.Run,
+    new TaskProcessAction('/usr/bin/say', {
+        args: ["I'm Running!"],
+        env: {},
+    }),
+);
+
+task.setAction(
+    Task.Clean,
+    new TaskProcessAction('/usr/bin/say', {
+        args: ["I'm Cleaning!"],
+        env: {},
+    }),
+);
 
 /// https://novadocs.panic.com/api-reference/text-editor/
 

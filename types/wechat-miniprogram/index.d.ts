@@ -1,5 +1,5 @@
-// Type definitions for miniprogtam-api-typings 3.0
-// Project: https://github.com/wechat-miniprogram/api-typings.git
+// Type definitions for non-npm package Wechat Mini Program - wechat-miniprogram 3.1
+// Project: https://developers.weixin.qq.com/miniprogram/dev/api/
 // Definitions by: Wechat Miniprogram <https://github.com/wechat-miniprogram>,
 //                SgLy <https://github.com/SgLy>,
 //                TtTRz <https://github.com/TtTRz>

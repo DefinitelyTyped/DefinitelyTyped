@@ -1,61 +1,23 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactInputAttr, ReactLabelAttr, ReactAttr } from "../../../typings/shared";
+import { ReactAttr } from "../../../typings/shared";
+import { FileStatus, FileUploaderSize } from "./shared";
 import { ButtonKind } from "../Button";
-
-interface SharedProps {
-    accept?: readonly string[],
-    buttonKind?: ButtonKind,
-    disabled?: ReactInputAttr["disabled"],
-    disableLabelChanges?: boolean,
-    listFiles?: boolean,
-    multiple?: boolean,
-}
-
-export type FileStatus = "complete" | "edit" | "uploading";
-export type FileUploaderSize = "default" | "field" | "small";
-
-// FileUploaderButton
-
-interface FileUploaderButtonInheritedProps extends
-    Omit<ReactLabelAttr, "onChange">,
-    SharedProps
-{
-    onChange?(event: React.ChangeEvent<HTMLInputElement>): void,
-}
-
-export interface FileUploaderButtonProps extends FileUploaderButtonInheritedProps {
-    labelText?: React.ReactNode,
-    size?: FileUploaderSize,
-}
-
-export declare class FileUploaderButton extends React.Component<FileUploaderButtonProps> { }
-
-// Filename
-
-interface FilenameIconInheritedProps extends React.SVGAttributes<SVGSVGElement>, EmbeddedIconProps { }
-
-export interface FilenameIconProps extends FilenameIconInheritedProps {
-    invalid?: boolean,
-    status?: FileStatus,
-}
-
-export declare const Filename: React.FC<FilenameIconProps>;
+import { FileUploaderButtonProps } from "./FileUploaderButton";
 
 // FileUploader
-
-interface FileUploaderInheritedProps extends
-    Omit<ReactAttr, "onChange">,
-    EmbeddedIconProps,
-    SharedProps
-{
-    onChange?(event: React.ChangeEvent<HTMLInputElement>): void,
-}
-
-export interface FileUploaderProps extends FileUploaderInheritedProps {
+export interface FileUploaderProps extends Omit<ReactAttr, "onChange"> {
+    accept?: readonly string[],
+    buttonKind?: ButtonKind,
     buttonLabel?: string,
     filenameStatus?: FileStatus, // required but has default value
+    iconDescription?: string,
     labelDescription?: string,
+    labelText?: React.ReactNode,
     labelTitle?: string,
+    multiple?: boolean,
+    name?: string,
+    onChange?: FileUploaderButtonProps["onChange"],
+    onDelete?(event: React.MouseEvent<HTMLElement>): void;
     size?: FileUploaderSize,
 }
 

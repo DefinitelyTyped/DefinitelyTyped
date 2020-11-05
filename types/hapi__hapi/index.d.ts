@@ -3386,7 +3386,6 @@ export interface PluginProperties {
 /**
  * An empty interface to allow typings of custom server.methods.
  */
-/* tslint:disable-next-line:no-empty-interface */
 export interface ServerMethods extends Util.Dictionary<ServerMethod> {
 }
 

@@ -27,12 +27,33 @@ export interface Options {
 }
 export default class Heatmap extends VectorLayer {
     constructor(opt_options?: Options);
+    /**
+     * Create a renderer for this layer.
+     */
     createRenderer(): WebGLPointsLayerRenderer;
+    /**
+     * Return the blur size in pixels.
+     */
     getBlur(): number;
+    /**
+     * Return the gradient colors as array of strings.
+     */
     getGradient(): string[];
+    /**
+     * Return the size of the radius in pixels.
+     */
     getRadius(): number;
+    /**
+     * Set the blur size in pixels.
+     */
     setBlur(blur: number): void;
+    /**
+     * Set the gradient colors as array of strings.
+     */
     setGradient(colors: string[]): void;
+    /**
+     * Set the size of the radius in pixels.
+     */
     setRadius(radius: number): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

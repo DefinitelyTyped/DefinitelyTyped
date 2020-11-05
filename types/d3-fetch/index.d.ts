@@ -1,4 +1,4 @@
-// Type definitions for d3-fetch 1.2
+// Type definitions for d3-fetch 2.0
 // Project: https://d3js.org/d3-fetch/
 // Definitions by: Hugues Stefanski <https://github.com/ledragon>
 //                 denisname <https://github.com/denisname>
@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 2.0.0
 
 import { DSVParsedArray, DSVRowArray, DSVRowString } from "d3-dsv";
 

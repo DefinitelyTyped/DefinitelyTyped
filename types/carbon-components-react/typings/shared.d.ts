@@ -31,15 +31,6 @@ export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string;
 }
 
-export interface EmbeddedIconProps {
-    iconDescription?: string;
-}
-
-export interface EmbeddedTooltipProps {
-    tooltipAlignment?: TooltipAlignment;
-    tooltipPosition?: TooltipPosition;
-}
-
 export interface InternationalProps<MID = string> {
     translateWithId?(messageId: MID): string;
 }
@@ -65,25 +56,12 @@ export interface SizingProps {
     small?: boolean;
 }
 
-export interface ThemeProps {
-    light?: boolean;
-}
-
-export interface ValidityProps {
-    invalid?: boolean;
-    invalidText?: string;
-}
-
 export interface SideNavSharedProps {
     isSideNavExpanded?: boolean;
 }
 
 export interface SideNavSizingProps {
     large?: boolean;
-}
-
-export interface RefForwardingProps<T = HTMLElement> {
-    ref?: React.RefObject<T>;
 }
 
 //

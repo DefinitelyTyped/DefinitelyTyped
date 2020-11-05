@@ -172,6 +172,10 @@ let easingFn: (normalizedTime: number) => number;
 enterTransition = enterTransition.ease(t => t); // settable and chainable
 easingFn = enterTransition.ease();
 
+// easeVarying() ---------------------------------------------------------------
+
+enterTransition = enterTransition.easeVarying((d, i, g) => (t => t));
+
 // --------------------------------------------------------------------------
 // Test sub-selection from transition
 // --------------------------------------------------------------------------

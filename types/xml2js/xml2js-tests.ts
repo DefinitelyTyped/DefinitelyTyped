@@ -2,11 +2,11 @@ import xml2js = require('xml2js');
 import * as processors from 'xml2js/lib/processors';
 import fs = require('fs');
 
-xml2js.parseString('<root>Hello xml2js!</root>', (err: Error, result: any) => { });
+xml2js.parseString('<root>Hello xml2js!</root>', (err: Error | null, result: any) => { });
 
 xml2js.parseStringPromise('<root>Hello xml2js!</root>');
 
-xml2js.parseString('<root>Hello xml2js!</root>', {trim: true}, (err: Error, result: any) => { });
+xml2js.parseString('<root>Hello xml2js!</root>', {trim: true}, (err: Error | null, result: any) => { });
 
 xml2js.parseStringPromise('<root>Hello xml2js!</root>', {trim: true});
 
@@ -34,14 +34,14 @@ xml2js.parseString('<root>Hello xml2js!</root>', {
     attrValueProcessors: undefined,
     tagNameProcessors: undefined,
     valueProcessors: undefined
-}, (err: Error, result: any) => { });
+}, (err: Error | null, result: any) => { });
 
 xml2js.parseString('<root>Hello xml2js!</root>', {
     attrNameProcessors: [processors.firstCharLowerCase, xml2js.processors.normalize],
     attrValueProcessors: [processors.normalize],
     tagNameProcessors: [processors.stripPrefix],
     valueProcessors: [processors.parseBooleans, processors.parseNumbers]
-}, (err: Error, result: any) => { });
+}, (err: Error | null, result: any) => { });
 
 let builder = new xml2js.Builder({
     renderOpts: {
@@ -85,7 +85,7 @@ v2Defaults.async = false;
 v2Defaults.chunkSize = 20000;
 
 fs.readFile(__dirname + '/foo.xml', (err, data) => {
-    parser.parseString(data, (err: Error, result: any) => {
+    parser.parseString(data, (err: Error | null, result: any) => {
         console.dir(result);
         console.log('Done parseString');
     });

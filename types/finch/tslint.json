@@ -1,13 +1,11 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
         "no-void-expression": false,
@@ -16,7 +14,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "prefer-template": false,
         "space-within-parens": false,
         "trim-file": false,

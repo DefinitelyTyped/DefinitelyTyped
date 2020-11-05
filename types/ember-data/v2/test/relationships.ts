@@ -5,11 +5,11 @@ declare const store: DS.Store;
 
 const Person = DS.Model.extend({
     children: DS.hasMany('folder', { inverse: 'parent' }),
-    parent: DS.belongsTo('folder', { inverse: 'children' })
+    parent: DS.belongsTo('folder', { inverse: 'children' }),
 });
 
 const Polymorphic = DS.Model.extend({
-    paymentMethods: DS.hasMany('payment-method', { polymorphic: true })
+    paymentMethods: DS.hasMany('payment-method', { polymorphic: true }),
 });
 
 Polymorphic.eachRelationship(() => '');
@@ -51,7 +51,7 @@ declare module 'ember-data' {
 }
 
 let blogPost = store.peekRecord('relational-post', 1);
-blogPost!.get('comments').then((comments) => {
+blogPost!.get('comments').then(comments => {
     // now we can work with the comments
     let author: string = comments.get('firstObject')!.get('author');
 });

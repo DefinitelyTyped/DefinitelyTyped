@@ -2,12 +2,9 @@ import * as React from "react";
 import { ReactLIAttr } from "../../../typings/shared";
 import { LinkProps } from "../Link";
 
-interface InheritedProps extends ReactLIAttr {
-    href?: LinkProps["href"],
-}
-
-export interface BreadcrumbItemProps extends InheritedProps {
+export interface BreadcrumbItemProps extends ReactLIAttr {
     isCurrentPage?: boolean,
+    href?: LinkProps["href"],
 }
 
 declare const BreadcrumbItem: React.FC<BreadcrumbItemProps>;

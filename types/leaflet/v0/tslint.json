@@ -3,7 +3,6 @@
     "rules": {
         "adjacent-overload-signatures": false,
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
         "interface-name": false,
@@ -14,7 +13,6 @@
         "no-mergeable-namespace": false,
         "no-namespace": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-unnecessary-generics": false,
@@ -23,7 +21,6 @@
         "object-literal-key-quotes": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "typedef-whitespace": false,

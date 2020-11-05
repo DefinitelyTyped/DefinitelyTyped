@@ -14,6 +14,7 @@ import {
     Snapshot,
     OptimisticResponseConfig,
     Environment,
+    RequiredFieldLogger,
 } from './RelayStoreTypes';
 import { Network, PayloadData, GraphQLResponse, UploadableMap } from '../network/RelayNetworkTypes';
 import { TaskScheduler } from './RelayModernQueryExecutor';
@@ -34,6 +35,7 @@ export interface EnvironmentConfig {
     readonly operationTracker?: OperationTracker | null;
     readonly options?: unknown;
     readonly isServer?: boolean;
+    readonly requiredFieldLogger?: RequiredFieldLogger | null;
 }
 
 export default class RelayModernEnvironment implements Environment {

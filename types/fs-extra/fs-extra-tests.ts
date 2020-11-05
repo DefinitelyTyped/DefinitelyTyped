@@ -1,5 +1,4 @@
 import * as fs from "fs-extra";
-import * as Path from "path";
 
 const len = 2;
 const src = "";
@@ -186,7 +185,10 @@ fs.emptyDir(path).then(() => {
     // stub
 });
 fs.emptyDir(path, errorCallback);
+fs.emptydir(path, errorCallback);
+fs.emptydir(path).then(() => {});
 fs.emptyDirSync(path);
+fs.emptydirSync(path);
 fs.pathExists(path).then((_exist: boolean) => {
     // stub
 });
@@ -218,16 +220,16 @@ fs.lchmodSync(path, modeStr);
 fs.statSync(path);
 fs.lstatSync(path);
 
-fs.read(0, new Buffer(""), 0, 0, null).then(x => {
+fs.read(0, Buffer.from(""), 0, 0, null).then(x => {
     const a = x.buffer;
     const b = x.bytesRead;
 });
 
-fs.write(0, new Buffer(""), 0, 0, null).then(x => {
+fs.write(0, Buffer.from(""), 0, 0, null).then(x => {
     const a = x.buffer;
     const b = x.bytesWritten;
 });
-fs.write(0, new Buffer("")).then(x => {
+fs.write(0, Buffer.from("")).then(x => {
     const a = x.buffer;
     const b = x.bytesWritten;
 });
@@ -255,3 +257,7 @@ const openDirTest = async (path: string, opts: fs.OpenDirOptions) => {
     await fs.opendir(path); // $ExpectType Dir
     await fs.opendir(path, opts); // $ExpectType Dir
 };
+
+fs.readdir("src").then((files: string[]) => {});
+fs.readdir("src", "buffer").then((files: Buffer[]) => {});
+fs.readdir("src", {withFileTypes: true}).then((files: fs.Dirent[]) => {});

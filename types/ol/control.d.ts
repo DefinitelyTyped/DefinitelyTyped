@@ -23,4 +23,14 @@ export interface DefaultsOptions {
     zoom?: boolean;
     zoomOptions?: Options_2;
 }
+/**
+ * Set of controls included in maps by default. Unless configured otherwise,
+ * this returns a collection containing an instance of each of the following
+ * controls:
+ *
+ * {@link module:ol/control/Zoom~Zoom}
+ * {@link module:ol/control/Rotate~Rotate}
+ * {@link module:ol/control/Attribution~Attribution}
+ *
+ */
 export function defaults(opt_options?: DefaultsOptions): Collection<Control>;

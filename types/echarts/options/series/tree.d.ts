@@ -23,7 +23,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-tree
          */
         interface SeriesTree {
-
             /**
              * @default
              * "tree"
@@ -383,7 +382,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -492,7 +490,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-tree.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -667,7 +664,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -952,12 +949,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-tree.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -1003,7 +998,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -1289,7 +1284,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-tree.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * The color of the tree edge.
                  *
@@ -1363,12 +1357,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -1469,7 +1461,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * The color of the tree edge.
                      *
@@ -1543,7 +1534,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1717,7 +1707,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -2003,12 +1993,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2054,7 +2042,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -2344,7 +2332,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-tree.leaves
              */
             leaves?: {
-
                 /**
                  * Describes the style of the text label corresponding to the
                  * leaf node.
@@ -2353,7 +2340,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2529,7 +2515,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -2815,12 +2801,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2866,7 +2850,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -3154,7 +3138,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -3257,12 +3240,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3438,7 +3419,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -3728,12 +3709,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3779,7 +3758,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -4076,7 +4055,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4224,7 +4202,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -4330,7 +4307,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -4459,7 +4435,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -4745,12 +4721,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -4796,7 +4770,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -5081,12 +5055,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -5215,7 +5187,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -5505,12 +5477,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -5556,7 +5526,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -5853,7 +5823,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *

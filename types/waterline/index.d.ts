@@ -35,18 +35,18 @@ declare namespace Waterline {
         beforeValidate?: { (vaues: any, next: Function): void }[] | { (vaues: any, next: Function): void };
         beforeCreate?: { (values: any, next: Function): void }[] | { (vaues: any, next: Function): void };
         afterCreate?:
-            | { (newlyCreatedRecord: any, next: Function): void }[]
-            | { (newlyCreatedRecord: any, next: Function): void };
+        | { (newlyCreatedRecord: any, next: Function): void }[]
+        | { (newlyCreatedRecord: any, next: Function): void };
         beforeUpdate?:
-            | { (valuesToUpdate: any, next: Function): void }[]
-            | { (valuesToUpdate: any, next: Function): void };
+        | { (valuesToUpdate: any, next: Function): void }[]
+        | { (valuesToUpdate: any, next: Function): void };
         afterUpdate?:
-            | { (valuesToUpdate: any, next: Function): void }[]
-            | { (valuesToUpdate: any, next: Function): void };
+        | { (valuesToUpdate: any, next: Function): void }[]
+        | { (valuesToUpdate: any, next: Function): void };
         beforeDestroy?: { (criteria: any, next: Function): void }[] | { (valuesToUpdate: any, next: Function): void };
         afterDestroy?:
-            | { (destroyedInstance: any, next: Function): void }[]
-            | { (destroyedInstance: any, next: Function): void };
+        | { (destroyedInstance: any, next: Function): void }[]
+        | { (destroyedInstance: any, next: Function): void };
     };
     export type CollectionDefinition = LifecycleCallbacks & {
         attributes?: Attributes;
@@ -247,6 +247,7 @@ declare namespace Waterline {
 
         destroy(criteria: any, cb?: Callback<any>): CRUDBuilder<any[]>;
         destroy(criteria: any[], cb?: Callback<any[]>): CRUDBuilder<any[]>;
+        destroyOne(criteria: any, cb?: Callback<any>): CRUDBuilder<any>;
 
         count(criteria: any): WaterlinePromise<number>;
         count(criteria: any[]): WaterlinePromise<number>;
@@ -266,7 +267,7 @@ declare interface WaterlineStatic {
     Collection: {
         extend: (params: Waterline.CollectionDefinition) => Waterline.CollectionClass;
     };
-    new (): Waterline.Waterline;
+    new(): Waterline.Waterline;
 }
 declare var Waterline: WaterlineStatic;
 export = Waterline;
