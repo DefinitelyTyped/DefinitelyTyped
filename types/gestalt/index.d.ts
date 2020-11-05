@@ -1,4 +1,4 @@
-// Type definitions for gestalt 12.13
+// Type definitions for gestalt 14.26
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -17,6 +17,33 @@ export type AbstractEventHandler<T extends React.SyntheticEvent<HTMLElement> | E
         readonly event: T;
     },
 ) => void;
+
+/*
+ActivationCard Props Interface
+https://gestalt.netlify.app/ActivationCard
+*/
+
+export interface ActivationCardProps {
+    message: string;
+    status: 'notStarted' | 'pending' | 'needsAttention' | 'complete';
+    statusMessage: string;
+    title: string;
+    dismissButton?: {
+        accessibilityLabel: string;
+        onDismiss: () => void;
+    };
+    link?: {
+        accessibilityLabel?: string;
+        href: string;
+        label: string;
+        onClick?: AbstractEventHandler<
+            | React.MouseEvent<HTMLButtonElement>
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLButtonElement>
+        >;
+    };
+}
 
 /*
 Avatar Props Interface
@@ -67,7 +94,7 @@ export interface BoxProps {
     alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
     alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
     alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-    borderSize?: 'sm' | 'lg' | 'none';
+    borderStyle?: 'sm' | 'lg' | 'shadow' | 'none';
     bottom?: boolean;
     children?: React.ReactNode;
     color?:
@@ -161,7 +188,6 @@ export interface BoxProps {
     mdPaddingY?: UnsignedUpTo12;
     lgPaddingY?: UnsignedUpTo12;
     position?: 'static' | 'absolute' | 'relative' | 'fixed';
-    ref?: React.Ref<'div'>;
     right?: boolean;
     role?: string;
     rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -197,11 +223,11 @@ export interface ButtonProps {
         | React.KeyboardEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLButtonElement>
     >;
-    ref?: React.Ref<'button'> | React.Ref<'a'>;
     rel?: 'none' | 'nofollow';
     role?: 'button' | 'link';
     selected?: boolean;
     size?: 'sm' | 'md' | 'lg';
+    tabIndex?: -1 | 0;
     target?: null | 'self' | 'blank';
     type?: 'submit' | 'button';
 }
@@ -221,9 +247,15 @@ https://gestalt.netlify.app/Callout
 */
 
 export interface LinkData {
+    accessibilityLabel?: string;
     href: string;
     label: string;
-    onClick?: AbstractEventHandler<React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>>;
+    onClick?: AbstractEventHandler<
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    >;
 }
 
 export interface CalloutProps {
@@ -264,13 +296,14 @@ export interface CheckboxProps {
     disabled?: boolean;
     errorMessage?: string;
     hasError?: boolean;
+    image?: React.ReactNode;
     indeterminate?: boolean;
     label?: string;
     name?: string;
 
     onClick?: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
-    ref?: React.Ref<'input'>;
     size?: 'sm' | 'md';
+    subtext?: string;
 }
 /*
 Collage Props Interface
@@ -588,13 +621,17 @@ export interface IconButtonProps {
 
     dangerouslySetSvgPath?: { __path: string };
     disabled?: boolean;
+    href?: string;
     icon?: Icons;
     iconColor?: 'gray' | 'darkGray' | 'red' | 'white';
     onClick?: AbstractEventHandler<React.MouseEvent<HTMLButtonElement>>;
     padding?: 1 | 2 | 3 | 4 | 5;
-    ref?: React.Ref<'button'>;
+    rel?: 'none' | 'nofollow';
+    role?: 'button' | 'link';
     selected?: boolean;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    tabIndex?: -1 | 0;
+    target?: null | 'self' | 'blank';
 }
 
 /*
@@ -634,6 +671,7 @@ https://gestalt.netlify.app/Layer
 
 export interface LayerProps {
     children: React.ReactNode;
+    zIndex?: { index(): number };
 }
 
 /*
@@ -718,9 +756,27 @@ export interface ModalProps {
     closeOnOutsideClick?: boolean;
     footer?: React.ReactNode;
     heading?: string | React.ReactNode;
-    ref?: React.Ref<'div'>;
     role?: 'alertdialog' | 'dialog';
     size?: 'sm' | 'md' | 'lg' | number;
+}
+
+/*
+Module Props Interface
+https://gestalt.netlify.app/Module
+*/
+
+export interface ModuleExpandableProps {
+    accessibilityCollapseLabel: string;
+    accessibilityExpandLabel: string;
+    id: string;
+    items: ReadonlyArray<{
+        title: string;
+        icon?: Icons;
+        summary?: ReadonlyArray<string>;
+        type?: 'info' | 'error';
+        iconAccessibilityLabel?: string;
+        children?: React.ReactNode;
+    }>;
 }
 
 /*
@@ -772,10 +828,12 @@ export interface RadioButtonProps {
     onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
     checked?: boolean;
     disabled?: boolean;
+    image?: React.ReactNode;
     label?: string;
     name?: string;
-    value?: string;
     size?: 'sm' | 'md';
+    subtext?: string;
+    value?: string;
 }
 
 /*
@@ -815,7 +873,6 @@ export interface SearchFieldProps {
     onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement> }) => void;
     onFocus?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     placeholder?: string;
-    ref?: React.Ref<'input'>;
     size?: 'md' | 'lg';
     value?: string;
 }
@@ -850,6 +907,23 @@ export interface SelectListProps {
     placeholder?: string;
     size?: 'md' | 'lg';
     value?: string;
+}
+
+/*
+Sheet Props Interface
+https://gestalt.netlify.app/Sheet
+*/
+export type SheetNodeOrRenderProp = ((prop: { onDismissStart: () => void }) => React.ReactNode) | React.ReactNode;
+export interface SheetProps {
+    accessibilityDismissButtonLabel: string;
+    accessibilitySheetLabel: string;
+    onDismiss: () => void;
+    children?: SheetNodeOrRenderProp;
+    closeOnOutsideClick?: boolean;
+    footer?: SheetNodeOrRenderProp;
+    heading?: string;
+    size?: 'sm' | 'md' | 'lg';
+    subHeading?: SheetNodeOrRenderProp;
 }
 
 /*
@@ -921,7 +995,7 @@ https://gestalt.netlify.app/Table
 */
 
 export interface TableProps {
-    borderSize?: 'sm' | 'none';
+    borderStyle?: 'sm' | 'none';
     children?: React.ReactNode;
     maxHeight?: 'number' | 'string';
 }
@@ -951,6 +1025,21 @@ export interface TableHeaderCellProps extends TableCellProps {
 
 export interface TableRowProps {
     children?: React.ReactNode;
+}
+
+export interface TableRowExpandableProps {
+    accessibilityCollapseLabel: string;
+    accessibilityExpandLabel: string;
+    expandedContents: React.ReactNode;
+    id: string;
+    children?: React.ReactNode;
+    hoverStyle?: 'none' | 'gray';
+    onExpand?: AbstractEventHandler<
+        | React.MouseEvent<HTMLButtonElement>
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    >;
 }
 
 export interface TableSortableHeaderCellProps extends TableHeaderCellProps {
@@ -988,15 +1077,24 @@ export interface TapAreaProps {
     disabled?: boolean;
     fullHeight?: boolean;
     fullWidth?: boolean;
+    href?: string;
     mouseCursor?: 'copy' | 'grab' | 'grabbing' | 'move' | 'noDrop' | 'pointer' | 'zoomIn' | 'zoomOut';
-    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLDivElement>>;
-    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLDivElement>>;
-    onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
-    onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
-    onTap?: AbstractEventHandler<React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>>;
-    ref?: React.Ref<'div'>;
-    tapStyle?: 'none' | 'compress';
+    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onTap?: AbstractEventHandler<
+        | React.MouseEvent<HTMLDivElement>
+        | React.KeyboardEvent<HTMLDivElement>
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+    >;
+    rel?: 'none' | 'nofollow';
+    role?: 'button' | 'link';
     rounding?: 'pill' | 'circule' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    tabIndex?: -1 | 0;
+    tapStyle?: 'none' | 'compress';
+    target?: null | 'self' | 'blank';
 }
 
 /*
@@ -1072,7 +1170,6 @@ export interface TextFieldProps {
     onFocus?: (args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void;
     onKeyDown?: (args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: string }) => void;
     placeholder?: string;
-    ref?: React.Ref<'input'>;
     size?: 'md' | 'lg';
     type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url';
     value?: string;
@@ -1102,6 +1199,9 @@ export interface TooltipProps {
     idealDirection?: 'up' | 'right' | 'down' | 'left';
     inline?: boolean;
     link?: React.ReactNode;
+    zIndex?: {
+        index(): number;
+    };
 }
 
 /*
@@ -1134,7 +1234,6 @@ export interface TypeaheadProps {
             | undefined;
     }) => void;
     placeholder?: string;
-    ref?: React.Ref<'input'>;
     size?: 'md' | 'lg';
     value?: string;
 }
@@ -1162,6 +1261,7 @@ export interface VideoProps {
     controls?: boolean;
     crossOrigin?: 'anonymous' | 'use-credentials';
     loop?: boolean;
+    objectFit?: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down';
     onDurationChange?: (args: { event: React.SyntheticEvent<HTMLVideoElement>; duration: number }) => void;
     onEnded?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
     onFullscreenChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { fullscreen: boolean }>;
@@ -1179,6 +1279,7 @@ export interface VideoProps {
     poster?: string;
 }
 
+export class ActivationCard extends React.Component<ActivationCardProps, any> {}
 export class Avatar extends React.Component<AvatarProps, any> {}
 export class AvatarPair extends React.Component<AvatarPairProps, any> {}
 export class Badge extends React.Component<BadgeProps, any> {}
@@ -1205,6 +1306,9 @@ export class Link extends React.Component<LinkProps, any> {}
 export class Mask extends React.Component<MaskProps, any> {}
 export class Masonry extends React.Component<MasonryProps, any> {}
 export class Modal extends React.Component<ModalProps, any> {}
+export class Module extends React.Component<{}, any> {
+    static Expandable: React.FC<ModuleExpandableProps>;
+}
 export class Pog extends React.Component<PogProps, any> {}
 export class Provider extends React.Component<ProviderProps, any> {}
 export class Pulsar extends React.Component<PulsarProps, any> {}
@@ -1213,6 +1317,7 @@ export class Row extends React.Component<RowProps, any> {}
 export class SearchField extends React.Component<SearchFieldProps, any> {}
 export class SegmentedControl extends React.Component<SegmentedControlProps, any> {}
 export class SelectList extends React.Component<SelectListProps, any> {}
+export class Sheet extends React.Component<SheetProps, any> {}
 export class Spinner extends React.Component<SpinnerProps, any> {}
 export class Stack extends React.Component<StackProps, any> {}
 export class Sticky extends React.Component<StickyProps, any> {}
@@ -1224,6 +1329,7 @@ export class Table extends React.Component<TableProps, any> {
     static Header: React.FC<TableHeaderProps>;
     static HeaderCell: React.FC<TableHeaderCellProps>;
     static Row: React.FC<TableRowProps>;
+    static RowExpandable: React.FC<TableRowExpandableProps>;
     static SortableHeaderCell: React.FC<TableSortableHeaderCellProps>;
 }
 export class Tabs extends React.Component<TabsProps, any> {}
