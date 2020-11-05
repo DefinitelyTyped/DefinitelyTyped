@@ -25,18 +25,18 @@ declare class Mocha {
     options: Mocha.MochaInstanceOptions;
 
     /**
-     * Enable or disable bailing on the first failure.
-     *
-     * @see https://mochajs.org/api/mocha#bail
-     */
-    bail(bail?: boolean): this;
-
-    /**
      * Add test `file`.
      *
      * @see https://mochajs.org/api/mocha#addFile
      */
     addFile(file: string): this;
+
+    /**
+     * Enable or disable bailing on the first failure.
+     *
+     * @see https://mochajs.org/api/mocha#bail
+     */
+    bail(bail?: boolean): this;
 
     /**
      * Set reporter to one of the built-in reporters.
