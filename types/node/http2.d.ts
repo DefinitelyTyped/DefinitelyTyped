@@ -937,6 +937,12 @@ declare module "http2" {
     export function getPackedSettings(settings: Settings): Buffer;
     export function getUnpackedSettings(buf: Uint8Array): Settings;
 
+    /**
+     * This symbol can be set as a property on the HTTP/2 headers object with
+     * an array value in order to provide a list of headers considered sensitive.
+     */
+    export const sensitiveHeaders: symbol;
+
     export function createServer(onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;
     export function createServer(options: ServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;
 

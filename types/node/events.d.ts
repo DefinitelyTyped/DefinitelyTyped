@@ -76,6 +76,11 @@ declare module "events" {
                 prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
                 eventNames(): Array<string | symbol>;
             }
+
+            interface Global {
+                Event: typeof Event;
+                EventTarget: typeof EventTarget;
+            }
         }
     }
 
