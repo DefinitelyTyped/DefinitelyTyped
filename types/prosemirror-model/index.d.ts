@@ -1034,7 +1034,7 @@ export class NodeType<S extends Schema = any> {
   /**
    * Tells you whether this node type has any required attributes.
    */
-  hasRequiredAttrs(): boolean
+  hasRequiredAttrs(): boolean;
   /**
    * Create a `Node` of this type. The given attributes are
    * checked and defaulted (you can pass `null` to use the type's
