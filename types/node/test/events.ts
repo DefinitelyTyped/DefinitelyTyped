@@ -89,3 +89,32 @@ async function test() {
     emitter.on(events.errorMonitor, listener);
     emitter.on(events.EventEmitter.errorMonitor, listener);
 }
+
+{
+    function handler1(event: Event) {
+        console.log(event.type);
+    }
+
+    async function handler2(event: Event) {
+        console.log(event.type);
+    }
+
+    const handler3 = {
+        handleEvent(event: Event) {
+            console.log(event.type);
+        }
+    };
+
+    const handler4 = {
+        async handleEvent(event: Event) {
+            console.log(event.type);
+        }
+    };
+
+    const target = new EventTarget();
+
+    target.addEventListener('foo', handler1);
+    target.addEventListener('foo', handler2);
+    target.addEventListener('foo', handler3);
+    target.addEventListener('foo', handler4, { once: true });
+}

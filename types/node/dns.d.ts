@@ -1,4 +1,6 @@
 declare module "dns" {
+    import * as dnsPromises from "dns/promises";
+
     // Supported getaddrinfo flags.
     const ADDRCONFIG: number;
     const V4MAPPED: number;
@@ -69,6 +71,15 @@ declare module "dns" {
 
     interface AnyAaaaRecord extends RecordWithTtl {
         type: "AAAA";
+    }
+
+    interface CaaRecord {
+        critial: number;
+        issue?: string;
+        issuewild?: string;
+        iodef?: string;
+        contactemail?: string;
+        contactphone?: string;
     }
 
     interface MxRecord {
@@ -153,6 +164,7 @@ declare module "dns" {
     function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
     function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
     function resolve(hostname: string, rrtype: "ANY", callback: (err: NodeJS.ErrnoException | null, addresses: AnyRecord[]) => void): void;
+    function resolve(hostname: string, rrtype: "CAA", callback: (err: NodeJS.ErrnoException | null, records: CaaRecord[]) => void): void;
     function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
     function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException | null, addresses: MxRecord[]) => void): void;
     function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException | null, addresses: NaptrRecord[]) => void): void;
@@ -170,6 +182,7 @@ declare module "dns" {
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace resolve {
         function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
+        function __promisify__(hostname: string, rrtype: "CAA"): Promise<CaaRecord[]>;
         function __promisify__(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
         function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
         function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
@@ -204,6 +217,11 @@ declare module "dns" {
     function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
     namespace resolveCname {
         function __promisify__(hostname: string): Promise<string[]>;
+    }
+
+    function resolveCaa(hostname: string, callback: (err: NodeJS.ErrnoException | null, records: CaaRecord[]) => void): void;
+    namespace resolveCaa {
+        function __promisify__(hostname: string): Promise<CaaRecord[]>;
     }
 
     function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: MxRecord[]) => void): void;
@@ -295,77 +313,5 @@ declare module "dns" {
         cancel(): void;
     }
 
-    namespace promises {
-        function getServers(): string[];
-
-        function lookup(hostname: string, family: number): Promise<LookupAddress>;
-        function lookup(hostname: string, options: LookupOneOptions): Promise<LookupAddress>;
-        function lookup(hostname: string, options: LookupAllOptions): Promise<LookupAddress[]>;
-        function lookup(hostname: string, options: LookupOptions): Promise<LookupAddress | LookupAddress[]>;
-        function lookup(hostname: string): Promise<LookupAddress>;
-
-        function lookupService(address: string, port: number): Promise<{ hostname: string, service: string }>;
-
-        function resolve(hostname: string): Promise<string[]>;
-        function resolve(hostname: string, rrtype: "A"): Promise<string[]>;
-        function resolve(hostname: string, rrtype: "AAAA"): Promise<string[]>;
-        function resolve(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
-        function resolve(hostname: string, rrtype: "CNAME"): Promise<string[]>;
-        function resolve(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
-        function resolve(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
-        function resolve(hostname: string, rrtype: "NS"): Promise<string[]>;
-        function resolve(hostname: string, rrtype: "PTR"): Promise<string[]>;
-        function resolve(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
-        function resolve(hostname: string, rrtype: "SRV"): Promise<SrvRecord[]>;
-        function resolve(hostname: string, rrtype: "TXT"): Promise<string[][]>;
-        function resolve(hostname: string, rrtype: string): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
-
-        function resolve4(hostname: string): Promise<string[]>;
-        function resolve4(hostname: string, options: ResolveWithTtlOptions): Promise<RecordWithTtl[]>;
-        function resolve4(hostname: string, options: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
-
-        function resolve6(hostname: string): Promise<string[]>;
-        function resolve6(hostname: string, options: ResolveWithTtlOptions): Promise<RecordWithTtl[]>;
-        function resolve6(hostname: string, options: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
-
-        function resolveAny(hostname: string): Promise<AnyRecord[]>;
-
-        function resolveCname(hostname: string): Promise<string[]>;
-
-        function resolveMx(hostname: string): Promise<MxRecord[]>;
-
-        function resolveNaptr(hostname: string): Promise<NaptrRecord[]>;
-
-        function resolveNs(hostname: string): Promise<string[]>;
-
-        function resolvePtr(hostname: string): Promise<string[]>;
-
-        function resolveSoa(hostname: string): Promise<SoaRecord>;
-
-        function resolveSrv(hostname: string): Promise<SrvRecord[]>;
-
-        function resolveTxt(hostname: string): Promise<string[][]>;
-
-        function reverse(ip: string): Promise<string[]>;
-
-        function setServers(servers: ReadonlyArray<string>): void;
-
-        class Resolver {
-            getServers: typeof getServers;
-            resolve: typeof resolve;
-            resolve4: typeof resolve4;
-            resolve6: typeof resolve6;
-            resolveAny: typeof resolveAny;
-            resolveCname: typeof resolveCname;
-            resolveMx: typeof resolveMx;
-            resolveNaptr: typeof resolveNaptr;
-            resolveNs: typeof resolveNs;
-            resolvePtr: typeof resolvePtr;
-            resolveSoa: typeof resolveSoa;
-            resolveSrv: typeof resolveSrv;
-            resolveTxt: typeof resolveTxt;
-            reverse: typeof reverse;
-            setServers: typeof setServers;
-        }
-    }
+    const promises: typeof dnsPromises;
 }
