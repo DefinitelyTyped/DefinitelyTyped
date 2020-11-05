@@ -39,6 +39,7 @@ export interface TypeaheadContext<T extends TypeaheadModel> {
     onInitialItemChange?: (option: T) => void;
     onMenuItemClick?: (option: T, e: Event) => void;
     selectHintOnEnter?: boolean;
+    shouldSelectHint?: ShouldSelect;
 }
 
 export interface TypeaheadState<T extends TypeaheadModel> {
@@ -202,7 +203,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
        so as not to render too many DOM nodes in the case of large data sets. */
     maxResults?: number;
 
-    /* DEPRECATED. Id applied to the top-level menu element. Required for accessibility. */
+    /** @deprecated: Id applied to the top-level menu element. Required for accessibility. */
     menuId?: string;
 
     /* Number of input characters that must be entered before showing results. */
@@ -229,10 +230,10 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     /* Invoked when a key is pressed. Receives an event. */
     onKeyDown?: (e: Event) => void;
 
-    /* DEPRECATED: Invoked when the menu is hidden. */
+    /** @deprecated: Invoked when the menu is hidden. */
     onMenuHide?: () => void;
 
-    /* DEPRECATED: Invoked when the menu is shown. */
+    /** @deprecated: Invoked when the menu is shown. */
     onMenuShow?: () => void;
 
     /*     Invoked when menu visibility changes. */
@@ -262,7 +263,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     positionFixed?: boolean;
 
     /* Callback for custom menu rendering. */
-    renderMenu?: (results: Array<TypeaheadResult<T>>, menuProps: any) => React.ReactNode;
+    renderMenu?: (results: Array<TypeaheadResult<T>>, menuProps: TypeaheadMenuProps<T>, state: TypeaheadState<T>) => React.ReactNode;
 
     /* Provides a hook for customized rendering of menu item contents. */
     renderMenuItemChildren?: (option: TypeaheadResult<T>, props: TypeaheadMenuProps<T>, index: number) => React.ReactNode;
@@ -273,8 +274,11 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     /* The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent. */
     selected?: T[];
 
-    /* Allows selecting the hinted result by pressing enter. */
+    /** @deprecated: Allows selecting the hinted result by pressing enter. */
     selectHintOnEnter?: boolean;
+    
+    /* Callback function that determines whether the hint should be selected. */
+    shouldSelectHint?: ShouldSelect;
 }
 
 export type AllTypeaheadOwnAndInjectedProps<T extends TypeaheadModel> = TypeaheadProps<T> & TypeaheadContainerProps<T>;
@@ -338,6 +342,22 @@ export interface HighligherProps {
 }
 
 export class Highlighter extends React.PureComponent<HighligherProps> { }
+
+/* ---------------------------------------------------------------------------
+                       Hint Props and Component
+--------------------------------------------------------------------------- */
+export type ShouldSelect = (
+    shouldSelect: boolean,
+    e: React.KeyboardEvent<HTMLInputElement>,
+) => boolean;
+
+export interface HintProps {
+    className?: string;
+    children: React.ReactNode;
+    shouldSelect?: ShouldSelect;
+}
+
+export class Hint extends React.Component<HintProps> { }
 
 /* ---------------------------------------------------------------------------
                        ClearButton Props and Component
