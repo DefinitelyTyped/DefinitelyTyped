@@ -2557,6 +2557,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "jwt-decode",
+            "typingsPackageName": "jwt-decode",
+            "sourceRepoURL": "https://github.com/auth0/jwt-decode",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "kafka-node",
             "typingsPackageName": "kafka-node",
             "sourceRepoURL": "https://github.com/SOHU-Co/kafka-node/",
