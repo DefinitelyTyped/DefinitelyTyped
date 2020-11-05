@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ej.web.all 18.3
+// Type definitions for ej.web.all 18.3
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 18.3.0.35
+*  version : 18.3.0.47
 *  Copyright Syncfusion Inc. 2001 - 2020. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -37825,7 +37825,7 @@ declare namespace ej {
              */
             ajaxError?(e: AjaxErrorEventArgs): void;
 
-            /** Fires when the dependent parameter value is the parameter block. You can add custom user interface, loading indicator and modify the default progress text, using the
+            /** Fires when the dependent parameter value is changingÂ in the parameter block. You can add custom user interface, loading indicator and modify the default progress text, using the
              * ParameterUpdateStateChange event.
              */
             parameterUpdateStateChange?(e: ParameterUpdateStateChangeEventArgs): void;
