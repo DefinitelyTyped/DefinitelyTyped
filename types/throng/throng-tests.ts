@@ -1,9 +1,28 @@
 import throng = require("throng");
 
 function masterFunction() { }
-function startFunction(id: number) { }
+function workerFunction(id: number, disconnect: () => void) { }
 
-throng((id: number) => {});
+throng(id => {});
+
+// 5.x
+throng(workerFunction);
+throng({
+    worker: workerFunction,
+    count: 3
+});
+
+throng({
+    master: masterFunction,
+    worker: workerFunction,
+    count: 16,
+    lifetime: Infinity,
+    grace: 1000,
+    signals: ['SIGTERM', 'SIGINT']
+});
+
+// 4.x
+function startFunction(id: number) { }
 
 throng(startFunction);
 throng(3, startFunction);

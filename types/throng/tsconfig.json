@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "throng-tests.ts"
+        "throng-tests.ts",
     ]
 }
