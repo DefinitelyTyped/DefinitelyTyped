@@ -5,12 +5,8 @@
 //                 Tom Spencer <https://github.com/fiznool>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// 4.x
-declare function throng(startOrOptions: throng.ProcessCallback | throng.LegacyOptions): void;
+declare function throng(startOrOptions: throng.ProcessCallback | throng.LegacyOptions | throng.WorkerCallback | throng.Options): void;
 declare function throng(workers: throng.WorkerCount, start: throng.ProcessCallback): void;
-
-// 5.x
-declare function throng(startOrOptions: throng.WorkerCallback | throng.Options): void;
 
 declare namespace throng {
     type WorkerCount = number | string;

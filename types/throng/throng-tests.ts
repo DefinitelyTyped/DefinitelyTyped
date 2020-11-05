@@ -3,7 +3,7 @@ import throng = require("throng");
 function masterFunction() { }
 function workerFunction(id: number, disconnect: () => void) { }
 
-throng(id => {});
+throng((id: number) => {});
 
 // 5.x
 throng(workerFunction);
