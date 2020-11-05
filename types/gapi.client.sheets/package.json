@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "gapi.client.sheets": "latest"
+        "@maxim_mazurok/gapi.client.sheets": "latest"
     }
 }
