@@ -18,6 +18,7 @@
 /// <reference path="../globals.errors.d.ts" />
 /// <reference path="../async_hooks.d.ts" />
 /// <reference path="../buffer.d.ts" />
+/// <reference path="../buffer.global.d.ts" />
 /// <reference path="../child_process.d.ts" />
 /// <reference path="../cluster.d.ts" />
 /// <reference path="../console.d.ts" />
