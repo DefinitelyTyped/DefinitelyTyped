@@ -2,12 +2,14 @@
 // Project: https://github.com/webpack-contrib/css-minimizer-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Plugin } from 'webpack';
+import { Compiler } from 'webpack';
 import { CssNanoOptions } from 'cssnano';
 import { SourceMapOptions } from 'postcss';
 
-declare class CssMinimizerPlugin extends Plugin {
+declare class CssMinimizerPlugin {
     constructor(options?: CssMinimizerPlugin.Options);
+
+    apply(compiler: Compiler): void;
 }
 
 declare namespace CssMinimizerPlugin {

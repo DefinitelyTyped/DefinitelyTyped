@@ -1,3 +1,4 @@
+import { Compiler } from 'webpack';
 import CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
@@ -46,3 +47,5 @@ module.exports = {
         ],
     },
 };
+
+new CssMinimizerPlugin().apply(new Compiler());
