@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonPictogramProps } from "../../";
-declare const AlchemyLanguageAlphabetAExpanded: React.ForwardRefExoticComponent<
-  CarbonPictogramProps & React.RefAttributes<SVGSVGElement>
->;
-export default AlchemyLanguageAlphabetAExpanded;
+export { AlchemyLanguageAlphabetAExpanded as default } from "../../";
