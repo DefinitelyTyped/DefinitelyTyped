@@ -15,7 +15,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@rails/*": ["rails__*"]
+        }
     },
     "files": [
         "index.d.ts",
