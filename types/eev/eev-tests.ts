@@ -4,6 +4,6 @@ const eev = new Eev();
 
 const callback = () => {};
 
-eev.on('something', callback);
-eev.off('something', callback);
-eev.emit('something');
+eev.on('someEvent', callback);
+eev.off('someEvent', callback);
+eev.emit('someEvent');
