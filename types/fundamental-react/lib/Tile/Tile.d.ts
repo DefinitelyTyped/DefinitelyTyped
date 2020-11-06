@@ -1,7 +1,6 @@
 import * as React from "react";
 
 export type TileProps = {
-    active?: boolean;
     backgroundImage?: string; //TODO does not work yet
     className?: string;
     disabled?: boolean;  //TODO does not work yet
@@ -26,13 +25,11 @@ export type TileHeaderProps = {
     //TODO titleProps?: 
 } & { [x: string]: any };
 
-
-declare class Tile extends React.Component<TileContentProps> {
-    static displayName: "Tile";
-    static Content: React.ComponentClass<TileContentProps> & {displayName: "Tile.Content"};
-    static Footer: React.ComponentClass<TileFooterProps> & {displayName: "Tile.Footer"};
-    static Header: React.ComponentClass<TileHeaderProps> & {displayName: "Tile.Header"};
-
+declare const Tile: React.FC<TileProps> & {
+    displayName: "Tile";
+    Content: React.FC<TileContentProps> & {displayName: "Tile.Content"};
+    Footer: React.FC<TileFooterProps> & {displayName: "Tile.Footer"};
+    Header: React.FC<TileHeaderProps> & {displayName: "Tile.Header"};
 }
 
 
