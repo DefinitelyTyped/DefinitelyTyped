@@ -1,36 +1,39 @@
-export type TileProps = {
-    active?: boolean,
-    backgroundImage?: string,
-    className?: string,
-    disabled?: boolean,
-    disableStyles?: boolean,
-    productTile?: boolean,
-    tabIndex?: number,
-    onClick?: (...args: any[]) => any
-} & { [x: string]: any };
+import * as React from "react";
 
-export type TileActionsProps = {
+export type TileProps = {
+    active?: boolean;
+    backgroundImage?: string; //TODO does not work yet
     className?: string;
+    disabled?: boolean;  //TODO does not work yet
+    isDouble?: boolean;
+    size?: "s";
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 } & { [x: string]: any };
 
 export type TileContentProps = {
-    title: string,
-    className?: string,
-    headingLevel?: 2 | 3 | 4 | 5 | 6;
-    productTile?: boolean,
-    titleProps?: any
-} & { [x: string]: any };
-
-export type TileMediaProps = {
     className?: string;
-    productTile?: boolean;
+    twoColumns?: boolean,
 } & { [x: string]: any };
 
-declare const Tile: React.FunctionComponent<TileProps> & {
-    displayName: "Tile";
-    Actions: React.FunctionComponent<TileActionsProps> & {displayName: "Tile.Actions"};
-    Content: React.FunctionComponent<TileContentProps> & {displayName: "Tile.Content"};
-    Media: React.FunctionComponent<TileMediaProps> & {displayName: "Tile.Media"};
-};
+export type TileFooterProps = {
+    className?: string;
+} & { [x: string]: any };
+
+export type TileHeaderProps = {
+    className?: string;
+    subtitle?: string;
+    //TODO subTitleProps?: https://sap.github.io/fundamental-react/?path=/docs/component-api-tile--primary#properties
+    //TODO titleProps?: 
+} & { [x: string]: any };
+
+
+declare class Tile extends React.Component<TileContentProps> {
+    static displayName: "Tile";
+    static Content: React.ComponentClass<TileContentProps> & {displayName: "Tile.Content"};
+    static Footer: React.ComponentClass<TileFooterProps> & {displayName: "Tile.Footer"};
+    static Header: React.ComponentClass<TileHeaderProps> & {displayName: "Tile.Header"};
+
+}
+
 
 export default Tile;
