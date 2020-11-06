@@ -552,7 +552,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
 }
 
 // TODO use React.AbstractComponent when available
-export const Pressable: React.FunctionComponent<PressableProps>;
+export const Pressable: React.ForwardRefExoticComponent<PressableProps & React.RefAttributes<View>>;
 
 /**
  * //FIXME: need to find documentation on which component is a TTouchable and can implement that interface
