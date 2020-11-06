@@ -1,4 +1,4 @@
-// Type definitions for @vimeo/player 2.10.0
+// Type definitions for @vimeo/player 2.10
 // Project: https://github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
 //                 Felix Albert <f.albert.work@icloud.com>
