@@ -67,6 +67,11 @@ transition.to;
 // $ExpectError
 transition.to = 'to';
 
+// $ExpectType unknown
+transition.to.metadata;
+// $ExpectError
+transition.to.metadata = 'foo';
+
 // NOTE: we cannot check the validity of invocations with just route name and
 // query params beyond that the second argument is an object of some sort,
 // because TS will always resolve it to the `models` variant if the
