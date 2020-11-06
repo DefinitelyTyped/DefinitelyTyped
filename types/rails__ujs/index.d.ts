@@ -6,6 +6,12 @@
 import { SelectorObject } from './utils/dom';
 
 export * from './start';
+
+export * from './features/confirm';
+export * from './features/disable';
+export * from './features/method';
+export * from './features/remote';
+
 export * from './utils/ajax';
 export * from './utils/csp';
 export * from './utils/csrf';
