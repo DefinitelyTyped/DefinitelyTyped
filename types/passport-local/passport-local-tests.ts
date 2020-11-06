@@ -42,7 +42,7 @@ passport.use(new local.Strategy((username: any, password: any, done: any) => {
         }
 
         if (!user.verifyPassword(password)) {
-            return done(null, false);
+            return done(null, false, { message: 'something wrong', errorCode: 1 });
         }
 
         return done(null, user);
@@ -62,7 +62,7 @@ passport.use(new local.Strategy({
         }
 
         if (!user.verifyPassword(password)) {
-            return done(null, false);
+            return done(null, false, { message: 'something wrong', errorCode: 1 });
         }
 
         return done(null, user);
