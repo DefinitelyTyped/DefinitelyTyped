@@ -90,6 +90,11 @@ declare class TextToSVG {
 }
 
 declare namespace TextToSVG {
+    /**
+     * Text anchor.
+     * If horizontal component is omitted, it defaults to left.
+     * If vertical component is omitted, it defaults to baseline.
+     */
     type Anchor =
         | 'left baseline'
         | 'left top'
@@ -102,7 +107,14 @@ declare namespace TextToSVG {
         | 'right baseline'
         | 'right top'
         | 'right bottom'
-        | 'right middle';
+        | 'right middle'
+        | 'baseline'
+        | 'top'
+        | 'bottom'
+        | 'middle'
+        | 'left'
+        | 'center'
+        | 'right';
 
     interface Metrics {
         x: number;
