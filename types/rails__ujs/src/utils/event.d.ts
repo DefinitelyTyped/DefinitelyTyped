@@ -1,4 +1,4 @@
-export function fire<D = unknown>(obj: EventTarget, name: string, data: D): void;
+export function fire<D = unknown>(obj: EventTarget, name: string, data: D): boolean;
 
 export function stopEverything(e: Event): void;
 
