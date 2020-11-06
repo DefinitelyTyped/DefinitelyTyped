@@ -3,7 +3,7 @@
 // Definitions by: Thomas Röggla <https://github.com/troeggla>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 
 interface YouTubePlayerOptions {
     /**  This parameter indicates the width of the player. */
@@ -79,9 +79,9 @@ interface YouTubePlayerOptions {
     host?: string;
 }
 
-type YouTubePlayerState = "unstarted" | "ended" | "playing" | "paused" | "buffering" | "cued";
+type YouTubePlayerState = 'unstarted' | 'ended' | 'playing' | 'paused' | 'buffering' | 'cued';
 
-type YouTubePlayerQuality = "small" | "medium" | "large" | "hd720" | "hd1080" | "highres" | "default";
+type YouTubePlayerQuality = 'small' | 'medium' | 'large' | 'hd720' | 'hd1080' | 'highres' | 'default';
 
 /**
  * Simple, robust, blazing-fast YouTube Player API

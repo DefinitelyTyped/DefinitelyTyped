@@ -1,17 +1,20 @@
-import YoutubePlayer = require("yt-player");
+import YoutubePlayer = require('yt-player');
 
-new YoutubePlayer("#player", {});
+new YoutubePlayer('#player', {});
 
-new YoutubePlayer("#player", {
-    width: 640, height: 480, autoplay: true, fullscreen: true
+new YoutubePlayer('#player', {
+    width: 640,
+    height: 480,
+    autoplay: true,
+    fullscreen: true,
 });
 
-new YoutubePlayer("#player", {
-    captions: "en_US"
+new YoutubePlayer('#player', {
+    captions: 'en_US',
 });
 
-new YoutubePlayer("#player", {
-    captions: false
+new YoutubePlayer('#player', {
+    captions: false,
 });
 
 new YoutubePlayer('#player', {
@@ -28,13 +31,13 @@ new YoutubePlayer('#player', {
     annotations: false,
     timeupdateFrequency: 2000,
     playsInline: false,
-    start: 10
+    start: 10,
 });
 
-const player = new YoutubePlayer("#player");
+const player = new YoutubePlayer('#player');
 
-player.load("abcdef");
-player.load("abcdef", true);
+player.load('abcdef');
+player.load('abcdef', true);
 
 player.play();
 player.pause();
@@ -54,7 +57,7 @@ player.getPlaybackRate();
 player.getAvailablePlaybackRates();
 player.setPlaybackRate(2);
 
-player.setPlaybackQuality("medium");
+player.setPlaybackQuality('medium');
 
 player.getDuration();
 player.getProgress();
@@ -66,16 +69,16 @@ player.destroy();
 player.destroyed;
 player.videoId;
 
-player.on("timeupdate", (sec: number) => { });
-player.on("playbackRateChange", (rate: number) => { });
-player.on("playbackQualityChange", (quality) => { });
+player.on('timeupdate', (sec: number) => {});
+player.on('playbackRateChange', (rate: number) => {});
+player.on('playbackQualityChange', quality => {});
 
-player.on("buffering", () => { });
-player.on("unstarted", () => { });
-player.on("ended", () => { });
-player.on("cued", () => { });
-player.on("playing", () => { });
-player.on("paused", () => { });
+player.on('buffering', () => {});
+player.on('unstarted', () => {});
+player.on('ended', () => {});
+player.on('cued', () => {});
+player.on('playing', () => {});
+player.on('paused', () => {});
 
-player.on("error", (err: Error) => { });
-player.on("unplayable", (videoId: string) => { });
+player.on('error', (err: Error) => {});
+player.on('unplayable', (videoId: string) => {});
