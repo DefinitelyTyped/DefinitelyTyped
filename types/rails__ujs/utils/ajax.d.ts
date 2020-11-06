@@ -2,7 +2,7 @@ export interface AjaxOptions {
     type: string;
     url: string;
     accept: string;
-    data: string;
+    data?: Document | BodyInit | null;
     crossDomain?: boolean;
     withCredentials?: boolean;
 }
