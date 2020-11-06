@@ -33,3 +33,4 @@ export { OptionProps } from './src/components/Option';
 export { PlaceholderProps } from './src/components/Placeholder';
 export { SingleValueProps } from './src/components/SingleValue';
 export { ValueContainerProps } from './src/components/containers';
+export { ContainerProps } from './src/components/containers';
