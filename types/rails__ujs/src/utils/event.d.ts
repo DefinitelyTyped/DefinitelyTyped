@@ -1,9 +1,9 @@
-export function fire<D = unknown>(obj: EventTarget, name: string, data: D): boolean;
+export function fire(obj: EventTarget, name: string, data: any): boolean;
 
 export function stopEverything(e: Event): void;
 
-export function delegate<E extends EventTarget = HTMLElement>(
-    element: E,
+export function delegate(
+    element: EventTarget,
     selector: string,
     eventType: string,
     handler: EventListenerOrEventListenerObject,
