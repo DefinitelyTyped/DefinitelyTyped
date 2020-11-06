@@ -5,8 +5,7 @@
 
 type CallbackFunction = (data: unknown) => void;
 
-declare class Eev {
-    constructor();
+interface Eev {
     on(names: string, fn: CallbackFunction): void;
     off(names: string, fn: CallbackFunction): void;
     emit(name: string, data?: unknown): void;
