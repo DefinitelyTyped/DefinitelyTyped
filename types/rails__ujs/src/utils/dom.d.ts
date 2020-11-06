@@ -5,7 +5,7 @@ export interface SelectorObject {
 
 export function matches(element: Element, selector: SelectorObject | string): boolean;
 
-export function getData(element: Element, key: string): any;
-export function setData(element: Element, key: string, value: any): void;
+export function getData(element: Element, key: string): unknown;
+export function setData(element: Element, key: string, value: unknown): void;
 
 export function $(selector: string): Element[];

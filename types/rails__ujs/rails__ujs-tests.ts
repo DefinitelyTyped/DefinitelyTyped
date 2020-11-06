@@ -26,8 +26,11 @@ Rails.delegate(document, '#batch_checkbox_all', 'change', ({ target }) => {
 
 Rails.delegate(window, '#batch_checkbox_all', 'change', console.log);
 
-const element = document.querySelector('.foo');
+const element = document.querySelector<HTMLDivElement>('.foo');
 if (element) {
     Rails.delegate(element, '#batch_checkbox_all', 'change', console.log);
     Rails.fire(element, 'custom-event', { value: 1 });
+
+    Rails.getData(element, 'test');
+    Rails.setData(element, 'test', { a: 1 });
 }
