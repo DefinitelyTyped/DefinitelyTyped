@@ -22,8 +22,8 @@ export { NonceProvider } from './src/NonceProvider';
 export { Props, FormatOptionLabelMeta, NamedProps } from './src/Select';
 
 export { components, SelectComponentsConfig, IndicatorComponentType } from './src/components';
+export { ValueContainerProps, ContainerProps, IndicatorContainerProps } from './src/components/containers';
 export { IndicatorProps } from './src/components/indicators';
-export { IndicatorContainerProps } from './src/components/containers';
 export { ControlProps } from './src/components/Control';
 export { GroupProps } from './src/components/Group';
 export { InputProps } from './src/components/Input';
@@ -32,5 +32,3 @@ export { MultiValueProps } from './src/components/MultiValue';
 export { OptionProps } from './src/components/Option';
 export { PlaceholderProps } from './src/components/Placeholder';
 export { SingleValueProps } from './src/components/SingleValue';
-export { ValueContainerProps } from './src/components/containers';
-export { ContainerProps } from './src/components/containers';
