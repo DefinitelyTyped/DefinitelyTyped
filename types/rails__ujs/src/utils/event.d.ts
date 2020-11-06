@@ -2,7 +2,7 @@ export function fire<D = unknown>(obj: EventTarget, name: string, data: D): bool
 
 export function stopEverything(e: Event): void;
 
-export function delegate<E extends Element = HTMLElement>(
+export function delegate<E extends EventTarget = HTMLElement>(
     element: E,
     selector: string,
     eventType: string,
