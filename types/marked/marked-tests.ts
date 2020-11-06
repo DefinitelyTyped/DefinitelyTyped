@@ -93,4 +93,3 @@ console.log(marked.InlineLexer.rules);
 const inlineLexerOptions: marked.MarkedOptions = inlineLexer.options;
 
 marked.use({ renderer });
-
