@@ -1,13 +1,7 @@
-import Eev from 'eev';
+import Eev = require('eev');
 
 const callback = () => {};
 
-const eev: Eev = {
-    on: (names, fn) => {},
-    off: (names, fn) => {},
-    emit: (name, data?) => {},
-};
-
-eev.on('someEvent', callback);
-eev.off('someEvent', callback);
-eev.emit('someEvent');
+Eev.on('someEvent', callback);
+Eev.off('someEvent', callback);
+Eev.emit('someEvent');
