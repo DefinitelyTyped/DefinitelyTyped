@@ -34,3 +34,5 @@ if (element) {
     Rails.getData(element, 'test');
     Rails.setData(element, 'test', { a: 1 });
 }
+
+const $element = Rails.$('.foo') as HTMLDivElement[];
