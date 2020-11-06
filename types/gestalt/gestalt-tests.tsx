@@ -50,6 +50,8 @@ import {
     Tooltip,
     Typeahead,
     Video,
+    FixedZIndex,
+    CompositeZIndex,
 } from 'gestalt';
 import * as React from 'react';
 
@@ -258,3 +260,6 @@ const MasonryComponent = ({}) => {
 />;
 <Icon accessibilityLabel={'sup'} icon={'add'} dangerouslySetSvgPath={{ __path: 'something' }} />;
 <IconButton accessibilityLabel={'something'} icon={'add-pin'} />;
+
+new FixedZIndex(1);
+new CompositeZIndex([new FixedZIndex(1), new CompositeZIndex([new FixedZIndex(1)])]);

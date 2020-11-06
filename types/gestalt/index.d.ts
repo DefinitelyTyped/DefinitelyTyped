@@ -18,11 +18,10 @@ export type AbstractEventHandler<T extends React.SyntheticEvent<HTMLElement> | E
     },
 ) => void;
 
-/*
-ActivationCard Props Interface
-https://gestalt.netlify.app/ActivationCard
-*/
-
+/**
+ * ActivationCard Props Interface
+ * https://gestalt.netlify.app/ActivationCard
+ */
 export interface ActivationCardProps {
     message: string;
     status: 'notStarted' | 'pending' | 'needsAttention' | 'complete';
@@ -45,11 +44,10 @@ export interface ActivationCardProps {
     };
 }
 
-/*
-Avatar Props Interface
-https://gestalt.netlify.app/Avatar
-*/
-
+/**
+ * Avatar Props Interface
+ * https://gestalt.netlify.app/Avatar
+ */
 export interface AvatarProps {
     name: string;
     accessibilityLabel?: string;
@@ -62,11 +60,10 @@ export interface AvatarProps {
 export type UnsignedUpTo12 = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type SignedUpTo12 = -12 | -11 | -10 | -9 | -8 | -7 | -6 | -5 | -4 | -3 | -2 | -1 | UnsignedUpTo12;
 
-/*
-AvatarPair Props Interface
-https://gestalt.netlify.app/AvatarPair
-*/
-
+/**
+ * AvatarPair Props Interface
+ * https://gestalt.netlify.app/AvatarPair
+ */
 export interface AvatarPairProps {
     collaborators: ReadonlyArray<{
         name: string;
@@ -75,21 +72,19 @@ export interface AvatarPairProps {
     size?: 'md' | 'lg' | 'fit';
 }
 
-/*
-Badge Props Interface
-https://gestalt.netlify.app/Badge
-*/
-
+/**
+ * Badge Props Interface
+ * https://gestalt.netlify.app/Badge
+ */
 export interface BadgeProps {
     text: string;
     position?: 'middle' | 'top';
 }
 
-/*
-Box Props Interface
-https://gestalt.netlify.app/Box
-*/
-
+/**
+ * Box Props Interface
+ * https://gestalt.netlify.app/Box
+ */
 export interface BoxProps {
     alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
     alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
@@ -195,16 +190,13 @@ export interface BoxProps {
     userSelect?: 'auto' | 'none';
     width?: number | string;
     wrap?: boolean;
-    zIndex?: {
-        index(): number;
-    };
+    zIndex?: Indexable;
 }
 
-/*
-Button Props Interface
-https://gestalt.netlify.app/Button
-*/
-
+/**
+ * Button Props Interface
+ * https://gestalt.netlify.app/Button
+ */
 export interface ButtonProps {
     text: string;
     accessibilityControls?: string;
@@ -232,19 +224,13 @@ export interface ButtonProps {
     type?: 'submit' | 'button';
 }
 
-/*
-ButtonGroup Props Interface
-https://gestalt.netlify.app/ButtonGroup
-*/
-
+/**
+ * ButtonGroup Props Interface
+ * https://gestalt.netlify.app/ButtonGroup
+ */
 export interface ButtonGroupProps {
     children?: React.ReactNode;
 }
-
-/*
-Callout Props Interface
-https://gestalt.netlify.app/Callout
-*/
 
 export interface LinkData {
     accessibilityLabel?: string;
@@ -258,6 +244,10 @@ export interface LinkData {
     >;
 }
 
+/**
+ * Callout Props Interface
+ * https://gestalt.netlify.app/Callout
+ */
 export interface CalloutProps {
     iconAccessibilityLabel: string;
     message: string;
@@ -271,11 +261,10 @@ export interface CalloutProps {
     title?: string;
 }
 
-/*
-Card Props Interface
-https://gestalt.netlify.app/Card
-*/
-
+/**
+ * Card Props Interface
+ * https://gestalt.netlify.app/Card
+ */
 export interface CardProps {
     active?: boolean;
     children?: React.ReactNode;
@@ -284,11 +273,10 @@ export interface CardProps {
     onMouseLeave?: (args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }) => void;
 }
 
-/*
-Checkbox Props Interface
-https://gestalt.netlify.app/Checkbox
-*/
-
+/**
+ * Checkbox Props Interface
+ * https://gestalt.netlify.app/Checkbox
+ */
 export interface CheckboxProps {
     id: string;
     onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
@@ -305,11 +293,11 @@ export interface CheckboxProps {
     size?: 'sm' | 'md';
     subtext?: string;
 }
-/*
-Collage Props Interface
-https://gestalt.netlify.app/Column
-*/
 
+/**
+ * Collage Props Interface
+ * https://gestalt.netlify.app/Column
+ */
 export interface CollageProps {
     columns: number;
     height: number;
@@ -320,11 +308,10 @@ export interface CollageProps {
     layoutKey?: number;
 }
 
-/*
-Column Props Interface
-https://gestalt.netlify.app/Column
-*/
-
+/**
+ * Column Props Interface
+ * https://gestalt.netlify.app/Column
+ */
 export interface ColumnProps {
     span: UnsignedUpTo12;
     smSpan?: UnsignedUpTo12;
@@ -333,20 +320,18 @@ export interface ColumnProps {
     children?: React.ReactNode;
 }
 
-/*
-Container Props Interface
-https://gestalt.netlify.app/Container
-*/
-
+/**
+ * Container Props Interface
+ * https://gestalt.netlify.app/Container
+ */
 export interface ContainerProps {
     children?: React.ReactNode;
 }
 
-/*
-Flyout Props Interface
-https://gestalt.netlify.app/Flyout
-*/
-
+/**
+ * Flyout Props Interface
+ * https://gestalt.netlify.app/Flyout
+ */
 export interface FlyoutProps {
     anchor: HTMLElement; // ideally a HTMLAnchorElement
     onDismiss: () => void;
@@ -359,22 +344,20 @@ export interface FlyoutProps {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number;
 }
 
-/*
-GroupAvatar Props Interface
-https://gestalt.netlify.app/GroupAvatar
-*/
-
+/**
+ * GroupAvatar Props Interface
+ * https://gestalt.netlify.app/GroupAvatar
+ */
 export interface GroupAvatarProps {
     collaborators: ReadonlyArray<{ name: string; src?: string }>;
     outline?: boolean;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fit';
 }
 
-/*
-Heading Props Interface
-https://gestalt.netlify.app/Heading
-*/
-
+/**
+ * Heading Props Interface
+ * https://gestalt.netlify.app/Heading
+ */
 export interface HeaderProps {
     accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6;
     align?: 'left' | 'right' | 'center' | 'justify';
@@ -402,11 +385,6 @@ export interface HeaderProps {
     size?: 'sm' | 'md' | 'lg';
     truncate?: boolean;
 }
-
-/*
-Icon Props Interface
-https://gestalt.netlify.app/Icon
-*/
 
 export type Icons =
     | 'ad'
@@ -580,6 +558,10 @@ export type Icons =
     | 'workflow-status-unstarted'
     | 'workflow-status-warning';
 
+/**
+ * Icon Props Interface
+ * https://gestalt.netlify.app/Icon
+ */
 export interface IconProps {
     accessibilityLabel: string;
 
@@ -607,11 +589,10 @@ export interface IconProps {
     size?: number | string;
 }
 
-/*
-IconButton Props Interface
-https://gestalt.netlify.app/IconButton
-*/
-
+/**
+ * IconButton Props Interface
+ * https://gestalt.netlify.app/IconButton
+ */
 export interface IconButtonProps {
     bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red';
     accessibilityControls?: string;
@@ -634,11 +615,10 @@ export interface IconButtonProps {
     target?: null | 'self' | 'blank';
 }
 
-/*
-Image Props Interface
-https://gestalt.netlify.app/Image
-*/
-
+/**
+ * Image Props Interface
+ * https://gestalt.netlify.app/Image
+ */
 export interface ImageProps {
     alt: string;
     color: string;
@@ -655,30 +635,28 @@ export interface ImageProps {
     srcSet?: string;
 }
 
-/*
-Label Props Interface
-https://gestalt.netlify.app/Label
-*/
-
+/**
+ * Label Props Interface
+ * https://gestalt.netlify.app/Label
+ */
 export interface LabelProps {
     htmlFor: string;
     children?: React.ReactNode;
 }
-/*
-Layer Interface
-https://gestalt.netlify.app/Layer
-*/
 
+/**
+ * Layer Props Interface
+ * https://gestalt.netlify.app/Layer
+ */
 export interface LayerProps {
     children: React.ReactNode;
-    zIndex?: { index(): number };
+    zIndex?: Indexable;
 }
 
-/*
-Letterbox Props Interface
-https://gestalt.netlify.app/Letterbox
-*/
-
+/**
+ * Letterbox Props Interface
+ * https://gestalt.netlify.app/Letterbox
+ */
 export interface LetterboxProps {
     contentAspectRatio: number;
     height: number;
@@ -686,11 +664,10 @@ export interface LetterboxProps {
     children?: React.ReactNode;
 }
 
-/*
-Link Props Interface
-https://gestalt.netlify.app/Link
-*/
-
+/**
+ * Link Props Interface
+ * https://gestalt.netlify.app/Link
+ */
 export interface LinkProps {
     href: string;
     accessibilityLabel?: string;
@@ -709,11 +686,10 @@ export interface LinkProps {
     target?: null | 'self' | 'blank';
 }
 
-/*
-Mask Props Interface
-https://gestalt.netlify.app/Mask
-*/
-
+/**
+ * Mask Props Interface
+ * https://gestalt.netlify.app/Mask
+ */
 export interface MaskProps {
     children?: React.ReactNode;
     height?: number | string;
@@ -723,11 +699,10 @@ export interface MaskProps {
     willChangeTransform?: boolean;
 }
 
-/*
-Masonry Props Interface
-https://gestalt.netlify.app/Masonry
-*/
-
+/**
+ * Masonry Props Interface
+ * https://gestalt.netlify.app/Masonry
+ */
 export interface MasonryProps<T = any> {
     comp: React.ComponentType<{ data: T; itemIdx?: number; isMeasuring?: boolean }>;
     items: T[];
@@ -744,11 +719,10 @@ export interface MasonryProps<T = any> {
     virtualize?: boolean;
 }
 
-/*
-Modal Props Interface
-https://gestalt.netlify.app/Modal
-*/
-
+/**
+ * Modal Props Interface
+ * https://gestalt.netlify.app/Modal
+ */
 export interface ModalProps {
     accessibilityModalLabel: string;
     onDismiss: () => void;
@@ -760,10 +734,10 @@ export interface ModalProps {
     size?: 'sm' | 'md' | 'lg' | number;
 }
 
-/*
-Module Props Interface
-https://gestalt.netlify.app/Module
-*/
+/**
+ * Module Props Interface
+ * https://gestalt.netlify.app/Module
+ */
 
 export interface ModuleExpandableProps {
     accessibilityCollapseLabel: string;
@@ -779,11 +753,10 @@ export interface ModuleExpandableProps {
     }>;
 }
 
-/*
-Pog Props Interface
-https://gestalt.netlify.app/Pog
-*/
-
+/**
+ * Pog Props Interface
+ * https://gestalt.netlify.app/Pog
+ */
 export interface PogProps {
     accessibilityLabel?: string;
     active?: boolean;
@@ -798,31 +771,28 @@ export interface PogProps {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
-/*
-Provider Props Interface
-https://gestalt.netlify.app/ProviderProps
-*/
-
+/**
+ * Provider Props Interface
+ * https://gestalt.netlify.app/ProviderProps
+ */
 export interface ProviderProps {
     colorScheme?: 'light' | 'dark' | 'userPreference';
     id?: string;
 }
 
-/*
-Pulsar Props Interface
-https://gestalt.netlify.app/Pulsar
-*/
-
+/**
+ * Pulsar Props Interface
+ * https://gestalt.netlify.app/Pulsar
+ */
 export interface PulsarProps {
     paused?: boolean;
     size?: number;
 }
 
-/*
-RadioButton Props Interface
-https://gestalt.netlify.app/RadioButton
-*/
-
+/**
+ * RadioButton Props Interface
+ * https://gestalt.netlify.app/RadioButton
+ */
 export interface RadioButtonProps {
     id: string;
     onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
@@ -836,11 +806,10 @@ export interface RadioButtonProps {
     value?: string;
 }
 
-/*
-Row Props Interface
-https://gestalt.netlify.app/Row
-*/
-
+/**
+ * Row Props Interface
+ * https://gestalt.netlify.app/Row
+ */
 export interface RowProps {
     alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
     alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
@@ -859,11 +828,10 @@ export interface RowProps {
     wrap?: boolean;
 }
 
-/*
-SearchField Props Interface
-https://gestalt.netlify.app/SearchField
-*/
-
+/**
+ * SearchField Props Interface
+ * https://gestalt.netlify.app/SearchField
+ */
 export interface SearchFieldProps {
     accessibilityLabel: string;
     id: string;
@@ -877,11 +845,10 @@ export interface SearchFieldProps {
     value?: string;
 }
 
-/*
-SegmentedControl Props Interface
-https://gestalt.netlify.app/SegmentedControl
-*/
-
+/**
+ * SegmentedControl Props Interface
+ * https://gestalt.netlify.app/SegmentedControl
+ */
 export interface SegmentedControlProps {
     items: React.ReactNode[];
     onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeIndex: number }) => void;
@@ -890,11 +857,10 @@ export interface SegmentedControlProps {
     size?: 'md' | 'lg';
 }
 
-/*
-SelectList Props Interface
-https://gestalt.netlify.app/SelectList
-*/
-
+/**
+ * SelectList Props Interface
+ * https://gestalt.netlify.app/SelectList
+ */
 export interface SelectListProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLElement>; value: string }) => void;
@@ -909,10 +875,10 @@ export interface SelectListProps {
     value?: string;
 }
 
-/*
-Sheet Props Interface
-https://gestalt.netlify.app/Sheet
-*/
+/**
+ * Sheet Props Interface
+ * https://gestalt.netlify.app/Sheet
+ */
 export type SheetNodeOrRenderProp = ((prop: { onDismissStart: () => void }) => React.ReactNode) | React.ReactNode;
 export interface SheetProps {
     accessibilityDismissButtonLabel: string;
@@ -926,11 +892,10 @@ export interface SheetProps {
     subHeading?: SheetNodeOrRenderProp;
 }
 
-/*
-Spinner Props Interface
-https://gestalt.netlify.app/Spinner
-*/
-
+/**
+ * Spinner Props Interface
+ * https://gestalt.netlify.app/Spinner
+ */
 export interface SpinnerProps {
     accessibilityLabel: string;
     show: boolean;
@@ -938,11 +903,10 @@ export interface SpinnerProps {
     size?: 'sm' | 'md';
 }
 
-/*
-Stack Props Interface
-https://gestalt.netlify.app/Stack
-*/
-
+/**
+ * Stack Props Interface
+ * https://gestalt.netlify.app/Stack
+ */
 export interface StackProps {
     alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
     alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
@@ -961,11 +925,10 @@ export interface StackProps {
     wrap?: boolean;
 }
 
-/*
-Sticky Props Interface
-https://gestalt.netlify.app/Sticky
-*/
-
+/**
+ * Sticky Props Interface
+ * https://gestalt.netlify.app/Sticky
+ */
 export interface StickyProps {
     bottom?: number | string;
     children?: React.ReactNode;
@@ -973,14 +936,13 @@ export interface StickyProps {
     left?: number | string;
     right?: number | string;
     top?: number | string;
-    zIndex?: { index(): number };
+    zIndex?: Indexable;
 }
 
-/*
-Switch Props Interface
-https://gestalt.netlify.app/Switch
-*/
-
+/**
+ * Switch Props Interface
+ * https://gestalt.netlify.app/Switch
+ */
 export interface SwitchProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: boolean }) => void;
@@ -989,11 +951,10 @@ export interface SwitchProps {
     switched?: boolean;
 }
 
-/*
-Table Props Interface
-https://gestalt.netlify.app/Table
-*/
-
+/**
+ * Table Props Interface
+ * https://gestalt.netlify.app/Table
+ */
 export interface TableProps {
     borderStyle?: 'sm' | 'none';
     children?: React.ReactNode;
@@ -1050,11 +1011,10 @@ export interface TableSortableHeaderCellProps extends TableHeaderCellProps {
     status: 'active' | 'inactive';
 }
 
-/*
-Tabs Props Interface
-https://gestalt.netlify.app/Tabs
-*/
-
+/**
+ * Tabs Props Interface
+ * https://gestalt.netlify.app/Tabs
+ */
 export interface TabsProps {
     activeTabIndex: number;
     onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeTabIndex: number }) => void;
@@ -1063,11 +1023,10 @@ export interface TabsProps {
     wrap?: boolean;
 }
 
-/*
-TabArea Props Interface
-https://gestalt.netlify.app/TapArea
-*/
-
+/**
+ * TabArea Props Interface
+ * https://gestalt.netlify.app/TapArea
+ */
 export interface TapAreaProps {
     accessibilityControls?: string;
     accessibilityExpanded?: boolean;
@@ -1097,11 +1056,10 @@ export interface TapAreaProps {
     target?: null | 'self' | 'blank';
 }
 
-/*
-Text Props Interface
-https://gestalt.netlify.app/Text
-*/
-
+/**
+ * Text Props Interface
+ * https://gestalt.netlify.app/Text
+ */
 export interface TextProps {
     align?: 'left' | 'right' | 'center' | 'justify';
     children?: React.ReactNode;
@@ -1131,11 +1089,10 @@ export interface TextProps {
     weight?: 'bold' | 'normal';
 }
 
-/*
-TextArea Interface Props
-https://gestalt.netlify.app/TextArea
-*/
-
+/**
+ * TextArea Props Interface
+ * https://gestalt.netlify.app/TextArea
+ */
 export interface TextAreaProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
@@ -1152,11 +1109,10 @@ export interface TextAreaProps {
     value?: string;
 }
 
-/*
-TextField Interface Props
-https://gestalt.netlify.app/TextField
-*/
-
+/**
+ * TextField Props Interface
+ * https://gestalt.netlify.app/TextField
+ */
 export interface TextFieldProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
@@ -1175,11 +1131,10 @@ export interface TextFieldProps {
     value?: string;
 }
 
-/*
-Toast Interface Props
-https://gestalt.netlify.app/Toast
-*/
-
+/**
+ * Toast Props Interface
+ * https://gestalt.netlify.app/Toast
+ */
 export interface ToastProps {
     button?: React.ReactNode;
     color?: 'darkGray' | 'red';
@@ -1188,27 +1143,23 @@ export interface ToastProps {
     thumbnailShape?: 'circle' | 'rectangle' | 'square';
 }
 
-/*
-Tooltip Interface Props
-https://gestalt.netlify.app/Tooltip
-*/
-
+/**
+ * Tooltip Props Interface
+ * https://gestalt.netlify.app/Tooltip
+ */
 export interface TooltipProps {
     children: React.ReactNode;
     text: string;
     idealDirection?: 'up' | 'right' | 'down' | 'left';
     inline?: boolean;
     link?: React.ReactNode;
-    zIndex?: {
-        index(): number;
-    };
+    zIndex?: Indexable;
 }
 
-/*
-Typeahead Interface Props
-https://gestalt.netlify.app/Typeahead
-*/
-
+/**
+ * Typeahead Props Interface
+ * https://gestalt.netlify.app/Typeahead
+ */
 export interface TypeaheadProps {
     id: string;
     noResultText: string;
@@ -1238,11 +1189,10 @@ export interface TypeaheadProps {
     value?: string;
 }
 
-/*
-Video Props Interface
-https://gestalt.netlify.app/Video
-*/
-
+/**
+ * Video Props Interface
+ * https://gestalt.netlify.app/Video
+ */
 export interface VideoProps {
     accessibilityMaximizeLabel?: string;
     accessibilityMinimizeLabel?: string;
@@ -1277,6 +1227,31 @@ export interface VideoProps {
 
     playsInline?: boolean;
     poster?: string;
+}
+
+/**
+ * https://gestalt.netlify.app/ZIndexClasses#zindex
+ */
+export interface Indexable {
+    index(): number;
+}
+
+/**
+ * https://gestalt.netlify.app/ZIndexClasses#FixedZIndex
+ */
+export class FixedZIndex implements Indexable {
+    z: number;
+    constructor(z: number);
+    index(): number;
+}
+
+/**
+ * https://gestalt.netlify.app/ZIndexClasses#CompositeZIndex
+ */
+export class CompositeZIndex implements Indexable {
+    deps: Array<FixedZIndex | CompositeZIndex>;
+    constructor(deps: Array<FixedZIndex | CompositeZIndex>);
+    index(): number;
 }
 
 export class ActivationCard extends React.Component<ActivationCardProps, any> {}
