@@ -2362,7 +2362,6 @@ const tiles = (
     </div>
 );
 
-
 const times = (
     <div>
         <Time />

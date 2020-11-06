@@ -26,6 +26,6 @@ declare const Tile: React.FC<TileProps> & {
     Content: React.FC<TileContentProps> & {displayName: "Tile.Content"};
     Footer: React.FC<TileFooterProps> & {displayName: "Tile.Footer"};
     Header: React.FC<TileHeaderProps> & {displayName: "Tile.Header"};
-}
+};
 
 export default Tile;
