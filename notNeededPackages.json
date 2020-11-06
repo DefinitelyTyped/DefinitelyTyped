@@ -1621,12 +1621,6 @@
             "asOfVersion": "2.7.0"
         },
         {
-            "libraryName": "gapi.client.sheets",
-            "typingsPackageName": "gapi.client.sheets",
-            "sourceRepoURL": "https://github.com/Maxim-Mazurok/google-api-typings-generator",
-            "asOfVersion": "4.0.20201027"
-        },
-        {
             "libraryName": "generate-password",
             "typingsPackageName": "generate-password",
             "sourceRepoURL": "https://github.com/brendanashworth/generate-password.git",
