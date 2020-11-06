@@ -79,6 +79,12 @@ console.log(parser.parse(parseTestTokens));
 console.log(marked.Parser.parse(parseTestTokens));
 const parserOptions: marked.MarkedOptions = parser.options;
 
+marked
+    .lexer('')
+    .find((elem): elem is marked.Tokens.Paragraph => {
+        return elem.type === 'paragraph';
+    });
+
 const links = ['http', 'image'];
 const inlineLexer = new marked.InlineLexer(links);
 console.log(inlineLexer.output('http://'));
@@ -87,3 +93,4 @@ console.log(marked.InlineLexer.rules);
 const inlineLexerOptions: marked.MarkedOptions = inlineLexer.options;
 
 marked.use({ renderer });
+

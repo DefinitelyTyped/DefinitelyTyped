@@ -250,7 +250,6 @@ declare namespace marked {
         | Tokens.Paragraph
         | Tokens.HTML
         | Tokens.Text
-        | Tokens.Def
         | Tokens.Escape
         | Tokens.Tag
         | Tokens.Image
