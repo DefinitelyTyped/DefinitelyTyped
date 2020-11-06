@@ -2348,13 +2348,13 @@ const tiles = (
             </Tile.Footer>
         </Tile>
         <br />
-        <Tile disabled isDouble>
-            <Tile.Header className="tileHeader-class-1" subtitle="header subtitle">
-
+        <Tile isDouble>
+            <Tile.Header className="tileHeader-class-1" subtitle="Header Subtitle">
+                <p>Header Description</p>
             </Tile.Header>
         </Tile>
         <br />
-            <Tile onClick={()=> console.log("tile clicked")}>
+            <Tile onClick={function w() {}}>
                 <Tile.Content title="Tile Title">
                     <p>Tile Description</p>
                 </Tile.Content>
