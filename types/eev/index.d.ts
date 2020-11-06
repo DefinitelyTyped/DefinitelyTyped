@@ -3,12 +3,13 @@
 // Definitions by: boris.stanojevic <https://github.com/borisStanojevic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type CallbackFunction = (data: unknown) => void;
+type CallbackFunction = (data: any) => void;
 
-interface Eev {
+declare class Eev {
+    constructor();
     on(names: string, fn: CallbackFunction): void;
     off(names: string, fn: CallbackFunction): void;
-    emit(name: string, data?: unknown): void;
+    emit(name: string, data?: any): void;
 }
 
 export default Eev;

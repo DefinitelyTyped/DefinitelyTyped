@@ -3,8 +3,8 @@ import Eev from 'eev';
 const callback = () => {};
 
 const eev: Eev = {
-    on:  (names, fn) => {},
-    off:  (names, fn) => {},
+    on: (names, fn) => {},
+    off: (names, fn) => {},
     emit: (name, data?) => {},
 };
 
