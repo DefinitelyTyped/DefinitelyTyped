@@ -8,7 +8,8 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import { Db, Collection, ObjectID } from "mongodb";
+
+import { Db, Collection, ObjectID, MongoClient } from "mongodb";
 
 export = Agenda;
 
@@ -30,65 +31,76 @@ declare class Agenda extends EventEmitter {
     constructor(config?: Agenda.AgendaConfiguration, cb?: ResultCallback<Collection>);
 
     /**
-     * Connect to the specified MongoDB server and database.
+     * Connect to the spec'd MongoDB server and database.
+     * @param url MongoDB server URI
+     * @param collection name of collection to use. Defaults to `agendaJobs`
+     * @param options options for connecting
+     * @param cb callback of MongoDB connection
+     * NOTE:
+     * If `url` includes auth details then `options` must specify: { 'uri_decode_auth': true }. This does Auth on
+     * the specified database, not the Admin database. If you are using Auth on the Admin DB and not on the Agenda DB,
+     * then you need to authenticate against the Admin DB and then pass the MongoDB instance into the constructor
+     * or use Agenda.mongo(). If your app already has a MongoDB connection then use that. ie. specify config.mongo in
+     * the constructor or use Agenda.mongo().
      */
     database(url: string, collection?: string, options?: any, cb?: ResultCallback<Collection>): this;
 
     /**
-     * Initialize agenda with an existing MongoDB connection.
+     * Build method used to add MongoDB connection details
+     * @param mdb instance of MongoClient to use
+     * @param collection name collection we want to use ('agendaJobs')
+     * @param cb called when MongoDB connection fails or passes
      */
-    mongo(db: Db, collection?: string, cb?: ResultCallback<Collection>): this;
+    mongo(mdb: MongoClient, collection: string, cb?: ResultCallback<Collection>): this;
 
     /**
-     * Sets the agenda name.
+     * Set name of queue
+     * @param name name of agenda instance
      */
-    name(value: string): this;
+    name(name: string): this;
 
     /**
-     * Sets the interval with which the queue is checked. A number in milliseconds or a frequency string.
+     * Set the default process interval
+     * @param time - time to process, expressed in human interval
      */
-    processEvery(interval: string | number): this;
+    processEvery(time: string | number): this;
 
     /**
-     * Takes a number which specifies the max number of jobs that can be running at any given moment. By default it
-     * is 20.
-     * @param value The value to set.
+     * Set the concurrency for jobs (globally), type does not matter
+     * @param concurrency max concurrency value
+     * @returns agenda instance
      */
-    maxConcurrency(value: number): this;
+    maxConcurrency(concurrency: number): this;
 
     /**
-     * Takes a number which specifies the default number of a specific job that can be running at any given moment.
-     * By default it is 5.
-     * @param value The value to set.
+     * Set the default concurrency for each job
+     * @param concurrency default concurrency
      */
-    defaultConcurrency(value: number): this;
+    defaultConcurrency(concurrency: number): this;
 
     /**
-     * Takes a number which specifies the max number jobs that can be locked at any given moment. By default it is
-     * 0 for no max.
-     * @param value The value to set.
+     * Set the default amount jobs that are allowed to be locked at one time (GLOBAL)
+     * @param limit num Lock limit
      */
-    lockLimit(value: number): this;
+    lockLimit(limit: number): this;
 
     /**
-     * Takes a number which specifies the default number of a specific job that can be locked at any given moment.
-     * By default it is 0 for no max.
-     * @param value The value to set.
+     * Set default lock limit per job type
+     * @param  num Lock limit per job
      */
-    defaultLockLimit(value: number): this;
+    defaultLockLimit(num: number): this;
 
     /**
-     * Takes a number which specifies the default lock lifetime in milliseconds. By default it is 10 minutes. This
-     * can be overridden by specifying the lockLifetime option to a defined job.
-     * @param value The value to set.
+     * Set the default lock time (in ms)
+     * Default is 10 * 60 * 1000 ms (10 minutes)
+     * @param ms time in ms to set default lock
      */
-    defaultLockLifetime(value: number): this;
+    defaultLockLifetime(ms: number): this;
 
     /**
-     * Returns an instance of a jobName with data. This does NOT save the job in the database. See below to learn
-     * how to manually work with jobs.
-     * @param name The name of the job.
-     * @param data Data to associated with the job.
+     * Given a name and some data, create a new job
+     * @param name name of job
+     * @param data data to set for job
      */
     create<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(name: string, data?: T): Agenda.Job<T>;
 
@@ -103,61 +115,66 @@ declare class Agenda extends EventEmitter {
     jobs<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(query: any, sort?: any, limit?: number, skip?: number): Promise<Agenda.Job<T>[]>;
 
     /**
-     * Removes all jobs in the database without defined behaviors. Useful if you change a definition name and want
-     * to remove old jobs.
+     * Removes all jobs from queue
+     * @returns resolved when job cancelling fails or passes
      */
     purge(): Promise<number>;
 
     /**
-     * Defines a job with the name of jobName. When a job of job name gets run, it will be passed to fn(job, done).
-     * To maintain asynchronous behavior, you must call done() when you are processing the job. If your function is
-     * synchronous, you may omit done from the signature.
-     * @param name The name of the jobs.
-     * @param options The options for the job.
-     * @param handler The handler to execute.
+     * Setup definition for job
+     * Method is used by consumers of lib to setup their functions
+     * @param name name of job
+     * @param options options for job to run
+     * @param processor function to be called to run actual job
      */
-    define<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(name: string, handler: (job: Agenda.Job<T>, done: (err?: Error) => void) => void): void;
-    define<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(name: string, options: Agenda.JobOptions, handler: (job: Agenda.Job<T>, done: (err?: Error) => void) => void): void;
+    define<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(name: string, processor: (job: Agenda.Job<T>, done: (err?: Error) => void) => void): void;
+    define<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(name: string, options: Agenda.JobOptions, processor: (job: Agenda.Job<T>, done: (err?: Error) => void) => void): void;
 
     /**
-     * Runs job name at the given interval. Optionally, data and options can be passed in.
-     * @param interval Can be a human-readable format String, a cron format String, or a Number.
-     * @param names The name or names of the job(s) to run.
-     * @param data An optional argument that will be passed to the processing function under job.attrs.data.
-     * @param options An optional argument that will be passed to job.repeatEvery.
+     * Creates a scheduled job with given interval and name/names of the job to run
+     * @param interval - run every X interval
+     * @param names - String or strings of jobs to schedule
+     * @param data - data to run for job
+     * @param options - options to run job for
+     * @returns Job/s created. Resolves when schedule fails or passes
      */
     every<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(interval: number | string, names: string, data?: T, options?: any): Promise<Agenda.Job<T>>;
     every<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(interval: number | string, names: string[], data?: T, options?: any): Promise<Agenda.Job<T>[]>;
 
     /**
-     * Schedules a job to run name once at a given time.
-     * @param when A Date or a String such as tomorrow at 5pm.
-     * @param names The name or names of the job(s) to run.
-     * @param data An optional argument that will be passed to the processing function under job.attrs.data.
+     * Schedule a job or jobs at a specific time
+     * @param when when the job gets run
+     * @param names array of job names to run
+     * @param data data to send to job
+     * @returns job or jobs created
      */
     schedule<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(when: Date | string, names: string, data?: T): Promise<Agenda.Job<T>>;
     schedule<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(when: Date | string, names: string[], data?: T): Promise<Agenda.Job<T>[]>;
 
     /**
-     * Schedules a job to run name once immediately.
-     * @param name The name of the job to run.
-     * @param data An optional argument that will be passed to the processing function under job.attrs.data.
+     * Create a job for this exact moment
+     * @param name name of job to schedule
+     * @param data data to pass to job
      */
     now<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(name: string, data?: T): Promise<Agenda.Job<T>>;
 
     /**
-     * Cancels any jobs matching the passed mongodb-native query, and removes them from the database.
-     * @param query Mongodb native query.
+     * Cancels any jobs matching the passed MongoDB query, and removes them from the database.
+     * @param query MongoDB query to use when cancelling
+     * @caller client code, Agenda.purge(), Job.remove()
      */
     cancel(query: any): Promise<number>;
 
     /**
-     * Starts the job queue processing, checking processEvery time to see if there are new jobs.
+     * Starts processing jobs using processJobs() methods, storing an interval ID
+     * This method will only resolve if a db has been set up beforehand.
+     * @returns resolves if db set beforehand, returns undefined otherwise
      */
     start(): Promise<void>;
 
     /**
-     * Stops the job queue processing. Unlocks currently running jobs.
+     * Clear the interval that processes the jobs
+     * @returns resolves when job unlocking fails or passes
      */
     stop(): Promise<void>;
 }

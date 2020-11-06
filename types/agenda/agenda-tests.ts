@@ -114,4 +114,4 @@ class ExtendedAgenda extends Agenda {
 }
 
 const extendedAgenda: ExtendedAgenda = new ExtendedAgenda()
-    .mongo(new Db('some-database', new Server('host.name', 0)))
+    .mongo(new MongoClient(mongoConnectionString), "tes-collection");
