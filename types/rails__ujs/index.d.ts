@@ -3,15 +3,15 @@
 // Definitions by: fsubal <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { SelectorObject } from './src/utils/dom';
+import { SelectorObject } from './utils/dom';
 
-export * from './src/start';
-export * from './src/utils/ajax';
-export * from './src/utils/csp';
-export * from './src/utils/csrf';
-export * from './src/utils/dom';
-export * from './src/utils/event';
-export * from './src/utils/form';
+export * from './start';
+export * from './utils/ajax';
+export * from './utils/csp';
+export * from './utils/csrf';
+export * from './utils/dom';
+export * from './utils/event';
+export * from './utils/form';
 
 export as namespace Rails;
 
