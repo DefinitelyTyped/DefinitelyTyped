@@ -57,6 +57,6 @@ export function getPath(): string;
 export function usePath(active?: boolean, withBasePath?: boolean): string;
 export function updatePathHooks(): void;
 export function getWorkingPath(parentRouterId: string): string;
-export function useRoutes<T>(routeObj: HookRouter.RouteObject<T>): T | null;
+export function useRoutes<T = any>(routeObj: HookRouter.RouteObject<T>): T | null;
 export function useTitle(inString: string): void;
 export function getTitle(): string;

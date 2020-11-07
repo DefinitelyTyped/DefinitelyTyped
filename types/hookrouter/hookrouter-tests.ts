@@ -76,12 +76,15 @@ getWorkingPath('id');
 // $ExpectType string
 getTitle();
 
-// $ExpectType number
+// $ExpectType number | null
 useRoutes({
     '/': () => 42,
 });
 
-// $ExpectType () => number
+// $ExpectType (() => number) | null
 useRoutes({
     '/': () => () => 1 + 1,
 });
+
+// $ExpectType any
+useRoutes({} as any);
