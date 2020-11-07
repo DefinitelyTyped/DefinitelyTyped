@@ -56,10 +56,10 @@ if (element) {
             return Rails.fire(element, 'ajax:success', args);
         },
         error(...args) {
-            return Rails.fire(element, 'ajax:success', args);
+            return Rails.fire(element, 'ajax:error', args);
         },
         complete(...args) {
-            return Rails.fire(element, 'ajax:success', args);
+            return Rails.fire(element, 'ajax:complete', args);
         },
         crossDomain: Rails.isCrossDomain(url),
         withCredentials: false,
