@@ -8,7 +8,7 @@ export namespace HookRouter {
     type InterceptedPath = string | null;
     interface AProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> { href: string; }
     interface QueryParams { [key: string]: any; }
-    interface RouteObject { [key: string]: (params: QueryParams) => any; }
+    interface RouteObject<T = any> { [key: string]: (params: QueryParams) => T; }
 }
 export function setLinkProps(props: HookRouter.AProps): HookRouter.AProps;
 export function A(props: HookRouter.AProps): React.ReactHTMLElement<HTMLAnchorElement>;
@@ -51,6 +51,6 @@ export function getPath(): string;
 export function usePath(active?: boolean, withBasePath?: boolean): string;
 export function updatePathHooks(): void;
 export function getWorkingPath(parentRouterId: string): string;
-export function useRoutes(routeObj: HookRouter.RouteObject): any;
+export function useRoutes<T>(routeObj: HookRouter.RouteObject<T>): T;
 export function useTitle(inString: string): void;
 export function getTitle(): string;

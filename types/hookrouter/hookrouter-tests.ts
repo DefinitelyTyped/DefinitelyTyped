@@ -34,7 +34,7 @@ useControlledInterceptor();
 // $ExpectType string[]
 interceptRoute('/route1', '/route2');
 
-// $ExpectType RouteObject | null
+// $ExpectType RouteObject<any> | null
 get(2);
 
 // $ExpectType void
@@ -75,3 +75,13 @@ getWorkingPath('id');
 
 // $ExpectType string
 getTitle();
+
+// $ExpectType number
+useRoutes({
+    '/': () => 42,
+});
+
+// $ExpectType () => number
+useRoutes({
+    '/': () => () => 1 + 1,
+});
