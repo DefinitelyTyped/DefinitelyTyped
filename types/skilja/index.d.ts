@@ -3,4 +3,4 @@
 // Definitions by: StScoundrel <https://github.com/stscoundrel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function chunkArray(original: any[], limit: number): any[][];
+export function chunkArray<T>(original: ReadonlyArray<T>, limit: number): T[][];
