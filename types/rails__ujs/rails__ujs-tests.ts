@@ -41,10 +41,10 @@ if (element) {
     const url = 'https://example.com';
     Rails.ajax({
         type: 'GET',
-        url: url,
+        url,
         data: new FormData(),
         dataType: 'json',
-        beforeSend: function (xhr, options) {
+        beforeSend(xhr, options) {
             if (Rails.fire(element, 'ajax:beforeSend', [xhr, options])) {
                 return Rails.fire(element, 'ajax:send', [xhr]);
             } else {
@@ -52,13 +52,13 @@ if (element) {
                 return false;
             }
         },
-        success: function (...args) {
+        success(...args) {
             return Rails.fire(element, 'ajax:success', args);
         },
-        error: function (...args) {
+        error(...args) {
             return Rails.fire(element, 'ajax:success', args);
         },
-        complete: function (...args) {
+        complete(...args) {
             return Rails.fire(element, 'ajax:success', args);
         },
         crossDomain: Rails.isCrossDomain(url),
