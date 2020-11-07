@@ -26,6 +26,11 @@ Rails.delegate(document, '#batch_checkbox_all', 'change', ({ target }) => {
 
 Rails.delegate(window, '#batch_checkbox_all', 'change', console.log);
 
+Rails.loadCSPNonce();
+Rails.cspNonce();
+Rails.CSRFProtection(new XMLHttpRequest());
+Rails.refreshCSRFTokens();
+
 const element = document.querySelector<HTMLDivElement>('.foo');
 if (element) {
     Rails.delegate(element, '#batch_checkbox_all', 'change', console.log);
@@ -33,7 +38,33 @@ if (element) {
 
     Rails.getData(element, 'test');
     Rails.setData(element, 'test', { a: 1 });
+
+    Rails.matches(element, '.hoge');
+
+    Rails.matches(element, Rails.linkClickSelector);
+    Rails.matches(element, Rails.buttonClickSelector);
+
+    Rails.confirm('are you sure ?');
+    Rails.confirm('are you sure ?', element);
+
+    Rails.enableElement(element);
+    Rails.disableElement(element);
+
+    Rails.href(element);
 }
+
+element?.addEventListener('click', e => {
+    Rails.preventInsignificantClick(e);
+    Rails.handleDisabledElement(e);
+    Rails.enableElement(e);
+    Rails.disableElement(e);
+    Rails.stopEverything(e);
+    Rails.handleConfirm(e);
+    Rails.handleMethod(e);
+    Rails.handleRemote(e);
+    Rails.formSubmitButtonClick(e);
+    Rails.preventInsignificantClick(e);
+});
 
 const $element = Rails.$('.foo') as HTMLDivElement[];
 
