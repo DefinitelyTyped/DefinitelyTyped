@@ -36,3 +36,32 @@ if (element) {
 }
 
 const $element = Rails.$('.foo') as HTMLDivElement[];
+
+if (element) {
+    const url = 'https://example.com';
+    Rails.ajax({
+        type: 'GET',
+        url: url,
+        data: new FormData(),
+        dataType: 'json',
+        beforeSend: function (xhr, options) {
+            if (Rails.fire(element, 'ajax:beforeSend', [xhr, options])) {
+                return Rails.fire(element, 'ajax:send', [xhr]);
+            } else {
+                Rails.fire(element, 'ajax:stopped');
+                return false;
+            }
+        },
+        success: function (...args) {
+            return Rails.fire(element, 'ajax:success', args);
+        },
+        error: function (...args) {
+            return Rails.fire(element, 'ajax:success', args);
+        },
+        complete: function (...args) {
+            return Rails.fire(element, 'ajax:success', args);
+        },
+        crossDomain: Rails.isCrossDomain(url),
+        withCredentials: false,
+    });
+}
