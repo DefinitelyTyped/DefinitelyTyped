@@ -1,35 +1,35 @@
 import parallelProcessing = require('jrf-pip');
 
-interface ParallelProcessingParams {
-    arrayValues: any[];
+interface ParallelProcessingParams<T> {
+    arrayValues: T[];
 
-    processingFn(params: ProcessingFnParams): void | Promise<void>;
+    processingFn(params: ProcessingFnParams<T>): void | Promise<void>;
 
-    nextValueFn?(params: NextValueFnParams): boolean | Promise<boolean>;
+    nextValueFn?(params: NextValueFnParams<T>): boolean | Promise<boolean>;
 
     cycleTimeout?: number;
     parallel?: number;
     awaitRes?: boolean;
 
-    cb?(stackError: StackError): void | Promise<void>;
+    cb?(stackError: StackError<T>): void | Promise<void>;
 }
 
-interface ProcessingFnParams {
-    value: any;
+interface ProcessingFnParams<T> {
+    value: T;
     index: number;
-    arrayValues: any[];
+    arrayValues: T[];
     iteration: number;
 }
 
-interface NextValueFnParams {
-    value: any;
+interface NextValueFnParams<T> {
+    value: T;
     index: number;
-    arrayValues: any[];
+    arrayValues: T[];
     iteration: number;
 }
 
-interface StackError {
-    value: any;
+interface StackError<T> {
+    value: T;
     index: number;
     iteration: number;
     error: any;
@@ -52,19 +52,19 @@ async function sendMesToGroupUsers(): Promise<void> {
     // Filter Function
     // Skip Male Users
     // i.e. send message only to female
-    const nextValueFn = (params: NextValueFnParams) => {
+    const nextValueFn = (params: NextValueFnParams<User>) => {
         return params.value.sex === 'male';
     };
 
     // Processing Function
     // Send a message
-    const processingFn = (params: ProcessingFnParams) => {
+    const processingFn = (params: ProcessingFnParams<User>) => {
         const user = params.value;
         user.sendMes(params.iteration);
     };
 
     // Callback function. It will work after the completion of sending the message.
-    const cb = (stackError: StackError): void => {
+    const cb = (stackError: StackError<User>): void => {
     };
 
     // Starting parallel iterative processing
@@ -73,7 +73,7 @@ async function sendMesToGroupUsers(): Promise<void> {
     // the processing function of the processingFn array element is specified
     // a callback function is set that will be executed when parallel processing is completed
     // set the number of 1000 parallel processed array values through Promise.all()
-    const params: ParallelProcessingParams = {
+    const params: ParallelProcessingParams<User> = {
         arrayValues: groupUsers,
         nextValueFn,
         processingFn,
@@ -93,13 +93,13 @@ async function sendMesToGroupUsersSyncStyle(): Promise<void> {
     // Filter Function
     // Skip Male Users
     // i.e. send message only to female
-    const nextValueFn = (params: NextValueFnParams) => {
+    const nextValueFn = (params: NextValueFnParams<User>) => {
         return params.value.sex === 'male';
     };
 
     // Processing Function
     // Send a message
-    const processingFn = (params: ProcessingFnParams) => {
+    const processingFn = (params: ProcessingFnParams<User>) => {
         const user = params.value;
         user.sendMes(params.iteration);
     };
@@ -111,7 +111,7 @@ async function sendMesToGroupUsersSyncStyle(): Promise<void> {
     // the awaitRes response wait parameter is specified i.e. synchronous execution
     // set the number of 2000 parallel values of the array through Promise.all()
     // time of cycleTimeout of an asynchronous pause between iterations is set
-    const params: ParallelProcessingParams = {
+    const params: ParallelProcessingParams<User> = {
         arrayValues: groupUsers,
         nextValueFn,
         processingFn,
@@ -119,7 +119,7 @@ async function sendMesToGroupUsersSyncStyle(): Promise<void> {
         parallel: 2000,
         cycleTimeout: 100,
     };
-    const stackError: StackError[] = await parallelProcessing(params);
+    const stackError: Array<StackError<User>> | undefined = await parallelProcessing(params);
 }
 
 function generateUsers(count: number = 10000): User[] {

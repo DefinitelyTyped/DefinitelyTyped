@@ -3,41 +3,41 @@
 // Definitions by: rufus <https://github.com/jirufik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface ParallelProcessingParams {
-    arrayValues: any[];
+interface ParallelProcessingParams<T> {
+    arrayValues: T[];
 
-    processingFn(params: ProcessingFnParams): void | Promise<void>;
+    processingFn(params: ProcessingFnParams<T>): void | Promise<void>;
 
-    nextValueFn?(params: NextValueFnParams): boolean | Promise<boolean>;
+    nextValueFn?(params: NextValueFnParams<T>): boolean | Promise<boolean>;
 
     cycleTimeout?: number;
     parallel?: number;
     awaitRes?: boolean;
 
-    cb?(stackError: StackError): void | Promise<void>;
+    cb?(stackError: StackError<T>): void | Promise<void>;
 }
 
-interface ProcessingFnParams {
-    value: any;
+interface ProcessingFnParams<T> {
+    value: T;
     index: number;
-    arrayValues: any[];
+    arrayValues: T[];
     iteration: number;
 }
 
-interface NextValueFnParams {
-    value: any;
+interface NextValueFnParams<T> {
+    value: T;
     index: number;
-    arrayValues: any[];
+    arrayValues: T[];
     iteration: number;
 }
 
-interface StackError {
-    value: any;
+interface StackError<T> {
+    value: T;
     index: number;
     iteration: number;
     error: any;
 }
 
-declare function parallelProcessing(params: ParallelProcessingParams): Promise<StackError[]>;
+declare function parallelProcessing<T>(params: ParallelProcessingParams<T>): Promise<Array<StackError<T>>> | undefined;
 
 export = parallelProcessing;
