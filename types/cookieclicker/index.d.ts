@@ -2,15 +2,7 @@
 // Project: https://orteil.dashnet.org/cookieclicker/
 // Definitions by: Lubomir <https://github.com/TheGLander>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/**
- * TODO: Check out if some params are optional (think I got these)
- * TODO: boolean to pseudoboolean *sigh*
- */
-
-/**
- * The Game object, generated automatically
- */
+// Minimum TypeScript Version: 3.6
 
 declare function AddEvent(htmlElement: HTMLElement, eventName: string, eventFunction: (e: Event) => void): void;
 declare function l(name: string): HTMLElement;
@@ -1383,7 +1375,7 @@ declare namespace Game {
          */
         nextSoil: number;
         /**
-         *The amount of time in seconds before next tick
+         * The amount of time in seconds before next tick
          */
         stepT: number;
         /**
@@ -1523,8 +1515,128 @@ declare namespace Game {
         cursorL: HTMLDivElement;
         lumpRefill: HTMLDivElement;
     }
+
+    export interface PantheonSpirit {
+        /**
+         * Additional description which is only shown if the spirit is slotted
+         */
+        activeDescFunc?: () => string;
+        /**
+         * The description of the effects of having the spirit in the first slot in HTML text
+         */
+        desc1?: string;
+        /**
+         * The description of the effects of having the spirit in the second slot in HTML text
+         */
+        desc2?: string;
+        /**
+         * The description of the effects of having the spirit in the third slot in HTLM text
+         */
+        desc3?: string;
+        /**
+         * The text to display after all other descriptions
+         */
+        descAfter?: string;
+        /**
+         * The text to display before all other descriptions
+         */
+        descBefore?: string;
+
+        icon: Icon;
+
+        id: number;
+
+        name: string;
+
+        /**
+         * The flavour text of the spirit
+         */
+        quote: string;
+        /**
+         * The current slot the spirit is in
+         */
+        slot: -1 | 0 | 1 | 2;
+    }
+
+    interface PantheonMinigame extends Minigame {
+        name: 'Pantheon';
+
+        gods: Record<string, PantheonSpirit>;
+        godsById: PantheonSpirit[];
+        /**
+         * A tuple of the current slots, -1 for nothing
+         */
+        slot: [number, number, number];
+        /**
+         * Names of the slot gems
+         */
+        slotNames: string[];
+        /**
+         * The amount of swaps left
+         */
+        swaps: number;
+        /**
+         * The last time a spirit was slotted
+         */
+        swapT: number;
+        /**
+         * The amount of frames between the last swap
+         */
+        lastSwapT: number;
+        /**
+         * Generates the tooltip function for a spirit
+         */
+        godTooltip(id: number): () => string;
+        /**
+         * Generates the tooltip function for a slot
+         */
+        slotTooltip(id: number): () => string;
+        /**
+         * Uses up an amount of swaps
+         * @param n The amount of swaps to use
+         */
+        useSwap(n: number): void;
+        /**
+         * Slots a spirit in
+         * @returns If the operation was successful
+         */
+        slotGod(god: PantheonSpirit, slot: -1 | 0 | 1 | 2): boolean;
+        /**
+         * The currently dragged spirit
+         */
+        dragging: PantheonSpirit | false;
+
+        dragGod(what: PantheonSpirit): void;
+        dropGod(): void;
+        /**
+         * The currently hovered slot
+         */
+        slotHovered: -1 | 0 | 1 | 2;
+        hoverSlot(what: -1 | 0 | 1 | 2): void;
+        swapsL: HTMLDivElement;
+        lumpRefill: HTMLDivElement;
+        /**
+         * Generates the lump refill tooltip
+         */
+        refillTooltip(): string;
+    }
+    export let useSwap: PantheonMinigame['useSwap'] | undefined;
+    /**
+     * Determines if the pantheon has a god currently equipped
+     * @param what The internal name of the god
+     */
+    export let hasGod: ((what: string) => 1 | 2 | 3 | false) | undefined;
+
+    /**
+     * Forcefully unslots a god
+     * @param god The internal name of the god
+     * @returns If the operation succeeded
+     */
+    export let forceUnslotGod: ((god: string) => boolean) | undefined;
+
     export let Objects: Record<string, GameObject> & {
         Farm: MinigameObject<GardenMinigame>;
+        Temple: MinigameObject<PantheonMinigame>;
     };
     export let ObjectsById: GameObject[];
     export let ObjectsN: number;

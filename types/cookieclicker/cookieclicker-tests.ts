@@ -56,3 +56,24 @@ Game.Loader.Load(['Hi']);
 // Loads assets "H" and "i", unintended
 // $ExpectError
 Game.Loader.Load('Hi');
+
+// Some achievements
+
+Game.BankAchievement('Example bank');
+
+Game.CpsAchievement('Example Cps');
+
+// Minigames
+
+const GardenMG = Game.Objects.Farm.minigame;
+
+GardenMG.getCost(GardenMG.plantsById[3]);
+
+GardenMG.canPlant(GardenMG.plants.queenbeet);
+
+const PantheonMG = Game.Objects.Temple.minigame;
+
+PantheonMG.godTooltip(3);
+
+// $ExpectError
+PantheonMG.slotGod(PantheonMG.godsById[2], 3);
