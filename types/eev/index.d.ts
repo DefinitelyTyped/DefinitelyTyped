@@ -12,6 +12,4 @@ declare class Eev {
     emit(name: string, data?: any): void;
 }
 
-declare const eev: Eev;
-
-export = eev;
+export = Eev;
