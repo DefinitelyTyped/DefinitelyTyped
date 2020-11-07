@@ -165,33 +165,19 @@ declare namespace Game {
      */
     export function ErrorFrame(): void;
     export let timedout: boolean;
-    /**
-     * TODO: DEF
-     */
+
     export function Timeout(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function Resume(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function Init(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function Logic(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function Draw(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function Loop(): void;
-    /**
-     * TODO: DEF
-     */
+
     export let Loader: Loader;
     export let T: number;
     export let drawT: number;
@@ -217,9 +203,7 @@ declare namespace Game {
     export let frameNumber: number;
     export let currentFps: number;
     export let previousFps: number;
-    /**
-     * TODO: DEF
-     */
+
     export function getFps(): number;
     export let cookiesEarned: number;
     export let cookies: number;
@@ -242,9 +226,7 @@ declare namespace Game {
     export let heavenlyChipsDisplayed: number;
     export let heavenlyChipsSpent: number;
     export let heavenlyCookies: number;
-    /**
-     * TODO: DEF
-     */
+
     export let permanentUpgrades: number[];
     export let ascensionMode: number;
     export let resets: number;
@@ -446,13 +428,9 @@ declare namespace Game {
     export function CheckUpdates(): void;
     export function CheckUpdatesResponse(response: string): void;
     export let externalDataLoaded: boolean;
-    /**
-     * TODO: DEF
-     */
+
     export let grandmaNames: string[];
-    /**
-     * TODO: DEF
-     */
+
     export let customGrandmaNames: string[];
     export let heralds: number;
     export function GrabData(): void;
@@ -466,105 +444,64 @@ declare namespace Game {
      * Calls localStorage.setItem
      */
     export function localStorageSet(key: string, str: string): void;
-    /**
-     * TODO: DEF
-     */
+
     export function ExportSave(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function ImportSave(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function ImportSaveCode(save: string): void;
-    /**
-     * TODO: DEF
-     */
+
     export function FileSave(): void;
-    /**
-     * TODO: DEF
-     * TODO: REDO - e is a file
-     */
     export function FileLoad(e: InputEvent): void;
     export let toSave: boolean;
     /**
-     * TODO: DEF
-     * type : none is default, 1=return string only, 2=return uncompressed string, 3=return uncompressed, commented string
+     * @param type none is default, 1=return string only, 2=return uncompressed string, 3=return uncompressed, commented string
      */
     export function WriteSave(type: number): string;
-    /**
-     * TODO: DEF
-     */
+
     export function salvageSave(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function LoadSave(data: string): boolean;
-    /**
-     * TODO: DEF
-     */
+
     export function Reset(hard: boolean): void;
     /**
      * Completely wipes the save, bypass is the amount of confirmation has been done
      */
     export function HardReset(bypass: 0 | 1 | 2): void;
     export let onCrate: number;
-    /**
-     * TODO: DEF
-     */
+
     export function setOnCrate(what: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function crate(
         me: Upgrade | Achievement,
         context: 'store' | 'ascend' | 'stats' | undefined,
         forceClickStr: string,
         id: string,
     ): string;
-    /**
-     * TODO: DEF
-     */
+
     export function crateTooltip(me: Upgrade | Achievement, context: 'store' | 'ascend' | 'stats' | undefined): string;
-    /**
-     * TODO: DEF
-     */
+
     export function costDetails(cost: number): void;
     export let HCfactor: number;
-    /**
-     * TODO: DEF
-     */
+
     export function HowMuchPrestige(cookies: number): number;
-    /**
-     * TODO: DEF
-     */
+
     export function HowManyCookiesReset(chips: number): number;
     export let gainedPrestige: number;
-    /**
-     * TODO: DEF
-     */
+
     export function EarnHeavenlyChips(cookiesForfeited: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function GetHeavenlyMultiplier(): number;
     export let ascensionModes: object;
     export let ascendMeterPercent: number;
     export let ascendMeterPercentT: number;
     export let ascendMeterLevel: number;
     export let nextAscensionMode: number;
-    /**
-     * TODO: DEF
-     */
+
     export function UpdateAscensionModePrompt(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function PickAscensionMode(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function UpdateLegacyPrompt(): void;
     export let ascendl: object;
     export let ascendContentl: object;
@@ -574,23 +511,15 @@ declare namespace Game {
     export let AscendTimer: number;
     export let AscendDuration: number;
     export let AscendBreakpoint: number;
-    /**
-     * TODO: DEF
-     */
+
     export function UpdateAscendIntro(): void;
     export let ReincarnateTimer: number;
     export let ReincarnateDuration: number;
-    /**
-     * TODO: DEF
-     */
+
     export function UpdateReincarnateIntro(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function Reincarnate(bypass: boolean): void;
-    /**
-     * TODO: DEF
-     */
+
     export function GiveUpAscend(bypass: boolean): void;
     export function Ascend(bypass: boolean): void;
     export let DebuggingPrestige: number;
@@ -605,98 +534,54 @@ declare namespace Game {
     export let AscendDragging: number;
     export let AscendGridSnap: number;
     export let heavenlyBounds: object;
-    /**
-     * TODO: DEF
-     */
+
     export function UpdateAscend(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function AscendRefocus(): void;
     export let SelectedHeavenlyUpgrade: number;
-    /**
-     * TODO: DEF
-     */
+
     export function PurchaseHeavenlyUpgrade(what: Upgrade): void;
-    /**
-     * TODO: DEF
-     */
+
     export function BuildAscendTree(): void;
     export let lumpMatureAge: number;
     export let lumpRipeAge: number;
     export let lumpOverripeAge: number;
     export let lumpCurrentType: number;
-    /**
-     * TODO: DEF
-     */
+
     export function lumpTooltip(): string;
-    /**
-     * TODO: DEF
-     */
+
     export function computeLumpTimes(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function loadLumps(time?: any): void;
-    /**
-     * TODO: DEF
-     */
+
     export function gainLumps(total: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function clickLump(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function harvestLumps(amount: number, silent: boolean): void;
-    /**
-     * TODO: DEF
-     */
+
     export function computeLumpType(): boolean;
-    /**
-     * TODO: DEF
-     */
+
     export function canLumps(): boolean;
-    /**
-     * TODO: DEF
-     */
+
     export function getLumpRefillMax(): number;
-    /**
-     * TODO: DEF
-     */
+
     export function getLumpRefillRemaining(): number;
-    /**
-     * TODO: DEF
-     */
+
     export function canRefillLump(): boolean;
-    /**
-     * TODO: DEF
-     */
+
     export function refillLump(n: number, func: () => void): void;
-    /**
-     * TODO: DEF
-     */
+
     export function spendLump(n: number, str: string, func: () => void): () => void;
-    /**
-     * TODO: DEF
-     */
+
     export function doLumps(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function Earn(howmuch: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function Spend(howmuch: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function Dissolve(howmuch: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function mouseCps(): number;
     export let computedMouseCps: number;
     export let globalCpsMult: number;
@@ -709,37 +594,24 @@ declare namespace Game {
     export let BigCookieSizeD: number;
     export let BigCookieSizeT: number;
     export let cookieClickSound: number;
-    /**
-     * TODO: DEF
-     */
+
     export function playCookieClickSound(): void;
-    /**
-     * TODO: DEF
-     * TODO: REDO - e is an event
-     */
-    export function ClickCookie(e: any, amount: number): void;
+    export function ClickCookie(e: MouseEvent, amount: number): void;
     export let mouseX: number;
     export let mouseY: number;
     export let mouseX2: number;
     export let mouseY2: number;
     export let mouseMoved: number;
-    /**
-     * TODO: DEF
-     * TODO: REDO - e is an event
-     */
+
     export function GetMouseCoords(e: MouseEvent): void;
     export let Click: number;
     export let lastClickedEl: object;
     export let clickFrom: number;
     export let Scroll: number;
     export let mouseDown: number;
-    /**
-     * TODO: DEF
-     */
+
     export function handleScroll(e: MouseEvent): void;
-    /**
-     * TODO: DEF
-     */
+
     export let keys: number[];
     export let heavenlyPower: number;
     export let recalculateGains: number;
@@ -769,17 +641,11 @@ declare namespace Game {
         buildingCost: number;
     }
     export let effs: Effects;
-    /**
-     * TODO: DEF
-     */
+
     export function eff(name: string, def: string): Effects;
-    /**
-     * TODO: DEF
-     */
+
     export function CalculateGains(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function dropRateMult(): number;
     export class Shimmer<N extends string = keyof typeof shimmerTypes, C extends object = {}> {
         /**
@@ -804,14 +670,10 @@ declare namespace Game {
     }
 
     export let shimmersL: HTMLDivElement;
-    /**
-     * TODO: DEF
-     */
+
     export let shimmers: Shimmer[];
     export let shimmersN: number;
-    /**
-     * TODO: DEF
-     */
+
     export function updateShimmers(): void;
     export function killShimmers(): void;
     /**
@@ -833,9 +695,7 @@ declare namespace Game {
         spawned: boolean | PseudoBoolean;
     }
     export let shimmerTypes: Record<string, ShimmerType>;
-    /**
-     * TODO: DEF
-     */
+
     export let goldenCookieChoices: string[];
     export let goldenCookieBuildingBuffs: Record<keyof typeof Objects, [string, string]>;
 
@@ -855,17 +715,10 @@ declare namespace Game {
         l?: HTMLElement;
     }
 
-    /**
-     * TODO: DEF
-     */
     export let particles: Particle[];
-    /**
-     * TODO: DEF
-     */
+
     export function particlesUpdate(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function particleAdd(
         x: number,
         y: number,
@@ -877,56 +730,31 @@ declare namespace Game {
         pic: string,
         text: string,
     ): Particle | object;
-    /**
-     * TODO: DEF
-     */
+
     export function particlesDraw(z: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export let textParticles: Particle[];
     export let textParticlesY: number;
-    /**
-     * TODO: DEF
-     */
+
     export function textParticlesUpdate(): void;
-    /**
-     * TODO: DEF
-     * TODO: REDO - el is maybe an ellipse but it is kinda unclear
-     */
     export function textParticlesAdd(text: string, el: undefined | 0, posX: number, posY: number): Particle;
     export let popups: number;
-    /**
-     * TODO: DEF
-     */
+
     export function Popup(text: string, x: number, y: number): void;
     export let sparkles: object;
     export let sparklesT: number;
     export let sparklesFrames: number;
-    /**
-     * TODO: DEF
-     */
+
     export function SparkleAt(x: number, y: number): void;
 
-    /**
-     * TODO: DEF
-     * TODO: REDO - el is maybe an ellipse but it is kinda unclear
-     */
     export function SparkleOn(el: HTMLElement): void;
 
-    /**
-     * TODO: DEF
-     */
     export let Notes: Note[];
-    /**
-     * TODO: DEF
-     */
+
     export let NotesById: Note[];
     export let noteId: number;
     export let noteL: HTMLDivElement;
-    /**
-     * TODO: DEF
-     */
+
     export class Note {
         constructor(title: string, desc?: string, pic?: Icon, quick?: number);
         title: string;
@@ -939,29 +767,17 @@ declare namespace Game {
         l: HTMLDivElement | PseudoNull;
         height: number;
     }
-    /**
-     * TODO: DEF
-     */
+
     export function CloseNote(id: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function CloseNotes(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function UpdateNotes(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function NotesLogic(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function NotesDraw(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function Notify(title: string, desc?: string, pic?: string, quick?: number, noLog?: boolean): void;
     export let darkenL: object;
     export let promptL: object;
@@ -970,9 +786,7 @@ declare namespace Game {
     export let promptConfirm: string;
     export let promptOn: number;
     export let promptUpdateFunc: number;
-    /**
-     * TODO: DEF
-     */
+
     export function UpdatePrompt(): void;
     /**
      * Creates a prompt to the user
@@ -989,32 +803,16 @@ declare namespace Game {
         updateFunc?: () => void,
         style?: string,
     ): void;
-    /**
-     * TODO: DEF
-     */
+
     export function ClosePrompt(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function ConfirmPrompt(): void;
-    /**
-     * TODO: DEF
-     * TODO: REDO - CSS
-     */
+
     export let cssClasses: string[];
-    /**
-     * TODO: DEF
-     * TODO: REDO - what is dumb, orteil. something to do with CSS
-     */
+
     export function addClass(what: string): void;
-    /**
-     * TODO: DEF
-     * TODO: REDO - what is dumb, orteil. something to do with CSS
-     */
-    export function removeClass(what: string): void;
-    /**
-     * TODO: DEF
-     */
+    function removeClass(what: string): void;
+
     export function updateClasses(): void;
     /**
      * Generates an HTML string for a button
@@ -1048,17 +846,11 @@ declare namespace Game {
         off: string,
         invert?: PseudoBoolean,
     ): void;
-    /**
-     * TODO: DEF
-     */
+
     export function ToggleFancy(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function ToggleFilters(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function ToggleExtraButtons(): void;
 
     export function WriteSlider(
@@ -1069,34 +861,20 @@ declare namespace Game {
         callback: string,
     ): void;
     export let onPanel: string;
-    /**
-     * TODO: DEF
-     */
+
     export function ShowPanel(what: string): void;
     export let onMenu: string;
-    /**
-     * TODO: DEF
-     */
+
     export function ShowMenu(what: string): void;
-    /**
-     * TODO: DEF
-     */
+
     export function sayTime(time: number, detail: -1 | 1 | 2 | 3 | 4): string;
-    /**
-     * TODO: DEF
-     */
+
     export function tinyCookie(): string;
-    /**
-     * TODO: DEF
-     */
+
     export function ClickTinyCookie(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function setVolume(what: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function UpdateMenu(): void;
     export let ascendMeter: object;
     export let ascendNumber: object;
@@ -1106,29 +884,18 @@ declare namespace Game {
     export let TickerEffect: number;
     export let TickerN: number;
     export let TickerClicks: number;
-    /**
-     * TODO: DEF
-     */
+
     export function UpdateTicker(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function getNewTicker(manual: boolean): void;
     export let tickerL: object;
     export let tickerBelowL: object;
     export let tickerCompactL: object;
-    /**
-     * TODO: DEF
-     */
+
     export function TickerDraw(): void;
-    /**
-     * TODO: DEF
-     */
+
     export let Log: string[];
-    /**
-     * TODO: DEF
-     * TODO: REDO - what again
-     */
+
     export function AddToLog(what: string): void;
     export let vanilla: PseudoBoolean;
     export let last: GameObject | Upgrade | Achievement;
@@ -1743,10 +1510,263 @@ declare namespace Game {
         magicPS: number;
     }
 
+    export interface StocksColors {
+        /**
+         * The background color of the graph
+         */
+        bg: string;
+        /**
+         * The big lines in the background of the graph
+         */
+        line1: string;
+        /**
+         * The small lines in the background of the graph
+         */
+        line2: string;
+        /**
+         * The stock line when the value goes down
+         */
+        low: string;
+        /**
+         * The stock line when the value goes up
+         */
+        high: string;
+        /**
+         * The stock line when the it's hovered over
+         */
+        hightlight: string;
+    }
+
+    export interface StocksGood {
+        /**
+         * True if at least one of the building is owned
+         */
+        active: boolean;
+        /**
+         * The building the good is tied to
+         */
+        building: GameObject;
+        /**
+         * Name of the company which manages the stock (flavour text)
+         */
+        company: string;
+        /**
+         * The current delta of the stock
+         */
+        d: number;
+        /**
+         * The description of the stock
+         */
+        desc: string;
+        /**
+         * Ticks left until next mode
+         */
+        dur: number;
+        graphIconL: HTMLDivElement;
+        /**
+         * True if the stock was hidden by the player or it's not active yet
+         */
+        hidden: boolean;
+        icon: Icon;
+        id: number;
+        l: HTMLDivElement;
+        /**
+         * The last action done on the stock
+         */
+        last: number;
+        /**
+         * The mode of the stock
+         */
+        mode: number;
+        /**
+         * The displayed name of the stock
+         */
+        name: string;
+        /**
+         * The amount of stocks bought of the good
+         */
+        stock: number;
+        stockBoxL: HTMLDivElement;
+        stockL: HTMLSpanElement;
+        stockMaxL: HTMLSpanElement;
+        /**
+         * Name of the stock in 3 letters
+         */
+        symbol: string;
+        symbolNumL: HTMLSpanElement;
+        /**
+         * The current value of the stock
+         */
+        val: number;
+        /**
+         * History of the stock values
+         */
+        vals: number[];
+        viewHideL: HTMLDivElement;
+    }
+
+    export interface StocksOffice {
+        name: string;
+        icon: Icon;
+        /**
+         * The cost to upgrade the office, first value being the cursor amount,
+         * Second one being, cursor level
+         */
+        cost: [number, number] | PseudoNull;
+        /**
+         * The description of the office, in HTML text
+         */
+        desc: string;
+    }
+
+    interface StocksMinigame extends Minigame {
+        profit: number;
+        /**
+         * Ticks passed since minigame load
+         */
+        ticks: number;
+        /**
+         * The last tick that was drawn
+         */
+        lastTickDrawn: number;
+        /**
+         * The amount of seconds per tick
+         */
+        secondsPerTick: number;
+        /**
+         * Updates the stock prices
+         */
+        tick(): void;
+        /**
+         * The amount of frames since last tick
+         */
+        tickT: number;
+        /**
+         * The currently hovered good
+         */
+        hoverOnGood: number;
+        /**
+         * A contant which represents the amount of units a vertical pixels represents
+         */
+        graphScale: number;
+        /**
+         * Mode of the graph display, 0 for lines, 1 for candles
+         */
+        graphLines: number;
+        /**
+         * The color mode of the graph, 0 for white, 1 for black
+         */
+        graphCols: number;
+        /**
+         * Updates the graph vertical size
+         */
+        checkGraphScale(): void;
+        colBases: StocksColors[];
+        /**
+         * Updates the colors of the graph
+         */
+        setCols(): void;
+        cols: StocksColors;
+        /**
+         * Redraws the graph
+         * @param full If set, completely redraws the graph
+         */
+        drawGraph(full?: boolean): void;
+        goods: Record<string, StocksGood>;
+        goodsById: StocksGood[];
+        /**
+         * Generates the tooltip function for a good
+         */
+        goodTooltip(id: number): () => string;
+        /**
+         * Generates the tooltip function for a buy/sell button
+         */
+        tradeTooltip(id: number, n: number): () => string;
+        /**
+         * Calculates the delta for the stock, in %
+         * @param id The id of the stock
+         * @param back The degree of age of the stock delta
+         */
+        goodDelta(id: number, back?: number): number;
+        /**
+         * Calculates the maximum stock for a good
+         */
+        getGoodMaxStock(good: StocksGood): number;
+        /**
+         * Calculates the price for a good
+         */
+        getGoodPrice(good: StocksGood): number;
+        /**
+         * Buys a good by id
+         * @returns If the operation has succeeded
+         */
+        buyGood(id: number, n: number): boolean;
+        /**
+         * Sells a good by id
+         * @returns If the operation has succeeded
+         */
+        sellGood(id: number, n: number): boolean;
+        /**
+         * Calculates the resting value for a stock
+         */
+        getRestingVal(id: number): number;
+        /**
+         * Updates the styles of a good
+         */
+        updateGoodStyle(id: number): void;
+        officeLevel: number;
+        offices: StocksOffice[];
+        /**
+         * Generates the tooltip function for the office
+         */
+        officeTooltip(): () => string;
+        /**
+         * The amount of brokers
+         */
+        brokers: number;
+        /**
+         * Calculates the maximum amount of brokers
+         */
+        getMaxBrokers(): number;
+        /**
+         * Calculates the price of brokers
+         */
+        getBrokerPrice(): number;
+        /**
+         * Generates the tooltip functions for brokers
+         */
+        brokersTooltip(): () => string;
+        /**
+         * The types of loans, tuple describing the loan type:
+         * Loan name, Loan power, Load duration, Loan payback power,
+         * Loan payback duration, downpayement (mult of bank) and the quote (flavour text)
+         */
+        loanTypes: Array<[string, number, number, number, number, number, string]>;
+        /**
+         * Generates the tooltip function for loans
+         */
+        loanTooltip(): () => string;
+        /**
+         * Applies a loan to the player
+         * @param interest If true, the interest debuff is applied
+         */
+        takeLoan(id: number, interest?: boolean): void;
+        /** @deprecated */
+        getOppSlots(): number;
+        /** @deprecated */
+        oppTooltip(): () => string;
+        /** @deprecated */
+        refillTooltip(): string;
+        graph: HTMLCanvasElement;
+        graphCtx: CanvasRenderingContext2D;
+        toRedraw: PseudoBoolean;
+    }
+
     export let Objects: Record<string, GameObject> & {
         Farm: MinigameObject<GardenMinigame>;
         Temple: MinigameObject<PantheonMinigame>;
         'Wizard tower': MinigameObject<GrimoireMinigame>;
+        Bank: MinigameObject<StocksMinigame>;
     };
     export let ObjectsById: GameObject[];
     export let ObjectsN: number;
@@ -2093,67 +2113,33 @@ declare namespace Game {
     export interface MinigameObject<T extends Minigame> extends GameObject {
         minigame: T;
     }
-    /**
-     * TODO: DEF
-     */
+
     export function DrawBuildings(): void;
-    /**
-     * TODO: DEF
-     * TODO: REDO - Not a what this time but a what in spirit
-     */
     export function sortSprites(a: any, b: any): number;
-    /**
-     * TODO: DEF
-     * TODO: REDO - Not a what this time but a what in spirit
-     */
     export function sortSpritesById(a: any, b: any): number;
-    /**
-     * TODO: DEF
-     */
+
     export function modifyBuildingPrice(building: string, price: number): number;
-    /**
-     * TODO: DEF
-     */
+
     export function storeBulkButton(id: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function BuildStore(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function RefreshStore(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function ComputeCps(base: number, mult: number, bonus: number): number;
-    /**
-     * TODO: DEF
-     * TODO: REDO - me is probably an building but I need to check
-     */
     export function isMinigameReady(me: GameObject): void;
     export let scriptBindings: undefined[] & Record<string, GameObject>;
-    /**
-     * TODO: DEF
-     */
+
     export function LoadMinigames(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function scriptLoaded(who: GameObject, script: string): void;
-    /**
-     * TODO: DEF
-     */
+
     export function magicCpS(what: unknown): number;
     export let SpecialGrandmaUnlock: number;
     export let foolObjects: FoolBuilding[];
-    /**
-     * TODO: DEF
-     */
+
     export function ClickProduct(what: GameObject): void;
-    /**
-     * TODO: DEF
-     */
+
     export function mutedBuildingTooltip(id: number): () => string;
     export let upgradesToRebuild: number;
     export let Upgrades: undefined[] & Record<string, Upgrade>;
@@ -2289,21 +2275,13 @@ declare namespace Game {
          */
         toggle(): void;
     }
-    /**
-     * TODO: DEF
-     */
+
     export function storeBuyAll(): void | false;
-    /**
-     * TODO: DEF
-     */
+
     export let vault: number[];
-    /**
-     * TODO: DEF
-     */
+
     export function CountsAsUpgradeOwned(pool: string): boolean;
-    /**
-     * TODO: DEF
-     */
+
     export function RequiresConfirmation(upgrade: Upgrade, prompt: string): void;
     /**
      * Unlocks an upgrade
@@ -2325,9 +2303,7 @@ declare namespace Game {
      * @param what The name of the upgrade
      */
     export function HasUnlocked(what: string): PseudoBoolean;
-    /**
-     * TODO: DEF
-     */
+
     export function RebuildUpgrades(): void;
     export interface UnlockRequirement {
         /**
@@ -2564,28 +2540,18 @@ declare namespace Game {
      * The amount of heart cookies bought
      */
     export function GetHowManyEggs(): number;
-    /**
-     * TODO: DEF
-     */
+
     export function DropEgg(failRate: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function PermanentSlotIcon(slot: number): Icon;
-    /**
-     * TODO: DEF
-     */
+
     export function AssignPermanentSlot(slot: number): void;
     export let SelectingPermanentUpgrade: number;
-    /**
-     * TODO: DEF
-     */
+
     export function PutUpgradeInPermanentSlot(upgrade: Upgrade, slot: number): void;
     export let MilksByChoice: object;
     export let BGsByChoice: object;
-    /**
-     * TODO: DEF
-     */
+
     export function loseShimmeringVeil(context: string): void | false;
 
     export interface Season {
@@ -2609,49 +2575,26 @@ declare namespace Game {
     }
 
     export let seasons: Record<string, Season>;
-    /**
-     * TODO: DEF
-     */
+
     export function listTinyOwnedUpgrades(arr: Upgrade[]): string;
-    /**
-     * TODO: DEF
-     */
+
     export let santaDrops: string[];
-    /**
-     * TODO: DEF
-     */
+
     export function GetHowManySantaDrops(): number;
-    /**
-     * TODO: DEF
-     */
+
     export let reindeerDrops: string[];
-    /**
-     * TODO: DEF
-     */
+
     export function GetHowManyReindeerDrops(): number;
-    /**
-     * TODO: DEF
-     */
+
     export let seasonDrops: string[];
-    /**
-     * TODO: DEF
-     */
+
     export function saySeasonSwitchUses(): string;
-    /**
-     * TODO: DEF
-     */
+
     export function computeSeasonPrices(): number;
-    /**
-     * TODO: DEF
-     */
+
     export function computeSeasons(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function getSeasonDuration(): number;
-    /**
-     * TODO: DEF
-     */
 
     export let UpgradesByPool: Record<UpgradePool, Upgrade[]>;
     export interface HeavenlyUpgrade extends Upgrade {
@@ -2663,32 +2606,19 @@ declare namespace Game {
          */
         showIf?: () => boolean;
     }
-    /**
-     * TODO: DEF
-     */
+
     export let PrestigeUpgrades: HeavenlyUpgrade[];
-    /**
-     * TODO: DEF
-     */
+
     export let goldenCookieUpgrades: string[];
-    /**
-     * TODO: DEF
-     */
+
     export let cookieUpgrades: Upgrade[];
     export let UpgradePositions: object;
-    /**
-     * TODO: DEF
-     */
+
     export let Achievements: Achievement[];
-    /**
-     * TODO: DEF
-     */
+
     export let AchievementsById: Achievement[];
     export let AchievementsN: number;
     export let AchievementsOwned: number;
-    /**
-     * TODO: EXPAND - Achievement
-     */
 
     export type AchievementPool = 'normal' | 'shadow' | 'dungeon';
 
@@ -2872,22 +2802,14 @@ declare namespace Game {
      * Returns 0 if there is no buff in effect with this name; else, returns it
      */
     export function hasBuff(what: string): number | Buff;
-    /**
-     * TODO: DEF
-     */
+
     export function updateBuffs(): void;
     export function killBuff(what: string): void;
-    /**
-     * TODO: DEF
-     */
+
     export function killBuffs(): void;
-    /**
-     * TODO: DEF
-     */
+
     export let buffTypes: buffType[];
-    /**
-     * TODO: DEF
-     */
+
     export let buffTypesByName: undefined[] & Record<string, buffType>;
     export let buffTypesN: number;
     export class buffType {
@@ -2897,14 +2819,10 @@ declare namespace Game {
         id: number;
         vanilla: PseudoBoolean;
     }
-    /**
-     * TODO: DEF
-     */
+
     export function UpdateGrandmapocalypse(): void;
     export let wrinklerHP: number;
-    /**
-     * TODO: DEF
-     */
+
     export interface Wrinkler {
         id: number;
         close: number;
@@ -2920,45 +2838,21 @@ declare namespace Game {
     }
 
     export let wrinklers: Wrinkler[];
-    /**
-     * TODO: DEF
-     */
+
     export function getWrinklersMax(): number;
-    /**
-     * TODO: DEF
-     */
+
     export function ResetWrinklers(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function CollectWrinklers(): void;
     export let wrinklerSquishSound: number;
-    /**
-     * TODO: DEF
-     */
+
     export function playWrinklerSquishSound(): void;
-    /**
-     * TODO: DEF
-     * TODO: REDO - me is a wrinkler
-     * TODO: REDO - return type is wrinkler or boolean
-     */
     export function SpawnWrinkler(me?: Wrinkler): Wrinkler | boolean;
-    /**
-     * TODO: DEF
-     * TODO: REDO - return type is wrinkler or boolean
-     */
     export function PopRandomWrinkler(): Wrinkler | boolean;
-    /**
-     * TODO: DEF
-     */
+
     export function UpdateWrinklers(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function DrawWrinklers(): void;
-    /**
-     * TODO: DEF
-     */
 
     interface WrinklerSave {
         amount: number;
@@ -2969,31 +2863,17 @@ declare namespace Game {
 
     export function SaveWrinklers(): WrinklerSave;
 
-    /**
-     * TODO: DEF
-     */
     export function LoadWrinklers(amount: number, number: number, shinies: number, amountShinies: number): void;
     export let specialTab: string;
     export let specialTabHovered: string;
-    /**
-     * TODO: DEF
-     */
+
     export let specialTabs: string[];
-    /**
-     * TODO: DEF
-     */
+
     export function UpdateSpecial(): void;
-    /**
-     * TODO: DEF
-     */
+
     export let santaLevels: string[];
-    /**
-     * TODO: DEF
-     */
+
     export function UpgradeSanta(): void;
-    /**
-     * TODO: DEF
-     */
 
     export interface DragonLevel {
         name: string;
@@ -3006,46 +2886,25 @@ declare namespace Game {
 
     export let dragonLevels: DragonLevel[];
     export let dragonAuras: object;
-    /**
-     * TODO: DEF
-     */
+
     export function hasAura(what: string): boolean;
-    /**
-     * TODO: DEF
-     */
+
     export function auraMult(what: string): number;
-    /**
-     * TODO: DEF
-     */
+
     export function SelectDragonAura(slot: number, update: boolean): void;
     export let SelectingDragonAura: number;
-    /**
-     * TODO: DEF
-     */
+
     export function SetDragonAura(aura: number, slot: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function DescribeDragonAura(aura: number): void;
-    /**
-     * TODO: DEF
-     */
+
     export function UpgradeDragon(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function ClickSpecialPic(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function ToggleSpecialMenu(on: boolean): void;
-    /**
-     * TODO: DEF
-     */
+
     export function DrawSpecial(): void;
-    /**
-     * TODO: DEF
-     */
 
     interface Milk {
         name: string;
@@ -3058,59 +2917,33 @@ declare namespace Game {
     export let mousePointer: number;
     export let cookieOriginX: number;
     export let cookieOriginY: number;
-    /**
-     * TODO: DEF
-     */
+
     export function DrawBackground(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function RuinTheFun(silent: boolean): string;
-    /**
-     * TODO: DEF
-     */
+
     export function SetAllUpgrades(on: boolean): void;
-    /**
-     * TODO: DEF
-     */
+
     export function SetAllAchievs(on: boolean): void;
-    /**
-     * TODO: DEF
-     */
+
     export function GetAllDebugs(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function MaxSpecials(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function SesameReset(): void;
     export let debugTimersOn: number;
     export let sesame: number;
-    /**
-     * TODO: DEF
-     */
+
     export function OpenSesame(): void;
-    /**
-     * TODO: DEF
-     */
+
     export function EditAscend(): void;
-    /**
-     * TODO: DEF
-     */
+
     export let debuggedUpgradeCpS: number[];
-    /**
-     * TODO: DEF
-     */
+
     export let debuggedUpgradeCpClick: number[];
-    /**
-     * TODO: DEF
-     */
+
     export let debugColors: string[];
-    /**
-     * TODO: DEF
-     */
+
     export function DebugUpgradeCpS(): void;
     export let Background: CanvasRenderingContext2D;
     export let LeftBackground: CanvasRenderingContext2D;
@@ -3118,4 +2951,23 @@ declare namespace Game {
     export let choiceSelectorOn: number;
     export let choiceSelectorChoices: SelectorSwitchChoice[];
     export let choiceSelectorSelected: number;
+
+    export interface Mod {
+        init: () => void;
+        save?: () => string;
+        load?: (data: string) => void;
+        id?: number;
+    }
+
+    export let Mods: Record<string, Mod>;
+    export let sortedMods: Mod[];
+    export let modSaveData: Record<string, string>;
+    export let modHooks: Record<string, Array<() => unknown>>;
+    export let modHookNames: string[];
+
+    export function registerMod<T extends Mod>(id: string, obj: T): void;
+
+    export function registerHook(hook: 'cps' | 'cookiesPerClick', func: (() => number) | Array<() => number>): void;
+    export function registerHook(hook: 'ticker', func: (() => string[]) | Array<() => string[]>): void;
+    export function registerHook(hook: string, func: (() => void) | Array<() => void>): void;
 }

@@ -84,3 +84,16 @@ GrimoireMG.castSpell(GrimoireMG.spellsById[7], { cost: 123 });
 
 // $ExpectError
 GrimoireMG.getFailChance('conjure baked goods');
+
+const StocksMG = Game.Objects.Bank.minigame;
+
+StocksMG.buyGood(9, 36);
+
+// $ExpectError
+StocksMG.tradeTooltip(StocksMG.goodsById[13], 46);
+
+// Mod api
+
+Game.registerMod('example', { init: () => {} });
+
+Game.registerHook('ticker', () => ['hi']);
