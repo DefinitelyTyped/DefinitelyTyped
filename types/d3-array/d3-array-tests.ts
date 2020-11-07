@@ -376,7 +376,7 @@ for (let i = 0; i < 10; i++) adder.add(.1);
 const value: number = adder.valueOf();
 
 // -----------------------------------------------------------------------------
-// Test Searching Arrays
+// Test Search
 // -----------------------------------------------------------------------------
 
 numbersArray = [0, 2, 3, 4, 7, 8];
@@ -693,7 +693,7 @@ num = d3Array.descending('10', '20');
 num = d3Array.descending(new Date(2016, 6, 13), new Date(2016, 6, 14));
 
 // -----------------------------------------------------------------------------
-// Test Transforming  Arrays
+// Test Transformations
 // -----------------------------------------------------------------------------
 
 // merge() ---------------------------------------------------------------------
@@ -895,6 +895,10 @@ let numDiff: number = d3Array.tickIncrement(1, 10, 5);
 
 numDiff = d3Array.tickStep(1, 10, 5);
 
+// nice() ------------------------------------------------------------------
+
+const [start, stop]: [number, number] = d3Array.nice(1, 10, 5);
+
 // transpose() -----------------------------------------------------------------
 
 testArrays = d3Array.transpose([testArray1, testArray2]);
@@ -906,7 +910,58 @@ testArrays = d3Array.zip(testArray1, testArray2);
 testArrays = d3Array.zip(readonlyTestArray1, readonlyTestArray2);
 
 // -----------------------------------------------------------------------------
-// Test Histogram
+// Test Iterables
+// -----------------------------------------------------------------------------
+
+declare let iterable: Iterable<number>;
+
+// every() ---------------------------------------------------------------------
+
+const every: boolean = d3Array.every(
+    iterable,
+    (value: number, index: number, iterable: Iterable<Number>) => value < 5
+);
+
+// some() ----------------------------------------------------------------------
+
+const some: boolean = d3Array.some(
+    iterable,
+    (value: number, index: number, iterable: Iterable<Number>) => value < 5
+);
+
+// filter() --------------------------------------------------------------------
+
+iterable = d3Array.filter(
+    iterable,
+    (value: number, index: number, iterable: Iterable<Number>) => value < 5
+);
+
+// map() -----------------------------------------------------------------------
+
+const newIterable: string[] = d3Array.map(
+    iterable,
+    (value: number, index: number, iterable: Iterable<Number>) => value.toString()
+);
+
+// reduce() --------------------------------------------------------------------
+
+const reducedNumber: number = d3Array.reduce(
+    [1, 2, 3, 2, 1],
+    (p: number, v: number) => p + v,
+    9
+);
+
+// reverse() -------------------------------------------------------------------
+
+iterable = d3Array.reverse(iterable);
+
+// sort() -------------------------------------------------------------------
+
+iterable = d3Array.sort(iterable);
+iterable = d3Array.sort(iterable, (a: number, b: number) => a - b);
+
+// -----------------------------------------------------------------------------
+// Test Bins
 // -----------------------------------------------------------------------------
 
 const timeScale = scaleTime();

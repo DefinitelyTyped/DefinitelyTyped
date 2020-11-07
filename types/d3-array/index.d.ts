@@ -28,7 +28,7 @@ export interface Numeric {
 }
 
 // --------------------------------------------------------------------------------------
-// Descriptive Statistics
+// Statistics
 // --------------------------------------------------------------------------------------
 
 /**
@@ -282,7 +282,7 @@ export class Adder {
 }
 
 // --------------------------------------------------------------------------------------
-// Searching Arrays
+// Search
 // --------------------------------------------------------------------------------------
 
 /**
@@ -420,7 +420,7 @@ export function ascending(a: Primitive | undefined, b: Primitive | undefined): n
 export function descending(a: Primitive | undefined, b: Primitive | undefined): number;
 
 // --------------------------------------------------------------------------------------
-// Transforming Arrays
+// Transformations
 // --------------------------------------------------------------------------------------
 
 /**
@@ -762,7 +762,7 @@ export function ticks(start: number, stop: number, count: number): number[];
  * Returns the difference between adjacent tick values if the same arguments were passed to d3.ticks:
  * a nicely-rounded value that is a power of ten multiplied by 1, 2 or 5.
  *
- * Like d3.tickStep, except requires that start is always less than or equal to step, and if the tick step for the given start,
+ * Like d3.tickStep, except requires that start is always less than or equal to stop, and if the tick step for the given start,
  * stop and count would be less than one, returns the negative inverse tick step instead.
  *
  * This method is always guaranteed to return an integer, and is used by d3.ticks to avoid guarantee that the returned tick values
@@ -788,6 +788,16 @@ export function tickIncrement(start: number, stop: number, count: number): numbe
 export function tickStep(start: number, stop: number, count: number): number;
 
 /**
+ * Returns a new interval [niceStart, niceStop] covering the given interval [start, stop] and where niceStart and niceStop are guaranteed to align with the corresponding tick step.
+ * Like d3.tickIncrement, this requires that start is less than or equal to stop.
+ *
+ * @param start Start value for ticks
+ * @param stop Stop value for ticks
+ * @param count count + 1 is the approximate number of ticks to be returned by d3.ticks.
+ */
+export function nice(start: number, stop: number, count: number): [number, number];
+
+/**
  * Generates a 0-based numeric sequence. The output range does not include 'stop'.
  */
 export function range(stop: number): number[];
@@ -809,7 +819,74 @@ export function transpose<T>(matrix: ArrayLike<ArrayLike<T>>): T[][];
 export function zip<T>(...arrays: Array<ArrayLike<T>>): T[][];
 
 // --------------------------------------------------------------------------------------
-// Histogram
+// Iterables
+// --------------------------------------------------------------------------------------
+
+/**
+ * Returns true if the given test function returns true for every value in the given iterable.
+ * This method returns as soon as test returns a non-truthy value or all values are iterated over.
+ * Equivalent to array.every.
+ */
+export function every<T>(
+    iterable: Iterable<T>,
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+): boolean;
+
+/**
+ * Returns true if the given test function returns true for any value in the given iterable.
+ * This method returns as soon as test returns a truthy value or all values are iterated over.
+ * Equivalent to array.some.
+ */
+export function some<T>(
+    iterable: Iterable<T>,
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+): boolean;
+
+/**
+ * Returns a new array containing the values from iterable, in order, for which the given test function returns true.
+ * Equivalent to array.filter.
+ */
+export function filter<T>(
+    iterable: Iterable<T>,
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+): T[];
+
+/**
+ * Returns a new array containing the mapped values from iterable, in order, as defined by given mapper function.
+ * Equivalent to array.map and Array.from.
+ */
+export function map<T, U>(iterable: Iterable<T>, mapper: (value: T, index: number, iterable: Iterable<T>) => U): U[];
+
+/**
+ * Returns the reduced value defined by given reducer function, which is repeatedly invoked for each value in iterable, being passed the current reduced value and the next value.
+ * Equivalent to array.reduce.
+ */
+export function reduce<T>(
+    iterable: Iterable<T>,
+    reducer: (previousValue: T, currentValue: T, currentIndex: number, iterable: Iterable<T>) => T,
+    initialValue?: T
+): T;
+export function reduce<T, U>(
+    iterable: Iterable<T>,
+    reducer: (previousValue: U, currentValue: T, currentIndex: number, iterable: Iterable<T>) => U,
+    initialValue: U
+): U;
+
+/**
+ * Returns an array containing the values in the given iterable in reverse order.
+ * Equivalent to array.reverse, except that it does not mutate the given iterable.
+ */
+export function reverse<T>(iterable: Iterable<T>): T[];
+
+/**
+ * Returns an array containing the values in the given iterable in the sorted order defined by the given comparator function.
+ * If comparator is not specified, it defaults to d3.ascending.
+ * Equivalent to array.sort, except that it does not mutate the given iterable, and the comparator defaults to natural order instead of lexicographic order.
+ */
+export function sort<T>(iterable: Iterable<T>, comparator?: (a: T, b: T) => number): T[];
+
+// --------------------------------------------------------------------------------------
+// Bins
 // --------------------------------------------------------------------------------------
 
 export interface Bin<Datum, Value extends number | Date | undefined> extends Array<Datum> {
