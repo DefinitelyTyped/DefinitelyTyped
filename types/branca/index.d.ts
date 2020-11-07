@@ -11,7 +11,7 @@ declare class Branca {
     constructor(key: string);
 
     encode(message: string, timestamp?: number): string;
-    decode(token: string, ttl?: number): Buffer | Error;
+    decode(token: string, ttl?: number): Buffer;
     timestamp(token: string): number;
 }
 
