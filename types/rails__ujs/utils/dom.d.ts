@@ -1,6 +1,6 @@
 export interface SelectorObject {
     selector: string;
-    exclude?: string;
+    exclude: string;
 }
 
 export function matches(element: Element, selector: SelectorObject | string): boolean;

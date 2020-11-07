@@ -22,7 +22,7 @@ export * from './utils/form';
 export as namespace Rails;
 
 export const linkClickSelector: string;
-export const buttonClickSelector: Required<SelectorObject>;
+export const buttonClickSelector: SelectorObject;
 export const inputChangeSelector: string;
 export const formSubmitSelector: string;
 export const formInputClickSelector: string;
