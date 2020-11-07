@@ -625,6 +625,12 @@
             "asOfVersion": "2.12.2"
         },
         {
+            "libraryName": "comment-json",
+            "typingsPackageName": "comment-json",
+            "sourceRepoURL": "https://github.com/kaelzhang/node-comment-json",
+            "asOfVersion": "2.4.1"
+        },
+        {
             "libraryName": "commons-validator-js",
             "typingsPackageName": "commons-validator-js",
             "sourceRepoURL": "https://github.com/wix/commons-validator-js",
