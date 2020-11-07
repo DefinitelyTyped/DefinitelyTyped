@@ -886,6 +886,42 @@ export function reverse<T>(iterable: Iterable<T>): T[];
 export function sort<T>(iterable: Iterable<T>, comparator?: (a: T, b: T) => number): T[];
 
 // --------------------------------------------------------------------------------------
+// Sets
+// --------------------------------------------------------------------------------------
+
+/**
+ * Returns a new Set containing every value in iterable that is not in any of the others iterables.
+ */
+export function difference<T>(iterable: Iterable<T>, ...others: Array<Iterable<T>>): Set<T>;
+
+/**
+ * Returns a new Set containing every (distinct) value that appears in any of the given iterables.
+ * The order of values in the returned Set is based on their first occurrence in the given iterables.
+ */
+export function union<T>(...iterables: Array<Iterable<T>>): Set<T>;
+
+/**
+ * Returns a new Set containing every (distinct) value that appears in all of the given iterables.
+ * The order of values in the returned Set is based on their first occurrence in the given iterables.
+ */
+export function intersection<T>(...iterables: Array<Iterable<T>>): Set<T>;
+
+/**
+ * Returns true if a is a superset of b: if every value in the given iterable b is also in the given iterable a.
+ */
+export function superset<T>(a: Iterable<T>, b: Iterable<T>): boolean;
+
+/**
+ * Returns true if a is a subset of b: if every value in the given iterable a is also in the given iterable b.
+ */
+export function subset<T>(a: Iterable<T>, b: Iterable<T>): boolean;
+
+/**
+ * Returns true if a and b are disjoint: if a and b contain no shared value.
+ */
+export function disjoint<T>(a: Iterable<T>, b: Iterable<T>): boolean;
+
+// --------------------------------------------------------------------------------------
 // Bins
 // --------------------------------------------------------------------------------------
 

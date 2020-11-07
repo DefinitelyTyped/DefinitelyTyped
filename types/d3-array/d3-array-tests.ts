@@ -913,52 +913,61 @@ testArrays = d3Array.zip(readonlyTestArray1, readonlyTestArray2);
 // Test Iterables
 // -----------------------------------------------------------------------------
 
-declare let iterable: Iterable<number>;
-
 // every() ---------------------------------------------------------------------
 
-const every: boolean = d3Array.every(
-    iterable,
-    (value: number, index: number, iterable: Iterable<Number>) => value < 5
-);
+const every: boolean = d3Array.every(new Set([1, 3, 5, 7]), x => x & 1);
 
 // some() ----------------------------------------------------------------------
 
-const some: boolean = d3Array.some(
-    iterable,
-    (value: number, index: number, iterable: Iterable<Number>) => value < 5
-);
+const some: boolean = d3Array.some(new Set([0, 2, 3, 4]), x => x & 1);
 
 // filter() --------------------------------------------------------------------
 
-iterable = d3Array.filter(
-    iterable,
-    (value: number, index: number, iterable: Iterable<Number>) => value < 5
-);
+const filtered: number[] = d3Array.filter(new Set([0, 2, 3, 4]), x => x & 1);
 
 // map() -----------------------------------------------------------------------
 
-const newIterable: string[] = d3Array.map(
-    iterable,
-    (value: number, index: number, iterable: Iterable<Number>) => value.toString()
-);
+const mapped: number[] = d3Array.map(new Set([0, 2, 3, 4]), x => x & 1);
 
 // reduce() --------------------------------------------------------------------
 
-const reducedNumber: number = d3Array.reduce(
-    [1, 2, 3, 2, 1],
-    (p: number, v: number) => p + v,
-    9
-);
+const reduced: number = d3Array.reduce(new Set([0, 2, 3, 4]), (p, v) => p + v, 0);
 
 // reverse() -------------------------------------------------------------------
 
-iterable = d3Array.reverse(iterable);
+const reversed: number[] = d3Array.reverse(new Set([0, 2, 3, 1]));
 
 // sort() -------------------------------------------------------------------
 
-iterable = d3Array.sort(iterable);
-iterable = d3Array.sort(iterable, (a: number, b: number) => a - b);
+const sorted: number[] = d3Array.sort(new Set([0, 2, 3, 1]));
+
+// -----------------------------------------------------------------------------
+// Test Sets
+// -----------------------------------------------------------------------------
+
+// difference() ----------------------------------------------------------------
+
+const difference: Set<number> = d3Array.difference([0, 1, 2, 0], [1]);
+
+// union() ---------------------------------------------------------------------
+
+const union: Set<number> = d3Array.union([0, 2, 1, 0], [1, 3]);
+
+// intersection() --------------------------------------------------------------
+
+const intersection: Set<number> = d3Array.intersection([0, 2, 1, 0], [1, 3]);
+
+// superset() ------------------------------------------------------------------
+
+const isSuperset: boolean = d3Array.superset([0, 2, 1, 3, 0], [1, 3]);
+
+// subset() --------------------------------------------------------------------
+
+const isSubset: boolean = d3Array.subset([1, 3], [0, 2, 1, 3, 0]);
+
+// disjoint() ------------------------------------------------------------------
+
+const isDisjoint: boolean = d3Array.disjoint([1, 3], [2, 4]);
 
 // -----------------------------------------------------------------------------
 // Test Bins
