@@ -2965,7 +2965,7 @@ declare namespace Game {
     export let modHooks: Record<string, Array<() => unknown>>;
     export let modHookNames: string[];
 
-    export function registerMod<T extends Mod>(id: string, obj: T): void;
+    export function registerMod(id: string, obj: Mod): void;
 
     export function registerHook(hook: 'cps' | 'cookiesPerClick', func: (() => number) | Array<() => number>): void;
     export function registerHook(hook: 'ticker', func: (() => string[]) | Array<() => string[]>): void;
