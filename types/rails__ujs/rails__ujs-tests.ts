@@ -33,7 +33,21 @@ Rails.refreshCSRFTokens();
 
 const element = document.querySelector<HTMLDivElement>('.foo');
 if (element) {
-    Rails.delegate(element, '#batch_checkbox_all', 'change', console.log);
+    // prettier-ignore
+    Rails.delegate(element, '#batch_checkbox_all', 'click', function(e) {
+        // $ExpectType HTMLDivElement
+        const element = this;
+
+        // $ExpectType MouseEvent
+        const event = e;
+
+        console.log(event, element);
+    });
+
+    Rails.delegate(element, '#batch_checkbox_all', 'custom-event', (e: Event) => {
+        console.log(e);
+    });
+
     Rails.fire(element, 'custom-event', { value: 1 });
 
     Rails.getData(element, 'test');
