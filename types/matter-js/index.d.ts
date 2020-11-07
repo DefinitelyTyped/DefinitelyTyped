@@ -3210,7 +3210,7 @@ declare namespace Matter {
          * @return {string[]} keys
          */
         static keys(obj: object): Array<string>
-        
+
         /**
          * Returns the list of values for the given object.
          * @method values
@@ -3281,9 +3281,9 @@ declare namespace Matter {
          * @method isFunction
          * @param {object} obj
          * @return {boolean} True if the object is a function, otherwise false
-         */ 
+         */
         static isFunction(obj: object): boolean
-        
+
         /**
          * Returns true if the object is a plain object.
          * @method isPlainObject
