@@ -16,7 +16,7 @@ import {
     getBasepath,
     resolvePath,
     prepareRoute,
-    useQueryParams
+    useQueryParams,
 } from 'hookrouter';
 
 // $ExpectType AProps
