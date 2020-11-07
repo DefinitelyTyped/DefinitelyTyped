@@ -35,7 +35,7 @@ const element = document.querySelector<HTMLDivElement>('.foo');
 if (element) {
     // prettier-ignore
     Rails.delegate(element, '#batch_checkbox_all', 'click', function(e) {
-        // $ExpectType HTMLDivElement
+        // $ExpectType HTMLElement
         const element = this;
 
         // $ExpectType MouseEvent
