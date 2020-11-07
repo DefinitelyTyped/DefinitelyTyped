@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 2.6
+// Type definitions for D3JS d3-array module 2.7
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.6.0
+// Last module patch version validated against: 2.7.1
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -356,6 +356,10 @@ export function bisectLeft(array: ArrayLike<Date>, x: Date, lo?: number, hi?: nu
 export function bisectRight(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
 export function bisectRight(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
 export function bisectRight(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
+
+export function bisectCenter(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
+export function bisectCenter(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
+export function bisectCenter(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
 
 export const bisect: typeof bisectRight;
 
@@ -735,6 +739,11 @@ export function shuffle(array: Int32Array, lo?: number, hi?: number): Int32Array
 export function shuffle(array: Uint32Array, lo?: number, hi?: number): Uint32Array;
 export function shuffle(array: Float32Array, lo?: number, hi?: number): Float32Array;
 export function shuffle(array: Float64Array, lo?: number, hi?: number): Float64Array;
+
+/**
+ * Returns a shuffle function given the specified random source.
+ */
+export function shuffler(random: () => number): typeof shuffle;
 
 /**
  * Generate an array of approximately count + 1 uniformly-spaced, nicely-rounded values between start and stop (inclusive).
