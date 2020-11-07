@@ -1620,6 +1620,7 @@ declare namespace Game {
          */
         refillTooltip(): string;
     }
+
     export let useSwap: PantheonMinigame['useSwap'] | undefined;
     /**
      * Determines if the pantheon has a god currently equipped
@@ -1634,9 +1635,118 @@ declare namespace Game {
      */
     export let forceUnslotGod: ((god: string) => boolean) | undefined;
 
+    export interface GrimoireSpell {
+        /**
+         * The minimum cost of the spell, in mana
+         */
+        costMin: number;
+        /**
+         * The cost of the spell, in raw multiplier of max mana
+         */
+        costPercent?: number;
+        /**
+         * The description of the positive effect of the spell, in HTML text
+         */
+        desc: string;
+        /**
+         * Called when the spell succeeds, always called if no fail function
+         */
+        win: () => -1 | void;
+        /**
+         * The description of the negative effect of the spell, in HTML text
+         */
+        failDesc?: string;
+        /**
+         * Called when the spell fails
+         */
+        fail?: () => -1 | void;
+        id: number;
+        icon: Icon;
+        /**
+         * The displayed name for the spell
+         */
+        name: string;
+    }
+
+    interface GrimoireMinigame extends Minigame {
+        name: 'Grimoire';
+        spells: Record<string, GrimoireSpell>;
+        spellsById: GrimoireSpell[];
+        /**
+         * Updates maximum mana
+         */
+        computeMagicM(): void;
+        /**
+         * Computes the fail chance for  aspell
+         */
+        getFailChance(spell: GrimoireSpell): number;
+        /**
+         * Casts a spell
+         * @param spell The spell to cats
+         * @param obj The additional options for the spell
+         * @returns If the operation was successful
+         */
+        castSpell(
+            spell: GrimoireSpell,
+            obj?: {
+                /**
+                 * The overridden cost of the spell
+                 */
+                cost?: number;
+                /**
+                 * The overridden fail chance of the spell
+                 */
+                failChanceSet?: number;
+                /**
+                 * The additional fail chance of the spell
+                 */
+                failChanceAdd?: number;
+                /**
+                 * The multiplier of the fail chance of the spell
+                 */
+                failChanceMult?: number;
+                /**
+                 * The minimum the fail chance of the spell
+                 */
+                failChanceMax?: number;
+                /**
+                 * If true, the spell isn't counted towards the spell count
+                 */
+                passthrough?: boolean;
+            },
+        ): boolean;
+        /**
+         * Calculates the cost of a spell
+         */
+        getSpellCost(spell: GrimoireSpell): number;
+        /**
+         * Generates the description of the spell cost
+         */
+        getSpellCostBreakdown(spell: GrimoireSpell): string;
+        /**
+         * Generates the tooltip for a spell
+         */
+        spellTooltip(id: number): () => string;
+        magicBarL: HTMLDivElement;
+        magicBarFullL: HTMLDivElement;
+        magicBarTextL: HTMLDivElement;
+        lumpRefill: HTMLDivElement;
+        infoL: HTMLDivElement;
+        /**
+         * Generates and returns the tooltip contents for the lump refill
+         */
+        refillTooltip(): string;
+        magicM: number;
+        magic: number;
+        spellsCast: number;
+        spellsCastTotal: number;
+        magicPS: number;
+    }
+
     export let Objects: Record<string, GameObject> & {
         Farm: MinigameObject<GardenMinigame>;
         Temple: MinigameObject<PantheonMinigame>;
+        'Wizard tower': MinigameObject<GrimoireMinigame>;
     };
     export let ObjectsById: GameObject[];
     export let ObjectsN: number;

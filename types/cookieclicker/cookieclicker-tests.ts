@@ -77,3 +77,10 @@ PantheonMG.godTooltip(3);
 
 // $ExpectError
 PantheonMG.slotGod(PantheonMG.godsById[2], 3);
+
+const GrimoireMG = Game.Objects['Wizard tower'].minigame;
+
+GrimoireMG.castSpell(GrimoireMG.spellsById[7], { cost: 123 });
+
+// $ExpectError
+GrimoireMG.getFailChance('conjure baked goods');
