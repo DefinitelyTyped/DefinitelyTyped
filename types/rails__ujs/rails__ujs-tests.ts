@@ -51,20 +51,20 @@ if (element) {
     Rails.disableElement(element);
 
     Rails.href(element);
-}
 
-element?.addEventListener('click', e => {
-    Rails.preventInsignificantClick(e);
-    Rails.handleDisabledElement(e);
-    Rails.enableElement(e);
-    Rails.disableElement(e);
-    Rails.stopEverything(e);
-    Rails.handleConfirm(e);
-    Rails.handleMethod(e);
-    Rails.handleRemote(e);
-    Rails.formSubmitButtonClick(e);
-    Rails.preventInsignificantClick(e);
-});
+    element.addEventListener('click', e => {
+        Rails.preventInsignificantClick(e);
+        Rails.handleDisabledElement(e);
+        Rails.enableElement(e);
+        Rails.disableElement(e);
+        Rails.stopEverything(e);
+        Rails.handleConfirm(e);
+        Rails.handleMethod(e);
+        Rails.handleRemote(e);
+        Rails.formSubmitButtonClick(e);
+        Rails.preventInsignificantClick(e);
+    });
+}
 
 const $element = Rails.$('.foo') as HTMLDivElement[];
 
