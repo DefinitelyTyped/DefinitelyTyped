@@ -3258,7 +3258,7 @@ declare namespace Matter {
          * @param {array} choices
          * @return {object} A random choice object from the array
          */
-        static choose(choices: Array<any>): object
+        static choose(choices: Array<any>): any
 
         /**
          * Returns true if the object is a HTMLElement, otherwise false.
@@ -3334,7 +3334,7 @@ declare namespace Matter {
          * @param {number} max
          * @return {number} A random number between min and max inclusive
          */
-        static random(min: number, max: number): number
+        static random(min?: number, max?: number): number
 
         /**
          * Converts a CSS hex colour string into an integer.
