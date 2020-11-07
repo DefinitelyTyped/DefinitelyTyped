@@ -24,6 +24,7 @@ export interface ScriptOptions {
     'data-csp-nonce'?: string;
     'data-order-id'?: string;
     'data-page-type'?: string;
+    'data-client-token'?: string;
 }
 
 export function loadScript(options: ScriptOptions): Promise<any>;

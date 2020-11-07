@@ -1,9 +1,9 @@
-// Type definitions for yt-player 3.4
+// Type definitions for yt-player 3.5
 // Project: https://github.com/feross/yt-player
 // Definitions by: Thomas Röggla <https://github.com/troeggla>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 
 interface YouTubePlayerOptions {
     /**  This parameter indicates the width of the player. */
@@ -15,6 +15,14 @@ interface YouTubePlayerOptions {
      * start to play when the player loads. The default value is false.
      */
     autoplay?: boolean;
+    /**
+     * This parameter causes the player to begin playing the video at the given number
+     * of seconds from the start of the video. The parameter value is a positive integer.
+     * Note that the player will look for the closest keyframe to the time you specify.
+     * This means that sometimes the play head may seek to just before the requested time,
+     * usually no more than around two seconds. Default is 0.
+     */
+    start?: number;
     /**
      * This parameter indicates whether closed captions should be shown, even if
      * the user has turned captions off. The default behavior is based on user
@@ -60,14 +68,20 @@ interface YouTubePlayerOptions {
     timeupdateFrequency?: number;
     /**
      * This parameter controls whether videos play inline or fullscreen in an
-     * HTML5 player on iOS. The default value is true.
+     * HTML5 player on iOS. The default is true.
      */
     playsInline?: boolean;
+    /**
+     * This parameter controls the hostname that videos are loaded from.
+     * Set to `https://www.youtube-nocookie.com` for enhanced privacy.
+     * The default value is `https://www.youtube.com`.
+     */
+    host?: string;
 }
 
-type YouTubePlayerState = "unstarted" | "ended" | "playing" | "paused" | "buffering" | "cued";
+type YouTubePlayerState = 'unstarted' | 'ended' | 'playing' | 'paused' | 'buffering' | 'cued';
 
-type YouTubePlayerQuality = "small" | "medium" | "large" | "hd720" | "hd1080" | "highres" | "default";
+type YouTubePlayerQuality = 'small' | 'medium' | 'large' | 'hd720' | 'hd1080' | 'highres' | 'default';
 
 /**
  * Simple, robust, blazing-fast YouTube Player API
@@ -99,7 +113,7 @@ declare class YouTubePlayer extends EventEmitter {
      *
      * This should be the first function called on a new Player instance.
      */
-    load(videoId: string, autoplay?: boolean): void;
+    load(videoId: string, autoplay?: boolean, start?: number): void;
     /** Plays the currently loaded video. */
     play(): void;
     /** Pauses the currently loaded video. */

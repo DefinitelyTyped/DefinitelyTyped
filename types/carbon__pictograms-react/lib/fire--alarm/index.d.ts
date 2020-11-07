@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonPictogramProps } from "../../";
-declare const FireAlarm: React.ForwardRefExoticComponent<
-  CarbonPictogramProps & React.RefAttributes<SVGSVGElement>
->;
-export default FireAlarm;
+export { FireAlarm as default } from "../../";

@@ -1621,12 +1621,6 @@
             "asOfVersion": "2.7.0"
         },
         {
-            "libraryName": "gapi.client.sheets",
-            "typingsPackageName": "gapi.client.sheets",
-            "sourceRepoURL": "https://github.com/Maxim-Mazurok/google-api-typings-generator",
-            "asOfVersion": "4.0.20201027"
-        },
-        {
             "libraryName": "generate-password",
             "typingsPackageName": "generate-password",
             "sourceRepoURL": "https://github.com/brendanashworth/generate-password.git",
@@ -2063,6 +2057,12 @@
             "typingsPackageName": "in-range",
             "sourceRepoURL": "https://github.com/sindresorhus/in-range",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "incremental-dom",
+            "typingsPackageName": "incremental-dom",
+            "sourceRepoURL": "https://github.com/google/incremental-dom",
+            "asOfVersion": "0.6.0"
         },
         {
             "libraryName": "indent-string",
@@ -2555,6 +2555,12 @@
             "typingsPackageName": "junk",
             "sourceRepoURL": "https://github.com/sindresorhus/junk",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "jwt-decode",
+            "typingsPackageName": "jwt-decode",
+            "sourceRepoURL": "https://github.com/auth0/jwt-decode",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "kafka-node",

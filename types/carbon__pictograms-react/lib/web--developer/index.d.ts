@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonPictogramProps } from "../../";
-declare const WebDeveloper: React.ForwardRefExoticComponent<
-  CarbonPictogramProps & React.RefAttributes<SVGSVGElement>
->;
-export default WebDeveloper;
+export { WebDeveloper as default } from "../../";

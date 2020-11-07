@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonPictogramProps } from "../../";
-declare const SoftlayerEnablement: React.ForwardRefExoticComponent<
-  CarbonPictogramProps & React.RefAttributes<SVGSVGElement>
->;
-export default SoftlayerEnablement;
+export { SoftlayerEnablement as default } from "../../";

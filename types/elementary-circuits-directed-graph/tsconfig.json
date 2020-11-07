@@ -6,23 +6,18 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
+        "strictNullChecks": true,
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
-        "paths": {
-            "jwt-decode": [
-                "jwt-decode/v1"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "jwt-decode-tests.ts"
+        "elementary-circuits-directed-graph-tests.ts"
     ]
 }
