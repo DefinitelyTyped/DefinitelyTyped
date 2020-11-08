@@ -6,4 +6,4 @@
 
 export = isUrl
 
-declare function isUrl(string: string): boolean;
+declare function isUrl(maybeUrl: unknown): maybeUrl is string;
