@@ -151,7 +151,7 @@ interface NonDeepMutableExtendedUser {
 
     // filter. Call the mutable array's 'filter' with the same function to ensure compatability. Make sure the output array is immutable.
     array.asMutable().filter((value: User) => value.firstName === 'test');
-    const filter: Immutable.Immutable<User[]> = array.filter((value: User) => value.firstName === 'test');
+    const filter: Immutable.Immutable<User[]> = array.filter((value: User, index: number) => value.firstName === 'test');
     filter.asMutable();
 
     // slice. Call the mutable array's 'slice' with the same args to ensure compatability. Make sure the output array is immutable.

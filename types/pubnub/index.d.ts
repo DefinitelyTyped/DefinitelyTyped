@@ -126,6 +126,30 @@ declare class Pubnub {
 
     grant(params: Pubnub.GrantParameters): Promise<void>;
 
+    // files
+
+    listFiles(params: Pubnub.ListFilesParameters, callback: Callback<Pubnub.ListFilesResponse>): void;
+
+    listFiles(params: Pubnub.ListFilesParameters): Promise<Pubnub.ListFilesResponse>;
+
+    sendFile(params: Pubnub.SendFileParameters, callback: Callback<Pubnub.SendFileResponse>): void;
+
+    sendFile(params: Pubnub.SendFileParameters): Promise<Pubnub.SendFileResponse>;
+
+    downloadFile(params: Pubnub.DownloadFileParameters, callback: Callback<any>): void;
+
+    downloadFile(params: Pubnub.DownloadFileParameters): Promise<any>;
+
+    getFileUrl(params: Pubnub.FileInputParameters): string;
+
+    deleteFile(params: Pubnub.FileInputParameters, callback: StatusCallback): void;
+
+    deleteFile(params: Pubnub.FileInputParameters): Promise<Pubnub.DeleteFileResponse>;
+
+    publishFile(params: Pubnub.PublishFileParameters, callback: Callback<Pubnub.PublishFileResponse>): void;
+
+    publishFile(params: Pubnub.PublishFileParameters): Promise<Pubnub.PublishFileResponse>;
+
     // objects v1
 
     /**
@@ -1011,11 +1035,16 @@ declare namespace Pubnub {
     interface GrantParameters {
         channels?: string[];
         channelGroups?: string[];
+        uuids?: string[];
         authKeys?: string[];
         ttl?: number;
         read?: boolean;
         write?: boolean;
         manage?: boolean;
+        delete?: boolean;
+        get?: boolean;
+        join?: boolean;
+        update?: boolean;
     }
 
     // Objects v1
@@ -1181,6 +1210,87 @@ declare namespace Pubnub {
         data: MessageAction[];
         start?: string;
         end?: string;
+    }
+    // files
+    interface ListFilesParameters {
+        channel: string;
+        limit?: number;
+        next?: string;
+    }
+    interface SendFileParameters {
+        channel: string;
+        file: StreamFileInput | BufferFileInput | UriFileInput;
+        message?: any;
+        cipherKey?: string;
+        storeInHistory?: boolean;
+        ttl?: number;
+        meta?: any;
+    }
+
+    interface StreamFileInput {
+        stream: any;
+        name: string;
+        mimeType?: string;
+    }
+
+    interface BufferFileInput {
+        data: any;
+        name: string;
+        mimeType?: string;
+    }
+
+    interface UriFileInput {
+        uri: string;
+        name: string;
+        mimeType?: string;
+    }
+
+    interface DownloadFileParameters {
+        channel: string;
+        id: string;
+        name: string;
+        cipherKey?: string;
+    }
+
+    interface FileInputParameters {
+        channel: string;
+        id: string;
+        name: string;
+    }
+
+    interface PublishFileParameters {
+        channel: string;
+        message?: any;
+        fileId: string;
+        fileName: string;
+        storeInHistory?: boolean;
+        ttl?: number;
+        meta?: any;
+    }
+
+    interface ListFilesResponse {
+        status: number;
+        data: Array<{
+          name: string;
+          id: string;
+          size: number;
+          created: string;
+        }>;
+        next: string;
+        count: number;
+      }
+
+    interface SendFileResponse {
+        name: string;
+        id: string;
+      }
+
+    interface DeleteFileResponse {
+        status: string;
+    }
+
+    interface PublishFileResponse {
+        timetoken: number;
     }
 
     // Objects v2

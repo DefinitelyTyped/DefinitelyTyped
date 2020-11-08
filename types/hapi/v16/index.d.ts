@@ -50,7 +50,6 @@ export interface Dictionary<T> {
     [key: string]: T;
 }
 
-/* tslint:disable-next-line:no-empty-interface */
 export interface ServerMethods extends Dictionary<ServerMethod> {
 }
 

@@ -14,6 +14,8 @@ var doc = <mongoose.Document>{};
 var query = <mongoose.Query<mongoose.Document[]>>{};
 query.$where('').$where(cb);
 query.all(99).all('path', 99);
+query.find().where('path').all(['val1', 'val2', 'val3']);
+query.find().all('path', ['val1', 'val2', 'val3']);
 query.and([{ color: 'green' }, { status: 'ok' }]).and([]);
 query.batchSize(100).batchSize(100);
 var lowerLeft = [40.73083, -73.99756]

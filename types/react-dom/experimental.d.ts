@@ -76,21 +76,6 @@ declare module '.' {
      */
     function unstable_createRoot(container: Element | Document | DocumentFragment | Comment, options?: RootOptions): Root;
 
-    function unstable_discreteUpdates<R>(callback: () => R): R;
-
-    function unstable_discreteUpdates<R, A1>(callback: (a1: A1) => R, a1: A1): R;
-
-    function unstable_discreteUpdates<R, A1, A2>(callback: (a1: A1, a2: A2) => R, a1: A1, a2: A2): R;
-
-    function unstable_discreteUpdates<R, A1, A2, A3>(
-        callback: (a1: A1, a2: A2, a3: A3) => R,
-        a1: A1,
-        a2: A2,
-        a3: A3,
-    ): R;
-
-    function unstable_flushDiscreteUpdates(): void;
-
     function unstable_flushControlled(callback: () => void): void;
 
     // enableSelectiveHydration feature

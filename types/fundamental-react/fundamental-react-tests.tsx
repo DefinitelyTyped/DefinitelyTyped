@@ -990,8 +990,8 @@ const menus = (
     <div>
         <Menu>
             <Menu.List>
-                <Menu.Item url="/">Option 1</Menu.Item>
-                <Menu.Item url="/">Option 2</Menu.Item>
+                <Menu.Item separator url="/">Option 1</Menu.Item>
+                <Menu.Item separator url="/">Option 2</Menu.Item>
                 <Menu.Item url="/">Option 3</Menu.Item>
                 <Menu.Item url="/">Option 4</Menu.Item>
             </Menu.List>
@@ -1043,14 +1043,14 @@ const menus = (
                 <Menu.Item>
                     <Menu.Item url="/">Option 1</Menu.Item>
                 </Menu.Item>
-                <Menu.Item addon="accept">
+                <Menu.Item addonAfter="accept">
+                    <Menu.Item url="/">Option 1</Menu.Item>
+                </Menu.Item>
+                <Menu.Item addonBefore="accept">
                     <Menu.Item url="/">Option 1</Menu.Item>
                 </Menu.Item>
                 <Menu.Item>
-                    <Menu.Item url="/">Option 1</Menu.Item>
-                </Menu.Item>
-                <Menu.Item>
-                    <Menu.Item url="/">Option 1</Menu.Item>
+                    <Menu.Item disabled selected url="/">Option 1</Menu.Item>
                 </Menu.Item>
             </Menu.List>
         </Menu>
@@ -1650,21 +1650,13 @@ const searchInputs = (
 
 const selects = (
     <div>
-        <Select placeholder='Select'>
-            <List>
-                <List.Item>
-                    <List.Text>List Item 1</List.Text>
-                    <List.Selection checkBoxAriaLabel="checkedLabel">List Item 2</List.Selection>
-                </List.Item>
-            </List>
+        <Select placeholder='Select' options={[
+            {text: "List Item 1", key: "1"},
+            {text: "List Item 2", key: "2"}
+        ]} selectedKey={"2"}>
         </Select>
 
         <Select compact validationState={{state: 'warning', text: 'Validated'}}>
-            <List>
-                <List.Item>
-                    <List.Text>List Item 1</List.Text>
-                </List.Item>
-            </List>
         </Select>
     </div>
 );
@@ -2016,13 +2008,13 @@ const shellbars = (
 
 const sideNavs = (
     <div>
-        <SideNav selectedId="item-2">
-            <SideNav.List>
-                <SideNav.ListItem id="item-1" name="Link Item" url="#" />
-                <SideNav.ListItem id="item-2" name="Link Item" url="#" />
-                <SideNav.ListItem id="item-3" name="Link Item" url="#" />
-                <SideNav.ListItem id="item-4" name="Link Item" url="#" />
-                <SideNav.ListItem id="item-5" name="Link Item" url="#" />
+        <SideNav skipLink={{href: "/", label: "skip to /"}} selectedId="item-2">
+            <SideNav.List groupLabel="groupLabel-1">
+                <SideNav.ListItem condensed id="item-1" name="Link Item" url="#" />
+                <SideNav.ListItem condensed id="item-2" name="Link Item" url="#" />
+                <SideNav.ListItem condensed id="item-3" name="Link Item" url="#" />
+                <SideNav.ListItem condensed id="item-4" name="Link Item" url="#" />
+                <SideNav.ListItem condensed expandSubmenuLabel="subemenuLabel-1" id="item-5" name="Link Item" url="#" />
             </SideNav.List>
         </SideNav>
         <SideNav selectedId="item_2">

@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 2.3
+// Type definitions for D3JS d3-array module 2.7
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.3.3
+// Last module patch version validated against: 2.7.1
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -166,6 +166,24 @@ export function median<T>(
 ): number | undefined;
 
 /**
+ * Returns the cumulative sum of the given iterable of numbers, as a Float64Array of the same length.
+ * If the iterable contains no numbers, returns zeros.
+ * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the cumulative sum.
+ * This method ignores undefined and NaN values; this is useful for ignoring missing data.
+ */
+export function cumsum<T extends Numeric>(iterable: Iterable<T | undefined | null>): Float64Array;
+/**
+ * Returns the cumulative sum of the given iterable of numbers, as a Float64Array of the same length.
+ * If the iterable contains no numbers, returns zeros.
+ * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the cumulative sum.
+ * This method ignores undefined and NaN values; this is useful for ignoring missing data.
+ */
+export function cumsum<T>(
+    iterable: Iterable<T>,
+    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null
+): Float64Array;
+
+/**
  * Returns the p-quantile of the given iterable of numbers, where p is a number in the range [0, 1].
  *
  * An optional accessor function may be specified, which is equivalent to calling array.map(accessor) before computing the quantile.
@@ -230,6 +248,38 @@ export function deviation<T>(
     iterable: Iterable<T>,
     accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
 ): number | undefined;
+
+/**
+ * Returns a full precision summation of the given values.
+ * Although slower, d3.fsum can replace d3.sum wherever greater precision is needed. Uses d3.Adder.
+ */
+export function fsum<T extends Numeric>(values: Iterable<T | undefined | null>): number;
+/**
+ * Returns a full precision summation of the given values.
+ * Although slower, d3.fsum can replace d3.sum wherever greater precision is needed. Uses d3.Adder.
+ */
+export function fsum<T>(
+    values: Iterable<T>,
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+): number;
+
+export class Adder {
+    /**
+     * Creates a full precision adder for IEEE 754 floating point numbers, setting its initial value to 0.
+     */
+    constructor();
+
+    /**
+     * Adds the specified number to the adder’s current value and returns the adder.
+     */
+    add(number: number): Adder;
+
+    /**
+     * Returns the IEEE 754 double precision representation of the adder’s current value.
+     * Most useful as the short-hand notation +adder.
+     */
+    valueOf(): number;
+}
 
 // --------------------------------------------------------------------------------------
 // Searching Arrays
@@ -307,11 +357,16 @@ export function bisectRight(array: ArrayLike<number>, x: number, lo?: number, hi
 export function bisectRight(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
 export function bisectRight(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
 
+export function bisectCenter(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
+export function bisectCenter(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
+export function bisectCenter(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
+
 export const bisect: typeof bisectRight;
 
 export interface Bisector<T, U> {
     left(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
     right(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
+    center(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
 }
 
 export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>;
@@ -370,12 +425,14 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
 
 /**
  * Groups the specified array of values into a Map from key to array of value.
+ *
  * @param iterable The array to group.
  * @param key The key function.
  */
 export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
 /**
  * Groups the specified array of values into a Map from key to array of value.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -387,6 +444,7 @@ export function group<TObject, TKey1, TKey2>(
 ): Map<TKey1, Map<TKey2, TObject[]>>;
 /**
  * Groups the specified array of values into a Map from key to array of value.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -401,6 +459,7 @@ export function group<TObject, TKey1, TKey2, TKey3>(
 
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
+ *
  * @param iterable The array to group.
  * @param key The key function.
  */
@@ -410,6 +469,7 @@ export function groups<TObject, TKey>(
 ): Array<[TKey, TObject[]]>;
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -421,6 +481,7 @@ export function groups<TObject, TKey1, TKey2>(
 ): Array<[TKey1, Array<[TKey2, TObject[]]>]>;
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
+ *
  * @param iterable The array to group.
  * @param key1 The first key function.
  * @param key2 The second key function.
@@ -432,6 +493,77 @@ export function groups<TObject, TKey1, TKey2, TKey3>(
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject[]]>]>]>;
+
+/**
+ * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
+ *
+ * @param iterable The array to group.
+ * @param key The key function.
+ */
+export function index<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject>;
+/**
+ * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function index<TObject, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Map<TKey1, Map<TKey2, TObject>>;
+/**
+ * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function index<TObject, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Map<TKey1, Map<TKey2, Map<TKey3, TObject>>>;
+
+/**
+ * Equivalent to index, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key The key function.
+ */
+export function indexes<TObject, TKey>(
+    iterable: Iterable<TObject>,
+    key: (value: TObject) => TKey
+): Array<[TKey, TObject]>;
+/**
+ * Equivalent to index, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ */
+export function indexes<TObject, TKey1, TKey2>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2
+): Array<[TKey1, Array<[TKey2, TObject]>]>;
+/**
+ * Equivalent to index, but returns nested arrays instead of nested maps.
+ *
+ * @param iterable The array to group.
+ * @param key1 The first key function.
+ * @param key2 The second key function.
+ * @param key3 The third key function.
+ */
+export function indexes<TObject, TKey1, TKey2, TKey3>(
+    iterable: Iterable<TObject>,
+    key1: (value: TObject) => TKey1,
+    key2: (value: TObject) => TKey2,
+    key3: (value: TObject) => TKey3
+): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject]>]>]>;
 
 /**
  * Groups and reduces the specified array of values into a Map from key to value.
@@ -607,6 +739,11 @@ export function shuffle(array: Int32Array, lo?: number, hi?: number): Int32Array
 export function shuffle(array: Uint32Array, lo?: number, hi?: number): Uint32Array;
 export function shuffle(array: Float32Array, lo?: number, hi?: number): Float32Array;
 export function shuffle(array: Float64Array, lo?: number, hi?: number): Float64Array;
+
+/**
+ * Returns a shuffle function given the specified random source.
+ */
+export function shuffler(random: () => number): typeof shuffle;
 
 /**
  * Generate an array of approximately count + 1 uniformly-spaced, nicely-rounded values between start and stop (inclusive).

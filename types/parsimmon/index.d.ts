@@ -133,7 +133,6 @@ declare namespace Parsimmon {
          * expects anotherParser to follow parser, and yields the result of anotherParser.
          * NB: the result of parser here is ignored.
          */
-        // tslint:disable-next-line:unified-signatures
         then<U>(anotherParser: Parser<U>): Parser<U>;
         /**
          * Transforms the input of parser with the given function.

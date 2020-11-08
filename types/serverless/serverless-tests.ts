@@ -457,6 +457,7 @@ const awsServerless: Aws.Serverless = {
                     schedule: '1',
                 }, {
                     sns: {
+                        arn: 'testarn',
                         topicName: 'testtopicName',
                         displayName: 'testdisplayName',
                         filterPolicy: ['testfilterpolicy'],
@@ -589,6 +590,7 @@ const awsServerless: Aws.Serverless = {
         }
     },
     resources: {
+        Description: 'testStackDescription',
         Resources: {
             testcloudformationresource: {
                 Type: 'testType',

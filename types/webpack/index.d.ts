@@ -423,7 +423,7 @@ declare namespace webpack {
         /**
          * Callback with an Error
          */
-        (error: {}): void; /* tslint:disable-line */
+        (error: {}): void; /* tslint:disable-line:unified-signatures */
         /**
          * Externalize the dependency
          */
@@ -611,7 +611,6 @@ declare namespace webpack {
     type Rule = RuleSetRule;
 
     namespace Options {
-        // tslint:disable-next-line:max-line-length
         type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map'
             | 'source-map' | 'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | 'inline-cheap-source-map' | 'inline-cheap-module-source-map' | '@eval'
             | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' | '@cheap-module-source-map' | '@eval-source-map'

@@ -687,6 +687,8 @@ declare namespace IORedis {
         mset: OverloadedHashCommand<ValueType, Ok>;
         msetnx: OverloadedHashCommand<ValueType, BooleanResponse>;
 
+        memory(argument: 'USAGE', key: KeyType, callback?: Callback<number>): Promise<number>;
+
         randomkey(callback: Callback<string>): void;
         randomkey(): Promise<string>;
 
@@ -1241,6 +1243,8 @@ declare namespace IORedis {
 
         msetnx(...args: ValueType[]): Pipeline;
         msetnx(data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;
+
+        memory(argument: 'USAGE', key: KeyType, callback?: Callback<number>): Pipeline;
 
         randomkey(callback?: Callback<string>): Pipeline;
 

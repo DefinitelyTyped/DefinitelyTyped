@@ -437,9 +437,15 @@ declare namespace google {
             zoomDelta?: number;
         }
 
-        export interface ChartStrokeFill {
+        export interface ChartStrokeFill extends ChartStroke, ChartFill {
+        }
+
+        export interface ChartStroke {
             stroke?: string;
             strokeWidth?: number;
+        }
+
+        export interface ChartFill {
             fill?: string;
         }
 
@@ -1177,7 +1183,7 @@ declare namespace google {
         export interface LabelStyle {
             color: string;
             fontName: string;
-            fontSize: string;
+            fontSize: number;
         }
 
         //#endregion
@@ -1615,6 +1621,86 @@ declare namespace google {
              * @default 'medium'
              */
             size?: string;
+        }
+
+        //#endregion
+        //#region Gantt
+
+        // https://developers.google.com/chart/interactive/docs/gallery/ganttchart
+        export class Gantt extends ChartBaseClearable {
+            draw(data: DataTable | DataView, options: GanttChartOptions): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/ganttchart#configuration-options
+        export interface GanttChartOptions {
+            backgroundColor?: ChartFill;
+            gantt?: GanttOptions;
+            width?: number;
+            height?: number;
+        }
+
+        export interface GanttOptions {
+            arrow?: GanttArrow;
+            barCornerRadius?: number;
+            barHeight?: number;
+            criticalPathEnabled?: boolean;
+            criticalPathStyle?: ChartStroke;
+            defaultStartDate?: Date | number;
+            innerGridHorizLine?: ChartStroke;
+            innerGridTrack?: ChartFill;
+            innerGridDarkTrack?: ChartFill;
+            labelMaxWidth?: number;
+            labelStyle?: LabelStyle;
+            percentEnabled?: boolean;
+            percentStyle?: ChartFill;
+            shadowEnabled?: boolean;
+            shadowStyle?: ChartFill;
+            shadowOffset?: number;
+            sortTasks?: boolean;
+            trackHeight?: number;
+        }
+
+        export interface GanttArrow {
+            angle?: number;
+            color?: string;
+            length?: number;
+            radius?: number;
+            spaceAfter?: number;
+            width?: number;
+        }
+
+
+        //#endregion
+        //#region Gauge
+
+        // https://developers.google.com/chart/interactive/docs/gallery/gauge
+        // Note: can't extend ChartBaseClearable because Gauge doesn't have getSelection(), setSelection()
+        export class Gauge {
+            constructor(element: Element);
+            getContainer(): Element;
+            clearChart(): void;
+            draw(data: DataTable | DataView, options: GaugeChartOptions): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/gauge#configuration-options
+        export interface GaugeChartOptions {
+            animation?: TransitionAnimation;
+            forceIFrame?: boolean;
+            width?: number;
+            height?: number;
+            max?: number;
+            min?: number;
+            majorTicks?: string[];
+            minorTicks?: number;
+            greenColor?: string;
+            greenFrom?: number;
+            greenTo?: number;
+            redColor?: string;
+            redFrom?: number;
+            redTo?: number;
+            yellowColor?: string;
+            yellowFrom?: number;
+            yellowTo?: number;
         }
 
         //#endregion

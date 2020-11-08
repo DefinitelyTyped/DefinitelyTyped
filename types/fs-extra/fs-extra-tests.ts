@@ -1,5 +1,4 @@
 import * as fs from "fs-extra";
-import * as Path from "path";
 
 const len = 2;
 const src = "";
@@ -186,7 +185,10 @@ fs.emptyDir(path).then(() => {
     // stub
 });
 fs.emptyDir(path, errorCallback);
+fs.emptydir(path, errorCallback);
+fs.emptydir(path).then(() => {});
 fs.emptyDirSync(path);
+fs.emptydirSync(path);
 fs.pathExists(path).then((_exist: boolean) => {
     // stub
 });

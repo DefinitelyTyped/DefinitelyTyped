@@ -6,7 +6,6 @@ import { Mongo } from 'meteor/mongo';
 // and should be kept in sync with any changes to it
 // only modified properties are included
 
-// tslint:disable-next-line no-single-declare-module
 declare module 'meteor/mongo' {
     namespace Mongo {
         interface Collection<T> {

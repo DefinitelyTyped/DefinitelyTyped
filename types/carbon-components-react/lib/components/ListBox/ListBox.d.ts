@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactDivAttr } from "../../../typings/shared";
+import { ReactDivAttr, ForwardRefReturn } from "../../../typings/shared";
 import { ListBoxFieldComponent } from "./ListBoxField";
 import { ListBoxMenuComponent } from "./ListBoxMenu";
 import { ListBoxMenuIconComponent } from "./ListBoxMenuIcon";
@@ -8,16 +8,20 @@ import { ListBoxSize, ListBoxType } from "./ListBoxPropTypes";
 import { ListBoxSelectionComponent } from "./ListBoxSelection";
 
 type ExcludedAttributes = "onKeyDown" | "onKeyPress" | "ref";
-interface InheritedProps extends Omit<ReactDivAttr, ExcludedAttributes> { }
 
-export interface ListBoxProps extends InheritedProps {
+export interface ListBoxProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     disabled?: boolean, // required but has default value
-    innerRef?: React.Ref<HTMLDivElement>, // required but has default value
+    invalid?: boolean,
+    invalidText?: React.ReactNode,
+    isOpen?: boolean,
+    light?: boolean,
     size?: ListBoxSize,
     type?: ListBoxType, // required but has default value
+    warn?: boolean,
+    warnText?: React.ReactNode,
 }
 
-export interface ListBoxComponent extends React.FC<ListBoxProps> {
+export interface ListBoxComponent extends ForwardRefReturn<HTMLDivElement, ListBoxProps> {
     readonly Field: ListBoxFieldComponent,
     readonly Menu: ListBoxMenuComponent,
     readonly MenuIcon: ListBoxMenuIconComponent,

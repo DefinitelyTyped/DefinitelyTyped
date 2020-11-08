@@ -1,4 +1,4 @@
-import { connect, MongoError, AggregationCursor } from 'mongodb';
+import { connect, MongoError, AggregationCursor, Cursor } from 'mongodb';
 import { connectionString } from '../index';
 
 // collection.aggregate tests
@@ -11,6 +11,7 @@ async function run() {
         total: number;
     }
     const cursor: AggregationCursor<Payment> = collection.aggregate<Payment>([{}]);
+    const ascursor: Cursor = cursor;
 
     collection.aggregate([{ $match: { bar: 1 } }, { $limit: 10 }]);
     collection.aggregate([{ $match: { bar: 1 } }]).limit(10);
