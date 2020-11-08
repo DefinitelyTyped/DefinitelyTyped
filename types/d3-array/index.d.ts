@@ -866,6 +866,10 @@ export function reduce<T>(
     reducer: (previousValue: T, currentValue: T, currentIndex: number, iterable: Iterable<T>) => T,
     initialValue?: T
 ): T;
+/**
+ * Returns the reduced value defined by given reducer function, which is repeatedly invoked for each value in iterable, being passed the current reduced value and the next value.
+ * Equivalent to array.reduce.
+ */
 export function reduce<T, U>(
     iterable: Iterable<T>,
     reducer: (previousValue: U, currentValue: T, currentIndex: number, iterable: Iterable<T>) => U,
