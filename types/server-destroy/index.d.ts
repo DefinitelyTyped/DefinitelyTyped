@@ -9,7 +9,7 @@ import * as net from "net";
 
 declare module "net" {
     interface Server {
-        destroy(callback?: () => void): void;
+        destroy(callback?: (err?: Error) => void): void;
     }
 }
 
