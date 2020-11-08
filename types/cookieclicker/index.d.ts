@@ -2183,7 +2183,7 @@ declare namespace Game {
          */
         descFunc?: () => string;
         /**
-         * 	The price of the upgrade without the cost multipliers
+         * The price of the upgrade without the cost multipliers
          */
         basePrice: number;
 
