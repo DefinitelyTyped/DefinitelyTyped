@@ -6,5 +6,5 @@ var isValid1: boolean = isUrl('hogepiyo');
 var isValid2: boolean = isUrl('');
 var isValid3: boolean = isUrl(undefined);
 var isValid4: boolean = isUrl(4);
-var isValid4: boolean = isUrl({});
-var isValid4: boolean = isUrl(true);
+var isValid5: boolean = isUrl({});
+var isValid6: boolean = isUrl(true);
