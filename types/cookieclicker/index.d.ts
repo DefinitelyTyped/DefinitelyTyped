@@ -1910,7 +1910,7 @@ declare namespace Game {
          * Sells buildings and refunds a part of the cost, see `getSellMultiplier` for the exact multiplier
          * @param amount The amount of buildings to sell
          */
-        sacrafice(amount: number, bypass: undefined): void;
+        sell(amount: number, bypass: undefined): void;
         /**
          * Sells buildings without refunding the cookies
          * @param amount The amount of buildings to sacrifice
@@ -2559,8 +2559,19 @@ declare namespace Game {
     export let SelectingPermanentUpgrade: number;
 
     export function PutUpgradeInPermanentSlot(upgrade: Upgrade, slot: number): void;
-    export let MilksByChoice: object;
-    export let BGsByChoice: object;
+
+    export interface ChoiceCosmetics {
+        /**
+         * The picture to use
+         */
+        pic: string;
+    }
+
+    /**
+     * Milk selector milks
+     */
+    export let MilksByChoice: Record<number, ChoiceCosmetics>;
+    export let BGsByChoice: Record<number, ChoiceCosmetics>;
 
     export function loseShimmeringVeil(context: string): void | false;
 
@@ -2682,7 +2693,7 @@ declare namespace Game {
      */
     export function Win(what: string | string[]): void;
     /**
-     * Unwins an achievement
+     * Loses an achievement
      * @param what The name of the achievement to remove
      */
     export function RemoveAchiev(what: string): void;
@@ -2887,22 +2898,47 @@ declare namespace Game {
 
     export interface DragonLevel {
         name: string;
+        /**
+         * Description of the effects of leveling up the dragon, in HTML text
+         */
         action: string;
+        /**
+         * The picture number in the dragon pictures
+         */
         pic: number;
-        cost: () => number;
+        /**
+         * Determines if the level can be bought
+         */
+        cost: () => boolean;
+        /**
+         * Does all the spending, spending cookies, sacrificing buildings, etc.
+         */
         buy: () => void;
+        /**
+         * Generates the cost description in HTML text
+         */
         costStr: () => string;
     }
 
+    export interface DragonAura {
+        name: string;
+        /**
+         * Description of the aura, in HTML text
+         */
+        desc: string;
+        pic: Icon;
+    }
+
     export let dragonLevels: DragonLevel[];
-    export let dragonAuras: object;
+    // Not an array
+    export let dragonAuras: Record<number, DragonAura>;
 
     export function hasAura(what: string): boolean;
 
     export function auraMult(what: string): number;
 
     export function SelectDragonAura(slot: number, update: boolean): void;
-    export let SelectingDragonAura: number;
+    export let SelectingDragonAura: PseudoBoolean;
 
     export function SetDragonAura(aura: number, slot: number): void;
 
@@ -2921,7 +2957,9 @@ declare namespace Game {
         pic: string;
         icon: [number, number];
     }
-
+    /**
+     * Achievement based milks, `pic` is used if milk selector is automatic
+     */
     export let Milks: Milk[];
     export let Milk: Milk;
     export let mousePointer: number;
