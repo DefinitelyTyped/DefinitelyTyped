@@ -18,6 +18,16 @@ declare function shuffle<T>(array: T[]): T[];
  * @param array The array to pick a member of
  */
 declare function choose<T>(array: T[]): T;
+/**
+ * An extended toFixed, which converts any number to an e-less string
+ */
+declare function toFixed(x: number): string;
+/**
+ * Beautifies a number
+ * @param val The number to beautify
+ * @param floats The amount of decimals to show
+ */
+declare function Beautify(val: number, floats?: number): string;
 
 interface Math {
     /**
@@ -1898,9 +1908,9 @@ declare namespace Game {
         getFree(amount: number): void;
         /**
          * Sells buildings and refunds a part of the cost, see `getSellMultiplier` for the exact multiplier
-         * @param amount The amount of buildings to sacrifice
+         * @param amount The amount of buildings to sell
          */
-        sacrafice(amount: number): void;
+        sacrafice(amount: number, bypass: undefined): void;
         /**
          * Sells buildings without refunding the cookies
          * @param amount The amount of buildings to sacrifice
@@ -2024,7 +2034,7 @@ declare namespace Game {
 
         levelTooltip(): string;
 
-        levelUp(): void;
+        levelUp(): () => void;
         /**
          * If the building is visually locked, is considered unlocked after CBTA is higher than the base cost
          */
