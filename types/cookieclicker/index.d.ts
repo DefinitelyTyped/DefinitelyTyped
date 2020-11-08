@@ -1,6 +1,7 @@
 // Type definitions for non-npm package cookieclicker 2.031
 // Project: https://orteil.dashnet.org/cookieclicker/
 // Definitions by: Lubomir <https://github.com/TheGLander>
+//                 Bob <https://github.com/MasterOfBob777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
