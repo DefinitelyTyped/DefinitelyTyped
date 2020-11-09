@@ -19,7 +19,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "theme.d.ts"
+        "index.d.ts"
     ]
 }
