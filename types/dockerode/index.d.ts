@@ -82,8 +82,9 @@ declare namespace Dockerode {
         resize(callback: Callback<any>): void;
         resize(options?: {}): Promise<any>;
 
+        wait(options: ContainerWaitOptions, callback: Callback<any>): void;
         wait(callback: Callback<any>): void;
-        wait(): Promise<any>;
+        wait(options?: ContainerWaitOptions): Promise<any>;
 
         remove(options: {}, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
@@ -420,9 +421,9 @@ declare namespace Dockerode {
         Ingress?: boolean;
         IPAM?: IPAM;
         EnableIPv6?: boolean;
-        Options?: { [option: string]: string};
-        Labels?: { [label: string]: string};
-      }
+        Options?: { [option: string]: string };
+        Labels?: { [label: string]: string };
+    }
 
     interface NetworkContainer {
         Name: string;
@@ -435,7 +436,7 @@ declare namespace Dockerode {
     /* tslint:disable:interface-name */
     interface IPAM {
         Driver: string;
-        Config?: Array<{[key: string]: string }>;
+        Config?: Array<{ [key: string]: string }>;
         Options?: { [key: string]: string };
     }
     /* tslint:enable:interface-name */
@@ -1007,34 +1008,34 @@ declare namespace Dockerode {
         since?: number;
         until?: number;
         filters?:
-            | string
-            | {
-                  config?: string;
-                  container?: string[];
-                  daemon?: string[];
-                  event?: string[];
-                  image?: string[];
-                  label?: string[];
-                  network?: string[];
-                  node?: string[];
-                  plugin?: string[];
-                  scope?: Array<'local' | 'swarm'>;
-                  secret?: string[];
-                  service?: string[];
-                  type?: Array<
-                      | 'container'
-                      | 'image'
-                      | 'volume'
-                      | 'network'
-                      | 'daemon'
-                      | 'plugin'
-                      | 'service'
-                      | 'node'
-                      | 'secret'
-                      | 'config'
-                  >;
-                  volume?: string[];
-              };
+        | string
+        | {
+            config?: string;
+            container?: string[];
+            daemon?: string[];
+            event?: string[];
+            image?: string[];
+            label?: string[];
+            network?: string[];
+            node?: string[];
+            plugin?: string[];
+            scope?: Array<'local' | 'swarm'>;
+            secret?: string[];
+            service?: string[];
+            type?: Array<
+                | 'container'
+                | 'image'
+                | 'volume'
+                | 'network'
+                | 'daemon'
+                | 'plugin'
+                | 'service'
+                | 'node'
+                | 'secret'
+                | 'config'
+            >;
+            volume?: string[];
+        };
     }
 
     interface SecretVersion {
@@ -1043,7 +1044,7 @@ declare namespace Dockerode {
 
     interface Annotations {
         Name?: string;
-        Labels?: {[name: string]: string};
+        Labels?: { [name: string]: string };
     }
 
     interface ResourceLimits {
@@ -1084,7 +1085,7 @@ declare namespace Dockerode {
 
     interface Placement {
         Constraints?: string[];
-        Preferences?: Array<{Spread: {SpreadDescriptor: string}}>;
+        Preferences?: Array<{ Spread: { SpreadDescriptor: string } }>;
         MaxReplicas?: number;
         Platforms?: Array<{
             Architecture: string;
@@ -1095,7 +1096,7 @@ declare namespace Dockerode {
     interface NetworkAttachmentConfig {
         Target?: string;
         Aliases?: string[];
-        DriverOpts?: {[key: string]: string};
+        DriverOpts?: { [key: string]: string };
     }
 
     interface Privileges {
@@ -1146,7 +1147,7 @@ declare namespace Dockerode {
 
     interface ContainerSpec {
         Image?: string;
-        Labels?: {[label: string]: string};
+        Labels?: { [label: string]: string };
         Command?: string[];
         Args?: string[];
         Hostname?: string;
@@ -1167,7 +1168,7 @@ declare namespace Dockerode {
         DNSConfig?: DNSConfig;
         Secrets?: SecretReference[];
         Isolation?: string;
-        Sysctls?: {[key: string]: string};
+        Sysctls?: { [key: string]: string };
         CapabilityAdd?: string[];
         CapabilityDrop?: string[];
         Ulimits?: Ulimit[];
@@ -1192,7 +1193,7 @@ declare namespace Dockerode {
         Networks?: NetworkAttachmentConfig[];
         LogDriver?: {
             Name?: string;
-            Options?: {[key: string]: string};
+            Options?: { [key: string]: string };
         };
         ForceUpdate?: number;
         Runtime?: string;
@@ -1217,7 +1218,7 @@ declare namespace Dockerode {
     type TaskSpec = ContainerTaskSpec | PluginTaskSpec | NetworkAttachmentTaskSpec;
 
     interface ServiceMode {
-        Replicated?: {Replicas?: number};
+        Replicated?: { Replicas?: number };
         Global?: {};
         ReplicatedJob?: {
             MaxConcurrent?: number;
@@ -1343,7 +1344,7 @@ declare namespace Dockerode {
     interface ExternalCA {
         Protocol: ExternalCAProtocol;
         URL: string;
-        Options?: {[key: string]: string};
+        Options?: { [key: string]: string };
         CACert: string;
     }
 
@@ -1399,7 +1400,7 @@ declare namespace Dockerode {
 
     interface Driver {
         Name: string;
-        Options?: {[key: string]: string};
+        Options?: { [key: string]: string };
     }
 
     interface SecretSpec extends Annotations {
@@ -1544,6 +1545,11 @@ declare namespace Dockerode {
 
     interface PruneNetworksInfo {
         NetworksDeleted: string[];
+    }
+
+    interface ContainerWaitOptions {
+        /** Since v1.30 */
+        condition?: 'not-running' | 'next-exit' | 'removed';
     }
 
     interface ContainerLogsOptions {
