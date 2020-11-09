@@ -85,3 +85,16 @@ browser.tabs.captureVisibleTab();
 browser.tabs.captureVisibleTab(15);
 browser.tabs.captureVisibleTab(15, {format: 'png'});
 browser.tabs.captureVisibleTab({format: 'png'});
+
+/* Test SteamFilter */
+const filter = browser.webRequest.filterResponseData('1234');
+filter.onerror = () => console.log(filter.error);
+filter.ondata = ({data}) => console.log(data);
+filter.onstart = () => console.log('start');
+filter.onstop = (_event: Event) => console.log('stop');
+filter.suspend();
+filter.resume();
+filter.write(new Uint8Array(32));
+filter.close();
+filter.disconnect();
+console.log(filter.status);
