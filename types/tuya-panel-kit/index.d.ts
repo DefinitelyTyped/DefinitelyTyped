@@ -36,7 +36,7 @@ export { GlobalTheme } from './theme';
 
 declare module '@tuya-rn/tuya-native-components' {
     type AnyFunction = (...args: any[]) => void;
-    export interface ButtonProps extends TouchableOpacityProps {
+    interface ButtonProps extends TouchableOpacityProps {
         stretch?: boolean;
         disabled?: boolean;
         size?: 'large' | 'normal' | 'small' | 'noSet' | number;
@@ -76,10 +76,10 @@ declare module '@tuya-rn/tuya-native-components' {
             bgRadius?: number;
         };
     }
-    export class Button extends React.Component<ButtonProps> {}
+    class Button extends React.Component<ButtonProps> {}
 
     // BrickButton
-    export interface BrickButtonProps {
+    interface BrickButtonProps {
         style?: StyleProp<ViewStyle>;
         onPress?: (event: GestureResponderEvent) => void;
         onChange?: (eventName: string, ...args: any) => void;
@@ -114,10 +114,10 @@ declare module '@tuya-rn/tuya-native-components' {
             loadingBackground?: string;
         };
     }
-    export class BrickButton extends React.Component<BrickButtonProps> {}
+    class BrickButton extends React.Component<BrickButtonProps> {}
 
     // Carousel
-    export interface CarouselProps extends ViewPagerAndroidProps {
+    interface CarouselProps extends ViewPagerAndroidProps {
         accessibilityLabel?: string;
         bounces?: boolean;
         hasDots?: boolean;
@@ -125,14 +125,14 @@ declare module '@tuya-rn/tuya-native-components' {
         autoplayInterval?: number;
         selectedIndex?: number;
         dots?:
-            | React.ElementType<any>
+            | React.ElementType
             | ((params: {
-                  dotStyle: StyleProp<ViewStyle>;
-                  dotWrapperStyle: StyleProp<ViewStyle>;
-                  dotActiveStyle: StyleProp<ViewStyle>;
-                  currentIndex: number;
-                  count: number;
-              }) => React.ReactNode);
+                    dotStyle: StyleProp<ViewStyle>;
+                    dotWrapperStyle: StyleProp<ViewStyle>;
+                    dotActiveStyle: StyleProp<ViewStyle>;
+                    currentIndex: number;
+                    count: number;
+                }) => React.ReactNode);
         dotStyle?: StyleProp<ViewStyle>;
         dotActiveStyle?: StyleProp<ViewStyle>;
         pageStyle?: StyleProp<ViewStyle>;
@@ -145,10 +145,10 @@ declare module '@tuya-rn/tuya-native-components' {
         onMomentumScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>, state: any) => void;
         onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>, state: any) => void;
     }
-    export class Carousel extends React.Component<CarouselProps> {}
+    class Carousel extends React.Component<CarouselProps> {}
 
     // Checkbox
-    export interface CheckboxProps {
+    interface CheckboxProps {
         accessibilityLabel?: string;
         style?: StyleProp<ViewStyle>;
         size?: number;
@@ -163,10 +163,10 @@ declare module '@tuya-rn/tuya-native-components' {
         onChange?: (checked: boolean) => void;
         children?: React.ReactNode;
     }
-    export class Checkbox extends React.Component<CheckboxProps> {}
+    class Checkbox extends React.Component<CheckboxProps> {}
 
     // CircleView
-    export interface CircleViewProps extends ViewProps {
+    interface CircleViewProps extends ViewProps {
         style?: StyleProp<ViewStyle>;
         color?: string;
         borderColor?: string;
@@ -174,10 +174,10 @@ declare module '@tuya-rn/tuya-native-components' {
         radius: number;
         children?: React.ReactNode;
     }
-    export class CircleView extends React.Component<CircleViewProps> {}
+    class CircleView extends React.Component<CircleViewProps> {}
 
     // Collapsible
-    export interface CollapsibleProps {
+    interface CollapsibleProps {
         align?: 'top' | 'center' | 'bottom';
         collapsed?: boolean;
         collapsedHeight?: number;
@@ -187,10 +187,10 @@ declare module '@tuya-rn/tuya-native-components' {
         onChange?: () => void;
         children?: React.ReactNode;
     }
-    export class Collapsible extends React.Component<CollapsibleProps> {}
+    class Collapsible extends React.Component<CollapsibleProps> {}
 
     // ControllerBar
-    export interface ControllerBarProps extends ViewProps {
+    interface ControllerBarProps extends ViewProps {
         type?: 'primary' | 'normal';
         size?: ('large' | 'normal' | 'small') | number;
         stretch?: boolean;
@@ -209,24 +209,24 @@ declare module '@tuya-rn/tuya-native-components' {
         style?: StyleProp<ViewStyle>;
         children: React.ReactNode;
     }
-    export class ControllerBar extends React.Component<ControllerBarProps> {
+    class ControllerBar extends React.Component<ControllerBarProps> {
         static Group: React.ElementType<BarGroupProps>;
     }
 
     // DatePicker
-    export interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
+    interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
         accessibilityLabel?: string;
         locale?:
             | string
             | {
-                  year?: string;
-                  month?: string;
-                  day?: string;
-                  hour?: string;
-                  minute?: string;
-                  am?: string;
-                  pm?: string;
-              };
+                    year?: string;
+                    month?: string;
+                    day?: string;
+                    hour?: string;
+                    minute?: string;
+                    am?: string;
+                    pm?: string;
+            };
         mode?: 'datetime' | 'date' | 'time' | 'month' | 'year';
         loop?: boolean;
         use12Hours?: boolean;
@@ -243,10 +243,10 @@ declare module '@tuya-rn/tuya-native-components' {
         pickerFontColor?: string;
         dateSortKeys?: string[];
     }
-    export class DatePicker extends React.Component<DatePickerProps> {}
+    class DatePicker extends React.Component<DatePickerProps> {}
 
     // Dialog
-    export interface DialogProps {
+    interface DialogProps {
         style?: StyleProp<ViewStyle>;
         contentStyle?: StyleProp<ViewStyle>;
         titleNumberOfLines?: number;
@@ -350,8 +350,8 @@ declare module '@tuya-rn/tuya-native-components' {
 
     interface DialogCustomProps extends DialogProps {
         content?: any;
-        header?: React.ElementType<any> | (() => React.ReactNode);
-        footer?: React.ElementType<any> | (() => React.ReactNode);
+        header?: React.ElementType | (() => React.ReactNode);
+        footer?: React.ElementType | (() => React.ReactNode);
         headerStyle?: StyleProp<ViewStyle>;
         footerWrapperStyle?: StyleProp<ViewStyle>;
         cancelText: string;
@@ -364,7 +364,8 @@ declare module '@tuya-rn/tuya-native-components' {
         confirmAccessibilityLabel?: string;
     }
 
-    export class Dialog {
+    // tslint:disable-next-lineno-unnecessary-class
+    class Dialog {
         static alert: (option: DialogAlertProps, option2?: DialogElse) => void;
         static checkbox: (option: DialogCheckboxProps, option2?: DialogElse) => void;
         static confirm: (option: DialogConfirmProps, option2?: DialogElse) => void;
@@ -375,7 +376,7 @@ declare module '@tuya-rn/tuya-native-components' {
     }
 
     // Divider
-    export interface DividerProps {
+    interface DividerProps {
         style?: StyleProp<ViewStyle>;
         flexDirection?: 'row' | 'column';
         visible?: boolean;
@@ -383,10 +384,10 @@ declare module '@tuya-rn/tuya-native-components' {
         width?: number;
         height?: number;
     }
-    export class Divider extends React.Component<DividerProps> {}
+    class Divider extends React.Component<DividerProps> {}
 
     // GlobalToast
-    export interface GlobalToastProps extends ToastProps, IconFontProps {
+    interface GlobalToastProps extends ToastProps, IconFontProps {
         text?: string;
         size?: number;
         textStyle?: StyleProp<TextStyle>;
@@ -394,28 +395,28 @@ declare module '@tuya-rn/tuya-native-components' {
         contentStyle?: StyleProp<ViewStyle>;
         showIcon?: boolean;
     }
-    export class GlobalToast {
+    class GlobalToast {
         show: (option: GlobalToastProps) => void;
         hide: () => void;
     }
 
     // LinearGradient
-    export type LinearGradientProps = {
+    type LinearGradientProps = {
         gradientId?: string;
         style?: StyleProp<ViewStyle>;
         children?: React.ReactNode;
     } & LinearGradientBackground;
-    export class LinearGradient extends React.Component<LinearGradientProps> {}
+    class LinearGradient extends React.Component<LinearGradientProps> {}
 
     // RadialGradient
-    export type RadialGradientProps = {
+    type RadialGradientProps = {
         style?: StyleProp<ViewStyle>;
         gradientId?: string;
     } & RadialGradientBackground;
-    export class RadialGradient extends React.Component<RadialGradientProps> {}
+    class RadialGradient extends React.Component<RadialGradientProps> {}
 
     // i18n
-    export class I18N {
+    class I18N {
         constructor(...args: any[]);
         getDpLang: (code: string, value?: string | boolean) => string;
         getLang: (key: string, defaultString?: string) => string;
@@ -425,7 +426,7 @@ declare module '@tuya-rn/tuya-native-components' {
 
     // IconFont
 
-    export interface IconFontProps extends PathProps {
+    interface IconFontProps extends PathProps {
         viewBox?: string;
         useART?: true;
         ascent?: number;
@@ -453,11 +454,11 @@ declare module '@tuya-rn/tuya-native-components' {
         strokeDash?: number[];
     }
 
-    export class IconFont extends React.Component<IconFontProps> {}
+    class IconFont extends React.Component<IconFontProps> {}
 
     // layout/TopBar
 
-    export interface TopBarContainerProps {
+    interface TopBarContainerProps {
         style?: StyleProp<ViewStyle>;
         contentStyle?: StyleProp<ViewStyle>;
         background?: BackgroundProps;
@@ -484,7 +485,7 @@ declare module '@tuya-rn/tuya-native-components' {
         children?: React.ReactNode;
         onPress?: (event: GestureResponderEvent) => void;
     }
-    export interface TopBarProps extends TopBarContentProps {
+    interface TopBarProps extends TopBarContentProps {
         theme?: {
             background?: string;
             color?: string;
@@ -496,7 +497,7 @@ declare module '@tuya-rn/tuya-native-components' {
         onBack?: (...args: any[]) => void;
     }
 
-    export class TopBar extends React.Component<TopBarProps> {
+    class TopBar extends React.Component<TopBarProps> {
         static Container: React.ElementType<TopBarContainerProps>;
         static Content: React.ElementType<TopBarContentProps>;
         static Action: React.ElementType<TopBarActionProps>;
@@ -504,7 +505,7 @@ declare module '@tuya-rn/tuya-native-components' {
     }
 
     // Modal
-    export interface ModalProps extends ModalNativeProps {
+    interface ModalProps extends ModalNativeProps {
         animationType?: 'fade' | 'none';
         alignContainer?: 'top' | 'center' | 'bottom';
         onMaskPress?: () => void;
@@ -521,11 +522,11 @@ declare module '@tuya-rn/tuya-native-components' {
     interface ListDate extends TYFlatListData {
         styles?: StyleProp<ViewStyle>;
         title?: string;
-        Icon?: React.ElementType<any>;
+        Icon?: React.ElementType;
         value: any;
     }
 
-    export class Modal extends React.Component<ModalProps> {
+    class Modal extends React.Component<ModalProps> {
         static Countdown: React.ElementType<PopUpCountdownProps>;
         static DatePicker: React.ElementType<PopupDatePickerProps>;
         static List: React.ElementType<PopUpListProps>;
@@ -535,7 +536,7 @@ declare module '@tuya-rn/tuya-native-components' {
     }
 
     // Motion
-    export interface MotionProps {
+    interface MotionProps {
         style?: StyleProp<ViewStyle>;
         show?: boolean;
         children?: React.ReactNode;
@@ -582,7 +583,7 @@ declare module '@tuya-rn/tuya-native-components' {
         onFinish?: () => void;
     }
 
-    export class Motion extends React.Component<MotionProps> {
+    class Motion extends React.Component<MotionProps> {
         static Fade: React.ElementType<MotionFadeProps>;
         static PullUp: React.ElementType<MotionPullUpProps>;
         static ScaleFadeIn: React.ElementType<MotionScaleFadeInProps>;
@@ -592,7 +593,7 @@ declare module '@tuya-rn/tuya-native-components' {
     }
 
     // Notification
-    export interface NotificationProps extends TouchableOpacityProps {
+    interface NotificationProps extends TouchableOpacityProps {
         accessibilityLabel?: string;
         style?: StyleProp<ViewStyle>;
         theme?: {
@@ -620,13 +621,13 @@ declare module '@tuya-rn/tuya-native-components' {
         backIconSize?: number;
         backIconCenter?: boolean;
     }
-    export class Notification {
+    class Notification {
         show: (option: NotificationProps) => void;
         hide: () => void;
     }
 
     // NotificationLegacy
-    export interface NotificationLegacyProps extends TouchableOpacityProps {
+    interface NotificationLegacyProps extends TouchableOpacityProps {
         accessibilityLabel?: string;
         style?: StyleProp<ViewStyle>;
         theme?: {
@@ -648,10 +649,10 @@ declare module '@tuya-rn/tuya-native-components' {
         onClose?: () => void;
     }
 
-    export class NotificationLegacy extends React.Component<NotificationLegacyProps> {}
+    class NotificationLegacy extends React.Component<NotificationLegacyProps> {}
 
     // PickerView
-    export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 'selectedValue'>, PickerProps {
+    interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 'selectedValue'>, PickerProps {
         loop?: boolean;
         selectedValue?: string | number | boolean;
         onValueChange?: (value: string | number, index: number) => void;
@@ -673,12 +674,12 @@ declare module '@tuya-rn/tuya-native-components' {
         };
     }
 
-    export class Picker extends React.Component<PickerViewProps> {
-        static Item: React.ElementType<any>;
+    class Picker extends React.Component<PickerViewProps> {
+        static Item: React.ElementType;
     }
 
     // Popup
-    export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
+    interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
         wrapperStyle?: StyleProp<TextStyle>;
         title?: string | string[] | React.ReactNode;
         subTitle?: string;
@@ -760,7 +761,7 @@ declare module '@tuya-rn/tuya-native-components' {
         minute: number;
         value: number;
     }
-    export interface PopUpCountdownProps extends PopupProps {
+    interface PopUpCountdownProps extends PopupProps {
         countdownWrapperStyle?: StyleProp<ViewStyle>;
         onlyone?: boolean;
         min?: number;
@@ -804,7 +805,7 @@ declare module '@tuya-rn/tuya-native-components' {
         value: string;
     }
     interface PopupPickerProps extends Omit<PopupProps, 'onConfirm'>, Omit<PickerViewProps, 'theme' | 'children'> {
-        label?: string | undefined | string[];
+        label?: string | string[];
         spacing?: number;
         labelOffset?: number;
         pickerWrapperStyle?: StyleProp<ViewStyle>;
@@ -834,11 +835,11 @@ declare module '@tuya-rn/tuya-native-components' {
     }
 
     interface PopupDropdownProps {
-        data: {
+        data: Array<{
             key?: string;
             title?: string;
             value?: string;
-        }[];
+        }>;
         onSelect?: (value?: number | string) => void;
         cornerSize?: string;
         customCornerSize?: string;
@@ -852,7 +853,7 @@ declare module '@tuya-rn/tuya-native-components' {
         textStyle?: StyleProp<TextStyle>;
     }
 
-    export class Popup extends React.Component<PopupProps> {
+    class Popup extends React.Component<PopupProps> {
         static list: (option: PopUpListProps, option2?: DialogElse) => void;
         static countdown: (option: PopUpCountdownProps, option2?: DialogElse) => void;
         static numberSelector: (option: PopupNumberSelectorProps, option2?: DialogElse) => void;
@@ -872,7 +873,7 @@ declare module '@tuya-rn/tuya-native-components' {
         disabled?: boolean;
         children?: React.ReactNode;
     }
-    export interface ProgressProps extends GestureProps {
+    interface ProgressProps extends GestureProps {
         gradientId?: string;
         style?: StyleProp<ViewStyle>;
         startDegree?: number;
@@ -889,8 +890,8 @@ declare module '@tuya-rn/tuya-native-components' {
             | string
             | StopsProps[]
             | {
-                  [key: string]: string;
-              };
+                [key: string]: string;
+            };
         x1?: string;
         x2?: string;
         y1?: string;
@@ -898,7 +899,7 @@ declare module '@tuya-rn/tuya-native-components' {
         renderCenterView?: React.ReactNode;
     }
 
-    export interface ProgressBasicProps extends ProgressProps {
+    interface ProgressBasicProps extends ProgressProps {
         pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto';
         thumbFill?: string;
         thumbStrokeWidth?: number;
@@ -913,7 +914,7 @@ declare module '@tuya-rn/tuya-native-components' {
         onSlidingComplete?: (value: number) => void;
     }
 
-    export interface SpaceProps extends ProgressProps {
+    interface SpaceProps extends ProgressProps {
         scaleNumber?: number;
         value?: number;
         strokeWidth?: number;
@@ -921,7 +922,7 @@ declare module '@tuya-rn/tuya-native-components' {
         onSlidingComplete?: (value: number) => void;
     }
 
-    export interface DoubleProps extends ProgressProps {
+    interface DoubleProps extends ProgressProps {
         maxValue?: number;
         minValue?: number;
         onValueChange?: (argus: { minValue: number; maxValue: number }) => void;
@@ -955,8 +956,8 @@ declare module '@tuya-rn/tuya-native-components' {
             | string
             | StopsProps[]
             | {
-                  [key: string]: string;
-              };
+                [key: string]: string;
+            };
         thumbFill?: string;
         thumbStrokeWidth?: number;
         thumbStroke?: string;
@@ -977,14 +978,14 @@ declare module '@tuya-rn/tuya-native-components' {
         thumbFill2?: string;
     }
 
-    export class Progress extends React.Component<ProgressBasicProps> {
+    class Progress extends React.Component<ProgressBasicProps> {
         static Space: React.ElementType<SpaceProps>;
         static Double: React.ElementType<DoubleProps>;
         static Compose: React.ElementType<ComposeProps>;
     }
 
     // RotationView
-    export interface RotationViewProps {
+    interface RotationViewProps {
         accessibilityLabel?: string;
         style?: StyleProp<ViewStyle>;
         children?: React.ReactNode;
@@ -993,10 +994,10 @@ declare module '@tuya-rn/tuya-native-components' {
         useNativeDriver?: boolean;
     }
 
-    export class RotationView extends React.Component<RotationViewProps> {}
+    class RotationView extends React.Component<RotationViewProps> {}
 
     // Slider
-    export interface SliderProps {
+    interface SliderProps {
         theme?: {
             width?: number;
             trackRadius?: number;
@@ -1054,13 +1055,13 @@ declare module '@tuya-rn/tuya-native-components' {
         };
     }
 
-    export class Slider extends React.Component<SliderProps> {
+    class Slider extends React.Component<SliderProps> {
         static Horizontal: React.ElementType<SliderProps>;
         static Vertical: React.ElementType<SliderProps>;
     }
 
     // Stepper
-    export interface StepperProps extends Omit<TextInputProps, 'value'> {
+    interface StepperProps extends Omit<TextInputProps, 'value'> {
         style?: StyleProp<ViewStyle>;
         buttonStyle?: StyleProp<ViewStyle>;
         inputStyle?: StyleProp<ViewStyle>;
@@ -1080,7 +1081,7 @@ declare module '@tuya-rn/tuya-native-components' {
         getTextInputRef?: (TextInputRef: {}) => void;
     }
 
-    export class Stepper extends React.Component<StepperProps> {}
+    class Stepper extends React.Component<StepperProps> {}
 
     // Swipeout
     interface SwipeoutAction {
@@ -1096,7 +1097,7 @@ declare module '@tuya-rn/tuya-native-components' {
         onPress?: (e: GestureResponderEvent) => void;
     }
 
-    export interface SwipeoutProps {
+    interface SwipeoutProps {
         accessibilityLabel?: string;
         backgroundColor?: string;
         autoClose?: boolean;
@@ -1114,10 +1115,10 @@ declare module '@tuya-rn/tuya-native-components' {
         rowID?: number;
     }
 
-    export class Swipeout extends React.Component<SwipeoutProps> {}
+    class Swipeout extends React.Component<SwipeoutProps> {}
 
     // SwitchButton
-    export interface SwitchButtonProps {
+    interface SwitchButtonProps {
         theme?: {
             width?: number;
             height?: number;
@@ -1126,8 +1127,8 @@ declare module '@tuya-rn/tuya-native-components' {
             tintColor?:
                 | string
                 | {
-                      [key: string]: string;
-                  };
+                    [key: string]: string;
+                };
             onTintColor?: string;
             thumbTintColor?: string;
             onThumbTintColor?: string;
@@ -1142,13 +1143,13 @@ declare module '@tuya-rn/tuya-native-components' {
         tintColor?:
             | string
             | {
-                  [key: string]: string;
-              };
+                [key: string]: string;
+            };
         onTintColor?:
             | string
             | {
-                  [key: string]: string;
-              };
+                [key: string]: string;
+            };
         thumbTintColor?: string;
         onThumbTintColor?: string;
         borderColor?: string;
@@ -1160,10 +1161,10 @@ declare module '@tuya-rn/tuya-native-components' {
         offTextStyle?: StyleProp<TextStyle>;
     }
 
-    export class SwitchButton extends React.Component<SwitchButtonProps> {}
+    class SwitchButton extends React.Component<SwitchButtonProps> {}
 
     // Tab
-    export interface TabProps {
+    interface TabProps {
         swipeable?: boolean;
         animated?: boolean;
         activeKey?: string | number;
@@ -1191,7 +1192,7 @@ declare module '@tuya-rn/tuya-native-components' {
         tab?: React.ReactNode;
     }
 
-    export class Tab extends React.Component<TabProps> {
+    class Tab extends React.Component<TabProps> {
         static TabPane: React.ElementType<TabPaneProps>;
     }
 
@@ -1211,7 +1212,7 @@ declare module '@tuya-rn/tuya-native-components' {
         };
     }
 
-    export interface TabBarProps {
+    interface TabBarProps {
         type?: string;
         underlineStyle?: StyleProp<ViewStyle>;
         tabStyle?: StyleProp<ViewStyle>;
@@ -1230,7 +1231,7 @@ declare module '@tuya-rn/tuya-native-components' {
         gutter?: number;
         onChange?: (index: string) => void;
     }
-    export class TabBar extends React.Component<TabBarProps> {}
+    class TabBar extends React.Component<TabBarProps> {}
 
     // Tabs
     interface TabDataSource extends ViewProps {
@@ -1240,7 +1241,7 @@ declare module '@tuya-rn/tuya-native-components' {
         renderTab?: (isActive: boolean, state: {}, props: {}) => React.ReactNode;
     }
 
-    export interface TabsProps {
+    interface TabsProps {
         accessibilityLabel?: string;
         style?: StyleProp<ViewStyle>;
         wrapperStyle?: StyleProp<ViewStyle>;
@@ -1276,7 +1277,7 @@ declare module '@tuya-rn/tuya-native-components' {
         };
     }
 
-    export interface TabContentProps {
+    interface TabContentProps {
         accessibilityLabel?: string;
         children: React.ReactNode;
         style?: StyleProp<ViewStyle>;
@@ -1297,19 +1298,19 @@ declare module '@tuya-rn/tuya-native-components' {
         };
     }
 
-    export interface TabPanelProps extends ViewProps {
+    interface TabPanelProps extends ViewProps {
         style?: StyleProp<ViewStyle>;
         background?: string;
     }
 
-    export class Tabs extends React.Component<TabsProps> {
+    class Tabs extends React.Component<TabsProps> {
         static TabContent: React.ElementType<TabContentProps>;
         static TabPanel: React.ElementType<TabPanelProps>;
         static TabScrollView: React.ElementType<ScrollViewProps>;
     }
 
     // TimerPicker
-    export interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
+    interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
         accessibilityLabel?: string;
         style?: StyleProp<ViewStyle>;
         disabled?: boolean;
@@ -1323,10 +1324,10 @@ declare module '@tuya-rn/tuya-native-components' {
         symbol?: string;
     }
 
-    export class TimerPicker extends React.Component<TimerPickerProps> {}
+    class TimerPicker extends React.Component<TimerPickerProps> {}
 
     // Tips
-    export interface TipsProps {
+    interface TipsProps {
         contentStyle?: StyleProp<ViewStyle>;
         tipStyle?: StyleProp<ViewStyle>;
         bgColor?: string;
@@ -1344,10 +1345,10 @@ declare module '@tuya-rn/tuya-native-components' {
         withModal?: boolean;
     }
 
-    export class Tips extends React.Component<TipsProps> {}
+    class Tips extends React.Component<TipsProps> {}
 
     // Toast
-    export interface ToastProps {
+    interface ToastProps {
         style?: StyleProp<ViewStyle>;
         contentStyle?: StyleProp<ViewStyle>;
         textStyle?: StyleProp<TextStyle>;
@@ -1369,14 +1370,14 @@ declare module '@tuya-rn/tuya-native-components' {
 
     interface ToastWarningProps extends ToastProps {
         size?: number;
-        d?: string | undefined;
+        d?: string;
         iconfontStyle?: StyleProp<ViewStyle>;
         color?: string;
     }
 
     interface ToastErrorProps extends ToastProps {
         size?: number;
-        d?: string | undefined;
+        d?: string;
         iconfontStyle?: StyleProp<ViewStyle>;
         color?: string;
     }
@@ -1390,7 +1391,7 @@ declare module '@tuya-rn/tuya-native-components' {
         loadingStyle?: StyleProp<ViewStyle>;
     }
 
-    export class Toast extends React.Component<ToastProps> {
+    class Toast extends React.Component<ToastProps> {
         static Success: React.ElementType<ToastSuccessProps>;
         static Warning: React.ElementType<ToastWarningProps>;
         static Error: React.ElementType<ToastErrorProps>;
@@ -1404,7 +1405,7 @@ declare module '@tuya-rn/tuya-native-components' {
         inputStyle?: StyleProp<ViewStyle>;
     }
 
-    export interface TYFlatListData {
+    interface TYFlatListData {
         [prop: string]: any;
         key?: string | number;
         Action?: any;
@@ -1414,7 +1415,7 @@ declare module '@tuya-rn/tuya-native-components' {
         onChange?: () => void;
     }
 
-    export interface TYFlatListProps<ItemT extends TYFlatListData> extends Omit<FlatListProps<ItemT>, 'renderItem'> {
+    interface TYFlatListProps<ItemT extends TYFlatListData> extends Omit<FlatListProps<ItemT>, 'renderItem'> {
         style?: StyleProp<ViewStyle>;
         data: ItemT[];
         separatorStyle?: StyleProp<ViewStyle>;
@@ -1422,12 +1423,12 @@ declare module '@tuya-rn/tuya-native-components' {
         flatListRef?: () => void;
         useART?: boolean;
         scrollEnabled?: boolean;
-        renderItem?: ListRenderItem<ItemT> | null | undefined;
+        renderItem?: ListRenderItem<ItemT> | null;
     }
 
     interface TYFlatListCheckbox<ItemT extends TYFlatListData> extends TYFlatListProps<ItemT>, CheckboxProps {}
 
-    export class TYFlatList<ItemT extends TYFlatListData> extends React.Component<TYFlatListProps<ItemT>> {
+    class TYFlatList<ItemT extends TYFlatListData> extends React.Component<TYFlatListProps<ItemT>> {
         static CheckboxItem: React.ElementType<TYFlatListCheckbox<TYFlatListData>>;
         static Item: React.ElementType<TYListItemProps>;
         static InputItem: React.ElementType<TYSectionInputProps>;
@@ -1436,7 +1437,7 @@ declare module '@tuya-rn/tuya-native-components' {
     }
 
     // TYListItem
-    export interface TYListItemProps extends TouchableOpacityProps {
+    interface TYListItemProps extends TouchableOpacityProps {
         styles?: {
             container?: StyleProp<ViewStyle>;
             content?: StyleProp<ViewStyle>;
@@ -1477,10 +1478,10 @@ declare module '@tuya-rn/tuya-native-components' {
         onActionPress?: () => void;
     }
 
-    export class TYListItem extends React.Component<TYListItemProps> {}
+    class TYListItem extends React.Component<TYListItemProps> {}
 
     // TYSectionList
-    type SectionDataProps = {
+    interface SectionDataProps {
         key?: string;
         title?: string;
         value?: string | number | boolean;
@@ -1498,7 +1499,7 @@ declare module '@tuya-rn/tuya-native-components' {
             margin?: number[] | number;
             padding?: number[] | number;
         };
-        data?: {
+        data?: Array<{
             key?: string | number;
             value?: string | number | boolean;
             Action?: any;
@@ -1509,9 +1510,10 @@ declare module '@tuya-rn/tuya-native-components' {
             disabled?: boolean;
             onPress?: (idx: number) => void;
             onValueChange?: (value: string) => void;
-        }[];
-    };
-    export interface TYSectionListProps extends SectionListProps<SectionDataProps> {
+        }>;
+    }
+
+    interface TYSectionListProps extends SectionListProps<SectionDataProps> {
         scrollEnabled?: boolean;
         style?: StyleProp<ViewStyle>;
         headerStyle?: StyleProp<ViewStyle>;
@@ -1522,7 +1524,7 @@ declare module '@tuya-rn/tuya-native-components' {
         useART?: boolean;
     }
 
-    export interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
+    interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
         theme: {
             iconColor?: string;
             descFontColor?: string;
@@ -1553,11 +1555,11 @@ declare module '@tuya-rn/tuya-native-components' {
         useART?: boolean;
     }
 
-    export interface TYSectionCheckboxProps extends TYListItemProps, CheckboxProps {}
+    interface TYSectionCheckboxProps extends TYListItemProps, CheckboxProps {}
 
-    export interface TYSectionSwitchProps extends Omit<TYListItemProps, 'theme'>, SwitchButtonProps {}
+    interface TYSectionSwitchProps extends Omit<TYListItemProps, 'theme'>, SwitchButtonProps {}
 
-    export class TYSectionList extends React.Component<TYSectionListProps> {
+    class TYSectionList extends React.Component<TYSectionListProps> {
         static CheckboxItem: React.ElementType<TYSectionCheckboxProps>;
         static Item: React.ElementType<TYListItemProps>;
         static InputItem: React.ElementType<TYSectionInputProps>;
@@ -1566,7 +1568,7 @@ declare module '@tuya-rn/tuya-native-components' {
     }
 
     // TYText
-    export interface TYTextProps extends TextProps {
+    interface TYTextProps extends TextProps {
         type?: 'heading' | 'title' | 'paragraph';
         size?: ('large' | 'normal' | 'small') | number;
         align?: 'left' | 'center' | 'right';
@@ -1575,10 +1577,10 @@ declare module '@tuya-rn/tuya-native-components' {
         text?: string;
     }
 
-    export class TYText extends React.Component<TYTextProps> {}
+    class TYText extends React.Component<TYTextProps> {}
 
     // UnitText
-    export interface UnitTextProps {
+    interface UnitTextProps {
         useART?: boolean;
         style?: StyleProp<ViewStyle>;
         size?: number;
@@ -1598,9 +1600,9 @@ declare module '@tuya-rn/tuya-native-components' {
         svgMap?: {};
     }
 
-    export class UnitText extends React.Component<UnitTextProps, ViewProps> {}
+    class UnitText extends React.Component<UnitTextProps, ViewProps> {}
 
-    export class WebView extends React.Component {
+    class WebView extends React.Component {
         title?: string;
         source?: string;
     }
@@ -1610,7 +1612,7 @@ declare module '@tuya-rn/tuya-native-components' {
         children: React.ReactNode;
     }
 
-    export class Theme extends React.Component<ThemeProps> {}
+    class Theme extends React.Component<ThemeProps> {}
 
     interface ThemeProviderProps {
         children: React.ReactNode;
@@ -1622,7 +1624,7 @@ declare module '@tuya-rn/tuya-native-components' {
         theme?: GlobalTheme;
     }
 
-    export let Utils: {
+    let Utils: {
         CoreUtils: {
             get(object: object, pathString: string, defaultValue?: any): any;
             toFixed(str: string | number, count: number): string;
@@ -1672,11 +1674,10 @@ declare module '@tuya-rn/tuya-native-components' {
                 hsv2rgb(h: number, s: number, v: number, a: number): number[];
                 hsb2rgb(h: number, s: number, v: number, a: number): number[];
                 hex2RgbString(hex: string, alpha?: number): string;
-                hsb2hex(h: number, s: number, v: number): string;
+                hsb2hex(h: number, s: number, b: number): string;
                 hsv2hex(h: number, s: number, v: number): string;
                 kelvin2rgb(kelvin: number): number[];
                 rgb2hsv(...args: number[]): number[];
-                hsb2hex(h: number, s: number, b: number): string;
                 rgb2hsl(r: number, g: number, b: number): number[];
                 hsl2rgb(h: number, s: number, l: number, a: number): number[];
                 temp2rgb(kelvin: number, option?: { temperatureMin?: number; temperatureMax?: number }): string;
@@ -1711,6 +1712,7 @@ declare module '@tuya-rn/tuya-native-components' {
             ThemeProvider: React.ElementType<ThemeProviderProps>;
             ThemeConsumer: React.ElementType<ThemeConsumerProps>;
             deepMerge(target: object, ...args: object[]): object;
+            // tslint:disable-next-line no-unnecessary-generics
             withTheme<P extends { theme?: T }, T>(component: React.ComponentType<P>): React.ComponentType<P>;
             parseToCss: (values: number[], key: string) => { [styleKey: string]: number };
             parseToStyle: (values: number[], key: string) => { [styleKey: string]: number };
@@ -1761,17 +1763,18 @@ declare module '@tuya-rn/tuya-native-components' {
         };
     };
 
-    export let defaultTheme: GlobalTheme;
+    let defaultTheme: GlobalTheme;
 
-    export interface I18NLanMap {
+    // tslint:disable-next-line interface-name
+    interface I18NLanMap {
         en: Record<string, string>;
         zh: Record<string, string>;
         [lanKey: string]: Record<string, string>;
     }
 
-    export type DpType = 'bool' | 'value' | 'enum' | 'raw' | 'string' | 'bitmap';
+    type DpType = 'bool' | 'value' | 'enum' | 'raw' | 'string' | 'bitmap';
 
-    export interface DpSchema {
+    interface DpSchema {
         code: string;
         dptype: string;
         iconname: string;
@@ -1813,11 +1816,11 @@ declare module '@tuya-rn/tuya-native-components' {
         unit?: string;
     }
 
-    export type NetworkType = 'WIFI' | 'GPRS' | 'BLE' | 'NONE';
+    type NetworkType = 'WIFI' | 'GPRS' | 'BLE' | 'NONE';
 
-    export type DpValue = boolean | number | string;
+    type DpValue = boolean | number | string;
 
-    export interface DevInfo<S = Record<string, DpType>> {
+    interface DevInfo<S = Record<string, DpType>> {
         ability: number;
         activeTime: number;
         /**
@@ -1916,9 +1919,9 @@ declare module '@tuya-rn/tuya-native-components' {
         virtual: boolean;
     }
 
-    export type MobileService = 'AY' | 'AZ' | 'EU' | 'WE' | 'UE' | 'IN';
+    type MobileService = 'AY' | 'AZ' | 'EU' | 'WE' | 'UE' | 'IN';
 
-    export interface MobileInfo {
+    interface MobileInfo {
         appRnVersion: string;
         appVersion: string;
         celsius: number;
@@ -1938,12 +1941,12 @@ declare module '@tuya-rn/tuya-native-components' {
         ttid: string;
     }
 
-    export interface DeprecatedNavigatorRoute {
+    interface DeprecatedNavigatorRoute {
         id: string;
         [routeProp: string]: any;
     }
 
-    export interface DeprecatedNavigator {
+    interface DeprecatedNavigator {
         getCurrentRoutes(): DeprecatedNavigatorRoute[];
         immediatelyResetRouteStack(nextRouteStack: DeprecatedNavigatorRoute[]): void;
         jumpBack(): void;
@@ -1959,10 +1962,11 @@ declare module '@tuya-rn/tuya-native-components' {
         replacePrevious(route: DeprecatedNavigatorRoute): void;
     }
 
-    type LinearGradientBackgroundOffset = {
+    interface LinearGradientBackgroundOffset {
         [offset: string]: string;
-    };
-    export interface NavigationOptions {
+    }
+
+    interface NavigationOptions {
         /**
          * @desc 自定义面板背景
          * number: 渲染本地图片
@@ -2021,12 +2025,12 @@ declare module '@tuya-rn/tuya-native-components' {
         renderStatusBar?: () => JSX.Element;
     }
 
-    export class NavigatorLayout<P = {}, S = {}> extends React.Component<P, { modalVisible: boolean } & S> {
+    class NavigatorLayout<P = {}, S = {}> extends React.Component<P, { modalVisible: boolean } & S> {
         hookRoute(route: DeprecatedNavigatorRoute): NavigationOptions;
         renderScene(route: DeprecatedNavigatorRoute, navigator: DeprecatedNavigator): JSX.Element | undefined;
     }
 
-    export interface NavigationRoute {
+    interface NavigationRoute {
         id: string;
         Scene: React.ComponentType;
         screenOptions?:
@@ -2047,11 +2051,10 @@ declare module '@tuya-rn/tuya-native-components' {
         new (props: P, context?: any): NavigatorLayout<P, S>;
     }
 
-    export function createNavigator<P = {}, S = {}>(
-        createNavigatorParam: NavigationParam,
-    ): NavigationComponentClass<P, S>;
+    // tslint:disable-next-line no-unnecessary-generics
+    function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam): NavigationComponentClass<P, S>;
 
-    export type GotoDpAlarmData = Array<{
+    type GotoDpAlarmData = Array<{
         dpId: string;
         dpName: string;
         selected: number;
@@ -2059,7 +2062,7 @@ declare module '@tuya-rn/tuya-native-components' {
         rangeValues: string[];
     }>;
 
-    export let TYSdk: {
+    let TYSdk: {
         DeviceEventEmitter: {
             addListener: (eventType: string, cb: AnyFunction) => void;
             emit: (eventType: string) => void;
@@ -2074,6 +2077,7 @@ declare module '@tuya-rn/tuya-native-components' {
          * @param postData api params
          * @param version - api version, default 1.0
          */
+        // tslint:disable-next-line no-unnecessary-generics
         apiRequest<T>(a: string, postData: Record<string, any>, version?: string): Promise<T>;
 
         applyNavigator(navigator: DeprecatedNavigator): void;
@@ -2087,6 +2091,7 @@ declare module '@tuya-rn/tuya-native-components' {
             getBleManagerState(): Promise<boolean>;
             getBluetoothState(): Promise<number>;
             getDeviceInfo(): Promise<DevInfo>;
+            // tslint:disable-next-line no-unnecessary-generics
             getDeviceState<S = Record<string, DpType>>(): Promise<S>;
             getDpCodeById(id: string | number): string;
             getDpCodes(): string[];
@@ -2139,6 +2144,7 @@ declare module '@tuya-rn/tuya-native-components' {
              */
             off(event: string, callback?: AnyFunction): void;
             on(event: string, callback: AnyFunction): void;
+            // tslint:disable-next-line no-unnecessary-generics
             on<T>(event: string, callback: (args: T) => void): void;
             /**
              * @desc

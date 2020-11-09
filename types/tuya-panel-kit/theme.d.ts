@@ -3,15 +3,15 @@ export interface StopsProps {
     stopColor: string;
     stopOpacity: string;
 }
-export type LinearGradientBackground = {
+export interface LinearGradientBackground {
     x1?: string;
     x2?: string;
     y1?: string;
     y2?: string;
     stops?: Record<string, string>;
-};
+}
 
-export type RadialGradientBackground = {
+export interface RadialGradientBackground {
     cx?: string;
     cy?: string;
     fx?: string;
@@ -19,7 +19,7 @@ export type RadialGradientBackground = {
     rx?: string;
     ry?: string;
     stops?: StopsProps[];
-};
+}
 
 // Button
 export type BackgroundProps = string | LinearGradientBackground | RadialGradientBackground;
