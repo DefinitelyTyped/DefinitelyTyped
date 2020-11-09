@@ -1,4 +1,5 @@
 import {
+    ActivationCard,
     Avatar,
     AvatarPair,
     Badge,
@@ -25,6 +26,7 @@ import {
     Mask,
     Masonry,
     Modal,
+    Module,
     Pog,
     Provider,
     Pulsar,
@@ -33,6 +35,7 @@ import {
     SearchField,
     SegmentedControl,
     SelectList,
+    Sheet,
     Spinner,
     Stack,
     Sticky,
@@ -47,13 +50,20 @@ import {
     Tooltip,
     Typeahead,
     Video,
+    FixedZIndex,
+    CompositeZIndex,
 } from 'gestalt';
 import * as React from 'react';
 
 const MasonryComponent = ({}) => {
     return <div>Masonry</div>;
 };
-
+<ActivationCard
+    status="notStarted"
+    statusMessage="Not started"
+    title="Claim your website"
+    message="Grow distribution and track Pins linked to your website"
+/>;
 <Avatar name="Nicolas" />;
 <AvatarPair
     size="md"
@@ -69,8 +79,8 @@ const MasonryComponent = ({}) => {
     ]}
 />;
 <Badge text="Nicolas" />;
-<Box />;
-<Button text={'Click me'} />;
+<Box ref={React.createRef<HTMLDivElement>()} />;
+<Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <ButtonGroup>
     <Button text={'Click me'} />
     <Button text={'Click me'} />
@@ -107,6 +117,18 @@ const MasonryComponent = ({}) => {
 <Mask />;
 <Masonry comp={MasonryComponent} items={[{}]} />;
 <Modal accessibilityModalLabel="modal" onDismiss={() => {}} />;
+<Module.Expandable
+    id="ModuleExample1"
+    accessibilityExpandLabel="Expand the module"
+    accessibilityCollapseLabel="Collapse the module"
+    items={[
+        {
+            title: 'Title',
+            summary: ['summary1', 'summary2', 'summary3'],
+            children: <Text size="md">Children1</Text>,
+        },
+    ]}
+></Module.Expandable>;
 <Pog />;
 <Provider colorScheme={'light'} id="docsExample" />;
 <Pulsar />;
@@ -117,6 +139,14 @@ const MasonryComponent = ({}) => {
 <SearchField accessibilityLabel="Demo Search Field" id="searchField" onChange={({ value }) => value} />;
 <SegmentedControl items={[]} selectedItemIndex={1} onChange={() => {}} />;
 <SelectList id="city" onChange={({ value }) => value} options={[]} />;
+<Sheet
+    accessibilityDismissButtonLabel="Dismiss"
+    accessibilitySheetLabel="Example sheet to demonstrate different sizes"
+    onDismiss={() => {}}
+    footer={<Heading>Footer</Heading>}
+>
+    {({ onDismissStart }) => <Heading>Content {onDismissStart}</Heading>}
+</Sheet>;
 <Stack alignItems="center" gap={2}>
     <div />
     <div />
@@ -153,6 +183,36 @@ const MasonryComponent = ({}) => {
                 <Text>September 19, 1979</Text>
             </Table.Cell>
         </Table.Row>
+        <Table.RowExpandable
+            accessibilityExpandLabel="Expand"
+            accessibilityCollapseLabel="Collapse"
+            id="row1"
+            onExpand={() => {}}
+            expandedContents={
+                <Box maxWidth={236} padding={2} column={12}>
+                    <Card image={<Avatar name="luna avatar" src="https://i.ibb.co/QY9qR7h/luna.png" />}>
+                        <Text align="center" weight="bold">
+                            <Link href="https://pinterest.com">
+                                <Box paddingX={3} paddingY={2}>
+                                    Luna's Info
+                                </Box>
+                            </Link>
+                        </Text>
+                        <Text>Row expanded</Text>
+                    </Card>
+                </Box>
+            }
+        >
+            <Table.Cell>
+                <Text>Luna Lovegood</Text>
+            </Table.Cell>
+            <Table.Cell>
+                <Text>Ravenclaw</Text>
+            </Table.Cell>
+            <Table.Cell>
+                <Text>June 25, 1993</Text>
+            </Table.Cell>
+        </Table.RowExpandable>
     </Table.Body>
     <Table.Footer>The end</Table.Footer>
 </Table>;
@@ -193,10 +253,13 @@ const MasonryComponent = ({}) => {
     placeholder="Select a Label"
 />;
 <Video
-  aspectRatio={853 / 480}
-  captions=""
-  poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
-  src="http://media.w3.org/2010/05/bunny/movie.mp4"
+    aspectRatio={853 / 480}
+    captions=""
+    poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+    src="http://media.w3.org/2010/05/bunny/movie.mp4"
 />;
 <Icon accessibilityLabel={'sup'} icon={'add'} dangerouslySetSvgPath={{ __path: 'something' }} />;
 <IconButton accessibilityLabel={'something'} icon={'add-pin'} />;
+
+new FixedZIndex(1);
+new CompositeZIndex([new FixedZIndex(1), new CompositeZIndex([new FixedZIndex(1)])]);
