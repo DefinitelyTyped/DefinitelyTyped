@@ -1,0 +1,14 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "strict-export-declare-modifiers": false,
+        "use-default-type-parameter": false,
+        "no-unnecessary-class": false,
+        "no-redundant-undefined": false,
+        "array-type": false,
+        "interface-over-type-literal": false,
+        "no-unnecessary-generics": false,
+        "interface-name": false,
+        "adjacent-overload-signatures": false
+    }
+}

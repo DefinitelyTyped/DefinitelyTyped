@@ -1,0 +1,10 @@
+{
+    "private": true,
+    "dependencies": {
+        "@react-navigation/native": "^5.8.7",
+        "@react-navigation/stack": "^5.12.4",
+        "react-native-gesture-handler": "^1.8.0",
+        "react-native-safe-area-context": "^3.1.8",
+        "react-native-svg": "5.5.1"
+    }
+}
