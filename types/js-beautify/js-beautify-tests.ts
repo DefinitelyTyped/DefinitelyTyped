@@ -8,9 +8,9 @@ let emptyHTMLOptions: HTMLBeautifyOptions = {};
 let emptyCSSOptions: CSSBeautifyOptions = {};
 let emptyJSOptions: JSBeautifyOptions = {};
 
-var simple: string = js_beautify("console.log('Hello world!');");
+let simple: string = js_beautify("console.log('Hello world!');");
 
-var JSoptions: JSBeautifyOptions = {
+let JSoptions: JSBeautifyOptions = {
     indent_size: 4,
     indent_char: ' ',
     eol: '\n',
@@ -37,7 +37,7 @@ var JSoptions: JSBeautifyOptions = {
     test_output_raw: true,
 };
 
-var HTMLoptions: HTMLBeautifyOptions = {
+let HTMLoptions: HTMLBeautifyOptions = {
     indent_size: 4,
     indent_char: ' ',
     eol: '\n',
@@ -51,7 +51,7 @@ var HTMLoptions: HTMLBeautifyOptions = {
     end_with_newline: false,
 };
 
-var CSSoptions: CSSBeautifyOptions = {
+let CSSoptions: CSSBeautifyOptions = {
     indent_size: 4,
     indent_char: ' ',
     eol: '\n',
@@ -63,6 +63,6 @@ var CSSoptions: CSSBeautifyOptions = {
     end_with_newline: false,
 };
 
-var full: string = js_beautify("console.log('Hello world!');", JSoptions);
+let full: string = js_beautify("console.log('Hello world!');", JSoptions);
 
-var markup: string = js_beautify("function render(){return <div> <img src='.' /></div>}", { ...JSoptions, e4x: true });
+let markup: string = js_beautify("function render(){return <div> <img src='.' /></div>}", { ...JSoptions, e4x: true });
