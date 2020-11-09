@@ -12,11 +12,16 @@
 
 import * as React from 'react';
 
+/**
+ * Helpers
+ */
+
 export type AbstractEventHandler<T extends React.SyntheticEvent<HTMLElement> | Event, U = {}> = (
     arg: U & {
         readonly event: T;
     },
 ) => void;
+export type ReactForwardRef<T, P> = React.ForwardRefExoticComponent<React.PropsWithoutRef<P> & React.RefAttributes<T>>;
 
 /**
  * ActivationCard Props Interface
@@ -1258,12 +1263,12 @@ export class ActivationCard extends React.Component<ActivationCardProps, any> {}
 export class Avatar extends React.Component<AvatarProps, any> {}
 export class AvatarPair extends React.Component<AvatarPairProps, any> {}
 export class Badge extends React.Component<BadgeProps, any> {}
-export class Box extends React.Component<BoxProps, any> {}
-export class Button extends React.Component<ButtonProps, any> {}
+export const Box: ReactForwardRef<HTMLDivElement, BoxProps>;
+export const Button: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>;
 export class ButtonGroup extends React.Component<ButtonGroupProps, any> {}
 export class Callout extends React.Component<CalloutProps, any> {}
 export class Card extends React.Component<CardProps, any> {}
-export class Checkbox extends React.Component<CheckboxProps, any> {}
+export const Checkbox: ReactForwardRef<HTMLInputElement, CheckboxProps>;
 export class Collage extends React.Component<CollageProps, any> {}
 export class Column extends React.Component<ColumnProps, any> {}
 export class Container extends React.Component<ContainerProps, any> {}
@@ -1272,27 +1277,27 @@ export class Flyout extends React.Component<FlyoutProps, any> {}
 export class GroupAvatar extends React.Component<GroupAvatarProps, any> {}
 export class Heading extends React.Component<HeaderProps, any> {}
 export class Icon extends React.Component<IconProps, any> {}
-export class IconButton extends React.Component<IconButtonProps, any> {}
+export const IconButton: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, IconButtonProps>;
 export class Image extends React.Component<ImageProps, any> {}
 export class Label extends React.Component<LabelProps, any> {}
 export class Layer extends React.Component<LayerProps, any> {}
 export class Letterbox extends React.Component<LetterboxProps, any> {}
-export class Link extends React.Component<LinkProps, any> {}
+export const Link: ReactForwardRef<HTMLAnchorElement, LinkProps>;
 export class Mask extends React.Component<MaskProps, any> {}
 export class Masonry extends React.Component<MasonryProps, any> {}
-export class Modal extends React.Component<ModalProps, any> {}
+export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
 export class Module extends React.Component<{}, any> {
     static Expandable: React.FC<ModuleExpandableProps>;
 }
 export class Pog extends React.Component<PogProps, any> {}
 export class Provider extends React.Component<ProviderProps, any> {}
 export class Pulsar extends React.Component<PulsarProps, any> {}
-export class RadioButton extends React.Component<RadioButtonProps, any> {}
+export const RadioButton: ReactForwardRef<HTMLInputElement, RadioButtonProps>;
 export class Row extends React.Component<RowProps, any> {}
-export class SearchField extends React.Component<SearchFieldProps, any> {}
+export const SearchField: ReactForwardRef<HTMLInputElement, SearchFieldProps>;
 export class SegmentedControl extends React.Component<SegmentedControlProps, any> {}
 export class SelectList extends React.Component<SelectListProps, any> {}
-export class Sheet extends React.Component<SheetProps, any> {}
+export const Sheet: ReactForwardRef<HTMLDivElement, SheetProps>;
 export class Spinner extends React.Component<SpinnerProps, any> {}
 export class Stack extends React.Component<StackProps, any> {}
 export class Sticky extends React.Component<StickyProps, any> {}
@@ -1308,11 +1313,11 @@ export class Table extends React.Component<TableProps, any> {
     static SortableHeaderCell: React.FC<TableSortableHeaderCellProps>;
 }
 export class Tabs extends React.Component<TabsProps, any> {}
-export class TapArea extends React.Component<TapAreaProps, any> {}
+export const TapArea: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, TapAreaProps>;
 export class Text extends React.Component<TextProps, any> {}
-export class TextArea extends React.Component<TextAreaProps, any> {}
-export class TextField extends React.Component<TextFieldProps, any> {}
+export const TextArea: ReactForwardRef<HTMLTextAreaElement, TextAreaProps>;
+export const TextField: ReactForwardRef<HTMLInputElement, TextFieldProps>;
 export class Toast extends React.Component<ToastProps, any> {}
 export class Tooltip extends React.Component<TooltipProps, any> {}
-export class Typeahead extends React.Component<TypeaheadProps, any> {}
+export const Typeahead: ReactForwardRef<HTMLInputElement, TypeaheadProps>;
 export class Video extends React.Component<VideoProps, any> {}

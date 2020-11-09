@@ -79,8 +79,8 @@ const MasonryComponent = ({}) => {
     ]}
 />;
 <Badge text="Nicolas" />;
-<Box />;
-<Button text={'Click me'} />;
+<Box ref={React.createRef<HTMLDivElement>()} />;
+<Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <ButtonGroup>
     <Button text={'Click me'} />
     <Button text={'Click me'} />
