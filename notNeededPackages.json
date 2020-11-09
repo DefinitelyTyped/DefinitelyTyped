@@ -1027,6 +1027,12 @@
             "asOfVersion": "4.0.3"
         },
         {
+            "libraryName": "diff2html",
+            "typingsPackageName": "diff2html",
+            "sourceRepoURL": "https://github.com/rtfpessoa/diff2html/",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "docker-file-parser",
             "typingsPackageName": "docker-file-parser",
             "sourceRepoURL": "https://github.com/joyent/docker-file-parser",
