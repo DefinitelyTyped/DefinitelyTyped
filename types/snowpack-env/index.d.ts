@@ -37,7 +37,7 @@ interface ImportMetaHot {
 
 interface ImportMeta {
     readonly url: string;
-    readonly hot?: ImportMetaHot;
+    readonly hot: ImportMetaHot;
     readonly env: {
         readonly [key: string]: any;
         readonly SNOWPACK_PUBLIC_API_URL: string;
