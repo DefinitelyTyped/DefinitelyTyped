@@ -52,9 +52,10 @@ declare namespace CompressionPlugin {
          */
         cache?: boolean | string;
         /**
+         * Whether to delete the original assets or not
          * @default false
          */
-        deleteOriginalAssets?: boolean;
+        deleteOriginalAssets?: boolean | 'keep-source-map';
         /**
          * Exclude all assets matching any of these conditions
          */
