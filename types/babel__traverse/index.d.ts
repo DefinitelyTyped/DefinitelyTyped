@@ -539,8 +539,7 @@ export class NodePath<T = Node> {
         ? Array<NodePath<T[K][number]>>
         : T[K] extends Node | null | undefined
         ? NodePath<T[K]>
-        : never;
-    get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
+        : (NodePath | NodePath[]);
 
     getBindingIdentifiers(duplicates?: boolean): Node[];
 

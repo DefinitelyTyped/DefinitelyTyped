@@ -334,3 +334,14 @@ function testNullishPath(
     const expectedType: t.Node['type'] | undefined = actualType;
     actualType = expectedType;
 }
+
+function nodePathGetTypeInference(nodePath: NodePath<t.Node>) {
+    // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/49433
+    if (nodePath.isMemberExpression()) {
+        // $ExpectType NodePath<Expression>
+        nodePath.get('object');
+
+        // $ExpectError
+        nodePath.get('foo');
+    }
+}
