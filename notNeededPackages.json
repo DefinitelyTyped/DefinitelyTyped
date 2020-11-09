@@ -1951,12 +1951,6 @@
             "asOfVersion": "10.1.0"
         },
         {
-            "libraryName": "highlight.js",
-            "typingsPackageName": "highlightjs",
-            "sourceRepoURL": "https://github.com/highlightjs/highlight.js",
-            "asOfVersion": "10.1.0"
-        },
-        {
             "libraryName": "hirestime",
             "typingsPackageName": "hirestime",
             "sourceRepoURL": "https://github.com/seriousManual/hirestime",
