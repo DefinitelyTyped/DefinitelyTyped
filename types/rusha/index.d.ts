@@ -4,17 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-/// <reference types="node" />
-
 interface Hash {
-    update(value: string|number[]|ArrayBuffer|Buffer): Hash;
+    update(value: string|number[]|ArrayBuffer): Hash;
     digest(encoding?: undefined): ArrayBuffer;
     digest(encoding: 'hex'): string;
 }
 
 interface RushaWorkerRequest {
     id: string;
-    data: string|number[]|ArrayBuffer|Buffer|Blob;
+    data: string|number[]|ArrayBuffer|Blob;
 }
 
 interface RushaWorkerResponse {
