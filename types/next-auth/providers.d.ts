@@ -183,8 +183,8 @@ interface ProviderAuth0Options {
 type IdentityServer4 = (options: ProviderIS4Options) => GenericReturnConfig;
 
 interface ProviderIS4Options {
-    id: 'identity-server4';
-    name: 'IdentityServer4';
+    id: 'identity-server4' | string;
+    name: 'IdentityServer4' | string;
     scope: string;
     domain: string;
     clientId: string;
