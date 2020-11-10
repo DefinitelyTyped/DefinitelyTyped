@@ -1,4 +1,4 @@
-// Type definitions for @xstyled/styled-components 1.17
+// Type definitions for @xstyled/styled-components 1.19
 // Project: https://github.com/smooth-code/xstyled
 // Definitions by: Joseph Thomas <https://github.com/good-idea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -147,7 +147,7 @@ export type BoxProps = WithBreakpointArgs<BoxPropsBase>;
 //   >
 // }
 
-export const Box: ThemedStyledFunction<'div', DefaultTheme, BoxProps>;
+export const Box: StyledComponent<'div', DefaultTheme, BoxProps>;
 
 export function breakpoints(styles: BreakpointObject<FlattenSimpleInterpolation | string>): TemplateStringsArray;
 
