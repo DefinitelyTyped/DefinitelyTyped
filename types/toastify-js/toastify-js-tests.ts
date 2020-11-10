@@ -1,6 +1,8 @@
+import { Options } from 'toastify-js';
 import Toastify = require('toastify-js');
 
 Toastify({
+    avatar: 'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp',
     text: 'This is a toast',
     duration: 3000,
     destination: 'https://github.com/apvarun/toastify-js',
@@ -26,3 +28,19 @@ Toastify({
         y: 10,
     },
 }).showToast();
+
+Toastify.reposition(); // $ExpectType void
+
+// Options for the toast
+const options: Options = {
+    text: 'Happy toasting!',
+    duration: 2500,
+    callback: () => {
+        console.log('Toast hidden');
+        Toastify.reposition();
+    },
+    close: true,
+    backgroundColor: 'linear-gradient(to right, #00b09b, #96c93d)',
+};
+
+Toastify(options);
