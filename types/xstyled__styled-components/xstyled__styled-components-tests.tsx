@@ -1,5 +1,13 @@
 import * as React from 'react';
-import styled, { css } from '@xstyled/styled-components';
+import styled, {
+    Box,
+    css,
+    useBreakpoint,
+    useBreakpoints,
+    useDown,
+    useUp,
+    useViewportWidth
+} from '@xstyled/styled-components';
 
 interface WithFoo {
     foo: boolean;
@@ -25,6 +33,34 @@ const sum = (a: number) => a * a;
 sum('b');
 
 const Main = () => {
+    const breakpoints = useBreakpoints()
+
+    const breakpoint = useBreakpoint()
+
+    // $ExpectError
+    breakpoint = 'abc'
+
+    let width = useViewportWidth()
+
+    // $ExpectError
+    width = false
+
+    let isUp = useUp('md')
+
+    // $ExpectError
+    isUp = useUp(1)
+
+    // $ExpectError
+    isUp = ''
+
+    let isDown = useDown('md')
+
+    // $ExpectError
+    isDown = useDown(1)
+
+    // $ExpectError
+    isDown = ''
+
     return (
         <>
             <WithRequiredProp foo={true} />
@@ -35,6 +71,16 @@ const Main = () => {
             // $ExpectError
             <StyledDiv mt={2} />
             <StyledDivBox mt={2} />
+            <Box
+                // $ExpectError
+                minWidth={breakpoints.thin}
+                maxWidth={breakpoints.md}
+                width={width}
+                mt={isUp ? 2 : 0}
+                mb={isDown ? 2 : 0}
+            >
+                We are on {breakpoint}
+            </Box>
         </>
     );
 };
