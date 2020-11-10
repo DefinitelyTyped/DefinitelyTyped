@@ -1999,7 +1999,7 @@ declare namespace mapboxgl {
     }
 
     export interface FillLayout extends Layout {
-        'fill-sort-key'?: number;
+        'fill-sort-key'?: number | Expression;
     }
 
     export interface FillPaint {
@@ -2041,7 +2041,7 @@ declare namespace mapboxgl {
         'line-join'?: 'bevel' | 'round' | 'miter' | Expression;
         'line-miter-limit'?: number | Expression;
         'line-round-limit'?: number | Expression;
-        'line-sort-key'?: number;
+        'line-sort-key'?: number | Expression;
     }
 
     export interface LinePaint {
@@ -2160,7 +2160,7 @@ declare namespace mapboxgl {
     }
 
     export interface CircleLayout extends Layout {
-        'circle-sort-key'?: number;
+        'circle-sort-key'?: number | Expression;
     }
 
     export interface CirclePaint {
