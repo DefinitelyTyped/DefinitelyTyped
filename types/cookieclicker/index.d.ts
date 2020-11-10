@@ -468,11 +468,11 @@ declare namespace Game {
     /**
      * @param type none is default, 1=return string only, 2=return uncompressed string, 3=return uncompressed, commented string
      */
-    export function WriteSave(type: number): string;
+    export function WriteSave(type?: number): string;
 
     export function salvageSave(): void;
 
-    export function LoadSave(data: string): boolean;
+    export function LoadSave(data?: string): boolean;
 
     export function Reset(hard: boolean): void;
     /**
@@ -789,7 +789,7 @@ declare namespace Game {
 
     export function NotesDraw(): void;
 
-    export function Notify(title: string, desc?: string, pic?: string, quick?: number, noLog?: boolean): void;
+    export function Notify(title: string, desc?: string, pic?: Icon, quick?: number, noLog?: boolean): void;
     export let darkenL: object;
     export let promptL: object;
     export let promptAnchorL: object;
@@ -2382,7 +2382,7 @@ declare namespace Game {
         /**
          * The name of the upgrade to be required to unlock the tier (Only checked for synergy upgrades)
          */
-        req: string;
+        req?: string;
 
         /**
          * If true, Upgrades with this tier won't count towards tiered CpS multiplier
