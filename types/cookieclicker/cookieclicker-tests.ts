@@ -97,3 +97,7 @@ StocksMG.tradeTooltip(StocksMG.goodsById[13], 46);
 Game.registerMod('example', { init: () => {} });
 
 Game.registerHook('ticker', () => ['hi']);
+
+Game.WriteSave();
+
+Game.LoadSave();
