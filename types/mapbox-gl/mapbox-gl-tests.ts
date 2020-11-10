@@ -1639,3 +1639,39 @@ expectType<mapboxgl.AnyPaint>(
         hillshadePaint,
     ),
 );
+
+/**
+ * Test map.addImage()
+ */
+
+// HTMLImageElement
+const fooHTMLImageElement = document.createElement("img");
+map.addImage("foo", fooHTMLImageElement);
+
+// ImageData
+const fooImageData = new ImageData(8, 8)
+map.addImage("foo", fooImageData);
+
+// ImageData like
+const fooImageDataLike1 = {
+    width: 10,
+    height: 10,
+    data: new Uint8ClampedArray(8),
+};
+map.addImage("foo", fooImageDataLike1)
+
+const fooImageDataLike2 = {
+    width: 10,
+    height: 10,
+    data: new Uint8Array(8),
+};
+map.addImage("foo", fooImageDataLike2)
+
+// ArrayBufferView
+const fooArrayBufferView: ArrayBufferView = new Uint8Array(8);
+map.addImage("foo", fooArrayBufferView);
+
+// ImageBitmap
+createImageBitmap(fooHTMLImageElement).then((fooImageBitmap) => {
+    map.addImage("foo", fooImageBitmap);
+});
