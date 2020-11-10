@@ -56,6 +56,8 @@ export type RootStateOrAny = AnyIfEmpty<DefaultRootState>;
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
+export type DistributiveOmit<T, K extends keyof T> = T extends unknown ? Omit<T, K> : never;
+
 export interface DispatchProp<A extends Action = AnyAction> {
     dispatch: Dispatch<A>;
 }
@@ -117,10 +119,11 @@ export type ConnectedComponent<
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
+// Uses distributive omit to preserve discriminated unions part of original prop type
 export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
     <C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
         component: C
-    ) => ConnectedComponent<C, Omit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
+    ) => ConnectedComponent<C, DistributiveOmit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
