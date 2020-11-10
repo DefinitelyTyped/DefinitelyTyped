@@ -6,7 +6,6 @@
 
 import _styled, {
     StyledComponent,
-    ThemedStyledInterface,
     ThemedStyledFunction,
     DefaultTheme,
     FlattenSimpleInterpolation,
@@ -14,7 +13,31 @@ import _styled, {
 import { SystemProps } from '@xstyled/system'
 export * from 'styled-components';
 
-export interface Breakpoints {
+/**
+ * @xstyled/system provide default breakpoints
+ *
+ * https://xstyled.dev/docs/responsive/#default-breakpoints
+ * https://github.com/smooth-code/xstyled/blob/master/packages/system/src/media.js#L4-L10
+ *
+ * see bellow tips if you customize breakpoints
+ *
+ * ```ts
+ * declare module '@xstyled/styled-components' {
+ *   interface DefaultBreakpoints {
+ *     thin: any;
+ *     fat: any;
+ *   }
+ * }
+ *
+ * declare module 'styled-components' {
+ *   interface DefaultTheme {
+ *       breakpoints?: DefaultBreakpoints
+ *   }
+ * }
+ * ```
+ */
+
+export interface DefaultBreakpoints {
     xs: any;
     sm: any;
     md: any;
@@ -22,13 +45,8 @@ export interface Breakpoints {
     xl: any;
 }
 
-declare module 'styled-components' {
-    interface DefaultTheme {
-        breakpoints?: Breakpoints
-    }
-}
 
-type BreakpointName = keyof Breakpoints
+type BreakpointName = keyof DefaultBreakpoints
 
 type BreakpointObject<ArgType> = {
     [Key in BreakpointName]?: ArgType;
@@ -41,8 +59,7 @@ type WithBreakpointArgs<Props> = {
     [Key in keyof Props]?: Props[Key] | BreakpointObject<Props[Key]>;
 };
 
-
-export function useBreakpoints(): Breakpoints;
+export function useBreakpoints(): DefaultBreakpoints;
 
 export function useViewportWidth(): number | string;
 
