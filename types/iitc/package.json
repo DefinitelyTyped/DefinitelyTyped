@@ -1,3 +1,6 @@
 {
-    "private": true
+    "private": true,
+    "dependencies": {
+        "@types/leaflet": "^0.7.7"
+    }
 }
