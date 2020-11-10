@@ -304,7 +304,8 @@ declare namespace mapboxgl {
                 | HTMLImageElement
                 | ArrayBufferView
                 | { width: number; height: number; data: Uint8Array | Uint8ClampedArray }
-                | ImageData,
+                | ImageData
+                | ImageBitmap,
             options?: { pixelRatio?: number; sdf?: boolean },
         ): this;
 
