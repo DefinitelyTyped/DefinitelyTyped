@@ -1,4 +1,4 @@
-import ck from 'creditkey-js';
+import ck = require('creditkey-js');
 
 const client = new ck.Client('my-api-key', 'development');
 const charges = new ck.Charges(100, 10, 20, 30, 100);
@@ -44,8 +44,12 @@ client
         ck.checkout(response.checkout_url, 'modal');
     });
 
-client.get_marketing_display(charges, 'checkout', 'button', 'medium').then(response => console.log(response));
-client.get_customer('user@user.com', '123456').then(response => console.log(response.status));
-client.is_displayed_in_checkout(items).then(response => console.log(response));
+let marketingDisplay;
+let customer;
+let isDisplayed;
+
+client.get_marketing_display(charges, 'checkout', 'button', 'medium').then(response => marketingDisplay = response);
+client.get_customer('user@user.com', '123456').then(response => customer = response);
+client.is_displayed_in_checkout(items).then(response => isDisplayed = response);
 
 ck.apply('my-api-key');
