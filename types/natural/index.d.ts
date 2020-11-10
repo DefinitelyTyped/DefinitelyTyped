@@ -56,6 +56,9 @@ declare class AggressiveTokenizerId implements Tokenizer {
 declare class AggressiveTokenizerIt implements Tokenizer {
     tokenize(text: string): string[];
 }
+declare class AggressiveTokenizerNl implements Tokenizer {
+    tokenize(text: string): string[];
+}
 declare class AggressiveTokenizerNo implements Tokenizer {
     tokenize(text: string): string[];
 }
