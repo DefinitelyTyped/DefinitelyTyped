@@ -1,16 +1,18 @@
+import js_beautify = require('js-beautify');
+
 let bCSS = js_beautify.css('body{display:none;}');
 bCSS = js_beautify.css_beautify('body{display:none;}');
 
 let bHTML = js_beautify.html('<div/>');
 bHTML = js_beautify.html_beautify('<div/>');
 
-let emptyHTMLOptions: HTMLBeautifyOptions = {};
-let emptyCSSOptions: CSSBeautifyOptions = {};
-let emptyJSOptions: JSBeautifyOptions = {};
+const emptyHTMLOptions: js_beautify.HTMLBeautifyOptions = {};
+const emptyCSSOptions: js_beautify.CSSBeautifyOptions = {};
+const emptyJSOptions: js_beautify.JSBeautifyOptions = {};
 
-let simple: string = js_beautify("console.log('Hello world!');");
+const simple: string = js_beautify("console.log('Hello world!');");
 
-let JSoptions: JSBeautifyOptions = {
+const JSoptions: js_beautify.JSBeautifyOptions = {
     indent_size: 4,
     indent_char: ' ',
     eol: '\n',
@@ -37,7 +39,7 @@ let JSoptions: JSBeautifyOptions = {
     test_output_raw: true,
 };
 
-let HTMLoptions: HTMLBeautifyOptions = {
+const HTMLoptions: js_beautify.HTMLBeautifyOptions = {
     indent_size: 4,
     indent_char: ' ',
     eol: '\n',
@@ -51,7 +53,7 @@ let HTMLoptions: HTMLBeautifyOptions = {
     end_with_newline: false,
 };
 
-let CSSoptions: CSSBeautifyOptions = {
+const CSSoptions: js_beautify.CSSBeautifyOptions = {
     indent_size: 4,
     indent_char: ' ',
     eol: '\n',
@@ -63,6 +65,9 @@ let CSSoptions: CSSBeautifyOptions = {
     end_with_newline: false,
 };
 
-let full: string = js_beautify("console.log('Hello world!');", JSoptions);
+const full: string = js_beautify("console.log('Hello world!');", JSoptions);
 
-let markup: string = js_beautify("function render(){return <div> <img src='.' /></div>}", { ...JSoptions, e4x: true });
+const markup: string = js_beautify("function render(){return <div> <img src='.' /></div>}", {
+    ...JSoptions,
+    e4x: true,
+});
