@@ -62,7 +62,17 @@ const Main = () => {
     isDown = ''
 
     return (
-        <>
+        <Box
+            as="main"
+            // $ExpectError
+            minWidth={breakpoints.thin}
+            maxWidth={breakpoints.md}
+            width={width}
+            mt={isUp ? 2 : 0}
+            mb={isDown ? 2 : 0}
+        >
+            We are on {breakpoint}
+
             <WithRequiredProp foo={true} />
             <WithRequiredProp foo={false} />
             // $ExpectError
@@ -71,16 +81,6 @@ const Main = () => {
             // $ExpectError
             <StyledDiv mt={2} />
             <StyledDivBox mt={2} />
-            <Box
-                // $ExpectError
-                minWidth={breakpoints.thin}
-                maxWidth={breakpoints.md}
-                width={width}
-                mt={isUp ? 2 : 0}
-                mb={isDown ? 2 : 0}
-            >
-                We are on {breakpoint}
-            </Box>
-        </>
+        </Box>
     );
 };
