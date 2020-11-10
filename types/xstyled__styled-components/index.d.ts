@@ -13,7 +13,7 @@ import _styled, {
 } from 'styled-components';
 export * from 'styled-components';
 
-interface Breakpoints {
+export interface Breakpoints {
     xs: any;
     sm: any;
     md: any;
@@ -21,8 +21,16 @@ interface Breakpoints {
     xl: any;
 }
 
+declare module 'styled-components' {
+    interface DefaultTheme {
+        breakpoints?: Breakpoints
+    }
+}
+
+type BreakpointName = keyof Breakpoints
+
 type BreakpointObject<ArgType> = {
-    [Key in keyof Breakpoints]?: ArgType;
+    [Key in BreakpointName]?: ArgType;
 };
 
 /* Augments a type to be Type | BreakpointObject<Type>,
@@ -31,6 +39,17 @@ type BreakpointObject<ArgType> = {
 type WithBreakpointArgs<Props> = {
     [Key in keyof Props]?: Props[Key] | BreakpointObject<Props[Key]>;
 };
+
+
+export function useBreakpoints(): Breakpoints;
+
+export function useViewportWidth(): number | string;
+
+export function useBreakpoint(): BreakpointName;
+
+export function useUp(_bereakpointName: BreakpointName): boolean;
+
+export function useDown(_bereakpointName: BreakpointName): boolean;
 
 interface BoxPropsBase {
     /* See props documentation at:
