@@ -12,7 +12,7 @@ export namespace IITC {
         options: PortalOptions;
     }
 
-    interface PortalOptions extends L.PathOptions {
+    interface PortalOptions extends L.CircleMarkerOptions {
         guid: PortalGUID;
         ent: any;
         level: number;

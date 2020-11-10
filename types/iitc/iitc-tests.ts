@@ -29,3 +29,7 @@ artifact.showArtifactList();
 
 // chat
 chat.show("all");
+
+// Portal marker
+const portal = portals["randomid"];
+const radius = portal.options.radius;
