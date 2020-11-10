@@ -1,6 +1,6 @@
 // Type definitions for umami 0.1
 // Project: https://github.com/mikecao/umami
-// Definitions by: Noah Overcash <https://github.com/me>
+// Definitions by: Noah Overcash <https://github.com/ncovercash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var umami: umami.umami;
