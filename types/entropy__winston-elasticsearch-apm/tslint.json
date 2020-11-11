@@ -9,10 +9,6 @@
                     [
                         "NeedsExportEquals",
                         false
-                    ],
-                    [
-                        "NoDefaultExport",
-                        false
                     ]
                 ]
             }

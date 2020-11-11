@@ -6,14 +6,16 @@
 import Agent = require('elastic-apm-node');
 import TransportStream = require('winston-transport');
 
-export interface ElasticsearchApmOptions extends TransportStream.TransportStreamOptions {
-    apm: typeof Agent;
-}
-
 declare class ElasticsearchApm extends TransportStream {
-    constructor(opts: ElasticsearchApmOptions);
+    constructor(opts: ElasticsearchApm.ElasticsearchApmOptions);
 
     log(info: any, next: () => void): any;
 }
 
-export default ElasticsearchApm;
+declare namespace ElasticsearchApm {
+    interface ElasticsearchApmOptions extends TransportStream.TransportStreamOptions {
+        apm: typeof Agent;
+    }
+  }
+
+export = ElasticsearchApm;
